@@ -78,8 +78,7 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
-        Ui uiUsed = new UiManager(logic);
-        ui = uiUsed;
+        ui = new UiManager(logic);
     }
 
     /**

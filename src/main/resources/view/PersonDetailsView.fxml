@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.*?>
 
 <StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <ScrollPane fx:id="container" id="container">
-        <VBox fx:id="detailsView" id="detailsView">
-            <StackPane fx:id="card"></StackPane>
-            <StackPane fx:id="schedule"></StackPane>
+    <StackPane fx:id="personDetailContainer" id="groupDetailContainer">
+        <VBox fx:id="personDetailsView" id="groupDetailsView">
+            <StackPane fx:id="personDetailCard"></StackPane>
+            <StackPane fx:id="personSchedule"></StackPane>
         </VBox>
-    </ScrollPane>
+    </StackPane>
 </StackPane>

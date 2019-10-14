@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.group.Group;
+import seedu.address.model.display.sidepanel.GroupDisplay;
 
 /**
  * A class that shows the list of existing groups.
@@ -18,9 +18,9 @@ public class GroupListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(GroupListPanel.class);
 
     @FXML
-    private ListView<Group> groupListView;
+    private ListView<GroupDisplay> groupListView;
 
-    public GroupListPanel(ObservableList<Group> groupList) {
+    public GroupListPanel(ObservableList<GroupDisplay> groupList) {
         super(FXML);
         groupListView.setItems(groupList);
         groupListView.setCellFactory(listView -> new GroupListViewCell());
@@ -29,9 +29,9 @@ public class GroupListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class GroupListViewCell extends ListCell<Group> {
+    class GroupListViewCell extends ListCell<GroupDisplay> {
         @Override
-        protected void updateItem(Group grp, boolean empty) {
+        protected void updateItem(GroupDisplay grp, boolean empty) {
             super.updateItem(grp, empty);
 
             if (empty || grp == null) {

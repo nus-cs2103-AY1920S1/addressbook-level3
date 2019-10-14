@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.personutil.PersonBuilder;
 
@@ -14,15 +15,15 @@ public class ShowCommandTest {
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        ShowCommand showAliceCommand = new ShowCommand(alice.getName());
-        ShowCommand showBobCommand = new ShowCommand(bob.getName());
+        ShowCommand<Name> showAliceCommand = new ShowCommand<Name>(alice.getName());
+        ShowCommand<Name> showBobCommand = new ShowCommand<Name>(bob.getName());
 
         //same object -> true
         assertTrue(showAliceCommand.equals(showAliceCommand));
 
         //same values -> true
-        ShowCommand showAliceDuplicateCommand = new ShowCommand(alice.getName());
-        assertTrue(showAliceCommand.equals(showAliceCommand));
+        ShowCommand<Name> showAliceDuplicateCommand = new ShowCommand<Name>(alice.getName());
+        assertTrue(showAliceCommand.equals(showAliceDuplicateCommand));
 
         //different show commands -> false
         assertFalse(showAliceCommand.equals(showBobCommand));

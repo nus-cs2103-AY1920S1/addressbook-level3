@@ -7,16 +7,12 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.model.person.schedule.Timeslot;
 import seedu.address.model.person.schedule.Venue;
-import seedu.address.model.tag.Tag;
 
 /**
  * Schedule of timeslots for the week.
@@ -29,11 +25,7 @@ public class WeekSchedule {
 
     private String weekScheduleName;
 
-    private Name personName;
-    private Phone personPhone;
-    private Email personEmail;
-    private Address personAddress;
-    private Tag personTag;
+    private PersonDisplay personDisplay;
 
     private HashMap<DayOfWeek, ArrayList<DayTimeslot>> weekSchedule;
 
@@ -43,10 +35,7 @@ public class WeekSchedule {
         LocalDate currentDate = now.toLocalDate();
         weekSchedule = new HashMap<>();
 
-        personName = person.getName();
-        personPhone = person.getPhone();
-        personEmail = person.getEmail();
-        personAddress = person.getAddress();
+        this.personDisplay = new PersonDisplay(person);
 
         Schedule personSchedule = person.getSchedule();
         ArrayList<Event> events = personSchedule.getEvents();
@@ -80,6 +69,10 @@ public class WeekSchedule {
 
     }
 
+    public PersonDisplay getPersonDisplay() {
+        return this.personDisplay;
+    }
+
     public String getWeekScheduleName() {
         return weekScheduleName;
     }
@@ -93,7 +86,7 @@ public class WeekSchedule {
     public String toString() {
         String output = "";
 
-        output += "=====" + weekScheduleName + " for " + personName.toString() + "=====" + "\n";
+        output += "=====" + weekScheduleName + " for " + personDisplay.getName().toString() + "=====" + "\n";
         for (int i = 1; i <= 7; i++) {
             ArrayList<DayTimeslot> dayTimeslots = weekSchedule.get(DayOfWeek.of(i));
             output += DayOfWeek.of(i) + ":\n";
