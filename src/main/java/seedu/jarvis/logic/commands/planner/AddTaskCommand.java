@@ -1,12 +1,12 @@
 package seedu.jarvis.logic.commands.planner;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_FREQ;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TASK_DES;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TASK_TYPE;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_DATE;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_FREQ;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_PRIORITY;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TAG;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_DES;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_TYPE;
 
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;

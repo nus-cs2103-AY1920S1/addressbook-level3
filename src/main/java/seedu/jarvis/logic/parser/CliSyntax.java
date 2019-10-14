@@ -21,6 +21,18 @@ public class CliSyntax {
     }
 
     /**
+     * CLI syntax for Planner commands.
+     */
+    public static class PlannerSyntax {
+        public static final Prefix PREFIX_TASK_TYPE = new Prefix("t/");
+        public static final Prefix PREFIX_TASK_DES = new Prefix("des/");
+        public static final Prefix PREFIX_DATE = new Prefix("d/");
+        public static final Prefix PREFIX_PRIORITY = new Prefix("p/");
+        public static final Prefix PREFIX_FREQ = new Prefix("f/");
+        public static final Prefix PREFIX_TAG = new Prefix("t/");
+    }
+
+    /**
      * CLI syntax for Undo/Redo commands.
      */
     public static class UndoRedoSyntax {
