@@ -11,25 +11,25 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of recipes.
  */
-public class PersonListPanel extends UiPart<Region> {
+public class RecipeListPanel extends UiPart<Region> {
     private static final String FXML = "RecipeListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
 
     @FXML
-    private ListView<Recipe> personListView;
+    private ListView<Recipe> recipeListView;
 
-    public PersonListPanel(ObservableList<Recipe> recipeList) {
+    public RecipeListPanel(ObservableList<Recipe> recipeList) {
         super(FXML);
-        personListView.setItems(recipeList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        recipeListView.setItems(recipeList);
+        recipeListView.setCellFactory(listView -> new RecipeListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code RecipeCard}.
      */
-    class PersonListViewCell extends ListCell<Recipe> {
+    class RecipeListViewCell extends ListCell<Recipe> {
         @Override
         protected void updateItem(Recipe recipe, boolean empty) {
             super.updateItem(recipe, empty);
@@ -38,7 +38,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(recipe, getIndex() + 1).getRoot());
+                setGraphic(new RecipeCard(recipe, getIndex() + 1).getRoot());
             }
         }
     }

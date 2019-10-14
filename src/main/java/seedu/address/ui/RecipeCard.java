@@ -4,7 +4,6 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -13,7 +12,7 @@ import seedu.address.model.recipe.Recipe;
 /**
  * An UI component that displays information of a {@code Recipe}.
  */
-public class PersonCard extends UiPart<Region> {
+public class RecipeCard extends UiPart<Region> {
 
     private static final String FXML = "RecipeListCard.fxml";
 
@@ -44,7 +43,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private VBox ingredients;
 
-    public PersonCard(Recipe recipe, int displayedIndex) {
+    public RecipeCard(Recipe recipe, int displayedIndex) {
         super(FXML);
         this.recipe = recipe;
         id.setText(displayedIndex + ". ");
@@ -66,12 +65,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof RecipeCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        RecipeCard card = (RecipeCard) other;
         return id.getText().equals(card.id.getText())
                 && recipe.equals(card.recipe);
     }

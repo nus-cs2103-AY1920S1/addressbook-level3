@@ -31,7 +31,7 @@ public interface Logic {
     ReadOnlyDukeCooks getDukeCooks();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Recipe> getFilteredPersonList();
+    ObservableList<Recipe> getFilteredRecipeList();
 
     /**
      * Returns the user prefs' Duke Cooks file path.
