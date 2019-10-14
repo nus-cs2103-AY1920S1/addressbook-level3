@@ -31,6 +31,12 @@
     "quantity" : "1",
     "tags" : [ ]
   }, {
+    "name" : "Fake Crab Stick",
+    "expiryDate" : "15/12/2019",
+    "reminderThreshold" : "0",
+    "quantity" : "1",
+    "tags" : [ ]
+  }, {
     "name" : "Jelly",
     "expiryDate" : "01/02/2020",
     "reminderThreshold" : "3",

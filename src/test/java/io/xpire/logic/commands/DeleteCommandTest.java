@@ -17,7 +17,7 @@ import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FOURTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
-import static io.xpire.testutil.TypicalIndexes.INDEX_SIXTH_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_SEVENTH_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -131,10 +131,10 @@ public class DeleteCommandTest {
     //test to delete tags for item with all fields present
     @Test
     public void execute_deleteTagsFromItemAllFields_success() {
-        Item targetItem = model.getFilteredItemList().get(INDEX_SIXTH_ITEM.getZeroBased());
+        Item targetItem = model.getFilteredItemList().get(INDEX_SEVENTH_ITEM.getZeroBased());
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag(VALID_TAG_FRIDGE));
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SIXTH_ITEM, set);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SEVENTH_ITEM, set);
         ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
         Item expectedItem = new ItemBuilder().withName(VALID_NAME_JELLY)
                                              .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
@@ -149,9 +149,9 @@ public class DeleteCommandTest {
     //test that does not delete any tags due to empty set
     @Test
     public void execute_deleteNoTagsFromItemAllFields_success() {
-        Item targetItem = model.getFilteredItemList().get(INDEX_SIXTH_ITEM.getZeroBased());
+        Item targetItem = model.getFilteredItemList().get(INDEX_SEVENTH_ITEM.getZeroBased());
         Set<Tag> set = new TreeSet<>(new TagComparator());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SIXTH_ITEM, set);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SEVENTH_ITEM, set);
         ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
         Item expectedItem = new ItemBuilder().withName(VALID_NAME_JELLY)
                                              .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
@@ -168,7 +168,7 @@ public class DeleteCommandTest {
     public void execute_deleteTagsFromItemAllFields_throwsCommandException() {
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag(VALID_TAG_FRUIT));
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SIXTH_ITEM, set);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SEVENTH_ITEM, set);
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TAGS);
     }
 
