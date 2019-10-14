@@ -18,10 +18,10 @@ import seedu.address.model.member.MemberName;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 
-public class AddTaskToMemberCommand extends Command {
-    public static final String COMMAND_WORD = "assign";
+public class RemoveTaskFromMemberCommand extends Command {
+    public static final String COMMAND_WORD = "fire";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task indicated "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a task indicated "
             + "by the index number used in the displayed task list, to the member indicated "
             + "by the member ID. \n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -31,8 +31,8 @@ public class AddTaskToMemberCommand extends Command {
             + PREFIX_TASK_INDEX + " 2 "
             + PREFIX_MEMBER_ID + " JD";
 
-    public static final String MESSAGE_ASSIGN_TASK_SUCCESS = "Set task for member: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists under member.";
+    public static final String MESSAGE_REMOVE_TASK_SUCCESS = "Removes task for member: %1$s";
+    public static final String MESSAGE_INVALID_TASK_ID = "This task does not exist under member.";
 
     private final Index taskId;
     private final MemberId memberId;
@@ -41,7 +41,7 @@ public class AddTaskToMemberCommand extends Command {
      * @param taskId of the task in the filtered task list to be added to member
      * @param memberId of the member involved
      */
-    public AddTaskToMemberCommand(Index taskId, MemberId memberId) {
+    public RemoveTaskFromMemberCommand(Index taskId, MemberId memberId) {
         requireNonNull(memberId);
 
         this.taskId = taskId;
@@ -72,34 +72,26 @@ public class AddTaskToMemberCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_ID);
         }
 
-        Task taskToAdd = lastShownTaskList.get(taskId.getZeroBased());
-        Member updatedMember = createUpdatedMember(involvedMember, taskToAdd);
-
-        for (int i = 0; i < involvedMember.getMemberTasks().size(); i++) {
-            if (involvedMember.getMemberTasks().get(i).isSameTask(taskToAdd)) {
-                throw new CommandException(MESSAGE_DUPLICATE_TASK);
-            }
-        }
+        Member updatedMember = createUpdatedMember(involvedMember, taskId.getZeroBased());
 
         model.setMember(involvedMember, updatedMember);
         model.updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
 
-        return new CommandResult(String.format(MESSAGE_ASSIGN_TASK_SUCCESS, updatedMember));
+        return new CommandResult(String.format(MESSAGE_REMOVE_TASK_SUCCESS, updatedMember));
     }
 
     /**
      * Creates and returns a {@code Task} with the details of {@code taskToUpdate}
      * where TaskStatus is updated to 'In Progress".
      */
-    private static Member createUpdatedMember(Member involvedMember, Task taskToAdd) throws CommandException {
-        assert taskToAdd != null;
+    private static Member createUpdatedMember(Member involvedMember, int taskId) throws CommandException {
         assert involvedMember != null;
 
         MemberName name = involvedMember.getName();
         MemberId id = involvedMember.getId();
         Set<Tag> tags = involvedMember.getTags();
         Member updatedMember = new Member(name, id, tags);
-        updatedMember.setTask(taskToAdd);
+        updatedMember.removeTask(taskId);
         return updatedMember;
     }
 
@@ -111,12 +103,12 @@ public class AddTaskToMemberCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddTaskToMemberCommand)) {
+        if (!(other instanceof RemoveTaskFromMemberCommand)) {
             return false;
         }
 
         // state check
-        AddTaskToMemberCommand e = (AddTaskToMemberCommand) other;
+        RemoveTaskFromMemberCommand e = (RemoveTaskFromMemberCommand) other;
         return memberId.equals(e.memberId)
                 && taskId.equals(e.taskId);
     }

@@ -2,12 +2,14 @@ package seedu.address.model.member;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Task;
 
 /**
  * Represents a Member in the address book.
@@ -17,8 +19,10 @@ public class Member {
     // Identity fields
     private final MemberName name;
     private final MemberId id;
+    private ArrayList<Task> memberTasks = null;
 
     private final Set<Tag> tags = new HashSet<>();
+
 
     /**
      * Every field must be present and not null.
@@ -31,6 +35,21 @@ public class Member {
     }
 
     // TODO add multiple constructors so that users can add additional info later
+    public void setTask(Task task) {
+        this.memberTasks.add(task);
+    }
+
+    public void removeTask(int taskId) {
+        this.memberTasks.remove(taskId);
+    }
+
+    public boolean hasTasks() {
+        return !memberTasks.isEmpty();
+    }
+
+    public ArrayList<Task> getMemberTasks() {
+        return this.memberTasks;
+    }
 
     public MemberId getId() {
         return id;
