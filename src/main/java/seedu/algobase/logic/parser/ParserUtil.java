@@ -2,7 +2,9 @@ package seedu.algobase.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +14,7 @@ import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.StringUtil;
 import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
+import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanDescription;
 import seedu.algobase.model.plan.PlanName;
 import seedu.algobase.model.problem.Author;
@@ -251,7 +254,11 @@ public class ParserUtil {
      * @throws ParseException if the given {@code date} is invalid.
      */
     public static LocalDateTime parseDate(String date) throws ParseException {
-        // TODO: implementation
-        return LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            return LocalDateTime.parse(date, formatter);
+        } catch (DateTimeException ex) {
+            throw new ParseException(Plan.DATE_CONSTRAINTS);
+        }
     }
 }
