@@ -34,8 +34,14 @@ public class AppointmentsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredEventList(predicate);
         autoMissEvent(model.getFilteredEventList(), model);
+        if(predicate.hasNoPredicate()){
+            model.updateFilteredEventList();
+        }else{
+            model.updateFilteredEventList(predicate.addStatus(Status.AppointmentStatuses.APPROVED));
+//            model.updateFilteredEventList();
+        }
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
     }
@@ -51,9 +57,8 @@ public class AppointmentsCommand extends Command {
             Date current = new Date();
             if (!ev.getStatus().equals(new Status(Status.AppointmentStatuses.SETTLED))
                     && evTiming.getEndTime().getTime().before(current)) {
-                Event newAppt = new Appointment(ev.getPersonId(), ev.getEventTiming(), new Status(Status.AppointmentStatuses.SETTLED));
+                Event newAppt = new Appointment(ev.getPersonId(), ev.getEventTiming(), new Status(Status.AppointmentStatuses.MISSED));
                 model.setEvent(ev, newAppt);
-                //todo mark event as missed.
             }
         }
     }

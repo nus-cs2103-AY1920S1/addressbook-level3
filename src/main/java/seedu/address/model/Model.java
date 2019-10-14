@@ -200,6 +200,9 @@ public interface Model extends ReferenceIdResolver {
      */
     void updateFilteredEventList(Predicate<Event> predicate);
 
+    void updateFilteredEventList();
+
+
     void updateToMissedEventList();
 
     public ObservableList<ReferenceId> getFilteredReferenceIdList();

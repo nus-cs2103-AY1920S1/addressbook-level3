@@ -111,6 +111,10 @@ public class Status {
         return status.equals(AppointmentStatuses.SETTLED);
     }
 
+    public boolean isApproved() {
+        return status.equals(AppointmentStatuses.APPROVED);
+    }
+
     @Override
     public String toString() {
         return this.status.toString();

@@ -21,10 +21,11 @@ public class AppointmentsCommandParser implements Parser<AppointmentsCommand> {
      */
     public AppointmentsCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AppointmentsCommand.MESSAGE_USAGE));
-        }
+//
+//        if (trimmedArgs.isEmpty()) {
+//            throw new ParseException(
+//                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AppointmentsCommand.MESSAGE_USAGE));
+//        }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 

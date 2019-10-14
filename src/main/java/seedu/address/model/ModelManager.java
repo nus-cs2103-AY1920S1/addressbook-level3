@@ -309,6 +309,13 @@ public class ModelManager implements Model {
         filteredEvents.setPredicate(predicate);
     }
 
+    @Override
+    public void updateFilteredEventList() {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        Predicate<Event> byApproved = Event -> Event.getStatus().isApproved();
+        filteredEvents.setPredicate(byApproved);
+    }
+
     /**
      * Returns an boolean, check whether current displaying appointments are belong to the same patient.
      */
