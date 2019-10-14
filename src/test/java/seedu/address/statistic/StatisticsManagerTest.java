@@ -23,7 +23,7 @@ public class StatisticsManagerTest {
     @Test
     public void execute_calculateTotalRevenueOnCompleted() {
         OrderBookStub orderBookStub = new OrderBookStub();
-        String actualResult = "2640.12";
+        String actualResult = "500.0";
         String testResult = this.statisticModule.calculateTotalRevenueOnCompleted(orderBookStub);
         assertEquals(actualResult, testResult);
     }
@@ -32,7 +32,7 @@ public class StatisticsManagerTest {
     public void execute_calculateTotalProfitOnCompleted() {
         OrderBookStub orderBookStub = new OrderBookStub();
         PhoneBookStub phoneBookStub = new PhoneBookStub();
-        String actualResult = "1540.12";
+        String actualResult = "200.0";
         String testResult = this.statisticModule.calculateTotalProfitOnCompleted(orderBookStub, phoneBookStub);
         assertEquals(actualResult, testResult);
     }
@@ -41,7 +41,7 @@ public class StatisticsManagerTest {
     public void execute_calculateTotalCostOnCompleted() {
         OrderBookStub orderBookStub = new OrderBookStub();
         PhoneBookStub phoneBookStub = new PhoneBookStub();
-        String actualResult = "1100.0";
+        String actualResult = "300.0";
         String testResult = this.statisticModule.calculateTotalCostOnCompleted(orderBookStub, phoneBookStub);
         assertEquals(actualResult, testResult);
     }
