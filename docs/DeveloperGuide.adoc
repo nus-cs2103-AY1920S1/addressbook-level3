@@ -309,6 +309,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |careless user |edit and delete items in shopping list |change details of or remove grocery items
 
+|`*` |user |create pdf of shopping list |refer to the pdf while shopping
+
 |`* * *` |user |add <<template,templates>> of grocery items |to keep track of what I want to have in my fridge
 
 |`* * *` |user |edit templates of grocery items |edit items and volumes based on my current needs and preferences
