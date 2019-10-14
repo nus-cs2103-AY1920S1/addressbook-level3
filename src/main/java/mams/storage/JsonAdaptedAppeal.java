@@ -1,6 +1,5 @@
 package mams.storage;
 
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,7 +9,9 @@ import mams.model.appeal.Appeal;
 import mams.model.module.Module;
 import mams.model.student.MatricId;
 
-
+/**
+ * Jackson friendly version of {@link Appeal}
+ */
 public class JsonAdaptedAppeal {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Appeal's %s is missing!";
@@ -34,12 +35,18 @@ public class JsonAdaptedAppeal {
      */
     @JsonCreator
     //todo
-    public JsonAdaptedAppeal(@JsonProperty("appealId") String appealId, @JsonProperty("appealType") String appealType,
-                             @JsonProperty("studentId") String studentId, @JsonProperty("academicYear") String academicYear,
-                             @JsonProperty("studentWorkload") int studentWorkload, @JsonProperty("appealDescription") String appealDescription,
-                             @JsonProperty("previousModule") String previousModule, @JsonProperty("newModule") String newModule,
-                             @JsonProperty("moduleToAdd") String moduleToAdd, @JsonProperty("moduleToDrop") String moduleToDrop,
-                             @JsonProperty("resolved") boolean resolved, @JsonProperty("result") String result,
+    public JsonAdaptedAppeal(@JsonProperty("appealId") String appealId,
+                             @JsonProperty("appealType") String appealType,
+                             @JsonProperty("studentId") String studentId,
+                             @JsonProperty("academicYear") String academicYear,
+                             @JsonProperty("studentWorkload") int studentWorkload,
+                             @JsonProperty("appealDescription") String appealDescription,
+                             @JsonProperty("previousModule") String previousModule,
+                             @JsonProperty("newModule") String newModule,
+                             @JsonProperty("moduleToAdd") String moduleToAdd,
+                             @JsonProperty("moduleToDrop") String moduleToDrop,
+                             @JsonProperty("resolved") boolean resolved,
+                             @JsonProperty("result") String result,
                              @JsonProperty("remark") String remark) {
         this.appealId = appealId;
         this.appealType = appealType;
