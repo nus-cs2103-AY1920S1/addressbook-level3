@@ -15,5 +15,20 @@
     "expiryDate" : "01/02/2020",
     "reminderThreshold" : "0",
     "tags" : [ ]
+  }, {
+    "name" : "Tofu",
+    "expiryDate" : "01/02/2020",
+    "reminderThreshold" : "0",
+    "tags" : ["Fridge", "Protein"]
+  }, {
+    "name" : "Rice",
+    "expiryDate" : "01/02/2020",
+    "reminderThreshold" : "7",
+    "tags" : [ ]
+  }, {
+    "name" : "Avocado",
+    "expiryDate" : "01/02/2020",
+    "reminderThreshold" : "3",
+    "tags" : ["Fat"]
   } ]
 }

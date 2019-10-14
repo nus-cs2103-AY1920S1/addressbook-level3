@@ -5,6 +5,8 @@ import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_FOURTH_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_SIXTH_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -74,6 +76,12 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+    }
+
+    //test to delete tags for item with tags
+    @Test
+    public void execute_deleteTags_itemWithTags_success() {
+        Item targetItem = model.getFilteredItemList().get(INDEX_FOURTH_ITEM.getZeroBased());
     }
 
     @Test
