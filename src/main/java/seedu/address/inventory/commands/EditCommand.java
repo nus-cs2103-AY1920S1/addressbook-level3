@@ -3,7 +3,7 @@ package seedu.address.inventory.commands;
 import java.util.Optional;
 
 import seedu.address.inventory.model.Item;
-import seedu.address.inventory.model.Model;
+import seedu.address.inventory.model.ModelManager;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.person.commons.util.CollectionUtil;
 import seedu.address.person.logic.commands.exceptions.CommandException;
@@ -29,7 +29,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model)
+    public CommandResult execute(ModelManager model)
             throws Exception {
         InventoryMessages inventoryMessages = new InventoryMessages();
         Item itemToEdit = model.findItemByIndex(index);

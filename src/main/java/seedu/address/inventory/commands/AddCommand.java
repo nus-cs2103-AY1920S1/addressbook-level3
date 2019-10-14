@@ -3,7 +3,7 @@ package seedu.address.inventory.commands;
 import java.util.logging.Logger;
 
 import seedu.address.inventory.model.Item;
-import seedu.address.inventory.model.Model;
+import seedu.address.inventory.model.ModelManager;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.person.commons.core.LogsCenter;
 
@@ -23,7 +23,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(ModelManager model) {
         InventoryMessages inventoryMessages = new InventoryMessages();
         model.addItem(item);
         logger.info(item.toString());
