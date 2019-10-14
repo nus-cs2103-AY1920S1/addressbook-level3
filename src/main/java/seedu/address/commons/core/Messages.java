@@ -20,6 +20,7 @@ public class Messages {
 
     //Borrower messages
     public static final String MESSAGE_DUPLICATE_BORROWER = "Phone/Email is already in used! ";
+    public static final String MESSAGE_NO_SUCH_BORROWER_ID = "No such borrower ID!";
     public static final String MESSAGE_NOT_IN_SERVE_MODE = "Not in Serve mode! Enter Serve mode to use this command!";
 
     //Loan messages
