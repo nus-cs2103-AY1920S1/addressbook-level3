@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ListPropertyBase;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.item.Item;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -32,7 +34,15 @@ public class LogicManager implements Logic {
         this.model = model;
         addressBookParser = new AddressBookParser();
         //Spawn new thread
+
         //Run checker
+    }
+
+    /*
+     * Bryan Reminder
+     */
+    public final ListPropertyBase<Item> getActiveRemindersListProperty() {
+        return model.getActiveRemindersListProperty();
     }
 
     @Override

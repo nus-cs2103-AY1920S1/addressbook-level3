@@ -4,8 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ListPropertyBase;
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
+import seedu.address.commons.core.item.Reminder;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.EventList;
 import seedu.address.model.item.ReminderList;
@@ -24,6 +28,11 @@ public class ItemModelManager implements ItemModel {
     private final UserPrefs userPrefs;
     private ItemStorage itemStorage;
 
+    //Bryan Reminder
+    private ReminderList pastReminders;
+    private ListPropertyBase<Item> activeReminders;
+    private ReminderList futureReminders;
+
     public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs) {
         this.taskList = new TaskList();
         this.eventList = new EventList();
@@ -32,9 +41,47 @@ public class ItemModelManager implements ItemModel {
         this.itemStorage = itemStorage;
         this.userPrefs = new UserPrefs(userPrefs);
 
+        //Bryan Reminder
+        pastReminders = new ReminderList();
+
+        activeReminders = new ListPropertyBase<Item>(new ReminderList()) {
+            @Override
+            public Object getBean() {
+                return null;
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+        };
+
+        futureReminders = new ReminderList();
+
         for (int i = 0; i < itemStorage.size(); i++) {
             addToSeparateList(itemStorage.get(i));
         }
+    }
+
+    /* Bryan Reminder
+     *
+     * Referenced: https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm
+     * for property naming conventions.
+     *
+     */
+
+    //Function to get property
+    private ListPropertyBase<Item> getActiveReminderListProperty() {
+        return activeReminders;
+    }
+
+    //Function get property's value
+    public final ObservableList<Item> getActiveReminderList() {
+        return activeReminders.get();
+    }
+    //Function to edit property //which should trigger a change event
+    public final void addReminderToActive(Item item) {
+        activeReminders.add(item);
     }
 
     @Override
