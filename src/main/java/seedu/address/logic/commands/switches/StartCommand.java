@@ -52,7 +52,7 @@ public class StartCommand extends SwitchCommand {
         WordBank wordBank = SampleDataUtil.getSampleWordBank();
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(filePath);
         addressBookStorage.getWordBankList();
-        String usedWordBankTitle = "[SAMPLE WORDBANK]"; // todo change later
+        String usedWordBankTitle = "Pokémon sample"; // todo change later
         try {
             Optional<ReadOnlyWordBank> thisBank = addressBookStorage.readAddressBook();
             if (thisBank.isPresent()) {

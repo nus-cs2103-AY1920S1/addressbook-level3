@@ -15,6 +15,7 @@ import seedu.address.model.card.Card;
 public class WordBank implements ReadOnlyWordBank {
 
     private final UniqueCardList cards;
+    private String name;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -43,8 +44,8 @@ public class WordBank implements ReadOnlyWordBank {
      * Replaces the contents of the card list with {@code cards}.
      * {@code cards} must not contain any cards with the same meaning.
      */
-    public void setCards(List<Card> cards) {
-        this.cards.setCards(cards);
+    public void setCard(List<Card> cards) {
+        this.cards.setCard(cards);
     }
 
     /**
@@ -53,7 +54,7 @@ public class WordBank implements ReadOnlyWordBank {
     public void resetData(ReadOnlyWordBank newData) {
         requireNonNull(newData);
 
-        setCards(newData.getCardList());
+        setCard(newData.getCardList());
     }
 
     //// card-level operations
@@ -127,4 +128,18 @@ public class WordBank implements ReadOnlyWordBank {
     public int hashCode() {
         return cards.hashCode();
     }
+    /**
+     * Returns true if both cards have the same meaning.
+     */
+    public boolean isSameMeaning(WordBank other) {
+        if (other == null) {
+            return false;
+        }
+        return getName().equals(other.getName());
+    }
+
+    public String getName() {
+        return name;
+    }
+
 }
