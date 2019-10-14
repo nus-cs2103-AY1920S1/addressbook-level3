@@ -16,6 +16,7 @@ import seedu.address.model.person.Phone;
 public class MergeConfirmedCommand extends Command {
 
     public static final String COMMAND_WORD = "yes";
+    public static final String DEFAULT_COMMAND_WORD = "";
 
     public static final String MESSAGE_MERGE_FIELD_SUCCESS = "Successfully updated %1$s";
 
