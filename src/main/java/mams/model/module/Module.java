@@ -34,12 +34,6 @@ public class Module {
     private final String sessionId;
 
     // Data fields
-    /**
-     * timeSlots of lecture of the module. Time slots can occupy any number
-     *  of hours in a day.
-     * Assumptions: No more than 1 session per day.
-     *   TimeSlots(value) are arranged in ascending order
-     */
     private final String timeSlot;
     private final Set<Tag> students = new HashSet<>(); // to be added
 
@@ -62,7 +56,9 @@ public class Module {
     }
 
     /**
-     * Returns true if a given session ID is valid
+     * Returns true if a given session ID is valid. Time slots can occupy any number
+     *  of hours in a day. Assumptions: No more than 1 session per day.
+     *  TimeSlots(value) are arranged in ascending order
      * @param test String sessionId to be tested
      * @return result of test
      */
