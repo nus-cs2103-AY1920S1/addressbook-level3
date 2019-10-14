@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Guess;
@@ -60,7 +61,7 @@ public class GameStatistics {
         int correctAnswer = (int) data.keySet()
                 .stream()
                 .filter(x -> {
-                    Optional<Guess> guess = data.get(x).get(0).getGuess();
+                    Optional<Guess> guess = getLastDataPoint(x).getGuess();
                     return guess.isPresent() && guess.get().matches(x.getWord());
                 })
                 .count();
@@ -79,10 +80,32 @@ public class GameStatistics {
         return data.keySet()
                 .stream()
                 // sum up the last guess for every card
-                .mapToLong(x -> {
-                    List<GameDataPoint> dataPoints = data.get(x);
-                    return dataPoints.get(dataPoints.size() - 1).getMillisTaken();
-                }).sum() / 1000.0;
+                .mapToLong(x -> getLastDataPoint(x).getMillisTaken())
+                .sum() / 1000.0;
+    }
+
+    public boolean allCorrect() {
+        return data.keySet()
+                .stream()
+                .allMatch(x -> {
+                   Optional<Guess> guess = getLastDataPoint(x).getGuess();
+                   return guess.isPresent() && guess.get().matches(x.getWord());
+                });
+    }
+
+    public List<Card> getAllWrongCards() {
+        return data.keySet()
+                .stream()
+                .filter(x -> {
+                    Optional<Guess> guess = getLastDataPoint(x).getGuess();
+                    return guess.isEmpty() || !guess.get().matches(x.getWord());
+                })
+                .collect(Collectors.toList());
+    }
+
+    private GameDataPoint getLastDataPoint(Card card) {
+        List<GameDataPoint> dataPoints = data.get(card);
+        return dataPoints.get(dataPoints.size() - 1);
     }
 
     @Override

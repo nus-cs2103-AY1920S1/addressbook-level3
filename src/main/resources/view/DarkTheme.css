@@ -123,17 +123,22 @@
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: white;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: white;
 }
 
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.scroll-pane {
+    -fx-background: derive(#1d1d1d, 20%);
+    -fx-border-color: derive(#1d1d1d, 10%);
 }
 
 .pane-with-border {
@@ -323,6 +328,14 @@
     -fx-border-width: 0;
 }
 
+#cardPaneOdd {
+    -fx-background-color: #515658;
+}
+
+#cardPaneEven {
+    -fx-background-color: #3c3e3f;
+}
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
@@ -337,6 +350,10 @@
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
+}
+
+#warningBorder {
+    -fx-border-color: black;
 }
 
 #filterField, #personListPanel, #personWebpage {

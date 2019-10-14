@@ -1,14 +1,21 @@
 package seedu.address.ui.modules;
 
+import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import seedu.address.commons.util.AppUtil;
+import seedu.address.model.card.Card;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.ui.UiPart;
+
+import java.util.List;
 
 /**
  * Panel containing the game result.
@@ -42,6 +49,12 @@ public class GameResultPanel extends UiPart<Region> {
     @FXML
     private Label timeTakenText;
 
+    @FXML
+    private VBox wrongAnswersBox;
+
+    @FXML
+    private StackPane wrongAnswersList;
+
     public GameResultPanel(GameStatistics gameStatistics) {
         super(FXML);
         AnchorPane.setLeftAnchor(title, 0.0);
@@ -71,5 +84,14 @@ public class GameResultPanel extends UiPart<Region> {
 
         // init time taken text
         timeTakenText.setText(String.format("%.2fs", gameStatistics.getTimeTakenSec()));
+
+        // init wrongAnswersBox
+        if (gameStatistics.allCorrect()) {
+            wrongAnswersBox.setVisible(false);
+        } else {
+            List<Card> wrongCards = gameStatistics.getAllWrongCards();
+            CardBoxPanel cardBoxPanel = new CardBoxPanel(FXCollections.observableArrayList(wrongCards));
+            wrongAnswersList.getChildren().add(cardBoxPanel.getRoot());
+        }
     }
 }

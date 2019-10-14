@@ -12,25 +12,25 @@ import seedu.address.model.card.Card;
 import seedu.address.ui.UiPart;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of cards.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class CardListPanel extends UiPart<Region> {
+    private static final String FXML = "CardListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(CardListPanel.class);
 
     @FXML
-    private ListView<Card> personListView;
+    private ListView<Card> cardListView;
 
-    public PersonListPanel(ObservableList<Card> personList) {
+    public CardListPanel(ObservableList<Card> cardList) {
         super(FXML);
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        cardListView.setItems(cardList);
+        cardListView.setCellFactory(listView -> new CardListPanel.CardListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Card} using a {@code CardCard}.
      */
-    class PersonListViewCell extends ListCell<Card> {
+    class CardListViewCell extends ListCell<Card> {
         @Override
         protected void updateItem(Card card, boolean empty) {
             super.updateItem(card, empty);
@@ -43,5 +43,4 @@ public class PersonListPanel extends UiPart<Region> {
             }
         }
     }
-
 }

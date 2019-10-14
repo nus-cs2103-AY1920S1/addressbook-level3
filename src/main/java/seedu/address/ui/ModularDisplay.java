@@ -4,7 +4,7 @@ import javafx.scene.layout.StackPane;
 import seedu.address.gamemanager.GameManager;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.ui.modules.GameResultPanel;
-import seedu.address.ui.modules.PersonListPanel;
+import seedu.address.ui.modules.CardListPanel;
 import seedu.address.ui.modules.TitleScreenPanel;
 
 /**
@@ -13,7 +13,7 @@ import seedu.address.ui.modules.TitleScreenPanel;
 public class ModularDisplay {
 
     //private final LoadBankPanel loadBankPanel;
-    private final PersonListPanel personListPanel;
+    private final CardListPanel cardListPanel;
     private final TitleScreenPanel titleScreenPanel;
 
     /**
@@ -23,7 +23,7 @@ public class ModularDisplay {
      */
     public ModularDisplay(GameManager gameManager) {
         //loadBankPanel = new LoadBankPanel(logic.getFilteredPersonList());
-        personListPanel = new PersonListPanel(gameManager.getFilteredPersonList());
+        cardListPanel = new CardListPanel(gameManager.getFilteredPersonList());
         titleScreenPanel = new TitleScreenPanel();
     }
 
@@ -53,7 +53,7 @@ public class ModularDisplay {
      */
     public void swapToList(StackPane paneToDisplay) {
         paneToDisplay.getChildren().clear();
-        paneToDisplay.getChildren().add(personListPanel.getRoot());
+        paneToDisplay.getChildren().add(cardListPanel.getRoot());
     }
 
     /**

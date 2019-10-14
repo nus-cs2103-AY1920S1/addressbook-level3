@@ -15,7 +15,7 @@ import seedu.address.ui.UiPart;
  */
 public class CardCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "CardCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -30,11 +30,11 @@ public class CardCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label word;
     @FXML
     private Label id;
     @FXML
-    private Label address; // todo this should be called description instead
+    private Label meaning;
     @FXML
     private FlowPane tags;
 
@@ -42,8 +42,8 @@ public class CardCard extends UiPart<Region> {
         super(FXML);
         this.card = card;
         id.setText(displayedIndex + ". ");
-        name.setText(card.getWord().value);
-        address.setText(card.getMeaning().value);
+        word.setText(card.getWord().value);
+        meaning.setText(card.getMeaning().value);
 
         card.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
