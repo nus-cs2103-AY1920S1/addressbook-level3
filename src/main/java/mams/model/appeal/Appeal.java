@@ -24,7 +24,7 @@ public class Appeal {
     /**
      * "AY" followed by 4 digit year
      */
-    public static final String MESSAGE_CONSTRAINTS_ACADEMIC_YEAR =
+    public static final String MESSAGE_CONSTRAINTS_ACADEMICYEAR =
             "Academic year should start with AY";
     //Identity fields
     private final String appealId;

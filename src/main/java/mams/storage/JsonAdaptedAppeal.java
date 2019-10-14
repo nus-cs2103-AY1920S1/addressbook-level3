@@ -91,7 +91,7 @@ public class JsonAdaptedAppeal {
 
         //Appeal Id
         if (appealId == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Appeal_Id"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "appealId"));
         }
         if (!Appeal.isValidAppealId(appealId)) {
             throw new IllegalValueException(Appeal.MESSAGE_CONSTRAINTS_APPEAL_ID);
@@ -121,7 +121,7 @@ public class JsonAdaptedAppeal {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Academic year"));
         }
         if (!Appeal.isValidAppealId(academicYear)) {
-            throw new IllegalValueException(Appeal.MESSAGE_CONSTRAINTS_ACADEMIC_YEAR);
+            throw new IllegalValueException(Appeal.MESSAGE_CONSTRAINTS_ACADEMICYEAR);
         }
         final String modelAcademicYear = academicYear;
 

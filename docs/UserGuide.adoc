@@ -275,7 +275,7 @@ Sample Output:
 === Approve an appeal: `approve`
 Marks an existing appeal as approved, with an optional message that can be supplied in the remarks section of the appeal results.
 
-Format: `approve APPEAL_ID [APPEAL_MESSAGE]`
+Format: `approve appealId [APPEAL_MESSAGE]`
 
 Examples:
 
@@ -288,7 +288,7 @@ Sample Output:
 === Reject an appeal: `reject`
 Marks an existing appeal as rejected. with an optional message that can be supplied in the remarks section of the appeal results.
 
-Format: `reject APPEAL_ID [APPEAL_MESSAGE]`
+Format: `reject appealId [APPEAL_MESSAGE]`
 
 Examples: `reject 1`
 Marks the 1st appeal in the filtered list as rejected.
