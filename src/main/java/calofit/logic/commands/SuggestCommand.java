@@ -1,6 +1,5 @@
 package calofit.logic.commands;
 
-import calofit.model.dish.CaloriesPredicate;
 import calofit.model.Model;
 
 public class SuggestCommand extends Command{
@@ -9,26 +8,14 @@ public class SuggestCommand extends Command{
 
     public static final String MESSAGE_SUCCESS = "These are the suggested meals";
 
-    public static final String EMPTY_SUGGEST = "Sorry, you have hit your daily limit, no suggestion could be made.";
 
     @Override
     public CommandResult execute(Model model) {
-        String stringBuilder = "";
 
-        if(model.suggestMeal() == null) {
-            return new CommandResult(EMPTY_SUGGEST);
-        } else {
-            for (int i = 0; i < model.suggestMeal().size(); i++) {
-                stringBuilder += model.suggestMeal().get(i).getName();
-            }
-        }
+        int remain = model.getRemainingCalories();
+        model.updateFilteredDishList(dish -> dish.getCalories().getValue() <= remain);
 
-        CaloriesPredicate predicate = new CaloriesPredicate(
-            model.getCalorieBudget().currentBudget().intValue());
-
-        model.updateFilteredDishList(predicate);
-
-        return new CommandResult(MESSAGE_SUCCESS + stringBuilder);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override

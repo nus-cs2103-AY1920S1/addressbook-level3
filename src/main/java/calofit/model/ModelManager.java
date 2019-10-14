@@ -3,10 +3,7 @@ package calofit.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Optional;
-import java.util.OptionalInt;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -40,7 +37,6 @@ public class ModelManager implements Model {
     private final FilteredList<Meal> filteredMeals;
     private final SortedList<Meal> sortedMeals;
     private final CalorieBudget budget;
-    private final int remainingBudget;
 
     /**
      * Initializes a ModelManager with the given dishDatabase and userPrefs.
@@ -59,11 +55,6 @@ public class ModelManager implements Model {
         this.sortedMeals = new SortedList<>(filteredMeals, Comparator.naturalOrder());
         this.statistics = null;
         this.budget = new CalorieBudget();
-        if (budget.getCurrentBudget().isPresent()) {
-            this.remainingBudget = budget.getCurrentBudget().getAsInt();
-        } else {
-            this.remainingBudget = 0;
-        }
     }
 
     public ModelManager() {
@@ -223,13 +214,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Dish> suggestMeal() {
+    public int getRemainingCalories() {
         ObservableList<Dish> suggestedDish = FXCollections.observableArrayList();
-        for (int i = 0; i < dishDatabase.size(); i++) {
-            if (remainingBudget >= dishDatabase.getDishList().get(i).getCalories().getValue()) {
-                suggestedDish.add(dishDatabase.getDishList().get(i));
-            }
+        int remainingBudget = budget.getCurrentBudget().orElse(0);
+        for (Meal meal : mealLog.getTodayMeals()) {
+            remainingBudget -= meal.getDish().getCalories().getValue();
         }
-        return suggestedDish;
+
+        return remainingBudget;
     };
 }
