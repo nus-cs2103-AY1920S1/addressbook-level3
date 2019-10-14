@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.stage.Stage?>
+
+<fx:root resizable="false" title="Info" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/help_icon.png" />
+    </icons>
+    <scene>
+        <Scene>
+         <VBox spacing="10.0">
+            <children>
+               <Label fx:id="commandWord" contentDisplay="CENTER" text="Label" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                  <font>
+                     <Font name="Arial Black" size="52.0" />
+                  </font>
+               </Label>
+                    <Label fx:id="infoMessage" text="Label">
+                  <font>
+                     <Font name="Franklin Gothic Heavy" size="20.0" />
+                  </font>
+                    </Label>
+               <Label text="USAGE :">
+                  <font>
+                     <Font name="Arial Black" size="25.0" />
+                  </font>
+               </Label>
+               <Label fx:id="usageExample" text="Label">
+                  <font>
+                     <Font name="Franklin Gothic Heavy" size="20.0" />
+                  </font>
+               </Label>
+               <Label text="EXPECTED OUTPUT :">
+                  <font>
+                     <Font name="Arial Black" size="25.0" />
+                  </font>
+               </Label>
+               <Label fx:id="output" text="Label">
+                  <font>
+                     <Font name="Franklin Gothic Heavy" size="20.0" />
+                  </font>
+               </Label>
+            </children>
+            <padding>
+               <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+         </VBox>
+        </Scene>
+    </scene>
+</fx:root>

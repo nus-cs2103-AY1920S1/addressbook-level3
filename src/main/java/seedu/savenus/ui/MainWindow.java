@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
     private FoodListPanel foodListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private InfoWindow infoWindow;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -66,6 +67,7 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         helpWindow = new HelpWindow();
+        infoWindow = new InfoWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -144,7 +146,11 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     public void handleInfo(String info) {
-
+        if (!infoWindow.isShowing()) {
+            infoWindow.show(info);
+        } else {
+            infoWindow.focus();
+        }
     }
 
     void show() {
