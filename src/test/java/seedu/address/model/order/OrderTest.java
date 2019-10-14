@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalCustomers.CUSTOMERTWO;
 import static seedu.address.testutil.TypicalOrders.ORDERONE;
 import static seedu.address.testutil.TypicalPhones.IPHONETWO;
-import static seedu.address.testutil.TypicalSchedules.SCHEDULEONE;
+import static seedu.address.testutil.TypicalSchedules.SCHEDULETWO;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -26,7 +26,7 @@ class OrderTest {
     private static final Phone VALID_PHONE = IPHONETWO;
     private static final String VALID_PRICE = "$1021";
     private static final Status VALID_STATUS = Status.CANCELLED;
-    private static final Schedule VALID_SCHEDULE = SCHEDULEONE;
+    private static final Schedule VALID_SCHEDULE = SCHEDULETWO;
     private static final String VALID_TAG = "Cancelled";
 
     @Test
