@@ -1,9 +1,11 @@
 package seedu.address.model.events;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.common.ReferenceId;
 
 
 /**
@@ -14,6 +16,17 @@ public class ContainsKeywordsPredicate implements Predicate<Event> {
 
     public ContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
+    }
+
+    public ContainsKeywordsPredicate(Event appointment) {
+        ReferenceId referenceId = appointment.getPersonId();
+        keywords = Arrays.asList((referenceId.toString().split("\\s+")));
+        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(keywords);
+    }
+
+    public ContainsKeywordsPredicate(ReferenceId referenceId) {
+        keywords = Arrays.asList((referenceId.toString().split("\\s+")));
+        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(keywords);
     }
 
     @Override

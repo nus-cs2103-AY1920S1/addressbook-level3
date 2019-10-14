@@ -43,6 +43,7 @@ public class AckAppCommand extends ReversibleCommand {
     private final EditEventStatus editEventStatus;
     private Event eventToAck;
     private Event ackedEvent;
+    ContainsKeywordsPredicate predicate;
 
     /**
      * Creates an AckAppCommand to add the specified {@code Person}
@@ -58,9 +59,8 @@ public class AckAppCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         String[] nameKeywords = referenceId.toString().split("\\s+");
-        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(Arrays.asList(nameKeywords));
-        AppointmentsCommand appList = new AppointmentsCommand(predicate);
-        appList.execute(model);
+        predicate = new ContainsKeywordsPredicate(Arrays.asList(nameKeywords));
+        model.updateFilteredEventList(predicate);
         ObservableList<Event> filterEventList = model.getFilteredEventList();
 
 
@@ -76,9 +76,8 @@ public class AckAppCommand extends ReversibleCommand {
             eventToAck = filterEventList.get(0);
             ackedEvent = createEditedEvent(eventToAck, editEventStatus);
         }
-
         model.setEvent(eventToAck, ackedEvent);
-        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        model.updateFilteredEventList(predicate);
         return new CommandResult(String.format(MESSAGE_SUCCESS, ackedEvent));
     }
 
@@ -99,21 +98,21 @@ public class AckAppCommand extends ReversibleCommand {
     @Override
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (eventToAck == null || eventToAck == null || !model.hasExactEvent(eventToAck)) {
-            throw new CommandException(MESSAGE_NOT_ACKED);
-        }
-
-        if (eventToAck.equals(ackedEvent) || model.hasExactEvent(eventToAck)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ACKED);
-        }
-
-        if (model.hasEvent(eventToAck) && !eventToAck.isSameEvent(ackedEvent)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ACKED);
-        }
+//
+//        if (eventToAck == null || eventToAck == null || !model.hasExactEvent(eventToAck)) {
+//            throw new CommandException(MESSAGE_NOT_ACKED);
+//        }
+//
+//        if (eventToAck.equals(ackedEvent) || model.hasExactEvent(eventToAck)) {
+//            throw new CommandException(MESSAGE_DUPLICATE_ACKED);
+//        }
+//
+//        if (model.hasEvent(eventToAck) && !eventToAck.isSameEvent(ackedEvent)) {
+//            throw new CommandException(MESSAGE_DUPLICATE_ACKED);
+//        }
 
         model.setEvent(ackedEvent, eventToAck);
-        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        model.updateFilteredEventList(predicate);
 
         return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, eventToAck));
     }
@@ -151,7 +150,7 @@ public class AckAppCommand extends ReversibleCommand {
         public EditEventStatus(EditEventStatus toCopy) {
             setReferenceId(toCopy.referenceId);
             setTiming(toCopy.timing);
-            ackStatus();
+            setAckStatus();
         }
 
 
@@ -171,7 +170,7 @@ public class AckAppCommand extends ReversibleCommand {
             return Optional.ofNullable(timing);
         }
 
-        public void ackStatus() {
+        public void setAckStatus() {
             this.status = new Status(Status.AppointmentStatuses.ACKNOWLEDGED);
         }
 

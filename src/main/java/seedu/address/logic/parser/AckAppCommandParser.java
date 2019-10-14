@@ -35,7 +35,7 @@ public class AckAppCommandParser implements Parser<AckAppCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AckAppCommand.MESSAGE_USAGE));
         }
-        editEventStatus.ackStatus();
+        editEventStatus.setAckStatus();
         ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getPreamble());
 
 

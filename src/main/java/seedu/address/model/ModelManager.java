@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,7 +13,9 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AppointmentsCommand;
 import seedu.address.model.common.ReferenceId;
+import seedu.address.model.events.ContainsKeywordsPredicate;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
@@ -269,6 +272,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteEvent(Event event) {
         appointmentBook.removeEvent(event);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
@@ -300,6 +304,23 @@ public class ModelManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an boolean, check whether current displaying appointments are belong to the same patient.
+     */
+    @Override
+    public boolean isPatientList(){
+        requireNonNull(filteredEvents);
+        boolean res = true;
+        ReferenceId id = filteredEvents.get(0).getPersonId();
+        for(Event e: filteredEvents){
+            if(!id.equals(e.getPersonId())){
+                res = false;
+                break;
+            }
+        }
+        return res;
     }
 
 

@@ -9,6 +9,7 @@ import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.events.ContainsKeywordsPredicate;
 import seedu.address.model.events.Event;
 
 /**
@@ -29,10 +30,12 @@ public class AddAppCommand extends ReversibleCommand {
             + PREFIX_END + "01/11/2019 1900";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This appointment already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This appointment is already scheduled.";
     public static final String MESSAGE_INVAILD_REFERENCEID = "this referenceId does not belong to any person";
     public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Appointment '%1$s' has been removed.";
     public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of appointment: %1$s";
+    public static final String MESSAGE_CLASH_APPOINTMENT = "This appointment clashes with a pre-existing appointment."
+            + "Try a time slot an hour before or after.";
 
     private final Event appointment;
 
@@ -55,6 +58,8 @@ public class AddAppCommand extends ReversibleCommand {
         }
 
         model.addEvent(appointment);
+        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(appointment);
+        model.updateFilteredEventList(predicate);
         return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));
     }
 
@@ -67,6 +72,10 @@ public class AddAppCommand extends ReversibleCommand {
         }
 
         model.deleteEvent(appointment);
+
+        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(appointment);
+        model.updateFilteredEventList(predicate);
+
         return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, appointment));
     }
 

@@ -203,4 +203,6 @@ public interface Model extends ReferenceIdResolver {
     public ObservableList<ReferenceId> getFilteredReferenceIdList();
 
     public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate);
+
+    public boolean isPatientList();
 }

@@ -6,20 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AckAppCommand;
-import seedu.address.logic.commands.AddAppCommand;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AppointmentsCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DequeueCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EnqueueCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -98,6 +85,9 @@ public class AddressBookParser {
 
         case AckAppCommand.COMMAND_WORD:
             return new AckAppCommandParser().parse(arguments);
+
+        case CancelAppCommand.COMMAND_WORD:
+            return new CancelAppCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
