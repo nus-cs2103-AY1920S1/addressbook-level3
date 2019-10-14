@@ -56,12 +56,12 @@ public class TypicalExpenses {
     private TypicalExpenses() {} // prevents instantiation
 
     /**
-     * Returns an {@code ExpenseList} with all the typical persons.
+     * Returns an {@code ExpenseList} with all the typical expenses.
      */
     public static ExpenseList getTypicalExpenseList() {
         ExpenseList ab = new ExpenseList();
-        for (Expense person : getTypicalExpenses()) {
-            ab.addExpense(person);
+        for (Expense expense : getTypicalExpenses()) {
+            ab.addExpense(expense);
         }
         return ab;
     }

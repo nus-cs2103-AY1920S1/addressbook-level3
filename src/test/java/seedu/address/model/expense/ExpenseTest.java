@@ -68,7 +68,7 @@ public class ExpenseTest {
         // different type -> returns false
         assertFalse(FOOD.equals(5));
 
-        // different person -> returns false
+        // different expense -> returns false
         assertFalse(FOOD.equals(RUM));
 
         // different name -> returns false
