@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.SimpleType;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.exceptions.DataConversionException;
-import com.typee.model.Tab;
+import com.typee.ui.Tab;
 
 /**
  * Converts a Java object instance to JSON and vice versa

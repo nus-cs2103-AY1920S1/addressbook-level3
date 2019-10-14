@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import com.typee.commons.exceptions.DataConversionException;
 import com.typee.commons.util.JsonUtil;
-import com.typee.model.Tab;
+import com.typee.ui.Tab;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
