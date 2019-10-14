@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +26,7 @@ import seedu.address.model.phone.Cost;
 import seedu.address.model.phone.IdentityNumber;
 import seedu.address.model.phone.PhoneName;
 import seedu.address.model.phone.SerialNumber;
+import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -31,6 +35,8 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_CALENDAR = "Calendar is not in the correct format.";
+
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -310,4 +316,52 @@ public class ParserUtil {
         }
         return new Price(trimmedPrice);
     }
+    /**
+     * Parses a {@code String calendar} into a {@code Calendar}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code calendar} is invalid.
+     */
+    public static Calendar parseCalendar(String calendar) throws ParseException {
+        requireNonNull(calendar);
+        String trimmedCalendar = calendar.trim();
+
+        String[] stringCalendar = trimmedCalendar.split("\\.");
+        if (stringCalendar.length != 5) {
+            throw new ParseException(MESSAGE_INVALID_CALENDAR);
+        }
+
+        int[] input = new int[5];
+        LocalDateTime localDateTime;
+        try {
+            for (int index = 0; index < 5; index++) {
+                input[index] = Integer.parseInt(stringCalendar[index]);
+            }
+            localDateTime = LocalDateTime.of(input[0], input[1], input[2], input[3], input[4]);
+        } catch (NumberFormatException | DateTimeException e) {
+            throw new ParseException(MESSAGE_INVALID_CALENDAR);
+        }
+
+        // change month to 0-based
+        input[1] -= 1;
+
+        return new Calendar.Builder().setDate(input[0], input[1], input[2])
+                .setTimeOfDay(input[3], input[4], 0).build();
+    }
+
+    /**
+     * Parses a {@code String venue} into a {@code Venue}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code venue} is invalid.
+     */
+    public static Venue parseVenue(String venue) throws ParseException {
+        requireNonNull(venue);
+        String trimmedVenue = venue.trim();
+        if (!Venue.isValidVenue(trimmedVenue)) {
+            throw new ParseException(Venue.MESSAGE_CONSTRAINTS);
+        }
+        return new Venue(trimmedVenue);
+    }
+
 }
