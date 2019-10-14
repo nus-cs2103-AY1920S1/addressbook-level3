@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.itinerary.ui.ItineraryPage;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -39,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CalendarPage calendarPage;
+    private ItineraryPage itineraryPage;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -69,12 +71,13 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         calendarPage = new CalendarPage();
+        itineraryPage = new ItineraryPage();
 
         Scene primaryScene = primaryStage.getScene();
 
         // todo-this-week: call the PageScene constructor with your page scene instead, e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
-        pages = new Pages(primaryScene, new SamplePage(), calendarPage);
+        pages = new Pages(primaryScene, new SamplePage(), itineraryPage, calendarPage);
 
     }
 

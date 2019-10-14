@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.calendar.commands.CalendarCommand;
+import seedu.address.itinerary.commands.ItineraryCommand;
 import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -66,6 +67,9 @@ public class AddressBookParser {
 
         case CalendarCommand.COMMAND_WORD:
             return new CalendarCommand();
+
+        case ItineraryCommand.COMMAND_WORD:
+            return new ItineraryCommand();
 
         // todo: remove this when everyone has implemented the UI of their page
         case SampleCommand.COMMAND_WORD:
