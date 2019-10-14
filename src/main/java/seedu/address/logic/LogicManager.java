@@ -3,7 +3,6 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -20,6 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.TimeBook;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.group.Group;
@@ -78,6 +78,21 @@ public class LogicManager implements Logic {
         return model.getSidePanelDisplay();
     }
 
+    @Override
+    public ObservableList<PersonDisplay> getFilteredPersonDisplayList() {
+        ObservableList<Person> persons = model.getFilteredPersonList();
+        return FXCollections.observableList(persons.stream()
+                        .map(person -> new PersonDisplay((Person) person))
+                        .collect(Collectors.toCollection(ArrayList::new)));
+    }
+
+    @Override
+    public ObservableList<GroupDisplay> getFilteredGroupDisplayList() {
+        ObservableList<Group> persons = model.getObservableGroupList();
+        return FXCollections.observableList(persons.stream()
+                .map(group -> new GroupDisplay(group)).collect(Collectors.toCollection(ArrayList::new)));
+    }
+
 
     //=========== Suggesters =============================================================
 
@@ -128,15 +143,6 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
-    }
-
-    @Override
-    public ObservableList<PersonDisplay> getFilteredPersonDisplayList() {
-        ObservableList<Person> persons = model.getFilteredPersonList();
-        return FXCollections.observableList(
-                Arrays.stream(persons.toArray())
-                        .map(person -> new PersonDisplay((Person) person))
-                        .collect(Collectors.toCollection(ArrayList::new)));
     }
 
 }
