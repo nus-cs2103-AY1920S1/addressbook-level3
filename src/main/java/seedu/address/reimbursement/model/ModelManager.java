@@ -73,9 +73,9 @@ public class ModelManager implements Model {
 
     @Override
     public Reimbursement addDeadline(Person person, String date) throws Exception {
-        if(date.length() != 8) {
+        if (date.length() != 8) {
             throw new InvalidDeadlineException();
-        }else {
+        } else {
             reimbursementList.addDeadline(person, date);
         }
         filteredList = reimbursementList;

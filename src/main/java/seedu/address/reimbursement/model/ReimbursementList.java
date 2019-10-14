@@ -86,6 +86,13 @@ public class ReimbursementList {
         }
     }
 
+    /**
+     * finds a reimbursement in the list for the person
+     *
+     * @param person
+     * @return
+     * @throws NoSuchPersonReimbursementException
+     */
     public Reimbursement findReimbursement(Person person) throws NoSuchPersonReimbursementException {
         for (Reimbursement reim : list) {
             if (person.isSamePerson(reim.getPerson())) {
@@ -95,6 +102,13 @@ public class ReimbursementList {
         throw new NoSuchPersonReimbursementException();
     }
 
+    /**
+     * Marks a reimbursement as done.
+     *
+     * @param person the person this reimbursement is owed to.
+     * @return the new reimbursement object.
+     * @throws NoSuchPersonReimbursementException if no such reimbursement is owed to this person.
+     */
     public Reimbursement doneReimbursement(Person person) throws NoSuchPersonReimbursementException {
         Reimbursement rmb = findReimbursement(person);
         rmb.done();
@@ -102,6 +116,13 @@ public class ReimbursementList {
         return rmb;
     }
 
+    /**
+     * adds deadline to the reimbursement for the person in the list.
+     *
+     * @param person
+     * @param date
+     * @throws NoSuchPersonReimbursementException
+     */
     public void addDeadline(Person person, String date) throws NoSuchPersonReimbursementException {
         Reimbursement rmb = findReimbursement(person);
         rmb.addDeadline(date);
