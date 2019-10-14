@@ -2,20 +2,26 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.FunctionMode;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -23,7 +29,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "MainWindowCopy.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -34,12 +40,19 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private Flashcard flashcard;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private StackPane flashcardQnsPanelPlaceholder;
+
+    @FXML
+    private StackPane flashcardAnsPanelPlaceholder;
 
     @FXML
     private StackPane personListPanelPlaceholder;
@@ -49,6 +62,24 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private ImageView notesHighlightCircle;
+
+    @FXML
+    private ImageView fcHighlightCircle;
+
+    @FXML
+    private ImageView csHighlightCircle;
+
+    @FXML
+    private ImageView currentHighlightedCircle;
+
+    @FXML
+    private Label qnLabel;
+
+    @FXML
+    private Label ansLabel;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -63,6 +94,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        currentHighlightedCircle = fcHighlightCircle;
     }
 
     public Stage getPrimaryStage() {
@@ -87,7 +120,7 @@ public class MainWindow extends UiPart<Stage> {
          *
          * According to the bug report, TextInputControl (TextField, TextArea) will
          * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
+         * ResultDisplay contai ns a TextArea, thus some accelerators (e.g F1) will
          * not work when the focus is in them because the key event is consumed by
          * the TextInputControl(s).
          *
@@ -107,9 +140,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -183,11 +213,57 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isToggle()) {
+                toggleModeTo(commandResult.getTargetMode().get());
+            }
+
+            if (commandResult.getFlashcard().isPresent()) {
+                displayFlashcard(commandResult.getFlashcard().get());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Switches the list of available commands based on the function that the user wants to use.
+     * @param targetMode Function mode that user wants to switch to
+     */
+    private void toggleModeTo (FunctionMode targetMode) {
+        deselectCircle(currentHighlightedCircle);
+        switch (targetMode) {
+        case FLASHCARD:
+            currentHighlightedCircle = fcHighlightCircle;
+            break;
+        case CHEATSHEET:
+            currentHighlightedCircle = csHighlightCircle;
+            break;
+        case NOTES:
+            currentHighlightedCircle = notesHighlightCircle;
+            break;
+        default:
+        }
+        highlightCircle(currentHighlightedCircle);
+    }
+
+    private void deselectCircle(ImageView targetCircle) {
+        FadeTransition ft = new FadeTransition(Duration.millis(400), targetCircle);
+        ft.setToValue(0);
+        ft.play();
+    }
+
+    private void highlightCircle(ImageView targetCircle) {
+        FadeTransition ft = new FadeTransition(Duration.millis(400), targetCircle);
+        ft.setToValue(1);
+        ft.play();
+    }
+
+    private void displayFlashcard(Flashcard flashcard) {
+        qnLabel.setText(flashcard.getQuestion().toString());
+        ansLabel.setText(flashcard.getAnswer().toString());
     }
 }
