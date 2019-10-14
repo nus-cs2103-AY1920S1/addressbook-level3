@@ -56,77 +56,119 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a person: `addperson`
 
 Adds a person to the address book +
-Format: `add-person -n NAME -e EMAIL [-c NUS_MOD_LINK]`
+Format: `addperson n/NAME [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]... [c/ NUS_MOD_LINK]`
 
 Examples:
 
-* `add-person -n Catherine -e catherineCanCook@imail.com`
-* `add-person -n John Doe -e JohnDoe@imail.com -c 23F6B742CE`
+* `addperson n/ Catherine em/ catherineCanCook@imail.com`
+* `addperson n/ John Doe em/ JohnDoe@imail.com c/ 23F6B742CE`
+
+=== Adding a person: `addgroup`
+
+Adds a group to the address book +
+Format: `addgroup g/GROUP_NAME [r/GROUP_REMARK]`
+
+Examples:
+
+* `addgroup g/CS2103 r/Project Group`
+* `addgroup g/Friends`
 
 === Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Editing a person : `editperson`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `editperson ed/PERSON_NAME [n/NAME] [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the person specified by `PERSON_NAME`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* You can remove all the person's tags by typing `tag/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `editperson ed/John Doe p/91234567 em/johndoe@example.com` +
+Edits the phone number and email address of the person with name 'John Doe' to be `91234567` and `johndoe@example.com` respectively.
+* `edit ed/Betsy n/Betsy Crower tag/` +
+Edits the person 'Betsy' to a new name 'Betsy Crower' and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Editing a person : `editgroup`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Edits an existing group in the address book. +
+Format: `editgroup ed/GROUP_NAME [g/GROUP_NAME] [r/GROUP_REMARK]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Edits the group specified by `GROUP_NAME`.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `editperson ed/CS2103 g/CS3203 r/Project Discussion Group` +
+Edits the group specified by group name 'CS2103' with group name 'CS3203' and group remark `Project Discussion Group` respectively.
+
+=== Locating persons by name: `findperson`
+
+Finds the person whose name contains the given keyword. +
+Format: `findperson n/NAME`
+
+****
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Shows the groups that this person is in.
 ****
 
-Examples:
+=== Locating persons by name: `findgroup`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Finds the group whose name contains the given keyword. +
+Format: `findgroup g/GROUP_NAME`
+
+****
+* Only the group name is searched.
+* Only full words will be matched
+* Shows the members inside the group.
+****
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting a person : `deleteperson`
 
-Deletes the specified person from the address book. +
-Format: `delete-person -n NAME`
+Deletes the specified person from the timebook. +
+Format: `deleteperson n/ NAME`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the person specified by 'NAME'
+* Deletes all mappings of this person in groups.
 ****
 
 Examples:
 
-* `delete-person -n Benedict` +
-Deletes the 2nd person in the address book.
+* `deleteperson n/ Benedict` +
+Deletes the 'Benedict' in the timebook.
+
+=== Deleting a person : `deletegroup`
+
+Deletes the specified group from the timebook. +
+Format: `deletegroup g/ GROUP_NAME`
+
+****
+* Deletes the group specified by 'GROUP_NAME'
+* Deletes all mappings of persons to this group.
+****
+
+Examples:
+
+* `deletegroup g/CS2103` +
+Deletes the 'CS2103' in the timebook.
 
 // end::delete[]
 === Clearing all entries : `clear`
@@ -152,96 +194,42 @@ _{explain how the user can enable/disable data encryption}_
 
 == Advanced Features
 
-=== Add Schedule: `add-schedule`
+=== Add to Group: `addtogroup`
 
-Adds a schedule to a person in TimeBook. Only schedules without clashes between time slots can be added to TimeBook.
-Can be used to mark a person as unavailable either on one-off dates or on a particular day every week +
+Adds a person specified by 'NAME' into a group specified by 'GROUP_NAME' in TimeBook.
 Format:
 
-* `add-schedule -n NAME -d DATE -t TIME` +
-* `add-schedule -n NAME -d DAY -t TIME` +
-* `add-schedule -n NAME -c NUS_MOD_LINK`
+* `addtogroup' n/NAME g/GROUP_NAME
 
 Examples:
 
-* `add-schedule -n John -d 18/09/2019 -t 1000`
-* `add-schedule -n John -d Wednesday -t 1000`
-* `add-schedule -n Jake -c 23F6B742CE`
+* `addtogroup n/John g/CS2103
 
-=== Delete schedule: `delete-schedule`
+=== Add Schedule: `addevent`
+
+Adds an event into the schedule of a person in TimeBook. Only schedules without clashes between time slots can be added to TimeBook.
+Can be used to mark a person as unavailable either on one-off dates or on a particular day every week +
+Format:
+
+* `addevent n/ NAME e/EVENT_NAME t/DATETIME` +
+* `addevent n/ NAME c/ NUS_MOD_LINK`
+
+Examples:
+
+* `addevent n/John e/Math Lecture t/26092019:1300-26092019:1400-LT25`
+* `addevent n/John c/ 23F6B742CE`
+
+=== Delete schedule: `deleteschedule`
 
 Delete all schedule data of the specified person from TimeBook +
 Format:
 
-* `delete-schedule -n NAME` +
+* `deleteschedule n/ NAME` +
 
 Examples:
 
-* `delete-schedule -n John`
+* `delete-schedule /n John`
 
-=== Edit person’s details: `edit-person`
-
-Edits a person’s details by overwriting in TimeBook +
-Format:
-
-* `edit-person -n NAME [-e EMAIL_ADDRESS] [-c NUS_MOD_LINK]` +
-
-Examples:
-
-* `edit-person -n John -e JDoe@imail.com`
-* `edit-person -n Jake -c 23F6B742CE -e contact@jake.com`
-
-
-=== Group friends: `group`
-
-Adds members into a group and creates the group if it doesn’t already exist +
-Format:
-
-* `group -g GROUP_NAME [-m NAME]...` +
-
-
-Examples:
-
-* `group -g TimeBook -m Catherine -m John Doe`
-* `group -g CS2030 T2 -m Amanda -m Catherine`
-
-=== Show group: `show-group`
-
-Shows details of a group: who are its members and their available timings +
-Format:
-
-* `show-group -g TimeBook` +
-* `show-group -g CS2030 T2`
-
-
-Examples:
-
-* `group -g TimeBook -m Catherine -m John Doe`
-* `group -g CS2030 T2 -m Amanda -m Catherine`
-
-=== Delete group: `delete-group`
-
-Adds members into a group and creates the group if it doesn’t already exist +
-Format:
-
-* `delete-group -g GROUP_NAME`
-
-Examples:
-
-* `delete-group -g CS2030 T2`
-
-=== Show person: `show-person`
-
-Shows a person’s details along with their schedule +
-Format:
-
-* `show-person -n NAME` +
-
-
-Examples:
-
-* `show-person -n Catherine`
-* `show-person -n Jake`
 
 === Export VR(Virtual Representation): `export-vr`
 
