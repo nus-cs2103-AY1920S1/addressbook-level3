@@ -10,7 +10,7 @@ import seedu.address.model.entity.IdentificationNumber;
 /**
  * Parses input bodyID and creates a new GenReportCommand object.
  */
-public class GenReportCommandParser {
+public class GenReportCommandParser implements Parser<GenReportCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the GenReportCommand

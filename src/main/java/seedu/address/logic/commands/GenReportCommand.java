@@ -45,4 +45,11 @@ public class GenReportCommand extends Command {
         ReportGenerator.generate(bodyToGenReport);
         return new CommandResult(String.format(MESSAGE_GENREPORT_SUCCESS, targetIdNum));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GenReportCommand // instanceof handles nulls
+                && targetIdNum.equals(((GenReportCommand) other).targetIdNum)); // state check
+    }
 }
