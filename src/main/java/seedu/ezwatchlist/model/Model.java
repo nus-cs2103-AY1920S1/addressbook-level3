@@ -1,6 +1,7 @@
 package seedu.ezwatchlist.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -84,4 +85,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredShowList(Predicate<Show> predicate);
+
+    /** Returns an unmodifiable view of the search result list */
+    ObservableList<Show> getSearchResultList();
+
+    /**
+     * Updates the filter of the filtered show list to filter by the given {@code searchResult}.
+     * @throws NullPointerException if the {@code searchResult} if null.
+     */
+    public void updateSearchResultList(List<Show> searchResult);
 }

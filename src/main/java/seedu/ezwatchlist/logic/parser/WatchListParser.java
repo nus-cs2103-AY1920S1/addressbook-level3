@@ -13,6 +13,7 @@ import seedu.ezwatchlist.logic.commands.DeleteCommand;
 import seedu.ezwatchlist.logic.commands.EditCommand;
 import seedu.ezwatchlist.logic.commands.ExitCommand;
 import seedu.ezwatchlist.logic.commands.FindCommand;
+import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.commands.HelpCommand;
 import seedu.ezwatchlist.logic.commands.ListCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
@@ -58,6 +59,9 @@ public class WatchListParser {
 
             case FindCommand.COMMAND_WORD:
                 return new FindCommandParser().parse(arguments);
+
+            case SearchCommand.COMMAND_WORD:
+                return new SearchCommandParser().parse(arguments);
 
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();

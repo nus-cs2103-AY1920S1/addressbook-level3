@@ -174,6 +174,9 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            //somehow use this code to display list of search results???
+            //showListPanel = new ShowListPanel(logic.getSearchResultList());
+            //showListPanelPlaceholder.getChildren().add(showListPanel.getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

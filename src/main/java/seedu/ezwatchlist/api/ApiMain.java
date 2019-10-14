@@ -12,9 +12,12 @@ import info.movito.themoviedbapi.model.tv.TvSeason;
 import info.movito.themoviedbapi.model.tv.TvSeries;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.ezwatchlist.api.model.ApiInterface;
+import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
 import seedu.ezwatchlist.model.show.Episode;
@@ -40,8 +43,8 @@ public class ApiMain {
         MovieResultsPage page = ApiCall.getSearch().searchMovie(name, null, null, true, null);
         ArrayList<Movie> movies = new ArrayList<>();
         for (MovieDb m : page.getResults()) {
-            movies.add(new Movie(new Name(m.getTitle()), new Description(m.getTagline()), new IsWatched(false), new Date(m.getReleaseDate()),
-                    new RunningTime(m.getRuntime()), null));
+            movies.add(new Movie(new Name(m.getTitle()), new Description("placeholder")/*m.getTagline())*/, new IsWatched(false), new Date(m.getReleaseDate()),
+                    new RunningTime(m.getRuntime()), new HashSet<Actor>()));
         }
         return movies;
     }

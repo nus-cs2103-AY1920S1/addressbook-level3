@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -23,6 +26,7 @@ public class ModelManager implements Model {
     private final WatchList watchList;
     private final UserPrefs userPrefs;
     private final FilteredList<Show> filteredShows;
+    private final WatchList searchResult = new WatchList();
 
     /**
      * Initializes a ModelManager with the given watchList and userPrefs.
@@ -128,6 +132,15 @@ public class ModelManager implements Model {
     public void updateFilteredShowList(Predicate<Show> predicate) {
         requireNonNull(predicate);
         filteredShows.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateSearchResultList(List<Show> shows) {
+        searchResult.setShows(shows);
+    }
+
+    public ObservableList<Show> getSearchResultList() {
+        return searchResult.getShowList();
     }
 
     @Override
