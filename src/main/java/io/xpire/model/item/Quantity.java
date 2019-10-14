@@ -10,7 +10,7 @@ import io.xpire.logic.parser.exceptions.ParseException;
  * Represents the quantity of an item.
  * Guarantees: immutable and valid in {@link #isValidQuantity(String test)}.
  */
-public class Quantity implements Comparable<Quantity> {
+public class Quantity {
     public static final String MESSAGE_CONSTRAINTS =
             "Quantity should be a positive integer and should not be blank";
     public static final String DEFAULT_QUANTITY = "1";
@@ -76,10 +76,5 @@ public class Quantity implements Comparable<Quantity> {
     @Override
     public int hashCode() {
         return this.quantity;
-    }
-
-    @Override
-    public int compareTo(Quantity other) {
-        return this.quantity - other.quantity;
     }
 }
