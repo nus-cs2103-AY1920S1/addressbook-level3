@@ -3,6 +3,7 @@ package seedu.savenus.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
@@ -163,7 +164,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public double getRemainingBudget() {
+    public BigDecimal getRemainingBudget() {
         return menu.getWallet().getRemainingBudgetAmount();
     }
 

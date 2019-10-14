@@ -3,6 +3,7 @@ package seedu.savenus.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -57,7 +58,10 @@ public class ParserUtil {
                 || !DaysToExpire.isValidDaysToExpire(splitWalletString[1])) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE));
         }
-        if (Double.parseDouble(splitWalletString[0]) > 1000000.00) {
+        BigDecimal budgetAmount = new BigDecimal(splitWalletString[0].contains(".")
+                ? splitWalletString[0]
+                : String.format("%s.00", splitWalletString[0]));
+        if (budgetAmount.compareTo(new BigDecimal(1000000.00)) == 1) {
             throw new ParseException(RemainingBudget.FLOATING_POINT_CONSTRAINTS);
         }
         int parsedDaysToExpire;
@@ -69,7 +73,8 @@ public class ParserUtil {
         if (parsedDaysToExpire > 365) {
             throw new ParseException(DaysToExpire.INTEGER_CONSTRAINTS);
         }
-        return new Wallet(new RemainingBudget(splitWalletString[0]), new DaysToExpire(splitWalletString[1]));
+        return new Wallet(new RemainingBudget(budgetAmount.toString()),
+                new DaysToExpire(splitWalletString[1]));
     }
 
     /**

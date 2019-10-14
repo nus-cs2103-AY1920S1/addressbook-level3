@@ -96,7 +96,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Bind remaining budget to displayed value
         remainingBudgetPlaceholder.textProperty().bind(logic.getMenu()
-                .getWallet().getRemainingBudgetProperty().asString("$%.02f"));
+                .getWallet().getRemainingBudgetProperty());
 
         // Update number of days left
         logic.getMenu().getWallet().updateDaysToExpire();

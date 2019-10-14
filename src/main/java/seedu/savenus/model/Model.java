@@ -1,5 +1,6 @@
 package seedu.savenus.model;
 
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
@@ -103,7 +104,7 @@ public interface Model {
     /**
      * Getter for current user's {@code budget} amount
      */
-    double getRemainingBudget();
+    BigDecimal getRemainingBudget();
 
     /**
      * Setter for current user's {@code Budget} to new {@code Budget}

@@ -1,10 +1,12 @@
 package seedu.savenus.model.wallet;
 
-import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.property.IntegerProperty;
 import seedu.savenus.commons.core.Messages;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Price;
+
+import java.math.BigDecimal;
 
 /**
  * Represents a user's Wallet in the application.
@@ -19,7 +21,7 @@ public class Wallet {
      * Default constructor that sets {@code remainingBudget} and {@code daysToExpire} to both 0.
      */
     public Wallet() {
-        this.remainingBudget = new RemainingBudget("0");
+        this.remainingBudget = new RemainingBudget("0.00");
         this.daysToExpire = new DaysToExpire("0");
     }
 
@@ -40,9 +42,9 @@ public class Wallet {
     }
 
     /**
-     * Returns {@code remainingBudget}'s {@code DoubleProperty}.
+     * Returns {@code remainingBudget}'s {@code StringProperty}.
      */
-    public DoubleProperty getRemainingBudgetProperty() {
+    public StringProperty getRemainingBudgetProperty() {
         return remainingBudget.getRemainingBudgetProperty();
     }
 
@@ -56,7 +58,7 @@ public class Wallet {
     /**
      * Returns {@code remainingBudget}'s {@code double} value.
      */
-    public double getRemainingBudgetAmount() {
+    public BigDecimal getRemainingBudgetAmount() {
         return remainingBudget.getRemainingBudget();
     }
 
@@ -119,19 +121,11 @@ public class Wallet {
      */
     public void pay(Price price) throws CommandException {
         // Check whether wallet has enough funds
-        if (price.toDouble() > getRemainingBudgetAmount()) {
+        if (new BigDecimal(price.toString()).compareTo(getRemainingBudgetAmount()) == 1) {
             throw new CommandException(Messages.MESSAGE_INSUFFICIENT_FUNDS);
         } else {
-            // Since remainingBudgetAmount and price are guaranteed to be valid since instantiation,
-            // no additional checks needed here, but subtraction is done in cents to avoid floating point precision loss
-            // Price will range from 0 to 500000 cents and budget amount will range from 0 to 100 000 000 cents
-            long remainingBudgetInCents = (long) Math.floor(getRemainingBudgetAmount() * 100)
-                    - (long) Math.floor(price.toDouble() * 100);
-            setRemainingBudget(new RemainingBudget(
-                    remainingBudgetInCents / 100 + "."
-                            + ((remainingBudgetInCents % 100) < 10
-                                ? "0" + (remainingBudgetInCents % 100)
-                                : (remainingBudgetInCents % 100))));
+            BigDecimal remainingBudgetInCents = getRemainingBudgetAmount().subtract(new BigDecimal(price.toString()));
+            setRemainingBudget(remainingBudgetInCents.toString());
         }
     }
 
