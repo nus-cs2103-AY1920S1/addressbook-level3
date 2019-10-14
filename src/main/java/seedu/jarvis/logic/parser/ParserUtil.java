@@ -14,6 +14,8 @@ import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
 import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.model.planner.Task;
+import seedu.jarvis.model.planner.Todo;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -120,5 +122,14 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses strings of attributes into a {@code Task}.
+     * @return
+     */
+    public static Task parseTask() {
+        //TODO
+        return new Todo(""); //task stub
     }
 }

@@ -51,7 +51,7 @@ public abstract class Task {
      * @param other the task to be compared to
      * @return true if both tasks are equal, false if they are not
      */
-    protected abstract Boolean isEqual(Task other);
+    protected abstract boolean isEqual(Task other);
 
     /**
      * Sets the Priority Level of a Task

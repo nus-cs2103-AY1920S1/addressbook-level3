@@ -48,7 +48,7 @@ public class Planner {
      * @return true if the planner already contains the task, false if
      *         it does not.
      */
-    public Boolean hasTask(Task t) {
+    public boolean hasTask(Task t) {
         return taskList.hasTask(t);
     }
 

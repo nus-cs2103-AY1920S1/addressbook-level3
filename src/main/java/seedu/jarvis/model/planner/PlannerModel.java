@@ -23,7 +23,7 @@ public interface PlannerModel {
      * @return true if the planner already contains the task, false if
      *         it does not.
      */
-    Boolean hasTask(Task t);
+    boolean hasTask(Task t);
 
     /**
      * Retrieves the planner object
@@ -31,4 +31,11 @@ public interface PlannerModel {
      */
     Planner getPlanner();
 
+    /**
+     * Resets all commands in {@code executedCommands} and {@code inverselyExecutedCommands} to the commands in the
+     * given {@code Planner}.
+     *
+     * @param planner {@code Planner} to take reference from.
+     */
+    void resetData(Planner planner);
 }

@@ -21,7 +21,7 @@ public class Todo extends Task {
      * @return true if both tasks are equal, false if they are not
      */
     @Override
-    protected Boolean isEqual(Task other) {
+    protected boolean isEqual(Task other) {
         return (other instanceof Todo) && taskDes.equals(other.taskDes);
     }
 }

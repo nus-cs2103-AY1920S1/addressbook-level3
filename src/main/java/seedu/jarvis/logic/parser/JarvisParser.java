@@ -55,8 +55,8 @@ public class JarvisParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddAddressCommand.COMMAND_WORD:
-            return new AddAddressCommandParser().parse(arguments);
+        case AddTaskCommand.COMMAND_WORD:
+            return new AddTaskCommandParser().parse(arguments);
 
         case EditAddressCommand.COMMAND_WORD:
             return new EditAddressCommandParser().parse(arguments);
@@ -84,9 +84,6 @@ public class JarvisParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
-        case AddTaskCommand.COMMAND_WORD:
-            return new AddTaskCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
