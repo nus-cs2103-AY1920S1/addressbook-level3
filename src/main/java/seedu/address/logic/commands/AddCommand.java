@@ -2,13 +2,13 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
 
 /**
  * Adds a person to the address book.
@@ -24,6 +24,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESC + "deck mala "
+            + PREFIX_TIME + "13/1/19 1300"
             + PREFIX_AMOUNT + "5.50 "
             + PREFIX_TAG + "food "
             + PREFIX_TAG + "mala";
@@ -43,12 +44,7 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (toAdd.getType().equalsIgnoreCase("Expense")) {
-            model.addExpense((Expense) toAdd);
-        } else {
             model.addEntry(toAdd);
-        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

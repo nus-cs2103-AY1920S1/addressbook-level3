@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,62 +21,66 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
-import seedu.address.model.person.Entry;
+import seedu.address.model.person.Time;
+import seedu.address.model.person.Wish;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Edits the details of an existing person in the address book.
  */
-public class EditCommand extends Command {
+public class EditWishCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "editWish";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Wish identified "
+            + "by the index number used in the displayed Wishes list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESC + "NAME] "
+            + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "5.60";
 
-    public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Entry: %1$s";
+    public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Wish: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the address book.";
 
     private final Index index;
-    private final EditEntryDescriptor editEntryDescriptor;
+    private final EditWishDescriptor editEntryDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit
      * @param editEntryDescriptor details to edit the person with
      */
-    public EditCommand(Index index, EditEntryDescriptor editEntryDescriptor) {
+    public EditWishCommand(Index index, EditWishDescriptor editEntryDescriptor) {
         requireNonNull(index);
         requireNonNull(editEntryDescriptor);
 
         this.index = index;
-        this.editEntryDescriptor = new EditEntryDescriptor(editEntryDescriptor);
+        this.editEntryDescriptor = new EditWishDescriptor(editEntryDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Entry> lastShownList = model.getFilteredEntryList();
+        List<Wish> lastShownList = model.getFilteredWishes();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Entry entryToEdit = lastShownList.get(index.getZeroBased());
-        Entry editedEntry = createEditedEntry(entryToEdit, editEntryDescriptor);
+        Wish entryToEdit = lastShownList.get(index.getZeroBased());
+        Wish editedEntry = createEditedWish(entryToEdit, editEntryDescriptor);
 
         if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setEntry(entryToEdit, editedEntry);
+        model.setWish(entryToEdit, editedEntry);
+        model.updateFilteredWishes(PREDICATE_SHOW_ALL_WISHES);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
@@ -83,14 +89,13 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Entry createEditedEntry(Entry entryToEdit, EditEntryDescriptor editEntryDescriptor) {
-        assert entryToEdit != null;
-
-        Description updatedName = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
-        Amount updatedAmount = editEntryDescriptor.getAmount().orElse(entryToEdit.getAmount());
-        Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(entryToEdit.getTags());
-
-        return new Entry(updatedName, updatedAmount, updatedTags);
+    private static Wish createEditedWish(Wish wishToEdit, EditWishDescriptor editEntryDescriptor) {
+        assert wishToEdit != null;
+        Description updatedName = editEntryDescriptor.getDesc().orElse(wishToEdit.getDesc());
+        Time updatedTime = editEntryDescriptor.getTime().orElse(wishToEdit.getTime());
+        Amount updatedAmount = editEntryDescriptor.getAmount().orElse(wishToEdit.getAmount());
+        Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(wishToEdit.getTags());
+        return new Wish(updatedName, updatedTime, updatedAmount, updatedTags);
     }
 
     @Override
@@ -101,12 +106,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditWishCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditWishCommand e = (EditWishCommand) other;
         return index.equals(e.index)
                 && editEntryDescriptor.equals(e.editEntryDescriptor);
     }
@@ -115,19 +120,21 @@ public class EditCommand extends Command {
      * Stores the details to edit the person with. Each non-empty field value will replace the
      * corresponding field value of the person.
      */
-    public static class EditEntryDescriptor {
+    public static class EditWishDescriptor {
         private Description desc;
+        private Time time;
         private Amount amt;
         private Set<Tag> tags;
 
-        public EditEntryDescriptor() {}
+        public EditWishDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditEntryDescriptor(EditEntryDescriptor toCopy) {
+        public EditWishDescriptor(EditWishDescriptor toCopy) {
             setDesc(toCopy.desc);
+            setTime(toCopy.time);
             setAmount(toCopy.amt);
             setTags(toCopy.tags);
         }
@@ -147,6 +154,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(desc);
         }
 
+        public void setTime(Time time) {
+            this.time = time;
+        }
+
+        public Optional<Time> getTime() {
+            return Optional.ofNullable(time);
+        }
+
         public void setAmount(Amount amt) {
             this.amt = amt;
         }
@@ -154,6 +169,7 @@ public class EditCommand extends Command {
         public Optional<Amount> getAmount() {
             return Optional.ofNullable(amt);
         }
+
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -180,15 +196,16 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditEntryDescriptor)) {
+            if (!(other instanceof EditWishDescriptor)) {
                 return false;
             }
 
             // state check
-            EditEntryDescriptor e = (EditEntryDescriptor) other;
+            EditWishDescriptor e = (EditWishDescriptor) other;
 
             return getDesc().equals(e.getDesc())
                     && getAmount().equals(e.getAmount())
+                    && getTime().equals(e.getTime())
                     && getTags().equals(e.getTags());
         }
     }

@@ -14,7 +14,8 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Expense;
+import seedu.address.model.person.Income;
+import seedu.address.model.person.Wish;
 import seedu.address.storage.Storage;
 
 /**
@@ -41,7 +42,6 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
-
         try {
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
@@ -57,8 +57,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Expense> getFilteredEntryList() {
-        return model.getFilteredEntryList();
+    public ObservableList<Wish> getFilteredEntryList() {
+        return model.getFilteredWishes();
     }
 
     @Override
