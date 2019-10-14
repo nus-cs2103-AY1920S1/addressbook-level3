@@ -15,6 +15,7 @@ public class Messages {
     public static final String MESSAGE_NOTHING_TO_UNDO = "Nothing to undo!";
     public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX = "The appointment index provided "
             + "is invalid";
+    public static final String MESSAGE_DUPLICATE_CHANGE = "the new date for a appointment has been used for other appointment";
     public static final String MESSAGE_NOT_PATIENTLIST = "current displaying appointment are not belong to the same patient\n"
             + "suggestion: appointments patinet_referenceID";
 

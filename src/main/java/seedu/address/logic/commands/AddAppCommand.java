@@ -26,8 +26,8 @@ public class AddAppCommand extends ReversibleCommand {
             + PREFIX_END + "PREFIX_EVENT \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "001A "
-            + PREFIX_START + "01/11/2019 1800 "
-            + PREFIX_END + "01/11/2019 1900";
+            + PREFIX_START + "01/11/19 1800 "
+            + PREFIX_END + "01/11/19 1900";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This appointment is already scheduled.";

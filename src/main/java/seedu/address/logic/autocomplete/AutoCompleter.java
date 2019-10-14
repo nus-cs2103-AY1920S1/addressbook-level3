@@ -29,7 +29,8 @@ public class AutoCompleter {
             "slot",
             "update",
             "undo",
-            "cancelappt"
+            "cancelappt",
+            "changeAppt"
     };
     private Trie trie = new Trie(SUPPORTED_COMMANDS);
     private String currentQuery;

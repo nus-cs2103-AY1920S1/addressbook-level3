@@ -89,6 +89,9 @@ public class AddressBookParser {
         case CancelAppCommand.COMMAND_WORD:
             return new CancelAppCommandParser().parse(arguments);
 
+        case ChangeAppCommand.COMMAND_WORD:
+            return new ChangeAppCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
