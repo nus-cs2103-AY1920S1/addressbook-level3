@@ -1,6 +1,7 @@
 package seedu.address.model.note;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 
@@ -63,7 +64,7 @@ public class NoteList {
      *
      * @return Summary of notes.
      */
-    public String getNoteList() {
+    public String getNoteSummary() {
         String summary = "There are currently " + notes.size() + " notes saved.\n"
                 + "Here is the list of notes:\n";
 
@@ -74,8 +75,11 @@ public class NoteList {
                 summary += "\n";
             }
         }
-
         return summary;
+    }
+
+    public List<Note> getNotes() {
+        return notes;
     }
 
 }

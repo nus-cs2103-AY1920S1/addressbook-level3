@@ -90,7 +90,6 @@ public class JsonUtil {
         serializeObjectToJsonFile(filePath, jsonFile);
     }
 
-
     /**
      * Converts a given string representation of a JSON data to instance of a class
      * @param <T> The generic type to create an instance of

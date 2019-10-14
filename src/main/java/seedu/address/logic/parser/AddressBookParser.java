@@ -17,10 +17,13 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.note.NoteAddCommand;
 import seedu.address.logic.commands.question.QuestionAddCommand;
+import seedu.address.logic.commands.quiz.QuizCommand;
 import seedu.address.logic.commands.student.StudentAddCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.note.NoteCommandParser;
 import seedu.address.logic.parser.question.QuestionCommandParser;
+import seedu.address.logic.parser.quiz.QuizCommandParser;
 import seedu.address.logic.parser.student.StudentCommandParser;
 
 /**
@@ -49,6 +52,9 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
+        case QuizCommand.COMMAND_WORD:
+            return new QuizCommandParser().parse(arguments);
 
         case QuestionAddCommand.COMMAND_WORD:
             return new QuestionCommandParser().parse(arguments);

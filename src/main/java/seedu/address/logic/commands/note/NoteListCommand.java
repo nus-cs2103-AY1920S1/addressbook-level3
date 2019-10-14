@@ -15,6 +15,6 @@ public class NoteListCommand extends NoteCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(model.getNoteList());
+        return new CommandResult(model.getNoteSummary());
     }
 }
