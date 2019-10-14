@@ -199,6 +199,21 @@ public class AddCommandTest {
         public void updateFilteredFlashCardList(Predicate<FlashCard> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void setDeadline(Deadline target, Deadline editedDeadline) {
+
+        }
+
+        @Override
+        public ObservableList<Deadline> getFilteredDeadlineList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredDeadlineList(Predicate<Deadline> predicate) {
+
+        }
     }
 
     /**

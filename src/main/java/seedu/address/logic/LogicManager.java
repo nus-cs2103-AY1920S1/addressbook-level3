@@ -14,6 +14,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.storage.Storage;
 
@@ -59,6 +60,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<FlashCard> getFilteredFlashCardList() {
         return model.getFilteredFlashCardList();
+    }
+
+    @Override
+    public ObservableList<Deadline> getFilteredDeadlineList() {
+        return model.getFilteredDeadlineList();
     }
 
     @Override

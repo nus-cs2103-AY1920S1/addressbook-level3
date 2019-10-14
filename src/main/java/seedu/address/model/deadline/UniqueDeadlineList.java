@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import seedu.address.model.deadline.exceptions.DuplicateDeadlineException;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
 
@@ -33,11 +34,42 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
 
 
     /**
+     * Returns true if the list contains an equivalent flashCard as the given argument.
+     */
+    public boolean contains(Deadline toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameDeadline);
+    }
+
+    /**
      * Adds a deadline to the list.
      */
     public void add(Deadline toAdd) {
         requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateDeadlineException();
+        }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Replaces the flashCard {@code target} in the list with {@code editedFlashCard}.
+     * {@code target} must exist in the list.
+     * The flashCard identity of {@code editedFlashCard} must not be the same as another existing flashCard in the list.
+     */
+    public void setDeadline(Deadline target, Deadline editedDeadline) {
+        requireAllNonNull(target, editedDeadline);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new FlashCardNotFoundException();
+        }
+
+        if (!target.isSameDeadline(editedDeadline) && contains(editedDeadline)) {
+            throw new DuplicateDeadlineException();
+        }
+
+        internalList.set(index, editedDeadline);
     }
 
     /**
@@ -60,8 +92,11 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
      * Replaces the contents of this list with {@code flashCards}.
      * {@code flashCards} must not contain duplicate flashCards.
      */
-    public void setDeadline(List<Deadline> deadlines) {
+    public void setDeadlines(List<Deadline> deadlines) {
         requireAllNonNull(deadlines);
+        if (!deadlinesAreUnique(deadlines)) {
+            throw new DuplicateDeadlineException();
+        }
         internalList.setAll(deadlines);
     }
 
@@ -89,4 +124,19 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         return internalList.hashCode();
     }
 
+
+    /**
+    /**
+     * Returns true if {@code flashCards} contains only unique flashCards.
+     */
+    private boolean deadlinesAreUnique(List<Deadline> deadlines) {
+        for (int i = 0; i < deadlines.size() - 1; i++) {
+            for (int j = i + 1; j < deadlines.size(); j++) {
+                if (deadlines.get(i).isSameDeadline(deadlines.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

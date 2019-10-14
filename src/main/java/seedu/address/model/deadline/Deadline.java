@@ -19,8 +19,8 @@ public class Deadline {
     //public static LocalDate localDate;
 
     // Identity fields
-    private static Task task;
-    private static DueDate dueDate;
+    private final Task task;
+    private final DueDate dueDate;
 
     public Deadline(Task task, DueDate dueDate) {
         requireAllNonNull(task, dueDate);
@@ -34,14 +34,6 @@ public class Deadline {
 
     public DueDate getDueDate() {
         return dueDate;
-    }
-
-    public void setTask(Task newTask) {
-        task = newTask;
-    }
-
-    public void setDueDate(DueDate newDate) {
-        dueDate = newDate;
     }
 
     /**

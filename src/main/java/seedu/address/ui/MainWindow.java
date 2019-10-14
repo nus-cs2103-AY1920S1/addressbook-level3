@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private FlashCardListPanel flashCardListPanel;
+//    private DeadlineListPanel deadlineListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CalendarWindow calendarWindow;
@@ -111,6 +112,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         flashCardListPanel = new FlashCardListPanel(logic.getFilteredFlashCardList());
         personListPanelPlaceholder.getChildren().add(flashCardListPanel.getRoot());
+
+//        deadlineListPanel = new DeadlineListPanel(logic.getFilteredFlashCardList());
+//        deadlinePanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

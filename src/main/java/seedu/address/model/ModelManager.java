@@ -104,21 +104,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addDeadline(Deadline deadline) {
-        addressBook.addDeadline(deadline);
-    }
-
-    @Override
-    public boolean hasDeadline(Deadline deadline) {
-        return false;
-    }
-
-    @Override
-    public void deleteDeadline(Deadline deadline) {
-        addressBook.removeDeadline(deadline);
-    }
-
-    @Override
     public void addFlashCard(FlashCard flashCard) {
         addressBook.addFlashcard(flashCard);
         updateFilteredFlashCardList(PREDICATE_SHOW_ALL_FLASHCARDS);
@@ -130,6 +115,30 @@ public class ModelManager implements Model {
 
         addressBook.setFlashcard(target, editedFlashCard);
     }
+
+    @Override
+    public void addDeadline(Deadline deadline) {
+        addressBook.addDeadline(deadline);
+        updateFilteredDeadlineList(PREDICATE_SHOW_ALL_DEADLINES);
+    }
+
+    @Override
+    public boolean hasDeadline(Deadline deadline) {
+        requireNonNull(deadline);
+        return addressBook.hasDeadline(deadline);
+    }
+
+    @Override
+    public void deleteDeadline(Deadline target) {
+        addressBook.removeDeadline(target);
+    }
+
+    @Override
+    public void setDeadline(Deadline target, Deadline editedDeadline) {
+        requireAllNonNull(target, editedDeadline);
+        addressBook.setDeadline(target, editedDeadline);
+    }
+
 
     //=========== Filtered FlashCard List Accessors =============================================================
 
@@ -148,6 +157,23 @@ public class ModelManager implements Model {
         filteredFlashCards.setPredicate(predicate);
     }
 
+    //=========== Filtered Deadline List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Deadline} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Deadline> getFilteredDeadlineList() {
+        return filteredDeadlines;
+    }
+
+    @Override
+    public void updateFilteredDeadlineList(Predicate<Deadline> predicate) {
+        requireNonNull(predicate);
+        filteredDeadlines.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -164,7 +190,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredFlashCards.equals(other.filteredFlashCards);
+                && filteredFlashCards.equals(other.filteredFlashCards)
+                && filteredDeadlines.equals(other.filteredDeadlines);
     }
 
 }
