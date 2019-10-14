@@ -76,4 +76,6 @@ public interface Model {
      * {@code transaction} must not already exist in the bank account.
      */
     void addTransaction(Transaction transaction);
+
+    ObservableList<Transaction> getTransactionList();
 }

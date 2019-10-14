@@ -6,6 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.transaction.Transaction;
@@ -18,6 +20,7 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
     private final BankAccount bankAccount;
+    private final FilteredList<Transaction> transactionList;
 
     /**
      * Initializes a ModelManager with the given bankAccount and userPrefs.
@@ -30,6 +33,7 @@ public class ModelManager implements Model {
 
         this.bankAccount = new BankAccount(bankAccount);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.transactionList = new FilteredList<>(bankAccount.getTransactionHistory());
     }
 
     public ModelManager() {
@@ -103,6 +107,11 @@ public class ModelManager implements Model {
     @Override
     public void addTransaction(Transaction transaction) {
         bankAccount.addTransaction(transaction);
+    }
+
+    @Override
+    public ObservableList<Transaction> getTransactionList() {
+        return transactionList;
     }
 
     @Override
