@@ -43,7 +43,7 @@ public class ViewFlashcardCommand extends Command {
         Flashcard flashcard = lastShownList.get(targetIndex.getZeroBased());
 
         return new CommandResult(String.format(VIEW_FLASHCARD_SUCCESS, flashcard), false, false,
-                false, Optional.empty(), Optional.of(flashcard));
+                false, Optional.empty(), Optional.of(flashcard), Optional.empty());
     }
 
     @Override

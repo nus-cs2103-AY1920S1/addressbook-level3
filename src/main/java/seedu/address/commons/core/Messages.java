@@ -16,5 +16,6 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX = "The flashcard index provided is invalid";
 
+    public static final String MESSAGE_INVALID_CHEATSHEET_DISPLAYED_INDEX = "The cheatsheet index provided is invalid";
 
 }

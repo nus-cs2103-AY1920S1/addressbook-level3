@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AddFlashcardCommand;
 import seedu.address.logic.commands.AddNoteCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCheatSheetCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteFlashcardCommand;
 import seedu.address.logic.commands.DeleteNoteCommand;
@@ -21,10 +22,12 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterByTagCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListCheatSheetCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListFlashcardCommand;
 import seedu.address.logic.commands.ListNoteCommand;
 import seedu.address.logic.commands.SwitchModeCommand;
+import seedu.address.logic.commands.ViewCheatSheetCommand;
 import seedu.address.logic.commands.ViewFlashcardCommand;
 import seedu.address.logic.commands.ViewNoteCommand;
 
@@ -53,7 +56,7 @@ public class AddressBookParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = (matcher.group("commandWord")).toLowerCase();
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
@@ -75,6 +78,9 @@ public class AddressBookParser {
         case DeleteNoteCommand.COMMAND_WORD:
             return new DeleteNoteCommandParser().parse(arguments);
 
+        case DeleteCheatSheetCommand.COMMAND_WORD:
+            return new DeleteCheatSheetCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -89,6 +95,9 @@ public class AddressBookParser {
 
         case ListNoteCommand.COMMAND_WORD:
             return new ListNoteCommand();
+
+        case ListCheatSheetCommand.COMMAND_WORD:
+            return new ListCheatSheetCommand();
 
         case DisplayTagsCommand.COMMAND_WORD:
             return new DisplayTagsCommand();
@@ -116,6 +125,9 @@ public class AddressBookParser {
 
         case ViewFlashcardCommand.COMMAND_WORD:
             return new ViewFlashcardCommandParser().parse(arguments);
+
+        case ViewCheatSheetCommand.COMMAND_WORD:
+            return new ViewCheatSheetCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
