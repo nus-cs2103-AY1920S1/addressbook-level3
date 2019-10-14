@@ -11,12 +11,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
 
 /**
  * Jackson-friendly version of {@link Book}.
@@ -74,7 +76,7 @@ public class JsonAdaptedBook {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted book.
      */
-    public Book toModelType() throws IllegalValueException {
+    public Book toModelType(ReadOnlyLoanRecords initialLoanRecords) throws IllegalValueException {
         final List<Genre> personGenres = new ArrayList<>();
         for (JsonAdaptedTag tag : genres) {
             personGenres.add(tag.toModelType());
@@ -101,11 +103,15 @@ public class JsonAdaptedBook {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Author.class.getSimpleName()));
         }
         final Author modelAuthor = new Author(author);
-        // TODO model Loan in book json
-        final Loan modelLoan = null; //stub as null until we decide how to store loan in json
 
-        // TODO modelLoan
-        //final Loan modelLoan = loan == null ? null :
+        final Loan modelLoan;
+        if (loan == null) {
+            modelLoan = null;
+        } else if (!LoanId.isValidLoanId(loan)) {
+            throw new IllegalValueException(LoanId.MESSAGE_CONSTRAINTS);
+        } else {
+            modelLoan = initialLoanRecords.getLoansMap().get(new LoanId(loan));
+        }
 
         final Set<Genre> modelGenres = new HashSet<>(personGenres);
         return new Book(modelTitle, modelSerialNumber, modelAuthor, modelLoan, modelGenres);

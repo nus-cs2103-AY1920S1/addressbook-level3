@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyCatalog;
+import seedu.address.model.ReadOnlyLoanRecords;
 
 /**
  * A class to access Catalog data stored as a json file on the hard disk.
@@ -32,17 +33,19 @@ public class JsonCatalogStorage implements CatalogStorage {
     }
 
     @Override
-    public Optional<ReadOnlyCatalog> readCatalog() throws DataConversionException {
-        return readCatalog(filePath);
+    public Optional<ReadOnlyCatalog> readCatalog(ReadOnlyLoanRecords initialLoanRecords)
+            throws DataConversionException {
+        return readCatalog(filePath, initialLoanRecords);
     }
 
     /**
-     * Similar to {@link #readCatalog()}.
+     * Similar to {@link #readCatalog(ReadOnlyLoanRecords)}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyCatalog> readCatalog(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyCatalog> readCatalog(Path filePath, ReadOnlyLoanRecords initialLoanRecords)
+            throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableCatalog> jsonCatalog = JsonUtil.readJsonFile(
@@ -52,7 +55,7 @@ public class JsonCatalogStorage implements CatalogStorage {
         }
 
         try {
-            return Optional.of(jsonCatalog.get().toModelType());
+            return Optional.of(jsonCatalog.get().toModelType(initialLoanRecords));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

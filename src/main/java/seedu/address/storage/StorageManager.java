@@ -92,14 +92,16 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyCatalog> readCatalog() throws DataConversionException, IOException {
-        return readCatalog(catalogStorage.getCatalogFilePath());
+    public Optional<ReadOnlyCatalog> readCatalog(ReadOnlyLoanRecords initialLoanRecords)
+            throws DataConversionException, IOException {
+        return readCatalog(catalogStorage.getCatalogFilePath(), initialLoanRecords);
     }
 
     @Override
-    public Optional<ReadOnlyCatalog> readCatalog(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCatalog> readCatalog(Path filePath, ReadOnlyLoanRecords initialLoanRecords)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return catalogStorage.readCatalog(filePath);
+        return catalogStorage.readCatalog(filePath, initialLoanRecords);
     }
 
     @Override

@@ -32,11 +32,21 @@ public class LoanRecords implements ReadOnlyLoanRecords {
     /**
      * Get all the Loan objects tracked by LoanRecords.
      *
-     * @return All the Loans in a {@Code Collection<Loan>}.
+     * @return All the Loans in a {@code Collection<Loan>}.
      */
     @Override
     public Collection<Loan> getLoanCollection() {
         return loansMap.values();
+    }
+
+    /**
+     * Get all the Loan objects tracked by LoanRecords.
+     *
+     * @return All the Loans in a {@code HashMap<LoanId, Loan>}.
+     */
+    @Override
+    public HashMap<LoanId, Loan> getLoansMap() {
+        return loansMap;
     }
 
     /**

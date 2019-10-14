@@ -45,7 +45,8 @@ public interface Storage extends UserPrefsStorage,
     Path getCatalogFilePath();
 
     @Override
-    Optional<ReadOnlyCatalog> readCatalog() throws DataConversionException, IOException;
+    Optional<ReadOnlyCatalog> readCatalog(ReadOnlyLoanRecords initialLoanRecords)
+            throws DataConversionException, IOException;
 
     @Override
     void saveCatalog(ReadOnlyCatalog catalog) throws IOException;
