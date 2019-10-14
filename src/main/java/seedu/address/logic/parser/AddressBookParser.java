@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddCheatSheetCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddFlashcardCommand;
 import seedu.address.logic.commands.AddNoteCommand;
@@ -14,8 +15,10 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteFlashcardCommand;
 import seedu.address.logic.commands.DeleteNoteCommand;
+import seedu.address.logic.commands.DisplayTagsCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterByTagCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -60,6 +63,9 @@ public class AddressBookParser {
         case AddNoteCommand.COMMAND_WORD:
             return new AddNoteCommandParser().parse(arguments);
 
+        case AddCheatSheetCommand.COMMAND_WORD:
+            return new AddCheatSheetCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
@@ -83,6 +89,12 @@ public class AddressBookParser {
 
         case ListNoteCommand.COMMAND_WORD:
             return new ListNoteCommand();
+
+        case DisplayTagsCommand.COMMAND_WORD:
+            return new DisplayTagsCommand();
+
+        case FilterByTagCommand.COMMAND_WORD:
+            return new FilterByTagCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -18,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -92,6 +93,7 @@ public class AddressBookTest {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Flashcard> flashcards = FXCollections.observableArrayList();
         private final ObservableList<Note> notes = FXCollections.observableArrayList();
+        private final ObservableList<CheatSheet> cheatSheets = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons, Collection<Flashcard> flashcards) {
             this.persons.setAll(persons);
@@ -102,6 +104,12 @@ public class AddressBookTest {
         public ObservableList<Person> getPersonList() {
             return persons;
         }
+
+        @Override
+        public ObservableList<CheatSheet> getCheatSheetList() {
+            return cheatSheets;
+        }
+
 
         @Override
         public ObservableList<Flashcard> getFlashcardList() {

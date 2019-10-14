@@ -18,18 +18,33 @@ import seedu.address.model.ReadOnlyCheatSheetBook;
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
  */
-public class JsonAddressBookStorage implements AddressBookStorage {
+public class JsonStudyBuddyStorage implements AddressBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonStudyBuddyStorage.class);
 
     private Path filePath;
+    private Path cheatSheetFilePath;
 
-    public JsonAddressBookStorage(Path filePath) {
+    public JsonStudyBuddyStorage(Path filePath) {
         this.filePath = filePath;
+    }
+
+    /**
+     * New constructor to now take in 2 filepaths, one for each mode
+     * @param filePath
+     * @param cheatSheetFilePath
+     */
+    public JsonStudyBuddyStorage(Path filePath, Path cheatSheetFilePath) {
+        this.filePath = filePath;
+        this.cheatSheetFilePath = cheatSheetFilePath;
     }
 
     public Path getAddressBookFilePath() {
         return filePath;
+    }
+
+    public Path getCheatSheetFilePath() {
+        return cheatSheetFilePath;
     }
 
     @Override
@@ -78,10 +93,21 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
 
-    //==============cheatsheet tools
-    @Override
-    public Path getCheatSheetFilePath() {
-        return this.filePath;
+    /**
+     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     */
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath, Path cheatSheetFilePath)
+            throws IOException {
+        requireNonNull(addressBook);
+        requireNonNull(filePath);
+        requireNonNull(cheatSheetFilePath);
+
+        FileUtil.createIfMissing(filePath);
+        FileUtil.createIfMissing(cheatSheetFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), cheatSheetFilePath);
     }
 
     @Override
@@ -97,7 +123,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
     @Override
     public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException {
-        saveCheatSheetBook(cheatSheetBook, filePath);
+        saveCheatSheetBook(cheatSheetBook, cheatSheetFilePath);
     }
 
     @Override
