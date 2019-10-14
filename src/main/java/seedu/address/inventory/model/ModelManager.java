@@ -25,7 +25,7 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
+    //@Override
     public InventoryList getInventoryList() {
         return this.inventoryList;
     }
@@ -70,7 +70,7 @@ public class ModelManager implements Model {
         storage.writeFile(inventoryList);
     }
 
-    @Override
+    //@Override
     public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
         if (inventoryList.getOriginalItem(description).getQuantity() > quantity) {
             return false;
@@ -79,7 +79,6 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
     public void updateIndexes() throws NoSuchIndexException {
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.get(i);
@@ -87,17 +86,14 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
     public void sortByDescription() {
         inventoryList.sortByDescription();
     }
 
-    @Override
     public void sortByCategory() {
         inventoryList.sortByCategory();
     }
 
-    @Override
     public void sortByQuantity() {
         inventoryList.sortByQuantity();
     }
