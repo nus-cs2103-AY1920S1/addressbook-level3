@@ -2,6 +2,9 @@ package seedu.savenus.model.wallet;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import seedu.savenus.commons.core.Messages;
+import seedu.savenus.logic.commands.exceptions.CommandException;
+import seedu.savenus.model.food.Price;
 
 /**
  * Represents a user's Wallet in the application.
@@ -61,8 +64,16 @@ public class Wallet {
      * Set {@code remainingBudget} with user's input.
      * @param newRemainingBudget New {@code RemainingBudget} created from user's input
      */
-    public final void setRemainingBudget(RemainingBudget newRemainingBudget) {
+    public void setRemainingBudget(RemainingBudget newRemainingBudget) {
         remainingBudget.setRemainingBudget(newRemainingBudget);
+    }
+
+    /**
+     * Overloaded method to allow setting with budget amount string.
+     * @param newRemainingBudgetString New {@code RemainingBudget} string
+     */
+    public void setRemainingBudget(String newRemainingBudgetString) {
+        setRemainingBudget(new RemainingBudget(newRemainingBudgetString));
     }
 
     /**
@@ -94,12 +105,27 @@ public class Wallet {
         daysToExpire.setDaysToExpire(newDaysToExpire);
     }
 
-
     /**
      * Update number of days left with respect to current time.
      */
     public void updateDaysToExpire() {
         daysToExpire.updateDaysToExpire();
+    }
+
+    public void pay(Price price) throws CommandException {
+        // Check whether wallet has enough funds
+        if (price.toDouble() > getRemainingBudgetAmount()) {
+            throw new CommandException(Messages.MESSAGE_INSUFFICIENT_FUNDS);
+        } else {
+            // Since remainingBudgetAmount and price are guaranteed to be valid since instantiation,
+            // no additional checks needed here, but subtraction is done in cents to avoid floating point precision loss
+            // Price will range from 0 to
+            long remainingBudgetInCents = (long) Math.floor(getRemainingBudgetAmount() * 100)
+                    - (long) Math.floor(price.toDouble() * 100);
+            setRemainingBudget(new RemainingBudget(
+                    remainingBudgetInCents / 100 + "."
+                            + (remainingBudgetInCents % 100 == 0 ? remainingBudgetInCents % 100 : "00")));
+        }
     }
 
     @Override

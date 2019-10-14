@@ -16,7 +16,7 @@ public class RemainingBudget {
     public static final String FLOATING_POINT_CONSTRAINTS =
             "Due to Floating Point limitations, "
             + "this application will not accept Budget Amounts higher than 1 million dollars";
-    public static final String VALIDATION_REGEX = "((0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
+    public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
 
     private final DoubleProperty remainingBudgetProperty;
 
