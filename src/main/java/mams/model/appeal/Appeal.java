@@ -10,22 +10,6 @@ import mams.commons.util.CollectionUtil;
  */
 public class Appeal {
 
-    //Identity fields
-    private final String appealId;
-    private final String appealType;
-    private final String studentId;
-    private final String academicYear;
-    private final int studentWorkload;
-    private final String appealDescription;
-    private final String previousModule;
-    private final String newModule;
-    private final String moduleToAdd;
-    private final String moduleToDrop;
-    private final boolean resolved;
-    private final String result;
-    private final String remark;
-    private boolean isModified;
-
     public static final String MESSAGE_CONSTRAINTS_APPEAL_ID =
             "Appeals should start with 'C' followed by a 6 digit number";
 
@@ -42,6 +26,22 @@ public class Appeal {
      */
     public static final String MESSAGE_CONSTRAINTS_ACADEMIC_YEAR =
             "Academic year should start with AY";
+    //Identity fields
+    private final String appealId;
+    private final String appealType;
+    private final String studentId;
+    private final String academicYear;
+    private final int studentWorkload;
+    private final String appealDescription;
+    private final String previousModule;
+    private final String newModule;
+    private final String moduleToAdd;
+    private final String moduleToDrop;
+    private final boolean resolved;
+    private final String result;
+    private final String remark;
+    private boolean isModified;
+
 
     /**
      * Returns true if a given string is a valid appeal Id.
@@ -49,10 +49,6 @@ public class Appeal {
     public static boolean isValidAppealId(String test) {
         return test.matches(VALIDATION_REGEX_APPEAL_CODE);
     }
-
-
-
-
 
     /**
      * Returns true if given string is of correct type
@@ -62,7 +58,6 @@ public class Appeal {
                 || test.equalsIgnoreCase("add module")
                 || test.equalsIgnoreCase("remove module");
     }
-
 
     /**
      * Constructor for Appeal object when it is loaded from file
