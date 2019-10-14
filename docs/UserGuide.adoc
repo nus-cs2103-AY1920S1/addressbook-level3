@@ -93,13 +93,25 @@ Edits the name of the 2nd problem to be `permutations` and clears all existing t
 ==== Locating problems by name: `find`
 
 Finds problems whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...`
 
-* The search is case insensitive. e.g `henz` will match `Henz`
-* The order of the keywords does not matter. e.g. `Henz Martin` will match `Martin Henz`
-* Only the name is searched.
-* Only full words will be matched e.g. `Hen` will not match `Henz`
-* Problems matching at least one keyword will be returned (i.e. `OR` search). e.g. `Henz Ben` will return `Henz Martin`, `Ben Leong`
+* Name
+** is case-insensitive and is matched by words. e.g. `henz` will match `Henz`
+** is matched word by word. e.g. `hello` will match `hello world` but not `helloworld`
+** is considered a match as long as one word matches. e.g. `Henz Ben` matches both `Martin Henz` and `Ben Leong`
+* Author requires an exact match.
+* Description
+** is case-insensitive
+** is matched word by word
+** is considered as a match only when the problem's description includes all words in the constraint. e.g. `wordA wordB` matches `wordC wordB wordA` not `wordD wordA`
+* Source requires an exact match.
+* Tag
+** Constraints are separated by spaces. (e.g. `find t/Recursion Brute-Force` will display all problems with both tag `Recursion` and `Brute-Force`)
+** Constraint tag set is a subset of matching problems. (e.g. `find t/Recursion Brute-Force` will match problem with tags `Recursion`+`Brute-Force`+`Playful` but not `Recursion`+`Adhoc`)
+** Tags are considered equal only when the tag strings are exactly matched.
+* Difficulty
+** matches problems with `LOWER_BOUND <= difficulty <= UPPER_BOUND`
+** Note that you should provide both bounds. If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`
 
 Examples:
 

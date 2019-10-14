@@ -41,6 +41,7 @@ public class TypicalProblems {
         .withRemark(VALID_REMARK_QUICK_SORT)
         .withSource(VALID_SOURCE_QUICK_SORT)
         .withDifficulty(VALID_DIFFICULTY_QUICK_SORT)
+        .withTags("Sorting", "Recursion", "Basics")
         .build();
     public static final Problem TWO_SUM = new ProblemBuilder()
         .withName(VALID_NAME_TWO_SUM)
