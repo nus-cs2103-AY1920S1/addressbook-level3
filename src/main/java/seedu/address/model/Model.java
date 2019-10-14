@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -76,4 +75,13 @@ public interface Model {
      * {@code transaction} must not already exist in the bank account.
      */
     void addTransaction(Transaction transaction);
+
+    /** Returns an unmodifiable view of the filtered transaction list */
+    ObservableList<Transaction> getFilteredTransactionList();
+
+    /**
+     * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTransactionList(Predicate<Transaction> predicate);
 }

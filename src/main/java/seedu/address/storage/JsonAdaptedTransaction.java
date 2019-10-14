@@ -83,7 +83,7 @@ class JsonAdaptedTransaction {
         Person person = this.peopleInvolved.toModelType();
 
         final Set<Tag> modelTags = new HashSet<>(transactionTags);
-        return new InTransaction(new Amount(Integer.parseInt(amount)), new Date(date)); //temporary return InTransaction to store transaction (should eventually return in or out transaction)
+        return new InTransaction(new Amount(Integer.parseInt(amount)), new Date()); //temporary return InTransaction to store transaction (should eventually return in or out transaction)
     }
 
 }
