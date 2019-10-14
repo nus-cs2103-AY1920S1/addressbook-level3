@@ -135,7 +135,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredGroceryItemList(Predicate<Food> predicate) {
+        public void updateFilteredGroceryItemList(Predicate<GroceryItem> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

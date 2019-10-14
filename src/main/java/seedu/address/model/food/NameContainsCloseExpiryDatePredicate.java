@@ -1,13 +1,14 @@
 package seedu.address.model.food;
 
-import seedu.address.commons.util.StringUtil;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.function.Predicate;
 
+/**
+ * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ */
 public class NameContainsCloseExpiryDatePredicate implements Predicate<GroceryItem> {
     private final int numberOfDays;
 
