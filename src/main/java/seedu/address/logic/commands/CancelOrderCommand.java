@@ -21,7 +21,7 @@ import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 
 /**
- * Deletes a customer identified using it's displayed index from the seller manager.
+ * Cancels an order identified using it's displayed index from the seller manager.
  */
 public class CancelOrderCommand extends Command {
 

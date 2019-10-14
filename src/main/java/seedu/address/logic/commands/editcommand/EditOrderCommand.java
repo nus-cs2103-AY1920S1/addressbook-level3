@@ -31,7 +31,7 @@ import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing order in the address book.
+ * Edits the details of an existing order in SML.
  */
 public class EditOrderCommand extends Command {
 
@@ -165,12 +165,9 @@ public class EditOrderCommand extends Command {
      * corresponding field value of the order.
      */
     public static class EditOrderDescriptor {
-        private UUID id;
         private Customer customer;
         private Phone phone;
         private Price price;
-        private Status status;
-        private Optional<Schedule> schedule;
         private Set<Tag> tags;
 
         public EditOrderDescriptor() {}
@@ -180,12 +177,9 @@ public class EditOrderCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
-            setId(toCopy.id);
             setCustomer(toCopy.customer);
             setPhone(toCopy.phone);
             setPrice(toCopy.price);
-            setStatus(toCopy.status);
-            setSchedule(toCopy.schedule);
             setTags(toCopy.tags);
         }
 
@@ -193,16 +187,7 @@ public class EditOrderCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(customer, phone, price, status, schedule, tags);
-        }
-
-        public void setId(UUID id) {
-            this.id = id;
-        }
-
-
-        public Optional<UUID> getId() {
-            return Optional.ofNullable(id);
+            return CollectionUtil.isAnyNonNull(customer, phone, price, tags);
         }
 
         public void setCustomer(Customer customer) {
@@ -228,23 +213,6 @@ public class EditOrderCommand extends Command {
         public Optional<Price> getPrice() {
             return Optional.ofNullable(price);
         }
-
-        public void setStatus(Status status) {
-            this.status = status;
-        }
-
-        public Optional<Status> getStatus() {
-            return Optional.ofNullable(status);
-        }
-
-        public void setSchedule(Optional<Schedule> schedule) {
-            this.schedule = schedule;
-        }
-
-        public Optional<Schedule> getSchedule() {
-            return this.schedule;
-        }
-
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -281,8 +249,6 @@ public class EditOrderCommand extends Command {
             return getCustomer().equals(e.getCustomer())
                     && getPhone().equals(e.getPhone())
                     && getPrice().equals(e.getPrice())
-                    && getStatus().equals(e.getStatus())
-                    && getSchedule().equals(e.getSchedule())
                     && getTags().equals(e.getTags());
         }
 
