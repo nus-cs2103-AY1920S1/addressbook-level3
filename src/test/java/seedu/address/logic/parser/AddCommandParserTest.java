@@ -1,14 +1,14 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_RUM;
+import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_RUM;
-import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
