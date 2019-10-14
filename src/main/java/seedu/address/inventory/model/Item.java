@@ -11,7 +11,9 @@ public class Item {
     private final String description;
     private int quantity;
     private final double cost;
+    private double totalCost;
     private double price;
+    private double totalPrice;
     private String id;
 
     /**
@@ -22,7 +24,9 @@ public class Item {
         this.category = category;
         this.quantity = quantity;
         this.cost = cost;
+        this.totalCost = quantity * cost;
         this.price = price;
+        this.totalPrice = quantity * price;
         this.id = "" + id;
     }
 
@@ -34,7 +38,9 @@ public class Item {
         this.category = category;
         this.quantity = quantity;
         this.cost = cost;
+        this.totalCost = quantity * cost;
         this.price = 0;
+        this.totalPrice = 0;
         this.id = "" + i;
     }
 
@@ -54,8 +60,16 @@ public class Item {
         return cost;
     }
 
+    public double getTotalCost() {
+        return totalCost;
+    }
+
     public double getPrice() {
         return price;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
     public void setPrice(double price) {
@@ -64,6 +78,15 @@ public class Item {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        updateSubtotal();
+    }
+
+    /**
+     * Updates the total cost and total price.
+     */
+    public void updateSubtotal() {
+        this.totalCost = this.cost * this.quantity;
+        this.totalPrice = this.price * this.quantity;
     }
 
     public String getId() {
@@ -79,8 +102,8 @@ public class Item {
      * @return a String containing the attributes of the Item.
      */
     public String toWriteIntoFile() {
-        String msg = " | " + this.description + " | " + this.category +
-                " | " + this.quantity + " | " + this.cost + " | " + this.price;
+        String msg = " | " + this.description + " | " + this.category
+                + " | " + this.quantity + " | " + this.cost + " | " + this.price;
         return msg;
     }
 
@@ -131,15 +154,19 @@ public class Item {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Description: ")
-                .append(getDescription())
+                .append(getDescription() + "\n")
                 .append(" Category: ")
-                .append(getCategory())
+                .append(getCategory() + "\n")
                 .append(" Quantity: ")
-                .append(getQuantity())
+                .append(getQuantity() + "\n")
                 .append(" Cost: ")
-                .append(getCost())
+                .append(getCost() + "\n")
+                .append(" Total Cost: ")
+                .append(getTotalCost() + "\n")
                 .append(" Price: ")
-                .append(getPrice());
+                .append(getPrice() + "\n")
+                .append(" Total Price: ")
+                .append(getTotalPrice() + "\n");
         return builder.toString();
     }
 }

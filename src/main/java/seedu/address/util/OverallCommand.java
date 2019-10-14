@@ -1,6 +1,7 @@
 package seedu.address.util;
 
 import java.io.IOException;
+
 import seedu.address.person.logic.commands.exceptions.CommandException;
 
 import seedu.address.transaction.commands.CommandResult;
@@ -8,6 +9,9 @@ import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 
+/**
+ * Interface for all Commands.
+ */
 public interface OverallCommand {
 
     /**
@@ -37,7 +41,8 @@ public interface OverallCommand {
     //for person
     seedu.address.person.logic.commands.CommandResult execute(seedu.address.person.model.Model model,
                                                               seedu.address.transaction.logic.Logic transactionLogic,
-                                                              seedu.address.reimbursement.logic.Logic reimbursementLogic,
+                                                              seedu.address.reimbursement.logic.Logic
+                                                                      reimbursementLogic,
                                                               seedu.address.cashier.logic.Logic cashierLogic)
             throws CommandException, IOException;
 }

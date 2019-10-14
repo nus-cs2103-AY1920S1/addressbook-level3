@@ -4,17 +4,43 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
 <AnchorPane fx:id="home" prefWidth="690.0" stylesheets="@Extensions.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-       <TableView fx:id="tableView" prefHeight="532.0">
-           <columns>
-               <TableColumn fx:id="idCol" prefWidth="36.00000059604645" text="ID" />
-               <TableColumn fx:id="descriptionCol" prefWidth="232.80003356933594" text="Description" />
-               <TableColumn fx:id="categoryCol" prefWidth="114.39996337890625" text="Category" />
-               <TableColumn fx:id="quantityCol" prefWidth="97.60000228881836" text="Quantity" />
-               <TableColumn fx:id="costCol" prefWidth="92.00003051757812" text="Cost" />
-               <TableColumn fx:id="priceCol" minWidth="0.0" prefWidth="108.00006103515625" text="Price" />
-           </columns>
-       </TableView>
+      <GridPane alignment="CENTER" layoutY="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="688.0" minWidth="10.0" prefWidth="677.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="243.0" minHeight="8.0" prefHeight="35.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="493.0" minHeight="10.0" prefHeight="467.0" valignment="CENTER" vgrow="ALWAYS" />
+        </rowConstraints>
+         <children>
+             <TableView fx:id="tableView" GridPane.rowIndex="1">
+                 <columns>
+                     <TableColumn fx:id="idCol" prefWidth="36.00000059604645" text="ID" />
+                     <TableColumn fx:id="descriptionCol" prefWidth="140.80003356933594" text="Description" />
+                     <TableColumn fx:id="categoryCol" prefWidth="114.39996337890625" text="Category" />
+                     <TableColumn fx:id="quantityCol" prefWidth="84.60000228881836" text="Quantity" />
+                     <TableColumn fx:id="costCol" prefWidth="67.50003051757812" text="Cost/Unit" />
+                     <TableColumn fx:id="totalCostCol" prefWidth="67.5" text="Total Cost" />
+                     <TableColumn fx:id="priceCol" minWidth="0.0" prefWidth="67.50006103515625" text="Price" />
+                     <TableColumn fx:id="totalPriceCol" prefWidth="80.5" text="Total Price" />
+                 </columns>
+                 <GridPane.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                 </GridPane.margin>
+             </TableView>
+            <ChoiceBox prefHeight="27.0" prefWidth="200.0">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>
