@@ -5,6 +5,9 @@ import seedu.address.logic.commands.GameCommand;
 import seedu.address.model.Model;
 import seedu.address.model.game.Game;
 
+/**
+ * Class that represents skipping over a word while Game is running.
+ */
 public class SkipCommand extends GameCommand {
     public static final String COMMAND_WORD = "skip";
     private static final String MESSAGE_SKIPPED = "Word skipped!";
@@ -23,7 +26,6 @@ public class SkipCommand extends GameCommand {
 
         // Skip current card, move to next card.
         game.moveToNextCard();
-
 
         if (!game.isOver()) {
             return new CommandResult(MESSAGE_SKIPPED

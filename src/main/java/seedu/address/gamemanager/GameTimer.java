@@ -38,7 +38,8 @@ public class GameTimer implements Runnable {
         this.timer = new Timer(true);
     }
 
-    public long getTimeLeft() {
+
+    public double getTimeLeft() {
         return currentMilliSeconds;
     }
 
@@ -54,25 +55,30 @@ public class GameTimer implements Runnable {
      * Starts the timer and updates the JavaFX UI periodically.
      * Runs on same thread as JavaFX UI.
      */
-    @Override
     public void run() {
         timer.schedule(new TimerTask() {
-            boolean cancelled = false;
-
-            @Override
+            private long timeLeft = currentMilliSeconds;
+            private boolean cancelled = false;
             public void run() {
                 Platform.runLater(() -> {
                     if (timeLeft >= 0) {
                         timerDisplayCallBack.updateTimerDisplay(
                                 mainMessage + ": " + ((double) timeLeft) / 1000, timeLeft);
                     } else {
+                        /* Guard block to prevent concurrency issues. Timer.cancel() has no
+                        * real time guarantee.
+                         */
                         if (cancelled) {
                             return;
                         }
                         cancelled = true;
 
                         timer.cancel();
+
+                        // Show Time is Up.
                         timerDisplayCallBack.updateTimerDisplay("Time's up!", timeLeft);
+
+                        // Makes a call-back to the mainWindow to execute a 'skip' command
                         try {
                             mainWindowExecuteCallBack.execute("skip");
                         } catch (ParseException e) {
@@ -81,7 +87,7 @@ public class GameTimer implements Runnable {
                             e.printStackTrace();
                         }
                     }
-                    timeLeft = timeLeft - 1;
+                    --timeLeft;
                 });
             }
         }, 0, 1); // Start timer immediately, and refresh every 1ms
@@ -91,5 +97,3 @@ public class GameTimer implements Runnable {
         return currentMilliSeconds - timeLeft;
     }
 }
-
-

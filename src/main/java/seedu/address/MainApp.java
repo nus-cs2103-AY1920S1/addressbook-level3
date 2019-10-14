@@ -89,7 +89,18 @@ public class MainApp extends Application {
         logic = new LogicManager(game, model, storage);
          */
         logic = new LogicManager(model, storage);
+
+        /*
+        Step 9.
+        Create GameManager using logic and pass to UIManager.
+         */
         gameManager = new GameManager(logic);
+
+        /*
+        Step 10
+        Initialize UIManager using GameManager
+         */
+
         ui = new UiManager(gameManager);
     }
 

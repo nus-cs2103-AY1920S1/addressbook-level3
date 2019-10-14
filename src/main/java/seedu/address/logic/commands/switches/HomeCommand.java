@@ -1,8 +1,8 @@
 package seedu.address.logic.commands.switches;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.ModeEnum;
+import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 

@@ -21,6 +21,8 @@ import seedu.address.stats.GameStatisticsBuilder;
  */
 public class GameManager {
 
+    public static final long TIMER_MILLIS = 3000;
+
     private Logic logic;
     private GameTimer gameTimer = null;
     private TimerDisplayCallBack timerDisplayCallBack = null;
@@ -39,7 +41,8 @@ public class GameManager {
     }
 
     private void setAndRunGameTimer() {
-        gameTimer = new GameTimer("Time Left", 5000,
+        // Amount of time for each word to be guessed is hardcoded at 2 seconds for now.
+        gameTimer = new GameTimer("Time Left", TIMER_MILLIS,
                 this.mainWindowExecuteCallBack,
                 this.timerDisplayCallBack);
         gameTimer.run();
@@ -65,6 +68,7 @@ public class GameManager {
     public CommandResult execute(String commandText) throws ParseException, CommandException {
         CommandResult commandResult = logic.execute(commandText);
 
+        // GameTimer is always abort when a new command is entered while Game is running.
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {

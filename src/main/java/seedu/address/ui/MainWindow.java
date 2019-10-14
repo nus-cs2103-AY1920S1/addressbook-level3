@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -12,11 +13,11 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.gamemanager.GameManager;
+import seedu.address.gamemanager.GameTimer;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.gamemanager.GameManager;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.gamemanager.GameTimer;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -86,6 +87,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -195,8 +197,10 @@ public class MainWindow extends UiPart<Stage> {
 
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandText.equals("home")) {
+            if (commandText.equals("list")) {
                 modularDisplay.swapToList(modularDisplayPlaceholder);
+            } else if (commandText.equals("help")) {
+                //modularDisplay.swapToBanks(modularDisplayPlaceholder);
             } else {
                 modularDisplay.swapToHome(modularDisplayPlaceholder);
             }
@@ -212,13 +216,16 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-
             resultDisplay.setFeedbackToUser(e.getMessage());
-
             throw e;
         }
     }
 
+    /**
+     * Updates the timerDisplay module of MainWindow to be called from GameTimer.
+     * @param timerMessage Message to be displayed on the TimerDisplay.
+     * @param timeLeft Time in milliseconds that is left in the current timer.
+     */
     private void updateTimerDisplay(String timerMessage, long timeLeft) {
         if (timeLeft <= 200) {
             this.timerDisplay.setAlertTextColour();

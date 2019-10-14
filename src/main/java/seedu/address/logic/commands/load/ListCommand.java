@@ -1,8 +1,7 @@
-package seedu.address.logic.commands.switchmode;
+package seedu.address.logic.commands.load;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.LoadCommand;
-import seedu.address.logic.commands.ModeEnum;
 import seedu.address.model.Model;
 
 /**

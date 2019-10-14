@@ -36,15 +36,14 @@ public class GuessCommand extends GameCommand {
         }
 
         if (model.getGame() == null) {
-            commandResult =  new CommandResult(MESSAGE_NO_ACTIVE_GAME);
+            commandResult = new CommandResult(MESSAGE_NO_ACTIVE_GAME);
         } else {
             int guessResult = model.getGame().makeGuess(inputGuess);
 
             if (guessResult == Game.CORRECT_GUESS) {
-                commandResult =  new CommandResult(MESSAGE_CORRECT_GUESS, true);
+                commandResult = new CommandResult(MESSAGE_CORRECT_GUESS, true);
             } else {
-                // guessResult == Game.WRONG_GUESS
-                commandResult =  new CommandResult(MESSAGE_WRONG_GUESS, true);
+                commandResult = new CommandResult(MESSAGE_WRONG_GUESS, true);
             }
         }
 

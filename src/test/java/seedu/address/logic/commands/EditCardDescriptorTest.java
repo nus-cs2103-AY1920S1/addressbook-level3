@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_WORD_BUTTERFREE
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.app.EditCommand;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 
 public class EditCardDescriptorTest {

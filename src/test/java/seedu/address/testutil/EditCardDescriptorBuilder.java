@@ -9,7 +9,6 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.Meaning;
 import seedu.address.model.card.Word;
 import seedu.address.model.tag.Tag;
-
 /**
  * A utility class to help with building EditCardDescriptor objects.
  */
