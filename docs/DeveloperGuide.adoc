@@ -474,23 +474,7 @@ Use case ends.
 * 2a. The user specifies no keywords in any fields.
 +
 [none]
-** 2a1. AlgoBase returns a list of all existing problems.
-+
-Use case ends.
-
-[none]
-* 2b. There is no problem that matches the user’s requirement.
-+
-[none]
-** 2b1. AlgoBase informs user there is no matching problem.
-+
-Use case ends.
-
-[none]
-* 2c. There is no existing problems stored in AlgoBase.
-+
-[none]
-** 2c1. AlgoBase informs user that there is currently no problems.
+** 2a1. AlgoBase informs user that at least one constraint should be provided.
 +
 Use case ends.
 
@@ -518,13 +502,6 @@ Use case ends.
 +
 Use case ends.
 
-[none]
-* 2b. There is no existing problems stored in AlgoBase.
-+
-[none]
-** 2b1. AlgoBase informs user that there is currently no problems.
-+
-Use case ends.
 
 [discrete]
 === Use Case 7: Switch between view of items.

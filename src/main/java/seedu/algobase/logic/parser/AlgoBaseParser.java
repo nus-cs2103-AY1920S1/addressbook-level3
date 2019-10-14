@@ -7,15 +7,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.algobase.logic.commands.AddCommand;
+import seedu.algobase.logic.commands.AddPlanCommand;
 import seedu.algobase.logic.commands.AddTaskCommand;
 import seedu.algobase.logic.commands.ClearCommand;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.DeleteCommand;
+import seedu.algobase.logic.commands.DeletePlanCommand;
 import seedu.algobase.logic.commands.EditCommand;
+import seedu.algobase.logic.commands.EditPlanCommand;
 import seedu.algobase.logic.commands.ExitCommand;
 import seedu.algobase.logic.commands.FindCommand;
+import seedu.algobase.logic.commands.FindPlanCommand;
 import seedu.algobase.logic.commands.HelpCommand;
 import seedu.algobase.logic.commands.ListCommand;
+import seedu.algobase.logic.commands.ListPlanCommand;
 import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.commands.SwitchCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
@@ -83,6 +88,21 @@ public class AlgoBaseParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddPlanCommand.COMMAND_WORD:
+            return new AddPlanCommandParser().parse(arguments);
+
+        case EditPlanCommand.COMMAND_WORD:
+            return new EditPlanCommandParser().parse(arguments);
+
+        case DeletePlanCommand.COMMAND_WORD:
+            return new DeletePlanCommandParser().parse(arguments);
+
+        case FindPlanCommand.COMMAND_WORD:
+            return new FindPlanCommandParser().parse(arguments);
+
+        case ListPlanCommand.COMMAND_WORD:
+            return new ListPlanCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

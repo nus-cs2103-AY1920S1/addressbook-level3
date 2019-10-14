@@ -17,34 +17,36 @@ import seedu.algobase.model.task.Task;
 public class Plan {
 
     // Identity fields
-    private final Name name;
+    private final PlanName planName;
 
     // Data fields
-    private final Description description;
+    private final PlanDescription planDescription;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final Set<Task> tasks;
 
+
     /**
      * Every field must be present and not null.
      */
-    public Plan(Name name, Description description, LocalDateTime startDate, LocalDateTime endDate,
+
+    public Plan(PlanName planName, PlanDescription planDescription, LocalDateTime startDate, LocalDateTime endDate,
                 Set<Task> tasks) {
-        requireAllNonNull(name, description, startDate, endDate, tasks);
-        this.name = name;
-        this.description = description;
+        requireAllNonNull(planName, planDescription, startDate, endDate, tasks);
+        this.planName = planName;
+        this.planDescription = planDescription;
         this.startDate = startDate;
         this.endDate = endDate;
         this.tasks = new HashSet<>();
         this.tasks.addAll(tasks);
     }
 
-    public Name getName() {
-        return name;
+    public PlanName getPlanName() {
+        return planName;
     }
 
-    public Description getDescription() {
-        return description;
+    public PlanDescription getPlanDescription() {
+        return planDescription;
     }
 
     public LocalDateTime getStartDate() {
@@ -56,7 +58,7 @@ public class Plan {
     }
 
     /**
-     * Returns an immutable problem set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable task set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Task> getTasks() {
@@ -64,7 +66,7 @@ public class Plan {
     }
 
     /**
-     * Returns true if both plans of the same name have at least one other identity field that is the same.
+     * Returns true if both plans of the same planName have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two plans.
      */
     public boolean isSamePlan(Plan otherPlan) {
@@ -73,7 +75,7 @@ public class Plan {
         }
 
         return otherPlan != null
-                && otherPlan.getName().equals(getName());
+                && otherPlan.getPlanName().equals(getPlanName());
     }
 
     /**
@@ -91,8 +93,8 @@ public class Plan {
         }
 
         Plan otherPlan = (Plan) other;
-        return otherPlan.getName().equals(getName())
-                && otherPlan.getDescription().equals(getDescription())
+        return otherPlan.getPlanName().equals(getPlanName())
+                && otherPlan.getPlanDescription().equals(getPlanDescription())
                 && otherPlan.getStartDate().equals(getStartDate())
                 && otherPlan.getEndDate().equals(getEndDate())
                 && otherPlan.getTasks().equals(getTasks());
@@ -101,15 +103,15 @@ public class Plan {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, tasks, startDate, endDate);
+        return Objects.hash(planName, planDescription, startDate, endDate, tasks);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getPlanName())
                 .append(" Description: ")
-                .append(getDescription())
+                .append(getPlanDescription())
                 .append(" Start Date: ")
                 .append(getStartDate())
                 .append(" End Date: ")
