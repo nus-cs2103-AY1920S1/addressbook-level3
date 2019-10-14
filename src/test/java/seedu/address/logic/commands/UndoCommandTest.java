@@ -25,7 +25,7 @@ class UndoCommandTest {
         Model expectedModel = TestUtil.getTypicalModelManager();
 
         UndoCommand undoCommand = new UndoCommand(history);
-        assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_NO_UNDO_HISTORY_ERROR);
+        assertCommandFailure(undoCommand, model, CommandHistory.MESSAGE_NO_UNDO_HISTORY_ERROR);
 
         String commandResultMessage = "cmd 1";
         history.addToCommandHistory(new ReversibleActionPairCommandStub(commandResultMessage));
