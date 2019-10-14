@@ -1,14 +1,13 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteRecipeCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteRecipeCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new DeleteRecipeCommand object
@@ -35,10 +34,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         final String arguments = matcher.group("arguments");
 
         switch (variant) {
-            case DeleteRecipeCommand.VARIANT_WORD:
-                return new DeleteRecipeCommandParser().parse(arguments);
-            default:
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        case DeleteRecipeCommand.VARIANT_WORD:
+            return new DeleteRecipeCommandParser().parse(arguments);
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
     }
 

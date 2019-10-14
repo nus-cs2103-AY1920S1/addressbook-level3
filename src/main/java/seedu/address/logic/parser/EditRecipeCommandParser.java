@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -36,7 +36,8 @@ public class EditRecipeCommandParser implements Parser<EditRecipeCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditRecipeCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditRecipeCommand.MESSAGE_USAGE), pe);
         }
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
@@ -44,7 +45,8 @@ public class EditRecipeCommandParser implements Parser<EditRecipeCommand> {
             editRecipeDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
 
-        parseIngredientsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT)).ifPresent(editRecipeDescriptor::setIngredients);
+        parseIngredientsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT))
+                .ifPresent(editRecipeDescriptor::setIngredients);
 
         if (!editRecipeDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditRecipeCommand.MESSAGE_NOT_EDITED);
@@ -65,7 +67,8 @@ public class EditRecipeCommandParser implements Parser<EditRecipeCommand> {
         if (ingredients.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> ingredientSet = ingredients.size() == 1 && ingredients.contains("") ? Collections.emptySet() : ingredients;
+        Collection<String> ingredientSet = ingredients.size() == 1 && ingredients.contains("")
+                ? Collections.emptySet() : ingredients;
         return Optional.of(ParserUtil.parseIngredients(ingredientSet));
     }
 

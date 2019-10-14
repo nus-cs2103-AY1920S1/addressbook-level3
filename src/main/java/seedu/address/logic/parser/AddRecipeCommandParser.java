@@ -1,15 +1,25 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CARBS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FATS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROTEIN;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddRecipeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.recipe.*;
+import seedu.address.model.recipe.Calories;
+import seedu.address.model.recipe.Carbs;
+import seedu.address.model.recipe.Fats;
 import seedu.address.model.recipe.Ingredient;
+import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Protein;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * Parses input arguments and creates a new AddRecipeCommand object

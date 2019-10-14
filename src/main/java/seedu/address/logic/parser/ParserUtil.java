@@ -9,8 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.recipe.*;
+import seedu.address.model.recipe.Calories;
+import seedu.address.model.recipe.Carbs;
+import seedu.address.model.recipe.Fats;
 import seedu.address.model.recipe.Ingredient;
+import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Protein;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

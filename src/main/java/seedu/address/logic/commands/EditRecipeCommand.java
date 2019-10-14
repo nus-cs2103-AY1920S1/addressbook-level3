@@ -1,7 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CARBS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FATS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROTEIN;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.Collections;
@@ -15,8 +20,13 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.recipe.Calories;
+import seedu.address.model.recipe.Carbs;
+import seedu.address.model.recipe.Fats;
 import seedu.address.model.recipe.Ingredient;
-import seedu.address.model.recipe.*;
+import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Protein;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * Edits the details of an existing recipe in Duke Cooks.
@@ -90,7 +100,8 @@ public class EditRecipeCommand extends EditCommand {
         Carbs updatedCarbs = editRecipeDescriptor.getCarbs().orElse(recipeToEdit.getCarbs());
         Fats updatedFats = editRecipeDescriptor.getFats().orElse(recipeToEdit.getFats());
         Protein updatedProtein = editRecipeDescriptor.getProtein().orElse(recipeToEdit.getProtein());
-        Set<Ingredient> updatedIngredients = editRecipeDescriptor.getIngredients().orElse(recipeToEdit.getIngredients());
+        Set<Ingredient> updatedIngredients = editRecipeDescriptor.getIngredients()
+                .orElse(recipeToEdit.getIngredients());
 
         return new Recipe(updatedName, updatedIngredients, updatedCalories, updatedCarbs, updatedFats, updatedProtein);
     }

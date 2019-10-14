@@ -10,8 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.recipe.*;
+import seedu.address.model.recipe.Calories;
+import seedu.address.model.recipe.Carbs;
+import seedu.address.model.recipe.Fats;
 import seedu.address.model.recipe.Ingredient;
+import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Protein;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * Jackson-friendly version of {@link Recipe}.
@@ -81,7 +86,8 @@ class JsonAdaptedRecipe {
         final Name modelName = new Name(name);
 
         if (calories == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Calories.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Calories.class.getSimpleName()));
         }
         if (!Calories.isValidCalories(calories)) {
             throw new IllegalValueException(Calories.MESSAGE_CONSTRAINTS);

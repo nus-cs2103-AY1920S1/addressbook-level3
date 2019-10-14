@@ -1,13 +1,13 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditRecipeCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditRecipeCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new EditRecipeCommand object
@@ -34,10 +34,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         final String arguments = matcher.group("arguments");
 
         switch (variant) {
-            case EditRecipeCommand.VARIANT_WORD:
-                return new EditRecipeCommandParser().parse(arguments);
-            default:
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        case EditRecipeCommand.VARIANT_WORD:
+            return new EditRecipeCommandParser().parse(arguments);
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
     }
 }

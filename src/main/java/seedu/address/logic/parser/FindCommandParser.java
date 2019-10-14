@@ -1,13 +1,13 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.FindRecipeCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindRecipeCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new FindRecipeCommand object
@@ -34,10 +34,10 @@ public class FindCommandParser implements Parser<FindCommand> {
         final String arguments = matcher.group("arguments");
 
         switch (variant) {
-            case FindRecipeCommand.VARIANT_WORD:
-                return new FindRecipeCommandParser().parse(arguments);
-            default:
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        case FindRecipeCommand.VARIANT_WORD:
+            return new FindRecipeCommandParser().parse(arguments);
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
     }
 

@@ -1,8 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CARBS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FATS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROTEIN;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -15,14 +19,22 @@ public class AddRecipeCommand extends AddCommand {
 
     public static final String VARIANT_WORD = "recipe";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to Duke Cooks. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to Duke Cooks. \n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + "[" + PREFIX_INGREDIENT + "INGREDIENT]...\n"
+            + PREFIX_INGREDIENT + "INGREDIENTS... "
+            + PREFIX_CALORIES + "CALORIES "
+            + PREFIX_CARBS + "CARBS "
+            + PREFIX_FATS + "FATS "
+            + PREFIX_PROTEIN + "PROTEIN\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Cheese Omelette "
             + PREFIX_INGREDIENT + "eggs "
-            + PREFIX_INGREDIENT + "cheese";
+            + PREFIX_INGREDIENT + "cheese "
+            + PREFIX_CALORIES + "358 "
+            + PREFIX_CARBS + "1 "
+            + PREFIX_FATS + "28 "
+            + PREFIX_PROTEIN + "21 ";
 
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This recipe already exists in Duke Cooks";

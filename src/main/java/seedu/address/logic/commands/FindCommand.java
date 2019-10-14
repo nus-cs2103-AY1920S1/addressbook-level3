@@ -1,11 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.model.Model;
-import seedu.address.model.recipe.NameContainsKeywordsPredicate;
-
-import static java.util.Objects.requireNonNull;
-
 /**
  * Finds and lists all persons in Duke Cooks whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
