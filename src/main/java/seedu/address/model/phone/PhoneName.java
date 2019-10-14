@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Phone's name in the SML.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhoneName(String)}
  */
-public class PhoneName implements Cloneable {
+public class PhoneName {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -55,11 +55,6 @@ public class PhoneName implements Cloneable {
     @Override
     public int hashCode() {
         return fullName.hashCode();
-    }
-
-    @Override
-    protected PhoneName clone() {
-        return new PhoneName(new String(fullName));
     }
 
 }

@@ -13,7 +13,7 @@ import seedu.address.model.tag.Tag;
  * Represents a Customer in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Customer implements Cloneable {
+public class Customer {
 
     // Identity fields
     private final CustomerName customerName;
@@ -88,13 +88,6 @@ public class Customer implements Cloneable {
                 && otherCustomer.getContactNumber().equals(getContactNumber())
                 && otherCustomer.getEmail().equals(getEmail())
                 && otherCustomer.getTags().equals(getTags());
-    }
-
-    @Override
-    public Object clone() {
-        Customer clone = new Customer((CustomerName) this.customerName.clone(),
-                (ContactNumber) this.contactNumber.clone(), (Email) this.email.clone(), this.getTags());
-        return clone;
     }
 
     @Override

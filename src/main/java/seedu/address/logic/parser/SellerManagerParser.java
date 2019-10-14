@@ -6,13 +6,16 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCustomerCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.SwitchCustomerPanelCommand;
 import seedu.address.logic.commands.SwitchOrderPanelCommand;
 import seedu.address.logic.commands.SwitchPhonePanelCommand;
 import seedu.address.logic.commands.SwitchSchedulePanelCommand;
+
+import seedu.address.logic.commands.addcommand.AddCustomerCommand;
+import seedu.address.logic.parser.addcommandparser.AddCustomerCommandParser;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

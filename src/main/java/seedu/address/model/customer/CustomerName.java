@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidCustomerName(String)}
  */
 
-public class CustomerName implements Cloneable {
+public class CustomerName {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -57,8 +57,4 @@ public class CustomerName implements Cloneable {
         return fullName.hashCode();
     }
 
-    @Override
-    protected Object clone() {
-        return new CustomerName(new String(fullName));
-    }
 }

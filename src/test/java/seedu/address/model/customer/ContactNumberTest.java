@@ -27,7 +27,7 @@ public class ContactNumberTest {
         // invalid contact numbers
         assertFalse(ContactNumber.isValidContactNumber("")); // empty string
         assertFalse(ContactNumber.isValidContactNumber(" ")); // spaces only
-        assertFalse(ContactNumber.isValidContactNumber("91")); // less than 3 numbers
+        assertFalse(ContactNumber.isValidContactNumber("1234567")); // less than 8 numbers
         assertFalse(ContactNumber.isValidContactNumber("phone")); // non-numeric
         assertFalse(ContactNumber.isValidContactNumber("9011p041")); // alphabets within digits
         assertFalse(ContactNumber.isValidContactNumber("9312 1534")); // spaces within digits
