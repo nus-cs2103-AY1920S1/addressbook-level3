@@ -31,6 +31,8 @@ public class BudgetCard extends UiPart<Region> {
     private Label description;
     @FXML
     private Label amount;
+    @FXML
+    private Label criterion;
 
     public BudgetCard(Budget budget, int displayedIndex) {
         super(FXML);
@@ -38,6 +40,7 @@ public class BudgetCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(budget.getDescription().toString());
         amount.setText(budget.getAmount().toString());
+        criterion.setText(budget.toCriterionString());
     }
 
     @Override
