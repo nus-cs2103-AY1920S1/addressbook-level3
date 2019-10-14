@@ -6,35 +6,37 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.groceryitem.Amount;
+import seedu.address.model.groceryitem.Food;
+import seedu.address.model.groceryitem.GroceryItem;
+import seedu.address.model.groceryitem.Name;
 import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"),
+    public static Food[] getSampleFoods() {
+        return new Food[] {
+            new Food(new Name("Alex Yeoh"), new Amount("300g"),
                 getTagSet("friends")),
-            new Person(new Name("Bernice Yu"),
+            new Food(new Name("Bernice Yu"), new Amount("300g"),
                 getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"),
+            new Food(new Name("Charlotte Oliveiro"), new Amount("300g"),
                 getTagSet("neighbours")),
-            new Person(new Name("David Li"),
+            new Food(new Name("David Li"), new Amount("300g"),
                 getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"),
+            new Food(new Name("Irfan Ibrahim"), new Amount("300g"),
                 getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"),
+            new Food(new Name("Roy Balakrishnan"), new Amount("300g"),
                 getTagSet("colleagues"))
         };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+        for (Food sampleFood : getSampleFoods()) {
+            sampleAb.addPerson((GroceryItem) sampleFood);
         }
         return sampleAb;
     }

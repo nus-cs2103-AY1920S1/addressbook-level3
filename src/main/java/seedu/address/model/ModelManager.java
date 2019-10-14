@@ -11,7 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.groceryitem.Food;
+import seedu.address.model.groceryitem.GroceryItem;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -19,22 +20,22 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final AddressBook groceryList;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<GroceryItem> filteredGroceryItems;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook groceryList, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(groceryList, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + groceryList + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.groceryList = new AddressBook(groceryList);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredGroceryItems = new FilteredList<GroceryItem>(this.groceryList.getPersonList());
     }
 
     public ModelManager() {
@@ -79,37 +80,41 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setGroceryList(ReadOnlyAddressBook groceryList) {
+        this.groceryList.resetData(groceryList);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyAddressBook getGroceryList() {
+        return groceryList;
+    }
+
+    /**
+     * Check if the in-memory model has the specified grocery item.
+     *
+     * @param food The grocery item
+     * @return Returns true if the model has the grocery item.
+     */
+    public boolean hasGroceryItem(GroceryItem food) {
+        requireNonNull(food);
+        return groceryList.hasPerson(food);
+    }
+
+    public void deleteGroceryItem(GroceryItem target) {
+        groceryList.removePerson(target);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public void addGroceryItem(GroceryItem food) {
+        groceryList.addPerson(food);
+        updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
+    public void setGroceryItem(GroceryItem target, GroceryItem editedFood) {
+        requireAllNonNull(target, editedFood);
 
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+        groceryList.setGroceryItem(target, editedFood);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -119,14 +124,14 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<GroceryItem> getFilteredGroceryItemList() {
+        return filteredGroceryItems;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredGroceryItemList(Predicate<Food> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredGroceryItems.setPredicate(predicate);
     }
 
     @Override
@@ -143,9 +148,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return groceryList.equals(other.groceryList)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredGroceryItems.equals(other.filteredGroceryItems);
     }
 
 }
