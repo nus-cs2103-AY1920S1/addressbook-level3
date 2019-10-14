@@ -45,7 +45,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Coffee&"; // '&' not allowed in names
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "911a"; // 'a' not allowed in amounts
-    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "13/13/2019"; // number > 12 not allowed in months
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "13/13/2019"; // invalid month
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "alcohol*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
