@@ -13,23 +13,23 @@ import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
-import seedu.address.ui.Ui;
-import seedu.address.ui.UiManager;
+import seedu.address.logic.calendar.Logic;
+import seedu.address.logic.calendar.LogicManager;
+import seedu.address.model.calendar.AddressBook;
+import seedu.address.model.calendar.Model;
+import seedu.address.model.calendar.ModelManager;
+import seedu.address.model.calendar.ReadOnlyAddressBook;
+import seedu.address.model.calendar.ReadOnlyUserPrefs;
+import seedu.address.model.calendar.UserPrefs;
+import seedu.address.model.calendar.util.SampleDataUtil;
+import seedu.address.storage.calendar.AddressBookStorage;
+import seedu.address.storage.calendar.JsonAddressBookStorage;
+import seedu.address.storage.calendar.JsonUserPrefsStorage;
+import seedu.address.storage.calendar.Storage;
+import seedu.address.storage.calendar.StorageManager;
+import seedu.address.storage.calendar.UserPrefsStorage;
+import seedu.address.ui.calendar.Ui;
+import seedu.address.ui.calendar.UiManager;
 
 /**
  * Runs the application.
@@ -38,13 +38,15 @@ public class MainApp extends Application {
 
     public static final Version VERSION = new Version(0, 6, 0, true);
 
+    private static Stage primary;
+    private static Config config;
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    protected Ui ui;
-    protected Logic logic;
     protected Storage storage;
     protected Model model;
-    protected Config config;
+    protected Logic logic;
+    protected Ui ui;
+
 
     @Override
     public void init() throws Exception {
@@ -167,6 +169,8 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        primary = primaryStage;
+
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
@@ -179,5 +183,13 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
+    }
+
+    public static Stage getPrimary() {
+        return primary;
+    }
+
+    public static Config getConfig() {
+        return config;
     }
 }
