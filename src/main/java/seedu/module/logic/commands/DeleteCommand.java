@@ -41,6 +41,7 @@ public class DeleteCommand extends Command {
 
         TrackedModule trackedModuleToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteModule(trackedModuleToDelete);
+        model.displayTrackedList();
         return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, trackedModuleToDelete));
     }
 

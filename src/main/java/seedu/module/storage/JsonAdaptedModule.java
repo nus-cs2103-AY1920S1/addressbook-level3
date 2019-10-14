@@ -1,9 +1,13 @@
 package seedu.module.storage;
 
+import java.util.Optional;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.module.commons.exceptions.IllegalValueException;
+import seedu.module.model.module.ArchivedModule;
+import seedu.module.model.module.ArchivedModuleList;
 import seedu.module.model.module.TrackedModule;
 
 /**
@@ -14,18 +18,13 @@ class JsonAdaptedModule {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";
 
     private final String moduleCode;
-    private final String title;
-    private final String description;
 
     /**
      * Constructs a {@code JsonAdaptedModule} with the given module details.
      */
     @JsonCreator
-    public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode, @JsonProperty("title") String title,
-                             @JsonProperty("description") String description) {
+    public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode) {
         this.moduleCode = moduleCode;
-        this.title = title;
-        this.description = description;
     }
 
     /**
@@ -33,8 +32,6 @@ class JsonAdaptedModule {
      */
     public JsonAdaptedModule(TrackedModule source) {
         moduleCode = source.getModuleCode();
-        title = source.getTitle();
-        description = source.getDescription();
     }
 
     /**
@@ -42,19 +39,21 @@ class JsonAdaptedModule {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted module.
      */
-    public TrackedModule toModelType() throws IllegalValueException {
+    public TrackedModule toModelType(ArchivedModuleList archivedModules) throws IllegalValueException {
         if (moduleCode == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "moduleCode"));
         }
 
-        if (title == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "title"));
+        Optional<ArchivedModule> archivedModule = archivedModules.asUnmodifiableObservableList()
+            .parallelStream()
+            .filter(a -> a.getModuleCode().equals(moduleCode))
+            .findFirst();
+
+        if (!archivedModule.isPresent()) {
+            throw new IllegalValueException(String.format("Archived Module %s not found", moduleCode));
         }
 
-        if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "description"));
-        }
-        return new TrackedModule(moduleCode, title, description);
+        return new TrackedModule(archivedModule.get());
     }
 
 }

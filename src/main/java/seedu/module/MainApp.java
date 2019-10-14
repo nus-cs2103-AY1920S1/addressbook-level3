@@ -17,12 +17,9 @@ import seedu.module.logic.Logic;
 import seedu.module.logic.LogicManager;
 import seedu.module.model.Model;
 import seedu.module.model.ModelManager;
-import seedu.module.model.ModuleBook;
+import seedu.module.model.ReadOnlyModuleBook;
 import seedu.module.model.ReadOnlyUserPrefs;
 import seedu.module.model.UserPrefs;
-import seedu.module.model.module.ArchivedModuleList;
-import seedu.module.model.util.SampleDataUtil;
-import seedu.module.storage.JsonArchivedModuleList;
 import seedu.module.storage.JsonModuleBookStorage;
 import seedu.module.storage.JsonUserPrefsStorage;
 import seedu.module.storage.ModuleBookStorage;
@@ -40,7 +37,6 @@ public class MainApp extends Application {
     public static final Version VERSION = new Version(0, 6, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
-    private static final String ARCHIVED_MODULES_RESOURCE_FILE_NAME = "data/archivedModules.json";
 
     protected Ui ui;
     protected Logic logic;
@@ -76,26 +72,7 @@ public class MainApp extends Application {
      * or an empty module book will be used instead if errors occur when reading {@code storage}'s module book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ModuleBook> moduleBookOptional;
-        ModuleBook initialData;
-
-        try {
-            moduleBookOptional = storage.readModuleBook();
-            if (!moduleBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample ModuleBook");
-            }
-            initialData = moduleBookOptional.orElseGet(SampleDataUtil::getSampleModuleBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ModuleBook");
-            initialData = new ModuleBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty ModuleBook");
-            initialData = new ModuleBook();
-        }
-
-        ArchivedModuleList archivedModules = JsonArchivedModuleList.readArchivedModules(
-            ARCHIVED_MODULES_RESOURCE_FILE_NAME);
-        initialData.setArchivedModules(archivedModules);
+        ReadOnlyModuleBook initialData = storage.readModuleBook();
 
         return new ModelManager(initialData, userPrefs);
     }

@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import seedu.module.commons.core.LogsCenter;
 import seedu.module.commons.exceptions.DataConversionException;
-import seedu.module.model.ModuleBook;
 import seedu.module.model.ReadOnlyModuleBook;
 import seedu.module.model.ReadOnlyUserPrefs;
 import seedu.module.model.UserPrefs;
@@ -54,12 +53,12 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ModuleBook> readModuleBook() throws DataConversionException, IOException {
+    public ReadOnlyModuleBook readModuleBook() {
         return readModuleBook(moduleBookStorage.getModuleBookFilePath());
     }
 
     @Override
-    public Optional<ModuleBook> readModuleBook(Path filePath) throws DataConversionException, IOException {
+    public ReadOnlyModuleBook readModuleBook(Path filePath) {
         logger.fine("Attempting to read data from file: " + filePath);
         return moduleBookStorage.readModuleBook(filePath);
     }

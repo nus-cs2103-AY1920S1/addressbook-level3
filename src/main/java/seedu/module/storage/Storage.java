@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.module.commons.exceptions.DataConversionException;
-import seedu.module.model.ModuleBook;
 import seedu.module.model.ReadOnlyModuleBook;
 import seedu.module.model.ReadOnlyUserPrefs;
 import seedu.module.model.UserPrefs;
@@ -25,7 +24,7 @@ public interface Storage extends ModuleBookStorage, UserPrefsStorage {
     Path getModuleBookFilePath();
 
     @Override
-    Optional<ModuleBook> readModuleBook() throws DataConversionException, IOException;
+    ReadOnlyModuleBook readModuleBook();
 
     @Override
     void saveModuleBook(ReadOnlyModuleBook moduleBook) throws IOException;

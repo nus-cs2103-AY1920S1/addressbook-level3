@@ -8,29 +8,25 @@ import java.util.Objects;
 public class TrackedModule implements Module {
 
     // Identity field
-    private final String moduleCode;
-    private final String title;
-    private final String description;
+    private final ArchivedModule archivedModule;
 
     /**
      * Every field must be present and not null.
      */
-    public TrackedModule(String moduleCode, String title, String description) {
-        this.moduleCode = moduleCode;
-        this.title = title;
-        this.description = description;
+    public TrackedModule(ArchivedModule archivedModule) {
+        this.archivedModule = archivedModule;
     }
 
     public String getModuleCode() {
-        return moduleCode;
+        return archivedModule.getModuleCode();
     }
 
     public String getTitle() {
-        return title;
+        return archivedModule.getTitle();
     }
 
     public String getDescription() {
-        return description;
+        return archivedModule.getDescription();
     }
 
     /**
@@ -69,7 +65,7 @@ public class TrackedModule implements Module {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moduleCode, title, description);
+        return Objects.hash(archivedModule);
     }
 
     @Override

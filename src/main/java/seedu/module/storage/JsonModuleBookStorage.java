@@ -14,6 +14,7 @@ import seedu.module.commons.util.FileUtil;
 import seedu.module.commons.util.JsonUtil;
 import seedu.module.model.ModuleBook;
 import seedu.module.model.ReadOnlyModuleBook;
+import seedu.module.model.module.ArchivedModuleList;
 
 /**
  * A class to access ModuleBook data stored as a json file on the hard disk.
@@ -21,6 +22,7 @@ import seedu.module.model.ReadOnlyModuleBook;
 public class JsonModuleBookStorage implements ModuleBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonModuleBookStorage.class);
+    private static final String ARCHIVED_MODULES_RESOURCE_FILE_NAME = "data/archivedModules.json";
 
     private Path filePath;
 
@@ -33,7 +35,7 @@ public class JsonModuleBookStorage implements ModuleBookStorage {
     }
 
     @Override
-    public Optional<ModuleBook> readModuleBook() throws DataConversionException {
+    public ReadOnlyModuleBook readModuleBook() {
         return readModuleBook(filePath);
     }
 
@@ -43,21 +45,33 @@ public class JsonModuleBookStorage implements ModuleBookStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ModuleBook> readModuleBook(Path filePath) throws DataConversionException {
+    public ReadOnlyModuleBook readModuleBook(Path filePath) {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableModuleBook> jsonModuleBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableModuleBook.class);
-        if (!jsonModuleBook.isPresent()) {
-            return Optional.empty();
-        }
+        ArchivedModuleList archivedModules = JsonArchivedModuleList.readArchivedModules(
+            ARCHIVED_MODULES_RESOURCE_FILE_NAME);
+        ModuleBook moduleBook;
 
         try {
-            return Optional.of(jsonModuleBook.get().toModelType());
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
+            Optional<JsonSerializableModuleBook> jsonModuleBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializableModuleBook.class);
+            if (!jsonModuleBook.isPresent()) {
+                throw new Exception();
+            }
+            moduleBook = jsonModuleBook.get().toModelType(archivedModules);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ModuleBook");
+            moduleBook = new ModuleBook(archivedModules);
+        } catch (IllegalValueException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ModuleBook");
+            moduleBook = new ModuleBook(archivedModules);
+        } catch (Exception e) {
+            //TODO Unique Exception
+            logger.warning("Data file not found. Will be starting with an empty ModuleBook");
+            moduleBook = new ModuleBook(archivedModules);
         }
+
+        return moduleBook;
     }
 
     @Override
