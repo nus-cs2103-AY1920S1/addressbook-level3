@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.cheatsheet.CheatSheet;
 
 /**
  * Interface for ReadOnlyCheatSheetBook
@@ -16,6 +16,6 @@ public interface ReadOnlyCheatSheetBook {
      * @return a cheatsheet list
      */
 
-    ObservableList<Person> getCheatSheetList();
+    ObservableList<CheatSheet> getCheatSheetList();
 
 }

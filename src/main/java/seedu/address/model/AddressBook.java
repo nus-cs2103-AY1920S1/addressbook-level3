@@ -129,6 +129,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         cheatSheets.add(cs);
     }
 
+    /**
+     * Deletes a cheatSheet to the cheatSheet book.
+     * The cheatSheet must already exist in the cheatSheet book.
+     */
+    public void deleteCheatSheet(CheatSheet cs) {
+        cheatSheets.remove(cs);
+    }
+
     @Override
     public ObservableList<CheatSheet> getCheatSheetList() {
         return cheatSheets.asUnmodifiableObservableList();

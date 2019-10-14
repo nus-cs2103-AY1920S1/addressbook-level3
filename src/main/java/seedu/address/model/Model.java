@@ -101,4 +101,10 @@ public interface Model {
 
     public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate);
 
+    /**
+     * Deletes the given cheatSheet.
+     * {@code cheatSheet} must exist in the cheatSheet book.
+     */
+    void deleteCheatSheet(CheatSheet cheatSheet);
+
 }

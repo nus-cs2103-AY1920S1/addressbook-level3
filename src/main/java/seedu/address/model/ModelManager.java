@@ -164,6 +164,11 @@ public class ModelManager implements Model {
         requireNonNull(cheatSheet);
         return addressBook.hasCheatSheet(cheatSheet);
     }
+
+    @Override
+    public void deleteCheatSheet(CheatSheet cheatSheet) {
+        addressBook.deleteCheatSheet(cheatSheet);
+    }
     //=========== Filtered CheatSheet List Accessors =============================================================
 
     /**

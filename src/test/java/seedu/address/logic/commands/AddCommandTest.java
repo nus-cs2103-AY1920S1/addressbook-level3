@@ -149,6 +149,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        //=============CheatSheet stuff===============================================
         @Override
         public boolean hasCheatSheet(CheatSheet cheatSheet) {
             throw new AssertionError("This method should not be called.");
@@ -166,6 +167,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCheatSheet(CheatSheet cheatSheet) {
             throw new AssertionError("This method should not be called.");
         }
     }
