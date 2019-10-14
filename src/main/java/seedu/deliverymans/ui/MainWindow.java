@@ -186,17 +186,19 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getContext() != null) {
                 switch(commandResult.getContext()) {
-                    case CUSTOMER:
-                        customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
-                        listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
-                        break;
-                    case RESTAURANT:
-                        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-                        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-                        break;
-                    case DELIVERYMEN:
+                case CUSTOMER:
+                    customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
+                    listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
+                    break;
+                case RESTAURANT:
+                    personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+                    listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+                    break;
+                case DELIVERYMEN:
 
-                        break;
+                    break;
+                default:
+
                 }
             }
 
