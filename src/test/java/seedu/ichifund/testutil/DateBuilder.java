@@ -5,6 +5,9 @@ import seedu.ichifund.model.date.Day;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 
+/**
+ * A utility class to help with building Date objects.
+ */
 public class DateBuilder {
     public static final String DEFAULT_DAY = "10";
     public static final String DEFAULT_MONTH = "1";
