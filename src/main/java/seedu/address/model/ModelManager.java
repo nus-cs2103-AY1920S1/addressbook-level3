@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<CheatSheet> filteredCheatSheets;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +37,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredCheatSheets = new FilteredList<>(this.addressBook.getCheatSheetList());
     }
 
     public ModelManager() {
@@ -148,4 +151,33 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    //===================CheatSheetBook============================================================
+
+    @Override
+    public void addCheatSheet(CheatSheet cheatSheet) {
+        addressBook.addCheatSheet(cheatSheet);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public boolean hasCheatSheet(CheatSheet cheatSheet) {
+        requireNonNull(cheatSheet);
+        return addressBook.hasCheatSheet(cheatSheet);
+    }
+    //=========== Filtered CheatSheet List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<CheatSheet> getFilteredCheatSheetList() {
+        return filteredCheatSheets;
+    }
+
+    @Override
+    public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate) {
+        requireNonNull(predicate);
+        filteredCheatSheets.setPredicate(predicate);
+    }
 }

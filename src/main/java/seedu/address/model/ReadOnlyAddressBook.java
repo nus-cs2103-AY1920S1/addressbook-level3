@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.person.Person;
 
 /**
@@ -14,4 +15,5 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
 
+    ObservableList<CheatSheet> getCheatSheetList();
 }

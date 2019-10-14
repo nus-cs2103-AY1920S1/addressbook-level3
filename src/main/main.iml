@@ -7,5 +7,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:win:11" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:win:11" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:win:11" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-fxml:win:11" level="project" />
   </component>
 </module>

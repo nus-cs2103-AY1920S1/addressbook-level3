@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCheatSheetBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -33,6 +34,7 @@ public class StorageManager implements Storage {
     public Path getUserPrefsFilePath() {
         return userPrefsStorage.getUserPrefsFilePath();
     }
+
 
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
@@ -74,4 +76,32 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ CheatSheet methods ==============================
+
+    @Override
+    public Path getCheatSheetFilePath() {
+        return addressBookStorage.getCheatSheetFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook() throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook(Path filePath)
+            throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException {
+        saveCheatSheetBook(cheatSheetBook, addressBookStorage.getCheatSheetFilePath());
+    }
+
+    @Override
+    public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        addressBookStorage.saveCheatSheetBook(cheatSheetBook, filePath);
+    }
 }
