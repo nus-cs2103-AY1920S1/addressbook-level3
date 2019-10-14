@@ -99,6 +99,6 @@ public class LogicManager implements Logic {
         return transactionStream
                 .filter(transaction -> transaction.getCategory().equals(category))
                 .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
-                .sum(); }
-
+                .sum();
+    }
 }
