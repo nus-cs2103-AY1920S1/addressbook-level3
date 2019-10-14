@@ -24,7 +24,6 @@ public class UiManager implements Ui {
 
     private Logic logic;
     private MainWindow mainWindow;
-    private BioWindow bioWindow;
 
     public UiManager(Logic logic) {
         super();
