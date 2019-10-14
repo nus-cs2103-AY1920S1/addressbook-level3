@@ -119,12 +119,14 @@ public class Wallet {
         } else {
             // Since remainingBudgetAmount and price are guaranteed to be valid since instantiation,
             // no additional checks needed here, but subtraction is done in cents to avoid floating point precision loss
-            // Price will range from 0 to
+            // Price will range from 0 to 500000 cents and budget amount will range from 0 to 100 000 000 cents
             long remainingBudgetInCents = (long) Math.floor(getRemainingBudgetAmount() * 100)
                     - (long) Math.floor(price.toDouble() * 100);
             setRemainingBudget(new RemainingBudget(
                     remainingBudgetInCents / 100 + "."
-                            + (remainingBudgetInCents % 100 == 0 ? remainingBudgetInCents % 100 : "00")));
+                            + ((remainingBudgetInCents % 100) < 10
+                                ? "0" + (remainingBudgetInCents % 100)
+                                : (remainingBudgetInCents % 100))));
         }
     }
 
