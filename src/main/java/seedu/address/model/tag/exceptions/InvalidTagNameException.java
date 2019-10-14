@@ -6,8 +6,8 @@ package seedu.address.model.tag.exceptions;
 
 public class InvalidTagNameException extends InvalidTagException {
 
-    public InvalidTagNameException() {
-        super("Operation would result in user-created tags with reserved names for default tags");
+    public InvalidTagNameException(String message) {
+        super(message);
     }
 
 }
