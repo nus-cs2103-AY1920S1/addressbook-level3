@@ -109,8 +109,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-//        personListPanel = new PersonListPanel(logic.getBankAccount());
-//        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        //personListPanel = new PersonListPanel(logic.getBankAccount());
+        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         ObservableList<Transaction> list = logic.getTransactionList();
         transactionListPanel = new TransactionListPanel(list);
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
