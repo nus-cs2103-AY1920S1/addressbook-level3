@@ -28,6 +28,7 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
@@ -388,6 +389,11 @@ public class ModelManager implements Model {
         personToGroupMappingList.deleteGroupFromMapping(groupId);
     }
 
+    @Override
+    public Role findRole(PersonId personId, GroupId groupId) {
+        return personToGroupMappingList.findRole(personId, groupId);
+    }
+
     //=========== UI Model =============================================================
 
     @Override
@@ -408,7 +414,7 @@ public class ModelManager implements Model {
     @Override
     public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type) {
         ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
-        WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, findPerson(name));
+        WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, findPerson(name), Role.emptyRole());
         weekSchedules.add(weekSchedule);
         DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
         updateDetailWindowDisplay(detailWindowDisplay);
@@ -417,12 +423,17 @@ public class ModelManager implements Model {
     @Override
     public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type) {
         Group group = groupList.findGroup(groupName);
+        GroupId groupId = group.getGroupId();
         GroupDisplay groupDisplay = new GroupDisplay(group);
         ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
         ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
         for (int i = 0; i < personIds.size(); i++) {
             Person person = findPerson(personIds.get(i));
-            WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person);
+            Role role = findRole(personIds.get(i), groupId);
+            if(role == null) {
+                role = Role.emptyRole();
+            }
+            WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person, role);
             weekSchedules.add(weekSchedule);
         }
         DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type, groupDisplay);

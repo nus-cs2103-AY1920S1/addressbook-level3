@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupId;
 import seedu.address.model.person.PersonId;
 
@@ -154,5 +155,21 @@ public class PersonToGroupMappingList {
     public ObservableList<PersonToGroupMapping> asUnmodifiableObservableList() {
         ObservableList<PersonToGroupMapping> observableList = FXCollections.observableArrayList(mappings);
         return FXCollections.unmodifiableObservableList(observableList);
+    }
+
+    /**
+     * Returns the role of the mapping.
+     *
+     * @param personId of the mapping
+     * @param groupId of the mapping
+     * @return Role
+     */
+    public Role findRole (PersonId personId, GroupId groupId) {
+        for(int i = 0; i < mappings.size(); i++) {
+            if(mappings.get(i).getGroupId().equals(groupId) && mappings.get(i).getPersonId().equals(personId)) {
+                return mappings.get(i).getRole();
+            }
+        }
+        return null;
     }
 }

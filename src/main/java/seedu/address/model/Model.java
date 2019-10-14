@@ -19,6 +19,7 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
@@ -226,6 +227,11 @@ public interface Model {
      * Deletes all mappings with GroupId.
      */
     void deleteGroupFromMapping(GroupId groupId);
+
+    /**
+     * Finds the role of the specified mapping.
+     */
+    Role findRole(PersonId personId, GroupId groupId);
 
     //=========== UI Model =============================================================
 

@@ -55,7 +55,7 @@ public class AddEventCommand extends Command {
         } else if (model.addEvent(name, event)) {
 
             // updates main window
-            model.updateDetailWindowDisplay(name, LocalDateTime.now(), DetailWindowDisplayType.EMPTY);
+            model.updateDetailWindowDisplay(name, LocalDateTime.now(), DetailWindowDisplayType.PERSON);
 
             // updates side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);

@@ -16,6 +16,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.GroupRemark;
+import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.NusModsShareLink;
@@ -190,6 +191,20 @@ public class ParserUtil {
         String trimmedRemark = remark.trim();
 
         return new Remark(trimmedRemark);
+    }
+
+    /**
+     * Parse a String role, and trims the String.
+     *
+     * @param role String to be trimmed
+     * @return Trimmed String
+     * @throws ParseException null
+     */
+    public static Role parseRole(String role) throws ParseException {
+        requireNonNull(role);
+        String trimmedRole = role.trim();
+
+        return new Role(trimmedRole);
     }
 
     /**

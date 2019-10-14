@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.group.GroupId;
 import seedu.address.model.mapping.PersonToGroupMapping;
+import seedu.address.model.mapping.Role;
 import seedu.address.model.person.PersonId;
 
 /**
@@ -16,16 +17,19 @@ public class JsonAdaptedMapping {
 
     private final String groupId;
     private final String personId;
+    private final String role;
 
     /**
      * Constructs a {@code JsonAdaptedMapping} with the given Mapping details.
      */
     @JsonCreator
     public JsonAdaptedMapping(@JsonProperty("groupId") String groupId,
-                              @JsonProperty("personId") String personId) {
+                              @JsonProperty("personId") String personId,
+                              @JsonProperty("role") String role) {
 
         this.groupId = groupId;
         this.personId = personId;
+        this.role = role;
     }
 
     /**
@@ -34,6 +38,7 @@ public class JsonAdaptedMapping {
     public JsonAdaptedMapping(PersonToGroupMapping source) {
         this.groupId = source.getGroupId().toString();
         this.personId = source.getPersonId().toString();
+        this.role = source.getRole().toString();
     }
 
     /**
@@ -54,7 +59,13 @@ public class JsonAdaptedMapping {
         }
         final PersonId modelPersonId = new PersonId(personId);
 
-        return new PersonToGroupMapping(modelPersonId, modelGroupId);
+        if(role == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Role.class.getSimpleName()));
+        }
+        final Role modelRole = new Role(role);
+
+        return new PersonToGroupMapping(modelPersonId, modelGroupId, modelRole);
     }
 
 

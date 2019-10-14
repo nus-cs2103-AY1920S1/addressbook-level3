@@ -9,10 +9,18 @@ import seedu.address.model.person.PersonId;
 public class PersonToGroupMapping {
     private final GroupId groupId;
     private final PersonId personId;
+    private final Role role;
 
     public PersonToGroupMapping(PersonId personId, GroupId groupId) {
         this.groupId = groupId;
         this.personId = personId;
+        this.role = Role.emptyRole();
+    }
+
+    public PersonToGroupMapping(PersonId personId, GroupId groupId, Role role) {
+        this.groupId = groupId;
+        this.personId = personId;
+        this.role = role;
     }
 
     public GroupId getGroupId() {
@@ -21,6 +29,10 @@ public class PersonToGroupMapping {
 
     public PersonId getPersonId() {
         return this.personId;
+    }
+
+    public Role getRole() {
+        return this.role;
     }
 
     /**
