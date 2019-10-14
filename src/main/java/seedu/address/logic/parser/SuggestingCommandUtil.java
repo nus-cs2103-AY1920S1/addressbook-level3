@@ -2,20 +2,7 @@ package seedu.address.logic.parser;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.AddEventCommand;
-import seedu.address.logic.commands.AddGroupCommand;
-import seedu.address.logic.commands.AddPersonCommand;
-import seedu.address.logic.commands.AddToGroupCommand;
-import seedu.address.logic.commands.DeleteGroupCommand;
-import seedu.address.logic.commands.DeletePersonCommand;
-import seedu.address.logic.commands.EditGroupCommand;
-import seedu.address.logic.commands.EditPersonCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindGroupCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.NusmodCommand;
-import seedu.address.logic.commands.ShowPersonCommand;
+import seedu.address.logic.commands.*;
 
 /**
  * Contains utility methods used for suggesting user commands in the *SuggestingCommandBox classes.
@@ -32,7 +19,7 @@ public class SuggestingCommandUtil {
             EditPersonCommand.COMMAND_WORD,
             FindGroupCommand.COMMAND_WORD,
             NusmodCommand.COMMAND_WORD,
-            ShowPersonCommand.COMMAND_WORD,
+            ShowCommand.COMMAND_WORD,
             ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
             ListCommand.COMMAND_WORD

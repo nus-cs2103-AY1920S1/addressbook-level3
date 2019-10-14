@@ -6,24 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddEventCommand;
-import seedu.address.logic.commands.AddGroupCommand;
-import seedu.address.logic.commands.AddPersonCommand;
-import seedu.address.logic.commands.AddToGroupCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteGroupCommand;
-import seedu.address.logic.commands.DeletePersonCommand;
-import seedu.address.logic.commands.EditGroupCommand;
-import seedu.address.logic.commands.EditPersonCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.ExportCommand;
-import seedu.address.logic.commands.FindGroupCommand;
-import seedu.address.logic.commands.FindPersonCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.NusmodCommand;
-import seedu.address.logic.commands.ScheduleCommand;
-import seedu.address.logic.commands.ShowPersonCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -95,7 +78,7 @@ public class AddressBookParser {
         case EditGroupCommand.COMMAND_WORD:
             return new EditGroupCommandParser().parse(arguments);
 
-        case ShowPersonCommand.COMMAND_WORD:
+        case ShowCommand.COMMAND_WORD:
             return new ShowCommandParser().parse(arguments);
 
         case ExportCommand.COMMAND_WORD:

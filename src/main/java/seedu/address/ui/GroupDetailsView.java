@@ -35,14 +35,11 @@ public class GroupDetailsView extends UiPart<Region> {
 
     public GroupDetailsView(DetailWindowDisplay detailWindowDisplay) {
         super(FXML);
-        ScheduleStub stub = new ScheduleStub();
-        ArrayList<WeekSchedule> schedules = new ArrayList<>(List.of(stub.getSchedule(),
-                stub.getSchedule(), stub.getSchedule()));
-        ArrayList<String> names = schedules.stream()
+        ArrayList<String> names = detailWindowDisplay.getWeekSchedules().stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getName().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
-        ArrayList<String> colors = ColorGenerator.generateColorList(names.size());
-        ScheduleView scheduleView = new ScheduleView(schedules, colors);
+        ArrayList<String> colors = ColorGenerator.generateColorList(detailWindowDisplay.getWeekSchedules().size());
+        ScheduleView scheduleView = new ScheduleView(detailWindowDisplay.getWeekSchedules(), colors);
         GroupDetailCard groupCard = new GroupDetailCard(detailWindowDisplay.getGroupDisplay());
         groupDetailCard.getChildren().add(groupCard.getRoot());
         groupMembersList.getChildren().add(new MemberList(names, colors).getRoot());
