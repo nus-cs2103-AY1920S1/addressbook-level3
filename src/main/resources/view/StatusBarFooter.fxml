@@ -3,10 +3,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 
 <GridPane styleClass="status-bar" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10" />
   </columnConstraints>
-  <Label fx:id="saveLocationStatus" />
+  <HBox>
+    <Label fx:id="saveLocationStatus" />
+    <Label fx:id="sessionDetails" alignment="CENTER_RIGHT"/>
+  </HBox>
 </GridPane>

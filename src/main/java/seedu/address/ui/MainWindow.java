@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private VehicleListPanel vehicleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -127,7 +128,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -150,6 +151,8 @@ public class MainWindow extends UiPart<Stage> {
      * Hides Vehicle & Incident Panels.
      */
     void initPreLogin() {
+        personListPanelPlaceholder.getParent().setVisible(true);
+        personListPanelPlaceholder.getParent().setManaged(true);
         incidentListPanelPlaceholder.getParent().setVisible(false);
         incidentListPanelPlaceholder.getParent().setManaged(false);
         vehicleListPanelPlaceholder.getParent().setVisible(false);
@@ -195,6 +198,8 @@ public class MainWindow extends UiPart<Stage> {
         incidentListPanelPlaceholder.getParent().setManaged(true);
         vehicleListPanelPlaceholder.getParent().setVisible(true);
         vehicleListPanelPlaceholder.getParent().setManaged(true);
+
+        statusBarFooter.setLoginDetails(logic.getSession());
     }
 
     public PersonListPanel getPersonListPanel() {
