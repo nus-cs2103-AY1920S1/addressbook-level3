@@ -82,6 +82,18 @@ public interface Model {
     void deleteDeadline(Deadline deadline);
 
     /**
+     * Updates the Statistics.
+     * type 0,1 & 2 to edit number of Good, Hard & Easy qns completed during the test.
+     */
+    void editStats(int type);
+
+    /**
+     * returns the Statistics.
+     * type 0,1 & 2 to edit number of Good, Hard & Easy qns completed during the test.
+     */
+    int[] getStats();
+
+    /**
      * Adds the given flashCard.
      * {@code flashCard} must not already exist in the address book.
      */

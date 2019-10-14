@@ -18,6 +18,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueFlashCardList flashCards;
     private final UniqueDeadlineList deadlines;
+    private final int[] stats;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -29,6 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         flashCards = new UniqueFlashCardList();
         deadlines = new UniqueDeadlineList();
+        stats = new int[3];                    //good,hard,easy
     }
 
     public AddressBook() {}
@@ -140,6 +142,20 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void removeDeadline(Deadline key) {
         deadlines.remove(key);
+    }
+
+    public void addGood(){
+        stats[0]++ ;
+    }
+    public void addHard(){
+        stats[1]++ ;
+    }
+    public void addEasy(){
+        stats[2]++ ;
+    }
+
+    public int[] getStats(){
+        return stats;
     }
 
 }
