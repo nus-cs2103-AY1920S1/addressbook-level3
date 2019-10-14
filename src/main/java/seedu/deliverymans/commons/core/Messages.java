@@ -11,5 +11,4 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_INVALID_SWITCH_CONTEXT = "The context to switch to is invalid";
     public static final String MESSAGE_ALREADY_IN_CONTEXT = "Already in %1$d context!";
-
 }
