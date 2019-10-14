@@ -1,16 +1,22 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import seedu.address.model.CustomerBook;
+import seedu.address.model.OrderBook;
 import seedu.address.model.PhoneBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.CustomerName;
 import seedu.address.model.customer.Email;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.Price;
+import seedu.address.model.order.Status;
 import seedu.address.model.phone.Brand;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Colour;
@@ -125,6 +131,50 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
+    }
+
+    public static Order[] getSampleOrders() {
+        return new Order[] {
+            new Order(UUID.randomUUID(),
+                   new Customer(new CustomerName("Charlotte Oliveiro"), new ContactNumber("93210283"),
+                        new Email("charlotte@example.com"), getTagSet("neighbours")),
+                   new Phone(new IdentityNumber("990003709954321"),
+                        new SerialNumber("28xa9q2ns"), new PhoneName("iPhone 11"), new Brand("Apple"),
+                        Capacity.SIZE_128GB, new Colour("Jet Black"), new Cost("$1100"),
+                        getTagSet("New")),
+                   new Price("$1000"),
+                   Status.UNSCHEDULED,
+                   Optional.empty(), getTagSet("Urgent")),
+            new Order(UUID.randomUUID(),
+                  new Customer(new CustomerName("Alex Yeoh"), new ContactNumber("87438807"),
+                        new Email("alexyeoh@example.com"), getTagSet("friends")),
+                  new Phone(new IdentityNumber("990001940227978"),
+                        new SerialNumber("1d27s9az"), new PhoneName("iPhone 8"), new Brand("Apple"),
+                        Capacity.SIZE_64GB, new Colour("White"), new Cost("$400"),
+                        getTagSet("Used")),
+                  new Price("$1500"),
+                  Status.UNSCHEDULED,
+                  Optional.empty(), getTagSet("New")),
+            new Order(UUID.randomUUID(),
+                  new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
+                        new Email("lidavid@example.com"), getTagSet("family")),
+                  new Phone(new IdentityNumber("352039075644270"),
+                        new SerialNumber("2ncs81ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
+                        Capacity.SIZE_256GB, new Colour("Black"), new Cost("$1000"),
+                        getTagSet("New")),
+                  new Price("$1200"),
+                  Status.UNSCHEDULED,
+                  Optional.empty(), getTagSet("New"))
+
+        };
+    }
+
+    public static ReadOnlyDataBook<Order> getSampleOrderBook() {
+        OrderBook sampleOrderBook = new OrderBook();
+        for (Order sampleOrder : getSampleOrders()) {
+            sampleOrderBook.addOrder(sampleOrder);
+        }
+        return sampleOrderBook;
     }
 
 }

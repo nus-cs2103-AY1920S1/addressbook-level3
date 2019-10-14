@@ -17,12 +17,12 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ScheduleBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.order.Order;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
@@ -98,7 +98,8 @@ public class MainApp extends Application {
 
         ReadOnlyDataBook<Customer> customerBook = SampleDataUtil.getSampleCustomerBook();
         ReadOnlyDataBook<Phone> phoneBook = SampleDataUtil.getSamplePhoneBook();
-        return new ModelManager(customerBook, phoneBook, new OrderBook(), new ScheduleBook(), userPrefs);
+        ReadOnlyDataBook<Order> orderBook = SampleDataUtil.getSampleOrderBook();
+        return new ModelManager(customerBook, phoneBook, orderBook, new ScheduleBook(), userPrefs);
 
     }
 
