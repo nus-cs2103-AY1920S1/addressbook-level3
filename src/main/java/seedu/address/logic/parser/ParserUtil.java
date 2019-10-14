@@ -345,16 +345,15 @@ public class ParserUtil {
             for (int index = 0; index < 3; index++) {
                 input[index] = Integer.parseInt(stringCalendar[index]);
                 //offset for month
-                if (index == 1) {
-                    input[index] -= 1;
-                }
             }
             localDateTime = LocalDateTime.of(input[0], input[1], input[2], 0, 0);
         } catch (NumberFormatException | DateTimeException e) {
             throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS);
         }
         //@@author
-        return new Calendar.Builder().setDate(input[0], input[1], input[2]).build();
+        //offset month as Calendar takes in 0-based month
+        int offsetMonth = input[1] -1 ;
+        return new Calendar.Builder().setDate(input[0], offsetMonth, input[2]).build();
     }
 
 }
