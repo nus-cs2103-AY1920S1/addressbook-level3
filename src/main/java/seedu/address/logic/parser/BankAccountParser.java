@@ -41,6 +41,8 @@ public class BankAccountParser {
         //    return new SplitCommand(arguments);
         case InCommand.COMMAND_WORD:
             return new InCommandParser().parse(arguments);
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
