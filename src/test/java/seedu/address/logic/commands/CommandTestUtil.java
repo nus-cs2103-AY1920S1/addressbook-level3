@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
@@ -27,6 +28,7 @@ public class CommandTestUtil {
 
     /* Task related names will be split into four categories: Finance and Publicity */
     public static final String VALID_TASK_NAME_FINANCE = "Review Project Budget";
+    public static final String VALID_MEMBER_NAME_FINANCE = "Gabriel Seow";
     public static final String VALID_TASK_NAME_PUBLICITY = "Build Project Website";
     public static final String VALID_TASK_STATUS_FINANCE = "unbegun";
     public static final String VALID_TASK_STATUS_PUBLICITY = "doing";
@@ -35,6 +37,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_URGENCY = "urgent";
 
     public static final String TASK_NAME_DESC_FINANCE = " " + PREFIX_TASK_NAME + VALID_TASK_NAME_FINANCE;
+    public static final String MEMBER_NAME_DESC_FINANCE = " " + PREFIX_MEMBER_NAME + VALID_MEMBER_NAME_FINANCE;
     public static final String TASK_NAME_DESC_PUBLICITY = " " + PREFIX_TASK_NAME + VALID_TASK_NAME_PUBLICITY;
     public static final String TASK_STATUS_DESC_FINANCE = " " + PREFIX_TASK_STATUS + VALID_TASK_STATUS_FINANCE;
     public static final String TASK_STATUS_DESC_PUBLICITY = " " + PREFIX_TASK_STATUS + VALID_TASK_STATUS_PUBLICITY;
