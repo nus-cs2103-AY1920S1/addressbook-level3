@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.net.ConnectException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -528,7 +529,7 @@ public class ModelManager implements Model {
             } catch (ModuleNotFoundException ex2) {
                 try {
                     module = NusModsApiParser.parseModule(new NusModsApi(acadYear).getModule(moduleCode));
-                } catch (ModuleNotFoundException ex3) {
+                } catch (ModuleNotFoundException | ConnectException ex3) {
                     throw new ModuleNotFoundException();
                 }
             }

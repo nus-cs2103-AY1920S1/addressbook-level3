@@ -116,7 +116,7 @@ public class ProcessVenues implements Serializable {
         return new ProcessVenues(venuesNusMods, gmapsRecognisedLocationList, venues);
     }
 
-    private ProcessVenues getVenuesJsonArray() {
+    private ProcessVenues getVenuesJsonArray() throws ConnectException {
         NusModsApi nusmodApi = new NusModsApi();
         JSONArray currVenuesNusMod = nusmodApi.getVenues("/1");
         return new ProcessVenues(currVenuesNusMod, gmapsRecognisedLocationList, venues);
