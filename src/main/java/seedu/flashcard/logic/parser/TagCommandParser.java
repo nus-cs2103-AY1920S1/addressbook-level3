@@ -16,6 +16,7 @@ public class TagCommandParser implements Parser {
      */
     @Override
     public TagCommand parse(String args) {
-        return null;
+        String[] parameters = args.split(" ", 2);
+        return new TagCommand(Integer.parseInt(parameters[0]), parameters[1]);
     }
 }
