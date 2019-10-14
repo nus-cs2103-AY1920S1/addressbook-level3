@@ -1,6 +1,10 @@
 package seedu.flashcard.logic.commands;
 
-import seedu.flashcard.model.FlashcardList;
+import static java.util.Objects.requireNonNull;
+
+import seedu.flashcard.commons.core.Messages;
+import seedu.flashcard.model.Model;
+import seedu.flashcard.model.flashcard.WordContainsKeywordsPredicate;
 
 /**
  * Command to find a flashcard based on some keywords in its questions or answer.
@@ -9,20 +13,29 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    // TODO: Specify the message of usage of add command.
-    //  This will be displayed to the user when the help command is called
-    public static final String MESSAGE_USAGE = "";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Find all flashcards whose words contain any of "
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example: " + COMMAND_WORD + " compact complete search";
 
-    private final String findMessage;
+    private final WordContainsKeywordsPredicate predicate;
 
-    public FindCommand(String findMessage) {
-        this.findMessage = findMessage;
+    public FindCommand(WordContainsKeywordsPredicate predicate) {
+        this.predicate = predicate;
     }
 
-    // TODO: implement the following execution method for add command, beware to generate a good command result.
-    // TODO: write corresponding tests to test out this execution methods.
     @Override
-    public CommandResult execute(FlashcardList flashcardList) {
-        return null;
+    public CommandResult execute(Model model) {
+        requireNonNull(model);
+        model.updateFilteredFlashcardList(predicate);
+        return new CommandResult(
+                String.format(Messages.MESSAGE_FLASHCARD_LISTED_OVERVIEW, model.getFilteredFlashcardList().size()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof FindCommand
+                && predicate.equals(((FindCommand) other).predicate));
     }
 }

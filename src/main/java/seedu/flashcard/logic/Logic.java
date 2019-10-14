@@ -6,6 +6,7 @@ import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.logic.commands.CommandResult;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 import seedu.flashcard.model.ReadOnlyFlashcardList;
+import seedu.flashcard.model.flashcard.Flashcard;
 
 import java.nio.file.Path;
 
@@ -31,6 +32,7 @@ public interface Logic {
 
     /**
      * Get an unmodifiable view of the filtered list of flashcards
+     * @return
      */
     ObservableList<Flashcard> getFilteredFlashcardList();
 

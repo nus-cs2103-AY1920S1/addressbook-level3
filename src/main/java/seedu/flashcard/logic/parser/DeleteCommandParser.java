@@ -1,31 +1,28 @@
 package seedu.flashcard.logic.parser;
 
-import static seedu.flashcard.commons.core.Messages.MESSAGE_PARSE_ERROR;
+import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.logic.commands.DeleteCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
-import seedu.flashcard.model.flashcard.CardId;
-
-
 
 /**
  * Parses input arguments to generate a {@Code DeleteCommand}
  */
-public class DeleteCommandParser implements Parser {
+public class DeleteCommandParser implements Parser<DeleteCommand> {
 
     /**
      * Parses the given context into a delete command
-     * @param userInput the input from the user
+     * @param args the input from the user
      * @return new delete command
      */
     @Override
-    public DeleteCommand parse(String userInput) throws ParseException {
+    public DeleteCommand parse(String args) throws ParseException {
         try {
-            int index = userInput.indexOf("/");
-            CardId id = new CardId(Integer.parseInt(userInput.substring(index + 2).trim()));
-            return new DeleteCommand(id);
-        } catch (IndexOutOfBoundsException e) {
-            throw new ParseException(MESSAGE_PARSE_ERROR);
+            Index index = ParserUtil.parseIndex(args);
+            return new DeleteCommand(index);
+        } catch (ParseException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), e);
         }
     }
 }
