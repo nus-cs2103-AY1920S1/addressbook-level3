@@ -1,0 +1,8 @@
+seedu.address.logic.parser.commandparsers.AddCommandParser
+seedu.address.logic.parser.commandparsers.ClearCommandParser
+seedu.address.logic.parser.commandparsers.DeleteCommandParser
+seedu.address.logic.parser.commandparsers.EditCommandParser
+seedu.address.logic.parser.commandparsers.ExitCommandParser
+seedu.address.logic.parser.commandparsers.FindCommandParser
+seedu.address.logic.parser.commandparsers.HelpCommandParser
+seedu.address.logic.parser.commandparsers.ListCommandParser

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -28,6 +29,13 @@ public class UniquePersonList implements Iterable<Person> {
     private final ObservableList<Person> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    public UniquePersonList() {}
+
+    public UniquePersonList(List<Person> toBeCopied) {
+        requireNonNull(toBeCopied);
+        setPersons(toBeCopied);
+    }
+
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
@@ -46,6 +54,29 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Retrieves a person from the list equivalent to the given person.
+     * @param toGet The equivalent person (identical attributes to the target person).
+     * @return The retrieved person.
+     * @throws PersonNotFoundException if person is not in the list.
+     */
+    public Person get(Person toGet) {
+        requireNonNull(toGet);
+
+        Person targetPerson = null;
+        for (Person person : internalUnmodifiableList) {
+            if (person.isSamePerson(targetPerson)) {
+                targetPerson = person;
+            }
+        }
+
+        if (targetPerson == null) {
+            throw new PersonNotFoundException();
+        }
+
+        return targetPerson;
     }
 
     /**
