@@ -1,0 +1,52 @@
+{
+  "ignoreGlobList": [
+    "**.adoc",
+    "collate**"
+  ],
+  "formats": [
+    "gradle",
+    "java",
+    "md",
+    "yml"
+  ],
+  "ignoreCommitList": [
+    ""
+  ],
+  "authors": [
+    {
+      "githubId": "EugeneTeu",
+      "displayName": "Eugene",
+      "authorNames": [
+        "Eugene"
+      ]
+    },
+    {
+      "githubId": "zhixianggg",
+      "displayName": "Zhi Xiang",
+      "authorNames": [
+        "Zhi Xiang"
+      ]
+    },
+    {
+      "githubId": "qiujiaaa",
+      "displayName": "Qiu Jia",
+      "authorNames": [
+        "Qiu Jia"
+      ]
+    },
+    {
+      "githubId": "uberSaiyan",
+      "displayName": "Wei Liang",
+      "authorNames": [
+        "Wei Liang"
+      ]
+    },
+    {
+      "githubId": "yeodonghan",
+      "displayName": "Dong Han",
+      "authorNames": [
+        "Dong Han"
+      ]
+    }
+  ]
+}
