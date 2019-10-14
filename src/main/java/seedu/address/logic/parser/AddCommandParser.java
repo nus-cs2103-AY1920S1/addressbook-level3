@@ -55,11 +55,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         final String arguments = matcher.group("arguments");
 
         switch(type) {
-        case AddDayCommand.NEXT_COMMAND_WORD:
+        case AddDayCommand.SECOND_COMMAND_WORD:
             return parseDay(arguments);
         case AddActivityCommand.SECOND_COMMAND_WORD:
             return parseActivity(arguments);
-        case AddContactCommand.NEXT_COMMAND_WORD:
+        case AddContactCommand.SECOND_COMMAND_WORD:
             return parsePerson(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
