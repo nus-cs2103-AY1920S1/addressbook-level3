@@ -13,7 +13,7 @@ import seedu.ichifund.model.transaction.TransactionType;
 public class TransactionBuilder {
 
     public static final String DEFAULT_AMOUNT = "20.45";
-    public static final String DEFAULT_DESCRIPTION = "Spiderman: Far From Home";
+    public static final String DEFAULT_DESCRIPTION = "Spiderman";
     public static final String DEFAULT_CATEGORY = "Entertainment";
     public static final String DEFAULT_DAY = "10";
     public static final String DEFAULT_MONTH = "1";
