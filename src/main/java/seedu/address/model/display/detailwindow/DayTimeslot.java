@@ -40,6 +40,14 @@ public class DayTimeslot {
         return venue;
     }
 
+    public boolean isClash(LocalTime time) {
+        if(time.isBefore(startTime) || time.isAfter(endTime)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @Override
     public String toString() {
         String output = "";
