@@ -70,5 +70,4 @@ public class StatsPayload {
         return display.toString();
     }
 
-
 }
