@@ -1,11 +1,14 @@
 package seedu.address.model.item;
 
+import java.util.Collection;
+
 import javafx.beans.property.ListPropertyBase;
 import seedu.address.commons.core.item.Item;
 
-import java.awt.*;
-import java.util.Collection;
-
+/**
+ * TODO: Make this javadoc prettier.
+ * An ActiveReminderList that extends from ListPropertyBase in order to be observable.
+ */
 public class ActiveRemindersList extends ListPropertyBase<Item> {
 
     public ActiveRemindersList (ReminderList reminderList) {
@@ -22,6 +25,7 @@ public class ActiveRemindersList extends ListPropertyBase<Item> {
         return null;
     }
 
+    /* TODO: Remove this method or find a use for it.
     public synchronized Item popReminder() {
         if(!isEmpty()) {
             return remove(0);
@@ -30,7 +34,13 @@ public class ActiveRemindersList extends ListPropertyBase<Item> {
             return null;
         }
     }
+    */
 
+    /**
+     * Adds a reminder to the ActiveRemindersList
+     *
+     * @param reminders Collection of reminders to be added to the list.
+     */
     public synchronized void addReminders(Collection<Item> reminders) {
         System.out.println("Starting to add.");
         for (Item item:reminders) {

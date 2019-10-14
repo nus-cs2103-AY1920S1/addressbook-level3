@@ -3,7 +3,6 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import javafx.beans.property.ListPropertyBase;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.exceptions.IllegalValueException;

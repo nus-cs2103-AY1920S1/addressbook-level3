@@ -4,17 +4,16 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ListPropertyBase;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
-import seedu.address.commons.core.item.Reminder;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.item.*;
+import seedu.address.model.item.ActiveRemindersList;
+import seedu.address.model.item.EventList;
+import seedu.address.model.item.ReminderList;
+import seedu.address.model.item.TaskList;
+import seedu.address.model.item.VisualizeList;
 
 /**
  * Represents the model for ELISA
