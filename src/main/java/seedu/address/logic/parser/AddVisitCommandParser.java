@@ -30,13 +30,11 @@ public class AddVisitCommandParser implements Parser<AddVisitCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
             // Take date from '/v' prefix or use current timing for report date.
-            date = argMultimap.getValue(PREFIX_VISIT)
-                    .orElse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            date = ParserUtil.parseVisitReport(argMultimap.getValue(PREFIX_VISIT)
+                    .orElse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddVisitCommand.MESSAGE_USAGE), ive);
         }
-
-        //String date = argMultimap.getValue(PREFIX_VISIT).orElse("");
 
         return new AddVisitCommand(index, date);
     }

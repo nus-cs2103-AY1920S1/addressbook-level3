@@ -13,6 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.VisitReport;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -122,4 +123,15 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static String parseVisitReport(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!VisitReport.isValidVisitDate(trimmedDate)) {
+            throw new ParseException(VisitReport.MESSAGE_CONSTRAINTS);
+        }
+        return trimmedDate;
+    }
 }
