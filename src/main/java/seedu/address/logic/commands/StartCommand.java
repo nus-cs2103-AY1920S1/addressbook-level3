@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.model.Model;
@@ -47,11 +46,8 @@ public class StartCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        // TODO: get the system to enter start mode, disable other commands except good/bad/end
-        addressBookParser.startTest();
-
-        // start stub
-        List<FlashCard> testList = new ArrayList<>();
+        // start stub TODO: to replace with actual deck classes
+        ArrayList<FlashCard> testList = new ArrayList<>();
         testList.add(new FlashCard(new Question("1+1"), new Answer("2"), new Rating("good"),
                 SampleDataUtil.getTagSet("test")));
         testList.add(new FlashCard(new Question("1+2"), new Answer("3"), new Rating("good"),
@@ -60,15 +56,14 @@ public class StartCommand extends Command {
                 SampleDataUtil.getTagSet("test")));
         // end stub
 
-        // TODO: integrate into GUI
-        for (FlashCard fc : testList) {
-            fc.getQuestion();
-            // TODO: await command response
-            fc.getAnswer();
+        model.initializeTestModel(testList);
+        if (!model.hasTestFlashCard()) {
+            return new CommandResult("Empty deck!");
         }
 
-        return new CommandResult(MESSAGE_START_TEST_SUCCESS);
-
+        addressBookParser.startTest();
+        String question = model.getTestQuestion();
+        return new CommandResult(MESSAGE_START_TEST_SUCCESS + "\n" + question);
     }
 
     @Override

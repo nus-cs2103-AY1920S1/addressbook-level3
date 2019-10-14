@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.util.FlashCardTestModel;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,6 +26,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<FlashCard> filteredFlashCards;
     private final FilteredList<Deadline> filteredDeadlines;
+    private FlashCardTestModel flashCardTestModel;
 
 
     /**
@@ -148,6 +151,30 @@ public class ModelManager implements Model {
         filteredFlashCards.setPredicate(predicate);
     }
 
+    //@@author keiteo
+    //=========== FlashCardTestModel ================================================================================
+    @Override
+    public void initializeTestModel(ArrayList<FlashCard> testList) {
+        flashCardTestModel = new FlashCardTestModel(testList);
+    }
+
+    @Override
+    public boolean hasTestFlashCard() {
+        return !flashCardTestModel.isEmpty();
+    }
+
+    @Override
+    public String getTestQuestion() {
+        return flashCardTestModel.getQuestion();
+    }
+
+    @Override
+    public String getTestAnswer() {
+        return flashCardTestModel.getAnswer();
+    }
+
+
+    //@@author
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

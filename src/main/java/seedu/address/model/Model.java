@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -106,4 +107,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFlashCardList(Predicate<FlashCard> predicate);
+
+    //@@author keiteo
+    // TODO: replace arraylist with actual decks
+    void initializeTestModel(ArrayList<FlashCard> testList);
+
+    boolean hasTestFlashCard();
+
+    String getTestQuestion();
+
+    String getTestAnswer();
 }

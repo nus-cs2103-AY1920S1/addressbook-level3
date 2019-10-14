@@ -21,6 +21,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.commands.StatsCommand;
 
@@ -73,6 +74,8 @@ public class AddressBookParser {
         // TODO: add more commands for correct/wrong etc
         case EndTestCommand.COMMAND_WORD:
             return new EndTestCommand(this);
+        case ShowAnswerCommand.COMMAND_WORD:
+            return new ShowAnswerCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_TEST_COMMAND);
         }
