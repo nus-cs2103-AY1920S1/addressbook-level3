@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 public class GameStatistics {
-    private Map<Card, List<GameDataPoint>> data;
+    private final Map<Card, List<GameDataPoint>> data;
+    private final String title;
 
-    public GameStatistics() {
+    public GameStatistics(String title) {
+        this.title = title;
         data = new LinkedHashMap<>();
     }
 
@@ -22,6 +24,14 @@ public class GameStatistics {
             gameDataPointList.add(gameDataPoint);
             data.put(card, gameDataPointList);
         }
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Map<Card, List<GameDataPoint>> getData() {
+        return data;
     }
 
     @Override

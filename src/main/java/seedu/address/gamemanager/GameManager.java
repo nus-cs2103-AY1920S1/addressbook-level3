@@ -11,7 +11,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.game.GameCommandResult;
-import seedu.address.logic.commands.game.GuessCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.card.Card;
@@ -35,7 +34,7 @@ public class GameManager {
 
     public GameManager(Logic logic) {
         this.logic = logic;
-        gameStatistics = new GameStatistics();
+        gameStatistics = new GameStatistics("[DUMMY TITLE]"); // todo change to actual title
     }
 
     public void setGuiSettings(GuiSettings guiSettings) {
@@ -86,8 +85,12 @@ public class GameManager {
             // todo clear the timer display
         }
 
-        System.out.println(gameStatistics);
+
         return commandResult;
+    }
+
+    public GameStatistics getGameStatistics() {
+        return gameStatistics;
     }
 
     public ObservableList<Card> getFilteredPersonList() {
