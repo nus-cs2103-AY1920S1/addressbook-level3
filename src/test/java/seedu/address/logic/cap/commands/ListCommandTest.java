@@ -1,4 +1,4 @@
-package seedu.address.logic.cap.commands;//package seedu.address.logic.calendar.commands;
+//package seedu.address.logic.cap.commands;;
 //
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
