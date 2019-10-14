@@ -9,10 +9,10 @@ import seedu.address.model.Model;
  * Toggles between the different functions of the StudyBuddy app.
  */
 public class SwitchModeCommand extends Command {
-   public static final String COMMAND_WORD = "switch";
+    public static final String COMMAND_WORD = "switch";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches between the respective functions and" +
-            " commands available.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches between the respective functions and"
+            + " commands available.\n"
             + "Parameters: MODE ABBREVIATION\n"
             + "Example: " + COMMAND_WORD + " fc / cs / notes";
 

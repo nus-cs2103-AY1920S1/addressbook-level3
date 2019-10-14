@@ -218,6 +218,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Switches the list of available commands based on the function that the user wants to use.
+     * @param targetMode Function mode that user wants to switch to
+     */
     private void toggleModeTo (FunctionMode targetMode) {
         deselectCircle(currentHighlightedCircle);
         switch (targetMode) {

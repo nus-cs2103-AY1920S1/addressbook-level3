@@ -37,7 +37,7 @@ public class SwitchModeCommandParser implements Parser<SwitchModeCommand> {
             return new SwitchModeCommand(FunctionMode.NOTES);
 
         default:
-           throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchModeCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchModeCommand.MESSAGE_USAGE));
         }
     }
 }
