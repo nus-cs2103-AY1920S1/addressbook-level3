@@ -31,6 +31,8 @@ public class LogicManager implements Logic {
         this.storage = storage;
         this.model = model;
         addressBookParser = new AddressBookParser();
+        //Spawn new thread
+        //Run checker
     }
 
     @Override
