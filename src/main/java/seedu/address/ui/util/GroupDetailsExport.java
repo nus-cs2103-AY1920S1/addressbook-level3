@@ -1,7 +1,6 @@
 package seedu.address.ui.util;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
@@ -34,8 +33,7 @@ public class GroupDetailsExport extends UiPart<Region> {
     public GroupDetailsExport(DetailWindowDisplay detailWindowDisplay) {
         super(FXML);
         ScheduleStub stub = new ScheduleStub();
-        ArrayList<WeekSchedule> schedules = new ArrayList<>(List.of(stub.getSchedule(),
-                stub.getSchedule(), stub.getSchedule()));
+        ArrayList<WeekSchedule> schedules = detailWindowDisplay.getWeekSchedules();
         ArrayList<String> names = schedules.stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getName().toString())
                 .collect(Collectors.toCollection(ArrayList::new));

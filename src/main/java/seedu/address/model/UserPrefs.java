@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 
 /**
@@ -13,9 +14,14 @@ import seedu.address.commons.core.GuiSettings;
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
 
+    private AppSettings appSettings = new AppSettings();
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data", "addressbook.json");
     private Path timeBookFilePath = Paths.get("data", "timebook.json");
+    private Path condensedModuleListFilePath = Paths.get("data", "condensed_module_list.json");
+    private Path detailedModuleListFilePath = Paths.get("data", "detailed_module_list.json");
+    private Path academicCalendarFilePath = Paths.get("data", "academic_calendar.json");
+    private Path holidaysFilePath = Paths.get("data", "holidays.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,8 +42,17 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      */
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
+        setAppSettings(newUserPrefs.getAppSettings());
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+    }
+
+    public AppSettings getAppSettings() {
+        return appSettings;
+    }
+
+    public void setAppSettings(AppSettings appSettings) {
+        this.appSettings = appSettings;
     }
 
     public GuiSettings getGuiSettings() {
@@ -67,6 +82,38 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.timeBookFilePath = timeBookFilePath;
     }
 
+    public Path getCondensedModuleListFilePath() {
+        return condensedModuleListFilePath;
+    }
+
+    public void setCondensedModuleListFilePath(Path condensedModuleListFilePath) {
+        this.condensedModuleListFilePath = condensedModuleListFilePath;
+    }
+
+    public Path getDetailedModuleListFilePath() {
+        return detailedModuleListFilePath;
+    }
+
+    public void setDetailedModuleListFilePath(Path detailedModuleListFilePath) {
+        this.detailedModuleListFilePath = detailedModuleListFilePath;
+    }
+
+    public Path getAcademicCalendarFilePath() {
+        return academicCalendarFilePath;
+    }
+
+    public void setAcademicCalendarFilePath(Path academicCalendarFilePath) {
+        this.academicCalendarFilePath = academicCalendarFilePath;
+    }
+
+    public Path getHolidaysFilePath() {
+        return holidaysFilePath;
+    }
+
+    public void setHolidaysFilePath(Path holidaysFilePath) {
+        this.holidaysFilePath = holidaysFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -78,20 +125,34 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         UserPrefs o = (UserPrefs) other;
 
-        return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+        return appSettings.equals(o.appSettings)
+                && guiSettings.equals(o.guiSettings)
+                && addressBookFilePath.equals(o.addressBookFilePath)
+                && timeBookFilePath.equals(o.timeBookFilePath)
+                && condensedModuleListFilePath.equals(o.condensedModuleListFilePath)
+                && detailedModuleListFilePath.equals(o.detailedModuleListFilePath)
+                && academicCalendarFilePath.equals(o.academicCalendarFilePath)
+                && holidaysFilePath.equals(o.holidaysFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(appSettings, guiSettings, addressBookFilePath,
+                timeBookFilePath, condensedModuleListFilePath, detailedModuleListFilePath,
+                academicCalendarFilePath, holidaysFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("App Settings : " + appSettings);
+        sb.append("\nGui Settings : " + guiSettings);
+        sb.append("\nAddressBook file location: " + addressBookFilePath);
+        sb.append("\nTimeBook file location : " + timeBookFilePath);
+        sb.append("\nCondensedModuleList file location : " + condensedModuleListFilePath);
+        sb.append("\nDetailedModuleList file location : " + detailedModuleListFilePath);
+        sb.append("\nAcademicCalendar file location : " + academicCalendarFilePath);
+        sb.append("\nHolidays file location : " + holidaysFilePath);
         return sb.toString();
     }
 
