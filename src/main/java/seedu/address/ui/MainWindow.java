@@ -198,7 +198,6 @@ public class MainWindow extends UiPart<Stage> {
         incidentListPanelPlaceholder.getParent().setManaged(true);
         vehicleListPanelPlaceholder.getParent().setVisible(true);
         vehicleListPanelPlaceholder.getParent().setManaged(true);
-
         statusBarFooter.setLoginDetails(logic.getSession());
     }
 
