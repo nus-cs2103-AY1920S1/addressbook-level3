@@ -101,7 +101,7 @@ public class UniqueEntityLists {
         } else if (target instanceof Body) {
             index = internalListBody.indexOf((Body) target);
         } else if (target instanceof Fridge) {
-          index = internalListFridge.indexOf((Fridge) target);
+            index = internalListFridge.indexOf((Fridge) target);
         } else {
             index = internalListPerson.indexOf((Person) target);
         }
@@ -114,7 +114,7 @@ public class UniqueEntityLists {
         } else if (editedEntity instanceof Body) {
             internalListBody.set(index, (Body) editedEntity);
         } else if (editedEntity instanceof Fridge) {
-          internalListFridge.set(index, (Fridge) editedEntity);
+            internalListFridge.set(index, (Fridge) editedEntity);
         } else {
             internalListPerson.set(index, (Person) editedEntity);
         }
