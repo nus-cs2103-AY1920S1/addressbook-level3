@@ -30,6 +30,7 @@ public class LogicManager implements Logic {
     public LogicManager(ItemModel model, Storage storage) {
         this.storage = storage;
         this.model = model;
+
         addressBookParser = new AddressBookParser(model.getElisaStateHistory());
     }
 
