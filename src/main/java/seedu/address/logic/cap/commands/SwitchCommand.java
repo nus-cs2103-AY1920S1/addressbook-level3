@@ -2,7 +2,7 @@ package seedu.address.logic.cap.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.SwitchOperation;
-import seedu.address.model.quiz.Model;
+import seedu.address.model.cap.Model;
 
 import static java.util.Objects.requireNonNull;
 

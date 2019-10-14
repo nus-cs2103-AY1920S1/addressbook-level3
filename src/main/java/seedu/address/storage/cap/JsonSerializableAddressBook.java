@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.calendar.AddressBook;
-import seedu.address.model.calendar.ReadOnlyAddressBook;
-import seedu.address.model.calendar.person.Person;
+import seedu.address.model.cap.AddressBook;
+import seedu.address.model.cap.ReadOnlyAddressBook;
+import seedu.address.model.cap.person.Person;
 
 import java.util.ArrayList;
 import java.util.List;

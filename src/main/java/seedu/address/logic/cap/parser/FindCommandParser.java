@@ -2,7 +2,7 @@ package seedu.address.logic.cap.parser;
 
 import seedu.address.logic.cap.commands.FindCommand;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.quiz.person.NameContainsKeywordsPredicate;
+import seedu.address.model.cap.person.NameContainsKeywordsPredicate;
 
 import java.util.Arrays;
 

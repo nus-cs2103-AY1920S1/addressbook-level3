@@ -3,8 +3,8 @@ package seedu.address.logic.cap.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
-import seedu.address.model.quiz.Model;
-import seedu.address.model.quiz.person.Person;
+import seedu.address.model.cap.Model;
+import seedu.address.model.cap.person.Person;
 
 import java.util.List;
 

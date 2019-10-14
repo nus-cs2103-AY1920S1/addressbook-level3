@@ -3,11 +3,11 @@ package seedu.address.logic.cap.parser;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.quiz.person.Address;
-import seedu.address.model.quiz.person.Email;
-import seedu.address.model.quiz.person.Name;
-import seedu.address.model.quiz.person.Phone;
-import seedu.address.model.quiz.tag.Tag;
+import seedu.address.model.cap.person.Address;
+import seedu.address.model.cap.person.Email;
+import seedu.address.model.cap.person.Name;
+import seedu.address.model.cap.person.Phone;
+import seedu.address.model.cap.tag.Tag;
 
 import java.util.Collection;
 import java.util.HashSet;

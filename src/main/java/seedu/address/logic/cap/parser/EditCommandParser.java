@@ -3,8 +3,8 @@ package seedu.address.logic.cap.parser;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.cap.commands.EditCommand;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.logic.quiz.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.quiz.tag.Tag;
+import seedu.address.logic.cap.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.cap.tag.Tag;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,7 +13,7 @@ import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.quiz.parser.CliSyntax.*;
+import static seedu.address.logic.cap.parser.CliSyntax.*;
 
 
 /**

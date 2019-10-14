@@ -3,15 +3,16 @@ package seedu.address.logic.cap;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.cap.Logic;
 import seedu.address.logic.cap.commands.Command;
 import seedu.address.logic.cap.commands.CommandResult;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.logic.cap.parser.AddressBookParser;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.quiz.Model;
-import seedu.address.model.quiz.ReadOnlyAddressBook;
-import seedu.address.model.quiz.person.Person;
-import seedu.address.storage.quiz.Storage;
+import seedu.address.model.cap.Model;
+import seedu.address.model.cap.ReadOnlyAddressBook;
+import seedu.address.model.cap.person.Person;
+import seedu.address.storage.cap.Storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -21,15 +22,15 @@ import java.util.logging.Logger;
 /**
  * The main LogicManager of the app.
  */
-public class LogicQuizManager implements Logic {
+public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private final Logger logger = LogsCenter.getLogger(LogicQuizManager.class);
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 
-    public LogicQuizManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();

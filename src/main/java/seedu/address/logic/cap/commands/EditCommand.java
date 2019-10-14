@@ -4,15 +4,15 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
-import seedu.address.model.quiz.Model;
-import seedu.address.model.quiz.person.*;
-import seedu.address.model.quiz.tag.Tag;
+import seedu.address.model.cap.Model;
+import seedu.address.model.cap.person.*;
+import seedu.address.model.cap.tag.Tag;
 
 import java.util.*;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.quiz.parser.CliSyntax.*;
-import static seedu.address.model.quiz.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.logic.cap.parser.CliSyntax.*;
+import static seedu.address.model.cap.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 
 /**

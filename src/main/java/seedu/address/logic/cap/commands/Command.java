@@ -1,7 +1,7 @@
 package seedu.address.logic.cap.commands;
 
 import seedu.address.logic.cap.commands.exceptions.CommandException;
-import seedu.address.model.quiz.Model;
+import seedu.address.model.cap.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

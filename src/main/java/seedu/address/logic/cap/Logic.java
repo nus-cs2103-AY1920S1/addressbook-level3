@@ -5,8 +5,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.cap.commands.CommandResult;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.quiz.ReadOnlyAddressBook;
-import seedu.address.model.quiz.person.Person;
+import seedu.address.model.cap.ReadOnlyAddressBook;
+import seedu.address.model.cap.person.Person;
 
 import java.nio.file.Path;
 

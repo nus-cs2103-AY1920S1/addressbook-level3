@@ -1,6 +1,6 @@
 package seedu.address.logic.cap.commands;
 
-import seedu.address.model.quiz.Model;
+import seedu.address.model.cap.Model;
 
 /**
  * Terminates the program.

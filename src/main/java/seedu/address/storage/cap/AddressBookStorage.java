@@ -1,7 +1,7 @@
 package seedu.address.storage.cap;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.calendar.ReadOnlyAddressBook;
+import seedu.address.model.cap.ReadOnlyAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;

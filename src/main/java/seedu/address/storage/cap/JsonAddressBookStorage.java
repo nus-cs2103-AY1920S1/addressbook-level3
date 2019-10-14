@@ -5,7 +5,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.calendar.ReadOnlyAddressBook;
+import seedu.address.model.cap.ReadOnlyAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;

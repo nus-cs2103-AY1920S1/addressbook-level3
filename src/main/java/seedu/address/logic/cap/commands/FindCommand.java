@@ -1,8 +1,8 @@
 package seedu.address.logic.cap.commands;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.model.quiz.Model;
-import seedu.address.model.quiz.person.NameContainsKeywordsPredicate;
+import seedu.address.model.cap.Model;
+import seedu.address.model.cap.person.NameContainsKeywordsPredicate;
 
 import static java.util.Objects.requireNonNull;
 
