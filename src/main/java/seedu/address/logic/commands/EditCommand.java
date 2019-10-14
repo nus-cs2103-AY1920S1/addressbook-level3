@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.Collections;
@@ -16,9 +16,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing recipe in Duke Cooks.
@@ -32,7 +32,7 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_INGREDIENT + "INGREDIENT]...\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Recipe: %1$s";
@@ -83,9 +83,9 @@ public class EditCommand extends Command {
         assert recipeToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(recipeToEdit.getName());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(recipeToEdit.getTags());
+        Set<Ingredient> updatedIngredients = editPersonDescriptor.getIngredients().orElse(recipeToEdit.getIngredients());
 
-        return new Recipe(updatedName, updatedTags);
+        return new Recipe(updatedName, updatedIngredients);
     }
 
     @Override
@@ -112,24 +112,24 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
-        private Set<Tag> tags;
+        private Set<Ingredient> ingredients;
 
         public EditPersonDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code ingredients} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
-            setTags(toCopy.tags);
+            setIngredients(toCopy.ingredients);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, tags);
+            return CollectionUtil.isAnyNonNull(name, ingredients);
         }
 
         public void setName(Name name) {
@@ -142,20 +142,20 @@ public class EditCommand extends Command {
 
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
+         * Sets {@code ingredients} to this object's {@code ingredients}.
+         * A defensive copy of {@code ingredients} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setIngredients(Set<Ingredient> ingredients) {
+            this.ingredients = (ingredients != null) ? new HashSet<>(ingredients) : null;
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable ingredient set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
+         * Returns {@code Optional#empty()} if {@code ingredients} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<Ingredient>> getIngredients() {
+            return (ingredients != null) ? Optional.of(Collections.unmodifiableSet(ingredients)) : Optional.empty();
         }
 
         @Override
@@ -174,7 +174,7 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getTags().equals(e.getTags());
+                    && getIngredients().equals(e.getIngredients());
         }
     }
 }

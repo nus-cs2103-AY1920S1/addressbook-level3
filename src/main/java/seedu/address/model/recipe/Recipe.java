@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.ingredient.Ingredient;
 
 /**
  * Represents a Recipe in Duke Cooks.
@@ -19,15 +19,15 @@ public class Recipe {
     private final Name name;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Ingredient> ingredients = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Set<Tag> tags) {
-        requireAllNonNull(name, tags);
+    public Recipe(Name name, Set<Ingredient> ingredients) {
+        requireAllNonNull(name, ingredients);
         this.name = name;
-        this.tags.addAll(tags);
+        this.ingredients.addAll(ingredients);
     }
 
     public Name getName() {
@@ -36,11 +36,11 @@ public class Recipe {
 
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable ingredient set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Ingredient> getIngredients() {
+        return Collections.unmodifiableSet(ingredients);
     }
 
     /**
@@ -72,21 +72,21 @@ public class Recipe {
 
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName())
-                && otherRecipe.getTags().equals(getTags());
+                && otherRecipe.getIngredients().equals(getIngredients());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, tags);
+        return Objects.hash(name, ingredients);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Ingredients: ");
+        getIngredients().forEach(builder::append);
         return builder.toString();
     }
 

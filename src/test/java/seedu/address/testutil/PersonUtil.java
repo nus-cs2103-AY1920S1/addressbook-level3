@@ -1,14 +1,14 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.ingredient.Ingredient;
 
 /**
  * A utility class for Recipe.
@@ -28,8 +28,8 @@ public class PersonUtil {
     public static String getPersonDetails(Recipe recipe) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + recipe.getName().fullName + " ");
-        recipe.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        recipe.getIngredients().stream().forEach(
+            s -> sb.append(PREFIX_INGREDIENT + s.ingredientName + " ")
         );
         return sb.toString();
     }
@@ -40,12 +40,12 @@ public class PersonUtil {
     public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
+        if (descriptor.getIngredients().isPresent()) {
+            Set<Ingredient> ingredients = descriptor.getIngredients().get();
+            if (ingredients.isEmpty()) {
+                sb.append(PREFIX_INGREDIENT);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                ingredients.forEach(s -> sb.append(PREFIX_INGREDIENT).append(s.ingredientName).append(" "));
             }
         }
         return sb.toString();

@@ -10,7 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.ingredient.Ingredient;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -49,29 +49,29 @@ public class ParserUtil {
 
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String ingredient} into a {@code Ingredient}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code ingredient} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+    public static Ingredient parseIngredient(String ingredient) throws ParseException {
+        requireNonNull(ingredient);
+        String trimmedIngredient = ingredient.trim();
+        if (!Ingredient.isValidIngredientName(trimmedIngredient)) {
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return new Ingredient(trimmedIngredient);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> ingredients} into a {@code Set<Ingredient>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Set<Ingredient> parseIngredients(Collection<String> ingredients) throws ParseException {
+        requireNonNull(ingredients);
+        final Set<Ingredient> ingredientSet = new HashSet<>();
+        for (String ingredientName : ingredients) {
+            ingredientSet.add(parseIngredient(ingredientName));
         }
-        return tagSet;
+        return ingredientSet;
     }
 }

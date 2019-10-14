@@ -5,7 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -16,11 +16,11 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
 
     private Name name;
-    private Set<Tag> tags;
+    private Set<Ingredient> ingredients;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
-        tags = new HashSet<>();
+        ingredients = new HashSet<>();
     }
 
     /**
@@ -28,7 +28,7 @@ public class PersonBuilder {
      */
     public PersonBuilder(Recipe recipeToCopy) {
         name = recipeToCopy.getName();
-        tags = new HashSet<>(recipeToCopy.getTags());
+        ingredients = new HashSet<>(recipeToCopy.getIngredients());
     }
 
     /**
@@ -40,16 +40,16 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Recipe} that we are building.
+     * Parses the {@code ingredients} into a {@code Set<Ingredient>} and set it to the {@code Recipe} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.ingredients = SampleDataUtil.getIngredientSet(tags);
         return this;
     }
 
 
     public Recipe build() {
-        return new Recipe(name, tags);
+        return new Recipe(name, ingredients);
     }
 
 }

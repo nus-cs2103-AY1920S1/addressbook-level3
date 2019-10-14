@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.DukeCooks;
 import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code DukeCooks} with sample data.
@@ -17,17 +17,17 @@ public class SampleDataUtil {
     public static Recipe[] getSamplePersons() {
         return new Recipe[] {
             new Recipe(new Name("Alex Yeoh"),
-                getTagSet("friends")),
+                getIngredientSet("friends")),
             new Recipe(new Name("Bernice Yu"),
-                getTagSet("colleagues", "friends")),
+                getIngredientSet("colleagues", "friends")),
             new Recipe(new Name("Charlotte Oliveiro"),
-                getTagSet("neighbours")),
+                getIngredientSet("neighbours")),
             new Recipe(new Name("David Li"),
-                getTagSet("family")),
+                getIngredientSet("family")),
             new Recipe(new Name("Irfan Ibrahim"),
-                getTagSet("classmates")),
+                getIngredientSet("classmates")),
             new Recipe(new Name("Roy Balakrishnan"),
-                getTagSet("colleagues"))
+                getIngredientSet("colleagues"))
         };
     }
 
@@ -40,11 +40,11 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a tag set containing the list of strings given.
+     * Returns a ingredient set containing the list of strings given.
      */
-    public static Set<Tag> getTagSet(String... strings) {
+    public static Set<Ingredient> getIngredientSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
+                .map(Ingredient::new)
                 .collect(Collectors.toSet());
     }
 

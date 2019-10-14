@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.ingredient.Ingredient;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -30,7 +30,7 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(Recipe recipe) {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(recipe.getName());
-        descriptor.setTags(recipe.getTags());
+        descriptor.setIngredients(recipe.getIngredients());
     }
 
     /**
@@ -42,12 +42,12 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} into a {@code Set<Ingredient>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
     public EditPersonDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+        Set<Ingredient> ingredientSet = Stream.of(tags).map(Ingredient::new).collect(Collectors.toSet());
+        descriptor.setIngredients(ingredientSet);
         return this;
     }
 

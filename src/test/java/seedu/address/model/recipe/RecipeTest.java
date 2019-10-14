@@ -17,7 +17,7 @@ public class RecipeTest {
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Recipe recipe = new PersonBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> recipe.getTags().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> recipe.getIngredients().remove(0));
     }
 
     @Test

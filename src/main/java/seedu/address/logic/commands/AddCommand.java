@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -18,11 +18,11 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to Duke Cooks. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_INGREDIENT + "INGREDIENT]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_NAME + "Cheese Omelette "
+            + PREFIX_INGREDIENT + "eggs "
+            + PREFIX_INGREDIENT + "cheese";
 
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This recipe already exists in Duke Cooks";

@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.ingredient.Ingredient;
 
 /**
  * Jackson-friendly version of {@link Recipe}.
@@ -22,17 +22,17 @@ class JsonAdaptedRecipe {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Recipe's %s field is missing!";
 
     private final String name;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedRecipe} with the given recipe details.
      */
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients) {
         this.name = name;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
+        if (ingredients != null) {
+            this.ingredients.addAll(ingredients);
         }
     }
 
@@ -41,8 +41,8 @@ class JsonAdaptedRecipe {
      */
     public JsonAdaptedRecipe(Recipe source) {
         name = source.getName().fullName;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
+        ingredients.addAll(source.getIngredients().stream()
+                .map(JsonAdaptedIngredient::new)
                 .collect(Collectors.toList()));
     }
 
@@ -52,9 +52,9 @@ class JsonAdaptedRecipe {
      * @throws IllegalValueException if there were any data constraints violated in the adapted recipe.
      */
     public Recipe toModelType() throws IllegalValueException {
-        final List<Tag> recipeTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            recipeTags.add(tag.toModelType());
+        final List<Ingredient> recipeIngredients = new ArrayList<>();
+        for (JsonAdaptedIngredient ingredient : ingredients) {
+            recipeIngredients.add(ingredient.toModelType());
         }
 
         if (name == null) {
@@ -65,8 +65,8 @@ class JsonAdaptedRecipe {
         }
         final Name modelName = new Name(name);
 
-        final Set<Tag> modelTags = new HashSet<>(recipeTags);
-        return new Recipe(modelName, modelTags);
+        final Set<Ingredient> modelIngredients = new HashSet<>(recipeIngredients);
+        return new Recipe(modelName, modelIngredients);
     }
 
 }

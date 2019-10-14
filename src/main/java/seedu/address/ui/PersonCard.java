@@ -33,16 +33,16 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private FlowPane tags;
+    private FlowPane ingredients;
 
     public PersonCard(Recipe recipe, int displayedIndex) {
         super(FXML);
         this.recipe = recipe;
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullName);
-        recipe.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        recipe.getIngredients().stream()
+                .sorted(Comparator.comparing(ingredient -> ingredient.ingredientName))
+                .forEach(ingredient -> ingredients.getChildren().add(new Label(ingredient.ingredientName)));
     }
 
     @Override
