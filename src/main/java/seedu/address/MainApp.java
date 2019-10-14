@@ -220,6 +220,7 @@ public class MainApp extends Application {
         Config initializedConfig;
         Path configFilePathUsed;
 
+
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
         if (configFilePath != null) {
