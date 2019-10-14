@@ -10,7 +10,7 @@ import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 public class Year {
     public static final String MESSAGE_CONSTRAINTS =
             "Year should only contain years from 2000 to 9999";
-    public static final String VALIDATION_REGEX = "[2-9]|\\d\\d\\d";
+    public static final String VALIDATION_REGEX = "[2-9]\\d\\d\\d";
     public final int yearNumber;
 
     /**

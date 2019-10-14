@@ -7,6 +7,9 @@ import seedu.ichifund.commons.exceptions.IllegalValueException;
 import seedu.ichifund.model.Amount;
 import seedu.ichifund.model.Description;
 import seedu.ichifund.model.budget.Budget;
+import seedu.ichifund.model.date.Month;
+import seedu.ichifund.model.date.Year;
+import seedu.ichifund.model.transaction.Category;
 
 /**
  * Jackson-friendly version of {@link Budget}.
@@ -17,15 +20,24 @@ class JsonAdaptedBudget {
 
     private final String description;
     private final String amount;
+    private final String month;
+    private final String year;
+    private final String category;
 
     /**
      * Constructs a {@code JsonAdaptedBudget} with the given budget details.
      */
     @JsonCreator
     public JsonAdaptedBudget(@JsonProperty("description") String description,
-                             @JsonProperty("amount") String amount) {
+                             @JsonProperty("amount") String amount,
+                             @JsonProperty("month") String month,
+                             @JsonProperty("year") String year,
+                             @JsonProperty("category") String category) {
         this.description = description;
         this.amount = amount;
+        this.month = month;
+        this.year = year;
+        this.category = category;
     }
 
     /**
@@ -33,7 +45,10 @@ class JsonAdaptedBudget {
      */
     public JsonAdaptedBudget(Budget source) {
         description = source.getDescription().toString();
-        amount = source.getAmount().toString().substring(1);;
+        amount = source.getAmount().toString().substring(1);
+        month = source.getMonth() != null ? source.getMonth().toString() : null;
+        year = source.getYear() != null ? source.getYear().toString() : null;
+        category = source.getCategory() != null ? source.getCategory().toString() : null;
     }
 
     /**
@@ -52,14 +67,19 @@ class JsonAdaptedBudget {
         final Description modelDescription = new Description(description);
 
         if (amount == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Amount.class.getSimpleName()));
         }
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
         final Amount modelAmount = new Amount(amount);
 
-        return new Budget(modelDescription, modelAmount);
+        final Month modelMonth = month != null ? new Month(month) : null;
+        final Year modelYear = year != null ? new Year(year) : null;
+        final Category modelCategory = category != null ? new Category(category) : null;
+
+        return new Budget(modelDescription, modelAmount, modelMonth, modelYear, modelCategory);
     }
 
 }
