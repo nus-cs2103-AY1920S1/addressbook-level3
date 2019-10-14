@@ -120,6 +120,7 @@ public class PersonBuilder {
      * Parses the {@code policies} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withPolicies(Policy ... policies) {
+<<<<<<< HEAD:src/main/java/seedu/address/commons/util/PersonBuilder.java
         this.policies = new HashSet<>(Arrays.asList(policies));
         return this;
     }
@@ -137,6 +138,9 @@ public class PersonBuilder {
      */
     public PersonBuilder removePolicies(Policy ... policies) {
         this.policies.removeAll(Arrays.asList(policies));
+=======
+        this.policies.addAll(Arrays.asList(policies));
+>>>>>>> Add AssignPolicyCommand tests:src/test/java/seedu/address/testutil/PersonBuilder.java
         return this;
     }
 

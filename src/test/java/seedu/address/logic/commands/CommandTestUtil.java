@@ -43,7 +43,6 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_DATE_OF_BIRTH_AMY = "1.1.1991";
     public static final String VALID_DATE_OF_BIRTH_BOB = "2.2.1992";
-    public static final String VALID_POLICY_HEALTH = "health";
     public static final String VALID_TAG_DIABETIC = "diabetic";
     public static final String VALID_TAG_SMOKER = "smoker";
 
@@ -59,7 +58,6 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String DATE_OF_BIRTH_DESC_AMY = " " + PREFIX_DATE_OF_BIRTH + VALID_DATE_OF_BIRTH_AMY;
     public static final String DATE_OF_BIRTH_DESC_BOB = " " + PREFIX_DATE_OF_BIRTH + VALID_DATE_OF_BIRTH_BOB;
-    public static final String POLICY_DESC_HEALTH = " " + PREFIX_POLICY + VALID_POLICY_HEALTH;
     public static final String TAG_DESC_DIABETIC = " " + PREFIX_TAG + VALID_TAG_DIABETIC;
     public static final String TAG_DESC_SMOKER = " " + PREFIX_TAG + VALID_TAG_SMOKER;
 
@@ -207,7 +205,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPolicyList().size());
 
         Policy policy = model.getFilteredPolicyList().get(targetIndex.getZeroBased());
-        final String[] splitName = policy.getName().toString().split("\\s+");
+        final String[] splitName = policy.getName().policyName.split("\\s+");
         model.updateFilteredPolicyList(new PolicyNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPolicyList().size());
