@@ -89,10 +89,10 @@ public class StringUtil {
      * a preceding a space otherwise.
      */
     private static void appendToken(StringBuilder sb, String token) {
-        if (sb.length() == 0) {
+        if (sb.toString().isEmpty()) {
             sb.append(token);
         } else {
-            sb.append(" " + token);
+            sb.append(" ").append(token);
         }
     }
 
@@ -127,7 +127,7 @@ public class StringUtil {
      * @return an 80 character limited {@code String} per line
      */
     public static String asLimitedCharactersPerLine(String s, int limit) {
-        if (s.length() == 0) {
+        if (s.isEmpty()) {
             return "";
         }
         String[] tokens = s.split("\\s+");
@@ -141,11 +141,10 @@ public class StringUtil {
                 if (appendTokenAboveLimit(builder, tokens[i], limit)) {
                     i++;
                 }
-                lines.append(builder.toString());
-                builder = new StringBuilder();
+                lines.append(builder);
+                builder.setLength(0);
             }
         }
-        lines.append(builder.toString()); // get last line
-        return lines.toString();
+        return lines.append(builder).toString();
     }
 }
