@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.algobase.commons.core.GuiSettings;
+import seedu.algobase.model.GuiState;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.ReadOnlyUserPrefs;
@@ -75,6 +76,11 @@ public class DefaultModelStub implements Model {
 
     @Override
     public void setProblem(Problem target, Problem editedProblem) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public GuiState getGuiState() {
         throw new AssertionError("This method should not be called.");
     }
 

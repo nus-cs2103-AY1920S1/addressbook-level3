@@ -49,6 +49,13 @@ public interface Model {
      */
     void setAlgoBaseFilePath(Path algoBaseFilePath);
 
+    //=========== GUI state =============================================================
+
+    /**
+     * Returns the state of the GUI.
+     */
+    GuiState getGuiState();
+
     //=========== AlgoBase =============================================================
 
     /**

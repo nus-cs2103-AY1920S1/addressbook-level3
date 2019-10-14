@@ -24,6 +24,7 @@ public class ModelManager implements Model {
 
     private final AlgoBase algoBase;
     private final UserPrefs userPrefs;
+    private final GuiState guiState;
     private final FilteredList<Problem> filteredProblems;
     private final SortedList<Problem> sortedProblems;
     private final FilteredList<Plan> filteredPlans;
@@ -39,6 +40,7 @@ public class ModelManager implements Model {
 
         this.algoBase = new AlgoBase(algoBase);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.guiState = new GuiState();
         filteredProblems = new FilteredList<>(this.algoBase.getProblemList());
         sortedProblems = new SortedList<>(filteredProblems);
         filteredPlans = new FilteredList<>(this.algoBase.getPlanList());
@@ -81,6 +83,12 @@ public class ModelManager implements Model {
     public void setAlgoBaseFilePath(Path algoBaseFilePath) {
         requireNonNull(algoBaseFilePath);
         userPrefs.setAlgoBaseFilePath(algoBaseFilePath);
+    }
+
+    //=========== GUI state =============================================================
+    @Override
+    public GuiState getGuiState() {
+        return guiState;
     }
 
     //=========== AlgoBase ================================================================================

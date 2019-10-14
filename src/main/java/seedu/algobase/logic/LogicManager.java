@@ -12,6 +12,7 @@ import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.AlgoBaseParser;
 import seedu.algobase.logic.parser.exceptions.ParseException;
+import seedu.algobase.model.GuiState;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.problem.Problem;
@@ -59,6 +60,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Problem> getProcessedProblemList() {
         return model.getFilteredProblemList();
+    }
+
+    @Override
+    public GuiState getGuiState() {
+        return model.getGuiState();
     }
 
     @Override

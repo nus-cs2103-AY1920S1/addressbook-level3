@@ -22,6 +22,7 @@ import seedu.algobase.logic.commands.HelpCommand;
 import seedu.algobase.logic.commands.ListCommand;
 import seedu.algobase.logic.commands.ListPlanCommand;
 import seedu.algobase.logic.commands.SortCommand;
+import seedu.algobase.logic.commands.SwitchCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**
@@ -51,11 +52,9 @@ public class AlgoBaseParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
+        // Problems
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
-
-        case AddTaskCommand.COMMAND_WORD:
-            return new AddTaskCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
@@ -75,6 +74,15 @@ public class AlgoBaseParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        // Tasks
+        case AddTaskCommand.COMMAND_WORD:
+            return new AddTaskCommandParser().parse(arguments);
+
+        // GUI State
+        case SwitchCommand.COMMAND_WORD:
+            return new SwitchCommandParser().parse(arguments);
+
+        // Miscellaneous
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 

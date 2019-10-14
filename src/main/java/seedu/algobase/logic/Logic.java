@@ -7,6 +7,7 @@ import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
+import seedu.algobase.model.GuiState;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.problem.Problem;
 
@@ -30,7 +31,14 @@ public interface Logic {
      */
     ReadOnlyAlgoBase getAlgoBase();
 
-    /** Returns an unmodifiable view of the filtered list of problems */
+    /**
+     * Returns the current state of the GUI.
+     */
+    GuiState getGuiState();
+
+    /**
+     * Returns an unmodifiable view of the processed list of problems.
+     */
     ObservableList<Problem> getProcessedProblemList();
 
     /**

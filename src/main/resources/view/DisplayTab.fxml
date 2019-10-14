@@ -2,5 +2,4 @@
 
 <?import javafx.scene.control.Tab?>
 
-<Tab styleClass="pane-with-border, result-display" text="Problems" xmlns:fx="http://javafx.com/fxml/1"
-     fx:id="tabContentPlaceholder" />
+<Tab xmlns:fx="http://javafx.com/fxml/1"  fx:id="tabContentPlaceholder" />
