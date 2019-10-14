@@ -36,7 +36,7 @@ public class ModelManager implements Model {
     private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
 
-    private final Optional<Borrower> servingBorrower;
+    private Optional<Borrower> servingBorrower;
 
     /**
      * Initializes a ModelManager with the given catalog and userPrefs.
@@ -234,18 +234,13 @@ public class ModelManager implements Model {
 
 
     @Override
-    public Optional<Borrower> getServingBorrower() {
-        // TODO
-        // return servingBorrower;
-        return Optional.of(new Borrower(new Name("Stub"), new Phone("12345"), new Email("mail@fakemail.co"),
-                new BorrowerId("K1234"))); // STUB
+    public Borrower getServingBorrower() {
+        return servingBorrower.get();
     }
 
     @Override
     public boolean isServeMode() {
-        // TODO
-        // return servingBorrower.isPresent();
-        return true; // STUB
+       return servingBorrower.isPresent();
     }
 
     @Override
@@ -283,4 +278,13 @@ public class ModelManager implements Model {
         BorrowerIdGenerator.setBorrowers(borrowerRecords);
     }
 
+    @Override
+    public void setServingBorrower(BorrowerId borrowerId) {
+        this.servingBorrower = Optional.of(borrowerRecords.getBorrowerFromId(borrowerId));
+    }
+
+    @Override
+    public boolean hasBorrowerId(BorrowerId borrowerId) {
+        return borrowerRecords.checkIfBorrowerIdExists(borrowerId);
+    }
 }

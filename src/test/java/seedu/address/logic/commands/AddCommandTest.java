@@ -27,6 +27,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
+import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.loan.Loan;
 import seedu.address.testutil.BookBuilder;
 
@@ -211,7 +212,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Optional<Borrower> getServingBorrower() {
+        public Borrower getServingBorrower() {
             throw new AssertionError(" This method should not be called.");
         }
 
@@ -232,6 +233,16 @@ public class AddCommandTest {
 
         @Override
         public void resetGenerator() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setServingBorrower(BorrowerId borrowerId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasBorrowerId(BorrowerId borrowerId) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -9,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
+import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.loan.Loan;
 
 /**
@@ -117,7 +118,7 @@ public interface Model {
      *
      * @return Borrower that is being Served.
      */
-    Optional<Borrower> getServingBorrower();
+    Borrower getServingBorrower();
 
     /**
      * Returns true if Liberry is currently in Serve mode, false otherwise.
@@ -131,4 +132,8 @@ public interface Model {
     void registerBorrower(Borrower borrower);
 
     void resetGenerator();
+
+    void setServingBorrower(BorrowerId borrowerId);
+
+    boolean hasBorrowerId(BorrowerId borrowerId);
 }
