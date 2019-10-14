@@ -26,7 +26,11 @@ public class OrderCommandParser implements Parser<OrderCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public OrderCommand parse(String args) throws ParseException {
-        String orderName, customer, restaurant, deliveryman;
+        String orderName;
+        String customer;
+        String restaurant;
+        String deliveryman;
+        
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ORDER, PREFIX_CUSTOMER,
                 PREFIX_RESTAURANT, PREFIX_DELIVERYMAN);
