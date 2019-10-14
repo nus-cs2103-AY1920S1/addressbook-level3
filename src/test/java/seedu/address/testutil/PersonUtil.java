@@ -30,9 +30,9 @@ public class PersonUtil {
     public static String getPersonDetails(Food food) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + food.getName().fullName + " ");
-        food.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
+//        food.getTags().stream().forEach(
+//            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+//        );
         return sb.toString();
     }
 

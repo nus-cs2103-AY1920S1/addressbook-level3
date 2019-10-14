@@ -32,7 +32,7 @@ public class EditFoodDescriptorBuilder {
     public EditFoodDescriptorBuilder(Food food) {
         descriptor = new EditFoodDescriptor();
         descriptor.setName(food.getName());
-        descriptor.setTags(food.getTags());
+//        descriptor.setTags(food.getTags());
     }
 
     /**

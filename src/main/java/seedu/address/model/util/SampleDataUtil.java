@@ -18,18 +18,12 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Food[] getSampleFoods() {
         return new Food[] {
-            new Food(new Name("Alex Yeoh"), new Amount("300g"),
-                getTagSet("friends")),
-            new Food(new Name("Bernice Yu"), new Amount("300g"),
-                getTagSet("colleagues", "friends")),
-            new Food(new Name("Charlotte Oliveiro"), new Amount("300g"),
-                getTagSet("neighbours")),
-            new Food(new Name("David Li"), new Amount("300g"),
-                getTagSet("family")),
-            new Food(new Name("Irfan Ibrahim"), new Amount("300g"),
-                getTagSet("classmates")),
-            new Food(new Name("Roy Balakrishnan"), new Amount("300g"),
-                getTagSet("colleagues"))
+            new Food(new Name("Alex Yeoh"), new Amount("300g")),
+            new Food(new Name("Bernice Yu"), new Amount("300g")),
+            new Food(new Name("Charlotte Oliveiro"), new Amount("300g")),
+            new Food(new Name("David Li"), new Amount("300g")),
+            new Food(new Name("Irfan Ibrahim"), new Amount("300g")),
+            new Food(new Name("Roy Balakrishnan"), new Amount("300g"))
         };
     }
 

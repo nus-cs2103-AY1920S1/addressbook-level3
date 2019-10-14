@@ -1,5 +1,7 @@
 package seedu.address.model.food;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,14 +13,24 @@ import seedu.address.model.tag.Tag;
 public class GroceryItem extends Food {
 
     private final ExpiryDate expiryDate;
+    private final Set<Tag> tags = new HashSet<>();
 
     public GroceryItem(Name name, Amount amount, ExpiryDate expiryDate, Set<Tag> tags) {
-        super(name, amount, tags);
+        super(name, amount);
         this.expiryDate = expiryDate;
+        this.tags.addAll(tags);
     }
 
     public ExpiryDate getExpiryDate() {
         return expiryDate;
+    }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
     }
 
     @Override

@@ -40,9 +40,9 @@ public class PersonCard extends UiPart<Region> {
         this.food = food;
         id.setText(displayedIndex + ". ");
         name.setText(food.getName().fullName);
-        food.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+//        food.getTags().stream()
+//                .sorted(Comparator.comparing(tag -> tag.tagName))
+//                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
