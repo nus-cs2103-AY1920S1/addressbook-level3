@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.recipe.*;
-import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.recipe.Ingredient;
 
 /**
  * Jackson-friendly version of {@link Recipe}.

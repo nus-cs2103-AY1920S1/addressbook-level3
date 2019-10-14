@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.DukeCooks;
 import seedu.address.model.ReadOnlyDukeCooks;
-import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.recipe.Ingredient;
 import seedu.address.model.recipe.*;
 
 /**

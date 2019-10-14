@@ -10,7 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.*;
-import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.recipe.Ingredient;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

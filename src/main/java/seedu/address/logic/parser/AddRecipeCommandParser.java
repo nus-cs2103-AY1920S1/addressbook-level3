@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddRecipeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.*;
-import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.recipe.Ingredient;
 
 /**
  * Parses input arguments and creates a new AddRecipeCommand object

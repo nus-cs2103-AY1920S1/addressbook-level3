@@ -5,7 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.recipe.Ingredient;
 import seedu.address.model.util.SampleDataUtil;
 
 /**

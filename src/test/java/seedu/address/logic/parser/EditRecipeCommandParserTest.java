@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditRecipeCommand;
 import seedu.address.logic.commands.EditRecipeCommand.EditRecipeDescriptor;
-import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.recipe.Ingredient;
 import seedu.address.model.recipe.Name;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 

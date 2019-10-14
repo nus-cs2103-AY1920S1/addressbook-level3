@@ -8,7 +8,7 @@ import seedu.address.logic.commands.EditRecipeCommand;
 import seedu.address.logic.commands.EditRecipeCommand.EditRecipeDescriptor;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.recipe.Ingredient;
 
 /**
  * A utility class to help with building EditRecipeDescriptor objects.

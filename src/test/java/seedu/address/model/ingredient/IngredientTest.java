@@ -3,6 +3,7 @@ package seedu.address.model.ingredient;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
+import seedu.address.model.recipe.Ingredient;
 
 public class IngredientTest {
 

@@ -7,8 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.ingredient.Ingredient;
-
 /**
  * Represents a Recipe in Duke Cooks.
  * Guarantees: details are present and not null, field values are validated, immutable.

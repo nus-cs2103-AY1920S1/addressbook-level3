@@ -14,7 +14,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditRecipeCommand;
 import seedu.address.logic.commands.EditRecipeCommand.EditRecipeDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.recipe.Ingredient;
 
 /**
  * Parses input arguments and creates a new EditRecipeCommand object
