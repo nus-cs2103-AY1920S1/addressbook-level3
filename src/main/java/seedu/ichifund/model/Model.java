@@ -16,6 +16,7 @@ import seedu.ichifund.model.transaction.Transaction;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Transaction> PREDICATE_SHOW_ALL_TRANSACTIONS = unused -> true;
     Predicate<Repeater> PREDICATE_SHOW_ALL_REPEATERS = unused -> true;
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
@@ -94,6 +95,27 @@ public interface Model {
      * Adds the given transaction.
      */
     void addTransaction(Transaction transaction);
+
+    /**
+     * Deletes the given transaction.
+     * The repeater must exist in the fund book.
+     */
+    void deleteTransaction(Transaction target);
+
+    /**
+     * Replaces the given transaction {@code target} with {@code editedTransaction}.
+     * {@code target} must exist in the fund book.
+     */
+    void setTransaction(Transaction target, Transaction editedTransaction);
+
+    /** Returns an unmodifiable view of the filtered transaction list */
+    ObservableList<Transaction> getFilteredTransactionList();
+
+    /**
+     * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTransactionList(Predicate<Transaction> predicate);
 
     /**
      * Returns true if a repeater with the same identity as {@code repeater} exists in the fund book.

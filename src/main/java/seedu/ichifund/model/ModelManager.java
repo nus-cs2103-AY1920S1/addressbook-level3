@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private final FundBook fundBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Transaction> filteredTransactions;
     private final FilteredList<Repeater> filteredRepeaters;
     private final FilteredList<Budget> filteredBudgets;
 
@@ -40,6 +41,7 @@ public class ModelManager implements Model {
         this.fundBook = new FundBook(fundBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.fundBook.getPersonList());
+        filteredTransactions = new FilteredList<>(this.fundBook.getTransactionList());
         filteredRepeaters = new FilteredList<>(this.fundBook.getRepeaterList());
         filteredBudgets = new FilteredList<>(this.fundBook.getBudgetList());
     }
@@ -119,8 +121,23 @@ public class ModelManager implements Model {
         fundBook.setPerson(target, editedPerson);
     }
 
+
+    @Override
+    public void deleteTransaction(Transaction target) {
+        fundBook.removeTransaction(target);
+    }
+
     @Override
     public void addTransaction(Transaction transaction) {
+        fundBook.addTransaction(transaction);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+    }
+
+    @Override
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
+        requireAllNonNull(target, editedTransaction);
+
+        fundBook.setTransaction(target, editedTransaction);
     }
 
     @Override
@@ -188,25 +205,20 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+
+
+    //=========== Filtered Repeater List Accessors =============================================================
+
     @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return fundBook.equals(other.fundBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+    public ObservableList<Transaction> getFilteredTransactionList() {
+        return filteredTransactions;
     }
 
+    @Override
+    public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+        requireNonNull(predicate);
+        filteredTransactions.setPredicate(predicate);
+    }
 
     //=========== Filtered Repeater List Accessors =============================================================
 
@@ -232,6 +244,25 @@ public class ModelManager implements Model {
     public void updateFilteredBudgetList(Predicate<Budget> predicate) {
         requireNonNull(predicate);
         filteredBudgets.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return fundBook.equals(other.fundBook)
+                && userPrefs.equals(other.userPrefs)
+                && filteredPersons.equals(other.filteredPersons);
     }
 
 }
