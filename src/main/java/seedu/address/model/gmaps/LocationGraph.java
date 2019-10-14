@@ -3,6 +3,7 @@ package seedu.address.model.gmaps;
 import java.net.ConnectException;
 import java.util.ArrayList;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.logic.internal.gmaps.LocationArrayListUtils;
 import seedu.address.logic.internal.gmaps.ProcessVenues;
@@ -50,8 +51,13 @@ public class LocationGraph implements java.io.Serializable {
         return LocationArrayListUtils.getIndex(locations, locationName);
     }
 
-    public ArrayList<Long> getLocationRow(int index) {
-        return distanceMatrix.get(index);
+    public ArrayList<Long> getLocationRow(int index) throws IllegalValueException {
+        if (distanceMatrix.size() <= index) {
+            throw new IllegalValueException("Index " + index + "exceeds the size of the matix");
+        } else {
+            System.out.println(distanceMatrix.size());
+            return distanceMatrix.get(index);
+        }
     }
 
     public ArrayList<ArrayList<Long>> getDistanceMatrix() {

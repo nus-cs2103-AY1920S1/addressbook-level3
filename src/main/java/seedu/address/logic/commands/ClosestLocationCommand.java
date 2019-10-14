@@ -6,8 +6,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATIONS;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.internal.gmaps.LocationArrayListUtils;
 import seedu.address.model.Model;
@@ -52,7 +55,7 @@ public class ClosestLocationCommand extends Command {
      * This method is used to find the closes location from the location graph
      * @return
      */
-    private String closestLocation() {
+    private String closestLocation() throws IllegalValueException {
         ArrayList<ArrayList<Long>> currMatrix = new ArrayList<ArrayList<Long>>();
         ArrayList<String> gmapsRecognisedLocationList = locationGraph.getGmapsRecognisedLocationList();
         ArrayList<Location> locations = locationGraph.getLocations();
@@ -92,7 +95,11 @@ public class ClosestLocationCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        return new CommandResult(MESSAGE_SUCCESS + closestLocation());
+        try {
+            return new CommandResult(MESSAGE_SUCCESS + closestLocation());
+        } catch (IllegalValueException e) {
+            throw new CommandException(e.getMessage());
+        }
     }
 
     @Override
