@@ -88,7 +88,20 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered Problem list */
     ObservableList<Problem> getFilteredProblemList();
 
-    //=========== Plann List =============================================================
+    /**
+     * Updates the filter of the filtered Problem list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredProblemList(Predicate<Problem> predicate);
+
+    /**
+     * Updates the Problem list according to the given {@code problemComparator}.
+     * @param problemComparator
+     * @throws NullPointerException if {@code problemComparator} is null;
+     */
+    void updateSortedProblemList(Comparator<Problem> problemComparator);
+
+    //=========== Plan List =============================================================
 
     /**
      * Returns true if a Plan with the same identity as {@code Plan} exists in the algobase.
@@ -122,18 +135,5 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPlanList(Predicate<Plan> predicate);
-
-    /**
-     * Updates the filter of the filtered Problem list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredProblemList(Predicate<Problem> predicate);
-
-    /**
-     * Updates the Problem list according to the given {@code problemComparator}.
-     * @param problemComparator
-     * @throws NullPointerException if {@code problemComparator} is null;
-     */
-    void updateSortedProblemList(Comparator<Problem> problemComparator);
 
 }
