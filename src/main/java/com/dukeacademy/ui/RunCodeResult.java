@@ -9,6 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Region;
 
+
+/**
+ * Controller class for run code result, an evaluation of user's code submission against the test cases specified by
+ * the question.
+ */
 public class RunCodeResult extends UiPart<Region> {
     private static final String FXML = "RunCodeResult.fxml";
 

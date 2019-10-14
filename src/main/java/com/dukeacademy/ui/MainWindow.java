@@ -135,6 +135,9 @@ public class MainWindow extends UiPart<Stage> {
         editorPanel = new Editor();
         editorPlaceholder.getChildren().add(editorPanel.getRoot());
 
+        // Passing in sample test case and sample test case result into the constructor of RunCodeResult.
+        // The sample problem in this context is an adder function.
+        // Test case given is 1, 1. Expected result is 2, from 1 + 1.
         runCodeResultPanel = new RunCodeResult(new TestCase("1, 1", "2"),
                 new TestCaseResult(false, "2", "3"));
         runCodeResultPlaceholder.getChildren().add(runCodeResultPanel.getRoot());
