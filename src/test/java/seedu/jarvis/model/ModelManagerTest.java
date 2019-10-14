@@ -21,6 +21,7 @@ import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.testutil.AddressBookBuilder;
 
@@ -75,7 +76,9 @@ public class ModelManagerTest {
         HistoryManager historyManager = new HistoryManager();
         historyManager.rememberExecutedCommand(new CommandStub());
         CcaTracker ccaTracker = new CcaTracker();
-        modelManager = new ModelManager(ccaTracker, historyManager, new AddressBook(), new UserPrefs());
+        modelManager = new ModelManager(ccaTracker, historyManager, new AddressBook(), 
+                                        new UserPrefs(), new Planner());
+
         Assertions.assertEquals(historyManager, modelManager.getHistoryManager());
     }
 
@@ -239,10 +242,13 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
+        Planner planner = new Planner();
 
         // same values -> returns true
-        modelManager = new ModelManager(ccaTracker, historyManager, addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(ccaTracker, historyManager, addressBook, userPrefs);
+
+        modelManager = new ModelManager(ccaTracker, historyManager, addressBook, userPrefs, planner);
+        ModelManager modelManagerCopy = new ModelManager(ccaTracker, historyManager, addressBook, userPrefs, planner);
+      
         Assertions.assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -256,17 +262,18 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, historyManager, differentAddressBook,
-                userPrefs)));
+                userPrefs, planner)));
 
         // different historyManager -> returns false
         Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, differentHistoryManager, addressBook,
-                userPrefs)));
+                userPrefs, planner)));
+
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, historyManager, addressBook,
-                userPrefs)));
+                userPrefs, planner)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -275,7 +282,8 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, historyManager, addressBook,
-                differentUserPrefs)));
+                differentUserPrefs, planner)));
+
     }
 
     /**

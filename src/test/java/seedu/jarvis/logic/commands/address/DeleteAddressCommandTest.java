@@ -23,6 +23,7 @@ import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.testutil.PersonBuilder;
 
@@ -36,7 +37,8 @@ public class DeleteAddressCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), 
+                                 new UserPrefs(), new Planner());
     }
 
     /**
@@ -55,8 +57,10 @@ public class DeleteAddressCommandTest {
 
         String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
+
         ModelManager expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getAddressBook(), new UserPrefs());
+                model.getAddressBook(), new UserPrefs(), model.getPlanner());
+
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteAddressCommand, model, expectedMessage, expectedModel);
@@ -80,7 +84,8 @@ public class DeleteAddressCommandTest {
         String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getAddressBook(), new UserPrefs());
+                model.getAddressBook(), new UserPrefs(), model.getPlanner());
+      
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
@@ -101,8 +106,8 @@ public class DeleteAddressCommandTest {
     }
 
     /**
-     * Ensures that {@code CommandException} is thrown if re-adding the person that was deleted will be in conflict with
-     * existing person in the address book.
+     * Ensures that {@code CommandException} is thrown if re-adding the person that was deleted will be in conflict
+     * with existing person in the address book.
      */
     @Test
     public void executeInverse_personToAddAlreadyExist_throwsCommandException() {
@@ -113,8 +118,10 @@ public class DeleteAddressCommandTest {
 
         String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
+
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getAddressBook(), new UserPrefs());
+                model.getAddressBook(), new UserPrefs(), model.getPlanner());
+
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
@@ -140,8 +147,10 @@ public class DeleteAddressCommandTest {
 
         String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
+
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getAddressBook(), new UserPrefs());
+                model.getAddressBook(), new UserPrefs(), model.getPlanner());
+
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
         assertCommandSuccess(deleteAddressCommand, model, expectedMessage, expectedModel);
@@ -165,8 +174,9 @@ public class DeleteAddressCommandTest {
 
         model = new ModelManager();
         model.addPerson(new PersonBuilder().build());
+
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getAddressBook(), new UserPrefs());
+                model.getAddressBook(), new UserPrefs(), model.getPlanner());
 
         int cycles = 1000;
         IntStream.range(0, cycles)

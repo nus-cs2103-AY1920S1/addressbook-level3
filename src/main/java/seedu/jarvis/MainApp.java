@@ -21,6 +21,7 @@ import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.model.util.SampleDataUtil;
@@ -92,8 +93,9 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
+        return new ModelManager(new CcaTracker(), new HistoryManager(), initialData, userPrefs, 
+                                new Planner());
 
-        return new ModelManager(new CcaTracker(), new HistoryManager(), initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
