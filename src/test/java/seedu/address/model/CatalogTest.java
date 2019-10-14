@@ -3,9 +3,11 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_4;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
@@ -19,12 +21,13 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-//import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.model.book.Book;
-//import seedu.address.model.book.SerialNumber;
+import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.exceptions.DuplicateBookException;
-//import seedu.address.model.borrower.BorrowerId;
-//import seedu.address.model.loan.Loan;
+import seedu.address.model.borrower.BorrowerId;
+import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
 import seedu.address.testutil.BookBuilder;
 
 public class CatalogTest {
@@ -109,45 +112,41 @@ public class CatalogTest {
         assertTrue(loanedBooks.size() == 0);
     }
 
-    //    @Test
-    //    public void getLoanedBooks_typicalCatalogWithLoanedBooks_returnsListOfLoanedBooks() {
-    //        Catalog newData = getTypicalCatalog();
-    //        SerialNumber currentSerialNumber = new SerialNumber("B00007");
-    //        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
-    //
-    //        Loan currentLoan =
-    //                new Loan(currentSerialNumber,
-    //                        currentBorrowerId,
-    //                        DateUtil.getTodayDate(),
-    //                        DateUtil.getTodayPlusDays(30));
-    //
-    //        Book loanedBook = new BookBuilder().withSerialNumber("B00007").withLoan(currentLoan).build();
-    //        newData.addBook(loanedBook);
-    //        catalog.resetData(newData);
-    //        ObservableList<Book> loanedBooks = catalog.getLoanedBooks();
-    //        assertTrue(loanedBooks.size() == 1);
-    //        assertTrue(loanedBooks.get(0).equals(loanedBook));
-    //    }
+    @Test
+    public void getLoanedBooks_typicalCatalogWithLoanedBooks_returnsListOfLoanedBooks() {
+        Catalog newData = getTypicalCatalog();
+        LoanId loanId = new LoanId(VALID_LOAN_ID);
+        SerialNumber currentSerialNumber = new SerialNumber(VALID_SERIAL_NUMBER_BOOK_4);
+        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
 
-    //    @Test
-    //    public void getAvailableBooks_typicalCatalogWithLoanedBooks_returnsListOfAvailableBooks() {
-    //        Catalog newData = getTypicalCatalog();
-    //        SerialNumber currentSerialNumber = new SerialNumber("B00007");
-    //        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
-    //
-    //        Loan currentLoan =
-    //                new Loan(currentSerialNumber,
-    //                        currentBorrowerId,
-    //                        DateUtil.getTodayDate(),
-    //                        DateUtil.getTodayPlusDays(30));
-    //
-    //        Book loanedBook = new BookBuilder().withSerialNumber("B00007").withLoan(currentLoan).build();
-    //        newData.addBook(loanedBook);
-    //        catalog.resetData(newData);
-    //        ObservableList<Book> availableBooks = catalog.getAvailableBooks();
-    //        assertTrue(availableBooks.size() == 4);
-    //        assertTrue(getTypicalCatalog().getBookList().equals(availableBooks));
-    //    }
+        Loan currentLoan = new Loan(loanId, currentSerialNumber, currentBorrowerId,
+                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(30));
+
+        Book loanedBook = new BookBuilder().withSerialNumber(VALID_SERIAL_NUMBER_BOOK_4).withLoan(currentLoan).build();
+        newData.addBook(loanedBook);
+        catalog.resetData(newData);
+        ObservableList<Book> loanedBooks = catalog.getLoanedBooks();
+        assertTrue(loanedBooks.size() == 1);
+        assertTrue(loanedBooks.get(0).equals(loanedBook));
+    }
+
+    @Test
+    public void getAvailableBooks_typicalCatalogWithLoanedBooks_returnsListOfAvailableBooks() {
+        Catalog newData = getTypicalCatalog();
+        LoanId loanId = new LoanId(VALID_LOAN_ID);
+        SerialNumber currentSerialNumber = new SerialNumber(VALID_SERIAL_NUMBER_BOOK_4);
+        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
+
+        Loan currentLoan = new Loan(loanId, currentSerialNumber, currentBorrowerId,
+                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(30));
+
+        Book loanedBook = new BookBuilder().withSerialNumber(VALID_SERIAL_NUMBER_BOOK_4).withLoan(currentLoan).build();
+        newData.addBook(loanedBook);
+        catalog.resetData(newData);
+        ObservableList<Book> availableBooks = catalog.getAvailableBooks();
+        assertTrue(availableBooks.size() == 4);
+        assertTrue(getTypicalCatalog().getBookList().equals(availableBooks));
+    }
 
     @Test
     public void hashCode_sameCatalog_returnsSameHashCode() {
