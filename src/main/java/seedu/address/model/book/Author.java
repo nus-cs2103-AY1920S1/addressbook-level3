@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Author {
 
-    public static final String MESSAGE_CONSTRAINTS = "Author's name must start with an alphanumeric letter," +
-            " and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Author's name must start with an alphanumeric letter,"
+            + " and it should not be blank";
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}\\p{Punct} ]*";
     public final String value;
 

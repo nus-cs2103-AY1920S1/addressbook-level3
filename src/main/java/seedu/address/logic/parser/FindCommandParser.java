@@ -68,6 +68,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
     /**
      * Parses {@code Collection<String> genres} into a {@code Set<Genre>} if {@code genres} is non-empty.
+     * Automatically converts lowercase {@code genreNames} to UPPERCASE
      * If {@code genres} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Genre>} containing zero genres.
      */

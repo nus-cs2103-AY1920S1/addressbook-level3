@@ -32,7 +32,7 @@ public class AuthorTest {
     }
 
     @Test
-    public void isValidAuthor_() {
+    public void isValidAuthor() {
         // null name
         assertThrows(NullPointerException.class, () -> Author.isValidAuthor(null));
 

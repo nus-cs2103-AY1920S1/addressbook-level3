@@ -71,10 +71,10 @@ public class BookPredicateTest {
         predicate = new BookPredicate().addTitle("12345")
             .addSerialNumber(VALID_SERIAL_NUMBER_BOOK_1)
             .addAuthor("J K Rowling")
-            .addGenres("Fiction", "Action");
+            .addGenres("FICTION", "ACTION");
 
         Book b = new BookBuilder().withTitle("Harry").withSerialNumber(VALID_SERIAL_NUMBER_BOOK_1)
-                .withAuthor("J K Rowling").withGenres("Fiction", "Action").build();
+                .withAuthor("J K Rowling").withGenres("FICTION", "ACTION").build();
         assertFalse(predicate.test(b));
     }
 }

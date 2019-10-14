@@ -18,7 +18,8 @@ public class ClearCommandTest {
     @Test
     public void execute_emptyCatalog_success() {
         Model model = new ModelManager();
-        Model expectedModel = new ModelManager();
+        Model expectedModel =
+                new ModelManager(new Catalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

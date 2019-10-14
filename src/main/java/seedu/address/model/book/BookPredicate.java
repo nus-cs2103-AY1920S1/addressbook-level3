@@ -54,7 +54,7 @@ public class BookPredicate implements Predicate<Book> {
             return false;
         }
         if (genres != null
-                && !genres.stream() // TODO make this caps-insensitive
+                && !genres.stream()
                 .allMatch(keyword -> book.getGenres().contains(keyword))) {
             return false;
         }

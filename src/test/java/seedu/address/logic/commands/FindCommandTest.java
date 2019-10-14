@@ -28,7 +28,6 @@ import seedu.address.model.book.BookPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    // TODO implement and add getTypicalLoanRecords() and getTypicalBorrowerRecords()
     private Model model =
             new ModelManager(getTypicalCatalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
     private Model expectedModel =
@@ -62,9 +61,9 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noTitleGiven() {
+    public void execute_zeroKeywords() {
         String expectedMessage = String.format(MESSAGE_BOOKS_LISTED_OVERVIEW, 0);
-        assertThrows(IllegalArgumentException.class, () -> preparePredicate("t/"));
+        assertThrows(IllegalArgumentException.class, () -> preparePredicate(""));
     }
 
     @Test
