@@ -17,6 +17,7 @@ import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
+import seedu.deliverymans.logic.parser.universal.Context;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -77,6 +78,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -123,13 +125,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Changes the shown list.
-     */
-    void changeList(int i) {
-
-    }
-
-    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -169,6 +164,28 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Changes context of system depending on {@code context}
+     */
+    private void changeList(Context context) {
+        switch (context) {
+        case CUSTOMER:
+            customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
+            listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
+            break;
+        case RESTAURANT:
+            // using personListPanel as placeholder for restaurant list
+            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            break;
+        case DELIVERYMEN:
+            // to be implemented with deliverymen list
+            break;
+        default:
+
+        }
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -185,21 +202,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.getContext() != null) {
-                switch(commandResult.getContext()) {
-                case CUSTOMER:
-                    customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
-                    listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
-                    break;
-                case RESTAURANT:
-                    personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-                    listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-                    break;
-                case DELIVERYMEN:
-
-                    break;
-                default:
-
-                }
+                changeList(commandResult.getContext());
             }
 
             if (commandResult.isShowHelp()) {
