@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
 
 /**
  * Adds a task to the address book.
@@ -23,8 +23,8 @@ public class AddTaskCommand extends Command {
             + PREFIX_TASK_NAME + "finish user guide "
             + PREFIX_MEMBER_NAME + "elsa koh";
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    private static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    private static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
 
     private final Task toAdd;
 
