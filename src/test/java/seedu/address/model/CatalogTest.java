@@ -3,6 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.UserSettings.DEFAULT_LOAN_PERIOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_ID;
@@ -21,6 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
@@ -120,7 +122,7 @@ public class CatalogTest {
         BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
 
         Loan currentLoan = new Loan(loanId, currentSerialNumber, currentBorrowerId,
-                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(30));
+                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(DEFAULT_LOAN_PERIOD));
 
         Book loanedBook = new BookBuilder().withSerialNumber(VALID_SERIAL_NUMBER_BOOK_4).withLoan(currentLoan).build();
         newData.addBook(loanedBook);
@@ -138,7 +140,7 @@ public class CatalogTest {
         BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
 
         Loan currentLoan = new Loan(loanId, currentSerialNumber, currentBorrowerId,
-                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(30));
+                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(DEFAULT_LOAN_PERIOD));
 
         Book loanedBook = new BookBuilder().withSerialNumber(VALID_SERIAL_NUMBER_BOOK_4).withLoan(currentLoan).build();
         newData.addBook(loanedBook);

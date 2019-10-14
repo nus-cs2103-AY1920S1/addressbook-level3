@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_ON_LOAN;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BOOK;
+import static seedu.address.commons.core.UserSettings.DEFAULT_LOAN_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 
 import seedu.address.commons.util.DateUtil;
@@ -63,7 +64,7 @@ public class LoanCommand extends Command {
 
         Borrower servingBorrower = model.getServingBorrower().get();
         Loan loan = new Loan(LoanIdGenerator.generateLoanId(), toLoan, servingBorrower.getBorrowerId(),
-                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(14)); // TODO READ FROM MODEL->USERSETTINGS instead!!
+                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(DEFAULT_LOAN_PERIOD)); // TODO READ FROM MODEL->USERSETTINGS instead!!
         Book loanedOutBook = new Book(bookToBeLoaned.getTitle(), bookToBeLoaned.getSerialNumber(),
                 bookToBeLoaned.getAuthor(), loan, bookToBeLoaned.getGenres());
 
