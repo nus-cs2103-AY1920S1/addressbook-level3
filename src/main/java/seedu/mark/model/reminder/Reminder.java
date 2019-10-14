@@ -52,6 +52,7 @@ public class Reminder {
 
     /**
      * Returns true if both reminders have the same note, the same bookmark and the same time.
+     * TODO: change implementation based on how to distinguish reminders (which field to use)
      */
     public boolean isSameReminder(Reminder otherReminder) {
         if (otherReminder == this) {
