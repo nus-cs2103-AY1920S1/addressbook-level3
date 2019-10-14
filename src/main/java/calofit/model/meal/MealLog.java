@@ -1,5 +1,6 @@
 package calofit.model.meal;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,13 @@ public class MealLog {
     private List<Meal> mealLog = new ArrayList<>();
     private ObservableList<Meal> observableMeals = FXCollections.observableList(mealLog);
     private ObservableList<Meal> readOnlyMeals = FXCollections.unmodifiableObservableList(observableMeals);
+    private ObservableList<Meal> todayMeals = observableMeals.filtered(MealLog::isMealToday);
 
+    private static boolean isMealToday(Meal meal) {
+        return meal.getTimestamp()
+            .getDateTime().toLocalDate()
+            .equals(LocalDate.now());
+    }
     /**
      * Get a list of meals eaten by the user.
      * @return Meal list
@@ -38,5 +45,9 @@ public class MealLog {
      */
     public boolean removeMeal(Meal meal) {
         return observableMeals.remove(meal);
+    }
+
+    public ObservableList<Meal> getTodayMeals() {
+        return todayMeals;
     }
 }
