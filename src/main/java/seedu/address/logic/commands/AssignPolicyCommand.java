@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_POLICIES;
 
 import java.util.List;
 
@@ -77,6 +78,7 @@ public class AssignPolicyCommand extends Command {
 
         model.setPerson(person, assignedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
         return new CommandResult(String.format(MESSAGE_ASSIGN_POLICY_SUCCESS,
                 policy.getName(), assignedPerson.getName()));
     }
