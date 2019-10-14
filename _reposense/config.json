@@ -1,53 +1,38 @@
 {
-  "ignoreGlobList": [
-    "**.adoc",
-    "collate**"
-  ],
-  "formats": [
-    "gradle",
-    "java",
-    "fxml",
-    "css",
-    "md",
-    "yml"
-  ],
-  "ignoreCommitList": [
-    ""
-  ],
   "authors": [
     {
       "githubId": "EugeneTeu",
       "displayName": "EUGEN ... U WEI",
       "authorNames": [
-        "eugene teu"
+         "EugeneTeu", "eugene teu"
       ]
     },
     {
       "githubId": "zhixianggg",
       "displayName": "OON Z ... XIANG",
       "authorNames": [
-        "zhixianggg"
+        "zhixianggg", "Zhi Xiang"
       ]
     },
     {
       "githubId": "qiujiaaa",
       "displayName": "OOI Q ... U JIA",
       "authorNames": [
-        "qiujiaaa"
+        "qiujiaaa", "Qiu Jia"
       ]
     },
     {
       "githubId": "uberSaiyan",
       "displayName": "YAN W ... LIANG",
       "authorNames": [
-        "uberSaiyan"
+        "uberSaiyan", "Wei Liang"
       ]
     },
     {
       "githubId": "yeodonghan",
       "displayName": "YEO D ... G HAN",
       "authorNames": [
-        "yeodonghan"
+        "yeodonghan", "Dong Han"
       ]
     }
   ]
