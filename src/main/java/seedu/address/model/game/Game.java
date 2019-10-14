@@ -14,6 +14,7 @@ public class Game {
 
     public static final int CORRECT_GUESS = 1;
     public static final int WRONG_GUESS = 0;
+    private boolean isOver = false;
 
     // Current WordBank cannot be changed once assigned.
     private final WordBank wordBank;
@@ -66,7 +67,16 @@ public class Game {
     }
 
     public boolean isOver() {
-        return getCurrIndex().getZeroBased() >= wordBank.size();
+        if (isOver) {
+            return true;
+        } else {
+            isOver = getCurrIndex().getZeroBased() >= wordBank.size() ? true : false;
+            return isOver;
+        }
+    }
+
+    public void forceStop() {
+        isOver = true;
     }
 
     public void moveToNextCard() {
