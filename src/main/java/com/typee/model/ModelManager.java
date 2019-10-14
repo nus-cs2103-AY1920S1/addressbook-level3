@@ -113,7 +113,6 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         CollectionUtil.requireAllNonNull(target, editedPerson);
-
         historyManager.setPerson(target, editedPerson);
     }
 
