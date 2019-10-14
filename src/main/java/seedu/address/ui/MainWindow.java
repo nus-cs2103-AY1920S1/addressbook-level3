@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.gamemanager.GameManager;
-import seedu.address.gamemanager.GameTimer;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -38,9 +37,6 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private ModularDisplay modularDisplay;
     private HelpWindow helpWindow;
-
-    // Timer object
-    private GameTimer gameTimer;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -189,9 +185,6 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        if (gameTimer != null) {
-            gameTimer.abortTimer();
-        }
         try {
             CommandResult commandResult = gameManager.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
