@@ -163,7 +163,7 @@ Format: `delete FLASHCARD_ID`
 ****
 * Deletes the person with the specified `FLASHCARD_ID`.
 * The ID of a flashcard refers to the specific number assigned to that flashcard upon creation.
-* The flashcard ID *must be a positive 6-digit integer* 000001, 000002, 000003, ...
+* The flashcard ID *must be a positive 6-digit integer string* 000001, 000002, 000003, ...
 ****
 
 Example:

@@ -21,6 +21,7 @@ public abstract class Flashcard {
     private Score score;
     private CardId id;
     private ArrayList<Tag> tags;
+    private String type; // new instance field to flashcard
 
     /**
      * Question and Answer must be specified.
@@ -31,6 +32,7 @@ public abstract class Flashcard {
         this.score = new Score();
         this.id = new CardId();
         this.tags = new ArrayList<>();
+        this.type = "Haven't assigned type";
     }
 
     public Question getQuestion() {
@@ -59,6 +61,14 @@ public abstract class Flashcard {
 
     public void setAnswer(String newAnswer) {
         answer.setAnswer(newAnswer);
+    }
+
+    public String getType() {
+        return type;
+    };
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
@@ -134,7 +144,9 @@ public abstract class Flashcard {
             return false;
         }
         Flashcard otherFlashcard = (Flashcard) other;
-        return otherFlashcard.getId() == this.getId();
+        return otherFlashcard.getId() == this.getId() && otherFlashcard.getQuestion() == this.getQuestion()
+                                                      && otherFlashcard.getAnswer() == this.getAnswer()
+                                                      && otherFlashcard.getType().equals(this.getType());
     }
 
     /**
