@@ -131,10 +131,10 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTags(Tag target) {
-        for(Problem problem : filteredProblems) {
+        for (Problem problem : filteredProblems) {
             Set<Tag> targetTags = problem.getTags();
-            for(Tag tag : targetTags) {
-                if(tag.getName().equals(target.getName())) {
+            for (Tag tag : targetTags) {
+                if (tag.getName().equals(target.getName())) {
                     problem.deleteTag(tag);
                 }
             }
@@ -149,7 +149,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addTags(Set<Tag> tags) {
-        for(Tag tag : tags) {
+        for (Tag tag : tags) {
             addTag(tag);
         }
     }
@@ -164,10 +164,10 @@ public class ModelManager implements Model {
     @Override
     public void setTags(Tag target, Tag editedTag) {
         requireAllNonNull(target, editedTag);
-        for(Problem problem : filteredProblems) {
+        for (Problem problem : filteredProblems) {
             Set<Tag> targetTags = problem.getTags();
-            for(Tag tag : targetTags) {
-                if(tag.getName().equals(target.getName())) {
+            for (Tag tag : targetTags) {
+                if (tag.getName().equals(target.getName())) {
                     problem.addTag(editedTag);
                     problem.deleteTag(tag);
                 }

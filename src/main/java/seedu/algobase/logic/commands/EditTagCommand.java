@@ -4,14 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_TAGS;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.commons.util.CollectionUtil;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.tag.Tag;
@@ -80,7 +77,7 @@ public class EditTagCommand extends Command {
     private static Tag createEditedTag(Tag tagToEdit, Optional<String> name) {
         assert tagToEdit != null;
         String updatedName;
-        if(name.isPresent()) {
+        if (name.isPresent()) {
             updatedName = name.get();
         } else {
             throw new TagNotFoundException();
