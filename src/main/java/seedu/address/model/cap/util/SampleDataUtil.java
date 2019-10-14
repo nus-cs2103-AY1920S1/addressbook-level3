@@ -1,13 +1,17 @@
 package seedu.address.model.cap.util;
 
-import seedu.address.model.cap.AddressBook;
-import seedu.address.model.cap.ReadOnlyAddressBook;
-import seedu.address.model.cap.person.*;
-import seedu.address.model.cap.tag.Tag;
-
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import seedu.address.model.cap.AddressBook;
+import seedu.address.model.cap.ReadOnlyAddressBook;
+import seedu.address.model.cap.person.Address;
+import seedu.address.model.cap.person.Email;
+import seedu.address.model.cap.person.Name;
+import seedu.address.model.cap.person.Person;
+import seedu.address.model.cap.person.Phone;
+import seedu.address.model.cap.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
