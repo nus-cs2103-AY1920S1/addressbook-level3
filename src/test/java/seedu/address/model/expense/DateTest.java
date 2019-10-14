@@ -10,13 +10,13 @@ public class DateTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Date(null));
+        assertThrows(NullPointerException.class, () -> new Date(null, false));
     }
 
     @Test
     public void constructor_invalidDate_throwsIllegalArgumentException() {
         String invalidDate = "";
-        assertThrows(IllegalArgumentException.class, () -> new Date(invalidDate));
+        assertThrows(IllegalArgumentException.class, () -> new Date(invalidDate, false));
     }
 
     @Test
@@ -35,11 +35,14 @@ public class DateTest {
 
         // invalid parts
         assertFalse(Date.isValidDate("123/11/2019")); // invalid day
-        assertFalse(Date.isValidDate("12/13/2019")); // invalid month
+        assertFalse(Date.isValidDate("12/123/2019")); // invalid month
         assertFalse(Date.isValidDate("12/11/20111")); // invalid year
         assertFalse(Date.isValidDate("1/1/2019 12222")); // invalid time
-        assertFalse(Date.isValidDate("01/2/2019 2431")); // invalid time
         assertFalse(Date.isValidDate("02/02/2019 0")); // invalid time
+        assertFalse(Date.isValidDate("Sat")); // invalid time
+        assertFalse(Date.isValidDate("Jun 01")); // invalid format
+        assertFalse(Date.isValidDate("2019/1/1")); // invalid format
+        assertFalse(Date.isValidDate("2019/1/1 1800")); // invalid format
 
         // valid date
         assertTrue(Date.isValidDate("1/1/2019"));

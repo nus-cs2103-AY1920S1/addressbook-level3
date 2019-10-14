@@ -19,17 +19,17 @@ public class SampleDataUtil {
 
     public static Expense[] getSampleExpenses() {
         return new Expense[] {
-            new Expense(new Name("Coffee"), new Amount("$1.8"), new Date("1245"),
+            new Expense(new Name("Coffee"), new Amount("$1.8"), new Date("1245", false),
                 getTagSet("food")),
-            new Expense(new Name("Textbook"), new Amount("$23.50"), new Date("930"),
+            new Expense(new Name("Textbook"), new Amount("$23.50"), new Date("930", false),
                 getTagSet("education", "school")),
-            new Expense(new Name("Earphone"), new Amount("$45"), new Date("10/12/2019 1800"),
+            new Expense(new Name("Earphone"), new Amount("$45"), new Date("10/12/2019 1800", false),
                 getTagSet("utility")),
-            new Expense(new Name("Hang out"), new Amount("$50"), new Date("15/12/2019 2100"),
+            new Expense(new Name("Hang out"), new Amount("$50"), new Date("15/12/2019 2100", false),
                 getTagSet("entertainment")),
-            new Expense(new Name("Travel to Paris"), new Amount("€850"), new Date("25/12/2019 800"),
+            new Expense(new Name("Travel to Paris"), new Amount("€850"), new Date("25/12/2019 800", false),
                 getTagSet("travel")),
-            new Expense(new Name("Gift for duke"), new Amount("$30"), new Date("1/11/2019"),
+            new Expense(new Name("Gift for duke"), new Amount("$30"), new Date("1/11/2019", false),
                 getTagSet("relationship"))
         };
     }

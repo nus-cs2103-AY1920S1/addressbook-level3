@@ -35,13 +35,13 @@ public class EditCommand extends Command {
         + "by the index number used in the displayed expense list. "
         + "Existing values will be overwritten by the input values.\n"
         + "Parameters: INDEX (must be a positive integer) "
-        + "[" + PREFIX_NAME + " NAME] "
-        + "[" + PREFIX_AMOUNT + " AMOUNT] "
-        + "[" + PREFIX_DATE + " DATE] "
-        + "[" + PREFIX_TAG + " TAG]...\n"
+        + "[" + PREFIX_NAME + "NAME] "
+        + "[" + PREFIX_AMOUNT + "AMOUNT] "
+        + "[" + PREFIX_DATE + "DATE] "
+        + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_AMOUNT + " $23.50 "
-        + PREFIX_DATE + " 1245";
+        + PREFIX_AMOUNT + "$23.50 "
+        + PREFIX_DATE + "1245";
 
     public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

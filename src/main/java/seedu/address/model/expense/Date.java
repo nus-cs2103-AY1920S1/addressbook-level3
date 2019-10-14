@@ -36,14 +36,15 @@ public class Date {
 
     /**
      * Constructs an {@code Date}.
-     *
      * @param date A valid date.
+     * @param ifConverted
+     *
      */
-    public Date(String date) {
+    public Date(String date, boolean ifConverted) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         rawValue = date;
-        value = convertDate(date);
+        value = ifConverted ? convertDate(date) : date;
     }
 
     /**

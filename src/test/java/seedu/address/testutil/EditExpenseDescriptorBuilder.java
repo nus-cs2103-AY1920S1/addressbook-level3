@@ -57,7 +57,7 @@ public class EditExpenseDescriptorBuilder {
      * Sets the {@code Date} of the {@code EditExpenseDescriptor} that we are building.
      */
     public EditExpenseDescriptorBuilder withDate(String date) {
-        descriptor.setDate(new Date(date));
+        descriptor.setDate(new Date(date, true));
         return this;
     }
 

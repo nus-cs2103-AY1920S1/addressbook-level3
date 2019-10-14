@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -20,9 +21,11 @@ import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "C@ffee";
+
+    private static final String INVALID_NAME = "  ";
     private static final String INVALID_AMOUNT = "+634";
-    private static final String INVALID_DATE = "13/13/2019";
+    private static final String INVALID_DATE = "Sat";
+    private static final String WRONG_DATE = "13/13/2019";
     private static final String INVALID_TAG = "#food";
 
     private static final String VALID_NAME = "Coffee";
@@ -105,21 +108,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseDate_invalidValue_throwsParseException() {
+    public void parseDate_invalidValue_throwsDateTimeParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_DATE));
     }
 
     @Test
-    public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
-        Date expectedDate = new Date(VALID_DATE);
-        assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE));
+    public void parseDate_wrongValue_throwsParseException() {
+        assertThrows(DateTimeParseException.class, () -> ParserUtil.parseDate(WRONG_DATE));
     }
 
     @Test
     public void parseDate_validValueWithWhitespace_returnsTrimmedDate() throws Exception {
         String dateWithWhitespace = WHITESPACE + VALID_DATE + WHITESPACE;
-        Date expectedDate = new Date(VALID_DATE);
+        Date expectedDate = new Date(VALID_DATE, true);
         assertEquals(expectedDate, ParserUtil.parseDate(dateWithWhitespace));
+    }
+
+    @Test
+    public void parseDate_validValueWithoutWhitespace_returnsConvertedDate() throws Exception {
+        Date expectedDate = new Date(VALID_DATE, true);
+        assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE));
     }
 
     @Test

@@ -47,17 +47,17 @@ public class JsonExpenseListStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readExpenseList("notJsonFormatExpenseList.json"));
+        assertThrows(DataConversionException.class, () -> readExpenseList("notJsonFormatExpense.json"));
     }
 
     @Test
     public void readExpenseList_invalidExpenseExpenseList_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readExpenseList("invalidExpenseExpenseList.json"));
+        assertThrows(DataConversionException.class, () -> readExpenseList("invalidExpense.json"));
     }
 
     @Test
     public void readExpenseList_invalidAndValidExpenseExpenseList_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readExpenseList("invalidAndValidExpenseExpenseList.json"));
+        assertThrows(DataConversionException.class, () -> readExpenseList("invalidAndValidExpense.json"));
     }
 
     @Test

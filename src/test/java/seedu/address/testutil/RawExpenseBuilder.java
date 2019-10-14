@@ -11,9 +11,9 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Expense objects.
+ * A utility class to help with building Expense objects with raw date.
  */
-public class ExpenseBuilder {
+public class RawExpenseBuilder {
 
     public static final String DEFAULT_NAME = "coffee";
     public static final String DEFAULT_AMOUNT = "$23.50";
@@ -24,17 +24,17 @@ public class ExpenseBuilder {
     private Date date;
     private Set<Tag> tags;
 
-    public ExpenseBuilder() {
+    public RawExpenseBuilder() {
         name = new Name(DEFAULT_NAME);
         amount = new Amount(DEFAULT_AMOUNT);
-        date = new Date(DEFAULT_DATE, true);
+        date = new Date(DEFAULT_DATE, false);
         tags = new HashSet<>();
     }
 
     /**
-     * Initializes the ExpenseBuilder with the data of {@code expenseToCopy}.
+     * Initializes the RawExpenseBuilder with the data of {@code expenseToCopy}.
      */
-    public ExpenseBuilder(Expense expenseToCopy) {
+    public RawExpenseBuilder(Expense expenseToCopy) {
         name = expenseToCopy.getName();
         amount = expenseToCopy.getAmount();
         date = expenseToCopy.getDate();
@@ -44,7 +44,7 @@ public class ExpenseBuilder {
     /**
      * Sets the {@code Name} of the {@code Expense} that we are building.
      */
-    public ExpenseBuilder withName(String name) {
+    public RawExpenseBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
@@ -52,7 +52,7 @@ public class ExpenseBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Expense} that we are building.
      */
-    public ExpenseBuilder withTags(String ... tags) {
+    public RawExpenseBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -60,7 +60,7 @@ public class ExpenseBuilder {
     /**
      * Sets the {@code Amount} of the {@code Expense} that we are building.
      */
-    public ExpenseBuilder withAmount(String amount) {
+    public RawExpenseBuilder withAmount(String amount) {
         this.amount = new Amount(amount);
         return this;
     }
@@ -68,7 +68,7 @@ public class ExpenseBuilder {
     /**
      * Sets the {@code Date} of the {@code Expense} that we are building.
      */
-    public ExpenseBuilder withDate(String date) {
+    public RawExpenseBuilder withDate(String date) {
         this.date = new Date(date, true);
         return this;
     }

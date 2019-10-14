@@ -17,9 +17,9 @@ import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Name;
 
 public class JsonAdaptedExpenseTest {
-    private static final String INVALID_NAME = "C@ffee";
+    private static final String INVALID_NAME = "  ";
     private static final String INVALID_AMOUNT = "+$@654";
-    private static final String INVALID_DATE = "32/12/2019";
+    private static final String INVALID_DATE = "Sat";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = FOOD.getName().toString();
