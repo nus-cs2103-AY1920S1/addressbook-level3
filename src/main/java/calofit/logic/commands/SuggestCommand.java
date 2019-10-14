@@ -2,7 +2,10 @@ package calofit.logic.commands;
 
 import calofit.model.Model;
 
-public class SuggestCommand extends Command{
+/**
+ * Suggest meal for user according to calorie budget left.
+ */
+public class SuggestCommand extends Command {
 
     public static final String COMMAND_WORD = "suggest";
 
