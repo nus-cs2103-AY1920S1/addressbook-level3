@@ -34,7 +34,7 @@ public class Inventory extends UiPart<Region> {
     @FXML
     private TableColumn<Item, Double> priceCol;
     @FXML
-    private TableColumn<Item, Double> totalPriceCol;
+    private TableColumn<Item, Double> expectedRevenueCol;
 
     public Inventory (Logic logic) throws Exception {
         super(FXML);
@@ -46,7 +46,7 @@ public class Inventory extends UiPart<Region> {
         costCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("cost"));
         totalCostCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("totalCost"));
         priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
-        totalPriceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("totalPrice"));
+        expectedRevenueCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("subtotal"));
     }
 
     /**

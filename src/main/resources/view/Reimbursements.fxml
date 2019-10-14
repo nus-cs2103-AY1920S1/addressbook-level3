@@ -6,13 +6,14 @@
 
 <AnchorPane fx:id="reimbursements" prefWidth="690.0" stylesheets="@Extensions.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <TableView prefHeight="520.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="tableView" prefHeight="520.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                 AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
-          <TableColumn prefWidth="57.0" text="ID" />
-          <TableColumn prefWidth="157.0" text="Person" />
-            <TableColumn prefWidth="75.5" text="Amount" />
-            <TableColumn minWidth="0.0" prefWidth="191.0" text="Description" />
-            <TableColumn prefWidth="196.5" text="Deadline" />
+          <TableColumn fx:id="idCol" prefWidth="57.0" text="ID" />
+          <TableColumn fx:id="personCol" prefWidth="157.0" text="Person" />
+            <TableColumn fx:id="amountCol" prefWidth="75.5" text="Amount" />
+            <TableColumn fx:id="descriptionCol" minWidth="0.0" prefWidth="191.0" text="Description" />
+            <TableColumn fx:id="deadlineCol" prefWidth="196.5" text="Deadline" />
         </columns>
       </TableView>
    </children>

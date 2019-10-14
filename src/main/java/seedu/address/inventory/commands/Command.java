@@ -1,6 +1,6 @@
 package seedu.address.inventory.commands;
 
-import seedu.address.inventory.model.Model;
+import seedu.address.inventory.model.ModelManager;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 
 /**
@@ -15,6 +15,6 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws NoSuchIndexException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model)
+    public abstract CommandResult execute(ModelManager model)
             throws Exception;
 }
