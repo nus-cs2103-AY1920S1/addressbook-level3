@@ -55,7 +55,7 @@ public class Transaction {
     public boolean isExpenditure() {
         return transactionType.isExpenditure();
     }
-    
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

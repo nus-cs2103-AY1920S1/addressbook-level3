@@ -2,12 +2,16 @@ package seedu.ichifund.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.ichifund.commons.exceptions.IllegalValueException;
 import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.date.Day;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 
+/**
+ * Jackson-friendly version of {@link Date}.
+ */
 public class JsonAdaptedDate {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Date's %s field is missing!";
 
@@ -65,7 +69,7 @@ public class JsonAdaptedDate {
         }
         final Year modelYear = new Year(year);
 
-        if(!Date.isValidDate(modelDay, modelMonth, modelYear)) {
+        if (!Date.isValidDate(modelDay, modelMonth, modelYear)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
 

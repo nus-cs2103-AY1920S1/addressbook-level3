@@ -2,6 +2,7 @@ package seedu.ichifund.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.ichifund.commons.exceptions.IllegalValueException;
 import seedu.ichifund.model.Amount;
 import seedu.ichifund.model.Description;
@@ -57,7 +58,8 @@ public class JsonAdaptedTransaction {
         final Date modelDate = date.toModelType();
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -73,7 +75,8 @@ public class JsonAdaptedTransaction {
         final Amount modelAmount = new Amount(amount);
 
         if (category == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Category.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Category.class.getSimpleName()));
         }
         if (!Category.isValidCategory(category)) {
             throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
@@ -81,7 +84,8 @@ public class JsonAdaptedTransaction {
         final Category modelCategory = new Category(category);
 
         if (transactionType == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TransactionType.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    TransactionType.class.getSimpleName()));
         }
         if (!TransactionType.isValidTransactionType(transactionType)) {
             throw new IllegalValueException(TransactionType.MESSAGE_CONSTRAINTS);
