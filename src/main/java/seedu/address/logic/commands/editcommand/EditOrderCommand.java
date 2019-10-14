@@ -12,8 +12,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
 import java.util.UUID;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -63,7 +63,8 @@ public class EditOrderCommand extends Command {
      * @param orderIndex of the order in the filtered order list to edit
      * @param editOrderDescriptor details to edit the order with
      */
-    public EditOrderCommand(Index orderIndex, Optional<Index> customerIndex, Optional<Index> phoneIndex, EditOrderDescriptor editOrderDescriptor) {
+    public EditOrderCommand(Index orderIndex, Optional<Index> customerIndex,
+                            Optional<Index> phoneIndex, EditOrderDescriptor editOrderDescriptor) {
         requireNonNull(orderIndex);
         requireNonNull(editOrderDescriptor);
 

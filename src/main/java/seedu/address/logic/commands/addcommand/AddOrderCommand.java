@@ -1,16 +1,16 @@
 package seedu.address.logic.commands.addcommand;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -88,8 +88,7 @@ public class AddOrderCommand extends Command {
         Phone phone = lastShownPhoneList.get(toAddPhoneIndex.getZeroBased());
 
         Order toAdd = new Order(UUID.randomUUID(), customer, phone, toAddPrice,
-                Status.UNSCHEDULED,
-                Optional.empty(), toAddTags );
+                Status.UNSCHEDULED, Optional.empty(), toAddTags);
 
         if (model.hasOrder(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
