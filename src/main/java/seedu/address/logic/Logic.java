@@ -16,6 +16,17 @@ import seedu.address.model.policy.Policy;
  */
 public interface Logic {
     /**
+     * Executes the command and returns the result. This method is used to differentiate between
+     * an invalid merge command input by the user and a system called merge command.
+     * @param commandText The command as entered by the user.
+     * @param isSystemInput Whether the command was invoked by user or the program.
+     * @return the result of the command execution.
+     * @throws CommandException If an error occurs during command execution.
+     * @throws ParseException If an error occurs during parsing.
+     */
+    CommandResult execute(String commandText, boolean isSystemInput) throws CommandException, ParseException;
+
+    /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.

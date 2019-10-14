@@ -47,7 +47,7 @@ public class CommandBox extends UiPart<Region> {
             handleInitialisingMergeCommand(command);
         } else {
             try {
-                commandExecutor.execute(command + " ");
+                commandExecutor.execute(command + " ", false);
                 commandTextField.setText("");
             } catch (DuplicatePersonWithMergeException e) {
                 commandTextField.setText("");
@@ -83,16 +83,19 @@ public class CommandBox extends UiPart<Region> {
      * @throws ParseException Should not be thrown.
      */
     private void handleInitialisingMergeCommand(String command) throws CommandException, ParseException {
-        if (command.equals("yes")) {
+        if (command.equals("no")) {
+            commandExecutor.execute(doNotMergeCommand, true);
+            commandTextField.setText("");
+        } else if (command.equals("yes") || command.equals("")) {
+            commandExecutor.execute(mergeCommand, true);
+            commandTextField.setText("");
+        } else {
             try {
-                commandExecutor.execute(mergeCommand);
+                commandExecutor.execute(command, false);
                 commandTextField.setText("");
             } catch (CommandException | ParseException e) {
                 setStyleToIndicateCommandFailure();
             }
-        } else {
-            commandExecutor.execute(doNotMergeCommand);
-            commandTextField.setText("");
         }
         this.mergeCommand = null;
         this.isOnMergeStandby = false;
@@ -128,7 +131,7 @@ public class CommandBox extends UiPart<Region> {
          *
          * @see seedu.address.logic.Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException;
+        CommandResult execute(String commandText, boolean isSystemInput) throws CommandException, ParseException;
     }
 
 }
