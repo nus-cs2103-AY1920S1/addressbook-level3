@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
@@ -17,20 +18,23 @@ public class Claim {
 
     // Identity fields
     private final Description description;
+    private final Amount amount;
     private final Name name;
     private final Phone phone;
 
     // Data fields
-    private final Amount amount;
+    private final Date date;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Claim(Description description, Amount amount, Name name, Phone phone, Set<Tag> tags) {
+    public Claim(Description description, Amount amount, Date date,
+                 Name name, Phone phone, Set<Tag> tags) {
         requireAllNonNull(description, amount, name, phone, tags);
         this.description = description;
         this.amount = amount;
+        this.date = date;
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
@@ -52,6 +56,10 @@ public class Claim {
         return amount;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -62,7 +70,7 @@ public class Claim {
     }
 
     /**
-     * Returns true if both claims of the same description has at least one other identify field that is the asme.
+     * Returns true if both claims of the same description has at least one other identify field that is the same.
      */
     public boolean isSameClaim(Claim otherClaim) {
         if (otherClaim == this) {
@@ -70,8 +78,10 @@ public class Claim {
         }
 
         return otherClaim != null
-                && otherClaim.getName().equals(getName())
-                && (otherClaim.getDescription().equals(getDescription()) || otherClaim.getPhone().equals(getPhone()));
+                && otherClaim.getDescription().equals(getDescription())
+                && (otherClaim.getName().equals(getName())
+                        || otherClaim.getPhone().equals(getPhone())
+                        || otherClaim.getAmount().equals(getAmount()));
     }
 
     /**
@@ -91,6 +101,7 @@ public class Claim {
         Claim otherClaim = (Claim) obj;
         return otherClaim.getDescription().equals(getDescription())
                 && otherClaim.getName().equals(getName())
+                && otherClaim.getDate().equals(getDate())
                 && otherClaim.getPhone().equals(getPhone())
                 && otherClaim.getAmount().equals(getAmount())
                 && otherClaim.getTags().equals(getTags());

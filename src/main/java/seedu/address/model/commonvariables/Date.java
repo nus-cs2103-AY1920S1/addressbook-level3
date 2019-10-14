@@ -15,8 +15,8 @@ public class Date {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Date should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
-    private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final String VALIDATION_REGEX = "^([0-2][0-9]|(3)[0-1])(\\-)(((0)[0-9])|((1)[0-2]))(\\-)\\d{4}$";
+    private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public final LocalDate date;
 
     /**
