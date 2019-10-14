@@ -69,19 +69,19 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s expense list and {@code userPrefs}. <br>
+     * The data from the sample expense list will be used instead if {@code storage}'s expense list is not found,
+     * or an empty expense list will be used instead if errors occur when reading {@code storage}'s expense list.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyExpenseList> addressBookOptional;
+        Optional<ReadOnlyExpenseList> expenseListOptional;
         ReadOnlyExpenseList initialData;
         try {
-            addressBookOptional = storage.readExpenseList();
-            if (!addressBookOptional.isPresent()) {
+            expenseListOptional = storage.readExpenseList();
+            if (!expenseListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ExpenseList");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleExpenseList);
+            initialData = expenseListOptional.orElseGet(SampleDataUtil::getSampleExpenseList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ExpenseList");
             initialData = new ExpenseList();

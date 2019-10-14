@@ -18,7 +18,7 @@ public class Amount {
     /**
      * Constructs an {@code Amount}.
      *
-     * @param amount A valid email address.
+     * @param amount A valid amount.
      */
     public Amount(String amount) {
         requireNonNull(amount);
