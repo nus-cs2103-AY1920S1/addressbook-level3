@@ -21,9 +21,9 @@
               </TextArea>
             <HBox spacing="20.0">
                <children>
-                    <Button fx:id="btn_Save" mnemonicParsing="false" onAction="#onClick_btn_Save" text="Save" />
+                    <Button fx:id="btnSave" mnemonicParsing="false" onAction="onSaveButtonClick" text="Save" />
                   <Region prefHeight="26.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                    <Button fx:id="btn_Submit" mnemonicParsing="false" onAction="#onClick_btn_Submit" text="Submit" />
+                    <Button fx:id="btnSubmit" mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Submit" />
                </children>
                <opaqueInsets>
                   <Insets />

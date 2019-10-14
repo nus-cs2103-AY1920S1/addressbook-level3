@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import com.dukeacademy.commons.core.LogsCenter;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,22 +16,32 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import com.dukeacademy.commons.core.LogsCenter;
 
+/**
+ * Creates a Text Editor window for the user to input code.
+ */
 public class Editor extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private static final String FXML = "Editor.fxml";
+    static private final String FXML = "Editor.fxml";
 
     @FXML
-    private Button btn_Save;
+    private Button btnSave;
 
     @FXML
-    private Button btn_Submit;
+    private Button btnSubmit;
 
     @FXML
     private TextArea textOutput;
 
+    public Editor() {
+        super(FXML);
+    }
+
+
+    /**
+     * Initializes the initial configurations for the Editor Window upon startup.
+     */
     @FXML
     public void initialize() {
         textOutput.addEventFilter(KeyEvent.KEY_PRESSED, e1 -> {
@@ -41,15 +53,20 @@ public class Editor extends UiPart<Region> {
         });
     }
 
+    /**
+     * Saves file into user's computer upon clicking the "Save" button.
+     * @param e the ActionEvent
+     * @throws IOException when the user's file cannot be accessed
+     */
     @FXML
-    public void onClick_btn_Save(ActionEvent e) throws IOException {
+    public void onSaveButtonClick(ActionEvent e) throws IOException {
         Stage stage = new Stage();
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Save File");
         File selectedFile = chooser.showOpenDialog(stage);
-        FileWriter FW = new FileWriter(selectedFile.getAbsolutePath());
-        FW.write(textOutput.getText());
-        FW.close();
+        FileWriter fw = new FileWriter(selectedFile.getAbsolutePath());
+        fw.write(textOutput.getText());
+        fw.close();
     }
 
     /**
@@ -58,12 +75,8 @@ public class Editor extends UiPart<Region> {
      * @param e the e
      */
     @FXML
-    public String onClick_btn_Submit(ActionEvent e) {
+    public String onSubmitButtonClick(ActionEvent e) {
         System.out.println(textOutput.getText().strip());
         return textOutput.getText().strip();
-    }
-
-    public Editor() {
-        super(FXML);
     }
 }
