@@ -15,7 +15,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 /**
  * Parses input arguments and creates a new ChangeAppCommand object
  */
-public class ChangeAppCommandParser {
+public class ChangeAppCommandParser implements Parser<ChangeAppCommand>{
     public ChangeAppCommand parse(String args) throws ParseException {
         requireNonNull(args);
 

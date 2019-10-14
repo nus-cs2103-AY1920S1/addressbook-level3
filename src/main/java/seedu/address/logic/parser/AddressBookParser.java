@@ -95,6 +95,9 @@ public class AddressBookParser {
         case MissAppCommand.COMMAND_WORD:
             return new MissAppCommandParser().parse(arguments);
 
+        case SettleAppCommand.COMMAND_WORD:
+            return new SettleAppCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

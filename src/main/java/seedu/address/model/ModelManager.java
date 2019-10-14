@@ -19,6 +19,7 @@ import seedu.address.model.common.ReferenceId;
 import seedu.address.model.events.ContainsKeywordsPredicate;
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.Event;
+import seedu.address.model.events.Status;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
@@ -312,7 +313,7 @@ public class ModelManager implements Model {
      * Returns an boolean, check whether current displaying appointments are belong to the same patient.
      */
     @Override
-    public boolean isPatientList() {
+    public Boolean isPatientList() {
         requireNonNull(filteredEvents);
         boolean res = true;
         ReferenceId id = filteredEvents.get(0).getPersonId();
@@ -330,8 +331,21 @@ public class ModelManager implements Model {
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         Date current = new Date();
         Predicate<Event> byMissed = Event -> (Event.getStatus().isMissed())
-                && (Event.getEventTiming().getEndTime().getTime().before(current));
+                || (!Event.getStatus().isSettled() && (Event.getEventTiming().getEndTime().getTime().before(current)));
         filteredEvents.setPredicate(byMissed);
+    }
+
+    @Override
+    public Boolean isMissedList() {
+        requireNonNull(filteredEvents);
+        boolean res = true;
+        for (Event e : filteredEvents) {
+            if (!e.getStatus().isMissed()) {
+                res = false;
+                break;
+            }
+        }
+        return res;
     }
 
 

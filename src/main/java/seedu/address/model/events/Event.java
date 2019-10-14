@@ -26,10 +26,12 @@ public class Event implements Comparable<Event> {
 
         this.personId = personId;
         this.timing = timing;
-        this.status = status;
 
-        if (status.equals(Status.AppointmentStatuses.APPROVED) && timing.hasMissedTiming()) {
+
+        if (!status.equals(new Status(Status.AppointmentStatuses.SETTLED)) && timing.hasMissedTiming()) {
             this.status = new Status(Status.AppointmentStatuses.MISSED);
+        } else {
+            this.status = status;
         }
     }
 
@@ -61,7 +63,8 @@ public class Event implements Comparable<Event> {
 
         return otherEvent != null
                 && otherEvent.getPersonId().equals(getPersonId())
-                && otherEvent.getEventTiming().equals(getEventTiming());
+                && otherEvent.getEventTiming().equals(getEventTiming())
+                && otherEvent.getStatus().equals(status);
     }
 
     /**

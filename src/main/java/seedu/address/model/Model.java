@@ -206,5 +206,7 @@ public interface Model extends ReferenceIdResolver {
 
     public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate);
 
-    public boolean isPatientList();
+    public Boolean isPatientList();
+
+    public Boolean isMissedList();
 }

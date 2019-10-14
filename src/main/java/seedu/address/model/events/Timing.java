@@ -57,9 +57,9 @@ public class Timing implements Comparable<Timing> {
         return endTiming;
     }
 
-    public boolean hasMissedTiming() {
+    public Boolean hasMissedTiming() {
         Date current = new Date();
-        return getEndTime().getTime().after(current);
+        return getEndTime().getTime().before(current);
     }
 
     /**

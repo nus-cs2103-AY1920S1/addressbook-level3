@@ -9,9 +9,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.events.ContainsKeywordsPredicate;
-import seedu.address.model.events.Event;
-import seedu.address.model.events.Timing;
+import seedu.address.model.events.*;
 
 
 /**
@@ -37,7 +35,7 @@ public class AppointmentsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredEventList(predicate);
-        autoMissEvent(model.getFilteredEventList());
+        autoMissEvent(model.getFilteredEventList(), model);
         return new CommandResult(
                 String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
     }
@@ -47,11 +45,14 @@ public class AppointmentsCommand extends Command {
      *
      * @param filteredEventList which is the eventList contains the referenceId
      */
-    private void autoMissEvent(ObservableList<Event> filteredEventList) {
+    private void autoMissEvent(ObservableList<Event> filteredEventList, Model model) {
         for (Event ev : filteredEventList) {
             Timing evTiming = ev.getEventTiming();
             Date current = new Date();
-            if (evTiming.getEndTime().getTime().before(current)) {
+            if (!ev.getStatus().equals(new Status(Status.AppointmentStatuses.SETTLED))
+                    && evTiming.getEndTime().getTime().before(current)) {
+                Event newAppt = new Appointment(ev.getPersonId(), ev.getEventTiming(), new Status(Status.AppointmentStatuses.SETTLED));
+                model.setEvent(ev, newAppt);
                 //todo mark event as missed.
             }
         }
