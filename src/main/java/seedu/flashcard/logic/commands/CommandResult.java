@@ -23,6 +23,10 @@ public class CommandResult {
         this.exit = exit;
     }
 
+    public CommandResult(String feedbackToUser) {
+        this(feedbackToUser, false, false);
+    }
+
     public String getFeedBackToUser() {
         return feedBackToUser;
     }

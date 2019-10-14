@@ -33,6 +33,11 @@ public abstract class Flashcard {
         this.tags = new ArrayList<>();
     }
 
+    public Flashcard(CardId id, Question question, Answer answer) {
+        this(question, answer);
+        this.setId(id);
+    }
+
     public Question getQuestion() {
         return question;
     }
@@ -52,6 +57,8 @@ public abstract class Flashcard {
     public ArrayList<Tag> getTags() {
         return tags;
     }
+
+    public void setId(CardId id) { this.id = id; }
 
     public void setQuestion(String newQuestion) {
         question.setQuestion(newQuestion);

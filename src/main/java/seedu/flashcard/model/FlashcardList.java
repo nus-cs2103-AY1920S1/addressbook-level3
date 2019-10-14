@@ -55,6 +55,18 @@ public class FlashcardList {
     }
 
     /**
+     * Edit the Flashcard of a particular id
+     * @param flashcardId the id number of the model we want to edit
+     * @param newFlashcard the updated Flashcard for the target model
+     */
+    public void setFlashcard(int flashcardId, Flashcard newFlashcard) {
+        deleteFlashcard(flashcardId);
+        if (newFlashcard.getId().getIdentityNumber() == flashcardId) {
+            addFlashcard(newFlashcard);
+        }
+    }
+
+    /**
      * Edit the answer on a particular model
      * @param flashcardId the id number of the model we want to edit
      * @param newAnswer the updated answer for the target model
@@ -63,6 +75,7 @@ public class FlashcardList {
         Flashcard editFlashcard = getFlashcard(flashcardId);
         editFlashcard.setAnswer(newAnswer);
     }
+
 
     /**
      * Edit the options on a particular MCQ flash card
@@ -78,7 +91,6 @@ public class FlashcardList {
         McqFlashcard castedEditFlashcard = (McqFlashcard) editFlashcard;
         castedEditFlashcard.setOptions(newOptions);
     }
-
 
     /**
      * Look up for a model whose id number, question or answer contains this specific keyword
@@ -131,6 +143,14 @@ public class FlashcardList {
     }
 
     /**
+     * add a constructed flashcard directly into the list.
+     * @param flashcard the flashcard to be added
+     */
+    public void addFlashcard(Flashcard flashcard) {
+        flashcards.add(flashcard);
+    }
+
+    /**
      * Give the target model a tag. If this tag currently does not exist, create a new one in the TagManager
      * @param flashcardId the model to be tagged
      * @param tagName the tag to be added to the model
@@ -147,4 +167,13 @@ public class FlashcardList {
         targetCard.addTag(targetTag);
         targetTag.addFlashcard(targetCard);
     }
+
+    public String listFlashcards() {
+        final StringBuilder builder = new StringBuilder();
+        getAllFlashcards().forEach((card) ->
+                builder.append(card)
+                        .append("\n"));
+        return builder.toString();
+    }
+
 }

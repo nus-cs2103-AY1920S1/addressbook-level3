@@ -7,8 +7,11 @@ import java.util.ArrayList;
  */
 public class McqFlashcard extends Flashcard {
 
-    public McqFlashcard(McqQuestion question, Answer answer) {
+    public McqFlashcard(Question question, Answer answer) {
         super(question, answer);
+    }
+    public McqFlashcard(CardId id, Question question, Answer answer) {
+        super(id, question, answer);
     }
 
     /**
