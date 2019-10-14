@@ -233,10 +233,9 @@ public class MainWindow extends UiPart<Stage> {
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Reimbursements")) {
                 commandResult = reimbursementLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Inventory")) {
-                commandResult = new OverallCommandResult("Implement inventory logic");
-                //should be replace with inventory's logic
+                commandResult = inventoryLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Cashier")) {
-                commandResult = new OverallCommandResult("Implement cashier logic");
+                commandResult = cashierLogic.execute(commandText);
                 //should be replace with cashier's logic
             } else {
                 commandResult = overviewLogic.execute(commandText);
@@ -244,6 +243,7 @@ public class MainWindow extends UiPart<Stage> {
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
             lion.setResponse(commandResult.getFeedbackToUser());
+
             homePlaceholder.getChildren().removeAll();
             homePlaceholder.getChildren().add(new Home(transactionLogic).getRoot());
 

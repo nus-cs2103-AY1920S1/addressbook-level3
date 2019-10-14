@@ -4,6 +4,9 @@ import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.util.InventoryList;
 
+/**
+ * The API of the Model component.
+ */
 public interface Model {
 
     void addItem(Item item);
@@ -21,5 +24,15 @@ public interface Model {
     boolean hasItemInInventory(Item item);
 
     boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException;
+
+    void updateIndexes() throws NoSuchIndexException;
+
+    void sortByDescription();
+
+    void sortByCategory();
+
+    void sortByQuantity();
+
+    void readInUpdatedList();
 
 }

@@ -1,5 +1,8 @@
 package seedu.address.inventory.model.exception;
 
+/**
+ * Signals that the user input is referring to a non-existent {@code Item} object.
+ */
 public class NoSuchItemException extends Exception {
 
     private String msg;
@@ -12,5 +15,4 @@ public class NoSuchItemException extends Exception {
     public String toString() {
         return this.msg;
     }
-
 }

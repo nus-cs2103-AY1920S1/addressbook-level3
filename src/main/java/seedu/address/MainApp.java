@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.person.commons.core.Config;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.commons.core.Version;
@@ -55,8 +56,8 @@ public class MainApp extends Application {
     protected seedu.address.reimbursement.storage.StorageManager reimbursementStorage;
 
     protected seedu.address.inventory.logic.LogicManager inventoryLogic;
-    protected seedu.address.inventory.storage.StorageManager inventoryStorage;
     protected seedu.address.inventory.model.ModelManager inventoryModel;
+    protected seedu.address.inventory.storage.StorageManager inventoryStorage;
 
     protected seedu.address.cashier.logic.LogicManager cashierLogic;
     protected seedu.address.cashier.model.ModelManager cashierModel;
@@ -121,16 +122,17 @@ public class MainApp extends Application {
                 seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementStorage,
                 transactionModel, transactionStorage, model);
         inventoryLogic = new
-                seedu.address.inventory.logic.LogicManager(cashierModel, cashierStorage, model, storage,
-                reimbursementModel, reimbursementStorage, transactionModel, transactionStorage, inventoryModel,
-                inventoryStorage);
+                seedu.address.inventory.logic.LogicManager(cashierModel, cashierStorage,
+                inventoryModel, inventoryStorage);
         cashierLogic = new
                 seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model, storage,
-                reimbursementModel, reimbursementStorage, transactionModel, transactionStorage);
+                reimbursementModel, reimbursementStorage, transactionModel, transactionStorage, inventoryModel,
+                inventoryStorage);
         overviewLogic = new seedu.address.overview.logic.LogicManager(overviewModel, overviewStorage, transactionLogic,
                 inventoryLogic);
 
-        logic = new LogicManager(model, storage, transactionLogic, reimbursementLogic, cashierLogic);
+
+        logic = new LogicManager(model, storage, transactionLogic, reimbursementLogic, cashierLogic, inventoryLogic);
 
         //no config for ui yet
         /*UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(new Config().getUserPrefsFilePath());
@@ -265,7 +267,8 @@ public class MainApp extends Application {
             storage.saveUserPrefs(model.getUserPrefs());
             transactionModel.sortReset();
             transactionStorage.writeFile(transactionModel.getTransactionList());
-        } catch (IOException e) {
+            inventoryStorage.writeFile(inventoryModel.getInventoryList());
+        } catch (IOException | NoSuchIndexException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
     }
