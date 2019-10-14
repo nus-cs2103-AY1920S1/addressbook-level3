@@ -1,6 +1,5 @@
 package seedu.billboard.model.archive;
 
-import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.ExpenseList;
 

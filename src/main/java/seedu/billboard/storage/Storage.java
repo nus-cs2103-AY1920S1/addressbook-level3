@@ -13,7 +13,7 @@ import seedu.billboard.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends BillboardStorage, ArchiveStorage, UserPrefsStorage {
+public interface Storage extends BillboardStorage, UserPrefsStorage {
 
     // ================ UserPrefs methods ==============================
     @Override
@@ -32,6 +32,7 @@ public interface Storage extends BillboardStorage, ArchiveStorage, UserPrefsStor
     @Override
     void saveBillboard(ReadOnlyBillboard billboard) throws IOException;
 
+    /*
     // ================ Archive methods ==============================
     @Override
     Path getArchiveFilePath();
@@ -41,5 +42,5 @@ public interface Storage extends BillboardStorage, ArchiveStorage, UserPrefsStor
 
     @Override
     void saveArchive(ReadOnlyArchiveWrapper archive) throws IOException;
-
+*/
 }

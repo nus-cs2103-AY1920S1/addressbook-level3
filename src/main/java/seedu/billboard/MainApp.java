@@ -47,8 +47,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         BillboardStorage billboardStorage = new JsonBillboardStorage(userPrefs.getBillboardFilePath());
-        ArchiveStorage archiveStorage = new JsonArchiveStorage(userPrefs.getArchiveFilePath());
-        storage = new StorageManager(billboardStorage, archiveStorage, userPrefsStorage);
+        storage = new StorageManager(billboardStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -83,23 +82,7 @@ public class MainApp extends Application {
             initialData = new Billboard();
         }
 
-        Optional<ReadOnlyArchiveWrapper> archiveOptional;
-        ReadOnlyArchiveWrapper initialArchiveData;
-        try {
-            archiveOptional = storage.readArchive();
-            if (archiveOptional.isEmpty()) {
-                logger.info("Archive file not found. Will be starting with an empty archive");
-            }
-            initialArchiveData = archiveOptional.orElseGet(SampleDataUtil::getSampleArchiveWrapper);
-        } catch (DataConversionException e) {
-            logger.warning("Archive file not in the correct format. Will be starting with an empty archive");
-            initialArchiveData = new ArchiveWrapper();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the archive file. Will be starting with an empty archive");
-            initialArchiveData = new ArchiveWrapper();
-        }
-
-        return new ModelManager(initialData, initialArchiveData, userPrefs);
+        return new ModelManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {

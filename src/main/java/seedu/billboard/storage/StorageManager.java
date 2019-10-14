@@ -19,14 +19,12 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private BillboardStorage billboardStorage;
-    private ArchiveStorage archiveStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(BillboardStorage billboardStorage, ArchiveStorage archiveStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(BillboardStorage billboardStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.billboardStorage = billboardStorage;
-        this.archiveStorage = archiveStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -78,7 +76,7 @@ public class StorageManager implements Storage {
     }
 
     // ================ Archive methods ==============================
-
+/*
     @Override
     public Path getArchiveFilePath() {
         return archiveStorage.getArchiveFilePath();
@@ -104,6 +102,6 @@ public class StorageManager implements Storage {
     public void saveArchive(ReadOnlyArchiveWrapper archive, Path filePath) throws IOException {
         logger.fine("Attempting to write to archive file: " + filePath);
         archiveStorage.saveArchive(archive, filePath);
-    }
+    }*/
 
 }

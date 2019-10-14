@@ -35,6 +35,8 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    public Billboard getCombinedBillboard();
+
     // ================ Billboard methods ==============================
 
     /**

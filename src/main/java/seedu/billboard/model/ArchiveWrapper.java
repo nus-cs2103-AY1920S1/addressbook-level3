@@ -30,6 +30,24 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
         resetData(toBeCopied);
     }
 
+    public ArchiveWrapper(List<Expense> unfilteredExpenses) {
+        HashMap<String, List<Expense>> filterArchives = new HashMap<>();
+        for(Expense archivedExpense : unfilteredExpenses) {
+            String archiveName = archivedExpense.getArchiveName();
+            if (!filterArchives.containsKey(archiveName)) {
+                filterArchives.put(archiveName, new ArrayList<>());
+            }
+            filterArchives.get(archiveName).add(archivedExpense);
+        }
+
+        Set<String> archiveNames = filterArchives.keySet();
+        for(String archiveName : archiveNames) {
+            Archive archive = new Archive(archiveName, filterArchives.get(archiveName));
+            archiveList.put(archiveName, archive);
+        }
+
+    }
+
     //==================== HashMap Overwrite operations ====================
 
     /**
@@ -125,6 +143,19 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
         }
 
         return archives;
+    }
+
+    public List<Expense> getExpenseList() {
+        List<Expense> expenses = new ArrayList<>();
+        List<Archive> archives = getArchiveList();
+        for(Archive archive : archives) {
+            List<Expense> toBeCopied = archive.asUnmodifiableObservableList();
+            for(Expense expense : toBeCopied) {
+                expenses.add(expense);
+            }
+        }
+
+        return expenses;
     }
 
     @Override

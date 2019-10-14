@@ -4,10 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -31,18 +34,18 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given billboard and userPrefs.
      */
-    public ModelManager(ReadOnlyBillboard billboardExpenses, ReadOnlyArchiveWrapper archiveExpenses, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyBillboard initialBillboard, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(billboardExpenses, archiveExpenses, userPrefs);
-
-        logger.fine("Initializing with billboard: " + billboardExpenses + "and archive: " + archiveExpenses
-                 + " and user prefs " + userPrefs);
-
-        this.billboardExpenses = new Billboard(billboardExpenses);
-        this.archives = new ArchiveWrapper(archiveExpenses);
+        requireAllNonNull(initialBillboard, userPrefs);
+        this.billboardExpenses = getNonArchivedBillboard(initialBillboard);
+        archives = getArchiveWrapper(initialBillboard);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredExpense = new FilteredList<>(this.billboardExpenses.getExpenses());
 
+        logger.fine("Initializing with billboard: " + billboardExpenses
+                + " and Archives: " + archives
+                + "and user prefs " + userPrefs);
+
+        filteredExpense = new FilteredList<>(this.billboardExpenses.getExpenses());
         filteredArchives = new HashMap<>();
         Set<String> archiveNames = this.archives.getArchiveNames();
         for (String archiveName : archiveNames) {
@@ -52,8 +55,38 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new Billboard(), new ArchiveWrapper(), new UserPrefs());
+        this(new Billboard(), new UserPrefs());
     }
+
+    private Billboard getNonArchivedBillboard(ReadOnlyBillboard billboardExpenses) {
+        List<Expense> Expenses = billboardExpenses.getExpenses();
+        List<Expense> nonArchivedExpenses = Expenses.stream().filter(x -> !x.isArchived()).collect(Collectors.toList());
+        Billboard nonArchivedBillboard = new Billboard();
+        nonArchivedBillboard.setExpenses(nonArchivedExpenses);
+        return nonArchivedBillboard;
+    }
+
+    private ArchiveWrapper getArchiveWrapper(ReadOnlyBillboard billboardExpenses) {
+        List<Expense> Expenses = billboardExpenses.getExpenses();
+        List<Expense> archivedExpenses = Expenses.stream().filter(Expense::isArchived).collect(Collectors.toList());
+        return new ArchiveWrapper(archivedExpenses);
+    }
+
+    @Override
+    public Billboard getCombinedBillboard() {
+        List<Expense> combinedExpenses = new ArrayList<>();
+        List<Expense> nonArchiveExpenses = billboardExpenses.getExpenses();
+        List<Expense> archiveExpense = archives.getExpenseList();
+
+        combinedExpenses.addAll(nonArchiveExpenses);
+        combinedExpenses.addAll(archiveExpense);
+
+        Billboard billboard = new Billboard();
+        billboard.setExpenses(combinedExpenses);
+
+        return billboard;
+    }
+
 
     //=========== UserPrefs ==================================================================================
 
