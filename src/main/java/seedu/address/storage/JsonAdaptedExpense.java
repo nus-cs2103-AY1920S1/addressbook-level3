@@ -14,14 +14,17 @@ class JsonAdaptedExpense {
 
     private final int personId;
     private final double amount;
+    private final String description;
 
     /**
      * Constructs a {@code JsonAdaptedExpense} with the given details.
      */
     @JsonCreator
-    public JsonAdaptedExpense(@JsonProperty("personId") int personId, @JsonProperty("amount") double amount) {
+    public JsonAdaptedExpense(@JsonProperty("personId") int personId, @JsonProperty("amount") double amount,
+                              @JsonProperty("description") String description) {
         this.personId = personId;
         this.amount = amount;
+        this.description = description;
     }
 
     /**
@@ -30,6 +33,7 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(Expense source) {
         personId = source.getPersonId();
         amount = source.getAmount().value;
+        description = source.getDescription();
     }
 
     /**
@@ -43,6 +47,6 @@ class JsonAdaptedExpense {
         }
         final Amount amount = new Amount(this.amount);
 
-        return new Expense(personId, amount);
+        return new Expense(personId, amount, description);
     }
 }

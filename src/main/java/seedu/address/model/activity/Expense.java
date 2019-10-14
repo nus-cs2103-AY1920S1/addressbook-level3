@@ -8,14 +8,22 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  * except only isDeleted is mutable.
  */
 public class Expense {
-    private final Amount amount;
     private final int personId;
+    private final Amount amount;
+    private final String description;
     private boolean isDeleted;
 
-    public Expense(int personId, Amount amount) {
-        requireAllNonNull(amount);
+    /**
+     * Constructor for Expense.
+     * @param personId ID of the person who paid.
+     * @param amount The amount paid.
+     * @param description Description of the expense (can be an empty string).
+     */
+    public Expense(int personId, Amount amount, String description) {
+        requireAllNonNull(amount, description);
         this.personId = personId;
         this.amount = amount;
+        this.description = description;
         this.isDeleted = false;
     }
 
@@ -25,6 +33,10 @@ public class Expense {
 
     public int getPersonId() {
         return personId;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public boolean isDeleted() {
@@ -39,7 +51,7 @@ public class Expense {
     }
 
     /**
-     * Returns true if both expenses contain the same person ID and amount.
+     * Returns true if both expenses contain the same person ID, amount and description.
      */
     @Override
     public boolean equals(Object other) {
@@ -48,7 +60,8 @@ public class Expense {
         } else if (other instanceof Expense) {
             Expense otherExpense = (Expense) other;
             return otherExpense.getPersonId() == getPersonId()
-                    && otherExpense.getAmount().equals(getAmount());
+                    && otherExpense.getAmount().equals(getAmount())
+                    && otherExpense.getDescription().equals(getDescription());
         } else {
             return false;
         }
