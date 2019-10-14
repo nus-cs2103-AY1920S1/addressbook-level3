@@ -10,13 +10,13 @@ import seedu.address.reimbursement.ui.ReimbursementMessages;
  * Represents a command to sort by amount.
  */
 public class SortAmountCommand extends Command {
-    public static final String COMMAND_WORD = "sort amount";
+    public static final String COMMAND_WORD = "sortamount";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
         ReimbursementMessages reimbursementMessages = new ReimbursementMessages();
-        model.sortReimbursementListByAmount();
+        model.sortListByAmount();
         logger.info("sort by amount");
         return new CommandResult(reimbursementMessages.SORT_BY_AMOUNT);
     }

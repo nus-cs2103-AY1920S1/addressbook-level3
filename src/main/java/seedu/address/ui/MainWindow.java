@@ -155,7 +155,7 @@ public class MainWindow extends UiPart<Stage> {
         inventory = new Inventory(inventoryLogic);
         inventoryPlaceholder.getChildren().add(inventory.getRoot());
 
-        reimbursements = new Reimbursements();
+        reimbursements = new Reimbursements(reimbursementLogic);
         reimbursementsPlaceholder.getChildren().add(reimbursements.getRoot());
 
         cashier = new Cashier(cashierLogic);
@@ -251,7 +251,7 @@ public class MainWindow extends UiPart<Stage> {
             inventoryPlaceholder.getChildren().add(new Inventory(inventoryLogic).getRoot());
 
             reimbursementsPlaceholder.getChildren().removeAll();
-            reimbursementsPlaceholder.getChildren().add(new Reimbursements().getRoot());
+            reimbursementsPlaceholder.getChildren().add(new Reimbursements(reimbursementLogic).getRoot());
 
             cashierPlaceholder.getChildren().removeAll();
             cashierPlaceholder.getChildren().add(new Cashier(cashierLogic).getRoot());
