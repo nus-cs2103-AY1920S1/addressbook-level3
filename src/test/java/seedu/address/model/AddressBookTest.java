@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -90,6 +91,7 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Flashcard> flashcards = FXCollections.observableArrayList();
+        private final ObservableList<Note> notes = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons, Collection<Flashcard> flashcards) {
             this.persons.setAll(persons);
@@ -105,6 +107,10 @@ public class AddressBookTest {
         public ObservableList<Flashcard> getFlashcardList() {
             return flashcards;
         }
-    }
 
+        @Override
+        public ObservableList<Note> getNoteList() {
+            return notes;
+        }
+    }
 }
