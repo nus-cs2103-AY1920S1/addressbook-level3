@@ -15,6 +15,7 @@ import seedu.address.logic.commands.app.ExitCommand;
 import seedu.address.logic.commands.app.FindCommand;
 import seedu.address.logic.commands.app.HelpCommand;
 import seedu.address.logic.commands.app.ListCommand;
+import seedu.address.logic.commands.load.BankCommand;
 import seedu.address.logic.commands.game.GuessCommand;
 import seedu.address.logic.commands.game.SkipCommand;
 import seedu.address.logic.commands.game.StopCommand;
@@ -57,6 +58,9 @@ public class AddressBookParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+
+        case BankCommand.COMMAND_WORD:
+            return new BankCommand();
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
