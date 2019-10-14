@@ -52,7 +52,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      */
     public void setTasks(List<Task> tasks) {
         this.tasks.setTasks(tasks);
-        splitTasksBasedOnStatus();
+        splitTasksBasedOnStatus(); // initial loading
     }
 
     /**
@@ -66,7 +66,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     //// task-level operations
 
     /**
-     * Returns true if a task with the same identity as {@code task} exists in the address book.
+     * Returns true if a task with the same identity as {@code task} exists in the project dashboard.
      */
     public boolean hasTask(Task task) {
         requireNonNull(task);
@@ -85,7 +85,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     /**
      * Replaces the given task {@code target} in the list with {@code editedTask}.
      * {@code target} must exist in the address book.
-     * The task identity of {@code editedTask} must not be the same as another existing task in the address book.
+     * The task identity of {@code editedTask} must not be the same as another existing task in the project dashboard.
      */
     public void setTask(Task target, Task editedTask) {
         requireNonNull(editedTask);
@@ -105,6 +105,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     //// util methods
 
+    // TODO make this algo more efficient, code may break if lists are overloaded
     public void splitTasksBasedOnStatus() {
 
         // prevent duplicates

@@ -18,7 +18,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.window.ProjectDashboardView;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -115,16 +114,6 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
-//    /**
-//     * Refresh the dashboard if the user manipulates the internal task list.
-//     */
-//    private void refreshDashboard() {
-//        projectDashboardView = new ProjectDashboardView(logic.getFilteredTaskListNotStarted(), logic.getFilteredTaskListDoing(),
-//                logic.getFilteredTaskListDone());
-//        taskListPanelPlaceholder.getChildren().add(projectDashboardView.getRoot());
-//        // TODO modularise this
-//    }
-
     /**
      * Fills up all the placeholders of this window.
      * By default, the project dashboard is shown
@@ -194,16 +183,11 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            // avoid duplicate children in the placeholder pane
+            userNavigableView.getChildren().clear();
+
             // temporary measure to update Ui based on commands from user
             // TODO: abstract the parsing into a another class, which will interact with UserViewMain
-
-            if (commandText.contains("list")) {
-                userNavigableView.getChildren().add(userViewMain.loadTasks());
-            } else if (commandText.contains("find")) {
-                userNavigableView.getChildren().add(userViewMain.loadTasks());
-            } else {
-                userNavigableView.getChildren().add(userViewMain.loadDashboard());
-            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -212,6 +196,17 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+
+            if (commandText.contains("list")) {
+                userNavigableView.getChildren().add(userViewMain.loadTasks());
+            } else if (commandText.contains("find")) {
+                userNavigableView.getChildren().add(userViewMain.loadDashboard());
+            } else {
+                userNavigableView.getChildren().add(userViewMain.loadDashboard());
+            }
+
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {
