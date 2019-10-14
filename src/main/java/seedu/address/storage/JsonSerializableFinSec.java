@@ -34,7 +34,7 @@ class JsonSerializableFinSec {
     private final List<JsonAdaptedClaim> claims = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableFinSec} with the given persons.
+     * Constructs a {@code JsonSerializableFinSec} with the given views.
      */
     @JsonCreator
     public JsonSerializableFinSec(@JsonProperty("contacts") List<JsonAdaptedContact> contacts,
@@ -58,7 +58,7 @@ class JsonSerializableFinSec {
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this finSec into the model's {@code FinSec} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
