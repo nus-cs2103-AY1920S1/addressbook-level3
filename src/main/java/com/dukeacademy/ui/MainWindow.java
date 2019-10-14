@@ -8,6 +8,8 @@ import com.dukeacademy.logic.Logic;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
+import com.dukeacademy.model.solution.TestCase;
+import com.dukeacademy.model.solution.TestCaseResult;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -133,7 +135,8 @@ public class MainWindow extends UiPart<Stage> {
         editorPanel = new Editor();
         editorPlaceholder.getChildren().add(editorPanel.getRoot());
 
-        runCodeResultPanel = new RunCodeResult();
+        runCodeResultPanel = new RunCodeResult(new TestCase("1, 1", "2"),
+                new TestCaseResult(false, "2", "3"));
         runCodeResultPlaceholder.getChildren().add(runCodeResultPanel.getRoot());
     }
 
