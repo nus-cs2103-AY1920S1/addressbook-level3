@@ -56,6 +56,11 @@ public class AddOrderCommand extends Command {
      * Creates an AddCommand to add the specified {@code Order}
      */
     public AddOrderCommand(Index customerIndex, Index phoneIndex, Price price, Set<Tag> tags) {
+        requireNonNull(customerIndex);
+        requireNonNull(phoneIndex);
+        requireNonNull(price);
+        requireNonNull(tags);
+
         this.toAddCustomerIndex = customerIndex;
         this.toAddPhoneIndex = phoneIndex;
         this.toAddPrice = price;
