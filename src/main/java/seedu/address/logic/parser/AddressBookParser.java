@@ -21,6 +21,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RateQuestionCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.commands.StatsCommand;
@@ -39,6 +40,8 @@ public class AddressBookParser {
 
     //@@author keiteo
     private boolean isRunningFlashcardTest = false;
+
+    private boolean isAwaitingAnswer = false;
 
     /**
      * Parses user input into command for execution.
@@ -76,13 +79,15 @@ public class AddressBookParser {
             return new EndTestCommand(this);
         case ShowAnswerCommand.COMMAND_WORD:
             return new ShowAnswerCommand();
+        case RateQuestionCommand.COMMAND_WORD:
+            return new RateQuestionCommand(this);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_TEST_COMMAND);
         }
     }
 
     //@@author
-    /** Parses for normal commands. */
+    /** Parses normal commands. */
     private Command parseNormalCommand(Matcher matcher) throws ParseException {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
