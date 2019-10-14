@@ -50,6 +50,10 @@ public class QueueManager {
         queueList.addPatient(id);
     }
 
+    public void addPatient(int index, ReferenceId id) {
+        queueList.addPatient(index, id);
+    }
+
     public void removePatient(ReferenceId id) {
         queueList.removePatient(id);
     }

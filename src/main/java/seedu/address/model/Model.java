@@ -135,6 +135,8 @@ public interface Model extends ReferenceIdResolver {
 
     public void enqueuePatient(ReferenceId id);
 
+    public void enqueuePatientToFront(ReferenceId id);
+
     public boolean isPatientInQueue(ReferenceId id);
 
     public ObservableList<Room> getFilteredRoomList();

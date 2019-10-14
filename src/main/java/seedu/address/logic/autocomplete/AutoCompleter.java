@@ -20,6 +20,7 @@ public class AutoCompleter {
         "help",
         "missed",
         "next",
+        "enqueue",
         "offduty",
         "onduty",
         "patient",

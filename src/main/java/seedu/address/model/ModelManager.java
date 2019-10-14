@@ -81,6 +81,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void enqueuePatientToFront(ReferenceId id) {
+        queueManager.addPatient(0, id);
+        updateFilteredReferenceIdList(PREDICATE_SHOW_ALL_ID);
+    }
+
+    @Override
     public void serveNextPatient(int index) {
         queueManager.serveNext(index);
     }
@@ -93,12 +99,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addRoom(ReferenceId id) {
-        throw new UnsupportedOperationException();
+        queueManager.addRoom(id);
     }
 
     @Override
     public void removeRoom(int index) {
-        throw new UnsupportedOperationException();
+        queueManager.removeRoom(index);
     }
 
     //=========== UserPrefs ==================================================================================

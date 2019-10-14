@@ -41,6 +41,18 @@ public class UniqueReferenceIdList implements Iterable<ReferenceId> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Adds a person to the list at the specified index.
+     * The person must not already exist in the list.
+     */
+    public void add(int index, ReferenceId toAdd) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicatePersonException();
+        }
+        internalList.add(index, toAdd);
+    }
+
     public ReferenceId get(int index) {
         return internalList.get(index);
     }

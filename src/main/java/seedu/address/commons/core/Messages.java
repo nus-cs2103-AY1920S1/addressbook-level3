@@ -13,5 +13,6 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_EVENTS_LISTED_OVERVIEW = "%1$d events listed!";
     public static final String MESSAGE_NOTHING_TO_UNDO = "Nothing to undo!";
+    public static final String MESSAGE_INVALID_ROOM_INDEX = "Invalid room index provided!";
 
 }

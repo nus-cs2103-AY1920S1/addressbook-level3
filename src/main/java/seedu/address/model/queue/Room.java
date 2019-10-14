@@ -48,7 +48,7 @@ public class Room {
     }
 
     public void serve(ReferenceId id) {
-        patientCurrentlyBeingServed.of(id);
+        patientCurrentlyBeingServed = Optional.of(id);
     }
 
     /**
