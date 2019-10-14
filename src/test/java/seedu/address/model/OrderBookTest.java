@@ -57,7 +57,7 @@ public class OrderBookTest {
     }
 
     @Test
-    public void hasOrder_orderNotInAddressBook_returnsFalse() {
+    public void hasOrder_orderNotInOrderBook_returnsFalse() {
         assertFalse(orderBook.hasOrder(VIPORDER));
     }
 

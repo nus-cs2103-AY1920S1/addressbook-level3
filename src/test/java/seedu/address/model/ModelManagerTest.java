@@ -157,7 +157,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasOrder_orderInAddressBook_returnsTrue() {
+    public void hasOrder_orderInOrderBook_returnsTrue() {
         modelManager.addOrder(VIPORDER);
         assertTrue(modelManager.hasOrder(VIPORDER));
     }
@@ -198,6 +198,9 @@ public class ModelManagerTest {
                 .withSchedule(SCHEDULEONE).build();
 
         CustomerBook differentCustomerBook = new CustomerBook();
+        PhoneBook differentPhoneBook = new PhoneBook();
+        OrderBook differentOrderBook = new OrderBook();
+        ScheduleBook differentScheduleBook = new ScheduleBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
@@ -214,9 +217,22 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
+        // different customerBook -> returns false
         assertFalse(modelManager.equals(new
                 ModelManager(differentCustomerBook, phoneBook, orderBook, scheduleBook, userPrefs)));
+
+        // different phoneBook -> returns false
+        assertFalse(modelManager.equals(new
+                ModelManager(customerBook, differentPhoneBook, orderBook, scheduleBook, userPrefs)));
+
+        // different orderBook -> returns false
+        assertFalse(modelManager.equals(new
+                ModelManager(customerBook, phoneBook, differentOrderBook, scheduleBook, userPrefs)));
+
+        // different scheduleBook -> returns false
+        assertFalse(modelManager.equals(new
+                ModelManager(customerBook, phoneBook, orderBook, differentScheduleBook, userPrefs)));
+
 
         // different filteredList -> returns false
         String[] keywords = DANIEL.getCustomerName().fullName.split("\\s+");

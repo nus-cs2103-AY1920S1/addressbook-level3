@@ -63,6 +63,13 @@ public class PhoneBookTest {
     }
 
     @Test
+    public void hasPhone_phoneInPhoneBook_returnsTrue() {
+        phoneBook.addPhone(IPHONEXR);
+        assertTrue(phoneBook.hasPhone(IPHONEXR));
+    }
+
+
+    @Test
     public void hasPhone_phoneWithSameIdentityFieldsInPhoneBook_returnsTrue() {
         phoneBook.addPhone(IPHONEXR);
         Phone editediPhoneXr = new PhoneBuilder(IPHONEXR).withColour("Purple")
