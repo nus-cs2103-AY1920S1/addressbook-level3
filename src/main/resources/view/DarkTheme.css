@@ -62,7 +62,7 @@
     -fx-background-color: transparent;
     -fx-border-color:
         transparent
-        transparente
+        transparent
         derive(-fx-base, 80%)
         transparent;
     -fx-border-insets: 0 10 1 0;
@@ -182,6 +182,9 @@
     -fx-background-color: derive(#1d1d1d, 30%);
     -fx-border-color: derive(#1d1d1d, 30%);
     -fx-border-width: 1px;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
 }
 
 .grid-pane .stack-pane {
@@ -310,6 +313,14 @@
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
     -fx-padding: 8 1 8 1;
 }
+
+/*.grid-pane {*/
+/*    -fx-background-color: #1d1d1d;*/
+/*    -fx-font-family: "Segoe UI Light";*/
+/*    -fx-font-size: 13pt;*/
+/*    -fx-text-fill: white;*/
+/*    -fx-border-color: #383838 #383838 #ffffff #383838;*/
+/*}*/
 
 #cardPane {
     -fx-background-color: transparent;

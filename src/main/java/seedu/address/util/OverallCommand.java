@@ -10,7 +10,7 @@ import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 
 /**
- * Interface for all Commands.
+ * Interface for all commands.
  */
 public interface OverallCommand {
 

@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private seedu.address.inventory.logic.Logic inventoryLogic;
     private seedu.address.person.logic.Logic personLogic;
     private seedu.address.cashier.logic.Logic cashierLogic;
+    private seedu.address.overview.logic.Logic overviewLogic;
 
     // Independent Ui parts residing in this Ui container
     private Home home;
@@ -79,31 +80,24 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Tab homeTab;
 
-    //@FXML
-    //private StackPane personListPanelPlaceholder;
-
-    //@FXML
-    //private StackPane resultDisplayPlaceholder;
-
-    //@FXML
-    //private StackPane statusbarPlaceholder;
-
     public MainWindow(Stage primaryStage, seedu.address.transaction.logic.Logic transactionLogic,
                       seedu.address.reimbursement.logic.Logic reimbursementLogic,
                       seedu.address.inventory.logic.Logic inventoryLogic,
                       seedu.address.person.logic.Logic personLogic,
-                      seedu.address.cashier.logic.Logic cashierLogic) {
+                      seedu.address.cashier.logic.Logic cashierLogic,
+                      seedu.address.overview.logic.Logic overviewLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
 
+        //add all our logicManager
         this.transactionLogic = transactionLogic;
         this.reimbursementLogic = reimbursementLogic;
         this.inventoryLogic = inventoryLogic;
         this.personLogic = personLogic;
         this.cashierLogic = cashierLogic;
-        //add all our logicManager
+        this.overviewLogic = overviewLogic;
 
         // Configure the UI
         //setWindowDefaultSize(logic.getGuiSettings());
@@ -167,7 +161,7 @@ public class MainWindow extends UiPart<Stage> {
         cashier = new Cashier(cashierLogic);
         cashierPlaceholder.getChildren().add(cashier.getRoot());
 
-        overview = new Overview();
+        overview = new Overview(overviewLogic);
         overviewPlaceholder.getChildren().add(overview.getRoot());
 
         lion = new Lion();
@@ -244,8 +238,7 @@ public class MainWindow extends UiPart<Stage> {
                 commandResult = cashierLogic.execute(commandText);
                 //should be replace with cashier's logic
             } else {
-                commandResult = new OverallCommandResult("Implement overview logic");
-                //should be replace with overview's logic
+                commandResult = overviewLogic.execute(commandText);
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -264,7 +257,7 @@ public class MainWindow extends UiPart<Stage> {
             cashierPlaceholder.getChildren().add(new Cashier(cashierLogic).getRoot());
 
             overviewPlaceholder.getChildren().removeAll();
-            overviewPlaceholder.getChildren().add(new Overview().getRoot());
+            overviewPlaceholder.getChildren().add(new Overview(overviewLogic).getRoot());
 
             //later when we implement help and exit
             /*if (commandResult.isShowHelp()) {

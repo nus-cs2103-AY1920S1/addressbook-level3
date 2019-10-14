@@ -62,8 +62,3 @@ public class Cashier extends UiPart<Region> {
 
 
 }
-
-
-
-
-
