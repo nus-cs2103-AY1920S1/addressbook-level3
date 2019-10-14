@@ -5,7 +5,7 @@
       "name": "Data Structures and Algorithms",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
 
       ],
@@ -20,7 +20,7 @@
       "name": "Natural Language Processing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI",
         "MIR"

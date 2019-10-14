@@ -41,11 +41,13 @@ public class SemesterCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(semester.getSemesterName().name());
         description.setText(semester.toString());
-//        address.setText(semester.getAddress().value);
-//        email.setText(semester.getEmail().value);
-//        semester.getTags().stream()
-//                .sorted(Comparator.comparing(tag -> tag.getTagName()))
-//                .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
+        /*
+        address.setText(semester.getAddress().value);
+        email.setText(semester.getEmail().value);
+        semester.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.getTagName()))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
+        */
     }
 
     @Override

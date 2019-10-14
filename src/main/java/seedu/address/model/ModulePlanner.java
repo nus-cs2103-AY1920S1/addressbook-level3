@@ -199,6 +199,21 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         return currentSemester;
     }
 
+    /**
+     * Returns the {@code ModuleInfo} with the given module code.
+     */
+    public ModuleInfo getModule(String moduleCode) {
+        return modulesInfo.find(moduleCode);
+    }
+
+    /**
+     * Returns module information of the given module code, as a string.
+     */
+    public String getModuleInformation(String moduleCode) {
+        ModuleInfo moduleInfo = modulesInfo.find(moduleCode);
+        return moduleInfo == null ? null : moduleInfo.getInformation();
+    }
+
     //// util methods
 
     @Override

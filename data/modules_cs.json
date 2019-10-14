@@ -5,7 +5,7 @@
       "name": "Programming Methodology",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
 
       ],
@@ -20,7 +20,7 @@
       "name": "Discrete Structures",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
 
       ],
@@ -35,7 +35,7 @@
       "name": "Programming Methodology II",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
 
       ],
@@ -50,7 +50,7 @@
       "name": "Data Structures and Algorithms",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
 
       ],
@@ -65,7 +65,7 @@
       "name": "Computer Organisation",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
 
       ],
@@ -80,7 +80,7 @@
       "name": "Software Engineering",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
         "SE"
       ],
@@ -95,7 +95,7 @@
       "name": "Introduction to Computer Networks",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
         "NDS"
       ],
@@ -110,7 +110,7 @@
       "name": "Introduction to Operating Systems",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
 
       ],
@@ -125,7 +125,7 @@
       "name": "Design and Analysis of Algorithms",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
         "Algo"
       ],
@@ -140,7 +140,7 @@
       "name": "IS Innovations in Organisation",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
 
       ],
@@ -155,7 +155,7 @@
       "name": "Effective Communication for Computing Professionals",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
 
       ],
@@ -170,7 +170,7 @@
       "name": "Communicating in the Information Age",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
 
       ],
@@ -185,7 +185,7 @@
       "name": "Calculus for Computing",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
 
       ],
@@ -200,7 +200,7 @@
       "name": "Linear Algebra I",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
 
       ],
@@ -215,7 +215,7 @@
       "name": "Probability and Statistics",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
 
       ],
@@ -230,7 +230,7 @@
       "name": "Introduction to Information Theory",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Algo"
       ],
@@ -245,7 +245,7 @@
       "name": "Parallel and Distributed Algorithms",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Algo",
         "Para",
@@ -262,7 +262,7 @@
       "name": "Theory of Computation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Algo"
       ],
@@ -277,7 +277,7 @@
       "name": "Optimisation Algorithms",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Algo"
       ],
@@ -292,7 +292,7 @@
       "name": "Competitive Programming",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -307,7 +307,7 @@
       "name": "Algorithmic Foundations of Privacy",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -323,7 +323,7 @@
       "name": "Quantum Computing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -338,7 +338,7 @@
       "name": "Computational Complexity",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -353,7 +353,7 @@
       "name": "Algorithms at Scale",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -368,7 +368,7 @@
       "name": "Advanced Automata Theory",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -383,7 +383,7 @@
       "name": "Computational Geometry and Applications",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -399,7 +399,7 @@
       "name": "Advanced Combinatorial Methods in Bioinformatics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -414,7 +414,7 @@
       "name": "Randomized Algorithms",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -429,7 +429,7 @@
       "name": "Introduction to Artificial Intelligence",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI"
       ],
@@ -444,7 +444,7 @@
       "name": "Machine Learning",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI"
       ],
@@ -459,7 +459,7 @@
       "name": "Computer Vision and Pattern Recognition",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI"
       ],
@@ -474,7 +474,7 @@
       "name": "Knowledge Representation and Reasoning",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI"
       ],
@@ -489,7 +489,7 @@
       "name": "AI Planning and Decision Making",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI"
       ],
@@ -504,7 +504,7 @@
       "name": "Natural Language Processing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI",
         "MIR"
@@ -520,7 +520,7 @@
       "name": "Constraint Logic Programming",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -536,7 +536,7 @@
       "name": "Knowledge Discovery Methods in Bioinformatics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -552,7 +552,7 @@
       "name": "3D Computer Vision",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -567,7 +567,7 @@
       "name": "Foundation in Logic and AI",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -582,7 +582,7 @@
       "name": "Knowledge Discovery and Data Mining",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -598,7 +598,7 @@
       "name": "Neural Networks and Deep Learning",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -613,7 +613,7 @@
       "name": "Uncertainty Modelling in AI",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -628,7 +628,7 @@
       "name": "Theory and Algorithms for Machine Learning",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -643,7 +643,7 @@
       "name": "Computer Graphics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "CGG"
       ],
@@ -658,7 +658,7 @@
       "name": "3D Modeling and Animation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "CGG"
       ],
@@ -673,7 +673,7 @@
       "name": "Game Development",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "CGG"
       ],
@@ -688,7 +688,7 @@
       "name": "Graphics Rendering Techniques",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "CGG"
       ],
@@ -703,7 +703,7 @@
       "name": "Game Development Project",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "CGG"
       ],
@@ -718,7 +718,7 @@
       "name": "Multimodal Processing in Mobile Platforms",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -733,7 +733,7 @@
       "name": "Interaction Design",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -748,7 +748,7 @@
       "name": "User Interface Development",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -763,7 +763,7 @@
       "name": "Interaction Design for Virtual and Augmented Reality",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -778,7 +778,7 @@
       "name": "Phenomena and Theories of Human-Computer Interaction",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -793,7 +793,7 @@
       "name": "Networked and Mobile Gaming",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -809,7 +809,7 @@
       "name": "General-Purpose Computation on GPU",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -825,7 +825,7 @@
       "name": "Real-Time Graphics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -840,7 +840,7 @@
       "name": "Theoretical Foundations in MultiMedia",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -855,7 +855,7 @@
       "name": "Advanced Computer Animation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -870,7 +870,7 @@
       "name": "Information Visualisation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -885,7 +885,7 @@
       "name": "Introduction to Information Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "ComSec"
       ],
@@ -900,7 +900,7 @@
       "name": "Computer Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "ComSec"
       ],
@@ -915,7 +915,7 @@
       "name": "Cryptography Theory and Practice",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "ComSec"
       ],
@@ -930,7 +930,7 @@
       "name": "Computer Security Practice",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "ComSec"
       ],
@@ -945,7 +945,7 @@
       "name": "Software Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "ComSec",
         "SE"
@@ -961,7 +961,7 @@
       "name": "Operating Systems Design and Pragmatics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -976,7 +976,7 @@
       "name": "IoT Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -991,7 +991,7 @@
       "name": "Systems Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1006,7 +1006,7 @@
       "name": "Advanced Operating Systems",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1022,7 +1022,7 @@
       "name": "Network Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1038,7 +1038,7 @@
       "name": "Database Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1054,7 +1054,7 @@
       "name": "Web Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1069,7 +1069,7 @@
       "name": "Biometric Authentication",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1084,7 +1084,7 @@
       "name": "Legal Aspects of Information Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1099,7 +1099,7 @@
       "name": "Digital Forensics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1114,7 +1114,7 @@
       "name": "Penetration Testing Practice",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1129,7 +1129,7 @@
       "name": "Information Security Management",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1144,7 +1144,7 @@
       "name": "Database Systems",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "DB"
       ],
@@ -1159,7 +1159,7 @@
       "name": "Database Systems Implementation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "DB"
       ],
@@ -1174,7 +1174,7 @@
       "name": "Database Applications Design and Tuning",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "DB"
       ],
@@ -1189,7 +1189,7 @@
       "name": "Distributed Databases",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "DB"
       ],
@@ -1204,7 +1204,7 @@
       "name": "Big Data Systems for Data Science",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "DB"
       ],
@@ -1219,7 +1219,7 @@
       "name": "Database Tuning",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1234,7 +1234,7 @@
       "name": "Introduction to Media Computing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "MIR"
       ],
@@ -1249,7 +1249,7 @@
       "name": "Information Retrieval",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "MIR"
       ],
@@ -1264,7 +1264,7 @@
       "name": "Social Media Computing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "MIR"
       ],
@@ -1279,7 +1279,7 @@
       "name": "Sound and Music Computing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "MIR"
       ],
@@ -1294,7 +1294,7 @@
       "name": "Text Mining",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1309,7 +1309,7 @@
       "name": "Speech Processing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1324,7 +1324,7 @@
       "name": "Digital Libraries",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1339,7 +1339,7 @@
       "name": "Computer Networks Practice",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "NDS"
       ],
@@ -1354,7 +1354,7 @@
       "name": "Wireless Networking",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "NDS"
       ],
@@ -1369,7 +1369,7 @@
       "name": "Internet Architecture",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "NDS"
       ],
@@ -1384,7 +1384,7 @@
       "name": "Distributed Systems",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1400,7 +1400,7 @@
       "name": "Cloud Computing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1416,7 +1416,7 @@
       "name": "Advanced Computer Networks",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1431,7 +1431,7 @@
       "name": "Systems Support for Continuous Media",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1446,7 +1446,7 @@
       "name": "Parallel Computing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Para"
       ],
@@ -1461,7 +1461,7 @@
       "name": "Parallel and Concurrent Programming",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Para",
         "PL"
@@ -1477,7 +1477,7 @@
       "name": "Multi-core Architectures",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Para"
       ],
@@ -1492,7 +1492,7 @@
       "name": "Foundation in Operating Systems",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1507,7 +1507,7 @@
       "name": "Advanced Computer Architecture",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1522,7 +1522,7 @@
       "name": "Computer System Performance Analysis",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1537,7 +1537,7 @@
       "name": "Programming Language Concepts",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "PL"
       ],
@@ -1552,7 +1552,7 @@
       "name": "Programming Language Implementation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "PL"
       ],
@@ -1567,7 +1567,7 @@
       "name": "Compiler Design",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "PL"
       ],
@@ -1582,7 +1582,7 @@
       "name": "Logic for Proofs and Programs",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1598,7 +1598,7 @@
       "name": "Formal Specification and Design Techniques",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1614,7 +1614,7 @@
       "name": "Design of Optimising Compilers",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1629,7 +1629,7 @@
       "name": "Constraint Processing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1645,7 +1645,7 @@
       "name": "Principles and Practice of Program Analysis",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1660,7 +1660,7 @@
       "name": "Software Engineering Principles and Patterns",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "SE"
       ],
@@ -1675,7 +1675,7 @@
       "name": "Formal Methods for Software Engineering",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "SE"
       ],
@@ -1690,7 +1690,7 @@
       "name": "Software Testing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "SE"
       ],
@@ -1705,7 +1705,7 @@
       "name": "Software Product Engineering for Digital Markets",
       "mc": 5,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1720,7 +1720,7 @@
       "name": "Software Engineering on Modern Application Platforms",
       "mc": 5,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1735,7 +1735,7 @@
       "name": "Web Programming and Applications",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1750,7 +1750,7 @@
       "name": "Automated Software Validation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1765,7 +1765,7 @@
       "name": "Embedded Software Design",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1780,7 +1780,7 @@
       "name": "Introduction to Computational Biology",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1795,7 +1795,7 @@
       "name": "Combinatorial Methods in Bioinformatics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1810,7 +1810,7 @@
       "name": "Simulation and Modelling Techniques",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1825,7 +1825,7 @@
       "name": "Software Engineering Project",
       "mc": 8,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1840,7 +1840,7 @@
       "name": "Thematic Systems Project I",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1855,7 +1855,7 @@
       "name": "Thematic Systems Project II",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1870,7 +1870,7 @@
       "name": "Advanced Technology Attachment Programme",
       "mc": 12,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1885,7 +1885,7 @@
       "name": "Industry Internship Programme",
       "mc": 12,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1900,7 +1900,7 @@
       "name": "Internship",
       "mc": 6,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1915,7 +1915,7 @@
       "name": "Internship II",
       "mc": 6,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1930,7 +1930,7 @@
       "name": "Computing for Voluntary Welfare Organisations",
       "mc": 6,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
@@ -1945,7 +1945,7 @@
       "name": "B.Comp. Dissertation",
       "mc": 12,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
 
       ],
