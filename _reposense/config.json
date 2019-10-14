@@ -6,6 +6,7 @@
   "formats": [
     "gradle",
     "java",
+    "fxml",
     "md",
     "yml"
   ],
