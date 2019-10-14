@@ -1,9 +1,9 @@
 package seedu.address.overview.logic;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
-import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.overview.commands.Command;
@@ -99,6 +99,6 @@ public class LogicManager implements Logic {
         return transactionStream
                 .filter(transaction -> transaction.getCategory().equals(category))
                 .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
-                .sum();    }
+                .sum(); }
 
 }
