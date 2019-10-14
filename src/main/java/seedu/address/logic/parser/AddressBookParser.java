@@ -19,6 +19,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.SampleCommand;
+import seedu.address.itinerary.commands.ItineraryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -80,6 +81,9 @@ public class AddressBookParser {
 
         case CalendarCommand.COMMAND_WORD:
             return new CalendarCommand();
+
+        case ItineraryCommand.COMMAND_WORD:
+            return new ItineraryCommand();
 
         // todo: remove this when everyone has implemented the UI of their page
         case SampleCommand.COMMAND_WORD:
