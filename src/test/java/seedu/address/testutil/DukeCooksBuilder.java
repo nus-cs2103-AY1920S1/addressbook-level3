@@ -24,7 +24,7 @@ public class DukeCooksBuilder {
      * Adds a new {@code Recipe} to the {@code DukeCooks} that we are building.
      */
     public DukeCooksBuilder withPerson(Recipe recipe) {
-        dukeCooks.addPerson(recipe);
+        dukeCooks.addRecipe(recipe);
         return this;
     }
 

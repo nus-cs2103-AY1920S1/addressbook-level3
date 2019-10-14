@@ -45,8 +45,8 @@ public class JsonDukeCooksStorage implements DukeCooksStorage {
     public Optional<ReadOnlyDukeCooks> readDukeCooks(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableExerciseCatalogue> jsonDukeCooks = JsonUtil.readJsonFile(
-                filePath, JsonSerializableExerciseCatalogue.class);
+        Optional<JsonSerializableRecipeBook> jsonDukeCooks = JsonUtil.readJsonFile(
+                filePath, JsonSerializableRecipeBook.class);
         if (!jsonDukeCooks.isPresent()) {
             return Optional.empty();
         }
@@ -74,7 +74,7 @@ public class JsonDukeCooksStorage implements DukeCooksStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableExerciseCatalogue(dukeCooks), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableRecipeBook(dukeCooks), filePath);
     }
 
 }

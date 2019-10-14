@@ -53,7 +53,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     public void resetData(ReadOnlyDukeCooks newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setPersons(newData.getRecipeList());
     }
 
     //// recipe-level operations
@@ -61,7 +61,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     /**
      * Returns true if a recipe with the same identity as {@code recipe} exists in Duke Cooks.
      */
-    public boolean hasPerson(Recipe recipe) {
+    public boolean hasRecipe(Recipe recipe) {
         requireNonNull(recipe);
         return persons.contains(recipe);
     }
@@ -70,7 +70,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      * Adds a recipe to Duke Cooks.
      * The recipe must not already exist in Duke Cooks.
      */
-    public void addPerson(Recipe p) {
+    public void addRecipe(Recipe p) {
         persons.add(p);
     }
 
@@ -79,7 +79,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      * {@code target} must exist in Duke Cooks.
      * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in Duke Cooks.
      */
-    public void setPerson(Recipe target, Recipe editedRecipe) {
+    public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireNonNull(editedRecipe);
 
         persons.setRecipe(target, editedRecipe);
@@ -89,7 +89,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      * Removes {@code key} from this {@code DukeCooks}.
      * {@code key} must exist in Duke Cooks.
      */
-    public void removePerson(Recipe key) {
+    public void removeRecipe(Recipe key) {
         persons.remove(key);
     }
 
@@ -102,7 +102,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     }
 
     @Override
-    public ObservableList<Recipe> getPersonList() {
+    public ObservableList<Recipe> getRecipeList() {
         return persons.asUnmodifiableObservableList();
     }
 

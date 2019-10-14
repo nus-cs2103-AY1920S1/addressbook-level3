@@ -17,27 +17,27 @@ import seedu.address.model.recipe.Recipe;
  * An Immutable Exercise Catalogue that is serializable to JSON format.
  */
 @JsonRootName(value = "exercisecatalogue")
-class JsonSerializableExerciseCatalogue {
+class JsonSerializableRecipeBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate recipe(s).";
+    public static final String MESSAGE_DUPLICATE_RECIPE = "Recipes list contains duplicate recipe(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedRecipe> recipes = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableExerciseCatalogue} with the given persons.
+     * Constructs a {@code JsonSerializableRecipeBook} with the given recipes.
      */
     @JsonCreator
-    public JsonSerializableExerciseCatalogue(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableRecipeBook(@JsonProperty("recipes") List<JsonAdaptedRecipe> recipes) {
+        this.recipes.addAll(recipes);
     }
 
     /**
     * Converts a given {@code ReadOnlyDukeCooks} into this class for Jackson use.
     *
-    * @param source future changes to this will not affect the created {@code JsonSerializableExerciseCatalogue}.
+    * @param source future changes to this will not affect the created {@code JsonSerializableRecipeBook}.
     */
-    public JsonSerializableExerciseCatalogue(ReadOnlyDukeCooks source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+    public JsonSerializableRecipeBook(ReadOnlyDukeCooks source) {
+        recipes.addAll(source.getRecipeList().stream().map(JsonAdaptedRecipe::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +47,12 @@ class JsonSerializableExerciseCatalogue {
     */
     public DukeCooks toModelType() throws IllegalValueException {
         DukeCooks dukeCooks = new DukeCooks();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Recipe recipe = jsonAdaptedPerson.toModelType();
-            if (dukeCooks.hasPerson(recipe)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        for (JsonAdaptedRecipe jsonAdaptedRecipe : recipes) {
+            Recipe recipe = jsonAdaptedRecipe.toModelType();
+            if (dukeCooks.hasRecipe(recipe)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_RECIPE);
             }
-            dukeCooks.addPerson(recipe);
+            dukeCooks.addRecipe(recipe);
         }
         return dukeCooks;
     }

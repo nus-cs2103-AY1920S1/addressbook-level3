@@ -55,7 +55,7 @@ public class TypicalPersons {
     public static DukeCooks getTypicalDukeCooks() {
         DukeCooks ab = new DukeCooks();
         for (Recipe recipe : getTypicalPersons()) {
-            ab.addPerson(recipe);
+            ab.addRecipe(recipe);
         }
         return ab;
     }

@@ -11,15 +11,15 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.DukeCooks;
 import seedu.address.testutil.TypicalPersons;
 
-public class JsonSerializableExerciseCatalogueTest {
+public class JsonSerializableRecipeBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableDukeCooksTest");
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsDukeCooks.json");
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
-        JsonSerializableExerciseCatalogue dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
-                JsonSerializableExerciseCatalogue.class).get();
+        JsonSerializableRecipeBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
+                JsonSerializableRecipeBook.class).get();
         DukeCooks dukeCooksFromFile = dataFromFile.toModelType();
         DukeCooks typicalPersonsDukeCooks = TypicalPersons.getTypicalDukeCooks();
         assertEquals(dukeCooksFromFile, typicalPersonsDukeCooks);

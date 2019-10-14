@@ -25,7 +25,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Recipe recipeInList = model.getDukeCooks().getPersonList().get(0);
+        Recipe recipeInList = model.getDukeCooks().getRecipeList().get(0);
         assertCommandFailure(new AddCommand(recipeInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

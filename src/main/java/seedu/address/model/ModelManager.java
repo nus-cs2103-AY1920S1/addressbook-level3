@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.dukeCooks = new DukeCooks(dukeCooks);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredRecipes = new FilteredList<>(this.dukeCooks.getPersonList());
+        filteredRecipes = new FilteredList<>(this.dukeCooks.getRecipeList());
     }
 
     public ModelManager() {
@@ -89,27 +89,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Recipe recipe) {
+    public boolean hasRecipe(Recipe recipe) {
         requireNonNull(recipe);
-        return dukeCooks.hasPerson(recipe);
+        return dukeCooks.hasRecipe(recipe);
     }
 
     @Override
-    public void deletePerson(Recipe target) {
-        dukeCooks.removePerson(target);
+    public void deleteRecipe(Recipe target) {
+        dukeCooks.removeRecipe(target);
     }
 
     @Override
-    public void addPerson(Recipe recipe) {
-        dukeCooks.addPerson(recipe);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addRecipe(Recipe recipe) {
+        dukeCooks.addRecipe(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
     }
 
     @Override
-    public void setPerson(Recipe target, Recipe editedRecipe) {
+    public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
 
-        dukeCooks.setPerson(target, editedRecipe);
+        dukeCooks.setRecipe(target, editedRecipe);
     }
 
     //=========== Filtered Recipe List Accessors =============================================================
@@ -119,12 +119,12 @@ public class ModelManager implements Model {
      * {@code versionedDukeCooks}
      */
     @Override
-    public ObservableList<Recipe> getFilteredPersonList() {
+    public ObservableList<Recipe> getFilteredRecipeList() {
         return filteredRecipes;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Recipe> predicate) {
+    public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
         requireNonNull(predicate);
         filteredRecipes.setPredicate(predicate);
     }

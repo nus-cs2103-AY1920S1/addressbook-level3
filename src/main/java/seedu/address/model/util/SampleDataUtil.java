@@ -34,7 +34,7 @@ public class SampleDataUtil {
     public static ReadOnlyDukeCooks getSampleDukeCooks() {
         DukeCooks sampleDc = new DukeCooks();
         for (Recipe sampleRecipe : getSamplePersons()) {
-            sampleDc.addPerson(sampleRecipe);
+            sampleDc.addRecipe(sampleRecipe);
         }
         return sampleDc;
     }

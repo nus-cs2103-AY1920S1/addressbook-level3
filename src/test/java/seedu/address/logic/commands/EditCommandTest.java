@@ -42,15 +42,15 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedRecipe);
+        expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-        Recipe lastRecipe = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredRecipeList().size());
+        Recipe lastRecipe = model.getFilteredRecipeList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastRecipe);
         Recipe editedRecipe = personInList.withName(VALID_NAME_BOB)
@@ -63,7 +63,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
-        expectedModel.setPerson(lastRecipe, editedRecipe);
+        expectedModel.setRecipe(lastRecipe, editedRecipe);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -71,7 +71,7 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        Recipe editedRecipe = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Recipe editedRecipe = model.getFilteredRecipeList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
 
@@ -84,7 +84,7 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Recipe recipeInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Recipe recipeInFilteredList = model.getFilteredRecipeList().get(INDEX_FIRST_PERSON.getZeroBased());
         Recipe editedRecipe = new PersonBuilder(recipeInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -92,14 +92,14 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedRecipe);
+        expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
-        Recipe firstRecipe = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Recipe firstRecipe = model.getFilteredRecipeList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstRecipe).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
@@ -111,7 +111,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit recipe in filtered list into a duplicate in Duke Cooks
-        Recipe recipeInList = model.getDukeCooks().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Recipe recipeInList = model.getDukeCooks().getRecipeList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(recipeInList).build());
 
@@ -120,7 +120,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -136,7 +136,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getRecipeList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());

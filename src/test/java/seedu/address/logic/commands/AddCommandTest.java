@@ -109,7 +109,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Recipe recipe) {
+        public void addRecipe(Recipe recipe) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,27 +124,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Recipe recipe) {
+        public boolean hasRecipe(Recipe recipe) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Recipe target) {
+        public void deleteRecipe(Recipe target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Recipe target, Recipe editedRecipe) {
+        public void setRecipe(Recipe target, Recipe editedRecipe) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Recipe> getFilteredPersonList() {
+        public ObservableList<Recipe> getFilteredRecipeList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Recipe> predicate) {
+        public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -161,7 +161,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Recipe recipe) {
+        public boolean hasRecipe(Recipe recipe) {
             requireNonNull(recipe);
             return this.recipe.isSameRecipe(recipe);
         }
@@ -174,13 +174,13 @@ public class AddCommandTest {
         final ArrayList<Recipe> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Recipe recipe) {
+        public boolean hasRecipe(Recipe recipe) {
             requireNonNull(recipe);
             return personsAdded.stream().anyMatch(recipe::isSameRecipe);
         }
 
         @Override
-        public void addPerson(Recipe recipe) {
+        public void addRecipe(Recipe recipe) {
             requireNonNull(recipe);
             personsAdded.add(recipe);
         }

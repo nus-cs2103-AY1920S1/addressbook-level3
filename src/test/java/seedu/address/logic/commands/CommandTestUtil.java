@@ -85,24 +85,24 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         DukeCooks expectedDukeCooks = new DukeCooks(actualModel.getDukeCooks());
-        List<Recipe> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Recipe> expectedFilteredList = new ArrayList<>(actualModel.getFilteredRecipeList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedDukeCooks, actualModel.getDukeCooks());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredRecipeList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the recipe at the given {@code targetIndex} in the
      * {@code model}'s Duke Cooks.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredRecipeList().size());
 
-        Recipe recipe = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Recipe recipe = model.getFilteredRecipeList().get(targetIndex.getZeroBased());
         final String[] splitName = recipe.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredRecipeList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredRecipeList().size());
     }
 
 }

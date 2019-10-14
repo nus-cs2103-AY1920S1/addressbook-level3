@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -57,7 +57,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Recipe> lastShownList = model.getFilteredPersonList();
+        List<Recipe> lastShownList = model.getFilteredRecipeList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -66,12 +66,12 @@ public class EditCommand extends Command {
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
         Recipe editedRecipe = createEditedPerson(recipeToEdit, editPersonDescriptor);
 
-        if (!recipeToEdit.isSameRecipe(editedRecipe) && model.hasPerson(editedRecipe)) {
+        if (!recipeToEdit.isSameRecipe(editedRecipe) && model.hasRecipe(editedRecipe)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(recipeToEdit, editedRecipe);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setRecipe(recipeToEdit, editedRecipe);
+        model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe));
     }
 

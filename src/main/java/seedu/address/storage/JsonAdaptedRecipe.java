@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Recipe}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedRecipe {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Recipe's %s field is missing!";
 
@@ -25,11 +25,11 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given recipe details.
+     * Constructs a {@code JsonAdaptedRecipe} with the given recipe details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedRecipe(@JsonProperty("name") String name,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -39,7 +39,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Recipe} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Recipe source) {
+    public JsonAdaptedRecipe(Recipe source) {
         name = source.getName().fullName;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -52,9 +52,9 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted recipe.
      */
     public Recipe toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> recipeTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            recipeTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -65,7 +65,7 @@ class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(recipeTags);
         return new Recipe(modelName, modelTags);
     }
 

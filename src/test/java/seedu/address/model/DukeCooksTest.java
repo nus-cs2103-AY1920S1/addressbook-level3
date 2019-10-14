@@ -27,7 +27,7 @@ public class DukeCooksTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), dukeCooks.getPersonList());
+        assertEquals(Collections.emptyList(), dukeCooks.getRecipeList());
     }
 
     @Test
@@ -55,31 +55,31 @@ public class DukeCooksTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> dukeCooks.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> dukeCooks.hasRecipe(null));
     }
 
     @Test
     public void hasPerson_personNotInDukeCooks_returnsFalse() {
-        assertFalse(dukeCooks.hasPerson(ALICE));
+        assertFalse(dukeCooks.hasRecipe(ALICE));
     }
 
     @Test
     public void hasPerson_personInDukeCooks_returnsTrue() {
-        dukeCooks.addPerson(ALICE);
-        assertTrue(dukeCooks.hasPerson(ALICE));
+        dukeCooks.addRecipe(ALICE);
+        assertTrue(dukeCooks.hasRecipe(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInDukeCooks_returnsTrue() {
-        dukeCooks.addPerson(ALICE);
+        dukeCooks.addRecipe(ALICE);
         Recipe editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(dukeCooks.hasPerson(editedAlice));
+        assertTrue(dukeCooks.hasRecipe(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> dukeCooks.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> dukeCooks.getRecipeList().remove(0));
     }
 
     /**
@@ -93,7 +93,7 @@ public class DukeCooksTest {
         }
 
         @Override
-        public ObservableList<Recipe> getPersonList() {
+        public ObservableList<Recipe> getRecipeList() {
             return recipes;
         }
     }
