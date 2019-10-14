@@ -20,31 +20,31 @@ import seedu.address.model.task.Task;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * {@code DeleteTaskCommand}.
  */
-public class DeleteCommandTest {
+public class DeleteTaskCommandTest {
 
     private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Task taskToDelete = model.getFilteredTasksList().get(INDEX_FIRST_TASK.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TASK);
+        DeleteTaskCommand DeleteTaskCommand = new DeleteTaskCommand(INDEX_FIRST_TASK);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
+        String expectedMessage = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs());
         expectedModel.deleteTask(taskToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(DeleteTaskCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTasksList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteTaskCommand DeleteTaskCommand = new DeleteTaskCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertCommandFailure(DeleteTaskCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     @Test
@@ -52,15 +52,15 @@ public class DeleteCommandTest {
         showTaskAtIndex(model, INDEX_FIRST_TASK);
 
         Task taskToDelete = model.getFilteredTasksList().get(INDEX_FIRST_TASK.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TASK);
+        DeleteTaskCommand DeleteTaskCommand = new DeleteTaskCommand(INDEX_FIRST_TASK);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
+        String expectedMessage = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
 
         Model expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs());
         expectedModel.deleteTask(taskToDelete);
         showNoTask(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(DeleteTaskCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -71,21 +71,21 @@ public class DeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getProjectDashboard().getTaskList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteTaskCommand DeleteTaskCommand = new DeleteTaskCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertCommandFailure(DeleteTaskCommand, model, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_TASK);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_TASK);
+        DeleteTaskCommand deleteFirstCommand = new DeleteTaskCommand(INDEX_FIRST_TASK);
+        DeleteTaskCommand deleteSecondCommand = new DeleteTaskCommand(INDEX_SECOND_TASK);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_TASK);
+        DeleteTaskCommand deleteFirstCommandCopy = new DeleteTaskCommand(INDEX_FIRST_TASK);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

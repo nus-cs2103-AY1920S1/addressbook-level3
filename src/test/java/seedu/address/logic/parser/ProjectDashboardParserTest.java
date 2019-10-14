@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -36,8 +36,8 @@ public class ProjectDashboardParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Task task = new TaskBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(TaskUtil.getAddCommand(task));
-        assertEquals(new AddCommand(task), command);
+        AddTaskCommand command = (AddTaskCommand) parser.parseCommand(TaskUtil.getAddTaskCommand(task));
+        assertEquals(new AddTaskCommand(task), command);
     }
 
     @Test
@@ -48,9 +48,9 @@ public class ProjectDashboardParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_TASK.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_TASK), command);
+        DeleteTaskCommand command = (DeleteTaskCommand) parser.parseCommand(
+                DeleteTaskCommand.COMMAND_WORD + " " + INDEX_FIRST_TASK.getOneBased());
+        assertEquals(new DeleteTaskCommand(INDEX_FIRST_TASK), command);
     }
 
     @Test

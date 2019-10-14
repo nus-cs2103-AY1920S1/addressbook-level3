@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
@@ -19,8 +19,8 @@ public class TaskUtil {
     /**
      * Returns an add command string for adding the {@code task}.
      */
-    public static String getAddCommand(Task task) {
-        return AddCommand.COMMAND_WORD + " " + getTaskDetails(task);
+    public static String getAddTaskCommand(Task task) {
+        return AddTaskCommand.COMMAND_WORD + " " + getTaskDetails(task);
     }
 
     /**

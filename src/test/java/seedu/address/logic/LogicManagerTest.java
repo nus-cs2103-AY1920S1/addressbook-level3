@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -55,8 +55,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        String DeleteTaskCommand = "delete 9";
+        assertCommandException(DeleteTaskCommand, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     @Test
@@ -76,12 +76,13 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + TASK_NAME_DESC_FINANCE;
+
+        String AddTaskCommand = seedu.address.logic.commands.AddTaskCommand.COMMAND_WORD + TASK_NAME_DESC_FINANCE;
         Task expectedTask = new TaskBuilder(REVIEW_BUDGET).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTask(expectedTask);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+        assertCommandFailure(AddTaskCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
