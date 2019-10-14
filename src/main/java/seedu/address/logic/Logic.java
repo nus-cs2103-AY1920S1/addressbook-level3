@@ -2,11 +2,14 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.ListPropertyBase;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.item.Item;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ItemStorage;
+import seedu.address.model.item.ActiveRemindersList;
 import seedu.address.model.item.VisualizeList;
 
 /**
@@ -51,4 +54,9 @@ public interface Logic {
 
     //ObservableList<Person> getFilteredPersonList();
     VisualizeList getVisualList();
+
+    //Bryan Reminder
+    void shutdown();
+
+    ListPropertyBase<Item> getActiveRemindersListProperty();
 }
