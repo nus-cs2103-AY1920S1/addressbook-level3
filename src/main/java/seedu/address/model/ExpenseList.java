@@ -77,8 +77,8 @@ public class ExpenseList implements ReadOnlyExpenseList {
     /**
      * Replaces the given expense {@code target} in the list with {@code editedExpense}.
      * {@code target} must exist in the expense list.
-     * The expense identity of {@code editedExpense} must not be the same as another existing expense in the address
-     * book.
+     * The expense identity of {@code editedExpense} must not be the same as another existing expense in the expense
+     * list.
      */
     public void setExpense(Expense target, Expense editedExpense) {
         requireNonNull(editedExpense);

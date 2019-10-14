@@ -1,0 +1,39 @@
+{
+  "_comment": "ExpenseList save file which contains the same Expense values as in TypicalExpenses#getTypicalExpenseList()",
+  "expenses" : [ {
+    "name" : "Bus",
+    "amount": "$3.20",
+    "date": "13/10/2019",
+    "tagged" : [ "school" ]
+  }, {
+    "name" : "Lunch",
+    "amount": "$4.50",
+    "date": "14/12/2019",
+    "tagged" : [ "lunch", "school" ]
+  }, {
+    "name" : "Adidas shoe",
+    "amount": "$120.00",
+    "date": "24/12/2019",
+    "tagged" : [ ]
+  }, {
+    "name" : "Groceries",
+    "amount": "$17.80",
+    "date": "1/2/2019",
+    "tagged" : [ "groceries" ]
+  }, {
+    "name" : "Chocolates",
+    "amount": "$12.30",
+    "date": "13/2/2019",
+    "tagged" : [ ]
+  }, {
+    "name" : "Socks",
+    "amount": "$5.00",
+    "date": "24/12/2019",
+    "tagged" : [ ]
+  }, {
+    "name" : "Cheese",
+    "amount": "$10.00",
+    "date": "31/12/2019",
+    "tagged" : [ ]
+  } ]
+}
