@@ -15,23 +15,13 @@ public class McqQuestion extends Question {
      *
      * @param question to set.
      * @param answer   to the question.
-     */
-    public McqQuestion(String question, String answer) {
-        super(question, answer);
-    }
-
-    /**
-     * Creates a new MCQ question.
-     *
-     * @param question to set.
-     * @param answer   to the question.
-     * @param optionA The first option of the question.
-     * @param optionB The second option of the question.
-     * @param optionC The third option of the question.
-     * @param optionD The fourth option of the question.
+     * @param optionA  The first option of the question.
+     * @param optionB  The second option of the question.
+     * @param optionC  The third option of the question.
+     * @param optionD  The fourth option of the question.
      */
     public McqQuestion(String question, String answer, String optionA, String optionB,
-                            String optionC, String optionD) {
+        String optionC, String optionD) {
         super(question, answer);
         this.optionA = optionA;
         this.optionB = optionB;
@@ -41,6 +31,7 @@ public class McqQuestion extends Question {
 
     /**
      * Returns the first option of an McqQuestion.
+     *
      * @return The first option of the McqQuestion.
      */
     public String getOptionA() {
@@ -49,6 +40,7 @@ public class McqQuestion extends Question {
 
     /**
      * Returns the second option of an McqQuestion.
+     *
      * @return The second option of the McqQuestion.
      */
     public String getOptionB() {
@@ -57,6 +49,7 @@ public class McqQuestion extends Question {
 
     /**
      * Returns the third option of an McqQuestion.
+     *
      * @return The third option of the McqQuestion.
      */
     public String getOptionC() {
@@ -65,9 +58,22 @@ public class McqQuestion extends Question {
 
     /**
      * Returns the fourth option of an McqQuestion.
+     *
      * @return The fourth option of the McqQuestion.
      */
     public String getOptionD() {
         return optionD;
+    }
+
+    @Override
+    public String toString() {
+        return question
+            + "\nAnswer: "
+            + answer
+            + "\nOptions:"
+            + "\nA: " + optionA
+            + " B:" + optionB
+            + " C:" + optionC
+            + " D:" + optionD;
     }
 }

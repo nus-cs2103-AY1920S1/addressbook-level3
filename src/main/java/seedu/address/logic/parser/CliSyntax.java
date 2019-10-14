@@ -11,7 +11,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
-    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
+    public static final Prefix PREFIX_ADDRESS = new Prefix("ad/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     // END OF ADDRESS BOOK PREFIX
 
@@ -19,6 +19,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_QUESTION = new Prefix("question/");
     public static final Prefix PREFIX_ANSWER = new Prefix("answer/");
     public static final Prefix PREFIX_TYPE = new Prefix("type/");
+    public static final Prefix PREFIX_OPTIONA = new Prefix("a/");
+    public static final Prefix PREFIX_OPTIONB = new Prefix("b/");
+    public static final Prefix PREFIX_OPTIONC = new Prefix("c/");
+    public static final Prefix PREFIX_OPTIOND = new Prefix("d/");
     // END OF QUESTION PREFIX
 
     // STUDENT PREFIX

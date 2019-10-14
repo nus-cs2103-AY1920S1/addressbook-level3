@@ -9,11 +9,14 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyStudentRecord;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.question.ReadOnlyQuestions;
+import seedu.address.storage.question.QuestionStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRecordStorage {
+public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRecordStorage,
+    QuestionStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -42,4 +45,15 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRe
 
     @Override
     void saveStudentRecord(ReadOnlyStudentRecord studentRecord) throws IOException;
+
+    // ================ Question methods ==============================
+
+    @Override
+    Path getSavedQuestionsFilePath();
+
+    @Override
+    Optional<ReadOnlyQuestions> readQuestions() throws DataConversionException, IOException;
+
+    @Override
+    void saveQuestions(ReadOnlyQuestions savedQuestions) throws IOException;
 }
