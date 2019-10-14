@@ -240,6 +240,16 @@ Examples:
 * `badd de/Saving for future a/1000` +
 Sets monthly expenditure budget to $1000.
 
+==== Delete a monthly budget: `bdelete`
+
+Deletes the budget identified by the index number used in the displayed budget list. +
+Format: `bdelete INDEX`
+
+Examples:
+
+* `bdelete 1` +
+Deletes the first entry on the displayed budget list.
+
 ==== Excluding expenditure from budget: `bexclude`
 
 Excludes expenditure from computation of budget. +
