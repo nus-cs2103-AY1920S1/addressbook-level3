@@ -12,6 +12,7 @@ import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.phone.Phone;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -21,14 +22,16 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private CustomerBookStorage customerBookStorage;
+    private PhoneBookStorage phoneBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, CustomerBookStorage customerBookStorage ,
-                          UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, CustomerBookStorage customerBookStorage,
+                          PhoneBookStorage phoneBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.customerBookStorage = customerBookStorage;
+        this.phoneBookStorage = phoneBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -107,5 +110,35 @@ public class StorageManager implements Storage {
     public void saveCustomerBook(ReadOnlyDataBook<Customer> customerBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         customerBookStorage.saveCustomerBook(customerBook, filePath);
+    }
+
+    // ================ PhoneBook methods ==============================
+
+    @Override
+    public Path getPhoneBookFilePath() {
+        return phoneBookStorage.getPhoneBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyDataBook<Phone>> readPhoneBook() throws DataConversionException, IOException {
+        return readPhoneBook(phoneBookStorage.getPhoneBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyDataBook<Phone>> readPhoneBook(Path filePath) throws DataConversionException,
+            IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return phoneBookStorage.readPhoneBook(filePath);
+    }
+
+    @Override
+    public void savePhoneBook(ReadOnlyDataBook<Phone> phoneBook) throws IOException {
+        savePhoneBook(phoneBook, phoneBookStorage.getPhoneBookFilePath());
+    }
+
+    @Override
+    public void savePhoneBook(ReadOnlyDataBook<Phone> phoneBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        phoneBookStorage.savePhoneBook(phoneBook, filePath);
     }
 }
