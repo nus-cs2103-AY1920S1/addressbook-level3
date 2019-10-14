@@ -114,7 +114,8 @@ public class ModelManager implements Model {
 
     public ModelManager(PersonList personList, GroupList groupList, PersonToGroupMappingList personToGroupMappingList) {
         this(new AddressBook(), personList, groupList, personToGroupMappingList, new UserPrefs());
-        this.addressBook.setPersons(personList.getPersons());
+        //this.addressBook.setPersons(personList.getPersons());
+        this.timeBook = new TimeBook(personList, groupList, personToGroupMappingList);
     }
 
     public ModelManager(TimeBook timeBook) {

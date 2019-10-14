@@ -5,17 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.personutil.PersonBuilder;
 
-public class ShowPersonCommandTest {
+public class ShowCommandTest {
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        ShowPersonCommand showAliceCommand = new ShowPersonCommand(alice.getName());
-        ShowPersonCommand showBobCommand = new ShowPersonCommand(bob.getName());
+        ShowCommand<Name> showAliceCommand = new ShowCommand<Name>(alice.getName());
+        ShowCommand<Name> showBobCommand = new ShowCommand<Name>(bob.getName());
 
         //same object -> true
         assertTrue(showAliceCommand.equals(showAliceCommand));
