@@ -10,6 +10,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.activity.Amount;
 import seedu.address.model.activity.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -141,5 +142,28 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String tag} into an {@code Amount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid.
+     */
+    public static Amount parseAmount(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        double value;
+        try {
+            value = Double.parseDouble(trimmedAmount);
+        } catch (NumberFormatException e) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+
+        if (!Amount.isValidAmount(Double.parseDouble(amount))) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Amount(value);
     }
 }
