@@ -28,8 +28,8 @@ public class IncidentId {
 
         this.month = mm;
         this.year = yyyy;
-        int temp = mm * 100000000 + yyyy * 1000 + monthId;
-        this.id = String.format("%10d", temp);
+        int temp = mm * 100000000 + yyyy * 10000 + monthId;
+        this.id = String.format("%010d", temp);
     }
 
     public String getId() {
