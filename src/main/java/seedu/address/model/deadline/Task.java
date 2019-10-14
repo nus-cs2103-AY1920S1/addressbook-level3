@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a FlashCard's Question in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidQuestion(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTask(String)}
  */
 public class Task {
 

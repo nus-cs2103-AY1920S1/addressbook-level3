@@ -18,8 +18,8 @@ public class DueDate {
             + "E.g.: 12/01/2019.";
 
     //private static LocalDate today = LocalDate.now();
-    private static String dateStr;
-    private static LocalDate localDate;
+    private final String dateStr;
+    private final LocalDate localDate;
 
     /**
      * Constructs a {@code Question}.

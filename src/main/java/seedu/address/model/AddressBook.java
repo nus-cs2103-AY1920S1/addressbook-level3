@@ -58,6 +58,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setFlashCards(newData.getFlashcardList());
+        setDeadlines(newData.getDeadlineList());
     }
 
     //// flashCard-level operations
@@ -134,12 +135,30 @@ public class AddressBook implements ReadOnlyAddressBook {
         deadlines.add(d);
     }
 
+    /**
+     * Replaces the given deadline {@code target} in the list with {@code editedDeadline}.
+     * {@code target} must exist in the address book.
+     * The deadline identity of {@code editedFlashCard} must not be the same as another existing
+     * deadline in the address book.
+     */
+    public void setDeadline(Deadline target, Deadline editedDeadline) {
+        requireNonNull(editedDeadline);
+        deadlines.setDeadline(target, editedDeadline);
+    }
+
     public void setDeadlines(List<Deadline> deadlines) {
-        this.deadlines.setDeadline(deadlines);
+        this.deadlines.setDeadlines(deadlines);
     }
 
     public void removeDeadline(Deadline key) {
         deadlines.remove(key);
     }
 
+    /**
+     * Returns true if a deadline with the same identity as {@code deadline} exists in the address book.
+     */
+    public boolean hasDeadline(Deadline deadline) {
+        requireNonNull(deadline);
+        return deadlines.contains(deadline);
+    }
 }
