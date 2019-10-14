@@ -31,7 +31,6 @@ public class AddAppCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This appointment already exists in the address book";
-    public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of appointment: %1$s";
 
     private final Event appointment;
 
@@ -55,11 +54,6 @@ public class AddAppCommand extends ReversibleCommand {
 
         model.addEvent(appointment);
         return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));
-    }
-
-    @Override
-    public String getFailedUndoMessage() {
-        return String.format(MESSAGE_UNDO_ADD_ERROR, appointment);
     }
 
     /*

@@ -39,7 +39,6 @@ public class EditPatientDetailsCommand extends ReversibleCommand {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_UNDO_EDIT_ERROR = "Could not undo the entry edit.";
 
     private final Person personToEdit;
     private final Person editedPerson;
@@ -74,12 +73,6 @@ public class EditPatientDetailsCommand extends ReversibleCommand {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
-
-    @Override
-    public String getFailedUndoMessage() {
-        return String.format(MESSAGE_UNDO_EDIT_ERROR, personToEdit);
-    }
-
 
     @Override
     public boolean equals(Object other) {
