@@ -69,7 +69,7 @@ public class NameContainsKeywordsPredicateTest {
 
         // Keywords match price, description and address, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new FoodBuilder().withName("Alice").withPrice("12345")
+        assertFalse(predicate.test(new FoodBuilder().withName("Alice").withPrice("12.30")
                 .withDescription("alice@email.com").build()));
     }
 }

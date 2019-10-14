@@ -16,13 +16,13 @@ public class RemainingBudget {
     public static final String FLOATING_POINT_CONSTRAINTS =
             "Due to Floating Point limitations, "
             + "this application will not accept Budget Amounts higher than 1 million dollars";
-    public static final String VALIDATION_REGEX = "((0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
+    public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
 
     private final DoubleProperty remainingBudgetProperty;
 
     /**
      * Constructs a {@code RemainingBudget}.
-     *
+     * Requires check whether budget amount is invalid (Less than 0 or more than 1 million dollars).
      * @param newRemainingBudgetString A valid {@code RemainingBudget} string.
      */
     public RemainingBudget(String newRemainingBudgetString) {
@@ -64,6 +64,7 @@ public class RemainingBudget {
     }
 
     /**
+     * Set new user's {@code RemainingBudget}.
      */
     public void setRemainingBudget(RemainingBudget newRemainingBudget) {
         remainingBudgetProperty.setValue(newRemainingBudget.getRemainingBudget());

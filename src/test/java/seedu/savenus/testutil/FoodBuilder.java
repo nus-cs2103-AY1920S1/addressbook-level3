@@ -20,7 +20,7 @@ import seedu.savenus.model.util.SampleDataUtil;
 public class FoodBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PRICE = "85355255";
+    public static final String DEFAULT_PRICE = "2.55";
     public static final String DEFAULT_DESCRIPTION = "Test Description.";
     public static final String DEFAULT_CATEGORY = "Test Category";
     public static final String DEFAULT_LOCATION = "Test Location";

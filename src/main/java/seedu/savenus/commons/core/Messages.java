@@ -9,5 +9,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_FOOD_DISPLAYED_INDEX = "The food index provided is invalid";
     public static final String MESSAGE_FOOD_LISTED_OVERVIEW = "%1$d foods listed!";
+    public static final String MESSAGE_INSUFFICIENT_FUNDS = "Insufficient funds wallet to make purchase!";
 
 }

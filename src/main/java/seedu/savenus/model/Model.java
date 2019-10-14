@@ -7,7 +7,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
+import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.Price;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -117,6 +119,12 @@ public interface Model {
      * Setter for current user's {@code DaysToExpire} to new {@code DaysToExpire}
      */
     void setDaysToExpire(DaysToExpire newDaysToExpire);
+
+    /**
+     * Deducts the input price from wallet, returns true if successful and false otherwise.
+     * @param price Price to pay for.
+     */
+    void pay(Price price) throws CommandException;
 
     /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();
