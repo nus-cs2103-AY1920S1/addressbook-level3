@@ -24,7 +24,7 @@ public class SuggestCommand extends Command{
         }
 
         CaloriesPredicate predicate = new CaloriesPredicate(
-            model.getCalorieBudget().getCurrentBudget().getAsInt());
+            model.getCalorieBudget().currentBudget().intValue());
 
         model.updateFilteredDishList(predicate);
 

@@ -60,11 +60,9 @@ public class ModelManager implements Model {
         this.statistics = null;
         this.budget = new CalorieBudget();
         if (budget.getCurrentBudget().isPresent()) {
-            this.remainingBudget = 1000;
-            //this.remainingBudget = budget.getCurrentBudget().getAsInt();
+            this.remainingBudget = budget.getCurrentBudget().getAsInt();
         } else {
-            this.remainingBudget = 1000;
-            //this.remainingBudget = 0;
+            this.remainingBudget = 0;
         }
     }
 
