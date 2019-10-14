@@ -1,6 +1,8 @@
 package io.xpire.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -80,6 +82,59 @@ public class CollectionUtilTest {
         assertFalse(CollectionUtil.isAnyNonNull((Object[]) null));
         assertTrue(CollectionUtil.isAnyNonNull(new Object()));
         assertTrue(CollectionUtil.isAnyNonNull(new Object(), null));
+    }
+
+    @Test
+    public void stringifyCollection_emptyCollection_noStrings() {
+        Object[] objects = new Object[] {};
+        String[] objectStrings = new String[] {};
+
+        Collection<Object> objectCollection = Arrays.asList(objects);
+        Collection<String> expected = Arrays.asList(objectStrings);
+        assertEquals(expected, CollectionUtil.stringifyCollection(objectCollection));
+    }
+
+    @Test
+    public void stringifyCollection_singleElement_singleString() {
+        Object obj1 = new Object();
+        Object[] objects = new Object[] {obj1};
+        String[] objectStrings = new String[] {obj1.toString()};
+
+        Collection<Object> objectCollection = Arrays.asList(objects);
+        Collection<String> expected = Arrays.asList(objectStrings);
+        assertEquals(expected, CollectionUtil.stringifyCollection(objectCollection));
+    }
+
+    @Test
+    public void stringifyCollection_multipleElements_multipleStrings() {
+        Object obj1 = new Object(), obj2 = new Object(), obj3 =  new Object();
+        Object[] objects = new Object[] {obj1, obj2, obj3};
+        String[] objectStrings = new String[] {obj1.toString(), obj2.toString(), obj3.toString()};
+
+        Collection<Object> objectCollection = Arrays.asList(objects);
+        Collection<String> expected = Arrays.asList(objectStrings);
+        assertEquals(expected, CollectionUtil.stringifyCollection(objectCollection));
+    }
+
+    @Test
+    public void stringifyCollection_multipleMappersOrderSensitive_multipleMappedStrings() {
+        Object obj1 = new Object(), obj2 = new Object(), obj3 =  new Object();
+        Object[] objects = new Object[] {obj1, obj2, obj3};
+        String[] objectStrings = new String[] {
+                obj1.toString().toUpperCase().concat("test"),
+                obj2.toString().toUpperCase().concat("test"),
+                obj3.toString().toUpperCase().concat("test")
+        };
+
+        Collection<Object> objectCollection = Arrays.asList(objects);
+        Collection<String> expected = Arrays.asList(objectStrings);
+        assertEquals(expected, CollectionUtil.stringifyCollection(objectCollection,
+                item -> item.toUpperCase(),
+                item -> item.concat("test")));
+        assertNotEquals(expected, CollectionUtil.stringifyCollection(objectCollection,
+                item -> item.concat("test"),
+                item -> item.toUpperCase()
+                ));
     }
 
     /**
