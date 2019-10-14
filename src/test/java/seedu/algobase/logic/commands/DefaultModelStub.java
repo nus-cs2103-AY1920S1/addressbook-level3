@@ -95,22 +95,22 @@ public class DefaultModelStub implements Model {
 
     @Override
     public boolean hasPlan(Plan plan) {
-        return false;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void deletePlan(Plan target) {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void addPlan(Plan plan) {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setPlan(Plan target, Plan editedPlan) {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
