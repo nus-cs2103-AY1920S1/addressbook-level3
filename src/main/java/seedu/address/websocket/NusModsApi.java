@@ -1,6 +1,6 @@
 package seedu.address.websocket;
 
-import java.net.ConnectException;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.json.simple.JSONArray;
@@ -58,14 +58,14 @@ public class NusModsApi {
      *
      * @return JSONArray containing module code, title and available semesters for all modules in a year.
      */
-    public JSONArray getModuleList() throws ConnectException {
+    public Optional<JSONArray> getModuleList() {
         ApiQuery query = new ApiQuery(BASE_URL + SLASH + acadYear.toStringDashed() + MODULE_LIST + JSON_EXTENSION);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
             JSONArray obj = ParserUtil.parseStringToJsonArray(queryResult.getResponseResult());
-            return obj;
+            return Optional.of(obj);
         } else {
-            throw new ConnectException(ParserUtil.parseStringToJsonArray(queryResult.getResponseResult()).toString());
+            return Optional.empty();
         }
     }
 
@@ -74,14 +74,14 @@ public class NusModsApi {
      *
      * @return JSONArray containing all module info except timetable and prereq tree for all modules in a year.
      */
-    public JSONArray getModuleInfo() throws ConnectException {
+    public Optional<JSONArray> getModuleInfo() {
         ApiQuery query = new ApiQuery(BASE_URL + SLASH + acadYear.toStringDashed() + MODULE_INFO + JSON_EXTENSION);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
             JSONArray obj = ParserUtil.parseStringToJsonArray(queryResult.getResponseResult());
-            return obj;
+            return Optional.of(obj);
         } else {
-            throw new ConnectException(ParserUtil.parseStringToJsonArray(queryResult.getResponseResult()).toString());
+            return Optional.empty();
         }
     }
 
@@ -91,15 +91,15 @@ public class NusModsApi {
      * @param moduleCode code of the specific module.
      * @return JSONObject containing all info available for a specific module including prerequisite tree and timetable.
      */
-    public JSONObject getModule(ModuleCode moduleCode) throws ConnectException {
+    public Optional<JSONObject> getModule(ModuleCode moduleCode) {
         ApiQuery query = new ApiQuery(BASE_URL + SLASH + acadYear.toStringDashed() + MODULES
                 + SLASH + moduleCode + JSON_EXTENSION);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
-            return obj;
+            return Optional.of(obj);
         } else {
-            throw new ConnectException(ParserUtil.parseStringToJsonObject(queryResult.getResponseResult()).toString());
+            return Optional.empty();
         }
     }
 
@@ -112,15 +112,15 @@ public class NusModsApi {
      *                 4 -> special term 2
      * @return JSONArray representing the venues
      */
-    public JSONArray getVenues(String semester) throws ConnectException {
+    public Optional<JSONArray> getVenues(String semester) {
         ApiQuery query = new ApiQuery(BASE_URL + SLASH + acadYear.toStringDashed() + SEMESTERS
                 + semester + VENUES + JSON_EXTENSION);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
             JSONArray obj = ParserUtil.parseStringToJsonArray(queryResult.getResponseResult());
-            return obj;
+            return Optional.of(obj);
         } else {
-            throw new ConnectException(ParserUtil.parseStringToJsonArray(queryResult.getResponseResult()).toString());
+            return Optional.empty();
         }
     }
 
@@ -133,15 +133,15 @@ public class NusModsApi {
      *                 4 -> special term 2
      * @return JSONObject representing the venues
      */
-    public JSONObject getVenueInformation(String semester) throws ConnectException {
+    public Optional<JSONObject> getVenueInformation(String semester) {
         ApiQuery query = new ApiQuery(BASE_URL + SLASH + acadYear.toStringDashed() + SEMESTERS
                 + semester + VENUE_INFO + JSON_EXTENSION);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
-            return obj;
+            return Optional.of(obj);
         } else {
-            throw new ConnectException(ParserUtil.parseStringToJsonObject(queryResult.getResponseResult()).toString());
+            return Optional.empty();
         }
     }
 
@@ -149,14 +149,14 @@ public class NusModsApi {
      * Returns a JSONObject of academic calendar containing semester start dates.
      * @return JSONObject representing academic calendar.
      */
-    public JSONObject getAcademicCalendar() throws ConnectException {
+    public Optional<JSONObject> getAcademicCalendar() {
         ApiQuery query = new ApiQuery(ACADEMIC_CALENDAR_URL);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
-            return obj;
+            return Optional.of(obj);
         } else {
-            throw new ConnectException(ParserUtil.parseStringToJsonObject(queryResult.getResponseResult()).toString());
+            return Optional.empty();
         }
     }
 
@@ -165,14 +165,14 @@ public class NusModsApi {
      * i.e. if the holiday falls on a weekend and is observed on next Monday, the next Monday's date is used instead.
      * @return JSONArray representing public holidays in Singapore.
      */
-    public JSONArray getHolidays() throws ConnectException {
+    public Optional<JSONArray> getHolidays() {
         ApiQuery query = new ApiQuery(HOLIDAYS_URL);
         QueryResult queryResult = query.execute();
         if (queryResult.process(logger)) {
             JSONArray obj = ParserUtil.parseStringToJsonArray(queryResult.getResponseResult());
-            return obj;
+            return Optional.of(obj);
         } else {
-            throw new ConnectException(ParserUtil.parseStringToJsonArray(queryResult.getResponseResult()).toString());
+            return Optional.empty();
         }
     }
 }
