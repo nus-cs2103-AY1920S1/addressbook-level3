@@ -1,5 +1,7 @@
 package seedu.mark.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -206,6 +208,8 @@ public class MainWindow extends UiPart<Stage> {
      * @param tab The tab to switch to
      */
     private void handleTabSwitchRequestIfAny(Tab tab) {
+        requireNonNull(tab);
+
         switch (tab) {
         case DASHBOARD:
             handleSwitchToDashboard();
@@ -256,7 +260,9 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            handleTabSwitchRequestIfAny(commandResult.getTab());
+            if (commandResult.getTab() != null) {
+                handleTabSwitchRequestIfAny(commandResult.getTab());
+            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {
