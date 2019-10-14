@@ -365,23 +365,23 @@ and `youtubeBookmarks.json`.
 Creates a tag that will be automatically applied to bookmarks which match
 the given conditions.
 
-Format: `*autotag* NAME [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL] [f/FOLDER]
-[nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...`
+Format: `*autotag* TAG_NAME [n/NAME] [nn/NOT_NAME] [u/PARTIAL_URL] [nu/NOT_PARTIAL_URL]
+[f/FOLDER] [nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...`
 
 ****
-* At least one condition (`u/`,
+* At least one condition (`n/`, `nn/`, `u/`,
 `nu/`, `f/`, `nf/`, `t/`, or `nt/`) must be specified.
-* If an autotag with name `NAME` already exists, the user is asked
-whether conditions for `NAME` should be overwritten.
+* If an autotag with name `TAG_NAME` already exists, the user is asked
+whether conditions for `TAG_NAME` should be overwritten.
 * An autotag is applied when a bookmark matches all of its conditions.
 Hence, if conditions are contradictory, no bookmarks will be tagged by
 this autotag. E.g. no bookmarks will match the conditions `u/github.com/mark
 nu/github.com/mark`
 * `PARTIAL_URL` and `NOT_PARTIAL_URL` can be any part of a URL. E.g.
  `youtube`, `.nus.edu.sg`, or `github.com/mark`.
-* `NOT_PARTIAL_URL`, `NOT_FOLDER`, and `NOT_TAG` are partial URLs, folders,
+* `NOT_NAME`, `NOT_PARTIAL_URL`, `NOT_FOLDER`, and `NOT_TAG` are partial URLs, folders,
 or tags that bookmarks to be tagged should *not* match.
-* The tag `NAME` is still a normal tag. E.g. if an autotag `YouTube` matches
+* The tag `TAG_NAME` is still a normal tag. E.g. if an autotag `YouTube` matches
 bookmarks with URLs containing `youtube.com`, other bookmarks can still be
 tagged with the tag `YouTube`.
 ****
