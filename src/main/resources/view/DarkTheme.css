@@ -123,7 +123,7 @@
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 20px;
-    -fx-font-weight: bold
+    -fx-font-weight: bold;
     -fx-text-fill: #010504;
 }
 
