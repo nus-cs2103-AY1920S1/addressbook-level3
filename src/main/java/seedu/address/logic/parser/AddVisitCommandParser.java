@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VISIT;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddVisitCommand;
@@ -23,16 +26,18 @@ public class AddVisitCommandParser implements Parser<AddVisitCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_VISIT);
 
         Index index;
-        String report;
+        String date;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            report = argMultimap.getValue(PREFIX_VISIT).orElse("");
+            // Take date from '/v' prefix or use current timing for report date.
+            date = argMultimap.getValue(PREFIX_VISIT)
+                    .orElse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddVisitCommand.MESSAGE_USAGE), ive);
         }
 
         //String date = argMultimap.getValue(PREFIX_VISIT).orElse("");
 
-        return new AddVisitCommand(index, report);
+        return new AddVisitCommand(index, date);
     }
 }
