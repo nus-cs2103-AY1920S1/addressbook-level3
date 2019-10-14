@@ -9,7 +9,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import io.xpire.logic.commands.SearchCommand;
-import io.xpire.model.item.NameContainsKeywordsPredicate;
+import io.xpire.model.item.ContainsKeywordsPredicate;
 
 public class SearchCommandParserTest {
 
@@ -24,7 +24,7 @@ public class SearchCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         SearchCommand expectedSearchCommand =
-                new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+                new SearchCommand(new ContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
         assertParseSuccess(parser, "Alice|Bob", expectedSearchCommand);
 
         // multiple whitespaces between keywords
