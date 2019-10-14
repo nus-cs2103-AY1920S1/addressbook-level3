@@ -65,10 +65,11 @@ public class AddressBookParser {
 
         case AddPolicyTagCommand.COMMAND_WORD:
             return new AddPolicyTagCommandParser().parse(arguments);
-        /*
 
         case DeleteTagCommand.COMMAND_WORD:
             return new DeleteTagCommandParser().parse(arguments);
+
+        /*
 
         case DeletePolicyTagCommand.COMMAND_WORD:
             return new DeletePolicyTagCommandParser().parse(arguments);
