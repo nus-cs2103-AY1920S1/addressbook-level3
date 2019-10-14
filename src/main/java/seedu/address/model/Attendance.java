@@ -1,4 +1,4 @@
-package seedu.address.model.attendance;
+package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,10 +12,22 @@ import seedu.address.model.training.Training;
  * Guarantees: a static list of trainings
  */
 public class Attendance {
-    private static List<Training> trainings = new ArrayList<>();
-    public Attendance(Training training) {
-        trainings.add(training);
+
+    private List<Training> trainings;
+
+    public Attendance() {
+        this.trainings = new ArrayList<>();
     }
+
+    public Attendance(List<Training> trainings) {
+        this.trainings = trainings;
+    }
+
+
+    public void addTraining(Training training) {
+        this.trainings.add(training);
+    }
+
     public List<Training> getTrainings() {
         return trainings;
     }
