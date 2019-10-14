@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.VisitReport;
 
 /**
@@ -20,6 +21,8 @@ public class CommandResult {
 
     private ObservableList<VisitReport> reports;
 
+    private Person profilePerson;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
@@ -29,35 +32,43 @@ public class CommandResult {
     /** The application should addVisit. */
     private final boolean deleteVisit;
 
+    /** The application should show the Profile */
+    private final boolean profile;
+
     /** The application should exit. */
     private final boolean exit;
-
-
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean addVisit, boolean deleteVisit, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean addVisit, boolean deleteVisit,
+                         boolean profile, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.addVisit = addVisit;
         this.deleteVisit = deleteVisit;
+        this.profile = profile;
         this.exit = exit;
     }
 
     public CommandResult(String feedbackToUser, int idx) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false);
         this.index = idx;
     }
 
+    public CommandResult(String feedbackToUser, Person profilePerson) {
+        this(feedbackToUser, false, false, false, true, false);
+        this.profilePerson = profilePerson;
+    }
+
     public CommandResult(String feedbackToUser, int idx, String date) {
-        this(feedbackToUser, false, true, false, false);
+        this(feedbackToUser, false, true, false, false, false);
         this.index = idx;
         this.date = date;
     }
 
     public CommandResult(String feedbackToUser, ObservableList<VisitReport> lst) {
-        this(feedbackToUser, false, false, true, false);
+        this(feedbackToUser, false, false, true, false, false);
         this.reports = lst;
     }
 
@@ -66,8 +77,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false,
-                false);
+        this(feedbackToUser, false, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -102,6 +112,14 @@ public class CommandResult {
         return deleteVisit;
     }
 
+    public boolean isShowProfile() {
+        return profile;
+    }
+
+    public Person getProfilePerson() {
+        return profilePerson;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -117,12 +135,13 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && addVisit == otherCommandResult.addVisit
+                && profile == otherCommandResult.profile
                 && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, addVisit, exit);
+        return Objects.hash(feedbackToUser, showHelp, addVisit, profile, exit);
     }
 
 
