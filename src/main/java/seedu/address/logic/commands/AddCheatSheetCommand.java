@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 public class AddCheatSheetCommand extends Command {
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addcs";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a cheatsheet. "
             + "Parameters: "
