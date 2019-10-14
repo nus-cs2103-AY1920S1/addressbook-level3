@@ -5,7 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Meeting extends Engagement {
-    protected Meeting(LocalDateTime start, LocalDateTime end, List<Person> managers,
+
+    protected Meeting(LocalDateTime start, LocalDateTime end,
                       List<Person> attendees, Location location, String description, Priority priority) {
         super(start, end, attendees, location, description, priority);
         this.start = start;
@@ -14,5 +15,10 @@ public class Meeting extends Engagement {
         this.location = location;
         this.description = description;
         this.priority = priority;
+    }
+
+    @Override
+    public String toString() {
+        return "Meeting " + description;
     }
 }

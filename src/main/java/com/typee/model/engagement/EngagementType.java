@@ -10,12 +10,11 @@ public enum EngagementType {
     }
 
     public static EngagementType of(String engagementType) throws IllegalArgumentException {
-        final String type = engagementType;
-        if (type.equalsIgnoreCase(EngagementType.MEETING.name())) {
+        if (engagementType.equalsIgnoreCase(EngagementType.MEETING.name())) {
             return EngagementType.MEETING;
-        } else if (type.equalsIgnoreCase(EngagementType.INTERVIEW.name())) {
+        } else if (engagementType.equalsIgnoreCase(EngagementType.INTERVIEW.name())) {
             return EngagementType.INTERVIEW;
-        } else if (type.equalsIgnoreCase(EngagementType.APPOINTMENT.name())) {
+        } else if (engagementType.equalsIgnoreCase(EngagementType.APPOINTMENT.name())) {
             return EngagementType.APPOINTMENT;
         } else {
             throw new IllegalArgumentException();

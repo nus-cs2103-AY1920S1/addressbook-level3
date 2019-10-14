@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import com.typee.model.engagement.Engagement;
 import com.typee.model.person.Person;
 import com.typee.model.person.UniquePersonList;
 
@@ -65,6 +66,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
+    }
+
+    public boolean hasEngagement (Engagement engagement) {
+        requireNonNull(engagement);
+        return true;
+    }
+
+    public void addEngagement(Engagement engagement) {
+        persons.add(engagement);
     }
 
     /**

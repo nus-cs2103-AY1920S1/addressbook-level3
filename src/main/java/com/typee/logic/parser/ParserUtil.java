@@ -7,7 +7,11 @@ import com.typee.commons.util.StringUtil;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.EngagementType;
+import com.typee.model.engagement.Location;
+import com.typee.model.engagement.Priority;
 import com.typee.model.person.Name;
+import java.time.LocalDateTime;
+import java.time.Month;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -44,6 +48,14 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
+    public static Name parseNameDeterministic(String name) {
+        try {
+            return parseName(name);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
     public static EngagementType parseType(String engagementType) throws ParseException {
         requireNonNull(engagementType);
         String trimmedType = engagementType.trim();
@@ -53,6 +65,33 @@ public class ParserUtil {
         } catch (IllegalArgumentException e) {
             throw new ParseException(EngagementType.getMessageConstraints());
         }
+    }
+
+    public static Location parseLocation(String location) throws ParseException {
+        requireNonNull(location);
+        return new Location(location);
+    }
+
+    public static Priority parsePriority(String priority) throws ParseException {
+        requireNonNull(priority);
+        String trimmedString = priority.trim();
+        try {
+            Priority parsedPriority = Priority.of(trimmedString);
+            return parsedPriority;
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(Priority.getMessageConstraints());
+        }
+    }
+
+    public static LocalDateTime parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        int year = Integer.parseInt(time.substring(6, 10));
+        Month month = Month.of(Integer.parseInt(time.substring(3, 5)));
+        int day = Integer.parseInt(time.substring(0, 2));
+        int hours = Integer.parseInt(time.substring(11, 13));
+        int minutes = Integer.parseInt(time.substring(13, 15));
+        LocalDateTime localDateTime = LocalDateTime.of(year, month, day, hours, minutes);
+        return localDateTime;
     }
 
 }

@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.util.CollectionUtil;
+import com.typee.model.engagement.Engagement;
 import com.typee.model.person.Person;
 
 import javafx.collections.ObservableList;
@@ -104,6 +105,18 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void addEngagement(Engagement engagement) {
+        addressBook.addEngagement(engagement);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public boolean hasEngagement (Engagement engagement) {
+        requireNonNull(engagement);
+        return addressBook.hasEngagement(engagement);
     }
 
     @Override

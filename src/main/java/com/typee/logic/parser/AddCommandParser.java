@@ -13,6 +13,14 @@ import com.typee.logic.commands.AddCommand;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.EngagementType;
+import com.typee.model.engagement.Location;
+import com.typee.model.engagement.Priority;
+import com.typee.model.person.Name;
+import com.typee.model.person.Person;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -39,10 +47,26 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         EngagementType engagementType = ParserUtil.parseType(argMultimap.getValue(PREFIX_ENGAGEMENT_TYPE).get());
+        LocalDateTime startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME).get());
+        LocalDateTime endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_END_TIME).get());
+        List<Person> attendees = parseAttendees(argMultimap.getValue(PREFIX_ATTENDEES).get());
+        Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
+        String description = argMultimap.getValue(PREFIX_DESCRIPTION).get();
+        Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
 
-        Engagement engagement = Engagement.make();
+        Engagement engagement = Engagement.of(engagementType, startTime, endTime,
+                attendees, location, description, priority);
 
         return new AddCommand(engagement);
+    }
+
+    private List<Person> parseAttendees(String attendees) {
+        List<Person> attendeesList = Arrays.stream(attendees.split(","))
+                .map(name -> name.trim())
+                .map(name -> new Person(ParserUtil.parseNameDeterministic(name)))
+                .filter(name -> name != null)
+                .collect(Collectors.toList());
+        return attendeesList;
     }
 
     /**

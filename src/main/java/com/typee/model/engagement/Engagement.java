@@ -26,6 +26,13 @@ public abstract class Engagement {
         this.priority = priority;
     }
 
+    public static Engagement of(EngagementType type,
+                                LocalDateTime start, LocalDateTime end,
+                                List<Person> attendees, Location location, String description,
+                                Priority priority) {
+        return new Meeting(start, end, attendees, location, description, priority);
+    }
+
     public Engagement makeEngagement(String userInput) {
         return null;
     }

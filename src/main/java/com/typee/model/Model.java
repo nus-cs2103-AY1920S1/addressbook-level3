@@ -60,6 +60,12 @@ public interface Model {
     boolean hasEngagement(Engagement engagement);
 
     /**
+     * REDUNDANT.
+     * Returns true if the person is in the address book.
+     */
+    boolean hasPerson(Person person);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
