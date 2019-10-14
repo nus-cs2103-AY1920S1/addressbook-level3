@@ -1,34 +1,28 @@
 package seedu.address.inventory.commands;
 
+import java.util.Optional;
+
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
-import seedu.address.inventory.model.exception.NoSuchIndexException;
-import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.person.commons.util.CollectionUtil;
 import seedu.address.person.logic.commands.exceptions.CommandException;
-import seedu.address.ui.Inventory;
-
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.Optional;
 
 /**
- * Edits a transaction to the transaction list.
+ * Edits an item to the inventory list.
  */
 public class EditCommand extends Command {
+    public static final String COMMAND_WORD = "edit";
+    public static final String MESSAGE_DUPLICATE = "The given input is the same as that of item specified.";
     private static int id;
     private int index;
     private EditItemDescriptor editItemDescriptor;
-    public static final String COMMAND_WORD = "edit";
-    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction is already recorded.";
 
     /**
      * Creates an EditCommand to add the specified {@code Transaction}
      */
     public EditCommand(int index, EditItemDescriptor editItemDescriptor) {
         this.index = index;
-
 
         this.id = index;
         this.editItemDescriptor = new EditItemDescriptor(editItemDescriptor);
@@ -42,13 +36,16 @@ public class EditCommand extends Command {
 
         Item editedItem = createdEditedItem(itemToEdit, editItemDescriptor);
 
-        if (!itemToEdit.equals(editedItem) && model.hasItemInInventory(editedItem)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
+        if (itemToEdit.equals(editedItem) && model.hasItemInInventory(editedItem)) {
+            throw new CommandException(MESSAGE_DUPLICATE);
         }
         model.setItem(Integer.parseInt(itemToEdit.getId()), editedItem);
         return new CommandResult(InventoryMessages.editedItem(itemToEdit, editedItem));
     }
 
+    /**
+     * Edits an item using EditItemDescriptor.
+     */
     private static Item createdEditedItem(Item itemToEdit, EditItemDescriptor editItemDescriptor) {
         String updatedDescription = editItemDescriptor.getDescription().orElse(itemToEdit.getDescription());
         String updatedCategory = editItemDescriptor.getCategory().orElse(itemToEdit.getCategory());
