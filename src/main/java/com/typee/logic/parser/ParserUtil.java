@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import com.typee.commons.core.index.Index;
 import com.typee.commons.util.StringUtil;
 import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.model.engagement.Engagement;
+import com.typee.model.engagement.EngagementType;
 import com.typee.model.person.Name;
 
 /**
@@ -41,4 +43,16 @@ public class ParserUtil {
         }
         return new Name(trimmedName);
     }
+
+    public static EngagementType parseType(String engagementType) throws ParseException {
+        requireNonNull(engagementType);
+        String trimmedType = engagementType.trim();
+        try {
+            EngagementType type = EngagementType.of(trimmedType);
+            return type;
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(EngagementType.getMessageConstraints());
+        }
+    }
+
 }
