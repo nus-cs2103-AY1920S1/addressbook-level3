@@ -20,8 +20,8 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListNoteCommand;
-import seedu.address.logic.commands.ViewNoteCommand;
 import seedu.address.logic.commands.SwitchModeCommand;
+import seedu.address.logic.commands.ViewNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
