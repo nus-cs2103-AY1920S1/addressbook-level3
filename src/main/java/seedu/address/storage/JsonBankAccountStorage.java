@@ -71,6 +71,8 @@ public class JsonBankAccountStorage implements BankAccountStorage {
      * @param filePath location of the data. Cannot be null.
      */
     public void saveBankAccount(ReadOnlyBankAccount bankAccount, Path filePath) throws IOException {
+        System.out.println("save" + bankAccount);
+        System.out.println("save: " + filePath);
         requireNonNull(bankAccount);
         requireNonNull(filePath);
 

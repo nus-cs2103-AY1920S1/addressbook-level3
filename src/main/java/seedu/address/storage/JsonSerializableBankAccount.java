@@ -28,7 +28,7 @@ class JsonSerializableBankAccount {
      * Constructs a {@code JsonSerializableBankAccount} with the given transactions.
      */
     @JsonCreator
-    public JsonSerializableBankAccount(@JsonProperty("persons") List<JsonAdaptedTransaction> transactions) {
+    public JsonSerializableBankAccount(@JsonProperty("transactions") List<JsonAdaptedTransaction> transactions) {
         this.transactions.addAll(transactions);
     }
 

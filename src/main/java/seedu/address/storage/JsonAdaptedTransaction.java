@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.text.DateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -71,10 +72,10 @@ class JsonAdaptedTransaction {
         if (amount == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }
-        if (!Amount.isValidAmount(Integer.parseInt(amount))) {
+        if (!Amount.isValidAmount(Double.parseDouble(amount))) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Amount modelAmount = new Amount(Integer.parseInt(amount));
+        final Amount modelAmount = new Amount(Double.parseDouble(amount));
 
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
@@ -83,7 +84,7 @@ class JsonAdaptedTransaction {
         Person person = this.peopleInvolved.toModelType();
 
         final Set<Tag> modelTags = new HashSet<>(transactionTags);
-        return new InTransaction(new Amount(Integer.parseInt(amount)), new Date(date)); //temporary return InTransaction to store transaction (should eventually return in or out transaction)
+        return new InTransaction(new Amount(Double.parseDouble(amount)), new Date()); //temporary return InTransaction to store transaction (should eventually return in or out transaction)
     }
 
 }

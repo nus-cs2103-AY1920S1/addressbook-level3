@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -20,7 +21,7 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
     private final BankAccount bankAccount;
-    private final FilteredList<Transaction> transactionList;
+    private final FilteredList<Transaction> filteredTransactions;
 
     /**
      * Initializes a ModelManager with the given bankAccount and userPrefs.
@@ -33,7 +34,7 @@ public class ModelManager implements Model {
 
         this.bankAccount = new BankAccount(bankAccount);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.transactionList = new FilteredList<>(bankAccount.getTransactionHistory());
+        filteredTransactions = new FilteredList<>(this.bankAccount.getTransactionHistory());
     }
 
     public ModelManager() {
@@ -85,7 +86,7 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyBankAccount getBankAccount() {
-        return null;
+        return bankAccount;
     }
 
     @Override
@@ -109,9 +110,19 @@ public class ModelManager implements Model {
         bankAccount.addTransaction(transaction);
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
     @Override
-    public ObservableList<Transaction> getTransactionList() {
-        return transactionList;
+    public ObservableList<Transaction> getFilteredTransactionList() {
+        return filteredTransactions;
+    }
+
+    @Override
+    public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+        requireNonNull(predicate);
+        filteredTransactions.setPredicate(predicate);
     }
 
     @Override
