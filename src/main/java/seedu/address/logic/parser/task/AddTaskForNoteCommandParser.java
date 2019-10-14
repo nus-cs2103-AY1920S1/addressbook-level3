@@ -35,8 +35,10 @@ public class AddTaskForNoteCommandParser implements Parser<AddTaskForNoteCommand
     public AddTaskForNoteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskForNoteCommand.MESSAGE_USAGE));
+        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddTaskForNoteCommand.MESSAGE_USAGE));
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());

@@ -104,6 +104,12 @@ public class ParserUtil {
         return new Difficulty((trimmedDifficulty));
     }
 
+    /**
+     * Parses a {@code String date} into an {@code LocalDate}
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
@@ -115,6 +121,12 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses a {@code String time} into an {@code LocalTime}
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
     public static LocalTime parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();

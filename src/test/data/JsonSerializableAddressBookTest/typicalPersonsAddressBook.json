@@ -21,5 +21,12 @@
   }, {
     "title" : "George Best",
     "content" : "4th street"
+  } ],
+  "tasks" : [ {
+    "title" : "Alice Pauline",
+    "content" : "123, Jurong West Ave 6, #08-111",
+    "date" : "2019-08-06",
+    "time" : "16:00",
+    "status" : "[N]"
   } ]
 }

@@ -8,11 +8,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.note.Note;
 import seedu.address.model.task.Task;
 
 /**
- * Panel containing the list of lecture notes.
+ * Panel containing the list of revision tasks.
  */
 public class TaskListPanel extends UiPart<Region> {
     private static final String FXML = "TaskListPanel.fxml";

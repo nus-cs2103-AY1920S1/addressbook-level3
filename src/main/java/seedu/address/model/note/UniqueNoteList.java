@@ -70,10 +70,6 @@ public class UniqueNoteList implements Iterable<Note> {
         }
     }
 
-//    public Note get(int index) {
-//        return internalList.get(index);
-//    }
-
     public Note get(Note note) {
         for (Note toGet : internalList) {
             if (toGet.isSameNote(note)) {

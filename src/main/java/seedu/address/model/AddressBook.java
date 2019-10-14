@@ -157,7 +157,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-//        return notes.hashCode();
         return Objects.hash(notes, tasks);
     }
 
@@ -175,7 +174,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     // note-level operations
 
     /**
-     * Returns true if a revision task with the same note / question, same date and time, and same status as {@code task} exists.
+     * Returns true if a revision task with the same note / question, same date and time, and same status
+     * as {@code task} exists.
      */
     public boolean hasTask(Task task) {
         requireNonNull(task);

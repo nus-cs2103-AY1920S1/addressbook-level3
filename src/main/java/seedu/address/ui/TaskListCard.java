@@ -4,12 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.note.Note;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskList;
 
 /**
- * An UI component that displays information of a {@code Note}.
+ * An UI component that displays information of a {@code Task}.
  */
 public class TaskListCard extends UiPart<Region> {
     private static final String FXML = "TaskListCard.fxml";
@@ -22,8 +20,8 @@ public class TaskListCard extends UiPart<Region> {
     private Label title;
     @FXML
     private Label id;
-//    @FXML
-//    private Label content;
+    //@FXML
+    //private Label content;
     @FXML
     private Label status;
     @FXML
@@ -36,7 +34,7 @@ public class TaskListCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         title.setText(task.getNote().getTitle().title);
-//        content.setText(note.getContent().content);
+        //content.setText(note.getContent().content);
         status.setText(task.getStatusIcon());
         date.setText(task.getDate().toString());
         time.setText(task.getTime().toString());

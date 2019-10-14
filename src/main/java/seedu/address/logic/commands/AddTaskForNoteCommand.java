@@ -12,6 +12,9 @@ import seedu.address.model.Model;
 import seedu.address.model.note.Note;
 import seedu.address.model.task.Task;
 
+/**
+ * Adds a revision task for lecture note to the task list.
+ */
 public class AddTaskForNoteCommand extends Command {
     public static final String COMMAND_WORD = "radd";
 
@@ -31,7 +34,7 @@ public class AddTaskForNoteCommand extends Command {
     private final Task toAdd;
 
     /**
-     * Creates an AddNoteCommand to add the specified {@code Note}
+     * Creates an AddTaskForNoteCommand to add the specified {@code Task}
      */
     public AddTaskForNoteCommand(Task task) {
         requireNonNull(task);
