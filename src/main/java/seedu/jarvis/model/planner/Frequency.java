@@ -9,8 +9,11 @@ public enum Frequency {
     MONTHLY,
     YEARLY;
 
-    private static final String MESSAGE_CONSTRAINTS = "Frequency levels can only have the following values:\n" +
+    public static final String MESSAGE_CONSTRAINTS = "Frequency levels can only have the following values:\n" +
                                                         "'daily', 'weekly', 'monthly' or 'yearly'";
 
 
+    public static boolean isValidFrequency(String test) {
+        return test.equals("daily") || test.equals("weekly") || test.equals("monthly") || test.equals("yearly");
+    }
 }

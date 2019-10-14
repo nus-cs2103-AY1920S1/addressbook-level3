@@ -6,8 +6,6 @@ import java.util.Set;
 import seedu.jarvis.model.address.tag.Tag;
 import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
-import seedu.jarvis.model.planner.exceptions.InvalidFrequencyException;
-import seedu.jarvis.model.planner.exceptions.InvalidPriorityException;
 
 /**
  * Represents a task object in JARVIS
@@ -32,13 +30,13 @@ public abstract class Task {
      * @param other the task to be compared to
      * @return true if both tasks are equal, false if they are not
      */
-    protected abstract boolean isEqual(Task other);
+    public abstract boolean isEqual(Task other);
 
     /**
      * Sets the Priority Level of a Task
      * @param priority User input priority level
      */
-    protected void addPriority(Priority priority) throws InvalidPriorityException {
+    public void addPriority(Priority priority) {
         this.priority = priority;
     }
 
@@ -46,15 +44,15 @@ public abstract class Task {
      * Sets the frequency level of a Task, i.e. how regularly a Task occurs.
      * @param freq Frequency level of a task
      */
-    protected void addFrequency(Frequency freq) throws InvalidFrequencyException {
+     public void addFrequency(Frequency freq) {
         frequency = freq;
-    }
+     }
 
     /**
      * Adds a Tag to the set of Tags attached to each Task
      * @param t Tag to be added
      */
-    protected void addTag(Tag t) {
+    public void addTag(Tag t) {
         this.tags.add(t);
     }
 

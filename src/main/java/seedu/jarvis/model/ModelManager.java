@@ -292,12 +292,17 @@ public class ModelManager implements Model {
      *         it does not.
      */
     @Override
-    public Boolean hasTask(Task t) {
+    public boolean hasTask(Task t) {
         return planner.hasTask(t);
     }
 
     @Override
     public Planner getPlanner() {
         return planner;
+    }
+
+    @Override
+    public void resetData(Planner planner) {
+        this.planner.resetData(planner);
     }
 }

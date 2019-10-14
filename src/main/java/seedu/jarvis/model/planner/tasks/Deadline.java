@@ -34,7 +34,7 @@ public class Deadline extends Task {
      * @return true if both tasks are equal, false if they are not
      */
     @Override
-    protected boolean isEqual(Task other) {
+    public boolean isEqual(Task other) {
         //TODO
         boolean isSameType = other instanceof Deadline;
         boolean isSameDes = taskDes.equals(other.taskDes);
