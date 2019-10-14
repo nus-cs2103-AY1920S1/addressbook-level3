@@ -1,5 +1,7 @@
 package seedu.address.logic.cap;
 
+import java.nio.file.Path;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.cap.commands.CommandResult;
@@ -7,9 +9,6 @@ import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
 import seedu.address.model.cap.ReadOnlyAddressBook;
 import seedu.address.model.cap.person.Person;
-
-import java.nio.file.Path;
-
 
 /**
  * API of the Logic component

@@ -1,11 +1,10 @@
 package seedu.address.logic.cap.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.SwitchOperation;
 import seedu.address.model.cap.Model;
-
-import static java.util.Objects.requireNonNull;
-
 
 /**
  * Switches to a new application component.

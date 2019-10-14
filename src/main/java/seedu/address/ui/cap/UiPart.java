@@ -1,12 +1,13 @@
 package seedu.address.ui.cap;
 
-import javafx.fxml.FXMLLoader;
-import seedu.address.MainApp;
+import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.net.URL;
 
-import static java.util.Objects.requireNonNull;
+import javafx.fxml.FXMLLoader;
+import seedu.address.MainApp;
+
 
 
 /**

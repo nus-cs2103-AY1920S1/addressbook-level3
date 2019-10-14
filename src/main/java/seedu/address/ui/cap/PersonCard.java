@@ -1,14 +1,13 @@
 package seedu.address.ui.cap;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.quiz.person.Person;
-
-import java.util.Comparator;
-
+import seedu.address.model.cap.person.Person;
 
 /**
  * An UI component that displays information of a {@code Person}.

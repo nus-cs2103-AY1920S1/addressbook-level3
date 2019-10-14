@@ -1,19 +1,23 @@
 package seedu.address.logic.cap.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.cap.commands.EditCommand;
-import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.logic.cap.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.cap.tag.Tag;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.cap.parser.CliSyntax.*;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.cap.commands.EditCommand;
+import seedu.address.logic.cap.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.cap.parser.exceptions.ParseException;
+import seedu.address.model.cap.tag.Tag;
 
 
 /**

@@ -1,9 +1,12 @@
 package seedu.address.logic.cap;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.cap.Logic;
 import seedu.address.logic.cap.commands.Command;
 import seedu.address.logic.cap.commands.CommandResult;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
@@ -13,11 +16,6 @@ import seedu.address.model.cap.Model;
 import seedu.address.model.cap.ReadOnlyAddressBook;
 import seedu.address.model.cap.person.Person;
 import seedu.address.storage.cap.Storage;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
-
 
 /**
  * The main LogicManager of the app.

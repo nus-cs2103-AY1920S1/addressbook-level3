@@ -1,9 +1,10 @@
 package seedu.address.logic.cap.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.cap.commands.SwitchCommand;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses the command to switch

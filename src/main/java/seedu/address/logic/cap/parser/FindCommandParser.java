@@ -1,12 +1,12 @@
 package seedu.address.logic.cap.parser;
 
-import seedu.address.logic.cap.commands.FindCommand;
-import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.cap.person.NameContainsKeywordsPredicate;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.logic.cap.commands.FindCommand;
+import seedu.address.logic.cap.parser.exceptions.ParseException;
+import seedu.address.model.cap.person.NameContainsKeywordsPredicate;
 
 
 /**

@@ -1,11 +1,11 @@
 package seedu.address.model.cap;
 
+import java.nio.file.Path;
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.cap.person.Person;
-
-import java.nio.file.Path;
-import java.util.function.Predicate;
 
 
 /**

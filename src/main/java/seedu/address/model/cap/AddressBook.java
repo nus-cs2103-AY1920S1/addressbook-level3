@@ -1,13 +1,12 @@
 package seedu.address.model.cap;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.cap.person.Person;
-import seedu.address.model.cap.person.UniquePersonList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-
+import javafx.collections.ObservableList;
+import seedu.address.model.cap.person.Person;
+import seedu.address.model.cap.person.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level

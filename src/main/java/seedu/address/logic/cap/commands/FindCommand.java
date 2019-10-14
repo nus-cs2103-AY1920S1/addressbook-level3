@@ -1,10 +1,10 @@
 package seedu.address.logic.cap.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.model.cap.Model;
 import seedu.address.model.cap.person.NameContainsKeywordsPredicate;
-
-import static java.util.Objects.requireNonNull;
 
 
 /**

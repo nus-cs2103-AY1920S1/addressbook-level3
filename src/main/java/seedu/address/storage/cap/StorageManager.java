@@ -1,16 +1,15 @@
 package seedu.address.storage.cap;
 
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.cap.ReadOnlyAddressBook;
-import seedu.address.model.cap.ReadOnlyUserPrefs;
-import seedu.address.model.cap.UserPrefs;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.cap.ReadOnlyAddressBook;
+import seedu.address.model.cap.ReadOnlyUserPrefs;
+import seedu.address.model.cap.UserPrefs;
 
 /**
  * Manages storage of AddressBook data in local storage.
