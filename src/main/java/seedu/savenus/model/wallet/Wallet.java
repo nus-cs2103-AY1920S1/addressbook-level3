@@ -112,6 +112,11 @@ public class Wallet {
         daysToExpire.updateDaysToExpire();
     }
 
+    /**
+     * Pay the input {@code Price} out of wallet.
+     * @param price {@code Price} to be deducted
+     * @throws CommandException Throws {@code CommandException} if there are insufficient funds in user's {@code Wallet}
+     */
     public void pay(Price price) throws CommandException {
         // Check whether wallet has enough funds
         if (price.toDouble() > getRemainingBudgetAmount()) {

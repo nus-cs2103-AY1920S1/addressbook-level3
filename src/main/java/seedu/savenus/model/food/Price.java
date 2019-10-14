@@ -1,7 +1,5 @@
 package seedu.savenus.model.food;
 
-import javafx.beans.property.DoubleProperty;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.AppUtil.checkArgument;
 

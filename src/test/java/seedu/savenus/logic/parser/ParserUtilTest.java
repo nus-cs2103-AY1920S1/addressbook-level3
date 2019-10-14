@@ -26,7 +26,7 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Ayam Penyet";
-    private static final String VALID_PRICE = "123456";
+    private static final String VALID_PRICE = "123";
     private static final String VALID_DESCRIPTION = "A valid description.";
     private static final String VALID_TAG_1 = "Chicken";
     private static final String VALID_TAG_2 = "Rice";
