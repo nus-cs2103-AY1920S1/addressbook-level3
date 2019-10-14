@@ -48,6 +48,10 @@ public class Transaction {
         return date;
     }
 
+    public TransactionType getTransactionType() {
+        return transactionType;
+    }
+
     public boolean isExpenditure() {
         return transactionType.isExpenditure();
     }
