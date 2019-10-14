@@ -7,7 +7,6 @@ import seedu.address.model.Model;
  * Represents a game command
  */
 public abstract class GameCommand extends Command {
-
     protected static final String MESSAGE_NO_ACTIVE_GAME = "There is no active game!";
 
     @Override

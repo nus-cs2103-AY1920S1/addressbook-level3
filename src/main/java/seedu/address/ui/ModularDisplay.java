@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import javafx.scene.layout.StackPane;
 import seedu.address.gamemanager.GameManager;
+import seedu.address.statistics.GameStatistics;
+import seedu.address.ui.modules.GameResultPanel;
 import seedu.address.ui.modules.PersonListPanel;
 import seedu.address.ui.modules.TitleScreenPanel;
 
@@ -52,6 +54,17 @@ public class ModularDisplay {
     public void swapToList(StackPane paneToDisplay) {
         paneToDisplay.getChildren().clear();
         paneToDisplay.getChildren().add(personListPanel.getRoot());
+    }
+
+    /**
+     * Changes to the game result.
+     *
+     * @param paneToDisplay The view to change.
+     * @param gameStatistics The statistics to be shown in the game result panel.
+     */
+    public void swapToGameResult(StackPane paneToDisplay, GameStatistics gameStatistics) {
+        paneToDisplay.getChildren().clear();
+        paneToDisplay.getChildren().add(new GameResultPanel(gameStatistics).getRoot());
     }
 
     /**

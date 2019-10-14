@@ -17,14 +17,32 @@ public class Guess {
         this.guessString = guessString;
     }
 
-    public String getGuessString() {
-        return this.guessString;
-    }
-
     /**
      * Returns true if the {@code word} matches the {@code guessString}.
      */
     public boolean matches(Word word) {
         return guessString.toLowerCase().equals(word.value.toLowerCase());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof Guess) {
+            return guessString.equals(((Guess) obj).guessString);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return guessString.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return guessString;
     }
 }
