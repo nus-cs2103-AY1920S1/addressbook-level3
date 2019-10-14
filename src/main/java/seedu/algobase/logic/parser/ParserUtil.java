@@ -254,11 +254,13 @@ public class ParserUtil {
      * @throws ParseException if the given {@code date} is invalid.
      */
     public static LocalDateTime parseDate(String date) throws ParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDateTime.now();
+        /*
         try {
-            return LocalDateTime.parse(date, formatter);
+            return LocalDateTime.parse(date, Plan.formatter);
         } catch (DateTimeException ex) {
             throw new ParseException(Plan.DATE_CONSTRAINTS);
         }
+        */
     }
 }

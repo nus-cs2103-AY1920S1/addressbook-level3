@@ -3,6 +3,7 @@ package seedu.algobase.model.plan;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -17,6 +18,7 @@ import seedu.algobase.model.task.Task;
 public class Plan {
 
     public static final String DATE_CONSTRAINTS = "Date format should be 'yyyy-MM-dd'.";
+    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     // Identity fields
     private final PlanName planName;
