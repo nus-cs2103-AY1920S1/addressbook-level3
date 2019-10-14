@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.Model;
+import com.typee.model.engagement.Engagement;
 import com.typee.model.person.Person;
 
 /**
@@ -20,28 +21,28 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe ";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New engagement added: %1$s";
+    public static final String MESSAGE_CONFLICTING_ENGAGEMENT = "This engagement clashes with an already existing one";
 
-    private final Person toAdd;
+    private final Engagement toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Engagement engagement) {
+        requireNonNull(engagement);
+        toAdd = engagement;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasEngagement(toAdd)) {
+            throw new CommandException(MESSAGE_CONFLICTING_ENGAGEMENT);
         }
 
-        model.addPerson(toAdd);
+        model.addEngagement(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

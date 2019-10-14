@@ -1,14 +1,19 @@
 package com.typee.logic.parser;
 
-import static com.typee.logic.parser.CliSyntax.PREFIX_NAME;
-
-import java.util.stream.Stream;
+import static com.typee.logic.parser.CliSyntax.PREFIX_ATTENDEES;
+import static com.typee.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static com.typee.logic.parser.CliSyntax.PREFIX_END_TIME;
+import static com.typee.logic.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
+import static com.typee.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static com.typee.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static com.typee.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.AddCommand;
 import com.typee.logic.parser.exceptions.ParseException;
-import com.typee.model.person.Name;
-import com.typee.model.person.Person;
+import com.typee.model.engagement.Engagement;
+import com.typee.model.engagement.EngagementType;
+import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -22,17 +27,22 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_ENGAGEMENT_TYPE,
+                        PREFIX_START_TIME, PREFIX_END_TIME,
+                        PREFIX_ATTENDEES, PREFIX_DESCRIPTION, PREFIX_LOCATION, PREFIX_PRIORITY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_ENGAGEMENT_TYPE,
+                PREFIX_START_TIME, PREFIX_END_TIME,
+                PREFIX_ATTENDEES, PREFIX_DESCRIPTION, PREFIX_LOCATION, PREFIX_PRIORITY)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        EngagementType = ParserUtil.parseType(argMultimap.getValue(PREFIX_ENGAGEMENT_TYPE).get());
 
-        Person person = new Person(name);
+        Engagement engagement = Engagement.make();
 
-        return new AddCommand(person);
+        return new AddCommand(engagement);
     }
 
     /**

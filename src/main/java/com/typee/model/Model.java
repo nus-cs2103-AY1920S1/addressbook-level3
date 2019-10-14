@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import com.typee.commons.core.GuiSettings;
+import com.typee.model.engagement.Engagement;
 import com.typee.model.person.Person;
 
 import javafx.collections.ObservableList;
@@ -54,9 +55,9 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an engagement with the same location and time-slot {@code engagement} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasEngagement(Engagement engagement);
 
     /**
      * Deletes the given person.
@@ -65,10 +66,10 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given engagement.
+     * {@code engagement} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addEngagement(Engagement engagement);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

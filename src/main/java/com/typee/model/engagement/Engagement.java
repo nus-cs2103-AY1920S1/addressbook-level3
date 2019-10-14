@@ -8,21 +8,18 @@ import com.typee.model.person.Person;
 /**
  * Represents a generalization of meetings, interviews and appointments.
  */
-public class Engagement {
+public abstract class Engagement {
     protected LocalDateTime start;
     protected LocalDateTime end;
-    //future modification of Person class is required -- Ko Gi Hun
-    protected List<Person> managers;
     protected List<Person> attendees;
     protected Location location;
     protected String description;
     protected Priority priority;
 
-    protected Engagement(LocalDateTime start, LocalDateTime end, List<Person> managers,
-                      List<Person> attendees, Location location, String description, Priority priority) {
+    protected Engagement(LocalDateTime start, LocalDateTime end,
+                         List<Person> attendees, Location location, String description, Priority priority) {
         this.start = start;
         this.end = end;
-        this.managers = managers;
         this.attendees = attendees;
         this.location = location;
         this.description = description;
@@ -47,14 +44,6 @@ public class Engagement {
 
     public void setEnd(LocalDateTime end) {
         this.end = end;
-    }
-
-    public List<Person> getManagers() {
-        return managers;
-    }
-
-    public void setManagers(List<Person> managers) {
-        this.managers = managers;
     }
 
     public List<Person> getAttendees() {
