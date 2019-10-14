@@ -2,6 +2,7 @@ package seedu.address.reimbursement.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.stream.Stream;
 
 import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.comparators.SortByAmount;
@@ -32,7 +33,7 @@ public class ReimbursementList {
      * @param transList the existing transactionList to use.
      */
     public ReimbursementList(TransactionList transList) {
-        list = new ArrayList<Reimbursement>();
+        list = new ArrayList<>();
         ArrayList<Transaction> pendingList = checkStatus(transList);
         for (Transaction trans : pendingList) {
             Reimbursement newRecord = new Reimbursement(trans);
@@ -68,6 +69,10 @@ public class ReimbursementList {
         return pendingList;
     }
 
+    public ArrayList<Reimbursement> getList() {
+        return list;
+    }
+
     /**
      * Merges a new reimbursement record with an existing one if they are the same person.
      * @param newRecord The merged reimbursement record.
@@ -86,10 +91,7 @@ public class ReimbursementList {
         }
     }
 
-    public Reimbursement get(int index) throws NoSuchIndexException {
-        if (index >= list.size()) {
-            throw new NoSuchIndexException(invalidIndex);
-        }
+    public Reimbursement get(int index) {
         return list.get(index);
     }
 
@@ -118,6 +120,13 @@ public class ReimbursementList {
             }
         }
         throw new NoSuchPersonReimbursementException();
+    }
+
+    public Reimbursement doneReimbursement(Person person) throws NoSuchPersonReimbursementException {
+        Reimbursement rmb = findReimbursement(person);
+        rmb.done();
+        list.remove(rmb);
+        return rmb;
     }
 
     /**
@@ -149,6 +158,7 @@ public class ReimbursementList {
         }
         return output;
     }
+
 }
 
 

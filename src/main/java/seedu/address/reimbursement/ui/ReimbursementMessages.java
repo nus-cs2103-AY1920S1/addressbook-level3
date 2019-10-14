@@ -23,6 +23,8 @@ public class ReimbursementMessages {
             + "deadline p/PERSON\n dt/DATE (yyyymmdd. eg.20191007, 20200501 etc)";
     public static final String MESSAGE_INVALID_DONECOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
             + "done p/PERSON";
+    public static final String MESSAGE_INVALID_LISTCOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
+            + "list";
     public static final String MESSAGE_INVALID_FINDCOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
             + "find p/PERSON";
     public static final String MESSAGE_INVALID_SORTNAMECOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
@@ -63,6 +65,11 @@ public class ReimbursementMessages {
     public static String doneReimbursement(Reimbursement rmb) {
         String msg = "Done" + System.lineSeparator();
         msg = msg + rmb.toString();
+        return msg;
+    }
+
+    public static String listReimbursement() {
+        String msg = "List all reimbursements." + System.lineSeparator();
         return msg;
     }
 
