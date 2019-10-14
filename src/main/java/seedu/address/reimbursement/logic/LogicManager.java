@@ -62,4 +62,9 @@ public class LogicManager implements Logic {
         return reimbursementModel.getReimbursementList();
     }
 
+    @Override
+    public ReimbursementList getFilteredList() {
+        return reimbursementModel.getFilteredReimbursementList();
+    }
+
 }

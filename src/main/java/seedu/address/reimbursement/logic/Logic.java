@@ -16,4 +16,6 @@ public interface Logic {
 
     ReimbursementList getReimbursementList();
 
+    ReimbursementList getFilteredList();
+
 }

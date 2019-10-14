@@ -30,6 +30,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void listReimbursement() {
+        filteredList = reimbursementList;
+    }
+
+    @Override
     public ReimbursementList getFilteredReimbursementList() {
         return filteredList;
     }
@@ -70,8 +75,7 @@ public class ModelManager implements Model {
 
     @Override
     public Reimbursement doneReimbursement(Person person) throws NoSuchPersonReimbursementException {
-        Reimbursement rmb = findReimbursement(person);
-        rmb.done();
+        Reimbursement rmb = reimbursementList.doneReimbursement(person);
         filteredList = reimbursementList;
         return rmb;
     }
@@ -84,6 +88,7 @@ public class ModelManager implements Model {
     @Override
     public void updateReimbursementList(TransactionList transList) {
         reimbursementList = new ReimbursementList(transList);
+        filteredList = reimbursementList;
     }
 
 }

@@ -125,6 +125,13 @@ public class ReimbursementList {
         throw new NoSuchPersonReimbursementException();
     }
 
+    public Reimbursement doneReimbursement(Person person) throws NoSuchPersonReimbursementException {
+        Reimbursement rmb = findReimbursement(person);
+        rmb.done();
+        list.remove(rmb);
+        return rmb;
+    }
+
     /**
      * @return the size of the ReimbursementList.
      */

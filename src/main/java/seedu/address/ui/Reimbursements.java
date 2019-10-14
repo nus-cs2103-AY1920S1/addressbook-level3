@@ -53,7 +53,7 @@ public class Reimbursements extends UiPart<Region> {
      * @return List of transactions
      */
     private ArrayList<Reimbursement> parseReimbursementList(Logic logic) {
-        ArrayList<Reimbursement> list = logic.getReimbursementList().getList();
+        ArrayList<Reimbursement> list = logic.getFilteredList().getList();
         for (int i = 0; i < list.size(); i++) {
             Reimbursement rmb = list.get(i);
             rmb.setIdCol(i + 1);

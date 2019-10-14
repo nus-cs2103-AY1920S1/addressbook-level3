@@ -10,6 +10,8 @@ import seedu.address.transaction.util.TransactionList;
 public interface Model {
     ReimbursementList getReimbursementList();
 
+    void listReimbursement();
+
     ReimbursementList getFilteredReimbursementList();
 
     Reimbursement findReimbursement(Person person) throws NoSuchPersonReimbursementException;
