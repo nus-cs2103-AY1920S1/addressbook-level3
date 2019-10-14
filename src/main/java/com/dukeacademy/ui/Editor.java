@@ -3,9 +3,6 @@ package com.dukeacademy.ui;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Logger;
-
-import com.dukeacademy.commons.core.LogsCenter;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +18,7 @@ import javafx.stage.Stage;
  * Creates a Text Editor window for the user to input code.
  */
 public class Editor extends UiPart<Region> {
-    static private final String FXML = "Editor.fxml";
+    private static final String FXML = "Editor.fxml";
 
     @FXML
     private Button btnSave;
