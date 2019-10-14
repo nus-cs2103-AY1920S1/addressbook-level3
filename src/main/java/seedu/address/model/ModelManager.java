@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
+import seedu.address.model.person.Income;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -109,6 +110,12 @@ public class ModelManager implements Model {
     @Override
     public void addExpense(Expense expense) {
         addressBook.addExpense(expense);
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+    }
+
+    @Override
+    public void addIncome(Income income) {
+        addressBook.addIncome(income);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
