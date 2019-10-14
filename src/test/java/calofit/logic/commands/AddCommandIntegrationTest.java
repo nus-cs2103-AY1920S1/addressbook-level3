@@ -36,10 +36,4 @@ public class AddCommandIntegrationTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, validDish), expectedModel);
     }
 
-    @Test
-    public void execute_duplicateDish_throwsCommandException() {
-        Dish dishInList = model.getDishDatabase().getDishList().get(0);
-        assertCommandFailure(new AddCommand(dishInList), model, AddCommand.MESSAGE_DUPLICATE_MEAL);
-    }
-
 }

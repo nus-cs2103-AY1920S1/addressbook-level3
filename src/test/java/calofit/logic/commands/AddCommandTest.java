@@ -40,19 +40,6 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicateDish_throwsCommandException() {
-        Dish validDish = new DishBuilder().build();
-        MealLog mealLog = new MealLog();
-        Model mock = Mockito.mock(Model.class);
-        Mockito.when(mock.hasDish(validDish)).thenReturn(true);
-        Mockito.when(mock.getMealLog()).thenReturn(mealLog);
-
-        AddCommand addCommand = new AddCommand(validDish);
-
-        assertThrows(CommandException.class, () -> addCommand.execute(mock), AddCommand.MESSAGE_DUPLICATE_MEAL);
-    }
-
-    @Test
     public void equals() {
         Dish alice = new DishBuilder().withName("Alice").build();
         Dish bob = new DishBuilder().withName("Bob").build();
