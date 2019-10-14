@@ -1,39 +1,50 @@
 package seedu.address.ui;
 
+import java.util.List;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.Logic;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.events.EventSource;
+import seedu.address.model.listeners.EventListListener;
+import seedu.address.ui.listeners.UserOutputListener;
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
-
+public class MainWindow extends UiPart<Stage> implements UserOutputListener, EventListListener {
+    public static final int WIDTH_PADDING = 20;
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Logic logic;
+    private Consumer<String> onCommandInput;
+    private UiParser uiParser;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
-    private ResultDisplay resultDisplay;
+    private EventListPanel eventListPanel;
+    private CalendarPanel calendarPanel;
+    private LogPanel logPanel;
     private HelpWindow helpWindow;
+
+    private boolean calendarMode;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,23 +53,36 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane viewPanelPlaceholder;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private StackPane logPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    @FXML
+    private GridPane gridManager;
+
+    @FXML
+    private VBox vBoxPane;
+
+    @FXML
+    private Label chatLog;
+
+    @FXML
+    private Label list;
+
+    public MainWindow(Stage primaryStage, Consumer<String> onCommandInput) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        this.logic = logic;
+        this.onCommandInput = onCommandInput;
+        this.uiParser = new UiParser();
+        this.calendarMode = false;
 
-        // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        setWindowDefaultSize(new GuiSettings());
 
         setAccelerators();
 
@@ -106,18 +130,39 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    public void fillInnerParts() {
+        calendarPanel = new CalendarPanel(uiParser);
+        eventListPanel = new EventListPanel(uiParser);
+        viewPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
+        viewPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+        calendarPanel.getRoot().setVisible(false);
 
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        logPanel = new LogPanel();
+        logPanelPlaceholder.getChildren().add(logPanel.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        // StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        // statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this.onCommandInput);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        editInnerParts();
+    }
+
+    /**
+     * Edits the size of the nodes based on the user's screen size.
+     */
+    private void editInnerParts() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double screenHeight = primaryScreenBounds.getHeight();
+        double screenWidth = primaryScreenBounds.getWidth();
+
+        logPanelPlaceholder.setPrefWidth(screenWidth);
+        viewPanelPlaceholder.setPrefWidth(screenWidth);
+
+        // Set the stage width and height
+        primaryStage.setMaxWidth(screenWidth);
+        primaryStage.setMaxHeight(screenHeight);
     }
 
     /**
@@ -144,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
+    public void show() {
         primaryStage.show();
     }
 
@@ -155,39 +200,34 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
+        // logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Temporary method to toggle the view panel on the right.
+     */
+    public void toggleView() {
+        if (calendarMode) {
+            calendarMode = false;
+            calendarPanel.getRoot().setVisible(false);
+            eventListPanel.getRoot().setVisible(true);
+        } else {
+            calendarMode = true;
+            eventListPanel.getRoot().setVisible(false);
+            calendarPanel.getRoot().setVisible(true);
+        }
     }
 
-    /**
-     * Executes the command and returns the result.
-     *
-     * @see seedu.address.logic.Logic#execute(String)
-     */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        try {
-            CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    @Override
+    public void onEventListChange(List<EventSource> events) {
+        this.eventListPanel.onEventListChange(events);
+        this.calendarPanel.onEventListChange(events);
+    }
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
-            return commandResult;
-        } catch (CommandException | ParseException e) {
-            logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
-            throw e;
-        }
+    @Override
+    public void onUserOutput(UserOutput output) {
+        this.logPanel.createLogBox(output.toString());
     }
 }
