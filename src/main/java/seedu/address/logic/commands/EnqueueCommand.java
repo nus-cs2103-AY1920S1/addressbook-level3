@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -15,10 +16,7 @@ public class EnqueueCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "New person added to the queue: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the queue";
-    public static final String MESSAGE_PERSON_NOT_FOUND = "This person is not registered";
-    public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Person '%1$s' has "
-                                                        + " been removed from the queue.";
-    public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of person: %1$s";
+    public static final String MESSAGE_UNDO_ENQUEUE_ERROR = "Could not undo the enqueuing of patient '%1$s'.";
 
     public static final String COMMAND_WORD = "enqueue";
 
@@ -26,31 +24,36 @@ public class EnqueueCommand extends ReversibleCommand {
             + "Parameters: "
             + "REFERENCE_ID ";
 
-    private final ReferenceId toAdd;
-
+    private final ReferenceId patientReferenceId;
 
     /**
-     * Creates an EnqueueCommand to add the specified {@code Person}
+     * Creates an EnqueueCommand to add the specified {@code PatientReferenceId}
      */
-    public EnqueueCommand(ReferenceId id) {
-        requireNonNull(id);
-        toAdd = id;
+    public EnqueueCommand(ReferenceId patientReferenceId) {
+        requireNonNull(patientReferenceId);
+        this.patientReferenceId = patientReferenceId;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
-        } else if (model.isPatientInQueue(toAdd)) {
+        if (model.isPatientInQueue(patientReferenceId)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        } else if (!model.hasPerson(patientReferenceId)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, patientReferenceId));
         }
 
-        model.enqueuePatient(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        model.enqueuePatient(patientReferenceId);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, patientReferenceId));
     }
 
+    @Override
+    public String getFailedUndoMessage() {
+        return String.format(MESSAGE_UNDO_ENQUEUE_ERROR, patientReferenceId);
+    }
+
+    /*
     @Override
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
@@ -62,11 +65,12 @@ public class EnqueueCommand extends ReversibleCommand {
         model.removeFromQueue(toAdd);
         return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, toAdd));
     }
+    */
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EnqueueCommand // instanceof handles nulls
-                && toAdd.equals(((EnqueueCommand) other).toAdd));
+                && patientReferenceId.equals(((EnqueueCommand) other).patientReferenceId));
     }
 }

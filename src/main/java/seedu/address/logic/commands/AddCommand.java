@@ -40,7 +40,6 @@ public class AddCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
-    public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Person '%1$s' has been removed.";
     public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of person: %1$s";
 
     private final Person toAdd;
@@ -66,15 +65,8 @@ public class AddCommand extends ReversibleCommand {
     }
 
     @Override
-    public CommandResult undo(Model model) throws CommandException {
-        requireNonNull(model);
-
-        if (!model.hasPerson(toAdd)) {
-            throw new CommandException(String.format(MESSAGE_UNDO_ADD_ERROR, toAdd));
-        }
-
-        model.deletePerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, toAdd));
+    public String getFailedUndoMessage() {
+        return String.format(MESSAGE_UNDO_ADD_ERROR, toAdd);
     }
 
     @Override

@@ -131,8 +131,8 @@ public class MainWindow extends UiPart<Stage> {
         eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
         //TODO: EDIT HERE
-        queueListPanel = new QueueListPanel(logic.getFilteredRoomList(),
-                                             logic.getFilteredReferencedIdList(), logic.getReferenceIdResolver());
+        queueListPanel = new QueueListPanel(logic.getConsultationRoomList(),
+                                             logic.getQueueList(), logic.getReferenceIdResolver());
         queueListPanelPlaceholder.getChildren().add(queueListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

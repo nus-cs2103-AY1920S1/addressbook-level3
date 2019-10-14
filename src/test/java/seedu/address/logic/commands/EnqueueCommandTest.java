@@ -228,12 +228,12 @@ public class EnqueueCommandTest {
         }
 
         @Override
-        public ObservableList<ReferenceId> getFilteredReferenceIdList() {
+        public ObservableList<ReferenceId> getQueueList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate) {
+        public void updateQueueList(Predicate<ReferenceId> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

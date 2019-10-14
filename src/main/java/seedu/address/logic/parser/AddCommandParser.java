@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.ReferenceId;
 import seedu.address.model.common.Tag;
@@ -24,15 +26,15 @@ import seedu.address.model.person.parameters.Phone;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddCommandParser implements Parser<ReversibleActionPairCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * and returns an ReversibleActionPairCommand object containing an AddCommand for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public ReversibleActionPairCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ID, PREFIX_NAME,
                         PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
@@ -52,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Person person = new Person(referenceId, name, phone, email, address, tagList);
 
-        return new AddCommand(person);
+        return new ReversibleActionPairCommand(new AddCommand(person), new DeleteCommand(person));
     }
 
     /**

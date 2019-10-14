@@ -205,12 +205,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<ReferenceId> getFilteredReferenceIdList() {
+    public ObservableList<ReferenceId> getQueueList() {
         return null;
     }
 
     @Override
-    public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate) {
+    public void updateQueueList(Predicate<ReferenceId> predicate) {
 
     }
 

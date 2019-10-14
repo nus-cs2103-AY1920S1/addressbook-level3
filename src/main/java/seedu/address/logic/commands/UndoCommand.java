@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 /**
  * Undoes the action of an {@code UndoableCommand} command.
  */
-public class UndoCommand extends Command {
+public class UndoCommand implements Command {
 
     public static final String COMMAND_WORD = "undo";
     public static final String MESSAGE_NO_UNDO_HISTORY_ERROR = "Nothing to undo!";

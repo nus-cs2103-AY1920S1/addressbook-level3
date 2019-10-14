@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -34,9 +35,7 @@ public class AckAppCommand extends ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "this appointmeent has been acked: %1$s";
     public static final String MESSAGE_NOTING_ACK = "there is no appointment under this patient.";
     public static final String MESSAGE_DUPLICATE_ACKED = "the upcoming appointment has been acked already.";
-    public static final String MESSAGE_INVAILD_REFERENCEID = "the refernceId is invalid.";
-    public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Appointment '%1$s' has been removed.";
-    public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of appointment: %1$s";
+    public static final String MESSAGE_UNDO_ACK_ERROR = "Could not undo the addition of appointment: %1$s";
     public static final String MESSAGE_NOT_ACKED = "Could not undo Acknowledge.";
 
     private final ReferenceId referenceId;
@@ -65,7 +64,7 @@ public class AckAppCommand extends ReversibleCommand {
 
 
         if (!model.hasPerson(referenceId)) {
-            throw new CommandException(MESSAGE_INVAILD_REFERENCEID);
+            throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, referenceId));
         } else if (filterEventList.size() == 0) {
             throw new CommandException(MESSAGE_NOTING_ACK);
         } else if (filterEventList.get(0).getStatus().isAcked()) {
@@ -82,6 +81,11 @@ public class AckAppCommand extends ReversibleCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, ackedEvent));
     }
 
+    @Override
+    public String getFailedUndoMessage() {
+        return String.format(MESSAGE_UNDO_ACK_ERROR, ackedEvent);
+    }
+
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
@@ -96,6 +100,7 @@ public class AckAppCommand extends ReversibleCommand {
         return new Event(updatedRefId, updatedTiming, updatedStatus);
     }
 
+    /*
     @Override
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
@@ -116,7 +121,7 @@ public class AckAppCommand extends ReversibleCommand {
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
 
         return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, eventToAck));
-    }
+    }*/
 
     @Override
     public boolean equals(Object other) {

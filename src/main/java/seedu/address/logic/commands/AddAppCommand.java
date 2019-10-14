@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -30,8 +31,6 @@ public class AddAppCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This appointment already exists in the address book";
-    public static final String MESSAGE_INVAILD_REFERENCEID = "this referenceId does not belong to any person";
-    public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Appointment '%1$s' has been removed.";
     public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of appointment: %1$s";
 
     private final Event appointment;
@@ -48,7 +47,7 @@ public class AddAppCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (!model.hasPerson(appointment.getPersonId())) {
-            throw new CommandException(MESSAGE_INVAILD_REFERENCEID);
+            throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, appointment.getPersonId()));
         }
         if (model.hasEvent(appointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
@@ -59,6 +58,11 @@ public class AddAppCommand extends ReversibleCommand {
     }
 
     @Override
+    public String getFailedUndoMessage() {
+        return String.format(MESSAGE_UNDO_ADD_ERROR, appointment);
+    }
+
+    /*
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
 
@@ -68,7 +72,7 @@ public class AddAppCommand extends ReversibleCommand {
 
         model.deleteEvent(appointment);
         return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, appointment));
-    }
+    }*/
 
     @Override
     public boolean equals(Object other) {

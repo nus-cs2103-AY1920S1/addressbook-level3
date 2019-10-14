@@ -1,12 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
-import java.util.List;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,53 +22,39 @@ public class DeleteCommand extends ReversibleCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
-    public static final String MESSAGE_UNDO_DELETE_SUCCESS = "Undo successful! Person '%1$s' has been added.";
-    public static final String MESSAGE_UNDO_DELETE_ERROR = "Could not undo the removal of entry.";
+    public static final String MESSAGE_UNDO_DELETE_ERROR = "Could not undo the removal of Person '%1$s'.";
 
-    private final Index targetIndex;
-    private Person personToDelete;
+    private final Person toDelete;
 
-    public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
-        this.personToDelete = null;
+    public DeleteCommand(Person toDelete) {
+        this.toDelete = toDelete;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (!model.hasExactPerson(toDelete)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, toDelete));
         }
 
-        if (personToDelete == null) {
-            personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        } else if (!model.hasExactPerson(personToDelete)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (model.isPatientInQueue(toDelete.getReferenceId())) {
+            model.removeFromQueue(toDelete.getReferenceId());
         }
 
-        model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        model.deletePerson(toDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, toDelete));
     }
 
     @Override
-    public CommandResult undo(Model model) throws CommandException {
-        requireNonNull(model);
-
-        if (personToDelete == null || model.hasExactPerson(personToDelete)) {
-            throw new CommandException(MESSAGE_UNDO_DELETE_ERROR);
-        }
-
-        model.addPerson(personToDelete);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_UNDO_DELETE_SUCCESS, personToDelete));
+    public String getFailedUndoMessage() {
+        return String.format(MESSAGE_UNDO_DELETE_ERROR, toDelete);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                && toDelete.equals(((DeleteCommand) other).toDelete)); // state check
     }
 }

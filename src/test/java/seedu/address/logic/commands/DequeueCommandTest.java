@@ -36,7 +36,7 @@ public class DequeueCommandTest {
     public void execute_validIndexUnfilteredList_success() {
         model.enqueuePatient(ALICE.getReferenceId());
         model.enqueuePatient(BENSON.getReferenceId());
-        ReferenceId personToDelete = model.getFilteredReferenceIdList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ReferenceId personToDelete = model.getQueueList().get(INDEX_FIRST_PERSON.getZeroBased());
         DequeueCommand dequeueCommand = new DequeueCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage1 = String.format(DequeueCommand.MESSAGE_DEQUEUE_SUCCESS, personToDelete);
@@ -102,8 +102,8 @@ public class DequeueCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoPatient(Model model) {
-        model.updateFilteredReferenceIdList(p -> false);
+        model.updateQueueList(p -> false);
 
-        assertTrue(model.getFilteredReferenceIdList().isEmpty());
+        assertTrue(model.getQueueList().isEmpty());
     }
 }
