@@ -28,6 +28,15 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_QUESTION_ONE = "What is the IntelliJ keyboard shortcut to find a class, file or "
+            + "symbol?";
+    public static final String VALID_ANSWER_ONE = "Ctrl + Shift + N";
+    public static final String VALID_QUESTION_TWO = "What is the IntelliJ keyboard shortcut to highlight all "
+            + "occurrences of the selected fragment in the current file?";
+    public static final String VALID_ANSWER_TWO = "Ctrl + Shift + F7";
+    public static final String VALID_TAG_INTELLIJ = "IntelliJ";
+    public static final String VALID_TAG_SHORTCUTS = "Shortcuts";
+
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
