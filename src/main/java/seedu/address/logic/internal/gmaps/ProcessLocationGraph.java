@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 
+import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.model.gmaps.LocationGraph;
 import seedu.address.websocket.GmapsApi;
 
@@ -23,7 +24,8 @@ public class ProcessLocationGraph {
         this.locationGraph = locationGraph;
     }
 
-    private void setMatrixRows(ArrayList<ArrayList<Long>> distanceMatrix, int start, int end) throws ConnectException {
+    private void setMatrixRows(ArrayList<ArrayList<Long>> distanceMatrix, int start, int end)
+            throws ConnectException, TimeBookInvalidState {
         if (distanceMatrix.size() != end - start + 1) {
             System.out.println((distanceMatrix.size() + "|" + start + "|" + end));
             throw new InvalidParameterException("distanceMatrix size must equal to start - end + 1");
@@ -40,7 +42,7 @@ public class ProcessLocationGraph {
      * #TODO Handle the locationList%10 cases
      * @throws ConnectException
      */
-    public void populateMatrix() throws ConnectException {
+    public void populateMatrix() throws ConnectException, TimeBookInvalidState {
         System.out.println("Start populating");
         ArrayList<String> gmapsRecognisedLocationList = locationGraph.getGmapsRecognisedLocationList();
         for (int i = 0; i < gmapsRecognisedLocationList.size() / 10; i++) {

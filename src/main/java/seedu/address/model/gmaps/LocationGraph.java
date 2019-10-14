@@ -3,6 +3,7 @@ package seedu.address.model.gmaps;
 import java.net.ConnectException;
 import java.util.ArrayList;
 
+import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.logic.internal.gmaps.LocationArrayListUtils;
 import seedu.address.logic.internal.gmaps.ProcessVenues;
 
@@ -20,7 +21,7 @@ public class LocationGraph implements java.io.Serializable {
 
     private ProcessVenues processVenues;
 
-    public LocationGraph(ProcessVenues processVenues) throws ConnectException {
+    public LocationGraph(ProcessVenues processVenues) throws ConnectException, TimeBookInvalidState {
         this.processVenues = processVenues;
         this.locations = processVenues.getLocations();
         this.gmapsRecognisedLocationList = processVenues.getGmapsRecognisedLocationList();
@@ -31,7 +32,7 @@ public class LocationGraph implements java.io.Serializable {
     }
 
     private LocationGraph(ProcessVenues processVenues, ArrayList<ArrayList<Long>> distanceMatrix)
-            throws ConnectException {
+            throws ConnectException, TimeBookInvalidState {
         this.locations = processVenues.getLocations();
         this.gmapsRecognisedLocationList = processVenues.getGmapsRecognisedLocationList();
         this.distanceMatrix = distanceMatrix;
@@ -57,7 +58,7 @@ public class LocationGraph implements java.io.Serializable {
         return distanceMatrix;
     }
 
-    public LocationGraph setMatrixRow(int rowNum, ArrayList<Long> row) throws ConnectException {
+    public LocationGraph setMatrixRow(int rowNum, ArrayList<Long> row) throws ConnectException, TimeBookInvalidState {
         distanceMatrix.get(rowNum).addAll(row);
         return new LocationGraph(processVenues, distanceMatrix);
     }

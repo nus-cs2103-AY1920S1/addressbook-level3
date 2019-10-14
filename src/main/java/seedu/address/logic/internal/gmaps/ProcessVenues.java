@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 
 import seedu.address.commons.exceptions.TimeBookInvalidLocation;
+import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.model.gmaps.Location;
 import seedu.address.websocket.GmapsApi;
 import seedu.address.websocket.NusModsApi;
@@ -32,7 +33,10 @@ public class ProcessVenues implements Serializable {
         this.venuesNusMods = venuesNusMods;
     }
 
-    public ArrayList<Location> getLocations() {
+    public ArrayList<Location> getLocations() throws TimeBookInvalidState {
+        if (venuesNusMods == null) {
+            throw new TimeBookInvalidState("Cannot call getLocation before getVenuesJsonArray");
+        }
         return this.venues;
     }
 
@@ -115,8 +119,8 @@ public class ProcessVenues implements Serializable {
     }
 
     private ProcessVenues getVenuesJsonArray() {
-        NusModsApi nusmodApi = new NusModsApi();
-        JSONArray currVenuesNusMod = nusmodApi.getVenues("/1");
+        NusModsApi nusModApi = new NusModsApi();
+        JSONArray currVenuesNusMod = nusModApi.getVenues("/1");
         return new ProcessVenues(currVenuesNusMod, venues);
     }
 
@@ -130,6 +134,7 @@ public class ProcessVenues implements Serializable {
             try {
                 String validLocation = sanitizeLocation.sanitize(locationName);
                 currLocation.setGoogleRecognisedLocation(validLocation);
+                System.out.println(locationName + " identified as " + validLocation);
             } catch (TimeBookInvalidLocation e) {
                 System.out.println(e.getMessage());
             }

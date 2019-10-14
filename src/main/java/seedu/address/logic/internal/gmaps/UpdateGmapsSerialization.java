@@ -2,6 +2,7 @@ package seedu.address.logic.internal.gmaps;
 
 import java.net.ConnectException;
 
+import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.model.gmaps.LocationGraph;
 
 /**
@@ -15,7 +16,7 @@ public class UpdateGmapsSerialization {
      * This method is used to save the instance of LocationGraph into memory.
      * @throws ConnectException
      */
-    public static void updateAll() throws ConnectException {
+    public static void updateAll() throws ConnectException, TimeBookInvalidState {
         ProcessVenues processVenues = new ProcessVenues().process();
         LocationGraph locationGraph = new LocationGraph(processVenues);
         ProcessLocationGraph processLocationGraph = new ProcessLocationGraph(locationGraph);
@@ -35,7 +36,7 @@ public class UpdateGmapsSerialization {
      * This method is used to update the Location Graph object only
      * @throws ConnectException
      */
-    public static void updateLocationGraph() throws ConnectException {
+    public static void updateLocationGraph() throws ConnectException, TimeBookInvalidState {
         ProcessVenues processVenues = new ProcessVenues().load();
         LocationGraph locationGraph = new LocationGraph(processVenues);
         ProcessLocationGraph processLocationGraph = new ProcessLocationGraph(locationGraph);

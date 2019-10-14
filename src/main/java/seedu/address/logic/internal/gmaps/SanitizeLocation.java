@@ -57,7 +57,7 @@ public class SanitizeLocation implements Serializable {
                     if (status.equals("OK")) {
                         validLocationList.add(validLocation);
                     } else {
-                        throw new TimeBookInvalidLocation("Cannot identify" + validLocation);
+                        throw new TimeBookInvalidLocation("Cannot identify " + validLocation);
                     }
                 }
             }
