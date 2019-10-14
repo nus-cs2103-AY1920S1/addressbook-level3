@@ -1,6 +1,7 @@
 package seedu.algobase.logic.parser;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.algobase.commons.util.CollectionUtil.isArrayOfLength;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
@@ -9,6 +10,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
+import java.util.List;
 
 import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
@@ -23,6 +25,12 @@ import seedu.algobase.model.problem.TagIncludesKeywordsPredicate;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
+
+    private List<String> getArgumentValueAsList(String argValue) {
+        String trimmedArg = argValue.trim();
+        String[] keywords = trimmedArg.split("\\s+");
+        return Arrays.asList(keywords);
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -43,9 +51,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         FindCommand.FindProblemDescriptor findProblemDescriptor = new FindCommand.FindProblemDescriptor();
 
         if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
-            String trimmedNameArg = argumentMultimap.getValue(PREFIX_NAME).get().trim();
-            String[] nameKeywords = trimmedNameArg.split("\\s+");
-            findProblemDescriptor.setNamePredicate(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            List<String> nameKeywords = getArgumentValueAsList(argumentMultimap.getValue(PREFIX_NAME).get());
+            findProblemDescriptor.setNamePredicate(new NameContainsKeywordsPredicate(nameKeywords));
         }
 
         if (argumentMultimap.getValue(PREFIX_AUTHOR).isPresent()) {
@@ -54,10 +61,10 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (argumentMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            String trimmedDescriptionArg = argumentMultimap.getValue(PREFIX_DESCRIPTION).get();
-            String[] descriptionKeywords = trimmedDescriptionArg.split("\\s+");
+            List<String> descriptionKeywords =
+                    getArgumentValueAsList(argumentMultimap.getValue(PREFIX_DESCRIPTION).get());
             findProblemDescriptor.setDescriptionPredicate(
-                new DescriptionContainsKeywordsPredicate(Arrays.asList(descriptionKeywords)));
+                new DescriptionContainsKeywordsPredicate(descriptionKeywords));
         }
 
         if (argumentMultimap.getValue(PREFIX_SOURCE).isPresent()) {
@@ -67,7 +74,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         if (argumentMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
             String[] difficultyBounds = argumentMultimap.getValue(PREFIX_DIFFICULTY).get().split("-");
-            if (difficultyBounds.length != 2) {
+            if (!isArrayOfLength(difficultyBounds, 2)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
             try {
@@ -82,9 +89,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (argumentMultimap.getValue(PREFIX_TAG).isPresent()) {
-            String trimmedTagArg = argumentMultimap.getValue(PREFIX_TAG).get().trim();
-            String[] tagKeywords = trimmedTagArg.split("\\s+");
-            findProblemDescriptor.setTagPredicate(new TagIncludesKeywordsPredicate(Arrays.asList(tagKeywords)));
+            List<String> tagKeywords = getArgumentValueAsList(argumentMultimap.getValue(PREFIX_TAG).get());
+            findProblemDescriptor.setTagPredicate(new TagIncludesKeywordsPredicate(tagKeywords));
         }
 
         if (!findProblemDescriptor.isAnyFieldProvided()) {
