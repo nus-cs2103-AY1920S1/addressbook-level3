@@ -294,8 +294,8 @@ public interface Model {
     /**
      * Returns a module for the academic year and module code.
      * Tries to find the module from 3 sources in the order:
-     *      1. Model.NusModsData.DetailedModuleList
-     *      2. ApiCache
+     *      1. Model.NusModsData.DetailedModuleList (in-memory)
+     *      2. Json Files
      *      3. NusModsApi
      */
     Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode);

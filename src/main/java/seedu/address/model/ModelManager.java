@@ -17,6 +17,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.JsonUtil;
+import seedu.address.commons.util.SimpleJsonUtil;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.detailwindow.WeekSchedule;
@@ -42,7 +45,6 @@ import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
-//import seedu.address.websocket.ApiCache;
 import seedu.address.websocket.NusModsApi;
 import seedu.address.websocket.NusModsParser;
 
@@ -525,9 +527,11 @@ public class ModelManager implements Model {
             try {
                 Path path = this.userPrefs.getDetailedModuleListFilePath();
                 String key = acadYear.toString() + " " + moduleCode.toString();
-                //TODO: implement ApiCache first
-                // module = NusModsParser.parseModule((JSONObject) new ApiCache().readJson(path, key));
-                throw ex1;
+                Optional<JSONObject> objOptional = SimpleJsonUtil.readJsonFile(path, JSONObject.class);
+                if (objOptional.isEmpty()) {
+                    throw new ModuleNotFoundException();
+                }
+                module = NusModsParser.parseModule(objOptional.get());
             } catch (ModuleNotFoundException ex2) {
                 try {
                     Optional<JSONObject> moduleObj = new NusModsApi(acadYear).getModule(moduleCode);
