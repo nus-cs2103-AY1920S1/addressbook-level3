@@ -1,9 +1,8 @@
 package seedu.jarvis.logic.commands.finance;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_MONEY;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_DESCRIPTION;
+import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
 
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
@@ -22,7 +21,6 @@ public class PaidCommand extends Command {
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_MONEY + "MONEY "
-            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Aston's for Lunch "
             + PREFIX_MONEY + "9.50 ";

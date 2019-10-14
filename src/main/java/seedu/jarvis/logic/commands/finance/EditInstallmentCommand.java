@@ -1,7 +1,7 @@
 package seedu.jarvis.logic.commands.finance;
 
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_MONEY;
+import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_DESCRIPTION;
+import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
 
 /**
  * Edits an existing installment using its displayed index in the finance tracker.

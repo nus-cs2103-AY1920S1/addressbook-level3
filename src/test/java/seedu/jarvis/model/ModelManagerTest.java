@@ -19,8 +19,10 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
+import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.testutil.AddressBookBuilder;
 
@@ -75,7 +77,9 @@ public class ModelManagerTest {
     public void getHistoryManager_emptyHistoryManager() {
         HistoryManager historyManager = new HistoryManager();
         historyManager.rememberExecutedCommand(new CommandStub());
-        modelManager = new ModelManager(historyManager, new FinanceTracker(), new AddressBook(), new UserPrefs());
+        CcaTracker ccaTracker = new CcaTracker();
+        modelManager = new ModelManager(ccaTracker, historyManager, new FinanceTracker(), new AddressBook(),
+                new UserPrefs(), new Planner());
         Assertions.assertEquals(historyManager, modelManager.getHistoryManager());
     }
 
@@ -232,6 +236,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
+        CcaTracker ccaTracker = new CcaTracker();
         HistoryManager historyManager = new HistoryManager();
         historyManager.rememberExecutedCommand(new CommandStub());
         HistoryManager differentHistoryManager = new HistoryManager();
@@ -239,10 +244,12 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
+        Planner planner = new Planner();
 
         // same values -> returns true
-        modelManager = new ModelManager(historyManager, financeTracker, addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(historyManager, financeTracker, addressBook, userPrefs);
+        modelManager = new ModelManager(ccaTracker, historyManager, financeTracker, addressBook, userPrefs, planner);
+        ModelManager modelManagerCopy = new ModelManager(ccaTracker, historyManager, financeTracker, addressBook,
+                userPrefs, planner);
         Assertions.assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -255,18 +262,19 @@ public class ModelManagerTest {
         Assertions.assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        Assertions.assertFalse(modelManager.equals(new ModelManager(historyManager, financeTracker,
-                differentAddressBook, userPrefs)));
+        Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, historyManager, financeTracker,
+                differentAddressBook, userPrefs, planner)));
 
         // different historyManager -> returns false
-        Assertions.assertFalse(modelManager.equals(new ModelManager(differentHistoryManager, financeTracker,
-                addressBook, userPrefs)));
+        Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, differentHistoryManager, financeTracker,
+                addressBook, userPrefs, planner)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        Assertions.assertFalse(modelManager.equals(new ModelManager(historyManager, financeTracker,
-                addressBook, userPrefs)));
+
+        Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, historyManager, financeTracker,
+                addressBook, userPrefs, planner)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -274,8 +282,8 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        Assertions.assertFalse(modelManager.equals(new ModelManager(historyManager, financeTracker, addressBook,
-                differentUserPrefs)));
+        Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, historyManager, financeTracker,
+                addressBook, differentUserPrefs, planner)));
     }
 
     /**

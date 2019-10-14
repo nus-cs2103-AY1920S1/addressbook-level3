@@ -13,11 +13,13 @@ import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
+import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
 
 public class RemoveInstallmentCommandTest {
@@ -26,7 +28,8 @@ public class RemoveInstallmentCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
+                new UserPrefs(), new Planner());
         model.addInstallment(new InstallmentStub());
         model.addInstallment(new InstallmentStub());
         model.addInstallment(new InstallmentStub());
@@ -49,8 +52,8 @@ public class RemoveInstallmentCommandTest {
         String expectedMessage = String.format(RemoveInstallmentCommand.MESSAGE_DELETE_INSTALLMENT_SUCCESS,
                 installmentToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getHistoryManager(), model.getFinanceTracker(),
-                model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(), model.getPlanner());
         expectedModel.deleteInstallment(INDEX_FIRST_INSTALLMENT.getOneBased());
 
         assertCommandSuccess(removeInstallmentCommand, model, expectedMessage, expectedModel);

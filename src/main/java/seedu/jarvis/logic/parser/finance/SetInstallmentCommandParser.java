@@ -1,8 +1,8 @@
 package seedu.jarvis.logic.parser.finance;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_MONEY;
+import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_DESCRIPTION;
+import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
 
 import java.util.stream.Stream;
 

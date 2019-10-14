@@ -14,8 +14,10 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.testutil.PersonBuilder;
 
@@ -28,15 +30,15 @@ public class AddAddressCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
+                new UserPrefs(), new Planner());
     }
 
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
-
-        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getFinanceTracker(),
-                model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(), model.getPlanner());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(new AddAddressCommand(validPerson), model,
@@ -57,9 +59,8 @@ public class AddAddressCommandIntegrationTest {
     public void executeInverse_personNotFound_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
-
-        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getFinanceTracker(),
-                model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(), model.getPlanner());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(addAddressCommand, model,
@@ -79,9 +80,8 @@ public class AddAddressCommandIntegrationTest {
     public void executeInverse_success() {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
-
-        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getFinanceTracker(),
-                model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(), model.getPlanner());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(addAddressCommand, model,
@@ -100,8 +100,8 @@ public class AddAddressCommandIntegrationTest {
     public void repeatedExecutionAndInverseExecution() {
         Person validPerson = new PersonBuilder().build();
         AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
-        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getFinanceTracker(),
-                model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(), model.getPlanner());
 
         int cycles = 1000;
         IntStream.range(0, cycles)
