@@ -46,6 +46,9 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /** Returns an unmodifiable view of the filtered list of transactions */
+    ObservableList<Transaction> getFilteredTransactionList();
+
     /**
      * Returns an ObservableList of Transactions
      */
