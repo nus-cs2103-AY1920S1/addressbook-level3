@@ -22,7 +22,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final Billboard billboardExpenses;
-    private final Archives archiveExpenses;
+    private final ArchiveWrapper archives;
     private final UserPrefs userPrefs;
     private final FilteredList<Expense> filteredExpense;
     private final HashMap<String, FilteredList<Expense>> filteredArchives;
@@ -30,7 +30,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given billboard and userPrefs.
      */
-    public ModelManager(ReadOnlyBillboard billboardExpenses, ReadOnlyArchives archiveExpenses, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyBillboard billboardExpenses, ReadOnlyArchiveWrapper archiveExpenses, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(billboardExpenses, archiveExpenses, userPrefs);
 
@@ -38,20 +38,20 @@ public class ModelManager implements Model {
                  + " and user prefs " + userPrefs);
 
         this.billboardExpenses = new Billboard(billboardExpenses);
-        this.archiveExpenses = new Archives(archiveExpenses);
+        this.archives = new ArchiveWrapper(archiveExpenses);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExpense = new FilteredList<>(this.billboardExpenses.getExpenses());
 
         filteredArchives = new HashMap<>();
-        Set<String> archiveNames = this.archiveExpenses.getArchiveNames();
+        Set<String> archiveNames = this.archives.getArchiveNames();
         for (String archiveName : archiveNames) {
             filteredArchives.put(archiveName,
-                    new FilteredList<>(this.archiveExpenses.getArchiveExpenses(archiveName)));
+                    new FilteredList<>(this.archives.getArchiveExpenses(archiveName)));
         }
     }
 
     public ModelManager() {
-        this(new Billboard(), new Archives(), new UserPrefs());
+        this(new Billboard(), new ArchiveWrapper(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -138,36 +138,36 @@ public class ModelManager implements Model {
     //=========== Archive ================================================================================
 
     @Override
-    public void setArchiveExpenses(ReadOnlyArchives archiveExpenses) {
-        this.archiveExpenses.resetData(archiveExpenses);
+    public void setArchives(ReadOnlyArchiveWrapper archives) {
+        this.archives.resetData(archives);
     }
 
     @Override
-    public ReadOnlyArchives getArchiveExpenses() {
-        return archiveExpenses;
+    public ReadOnlyArchiveWrapper getArchives() {
+        return archives;
     }
 
     @Override
     public boolean hasArchiveExpense(String archiveName, Expense expense) {
         requireAllNonNull(archiveName, expense);
-        return archiveExpenses.hasArchiveExpense(archiveName, expense);
+        return archives.hasArchiveExpense(archiveName, expense);
     }
 
     @Override
     public void deleteArchiveExpense(String archiveName, Expense target) {
-        archiveExpenses.removeArchiveExpense(archiveName, target);
+        archives.removeArchiveExpense(archiveName, target);
     }
 
     @Override
     public void addArchiveExpense(String archiveName, Expense expense) {
-        archiveExpenses.addArchiveExpense(archiveName, expense);
+        archives.addArchiveExpense(archiveName, expense);
         updateFilteredArchiveExpenses(archiveName, PREDICATE_SHOW_ALL_EXPENSES);
     }
 
     @Override
     public void setArchiveExpense(String archiveName, Expense target, Expense editedExpense) {
         requireAllNonNull(archiveName, target, editedExpense);
-        archiveExpenses.setArchiveExpense(archiveName, target, editedExpense);
+        archives.setArchiveExpense(archiveName, target, editedExpense);
     }
 
 
@@ -214,7 +214,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return billboardExpenses.equals(other.billboardExpenses)
-                && archiveExpenses.equals(other.archiveExpenses)
+                && archives.equals(other.archives)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExpense.equals(other.filteredExpense)
                 && filteredArchives.equals(other.filteredArchives);

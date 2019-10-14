@@ -1,14 +1,15 @@
 package seedu.billboard.model;
 
 import javafx.collections.ObservableList;
+import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 
-import java.util.HashMap;
+import java.util.List;
 
 /**
  * Unmodifiable view of the archives
  */
-public interface ReadOnlyArchives {
+public interface ReadOnlyArchiveWrapper {
 
     /**
      * Returns an unmodifiable view of the expense list of the given archive.
@@ -16,7 +17,7 @@ public interface ReadOnlyArchives {
     ObservableList<Expense> getArchiveExpenses(String archiveName);
 
     /**
-     * Returns a HashMap containing all archives as an unmodifiable view of each expense list.
+     * Returns a list containing all archives.
      */
-    HashMap<String, ObservableList<Expense>> getArchives();
+    List<Archive> getArchiveList();
 }

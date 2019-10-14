@@ -29,7 +29,7 @@ public class AddCommandIntegrationTest {
     public void execute_newExpense_success() {
         Expense validExpense = new ExpenseBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getBillboardExpenses(), model.getArchiveExpenses(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getBillboardExpenses(), model.getArchives(), new UserPrefs());
         expectedModel.addExpense(validExpense);
 
         assertCommandSuccess(new AddCommand(validExpense), model,

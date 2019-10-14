@@ -1,9 +1,10 @@
 package seedu.billboard.model;
 
 import javafx.collections.ObservableList;
+import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.expense.ExpenseList;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -14,17 +15,17 @@ import static java.util.Objects.requireNonNull;
  * Wraps all data at the archive level
  * Duplicate archives are not allowed
  */
-public class Archives implements ReadOnlyArchives {
+public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
 
-    private final HashMap<String, ExpenseList> archives;
+    private final HashMap<String, Archive> archiveList;
 
     {
-        archives = new HashMap<>();
+        archiveList = new HashMap<>();
     }
 
-    public Archives(){}
+    public ArchiveWrapper(){}
 
-    public Archives(ReadOnlyArchives toBeCopied) {
+    public ArchiveWrapper(ReadOnlyArchiveWrapper toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -34,27 +35,26 @@ public class Archives implements ReadOnlyArchives {
     /**
      * Replaces the contents of the archives with {@code newArchives}.
      */
-    public void setArchives(HashMap<String, ObservableList<Expense>> newArchives) {
-        Set<String> archiveNames = newArchives.keySet();
-        this.archives.clear();
-        for (String archiveName : archiveNames) {
-            this.archives.put(archiveName, new ExpenseList());
-            this.archives.get(archiveName).setExpenses(newArchives.get(archiveName));
+    public void setArchiveList(List<Archive> newArchiveList) {
+        archiveList.clear();
+        for (Archive archive : newArchiveList) {
+            archiveList.put(archive.getArchiveName(), archive);
         }
     }
 
     /**
      * Resets the existing data of this {@code Billboard} with {@code newData}.
      */
-    public void resetData(ReadOnlyArchives newData) {
+    public void resetData(ReadOnlyArchiveWrapper newData) {
         requireNonNull(newData);
-        setArchives(newData.getArchives());
+        setArchiveList(newData.getArchiveList());
     }
 
     //==================== Archive-Level operations ====================
 
+
     public Set<String> getArchiveNames() {
-        return archives.keySet();
+        return archiveList.keySet();
     }
 
     public boolean hasArchive(String archiveName) {
@@ -62,13 +62,12 @@ public class Archives implements ReadOnlyArchives {
         return archiveNames.contains(archiveName);
     }
 
-    public void addArchive(String archiveName, List<Expense> archive) {
-        archives.put(archiveName, new ExpenseList());
-        archives.get(archiveName).setExpenses(archive);
+    public void addArchive(Archive newArchive) {
+        archiveList.put(newArchive.getArchiveName(), newArchive);
     }
 
-    public void removeArchive(String archiveName) {
-        archives.remove(archiveName);
+    public void removeArchive(Archive archive) {
+        archiveList.remove(archive);
     }
 
     //==================== Expense-Level operations ====================
@@ -79,15 +78,15 @@ public class Archives implements ReadOnlyArchives {
      */
     public boolean hasArchiveExpense(String archiveName, Expense expense) {
         requireNonNull(expense);
-        ExpenseList expenses = archives.get(archiveName);
-        return expenses.contains(expense);
+        Archive archive = archiveList.get(archiveName);
+        return archive.contains(expense);
     }
 
     /**
      * Adds an expense to the given archive.
      */
     public void addArchiveExpense(String archiveName, Expense p) {
-        archives.get(archiveName).add(p);
+        archiveList.get(archiveName).add(p);
     }
 
     /**
@@ -97,8 +96,7 @@ public class Archives implements ReadOnlyArchives {
      */
     public void setArchiveExpense(String archiveName, Expense target, Expense editedExpense) {
         requireNonNull(editedExpense);
-        ExpenseList expenses = archives.get(archiveName);
-        expenses.setExpense(target, editedExpense);
+        archiveList.get(archiveName).setExpense(target, editedExpense);
     }
 
     /**
@@ -106,28 +104,27 @@ public class Archives implements ReadOnlyArchives {
      * The given {@code archiveName} must exist.
      */
     public void removeArchiveExpense(String archiveName, Expense key) {
-        ExpenseList expenses = archives.get(archiveName);
-        expenses.remove(key);
+        archiveList.get(archiveName).remove(key);
     }
 
     //==================== Util Methods ====================
 
     @Override
     public ObservableList<Expense> getArchiveExpenses(String archiveName) {
-        return archives.get(archiveName).asUnmodifiableObservableList();
+        Archive archive = archiveList.get(archiveName);
+        return archive.asUnmodifiableObservableList();
     }
 
     @Override
-    public HashMap<String, ObservableList<Expense>> getArchives() {
-        HashMap<String, ObservableList<Expense>> resultArchives = new HashMap<>();
-        Set<String> archiveNames = getArchiveNames();
+    public List<Archive> getArchiveList() {
+        List<Archive> archives = new ArrayList<>();
 
+        Set<String> archiveNames = getArchiveNames();
         for (String archiveName : archiveNames) {
-            ObservableList<Expense> archive = getArchiveExpenses(archiveName);
-            resultArchives.put(archiveName, archive);
+            archives.add(archiveList.get(archiveName));
         }
 
-        return resultArchives;
+        return archives;
     }
 
     @Override
@@ -139,12 +136,12 @@ public class Archives implements ReadOnlyArchives {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Archives // instanceof handles nulls
-                && archives.equals(((Archives) other).archives));
+                || (other instanceof ArchiveWrapper // instanceof handles nulls
+                && archiveList.equals(((ArchiveWrapper) other).archiveList));
     }
 
     @Override
     public int hashCode() {
-        return archives.hashCode();
+        return archiveList.hashCode();
     }
 }

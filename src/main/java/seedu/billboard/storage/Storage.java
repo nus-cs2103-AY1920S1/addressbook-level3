@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.billboard.commons.exceptions.DataConversionException;
-import seedu.billboard.model.ReadOnlyArchives;
+import seedu.billboard.model.ReadOnlyArchiveWrapper;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.ReadOnlyUserPrefs;
 import seedu.billboard.model.UserPrefs;
@@ -37,9 +37,9 @@ public interface Storage extends BillboardStorage, ArchiveStorage, UserPrefsStor
     Path getArchiveFilePath();
 
     @Override
-    Optional<ReadOnlyArchives> readArchive() throws DataConversionException, IOException;
+    Optional<ReadOnlyArchiveWrapper> readArchive() throws DataConversionException, IOException;
 
     @Override
-    void saveArchive(ReadOnlyArchives archive) throws IOException;
+    void saveArchive(ReadOnlyArchiveWrapper archive) throws IOException;
 
 }

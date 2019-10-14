@@ -12,7 +12,7 @@ import seedu.billboard.commons.exceptions.DataConversionException;
 import seedu.billboard.commons.exceptions.IllegalValueException;
 import seedu.billboard.commons.util.FileUtil;
 import seedu.billboard.commons.util.JsonUtil;
-import seedu.billboard.model.ReadOnlyArchives;
+import seedu.billboard.model.ReadOnlyArchiveWrapper;
 
 /**
  * A class to access Archive data stored as a json file on the hard disk.
@@ -30,7 +30,7 @@ public class JsonArchiveStorage extends JsonFileStorage implements ArchiveStorag
     }
 
     @Override
-    public Optional<ReadOnlyArchives> readArchive() throws DataConversionException {
+    public Optional<ReadOnlyArchiveWrapper> readArchive() throws DataConversionException {
         return readArchive(getFilePath());
     }
 
@@ -40,11 +40,11 @@ public class JsonArchiveStorage extends JsonFileStorage implements ArchiveStorag
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyArchives> readArchive(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyArchiveWrapper> readArchive(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableBillboard> jsonArchive = JsonUtil.readJsonFile(
-                filePath, JsonSerializableBillboard.class);
+        Optional<JsonSerializableArchiveWrapper> jsonArchive = JsonUtil.readJsonFile(
+                filePath, JsonSerializableArchiveWrapper.class);
         if (jsonArchive.isEmpty()) {
             return Optional.empty();
         }
@@ -58,21 +58,21 @@ public class JsonArchiveStorage extends JsonFileStorage implements ArchiveStorag
     }
 
     @Override
-    public void saveArchive(ReadOnlyArchives archive) throws IOException {
+    public void saveArchive(ReadOnlyArchiveWrapper archive) throws IOException {
         saveArchive(archive, getFilePath());
     }
 
     /**
-     * Similar to {@link #saveArchive(ReadOnlyArchives)}.
+     * Similar to {@link #saveArchive(ReadOnlyArchiveWrapper)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveArchive(ReadOnlyArchives archive, Path filePath) throws IOException {
+    public void saveArchive(ReadOnlyArchiveWrapper archive, Path filePath) throws IOException {
         requireNonNull(archive);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableBillboard(archive), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableArchiveWrapper(archive), filePath);
     }
 
 }

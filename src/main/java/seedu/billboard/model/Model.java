@@ -102,10 +102,10 @@ public interface Model {
     /**
      * Replaces archive data with the data in {@code billboard}.
      */
-    void setArchiveExpenses(ReadOnlyArchives archiveExpenses);
+    void setArchives(ReadOnlyArchiveWrapper archives);
 
     /** Returns the archive */
-    ReadOnlyArchives getArchiveExpenses();
+    ReadOnlyArchiveWrapper getArchives();
 
     /**
      * Returns true if an expense with the same identity as {@code expense} exists in the given archive.

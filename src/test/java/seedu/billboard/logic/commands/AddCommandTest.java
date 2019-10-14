@@ -163,7 +163,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyBillboard getArchiveExpenses() {
+        public ReadOnlyBillboard getArchives() {
             throw new AssertionError("This method should not be called.");
         }
 

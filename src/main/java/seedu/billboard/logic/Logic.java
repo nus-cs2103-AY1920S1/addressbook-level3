@@ -7,6 +7,7 @@ import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.logic.parser.exceptions.ParseException;
+import seedu.billboard.model.ReadOnlyArchiveWrapper;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.expense.Expense;
 
@@ -51,12 +52,12 @@ public interface Logic {
     /**
      * Returns the archive.
      *
-     * @see seedu.billboard.model.Model#getArchiveExpenses()
+     * @see seedu.billboard.model.Model#getArchives()
      */
-    ReadOnlyBillboard getArchive();
+    ReadOnlyArchiveWrapper getArchive();
 
     /** Returns an unmodifiable view of the filtered list of archive expenses */
-    ObservableList<Expense> getFilteredArchiveExpenseList();
+    ObservableList<Expense> getFilteredArchiveExpenseList(String archiveName);
 
     /**
      * Returns the user prefs' billboard file path.

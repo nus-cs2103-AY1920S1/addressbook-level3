@@ -58,8 +58,8 @@ public class JsonBillboardStorage extends JsonFileStorage implements BillboardSt
     }
 
     @Override
-    public void saveBillboard(ReadOnlyBillboard addressBook) throws IOException {
-        saveBillboard(addressBook, getFilePath());
+    public void saveBillboard(ReadOnlyBillboard billboard) throws IOException {
+        saveBillboard(billboard, getFilePath());
     }
 
     /**
@@ -67,12 +67,12 @@ public class JsonBillboardStorage extends JsonFileStorage implements BillboardSt
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveBillboard(ReadOnlyBillboard addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveBillboard(ReadOnlyBillboard billboard, Path filePath) throws IOException {
+        requireNonNull(billboard);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableBillboard(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableBillboard(billboard), filePath);
     }
 
 }

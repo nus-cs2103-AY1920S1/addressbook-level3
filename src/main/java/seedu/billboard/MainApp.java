@@ -83,20 +83,21 @@ public class MainApp extends Application {
             initialData = new Billboard();
         }
 
-        Optional<ReadOnlyArchives> archiveOptional;
-        ReadOnlyArchives initialArchiveData;
+        Optional<ReadOnlyArchiveWrapper> archiveOptional;
+        ReadOnlyArchiveWrapper initialArchiveData;
         try {
             archiveOptional = storage.readArchive();
             if (archiveOptional.isEmpty()) {
-                logger.info("Archive file not found. Will be starting with a sample archive");
+                logger.info("Archive file not found. Will be starting with an empty archive");
             }
-            initialArchiveData = archiveOptional.orElseGet(SampleDataUtil::getSampleBillboard);
+            initialArchiveData = new ArchiveWrapper();
+            //initialArchiveData = archiveOptional.orElseGet(SampleDataUtil::getSampleBillboard);
         } catch (DataConversionException e) {
             logger.warning("Archive file not in the correct format. Will be starting with an empty archive");
-            initialArchiveData = new Archives();
+            initialArchiveData = new ArchiveWrapper();
         } catch (IOException e) {
             logger.warning("Problem while reading from the archive file. Will be starting with an empty archive");
-            initialArchiveData = new Archives();
+            initialArchiveData = new ArchiveWrapper();
         }
 
         return new ModelManager(initialData, initialArchiveData, userPrefs);

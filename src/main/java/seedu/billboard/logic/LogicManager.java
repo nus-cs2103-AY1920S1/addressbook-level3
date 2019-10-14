@@ -13,6 +13,7 @@ import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.logic.parser.BillboardParser;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.Model;
+import seedu.billboard.model.ReadOnlyArchiveWrapper;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.storage.Storage;
@@ -44,7 +45,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveBillboard(model.getBillboardExpenses());
-            storage.saveArchive(model.getArchiveExpenses());
+            storage.saveArchive(model.getArchives());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -78,13 +79,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyBillboard getArchive() {
-        return model.getArchiveExpenses();
+    public ReadOnlyArchiveWrapper getArchive() {
+        return model.getArchives();
     }
 
     @Override
-    public ObservableList<Expense> getFilteredArchiveExpenseList() {
-        return model.getFilteredArchiveExpenses();
+    public ObservableList<Expense> getFilteredArchiveExpenseList(String archiveName) {
+        return model.getFilteredArchiveExpenses(archiveName);
     }
 
     @Override
