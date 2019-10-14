@@ -16,9 +16,9 @@ public class Content {
     public final String content;
 
     /**
-     * Constructs a {@code Tag}.
+     * Constructs a {@code Content}.
      *
-     * @param content A valid tag name.
+     * @param content A valid content name.
      */
     public Content(String content) {
         requireNonNull(content);
@@ -27,7 +27,7 @@ public class Content {
     }
 
     /**
-     * Returns true if a given string is a valid tag name.
+     * Returns true if a given string is a valid content name.
      */
     public static boolean isValidContent(String test) {
         return test.matches(VALIDATION_REGEX);

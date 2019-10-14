@@ -226,6 +226,11 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public void setCheatSheet(CheatSheet target, CheatSheet editedCheatSheet) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<CheatSheet> getFilteredCheatSheetList() {
             return null;
         }
