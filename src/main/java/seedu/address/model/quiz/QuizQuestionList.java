@@ -21,6 +21,7 @@ public class QuizQuestionList implements Iterable<Question> {
 
     /**
      * Sets the question list in quiz with specific {@code subject} and {@code difficulty}.
+     * todo: to be implemented after QuestionList is implemented.
      */
     public void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty) {
         requireAllNonNull(subject, difficulty);
@@ -33,13 +34,21 @@ public class QuizQuestionList implements Iterable<Question> {
         }
     }
 
+    public Question get(int index) {
+        return internalList.get(index);
+    }
+
+    public Answer showAnswer(int index) {
+        return get(index).getAnswer();
+    }
+
     /**
      * Checks if the answer input by user is correct and return a boolean value to show the result.
      */
     public boolean checkQuizAnswer(int index, Answer answer) {
         requireAllNonNull(answer);
 
-        return internalList.get(index).getAnswer().equals(answer);
+        return get(index).getAnswer().equals(answer);
     }
 
     /**

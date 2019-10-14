@@ -107,4 +107,6 @@ public interface Model {
      * Clears the quiz question list.
      */
     void clearQuizQuestionList();
+
+    Answer getQuizAnswer(int index);
 }

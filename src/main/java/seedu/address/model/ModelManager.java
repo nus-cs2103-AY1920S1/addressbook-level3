@@ -123,6 +123,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Answer getQuizAnswer(int index) {
+        return addressBook.getQuizAnswer(index);
+    }
+
+    @Override
     public boolean checkQuizAnswer(int index, Answer answer) {
         requireNonNull(answer);
 

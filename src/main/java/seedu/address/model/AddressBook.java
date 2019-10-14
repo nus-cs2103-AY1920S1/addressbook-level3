@@ -106,6 +106,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         quiz.setQuizQuestionList(numOfQuestions, subject, difficulty);
     }
 
+    public Answer getQuizAnswer(int index) {
+        return quiz.get(index).getAnswer();
+    }
+
     /**
      * Checks the answer input by user and return a boolean value as the result.
      */
