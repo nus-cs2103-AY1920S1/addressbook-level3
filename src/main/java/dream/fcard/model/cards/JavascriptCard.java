@@ -18,32 +18,40 @@ public class JavascriptCard implements FlashCard, JsonInterface {
     }
 
     @Override
-    public String getFront() {
-        return front;
-    }
-
-    @Override
-    public String getBack() {
-        return output;
-    }
-
-    @Override
     public JsonValue toJson() {
         return null;
     }
 
     @Override
     public Node renderFront() {
+        // temporary
         return null;
     }
 
     @Override
     public Node renderBack() {
+        // temporary
         return null;
     }
 
     @Override
     public Boolean evaluate(String in) {
         return null;
+    }
+
+    public void editFront(String newText) {
+        front = newText;
+    }
+
+    public void editBack(String newText) {
+        output = newText;
+    }
+
+    public String getFront() {
+        return front;
+    }
+
+    public String getBack() {
+        return output;
     }
 }
