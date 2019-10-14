@@ -1,6 +1,5 @@
 package calofit.logic.commands;
 
-import static calofit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -34,12 +33,6 @@ public class AddCommandIntegrationTest {
 
         assertCommandSuccess(new AddCommand(validDish), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validDish), expectedModel);
-    }
-
-    @Test
-    public void execute_duplicateDish_throwsCommandException() {
-        Dish dishInList = model.getDishDatabase().getDishList().get(0);
-        assertCommandFailure(new AddCommand(dishInList), model, AddCommand.MESSAGE_DUPLICATE_MEAL);
     }
 
 }

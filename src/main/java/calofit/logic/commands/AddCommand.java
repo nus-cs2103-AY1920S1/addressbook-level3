@@ -33,11 +33,13 @@ public class AddCommand extends Command {
             + PREFIX_CALORIES + "low calorie "
             + PREFIX_TAG + "salty";
 
-    public static final String MESSAGE_SUCCESS = "New dish added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New meal added to meal log: %1$s";
     public static final String MESSAGE_DUPLICATE_MEAL = "This dish already exists in the dish database";
     public static final String MESSAGE_MEAL_NOT_IN_DATABASE = "This dish is not in our database. "
             + "Please update the calories using the c/ "
             + "calories set to 700 by default";
+
+    public static final int DEFAULT_MEAL_CALORIE = 700;
 
     private final Dish toAdd;
 
@@ -60,15 +62,17 @@ public class AddCommand extends Command {
             Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
             mealLog.addMeal(toAddMeal);
 
-            throw new CommandException(MESSAGE_DUPLICATE_MEAL);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, wantToAdd));
+            //throw new CommandException(MESSAGE_DUPLICATE_MEAL);
         } else {
 
-            if (model.hasDishName(wantToAdd) && !wantToAdd.getCalories().equals(new Calorie(700))) {
+            if (model.hasDishName(wantToAdd) && !wantToAdd.getCalories().equals(new Calorie(DEFAULT_MEAL_CALORIE))) {
                 model.addDish(wantToAdd);
                 Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
                 mealLog.addMeal(toAddMeal);
 
-            } else if (model.hasDishName(wantToAdd) && wantToAdd.getCalories().equals(new Calorie(700))) {
+            } else if (model.hasDishName(wantToAdd)
+                    && wantToAdd.getCalories().equals(new Calorie(DEFAULT_MEAL_CALORIE))) {
                 wantToAdd = model.getDishByName(toAdd);
                 if (!wantToAdd.getCalories().equals(toAdd.getCalories())) {
                     wantToAdd = toAdd;
