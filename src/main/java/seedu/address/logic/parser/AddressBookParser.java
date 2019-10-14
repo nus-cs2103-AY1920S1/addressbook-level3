@@ -26,8 +26,8 @@ import seedu.address.logic.commands.MergeCommand;
 import seedu.address.logic.commands.MergeConfirmedCommand;
 import seedu.address.logic.commands.MergeRejectedCommand;
 import seedu.address.logic.commands.MergeStopCommand;
-import seedu.address.logic.parser.exceptions.MergeParseException;
 import seedu.address.logic.commands.UnassignPolicyCommand;
+import seedu.address.logic.parser.exceptions.MergeParseException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -97,10 +97,11 @@ public class AddressBookParser {
             case AssignPolicyCommand.COMMAND_WORD:
                 return new AssignPolicyCommandParser().parse(arguments);
 
-            /*
+
             case UnassignPolicyCommand.COMMAND_WORD:
                 return new UnassignPolicyCommandParser().parse(arguments);
 
+            /*
             case AddTagCommand.COMMAND_WORD:
                 return new AddTagCommandParser().parse(arguments);
 
