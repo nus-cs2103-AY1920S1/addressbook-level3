@@ -277,6 +277,29 @@ Examples:
 
 * `Import-ics -t individual -n Catherine -p /data/timetable.ics`
 
+=== Import ICS: `import-ics`
+
+Import the ics file of an individual. +
+Format:
+
+* `import-ics NAME FILEPATH` +
+
+Examples:
+
+* `Import-ics -t individual -n Catherine -p /data/timetable.ics`
+
+=== Get Closest Location: `closestlocation`
+
+Get the closest common location. +
+Format:
+
+* `closestlocation l/ LOCATIONA LOCATIONB ...` +
+
+Examples:
+
+* `closestlocation l/LT16 LT15 AS5`
+
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -295,3 +318,4 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 e.g. `find James Jake`
 * *List* : `list`
 * *Help* : `help`
+* *Closes Location* : `closestlocation l/ LOCATIONA LOCATIONB ...`

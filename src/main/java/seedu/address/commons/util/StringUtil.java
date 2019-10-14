@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -64,5 +65,33 @@ public class StringUtil {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    /**
+     * Returns a string that is a substring of {@code s}. The returned substring begins at index 0 and
+     * extends to the first occurrence of the {@code delimiter} if present and if not, to the end of this string.
+     *
+     * @param s         The original string to operate on.
+     * @param delimiter The delimiter that denotes where the returned substring should end.
+     * @return The substring up till the delimiter (if found) or else the original string.
+     */
+    public static String substringBefore(final String s, final String delimiter) {
+        requireAllNonNull(s, delimiter);
+
+        final int delimiterIndex = s.indexOf(delimiter);
+        if (delimiterIndex == -1) {
+            return s;
+        }
+
+        return s.substring(0, delimiterIndex);
+    }
+
+    /**
+     * Checks if {@code s} is null or is an empty String.
+     * @param s string to check.
+     * @return true if {@code s} is null or is an empty String.
+     */
+    public static boolean isNullOrEmpty(String s) {
+        return s == null || s.trim().length() == 0;
     }
 }
