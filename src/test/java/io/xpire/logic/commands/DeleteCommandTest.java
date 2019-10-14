@@ -4,11 +4,16 @@ import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_DUCK;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_JELLY;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_DUCK;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_JELLY;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_JELLY;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_REMINDER_THRESHOLD_JELLY;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_DRINK;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_FRIDGE;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_FRUIT;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_PROTEIN;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
+
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FOURTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
@@ -19,8 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 import java.util.TreeSet;
-
-//import io.xpire.testutil.TypicalItems;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -116,6 +119,16 @@ public class DeleteCommandTest {
         expectedModel.setItem(targetItem, expectedItem); //set target item with no tags
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
+    //Tags don't exist for you to delete.
+    @Test
+    public void execute_deleteTagsFromItemNotAllFields_throwsCommandException() {
+        Set<Tag> set = new TreeSet<>(new TagComparator());
+        set.add(new Tag(VALID_TAG_DRINK));
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FOURTH_ITEM, set);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TAGS);
+    }
+
+    //test to delete tags for item with all fields present
     @Test
     public void execute_deleteTagsFromItemAllFields_success() {
         Item targetItem = model.getFilteredItemList().get(INDEX_SIXTH_ITEM.getZeroBased());
@@ -125,11 +138,38 @@ public class DeleteCommandTest {
         ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
         Item expectedItem = new ItemBuilder().withName(VALID_NAME_JELLY)
                                              .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
+                                             .withQuantity(VALID_QUANTITY_JELLY)
+                                             .withReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY)
                                              .build();
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TAGS_SUCCESS, expectedItem);
-        //expectedModel.setItem(targetItem, expectedItem); //set target item with no tags
-        //assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-        //expectedModel.setItem(targetItem, targetItem); //place back the tags
+        expectedModel.setItem(targetItem, expectedItem); //set target item with no tags
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    //test that does not delete any tags due to empty set
+    @Test
+    public void execute_deleteNoTagsFromItemAllFields_success() {
+        Item targetItem = model.getFilteredItemList().get(INDEX_SIXTH_ITEM.getZeroBased());
+        Set<Tag> set = new TreeSet<>(new TagComparator());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SIXTH_ITEM, set);
+        ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
+        Item expectedItem = new ItemBuilder().withName(VALID_NAME_JELLY)
+                                             .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
+                                             .withQuantity(VALID_QUANTITY_JELLY)
+                                             .withTags(VALID_TAG_FRIDGE)
+                                             .withReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY)
+                                             .build();
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TAGS_SUCCESS, expectedItem);
+        expectedModel.setItem(targetItem, expectedItem); //set target item with no tags
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_deleteTagsFromItemAllFields_throwsCommandException() {
+        Set<Tag> set = new TreeSet<>(new TagComparator());
+        set.add(new Tag(VALID_TAG_FRUIT));
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SIXTH_ITEM, set);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TAGS);
     }
 
     @Test
