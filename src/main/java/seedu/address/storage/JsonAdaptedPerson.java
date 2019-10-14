@@ -1,22 +1,17 @@
 package seedu.address.storage;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.*;
+import seedu.address.model.project.Project;
+import seedu.address.model.tag.Tag;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Remark;
-import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -31,6 +26,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final String remark;
+    private final List<JsonAdaptedProject> projects = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -38,7 +34,8 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("remark") String remark) {
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("remark") String remark,
+            @JsonProperty("projects") List<JsonAdaptedProject> projects) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -46,6 +43,9 @@ class JsonAdaptedPerson {
         this.remark = remark;
         if (tagged != null) {
             this.tagged.addAll(tagged);
+        }
+        if (projects != null) {
+            this.projects.addAll(projects);
         }
     }
 
@@ -60,6 +60,9 @@ class JsonAdaptedPerson {
         remark = source.getRemark().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
+                .collect(Collectors.toList()));
+        projects.addAll(source.getProjectList().asUnmodifiableObservableList().stream()
+                .map(JsonAdaptedProject::new)
                 .collect(Collectors.toList()));
     }
 
@@ -113,7 +116,14 @@ class JsonAdaptedPerson {
         }
         final Remark modelRemark = new Remark(remark);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+        final List<Project> modelProjectList = new ArrayList();
+        for (JsonAdaptedProject project : projects) {
+            modelProjectList.add(project.toModelType());
+        }
+
+        Person person = new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+        person.getProjectList().setProjects(modelProjectList);
+        return person;
     }
 
 }

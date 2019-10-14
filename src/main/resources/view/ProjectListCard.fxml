@@ -29,7 +29,7 @@
                 <Label fx:id="title" styleClass="cell_big_label" text="\$first" />
             </HBox>
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
-            <FlowPane fx:id="personList" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="36.0" prefWidth="123.0" />
+            <FlowPane fx:id="members" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="36.0" prefWidth="123.0" />
         </VBox>
       <rowConstraints>
          <RowConstraints />

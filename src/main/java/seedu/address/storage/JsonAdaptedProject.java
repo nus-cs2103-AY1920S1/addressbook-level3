@@ -27,7 +27,8 @@ class JsonAdaptedProject {
      * Constructs a {@code JsonAdaptedProject} with the given project details.
      */
     @JsonCreator
-    public JsonAdaptedProject(@JsonProperty("title") String title, @JsonProperty("phone") String description, @JsonProperty("members") List<JsonAdaptedPerson> members) {
+    public JsonAdaptedProject(@JsonProperty("title") String title, @JsonProperty("phone") String description,
+                              @JsonProperty("members") List<JsonAdaptedPerson> members) {
         this.title = title;
         this.description = description;
         if (members != null) {

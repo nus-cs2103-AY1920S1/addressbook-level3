@@ -33,7 +33,7 @@ public class ProjectCard extends UiPart<Region> {
     @FXML
     private Label description;
     @FXML
-    private FlowPane personList;
+    private FlowPane members;
 
     public ProjectCard(Project project, int displayedIndex) {
         super(FXML);
@@ -41,7 +41,7 @@ public class ProjectCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         title.setText(project.getTitle().title);
         description.setText(project.getDescription().description);
-        project.getPersonList().forEach(person -> personList.getChildren().add(new Label(person.getName().toString())));
+        project.getPersonList().forEach(person -> members.getChildren().add(new Label(person.getName().toString())));
     }
 
     @Override

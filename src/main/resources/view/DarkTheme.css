@@ -350,3 +350,17 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#members {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#members .label {
+    -fx-text-fill: white;
+    -fx-background-color: #BE8700;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
