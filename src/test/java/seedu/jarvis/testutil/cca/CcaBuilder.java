@@ -1,9 +1,9 @@
 package seedu.jarvis.testutil.cca;
 
 import seedu.jarvis.model.cca.Cca;
+import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.EquipmentList;
-import seedu.jarvis.model.cca.Name;
 
 /**
  * A utility class to help with building Person objects.
@@ -13,12 +13,12 @@ public class CcaBuilder {
     public static final String DEFAULT_NAME = "Canoeing";
     public static final String DEFAULT_CCATYPE = "sport";
 
-    private Name name;
+    private CcaName name;
     private CcaType ccaType;
     private EquipmentList equipmentList;
 
     public CcaBuilder() {
-        name = new Name(DEFAULT_NAME);
+        name = new CcaName(DEFAULT_NAME);
         ccaType = new CcaType(DEFAULT_CCATYPE);
         equipmentList = new EquipmentList();
     }
@@ -33,10 +33,10 @@ public class CcaBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Cca} that we are building.
+     * Sets the {@code CcaName} of the {@code Cca} that we are building.
      */
     public CcaBuilder withName(String name) {
-        this.name = new Name(name);
+        this.name = new CcaName(name);
         return this;
     }
 
@@ -56,8 +56,8 @@ public class CcaBuilder {
      *
      * @return
      */
-    public CcaBuilder withEquipmentList() {
-        this.equipmentList = new EquipmentList();
+    public CcaBuilder withEquipmentList(EquipmentList equipmentList) {
+        this.equipmentList = equipmentList;
         return this;
     }
 

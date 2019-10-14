@@ -14,6 +14,8 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.cca.Cca;
+import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.userprefs.UserPrefs;
@@ -28,11 +30,13 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     //private final FinanceTracker financeTracker;
     private final UserPrefs userPrefs;
+    private final CcaTracker ccaTracker;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(HistoryManager historyManager, ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(CcaTracker ccaTracker, HistoryManager historyManager, ReadOnlyAddressBook addressBook,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(historyManager, addressBook, userPrefs);
 
@@ -41,10 +45,11 @@ public class ModelManager implements Model {
         this.historyManager = new HistoryManager(historyManager);
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.ccaTracker = new CcaTracker(ccaTracker);
     }
 
     public ModelManager() {
-        this(new HistoryManager(), new AddressBook(), new UserPrefs());
+        this(new CcaTracker(), new HistoryManager(), new AddressBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -254,5 +259,40 @@ public class ModelManager implements Model {
                 && addressBook.equals(other.addressBook)
                 && addressBook.getFilteredPersonList().equals(other.addressBook.getFilteredPersonList())
                 && userPrefs.equals(other.userPrefs);
+    }
+
+    //=========== Cca Tracker ================================================================================
+
+    @Override
+    public void contains(Cca cca) {
+
+    }
+
+    @Override
+    public void addCca(Cca cca) {
+        requireNonNull(cca);
+        ccaTracker.addCca(cca);
+    }
+
+    @Override
+    public void removeCca(Cca cca) {
+
+    }
+
+    @Override
+    public void updateCca(Cca toBeUpdatedCca, Cca updatedCca) {
+
+    }
+
+    @Override
+    public boolean hasCca(Cca cca) {
+        requireNonNull(cca);
+
+        return ccaTracker.contains(cca);
+    }
+
+    @Override
+    public CcaTracker getCcaTracker() {
+        return ccaTracker;
     }
 }

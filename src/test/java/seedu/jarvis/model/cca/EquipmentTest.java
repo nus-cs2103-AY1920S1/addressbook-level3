@@ -25,16 +25,16 @@ public class EquipmentTest {
         assertThrows(NullPointerException.class, () -> Equipment.isValidEquipmentName(null));
 
         // invalid name
-        assertFalse(Name.isValidName("")); // empty string
-        assertFalse(Name.isValidName(" ")); // spaces only
-        assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(Name.isValidName("paddles*")); // contains non-alphanumeric characters
+        assertFalse(CcaName.isValidName("")); // empty string
+        assertFalse(CcaName.isValidName(" ")); // spaces only
+        assertFalse(CcaName.isValidName("^")); // only non-alphanumeric characters
+        assertFalse(CcaName.isValidName("paddles*")); // contains non-alphanumeric characters
 
         // valid name
-        assertTrue(Name.isValidName("dance shoes")); // alphabets only
-        assertTrue(Name.isValidName("2000")); // numbers only
-        assertTrue(Name.isValidName("2 pairs of shoes each")); // alphanumeric characters
-        assertTrue(Name.isValidName("Loud Singing")); // with capital letters
-        assertTrue(Name.isValidName("K1 nelo boat with rudder attached")); // long names
+        assertTrue(CcaName.isValidName("dance shoes")); // alphabets only
+        assertTrue(CcaName.isValidName("2000")); // numbers only
+        assertTrue(CcaName.isValidName("2 pairs of shoes each")); // alphanumeric characters
+        assertTrue(CcaName.isValidName("Loud Singing")); // with capital letters
+        assertTrue(CcaName.isValidName("K1 nelo boat with rudder attached")); // long names
     }
 }

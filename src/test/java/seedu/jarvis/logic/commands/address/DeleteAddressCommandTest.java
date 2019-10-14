@@ -21,6 +21,7 @@ import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.testutil.PersonBuilder;
@@ -35,7 +36,7 @@ public class DeleteAddressCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
     }
 
     /**
@@ -54,8 +55,8 @@ public class DeleteAddressCommandTest {
 
         String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(),
-                new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteAddressCommand, model, expectedMessage, expectedModel);
@@ -78,7 +79,8 @@ public class DeleteAddressCommandTest {
 
         String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
@@ -111,7 +113,8 @@ public class DeleteAddressCommandTest {
 
         String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
@@ -137,7 +140,8 @@ public class DeleteAddressCommandTest {
 
         String expectedMessage = String.format(DeleteAddressCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
         assertCommandSuccess(deleteAddressCommand, model, expectedMessage, expectedModel);
@@ -161,7 +165,8 @@ public class DeleteAddressCommandTest {
 
         model = new ModelManager();
         model.addPerson(new PersonBuilder().build());
-        Model expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getAddressBook(), new UserPrefs());
 
         int cycles = 1000;
         IntStream.range(0, cycles)

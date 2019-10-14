@@ -1,6 +1,7 @@
 package seedu.jarvis.model;
 
 import seedu.jarvis.model.address.AddressModel;
+import seedu.jarvis.model.cca.CcaTrackerModel;
 import seedu.jarvis.model.history.HistoryModel;
 import seedu.jarvis.model.userprefs.UserPrefsModel;
 
@@ -11,4 +12,4 @@ import seedu.jarvis.model.userprefs.UserPrefsModel;
  * {@code UserPrefsModel} is the API for User Preferences and GUI settings.
  * {@code HistoryModel} is the API for undoing and redoing commands.
  */
-public interface Model extends AddressModel, UserPrefsModel, HistoryModel {}
+public interface Model extends AddressModel, UserPrefsModel, HistoryModel, CcaTrackerModel {}

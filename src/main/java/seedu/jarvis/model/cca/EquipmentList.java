@@ -13,12 +13,24 @@ import seedu.jarvis.model.cca.exceptions.EquipmentNotFoundException;
  */
 public class EquipmentList {
 
-    private final ArrayList <Equipment> internalEquipmentList = new ArrayList<>();
+    private final ArrayList <Equipment> internalEquipmentList;
 
     /**
      * Default constructor to be added to a CCA when Jarvis is started.
      */
     public EquipmentList() {
+        internalEquipmentList = new ArrayList<>();
+    }
+
+    public EquipmentList(EquipmentList toBeCopied) {
+        internalEquipmentList = toBeCopied.getInternalEquipmentList();
+    }
+
+    /**
+     * Returns the internal equipment list {@code internalEquipmentList} of the {@code EquipmentList} object.
+     */
+    public ArrayList<Equipment> getInternalEquipmentList() {
+        return internalEquipmentList;
     }
 
     /**
@@ -49,14 +61,14 @@ public class EquipmentList {
      * @param toBeUpdatedEquipment
      * @param updatedEquipment
      */
-    public void updateEquipment(Equipment toBeUpdatedEquipment, String updatedEquipment) {
+    public void updateEquipment(Equipment toBeUpdatedEquipment, Equipment updatedEquipment) {
         requireAllNonNull(toBeUpdatedEquipment, updatedEquipment);
         int toBeUpdatedEquipmentIndex = internalEquipmentList.indexOf(toBeUpdatedEquipment);
         if (toBeUpdatedEquipmentIndex == -1) {
             throw new EquipmentNotFoundException();
         }
 
-        internalEquipmentList.set(toBeUpdatedEquipmentIndex, new Equipment(updatedEquipment));
+        internalEquipmentList.set(toBeUpdatedEquipmentIndex, updatedEquipment);
     }
 
     /**
@@ -71,7 +83,6 @@ public class EquipmentList {
         }
 
         internalEquipmentList.remove(toBeRemovedEquipment);
-
     }
 
     @Override

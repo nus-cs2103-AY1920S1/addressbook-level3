@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
+import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
 
@@ -27,8 +28,9 @@ public class ListAddressCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getHistoryManager(), model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(), model.getAddressBook(),
+                new UserPrefs());
     }
 
     /**

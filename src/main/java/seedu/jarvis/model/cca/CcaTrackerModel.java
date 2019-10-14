@@ -12,10 +12,10 @@ public interface CcaTrackerModel {
     public void contains(Cca cca);
 
     /**
-     * Adds the given cca {@code cca} the cca tracker.
+     * Adds the given cca {@code cca} to the cca tracker.
      *
      */
-    public void addCc(Cca cca);
+    public void addCca(Cca cca);
 
     /**
      * Removes the given cca {@code cca} from the cca tracker.
@@ -29,4 +29,16 @@ public interface CcaTrackerModel {
      * @param updatedCca
      */
     public void updateCca(Cca toBeUpdatedCca, Cca updatedCca);
+
+    /**
+     * Checks if the cca tracker already has the given {@code cca}.
+     *
+     * @return true if the cca tracker already has the cca.
+     */
+    public boolean hasCca(Cca cca);
+
+    /**
+     * Returns the CcaTracker {@Code CcaTracker}.
+     */
+    public CcaTracker getCcaTracker();
 }

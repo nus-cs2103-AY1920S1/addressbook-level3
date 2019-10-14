@@ -8,23 +8,32 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
  */
 public class CcaTracker {
 
-    private CcaList ccaList = new CcaList();
+    private final CcaList ccaList;
 
     /**
      * Default constructor to be used when Jarvis is started.
      */
     public CcaTracker() {
-
+        ccaList = new CcaList();
     }
 
     /**
      * Constructor to be used if cca list is already present.
      *
-     * @param ccaList
+     * @param ccaTracker
      */
-    public CcaTracker(CcaList ccaList) {
-        requireNonNull(ccaList);
-        this.ccaList = ccaList;
+    public CcaTracker(CcaTracker ccaTracker) {
+        requireNonNull(ccaTracker);
+        ccaList = ccaTracker.getCcaList();
+    }
+
+    /**
+     * Returns the cca list {@code CcaList}.
+     *
+     * @return the cca list.
+     */
+    public CcaList getCcaList() {
+        return ccaList;
     }
 
     /**

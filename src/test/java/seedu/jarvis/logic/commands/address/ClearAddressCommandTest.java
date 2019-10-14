@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
 
@@ -44,8 +45,9 @@ public class ClearAddressCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
+                new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearAddressCommand(), model,
@@ -59,8 +61,9 @@ public class ClearAddressCommandTest {
     @Test
     public void executeInverse_success() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
+                new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
         assertCommandSuccess(clearAddressCommand, model, ClearAddressCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -75,8 +78,9 @@ public class ClearAddressCommandTest {
     @Test
     public void repeatedExecutionAndInverseExecution() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
+                new UserPrefs());
 
         int cycles = 1000;
         IntStream.range(0, cycles)
