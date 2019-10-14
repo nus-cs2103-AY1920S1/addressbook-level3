@@ -1,11 +1,11 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+//import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.TASK_NAME_DESC_FINANCE;
+//import static seedu.address.logic.commands.CommandTestUtil.TASK_NAME_DESC_FINANCE;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.REVIEW_BUDGET;
+//import static seedu.address.testutil.TypicalTasks.REVIEW_BUDGET;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -22,11 +22,11 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.task.Task;
+//import seedu.address.model.task.Task;
 import seedu.address.storage.JsonProjectDashboardStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.TaskBuilder;
+//import seedu.address.testutil.TaskBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
