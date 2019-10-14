@@ -55,8 +55,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Person getLoggedInPerson() {
-        return session.getLoggedInPerson();
+    public Session getSession() {
+        return session;
     }
 
     //=========== UserPrefs ==================================================================================

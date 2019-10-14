@@ -24,7 +24,7 @@ public interface Model {
     /**
      * Gets the {@code Person} that is logged into the {@code Session}.
      */
-    Person getLoggedInPerson();
+    Session getSession();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
