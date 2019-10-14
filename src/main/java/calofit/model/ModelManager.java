@@ -215,7 +215,6 @@ public class ModelManager implements Model {
 
     @Override
     public int getRemainingCalories() {
-        ObservableList<Dish> suggestedDish = FXCollections.observableArrayList();
         int remainingBudget = budget.getCurrentBudget().orElse(0);
         for (Meal meal : mealLog.getTodayMeals()) {
             remainingBudget -= meal.getDish().getCalories().getValue();
