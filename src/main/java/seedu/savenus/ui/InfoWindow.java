@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.model.info.AddInfo;
 import seedu.savenus.logic.commands.InfoCommand;
@@ -40,6 +41,7 @@ public class InfoWindow extends UiPart<Stage> {
      */
     public InfoWindow(Stage root) {
         super(FXML, root);
+        root.initStyle(StageStyle.UNDECORATED);
         commandWord.setText("Default");
         infoMessage.setText("Default");
         usageExample.setText("Default");

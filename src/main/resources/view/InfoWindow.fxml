@@ -15,36 +15,36 @@
     </icons>
     <scene>
         <Scene>
-         <VBox spacing="10.0">
+         <VBox spacing="10.0" style="-fx-background-color: #1d1d1d; -fx-border-color: white;">
             <children>
-               <Label fx:id="commandWord" contentDisplay="CENTER" text="Label" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+               <Label fx:id="commandWord" contentDisplay="CENTER" text="Label" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
                   <font>
                      <Font name="Arial Black" size="52.0" />
                   </font>
                </Label>
-                    <Label fx:id="infoMessage" text="Label">
+                    <Label fx:id="infoMessage" text="Label" textFill="WHITE">
                   <font>
-                     <Font name="Franklin Gothic Heavy" size="20.0" />
+                     <Font name="Bookshelf Symbol 7" size="20.0" />
                   </font>
                     </Label>
-               <Label text="USAGE :">
+               <Label text="USAGE :" textFill="WHITE">
                   <font>
                      <Font name="Arial Black" size="25.0" />
                   </font>
                </Label>
-               <Label fx:id="usageExample" text="Label">
+               <Label fx:id="usageExample" text="Label" textFill="WHITE">
                   <font>
-                     <Font name="Franklin Gothic Heavy" size="20.0" />
+                     <Font name="Courier New" size="20.0" />
                   </font>
                </Label>
-               <Label text="EXPECTED OUTPUT :">
+               <Label text="EXPECTED OUTPUT :" textFill="WHITE">
                   <font>
                      <Font name="Arial Black" size="25.0" />
                   </font>
                </Label>
-               <Label fx:id="output" text="Label">
+               <Label fx:id="output" text="Label" textFill="WHITE">
                   <font>
-                     <Font name="Franklin Gothic Heavy" size="20.0" />
+                     <Font name="Courier New" size="20.0" />
                   </font>
                </Label>
                <Button mnemonicParsing="false" onAction="#closeWindow" text="Epic!">
