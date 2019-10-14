@@ -95,7 +95,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
 
     /**
      * Sets the accelerator of a MenuItem.
-     * 
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
