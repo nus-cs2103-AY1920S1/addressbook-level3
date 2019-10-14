@@ -16,7 +16,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final StorageManager storage;
-    private TransactionTabParser parser;
+    private final TransactionTabParser parser;
     private final seedu.address.person.storage.Storage personStorage;
     private final seedu.address.person.model.Model personModel;
     private final seedu.address.reimbursement.model.Model reimbursementModel;

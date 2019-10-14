@@ -21,7 +21,7 @@ public class FindCommandParser {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    TransactionMessages.MESSAGE_INVALID_COMMAND_FORMAT);
+                    TransactionMessages.MESSAGE_INVALID_FIND_COMMAND_FORMAT);
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
