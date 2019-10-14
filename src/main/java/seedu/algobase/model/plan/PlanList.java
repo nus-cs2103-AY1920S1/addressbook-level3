@@ -94,4 +94,13 @@ public class PlanList implements Iterable<Plan> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+    /**
+     * Returns true if the list contains an equivalent Plan as the given argument.
+     */
+    public boolean contains(Plan toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSamePlan);
+    }
+
 }

@@ -10,7 +10,6 @@ import java.util.Set;
 
 import seedu.algobase.model.task.Task;
 
-
 /**
  * Represents a Plan in the algobase.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -111,7 +110,7 @@ public class Plan {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getPlanName())
-                .append(" PlanDescription: ")
+                .append(" Description: ")
                 .append(getPlanDescription())
                 .append(" Start Date: ")
                 .append(getStartDate())

@@ -85,7 +85,7 @@ public class DefaultModelStub implements Model {
 
     @Override
     public void updateFilteredPlanList(Predicate<Plan> predicate) {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override

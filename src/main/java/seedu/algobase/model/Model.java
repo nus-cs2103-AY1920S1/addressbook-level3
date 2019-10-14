@@ -88,6 +88,8 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered Problem list */
     ObservableList<Problem> getFilteredProblemList();
 
+    //=========== Plann List =============================================================
+
     /**
      * Returns true if a Plan with the same identity as {@code Plan} exists in the algobase.
      */

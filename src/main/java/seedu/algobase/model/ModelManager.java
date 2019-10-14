@@ -118,7 +118,7 @@ public class ModelManager implements Model {
         algoBase.setProblem(target, editedProblem);
     }
 
-    //=========== Plan List =============================================================
+
     @Override
     public boolean hasPlan(Plan plan) {
         requireNonNull(plan);
@@ -141,14 +141,6 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPlan);
 
         algoBase.setPlan(target, editedPlan);
-    }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Plan} backed by the internal list of
-     */
-    @Override
-    public ObservableList<Plan> getFilteredPlanList() {
-        return filteredPlans;
     }
 
     //=========== Filtered Problem List Accessors =============================================================
@@ -180,13 +172,23 @@ public class ModelManager implements Model {
         sortedProblems.setComparator(problemComparator);
     }
 
-    //============== Util ==================================================================
+    //=========== Filtered Plan List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Plan} backed by the internal list of
+     */
+    @Override
+    public ObservableList<Plan> getFilteredPlanList() {
+        return filteredPlans;
+    }
 
     @Override
     public void updateFilteredPlanList(Predicate<Plan> predicate) {
         requireNonNull(predicate);
         filteredPlans.setPredicate(predicate);
     }
+
+    //============== Util ==================================================================
 
     @Override
     public boolean equals(Object obj) {
