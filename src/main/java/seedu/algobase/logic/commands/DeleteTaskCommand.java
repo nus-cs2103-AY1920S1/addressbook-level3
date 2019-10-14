@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,8 +14,6 @@ import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.plan.Plan;
-import seedu.algobase.model.plan.PlanDescription;
-import seedu.algobase.model.plan.PlanName;
 import seedu.algobase.model.task.Task;
 
 /**
@@ -63,24 +60,9 @@ public class DeleteTaskCommand extends Command {
         Task task = taskList.get(deleteTaskDescriptor.taskIndex.getZeroBased());
         taskList.remove(deleteTaskDescriptor.taskIndex.getZeroBased());
         taskSet = new HashSet<>(taskList);
-        Plan updatedPlan = createUpdatedPlan(planToUpdate, taskSet);
+        Plan updatedPlan = Plan.createUpdatedPlan(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, task));
-    }
-
-    /**
-     * Creates and returns a {@code Plan} with the details of {@code planToUpdate}
-     * with an updated {@code taskSet}.
-     */
-    private static Plan createUpdatedPlan(Plan planToUpdate, Set taskSet) {
-        assert planToUpdate != null;
-
-        PlanName updatedName = planToUpdate.getPlanName();
-        PlanDescription updatedDescription = planToUpdate.getPlanDescription();
-        LocalDateTime startDate = planToUpdate.getStartDate();
-        LocalDateTime endDate = planToUpdate.getEndDate();
-
-        return new Plan(updatedName, updatedDescription, startDate, endDate, taskSet);
     }
 
     @Override
