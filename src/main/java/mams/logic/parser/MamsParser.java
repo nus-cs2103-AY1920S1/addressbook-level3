@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import mams.commons.core.Messages;
+import mams.logic.commands.ClashCommand;
 import mams.logic.commands.Command;
 import mams.logic.commands.EditCommand;
 import mams.logic.commands.ExitCommand;
@@ -38,6 +39,9 @@ public class MamsParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
+        case ClashCommand.COMMAND_WORD:
+            return new ClashCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

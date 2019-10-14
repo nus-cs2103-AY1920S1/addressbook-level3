@@ -34,9 +34,11 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of students */
     ObservableList<Student> getFilteredStudentList();
-    ObservableList<Module> getFilteredModuleList();
 
     // TODO add appeal lists getters
+
+    /** Returns an unmodifiable view fo the filtered list of modules */
+    ObservableList<Module> getFilteredModuleList();
 
     /**
      * Returns the user prefs' address book file path.
