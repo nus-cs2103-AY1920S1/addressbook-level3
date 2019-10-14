@@ -57,8 +57,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredBookList().size());
-        Book lastBook = model.getFilteredBookList().get(indexLastPerson.getZeroBased());
+        Index indexLastBook = Index.fromOneBased(model.getFilteredBookList().size());
+        Book lastBook = model.getFilteredBookList().get(indexLastBook.getZeroBased());
 
         BookBuilder bookInList = new BookBuilder(lastBook);
         Book editedBook = bookInList.withTitle(VALID_TITLE_BOOK_3).withSerialNumber(VALID_SERIAL_NUMBER_BOOK_3)
@@ -67,7 +67,7 @@ public class EditCommandTest {
         EditCommand.EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withTitle(VALID_TITLE_BOOK_3)
                 .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_3).withGenres(VALID_GENRE_ACTION)
                 .withAuthor(VALID_AUTHOR_BOOK_2).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+        EditCommand editCommand = new EditCommand(indexLastBook, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BOOK_SUCCESS, editedBook);
 

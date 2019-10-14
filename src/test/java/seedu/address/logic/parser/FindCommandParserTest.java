@@ -11,11 +11,14 @@ import seedu.address.model.book.BookPredicate;
 
 public class FindCommandParserTest {
 
+    private static final String EMPTY_STRING = "     ";
+
     private FindCommandParser parser = new FindCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, EMPTY_STRING,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -26,7 +29,7 @@ public class FindCommandParserTest {
         assertParseSuccess(parser, FindCommand.COMMAND_WORD + " t/Alice Bob", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, FindCommand.COMMAND_WORD + "   t/ Alice Bob ", expectedFindCommand);
+        assertParseSuccess(parser, FindCommand.COMMAND_WORD + EMPTY_STRING + " t/ Alice Bob ", expectedFindCommand);
     }
 
 }
