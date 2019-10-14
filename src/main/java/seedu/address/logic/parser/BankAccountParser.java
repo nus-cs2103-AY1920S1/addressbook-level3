@@ -6,10 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.InCommand;
+import seedu.address.logic.commands.*;
 // import seedu.address.logic.commands.SplitCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -42,10 +39,16 @@ public class BankAccountParser {
         //    return new SplitCommand(arguments);
         case InCommand.COMMAND_WORD:
             return new InCommandParser().parse(arguments);
+
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
