@@ -98,7 +98,7 @@ public class StorageManagerTest {
          */
         BorrowerRecords original = getTypicalBorrowerRecords();
         storageManager.saveBorrowerRecords(original);
-        ReadOnlyBorrowerRecords retrieved = storageManager.readBorrowerRecords().get();
+        ReadOnlyBorrowerRecords retrieved = storageManager.readBorrowerRecords(new LoanRecords()).get();
         assertEquals(original, new BorrowerRecords(retrieved));
     }
 

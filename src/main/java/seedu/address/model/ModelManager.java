@@ -232,11 +232,6 @@ public class ModelManager implements Model {
 
     @Override
     public Borrower getServingBorrower() {
-        // for me to test while serve mode is not ready yet
-        /*
-        return (new Borrower(new Name("Stub"), new Phone("12345"), new Email("mail@fakemail.co"),
-                new BorrowerId("K1234")));
-         */
         if (!isServeMode()) {
             throw new AssertionError("Not in Serve mode!");
         }
@@ -245,10 +240,6 @@ public class ModelManager implements Model {
 
     @Override
     public boolean isServeMode() {
-        // for me to test while serve mode is not ready yet
-        /*
-        return true;
-         */
         return servingBorrower.isPresent();
     }
 
