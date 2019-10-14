@@ -118,7 +118,6 @@ public class ModelManager implements Model {
         algoBase.setProblem(target, editedProblem);
     }
 
-
     @Override
     public boolean hasPlan(Plan plan) {
         requireNonNull(plan);
