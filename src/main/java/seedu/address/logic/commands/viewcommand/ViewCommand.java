@@ -2,9 +2,6 @@ package seedu.address.logic.commands.viewcommand;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Map;
-
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
@@ -29,15 +26,8 @@ public abstract class ViewCommand extends Command {
      * @param entity Entity to view.
      */
     void viewEntity(Entity entity) {
-        Map<String, String> fieldMap = entity.viewDetailed();
-        StringBuilder toPrint = new StringBuilder();
-        for (String key : fieldMap.keySet()) {
-            toPrint.append(StringUtil.capitalize(key))
-                   .append(": ")
-                   .append(fieldMap.get(key))
-                   .append("   ");
-        }
-        System.out.println(toPrint.toString().trim());
+        System.out.println("Viewing " + entity.getName());
+        System.out.println("\t" + entity.toString());
     }
 
 }

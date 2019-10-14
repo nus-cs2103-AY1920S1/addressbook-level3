@@ -16,9 +16,9 @@ import seedu.address.model.entity.PrefixType;
  * {@code ParticipantList} should behave as a singleton.
  */
 public class ParticipantList extends EntityList {
+    public static final String SIMILAR_PARTICIPANT_MSG = "A similar Participant already exists.";
+
     private static int lastUsedId = 0;
-    private static final String SIMILAR_PARTICIPANT_MSG = "A Participant with the same name"
-            + "and either phone or email already exists.";
 
     private ObservableList<Participant> participants = FXCollections.observableArrayList();
     private ObservableList<Participant> unmodifiableParticipants =
@@ -142,6 +142,14 @@ public class ParticipantList extends EntityList {
             }
         }
         return false;
+    }
+
+    /**
+     * Checks if this {@code ParticipantList} is empty.
+     */
+    @Override
+    public boolean isEmpty() {
+        return this.participants.isEmpty();
     }
 
     /**

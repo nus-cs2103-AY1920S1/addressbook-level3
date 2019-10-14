@@ -20,7 +20,7 @@ public class ListParticipantCommand extends ListCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        model.getParticipantList().list().forEach(this::listEntity);
+        this.displayParticipants(model);
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

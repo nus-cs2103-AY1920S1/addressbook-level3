@@ -16,9 +16,9 @@ import seedu.address.model.entity.PrefixType;
  * {@code MentorList} should behave as a singleton.
  */
 public class MentorList extends EntityList {
+    public static final String SIMILAR_MENTOR_MSG = "A similar Mentor already exists.";
+
     private static int lastUsedId = 0;
-    private static final String SIMILAR_MENTOR_MSG = "Mentor with the same name and either one of phone"
-            + "or email already exists.";
 
 
     private final ObservableList<Mentor> mentors = FXCollections.observableArrayList();
@@ -140,6 +140,14 @@ public class MentorList extends EntityList {
             }
         }
         return false;
+    }
+
+    /**
+     * Checks if this {@code MentorList} is empty.
+     */
+    @Override
+    public boolean isEmpty() {
+        return this.mentors.isEmpty();
     }
 
     /**

@@ -16,9 +16,9 @@ import seedu.address.model.entity.Team;
  * {@code TeamList} should behave as a singleton.
  */
 public class TeamList extends EntityList {
+    public static final String SIMILAR_TEAM_MSG = "A similar Team already exists.";
+
     private static int lastUsedId = 0;
-    private static final String SIMILAR_TEAM_MSG = "A team with the same name or project name "
-            + "already exists.";
 
     private final ObservableList<Team> teams = FXCollections.observableArrayList();
     private final ObservableList<Team> unmodifiableTeams =
@@ -139,6 +139,14 @@ public class TeamList extends EntityList {
             }
         }
         return false;
+    }
+
+    /**
+     * Checks if this {@code TeamList} is empty.
+     */
+    @Override
+    public boolean isEmpty() {
+        return this.teams.isEmpty();
     }
 
     /**

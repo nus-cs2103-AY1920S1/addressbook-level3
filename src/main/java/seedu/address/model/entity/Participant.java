@@ -60,6 +60,7 @@ public class Participant extends Entity {
     public HashMap<String, String> viewDetailed() {
         HashMap<String, String> result = new HashMap<>();
         result.put("name", getName().toString());
+        result.put("id", getId().toString());
         result.put("phone", getPhone().toString());
         result.put("email", getEmail().toString());
         return result;

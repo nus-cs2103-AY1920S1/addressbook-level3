@@ -34,7 +34,17 @@ import seedu.address.storage.AlfredStorage;
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
+    // EntityLists
+    protected ParticipantList participantList = new ParticipantList();
+    protected TeamList teamList = new TeamList();
+    protected MentorList mentorList = new MentorList();
+
+    protected FilteredList<Participant> filteredParticipantList = null;
+    protected FilteredList<Team> filteredTeamList = null;
+    protected FilteredList<Mentor> filteredMentorList = null;
 
     // TODO: Remove the null values which are a placeholder due to the multiple constructors.
     // Also will have to change the relevant attributes to final.
@@ -42,15 +52,6 @@ public class ModelManager implements Model {
     private AddressBook addressBook = null;
     private final UserPrefs userPrefs;
     private FilteredList<Person> filteredPersons = null;
-
-    // EntityLists
-    private ParticipantList participantList = new ParticipantList();
-    private TeamList teamList = new TeamList();
-    private MentorList mentorList = new MentorList();
-
-    private FilteredList<Participant> filteredParticipantList = null;
-    private FilteredList<Team> filteredTeamList = null;
-    private FilteredList<Mentor> filteredMentorList = null;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.

@@ -9,17 +9,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.editcommand.EditMentorCommand.EditMentorDescriptor;
+import seedu.address.logic.commands.editcommand.EditParticipantCommand.EditParticipantDescriptor;
+import seedu.address.logic.commands.editcommand.EditTeamCommand.EditTeamDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditMentorDescriptorBuilder;
+import seedu.address.testutil.EditParticipantDescriptorBuilder;
+import seedu.address.testutil.EditTeamDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -27,11 +29,57 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
+    public static final String VALID_ORGANIZATION_AMY = "Amy Org";
+    public static final String VALID_SUBJECT_AMY = "Environmental";
+    public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
+    public static final String VALID_ORGANIZATION_BOB = "Bob Org";
+    public static final String VALID_SUBJECT_BOB = "Social";
+    public static final String VALID_NAME_ALFRED = "Alfred";
+    public static final String VALID_SUBJECT_ALFRED = "Health";
+    public static final int VALID_SCORE_ALFRED = 100;
+    public static final String VALID_PROJECT_NAME_ALFRED = "Hackathon Butler";
+    public static final String VALID_PROJECT_TYPE_ALFRED = "Placeholder"; //TODO: update later
+    public static final int VALID_LOCATION_ALFRED = 1;
+    public static final String VALID_NAME_BRUCE = "Bruce";
+    public static final String VALID_SUBJECT_BRUCE = "Education";
+    public static final int VALID_SCORE_BRUCE = 99;
+    public static final String VALID_PROJECT_NAME_BRUCE = "Hackathon Batman";
+    public static final String VALID_PROJECT_TYPE_BRUCE = "Placeholder"; //TODO: update later
+    public static final int VALID_LOCATION_BRUCE = 2;
+
+
+    public static final EditMentorDescriptor MENTOR_DESC_AMY;
+    public static final EditMentorDescriptor MENTOR_DESC_BOB;
+    public static final EditParticipantDescriptor PARTICIPANT_DESC_AMY;
+    public static final EditParticipantDescriptor PARTICIPANT_DESC_BOB;
+    public static final EditTeamDescriptor TEAM_DESC_ALFRED;
+    public static final EditTeamDescriptor TEAM_DESC_BRUCE;
+
+    static {
+        MENTOR_DESC_AMY = new EditMentorDescriptorBuilder().withName(VALID_NAME_AMY)
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
+                .withOrganization(VALID_ORGANIZATION_AMY).withSubject(VALID_SUBJECT_AMY).build();
+        MENTOR_DESC_BOB = new EditMentorDescriptorBuilder().withName(VALID_NAME_BOB)
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+                .withOrganization(VALID_ORGANIZATION_BOB).withSubject(VALID_SUBJECT_BOB).build();
+        PARTICIPANT_DESC_AMY = new EditParticipantDescriptorBuilder().withName(VALID_NAME_AMY)
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        PARTICIPANT_DESC_BOB = new EditParticipantDescriptorBuilder().withName(VALID_NAME_BOB)
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        TEAM_DESC_ALFRED = new EditTeamDescriptorBuilder().withName(VALID_NAME_ALFRED)
+                .withSubject(VALID_SUBJECT_ALFRED).withScore(VALID_SCORE_ALFRED)
+                .withProjectName(VALID_PROJECT_NAME_ALFRED).withProjectType(VALID_PROJECT_TYPE_ALFRED)
+                .withLocation(VALID_LOCATION_ALFRED).build();
+        TEAM_DESC_BRUCE = new EditTeamDescriptorBuilder().withName(VALID_NAME_BRUCE)
+                .withSubject(VALID_SUBJECT_BRUCE).withScore(VALID_SCORE_BRUCE)
+                .withProjectName(VALID_PROJECT_NAME_BRUCE).withProjectType(VALID_PROJECT_TYPE_BRUCE)
+                .withLocation(VALID_LOCATION_BRUCE).build();
+    }
+
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -56,18 +104,6 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
-
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
-
-    static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-    }
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -104,12 +140,17 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+
+        // TODO: uncomment this later when everything is deprecated
+        // List<Participant> expectedFilteredParticipantList
+        //     = new ArrayList<>(actualModel.getFilteredParticipantList());
+        // List<Team> expectedFilteredTeamList = new ArrayList<>(actualModel.getFilteredTeamList());
+        // List<Mentor> expectedFilteredMentorList = new ArrayList<>(actualModel.getFilteredMentorList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        // assertEquals(expectedFilteredParticipantList, actualModel.getFilteredParticipantList());
+        // assertEquals(expectedFilteredTeamList, actualModel.getFilteredTeamList());
+        // assertEquals(expectedFilteredMentorList, actualModel.getFilteredMentorList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
