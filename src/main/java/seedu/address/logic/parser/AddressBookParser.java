@@ -27,6 +27,7 @@ import seedu.address.logic.commands.MergeConfirmedCommand;
 import seedu.address.logic.commands.MergeRejectedCommand;
 import seedu.address.logic.commands.MergeStopCommand;
 import seedu.address.logic.parser.exceptions.MergeParseException;
+import seedu.address.logic.commands.UnassignPolicyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -180,6 +181,7 @@ public class AddressBookParser {
         case MergeStopCommand.COMMAND_WORD:
             isMerging = false;
             return new MergeStopCommand(currentMergeCommand);
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
         default:

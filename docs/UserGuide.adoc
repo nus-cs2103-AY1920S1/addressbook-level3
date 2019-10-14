@@ -241,7 +241,7 @@ Finds all people eligible for the 1st policy in the displayed policy list.
 === Adding policies to a person : `assignpolicy`
 
 Assigns a policy to the person at the specified index. +
-Format: `assignpolicy INDEX pol/POLICY [MORE_POLICIES]`
+Format: `assignpolicy perindex/INDEX polindex/INDEX`
 
 ****
 * Adds the policies to the person at the specified `INDEX`.
@@ -255,11 +255,11 @@ Format: `assignpolicy INDEX pol/POLICY [MORE_POLICIES]`
 Examples:
 
 * `listpeople` +
-`assignpolicy 2 pol/Senior Care` +
-Assigns the 'Senior Care' policy to the 2nd person in the list of people.
+`assignpolicy perindex/2 polindex/2` +
+Assigns the 'Senior Care' (the second policy in the list) policy to the 2nd person in the list of people.
 * `find Betsy` +
-`assignpolicy 1 pol/Accident Insurance` +
-Assigns the 'Accident Insurance' policy to the 1st person in the results of the `find` command.
+`assignpolicy perindex/1 polindex/1` +
+Assigns the 'Accident Insurance' (the first policy in the list) policy to the 1st person in the results of the `find` command.
 
 === Adding tags to a person : `addtag`
 
@@ -368,7 +368,7 @@ Deletes the 1st policy in the results of the `findpolicy` command.
 === Deleting policies from a person : `unassignpolicy`
 
 Removes a policy from the person at the specified index. +
-Format: `unassignpolicy INDEX pol/POLICY [MORE_POLICIES]`
+Format: `unassignpolicy perindex/INDEX polindex/INDEX`
 
 ****
 * Removes the policies to the person at the specified `INDEX`.
@@ -381,10 +381,10 @@ Format: `unassignpolicy INDEX pol/POLICY [MORE_POLICIES]`
 Examples:
 
 * `listpeople` +
-`unassignpolicy 2 pol/3` +
+`unassignpolicy perindex/2 polindex/3` +
 Removes the 3rd policy in the absolute list from the 2nd person in the displayed list of people.
 * `find Betsy` +
-`unassignpolicy 1 pol/4` +
+`unassignpolicy perindex/1 polindex/4` +
 Removes the 4th policy in the absolute list from the 1st person in the results of the `find` command.
 
 === Deleting tags from a person : `deletetag`
@@ -821,8 +821,8 @@ e.g. `findpolicy senior`
 e.g. `findtagpeople smoker diabetic`
 * *Find policy by tags*: `findtagpolicy TAG [MORE_TAGS]` +
 e.g. `findtagpolicy accident life`
-* *Assign Policy* : `assignpolicy INDEX pol/POLICY [MORE_POLICIES]` +
-e.g. `assignpolicy 2 pol/SeniorCare`
+* *Assign Policy* : `assignpolicy perindex/INDEX polindex/INDEX` +
+e.g. `assignpolicy perindex/2 polindex/2`
 * *Add Tag To Person* : `addtag INDEX t/TAG [MORE_TAGS]` +
 e.g. `addtag 3 t/high_priority`
 * *Add Tag To Policy* : `addpolicytag INDEX t/TAG [MORE_TAGS]` +
@@ -831,8 +831,8 @@ e.g. `addpolicytag 2 t/lifeinsurance`
 e.g. `delete 3`
 * *Delete Policy* : `deletepolicy INDEX` +
 e.g. `deletepolicy 3`
-* *Unassign Policy* : `unassignpolicy INDEX pol/POLICY [MORE_POLICIES]` +
-e.g. `unassignpolicy 2 pol/SeniorCare`
+* *Unassign Policy* : `unassignpolicy INDEX polindex/INDEX` +
+e.g. `unassignpolicy perindex/2 pol/2`
 * *Delete Tag From Person* : `deletetag INDEX t/TAG [MORE_TAGS]` +
 e.g. `deletetag 3 t/high_priority`
 * *Delete Tag From Policy* : `deletepolicytag INDEX t/TAG [MORE_TAGS]` +
