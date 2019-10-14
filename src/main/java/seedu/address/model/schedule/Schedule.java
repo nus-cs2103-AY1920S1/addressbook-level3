@@ -53,6 +53,7 @@ public class Schedule {
      */
     public String getCalendarString() {
         StringBuilder sb = new StringBuilder();
+        // month to be changed back to 1-based
         sb.append(calendar.get(Calendar.YEAR) + ".")
                 .append(String.format("%02d", calendar.get(Calendar.MONTH) + 1) + ".")
                 .append(String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH)) + " ")
