@@ -5,12 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
+import seedu.address.model.cheatsheet.CheatSheet;
+import seedu.address.model.cheatsheet.UniqueCheatSheetList;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.UniqueFlashcardList;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.UniqueNoteList;
-import seedu.address.model.cheatsheet.CheatSheet;
-import seedu.address.model.cheatsheet.UniqueCheatSheetList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 

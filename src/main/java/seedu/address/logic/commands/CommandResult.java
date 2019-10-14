@@ -38,7 +38,8 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         boolean toggle, Optional<FunctionMode> targetMode, Optional<Flashcard> flashcard, Optional<CheatSheet> cheatSheet) {
+                         boolean toggle, Optional<FunctionMode> targetMode,
+                         Optional<Flashcard> flashcard, Optional<CheatSheet> cheatSheet) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;

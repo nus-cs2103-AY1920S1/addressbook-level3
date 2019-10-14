@@ -5,7 +5,10 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CHEATSHEETS;
 
 import seedu.address.model.Model;
 
-public class ListCheatSheetCommand extends Command{
+/**
+ * Lists all cheatsheets in the StudyBuddy Application to the user.
+ */
+public class ListCheatSheetCommand extends Command {
     public static final String COMMAND_WORD = "listcs";
 
     public static final String MESSAGE_SUCCESS = "Listed all cheatsheets";

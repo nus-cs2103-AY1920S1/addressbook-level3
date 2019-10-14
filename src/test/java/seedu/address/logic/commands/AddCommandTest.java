@@ -20,9 +20,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
-import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
