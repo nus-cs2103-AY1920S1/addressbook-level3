@@ -23,7 +23,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Expense> filteredEntries;
+    private final FilteredList<Entry> filteredEntries;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,7 +36,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredEntries = new FilteredList<>(this.addressBook.getExpenseList());
+        filteredEntries = new FilteredList<>(this.addressBook.getEntryList());
     }
 
     public ModelManager() {
@@ -133,7 +133,7 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Expense> getFilteredEntryList() {
+    public ObservableList<Entry> getFilteredEntryList() {
         return filteredEntries;
     }
 
