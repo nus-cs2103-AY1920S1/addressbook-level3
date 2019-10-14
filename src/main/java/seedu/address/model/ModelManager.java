@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
@@ -14,16 +15,18 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.AlfredException;
-import seedu.address.commons.exceptions.AlfredRuntimeException;
+import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
+import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.Team;
 import seedu.address.model.entitylist.MentorList;
 import seedu.address.model.entitylist.ParticipantList;
-import seedu.address.model.entitylist.ReadableEntityList;
+import seedu.address.model.entitylist.ReadOnlyEntityList;
 import seedu.address.model.entitylist.TeamList;
 import seedu.address.model.person.Person;
+import seedu.address.storage.AlfredStorage;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -31,14 +34,21 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    // TODO: Remove the null values which are a placeholder due to the multiple constructors.
+    // Also will have to change the relevant attributes to final.
+    private AlfredStorage storage = null;
+    private AddressBook addressBook = null;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private FilteredList<Person> filteredPersons = null;
 
     // EntityLists
-    private final ParticipantList participantList;
-    private final TeamList teamList;
-    private final MentorList mentorList;
+    private ParticipantList participantList = new ParticipantList();
+    private TeamList teamList = new TeamList();
+    private MentorList mentorList = new MentorList();
+
+    private FilteredList<Participant> filteredParticipantList = null;
+    private FilteredList<Team> filteredTeamList = null;
+    private FilteredList<Mentor> filteredMentorList = null;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -52,14 +62,87 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-
-        this.participantList = new ParticipantList();
-        this.teamList = new TeamList();
-        this.mentorList = new MentorList();
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+    }
+
+    public ModelManager(AlfredStorage storage, ReadOnlyUserPrefs userPrefs) {
+        super();
+        this.userPrefs = new UserPrefs(userPrefs);
+        this.storage = storage;
+        // TODO: Remove: Currently it is here to make tests pass.
+        this.addressBook = new AddressBook();
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+    }
+
+    /**
+     * Initializes the various lists used. If storage contains no data, it defaults to loading
+     * the sample lists provided.
+     */
+    public void initialize() {
+        // Try loading the 3 lists into memory.
+        try {
+            Optional<TeamList> storageTeamList = this.storage.readTeamList();
+            if (storageTeamList.isEmpty()) {
+                this.teamList = new TeamList();
+            } else {
+                this.teamList = storageTeamList.get();
+            }
+        } catch (IOException | AlfredException e) {
+            logger.warning("TeamList is empty in storage. Writing a new one.");
+            this.teamList = new TeamList();
+        }
+
+        try {
+            Optional<ParticipantList> storageParticipantList =
+                    this.storage.readParticipantList();
+            if (storageParticipantList.isEmpty()) {
+                this.participantList = new ParticipantList();
+            } else {
+                this.participantList = storageParticipantList.get();
+            }
+        } catch (IOException | AlfredException e) {
+            logger.warning("ParticipantList is empty in storage. Writing a new one.");
+            this.participantList = new ParticipantList();
+        }
+
+        try {
+            Optional<MentorList> storageMentorList = this.storage.readMentorList();
+            if (storageMentorList.isEmpty()) {
+                this.mentorList = new MentorList();
+            } else {
+                this.mentorList = storageMentorList.get();
+            }
+        } catch (IOException | AlfredException e) {
+            logger.warning("MentorList is empty in storage. Writing a new one.");
+            this.mentorList = new MentorList();
+        }
+
+        this.filteredParticipantList =
+                new FilteredList<>(this.participantList.getSpecificTypedList());
+        this.filteredMentorList =
+                new FilteredList<>(this.mentorList.getSpecificTypedList());
+        this.filteredTeamList =
+                new FilteredList<>(this.teamList.getSpecificTypedList());
+
+        // Optional TODO: reimplement this logic here.
+        // Optional<ReadOnlyAddressBook> addressBookOptional;
+        // ReadOnlyAddressBook initialData;
+        // try {
+        //    addressBookOptional = storage.readAddressBook();
+        //    if (!addressBookOptional.isPresent()) {
+        //        logger.info("Data file not found. Will be starting with a sample AddressBook");
+        //    }
+        //    initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+        // } catch (DataConversionException e) {
+        //    logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+        //    initialData = new AddressBook();
+        // } catch (IOException e) {
+        //    logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+        //    initialData = new AddressBook();
+        // }
     }
 
     //=========== UserPrefs ==================================================================================
@@ -104,7 +187,7 @@ public class ModelManager implements Model {
      *
      * @return ReadableEntityList
      */
-    public ReadableEntityList getParticipantList() {
+    public ReadOnlyEntityList getParticipantList() {
         return this.participantList;
     }
 
@@ -113,7 +196,7 @@ public class ModelManager implements Model {
      *
      * @return ReadableEntityList
      */
-    public ReadableEntityList getTeamList() {
+    public ReadOnlyEntityList getTeamList() {
         return this.teamList;
     }
 
@@ -122,8 +205,20 @@ public class ModelManager implements Model {
      *
      * @return ReadableEntityList
      */
-    public ReadableEntityList getMentorList() {
+    public ReadOnlyEntityList getMentorList() {
         return this.mentorList;
+    }
+
+    public FilteredList<Participant> getFilteredParticipantList() {
+        return this.filteredParticipantList;
+    }
+
+    public FilteredList<Mentor> getFilteredMentorList() {
+        return this.filteredMentorList;
+    }
+
+    public FilteredList<Team> getFilteredTeamList() {
+        return this.filteredTeamList;
     }
 
     //========== Entity Methods =============================
@@ -149,6 +244,7 @@ public class ModelManager implements Model {
      */
     public void addParticipant(Participant participant) throws AlfredException {
         this.participantList.add(participant);
+        this.saveList(PrefixType.P);
     }
 
     /**
@@ -156,10 +252,23 @@ public class ModelManager implements Model {
      *
      * @param id
      * @param participant
-     * @return boolean
      */
-    public boolean updateParticipant(Id id, Participant participant) {
-        return this.participantList.update(id, participant);
+    public void updateParticipant(Id id, Participant participant) throws AlfredException {
+        try {
+            // Update the participant in the team list as well
+            Team targetTeam = this.getTeamByParticipantId(id);
+            boolean isSuccessful = targetTeam.updateParticipant(participant);
+            if (!isSuccessful) {
+                logger.warning("The participant is not in the team provided");
+                return;
+            }
+
+            this.participantList.update(id, participant);
+            this.saveList(PrefixType.P);
+            this.saveList(PrefixType.T);
+        } catch (AlfredException e) {
+            return;
+        }
     }
 
     /**
@@ -169,8 +278,18 @@ public class ModelManager implements Model {
      * @return Participant
      */
     public Participant deleteParticipant(Id id) throws AlfredException {
-        // Check for connection with Team
-        return this.participantList.delete(id);
+        Team targetTeam = this.getTeamByParticipantId(id);
+        Participant participantToDelete = this.getParticipant(id);
+        boolean isSuccessful = targetTeam.deleteParticipant(participantToDelete);
+        if (!isSuccessful) {
+            logger.warning("Participant does not exist");
+            throw new AlfredModelException("Participant does not exist");
+        }
+
+        Participant deletedParticipant = this.participantList.delete(id);
+        this.saveList(PrefixType.P);
+        this.saveList(PrefixType.T);
+        return deletedParticipant;
     }
 
     /* Team Methods*/
@@ -197,12 +316,12 @@ public class ModelManager implements Model {
         List<Team> teams = this.teamList.getSpecificTypedList();
         for (Team t: teams) {
             for (Participant p: t.getParticipants()) {
-                if (p.getId() == participantId) {
+                if (p.getId().equals(participantId)) {
                     return t;
                 }
             }
         }
-        throw new AlfredRuntimeException("Team with said participant cannot be found.");
+        throw new AlfredModelException("Team with said participant cannot be found.");
     }
 
     /**
@@ -217,23 +336,24 @@ public class ModelManager implements Model {
         for (Team t: teams) {
             Optional<Mentor> mentor = t.getMentor();
             if (mentor.isPresent()) {
-                if (mentor.get().getId() == mentorId) {
+                if (mentor.get().getId().equals(mentorId)) {
                     return t;
                 }
             }
         }
-        throw new AlfredRuntimeException("Team with said participant cannot be found.");
+        throw new AlfredModelException("Team with said mentor cannot be found.");
     }
 
     /**
-     * Updates the team.
+     * Updates the team with the given teamID.
      *
      * @param teamId
      * @param updatedTeam
-     * @return boolean.
+     * @throws AlfredException
      */
-    public boolean updateTeam(Id teamId, Team updatedTeam) {
-        return this.teamList.update(teamId, updatedTeam);
+    public void updateTeam(Id teamId, Team updatedTeam) throws AlfredException {
+        this.teamList.update(teamId, updatedTeam);
+        this.saveList(PrefixType.T);
     }
 
     /**
@@ -244,6 +364,45 @@ public class ModelManager implements Model {
      */
     public void addTeam(Team team) throws AlfredException {
         this.teamList.add(team);
+        this.saveList(PrefixType.T);
+    }
+
+    /**
+     * Adds the participant to the given team.
+     *
+     * @param teamId
+     * @param participant
+     * @throws AlfredException if the team does not exist.
+     */
+    public void addParticipantToTeam(Id teamId, Participant participant) throws AlfredException {
+        // TODO: Check if participant is in ParticipantList before adding.
+        // TODO: Throw specific error.
+        Team targetTeam = this.getTeam(teamId);
+        boolean isSuccessful = targetTeam.addParticipant(participant);
+        if (!isSuccessful) {
+            logger.severe("Participant is already present in team");
+            throw new AlfredModelException("Participant is already present in team");
+        }
+        this.saveList(PrefixType.T);
+    }
+
+    /**
+     * Adds the participant to the given team.
+     *
+     * @param teamId
+     * @param mentor
+     * @throws AlfredException if the team does not exist.
+     */
+    public void addMentorToTeam(Id teamId, Mentor mentor) throws AlfredException {
+        // TODO: Check if Mentor is in MentorList before adding.
+        // TODO: Throw specific error.
+        Team targetTeam = this.getTeam(teamId);
+        boolean isSuccessful = targetTeam.addMentor(mentor);
+        if (!isSuccessful) {
+            logger.severe("Team already has a mentor");
+            throw new AlfredModelException("Team already has a mentor");
+        }
+        this.saveList(PrefixType.T);
     }
 
     /**
@@ -254,7 +413,10 @@ public class ModelManager implements Model {
      * @throws AlfredException
      */
     public Team deleteTeam(Id id) throws AlfredException {
-        return this.teamList.delete(id);
+        Team teamToDelete = this.teamList.delete(id);
+        this.saveList(PrefixType.T);
+        this.saveList(PrefixType.P);
+        return teamToDelete;
     }
 
     /* Mentor Methods */
@@ -278,6 +440,7 @@ public class ModelManager implements Model {
      */
     public void addMentor(Mentor mentor) throws AlfredException {
         this.mentorList.add(mentor);
+        this.saveList(PrefixType.M);
     }
 
     /**
@@ -285,10 +448,24 @@ public class ModelManager implements Model {
      *
      * @param id
      * @param updatedMentor
-     * @return boolean
      */
-    public boolean updateMentor(Id id, Mentor updatedMentor) {
-        return this.mentorList.update(id, updatedMentor);
+    public void updateMentor(Id id, Mentor updatedMentor) throws AlfredException {
+        // TODO: Throw specific exception.
+        try {
+            Team targetTeam = this.getTeamByMentorId(id);
+            boolean isSuccessful = targetTeam.updateMentor(updatedMentor);
+            if (!isSuccessful) {
+                logger.severe("Unable to update the mentor in team as it is not the "
+                        + "same id");
+            }
+
+            this.mentorList.update(id, updatedMentor);
+        } catch (AlfredException e) {
+            return;
+        }
+        this.mentorList.update(id, updatedMentor);
+        this.saveList(PrefixType.M);
+        this.saveList(PrefixType.T);
     }
 
     /**
@@ -299,8 +476,36 @@ public class ModelManager implements Model {
      * @throws AlfredException
      */
     public Mentor deleteMentor(Id id) throws AlfredException {
-        // Should check for connection with Team
-        return this.mentorList.delete(id);
+        Mentor mentorToDelete = this.mentorList.delete(id);
+        this.saveList(PrefixType.M);
+        this.saveList(PrefixType.T);
+        return mentorToDelete;
+    }
+
+    //=========== Utils ==============================================================
+
+    /**
+     * Helper function to save the lists.
+     * @param type
+     */
+    private void saveList(PrefixType type) {
+        try {
+            switch(type) {
+            case T:
+                this.storage.saveTeamList(this.teamList);
+                break;
+            case M:
+                this.storage.saveMentorList(this.mentorList);
+                break;
+            case P:
+                this.storage.saveParticipantList(this.participantList);
+                break;
+            default:
+            }
+        } catch (IOException e) {
+            logger.severe("Failed to save the list into storage due to IOException");
+        }
+
     }
 
     //=========== AddressBook ================================================================================

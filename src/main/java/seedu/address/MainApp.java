@@ -15,18 +15,18 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.AlfredStorage;
+import seedu.address.storage.AlfredStorageManager;
+import seedu.address.storage.JsonMentorListStorage;
+import seedu.address.storage.JsonParticipantListStorage;
+import seedu.address.storage.JsonTeamListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
+import seedu.address.storage.MentorListStorage;
+import seedu.address.storage.ParticipantListStorage;
+import seedu.address.storage.TeamListStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -42,7 +42,7 @@ public class MainApp extends Application {
 
     protected Ui ui;
     protected Logic logic;
-    protected Storage storage;
+    protected AlfredStorage storage;
     protected Model model;
     protected Config config;
 
@@ -56,42 +56,22 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        //TODO: Update this with the 4 different EntityLists
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+
+        ParticipantListStorage pStore = new JsonParticipantListStorage(userPrefs.getParticipantListFilePath());
+        MentorListStorage mStore = new JsonMentorListStorage(userPrefs.getMentorListFilePath());
+        TeamListStorage tStore = new JsonTeamListStorage(userPrefs.getTeamListFilePath());
+        storage = new AlfredStorageManager(pStore, mStore, tStore, userPrefsStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = new ModelManager(storage, userPrefs);
+        model.initialize();
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model);
 
         ui = new UiManager(logic);
-    }
 
-    /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
-     */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        }
-
-        return new ModelManager(initialData, userPrefs);
+        model.initialize();
     }
 
     private void initLogging(Config config) {

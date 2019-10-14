@@ -67,18 +67,12 @@ public class EditTeamCommand extends EditCommand {
         Team editedTeam = this.createEditedTeam(teamToEdit,
                 this.editTeamDescriptor);
 
-        // Model should check if there exists duplicates in list
-        /*
-         * i.e
-         * if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-         *     throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-         * }
-         */
-        if (!model.updateTeam(this.id, editedTeam)) {
-            return new CommandResult(MESSAGE_DUPLICATE_TEAM);
+        try {
+            model.updateTeam(this.id, editedTeam);
+            return new CommandResult(String.format(MESSAGE_EDIT_TEAM_SUCCESS, editedTeam.toString()));
+        } catch (AlfredException e) {
+            throw new CommandException(e.getMessage());
         }
-        // model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_TEAM_SUCCESS, editedTeam.toString()));
     }
 
     /**

@@ -37,7 +37,7 @@ public enum ProjectType {
      * @return Project type in string format.
      */
     public String toStorageValue() {
-        return this.toString();
+        return this.name();
     }
 
     /**

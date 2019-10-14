@@ -60,6 +60,9 @@ public class JsonParticipantListStorage implements ParticipantListStorage {
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
+        } catch (IllegalArgumentException iae) {
+            logger.info("Illegal arguments found in " + filePath + ": " + iae.getMessage());
+            throw new DataConversionException(iae);
         }
     }
 

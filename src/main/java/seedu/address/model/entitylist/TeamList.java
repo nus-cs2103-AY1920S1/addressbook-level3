@@ -1,10 +1,9 @@
 package seedu.address.model.entitylist;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.AlfredException;
-import seedu.address.commons.exceptions.AlfredRuntimeException;
+import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.PrefixType;
@@ -15,16 +14,11 @@ import seedu.address.model.entity.Team;
  * {@code TeamList} should behave as a singleton.
  */
 public class TeamList extends EntityList {
-    private List<Team> teams;
-    private int lastUsedId;
+    private static int lastUsedId = 0;
 
-    /**
-     * Constructor.
-     */
-    public TeamList() {
-        this.teams = new ArrayList<>();
-        this.lastUsedId = 0;
-    }
+    private final ObservableList<Team> teams = FXCollections.observableArrayList();
+    private final ObservableList<Team> unmodifiableTeams =
+            FXCollections.unmodifiableObservableList(teams);
 
     /**
      * Gets team by their ID.
@@ -35,11 +29,11 @@ public class TeamList extends EntityList {
      */
     public Team get(Id id) throws AlfredException {
         for (Team t: this.teams) {
-            if (t.getId() == id) {
+            if (t.getId().equals(id)) {
                 return t;
             }
         }
-        throw new AlfredRuntimeException("Team to get does not exist!");
+        throw new AlfredModelException("Team to get does not exist!");
     }
 
     /**
@@ -51,7 +45,7 @@ public class TeamList extends EntityList {
      */
     public boolean update(Id id, Team updatedTeam) {
         for (int i = 0; i < this.teams.size(); i++) {
-            if (this.teams.get(i).getId() == id) {
+            if (this.teams.get(i).getId().equals(id)) {
                 this.teams.set(i, updatedTeam);
                 return true;
             }
@@ -67,8 +61,8 @@ public class TeamList extends EntityList {
      */
     public void add(Team team) throws AlfredException {
         for (Team t: this.teams) {
-            if (t.getId() == team.getId()) {
-                throw new AlfredRuntimeException("Team to add already exists.");
+            if (t.getId().equals(team.getId())) {
+                throw new AlfredModelException("Team to add already exists.");
             }
         }
         this.teams.add(team);
@@ -82,12 +76,12 @@ public class TeamList extends EntityList {
      */
     public Team delete(Id id) throws AlfredException {
         for (Team t: this.teams) {
-            if (t.getId() == id) {
+            if (t.getId().equals(id)) {
                 this.teams.remove(t);
                 return t;
             }
         }
-        throw new AlfredRuntimeException("Team to delete cannot be found.");
+        throw new AlfredModelException("Team to delete cannot be found.");
     }
 
     /**
@@ -95,7 +89,7 @@ public class TeamList extends EntityList {
      *
      * @return List of Teams.
      */
-    public List<Team> getSpecificTypedList() {
+    public ObservableList<Team> getSpecificTypedList() {
         return this.teams;
     }
 
@@ -104,8 +98,18 @@ public class TeamList extends EntityList {
      *
      * @return List of Teams.
      */
-    public List<? extends Entity> list() {
+    public ObservableList<? extends Entity> list() {
         return this.teams;
+    }
+
+    /**
+     * List the unmodifiable team of mentors.
+     *
+     * @return {@code ObservableList<? extends Entity>}
+     */
+    @Override
+    public ObservableList<? extends Entity> getUnmodifiableList() {
+        return this.unmodifiableTeams;
     }
 
     /**
@@ -117,7 +121,7 @@ public class TeamList extends EntityList {
     @Override
     public boolean contains(Id id) {
         for (Team p: this.teams) {
-            if (p.getId() == id) {
+            if (p.getId().equals(id)) {
                 return true;
             }
         }
@@ -129,9 +133,17 @@ public class TeamList extends EntityList {
      *
      * @return ID
      */
-    @Override
-    public Id generateId() {
-        this.lastUsedId++;
-        return new Id(PrefixType.T, this.lastUsedId);
+    public static Id generateId() {
+        lastUsedId++;
+        return new Id(PrefixType.T, lastUsedId);
+    }
+
+    /**
+     * Sets the lastUsedId class attribute.
+     *
+     * @param number
+     */
+    public static void setLastUsedId(int number) {
+        lastUsedId = number;
     }
 }

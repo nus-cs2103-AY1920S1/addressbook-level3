@@ -1,8 +1,11 @@
 package seedu.address.storage;
 
+import java.util.logging.Logger;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
@@ -15,8 +18,8 @@ import seedu.address.model.entity.PrefixType;
  * Jackson-friendly version of {@link Participant}.
  */
 class JsonAdaptedParticipant {
-
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Participant's %s field is missing!";
+    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
 
     private final String name;
     private final String phone;

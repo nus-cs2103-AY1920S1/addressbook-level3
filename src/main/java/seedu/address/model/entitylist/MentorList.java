@@ -1,10 +1,9 @@
 package seedu.address.model.entitylist;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.AlfredException;
-import seedu.address.commons.exceptions.AlfredRuntimeException;
+import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
@@ -15,16 +14,11 @@ import seedu.address.model.entity.PrefixType;
  * {@code MentorList} should behave as a singleton.
  */
 public class MentorList extends EntityList {
-    private List<Mentor> mentors;
-    private int lastUsedId;
+    private static int lastUsedId = 0;
 
-    /**
-     * Constructor.
-     */
-    public MentorList() {
-        this.mentors = new ArrayList<>();
-        this.lastUsedId = 0;
-    }
+    private final ObservableList<Mentor> mentors = FXCollections.observableArrayList();
+    private final ObservableList<Mentor> unmodifiableMentors =
+            FXCollections.unmodifiableObservableList(mentors);
 
     /**
      * Gets Mentor by ID.
@@ -34,11 +28,11 @@ public class MentorList extends EntityList {
      */
     public Mentor get(Id id) throws AlfredException {
         for (Mentor m: this.mentors) {
-            if (m.getId() == id) {
+            if (m.getId().equals(id)) {
                 return m;
             }
         }
-        throw new AlfredRuntimeException("Mentor to get does not exist");
+        throw new AlfredModelException("Mentor to get does not exist");
     }
 
     /**
@@ -50,7 +44,7 @@ public class MentorList extends EntityList {
      */
     public boolean update(Id id, Mentor updatedMentor) {
         for (int i = 0; i < this.mentors.size(); i++) {
-            if (this.mentors.get(i).getId() == id) {
+            if (this.mentors.get(i).getId().equals(id)) {
                 this.mentors.set(i, updatedMentor);
                 return true;
             }
@@ -66,8 +60,8 @@ public class MentorList extends EntityList {
      */
     public void add(Mentor mentor) throws AlfredException {
         for (Mentor m: this.mentors) {
-            if (m.getId() == mentor.getId()) {
-                throw new AlfredRuntimeException("Item to add already exists!");
+            if (m.getId().equals(mentor.getId())) {
+                throw new AlfredModelException("Item to add already exists!");
             }
         }
         this.mentors.add(mentor);
@@ -81,12 +75,12 @@ public class MentorList extends EntityList {
      */
     public Mentor delete(Id id) throws AlfredException {
         for (Mentor m: this.mentors) {
-            if (m.getId() == id) {
+            if (m.getId().equals(id)) {
                 this.mentors.remove(m);
                 return m;
             }
         }
-        throw new AlfredRuntimeException("Mentor to delete does not exist.");
+        throw new AlfredModelException("Mentor to delete does not exist.");
     }
 
     /**
@@ -94,7 +88,7 @@ public class MentorList extends EntityList {
      *
      * @return List of Mentors.
      */
-    public List<Mentor> getSpecificTypedList() {
+    public ObservableList<Mentor> getSpecificTypedList() {
         return this.mentors;
     }
 
@@ -104,8 +98,18 @@ public class MentorList extends EntityList {
      * @return List of Mentors.
      */
     @Override
-    public List<? extends Entity> list() {
+    public ObservableList<? extends Entity> list() {
         return this.mentors;
+    }
+
+    /**
+     * Get the unmodifiable list of mentors.
+     *
+     * @return Observable List of Mentors
+     */
+    @Override
+    public ObservableList<? extends Entity> getUnmodifiableList() {
+        return this.unmodifiableMentors;
     }
 
     /**
@@ -117,7 +121,7 @@ public class MentorList extends EntityList {
     @Override
     public boolean contains(Id id) {
         for (Mentor m: this.mentors) {
-            if (m.getId() == id) {
+            if (m.getId().equals(id)) {
                 return true;
             }
         }
@@ -129,9 +133,17 @@ public class MentorList extends EntityList {
      *
      * @return ID
      */
-    @Override
-    public Id generateId() {
-        this.lastUsedId++;
-        return new Id(PrefixType.M, this.lastUsedId);
+    public static Id generateId() {
+        lastUsedId++;
+        return new Id(PrefixType.M, lastUsedId);
+    }
+
+    /**
+     * Sets the lastUsedId class attribute.
+     *
+     * @param number
+     */
+    public static void setLastUsedId(int number) {
+        lastUsedId = number;
     }
 }
