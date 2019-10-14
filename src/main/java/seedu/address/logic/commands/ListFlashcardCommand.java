@@ -17,18 +17,14 @@ public class ListFlashcardCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all flashcards";
 
-
-    @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
-        model.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS); //Still needed?
-        List<Flashcard> lastShownList = model.getFilteredFlashcardList();
-
-        //Builds list display of flashcard (Index. Title - Question)
+    private String formatOutputListString(List<Flashcard> inputList) {
+        int size = inputList.size();
+        if(size == 0) {
+            return "No flashcards to display!";
+        }
         StringBuilder sb = new StringBuilder();
-        int size = lastShownList.size();
         for(int i = 1; i <= size; i++) {
-            Flashcard curr_flashcard = lastShownList.get(i - 1);
+            Flashcard curr_flashcard = inputList.get(i - 1);
             sb.append(i + ". ");
             sb.append(curr_flashcard.getTitle() + " - ");
             sb.append(curr_flashcard.getQuestion());
@@ -36,6 +32,15 @@ public class ListFlashcardCommand extends Command {
                 sb.append("\n");
             }
         }
-        return new CommandResult(sb.toString());
+        return sb.toString();
+    }
+
+    @Override
+    public CommandResult execute(Model model) {
+        requireNonNull(model);
+        model.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS); //Still needed?
+        List<Flashcard> lastShownList = model.getFilteredFlashcardList();
+        String outputString = formatOutputListString(lastShownList);
+        return new CommandResult(outputString);
     }
 }

@@ -14,6 +14,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCheatSheetBook;
+import seedu.address.model.ReadOnlyFlashcardBook;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -78,7 +79,38 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
 
-    //==============cheatsheet tools
+    //============== flashcard tools
+    @Override
+    public Path getFlashcardFilePath() {
+        return this.filePath;
+    }
+
+    @Override
+    public Optional<ReadOnlyFlashcardBook> readFlashcardBook() throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ReadOnlyFlashcardBook> readFlashcardBook(Path filePath)
+            throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveFlashcardBook(ReadOnlyFlashcardBook flashcardBook) throws IOException {
+        saveFlashcardBook(flashcardBook, filePath);
+    }
+
+    @Override
+    public void saveFlashcardBook(ReadOnlyFlashcardBook flashcardBook, Path filePath) throws IOException {
+        requireNonNull(flashcardBook);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        //JsonUtil.saveJsonFile(new JsonSerializableFlashcardBook(flashcardBook), filePath);
+    }
+
+    //============== cheatsheet tools
     @Override
     public Path getCheatSheetFilePath() {
         return this.filePath;
