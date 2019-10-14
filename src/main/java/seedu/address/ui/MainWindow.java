@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     // Interface between main stage, user view's controller and the command parser (which switches the user view using
     // it's controller!
     private UserViewMain userViewMain;
+    private UserViewUpdate userViewUpdate;
 
     // static Ui parts
     private ResultDisplay resultDisplay;
@@ -72,6 +73,8 @@ public class MainWindow extends UiPart<Stage> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        userViewUpdate = new UserViewUpdate(userNavigableView, userViewMain);
 
         helpWindow = new HelpWindow();
     }
@@ -183,12 +186,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            // avoid duplicate children in the placeholder pane
-            userNavigableView.getChildren().clear();
-
-            // temporary measure to update Ui based on commands from user
-            // TODO: abstract the parsing into a another manager class, which will interact with UserViewMain
-
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -197,14 +194,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-
-            if (commandText.contains("list")) {
-                userNavigableView.getChildren().add(userViewMain.loadTasks());
-            } else {
-                userNavigableView.getChildren().add(userViewMain.loadDashboard());
-            }
-
-
+            userViewUpdate.parseUserCommand(commandText);
 
             return commandResult;
         } catch (CommandException | ParseException e) {
