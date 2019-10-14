@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private Editor editorPanel;
+    private RunCodeResult runCodeResultPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -55,6 +56,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private AnchorPane editorPlaceholder;
+
+    @FXML
+    private AnchorPane runCodeResultPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -128,6 +132,9 @@ public class MainWindow extends UiPart<Stage> {
 
         editorPanel = new Editor();
         editorPlaceholder.getChildren().add(editorPanel.getRoot());
+
+        runCodeResultPanel = new RunCodeResult();
+        runCodeResultPlaceholder.getChildren().add(runCodeResultPanel.getRoot());
     }
 
     /**

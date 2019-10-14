@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane fx:id="runCodeResultPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="410.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="hi" layoutX="189.0" layoutY="131.0" text="HELLO" />
+   </children>
+</AnchorPane>
