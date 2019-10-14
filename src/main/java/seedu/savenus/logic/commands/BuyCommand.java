@@ -42,6 +42,7 @@ public class BuyCommand extends Command {
 
         Food foodToBuy = lastShownList.get(targetIndex.getZeroBased());
         Purchase purchaseToAdd = new Purchase(foodToBuy.getName(), foodToBuy.getPrice());
+        model.pay(foodToBuy.getPrice()); // Throws insufficient funds command exception
         model.addPurchase(purchaseToAdd);
         return new CommandResult(String.format(MESSAGE_BUY_FOOD_SUCCESS, purchaseToAdd.toString()));
     }
