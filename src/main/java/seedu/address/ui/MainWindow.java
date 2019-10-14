@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -8,6 +9,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -16,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.window.ProjectDashboardView;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -30,8 +33,11 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
-    // Independent Ui parts residing in this Ui container
-    private TaskListPanel taskListPanel;
+    // Interface between main stage, user view's controller and the command parser (which switches the user view using
+    // it's controller!
+    private UserViewMain userViewMain;
+
+    // static Ui parts
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -42,7 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane taskListPanelPlaceholder;
+    private StackPane userNavigableView;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -61,6 +67,12 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
+
+        try {
+            userViewMain = new UserViewMain(logic);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         helpWindow = new HelpWindow();
     }
@@ -103,19 +115,23 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
-    private void refreshDashboard() {
-        taskListPanel = new TaskListPanel(logic.getFilteredTaskListNotStarted(), logic.getFilteredTaskListDoing(),
-                logic.getFilteredTaskListDone());
-        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
-    }
+//    /**
+//     * Refresh the dashboard if the user manipulates the internal task list.
+//     */
+//    private void refreshDashboard() {
+//        projectDashboardView = new ProjectDashboardView(logic.getFilteredTaskListNotStarted(), logic.getFilteredTaskListDoing(),
+//                logic.getFilteredTaskListDone());
+//        taskListPanelPlaceholder.getChildren().add(projectDashboardView.getRoot());
+//        // TODO modularise this
+//    }
 
     /**
      * Fills up all the placeholders of this window.
+     * By default, the project dashboard is shown
      */
     void fillInnerParts() {
-        taskListPanel = new TaskListPanel(logic.getFilteredTaskListNotStarted(), logic.getFilteredTaskListDoing(),
-                logic.getFilteredTaskListDone());
-        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+        Pane defaultPane = userViewMain.loadDashboard();
+        userNavigableView.getChildren().addAll(defaultPane);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -167,10 +183,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public TaskListPanel getTaskListPanel() {
-        return taskListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -182,6 +194,17 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            // temporary measure to update Ui based on commands from user
+            // TODO: abstract the parsing into a another class, which will interact with UserViewMain
+
+            if (commandText.contains("list")) {
+                userNavigableView.getChildren().add(userViewMain.loadTasks());
+            } else if (commandText.contains("find")) {
+                userNavigableView.getChildren().add(userViewMain.loadTasks());
+            } else {
+                userNavigableView.getChildren().add(userViewMain.loadDashboard());
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -189,8 +212,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-            refreshDashboard();
 
             return commandResult;
         } catch (CommandException | ParseException e) {

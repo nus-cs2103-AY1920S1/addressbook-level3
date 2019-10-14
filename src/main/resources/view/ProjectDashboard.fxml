@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+      <VBox HBox.hgrow="ALWAYS" >
+         <children>
+            <Label id="notStartedLabel" contentDisplay="CENTER" text="Not Started" />
+          <ListView fx:id="taskListViewNotStarted" styleClass="pane-with-border" />
+         </children>
+      </VBox>
+      <VBox HBox.hgrow="ALWAYS">
+         <children>
+            <Label id="doingLabel" alignment="CENTER" text="Doing" />
+          <ListView fx:id="taskListViewDoing" styleClass="pane-with-border" />
+         </children>
+      </VBox>
+      <VBox HBox.hgrow="ALWAYS">
+         <children>
+            <Label id="doneLabel" alignment="CENTER" text="Done" />
+          <ListView fx:id="taskListViewDone" styleClass="pane-with-border" />
+         </children>
+      </VBox>
+  </children>
+</HBox>
