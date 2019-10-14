@@ -7,5 +7,5 @@
       "y" : 100
     }
   },
-  "addressBookFilePath" : "expenselist.json"
+  "expenseListFilePath" : "expenselist.json"
 }

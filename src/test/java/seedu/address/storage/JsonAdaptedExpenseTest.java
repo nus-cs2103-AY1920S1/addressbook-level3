@@ -65,13 +65,13 @@ public class JsonAdaptedExpenseTest {
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
 
-//    @Test
-//    public void toModelType_invalidDate_throwsIllegalValueException() {
-//        JsonAdaptedExpense expense =
-//                new JsonAdaptedExpense(VALID_NAME, VALID_AMOUNT, INVALID_DATE, VALID_TAGS);
-//        String expectedMessage = Date.MESSAGE_CONSTRAINTS;
-//        assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
-//    }
+    @Test
+    public void toModelType_invalidDate_throwsIllegalValueException() {
+        JsonAdaptedExpense expense =
+                new JsonAdaptedExpense(VALID_NAME, VALID_AMOUNT, INVALID_DATE, VALID_TAGS);
+        String expectedMessage = Date.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
+    }
 
     @Test
     public void toModelType_nullDate_throwsIllegalValueException() {

@@ -26,7 +26,7 @@ public class DateTest {
 
         // blank date
         assertFalse(Date.isValidDate("")); // empty string
-//        assertFalse(Date.isValidDate(" ")); // spaces only
+        assertFalse(Date.isValidDate(" ")); // spaces only
 
         // missing parts
         assertFalse(Date.isValidDate("12/13")); // missing year
