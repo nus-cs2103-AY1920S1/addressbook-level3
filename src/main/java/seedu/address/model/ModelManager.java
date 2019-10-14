@@ -12,6 +12,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.sgm.model.food.FilteredFoodMap;
+import seedu.sgm.model.food.Food;
+import seedu.sgm.model.food.FoodMap;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,23 +25,28 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FoodMap foodMap;
+    private final FilteredFoodMap filteredFoodMap;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, FoodMap foodMap) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, userPrefs, foodMap);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
+                + " and food map: " + foodMap);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.foodMap = foodMap;
+        filteredFoodMap = new FilteredFoodMap(foodMap);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new FoodMap());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -115,8 +123,8 @@ public class ModelManager implements Model {
     //=========== Filtered Person List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of {@code
+     * versionedAddressBook}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -130,7 +138,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(
+            Object obj) {
         // short circuit if same object
         if (obj == this) {
             return true;
@@ -148,4 +157,26 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    //=========== Food Map =============================================================
+
+    //addFood() Function
+
+    /*
+    @Override
+    public void setFoodMap(UniqueFoodList... uniqueFoodLists) {
+        requireAllNonNull(uniqueFoodLists);
+        foodMap.setFoodLists(uniqueFoodLists);
+    }
+    */
+
+    @Override
+    public FoodMap getFoodMap() {
+        return foodMap;
+    }
+
+    @Override
+    public void updateFilteredFoodMap(Predicate<Food> predicate) {
+        requireNonNull(predicate);
+        filteredFoodMap.setPredicate(predicate);
+    }
 }

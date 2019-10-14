@@ -18,8 +18,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
+ * can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -69,12 +69,17 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
+    public ResultDisplay getResultDisplay() {
+        return resultDisplay;
+    }
+
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -144,8 +149,27 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Switches this window to the MainWindow.
+     */
+    @FXML
+    public void switchToBioWindow(String feedbackToUser) {
+        hide();
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+        logic.setGuiSettings(guiSettings);
+        BioWindow bioWindow = new BioWindow(primaryStage, logic);
+        bioWindow.show();
+        bioWindow.fillInnerParts();
+        bioWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
+
+    }
     void show() {
         primaryStage.show();
+    }
+
+    public void hide() {
+        getRoot().hide();
     }
 
     /**
@@ -171,7 +195,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+
             CommandResult commandResult = logic.execute(commandText);
+            if (commandResult.isShowBio()) {
+                switchToBioWindow(commandResult.getFeedbackToUser());
+            }
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

@@ -11,14 +11,19 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
+    /** Help information should be shown to the user in a separate window. */
     private final boolean showHelp;
 
-    /** The application should exit. */
+    /**
+     * The application should exit.
+     */
     private final boolean exit;
 
+    /** Bio information should be shown to the user in the same window. */
+    private boolean showBio = false;
+
     /**
-     * Constructs a {@code CommandResult} with the specified fields.
+     * Constructs a {@code CommandResult} with the specified fields. Field of showing bio is false by default.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
@@ -27,11 +32,19 @@ public class CommandResult {
     }
 
     /**
+     * Constructs a {@code CommandResult} with the additional field of showing bio.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean showBio, boolean exit) {
+        this(feedbackToUser, showHelp, exit);
+        this.showBio = showBio;
+    }
+
+    /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -40,6 +53,10 @@ public class CommandResult {
 
     public boolean isShowHelp() {
         return showHelp;
+    }
+
+    public boolean isShowBio() {
+        return showBio;
     }
 
     public boolean isExit() {
@@ -60,12 +77,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
+                && showBio == otherCommandResult.showBio
                 && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, showBio, exit);
     }
 
 }

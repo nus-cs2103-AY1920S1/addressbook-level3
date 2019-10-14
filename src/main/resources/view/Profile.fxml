@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox fx:id="profile" styleClass="pane-with-border" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+    <ImageView fx:id="displayPicture" fitHeight="76.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true" />
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="true" styleClass="profile-scroll" HBox.hgrow="ALWAYS">
+        <content>
+                  <VBox maxHeight="Infinity">
+                     <children>
+                        <Label fx:id="name" alignment="TOP_LEFT" contentDisplay="TOP" maxHeight="Infinity" styleClass="profile-name" text="Label" wrapText="true" VBox.vgrow="always">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="description" alignment="TOP_LEFT" contentDisplay="TOP" maxHeight="Infinity" styleClass="profile-asl" text="Label" wrapText="true" VBox.vgrow="always">
+                     <VBox.margin>
+                        <Insets top="7.0" />
+                     </VBox.margin></Label>
+                     </children>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+                  </VBox>
+        </content>
+      </ScrollPane>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</HBox>

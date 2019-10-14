@@ -14,5 +14,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_AVGTYPE = new Prefix("a/");
     public static final Prefix PREFIX_RECORDTYPE = new Prefix("r/");
     public static final Prefix PREFIX_COUNT = new Prefix("n/");
+    public static final Prefix PREFIX_FOOD = new Prefix("f/");
 
 }

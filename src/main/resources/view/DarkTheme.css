@@ -1,3 +1,12 @@
+.blue {
+    -fx-control-inner-background: transparent;
+    -fx-background-color: rgba(255, 255, 0, 0.2);
+    -fx-border-color: #FF00FF;
+    /*-fx-table-cell-border-color: transparent;*/
+    /*-fx-table-header-border-color: transparent;*/
+    -fx-border-top-width: 1px;
+}
+
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
     background-color: #383838; /* Used in the default.html file */
@@ -157,6 +166,49 @@
     -fx-text-fill: black !important;
 }
 
+.profile-name {
+     -fx-background-color: transparent;
+     -fx-font-family: "Segoe UI Light";
+     -fx-font-size: 20pt;
+     -fx-text-fill: white;
+ }
+
+.profile-asl {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 10pt;
+    -fx-text-fill: white;
+}
+
+.bio-table {
+    -fx-background-color: transparent;
+}
+
+.bio-table .table-row-cell {
+    -fx-background-color: transparent;
+}
+
+.field-column {
+    -fx-font-family: "Arial" !important;
+    -fx-font-size: 10pt !important;
+    -fx-font-style: italic !important;
+    -fx-font-weight: bold !important;
+    -fx-text-fill: white !important;
+}
+
+.field-column .label {
+    -fx-font-family: "Arial" !important;
+    -fx-font-size: 10pt !important;
+    -fx-font-style: italic !important;
+    -fx-text-fill: white !important;
+}
+
+.data-column .label{
+    -fx-font-family: "Arial" !important;
+    -fx-font-size: 10pt !important;
+    -fx-text-fill: white !important;
+}
+
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
@@ -279,6 +331,12 @@
     -fx-font-style: italic;
     -fx-fill: white;
     -fx-text-fill: white;
+}
+
+.profile-scroll {
+    -fx-background: transparent !important;
+    -fx-background-color: transparent !important;
+    -fx-border-color: transparent !important;
 }
 
 .scroll-bar {
