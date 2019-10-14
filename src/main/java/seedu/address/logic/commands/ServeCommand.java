@@ -13,7 +13,7 @@ import seedu.address.model.borrower.BorrowerId;
  * Opens a serving session for a borrower and allows the borrower to start borrower book
  */
 public class ServeCommand extends Command {
-    public static final String COMMAND_WORD = "register";
+    public static final String COMMAND_WORD = "serve";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the Serve Mode. "
             + "Parameters: "
