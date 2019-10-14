@@ -14,6 +14,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
+import seedu.address.model.LoanRecords;
 import seedu.address.model.ReadOnlyBorrowerRecords;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.UserPrefs;
@@ -67,7 +68,7 @@ public class StorageManagerTest {
          */
         Catalog original = getTypicalCatalog();
         storageManager.saveCatalog(original);
-        ReadOnlyCatalog retrieved = storageManager.readCatalog().get();
+        ReadOnlyCatalog retrieved = storageManager.readCatalog(new LoanRecords()).get();
         assertEquals(original, new Catalog(retrieved));
     }
 

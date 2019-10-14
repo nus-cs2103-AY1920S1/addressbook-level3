@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.LoanRecords;
 import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
@@ -73,6 +74,17 @@ public class JsonAdaptedBook {
 
     /**
      * Converts this Jackson-friendly adapted book object into the model's {@code Book} object.
+     * Uses an empty LoanRecords.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted book.
+     */
+    public Book toModelType() throws IllegalValueException {
+        return toModelType(new LoanRecords());
+    }
+
+    /**
+     * Converts this Jackson-friendly adapted book object into the model's {@code Book} object.
+     * Loan objects of the Book is taken from the initialLoanRecords.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted book.
      */
