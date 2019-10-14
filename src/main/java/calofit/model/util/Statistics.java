@@ -1,5 +1,7 @@
 package calofit.model.util;
 
+import java.time.Month;
+
 import javafx.collections.ObservableList;
 
 import calofit.model.meal.Meal;
@@ -28,15 +30,35 @@ public class Statistics {
     }
 
     /**
-     * Factory static method to generate a Statistics wrapper class based on the MealLog.
+     * Factory static method to generate a Statistics wrapper class based on the MealLog for current month.
      *
      * @param meaLog is the MealLog to get the statistics from.
      * @return a Statistics object that wraps about the statistics generated.
      */
     public static Statistics generateStatistics(MealLog meaLog) {
         ObservableList<Meal> meals = meaLog.getMeals();
-        //Implementation not done
-        return new Statistics(100, 50, 76.2);
+        int maximum = meals.get(0).getDish().getCalories().getValue();
+        int minimum = meals.get(0).getDish().getCalories().getValue();
+        int average = meals.get(0).getDish().getCalories().getValue();
+        Month currentMonth = meals.get(0).getTimestamp().getDateTime().getMonth();
+
+        for (int i = 1; i < meals.size(); i++) {
+            Meal current = meals.get(i);
+            int currentCalories = current.getDish().getCalories().getValue();
+            if (current.getTimestamp().getDateTime().getMonth() != currentMonth) {
+                break;
+            } else {
+                if (currentCalories > maximum) {
+                    maximum = currentCalories;
+                }
+                if (currentCalories < minimum) {
+                    minimum = currentCalories;
+                }
+                average = (average + currentCalories) / (i + 1);
+            }
+        }
+
+        return new Statistics(maximum, minimum, average);
     }
 
     public int getMaximum() {
