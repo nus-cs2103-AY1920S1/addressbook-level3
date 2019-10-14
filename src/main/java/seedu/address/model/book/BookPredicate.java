@@ -1,6 +1,7 @@
 package seedu.address.model.book;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.model.book.Author.isValidAuthor;
 import static seedu.address.model.book.SerialNumber.isValidSerialNumber;
 import static seedu.address.model.book.Title.isValidTitle;
 import static seedu.address.model.genre.Genre.isValidGenreName;
@@ -66,7 +67,7 @@ public class BookPredicate implements Predicate<Book> {
      *
      * @param title
      */
-    public BookPredicate addTitle(String title) {
+    public BookPredicate setTitle(String title) {
         checkArgument(isValidTitle(title), Title.MESSAGE_CONSTRAINTS);
         this.title = title;
         return this;
@@ -77,7 +78,8 @@ public class BookPredicate implements Predicate<Book> {
      *
      * @param author
      */
-    public BookPredicate addAuthor(String author) {
+    public BookPredicate setAuthor(String author) {
+        checkArgument(isValidAuthor(author), Author.MESSAGE_CONSTRAINTS);
         this.author = author;
         return this;
     }
@@ -87,7 +89,7 @@ public class BookPredicate implements Predicate<Book> {
      *
      * @param serialNumber
      */
-    public BookPredicate addSerialNumber(String serialNumber) {
+    public BookPredicate setSerialNumber(String serialNumber) {
         checkArgument(isValidSerialNumber(serialNumber), SerialNumber.MESSAGE_CONSTRAINTS);
         this.serialNumber = serialNumber;
         return this;
@@ -98,9 +100,11 @@ public class BookPredicate implements Predicate<Book> {
      *
      * @param genres in the form of varargs
      */
-    public BookPredicate addGenres(String... genres) {
+    public BookPredicate setGenres(String... genres) {
+
         for (String genre : genres) {
-            checkArgument(isValidGenreName(genre), Genre.MESSAGE_CONSTRAINTS);
+            String formattedGenre = genre.trim().toUpperCase();
+            checkArgument(isValidGenreName(formattedGenre), Genre.MESSAGE_CONSTRAINTS);
         }
         this.genres = SampleDataUtil.getGenreSet(genres);
         return this;
@@ -111,7 +115,7 @@ public class BookPredicate implements Predicate<Book> {
      *
      * @param genres in the form of Collections.Set
      */
-    public BookPredicate addGenres(Set<Genre> genres) {
+    public BookPredicate setGenres(Set<Genre> genres) {
         if (genres.isEmpty()) {
             return this;
         }

@@ -54,6 +54,7 @@ public class CommandTestUtil {
     public static final String VALID_AUTHOR_BOOK_2 = "Jin Yong";
     public static final String VALID_GENRE_ACTION = "ACTION";
     public static final String VALID_GENRE_FICTION = "FICTON";
+    public static final String VALID_GENRE_NONFICTION = "NON-FICTON";
     public static final String VALID_BORROWER_ID = "K0001";
 
     public static final String TITLE_DESC_BOOK_1 = " " + PREFIX_TITLE + VALID_TITLE_BOOK_1;
@@ -135,7 +136,7 @@ public class CommandTestUtil {
 
         Book book = model.getFilteredBookList().get(targetIndex.getZeroBased());
         final String title = book.getTitle().value;
-        model.updateFilteredBookList(new BookPredicate().addTitle(title));
+        model.updateFilteredBookList(new BookPredicate().setTitle(title));
 
         assertEquals(1, model.getFilteredBookList().size());
     }

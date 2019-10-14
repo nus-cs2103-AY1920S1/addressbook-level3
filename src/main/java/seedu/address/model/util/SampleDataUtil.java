@@ -31,7 +31,7 @@ public class SampleDataUtil {
                     new Author("George Orwell"), null, getGenreSet("FICTION")),
             new Book(new Title("Harry Botter and the Full Blood Prince"), SerialNumberGenerator.generateSerialNumber(),
                     new Author("J K Rowling"), null, getGenreSet("FICTION", "ACTION")),
-            new Book(new Title("Mans Search for Munning"), SerialNumberGenerator.generateSerialNumber(),
+            new Book(new Title("Man's Search for Munning"), SerialNumberGenerator.generateSerialNumber(),
                     new Author("Viktor Frankel"), null, getGenreSet("NON-FICTION", "BIOGRAPHY")),
             new Book(new Title("Stefe Jobz"), SerialNumberGenerator.generateSerialNumber(),
                     new Author("Walter Izakson"), null, getGenreSet("NON-FICTION", "BIOGRAPHY")),
@@ -51,10 +51,12 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a genre set containing the list of strings given.
+     * Returns a genre set containing the list of strings given,
+     * after formatting the strings to UPPERCASE
      */
     public static Set<Genre> getGenreSet(String... strings) {
         return Arrays.stream(strings)
+                .map(genreName -> genreName.trim().toUpperCase())
                 .map(Genre::new)
                 .collect(Collectors.toSet());
     }

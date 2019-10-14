@@ -29,7 +29,7 @@ public class ClearCommandTest {
         Model expectedModel =
                 new ModelManager(getTypicalCatalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
         // filter the model with a predicate
-        BookPredicate predicate = new BookPredicate().addTitle("harry");
+        BookPredicate predicate = new BookPredicate().setTitle("harry");
         model.updateFilteredBookList(predicate);
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

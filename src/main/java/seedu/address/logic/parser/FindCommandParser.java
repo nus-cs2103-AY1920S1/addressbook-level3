@@ -45,19 +45,19 @@ public class FindCommandParser implements Parser<FindCommand> {
         BookPredicate predicate = new BookPredicate();
 
         if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
-            predicate.addTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get()).value);
+            predicate.setTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get()).value);
         }
 
         if (argMultimap.getValue(PREFIX_SERIAL_NUMBER).isPresent()) {
-            predicate.addSerialNumber(ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIAL_NUMBER)
+            predicate.setSerialNumber(ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIAL_NUMBER)
                     .get()).value);
         }
 
         if (argMultimap.getValue(PREFIX_AUTHOR).isPresent()) {
-            predicate.addAuthor(ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get()).value);
+            predicate.setAuthor(ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get()).value);
         }
 
-        parseGenresForFind(argMultimap.getAllValues(PREFIX_GENRE)).ifPresent(predicate::addGenres);
+        parseGenresForFind(argMultimap.getAllValues(PREFIX_GENRE)).ifPresent(predicate::setGenres);
 
         if (!predicate.isValid()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));

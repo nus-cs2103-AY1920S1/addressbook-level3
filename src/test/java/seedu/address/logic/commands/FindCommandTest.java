@@ -5,9 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.commons.core.Messages.MESSAGE_BOOKS_LISTED_OVERVIEW;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_2;
 import static seedu.address.testutil.TypicalBooks.BOOK_3;
 import static seedu.address.testutil.TypicalBooks.BOOK_4;
@@ -36,9 +37,9 @@ public class FindCommandTest {
     @Test
     public void equals() {
         BookPredicate firstPredicate =
-                new BookPredicate().addTitle("first");
+                new BookPredicate().setTitle(VALID_TITLE_BOOK_1);
         BookPredicate secondPredicate =
-                new BookPredicate().addTitle("second");
+                new BookPredicate().setTitle(VALID_TITLE_BOOK_2);
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -61,25 +62,22 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords() {
-        String expectedMessage = String.format(MESSAGE_BOOKS_LISTED_OVERVIEW, 0);
-        assertThrows(IllegalArgumentException.class, () -> preparePredicate(""));
-    }
-
-    @Test
-    public void execute_multipleKeywords_multipleBooksFound() {
+    public void execute_oneKeyword_multipleBooksFound() {
         String expectedMessage = String.format(MESSAGE_BOOKS_LISTED_OVERVIEW, 3);
-        BookPredicate predicate = preparePredicate("the");
+        BookPredicate predicate = new BookPredicate().setTitle("the");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredBookList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BOOK_2, BOOK_3, BOOK_4), model.getFilteredBookList());
     }
 
-    /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
-     */
-    private BookPredicate preparePredicate(String userInput) {
-        return new BookPredicate().addTitle(userInput);
+    @Test
+    public void execute_multipleKeywords_multipleBooksFound() {
+        String expectedMessage = String.format(MESSAGE_BOOKS_LISTED_OVERVIEW, 2);
+        BookPredicate predicate = new BookPredicate().setGenres("FICTION", "ACTION");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredBookList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(BOOK_2, BOOK_4), model.getFilteredBookList());
     }
 }

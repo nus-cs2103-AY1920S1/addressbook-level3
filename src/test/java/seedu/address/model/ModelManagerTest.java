@@ -215,7 +215,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String keywords = BOOK_1.getTitle().value;
-        modelManager.updateFilteredBookList(new BookPredicate().addTitle(keywords));
+        modelManager.updateFilteredBookList(new BookPredicate().setTitle(keywords));
         assertFalse(modelManager.equals(new ModelManager(differentCatalog, loanRecords, borrowerRecords, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
