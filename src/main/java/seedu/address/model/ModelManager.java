@@ -287,4 +287,9 @@ public class ModelManager implements Model {
     public boolean hasBorrowerId(BorrowerId borrowerId) {
         return borrowerRecords.checkIfBorrowerIdExists(borrowerId);
     }
+
+    @Override
+    public void exitsServeMode() {
+        this.servingBorrower = Optional.empty();
+    }
 }

@@ -244,6 +244,11 @@ public class AddCommandTest {
         public boolean hasBorrowerId(BorrowerId borrowerId) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void exitsServeMode() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
