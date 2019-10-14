@@ -49,7 +49,7 @@ public class AddTaskCommandTest {
         ModelStub modelStub = new ModelStubWithTask(validTask);
 
         assertThrows(CommandException.class, addTaskCommand.MESSAGE_DUPLICATE_TASK,
-                () -> addTaskCommand.execute(modelStub));
+            () -> addTaskCommand.execute(modelStub));
     }
 
     @Test
