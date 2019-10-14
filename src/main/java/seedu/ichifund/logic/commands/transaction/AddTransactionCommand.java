@@ -25,7 +25,7 @@ public class AddTransactionCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to IchiFund. "
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
-            + PREFIX_TRANSACTION_TYPE + "TRANSACTION TYPE "
+            + PREFIX_TRANSACTION_TYPE + "TRANSACTION_TYPE "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DAY + "DAY "
             + PREFIX_MONTH + "MONTH "
