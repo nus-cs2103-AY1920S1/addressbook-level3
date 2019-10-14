@@ -34,7 +34,7 @@ public class StatsCommandParser implements Parser<StatsCommand> {
         StatisticType type = ParserUtil.parseStatsType(argMultiMap.getValue(PREFIX_STAT_TYPE).get());
         Calendar startingDate = ParserUtil.parseDateCalendar(argMultiMap.getValue(PREFIX_STARTING_DATE).get());
         Calendar endingDate = ParserUtil.parseDateCalendar(argMultiMap.getValue(PREFIX_ENDING_DATE).get());
-        if (startingDate.compareTo(endingDate) > 0  ) {
+        if (startingDate.compareTo(endingDate) > 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_DATE_INPUT_FORMAT,
                     StatsCommand.MESSAGE_USAGE));
         }
