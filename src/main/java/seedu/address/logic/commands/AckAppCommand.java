@@ -35,8 +35,6 @@ public class AckAppCommand extends ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "this appointmeent has been acked: %1$s";
     public static final String MESSAGE_NOTING_ACK = "there is no appointment under this patient.";
     public static final String MESSAGE_DUPLICATE_ACKED = "the upcoming appointment has been acked already.";
-    public static final String MESSAGE_UNDO_ACK_ERROR = "Could not undo the addition of appointment: %1$s";
-    public static final String MESSAGE_NOT_ACKED = "Could not undo Acknowledge.";
 
     private final ReferenceId referenceId;
     private final EditEventStatus editEventStatus;
@@ -79,11 +77,6 @@ public class AckAppCommand extends ReversibleCommand {
         model.setEvent(eventToAck, ackedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, ackedEvent));
-    }
-
-    @Override
-    public String getFailedUndoMessage() {
-        return String.format(MESSAGE_UNDO_ACK_ERROR, ackedEvent);
     }
 
     /**

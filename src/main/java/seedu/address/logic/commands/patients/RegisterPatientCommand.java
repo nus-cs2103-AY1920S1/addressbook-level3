@@ -40,7 +40,6 @@ public class RegisterPatientCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
-    public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of person: %1$s";
 
     private final Person toAdd;
 
@@ -62,11 +61,6 @@ public class RegisterPatientCommand extends ReversibleCommand {
 
         model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-    }
-
-    @Override
-    public String getFailedUndoMessage() {
-        return String.format(MESSAGE_UNDO_ADD_ERROR, toAdd);
     }
 
     @Override

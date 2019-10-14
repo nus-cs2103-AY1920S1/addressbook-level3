@@ -15,11 +15,6 @@ public class ReversibleCommandStub extends ReversibleCommand {
     }
 
     @Override
-    public String getFailedUndoMessage() {
-        return result + " FAILED";
-    }
-
-    @Override
     public CommandResult execute(Model model) {
         return new CommandResult(result);
     }

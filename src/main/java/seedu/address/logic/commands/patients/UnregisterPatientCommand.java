@@ -22,7 +22,6 @@ public class UnregisterPatientCommand extends ReversibleCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
-    public static final String MESSAGE_UNDO_DELETE_ERROR = "Could not undo the removal of Person '%1$s'.";
 
     private final Person toDelete;
 
@@ -45,11 +44,6 @@ public class UnregisterPatientCommand extends ReversibleCommand {
 
         model.deletePerson(toDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, toDelete));
-    }
-
-    @Override
-    public String getFailedUndoMessage() {
-        return String.format(MESSAGE_UNDO_DELETE_ERROR, toDelete);
     }
 
     @Override

@@ -25,7 +25,6 @@ public class DequeueCommand extends ReversibleCommand {
     public static final String MESSAGE_DEQUEUE_PERSON_NOT_FOUND =
             Messages.MESSAGE_INVAILD_REFERENCE_ID + ". '%1$s' patient has been removed from queue";
     public static final String MESSAGE_PERSON_NOT_IN_QUEUE = "This person '%1$s' is not in the queue";
-    public static final String MESSAGE_UNDO_DEQUEUE_ERROR = "Could not undo the dequeue of patient '%1$s'.";
 
     private final ReferenceId patientReferenceId;
 
@@ -48,11 +47,6 @@ public class DequeueCommand extends ReversibleCommand {
         }
 
         return new CommandResult(String.format(MESSAGE_DEQUEUE_SUCCESS, patientReferenceId));
-    }
-
-    @Override
-    public String getFailedUndoMessage() {
-        return String.format(MESSAGE_UNDO_DEQUEUE_ERROR, patientReferenceId);
     }
 
     @Override
