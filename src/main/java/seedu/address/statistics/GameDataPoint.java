@@ -32,6 +32,14 @@ public class GameDataPoint {
         return dataType;
     }
 
+    public Optional<Guess> getGuess() {
+        return guess;
+    }
+
+    public long getMillisTaken() {
+        return millisTaken;
+    }
+
     @Override
     public String toString() {
         return dataType + " - " + guess + ": " + millisTaken + "ms";

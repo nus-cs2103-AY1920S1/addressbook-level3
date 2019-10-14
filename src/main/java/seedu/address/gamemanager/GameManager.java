@@ -11,6 +11,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.game.GameCommandResult;
+import seedu.address.logic.commands.switches.StartCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.card.Card;
@@ -34,7 +35,6 @@ public class GameManager {
 
     public GameManager(Logic logic) {
         this.logic = logic;
-        gameStatistics = new GameStatistics("[DUMMY TITLE]"); // todo change to actual title
     }
 
     public void setGuiSettings(GuiSettings guiSettings) {
@@ -42,7 +42,6 @@ public class GameManager {
     }
 
     private void setAndRunGameTimer() {
-        // Amount of time for each word to be guessed is hardcoded at 2 seconds for now.
         gameTimer = new GameTimer("Time Left", TIMER_MILLIS,
                 this.mainWindowExecuteCallBack,
                 this.timerDisplayCallBack);
@@ -69,6 +68,11 @@ public class GameManager {
     public CommandResult execute(String commandText) throws ParseException, CommandException {
         CommandResult commandResult = logic.execute(commandText);
 
+        if (commandResult instanceof StartCommandResult) {
+            StartCommandResult startCommandResult = (StartCommandResult) commandResult;
+            initGameStatistics(startCommandResult.getTitle());
+        }
+
         if (commandResult instanceof GameCommandResult) {
             // update statistics
             GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
@@ -85,12 +89,15 @@ public class GameManager {
             // todo clear the timer display
         }
 
-
         return commandResult;
     }
 
     public GameStatistics getGameStatistics() {
         return gameStatistics;
+    }
+
+    public void initGameStatistics(String title) {
+        gameStatistics = new GameStatistics(title);
     }
 
     public ObservableList<Card> getFilteredPersonList() {
