@@ -50,7 +50,6 @@ public class ReminderThreshold {
         } else if (!(obj instanceof ReminderThreshold)) {
             return false;
         } else {
-            System.out.println("LOL");
             ReminderThreshold other = (ReminderThreshold) obj;
             return this.reminderThreshold == other.reminderThreshold;
         }

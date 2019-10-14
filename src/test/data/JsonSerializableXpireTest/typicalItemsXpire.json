@@ -1,40 +1,40 @@
 {
   "_comment": "Expiry Date Tracker save file which contains the same Item values as in TypicalItems#getTypicalItems()",
   "items" : [ {
-    "name" : "Banana",
-    "expiryDate" : "01/02/2020",
-    "quantity" : "1",
-    "reminderThreshold" : "0",
-    "tags" : [ ]
-  }, {
     "name" : "Apple",
     "expiryDate" : "01/02/2020",
     "quantity" : "1",
     "reminderThreshold" : "0",
     "tags" : [ ]
   }, {
-    "name" : "Milk",
+    "name" : "Banana",
+    "expiryDate" : "01/02/2020",
+    "quantity" : "1",
+    "reminderThreshold" : "0",
+    "tags" : [ ]
+  }, {
+    "name" : "Corn",
     "expiryDate" : "01/02/2020",
     "quantity" : "2",
     "reminderThreshold" : "0",
     "tags" : [ ]
   }, {
-    "name" : "Tofu",
+    "name" : "Duck",
     "expiryDate" : "01/02/2020",
     "reminderThreshold" : "0",
     "quantity" : "1",
     "tags" : ["Fridge", "Protein"]
   }, {
-    "name" : "Rice",
+    "name" : "Eggs",
     "expiryDate" : "01/02/2020",
     "reminderThreshold" : "7",
     "quantity" : "1",
     "tags" : [ ]
   }, {
-    "name" : "Avocado",
+    "name" : "Jelly",
     "expiryDate" : "01/02/2020",
     "reminderThreshold" : "3",
     "quantity" : "4",
-    "tags" : ["Fat"]
+    "tags" : ["Dessert"]
   } ]
 }

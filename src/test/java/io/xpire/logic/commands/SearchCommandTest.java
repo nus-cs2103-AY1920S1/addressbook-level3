@@ -3,7 +3,7 @@ package io.xpire.logic.commands;
 import static io.xpire.commons.core.Messages.MESSAGE_ITEMS_LISTED_OVERVIEW;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.testutil.TypicalItems.BANANA;
-import static io.xpire.testutil.TypicalItems.MILK;
+import static io.xpire.testutil.TypicalItems.CORN;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -66,11 +66,11 @@ public class SearchCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 2);
-        ContainsKeywordsPredicate predicate = preparePredicate("Milk Banana");
+        ContainsKeywordsPredicate predicate = preparePredicate("Banana Corn");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BANANA, MILK), model.getFilteredItemList());
+        assertEquals(Arrays.asList(BANANA, CORN), model.getFilteredItemList());
     }
 
     /**

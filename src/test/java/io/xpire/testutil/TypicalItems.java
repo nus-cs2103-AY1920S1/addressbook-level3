@@ -13,53 +13,41 @@ import io.xpire.model.item.Item;
 public class TypicalItems {
 
     //no tags; no reminder threshold
-    public static final Item BANANA = new ItemBuilder().withName("Banana")
-                                                     .withExpiryDate("01/02/2020")
-                                                      .build();
-    //no tags; no reminder threshold
     public static final Item APPLE = new ItemBuilder().withName("Apple")
                                                       .withExpiryDate("01/02/2020")
-                                                      .build();
-    //no tags; no reminder threshold; to-add item
-    public static final Item KIWI = new ItemBuilder().withName("Kiwi")
-                                                     .withExpiryDate("01/02/2020")
                                                      .build();
+
+    //no tags; no reminder threshold
+    public static final Item BANANA = new ItemBuilder().withName("Banana")
+                                                       .withExpiryDate("01/02/2020")
+                                                       .build();
     //with quantity
-    public static final Item MILK = new ItemBuilder().withName("Milk")
+    public static final Item CORN = new ItemBuilder().withName("Corn")
                                                      .withExpiryDate("01/02/2020")
                                                      .withQuantity("2")
                                                      .build();
     //with tags
-    public static final Item TOFU = new ItemBuilder().withName("Tofu")
+    public static final Item DUCK = new ItemBuilder().withName("Duck")
                                                      .withExpiryDate("01/02/2020")
                                                      .withTags("Fridge", "Protein")
                                                      .build();
     //with reminder threshold
-    public static final Item RICE = new ItemBuilder().withName("Rice")
+    public static final Item EGGS = new ItemBuilder().withName("Eggs")
                                                      .withExpiryDate("01/02/2020")
                                                      .withReminderThreshold("7")
                                                      .build();
     //with all fields (tags, reminder threshold, quantity)
-    public static final Item AVOCADO = new ItemBuilder().withName("Avocado")
+    public static final Item JELLY = new ItemBuilder().withName("Jelly")
                                                         .withExpiryDate("01/02/2020")
                                                         .withQuantity("4")
-                                                        .withTags("Fat")
+                                                        .withTags("Dessert")
                                                         .withReminderThreshold("3")
                                                         .build();
-
-    /*
-    public static final Item APPLE = new ItemBuilder().withName("Apple")
-                                                      .withExpiryDate("01/02/2020")
-                                                      .withQuantity("1").build();
-
+    //To-add item
     public static final Item KIWI = new ItemBuilder().withName("Kiwi")
-                                                      .withExpiryDate("01/02/2020")
-                                                      .withQuantity("2").build();
-
-    public static final Item MILK = new ItemBuilder().withName("Milk")
                                                      .withExpiryDate("01/02/2020")
-                                                     .withQuantity("2").build();
-    */
+                                                     .build();
+
     private TypicalItems() {} // prevents instantiation
 
     /**
@@ -74,6 +62,6 @@ public class TypicalItems {
     }
 
     public static List<Item> getTypicalItems() {
-        return new ArrayList<>(Arrays.asList(BANANA, APPLE, MILK, TOFU, RICE, AVOCADO));
+        return new ArrayList<>(Arrays.asList(APPLE, BANANA, CORN, DUCK, EGGS, JELLY));
     }
 }
