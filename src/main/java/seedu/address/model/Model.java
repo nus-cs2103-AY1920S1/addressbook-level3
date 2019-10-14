@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.note.Note;
+import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Subject;
 
@@ -96,4 +97,14 @@ public interface Model {
      * Sets the question list in quiz with specific {@code subject} and {@code difficulty}.
      */
     void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty);
+
+    /**
+     * Checks the an answer input by user and return the boolean value as the result.
+     */
+    boolean checkQuizAnswer(int index, Answer answer);
+
+    /**
+     * Clears the quiz question list.
+     */
+    void clearQuizQuestionList();
 }
