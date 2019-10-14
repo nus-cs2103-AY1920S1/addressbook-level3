@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTIONB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTIONC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTIOND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SLIDESHOW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import seedu.address.logic.commands.question.QuestionCommand;
 import seedu.address.logic.commands.question.QuestionDeleteCommand;
 import seedu.address.logic.commands.question.QuestionEditCommand;
 import seedu.address.logic.commands.question.QuestionListCommand;
+import seedu.address.logic.commands.question.QuestionSlideshowCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -45,7 +47,7 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer
             .tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_TYPE, PREFIX_LIST,
                 PREFIX_OPTIONA, PREFIX_OPTIONB, PREFIX_OPTIONC, PREFIX_OPTIOND,
-                PREFIX_DELETE);
+                PREFIX_DELETE, PREFIX_SLIDESHOW);
 
         boolean isEdit = false;
         Index index = Index.fromZeroBased(0);
@@ -64,6 +66,8 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
 
         if (argMultimap.getValue(PREFIX_LIST).isPresent()) { // List command
             return new QuestionListCommand();
+        } else if (argMultimap.getValue(PREFIX_SLIDESHOW).isPresent()) { // Slideshow command
+            return new QuestionSlideshowCommand();
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
             return deleteCommand(index, argMultimap);
         } else if (isEdit) { // Edit command

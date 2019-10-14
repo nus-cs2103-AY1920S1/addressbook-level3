@@ -23,6 +23,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_OPTIONB = new Prefix("b/");
     public static final Prefix PREFIX_OPTIONC = new Prefix("c/");
     public static final Prefix PREFIX_OPTIOND = new Prefix("d/");
+    public static final Prefix PREFIX_SLIDESHOW = new Prefix("slideshow");
     // END OF QUESTION PREFIX
 
     // STUDENT PREFIX
