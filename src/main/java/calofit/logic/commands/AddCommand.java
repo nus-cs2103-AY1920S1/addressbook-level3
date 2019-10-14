@@ -30,7 +30,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Carbonara "
-            + PREFIX_CALORIES + "low calories "
+            + PREFIX_CALORIES + "low calorie "
             + PREFIX_TAG + "salty";
 
     public static final String MESSAGE_SUCCESS = "New dish added: %1$s";
