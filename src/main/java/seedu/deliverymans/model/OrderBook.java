@@ -1,25 +1,26 @@
 package seedu.deliverymans.model;
 
-import javafx.collections.ObservableList;
-import seedu.deliverymans.model.order.Order;
-import seedu.deliverymans.model.order.UniqueOrderList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
+import seedu.deliverymans.model.order.Order;
+import seedu.deliverymans.model.order.UniqueOrderList;
 
 /**
  * Wraps all data at the order database level
  * Duplicates are not allowed (by .isSameOrder comparison)
  */
-public class OrderBook implements ReadOnlyOrderBook{
+public class OrderBook implements ReadOnlyOrderBook {
     private final UniqueOrderList orders;
 
     {
         orders = new UniqueOrderList();
     }
 
-    public OrderBook() {}
+    public OrderBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -39,6 +40,7 @@ public class OrderBook implements ReadOnlyOrderBook{
     public void setOrders(List<Order> orders) {
         this.orders.setOrders(orders);
     }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */

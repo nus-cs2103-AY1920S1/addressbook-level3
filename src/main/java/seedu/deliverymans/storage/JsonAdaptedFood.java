@@ -1,11 +1,5 @@
 package seedu.deliverymans.storage;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
-import seedu.deliverymans.commons.exceptions.IllegalValueException;
-import seedu.deliverymans.model.addressbook.tag.Tag;
-
 /**
  * Jackson-friendly version of {@link Food}.
  */

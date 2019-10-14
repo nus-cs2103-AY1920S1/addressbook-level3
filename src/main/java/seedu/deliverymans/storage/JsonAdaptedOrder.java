@@ -1,9 +1,7 @@
 package seedu.deliverymans.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -12,11 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.model.addressbook.person.Email;
 import seedu.deliverymans.model.addressbook.person.Name;
-import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.addressbook.person.Phone;
-import seedu.deliverymans.model.addressbook.person.Remark;
 import seedu.deliverymans.model.addressbook.tag.Tag;
-import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.order.Order;
 
 /**
@@ -29,7 +24,7 @@ class JsonAdaptedOrder {
     private final String customer;
     private final String restaurant;
     private final String deliveryman;
-//    private final List<JsonAdaptedFood> foods = new ArrayList<>(); //implement food class
+    //    private final List<JsonAdaptedFood> foods = new ArrayList<>(); //implement food class
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -38,9 +33,9 @@ class JsonAdaptedOrder {
     @JsonCreator
     public JsonAdaptedOrder(@JsonProperty("customer") String customer,
                             @JsonProperty("restaurant") String restaurant,
-                             @JsonProperty("deliveryman") String deliveryman,
+                            @JsonProperty("deliveryman") String deliveryman,
 //                            @JsonProperty("foods") List<JsonAdaptedTag> foods,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.customer = customer;
         this.restaurant = restaurant;
         this.deliveryman = deliveryman;
@@ -103,12 +98,12 @@ class JsonAdaptedOrder {
         final Email modelEmail = new Email(deliveryman);
 
 //        if (remark == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
+//         throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
 //        }
 //        final Remark modelRemark = new Remark(remark);
 
 //        final Set<Tag> modelTags = new HashSet<>(personTags);
 //        return new Order(modelName, modelPhone, modelEmail, modelRemark, modelTags);
-        return new Order("", customer, restaurant,deliveryman);
+        return new Order("", customer, restaurant, deliveryman);
     }
 }

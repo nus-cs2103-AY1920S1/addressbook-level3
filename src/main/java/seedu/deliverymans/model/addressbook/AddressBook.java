@@ -7,8 +7,6 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.addressbook.person.UniquePersonList;
-import seedu.deliverymans.model.order.Order;
-import seedu.deliverymans.model.order.UniqueOrderList;
 
 /**
  * Wraps all data at the address-book level
