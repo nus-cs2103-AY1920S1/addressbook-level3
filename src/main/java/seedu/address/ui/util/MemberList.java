@@ -6,10 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.ui.UiPart;
 
@@ -41,6 +39,9 @@ public class MemberList extends UiPart<Region> {
         listHeaderContainer.hvalueProperty().bindBidirectional(listMemberContainer.hvalueProperty());
     }
 
+    /**
+     * A subclass of MemberList to show MemberCard of group members.
+     */
     class MemberCard extends UiPart<Region> {
         private static final String FXML = "MemberCard.fxml";
 

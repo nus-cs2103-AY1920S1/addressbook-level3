@@ -8,16 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import seedu.address.model.display.sidepanel.PersonDisplay;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.model.person.schedule.Timeslot;
 import seedu.address.model.person.schedule.Venue;
-import seedu.address.model.tag.Tag;
 
 /**
  * Schedule of timeslots for the week.

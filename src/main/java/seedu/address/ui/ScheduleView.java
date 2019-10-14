@@ -112,6 +112,10 @@ public class ScheduleView extends UiPart<Region> {
         scheduleContents.hvalueProperty().bindBidirectional(scheduleHeaderWrapper.hvalueProperty());
     }
 
+    /**
+     * Method to initialise the FXML components of ScheduleView.
+     * @return This object.
+     */
     private ScheduleView initialise() {
         scheduleView = new GridPane();
         scheduleView.setStyle("-fx-border-width: 2; -fx-pref-width: 950;");

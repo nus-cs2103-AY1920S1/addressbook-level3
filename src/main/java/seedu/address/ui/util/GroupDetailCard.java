@@ -11,7 +11,7 @@ import seedu.address.ui.UiPart;
  * A class to show group details comprehensively.
  */
 public class GroupDetailCard extends UiPart<Region> {
-    private static String FXML = "GroupDetailCard.fxml";
+    private static final String FXML = "GroupDetailCard.fxml";
 
     @FXML
     private VBox groupDetailContainer;

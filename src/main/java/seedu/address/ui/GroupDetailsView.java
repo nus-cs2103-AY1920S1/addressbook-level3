@@ -1,15 +1,12 @@
 package seedu.address.ui;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
-import seedu.address.model.display.detailwindow.WeekSchedule;
-import seedu.address.model.person.ScheduleStub;
 import seedu.address.ui.util.ColorGenerator;
 import seedu.address.ui.util.GroupDetailCard;
 import seedu.address.ui.util.MemberList;

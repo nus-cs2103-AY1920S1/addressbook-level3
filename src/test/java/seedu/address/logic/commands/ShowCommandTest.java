@@ -22,8 +22,8 @@ public class ShowCommandTest {
         assertTrue(showAliceCommand.equals(showAliceCommand));
 
         //same values -> true
-        ShowPersonCommand showAliceDuplicateCommand = new ShowPersonCommand(alice.getName());
-        assertTrue(showAliceCommand.equals(showAliceCommand));
+        ShowCommand<Name> showAliceDuplicateCommand = new ShowCommand<Name>(alice.getName());
+        assertTrue(showAliceCommand.equals(showAliceDuplicateCommand));
 
         //different show commands -> false
         assertFalse(showAliceCommand.equals(showBobCommand));

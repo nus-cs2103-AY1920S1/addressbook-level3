@@ -1,7 +1,6 @@
 package seedu.address.ui.util;
 
 import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Shape;
