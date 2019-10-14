@@ -1,12 +1,14 @@
 package seedu.savenus.model.wallet;
 
-import javafx.beans.property.StringProperty;
+import java.math.BigDecimal;
+
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
 import seedu.savenus.commons.core.Messages;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Price;
 
-import java.math.BigDecimal;
 
 /**
  * Represents a user's Wallet in the application.

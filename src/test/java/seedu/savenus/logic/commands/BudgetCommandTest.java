@@ -37,7 +37,9 @@ public class BudgetCommandTest {
         try {
             expectedModel.setRemainingBudget(testRemainingBudget);
             expectedModel.setDaysToExpire(testDaysToExpire);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            return;
+        }
         assertCommandSuccess(budgetCommand, model, expectedMessage, expectedModel);
     }
 

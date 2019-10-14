@@ -3,10 +3,10 @@ package seedu.savenus.model.wallet;
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.AppUtil.checkArgument;
 
-import javafx.beans.property.StringProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 import java.math.BigDecimal;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * Represents a {@code Wallet}'s {@code RemainingBudget} amount in the application.

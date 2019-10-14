@@ -1,16 +1,18 @@
 package seedu.savenus.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.savenus.storage.JsonAdaptedPurchase.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.savenus.testutil.Assert.assertThrows;
+import static seedu.savenus.testutil.TypicalMenu.TONKATSU_RAMEN;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.food.Name;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.TimeOfPurchase;
 
-import static seedu.savenus.testutil.TypicalMenu.TONKATSU_RAMEN;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.savenus.storage.JsonAdaptedPurchase.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.savenus.testutil.Assert.assertThrows;
 
 public class JsonAdaptedPurchaseTest {
 
@@ -47,7 +49,7 @@ public class JsonAdaptedPurchaseTest {
         String expectedMessage = Price.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, purchase::toModelType);
     }
-    
+
     @Test
     public void toModelType_invalidTimeOfPurchase_throwsIllegalValueException() {
         JsonAdaptedPurchase purchase =
@@ -63,7 +65,7 @@ public class JsonAdaptedPurchaseTest {
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, purchase::toModelType);
     }
-    
+
     @Test
     public void toModelType_nullPrice_throwsIllegalValueException() {
         JsonAdaptedPurchase purchase =

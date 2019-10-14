@@ -1,10 +1,10 @@
 package seedu.savenus.model.wallet;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class RemainingBudgetTest {
     @Test
@@ -21,7 +21,7 @@ public class RemainingBudgetTest {
     @Test
     public void constructor_remainingBudgetWithSpacesOnly_throwsIllegalArgumentException() {
         String invalidRemainingBudget = "                      ";
-        assertThrows(IllegalArgumentException.class, () -> new  RemainingBudget(invalidRemainingBudget));
+        assertThrows(IllegalArgumentException.class, () -> new RemainingBudget(invalidRemainingBudget));
     }
 
     @Test
@@ -38,6 +38,7 @@ public class RemainingBudgetTest {
         assertTrue(RemainingBudget.isValidRemainingBudget("123.50")); // valid remainingBudget
     }
 
+    @Test
     public void isOutOfBoundsTest() {
 
         // in bound remainingBudget

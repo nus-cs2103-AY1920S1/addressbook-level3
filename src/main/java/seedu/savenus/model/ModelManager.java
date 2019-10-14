@@ -16,7 +16,6 @@ import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Food;
-import seedu.savenus.model.food.Price;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -192,9 +191,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void pay(Price priceToPay) throws CommandException {
-        requireNonNull(priceToPay);
-        menu.getWallet().pay(priceToPay);
+    public void buyFood(Food foodToBuy) throws CommandException {
+        requireNonNull(foodToBuy);
+        menu.getWallet().pay(foodToBuy.getPrice());
     }
 
     //=========== Filtered Food List Accessors =============================================================

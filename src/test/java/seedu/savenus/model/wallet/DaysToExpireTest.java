@@ -1,10 +1,10 @@
 package seedu.savenus.model.wallet;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class DaysToExpireTest {
     @Test
@@ -21,7 +21,7 @@ public class DaysToExpireTest {
     @Test
     public void constructor_daysToExpireWithSpacesOnly_throwsIllegalArgumentException() {
         String invalidDaysToExpire = "                      ";
-        assertThrows(IllegalArgumentException.class, () -> new  DaysToExpire(invalidDaysToExpire));
+        assertThrows(IllegalArgumentException.class, () -> new DaysToExpire(invalidDaysToExpire));
     }
 
     @Test
@@ -38,6 +38,7 @@ public class DaysToExpireTest {
         assertTrue(DaysToExpire.isValidDaysToExpire("123")); // valid daysToExpire
     }
 
+    @Test
     public void isOutOfBoundsTest() {
         // in bound remainingBudget
         assertFalse(new DaysToExpire("100").isOutOfBounds()); // only non-alphanumeric characters
