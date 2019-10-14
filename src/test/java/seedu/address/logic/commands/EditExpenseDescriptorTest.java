@@ -2,11 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_RUM;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_VODKA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_RUM;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ALCOHOL;
 
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,8 @@ public class EditExpenseDescriptorTest {
         assertFalse(DESC_VODKA.equals(DESC_RUM));
 
         // different name -> returns false
-        EditExpenseDescriptor editedVodka = new EditExpenseDescriptorBuilder(DESC_VODKA).withName(VALID_NAME_RUM).build();
+        EditExpenseDescriptor editedVodka = new EditExpenseDescriptorBuilder(DESC_VODKA)
+                .withName(VALID_NAME_RUM).build();
         assertFalse(DESC_VODKA.equals(editedVodka));
 
         // different amount -> returns false

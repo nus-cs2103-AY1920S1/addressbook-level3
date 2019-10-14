@@ -2,17 +2,17 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_RUM;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_RUM;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_RUM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ALCOHOL;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 
 import org.junit.jupiter.api.Test;
 

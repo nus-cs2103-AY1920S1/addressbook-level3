@@ -1,13 +1,13 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_RUM;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_VODKA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_RUM;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_VODKA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_RUM;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DRINKS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ALCOHOL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DRINKS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
