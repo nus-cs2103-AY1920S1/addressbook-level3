@@ -31,28 +31,28 @@ public class StatisticManager implements Statistic {
                                                   ReadOnlyDataBook<Phone> phoneBook,
                                                   StatsPayload statsPayload) {
 
-        double revenueString = Double.parseDouble(
+        double revenue = Double.parseDouble(
                 this.calculateTotalRevenueOnCompleted(orderBook, statsPayload));
 
-        double costString = Double.parseDouble(
+        double cost = Double.parseDouble(
                 this.calculateTotalCostOnCompleted(orderBook, phoneBook, statsPayload));
 
-        double totalProfitResult = revenueString - costString;
+        double totalProfit = revenue - cost;
 
-        return String.valueOf(totalProfitResult);
+        return String.valueOf(totalProfit);
     }
 
     @Override
     public String calculateTotalProfitOnCompleted(ReadOnlyDataBook<Order> orderBook,
                                                   ReadOnlyDataBook<Phone> phoneBook) {
 
-        double revenueString = Double.parseDouble(this.calculateTotalRevenueOnCompleted(orderBook));
+        double revenue = Double.parseDouble(this.calculateTotalRevenueOnCompleted(orderBook));
 
-        double costString = Double.parseDouble(this.calculateTotalCostOnCompleted(orderBook, phoneBook));
+        double cost = Double.parseDouble(this.calculateTotalCostOnCompleted(orderBook, phoneBook));
 
-        double totalProfitResult = revenueString - costString;
+        double totalProfit = revenue - cost;
 
-        return String.valueOf(totalProfitResult);
+        return String.valueOf(totalProfit);
     }
 
     @Override

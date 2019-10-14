@@ -19,6 +19,6 @@ public enum StatisticType {
 
     @Override
     public String toString() {
-        return super.toString();
+        return type;
     }
 }

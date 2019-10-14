@@ -50,24 +50,14 @@ public class StatsPayload {
      * extract out starting Date with year and date
      */
     public String displayStartingDate() {
-        StringBuilder display = new StringBuilder();
-        display.append(this.startingDate.get(Calendar.YEAR) + ".");
-        //offset month
-        display.append((this.startingDate.get(Calendar.MONTH) + 1) + ".");
-        display.append(this.startingDate.get(Calendar.DATE));
-        return display.toString();
+        return StringUtil.convertCalendarDateToString(this.startingDate);
     }
 
     /**
      * extract out ending date with year and date
      */
     public String displayEndingDate() {
-        StringBuilder display = new StringBuilder();
-        display.append(this.endingDate.get(Calendar.YEAR) + ".");
-        //offset month
-        display.append((this.endingDate.get(Calendar.MONTH) + 1) + ".");
-        display.append(this.endingDate.get(Calendar.DATE));
-        return display.toString();
+        return StringUtil.convertCalendarDateToString(this.endingDate);
     }
 
 }
