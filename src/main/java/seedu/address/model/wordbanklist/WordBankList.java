@@ -2,11 +2,14 @@ package seedu.address.model.wordbanklist;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.storage.JsonAddressBookStorage;
 
 /**
  * Wraps all data at the address-book level
@@ -15,7 +18,6 @@ import seedu.address.model.wordbank.WordBank;
 public class WordBankList implements ReadOnlyWordBankList {
 
     private final UniqueWordBankList wordBankList;
-    private String name;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -28,15 +30,22 @@ public class WordBankList implements ReadOnlyWordBankList {
         wordBankList = new UniqueWordBankList();
     }
 
-    public WordBankList() {}
-
-    /**
-     * Creates a WordBank using the Cards in the {@code toBeCopied}
-     */
-    public WordBankList(ReadOnlyWordBankList toBeCopied) {
-        this();
-        resetData(toBeCopied);
+    public WordBankList() {
+        Path filePath = Paths.get("data/");
+        JsonAddressBookStorage storage = new JsonAddressBookStorage(filePath);
+        List<WordBank> wbl = storage.getWordBankList().get();
+        for (WordBank wb : wbl) {
+            wordBankList.add(wb);
+        }
     }
+
+//    /**
+//     * Creates a WordBank using the Cards in the {@code toBeCopied}
+//     */
+//    public WordBankList(ReadOnlyWordBankList toBeCopied) {
+//        this();
+//        resetData(toBeCopied);
+//    }
 
     //// list overwrite operations
 
@@ -75,22 +84,22 @@ public class WordBankList implements ReadOnlyWordBankList {
         wordBankList.add(p);
     }
 
-    /**
-     * Replaces the given card {@code target} in the list with {@code editedCard}.
-     * {@code target} must exist in the word bank.
-     * The card meaning of {@code editedCard} must not be the same as another existing card in the word bank.
-     */
-    public void setWordBankList(WordBank target, WordBank editedCard) {
-        requireNonNull(editedCard);
-
-        wordBankList.setWordBankList(target, editedCard);
-    }
+//    /**
+//     * Replaces the given card {@code target} in the list with {@code editedCard}.
+//     * {@code target} must exist in the word bank.
+//     * The card meaning of {@code editedCard} must not be the same as another existing card in the word bank.
+//     */
+//    public void setWordBankList(WordBank target, WordBank editedCard) {
+//        requireNonNull(editedCard);
+//
+//        wordBankList.setWordBankList(target, editedCard);
+//    }
 
     /**
      * Removes {@code key} from this {@code WordBank}.
      * {@code key} must exist in the word bank.
      */
-    public void removeCard(WordBank key) {
+    public void removeWordBank(WordBank key) {
         wordBankList.remove(key);
     }
 
@@ -128,18 +137,4 @@ public class WordBankList implements ReadOnlyWordBankList {
     public int hashCode() {
         return wordBankList.hashCode();
     }
-    /**
-     * Returns true if both cards have the same meaning.
-     */
-    public boolean isSameMeaning(WordBank other) {
-        if (other == null) {
-            return false;
-        }
-        return getName().equals(other.getName());
-    }
-
-    public String getName() {
-        return name;
-    }
-
 }
