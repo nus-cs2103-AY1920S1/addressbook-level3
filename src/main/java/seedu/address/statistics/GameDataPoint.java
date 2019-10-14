@@ -44,4 +44,5 @@ public class GameDataPoint {
     public String toString() {
         return dataType + " - " + guess + ": " + millisTaken + "ms";
     }
+
 }
