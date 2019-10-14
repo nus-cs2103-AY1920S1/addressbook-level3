@@ -12,6 +12,8 @@ import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.person.UniquePersonList;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.UniqueRepeaterList;
+import seedu.ichifund.model.transaction.Transaction;
+import seedu.ichifund.model.transaction.TransactionList;
 
 /**
  * Wraps all data at the fund book level
@@ -22,6 +24,7 @@ public class FundBook implements ReadOnlyFundBook {
     private final UniquePersonList persons;
     private final UniqueRepeaterList repeaters;
     private final UniqueBudgetList budgets;
+    private final TransactionList transactions;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -34,6 +37,7 @@ public class FundBook implements ReadOnlyFundBook {
         persons = new UniquePersonList();
         repeaters = new UniqueRepeaterList();
         budgets = new UniqueBudgetList();
+        transactions = new TransactionList();
     }
 
     public FundBook() {}
@@ -73,6 +77,13 @@ public class FundBook implements ReadOnlyFundBook {
     }
 
     /**
+     * Replaces the contents of the transaction list with {@code transactions}.
+     */
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions.setTransactions(transactions);
+    }
+
+    /**
      * Resets the existing data of this {@code FundBook} with {@code newData}.
      */
     public void resetData(ReadOnlyFundBook newData) {
@@ -81,6 +92,7 @@ public class FundBook implements ReadOnlyFundBook {
         setPersons(newData.getPersonList());
         setRepeaters(newData.getRepeaterList());
         setBudgets(newData.getBudgetList());
+        setTransactions(newData.getTransactionList());
     }
 
     //// person-level operations
@@ -118,6 +130,33 @@ public class FundBook implements ReadOnlyFundBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    //// transaction-level operations
+
+    /**
+     * Adds a transaction to the fund book.
+     */
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
+    }
+
+    /**
+     * Replaces the given transaction {@code target} in the list with {@code editedTransaction}.
+     * {@code target} must exist in the fund book.
+     */
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
+        requireNonNull(editedTransaction);
+
+        transactions.setTransaction(target, editedTransaction);
+    }
+
+    /**
+     * Removes transaction {@code key} from this {@code FundBook}.
+     * {@code key} must exist in the fund book.
+     */
+    public void removeTransaction(Transaction key) {
+        transactions.remove(key);
     }
 
     //// repeater-level operations
@@ -216,6 +255,11 @@ public class FundBook implements ReadOnlyFundBook {
     @Override
     public ObservableList<Budget> getBudgetList() {
         return budgets.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Transaction> getTransactionList() {
+        return transactions.asUnmodifiableObservableList();
     }
 
     @Override
