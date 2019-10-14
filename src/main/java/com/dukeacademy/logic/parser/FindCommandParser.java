@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import com.dukeacademy.logic.commands.FindCommand;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
-import com.dukeacademy.model.person.NameContainsKeywordsPredicate;
+import com.dukeacademy.model.question.TitleContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -27,7 +27,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand(new TitleContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }

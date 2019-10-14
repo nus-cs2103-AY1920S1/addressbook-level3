@@ -1,11 +1,11 @@
 package com.dukeacademy.logic;
 
-import static com.dukeacademy.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static com.dukeacademy.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static com.dukeacademy.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static com.dukeacademy.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static com.dukeacademy.logic.commands.CommandTestUtil.DIFFICULTY_DESC_AMY;
+import static com.dukeacademy.logic.commands.CommandTestUtil.STATUS_DESC_AMY;
+import static com.dukeacademy.logic.commands.CommandTestUtil.TITLE_DESC_AMY;
+import static com.dukeacademy.logic.commands.CommandTestUtil.TOPIC_DESC_AMY;
 import static com.dukeacademy.testutil.Assert.assertThrows;
-import static com.dukeacademy.testutil.TypicalPersons.AMY;
+import static com.dukeacademy.testutil.TypicalQuestions.AMY;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,13 +24,13 @@ import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ModelManager;
-import com.dukeacademy.model.ReadOnlyAddressBook;
+import com.dukeacademy.model.ReadOnlyQuestionBank;
 import com.dukeacademy.model.UserPrefs;
-import com.dukeacademy.model.person.Person;
-import com.dukeacademy.storage.JsonAddressBookStorage;
+import com.dukeacademy.model.question.Question;
+import com.dukeacademy.storage.JsonQuestionBankStorage;
 import com.dukeacademy.storage.JsonUserPrefsStorage;
 import com.dukeacademy.storage.StorageManager;
-import com.dukeacademy.testutil.PersonBuilder;
+import com.dukeacademy.testutil.QuestionBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -43,10 +43,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonQuestionBankStorage questionBankStorage =
+                new JsonQuestionBankStorage(temporaryFolder.resolve("questionBank.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(questionBankStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -59,7 +59,8 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand,
+            Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
     }
 
     @Test
@@ -70,20 +71,20 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonQuestionBankIoExceptionThrowingStub
+        JsonQuestionBankStorage questionBankStorage =
+                new JsonQuestionBankIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionQuestionBank.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(questionBankStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + TITLE_DESC_AMY + TOPIC_DESC_AMY + STATUS_DESC_AMY
+                + DIFFICULTY_DESC_AMY;
+        Question expectedQuestion = new QuestionBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
+        expectedModel.addQuestion(expectedQuestion);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
@@ -129,7 +130,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getQuestionBank(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -149,13 +150,14 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonQuestionBankIoExceptionThrowingStub
+        extends JsonQuestionBankStorage {
+        private JsonQuestionBankIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveQuestionBank(ReadOnlyQuestionBank questionBank, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

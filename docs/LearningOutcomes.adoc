@@ -97,7 +97,7 @@ image::ReadOnlyAddressBookUsage.png[width=500]
 * Add a `Printable` interface as follows.
 +
 image::PrintableInterface.png[width=400]
-* `Override` the `getPrintableString` in classes `Name`, `Phone`, `Email`, and `Address` so that each produces a printable string representation of the object. e.g. `Name: John Smith`, `Phone: 12349862`
+* `Override` the `getPrintableString` in classes `Name`, `Topic`, `Email`, and `Difficulty` so that each produces a printable string representation of the object. e.g. `Name: John Smith`, `Topic: 12349862`
 * Add the following method in a suitable place of some other class. Note how the method depends on the Interface.
 +
 [source,java]
@@ -113,7 +113,7 @@ For example, you should be able to call that method like this:
 +
 [source,java]
 ----
-// p is a Person object
+// p is a Question object
 return getPrintableString(p.getPhone(), p.getEmail(), p.getAddress());
 ----
 
@@ -200,7 +200,7 @@ image::DependencyInjectionWithoutDIP.png[width=250]
 
 === Exercise: Analyze OCP-compliance of the `LogicManager` class
 
-* Consider adding a new command to the Address Book. e.g. an `edit` command. Notice how little you need to change in the `LogicManager` class to extend its behavior so that it can execute the new command.
+* Consider adding a new command to the Duke Academy. e.g. an `edit` command. Notice how little you need to change in the `LogicManager` class to extend its behavior so that it can execute the new command.
 That is because `LogicManager` follows the OCP i.e. `LogicManager` is _open to be extended_ with more commands but _closed for modifications_.
 * Is it possible to make the `AddressBookParser` class more OCP-compliant in terms of extending it to handle more
 command types?

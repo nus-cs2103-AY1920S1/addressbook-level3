@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.commons.core.Messages;
 import com.dukeacademy.logic.commands.FindCommand;
-import com.dukeacademy.model.person.NameContainsKeywordsPredicate;
+import com.dukeacademy.model.question.TitleContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 
@@ -25,7 +25,7 @@ public class FindCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
-                new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+                new FindCommand(new TitleContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
         assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
 
         // multiple whitespaces between keywords

@@ -13,16 +13,16 @@ import com.dukeacademy.commons.util.ConfigUtil;
 import com.dukeacademy.commons.util.StringUtil;
 import com.dukeacademy.logic.Logic;
 import com.dukeacademy.logic.LogicManager;
-import com.dukeacademy.model.AddressBook;
 import com.dukeacademy.model.Model;
 import com.dukeacademy.model.ModelManager;
-import com.dukeacademy.model.ReadOnlyAddressBook;
+import com.dukeacademy.model.QuestionBank;
+import com.dukeacademy.model.ReadOnlyQuestionBank;
 import com.dukeacademy.model.ReadOnlyUserPrefs;
 import com.dukeacademy.model.UserPrefs;
 import com.dukeacademy.model.util.SampleDataUtil;
-import com.dukeacademy.storage.AddressBookStorage;
-import com.dukeacademy.storage.JsonAddressBookStorage;
+import com.dukeacademy.storage.JsonQuestionBankStorage;
 import com.dukeacademy.storage.JsonUserPrefsStorage;
+import com.dukeacademy.storage.QuestionBankStorage;
 import com.dukeacademy.storage.Storage;
 import com.dukeacademy.storage.StorageManager;
 import com.dukeacademy.storage.UserPrefsStorage;
@@ -49,7 +49,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing QuestionBank ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -57,8 +57,10 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        QuestionBankStorage
+            questionBankStorage =
+            new JsonQuestionBankStorage(userPrefs.getQuestionBankFilePath());
+        storage = new StorageManager(questionBankStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -70,25 +72,25 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s question bank and {@code userPrefs}. <br>
+     * The data from the sample question bank will be used instead if {@code storage}'s question bank is not found,
+     * or an empty question bank will be used instead if errors occur when reading {@code storage}'s question bank.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyQuestionBank> addressBookOptional;
+        ReadOnlyQuestionBank initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readQuestionBank();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample QuestionBank");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleQuestionBank);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty QuestionBank");
+            initialData = new QuestionBank();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty QuestionBank");
+            initialData = new QuestionBank();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -152,7 +154,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty QuestionBank");
             initializedPrefs = new UserPrefs();
         }
 
@@ -168,13 +170,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting QuestionBank " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Difficulty Book ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

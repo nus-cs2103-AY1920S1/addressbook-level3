@@ -14,87 +14,95 @@ import com.dukeacademy.commons.util.CollectionUtil;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.CliSyntax;
 import com.dukeacademy.model.Model;
-import com.dukeacademy.model.person.Address;
-import com.dukeacademy.model.person.Email;
-import com.dukeacademy.model.person.Name;
-import com.dukeacademy.model.person.Person;
-import com.dukeacademy.model.person.Phone;
+import com.dukeacademy.model.question.Difficulty;
+import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.Status;
+import com.dukeacademy.model.question.Title;
+import com.dukeacademy.model.question.Topic;
 import com.dukeacademy.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing question in the question bank.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the question identified "
+            + "by the index number used in the displayed question list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + CliSyntax.PREFIX_NAME + "NAME] "
-            + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
-            + "[" + CliSyntax.PREFIX_EMAIL + "EMAIL] "
-            + "[" + CliSyntax.PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + CliSyntax.PREFIX_TITLE + "NAME] "
+            + "[" + CliSyntax.PREFIX_TOPIC + "PHONE] "
+            + "[" + CliSyntax.PREFIX_STATUS + "EMAIL] "
+            + "[" + CliSyntax.PREFIX_DIFFICULTY + "ADDRESS] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_PHONE + "91234567 "
-            + CliSyntax.PREFIX_EMAIL + "johndoe@example.com";
+            + CliSyntax.PREFIX_TOPIC + "91234567 "
+            + CliSyntax.PREFIX_STATUS + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Edited Question: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_QUESTION = "This question already exists in the question bank.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditQuestionDescriptor editQuestionDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the question in the filtered question list to edit
+     * @param editQuestionDescriptor details to edit the question with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditQuestionDescriptor editQuestionDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editQuestionDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editQuestionDescriptor = new EditQuestionDescriptor(editQuestionDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Question> lastShownList = model.getFilteredQuestionList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Question questionToEdit = lastShownList.get(index.getZeroBased());
+        Question editedQuestion = createEditedQuestion(questionToEdit, editQuestionDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!questionToEdit.isSameQuestion(editedQuestion) && model.hasQuestion(
+            editedQuestion)) {
+            throw new CommandException(MESSAGE_DUPLICATE_QUESTION);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        model.setQuestion(questionToEdit, editedQuestion);
+        model.updateFilteredQuestionList(Model.PREDICATE_SHOW_ALL_QUESTIONS);
+        return new CommandResult(String.format(MESSAGE_EDIT_QUESTION_SUCCESS,
+            editedQuestion));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Question} with the details of {@code questionToEdit}
+     * edited with {@code editQuestionDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Question createEditedQuestion(Question questionToEdit,
+                                                 EditQuestionDescriptor editQuestionDescriptor) {
+        assert questionToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Title updatedTitle = editQuestionDescriptor.getTitle().orElse(questionToEdit.getTitle());
+        Topic updatedTopic = editQuestionDescriptor.getTopic().orElse(
+            questionToEdit.getTopic());
+        Status updatedStatus = editQuestionDescriptor.getStatus().orElse(
+            questionToEdit.getStatus());
+        Difficulty updatedDifficulty = editQuestionDescriptor.getDifficulty().orElse(
+            questionToEdit.getDifficulty());
+        Set<Tag> updatedTags = editQuestionDescriptor.getTags().orElse(
+            questionToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Question(updatedTitle, updatedTopic, updatedStatus,
+            updatedDifficulty, updatedTags);
     }
 
     @Override
@@ -112,31 +120,31 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editQuestionDescriptor.equals(e.editQuestionDescriptor);
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the question with. Each non-empty field value will replace the
+     * corresponding field value of the question.
      */
-    public static class EditPersonDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
+    public static class EditQuestionDescriptor {
+        private Title title;
+        private Topic topic;
+        private Status status;
+        private Difficulty difficulty;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditQuestionDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
+        public EditQuestionDescriptor(EditQuestionDescriptor toCopy) {
+            setTitle(toCopy.title);
+            setTopic(toCopy.topic);
+            setStatus(toCopy.status);
+            setDifficulty(toCopy.difficulty);
             setTags(toCopy.tags);
         }
 
@@ -144,39 +152,39 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(title, topic, status, difficulty, tags);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setTitle(Title title) {
+            this.title = title;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<Title> getTitle() {
+            return Optional.ofNullable(title);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setTopic(Topic topic) {
+            this.topic = topic;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Topic> getTopic() {
+            return Optional.ofNullable(topic);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setStatus(Status status) {
+            this.status = status;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Status> getStatus() {
+            return Optional.ofNullable(status);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setDifficulty(Difficulty difficulty) {
+            this.difficulty = difficulty;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Difficulty> getDifficulty() {
+            return Optional.ofNullable(difficulty);
         }
 
         /**
@@ -204,17 +212,17 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditQuestionDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditQuestionDescriptor e = (EditQuestionDescriptor) other;
 
-            return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+            return getTitle().equals(e.getTitle())
+                    && getTopic().equals(e.getTopic())
+                    && getStatus().equals(e.getStatus())
+                    && getDifficulty().equals(e.getDifficulty())
                     && getTags().equals(e.getTags());
         }
     }

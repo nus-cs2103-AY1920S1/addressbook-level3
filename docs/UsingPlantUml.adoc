@@ -88,7 +88,7 @@ For example, `skinparam backgroundColor transparent` turns the background of the
 
 For a comprehensive list of ``skinparam``s head over to the https://plantuml-documentation.readthedocs.io/en/latest/[unofficial PlantUML skinparam documentation].
 
-***
+'''
 
 === Repositioning elements in PlantUML diagrams
 

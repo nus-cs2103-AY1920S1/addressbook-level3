@@ -1,0 +1,46 @@
+{
+  "_comment": "QuestionBank save file which contains the same Question values as in TypicalQuestions#getTypicalQuestionBank()",
+  "questions" : [ {
+    "title" : "Alice Pauline",
+    "topic" : "94351253",
+    "status" : "alice@example.com",
+    "difficulty" : "123, Jurong West Ave 6, #08-111",
+    "tagged" : [ "friends" ]
+  }, {
+    "title" : "Benson Meier",
+    "topic" : "98765432",
+    "status" : "johnd@example.com",
+    "difficulty" : "311, Clementi Ave 2, #02-25",
+    "tagged" : [ "owesMoney", "friends" ]
+  }, {
+    "title" : "Carl Kurz",
+    "topic" : "95352563",
+    "status" : "heinz@example.com",
+    "difficulty" : "wall street",
+    "tagged" : [ ]
+  }, {
+    "title" : "Daniel Meier",
+    "topic" : "87652533",
+    "status" : "cornelia@example.com",
+    "difficulty" : "10th street",
+    "tagged" : [ "friends" ]
+  }, {
+    "title" : "Elle Meyer",
+    "topic" : "9482224",
+    "status" : "werner@example.com",
+    "difficulty" : "michegan ave",
+    "tagged" : [ ]
+  }, {
+    "title" : "Fiona Kunz",
+    "topic" : "9482427",
+    "status" : "lydia@example.com",
+    "difficulty" : "little tokyo",
+    "tagged" : [ ]
+  }, {
+    "title" : "George Best",
+    "topic" : "9482442",
+    "status" : "anna@example.com",
+    "difficulty" : "4th street",
+    "tagged" : [ ]
+  } ]
+}

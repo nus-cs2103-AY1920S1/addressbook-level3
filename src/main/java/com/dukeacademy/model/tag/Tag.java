@@ -5,13 +5,13 @@ import static com.dukeacademy.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Tag in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
+ * Represents a Tag in the question bank.
+ * Guarantees: immutable; title is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String tagName;
 

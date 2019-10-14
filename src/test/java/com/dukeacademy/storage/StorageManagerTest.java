@@ -1,6 +1,6 @@
 package com.dukeacademy.storage;
 
-import static com.dukeacademy.testutil.TypicalPersons.getTypicalAddressBook;
+import static com.dukeacademy.testutil.TypicalQuestions.getTypicalQuestionBank;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.dukeacademy.commons.core.GuiSettings;
-import com.dukeacademy.model.AddressBook;
-import com.dukeacademy.model.ReadOnlyAddressBook;
+import com.dukeacademy.model.QuestionBank;
+import com.dukeacademy.model.ReadOnlyQuestionBank;
 import com.dukeacademy.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -25,7 +25,8 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonQuestionBankStorage
+            addressBookStorage = new JsonQuestionBankStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -52,13 +53,13 @@ public class StorageManagerTest {
     public void addressBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonQuestionBankStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonQuestionBankStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        QuestionBank original = getTypicalQuestionBank();
+        storageManager.saveQuestionBank(original);
+        ReadOnlyQuestionBank retrieved = storageManager.readQuestionBank().get();
+        assertEquals(original, new QuestionBank(retrieved));
     }
 
     @Test
