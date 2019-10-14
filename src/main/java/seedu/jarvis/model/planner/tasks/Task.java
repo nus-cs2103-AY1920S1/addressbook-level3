@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.model.planner.Frequency;
+import seedu.jarvis.model.planner.Priority;
 import seedu.jarvis.model.planner.exceptions.InvalidFrequencyException;
 import seedu.jarvis.model.planner.exceptions.InvalidPriorityException;
 
@@ -13,31 +15,10 @@ import seedu.jarvis.model.planner.exceptions.InvalidPriorityException;
 public abstract class Task {
     //add t/TASK TYPE/TASK DES [d/DATE] [#TAG]... [p/PRIORITY LEVEL] [r/FREQ]
 
-    /**
-     * Values that a priority of a task can take
-     */
-    enum PriorityLevel {
-        HIGH,
-        MED,
-        LOW
-    }
-
-    /**
-     * Values that a frequency level can take
-     */
-    enum FreqLevel {
-        DAILY,
-        WEEKLY,
-        MONTHLY,
-        YEARLY
-    }
-
     protected String taskDes;
     protected Set<Tag> tags = new HashSet<>();
-    protected PriorityLevel priority = null;
-    protected FreqLevel frequency = null;
-
-
+    protected Priority priority = null;
+    protected Frequency frequency = null;
 
     public Task(String taskDes) {
         this.taskDes = taskDes;
@@ -57,43 +38,16 @@ public abstract class Task {
      * Sets the Priority Level of a Task
      * @param priority User input priority level
      */
-    protected void addPriority(String priority) throws InvalidPriorityException {
-        switch (priority) {
-        case "high":
-            this.priority = PriorityLevel.HIGH;
-            break;
-        case "med":
-            this.priority = PriorityLevel.MED;
-            break;
-        case "low":
-            this.priority = PriorityLevel.LOW;
-            break;
-        default:
-            throw new InvalidPriorityException();
-        }
+    protected void addPriority(Priority priority) throws InvalidPriorityException {
+        this.priority = priority;
     }
 
     /**
      * Sets the frequency level of a Task, i.e. how regularly a Task occurs.
      * @param freq Frequency level of a task
      */
-    protected void addFrequency(String freq) throws InvalidFrequencyException {
-        switch (freq) {
-        case "daily":
-            this.frequency = FreqLevel.DAILY;
-            break;
-        case "weekly":
-            this.frequency = FreqLevel.WEEKLY;
-            break;
-        case "monthly":
-            this.frequency = FreqLevel.MONTHLY;
-            break;
-        case "yearly":
-            this.frequency = FreqLevel.YEARLY;
-            break;
-        default:
-            throw new InvalidFrequencyException();
-        }
+    protected void addFrequency(Frequency freq) throws InvalidFrequencyException {
+        frequency = freq;
     }
 
     /**

@@ -8,36 +8,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.model.planner.exceptions.InvalidFrequencyException;
-import seedu.jarvis.model.planner.exceptions.InvalidPriorityException;
-import seedu.jarvis.model.planner.tasks.Todo;
+import seedu.jarvis.model.planner.Frequency;
+import seedu.jarvis.model.planner.Priority;
 
 class TodoTest {
 
     @Test
     void addPriority() {
         Todo t = new Todo("homework");
-        t.addPriority("high");
+        t.addPriority(Priority.HIGH);
         assertNotNull(t.priority);
-    }
-
-    @Test
-    void addPriority_invalidInput_exceptionThrown() {
-        Todo t = new Todo("homework");
-        assertThrows(InvalidPriorityException.class, () -> t.addPriority("highest"));
     }
 
     @Test
     void addFrequency() {
         Todo t = new Todo("homework");
-        t.addFrequency("weekly");
+        t.addFrequency(Frequency.DAILY);
         assertNotNull(t.frequency);
-    }
-
-    @Test
-    void addFrequency_invalidInput_exceptionThrown() {
-        Todo t = new Todo("homework");
-        assertThrows(InvalidFrequencyException.class, () -> t.addFrequency("every week"));
     }
 
     @Test

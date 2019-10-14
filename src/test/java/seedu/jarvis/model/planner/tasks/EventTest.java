@@ -3,7 +3,6 @@ package seedu.jarvis.model.planner.tasks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Calendar;
@@ -11,9 +10,8 @@ import java.util.Calendar;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.model.planner.exceptions.InvalidFrequencyException;
-import seedu.jarvis.model.planner.exceptions.InvalidPriorityException;
-import seedu.jarvis.model.planner.tasks.Event;
+import seedu.jarvis.model.planner.Frequency;
+import seedu.jarvis.model.planner.Priority;
 
 class EventTest {
 
@@ -23,17 +21,8 @@ class EventTest {
         Calendar end = Calendar.getInstance();
         end.set(Calendar.DAY_OF_MONTH, 20);
         Event e = new Event("homework", start, end);
-        e.addPriority("high");
+        e.addPriority(Priority.HIGH);
         assertNotNull(e.priority);
-    }
-
-    @Test
-    void addPriority_invalidInput_exceptionThrown() {
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        end.set(Calendar.DAY_OF_MONTH, 20);
-        Event e = new Event("homework", start, end);
-        assertThrows(InvalidPriorityException.class, () -> e.addPriority("highest"));
     }
 
     @Test
@@ -42,17 +31,8 @@ class EventTest {
         Calendar end = Calendar.getInstance();
         end.set(Calendar.DAY_OF_MONTH, 20);
         Event e = new Event("homework", start, end);
-        e.addFrequency("weekly");
+        e.addFrequency(Frequency.DAILY);
         assertNotNull(e.frequency);
-    }
-
-    @Test
-    void addFrequency_invalidInput_exceptionThrown() {
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        end.set(Calendar.DAY_OF_MONTH, 20);
-        Event e = new Event("homework", start, end);
-        assertThrows(InvalidFrequencyException.class, () -> e.addFrequency("every week"));
     }
 
     @Test

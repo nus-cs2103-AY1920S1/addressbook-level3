@@ -14,6 +14,7 @@ import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
+import seedu.jarvis.model.planner.tasks.Todo;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -35,7 +36,7 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
         }
         //TODO
-        String taskType =
+        return new AddTaskCommand(new Todo(""));
     }
 
     /**
