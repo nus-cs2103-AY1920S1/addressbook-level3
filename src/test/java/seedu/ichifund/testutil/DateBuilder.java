@@ -58,7 +58,7 @@ public class DateBuilder {
 
 
     public Date build() {
-        return new Date(day,month,year);
+        return new Date(day, month, year);
     }
 
 }
