@@ -18,9 +18,6 @@ import seedu.address.model.book.SerialNumberGenerator;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.borrower.BorrowerIdGenerator;
-import seedu.address.model.borrower.Email;
-import seedu.address.model.borrower.Name;
-import seedu.address.model.borrower.Phone;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanIdGenerator;
 
@@ -240,7 +237,7 @@ public class ModelManager implements Model {
 
     @Override
     public boolean isServeMode() {
-       return servingBorrower.isPresent();
+        return servingBorrower.isPresent();
     }
 
     @Override

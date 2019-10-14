@@ -1,16 +1,19 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWERID;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWERID;
-
+/**
+ * Opens a serving session for a borrower and allows the borrower to start borrower book
+ */
 public class ServeCommand extends Command {
-    private BorrowerId borrowerId;
     public static final String MESSAGE_SUCCESS = "Currently serving borrower: %1$s";
+    private BorrowerId borrowerId;
 
     public ServeCommand (BorrowerId borrowerId) {
         requireNonNull(borrowerId);

@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.address.testutil.TypicalBorrowers.BOB;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -34,11 +35,12 @@ public class ServeCommandTest {
     }
 
     @Test
-    public void execute_BorrowerIdNotFound_throwsCommandException() {
+    public void execute_borrowerIdNotFound_throwsCommandException() {
         Model modelManager = new ModelManager();
         BorrowerId invalidId = new BorrowerId(VALID_ID_AMY);
         ServeCommand serveCommand = new ServeCommand(invalidId);
 
-        Assert.assertThrows(CommandException.class, MESSAGE_NO_SUCH_BORROWERID, () -> serveCommand.execute(modelManager));
+        Assert.assertThrows(CommandException.class, MESSAGE_NO_SUCH_BORROWERID, () ->
+                serveCommand.execute(modelManager));
     }
 }
