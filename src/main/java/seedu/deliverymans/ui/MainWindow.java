@@ -123,6 +123,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Changes the shown list.
+     */
+    void changeList(int i) {
+
+    }
+
+    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
