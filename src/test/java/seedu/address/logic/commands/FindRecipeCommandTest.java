@@ -21,9 +21,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.recipe.NameContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindRecipeCommand}.
  */
-public class FindCommandTest {
+public class FindRecipeCommandTest {
     private Model model = new ModelManager(getTypicalDukeCooks(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalDukeCooks(), new UserPrefs());
 
@@ -34,14 +34,14 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate secondPredicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        FindRecipeCommand findFirstCommand = new FindRecipeCommand(firstPredicate);
+        FindRecipeCommand findSecondCommand = new FindRecipeCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        FindRecipeCommand findFirstCommandCopy = new FindRecipeCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -58,7 +58,7 @@ public class FindCommandTest {
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
+        FindRecipeCommand command = new FindRecipeCommand(predicate);
         expectedModel.updateFilteredRecipeList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredRecipeList());
@@ -68,7 +68,7 @@ public class FindCommandTest {
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        FindCommand command = new FindCommand(predicate);
+        FindRecipeCommand command = new FindRecipeCommand(predicate);
         expectedModel.updateFilteredRecipeList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredRecipeList());

@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditRecipeCommand.EditPersonDescriptor;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.ingredient.Ingredient;

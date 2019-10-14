@@ -13,15 +13,9 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddRecipeCommand;
+import seedu.address.logic.commands.EditRecipeCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.NameContainsKeywordsPredicate;
 import seedu.address.model.recipe.Recipe;
@@ -36,8 +30,8 @@ public class DukeCooksParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Recipe recipe = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(recipe));
-        assertEquals(new AddCommand(recipe), command);
+        AddRecipeCommand command = (AddRecipeCommand) parser.parseCommand(PersonUtil.getAddCommand(recipe));
+        assertEquals(new AddRecipeCommand(recipe), command);
     }
 
     @Test
@@ -48,18 +42,18 @@ public class DukeCooksParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+        DeleteRecipeCommand command = (DeleteRecipeCommand) parser.parseCommand(
+                DeleteRecipeCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new DeleteRecipeCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
         Recipe recipe = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(recipe).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        EditRecipeCommand command = (EditRecipeCommand) parser.parseCommand(EditRecipeCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+        assertEquals(new EditRecipeCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
     @Test
@@ -71,9 +65,9 @@ public class DukeCooksParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        FindRecipeCommand command = (FindRecipeCommand) parser.parseCommand(
+                FindRecipeCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindRecipeCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

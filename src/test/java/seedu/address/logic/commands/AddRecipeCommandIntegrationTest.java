@@ -12,9 +12,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code AddRecipeCommand}.
  */
-public class AddCommandIntegrationTest {
+public class AddRecipeCommandIntegrationTest {
 
     private Model model;
 
@@ -26,7 +26,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Recipe recipeInList = model.getDukeCooks().getRecipeList().get(0);
-        assertCommandFailure(new AddCommand(recipeInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddRecipeCommand(recipeInList), model, AddRecipeCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

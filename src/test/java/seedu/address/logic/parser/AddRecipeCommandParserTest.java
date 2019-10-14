@@ -19,14 +19,14 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddRecipeCommand;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+public class AddRecipeCommandParserTest {
+    private AddRecipeCommandParser parser = new AddRecipeCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -34,17 +34,17 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB
-                 + TAG_DESC_FRIEND, new AddCommand(expectedRecipe));
+                 + TAG_DESC_FRIEND, new AddRecipeCommand(expectedRecipe));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB
-                 + TAG_DESC_FRIEND, new AddCommand(expectedRecipe));
+                 + TAG_DESC_FRIEND, new AddRecipeCommand(expectedRecipe));
 
         // multiple tags - all accepted
         Recipe expectedRecipeMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedRecipeMultipleTags));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddRecipeCommand(expectedRecipeMultipleTags));
     }
 
     @Test
@@ -52,12 +52,12 @@ public class AddCommandParserTest {
         // zero tags
         Recipe expectedRecipe = new PersonBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY,
-                new AddCommand(expectedRecipe));
+                new AddRecipeCommand(expectedRecipe));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRecipeCommand.MESSAGE_USAGE);
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB,
@@ -85,6 +85,6 @@ public class AddCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB
                  + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRecipeCommand.MESSAGE_USAGE));
     }
 }

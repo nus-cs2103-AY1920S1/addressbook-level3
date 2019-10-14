@@ -5,8 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.AddRecipeCommand;
+import seedu.address.logic.commands.EditRecipeCommand.EditPersonDescriptor;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.ingredient.Ingredient;
 
@@ -19,7 +19,7 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code recipe}.
      */
     public static String getAddCommand(Recipe recipe) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(recipe);
+        return AddRecipeCommand.COMMAND_WORD + " " + getPersonDetails(recipe);
     }
 
     /**

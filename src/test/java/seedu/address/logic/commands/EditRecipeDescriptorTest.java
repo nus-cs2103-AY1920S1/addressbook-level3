@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditRecipeCommand.EditPersonDescriptor;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditRecipeDescriptorTest {

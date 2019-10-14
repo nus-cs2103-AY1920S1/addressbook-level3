@@ -20,31 +20,31 @@ import seedu.address.model.recipe.Recipe;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * {@code DeleteRecipeCommand}.
  */
-public class DeleteCommandTest {
+public class DeleteRecipeCommandTest {
 
     private Model model = new ModelManager(getTypicalDukeCooks(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Recipe recipeToDelete = model.getFilteredRecipeList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, recipeToDelete);
+        String expectedMessage = String.format(DeleteRecipeCommand.MESSAGE_DELETE_PERSON_SUCCESS, recipeToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
         expectedModel.deleteRecipe(recipeToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteRecipeCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteRecipeCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -52,15 +52,15 @@ public class DeleteCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Recipe recipeToDelete = model.getFilteredRecipeList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, recipeToDelete);
+        String expectedMessage = String.format(DeleteRecipeCommand.MESSAGE_DELETE_PERSON_SUCCESS, recipeToDelete);
 
         Model expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
         expectedModel.deleteRecipe(recipeToDelete);
         showNoPerson(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteRecipeCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -71,21 +71,21 @@ public class DeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getRecipeList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteRecipeCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON);
+        DeleteRecipeCommand deleteFirstCommand = new DeleteRecipeCommand(INDEX_FIRST_PERSON);
+        DeleteRecipeCommand deleteSecondCommand = new DeleteRecipeCommand(INDEX_SECOND_PERSON);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteRecipeCommand deleteFirstCommandCopy = new DeleteRecipeCommand(INDEX_FIRST_PERSON);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

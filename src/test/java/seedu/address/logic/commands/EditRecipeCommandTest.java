@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditRecipeCommand.EditPersonDescriptor;
 import seedu.address.model.DukeCooks;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -27,9 +27,9 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditRecipeCommand.
  */
-public class EditCommandTest {
+public class EditRecipeCommandTest {
 
     private Model model = new ModelManager(getTypicalDukeCooks(), new UserPrefs());
 
@@ -37,14 +37,14 @@ public class EditCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Recipe editedRecipe = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedRecipe).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        EditRecipeCommand editRecipeCommand = new EditRecipeCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
+        String expectedMessage = String.format(EditRecipeCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editRecipeCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -58,26 +58,26 @@ public class EditCommandTest {
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+        EditRecipeCommand editRecipeCommand = new EditRecipeCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
+        String expectedMessage = String.format(EditRecipeCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
         expectedModel.setRecipe(lastRecipe, editedRecipe);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editRecipeCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
+        EditRecipeCommand editRecipeCommand = new EditRecipeCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
         Recipe editedRecipe = model.getFilteredRecipeList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
+        String expectedMessage = String.format(EditRecipeCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editRecipeCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -86,24 +86,24 @@ public class EditCommandTest {
 
         Recipe recipeInFilteredList = model.getFilteredRecipeList().get(INDEX_FIRST_PERSON.getZeroBased());
         Recipe editedRecipe = new PersonBuilder(recipeInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+        EditRecipeCommand editRecipeCommand = new EditRecipeCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
+        String expectedMessage = String.format(EditRecipeCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editRecipeCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Recipe firstRecipe = model.getFilteredRecipeList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstRecipe).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+        EditRecipeCommand editRecipeCommand = new EditRecipeCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editRecipeCommand, model, EditRecipeCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
@@ -112,19 +112,19 @@ public class EditCommandTest {
 
         // edit recipe in filtered list into a duplicate in Duke Cooks
         Recipe recipeInList = model.getDukeCooks().getRecipeList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+        EditRecipeCommand editRecipeCommand = new EditRecipeCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(recipeInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editRecipeCommand, model, EditRecipeCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
+        EditRecipeCommand editRecipeCommand = new EditRecipeCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editRecipeCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
@@ -138,19 +138,19 @@ public class EditCommandTest {
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getRecipeList().size());
 
-        EditCommand editCommand = new EditCommand(outOfBoundIndex,
+        EditRecipeCommand editRecipeCommand = new EditRecipeCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editRecipeCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        final EditRecipeCommand standardCommand = new EditRecipeCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
         EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditRecipeCommand commandWithSameValues = new EditRecipeCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -163,10 +163,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditRecipeCommand(INDEX_SECOND_PERSON, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditRecipeCommand(INDEX_FIRST_PERSON, DESC_BOB)));
     }
 
 }
