@@ -11,8 +11,10 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 image:https://travis-ci.org/AY1920S1-CS2103T-W11-2/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103T-W11-2/main"]
 image:https://coveralls.io/repos/github/AY1920S1-CS2103T-W11-2/main/badge.svg?branch=master["Coverage Status"), link="https://coveralls.io/github/AY1920S1-CS2103T-W11-2/main?branch=master"]
 image:https://api.codacy.com/project/badge/Grade/d1db3eaec5494162bd28f0777703de1e["Codacy code quality", link="https://www.codacy.com/manual/podocarp/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-W11-2/main&utm_campaign=Badge_Grade"]
-
+image:https://img.shields.io/github/commit-activity/m/AY1920S1-CS2103T-W11-2/main[GitHub commit activity]
+image:https://img.shields.io/github/v/tag/AY1920S1-CS2103T-W11-2/main[GitHub tag (latest by date)]
 ifdef::env-github[]
+
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
