@@ -58,7 +58,6 @@ public class EditTagCommand extends Command {
         Tag tagToEdit = lastShownList.get(index.getZeroBased());
         Tag editedTag = createEditedTag(tagToEdit, name);
 
-
         if (!tagToEdit.isSameTag(editedTag) && model.hasTag(editedTag)) {
             throw new CommandException(MESSAGE_DUPLICATE_TAG);
         }
@@ -70,10 +69,6 @@ public class EditTagCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_PROBLEM_SUCCESS, editedTag));
     }
 
-    /**
-     * Creates and returns a {@code Tag} with the details of {@code tagToEdit}
-     * edited with {@code editTagDescriptor}.
-     */
     private static Tag createEditedTag(Tag tagToEdit, Optional<String> name) {
         assert tagToEdit != null;
         String updatedName;
