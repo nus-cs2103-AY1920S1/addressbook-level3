@@ -3,11 +3,14 @@ package seedu.address.model.entity.worker;
 import java.util.Date;
 import java.util.Objects;
 
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_NAME;
 
 //@@author shaoyi
 /**
