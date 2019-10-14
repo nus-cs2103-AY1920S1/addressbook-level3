@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private ClaimListPanel claimListPanel;
+    private IncomeListPanel incomeListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -44,9 +45,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
-
-    @FXML
-    private StackPane claimListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -144,8 +142,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up window with incomes
      */
     void fillWithIncomes() {
-        //incomeListPanel = new IncomeListPanel(logic.getFilteredIncomeList());
-        //incomeListPanelPlaceholder.getChildren().add(incomeListPanel.getRoot());
+        incomeListPanel = new IncomeListPanel(logic.getFilteredIncomeList());
+        personListPanelPlaceholder.getChildren().add(incomeListPanel.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 

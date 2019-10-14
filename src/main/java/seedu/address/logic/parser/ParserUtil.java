@@ -43,7 +43,7 @@ public class ParserUtil {
         } else if (view.equals("claims")) {
             viewIndex = 2;
             return true;
-        } else if (view.equals("income")) {
+        } else if (view.equals("incomes")) {
             viewIndex = 3;
             return true;
         } else {
