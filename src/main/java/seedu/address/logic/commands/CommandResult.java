@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.logic.FunctionMode;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * Represents the result of a command execution.
@@ -26,23 +27,27 @@ public class CommandResult {
     /** Targeted function. */
     private final Optional<FunctionMode> targetMode;
 
+    /** Flashcard to display (if any) */
+    private final Optional<Flashcard> flashcard;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         boolean toggle, Optional<FunctionMode> targetMode) {
+                         boolean toggle, Optional<FunctionMode> targetMode, Optional<Flashcard> flashcard) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.toggle = toggle;
         this.targetMode = targetMode;
+        this.flashcard = flashcard;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, false, Optional.empty());
+        this(feedbackToUser, showHelp, exit, false, Optional.empty(), Optional.empty());
     }
 
     /**
@@ -51,7 +56,7 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false,
-                false, Optional.empty());
+                false, Optional.empty(), Optional.empty());
     }
 
     public String getFeedbackToUser() {
@@ -72,6 +77,10 @@ public class CommandResult {
 
     public Optional<FunctionMode> getTargetMode() {
         return targetMode;
+    }
+
+    public Optional<Flashcard> getFlashcard() {
+        return flashcard;
     }
 
     @Override

@@ -16,9 +16,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="800.0" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="800.0" minWidth="800.0" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -86,12 +87,18 @@
                      <children>
                         <StackPane HBox.hgrow="ALWAYS">
                            <children>
-                              <Label text="Label" textFill="WHITE" />
+                              <Label fx:id="qnLabel" text="Label" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
                            </children></StackPane>
                         <Separator blendMode="HARD_LIGHT" orientation="VERTICAL" prefHeight="200.0" style=": ;" />
                         <StackPane HBox.hgrow="ALWAYS">
                            <children>
-                              <Label text="Label" textFill="WHITE" />
+                              <Label fx:id="ansLabel" text="Label" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
                            </children></StackPane>
                      </children>
                      <padding>
