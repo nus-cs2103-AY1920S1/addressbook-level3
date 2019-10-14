@@ -18,6 +18,9 @@ import seedu.address.model.member.MemberName;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 
+/**
+ * Removes a task that member was responsible for
+ */
 public class RemoveTaskFromMemberCommand extends Command {
     public static final String COMMAND_WORD = "fire";
 

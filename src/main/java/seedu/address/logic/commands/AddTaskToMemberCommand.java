@@ -18,6 +18,9 @@ import seedu.address.model.member.MemberName;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 
+/**
+ * Adds a task to member to be responsible for
+ */
 public class AddTaskToMemberCommand extends Command {
     public static final String COMMAND_WORD = "assign";
 
