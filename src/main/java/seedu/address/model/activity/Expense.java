@@ -2,8 +2,6 @@ package seedu.address.model.activity;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.model.person.Person;
-
 /**
  * Represents an expense by a person in an activity.
  * Guarantees: details are present and not null, field values are validated, immutable
@@ -11,12 +9,12 @@ import seedu.address.model.person.Person;
  */
 public class Expense {
     private final Amount amount;
-    private final Person person;
+    private final int personId;
     private boolean isDeleted;
 
-    public Expense(Person person, Amount amount) {
-        requireAllNonNull(person, amount);
-        this.person = person;
+    public Expense(int personId, Amount amount) {
+        requireAllNonNull(amount);
+        this.personId = personId;
         this.amount = amount;
         this.isDeleted = false;
     }
@@ -25,8 +23,8 @@ public class Expense {
         return amount;
     }
 
-    public Person getPerson() {
-        return person;
+    public int getPersonId() {
+        return personId;
     }
 
     public boolean isDeleted() {
@@ -41,7 +39,7 @@ public class Expense {
     }
 
     /**
-     * Returns true if both expenses contain the same person and amount.
+     * Returns true if both expenses contain the same person ID and amount.
      */
     @Override
     public boolean equals(Object other) {
@@ -49,7 +47,7 @@ public class Expense {
             return true;
         } else if (other instanceof Expense) {
             Expense otherExpense = (Expense) other;
-            return otherExpense.getPerson().equals(getPerson())
+            return otherExpense.getPersonId() == getPersonId()
                     && otherExpense.getAmount().equals(getAmount());
         } else {
             return false;

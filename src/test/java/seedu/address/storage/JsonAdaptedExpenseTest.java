@@ -11,7 +11,7 @@ import seedu.address.model.activity.Amount;
 import seedu.address.model.activity.Expense;
 
 public class JsonAdaptedExpenseTest {
-    private static Expense expense = new Expense(BENSON, new Amount(1.5));
+    private static Expense expense = new Expense(BENSON.getPrimaryKey(), new Amount(1.5));
 
     @Test
     public void toModelType_validExpenseDetails_returnsExpense() throws Exception {
@@ -21,7 +21,7 @@ public class JsonAdaptedExpenseTest {
 
     @Test
     public void toModelType_invalidAmount_throwsIllegalValueException() {
-        JsonAdaptedExpense jsonAdaptedExpense = new JsonAdaptedExpense(new JsonAdaptedPerson(BENSON), -0.1);
+        JsonAdaptedExpense jsonAdaptedExpense = new JsonAdaptedExpense(BENSON.getPrimaryKey(), -0.1);
         String expectedMessage = Amount.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, jsonAdaptedExpense::toModelType);
     }
