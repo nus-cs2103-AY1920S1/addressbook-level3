@@ -10,13 +10,13 @@ import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 public class TransactionType {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "TransactionType can only be 'income' or 'expenditure'";
+            "TransactionType can only be 'in' or 'exp'";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "income|expenditure";
+    public static final String VALIDATION_REGEX = "in|exp";
 
     public final String transactionType;
 
@@ -39,7 +39,7 @@ public class TransactionType {
     }
 
     public boolean isExpenditure() {
-        return transactionType.equals("expenditure");
+        return transactionType.equals("exp");
     }
 
     @Override

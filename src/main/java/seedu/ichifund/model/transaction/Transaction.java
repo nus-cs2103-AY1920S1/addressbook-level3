@@ -17,7 +17,7 @@ public class Transaction {
     private final Description description;
     private final Category category;
     private final Date date;
-    private final boolean isExpenditure;
+    private final TransactionType transactionType;
 
     /**
      * Every field must be present and not null.
@@ -29,7 +29,7 @@ public class Transaction {
         this.description = description;
         this.category = category;
         this.date = date;
-        this.isExpenditure = transactionType.isExpenditure();
+        this.transactionType = transactionType;
     }
 
     public Amount getAmount() {
@@ -49,7 +49,7 @@ public class Transaction {
     }
 
     public boolean isExpenditure() {
-        return isExpenditure;
+        return transactionType.isExpenditure();
     }
 
 
