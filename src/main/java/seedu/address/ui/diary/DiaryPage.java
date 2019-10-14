@@ -1,5 +1,7 @@
 package seedu.address.ui.diary;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_CHOOSER;
+
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
@@ -68,6 +70,7 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
         diaryTextFlow.getRoot().prefWidthProperty().bind(diaryTextPlaceholder.widthProperty());
         diaryTextFlow.getRoot().minWidthProperty().bind(diaryTextPlaceholder.heightProperty());
         diaryGallery.getRoot().prefHeightProperty().bind(diaryRightPlaceholder.heightProperty());
+        diaryEntryEditbox.getRoot().prefWidthProperty().bind(diaryRightPlaceholder.widthProperty());
         diaryEntryEditbox.getRoot().prefHeightProperty().bind(diaryRightPlaceholder.heightProperty());
         //add diaryTextFlow with width binded
         diaryTextPlaceholder.getChildren().add(diaryTextFlow.getRoot());
@@ -102,6 +105,7 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
                 diaryEntryList.getReadOnlyDiaryEntries().stream()
                         .map(diaryEntry -> {
                             Button b = new Button(diaryEntry.getDayIndex().getOneBased() + "");
+                            ButtonBar.setButtonData(b, ButtonBar.ButtonData.LEFT);
                             b.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(
                                     FlipDiaryCommand.COMMAND_WORD + " " + diaryEntry.getDayIndex().getOneBased()));
 
@@ -119,7 +123,7 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
 
     private void fillEditBoxButtons() {
         Button doneButton = new Button("Done");
-        doneButton.setAlignment(Pos.CENTER);
+        ButtonBar.setButtonData(doneButton, ButtonBar.ButtonData.LEFT);
 
         doneButton.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(DoneEditDiaryEntryCommand.COMMAND_WORD));
 
@@ -130,11 +134,13 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
     private void fillGalleryButtons() {
         Button editButton = new Button("Edit");
         Button addPhotoButton = new Button("Add");
-        editButton.setAlignment(Pos.CENTER);
-        addPhotoButton.setAlignment(Pos.CENTER);
+
+        ButtonBar.setButtonData(editButton, ButtonBar.ButtonData.LEFT);
+        ButtonBar.setButtonData(addPhotoButton, ButtonBar.ButtonData.LEFT);
 
         editButton.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(EditDiaryEntryCommand.COMMAND_WORD));
-        //addPhotoButton.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(AddPhotoCommand.COMMAND_WORD));
+        addPhotoButton.setOnMouseClicked(buttonEvent ->
+                mainWindow.executeGuiCommand(AddPhotoCommand.COMMAND_WORD + " " + PREFIX_FILE_CHOOSER));
 
         diaryRightButtonBar.getButtons().clear();
         diaryRightButtonBar.getButtons().addAll(editButton, addPhotoButton);

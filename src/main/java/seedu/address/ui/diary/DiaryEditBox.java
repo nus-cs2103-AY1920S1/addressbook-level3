@@ -23,6 +23,8 @@ public class DiaryEditBox extends UiPart<VBox> {
     DiaryEditBox(Consumer<String> textChangeHandler) {
         super(FXML);
         this.textChangeHandler = textChangeHandler;
+        textEditor.prefWidthProperty().bind(getRoot().widthProperty());
+        textEditor.prefHeightProperty().bind(getRoot().heightProperty());
     }
 
     String getText() {

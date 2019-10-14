@@ -18,7 +18,7 @@
         <VBox fx:id="sideBarRight" prefHeight="200.0" prefWidth="100.0" />
     </right>
    <bottom>
-      <ScrollPane hbarPolicy="NEVER" style="-fx-background-color: #121420;" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #121420;" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
          <content>
             <ButtonBar fx:id="dayIndexButtonBar" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #121420;" />
          </content>

@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_TIME_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_CHOOSER;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -19,11 +20,14 @@ public class AddPhotoCommand extends Command {
     public static final String COMMAND_WORD = "addphoto";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds the photo specified by the path to the diary entry's gallery.\n"
+            + ": Adds the photo specified by the path or file chooser dialog to the diary entry's gallery.\n"
             + "Parameters: "
-            + "[" + PREFIX_DATA_FILE_PATH + "NAME] "
-            + "[" + PREFIX_DATE_TIME_START + "DATE TIME TAKEN (" + ParserDateUtil.DATE_TIME_FORMAT + "] "
-            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]...\n"
+            + "[" + PREFIX_DATA_FILE_PATH + Photo.MESSAGE_IMAGE_CONSTRAINTS
+            + PREFIX_FILE_CHOOSER + " OPENS FILE CHOOSE DIALOG (IGNORES THE FILE PATH IF SPECIFIED) ]\n"
+            + "[Optional (Uses the file modification date otherwise): " + PREFIX_DATE_TIME_START
+            + "DATE TIME TAKEN (" + ParserDateUtil.DATE_TIME_FORMAT + "]\n"
+            + "[Optional (Uses the file name otherwise): " + PREFIX_DESCRIPTION + " "
+            + Photo.MESSAGE_DESCRIPTION_CONSTRAINTS + " ]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_DATA_FILE_PATH + "./image01.png "
             + PREFIX_DATE_TIME_START + "01/08/2019 1245 " + PREFIX_DESCRIPTION + "...";
 

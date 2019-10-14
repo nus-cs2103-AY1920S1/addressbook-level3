@@ -19,35 +19,44 @@ import seedu.address.logic.parser.ParserDateUtil;
  * Also contains other information such as the display name of the photo and the date.
  */
 public class Photo {
+    public static final int MAXIMUM_DESCRIPTION_LENGTH = 20;
     public static final String MESSAGE_DESCRIPTION_CONSTRAINTS =
             "Description can take any values, but it should not be blank,"
-                    + " and must have a maximum length of 20. (Keep your descriptions short and sweet!)";
+                    + " and must have a maximum length of " + MAXIMUM_DESCRIPTION_LENGTH
+                    + ". (Keep your descriptions short and sweet!)";
     public static final String MESSAGE_PATH_CONSTRAINTS =
-            "The image path specified should be valid, and must point to an existing file."
-                    + "You entered: %1$s";
-    public static final String MESSAGE_IMAGE_CONSTRAINTS = "The file should point to a valid png or jpg image file. "
-            + "You entered: %1$s";
+            "The image path specified should be valid, and must point to an existing file.";
+    public static final String MESSAGE_IMAGE_CONSTRAINTS = "The file should point to a valid png or jpg image file.";
+
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      * The description also cannot be empty.
      */
-    private static final String DESCRIPTION_VALIDATION_REGEX = "[^\\s].{1,20}$";
+    private static final String DESCRIPTION_VALIDATION_REGEX = "[^\\s].{1," + MAXIMUM_DESCRIPTION_LENGTH + "}$";
 
     private Image image;
     private String imageFilePath;
     private String description;
     private LocalDateTime dateTaken;
 
-    public Photo(Path imagePath, String description, LocalDateTime dateTaken) {
+    /**
+     * Constructs a {@code Photo} from the given arguments.
+     *
+     * @param imagePath The {@link Path} to point to the image file.
+     * @param description The String description to use.
+     * @param dateTaken The date taken to be registered with this photo.
+     * @throws IllegalArgumentException If either the {@code imagePath} or {@code description} violates the constraints.
+     */
+    public Photo(Path imagePath, String description, LocalDateTime dateTaken) throws IllegalArgumentException {
         requireAllNonNull(imagePath, description, dateTaken);
         validateImagePath(imagePath);
         validateDescription(description);
         this.dateTaken = dateTaken;
     }
 
-    public Photo(String imagePath, String description, LocalDateTime dateTaken) {
+    public Photo(String imagePath, String description, LocalDateTime dateTaken) throws IllegalArgumentException {
         this(Paths.get(imagePath), description, dateTaken);
     }
 
