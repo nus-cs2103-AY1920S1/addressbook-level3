@@ -95,6 +95,10 @@ public class Status {
         return status.equals(AppointmentStatuses.ACKNOWLEDGED);
     }
 
+    public boolean isMissed() {
+        return !status.equals(AppointmentStatuses.ACKNOWLEDGED) || !status.equals(AppointmentStatuses.SETTLED);
+    }
+
     @Override
     public String toString() {
         return this.status.toString();

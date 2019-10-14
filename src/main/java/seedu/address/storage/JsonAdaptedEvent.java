@@ -86,6 +86,7 @@ public class JsonAdaptedEvent {
         }
         final Timing eventTiming = new Timing(startDateTime, endDateTime);
 
+
         if (status == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Status"));
         }

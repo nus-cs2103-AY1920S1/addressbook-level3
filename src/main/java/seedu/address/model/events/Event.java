@@ -23,9 +23,14 @@ public class Event implements Comparable<Event> {
      */
     public Event(ReferenceId personId, Timing timing, Status status) {
         requireAllNonNull(personId, timing, status);
+
         this.personId = personId;
         this.timing = timing;
         this.status = status;
+
+        if (status.equals(Status.AppointmentStatuses.APPROVED) && timing.hasMissedTiming()) {
+            this.status = new Status(Status.AppointmentStatuses.MISSED);
+        }
     }
 
     public ReferenceId getPersonId() {
@@ -43,6 +48,7 @@ public class Event implements Comparable<Event> {
     public boolean conflictsWith(Event otherEvent) {
         return getEventTiming().conflictsWith(otherEvent.getEventTiming());
     }
+
 
     /**
      * Returns true if both Event of the same patient and timing.

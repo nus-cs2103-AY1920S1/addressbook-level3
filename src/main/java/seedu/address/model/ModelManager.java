@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,6 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AppointmentsCommand;
 import seedu.address.model.common.ReferenceId;
 import seedu.address.model.events.ContainsKeywordsPredicate;
+import seedu.address.model.events.DateTime;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
@@ -310,17 +312,26 @@ public class ModelManager implements Model {
      * Returns an boolean, check whether current displaying appointments are belong to the same patient.
      */
     @Override
-    public boolean isPatientList(){
+    public boolean isPatientList() {
         requireNonNull(filteredEvents);
         boolean res = true;
         ReferenceId id = filteredEvents.get(0).getPersonId();
-        for(Event e: filteredEvents){
-            if(!id.equals(e.getPersonId())){
+        for (Event e : filteredEvents) {
+            if (!id.equals(e.getPersonId())) {
                 res = false;
                 break;
             }
         }
         return res;
+    }
+
+    @Override
+    public void updateToMissedEventList() {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        Date current = new Date();
+        Predicate<Event> byMissed = Event -> (Event.getStatus().isMissed())
+                && (Event.getEventTiming().getEndTime().getTime().before(current));
+        filteredEvents.setPredicate(byMissed);
     }
 
 

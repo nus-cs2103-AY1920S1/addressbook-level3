@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIMING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
@@ -41,6 +42,10 @@ public class AddAppCommandParser implements Parser<AddAppCommand> {
         String endString = argMultimap.getValue(PREFIX_END).get();
 
         Timing timing = ParserUtil.parseTiming(startString, endString);
+
+        if(!timing.isValidTimingFromCurrentTime(timing.getStartTime(), timing.getEndTime())){
+            throw new ParseException(String.format(MESSAGE_INVALID_TIMING, AddAppCommand.MESSAGE_USAGE));
+        }
 
         Appointment event = new Appointment(referenceId, timing, new Status());
         return new AddAppCommand(event);

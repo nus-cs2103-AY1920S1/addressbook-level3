@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  * Represents a Date time in the schedule.
- * Guarantees: immutable; is valid as declared in {@link #isValidTiming(DateTime, DateTime)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTimingFromCurrentTime(DateTime, DateTime)}
  */
 public class Timing implements Comparable<Timing> {
 
@@ -39,9 +39,14 @@ public class Timing implements Comparable<Timing> {
      */
     public static boolean isValidTiming(DateTime testStart, DateTime testEnd) {
         requireAllNonNull(testStart, testEnd);
+        return testStart.getTime().before(testEnd.getTime());
+    }
+    /**
+     * Returns true if the start dateTime is before the end dateTime.
+     */
+    public static boolean isValidTimingFromCurrentTime(DateTime testStart, DateTime testEnd) {
         Date current = new Date();
-        return testStart.getTime().before(testEnd.getTime())
-                && testStart.getTime().after(current);
+        return isValidTiming(testStart, testEnd) && testStart.getTime().after(current);
     }
 
     public DateTime getStartTime() {
@@ -50,6 +55,11 @@ public class Timing implements Comparable<Timing> {
 
     public DateTime getEndTime() {
         return endTiming;
+    }
+
+    public boolean hasMissedTiming() {
+        Date current = new Date();
+        return getEndTime().getTime().after(current);
     }
 
     /**

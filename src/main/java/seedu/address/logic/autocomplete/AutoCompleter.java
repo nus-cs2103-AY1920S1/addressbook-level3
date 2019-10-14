@@ -18,7 +18,7 @@ public class AutoCompleter {
             "doctors",
             "exit",
             "help",
-            "missed",
+            "missAppt",
             "next",
             "offduty",
             "onduty",
