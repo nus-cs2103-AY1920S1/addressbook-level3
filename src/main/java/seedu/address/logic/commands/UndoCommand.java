@@ -14,7 +14,6 @@ import seedu.address.model.Model;
 public class UndoCommand implements Command {
 
     public static final String COMMAND_WORD = "undo";
-    public static final String MESSAGE_NO_UNDO_HISTORY_ERROR = "Nothing to undo!";
     private final CommandHistory history;
 
     public UndoCommand(CommandHistory history) {
@@ -24,12 +23,6 @@ public class UndoCommand implements Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-
-        if (!history.canUndo()) {
-            throw new CommandException(MESSAGE_NO_UNDO_HISTORY_ERROR);
-        }
-
         return history.performUndo(model);
     }
 

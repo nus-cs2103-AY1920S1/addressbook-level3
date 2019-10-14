@@ -13,8 +13,8 @@ import seedu.address.model.Model;
  */
 public class CommandHistory {
 
-    public static final String MESSAGE_NO_UNDO_HISTORY_ERROR = "Undo History is empty!";
-    public static final String MESSAGE_NO_REDO_HISTORY_ERROR = "Redo History is empty!";
+    public static final String MESSAGE_NO_UNDO_HISTORY_ERROR = "Nothing to undo!";
+    public static final String MESSAGE_NO_REDO_HISTORY_ERROR = "Nothing to redo!";
 
     private final Stack<ReversibleActionPairCommand> commandHistory = new Stack<>();
     private final Stack<ReversibleActionPairCommand> commandRedoHistory = new Stack<>();
@@ -57,6 +57,7 @@ public class CommandHistory {
      * @throws CommandException If an error occurs during command execution.
      */
     public CommandResult performUndo(Model model) throws CommandException {
+        requireNonNull(model);
         if (!canUndo()) {
             throw new CommandException(MESSAGE_NO_UNDO_HISTORY_ERROR);
         }
@@ -77,6 +78,7 @@ public class CommandHistory {
      * @throws CommandException If an error occurs during command execution.
      */
     public CommandResult performRedo(Model model) throws CommandException {
+        requireNonNull(model);
         if (!canRedo()) {
             throw new CommandException(MESSAGE_NO_REDO_HISTORY_ERROR);
         }

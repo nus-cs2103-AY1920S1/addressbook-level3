@@ -12,6 +12,9 @@ public class ReversibleActionPairCommand implements Command {
 
     public static final String MESSAGE_UNDO_SUCCESS = "Undo successful!\r\n%1$s";
     public static final String MESSAGE_REDO_SUCCESS = "Redo successful!\r\n%1$s";
+    public static final String MESSAGE_UNDO_ERROR = "Failed to undo command.";
+    public static final String MESSAGE_REDO_ERROR = "Failed to redo command.";
+    public static final String MESSAGE_FIRST_EXECUTION_ERROR = "Command has already been executed.";
 
     private final ReversibleCommand primaryCommand;
     private final ReversibleCommand reverseCommand;
@@ -36,7 +39,7 @@ public class ReversibleActionPairCommand implements Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (executionPhase != ExecutionPhase.FIRSTEXECUTION) {
-            throw new CommandException("Command has already been executed.");
+            throw new CommandException(MESSAGE_FIRST_EXECUTION_ERROR);
         }
 
         executionPhase = ExecutionPhase.EXECUTED;
@@ -52,7 +55,7 @@ public class ReversibleActionPairCommand implements Command {
      */
     public CommandResult undo(Model model) throws CommandException {
         if (executionPhase != ExecutionPhase.EXECUTED) {
-            throw new CommandException(primaryCommand.getFailedUndoMessage());
+            throw new CommandException(MESSAGE_UNDO_ERROR);
         }
 
         executionPhase = ExecutionPhase.UNDONE;
@@ -69,7 +72,7 @@ public class ReversibleActionPairCommand implements Command {
      */
     public CommandResult redo(Model model) throws CommandException {
         if (executionPhase != ExecutionPhase.UNDONE) {
-            throw new CommandException("Command has already been executed.");
+            throw new CommandException(MESSAGE_REDO_ERROR);
         }
 
         executionPhase = ExecutionPhase.EXECUTED;
