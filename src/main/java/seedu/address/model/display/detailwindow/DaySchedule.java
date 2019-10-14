@@ -1,4 +1,4 @@
-package seedu.address.model.display.mainwindow;
+package seedu.address.model.display.detailwindow;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

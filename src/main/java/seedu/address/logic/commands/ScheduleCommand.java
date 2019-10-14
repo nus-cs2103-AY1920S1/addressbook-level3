@@ -3,11 +3,12 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.mainwindow.MainWindowDisplayType;
-import seedu.address.model.display.mainwindow.WeekSchedule;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
@@ -37,13 +38,17 @@ public class ScheduleCommand extends Command {
         }
 
         // update main window
-        model.updateMainWindowDisplay(group.getGroupName(), LocalDateTime.now(), MainWindowDisplayType.SCHEDULE);
+        model.updateDetailWindowDisplay(group.getGroupName(), LocalDateTime.now(), DetailWindowDisplayType.EMPTY);
 
         // update side panel
         model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
 
-        WeekSchedule schedule = model.getMainWindowDisplay().getWeekSchedule();
-        return new CommandResult(MESSAGE_SUCCESS + schedule.toString());
+        ArrayList<WeekSchedule> schedules = model.getDetailWindowDisplay().getWeekSchedules();
+        String output = "";
+        for (WeekSchedule s : schedules) {
+            output += s.toString() + "\n";
+        }
+        return new CommandResult(MESSAGE_SUCCESS + output);
     }
 
     @Override

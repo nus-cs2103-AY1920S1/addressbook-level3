@@ -4,8 +4,8 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -18,6 +18,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private GroupListPanel groupListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,8 +46,11 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
+    //@FXML
+    //private StackPane personListPanelPlaceholder;
+
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane sideBarPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -112,8 +118,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        personListPanel = new PersonListPanel(logic.getFilteredPersonDisplayList());
+        TabPanel tabPanel = new TabPanel();
+        //To do for logic -> getGroupList.
+        groupListPanel = new GroupListPanel(logic.getGroupList());
+        tabPanel.setContent(personListPanel.getRoot(), groupListPanel.getRoot());
+        sideBarPlaceholder.getChildren().add(tabPanel.getTabs());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -134,9 +144,30 @@ public class MainWindow extends UiPart<Stage> {
      * Handles change of details view
      * @param details details to be set inside detailsViewPlaceHolder in MainWindow.
      */
-    public void handleChangeOnDetailsView(ScrollPane details) {
+    public void handleChangeOnDetailsView(Node details) {
         detailsViewPlaceholder.getChildren().clear();
         detailsViewPlaceholder.getChildren().add(details);
+    }
+
+    /**
+     * Handles change of sidepanel view.
+     */
+    public void handleChangeOnSidePanelView() {
+        sideBarPlaceholder.getChildren().clear();
+        personListPanel = new PersonListPanel(logic.getFilteredPersonDisplayList());
+        TabPanel tabPanel = new TabPanel();
+        //To do for logic -> getGroupList.
+        groupListPanel = new GroupListPanel(logic.getGroupList());
+        tabPanel.setContent(personListPanel.getRoot(), groupListPanel.getRoot());
+        sideBarPlaceholder.getChildren().add(tabPanel.getTabs());
+    }
+
+    /**
+     * Handles tab switch view.
+     * @param num Tab number to be switched to. 1 for person, 2 for group.
+     */
+    public void handleTabSwitch(int num) {
+        //To do.
     }
 
     /**
@@ -193,6 +224,13 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            handleChangeOnSidePanelView();
+            DetailWindowDisplay detailWindowDisplay = logic.getMainWindowDisplay();
+            if (detailWindowDisplay.getDetailWindowDisplayType().equals(DetailWindowDisplayType.PERSON)
+                || detailWindowDisplay.getDetailWindowDisplayType().equals(DetailWindowDisplayType.GROUP)) {
+                DetailsView detailsView = new DetailsView(detailWindowDisplay);
+                handleChangeOnDetailsView(detailsView.getRoot());
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -209,4 +247,5 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
 }

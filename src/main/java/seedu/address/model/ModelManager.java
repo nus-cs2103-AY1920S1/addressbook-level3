@@ -14,10 +14,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.display.mainwindow.MainWindowDisplay;
-import seedu.address.model.display.mainwindow.MainWindowDisplayType;
-import seedu.address.model.display.mainwindow.WeekSchedule;
-import seedu.address.model.display.sidepanel.Display;
+import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
@@ -53,6 +52,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    //To Do.
+    //private final FilteredList<Group> groupFilteredList;
 
     private TimeBook timeBook = null;
 
@@ -63,7 +64,7 @@ public class ModelManager implements Model {
     private NusModsData nusModsData;
 
     // UI display
-    private MainWindowDisplay mainWindowDisplay;
+    private DetailWindowDisplay detailWindowDisplay;
     private SidePanelDisplay sidePanelDisplay;
 
     /**
@@ -82,7 +83,6 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-
         this.personList = personList;
         this.groupList = groupList;
         this.personToGroupMappingList = personToGroupMappingList;
@@ -127,6 +127,8 @@ public class ModelManager implements Model {
 
     public ModelManager(PersonList personList, GroupList groupList, PersonToGroupMappingList personToGroupMappingList) {
         this(new AddressBook(), personList, groupList, personToGroupMappingList, new UserPrefs());
+        //Edit addressbook with the details here?
+        this.addressBook.setPersons(personList.getPersons());
     }
 
     public ModelManager(TimeBook timeBook) {
@@ -301,8 +303,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Group> getObservableGroupList() {
+        return addressBook.getGroupList();
+    }
+
+    @Override
     public Group addGroup(GroupDescriptor groupDescriptor) {
         Group isAdded = this.groupList.addGroup(groupDescriptor);
+        if (isAdded != null) {
+            this.addressBook.addGroup(isAdded);
+        }
         return isAdded;
     }
 
@@ -377,8 +387,8 @@ public class ModelManager implements Model {
     //=========== UI Model =============================================================
 
     @Override
-    public MainWindowDisplay getMainWindowDisplay() {
-        return mainWindowDisplay;
+    public DetailWindowDisplay getDetailWindowDisplay() {
+        return detailWindowDisplay;
     }
 
     @Override
@@ -387,31 +397,30 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateMainWindowDisplay(MainWindowDisplay mainWindowDisplay) {
-        this.mainWindowDisplay = mainWindowDisplay;
+    public void updateDetailWindowDisplay(DetailWindowDisplay detailWindowDisplay) {
+        this.detailWindowDisplay = detailWindowDisplay;
     }
 
     @Override
-    public void updateMainWindowDisplay(Name name, LocalDateTime time, MainWindowDisplayType type) {
-        ArrayList<Person> persons = new ArrayList<>();
-        persons.add(findPerson(name));
-        WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, persons);
-        MainWindowDisplay mainWindowDisplay = new MainWindowDisplay(weekSchedule, type);
-        updateMainWindowDisplay(mainWindowDisplay);
+    public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type) {
+        ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
+        WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, findPerson(name));
+        weekSchedules.add(weekSchedule);
+        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
+        updateDetailWindowDisplay(detailWindowDisplay);
     }
 
     @Override
-    public void updateMainWindowDisplay(GroupName groupName, LocalDateTime time, MainWindowDisplayType type) {
+    public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type) {
         Group group = groupList.findGroup(groupName);
         ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
-        ArrayList<Person> persons = new ArrayList<>();
+        ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
         for (int i = 0; i < personIds.size(); i++) {
-            persons.add(findPerson(personIds.get(i)));
+            Person person = findPerson(personIds.get(i));
+            WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person);
         }
-
-        WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, persons);
-        MainWindowDisplay mainWindowDisplay = new MainWindowDisplay(weekSchedule, type);
-        updateMainWindowDisplay(mainWindowDisplay);
+        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
+        updateDetailWindowDisplay(detailWindowDisplay);
     }
 
     @Override
@@ -422,31 +431,18 @@ public class ModelManager implements Model {
     @Override
     public void updateSidePanelDisplay(SidePanelDisplayType type) {
         SidePanelDisplay sidePanelDisplay;
-
-        switch (type) {
-        case PERSONS:
-            ArrayList<Display> displayPersons = new ArrayList<>();
-            ArrayList<Person> persons = timeBook.getPersonList().getPersons();
-            for (int i = 0; i < persons.size(); i++) {
-                displayPersons.add(new PersonDisplay(persons.get(i)));
-            }
-            sidePanelDisplay = new SidePanelDisplay(displayPersons, type);
-            updateSidePanelDisplay(sidePanelDisplay);
-            break;
-
-        case GROUPS:
-            ArrayList<Display> displayGroups = new ArrayList<>();
-            ArrayList<Group> groups = timeBook.getGroupList().getGroups();
-            for (int i = 0; i < groups.size(); i++) {
-                displayGroups.add(new GroupDisplay(groups.get(i)));
-            }
-            sidePanelDisplay = new SidePanelDisplay(displayGroups, type);
-            updateSidePanelDisplay(sidePanelDisplay);
-            break;
-
-        default:
-            break;
+        ArrayList<PersonDisplay> displayPersons = new ArrayList<>();
+        ArrayList<GroupDisplay> displayGroups = new ArrayList<>();
+        ArrayList<Person> persons = timeBook.getPersonList().getPersons();
+        ArrayList<Group> groups = timeBook.getGroupList().getGroups();
+        for (int i = 0; i < persons.size(); i++) {
+            displayPersons.add(new PersonDisplay(persons.get(i)));
         }
+        for (int i = 0; i < groups.size(); i++) {
+            displayGroups.add(new GroupDisplay(groups.get(i)));
+        }
+        sidePanelDisplay = new SidePanelDisplay(displayPersons, displayGroups, type);
+        updateSidePanelDisplay(sidePanelDisplay);
     }
 
     //=========== Suggesters =============================================================

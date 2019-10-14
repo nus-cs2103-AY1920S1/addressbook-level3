@@ -145,5 +145,4 @@ public class PersonList {
     public ArrayList<Person> getPersons() {
         return this.persons;
     }
-
 }

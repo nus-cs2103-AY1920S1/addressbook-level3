@@ -10,8 +10,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.TimeBook;
-import seedu.address.model.display.mainwindow.MainWindowDisplay;
+import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
 /**
@@ -38,7 +40,7 @@ public interface Logic {
     /**
      * Returns the current main window display model.
      */
-    MainWindowDisplay getMainWindowDisplay();
+    DetailWindowDisplay getMainWindowDisplay();
 
     /**
      * Returns the current side panel display model.
@@ -77,6 +79,11 @@ public interface Logic {
     ObservableList<Person> getFilteredPersonList();
 
     /**
+     * Returns an unmodifiable view of the list of groups.
+     */
+    ObservableList<Group> getGroupList();
+
+    /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
@@ -90,4 +97,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    ObservableList<PersonDisplay> getFilteredPersonDisplayList();
 }
