@@ -15,8 +15,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.financialtracker.Model.Model;
 import seedu.address.financialtracker.parser.FinancialTrackerParser;
-import seedu.address.logic.commands.Command;
+import seedu.address.financialtracker.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -42,6 +43,7 @@ public class FinancialTrackerPage implements Page {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
     private FinancialTrackerParser financialTrackerParser;
+    private Model model;
 
     @FXML
     private Scene financialTrackerScene;
@@ -66,9 +68,9 @@ public class FinancialTrackerPage implements Page {
 
     public FinancialTrackerPage() {
         this.financialTrackerParser = new FinancialTrackerParser();
+        this.model = new Model();
         fxmlLoader = new FXMLLoader(getFxmlFileUrl());
         fxmlLoader.setController(this);
-        System.out.println(this);
         fxmlLoader.setRoot(new VBox());
         try {
             fxmlLoader.load();
@@ -98,7 +100,7 @@ public class FinancialTrackerPage implements Page {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             Command command = financialTrackerParser.parseCommand(commandText);
-            CommandResult commandResult = command.execute(null);
+            CommandResult commandResult = command.execute(model);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

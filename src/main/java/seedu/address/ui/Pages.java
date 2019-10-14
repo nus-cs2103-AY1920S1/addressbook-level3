@@ -10,15 +10,12 @@ import java.util.stream.Stream;
 
 public class Pages {
     private static List<Page> pages;
-    private static Page mainPage;
 
     // todo: change this parameter to the specified scenes to minimise possible errors
     // keep PageScene constructor package private to prevent creation of this class elsewhere
-    Pages(Page mainPage, Page ... pages) {
-        this.mainPage = mainPage;
+    Pages(Page ... pages) {
         this.pages = Stream.of(pages)
                 .collect(Collectors.toList());
-        this.pages.add(mainPage);
     }
 
     public static Scene getPage(CommandResult commandResult) {
@@ -33,9 +30,5 @@ public class Pages {
         }
 
         return requestedPage.get();
-    }
-
-    public static Scene getMainPageScene() {
-        return mainPage.getScene();
     }
 }

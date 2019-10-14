@@ -10,8 +10,8 @@ import seedu.address.financialtracker.commands.AddFinCommand;
 import seedu.address.financialtracker.commands.DeleteFinCommand;
 import seedu.address.financialtracker.commands.MainCommand;
 import seedu.address.financialtracker.commands.SummaryCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ExitCommand;
+import seedu.address.financialtracker.commands.Command;
+import seedu.address.financialtracker.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -42,14 +42,11 @@ public class FinancialTrackerParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
-
             case AddFinCommand.COMMAND_WORD:
-                return new AddFinCommand();
+                return new AddFinCommandParser().parse(arguments);
 
             case DeleteFinCommand.COMMAND_WORD:
-                return new DeleteFinCommand();
+                return new DeleteFinCommandParser().parse(arguments);
 
             case SummaryCommand.COMMAND_WORD:
                 return new SummaryCommand();
