@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.AddRecipeCommand;
-import seedu.address.logic.commands.EditRecipeCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditRecipeCommand.EditRecipeDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.NameContainsKeywordsPredicate;
 import seedu.address.model.recipe.Recipe;
@@ -50,7 +50,7 @@ public class DukeCooksParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Recipe recipe = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(recipe).build();
+        EditRecipeDescriptor descriptor = new EditPersonDescriptorBuilder(recipe).build();
         EditRecipeCommand command = (EditRecipeCommand) parser.parseCommand(EditRecipeCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditRecipeCommand(INDEX_FIRST_PERSON, descriptor), command);

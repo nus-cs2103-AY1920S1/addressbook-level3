@@ -10,8 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.*;
 import seedu.address.model.ingredient.Ingredient;
 
 /**
@@ -22,6 +21,10 @@ class JsonAdaptedRecipe {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Recipe's %s field is missing!";
 
     private final String name;
+    private final String calories;
+    private final String carbs;
+    private final String fats;
+    private final String protein;
     private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
 
     /**
@@ -29,8 +32,16 @@ class JsonAdaptedRecipe {
      */
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name,
+                             @JsonProperty("calories") String calories,
+                             @JsonProperty("carbs") String carbs,
+                             @JsonProperty("fats") String fats,
+                             @JsonProperty("protein") String protein,
                              @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients) {
         this.name = name;
+        this.calories = calories;
+        this.carbs = carbs;
+        this.fats = fats;
+        this.protein = protein;
         if (ingredients != null) {
             this.ingredients.addAll(ingredients);
         }
@@ -41,6 +52,10 @@ class JsonAdaptedRecipe {
      */
     public JsonAdaptedRecipe(Recipe source) {
         name = source.getName().fullName;
+        calories = source.getCalories().value;
+        carbs = source.getCarbs().value;
+        fats = source.getFats().value;
+        protein = source.getProtein().value;
         ingredients.addAll(source.getIngredients().stream()
                 .map(JsonAdaptedIngredient::new)
                 .collect(Collectors.toList()));
@@ -65,8 +80,40 @@ class JsonAdaptedRecipe {
         }
         final Name modelName = new Name(name);
 
+        if (calories == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Calories.class.getSimpleName()));
+        }
+        if (!Calories.isValidCalories(calories)) {
+            throw new IllegalValueException(Calories.MESSAGE_CONSTRAINTS);
+        }
+        final Calories modelCalories = new Calories(calories);
+
+        if (carbs == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Carbs.class.getSimpleName()));
+        }
+        if (!Carbs.isValidCarbs(carbs)) {
+            throw new IllegalValueException(Carbs.MESSAGE_CONSTRAINTS);
+        }
+        final Carbs modelCarbs = new Carbs(carbs);
+
+        if (fats == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Fats.class.getSimpleName()));
+        }
+        if (!Fats.isValidFats(fats)) {
+            throw new IllegalValueException(Fats.MESSAGE_CONSTRAINTS);
+        }
+        final Fats modelFats = new Fats(fats);
+
+        if (protein == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Protein.class.getSimpleName()));
+        }
+        if (!Protein.isValidProtein(protein)) {
+            throw new IllegalValueException(Protein.MESSAGE_CONSTRAINTS);
+        }
+        final Protein modelProtein = new Protein(protein);
+
         final Set<Ingredient> modelIngredients = new HashSet<>(recipeIngredients);
-        return new Recipe(modelName, modelIngredients);
+        return new Recipe(modelName, modelIngredients, modelCalories, modelCarbs, modelFats, modelProtein);
     }
 
 }

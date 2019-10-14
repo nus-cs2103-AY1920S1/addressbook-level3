@@ -4,37 +4,38 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditRecipeCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditRecipeCommand;
+import seedu.address.logic.commands.EditRecipeCommand.EditRecipeDescriptor;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.ingredient.Ingredient;
 
 /**
- * A utility class to help with building EditPersonDescriptor objects.
+ * A utility class to help with building EditRecipeDescriptor objects.
  */
 public class EditPersonDescriptorBuilder {
 
-    private EditPersonDescriptor descriptor;
+    private EditRecipeCommand.EditRecipeDescriptor descriptor;
 
     public EditPersonDescriptorBuilder() {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditRecipeCommand.EditRecipeDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(EditPersonDescriptor descriptor) {
-        this.descriptor = new EditPersonDescriptor(descriptor);
+    public EditPersonDescriptorBuilder(EditRecipeCommand.EditRecipeDescriptor descriptor) {
+        this.descriptor = new EditRecipeCommand.EditRecipeDescriptor(descriptor);
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code recipe}'s details
+     * Returns an {@code EditRecipeDescriptor} with fields containing {@code recipe}'s details
      */
     public EditPersonDescriptorBuilder(Recipe recipe) {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditRecipeDescriptor();
         descriptor.setName(recipe.getName());
         descriptor.setIngredients(recipe.getIngredients());
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Name} of the {@code EditRecipeDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
@@ -42,7 +43,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Ingredient>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} into a {@code Set<Ingredient>} and set it to the {@code EditRecipeDescriptor}
      * that we are building.
      */
     public EditPersonDescriptorBuilder withTags(String... tags) {
@@ -51,7 +52,7 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-    public EditPersonDescriptor build() {
+    public EditRecipeDescriptor build() {
         return descriptor;
     }
 }

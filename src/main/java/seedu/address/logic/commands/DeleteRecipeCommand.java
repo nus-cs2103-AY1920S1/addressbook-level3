@@ -36,7 +36,7 @@ public class DeleteRecipeCommand extends DeleteCommand {
         List<Recipe> lastShownList = model.getFilteredRecipeList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
         Recipe recipeToDelete = lastShownList.get(targetIndex.getZeroBased());

@@ -20,20 +20,43 @@ public class Recipe {
 
     // Data fields
     private final Set<Ingredient> ingredients = new HashSet<>();
+    private final Calories calories;
+    private final Carbs carbs;
+    private final Fats fats;
+    private final Protein protein;
 
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Set<Ingredient> ingredients) {
+    public Recipe(Name name, Set<Ingredient> ingredients, Calories calories, Carbs carbs, Fats fats, Protein protein) {
         requireAllNonNull(name, ingredients);
         this.name = name;
         this.ingredients.addAll(ingredients);
+        this.calories = calories;
+        this.carbs = carbs;
+        this.fats = fats;
+        this.protein = protein;
     }
 
     public Name getName() {
         return name;
     }
 
+    public Calories getCalories() {
+        return calories;
+    }
+
+    public Carbs getCarbs() {
+        return carbs;
+    }
+
+    public Fats getFats() {
+        return fats;
+    }
+
+    public Protein getProtein() {
+        return protein;
+    }
 
     /**
      * Returns an immutable ingredient set, which throws {@code UnsupportedOperationException}

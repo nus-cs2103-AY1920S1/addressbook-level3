@@ -1,16 +1,14 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddRecipeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.*;
 import seedu.address.model.ingredient.Ingredient;
 
 /**
@@ -25,17 +23,23 @@ public class AddRecipeCommandParser implements Parser<AddRecipeCommand> {
      */
     public AddRecipeCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENT);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENT, PREFIX_CALORIES,
+                        PREFIX_CARBS, PREFIX_FATS, PREFIX_PROTEIN);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_INGREDIENT, PREFIX_CALORIES,
+                PREFIX_CARBS, PREFIX_FATS, PREFIX_PROTEIN)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRecipeCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Set<Ingredient> ingredientList = ParserUtil.parseIngredients(argMultimap.getAllValues(PREFIX_INGREDIENT));
+        Calories calories = ParserUtil.parseCalories(argMultimap.getValue(PREFIX_CALORIES).get());
+        Carbs carbs = ParserUtil.parseCarbs(argMultimap.getValue(PREFIX_CARBS).get());
+        Fats fats = ParserUtil.parseFats(argMultimap.getValue(PREFIX_FATS).get());
+        Protein protein = ParserUtil.parseProtein(argMultimap.getValue(PREFIX_PROTEIN).get());
 
-        Recipe recipe = new Recipe(name, ingredientList);
+        Recipe recipe = new Recipe(name, ingredientList, calories, carbs, fats, protein);
 
         return new AddRecipeCommand(recipe);
     }

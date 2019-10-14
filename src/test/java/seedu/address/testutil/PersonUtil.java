@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddRecipeCommand;
-import seedu.address.logic.commands.EditRecipeCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditRecipeCommand.EditRecipeDescriptor;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.ingredient.Ingredient;
 
@@ -35,9 +35,9 @@ public class PersonUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditRecipeDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditPersonDescriptorDetails(EditRecipeDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         if (descriptor.getIngredients().isPresent()) {

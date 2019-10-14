@@ -12,7 +12,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditRecipeCommand;
-import seedu.address.logic.commands.EditRecipeCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditRecipeCommand.EditRecipeDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ingredient.Ingredient;
 
@@ -39,18 +39,18 @@ public class EditRecipeCommandParser implements Parser<EditRecipeCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditRecipeCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editRecipeDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
 
-        parseIngredientsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT)).ifPresent(editPersonDescriptor::setIngredients);
+        parseIngredientsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT)).ifPresent(editRecipeDescriptor::setIngredients);
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editRecipeDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditRecipeCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditRecipeCommand(index, editPersonDescriptor);
+        return new EditRecipeCommand(index, editRecipeDescriptor);
     }
 
     /**

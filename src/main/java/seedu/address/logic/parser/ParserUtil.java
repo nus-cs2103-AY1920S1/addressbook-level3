@@ -9,7 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.*;
 import seedu.address.model.ingredient.Ingredient;
 
 /**
@@ -73,5 +73,65 @@ public class ParserUtil {
             ingredientSet.add(parseIngredient(ingredientName));
         }
         return ingredientSet;
+    }
+
+    /**
+     * Parses a {@code String calories} into a {@code Calories}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code calories} is invalid.
+     */
+    public static Calories parseCalories(String calories) throws ParseException {
+        requireNonNull(calories);
+        String trimmedCalories = calories.trim();
+        if (!Calories.isValidCalories(trimmedCalories)) {
+            throw new ParseException(Calories.MESSAGE_CONSTRAINTS);
+        }
+        return new Calories(trimmedCalories);
+    }
+
+    /**
+     * Parses a {@code String carbs} into a {@code Carbs}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code carbs} is invalid.
+     */
+    public static Carbs parseCarbs(String carbs) throws ParseException {
+        requireNonNull(carbs);
+        String trimmedCarbs = carbs.trim();
+        if (!Carbs.isValidCarbs(trimmedCarbs)) {
+            throw new ParseException(Carbs.MESSAGE_CONSTRAINTS);
+        }
+        return new Carbs(trimmedCarbs);
+    }
+
+    /**
+     * Parses a {@code String fats} into a {@code Fats}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code fats} is invalid.
+     */
+    public static Fats parseFats(String fats) throws ParseException {
+        requireNonNull(fats);
+        String trimmedFats = fats.trim();
+        if (!Fats.isValidFats(trimmedFats)) {
+            throw new ParseException(Fats.MESSAGE_CONSTRAINTS);
+        }
+        return new Fats(trimmedFats);
+    }
+
+    /**
+     * Parses a {@code String protein} into a {@code Protein}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code protein} is invalid.
+     */
+    public static Protein parseProtein(String protein) throws ParseException {
+        requireNonNull(protein);
+        String trimmedProtein = protein.trim();
+        if (!Protein.isValidProtein(trimmedProtein)) {
+            throw new ParseException(Protein.MESSAGE_CONSTRAINTS);
+        }
+        return new Protein(trimmedProtein);
     }
 }

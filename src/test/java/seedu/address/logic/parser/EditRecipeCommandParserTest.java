@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditRecipeCommand;
-import seedu.address.logic.commands.EditRecipeCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditRecipeCommand.EditRecipeDescriptor;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Name;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -83,7 +83,7 @@ public class EditRecipeCommandParserTest {
         String userInput = targetIndex.getOneBased() + TAG_DESC_HUSBAND
                  + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        EditRecipeCommand.EditRecipeDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditRecipeCommand expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
 
@@ -96,7 +96,7 @@ public class EditRecipeCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        EditRecipeDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
         EditRecipeCommand expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -114,7 +114,7 @@ public class EditRecipeCommandParserTest {
                 + TAG_DESC_FRIEND + TAG_DESC_FRIEND
                 + TAG_DESC_HUSBAND;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+        EditRecipeDescriptor descriptor = new EditPersonDescriptorBuilder()
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditRecipeCommand expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
@@ -127,7 +127,7 @@ public class EditRecipeCommandParserTest {
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
+        EditRecipeCommand.EditRecipeDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
         EditRecipeCommand expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
