@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -31,5 +32,18 @@ public class CollectionUtil {
      */
     public static boolean isAnyNonNull(Object... items) {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
+    }
+
+    /**
+     * Returns true if {@code item A} items are equal to {@code item B}.
+     */
+    public static boolean checkEqual(Collection<?> itemA, Collection<?> itemB) {
+        Iterator itemBIterator = itemB.iterator();
+        for (Object obj : itemA) {
+            if (!itemBIterator.hasNext() || !obj.equals(itemBIterator.next())) {
+                return false;
+            }
+        }
+        return true;
     }
 }
