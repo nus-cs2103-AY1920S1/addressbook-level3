@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +15,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Status;
 import seedu.address.model.person.Person;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
@@ -73,7 +76,7 @@ public class ModelManager implements Model {
                         ReadOnlyDataBook<Order> orderBook, ReadOnlyDataBook<Schedule> scheduleBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(customerBook, userPrefs);
+        requireAllNonNull(customerBook, phoneBook, orderBook, scheduleBook, userPrefs);
 
         logger.fine("Initializing with customer book: " + customerBook + " and user prefs " + userPrefs);
 
@@ -204,6 +207,15 @@ public class ModelManager implements Model {
     @Override
     public void deleteCustomer(Customer target) {
         customerBook.removeCustomer(target);
+
+        // cascade
+        List<Order> orders = orderBook.getList();
+        for (Order order : orders) {
+            if (order.getCustomer().equals(target)) {
+                orderBook.removeOrder(order);
+                break;
+            }
+        }
     }
 
     @Override
@@ -215,8 +227,18 @@ public class ModelManager implements Model {
     @Override
     public void setCustomer(Customer target, Customer editedCustomer) {
         requireAllNonNull(target, editedCustomer);
-
         customerBook.setCustomer(target, editedCustomer);
+
+        // cascade
+        List<Order> orders = orderBook.getList();
+        for (Order order : orders) {
+            if (order.getCustomer().equals(target)) {
+                Order editedOrder = new Order(order.getId(), editedCustomer, order.getPhone(),
+                        order.getPrice(), order.getStatus(), order.getSchedule(), order.getTags());
+                orderBook.setOrder(order, editedOrder);
+                break;
+            }
+        }
     }
 
     //=========== Filtered Customer List Accessors =============================================================
@@ -257,6 +279,15 @@ public class ModelManager implements Model {
     @Override
     public void deletePhone(Phone target) {
         phoneBook.removePhone(target);
+
+        // cascade
+        List<Order> orders = orderBook.getList();
+        for (Order order : orders) {
+            if (order.getPhone().equals(target)) {
+                orderBook.removeOrder(order);
+                break;
+            }
+        }
     }
 
     @Override
@@ -268,8 +299,18 @@ public class ModelManager implements Model {
     @Override
     public void setPhone(Phone target, Phone editedPhone) {
         requireAllNonNull(target, editedPhone);
-
         phoneBook.setPhone(target, editedPhone);
+
+        // cascade
+        List<Order> orders = orderBook.getList();
+        for (Order order : orders) {
+            if (order.getPhone().equals(target)) {
+                Order editedOrder = new Order(order.getId(), order.getCustomer(), editedPhone,
+                        order.getPrice(), order.getStatus(), order.getSchedule(), order.getTags());
+                orderBook.setOrder(order, editedOrder);
+                break;
+            }
+        }
     }
 
     //=========== Filtered Phone List Accessors =============================================================
@@ -310,6 +351,10 @@ public class ModelManager implements Model {
     @Override
     public void deleteOrder(Order target) {
         orderBook.removeOrder(target);
+
+        // cascade
+        Optional<Schedule> targetSchedule = target.getSchedule();
+        targetSchedule.ifPresent(scheduleBook::removeSchedule);
     }
 
     @Override
@@ -363,6 +408,18 @@ public class ModelManager implements Model {
     @Override
     public void deleteSchedule(Schedule target) {
         scheduleBook.removeSchedule(target);
+
+        // cascade
+        List<Order> orders = orderBook.getList();
+        for (Order order : orders) {
+            order.getSchedule().ifPresent(schedule -> {
+                if (schedule.equals(target)) {
+                    Order editedOrder = new Order(order.getId(), order.getCustomer(), order.getPhone(),
+                            order.getPrice(), Status.UNSCHEDULED, Optional.empty(), order.getTags());
+                    orderBook.setOrder(order, editedOrder);
+                }
+            });
+        }
     }
 
     @Override
@@ -376,6 +433,18 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedSchedule);
 
         scheduleBook.setSchedule(target, editedSchedule);
+
+        // cascade
+        List<Order> orders = orderBook.getList();
+        for (Order order : orders) {
+            order.getSchedule().ifPresent(schedule -> {
+                if (schedule.equals(target)) {
+                    Order editedOrder = new Order(order.getId(), order.getCustomer(), order.getPhone(),
+                            order.getPrice(), order.getStatus(), Optional.of(editedSchedule), order.getTags());
+                    orderBook.setOrder(order, editedOrder);
+                }
+            });
+        }
     }
 
     //=========== Filtered Schedule List Accessors =============================================================

@@ -14,7 +14,7 @@ import seedu.address.model.order.exceptions.OrderNotFoundException;
 
 /**
  * A list of orders that enforces uniqueness between its elements and does not allow nulls.
- * A orderr is considered unique by comparing using {@code Order#isSameOrder(Order)}.
+ * A order is considered unique by comparing using {@code Order#isSameOrder(Order)}.
  * As such, adding and updating of
  * orders uses Order#isSameOrder(Order) for equality so as to ensure that the orders
  * being added or updated is

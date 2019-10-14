@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 import seedu.address.model.ScheduleBook;
 import seedu.address.model.schedule.Schedule;
@@ -27,10 +28,10 @@ public class TypicalSchedules {
     private static final String DEFAULT_TAG_1 = "Carrier";
     private static final String DEFAULT_TAG_2 = "Freebie";
 
-    public static final Schedule SCHEDULEONE = new ScheduleBuilder()
+    public static final Schedule SCHEDULEONE = new ScheduleBuilder().withId(UUID.randomUUID())
             .withCalendar(DEFAULT_CALENDAR_1).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
 
-    public static final Schedule SCHEDULETWO = new ScheduleBuilder()
+    public static final Schedule SCHEDULETWO = new ScheduleBuilder().withId(UUID.randomUUID())
             .withCalendar(DEFAULT_CALENDAR_2).withVenue(DEFAULT_VENUE_2).withTags(DEFAULT_TAG_2).build();
 
     public static final Schedule CBD_SCHEDULE = new ScheduleBuilder()
