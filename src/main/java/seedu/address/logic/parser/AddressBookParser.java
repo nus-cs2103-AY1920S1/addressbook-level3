@@ -50,11 +50,11 @@ public class AddressBookParser {
 
         switch (commandWord) {
 
-        case AliasCommand.COMMAND_WORD:
-            return new AliasCommandParser().parse(arguments);
-
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+
+        case AliasCommand.COMMAND_WORD:
+            return new AliasCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
@@ -75,7 +75,6 @@ public class AddressBookParser {
             return new AddVisitCommandParser().parse(arguments);
 
         case DeleteVisitCommand.COMMAND_WORD:
-            System.out.println(commandWord);
             return new DeleteVisitCommandParser().parse(arguments);
 
         case ProfileCommand.COMMAND_WORD:
