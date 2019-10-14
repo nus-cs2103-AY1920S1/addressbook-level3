@@ -6,22 +6,22 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddTagCommand;
+import seedu.address.logic.commands.AddPolicyTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.Arrays;
 
 /**
- * Parses input arguments and creates a new AddTagCommand object
+ * Parses input arguments and creates a new AddPolicyTagCommand object
  */
-public class AddTagCommandParser implements Parser<AddTagCommand> {
+public class AddPolicyTagCommandParser implements Parser<AddPolicyTagCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddTagCommand
-     * and returns a AddTagCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddPolicyTagCommand
+     * and returns a AddPolicyTagCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddTagCommand parse(String args) throws ParseException {
+    public AddPolicyTagCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
@@ -29,12 +29,12 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE), ive);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyTagCommand.MESSAGE_USAGE), ive);
         }
 
         Object[] tagValues = argMultimap.getAllValues(PREFIX_TAG).toArray();
         String[] tags = Arrays.copyOf(tagValues, tagValues.length, String[].class);
-        return new AddTagCommand(index, tags);
+        return new AddPolicyTagCommand(index, tags);
     }
 
 }

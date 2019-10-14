@@ -27,7 +27,7 @@ public class AddTagCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "t/ TAG [MORE_TAGS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "t/ smoker diabetic";
+            + "t/smoker t/diabetic";
 
     private static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag to Person: %1$s";
 
