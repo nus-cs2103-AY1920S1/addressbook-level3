@@ -124,8 +124,8 @@ public class Participant extends Entity {
             return true;
         }
 
-        return this.id.equals(otherParticipant.getId())
-                && (this.name.equals(otherParticipant.getName())
+        return this.name.equals(otherParticipant.getName())
+                && (this.phone.equals(otherParticipant.getPhone())
                     || this.email.equals(otherParticipant.getEmail()));
     }
 }

@@ -161,7 +161,7 @@ public class Mentor extends Entity {
             return true;
         }
 
-        return this.id.equals(otherMentor.getId())
+        return this.name.equals(otherMentor.getName())
             && (this.phone.equals(otherMentor.getPhone())
                 || this.email.equals(otherMentor.getEmail()));
     }

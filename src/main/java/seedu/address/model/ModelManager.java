@@ -264,13 +264,14 @@ public class ModelManager implements Model {
             this.saveList(PrefixType.P);
             return;
         }
+        this.participantList.update(id, participant);
+
         boolean isSuccessful = targetTeam.updateParticipant(participant);
         if (!isSuccessful) {
             logger.warning("The participant is not in the team provided");
             throw new ModelValidationException("Participant is not in the team provided");
         }
 
-        this.participantList.update(id, participant);
         this.saveList(PrefixType.P);
         this.saveList(PrefixType.T);
     }

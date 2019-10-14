@@ -325,6 +325,6 @@ public class Team extends Entity {
         }
 
         return this.name.equals(otherTeam.getName())
-                || this.id.equals(otherTeam.getId());
+                || this.projectName.equals(otherTeam.getProjectName());
     }
 }
