@@ -73,10 +73,10 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s appointment manager and {@code userPrefs}.
-     * <br> The data from the sample Typee application will be used instead if {@code storage}'s appointment
-     * manager is not found, or an empty appointment manager will be used instead if errors occur when reading
-     * {@code storage}'s appointment manager.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s engagement manager and {@code userPrefs}.
+     * <br> The data from the sample Typee application will be used instead if {@code storage}'s engagement
+     * manager is not found, or an empty engagement manager will be used instead if errors occur when reading
+     * {@code storage}'s engagement manager.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
@@ -84,14 +84,14 @@ public class MainApp extends Application {
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample appointment manager");
+                logger.info("Data file not found. Will be starting with a sample engagement manager");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty appointment manager");
+            logger.warning("Data file not in the correct format. Will be starting with an empty engagement manager");
             initialData = new AddressBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty appointment manager");
+            logger.warning("Problem while reading from the file. Will be starting with an empty engagement manager");
             initialData = new AddressBook();
         }
 

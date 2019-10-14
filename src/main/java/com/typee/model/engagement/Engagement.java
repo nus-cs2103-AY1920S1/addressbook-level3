@@ -1,4 +1,4 @@
-package com.typee.model.appointment;
+package com.typee.model.engagement;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -6,20 +6,20 @@ import java.util.List;
 import com.typee.model.person.Person;
 
 /**
- * Appointment class
+ * Represents a generalization of meetings, interviews and appointments.
  */
-public class Appointment {
-    private LocalDateTime start;
-    private LocalDateTime end;
+public class Engagement {
+    protected LocalDateTime start;
+    protected LocalDateTime end;
     //future modification of Person class is required -- Ko Gi Hun
-    private List<Person> managers;
-    private List<Person> attendees;
-    private Location location;
-    private String description;
-    private Priority priority;
+    protected List<Person> managers;
+    protected List<Person> attendees;
+    protected Location location;
+    protected String description;
+    protected Priority priority;
 
-    public Appointment(LocalDateTime start, LocalDateTime end, List<Person> managers,
-                       List<Person> attendees, Location location, String description, Priority priority) {
+    protected Engagement(LocalDateTime start, LocalDateTime end, List<Person> managers,
+                      List<Person> attendees, Location location, String description, Priority priority) {
         this.start = start;
         this.end = end;
         this.managers = managers;
@@ -27,6 +27,10 @@ public class Appointment {
         this.location = location;
         this.description = description;
         this.priority = priority;
+    }
+
+    public Engagement makeEngagement(String userInput) {
+        return null;
     }
 
     public LocalDateTime getStart() {
