@@ -15,6 +15,7 @@ public class GameTimer implements Runnable {
 
     private Timer timer;
     private long currentMilliSeconds;
+    private long timeLeft;
     private String mainMessage;
     private GameManager.MainWindowExecuteCallBack mainWindowExecuteCallBack;
     private GameManager.TimerDisplayCallBack timerDisplayCallBack;
@@ -33,14 +34,11 @@ public class GameTimer implements Runnable {
         this.mainWindowExecuteCallBack = mainWindowExecuteCallBack;
         this.timerDisplayCallBack = timerDisplayCallBack;
         this.currentMilliSeconds = durationInMs;
+        this.timeLeft = currentMilliSeconds;
         this.timer = new Timer(true);
     }
 
-    private void updateMilliSecondsLeft() {
-        --currentMilliSeconds;
-    }
-
-    public double getTimeLeft() {
+    public long getTimeLeft() {
         return currentMilliSeconds;
     }
 
@@ -56,15 +54,23 @@ public class GameTimer implements Runnable {
      * Starts the timer and updates the JavaFX UI periodically.
      * Runs on same thread as JavaFX UI.
      */
+    @Override
     public void run() {
         timer.schedule(new TimerTask() {
-            private long timeLeft = currentMilliSeconds;
+            boolean cancelled = false;
+
+            @Override
             public void run() {
                 Platform.runLater(() -> {
                     if (timeLeft >= 0) {
                         timerDisplayCallBack.updateTimerDisplay(
-                                mainMessage + ": " + ((double) timeLeft) / 100, timeLeft);
+                                mainMessage + ": " + ((double) timeLeft) / 1000, timeLeft);
                     } else {
+                        if (cancelled) {
+                            return;
+                        }
+                        cancelled = true;
+
                         timer.cancel();
                         timerDisplayCallBack.updateTimerDisplay("Time's up!", timeLeft);
                         try {
@@ -75,12 +81,15 @@ public class GameTimer implements Runnable {
                             e.printStackTrace();
                         }
                     }
-                    timeLeft = timeLeft - 2;
+                    timeLeft = timeLeft - 1;
                 });
             }
-        }, 0, 20); // Start timer immediately, and refresh every 1ms
+        }, 0, 1); // Start timer immediately, and refresh every 1ms
     }
 
+    public long getElapsedMillis() {
+        return currentMilliSeconds - timeLeft;
+    }
 }
 
 

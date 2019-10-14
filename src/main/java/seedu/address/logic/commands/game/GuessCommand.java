@@ -54,7 +54,6 @@ public class GuessCommand extends GameCommand {
             commandResult = new CommandResult(commandResult.getFeedbackToUser()
                     + "\n"
                     + "GAME OVER!!!");
-            commandResult =  commandResult;
         }
 
         String nextQuestionToShow = game.showCurrQuestion();

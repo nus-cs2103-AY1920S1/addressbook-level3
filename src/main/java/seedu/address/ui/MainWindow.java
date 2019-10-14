@@ -180,7 +180,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
         //Platform.exit();
         //System.exit(0);
-
     }
 
     /**
@@ -232,6 +231,5 @@ public class MainWindow extends UiPart<Stage> {
     private void updateResultDisplay(String resultDisplayMessage) {
         this.resultDisplay.setFeedbackToUser(resultDisplayMessage);
     }
-
 
 }

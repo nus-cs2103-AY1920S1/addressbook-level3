@@ -13,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.card.Card;
+import seedu.address.stats.GameStatisticsBuilder;
 
 /**
  * Class that wraps around the entire apps logic and the GameTimer. This is done to separate all logic
@@ -26,9 +27,11 @@ public class GameManager {
     // Call-back method to update ResultDisplay in MainWindow
     private ResultDisplayCallBack resultDisplayCallBack = null; // not used for now.
     private MainWindowExecuteCallBack mainWindowExecuteCallBack = null;
+    private GameStatisticsBuilder gameStatisticsBuilder = null;
 
     public GameManager(Logic logic) {
         this.logic = logic;
+        gameStatisticsBuilder = new GameStatisticsBuilder();
     }
 
     public void setGuiSettings(GuiSettings guiSettings) {
@@ -36,7 +39,7 @@ public class GameManager {
     }
 
     private void setAndRunGameTimer() {
-        gameTimer = new GameTimer("Time Left", 200,
+        gameTimer = new GameTimer("Time Left", 5000,
                 this.mainWindowExecuteCallBack,
                 this.timerDisplayCallBack);
         gameTimer.run();

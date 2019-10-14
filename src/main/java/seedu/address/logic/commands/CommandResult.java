@@ -20,6 +20,7 @@ public class CommandResult {
     /** The application is prompting a guess. */
     private final boolean promptsGuess;
 
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */

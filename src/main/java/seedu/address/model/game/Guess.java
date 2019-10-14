@@ -2,6 +2,7 @@ package seedu.address.model.game;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import seedu.address.model.card.Card;
 import seedu.address.model.card.Word;
 
 /**
@@ -15,10 +16,6 @@ public class Guess {
     public Guess(String guessString) {
         requireAllNonNull(guessString);
         this.guessString = guessString;
-    }
-
-    public String getGuessString() {
-        return this.guessString;
     }
 
     /**
