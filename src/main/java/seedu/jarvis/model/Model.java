@@ -14,6 +14,5 @@ import seedu.jarvis.model.userprefs.UserPrefsModel;
  * {@code HistoryModel} is the API for undoing and redoing commands.
  */
 
-public interface Model extends AddressModel, UserPrefsModel, HistoryModel, CcaTrackerModel, 
-PlannerModel{}
+public interface Model extends AddressModel, UserPrefsModel, HistoryModel, CcaTrackerModel, PlannerModel {}
 

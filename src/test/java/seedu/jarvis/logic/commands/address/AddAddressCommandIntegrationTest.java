@@ -36,7 +36,7 @@ public class AddAddressCommandIntegrationTest {
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
-      
+
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
                 model.getAddressBook(), new UserPrefs(), model.getPlanner());
         expectedModel.addPerson(validPerson);

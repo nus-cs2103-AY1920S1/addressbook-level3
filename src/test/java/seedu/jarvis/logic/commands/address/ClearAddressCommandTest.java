@@ -49,8 +49,8 @@ public class ClearAddressCommandTest {
     @Test
     public void execute_nonEmptyAddressBook_success() {
 
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), new UserPrefs(), 
-                                 new Planner());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), new UserPrefs(),
+                new Planner());
         Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
                 new UserPrefs(), new Planner());
 
@@ -67,7 +67,7 @@ public class ClearAddressCommandTest {
     @Test
     public void executeInverse_success() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), 
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
                                  new UserPrefs(), new Planner());
         Person validPerson = new PersonBuilder().build();
         model.addPerson(validPerson);
@@ -87,8 +87,7 @@ public class ClearAddressCommandTest {
     @Test
     public void repeatedExecutionAndInverseExecution() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), 
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
                                  new UserPrefs(), new Planner());
         Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
                 new UserPrefs(), new Planner());

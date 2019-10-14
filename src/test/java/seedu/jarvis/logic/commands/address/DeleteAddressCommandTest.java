@@ -37,7 +37,7 @@ public class DeleteAddressCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), 
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
                                  new UserPrefs(), new Planner());
     }
 
@@ -85,7 +85,6 @@ public class DeleteAddressCommandTest {
 
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
                 model.getAddressBook(), new UserPrefs(), model.getPlanner());
-      
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 

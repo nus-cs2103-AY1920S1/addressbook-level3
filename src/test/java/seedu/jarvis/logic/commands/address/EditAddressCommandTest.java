@@ -46,9 +46,8 @@ public class EditAddressCommandTest {
 
     @BeforeEach
     public void setUp() {
-
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), 
-                                 new UserPrefs(), new Planner());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
+                new UserPrefs(), new Planner());
     }
 
     /**
@@ -250,7 +249,6 @@ public class EditAddressCommandTest {
 
         Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(),
                 new AddressBook(model.getAddressBook()), new UserPrefs(), new Planner());
-      
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
         assertCommandSuccess(editAddressCommand, model, executionExpectedMessage, expectedModel);
 

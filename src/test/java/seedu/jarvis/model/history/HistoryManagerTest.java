@@ -490,11 +490,10 @@ public class HistoryManagerTest {
         }
 
         @Override
-
         public void contains(Cca cca) {
             throw new AssertionError("This method should not be called.");
         }
-      
+
         @Override
         public TaskList getTasks() {
             throw new AssertionError("This method should not be called.");
@@ -514,7 +513,7 @@ public class HistoryManagerTest {
         public void removeCca(Cca cca) {
             throw new AssertionError("This method should not be called.");
         }
-  
+
         @Override
         public Boolean hasTask(Task t) {
 
@@ -535,7 +534,7 @@ public class HistoryManagerTest {
         public CcaTracker getCcaTracker() {
             return null;
         }
-        
+
         @Override
         public Planner getPlanner() {
             throw new AssertionError("This method should not be called.");

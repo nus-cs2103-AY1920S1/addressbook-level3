@@ -76,8 +76,8 @@ public class ModelManagerTest {
         HistoryManager historyManager = new HistoryManager();
         historyManager.rememberExecutedCommand(new CommandStub());
         CcaTracker ccaTracker = new CcaTracker();
-        modelManager = new ModelManager(ccaTracker, historyManager, new AddressBook(), 
-                                        new UserPrefs(), new Planner());
+        modelManager = new ModelManager(ccaTracker, historyManager, new AddressBook(),
+                new UserPrefs(), new Planner());
 
         Assertions.assertEquals(historyManager, modelManager.getHistoryManager());
     }
@@ -245,10 +245,8 @@ public class ModelManagerTest {
         Planner planner = new Planner();
 
         // same values -> returns true
-
         modelManager = new ModelManager(ccaTracker, historyManager, addressBook, userPrefs, planner);
         ModelManager modelManagerCopy = new ModelManager(ccaTracker, historyManager, addressBook, userPrefs, planner);
-      
         Assertions.assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true

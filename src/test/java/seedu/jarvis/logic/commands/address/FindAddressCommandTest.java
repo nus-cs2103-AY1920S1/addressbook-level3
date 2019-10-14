@@ -36,8 +36,8 @@ public class FindAddressCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), 
-                                 new UserPrefs(), new Planner());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
+                new UserPrefs(), new Planner());
         expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(), getTypicalAddressBook(),
                 new UserPrefs(), model.getPlanner());
     }

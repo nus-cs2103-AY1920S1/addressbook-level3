@@ -228,9 +228,9 @@ public class AddAddressCommandTest {
 
         @Override
         public void addCca(Cca cca) {
-          throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
-      
+
         @Override
         public TaskList getTasks() {
             return null;
@@ -243,7 +243,7 @@ public class AddAddressCommandTest {
 
         @Override
         public void removeCca(Cca cca) {
-          throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -265,11 +265,11 @@ public class AddAddressCommandTest {
         public CcaTracker getCcaTracker() {
             return null;
         }
-      
+
+        @Override
         public Planner getPlanner() {
             throw new AssertionError("This method should not be called.");
         }
-
     }
 
     /**

@@ -47,20 +47,21 @@ public class ModelManager implements Model {
     public ModelManager(CcaTracker ccaTracker, HistoryManager historyManager, ReadOnlyAddressBook addressBook,
                         ReadOnlyUserPrefs userPrefs, Planner planner) {
         super();
-        requireAllNonNull(ccaTracker, historyManager, addressBook, userPrefs);
+        requireAllNonNull(ccaTracker, historyManager, addressBook, userPrefs, planner);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
+        this.ccaTracker = new CcaTracker(ccaTracker);
         this.historyManager = new HistoryManager(historyManager);
         this.addressBook = new AddressBook(addressBook);
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.userPrefs = new UserPrefs(userPrefs);
+        this.planner = new Planner(planner);
     }
 
     public ModelManager() {
         this(new CcaTracker(), new HistoryManager(), new AddressBook(), new UserPrefs(), new Planner());
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        this.planner = new Planner(planner);
-        this.ccaTracker = new CcaTracker(ccaTracker);
+
     }
 
 
@@ -307,7 +308,8 @@ public class ModelManager implements Model {
     @Override
     public CcaTracker getCcaTracker() {
         return ccaTracker;
-=======
+    }
+
     //=========== Planner =============================================================
 
     /**
