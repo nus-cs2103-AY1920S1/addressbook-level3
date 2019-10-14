@@ -26,12 +26,14 @@ public class StartCommand extends Command {
 
     public static final String MESSAGE_START_TEST_SUCCESS = "Starting test...";
 
+    public static final String MESSAGE_NO_FLASHCARDS = "No flashcards to test!";
+
     private final AddressBookParser addressBookParser;
 
-    private final String tagName; // TODO: will integrate after deck class is completed
+    private final String tagName;
 
     public StartCommand(AddressBookParser addressBookParser) {
-        this.tagName = ""; // TODO: will get a random deck name from list of decks
+        this.tagName = "";
         this.addressBookParser = addressBookParser;
     }
 
@@ -60,7 +62,7 @@ public class StartCommand extends Command {
         ArrayList<FlashCard> testList = searchTag(model);
         model.initializeTestModel(testList);
         if (!model.hasTestFlashCard()) {
-            return new CommandResult("Empty deck!");
+            return new CommandResult(MESSAGE_NO_FLASHCARDS);
         }
 
         addressBookParser.startTest();
