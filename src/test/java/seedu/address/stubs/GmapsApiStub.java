@@ -13,6 +13,9 @@ import org.json.simple.parser.ParseException;
 
 import seedu.address.websocket.GmapsApi;
 
+/**
+ * This is for GmapsApi stubs
+ */
 public class GmapsApiStub extends GmapsApi {
 
     private JSONObject okApiResponse;
@@ -33,14 +36,17 @@ public class GmapsApiStub extends GmapsApi {
         }
     }
 
+    /**
+     * This method is used to load the stub api response
+     */
     private void loadStubResponse() {
         try {
             JSONParser parser = new JSONParser();
             okApiResponse = (JSONObject) parser.parse(
                     new FileReader("src/test/data/ApiStubsTest/GmapsPlacesOK.json"));
             zeroResultsApiResponse = (JSONObject) parser.parse(
-                    new FileReader("/Users/tandeningklement/Desktop/codes/School/CS2103T_tP/main/src/" +
-                            "test/data/ApiStubsTest/GmapsPlacesZERO_RESULTS.json"));
+                    new FileReader("/Users/tandeningklement/Desktop/codes/School/CS2103T_tP/main/src/"
+                            + "test/data/ApiStubsTest/GmapsPlacesZERO_RESULTS.json"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

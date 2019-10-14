@@ -1,6 +1,7 @@
 package seedu.address.logic.internal.gmaps;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.TimeBookInvalidState;
 
 class ProcessVenuesTest {
-    ProcessVenues processVenues;
+    private ProcessVenues processVenues;
     @BeforeEach
     void init() {
         processVenues = new ProcessVenues();
@@ -23,6 +24,6 @@ class ProcessVenuesTest {
 
     @Test
     void getGmapsRecognisedLocationList() {
-        assertEquals(processVenues.getGmapsRecognisedLocationList(),  new ArrayList<>());
+        assertEquals(processVenues.getGmapsRecognisedLocationList(), new ArrayList<>());
     }
 }

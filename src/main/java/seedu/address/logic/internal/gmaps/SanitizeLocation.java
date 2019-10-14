@@ -1,7 +1,9 @@
 package seedu.address.logic.internal.gmaps;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.ConnectException;
@@ -16,6 +18,7 @@ import seedu.address.websocket.GmapsApi;
  * This call is used to find the valid location name
  */
 public class SanitizeLocation implements Serializable {
+    private static final long serialVersionUID = 6529685098267757693L;
     private ArrayList<String> validLocationList = new ArrayList<>();
     private transient GmapsApi gmapsApi;
 
@@ -85,6 +88,32 @@ public class SanitizeLocation implements Serializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    /**
+     * This method is used to get the instance of SanitizeLocation
+     * @return
+     */
+    public static SanitizeLocation load() {
+        SanitizeLocation sanitizeLocation = null;
+        try {
+            // Reading the object from a file
+            FileInputStream file = new FileInputStream("data/SanitizeLocationSerialization");
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            // Method for deserialization of object
+            sanitizeLocation = (SanitizeLocation) in.readObject();
+
+            in.close();
+            file.close();
+
+            System.out.println("SanitizeLocation has been deserialized");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return sanitizeLocation;
     }
 
 }

@@ -1,6 +1,7 @@
 package seedu.address.model.gmaps;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.net.ConnectException;
 import java.util.ArrayList;
@@ -15,14 +16,14 @@ import seedu.address.stubs.ProcessVenuesStub;
 
 
 class LocationGraphTest {
-    LocationGraph locationGraph;
+    private LocationGraph locationGraph;
     @BeforeEach
     void init() throws ConnectException, TimeBookInvalidState {
         locationGraph = new LocationGraph(new ProcessVenuesStub());
     }
     @Test
     void getGmapsRecognisedLocationList() {
-        ArrayList<String> expectedLocationList = new ArrayList<>(Arrays.asList("NUS_FOO","NUS_BAR", "NUS_FOOBAR"));
+        ArrayList<String> expectedLocationList = new ArrayList<>(Arrays.asList("NUS_FOO", "NUS_BAR", "NUS_FOOBAR"));
         assertEquals(locationGraph.getGmapsRecognisedLocationList(), expectedLocationList);
     }
 
@@ -58,7 +59,7 @@ class LocationGraphTest {
     @Test
     void setMatrixRow() throws TimeBookInvalidState, ConnectException {
         ArrayList<Long> row1 = new ArrayList<>(Arrays.asList((long) 1, (long) 2, (long) 3));
-        ArrayList<ArrayList<Long>> actualMatrix= locationGraph.setMatrixRow(0,row1).getDistanceMatrix();
+        ArrayList<ArrayList<Long>> actualMatrix = locationGraph.setMatrixRow(0, row1).getDistanceMatrix();
         ArrayList<ArrayList<Long>> expectedGraph =
                 new ArrayList<>(Arrays.asList(row1, new ArrayList<>(), new ArrayList<>()));
         assertEquals(expectedGraph, actualMatrix);

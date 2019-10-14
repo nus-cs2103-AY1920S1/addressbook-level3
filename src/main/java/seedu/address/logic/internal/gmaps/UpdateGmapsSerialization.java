@@ -44,7 +44,7 @@ public class UpdateGmapsSerialization {
         processLocationGraph.saveLocationGraph();
     }
 
-    public static void main(String[] args) throws ConnectException {
-        UpdateGmapsSerialization.updateProcessVenues();
+    public static void main(String[] args) throws ConnectException, TimeBookInvalidState {
+        UpdateGmapsSerialization.updateLocationGraph();
     }
 }

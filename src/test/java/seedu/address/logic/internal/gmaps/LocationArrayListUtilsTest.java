@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.gmaps.Location;
 
 class LocationArrayListUtilsTest {
-    ArrayList<Location> locationArrayList;
+    private ArrayList<Location> locationArrayList;
     @BeforeEach
     void init() {
         Location location1 = new Location("Foo");
@@ -24,17 +24,16 @@ class LocationArrayListUtilsTest {
 
     @Test
     void getIndex() {
-        assertEquals(LocationArrayListUtils.getIndex(locationArrayList, "Foo"), 0 );
-        assertEquals(LocationArrayListUtils.getIndex(locationArrayList, "Bar"), 1 );
-        assertEquals(LocationArrayListUtils.getIndex(locationArrayList, "FooBarLT"), 2 );
+        assertEquals(LocationArrayListUtils.getIndex(locationArrayList, "Foo"), 0);
+        assertEquals(LocationArrayListUtils.getIndex(locationArrayList, "Bar"), 1);
+        assertEquals(LocationArrayListUtils.getIndex(locationArrayList, "FooBarLT"), 2);
     }
 
     @Test
     void getIndexExceptionFlow() {
         InvalidParameterException e =
-                assertThrows(
-                        InvalidParameterException.class,
-                        () -> LocationArrayListUtils.getIndex(locationArrayList, "BarFooBarFoo"));
+                assertThrows(InvalidParameterException.class, () -> LocationArrayListUtils.getIndex(locationArrayList,
+                        "BarFooBarFoo"));
         assertEquals(e.getMessage(), "Cannot find location BarFooBarFoo in arrayList");
 
     }

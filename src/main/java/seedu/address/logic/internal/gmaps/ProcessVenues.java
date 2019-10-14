@@ -21,6 +21,7 @@ import seedu.address.websocket.NusModsApi;
  * This class is used to get nus venues
  */
 public class ProcessVenues implements Serializable {
+    private static final long serialVersionUID = 652968509826775762L;
     private JSONArray venuesNusMods;
     private ArrayList<Location> venues = new ArrayList<>();
     private transient GmapsApi gmapsApi = new GmapsApi();
@@ -28,8 +29,9 @@ public class ProcessVenues implements Serializable {
 
     public ProcessVenues(){
     }
-    private ProcessVenues(JSONArray venuesNusMods, ArrayList<Location> venues) {
+    private ProcessVenues(JSONArray venuesNusMods, ArrayList<Location> venues, SanitizeLocation sanitizeLocation) {
         this.venues = venues;
+        this.sanitizeLocation = sanitizeLocation;
         this.venuesNusMods = venuesNusMods;
     }
 
@@ -115,13 +117,13 @@ public class ProcessVenues implements Serializable {
             }
         }
         sanitizeLocation.save();
-        return new ProcessVenues(venuesNusMods, venues);
+        return new ProcessVenues(venuesNusMods, venues, sanitizeLocation);
     }
 
     private ProcessVenues getVenuesJsonArray() {
         NusModsApi nusModApi = new NusModsApi();
         JSONArray currVenuesNusMod = nusModApi.getVenues("/1");
-        return new ProcessVenues(currVenuesNusMod, venues);
+        return new ProcessVenues(currVenuesNusMod, venues, sanitizeLocation);
     }
 
     private Location getLocation(int i) throws ConnectException {

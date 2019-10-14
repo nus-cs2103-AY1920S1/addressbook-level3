@@ -13,7 +13,7 @@ import seedu.address.logic.internal.gmaps.ProcessVenues;
  * This is the graph object that contains the information for location vertex
  */
 public class LocationGraph implements java.io.Serializable {
-
+    private static final long serialVersionUID = 6529685098267757690L;
     private ArrayList<Location> locations;
 
     private ArrayList<String> gmapsRecognisedLocationList;
@@ -63,7 +63,7 @@ public class LocationGraph implements java.io.Serializable {
     public ArrayList<ArrayList<Long>> getDistanceMatrix() {
         return distanceMatrix;
     }
-
+    //TODO refactor out the return statement
     public LocationGraph setMatrixRow(int rowNum, ArrayList<Long> row) throws ConnectException, TimeBookInvalidState {
         distanceMatrix.get(rowNum).addAll(row);
         return new LocationGraph(processVenues, distanceMatrix);

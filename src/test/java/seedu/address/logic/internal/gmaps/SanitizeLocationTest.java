@@ -1,6 +1,7 @@
 package seedu.address.logic.internal.gmaps;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.net.ConnectException;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import seedu.address.commons.exceptions.TimeBookInvalidLocation;
 import seedu.address.stubs.GmapsApiStub;
 
 class SanitizeLocationTest {
-    SanitizeLocation sanitizeLocation;
+    private SanitizeLocation sanitizeLocation;
 
     @BeforeEach
     void init() {

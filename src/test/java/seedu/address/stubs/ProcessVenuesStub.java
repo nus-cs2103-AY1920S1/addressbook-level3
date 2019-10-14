@@ -6,6 +6,9 @@ import java.util.Arrays;
 import seedu.address.logic.internal.gmaps.ProcessVenues;
 import seedu.address.model.gmaps.Location;
 
+/**
+ * This is the stub for Process Venues Obj
+ */
 public class ProcessVenuesStub extends ProcessVenues {
     public ProcessVenuesStub() {
         super();
@@ -24,6 +27,6 @@ public class ProcessVenuesStub extends ProcessVenues {
 
     @Override
     public ArrayList<String> getGmapsRecognisedLocationList() {
-        return new ArrayList(Arrays.asList("NUS_FOO","NUS_BAR", "NUS_FOOBAR"));
+        return new ArrayList(Arrays.asList("NUS_FOO", "NUS_BAR", "NUS_FOOBAR"));
     }
 }
