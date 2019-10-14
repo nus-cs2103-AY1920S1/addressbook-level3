@@ -3,9 +3,12 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -41,6 +44,10 @@ public class MainWindow extends UiPart<Stage> {
     private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private TabBar tabBar;
+
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -49,10 +56,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
-    private StackPane eventListPanelPlaceholder;
+    private StackPane omniPanelPlaceholder;
 
     @FXML
     private StackPane queueListPanelPlaceholder;
@@ -64,7 +68,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private AnchorPane anchorPane;
+    private StackPane tabBarPlaceholder;
+
+    @FXML
+    private SplitPane upperPane;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -79,6 +86,19 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        upperPane.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                case TAB:
+                    event.consume();
+                    commandBox.getRoot().requestFocus();
+                    break;
+                default:
+                }
+            }
+        });
     }
 
     public Stage getPrimaryStage() {
@@ -125,14 +145,14 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
-        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
-        //TODO: EDIT HERE
+        tabBar = new TabBar(this::onTabSelected);
+        tabBarPlaceholder.getChildren().add(tabBar.getRoot());
+
         queueListPanel = new QueueListPanel(logic.getFilteredRoomList(),
-                                             logic.getFilteredReferencedIdList(), logic.getReferenceIdResolver());
+            logic.getFilteredReferencedIdList(), logic.getReferenceIdResolver());
         queueListPanelPlaceholder.getChildren().add(queueListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -141,10 +161,10 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand, this::updateAutoCompleter, this::traverseAutoCompleter);
+        commandBox = new CommandBox(this::executeCommand, this::onCommandBoxTextChanged, this::onCommandBoxKeyPressed);
         commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
 
-        aco = new AutoCompleteOverlay(this::selectionNotifier);
+        aco = new AutoCompleteOverlay(this::autoCompleterSelected);
         anchorPane.getChildren().add(aco.getRoot());
         anchorPane.setBottomAnchor(aco.getRoot(), 0.0);
     }
@@ -183,7 +203,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -192,6 +212,7 @@ public class MainWindow extends UiPart<Stage> {
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
+
     public EventListPanel getEventListPanel() {
         return eventListPanel;
     }
@@ -223,32 +244,62 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void updateAutoCompleter(String commandText) {
+    /**
+     * Called whenever Command Box text changed.
+     */
+    private void onCommandBoxTextChanged(String commandText) {
         aco.showSuggestions(commandText, logic.updateAutoCompleter(commandText).getSuggestions());
     }
 
     /**
-     * Traverses AutoCompleter if valid, otherwise check if AutoCompleter is suggesting anything.
-     * Otherwise, CommandBox handles as command input.
-     *
-     * @param traverseUp true if UP, false if DOWN, null if ENTER.
+     * Receives Key Press event from Command Box and executes expected behaviours.
      */
-    private void traverseAutoCompleter(Boolean traverseUp) {
-        if (!aco.isSuggesting()) {
+    private void onCommandBoxKeyPressed(KeyCode keyCode) {
+        switch (keyCode) {
+        case UP:
+            if (aco.isSuggesting()) {
+                aco.traverseSelection(true);
+                break;
+            }
+            break;
+        case DOWN:
+            if (aco.isSuggesting()) {
+                aco.traverseSelection(false);
+                break;
+            }
+            break;
+        case ENTER:
+            if (aco.isSuggesting()) {
+                aco.simulateMouseClick();
+                break;
+            }
             commandBox.handleCommandEntered();
-            return;
+            break;
+        default:
         }
-        if (traverseUp == null) {
-            aco.simulateMouseClick();
-            return;
-        }
-        aco.traverseSelection(traverseUp);
     }
 
     /**
-     * Notifies CommandBox that Selection has been made.
+     * Called whenever AutoComplete has a selection.
      */
-    private void selectionNotifier(String selectedText) {
+    private void autoCompleterSelected(String selectedText) {
         commandBox.setCommandTextField(selectedText);
+    }
+
+    /**
+     * Called whenever tab has been selected.
+     */
+    private void onTabSelected(String selectedText) {
+        switch (selectedText) {
+        case "patientsTab":
+            omniPanelPlaceholder.getChildren().setAll(personListPanel.getRoot());
+            break;
+        case "appointmentsTab":
+            omniPanelPlaceholder.getChildren().setAll(eventListPanel.getRoot());
+            break;
+        case "doctorsTab":
+            break;
+        default:
+        }
     }
 }
