@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.BankAccount;
 import seedu.address.model.ReadOnlyBankAccount;
-import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -38,7 +37,11 @@ class JsonSerializableBankAccount {
      * @param source future changes to this will not affect the created {@code JsonSerializableBankAccount}.
      */
     public JsonSerializableBankAccount(ReadOnlyBankAccount source) {
-        transactions.addAll(source.getTransactionHistory().stream().map(JsonAdaptedTransaction::new).collect(Collectors.toList()));
+        transactions
+                .addAll(source.getTransactionHistory()
+                        .stream()
+                        .map(JsonAdaptedTransaction::new)
+                        .collect(Collectors.toList()));
     }
 
     /**
