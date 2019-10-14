@@ -20,7 +20,7 @@ import seedu.address.model.customer.Customer;
  */
 public class JsonCustomerBookStorage implements CustomerBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonCustomerBookStorage.class);
 
     private Path filePath;
 
