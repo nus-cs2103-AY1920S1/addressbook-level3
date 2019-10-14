@@ -17,6 +17,7 @@ import seedu.address.logic.commands.SwitchSchedulePanelCommand;
 
 import seedu.address.logic.commands.addcommand.AddCustomerCommand;
 import seedu.address.logic.commands.addcommand.AddPhoneCommand;
+import seedu.address.logic.commands.addcommand.AddOrderCommand;
 import seedu.address.logic.commands.deletecommand.DeleteCommand;
 import seedu.address.logic.commands.deletecommand.DeletePhoneCommand;
 import seedu.address.logic.commands.editcommand.EditCustomerCommand;
@@ -25,6 +26,7 @@ import seedu.address.logic.commands.findcommand.FindCommand;
 import seedu.address.logic.commands.listcommand.ListCommand;
 
 import seedu.address.logic.parser.addcommandparser.AddCustomerCommandParser;
+import seedu.address.logic.parser.addcommandparser.AddOrderCommandParser;
 import seedu.address.logic.parser.addcommandparser.AddPhoneCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeleteCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeletePhoneCommandParser;
@@ -71,6 +73,9 @@ public class AddressBookParser {
         case AddPhoneCommand.COMMAND_WORD:
             return new AddPhoneCommandParser().parse(arguments);
 
+        case AddOrderCommand.COMMAND_WORD:
+            return new AddOrderCommandParser().parse(arguments);
+
         case EditCustomerCommand.COMMAND_WORD:
             return new EditCustomerCommandParser().parse(arguments);
 
@@ -82,6 +87,7 @@ public class AddressBookParser {
             return new DeletePhoneCommandParser().parse(arguments);
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
