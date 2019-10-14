@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.ListPropertyBase;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -90,4 +91,6 @@ public interface ItemModel {
     public Item markComplete(int index) throws IllegalListException;
 
     public void updateState();
+    //Bryan Reminder
+    ListPropertyBase<Item> getActiveRemindersListProperty();
 }

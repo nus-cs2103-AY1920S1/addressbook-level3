@@ -5,9 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.nio.file.Path;
 import java.util.PriorityQueue;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ListPropertyBase;
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.core.item.Task;
+import seedu.address.commons.core.item.Reminder;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.exceptions.IllegalListException;
 import seedu.address.model.item.EventList;
@@ -30,7 +34,13 @@ public class ItemModelManager implements ItemModel {
     private boolean priorityMode = false;
     private PriorityQueue<Item> sortedTask = null;
 
+    //Bryan Reminder
+    private ReminderList pastReminders;
+    private ListPropertyBase<Item> activeReminders;
+    private ReminderList futureReminders;
+
     public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs, ElisaStateHistory elisaStateHistory) {
+
         this.taskList = new TaskList();
         this.eventList = new EventList();
         this.reminderList = new ReminderList();
@@ -39,11 +49,49 @@ public class ItemModelManager implements ItemModel {
         this.userPrefs = new UserPrefs(userPrefs);
         this.elisaStateHistory = elisaStateHistory;
 
+        //Bryan Reminder
+        pastReminders = new ReminderList();
+
+        activeReminders = new ListPropertyBase<Item>(new ReminderList()) {
+            @Override
+            public Object getBean() {
+                return null;
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+        };
+
+        futureReminders = new ReminderList();
+
         for (int i = 0; i < itemStorage.size(); i++) {
             addToSeparateList(itemStorage.get(i));
         }
 
         elisaStateHistory.pushCommand(new ElisaStateManager(getItemStorage(), getVisualList()).deepCopy());
+    }
+
+    /* Bryan Reminder
+     *
+     * Referenced: https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm
+     * for property naming conventions.
+     *
+     */
+
+    //Function to get property
+    private ListPropertyBase<Item> getActiveReminderListProperty() {
+        return activeReminders;
+    }
+
+    //Function get property's value
+    public final ObservableList<Item> getActiveReminderList() {
+        return activeReminders.get();
+    }
+    //Function to edit property //which should trigger a change event
+    public final void addReminderToActive(Item item) {
+        activeReminders.add(item);
     }
 
     @Override
