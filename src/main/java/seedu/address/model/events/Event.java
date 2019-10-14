@@ -16,7 +16,7 @@ public class Event implements Comparable<Event> {
     // Identity fields
     private final ReferenceId personId;
     private final Timing timing;
-    private final Status status;
+    private Status status;
 
     /**
      * Every field must be present and not null.
@@ -40,7 +40,6 @@ public class Event implements Comparable<Event> {
         return status;
     }
 
-
     public boolean conflictsWith(Event otherEvent) {
         return getEventTiming().conflictsWith(otherEvent.getEventTiming());
     }
@@ -55,8 +54,8 @@ public class Event implements Comparable<Event> {
         }
 
         return otherEvent != null
-            && otherEvent.getPersonId().equals(getPersonId())
-            && otherEvent.getEventTiming().equals(getEventTiming());
+                && otherEvent.getPersonId().equals(getPersonId())
+                && otherEvent.getEventTiming().equals(getEventTiming());
     }
 
     /**
@@ -75,8 +74,7 @@ public class Event implements Comparable<Event> {
 
         Event otherEvent = (Event) other;
         return otherEvent.getPersonId().equals(getPersonId())
-            && otherEvent.getEventTiming().equals(getEventTiming())
-            && otherEvent.getStatus().equals(getStatus());
+                && otherEvent.getEventTiming().equals(getEventTiming());
     }
 
     @Override
@@ -100,11 +98,11 @@ public class Event implements Comparable<Event> {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Event - Person ID: ")
-            .append(getPersonId())
-            .append(" Timing: ")
-            .append(getEventTiming())
-            .append(" status: ")
-            .append(getStatus());
+                .append(getPersonId())
+                .append(" Timing: ")
+                .append(getEventTiming())
+                .append(" status: ")
+                .append(getStatus());
         return builder.toString();
     }
 }

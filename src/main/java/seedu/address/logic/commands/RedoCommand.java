@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 /**
  * Redoes the action of an {@code UndoableCommand} command.
  */
-public class RedoCommand extends Command {
+public class RedoCommand implements Command {
 
     public static final String COMMAND_WORD = "redo";
     public static final String MESSAGE_NO_REDO_HISTORY_ERROR = "Nothing to redo!";

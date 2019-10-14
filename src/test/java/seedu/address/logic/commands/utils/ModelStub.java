@@ -120,11 +120,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void removeFromQueue(int index) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public void enqueuePatient(ReferenceId id) {
         throw new AssertionError("This method should not be called.");
     }
@@ -135,12 +130,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<Room> getFilteredRoomList() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void updateFilteredRoomList(Predicate<Room> predicate) {
+    public ObservableList<Room> getConsultationRoomList() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -205,13 +195,8 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<ReferenceId> getFilteredReferenceIdList() {
-        return null;
-    }
-
-    @Override
-    public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate) {
-
+    public ObservableList<ReferenceId> getQueueList() {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override

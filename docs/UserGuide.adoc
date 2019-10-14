@@ -53,7 +53,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/<NAME> p/<PHONE_NUMBER>`, `p/<PHONE_NUMBER> n/<NAME>` is also acceptable.
 ====
 
-=== Queue
+
+=== Queue Management
 
 ==== Add a patient to the queue: `enqueue` ====
 
@@ -93,14 +94,21 @@ Format: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
 ==== Registers a new patient: `register` ====
 
 Registers a new patient +
-Format:  `register -name|-n <PATIENT_NAME> -id|-i <PATIENT_REFERENCE_ID> -phone|-p <PHONE_NUM> [-email|-e <EMAIL>] [-address|-a <ADDRESS>] [-remark|-r <REMARK>]`
+Format:  `register  i/<PATIENT_REFERENCE_ID> n/<PATIENT_NAME> [p/<PHONE_NUM>]
+ [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
 
+==== Unregisters an existing patient: `unregister` ====
+
+If user is in the patients listing screen,
+Unregisters an existing patient +
+Format:  `unregister <ENTRY_ID>`
 
 ==== Updates patients’ profiles: `update` ====
 
 If user is in the patients listing screen,
 Updates any change for patients’ profiles +
-Format: `update <ENTRY_ID> [-name|-n <PATIENT_NAME>] [-ic|-i <PATIENT_IC>] [-hp <PHONE_NUM>] [-email|-e <EMAIL>] [-address|-a <ADDRESS>] [-remark|-r <REMARK>]`
+Format: `update <ENTRY_ID> [n/<PATIENT_NAME>] [i/<PATIENT_REFERENCE_ID>] [p/<PHONE_NUM>]
+ [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
 
 
 === On-Duty Doctors Management ===
@@ -114,26 +122,25 @@ Format: `doctors [<DOCTOR_NAME>]`
 ==== Register a new doctor: `newdoctor` ====
 
 Registers a new doctor. +
-Format: `newdoctor -name|-n <DOCTOR_NAME> [-hp <PHONE_NUM>] +
- [-email|-e <EMAIL>] [-remark|-r <REMARK>]`
+If the Staff reference identifier is not specified, a unique identifier will be assigned by the system.
+Format: `newdoctor n/<STAFF_NAME> [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
 
 ==== Update a doctor's profile: `update` ====
 
 If user is in the doctors listing screen, updates any change for doctor’s profiles. +
-Format: `updatedoctor <ENTRY_ID> [-name|-n <DOCTOR_NAME>]+
-[-ic|-i <DOCTOR_IC>] [-hp <PHONE_NUM>] [-email|-e <EMAIL>] [-address|-a <ADDRESS>] +
-[-remark|-r <REMARK>]`
+Format: `updatedoctor <ENTRY_ID> [n/<STAFF_NAME>]
+[i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
 
 ==== Unregister a doctor's profile: `resign` ====
 
 If user is in the doctors listing screen, removes a doctor’s profile. +
-Format: `resign <ENTRY_ID>`
+Format: `resigndoctor <ENTRY_ID>`
 
 ==== Updates a doctor's profiles: `onduty` ====
 
 Marks the doctor as on-duty and stationed in the given room number. +
 Patients can be directed to the specified doctor. +
-Format: `onduty -d <DOCTOR_ENTRY_INDEX> -r <ROOM_NUMBER>`
+Format: `onduty <ENTRY_ID> r/<ROOM_NUMBER>`
 
 ==== Updates doctor's profiles: `offduty` ====
 
@@ -146,7 +153,7 @@ Format: `offduty <ROOM_NUMBER>`
 
 Displays a sorted list of upcoming appointments whose appointment is within +
 If search keywords are empty, only upcoming appointments within the next 7 days will be displayed. +
-Format: `appointments [-patient|-p <PATIENT_NAME | PATIENT_IC>] [-start|-s <START_DATE>] [-end|-e <END_DATE>]`
+Format: `appointments [p/<PATIENT_NAME | PATIENT_IC>] [s/<START_DATE>] [e/<END_DATE>]`
 
 ==== Cancels an appointment: `cancel` ====
 
@@ -156,22 +163,27 @@ Format: `cancel <ENTRY_ID>`
 ==== Changes the appointment date: `change` ====
 
 Changes and updates to a new appointment detail in the appointment listing screen +
-Format: `change <ENTRY_ID> [-id|-i <PATIENT_IC>] [-start|-s <START_DATE>] [-end|-e <END_DATE>]`
+Format: `change <ENTRY_ID> [i/<PATIENT_IC>] [s/<START_DATE_TIME>] [e/<END_DATE_TIME>]`
 
 ==== Shows the empty slots: `slot` ====
 
 List all the available empty slots for patients to make appointments +
-Format: `slot -start|-s <START_DATE> -end|-e <END_DATE>`
+Format: `slot s/<START_DATE> e/<END_DATE>`
 
 ==== Displays patients who have missed their appointments and have yet to be notified: `missed` ====
 
 Displays all patients who have missed their appointments that are not yet settled. +
-Format: `missed [-date <DATETIME>]`
+Format: `missed [d/<DATETIME>]`
 
 ==== Sets missed appointments as settled/notified: `settle` ====
 
 Settles the missed appointments for respective patients. +
-Format: `settle <ENTRY_ID>`
+Format: `settle <ENTRY_ID>
+`
+==== Changes the max number of concurrent consultation: `maxconcurrentappt` (v2.0) ====
+
+Changes the maximum number of concurrent patient appointments +
+Format: `maxconcurrentappt <TOTAL_NUMBER_OF_CONCURRENT_APPOINTMENTS>`
 
 === Inventory commands (v2.0) ===
 
@@ -183,7 +195,7 @@ Format: `inventory`
 ==== Views the inventory: `prescription` ====
 
 Displays the prescription. A prescription is a list of medications prescribed by the doctor. +
-Format: `prescription [-id] <PRESCRIPTION_ID>`
+Format: `prescription <PRESCRIPTION_ID | PRESCRIPTION_NAME>`
 
 === User Accounts (v2.0) ===
 
@@ -211,8 +223,13 @@ Format: `exit`
 
 ==== Undo action: `undo` ====
 
-Undo an action +
+Undo a destructive action +
 Format: `undo`
+
+==== Redo action: `redo` ====
+
+Redo a destructive action +
+Format: `redo`
 
 ==== Creates, updates or removes an alias command: `alias` ====
 

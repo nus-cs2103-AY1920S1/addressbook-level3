@@ -1,12 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ID;
-
-import java.util.List;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,54 +21,44 @@ public class DequeueCommand extends ReversibleCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DEQUEUE_SUCCESS = "Dequeued person: %1$s";
-    public static final String MESSAGE_UNDO_DEQUEUE_SUCCESS = "Undo successful! Person '%1$s' has been enqueued.";
-    public static final String MESSAGE_UNDO_DEQUEUE_ERROR = "Could not undo the dequeue of person.";
+    public static final String MESSAGE_DEQUEUE_SUCCESS = "Dequeued patient: %1$s";
+    public static final String MESSAGE_DEQUEUE_PERSON_NOT_FOUND =
+            Messages.MESSAGE_INVAILD_REFERENCE_ID + ". '%1$s' patient has been removed from queue";
+    public static final String MESSAGE_PERSON_NOT_IN_QUEUE = "This person '%1$s' is not in the queue";
+    public static final String MESSAGE_UNDO_DEQUEUE_ERROR = "Could not undo the dequeue of patient '%1$s'.";
 
-    private final Index targetIndex;
-    private ReferenceId referenceId;
+    private final ReferenceId patientReferenceId;
 
-    public DequeueCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
-        this.referenceId = null;
+    public DequeueCommand(ReferenceId patientReferenceId) {
+        requireNonNull(patientReferenceId);
+        this.patientReferenceId = patientReferenceId;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<ReferenceId> lastShownList = model.getFilteredReferenceIdList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (!model.isPatientInQueue(patientReferenceId)) {
+            throw new CommandException(String.format(MESSAGE_PERSON_NOT_IN_QUEUE, patientReferenceId));
+        }
+        model.removeFromQueue(patientReferenceId);
+
+        if (!model.hasPerson(patientReferenceId)) {
+            throw new CommandException(String.format(MESSAGE_DEQUEUE_PERSON_NOT_FOUND, patientReferenceId));
         }
 
-        if (referenceId == null) {
-            referenceId = lastShownList.get(targetIndex.getZeroBased());
-        } else if (!model.hasPerson(referenceId)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        model.removeFromQueue(referenceId);
-        return new CommandResult(String.format(MESSAGE_DEQUEUE_SUCCESS, referenceId));
+        return new CommandResult(String.format(MESSAGE_DEQUEUE_SUCCESS, patientReferenceId));
     }
 
     @Override
-    public CommandResult undo(Model model) throws CommandException {
-        requireNonNull(model);
-
-        if (referenceId == null || !model.hasPerson(referenceId) || model.isPatientInQueue(referenceId)) {
-            throw new CommandException(MESSAGE_UNDO_DEQUEUE_ERROR);
-        }
-
-        model.enqueuePatient(referenceId);
-        model.updateFilteredReferenceIdList(PREDICATE_SHOW_ALL_ID);
-        return new CommandResult(String.format(MESSAGE_UNDO_DEQUEUE_SUCCESS, referenceId));
+    public String getFailedUndoMessage() {
+        return String.format(MESSAGE_UNDO_DEQUEUE_ERROR, patientReferenceId);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DequeueCommand // instanceof handles nulls
-                && targetIndex.equals(((DequeueCommand) other).targetIndex)); // state check
+                && patientReferenceId.equals(((DequeueCommand) other).patientReferenceId)); // state check
     }
 }

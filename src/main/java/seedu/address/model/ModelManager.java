@@ -70,14 +70,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void removeFromQueue(int index) {
-        queueManager.removePatient(index);
-    }
-
-    @Override
     public void enqueuePatient(ReferenceId id) {
         queueManager.addPatient(id);
-        updateFilteredReferenceIdList(PREDICATE_SHOW_ALL_ID);
     }
 
     @Override
@@ -221,27 +215,15 @@ public class ModelManager implements Model {
 
     //=========== Filtered Reference id List Accessors ========================================================
     @Override
-    public ObservableList<ReferenceId> getFilteredReferenceIdList() {
+    public ObservableList<ReferenceId> getQueueList() {
         return filteredReferenceIds;
-    }
-
-    @Override
-    public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate) {
-        requireNonNull(predicate);
-        filteredReferenceIds.setPredicate(predicate);
     }
 
     //=========== Filtered Room List Accessors =============================================================
 
     @Override
-    public ObservableList<Room> getFilteredRoomList() {
+    public ObservableList<Room> getConsultationRoomList() {
         return filteredRooms;
-    }
-
-    @Override
-    public void updateFilteredRoomList(Predicate<Room> predicate) {
-        requireNonNull(predicate);
-        filteredRooms.setPredicate(predicate);
     }
 
     @Override
@@ -328,3 +310,5 @@ public class ModelManager implements Model {
                 && appointmentBook.equals(other.appointmentBook);
     }
 }
+
+

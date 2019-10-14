@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.patients;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -17,9 +17,9 @@ import seedu.address.model.person.Person;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends ReversibleCommand {
+public class RegisterPatientCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "register";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
@@ -40,7 +40,6 @@ public class AddCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
-    public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Person '%1$s' has been removed.";
     public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of person: %1$s";
 
     private final Person toAdd;
@@ -48,7 +47,7 @@ public class AddCommand extends ReversibleCommand {
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person) {
+    public RegisterPatientCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
     }
@@ -66,21 +65,14 @@ public class AddCommand extends ReversibleCommand {
     }
 
     @Override
-    public CommandResult undo(Model model) throws CommandException {
-        requireNonNull(model);
-
-        if (!model.hasPerson(toAdd)) {
-            throw new CommandException(String.format(MESSAGE_UNDO_ADD_ERROR, toAdd));
-        }
-
-        model.deletePerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, toAdd));
+    public String getFailedUndoMessage() {
+        return String.format(MESSAGE_UNDO_ADD_ERROR, toAdd);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof RegisterPatientCommand // instanceof handles nulls
+                && toAdd.equals(((RegisterPatientCommand) other).toAdd));
     }
 }

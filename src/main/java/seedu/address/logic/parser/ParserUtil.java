@@ -4,12 +4,16 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Tag;
+import seedu.address.model.events.DateTime;
+import seedu.address.model.events.Timing;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
@@ -37,6 +41,20 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Returns the element at the {@code oneBasedIndex} index of a given {@code listofEntries}
+     *
+     * @throws ParseException if the specified index is out of bounds of the list.
+     */
+    public static <T> T getEntryFromList(List<T> listOfEntries, Index oneBasedIndex) throws ParseException {
+
+        if (oneBasedIndex.getZeroBased() >= listOfEntries.size()) {
+            throw new ParseException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        return listOfEntries.get(oneBasedIndex.getZeroBased());
     }
 
     /**
@@ -159,4 +177,31 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * checks the starting and ending time of the appointment is a valid time.
+     *
+     * @param start which the string startTime of the appointment.
+     * @param end   which the string endTime of the appointment.
+     * @return the valid Appointment object.
+     * @throws ParseException If an error occurs during command parsering.
+     */
+    public static Timing parseTiming(String start, String end) throws ParseException {
+        requireNonNull(start, end);
+        DateTime startTiming = DateTime.tryParseSimpleDateFormat(start);
+        if (startTiming == null) {
+            throw new ParseException("The start " + DateTime.MESSAGE_CONSTRAINTS);
+        }
+
+        DateTime endTiming = DateTime.tryParseSimpleDateFormat(end);
+        if (endTiming == null) {
+            throw new ParseException("The end " + DateTime.MESSAGE_CONSTRAINTS);
+        }
+
+        if (!Timing.isValidTiming(startTiming, endTiming)) {
+            throw new ParseException(Timing.MESSAGE_CONSTRAINTS);
+        }
+        return new Timing(startTiming, endTiming);
+    }
+
 }

@@ -9,15 +9,15 @@ import seedu.address.model.Model;
 
 
 /**
- * Keeps track of the execution of {@code UndoableCommand} commands that alters one or more entries.
+ * Keeps track of the execution of {@code ReversibleActionPairCommand} commands that alters one or more entries.
  */
 public class CommandHistory {
 
     public static final String MESSAGE_NO_UNDO_HISTORY_ERROR = "Undo History is empty!";
     public static final String MESSAGE_NO_REDO_HISTORY_ERROR = "Redo History is empty!";
 
-    private final Stack<ReversibleCommand> commandHistory = new Stack<>();
-    private final Stack<ReversibleCommand> commandRedoHistory = new Stack<>();
+    private final Stack<ReversibleActionPairCommand> commandHistory = new Stack<>();
+    private final Stack<ReversibleActionPairCommand> commandRedoHistory = new Stack<>();
 
     /**
      * Checks if an undo operation is available.
@@ -38,18 +38,18 @@ public class CommandHistory {
     }
 
     /**
-     * Adds an {@code UndoableCommand} to the command history.
+     * Adds an {@code ReversibleActionPairCommand} to the command history.
      *
      * @param command to be added to the command history.
      */
-    public void addToCommandHistory(ReversibleCommand command) {
+    public void addToCommandHistory(ReversibleActionPairCommand command) {
         requireNonNull(command);
         commandHistory.add(command);
         commandRedoHistory.clear();
     }
 
     /**
-     * Undoes the previous {@code UndoableCommand} command and returns the result message.
+     * Undoes the previous {@code ReversibleActionPairCommand} command and returns the result message.
      * The command history cannot be empty.
      *
      * @param model {@code Model} which the command should operate on.
@@ -61,10 +61,10 @@ public class CommandHistory {
             throw new CommandException(MESSAGE_NO_UNDO_HISTORY_ERROR);
         }
 
-        ReversibleCommand command = commandHistory.pop();
-        commandRedoHistory.add(command);
+        CommandResult commandResult = commandHistory.peek().undo(model);
+        commandRedoHistory.add(commandHistory.pop());
 
-        return command.undo(model);
+        return commandResult;
     }
 
 
@@ -81,9 +81,9 @@ public class CommandHistory {
             throw new CommandException(MESSAGE_NO_REDO_HISTORY_ERROR);
         }
 
-        ReversibleCommand command = commandRedoHistory.pop();
-        commandHistory.add(command);
+        CommandResult commandResult = commandRedoHistory.peek().redo(model);
+        commandHistory.add(commandRedoHistory.pop());
 
-        return command.execute(model);
+        return commandResult;
     }
 }
