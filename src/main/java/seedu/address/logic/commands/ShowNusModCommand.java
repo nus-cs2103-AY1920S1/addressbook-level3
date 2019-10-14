@@ -39,8 +39,8 @@ public class ShowNusModCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        AcadYear acadYear = options.getAcadYear().orElse(model.getAppSettings().getAcadYear());
-        SemesterNo semesterNo = options.getSemesterNo().orElse(model.getAppSettings().getSemesterNo());
+        AcadYear acadYear = options.getAcadYear().orElse(model.getDefaultAcadYear());
+        SemesterNo semesterNo = options.getSemesterNo().orElse(model.getDefaultSemesterNo());
 
         try {
             Module module = model.findModuleFromAllSources(acadYear, moduleCode);

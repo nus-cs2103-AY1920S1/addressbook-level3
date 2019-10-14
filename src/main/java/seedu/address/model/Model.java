@@ -22,6 +22,7 @@ import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.SemesterNo;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
@@ -79,6 +80,16 @@ public interface Model {
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
+
+    /**
+     * Returns the App setting's acadYear.
+     */
+    public AcadYear getDefaultAcadYear();
+
+    /**
+     * Returns the App setting's semesterNo.
+     */
+    public SemesterNo getDefaultSemesterNo();
 
     //=========== AddressBook ================================================================================
 

@@ -31,6 +31,7 @@ import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.SemesterNo;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -202,6 +203,16 @@ public class ModelManager implements Model {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public AcadYear getDefaultAcadYear() {
+        return userPrefs.getAcadYear();
+    }
+
+    @Override
+    public SemesterNo getDefaultSemesterNo() {
+        return userPrefs.getSemesterNo();
     }
 
     //=========== AddressBook ================================================================================
