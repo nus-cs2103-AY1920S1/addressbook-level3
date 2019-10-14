@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StatsParseUtil;
 import seedu.address.commons.util.StringUtil;
@@ -310,7 +311,7 @@ public class ParserUtil {
         requireNonNull(statsInput);
         String trimmedStatsType = statsInput.trim();
         if (!StatsParseUtil.isValidStatType(trimmedStatsType)) {
-            throw new ParseException(StatsParseUtil.STATS_MESSAGE_CONSTRAINTS);
+            throw new ParseException(Messages.STATS_MESSAGE_CONSTRAINTS);
         }
         switch (trimmedStatsType) {
         case "PROFIT":
@@ -336,14 +337,13 @@ public class ParserUtil {
         String trimmedDate = calendar.trim();
         String[] stringCalendar = trimmedDate.split("\\.");
         if (stringCalendar.length != 3) {
-            throw new ParseException(StatsParseUtil.DATE_MESSAGE_CONSTRAINTS);
+            throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS);
         }
         int[] input = new int[3];
         LocalDateTime localDateTime;
         try {
             for (int index = 0; index < 3; index++) {
                 input[index] = Integer.parseInt(stringCalendar[index]);
-                System.out.println(input[index]);
                 //offset for month
                 if (index == 1) {
                     input[index] -= 1;
@@ -351,7 +351,7 @@ public class ParserUtil {
             }
             localDateTime = LocalDateTime.of(input[0], input[1], input[2], 0, 0);
         } catch (NumberFormatException | DateTimeException e) {
-            throw new ParseException(StatsParseUtil.DATE_MESSAGE_CONSTRAINTS);
+            throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS);
         }
         //@@author
         return new Calendar.Builder().setDate(input[0], input[1], input[2]).build();
