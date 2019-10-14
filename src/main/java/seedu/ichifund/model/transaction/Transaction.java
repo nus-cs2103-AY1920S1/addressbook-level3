@@ -78,7 +78,7 @@ public class Transaction {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(amount, description, category, date, isExpenditure);
+        return Objects.hash(amount, description, category, date, transactionType);
     }
 
     @Override
