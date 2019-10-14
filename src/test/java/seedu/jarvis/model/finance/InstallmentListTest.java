@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.financetracker.Installment;
 import seedu.jarvis.model.financetracker.InstallmentList;
+import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
+import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
 
 /**
  * Tests logic of instalment list class.
@@ -66,8 +68,16 @@ public class InstallmentListTest {
     @Test
     public void editInstallment_normalInputs_editedCorrectly() {
         installmentList.editInstallment(1, "Spotify subscription", 13.0);
-        assertEquals("Spotify subscription", installmentList.getInstallment(1).getDescription());
-        assertEquals(13.0, installmentList.getInstallment(1).getMoneySpentOnInstallment());
+        assertEquals("Spotify subscription",
+                installmentList
+                        .getInstallment(1)
+                        .getDescription()
+                        .toString());
+        assertEquals(13.0,
+                installmentList
+                        .getInstallment(1)
+                        .getMoneySpentOnInstallment()
+                        .getInstallmentMoneyPaid());
     }
 
     @Test
@@ -91,7 +101,7 @@ public class InstallmentListTest {
 
     private static class InstallmentStub extends Installment {
         public InstallmentStub() {
-            super("Spotify subscription", 9.5);
+            super(new InstallmentDescription("Spotify subscription"), new InstallmentMoneyPaid("9.5"));
         }
     }
 }

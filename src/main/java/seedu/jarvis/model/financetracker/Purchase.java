@@ -52,7 +52,7 @@ public class Purchase {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Installment // instanceof handles nulls
+                || (other instanceof Purchase // instanceof handles nulls
                 && description.equals(((Purchase) other).description)
                 && moneySpent == ((Purchase) other).moneySpent);
     }

@@ -14,7 +14,9 @@ import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.Installment;
+import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
+import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
 
@@ -64,7 +66,7 @@ public class RemoveInstallmentCommandTest {
 
     private static class InstallmentStub extends Installment {
         public InstallmentStub() {
-            super("Spotify subscription", 9.5);
+            super(new InstallmentDescription("Spotify subscription"), new InstallmentMoneyPaid("9.5"));
         }
     }
 }

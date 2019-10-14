@@ -24,8 +24,9 @@ import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.Installment;
 import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.testutil.InstallmentBuilder;
@@ -61,8 +62,8 @@ public class SetInstallmentCommandTest {
 
     @Test
     public void equals() {
-        Installment spotify = new InstallmentBuilder().withDescription("spotify").build();
-        Installment netflix = new InstallmentBuilder().withDescription("netflix").build();
+        Installment spotify = new InstallmentBuilder().withDescription(new InstallmentDescription("spotify")).build();
+        Installment netflix = new InstallmentBuilder().withDescription(new InstallmentDescription("netflix")).build();
         SetInstallmentCommand addSpotifyCommand = new SetInstallmentCommand(spotify);
         SetInstallmentCommand addNetflixCommand = new SetInstallmentCommand(netflix);
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
+import seedu.jarvis.model.financetracker.installment.Installment;
 
 
 /**
@@ -132,7 +133,7 @@ public class InstallmentList {
     private double calculateTotalInstallmentSpending() {
         double amount = 0;
         for (Installment instalment : allInstallments) {
-            amount += instalment.getMoneySpentOnInstallment();
+            amount += instalment.getMoneySpentOnInstallment().getInstallmentMoneyPaid();
         }
         return amount;
     }

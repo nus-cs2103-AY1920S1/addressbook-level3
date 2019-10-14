@@ -13,7 +13,9 @@ import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.financetracker.Installment;
+import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
+import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
 
 /**
  * Parses input arguments and creates a new SetInstallmentCommand object
@@ -35,10 +37,11 @@ public class SetInstallmentCommandParser implements Parser<SetInstallmentCommand
                     SetInstallmentCommand.MESSAGE_USAGE));
         }
 
-        String description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        String subscriptionFee = ParserUtil.parseMoneySpent(argMultimap.getValue(PREFIX_MONEY).get());
+        InstallmentDescription description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION)
+                .get());
+        InstallmentMoneyPaid subscriptionFee = ParserUtil.parseMoneySpent(argMultimap.getValue(PREFIX_MONEY).get());
 
-        Installment installment = new Installment(description, Double.parseDouble(subscriptionFee));
+        Installment installment = new Installment(description, subscriptionFee);
 
         return new SetInstallmentCommand(installment);
     }

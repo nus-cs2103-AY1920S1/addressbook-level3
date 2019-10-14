@@ -11,6 +11,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.financetracker.exceptions.NegativeLimitException;
+import seedu.jarvis.model.financetracker.installment.Installment;
 
 /**
  * Manages the overall functionality of the Finance Tracker feature of JARVIS. The finance tracker manages purchases

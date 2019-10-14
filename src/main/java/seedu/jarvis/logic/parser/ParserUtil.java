@@ -14,6 +14,8 @@ import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
 import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
+import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -102,10 +104,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static String parseDescription(String description) throws ParseException {
+    public static InstallmentDescription parseDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        return trimmedDescription;
+        if (!InstallmentDescription.isValidDescription(trimmedDescription)) {
+            throw new ParseException(InstallmentDescription.MESSAGE_CONSTRAINTS);
+        }
+        return new InstallmentDescription(trimmedDescription);
     }
 
     /**
@@ -114,13 +119,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static String parseMoneySpent(String money) throws ParseException {
+    public static InstallmentMoneyPaid parseMoneySpent(String money) throws ParseException {
         requireNonNull(money);
         String trimmedMoney = money.trim();
-        if (Double.parseDouble(money) <= 0) {
+        if (!InstallmentMoneyPaid.isValidAmount(trimmedMoney)) {
             throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
         }
-        return trimmedMoney;
+        return new InstallmentMoneyPaid(trimmedMoney);
     }
 
     /**

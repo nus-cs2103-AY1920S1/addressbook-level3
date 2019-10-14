@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.jarvis.model.financetracker.installment.Installment;
 
 /**
  * The API of Finance Tracker component.

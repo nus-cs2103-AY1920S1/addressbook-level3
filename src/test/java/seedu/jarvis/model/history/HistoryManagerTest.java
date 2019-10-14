@@ -28,8 +28,8 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.Installment;
 import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 
 /**

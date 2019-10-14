@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financetracker;
+package seedu.jarvis.model.financetracker.installment;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,10 +6,10 @@ import static java.util.Objects.requireNonNull;
  * Installment object stores a single recurring payment with its details such as description and the amount spent.
  */
 public class Installment {
-    private String description;
-    private double moneySpentOnInstallment;
+    private InstallmentDescription description;
+    private InstallmentMoneyPaid moneySpentOnInstallment;
 
-    public Installment(String description, double moneySpentOnInstallment) {
+    public Installment(InstallmentDescription description, InstallmentMoneyPaid moneySpentOnInstallment) {
         requireNonNull(description);
         this.description = description;
         this.moneySpentOnInstallment = moneySpentOnInstallment;
@@ -34,11 +34,11 @@ public class Installment {
 
     //=========== Getter Methods ==================================================================================
 
-    public String getDescription() {
+    public InstallmentDescription getDescription() {
         return this.description;
     }
 
-    public double getMoneySpentOnInstallment() {
+    public InstallmentMoneyPaid getMoneySpentOnInstallment() {
         return this.moneySpentOnInstallment;
     }
 
@@ -46,16 +46,14 @@ public class Installment {
 
     /**
      * Edits the description of an existing installment.
-     *
-     * @param newDescription to replace original description of installment
      */
     public void editDescription(String newDescription) {
         requireNonNull(newDescription);
-        this.description = newDescription;
+        this.description = new InstallmentDescription(newDescription);
     }
 
     public void editAmount(double newMoney) {
-        moneySpentOnInstallment = newMoney;
+        moneySpentOnInstallment = new InstallmentMoneyPaid(Double.toString(newMoney));
     }
 
     //=========== Common Methods ==================================================================================
@@ -70,7 +68,7 @@ public class Installment {
         return other == this // short circuit if same object
                 || (other instanceof Installment // instanceof handles nulls
                 && description.equals(((Installment) other).description)
-                && moneySpentOnInstallment == ((Installment) other).moneySpentOnInstallment);
+                && moneySpentOnInstallment.equals(((Installment) other).moneySpentOnInstallment));
     }
 
     public boolean isSameInstallment(Installment installment) {
