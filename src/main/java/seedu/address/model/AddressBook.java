@@ -106,8 +106,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         quiz.setQuizQuestionList(numOfQuestions, subject, difficulty);
     }
 
-    public Answer getQuizAnswer(int index) {
-        return quiz.get(index).getAnswer();
+    /**
+     * Returns an answer for the question in quiz with specific {@code index}.
+     */
+    public Answer showQuizAnswer(int index) {
+        return quiz.showAnswer(index);
     }
 
     /**
@@ -123,6 +126,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void clearQuizQuestionList() {
         quiz.clearQuizQuestionList();
     }
+
     // util methods
 
     @Override

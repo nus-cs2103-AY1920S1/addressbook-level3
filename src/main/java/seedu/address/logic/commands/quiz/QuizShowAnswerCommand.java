@@ -7,6 +7,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.question.Answer;
 
+/**
+ * Shows an answer for the question in quiz.
+ */
 public class QuizShowAnswerCommand extends Command {
     public static final String COMMAND_WORD = "show";
 
@@ -21,7 +24,7 @@ public class QuizShowAnswerCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        Answer answer = model.getQuizAnswer(index);
+        Answer answer = model.showQuizAnswer(index);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, answer.toString()));
     }

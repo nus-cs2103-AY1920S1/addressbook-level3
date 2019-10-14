@@ -123,8 +123,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Answer getQuizAnswer(int index) {
-        return addressBook.getQuizAnswer(index);
+    public Answer showQuizAnswer(int index) {
+        return addressBook.showQuizAnswer(index);
     }
 
     @Override

@@ -38,6 +38,9 @@ public class QuizQuestionList implements Iterable<Question> {
         return internalList.get(index);
     }
 
+    /**
+     * Returns an answer for the question in quiz with specific {@code index}.
+     */
     public Answer showAnswer(int index) {
         return get(index).getAnswer();
     }

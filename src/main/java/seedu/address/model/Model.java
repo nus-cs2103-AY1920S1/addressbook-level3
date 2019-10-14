@@ -108,5 +108,8 @@ public interface Model {
      */
     void clearQuizQuestionList();
 
-    Answer getQuizAnswer(int index);
+    /**
+     * Returns an answer for question in quiz with specific {@code index}.
+     */
+    Answer showQuizAnswer(int index);
 }
