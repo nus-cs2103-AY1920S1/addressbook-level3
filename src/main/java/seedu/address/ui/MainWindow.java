@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private VisitRecordWindow visitWindow;
     private VisitListPanel visitListPanel;
+    private ProfilePanel profilePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -67,6 +68,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
         visitWindow = new VisitRecordWindow();
         visitListPanel = new VisitListPanel();
+        profilePanel = new ProfilePanel();
     }
 
     public Stage getPrimaryStage() {
@@ -160,7 +162,21 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         visitWindow.hide();
         visitListPanel.hide();
+        profilePanel.hide();
         primaryStage.hide();
+    }
+
+
+    /**
+     * Opens the profile panel or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleProfilePanel() {
+        if (!profilePanel.isShowing()) {
+            profilePanel.show();
+        } else {
+            profilePanel.focus();
+        }
     }
 
     /**
@@ -214,6 +230,11 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isDeleteVisit()) {
                 visitListPanel.setup(commandResult.getObservableVisitList());
                 handleDeleteVisit();
+            }
+
+            if (commandResult.isShowProfile()) {
+                profilePanel.setup(commandResult.getProfilePerson());
+                handleProfilePanel();
             }
 
             if (commandResult.isExit()) {
