@@ -76,6 +76,11 @@ public class GroupList {
             toEdit.setGroupRemark(groupDescriptor.getGroupRemark());
         }
 
+        if (groupDescriptor.getGroupDescription() != null &&
+                !groupDescriptor.getGroupDescription().equals(GroupDescription.emptyDescription())) {
+            toEdit.setGroupDescription(groupDescriptor.getGroupDescription());
+        }
+
         return toEdit;
     }
 

@@ -30,6 +30,9 @@ public class GroupCard extends UiPart<Region> {
     @FXML
     private Label groupDescription;
 
+    @FXML
+    private Label groupRemark;
+
     private GroupDisplay groupDisplay;
 
     public GroupCard(GroupDisplay groupDisplay, int displayedIndex) {
@@ -38,7 +41,8 @@ public class GroupCard extends UiPart<Region> {
         groupId.getChildren().add(new BubbleGenerator(displayedIndex, 50, 2).getBubble());
         groupName.setText(groupDisplay.getGroupName().toString());
         //Remark field in groups cannot be initialised to null.
-        groupDescription.setText("REMARK");
+        groupDescription.setText(groupDisplay.getGroupDescription().toString());
+        groupRemark.setText(groupDisplay.getGroupRemark().toString());
     }
 
     @Override

@@ -5,19 +5,23 @@ package seedu.address.model.group;
  */
 public class GroupDescriptor {
 
-    private static final GroupRemark DEFAULT_GROUPREMARK = GroupRemark.emptyRemark();
     private static final GroupName DEFAULT_GROUPNAME = GroupName.emptyGroupName();
+    private static final GroupDescription DEFAULT_GROUPDESCRIPTION = GroupDescription.emptyDescription();
+    private static final GroupRemark DEFAULT_GROUPREMARK = GroupRemark.emptyRemark();
 
     private GroupName groupName;
     private GroupRemark groupRemark;
+    private GroupDescription groupDescription;
 
     public GroupDescriptor() {
         this.groupName = DEFAULT_GROUPNAME;
         this.groupRemark = DEFAULT_GROUPREMARK;
+        this.groupDescription = DEFAULT_GROUPDESCRIPTION;
     }
 
-    public GroupDescriptor(GroupName groupName, GroupRemark groupRemark) {
+    public GroupDescriptor(GroupName groupName, GroupDescription groupDescription, GroupRemark groupRemark) {
         this.groupName = groupName;
+        this.groupDescription = groupDescription;
         this.groupRemark = groupRemark;
     }
 
@@ -27,7 +31,9 @@ public class GroupDescriptor {
      * @return boolean
      */
     public boolean isAnyFieldEdited() {
-        if (this.groupName.equals(DEFAULT_GROUPNAME) && this.groupRemark.equals(DEFAULT_GROUPREMARK)) {
+        if (this.groupName.equals(DEFAULT_GROUPNAME)
+                && this.groupRemark.equals(DEFAULT_GROUPREMARK)
+                && this.groupDescription.equals(DEFAULT_GROUPDESCRIPTION)) {
             return false;
         } else {
             return true;
@@ -57,6 +63,14 @@ public class GroupDescriptor {
 
     public void setGroupName(GroupName groupName) {
         this.groupName = groupName;
+    }
+
+    public GroupDescription getGroupDescription() {
+        return groupDescription;
+    }
+
+    public void setGroupDescription(GroupDescription groupDescription) {
+        this.groupDescription = groupDescription;
     }
 
     public GroupRemark getGroupRemark() {

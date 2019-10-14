@@ -25,7 +25,7 @@ public class GroupDetailCard extends UiPart<Region> {
     public GroupDetailCard(GroupDisplay groupDisplay) {
         super(FXML);
         groupName.setText(groupDisplay.getGroupName().toString());
-        groupDescription.setText("GROUP DESC PLACEHOLDER");
+        groupDescription.setText(groupDisplay.getGroupDescription().toString());
         groupRemark.setText(groupDisplay.getGroupRemark().remark);
     }
 }

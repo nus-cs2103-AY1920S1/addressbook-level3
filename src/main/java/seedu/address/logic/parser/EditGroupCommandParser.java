@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EDIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
@@ -23,7 +24,7 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
     public EditGroupCommand parse(String args) throws ParseException {
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_EDIT, PREFIX_GROUPNAME, PREFIX_REMARK);
+                ArgumentTokenizer.tokenize(args, PREFIX_EDIT, PREFIX_GROUPNAME, PREFIX_REMARK, PREFIX_DESCRIPTION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EDIT)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -39,6 +40,10 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
 
         if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
             groupDescriptor.setGroupRemark(ParserUtil.parseGroupRemark(argMultimap.getValue(PREFIX_REMARK).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
+            groupDescriptor.setGroupDescription(ParserUtil.parseGroupDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
 
         return new EditGroupCommand(groupName, groupDescriptor);

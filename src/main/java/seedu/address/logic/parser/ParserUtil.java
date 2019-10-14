@@ -14,6 +14,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.group.GroupDescription;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.GroupRemark;
 import seedu.address.model.mapping.Role;
@@ -219,6 +220,13 @@ public class ParserUtil {
         String trimmedRemark = remark.trim();
 
         return new GroupRemark(trimmedRemark);
+    }
+
+    public static GroupDescription parseGroupDescription (String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+
+        return new GroupDescription(trimmedDescription);
     }
 
     /**
