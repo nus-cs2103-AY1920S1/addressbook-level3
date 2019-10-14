@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.BankAccount;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * An Immutable BankAccount that is serializable to JSON format.
@@ -47,12 +48,12 @@ class JsonSerializableBankAccount {
      */
     public BankAccount toModelType() throws IllegalValueException {
         BankAccount bankAccount = new BankAccount();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (bankAccount.hasTransaction(person)) {
+        for (JsonAdaptedTransaction jsonAdaptedTransaction : transactions) {
+            Transaction txn = jsonAdaptedTransaction.toModelType();
+            if (bankAccount.hasTransaction(txn)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
             }
-            bankAccount.addTransaction(person);
+            bankAccount.addTransaction(txn);
         }
         return bankAccount;
     }
