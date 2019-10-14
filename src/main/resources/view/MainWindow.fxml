@@ -33,7 +33,7 @@
                     </Menu>
                 </MenuBar>
 
-                <HBox minWidth="-Infinity" VBox.vgrow="ALWAYS">
+                <HBox minHeight="200" VBox.vgrow="ALWAYS">
                     <StackPane fx:id="chatPanePlaceholder" styleClass="pane-with-border" minWidth="350" prefWidth="350"
                                HBox.hgrow="NEVER"/>
                     <StackPane fx:id="resultPanePlaceholder" styleClass="pane-with-border" minWidth="350"

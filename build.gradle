@@ -61,8 +61,13 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
+    testCompile group: 'org.testfx', name: 'testfx-core', version: '4.0.16-alpha'
+    testCompile group: 'org.testfx', name: 'testfx-junit5', version: '4.0.16-alpha'
+    testCompile group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
+
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
+    testRuntimeOnly "org.testfx:openjfx-monocle:jdk-11+26"
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
@@ -112,6 +117,25 @@ test {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
     }
 }
+
+task headless {
+    doLast {
+        println 'Setting headless mode properties.'
+        test {
+            systemProperties = [
+                    'java.awt.headless': 'true',
+                    'testfx.robot': 'glass',
+                    'testfx.headless': 'true',
+                    'prism.order': 'sw',
+                    'prism.text': 't2k',
+                    'headless.geometry': '1600x1200-32'
+            ]
+        }
+    }
+}
+
+// Makes sure that headless properties are set before running tests
+test.mustRunAfter headless
 
 asciidoctor {
     backends 'html5'

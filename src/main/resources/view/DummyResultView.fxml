@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8">
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1" fx:id="dummyResultView">
     <Label text="Dummy View"/>
 </VBox>
