@@ -3,18 +3,21 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
 <fx:root minHeight="600" minWidth="550" onCloseRequest="#handleExit" title="Typee" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/typee_icon.png" />
   </icons>
   <scene>
     <Scene>
@@ -23,37 +26,46 @@
         <URL value="@Extensions.css" />
       </stylesheets>
       <VBox minHeight="-Infinity" minWidth="-Infinity" styleClass="pane-with-border">
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+        <MenuBar id="mainMenu" fx:id="menuBar" VBox.vgrow="NEVER">
+          <Menu id="mainMenu" mnemonicParsing="false" styleClass="menu" text="File">
+            <MenuItem id="mainMenu" styleClass="menu-item" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+          <Menu id="mainMenu" styleClass="menu" mnemonicParsing="false" text="Help">
+            <MenuItem id="mainMenu" styleClass="menu-item" fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
         <HBox styleClass="pane-with-border" VBox.vgrow="ALWAYS">
           <VBox maxWidth="200.0" minWidth="200.0" prefWidth="200.0">
             <StackPane id="main_window" fx:id="tabPanelPlaceHolder" VBox.vgrow="ALWAYS" />
+            <ToggleButton styleClass="toggle-button" mnemonicParsing="false" text="Switch Theme">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </ToggleButton>
           </VBox>
           <VBox HBox.hgrow="ALWAYS">
-            <VBox fx:id="personList" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+            <VBox id="window_title">
+              <padding>
+                <Insets bottom="5.0" top="5.0" />
+              </padding>
+              <Label id="window_title" fx:id="lblWindowTitle" text="" />
+            </VBox>
+            <VBox fx:id="mainWindow" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
               </padding>
               <StackPane id="main_window" fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
             </VBox>
-
-            <StackPane id="output_screen" fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="44.0" prefHeight="44.0" prefWidth="340.0" styleClass="result-display" VBox.vgrow="NEVER">
+            <StackPane id="output_screen" fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="70.0" prefHeight="70.0" prefWidth="340.0" styleClass="result-display" VBox.vgrow="NEVER">
               <padding>
-                <Insets bottom="5" left="10" right="10" top="5" />
+                <Insets bottom="5" top="5" />
               </padding>
             </StackPane>
             <StackPane id="input_screen" fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
               <padding>
-                <Insets bottom="5" left="10" right="10" top="5" />
+                <Insets bottom="5" top="5" />
               </padding>
             </StackPane>
-
             <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
           </VBox>
         </HBox>
