@@ -115,4 +115,9 @@ public class AddressBookParserTest {
         //        assertTrue(parser.parseCommand(DeleteFlashcardCommand.COMMAND_WORD)
         //          instanceof DeleteFlashcardCommand);
     }
+
+    @Test
+    public void parseCommand_switchMode() throws Exception {
+        // To be implemented
+    }
 }
