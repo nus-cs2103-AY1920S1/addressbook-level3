@@ -44,7 +44,7 @@ public class OrderBookTest {
     @Test
     public void resetData_withDuplicateOrders_throwsDuplicateOrderException() {
         // Two orders with the same identity fields
-        Order editedVipOrder = new OrderBuilder(VIPORDER, true).build();
+        Order editedVipOrder = new OrderBuilder(VIPORDER).build();
         List<Order> newOrders = Arrays.asList(VIPORDER, editedVipOrder);
         OrderBookStub newData = new OrderBookStub(newOrders);
 
@@ -70,7 +70,7 @@ public class OrderBookTest {
     @Test
     public void hasOrder_orderWithSameIdentityFieldsInOrderBook_returnsTrue() {
         orderBook.addOrder(VIPORDER);
-        Order clonedVipOrder = new OrderBuilder(VIPORDER, true).build();
+        Order clonedVipOrder = new OrderBuilder(VIPORDER).build();
         assertTrue(orderBook.hasOrder(clonedVipOrder));
     }
 

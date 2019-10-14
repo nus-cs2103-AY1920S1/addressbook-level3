@@ -50,20 +50,6 @@ public class OrderBuilder {
     /**
      * Initializes the OrderBuilder with the data of {@code orderToCopy}.
      */
-    public OrderBuilder(Order orderToCopy, boolean copyId) {
-        if (copyId) {
-            id = orderToCopy.getId();
-        } else {
-            id = UUID.randomUUID();
-        }
-        customer = orderToCopy.getCustomer();
-        phone = orderToCopy.getPhone();
-        price = orderToCopy.getPrice();
-        status = orderToCopy.getStatus();
-        schedule = orderToCopy.getSchedule();
-        tags = new HashSet<>(orderToCopy.getTags());
-    }
-
     public OrderBuilder(Order orderToCopy) {
         id = orderToCopy.getId();
         customer = orderToCopy.getCustomer();
