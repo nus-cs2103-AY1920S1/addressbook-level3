@@ -12,6 +12,7 @@ import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.Menu;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.Wallet;
 
 /**
@@ -23,6 +24,7 @@ class JsonSerializableMenu {
     public static final String MESSAGE_DUPLICATE_FOOD = "foods list contains duplicate food(s).";
 
     private final List<JsonAdaptedFood> foods = new ArrayList<>();
+    private final List<JsonAdaptedPurchase> purchases = new ArrayList<>();
     private JsonAdaptedWallet wallet = new JsonAdaptedWallet(new Wallet());
 
     /**
@@ -30,8 +32,10 @@ class JsonSerializableMenu {
      */
     @JsonCreator
     public JsonSerializableMenu(@JsonProperty("foods") List<JsonAdaptedFood> foods,
+                                @JsonProperty("purchases") List<JsonAdaptedPurchase> purchases,
                                 @JsonProperty("wallet") JsonAdaptedWallet wallet) {
         this.foods.addAll(foods);
+        this.purchases.addAll(purchases);
         this.wallet = wallet;
     }
 
@@ -42,6 +46,8 @@ class JsonSerializableMenu {
      */
     public JsonSerializableMenu(ReadOnlyMenu source) {
         foods.addAll(source.getFoodList().stream().map(JsonAdaptedFood::new).collect(Collectors.toList()));
+        purchases.addAll(source.getPurchaseHistory().stream()
+                .map(JsonAdaptedPurchase::new).collect(Collectors.toList()));
         wallet = new JsonAdaptedWallet(source.getWallet());
     }
 
@@ -59,7 +65,11 @@ class JsonSerializableMenu {
             }
             menu.addFood(food);
         }
-        menu.addWallet(wallet.toModelType());
+        for (JsonAdaptedPurchase jsonAdaptedPurchase : purchases) {
+            Purchase purchase = jsonAdaptedPurchase.toModelType();
+            menu.addPurchase(purchase);
+        }
+        menu.setWallet(wallet.toModelType());
         return menu;
     }
 

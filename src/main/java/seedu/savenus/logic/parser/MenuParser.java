@@ -6,19 +6,7 @@ import static seedu.savenus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.savenus.logic.commands.AddCommand;
-import seedu.savenus.logic.commands.BudgetCommand;
-import seedu.savenus.logic.commands.ClearCommand;
-import seedu.savenus.logic.commands.Command;
-import seedu.savenus.logic.commands.DeleteCommand;
-import seedu.savenus.logic.commands.EditCommand;
-import seedu.savenus.logic.commands.ExitCommand;
-import seedu.savenus.logic.commands.FindCommand;
-import seedu.savenus.logic.commands.HelpCommand;
-import seedu.savenus.logic.commands.InfoCommand;
-import seedu.savenus.logic.commands.ListCommand;
-import seedu.savenus.logic.commands.RecommendCommand;
-import seedu.savenus.logic.commands.SortCommand;
+import seedu.savenus.logic.commands.*;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 
 /**
@@ -54,6 +42,9 @@ public class MenuParser {
         case BudgetCommand.COMMAND_WORD:
             return new BudgetCommandParser().parse(arguments);
 
+        case BuyCommand.COMMAND_WORD:
+            return new BuyCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
@@ -83,6 +74,9 @@ public class MenuParser {
 
         case InfoCommand.COMMAND_WORD:
             return new InfoCommandParser().parse(arguments);
+
+        case DefaultCommand.COMMAND_WORD:
+            return new DefaultCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

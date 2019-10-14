@@ -18,9 +18,9 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        // Reset the predicate and comparator, if any was provided
-        model.updateFilteredFoodList(Model.PREDICATE_SHOW_ALL_FOOD);
-        model.resetRecommendationComparator();
+        // Clear the recommendation system (if it was used) and show all food items
+        model.updateFilteredFoodList(x -> true);
+        model.setRecommendationSystemInUse(false);
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

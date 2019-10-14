@@ -65,9 +65,8 @@ public class AddCommand extends Command {
         }
         model.addFood(toAdd);
 
-        // Reset the predicate and comparator, if any was provided
-        model.updateFilteredFoodList(Model.PREDICATE_SHOW_ALL_FOOD);
-        model.resetRecommendationComparator();
+        // Clear the recommendation system (if it was used)
+        model.setRecommendationSystemInUse(false);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
