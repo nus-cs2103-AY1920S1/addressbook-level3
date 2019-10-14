@@ -82,12 +82,15 @@ public class ParserUtil {
         switch(intensity){
 
         case "1":
+        case "low":
             return Intensity.LOW;
 
         case "2":
+        case "medium":
             return Intensity.MEDIUM;
 
         case "3":
+        case "high":
             return Intensity.HIGH;
 
         default:

@@ -16,8 +16,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditExerciseCommand;
 import seedu.address.logic.commands.EditExerciseCommand.EditExerciseDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.details.*;
-import seedu.address.model.exercise.MusclesTrained;
+import seedu.address.model.details.Distance;
+import seedu.address.model.details.ExerciseDetail;
+import seedu.address.model.details.Repetitions;
+import seedu.address.model.details.Sets;
+import seedu.address.model.details.Weight;
+
 
 /**
  * Parses input arguments and creates a new EditCommand object

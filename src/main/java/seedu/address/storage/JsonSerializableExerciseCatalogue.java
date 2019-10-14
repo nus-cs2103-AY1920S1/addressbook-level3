@@ -21,13 +21,13 @@ class JsonSerializableExerciseCatalogue {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedExercise> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableExerciseCatalogue} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableExerciseCatalogue(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableExerciseCatalogue(@JsonProperty("persons") List<JsonAdaptedExercise> persons) {
         this.persons.addAll(persons);
     }
 
@@ -37,7 +37,7 @@ class JsonSerializableExerciseCatalogue {
     * @param source future changes to this will not affect the created {@code JsonSerializableExerciseCatalogue}.
     */
     public JsonSerializableExerciseCatalogue(ReadOnlyDukeCooks source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(source.getPersonList().stream().map(JsonAdaptedExercise::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,8 +47,8 @@ class JsonSerializableExerciseCatalogue {
     */
     public DukeCooks toModelType() throws IllegalValueException {
         DukeCooks dukeCooks = new DukeCooks();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Exercise exercise = jsonAdaptedPerson.toModelType();
+        for (JsonAdaptedExercise jsonAdaptedExercise : persons) {
+            Exercise exercise = jsonAdaptedExercise.toModelType();
             if (dukeCooks.hasPerson(exercise)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }

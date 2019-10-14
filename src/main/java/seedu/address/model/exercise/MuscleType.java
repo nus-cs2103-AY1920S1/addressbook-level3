@@ -32,6 +32,10 @@ public class MuscleType {
         this.muscleType = muscleType;
     }
 
+    public String getMuscleType() {
+        return muscleType;
+    }
+
     /**
      * Returns true if a given string is a valid muscleType.
      */
