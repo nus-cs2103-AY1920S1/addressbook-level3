@@ -32,13 +32,13 @@ public class Food {
         return amount;
     }
 
-//    /**
-//     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-//     * if modification is attempted.
-//     */
-//    public Set<Tag> getTags() {
-//        return Collections.unmodifiableSet(tags);
-//    }
+    ///**
+    // Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+    // * if modification is attempted.
+    // */
+    //public Set<Tag> getTags() {
+    //    return Collections.unmodifiableSet(tags);
+    //}
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
@@ -63,7 +63,7 @@ public class Food {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-                //.append(" Tags: ");
+        //        .append(" Tags: ");
         //getTags().forEach(builder::append);
         return builder.toString();
     }
