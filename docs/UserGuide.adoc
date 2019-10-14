@@ -201,10 +201,10 @@ Returns `training-set-1` and `training-set-2`
 * `find training set` +
 Returns any problem having names `training`, or `set`
 
-==== Listing all training plans: `lsplan`
+==== Listing all training plans: `listplan`
 
 Displays a list of all existing plans alphabetically. +
-Format: `lsplan`
+Format: `listplan`
 
 ==== Marking a problem as done: `done`
 
@@ -301,13 +301,13 @@ e.g. `newtag n/sssp`
 * *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
 
-* *Add Training Plan* : `addplan n/NAME` +
+* *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]` +
 e.g. `addplan n/CS2040`
-* *Edit Training Plan* : `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME]` +
+* *Edit Training Plan* : `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME] [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]` +
 e.g. `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
 * *Find Training Plan* : `findplan KEYWORD [MORE_KEYWORDS]` +
 e.g. `find training set`
-* *List Training Plans* : `lsplan`
+* *List Training Plans* : `listplan`
 * *Mark Training Plan as done* : `done PLAN_INDEX PROBLEM_INDEX` +
 e.g. `done 1 2`
 * *Mark Training Plan as undone* : `undone PLAN_INDEX PROBLEM_INDEX` +

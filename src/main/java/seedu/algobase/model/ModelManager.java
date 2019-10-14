@@ -118,7 +118,31 @@ public class ModelManager implements Model {
         algoBase.setProblem(target, editedProblem);
     }
 
-    //=========== Problem List =============================================================
+    @Override
+    public boolean hasPlan(Plan plan) {
+        requireNonNull(plan);
+        return algoBase.hasPlan(plan);
+    }
+
+    @Override
+    public void deletePlan(Plan target) {
+        algoBase.removePlan(target);
+    }
+
+    @Override
+    public void addPlan(Plan plan) {
+        algoBase.addPlan(plan);
+        updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+    }
+
+    @Override
+    public void setPlan(Plan target, Plan editedPlan) {
+        requireAllNonNull(target, editedPlan);
+
+        algoBase.setPlan(target, editedPlan);
+    }
+
+    //=========== Filtered Problem List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Problem} backed by the internal list of
@@ -138,7 +162,7 @@ public class ModelManager implements Model {
     /**
      * Updates the Problem list according to the given {@code problemComparator}.
      *
-     * @param problemComparator
+     * @param problemComparator a comparator of problems
      * @throws NullPointerException if {@code problemComparator} is null;
      */
     @Override
@@ -147,15 +171,20 @@ public class ModelManager implements Model {
         sortedProblems.setComparator(problemComparator);
     }
 
-    //=========== Plan List =============================================================
+    //=========== Filtered Plan List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Problem} backed by the internal list of
-     * {@code versionedAlgoBase}
+     * Returns an unmodifiable view of the list of {@code Plan} backed by the internal list of
      */
     @Override
     public ObservableList<Plan> getFilteredPlanList() {
         return filteredPlans;
+    }
+
+    @Override
+    public void updateFilteredPlanList(Predicate<Plan> predicate) {
+        requireNonNull(predicate);
+        filteredPlans.setPredicate(predicate);
     }
 
     //============== Util ==================================================================

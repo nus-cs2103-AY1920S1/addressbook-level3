@@ -18,4 +18,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_SORTING_ORDER = new Prefix("ord/");
     public static final Prefix PREFIX_PLAN = new Prefix("pl/");
     public static final Prefix PREFIX_PROBLEM = new Prefix("pr/");
+    public static final Prefix PREFIX_START_DATE = new Prefix("s/");
+    public static final Prefix PREFIX_END_DATE = new Prefix("e/");
 }

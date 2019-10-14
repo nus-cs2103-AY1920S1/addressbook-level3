@@ -27,8 +27,8 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      *   among constructors.
      */
     {
-        plans = new PlanList();
         problems = new UniqueProblemList();
+        plans = new PlanList();
     }
 
     public AlgoBase() {}
@@ -104,6 +104,41 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     //// Plan-level operations
 
+    /**
+     * Returns true if a Plan with the same identity as {@code Plan} exists in the algobase.
+     */
+    public boolean hasPlan(Plan plan) {
+        requireNonNull(plan);
+        return plans.contains(plan);
+    }
+
+    /**
+     Adds a Plan to the algobase.
+     The Plan must not already exist in the algobase.
+     */
+    public void addPlan(Plan p) {
+        plans.add(p);
+    }
+
+    /**
+     * Replaces the given Plan {@code target} in the list with {@code editedPlan}.
+     * {@code target} must exist in the algobase.
+     * The Plan identity of {@code editedPlan} must not be the same as another existing Plan in the algobase.
+     */
+    public void setPlan(Plan target, Plan editedPlan) {
+        requireNonNull(editedPlan);
+
+        plans.setPlan(target, editedPlan);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AlgoBase}.
+     * {@code key} must exist in the algobase.
+     */
+    public void removePlan(Plan key) {
+        plans.remove(key);
+    }
+
     @Override
     public ObservableList<Plan> getPlanList() {
         return plans.asUnmodifiableObservableList();
@@ -121,11 +156,13 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AlgoBase // instanceof handles nulls
-                && problems.equals(((AlgoBase) other).problems));
+                && problems.equals(((AlgoBase) other).problems))
+                && plans.equals(((AlgoBase) other).plans);
     }
 
     @Override
     public int hashCode() {
         return problems.hashCode();
     }
+
 }

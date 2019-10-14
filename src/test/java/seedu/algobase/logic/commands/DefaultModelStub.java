@@ -16,7 +16,6 @@ import seedu.algobase.model.problem.Problem;
 /**
  * A default model stub that have all of the methods failing.
  */
-
 public class DefaultModelStub implements Model {
 
     @Override
@@ -85,7 +84,32 @@ public class DefaultModelStub implements Model {
     }
 
     @Override
+    public void updateFilteredPlanList(Predicate<Plan> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Problem> getFilteredProblemList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasPlan(Plan plan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deletePlan(Plan target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addPlan(Plan plan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setPlan(Plan target, Plan editedPlan) {
         throw new AssertionError("This method should not be called.");
     }
 
