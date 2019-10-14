@@ -101,6 +101,10 @@ public class DeleteCommand extends Command {
             assert this.quantity != null;
             Item newQuantityItem = reduceItemQuantity(targetItem, quantity);
             model.setItem(targetItem, newQuantityItem);
+            /* TODO: Transfer to To-Buy-List*/
+            if (Quantity.quantityIsZero(newQuantityItem.getQuantity())) {
+                model.deleteItem(targetItem);
+            }
             return new CommandResult(
                     String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), targetItem));
         default:
@@ -130,6 +134,14 @@ public class DeleteCommand extends Command {
         return targetItem;
     }
 
+    /**
+     * Reduces item's quantity by amount specified.
+     *
+     * @param targetItem Item which amount will be reduced.
+     * @param reduceByQuantity Quantity to be reduced.
+     * @return
+     * @throws ParseException
+     */
     private Item reduceItemQuantity(Item targetItem, Quantity reduceByQuantity) throws ParseException {
         Quantity originalQuantity = targetItem.getQuantity();
         Quantity updatedQuantity = originalQuantity.deductQuantity(reduceByQuantity);

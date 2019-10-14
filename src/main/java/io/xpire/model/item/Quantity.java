@@ -34,6 +34,20 @@ public class Quantity implements Comparable<Quantity> {
         return StringUtil.isNonNegativeInteger(test);
     }
 
+    /**
+     * Returns true if quantity is zero.
+     */
+    public static boolean quantityIsZero(Quantity quantity) {
+        return quantity.quantity <= 0;
+    }
+
+    /**
+     * Reduces quantity by specified amount.
+     *
+     * @param deductAmount Amount to be deducted.
+     * @return Quantity to be deducted.
+     * @throws ParseException if new quantity is negative.
+     */
     public Quantity deductQuantity(Quantity deductAmount) throws ParseException {
         if (this.quantity < deductAmount.quantity) {
             throw new ParseException("Quantity should not be negative!");
