@@ -1,7 +1,6 @@
 package seedu.deliverymans.model;
 
 import javafx.collections.ObservableList;
-import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.order.Order;
 
 /**

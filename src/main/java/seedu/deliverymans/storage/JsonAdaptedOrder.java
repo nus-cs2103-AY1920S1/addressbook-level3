@@ -34,14 +34,11 @@ class JsonAdaptedOrder {
     public JsonAdaptedOrder(@JsonProperty("customer") String customer,
                             @JsonProperty("restaurant") String restaurant,
                             @JsonProperty("deliveryman") String deliveryman,
-//                            @JsonProperty("foods") List<JsonAdaptedTag> foods,
                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.customer = customer;
         this.restaurant = restaurant;
         this.deliveryman = deliveryman;
-//        if (foods != null) {
-//            this.foods.addAll(foods);
-//        }
+        //    if (foods != null) { this.foods.addAll(foods); }
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -54,9 +51,6 @@ class JsonAdaptedOrder {
         customer = source.getCustomer();
         restaurant = source.getRestaurant();
         deliveryman = source.getDeliveryman();
-//        foods.addAll(source.getFoods().stream()
-//                .map(JsonAdaptedFood::new)
-//                .collect(Collectors.toList()));
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -97,13 +91,8 @@ class JsonAdaptedOrder {
         }
         final Email modelEmail = new Email(deliveryman);
 
-//        if (remark == null) {
-//         throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
-//        }
-//        final Remark modelRemark = new Remark(remark);
-
-//        final Set<Tag> modelTags = new HashSet<>(personTags);
-//        return new Order(modelName, modelPhone, modelEmail, modelRemark, modelTags);
+        // final Set<Tag> modelTags = new HashSet<>(personTags);
+        // return new Order(modelName, modelPhone, modelEmail, modelRemark, modelTags);
         return new Order("", customer, restaurant, deliveryman);
     }
 }
