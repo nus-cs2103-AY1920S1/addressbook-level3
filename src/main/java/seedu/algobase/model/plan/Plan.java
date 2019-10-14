@@ -18,7 +18,7 @@ import seedu.algobase.model.task.Task;
 public class Plan {
 
     public static final String DATE_CONSTRAINTS = "Date format should be 'yyyy-MM-dd'.";
-    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     // Identity fields
     private final PlanName planName;

@@ -16,7 +16,6 @@ import seedu.algobase.model.problem.Problem;
 public class ProblemListPanel extends UiPart<Region> {
     private static final String FXML = "ProblemListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ProblemListPanel.class);
-
     @FXML
     private ListView<Problem> problemListView;
 

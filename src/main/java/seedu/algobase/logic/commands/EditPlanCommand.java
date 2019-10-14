@@ -50,7 +50,7 @@ public class EditPlanCommand extends Command {
 
     public static final String MESSAGE_EDIT_PLAN_SUCCESS = "Edited Plan: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PLAN = "This Plan already exists in the algobase.";
+    public static final String MESSAGE_DUPLICATE_PLAN = "A plan of this name already exists in the algobase.";
 
     private final Index index;
     private final EditPlanDescriptor editPlanDescriptor;

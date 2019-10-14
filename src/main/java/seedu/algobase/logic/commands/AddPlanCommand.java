@@ -34,7 +34,7 @@ public class AddPlanCommand extends Command {
             + PREFIX_END_DATE + "3019/12/12";
 
     public static final String MESSAGE_SUCCESS = "New Plan added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PLAN = "This Plan already exists in the algobase";
+    public static final String MESSAGE_DUPLICATE_PLAN = "A plan of this name already exists in the algobase.";
 
     private final Plan toAdd;
 

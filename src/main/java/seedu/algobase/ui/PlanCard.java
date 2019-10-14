@@ -1,5 +1,7 @@
 package seedu.algobase.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -8,7 +10,6 @@ import javafx.scene.layout.Region;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.task.Task;
 
-import java.util.Comparator;
 
 /**
  * An UI component that displays information of a {@code Plan}.
@@ -48,11 +49,12 @@ public class PlanCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         planName.setText(plan.getPlanName().fullName);
         planDescription.setText(plan.getPlanDescription().value);
-        startDate.setText(plan.getStartDate().format(Plan.formatter));
-        endDate.setText(plan.getEndDate().format(Plan.formatter));
+        startDate.setText(plan.getStartDate().format(Plan.FORMATTER));
+        endDate.setText(plan.getEndDate().format(Plan.FORMATTER));
         plan.getTasks().stream()
                 .sorted(Comparator.comparing(Task::getDateTime))
-                .forEach(task -> tasks.getChildren().add(new Label(task.getDateTime().toString())));
+                .forEach(task -> tasks.getChildren().add(new Label(task.getProblem().toString() + '\n'
+                + task.getIsSolved().toString() + '\n' + task.getDateTime().toString())));
     }
 
     @Override
