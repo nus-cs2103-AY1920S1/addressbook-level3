@@ -67,6 +67,8 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 
     implementation 'me.xdrop:fuzzywuzzy:1.2.0'
+
+    compile "com.opencsv:opencsv:4.0"
 }
 
 shadowJar {
