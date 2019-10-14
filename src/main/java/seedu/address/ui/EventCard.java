@@ -31,7 +31,7 @@ public class EventCard extends UiPart<Region> {
         super(FXML);
         this.eventSource = eventSource;
         name.setText(displayedIndex + ". " + eventSource.getDescription().toString());
-        dateTime.setText(uiParser.parseDateToString(eventSource.getStartDateTime().getDateTime()));
+        dateTime.setText(uiParser.parseDateToString(eventSource.getStartDateTime().toInstant()));
     }
 
     @Override

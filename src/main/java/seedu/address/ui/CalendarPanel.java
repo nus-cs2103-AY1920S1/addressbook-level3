@@ -85,7 +85,7 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
         resetCalendar();
         for (EventSource event : events) {
             DayCard dayCard = currentMonthDayCards.get(
-                uiParser.getDay(event.getStartDateTime().getDateTime()) - 1);
+                uiParser.getDay(event.getStartDateTime().toInstant()) - 1);
             if (dayCard.sameDateAsEvent(event, uiParser)) {
                 dayCard.addDayCardEvent(event);
             }

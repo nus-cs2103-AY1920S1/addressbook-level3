@@ -53,7 +53,7 @@ public class DayCard extends UiPart<Region> {
      */
     public boolean sameDateAsEvent(EventSource eventSource, UiParser uiParser) {
         try {
-            Instant date = eventSource.getStartDateTime().getDateTime();
+            Instant date = eventSource.getStartDateTime().toInstant();
             Integer[] dayMonthYear = uiParser.parseDateToNumbers(date);
             boolean sameDay = dayMonthYear[0].equals(this.day);
             boolean sameMonth = dayMonthYear[1].equals(this.month);

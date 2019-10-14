@@ -1,8 +1,7 @@
 package seedu.address.model.events;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -26,27 +25,39 @@ public class EventSource {
      * All fields must be non null.
      */
     public EventSource(String description, DateTime start) {
-        requireAllNonNull(description, start);
-        this.description = description;
-        this.start = start;
+        this.description = Objects.requireNonNull(description);
+        this.start = Objects.requireNonNull(start);
     }
 
     /**
-     * Returns a deep-copy of an EventSource.
-     *
-     * @param oldEventSource the eventSource to deep-copy.
+     * Copy constructor.
+     * Creates a deep-copy of an EventSource.
+     * @param eventSource the eventSource to deep-copy.
      */
-    public EventSource(EventSource oldEventSource) {
-        this.description = oldEventSource.description;
-        this.start = oldEventSource.start;
-        this.end = oldEventSource.end;
+    public EventSource(EventSource eventSource) {
+        this.description = eventSource.description;
+        this.start = eventSource.start;
+        this.end = eventSource.end;
+        this.tags = eventSource.tags;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public DateTime getStartDateTime() {
-        return start;
+        return this.start;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof EventSource) {
+            EventSource e = (EventSource) object;
+            return this.description.equals(e.description)
+                && this.start.equals(e.start)
+                && this.end.equals(e.end)
+                && this.tags.equals(e.tags);
+        }
+        return false;
     }
 }
