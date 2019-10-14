@@ -22,7 +22,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtilTest {
     private static final String INVALID_NAME = "C@ffee";
     private static final String INVALID_AMOUNT = "+634";
-    private static final String INVALID_DATE = "1#/12/2019";
+    private static final String INVALID_DATE = "13/13/2019";
     private static final String INVALID_TAG = "#food";
 
     private static final String VALID_NAME = "Coffee";

@@ -52,7 +52,7 @@ public class JsonUserPrefsStorageTest {
     @Test
     public void readUserPrefs_fileInOrder_successfullyRead() throws DataConversionException {
         UserPrefs expected = getTypicalUserPrefs();
-        UserPrefs actual = readUserPrefs("TypicalUserPref.json").get();
+        UserPrefs actual = readUserPrefs("TypicalUserPrefs.json").get();
         assertEquals(expected, actual);
     }
 
@@ -65,7 +65,7 @@ public class JsonUserPrefsStorageTest {
     @Test
     public void readUserPrefs_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         UserPrefs expected = getTypicalUserPrefs();
-        UserPrefs actual = readUserPrefs("ExtraValuesUserPref.json").get();
+        UserPrefs actual = readUserPrefs("ExtraValuesUserPrefs.json").get();
 
         assertEquals(expected, actual);
     }

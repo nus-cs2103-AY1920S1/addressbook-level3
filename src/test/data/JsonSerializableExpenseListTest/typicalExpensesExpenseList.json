@@ -32,7 +32,7 @@
     "tagged" : [ ]
   }, {
     "name" : "Cheese",
-    "amount": "$10.0",
+    "amount": "$10.00",
     "date": "31/12/2019",
     "tagged" : [ ]
   } ]
