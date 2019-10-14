@@ -3,7 +3,6 @@ package seedu.address.reimbursement.logic;
 import seedu.address.reimbursement.commands.Command;
 import seedu.address.reimbursement.commands.CommandResult;
 import seedu.address.reimbursement.model.Model;
-import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.ReimbursementList;
 
 /**

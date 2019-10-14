@@ -36,7 +36,7 @@ public class Deadline {
      */
     public String toString() {
         if (year != -1) {
-            return Integer.toString(year) + dash + Integer.toString(month) + dash + Integer.toString(day) + dash;
+            return Integer.toString(year) + dash + Integer.toString(month) + dash + Integer.toString(day);
         } else {
             return "";
         }

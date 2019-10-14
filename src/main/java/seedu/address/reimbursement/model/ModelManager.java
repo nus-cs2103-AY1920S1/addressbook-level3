@@ -1,9 +1,7 @@
 package seedu.address.reimbursement.model;
 
 import java.util.ArrayList;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
@@ -19,11 +17,11 @@ public class ModelManager implements Model {
     private final StorageManager storage;
     private ReimbursementList reimbursementList;
     private ReimbursementList filteredList;
-    private Predicate<Reimbursement> predicate;
 
     public ModelManager(StorageManager storageManager) {
         this.storage = storageManager;
         this.reimbursementList = storageManager.getReimbursementList();
+        this.filteredList = reimbursementList;
     }
 
     @Override
@@ -32,28 +30,41 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ReimbursementList getFilteredReimbursementList() {
+        return filteredList;
+    }
+
+    @Override
     public Reimbursement findReimbursement(Person person) throws NoSuchPersonReimbursementException {
-        return reimbursementList.findReimbursement(person);
+        Reimbursement reim = reimbursementList.findReimbursement(person);
+        ArrayList<Reimbursement> newList = new ArrayList<>();
+        newList.add(reim);
+        filteredList = new ReimbursementList(newList);
+        return reim;
     }
 
     @Override
-    public void sortReimbursementListByName() {
-        reimbursementList.sortByName();
+    public void sortListByName() {
+        filteredList = reimbursementList;
+        filteredList.sortByName();
     }
 
     @Override
-    public void sortReimbursementListByAmount() {
-        reimbursementList.sortByAmount();
+    public void sortListByAmount() {
+        filteredList = reimbursementList;
+        filteredList.sortByAmount();
     }
 
     @Override
-    public void sortReimbursementListByDeadline() {
-        reimbursementList.sortByDeadline();
+    public void sortListByDeadline() {
+        filteredList = reimbursementList;
+        filteredList.sortByDeadline();
     }
 
     @Override
     public Reimbursement addDeadline(Person person, String date) throws Exception {
         reimbursementList.addDeadline(person, date);
+        filteredList = reimbursementList;
         return findReimbursement(person);
     }
 
@@ -61,6 +72,7 @@ public class ModelManager implements Model {
     public Reimbursement doneReimbursement(Person person) throws NoSuchPersonReimbursementException {
         Reimbursement rmb = findReimbursement(person);
         rmb.done();
+        filteredList = reimbursementList;
         return rmb;
     }
 

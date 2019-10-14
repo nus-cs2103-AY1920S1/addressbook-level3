@@ -10,13 +10,15 @@ import seedu.address.transaction.util.TransactionList;
 public interface Model {
     ReimbursementList getReimbursementList();
 
+    ReimbursementList getFilteredReimbursementList();
+
     Reimbursement findReimbursement(Person person) throws NoSuchPersonReimbursementException;
 
-    void sortReimbursementListByName();
+    void sortListByName();
 
-    void sortReimbursementListByAmount();
+    void sortListByAmount();
 
-    void sortReimbursementListByDeadline();
+    void sortListByDeadline();
 
     Reimbursement addDeadline(Person person, String date) throws Exception;
 
