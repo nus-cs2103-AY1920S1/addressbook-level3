@@ -29,11 +29,13 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.logic.parser.utility.UpdateEntityDescriptor;
+import seedu.address.logic.parser.utility.UpdateFridgeDescriptor;
 import seedu.address.logic.parser.utility.UpdateWorkerDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 
 
@@ -119,9 +121,11 @@ public class UpdateCommand extends Command {
             return new UpdateBodyDescriptor((Body) entity);
         } else if (entity instanceof Worker) {
             return new UpdateWorkerDescriptor((Worker) entity);
+        } else if (entity instanceof Fridge) {
+            return new UpdateFridgeDescriptor((Fridge) entity);
+        } else {
+            throw new CommandException("Could not find original entity.");
         }
-        // todo: add support for fridge
-        throw new CommandException("Could not find original entity.");
     }
 
     @Override
@@ -131,6 +135,14 @@ public class UpdateCommand extends Command {
         this.entity = getEntityFromId(model, id, updateEntityDescriptor);
         if (!model.hasEntity(entity)) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
+        }
+        if (updateEntityDescriptor instanceof UpdateFridgeDescriptor) {
+            try {
+                UpdateFridgeDescriptor fridgeDescriptor = (UpdateFridgeDescriptor) updateEntityDescriptor;
+                getBodyFromId(model, fridgeDescriptor.getBodyId().orElse(null), fridgeDescriptor);
+            } catch (CommandException e) {
+                return new CommandResult(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
+            }
         }
 
         this.originalEntityDescriptor = saveOriginalFields(entity);
@@ -156,8 +168,39 @@ public class UpdateCommand extends Command {
                     return worker;
                 }
             }
+        } else if (descriptor instanceof UpdateFridgeDescriptor) {
+            List<Fridge> lastShownList = model.getFilteredFridgeList();
+            for (Fridge fridge : lastShownList) {
+                if (fridge.getIdNum().equals(id)) {
+                    return fridge;
+                }
+            }
         }
-        // todo: add support for fridge
+
+        throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
+    }
+
+    /**
+     * Gets a Body in Mortago according to a given Identification Number and add it to the UpdateFridgeDescriptor, if
+     * present.
+     * @param model the current model of the program.
+     * @param id an identification number.
+     * @param descriptor an UpdateFridgeDescriptor containing changes to a Fridge object.
+     * @return an UpdateFridgeDescriptor
+     * @throws CommandException if there is no Body object with the given identification number.
+     */
+    public UpdateFridgeDescriptor getBodyFromId(Model model, IdentificationNumber id, UpdateFridgeDescriptor descriptor)
+            throws CommandException {
+        if (id == null) {
+            return descriptor;
+        }
+        List<Body> lastShownList = model.getFilteredBodyList();
+        for (Body body : lastShownList) {
+            if (body.getIdNum().equals(id)) {
+                descriptor.setNewBody(body);
+                return descriptor;
+            }
+        }
         throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
     }
 

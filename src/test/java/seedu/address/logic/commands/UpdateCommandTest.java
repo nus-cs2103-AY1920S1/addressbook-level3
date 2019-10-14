@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
+import seedu.address.logic.parser.utility.UpdateFridgeDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -19,7 +20,10 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.testutil.BodyBuilder;
+import seedu.address.testutil.FridgeBuilder;
 
 //@@author ambervoong
 /**
@@ -81,14 +85,64 @@ public class UpdateCommandTest {
         assertCommandFailure(updateCommand, model, expectedMessage);
     }
 
+    // Note that a Fridge's status is automatically set to UNOCCUPIED if does not contain a body.
+    @Test
+    public void executeFridge_fridgeStatusSpecifiedFilteredList_success() throws CommandException {
+        Fridge fridge = new FridgeBuilder().build();
+        model.addEntity(fridge);
+
+        UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor(fridge);
+        descriptor.setFridgeStatus(FridgeStatus.OCCUPIED);
+
+        UpdateCommand updateCommand = new UpdateCommand(fridge.getIdNum(), descriptor);
+        updateCommand.execute(model);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Fridge otherFridge = new FridgeBuilder().build();
+        otherFridge.setFridgeStatus(FridgeStatus.OCCUPIED);
+        expectedModel.addEntity(otherFridge);
+
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, fridge);
+
+        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
+    }
+
     @Test
     public void getEntityFromId_invalidBodyId_failure() throws CommandException {
+
         UpdateCommand updateCommand = new UpdateCommand(
                 IdentificationNumber.customGenerateId("B", 2), new UpdateBodyDescriptor());
 
         String expectedMessage = MESSAGE_INVALID_ENTITY_DISPLAYED_ID;
 
         assertCommandFailure(updateCommand, model, expectedMessage);
+    }
+
+    @Test
+    public void getEntityFromId_validBodyId_success() throws CommandException {
+        Body body = new BodyBuilder().build();
+        model.addEntity(body);
+        IdentificationNumber id = IdentificationNumber.customGenerateId("B", 1);
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor();
+        UpdateCommand updateCommand = new UpdateCommand(
+                IdentificationNumber.customGenerateId("B", 1), descriptor);
+
+        assertEquals(body, updateCommand.getEntityFromId(model, id, descriptor));
+    }
+
+
+    @Test
+    public void getBodyFromId_validBodyId_failure() throws CommandException {
+        Body body = new BodyBuilder().build();
+        model.addEntity(body);
+        IdentificationNumber id = IdentificationNumber.customGenerateId("B", 1);
+        UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor();
+        UpdateCommand updateCommand = new UpdateCommand(
+                IdentificationNumber.customGenerateId("F", 1), descriptor);
+
+        UpdateFridgeDescriptor descriptorCopy = new UpdateFridgeDescriptor();
+        descriptorCopy.setNewBody(body);
+        assertEquals(descriptorCopy, updateCommand.getBodyFromId(model, id, descriptor));
     }
 
     @Test

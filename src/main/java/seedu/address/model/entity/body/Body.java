@@ -199,19 +199,19 @@ public class Body implements Entity {
         }
         Body body = (Body) o;
         return getDateOfAdmission().equals(body.getDateOfAdmission())
-                && Objects.equals(getName(), body.getName())
-                && Objects.equals(getSex(), body.getSex())
-                && Objects.equals(getNric(), body.getNric())
-                && Objects.equals(getReligion(), body.getReligion())
-                && Objects.equals(getCauseOfDeath(), body.getCauseOfDeath())
-                && Objects.equals(getOrgansForDonation(), body.getOrgansForDonation())
-                && Objects.equals(getBodyStatus(), body.getBodyStatus())
-                && Objects.equals(getFridgeId(), body.getFridgeId())
-                && Objects.equals(getDateOfBirth(), body.getDateOfBirth())
-                && Objects.equals(getDateOfDeath(), body.getDateOfDeath())
-                && Objects.equals(getNextOfKin(), body.getNextOfKin())
-                && Objects.equals(getRelationship(), body.getRelationship())
-                && Objects.equals(getKinPhoneNumber(), body.getKinPhoneNumber());
+                && getName().equals(body.getName())
+                && getSex().equals(body.getSex())
+                && getNric().equals(body.getNric())
+                && getReligion().equals(body.getReligion())
+                && getCauseOfDeath().equals(body.getCauseOfDeath())
+                && getOrgansForDonation().equals(body.getOrgansForDonation())
+                && getBodyStatus().equals(body.getBodyStatus())
+                && getFridgeId().equals(body.getFridgeId())
+                && getDateOfBirth().equals(body.getDateOfBirth())
+                && getDateOfDeath().equals(body.getDateOfDeath())
+                && getNextOfKin().equals(body.getNextOfKin())
+                && getRelationship().equals(body.getRelationship())
+                && getKinPhoneNumber().equals(body.getKinPhoneNumber());
     }
 
     @Override
@@ -235,8 +235,8 @@ public class Body implements Entity {
             return false;
         }
         Body body = (Body) o;
-        return Objects.equals(getNric(), body.getNric())
-            && Objects.equals(getName(), body.getName());
+        return getNric().equals(body.getNric())
+            && getName().equals(body.getName());
     }
 
     @Override

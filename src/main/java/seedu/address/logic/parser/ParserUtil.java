@@ -19,6 +19,7 @@ import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.entity.body.Religion;
+import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -265,6 +266,23 @@ public class ParserUtil {
         }
         return BodyStatus.parseBodyStatus(trimmedStatus);
     }
+
+    //@@author ambervoong
+    /**
+     * Parses {@code String status} to return the corresponding {@code FridgeStatus}.
+     * @param status a string representing the current status of the fridge
+     * @return FridgeStatus
+     * @throws ParseException if the given string does not represent a valid fridge status
+     */
+    public static FridgeStatus parseFridgeStatus(String status) throws ParseException {
+        try {
+            FridgeStatus result = FridgeStatus.valueOf(status.toUpperCase());
+            return result;
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(status + " is not a valid FridgeStatus.");
+        }
+    }
+    //@@author
 
     /**
      * Parses {@code String field} to return null if empty

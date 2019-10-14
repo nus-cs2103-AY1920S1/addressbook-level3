@@ -1,10 +1,12 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BODY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -15,10 +17,14 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
+import seedu.address.logic.parser.utility.UpdateFridgeDescriptor;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.person.Name;
 import seedu.address.testutil.BodyBuilder;
+import seedu.address.testutil.FridgeBuilder;
 
 //@@author ambervoong
 public class UpdateCommandParserTest {
@@ -140,13 +146,11 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parse_invalidFields_failure() {
-        // Todo: Invalid name. After first name/last name prefix is removed.
-        /*
+
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
-                        + PREFIX_NAME + "1111",
+                        + PREFIX_NAME + "!!",
                 Name.MESSAGE_CONSTRAINTS);
 
-         */
         // Invalid gender
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                     + PREFIX_SEX + "Gerbil",
@@ -182,6 +186,17 @@ public class UpdateCommandParserTest {
                 Sex.MESSAGE_CONSTRAINTS);
     }
 
+    @Test
+    public void parseFridge_fieldsPresent_success() {
+        Fridge expectedFridge = new FridgeBuilder().build();
+        UpdateFridgeDescriptor descriptor = new UpdateFridgeDescriptor();
+        descriptor.setBodyId(IdentificationNumber.customGenerateId("B", 1));
+
+        // Update command only requires one field to be specified at minimum
+        assertParseSuccess(parser, " " + PREFIX_FLAG + "f " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
+                        + PREFIX_BODY + " 1",
+                new UpdateCommand(expectedFridge.getIdNum(), descriptor));
+    }
     /*
 
 
