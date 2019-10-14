@@ -1,4 +1,4 @@
-package seedu.ichifund.logic.commands;
+package seedu.ichifund.logic.commands.transaction;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
@@ -9,6 +9,8 @@ import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
+import seedu.ichifund.logic.commands.Command;
+import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.transaction.Transaction;

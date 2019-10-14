@@ -11,7 +11,7 @@ import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.stream.Stream;
 
-import seedu.ichifund.logic.commands.AddTransactionCommand;
+import seedu.ichifund.logic.commands.transaction.AddTransactionCommand;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.model.Amount;
 import seedu.ichifund.model.Description;
