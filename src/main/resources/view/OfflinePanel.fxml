@@ -3,7 +3,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1"
-      prefHeight="400.0" prefWidth="600.0">
-    <TextField fx:id="dummyField" />
-</VBox>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.StackPane?>
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox>
+        <TextField fx:id="dummyField" />
+    </VBox>
+    <VBox fx:id="annotationList" maxWidth="340" minWidth="340" prefWidth="340"
+          styleClass="pane-with-border" VBox.vgrow="NEVER">
+        <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+        </padding>
+        <StackPane fx:id="annotationListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+    </VBox>
+</ScrollPane>

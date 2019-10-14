@@ -4,6 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.mark.commons.core.index.Index;
 
+/**
+ * Represents a paragraph that exists in the cache.
+ * TODO: make paragraphs immutable (so observable list does not break)
+ */
 public class TrueParagraph implements Paragraph {
 
     /** Paragraph identifier.*/
@@ -22,6 +26,9 @@ public class TrueParagraph implements Paragraph {
         ParagraphIdentifier pi = new ParagraphIdentifier(id, ParagraphIdentifier.ParagraphType.EXIST);
         this.id = pi;
         this.content = content;
+
+        colour = null;
+        note = null;
     }
 
     public void addAnnotation(Highlight colour) {
@@ -46,8 +53,18 @@ public class TrueParagraph implements Paragraph {
     }
 
     @Override
+    public boolean hasHighlight() {
+        return colour != null;
+    }
+
+    @Override
     public Highlight getHighlight() {
         return this.colour;
+    }
+
+    @Override
+    public boolean hasNote() {
+        return note != null;
     }
 
     @Override

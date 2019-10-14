@@ -36,9 +36,23 @@ public class PhantomParagraph implements Paragraph {
         return new ParagraphContent("");
     }
 
+    /**
+     * Vacuously true; phantom paragraph has empty string as content so highlight does not matter.
+     * TODO: rethink bout this
+     */
+    @Override
+    public boolean hasHighlight() {
+        return true;
+    }
+
     @Override
     public Highlight getHighlight() {
         return null;
+    }
+
+    @Override
+    public boolean hasNote() {
+        return note != null;
     }
 
     @Override

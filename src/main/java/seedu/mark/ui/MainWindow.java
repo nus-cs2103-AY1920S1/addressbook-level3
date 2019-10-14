@@ -125,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel(logic.getCurrentUrlProperty());
         dashboardPanel = new DashboardPanel();
-        offlinePanel = new OfflinePanel();
+        offlinePanel = new OfflinePanel(logic.getObservableDocument());
         mainViewAreaPlaceholder.getChildren().add(dashboardPanel.getRoot());
 
         bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());

@@ -9,10 +9,14 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
+import seedu.mark.model.annotation.OfflineDocument;
+import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
@@ -28,6 +32,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Bookmark> filteredBookmarks;
     private final SimpleObjectProperty<Url> currentUrl = new SimpleObjectProperty<>();
+    private final ObservableList<Paragraph> annotatedDocument;
 
     /**
      * Initializes a ModelManager with the given mark and userPrefs.
@@ -41,6 +46,7 @@ public class ModelManager implements Model {
         versionedMark = new VersionedMark(mark);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBookmarks = new FilteredList<>(versionedMark.getBookmarkList());
+        annotatedDocument = new SortedList<>(FXCollections.observableArrayList(OfflineDocument.OFFLINE_DOC_EXAMPLE.getCollection()));
     }
 
     public ModelManager() {
@@ -222,6 +228,18 @@ public class ModelManager implements Model {
     @Override
     public void setCurrentUrl(Url url) {
         currentUrl.setValue(url);
+    }
+
+    //=========== Current offline ============================================================================
+
+    @Override
+    public ObservableList<Paragraph> getObservableDocument() {
+        return annotatedDocument;
+    }
+
+    @Override
+    public void updateDocument(OfflineDocument doc) {
+        //TODO: replace observable list with the updated paragraphs in doc (can be new bookmark doc too)
     }
 
     @Override
