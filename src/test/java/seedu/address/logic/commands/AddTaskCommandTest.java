@@ -48,8 +48,8 @@ public class AddTaskCommandTest {
         AddTaskCommand addTaskCommand = new AddTaskCommand(validTask);
         ModelStub modelStub = new ModelStubWithTask(validTask);
 
-        assertThrows(CommandException.class, addTaskCommand.MESSAGE_DUPLICATE_TASK,
-            () -> addTaskCommand.execute(modelStub));
+        assertThrows(CommandException.class, addTaskCommand.MESSAGE_DUPLICATE_TASK, () ->
+            addTaskCommand.execute(modelStub));
     }
 
     @Test
