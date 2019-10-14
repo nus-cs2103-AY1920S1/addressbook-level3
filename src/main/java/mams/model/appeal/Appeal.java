@@ -10,6 +10,21 @@ import mams.commons.util.CollectionUtil;
  */
 public class Appeal {
 
+    //Identity fields
+    private final String appealId;
+    private final String appealType;
+    private final String studentId;
+    private final String academicYear;
+    private final int studentWorkload;
+    private final String appealDescription;
+    private final String previousModule;
+    private final String newModule;
+    private final String moduleToAdd;
+    private final String moduleToDrop;
+    private final boolean resolved;
+    private final String result;
+    private final String remark;
+    private boolean isModified;
 
     public static final String MESSAGE_CONSTRAINTS_APPEAL_ID =
             "Appeals should start with 'C' followed by a 6 digit number";
@@ -35,21 +50,7 @@ public class Appeal {
         return test.matches(VALIDATION_REGEX_APPEAL_CODE);
     }
 
-    //Identity fields
-    private final String appealId;
-    private final String appealType;
-    private final String studentId;
-    private final String academicYear;
-    private final int studentWorkload;
-    private final String appealDescription;
-    private final String previousModule;
-    private final String newModule;
-    private final String moduleToAdd;
-    private final String moduleToDrop;
-    private final boolean resolved;
-    private final String result;
-    private final String remark;
-    private boolean isModified;
+
 
 
 
@@ -267,7 +268,7 @@ public class Appeal {
                 .append(getAcademicYear())
                 .append(" Student workload: ")
                 .append(getStudentWorkload())
-                .append(" Previous module: " )
+                .append(" Previous module: ")
                 .append(getPreviousModule())
                 .append(" New module: ")
                 .append(getNewModule())
@@ -279,7 +280,7 @@ public class Appeal {
                 .append(isResolved())
                 .append(" Result: ")
                 .append(getResult())
-                .append(" Remarks: " )
+                .append(" Remarks: ")
                 .append(getRemark());
         return builder.toString();
     }
