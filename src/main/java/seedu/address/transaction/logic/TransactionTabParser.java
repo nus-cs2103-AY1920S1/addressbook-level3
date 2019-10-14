@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.person.logic.commands.AddCommand;
 import seedu.address.person.model.Model;
+import seedu.address.transaction.commands.BackCommand;
 import seedu.address.transaction.commands.Command;
 import seedu.address.transaction.commands.DeleteIndexCommand;
 import seedu.address.transaction.commands.EditCommand;
@@ -66,6 +67,9 @@ public class TransactionTabParser {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+
+        case BackCommand.COMMAND_WORD:
+            return new BackCommand();
 
         default:
             throw new ParseException(TransactionMessages.MESSAGE_NO_SUCH_COMMAND);
