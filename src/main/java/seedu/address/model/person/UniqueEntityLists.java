@@ -21,7 +21,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * An entity is considered unique by comparing using {@code Entity#isSameEntity(Entity)}. As such, adding and updating
  * of entities uses Entity#isSameEntity(Entity) for equality so as to ensure that the entity being added or updated is
  * unique in terms of identity in the UniqueEntityList. However, the removal of an entity uses Entity#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * as to ensure that the entity with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *

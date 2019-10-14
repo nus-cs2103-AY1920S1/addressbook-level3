@@ -12,6 +12,15 @@ import seedu.address.model.notif.Notif;
 import seedu.address.model.notif.exceptions.DuplicateNotifException;
 import seedu.address.model.notif.exceptions.NotifNotFoundException;
 
+/**
+ * Lists of notifs that enforces uniqueness between its elements and does not allow nulls.
+ * A notif is considered unique by comparing using {@code Notif#isSameNotif(Notif)}. As such, adding and updating
+ * of notifs uses Notif#isSameNotif(Notif) for equality so as to ensure that the notif being added or updated is
+ * unique in terms of identity in the UniqueNotifList. However, the removal of a notif uses Notif#equals(Object) so
+ * as to ensure that the notif with exactly the same fields will be removed.
+ *
+ * Supports a minimal set of list operations.
+ */
 public class UniqueNotifsList {
     private final ObservableList<Notif> internalListNotifs = FXCollections.observableArrayList();
     private final ObservableList<Notif> internalUnmodifiableListNotifs =

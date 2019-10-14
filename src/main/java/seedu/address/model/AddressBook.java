@@ -78,6 +78,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given notif {@code target} in the list with {@code editedNotif}.
+     * {@code target} must exist in Mortago.
+     * The notif identity of {@code editedNotif} must not be the same as another existing notif in Mortago.
+     */
+    public void setNotif(Notif target, Notif editedNotif) {
+        requireNonNull(editedNotif);
+        notifs.setNotif(target, editedNotif);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -140,17 +150,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addNotif(Notif n) {
         notifs.add(n);
-    }
-
-    /**
-     * Replaces the given notif {@code target} in the list with {@code editedNotif}.
-     * {@code target} must exist in Mortago.
-     * The notif identity of {@code editedNotif} must not be the same as another existing notif in Mortago.
-     */
-    public void setNotif(Notif target, Notif editedNotif) {
-        requireNonNull(editedNotif);
-
-        notifs.setNotif(target, editedNotif);
     }
 
     /**
