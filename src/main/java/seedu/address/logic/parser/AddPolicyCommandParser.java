@@ -39,7 +39,6 @@ public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_COVERAGE,
                         PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA, PREFIX_TAG);
-        System.out.println(arePrefixesPresent(argMultimap, PREFIX_CRITERIA, PREFIX_TAG));
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_COVERAGE,
                 PREFIX_PRICE) || areAnyPrefixesPresent(argMultimap, PREFIX_CRITERIA, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
