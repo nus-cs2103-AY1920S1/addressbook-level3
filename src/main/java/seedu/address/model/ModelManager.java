@@ -86,7 +86,7 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyBankAccount getBankAccount() {
-        return null;
+        return bankAccount;
     }
 
     @Override
