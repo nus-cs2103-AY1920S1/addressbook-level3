@@ -36,7 +36,7 @@ public class Deadline {
      */
     public String toString() {
         if (year != -1) {
-            return Integer.toString(year) + dash + Integer.toString(month) + dash + Integer.toString(day) + dash;
+            return Integer.toString(year) + dash + Integer.toString(month) + dash + Integer.toString(day);
         } else {
             return "";
         }
@@ -49,19 +49,19 @@ public class Deadline {
      * @return -1 if the current deadline is smaller, 0 if they are the same, 1 if otherwise.
      */
     public int compareTo(Deadline anotherDeadline) {
-        if (this.year > anotherDeadline.year) {
+        if (this.year < anotherDeadline.year) {
             return 1;
-        } else if (this.year < anotherDeadline.year) {
+        } else if (this.year > anotherDeadline.year) {
             return -1;
         } else {
-            if (this.month > anotherDeadline.month) {
+            if (this.month < anotherDeadline.month) {
                 return 1;
-            } else if (this.month < anotherDeadline.month) {
+            } else if (this.month > anotherDeadline.month) {
                 return -1;
             } else {
-                if (this.day > anotherDeadline.day) {
+                if (this.day < anotherDeadline.day) {
                     return 1;
-                } else if (this.day < anotherDeadline.day) {
+                } else if (this.day > anotherDeadline.day) {
                     return -1;
                 } else {
                     return 0;
