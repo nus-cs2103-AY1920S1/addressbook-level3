@@ -5,24 +5,24 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox stylesheets="@DarkTheme.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-      <VBox HBox.hgrow="ALWAYS" >
+      <VBox minHeight="600.0" HBox.hgrow="ALWAYS">
          <children>
             <Label id="notStartedLabel" contentDisplay="CENTER" text="Not Started" />
-          <ListView fx:id="taskListViewNotStarted" styleClass="pane-with-border" />
+          <ListView fx:id="taskListViewNotStarted" maxHeight="800.0" prefHeight="600.0" styleClass="pane-with-border" />
          </children>
       </VBox>
-      <VBox HBox.hgrow="ALWAYS">
+      <VBox minHeight="600.0" HBox.hgrow="ALWAYS">
          <children>
             <Label id="doingLabel" alignment="CENTER" text="Doing" />
-          <ListView fx:id="taskListViewDoing" styleClass="pane-with-border" />
+          <ListView fx:id="taskListViewDoing" maxHeight="800.0" prefHeight="600.0" styleClass="pane-with-border" />
          </children>
       </VBox>
-      <VBox HBox.hgrow="ALWAYS">
+      <VBox minHeight="600.0" HBox.hgrow="ALWAYS">
          <children>
             <Label id="doneLabel" alignment="CENTER" text="Done" />
-          <ListView fx:id="taskListViewDone" styleClass="pane-with-border" />
+          <ListView fx:id="taskListViewDone" maxHeight="800.0" prefHeight="600.0" styleClass="pane-with-border" />
          </children>
       </VBox>
   </children>

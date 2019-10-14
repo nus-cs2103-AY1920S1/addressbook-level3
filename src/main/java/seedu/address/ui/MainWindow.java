@@ -187,7 +187,7 @@ public class MainWindow extends UiPart<Stage> {
             userNavigableView.getChildren().clear();
 
             // temporary measure to update Ui based on commands from user
-            // TODO: abstract the parsing into a another class, which will interact with UserViewMain
+            // TODO: abstract the parsing into a another manager class, which will interact with UserViewMain
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -200,8 +200,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandText.contains("list")) {
                 userNavigableView.getChildren().add(userViewMain.loadTasks());
-            } else if (commandText.contains("find")) {
-                userNavigableView.getChildren().add(userViewMain.loadDashboard());
             } else {
                 userNavigableView.getChildren().add(userViewMain.loadDashboard());
             }
