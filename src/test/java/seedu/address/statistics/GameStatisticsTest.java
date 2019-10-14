@@ -1,8 +1,5 @@
 package seedu.address.statistics;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.game.Guess;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.ABRA;
@@ -11,6 +8,10 @@ import static seedu.address.testutil.TypicalCards.CHARIZARD;
 import static seedu.address.testutil.TypicalCards.DITTO;
 import static seedu.address.testutil.TypicalCards.EEVEE;
 import static seedu.address.testutil.TypicalCards.FLAREON;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.game.Guess;
 
 public class GameStatisticsTest {
 
@@ -21,7 +22,7 @@ public class GameStatisticsTest {
 
     @Test
     public void constructor_validString_success() {
-       new GameStatistics("abc");
+        new GameStatistics("abc");
     }
 
     @Test

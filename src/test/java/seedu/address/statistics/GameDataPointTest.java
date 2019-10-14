@@ -1,12 +1,13 @@
 package seedu.address.statistics;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.game.Guess;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.game.Guess;
 
 public class GameDataPointTest {
 
@@ -17,10 +18,10 @@ public class GameDataPointTest {
 
     @Test
     public void createGuessData() {
-        assertThrows(NullPointerException.class,
-                () -> GameDataPoint.createGuessData(null, 1)); // null guess
-        assertThrows(AssertionError.class,
-                () -> GameDataPoint.createGuessData(new Guess("abc"), -1)); // invalid millis
+        assertThrows(NullPointerException.class, ()
+            -> GameDataPoint.createGuessData(null, 1)); // null guess
+        assertThrows(AssertionError.class, ()
+            -> GameDataPoint.createGuessData(new Guess("abc"), -1)); // invalid millis
     }
 
     @Test

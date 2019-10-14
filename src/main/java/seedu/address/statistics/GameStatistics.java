@@ -1,5 +1,7 @@
 package seedu.address.statistics;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -9,8 +11,6 @@ import java.util.Optional;
 
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Guess;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * A class that manages all statistics to be shown at the end of the game.
