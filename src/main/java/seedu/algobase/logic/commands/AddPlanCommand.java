@@ -3,8 +3,8 @@ package seedu.algobase.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_DESCRIPTION;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_NAME;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import seedu.algobase.logic.commands.exceptions.CommandException;
@@ -21,13 +21,13 @@ public class AddPlanCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Plan to the algobase. "
             + "Parameters: "
-            + PREFIX_PLAN_NAME + "NAME "
-            + PREFIX_PLAN_DESCRIPTION + "DESCRIPTION "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_START_DATE + "START_DATE "
-            + PREFIX_END_DATE + "END_DATE "
+            + PREFIX_END_DATE + "END_DATE \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PLAN_NAME + "CS2040 "
-            + PREFIX_PLAN_DESCRIPTION + "past year questions of CS2040 "
+            + PREFIX_NAME + "CS2040 "
+            + PREFIX_DESCRIPTION + "past year questions of CS2040 "
             + PREFIX_START_DATE + "2019/01/01"
             + PREFIX_END_DATE + "3019/12/12";
 

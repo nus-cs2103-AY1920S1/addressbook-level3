@@ -2,8 +2,8 @@ package seedu.algobase.logic.parser;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_DESCRIPTION;
-import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_NAME;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.time.LocalDateTime;
@@ -31,18 +31,18 @@ public class AddPlanCommandParser implements Parser<AddPlanCommand> {
      */
     public AddPlanCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PLAN_NAME, PREFIX_PLAN_DESCRIPTION,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION,
                         PREFIX_START_DATE, PREFIX_END_DATE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PLAN_NAME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPlanCommand.MESSAGE_USAGE));
         }
-        PlanName name = ParserUtil.parsePlanName(argMultimap.getValue(PREFIX_PLAN_NAME).get());
+        PlanName name = ParserUtil.parsePlanName(argMultimap.getValue(PREFIX_NAME).get());
 
         PlanDescription description;
-        if (arePrefixesPresent(argMultimap, PREFIX_PLAN_DESCRIPTION)) {
-            description = ParserUtil.parsePlanDescription(argMultimap.getValue(PREFIX_PLAN_DESCRIPTION).get());
+        if (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)) {
+            description = ParserUtil.parsePlanDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         } else {
             description = PlanDescription.DEFAULT_PLAN_DESCRIPTION;
         }
