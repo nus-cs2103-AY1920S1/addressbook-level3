@@ -3,12 +3,14 @@ package calofit.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -39,7 +41,6 @@ public class ModelManager implements Model {
     private final SortedList<Meal> sortedMeals;
     private final CalorieBudget budget;
     private final int remainingBudget;
-    private final FilteredList<Dish> suggestedDish;
 
     /**
      * Initializes a ModelManager with the given dishDatabase and userPrefs.
@@ -65,7 +66,6 @@ public class ModelManager implements Model {
             this.remainingBudget = 1000;
             //this.remainingBudget = 0;
         }
-        this.suggestedDish = null;
     }
 
     public ModelManager() {
@@ -226,6 +226,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Dish> suggestMeal() {
+        ObservableList<Dish> suggestedDish = FXCollections.observableArrayList();
         for (int i = 0; i < dishDatabase.size(); i++) {
             if (remainingBudget >= dishDatabase.getDishList().get(i).getCalories().getValue()) {
                 suggestedDish.add(dishDatabase.getDishList().get(i));
