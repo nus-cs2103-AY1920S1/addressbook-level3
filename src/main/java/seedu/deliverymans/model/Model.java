@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.core.GuiSettings;
+import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
@@ -20,6 +21,10 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -109,6 +114,17 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    //=========== Universal methods =============================================================
+
+    /**
+     * Sets current context of the system.
+     *
+     * @param context current context
+     */
+    void setContext(Context context);
+
+    Context getContext();
+
     //=========== Customer methods =============================================================
 
     /**
@@ -135,6 +151,15 @@ public interface Model {
      * book.
      */
     void setCustomer(Customer target, Customer editedCustomer);
+
+    /** Returns an unmodifiable view of the filtered customer list */
+    ObservableList<Customer> getFilteredCustomerList();
+
+    /**
+     * Updates the filter of the filtered customer list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredCustomerList(Predicate<Customer> predicate);
 
     //=========== Deliveryman Methods =============================================================
 

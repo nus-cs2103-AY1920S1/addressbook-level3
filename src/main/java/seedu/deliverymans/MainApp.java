@@ -24,6 +24,8 @@ import seedu.deliverymans.model.UserPrefs;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.util.SampleDataUtil;
+import seedu.deliverymans.model.database.CustomerDatabase;
+import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.storage.AddressBookStorage;
 import seedu.deliverymans.storage.JsonAddressBookStorage;
 import seedu.deliverymans.storage.JsonOrderBookStorage;
@@ -81,20 +83,26 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyOrderBook> orderBookOptional;
-        ReadOnlyAddressBook addressData;
-        ReadOnlyOrderBook orderData;
+
+        ReadOnlyAddressBook initialAddressData;
+        ReadOnlyOrderBook initialOrderData;
+        ReadOnlyCustomerDatabase initialCustomerData;
+
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            addressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialCustomerData = new CustomerDatabase(); // to change when storage is settled
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            addressData = new AddressBook();
+            initialAddressData = new AddressBook();
+            initialCustomerData = new CustomerDatabase();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            addressData = new AddressBook();
+            initialAddressData = new AddressBook();
+            initialCustomerData = new CustomerDatabase();
         }
 
         try {
@@ -102,16 +110,16 @@ public class MainApp extends Application {
             if (!orderBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample OrderBook");
             }
-            orderData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
+            initialOrderData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty OrderBook");
-            orderData = new OrderBook();
+            initialOrderData = new OrderBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty OrderBook");
-            orderData = new OrderBook();
+            initialOrderData = new OrderBook();
         }
 
-        return new ModelManager(addressData, orderData, userPrefs);
+        return new ModelManager(initialAddressData, initialCustomerData, initialOrderData, userPrefs);
     }
 
     private void initLogging(Config config) {

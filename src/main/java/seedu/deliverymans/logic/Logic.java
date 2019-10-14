@@ -11,8 +11,8 @@ import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.ReadOnlyOrderBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
+import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.order.Order;
-
 
 /**
  * API of the Logic component
@@ -36,6 +36,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of customers */
+    ObservableList<Customer> getFilteredCustomerList();
 
     /**
      * Returns the user prefs' address book file path.
