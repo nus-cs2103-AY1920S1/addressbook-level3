@@ -2,7 +2,8 @@ package seedu.jarvis.model.cca;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.*;
+import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.VALID_NAME_GUITAR_ENSEMBLE;
+import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.VALID_NAME_TYPE_CLUB;
 import static seedu.jarvis.testutil.cca.TypicalCcas.CANOEING;
 import static seedu.jarvis.testutil.cca.TypicalCcas.GUITAR_ENSEMBLE;
 import static seedu.jarvis.testutil.cca.TypicalEquipmentList.GUITAR_ENSEMBLE_EQUIPMENT_LIST;
