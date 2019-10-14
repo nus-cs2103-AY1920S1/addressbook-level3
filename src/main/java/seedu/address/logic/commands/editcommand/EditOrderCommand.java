@@ -199,7 +199,8 @@ public class EditOrderCommand extends Command {
             this.id = id;
         }
 
-        public void Optional<UUID> getId() {
+
+        public Optional<UUID> getId() {
             return Optional.ofNullable(id);
         }
 
