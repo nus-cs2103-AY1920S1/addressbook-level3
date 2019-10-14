@@ -24,11 +24,11 @@ import seedu.address.model.transaction.Transaction;
 public class SampleDataUtil {
     public static Transaction[] getSampleTransactions() {
         return new Transaction[] {
-                new InTransaction(new Amount(100), new Date(System.currentTimeMillis())),
-                new OutTransaction(new Amount(44.44), new Date(System.currentTimeMillis())),
-                new OutTransaction(new Amount(23.3), new Date(System.currentTimeMillis())),
-                new InTransaction(new Amount(34.01), new Date(System.currentTimeMillis())),
-                new OutTransaction(new Amount(9.99), new Date(System.currentTimeMillis())),
+            new InTransaction(new Amount(100), new Date(System.currentTimeMillis())),
+            new OutTransaction(new Amount(44.44), new Date(System.currentTimeMillis())),
+            new OutTransaction(new Amount(23.3), new Date(System.currentTimeMillis())),
+            new InTransaction(new Amount(34.01), new Date(System.currentTimeMillis())),
+            new OutTransaction(new Amount(9.99), new Date(System.currentTimeMillis())),
         };
     }
 
