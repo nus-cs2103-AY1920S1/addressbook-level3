@@ -64,6 +64,14 @@
                         <StackPane fx:id="bodyListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
+                  <VBox fx:id="fridgeList" minWidth="113.0" prefHeight="100.0" prefWidth="113.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="10" left="10" right="10" top="10" />
+                     </padding>
+                     <children>
+                        <StackPane fx:id="fridgeListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
                </children>
             </HBox>
 
