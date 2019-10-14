@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Transaction's description in the transaction recorder.
+ * Represents a Transaction's category in the transaction recorder.
  * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
 public class Category {

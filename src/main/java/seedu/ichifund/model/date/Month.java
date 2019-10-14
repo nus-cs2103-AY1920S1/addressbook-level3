@@ -11,6 +11,8 @@ public class Month {
     public static final String MESSAGE_CONSTRAINTS =
             "Month should only contain numbers, from 1 to 12";
     public static final String VALIDATION_REGEX = "[1-9]|1[0-2]";
+    public static final int[] MONTHS_30_DAYS = {4, 6, 9, 11};
+    public static final int[] MONTHS_31_DAYS = {1, 3, 5, 7, 8, 10, 12};
     public final int monthNumber;
 
     /**
@@ -29,6 +31,32 @@ public class Month {
      */
     public static boolean isValidMonth(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if the month has 30 days.
+     */
+    public boolean has30Days() {
+        for (int i : MONTHS_30_DAYS) {
+            if (i == monthNumber) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns true if the month has 31 days.
+     */
+    public boolean has31Days() {
+        for (int i : MONTHS_31_DAYS) {
+            if (i == monthNumber) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

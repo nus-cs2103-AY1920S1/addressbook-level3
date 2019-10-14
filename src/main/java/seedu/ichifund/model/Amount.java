@@ -28,7 +28,7 @@ public class Amount implements Comparable<Amount> {
     public Amount(String amount) {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
-        String[] amounts = amount.split(".");
+        String[] amounts = amount.split("\\.");
         if (amounts.length == 1) { // String contains only dollar and no cents
             valueInCents = Integer.parseInt(amount) * 100;
         } else { // String contains only cents

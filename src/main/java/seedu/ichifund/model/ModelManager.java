@@ -11,7 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.commons.core.LogsCenter;
+import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
+import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * Represents the in-memory model of the fund book data.
@@ -22,6 +24,7 @@ public class ModelManager implements Model {
     private final FundBook fundBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Budget> filteredBudgets;
 
     /**
      * Initializes a ModelManager with the given fundBook and userPrefs.
@@ -35,6 +38,7 @@ public class ModelManager implements Model {
         this.fundBook = new FundBook(fundBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.fundBook.getPersonList());
+        filteredBudgets = new FilteredList<>(this.fundBook.getBudgetList());
     }
 
     public ModelManager() {
@@ -112,6 +116,34 @@ public class ModelManager implements Model {
         fundBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public void addTransaction(Transaction transaction) {
+    }
+
+    @Override
+    public boolean hasBudget(Budget budget) {
+        requireNonNull(budget);
+        return fundBook.hasBudget(budget);
+    }
+
+    @Override
+    public void deleteBudget(Budget target) {
+        fundBook.removeBudget(target);
+    }
+
+    @Override
+    public void addBudget(Budget budget) {
+        fundBook.addBudget(budget);
+        updateFilteredBudgetList(PREDICATE_SHOW_ALL_BUDGETS);
+    }
+
+    @Override
+    public void setBudget(Budget target, Budget editedBudget) {
+        requireAllNonNull(target, editedBudget);
+
+        fundBook.setBudget(target, editedBudget);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -146,6 +178,19 @@ public class ModelManager implements Model {
         return fundBook.equals(other.fundBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+    }
+
+    //=========== Filtered Budget List Accessors =============================================================
+
+    @Override
+    public ObservableList<Budget> getFilteredBudgetList() {
+        return filteredBudgets;
+    }
+
+    @Override
+    public void updateFilteredBudgetList(Predicate<Budget> predicate) {
+        requireNonNull(predicate);
+        filteredBudgets.setPredicate(predicate);
     }
 
 }

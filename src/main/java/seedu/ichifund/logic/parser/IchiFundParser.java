@@ -15,6 +15,10 @@ import seedu.ichifund.logic.commands.ExitCommand;
 import seedu.ichifund.logic.commands.FindCommand;
 import seedu.ichifund.logic.commands.HelpCommand;
 import seedu.ichifund.logic.commands.ListCommand;
+import seedu.ichifund.logic.commands.budget.AddBudgetCommand;
+import seedu.ichifund.logic.commands.budget.DeleteBudgetCommand;
+import seedu.ichifund.logic.parser.budget.AddBudgetCommandParser;
+import seedu.ichifund.logic.parser.budget.DeleteBudgetCommandParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
 /**
@@ -68,9 +72,16 @@ public class IchiFundParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case AddBudgetCommand.COMMAND_WORD:
+            return new AddBudgetCommandParser().parse(arguments);
+
+        case DeleteBudgetCommand.COMMAND_WORD:
+            return new DeleteBudgetCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+
     }
 
 }
