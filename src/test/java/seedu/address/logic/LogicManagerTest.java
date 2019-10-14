@@ -79,13 +79,13 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddContactCommand.COMMAND_WORD + " contact" + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
+        String addContactCommand = AddContactCommand.COMMAND_WORD + " " + AddContactCommand.SECOND_COMMAND_WORD + " "
+                + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         Contact expectedContact = new ContactBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addContact(expectedContact);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+        assertCommandFailure(addContactCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
