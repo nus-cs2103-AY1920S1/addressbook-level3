@@ -109,6 +109,11 @@ public class DishDatabase implements ReadOnlyDishDatabase {
 
     //// util methods
 
+
+    public int size() {
+        return dishes.asUnmodifiableObservableList().size();
+    }
+
     @Override
     public String toString() {
         return dishes.asUnmodifiableObservableList().size() + " dishes";

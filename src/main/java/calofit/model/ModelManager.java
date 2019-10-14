@@ -35,7 +35,6 @@ public class ModelManager implements Model {
     private final FilteredList<Dish> filteredDishes;
     private final FilteredList<Meal> filteredMeals;
     private final SortedList<Meal> sortedMeals;
-
     private final CalorieBudget budget;
 
     /**
@@ -212,4 +211,14 @@ public class ModelManager implements Model {
     public CalorieBudget getCalorieBudget() {
         return this.budget;
     }
+
+    @Override
+    public int getRemainingCalories() {
+        int remainingBudget = budget.getCurrentBudget().orElse(0);
+        for (Meal meal : mealLog.getTodayMeals()) {
+            remainingBudget -= meal.getDish().getCalories().getValue();
+        }
+
+        return remainingBudget;
+    };
 }
