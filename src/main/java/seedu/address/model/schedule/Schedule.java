@@ -49,6 +49,20 @@ public class Schedule {
     }
 
     /**
+     * Return a formatted String of the Calendar Object.
+     */
+    public String getCalendarString() {
+        StringBuilder sb = new StringBuilder();
+        // month to be changed back to 1-based
+        sb.append(calendar.get(Calendar.YEAR) + ".")
+                .append(String.format("%02d", calendar.get(Calendar.MONTH) + 1) + ".")
+                .append(String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH)) + " ")
+                .append(String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY)) + ":")
+                .append(String.format("%02d", calendar.get(Calendar.MINUTE)));
+        return sb.toString();
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
@@ -102,7 +116,7 @@ public class Schedule {
         builder.append(" # ")
                 .append(getId())
                 .append(" Date and Time: ")
-                .append(getCalendar().getTime())
+                .append(getCalendarString())
                 .append(" Venue: ")
                 .append(getVenue())
                 .append(" Tags: ");
