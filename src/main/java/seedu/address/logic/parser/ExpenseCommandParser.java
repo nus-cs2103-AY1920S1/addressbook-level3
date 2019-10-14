@@ -2,13 +2,16 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPENSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ExpenseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.activity.Amount;
 
 /**
  * Parses input arguments and creates a new ExpenseCommand object
@@ -23,12 +26,16 @@ public class ExpenseCommandParser implements Parser<ExpenseCommand> {
     public ExpenseCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PARTICIPANT, PREFIX_EXPENSE);
+                ArgumentTokenizer.tokenize(args, PREFIX_PARTICIPANT, PREFIX_EXPENSE, PREFIX_DESCRIPTION);
         if (!arePrefixesPresent(argMultimap, PREFIX_PARTICIPANT, PREFIX_EXPENSE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpenseCommand.MESSAGE_USAGE));
         }
-        return new ExpenseCommand();
+
+        List<String> persons = argMultimap.getAllValues(PREFIX_PARTICIPANT);
+        List<Amount> amounts = ParserUtil.parseAmounts(argMultimap.getAllValues(PREFIX_EXPENSE));
+        String description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).orElse(""));
+        return new ExpenseCommand(persons, amounts, description);
     }
 
     /**

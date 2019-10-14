@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -145,7 +147,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into an {@code Amount}.
+     * Parses a {@code String amount} into an {@code Amount}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code amount} is invalid.
@@ -159,11 +161,30 @@ public class ParserUtil {
         } catch (NumberFormatException e) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
-
         if (!Amount.isValidAmount(Double.parseDouble(amount))) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
-
         return new Amount(value);
+    }
+
+    /**
+     * Parses {@code List<String> amounts} into a {@code List<Amount>}.
+     */
+    public static List<Amount> parseAmounts(List<String> amounts) throws ParseException {
+        requireNonNull(amounts);
+        final ArrayList<Amount> amountList = new ArrayList<>();
+        for (String amount : amounts) {
+            amountList.add(parseAmount(amount));
+        }
+        return amountList;
+    }
+
+    /**
+     * Parses a {@code String description}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static String parseDescription(String description) {
+        requireNonNull(description);
+        return description.trim();
     }
 }
