@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Note> filteredNotes;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +37,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
     }
 
     public ModelManager() {
@@ -112,6 +115,30 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public boolean hasNote(Note note) {
+        requireNonNull(note);
+        return addressBook.hasNote(note);
+    }
+
+    @Override
+    public void deleteNote(Note target) {
+        addressBook.removeNote(target);
+    }
+
+    @Override
+    public void addNote(Note note) {
+        addressBook.addNote(note);
+        updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+    }
+
+    @Override
+    public void setNote(Note target, Note editedNote) {
+        requireAllNonNull(target, editedNote);
+
+        addressBook.setNote(target, editedNote);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -127,6 +154,21 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Note} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Note> getFilteredNoteList() {
+        return filteredNotes;
+    }
+
+    @Override
+    public void updateFilteredNoteList(Predicate<Note> predicate) {
+        requireNonNull(predicate);
+        filteredNotes.setPredicate(predicate);
     }
 
     @Override
@@ -145,7 +187,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredNotes.equals(other.filteredNotes);
     }
 
 }

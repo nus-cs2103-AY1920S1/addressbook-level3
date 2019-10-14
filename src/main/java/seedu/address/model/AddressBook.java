@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.UniqueNoteList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueNoteList notes;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        notes = new UniqueNoteList();
     }
 
     public AddressBook() {}
@@ -48,12 +52,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the note list with {@code notes}.
+     * {@code notes} must not contain duplicate notes.
+     */
+    public void setNotes(List<Note> notes) {
+        this.notes.setNotes(notes);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setNotes(newData.getNoteList());
     }
 
     //// person-level operations
@@ -93,6 +106,41 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Returns true if a note with the same identity as {@code note} exists in the address book.
+     */
+    public boolean hasNote(Note note) {
+        requireNonNull(note);
+        return notes.contains(note);
+    }
+
+    /**
+     * Adds a note to the address book.
+     * The note must not already exist in the address book.
+     */
+    public void addNote(Note note) {
+        notes.add(note);
+    }
+
+    /**
+     * Replaces the given note {@code target} in the list with {@code editedNote}.
+     * {@code target} must exist in the address book.
+     * The note identity of {@code editedNote} must not be the same as another existing note in the address book.
+     */
+    public void setNote(Note target, Note editedNote) {
+        requireNonNull(editedNote);
+
+        notes.setNote(target, editedNote);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeNote(Note key) {
+        notes.remove(key);
+    }
+
     //// util methods
 
     @Override
@@ -104,6 +152,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Note> getNoteList() {
+        return notes.asUnmodifiableObservableList();
     }
 
     @Override
