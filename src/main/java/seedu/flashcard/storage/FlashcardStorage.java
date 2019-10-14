@@ -40,5 +40,5 @@ public interface FlashcardStorage {
     /**
      * Same as {@code saveFlashcardList(ReadOnlyFlashcardList flashcardList)}, but specifies which file to save to.
      */
-    void saveFlashcaerdList(ReadOnlyFlashcardList flashcardList, Path filePath) throws IOException;
+    void saveFlashcardList(ReadOnlyFlashcardList flashcardList, Path filePath) throws IOException;
 }
