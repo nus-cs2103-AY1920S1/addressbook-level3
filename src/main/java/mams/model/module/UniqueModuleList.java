@@ -52,7 +52,7 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Replaces the module {@code target} in the list with {@code editedModule}.
      * {@code target} must exist in the list.
-     * The student identity of {@code editedModule} must not be the same as another existing module in the list.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the list.
      */
     public void setModule(Module target, Module editedModule) {
         CollectionUtil.requireAllNonNull(target, editedModule);
@@ -70,8 +70,8 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
-     * Removes the equivalent student from the list.
-     * The student must exist in the list.
+     * Removes the equivalent module from the list.
+     * The module must exist in the list.
      */
     public void remove(Module toRemove) {
         requireNonNull(toRemove);
@@ -86,8 +86,8 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
-     * Replaces the contents of this list with {@code students}.
-     * {@code students} must not contain duplicate students.
+     * Replaces the contents of this list with {@code modules}.
+     * {@code modules} must not contain duplicate modules.
      */
     public void setModules(List<Module> modules) {
         CollectionUtil.requireAllNonNull(modules);

@@ -11,6 +11,7 @@ import javafx.collections.transformation.FilteredList;
 import mams.commons.core.GuiSettings;
 import mams.commons.core.LogsCenter;
 import mams.commons.util.CollectionUtil;
+import mams.model.appeal.Appeal;
 import mams.model.module.Module;
 import mams.model.student.Student;
 
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
     private final FilteredList<Module> filteredModules;
+    private final FilteredList<Appeal> filteredAppeals;
 
     /**
      * Initializes a ModelManager with the given MAMS and userPrefs.
@@ -38,6 +40,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.mams.getStudentList());
         filteredModules = new FilteredList<>(this.mams.getModuleList());
+        filteredAppeals = new FilteredList<>(this.mams.getAppealList());
     }
 
     public ModelManager() {
@@ -108,6 +111,17 @@ public class ModelManager implements Model {
         return mams.hasModule(module);
     }
 
+    /**
+     * Returns true if an appeal with the same identity as {@code appeal} exists in MAMS.
+     *
+     * @param appeal
+     */
+    @Override
+    public boolean hasAppeal(Appeal appeal) {
+        requireNonNull(appeal);
+        return mams.hasAppeal(appeal);
+    }
+
     @Override
     public void deleteStudent(Student target) {
         mams.removeStudent(target);
@@ -119,6 +133,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteAppeal(Appeal target) {
+        mams.removeAppeal(target);
+    }
+
+    @Override
     public void addStudent(Student student) {
         mams.addStudent(student);
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
@@ -127,7 +146,13 @@ public class ModelManager implements Model {
     @Override
     public void addModule(Module module) {
         mams.addModule(module);
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULE);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
+    public void addAppeal(Appeal appeal) {
+        mams.addAppeal(appeal);
+        updateFilteredAppealList(PREDICATE_SHOW_ALL_APPEALS);
     }
 
     @Override
@@ -142,6 +167,13 @@ public class ModelManager implements Model {
         CollectionUtil.requireAllNonNull(target, editedModule);
 
         mams.setModule(target, editedModule);
+    }
+
+    @Override
+    public void setAppeal(Appeal target, Appeal editedAppeal) {
+        CollectionUtil.requireAllNonNull(target, editedAppeal);
+
+        mams.setAppeal(target, editedAppeal);
     }
 
     //=========== Filtered Student List Accessors =============================================================
@@ -161,6 +193,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Appeal> getFilteredAppealList() {
+        return filteredAppeals;
+    }
+
+    @Override
     public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
@@ -170,6 +207,12 @@ public class ModelManager implements Model {
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
         filteredModules.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredAppealList(Predicate<Appeal> predicate) {
+        requireNonNull(predicate);
+        filteredAppeals.setPredicate(predicate);
     }
 
     @Override
