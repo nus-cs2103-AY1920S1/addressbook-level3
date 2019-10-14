@@ -13,6 +13,7 @@ import seedu.algobase.logic.commands.ClearCommand;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.DeleteCommand;
 import seedu.algobase.logic.commands.DeletePlanCommand;
+import seedu.algobase.logic.commands.DeleteTaskCommand;
 import seedu.algobase.logic.commands.EditCommand;
 import seedu.algobase.logic.commands.EditPlanCommand;
 import seedu.algobase.logic.commands.ExitCommand;
@@ -61,6 +62,9 @@ public class AlgoBaseParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteTaskCommand.COMMAND_WORD:
+            return new DeleteTaskCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

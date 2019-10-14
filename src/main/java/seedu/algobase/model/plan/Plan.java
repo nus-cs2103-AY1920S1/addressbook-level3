@@ -25,7 +25,6 @@ public class Plan {
     private final LocalDateTime endDate;
     private final Set<Task> tasks;
 
-
     /**
      * Every field must be present and not null.
      */

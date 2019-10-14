@@ -21,7 +21,8 @@ public class AddTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "addtask";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to a training plan. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a task to a training plan. "
             + "Parameters: "
             + PREFIX_PLAN + "PLAN "
             + PREFIX_PROBLEM + "PROBLEM\n"
@@ -74,7 +75,7 @@ public class AddTaskCommand extends Command {
     }
 
     /**
-     * Stores the details of the plan and problem involced.
+     * Stores the details of the plan and problem involved.
      */
     public static class AddTaskDescriptor {
         private Index planIndex;
