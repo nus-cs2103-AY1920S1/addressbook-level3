@@ -1,0 +1,38 @@
+{
+  "persons": [ {
+    "name": "Alice Pauline",
+    "phone": "94351253",
+    "email": "alice@example.com",
+    "username": "tester10",
+    "password": "password",
+    "tagged": [ "friends" ]
+  }, {
+    "name": "Alice Pauline",
+    "phone": "94351253",
+    "email": "pauline@example.com",
+    "username": "tester10",
+    "password": "password"
+  } ],
+  "incidents": [ {
+    "incidentId": "1220150000",
+    "districtNum": 13,
+    "dateTime": "2015-12-12T12:30:35",
+    "operator": "Lewis"
+  }, {
+    "incidentId": "0320130000",
+    "districtNum": 12,
+    "dateTime": "2013-03-03T12:30:35",
+    "operator": "John"
+  } ],
+  "vehicles": [ {
+    "vehicleType": "Ambulance",
+    "vehicleNumber": "AAA1111A",
+    "district": 1,
+    "availability": "AVAILABLE"
+  }, {
+    "vehicleType": "Patrol Car",
+    "vehicleNumber": "SBH3100F",
+    "district": 16,
+    "availability": "BUSY"
+  }]
+}

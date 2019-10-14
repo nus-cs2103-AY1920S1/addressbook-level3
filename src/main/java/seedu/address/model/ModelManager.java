@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.incident.Incident;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.Vehicle;
 
@@ -20,9 +21,11 @@ import seedu.address.model.vehicle.Vehicle;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private Session session;
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Incident> filteredIncidents;
     private final FilteredList<Vehicle> filteredVehicles;
 
     /**
@@ -36,12 +39,24 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        session = new Session(null);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredIncidents = new FilteredList<>(this.addressBook.getIncidentList());
         filteredVehicles = new FilteredList<>(this.addressBook.getVehicleList());
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+    }
+
+    @Override
+    public void setSession(Person person) {
+        session = new Session(person);
+    }
+
+    @Override
+    public Person getLoggedInPerson() {
+        return session.getLoggedInPerson();
     }
 
     //=========== UserPrefs ==================================================================================
@@ -130,6 +145,17 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Incident List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Incident> getFilteredIncidentList() {
+        return filteredIncidents;
     }
 
     //=========== Filtered Vehicle List Accessors =============================================================

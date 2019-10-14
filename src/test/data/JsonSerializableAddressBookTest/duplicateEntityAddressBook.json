@@ -3,13 +3,26 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
-    "address": "123, Jurong West Ave 6, #08-111",
+    "username": "tester10",
+    "password": "password",
     "tagged": [ "friends" ]
   }, {
-    "name": "Alice Pauline",
+    "name": "Ahmed Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
-    "address": "4th street"
+    "username": "tester20",
+    "password": "password"
+  } ],
+  "incidents": [ {
+    "incidentId": "1220150000",
+    "districtNum": 13,
+    "dateTime": "2015-12-12T12:30:35",
+    "operator": "Lewis"
+  }, {
+    "incidentId": "1220150000",
+    "districtNum": 13,
+    "dateTime": "2015-12-12T12:30:35",
+    "operator": "Lewis"
   } ],
   "vehicles": [ {
     "vehicleType": "Ambulance",
@@ -21,5 +34,5 @@
     "vehicleNumber": "AAA1111A",
     "district": 1,
     "availability": "AVAILABLE"
-  }]
+  } ]
 }

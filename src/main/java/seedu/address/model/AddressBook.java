@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.incident.Incident;
+import seedu.address.model.incident.UniqueIncidentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.vehicle.UniqueVehicleList;
@@ -17,6 +19,7 @@ import seedu.address.model.vehicle.Vehicle;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueIncidentList incidents;
     private final UniqueVehicleList vehicles;
 
     /*
@@ -28,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        incidents = new UniqueIncidentList();
         vehicles = new UniqueVehicleList();
     }
 
@@ -52,6 +56,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the incident list with {@code incidents}.
+     * {@code incidents} must not contain duplicate incident.
+     */
+    public void setIncidents(List<Incident> incidents) {
+        this.incidents.setIncidents(incidents);
+    }
+
+    /**
      * Replaces the contents of the vehicle list with {@code vehicles}.
      * {@code vehicles} must not contain duplicate vehicles.
      */
@@ -66,6 +78,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setIncidents(newData.getIncidentList());
         setVehicles(newData.getVehicleList());
     }
 
@@ -106,6 +119,24 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// incident-level operation
+
+    /**
+     * Returns true if an incident with the same identity as {@code incident} exists in the address book.
+     */
+    public boolean hasIncident(Incident incident) {
+        requireNonNull(incident);
+        return incidents.contains(incident);
+    }
+
+    /**
+     * Adds an incident to the address book.
+     * The incident must not already exist in the address book.
+     */
+    public void addIncident(Incident i) {
+        incidents.add(i);
+    }
+
     //// vehicle-level operation
 
     /**
@@ -129,6 +160,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons" + "\n"
+                + incidents.asUnmodifiableObservableList().size() + " incidents" + "\n"
                 + vehicles.asUnmodifiableObservableList().size() + " vehicles";
         // TODO: refine later
     }
@@ -136,6 +168,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Incident> getIncidentList() {
+        return incidents.asUnmodifiableObservableList();
     }
 
     @Override
@@ -148,7 +185,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons) && vehicles.equals(((AddressBook) other).vehicles));
+                && persons.equals(((AddressBook) other).persons)
+                && incidents.equals(((AddressBook) other).incidents)
+                && vehicles.equals(((AddressBook) other).vehicles));
     }
 
     @Override

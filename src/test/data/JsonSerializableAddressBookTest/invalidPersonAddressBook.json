@@ -1,0 +1,21 @@
+{
+  "persons": [ {
+    "name": "Hans Muster",
+    "phone": "9482424",
+    "email": "invalid@email!3e",
+    "username": "tester11",
+    "password": "password"
+  } ],
+  "incidents": [ {
+    "incidentId": "1220150000",
+    "districtNum": 13,
+    "dateTime": "2015-12-12T12:30:35",
+    "operator": "Lewis"
+  } ],
+  "vehicles": [{
+    "vehicleType": "Patrol Car",
+    "vehicleNumber": "SBH3100F",
+    "district": 16,
+    "availability": "BUSY"
+  }]
+}
