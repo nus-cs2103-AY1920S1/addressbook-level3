@@ -1,6 +1,10 @@
 package seedu.address.inventory.logic;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Stores mapping of prefixes to their respective arguments.
@@ -51,7 +55,6 @@ public class ArgumentMultimap {
      * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
     public String getPreamble() {
-
         return getValue(new Prefix("")).orElse("");
     }
 }

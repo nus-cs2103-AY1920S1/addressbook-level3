@@ -9,8 +9,8 @@ import seedu.address.inventory.ui.InventoryMessages;
  * Deletes a transaction to the transaction list.
  */
 public class DeleteCommand extends Command {
-    private int index;
     public static final String COMMAND_WORD = "delete";
+    private int index;
 
     /**
      * Creates an DeleteIndexCommand to delete the specified {@code Transaction}

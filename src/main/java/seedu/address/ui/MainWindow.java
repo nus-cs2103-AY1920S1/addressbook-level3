@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -33,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private seedu.address.inventory.logic.Logic inventoryLogic;
     private seedu.address.person.logic.Logic personLogic;
     private seedu.address.cashier.logic.Logic cashierLogic;
+    private seedu.address.overview.logic.Logic overviewLogic;
 
     // Independent Ui parts residing in this Ui container
     private Home home;
@@ -78,31 +80,24 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Tab homeTab;
 
-    //@FXML
-    //private StackPane personListPanelPlaceholder;
-
-    //@FXML
-    //private StackPane resultDisplayPlaceholder;
-
-    //@FXML
-    //private StackPane statusbarPlaceholder;
-
     public MainWindow(Stage primaryStage, seedu.address.transaction.logic.Logic transactionLogic,
                       seedu.address.reimbursement.logic.Logic reimbursementLogic,
                       seedu.address.inventory.logic.Logic inventoryLogic,
                       seedu.address.person.logic.Logic personLogic,
-                      seedu.address.cashier.logic.Logic cashierLogic) {
+                      seedu.address.cashier.logic.Logic cashierLogic,
+                      seedu.address.overview.logic.Logic overviewLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
 
+        //add all our logicManager
         this.transactionLogic = transactionLogic;
         this.reimbursementLogic = reimbursementLogic;
         this.inventoryLogic = inventoryLogic;
         this.personLogic = personLogic;
         this.cashierLogic = cashierLogic;
-        //add all our logicManager
+        this.overviewLogic = overviewLogic;
 
         // Configure the UI
         //setWindowDefaultSize(logic.getGuiSettings());
@@ -166,7 +161,7 @@ public class MainWindow extends UiPart<Stage> {
         cashier = new Cashier(cashierLogic);
         cashierPlaceholder.getChildren().add(cashier.getRoot());
 
-        overview = new Overview();
+        overview = new Overview(overviewLogic);
         overviewPlaceholder.getChildren().add(overview.getRoot());
 
         lion = new Lion();
@@ -238,18 +233,17 @@ public class MainWindow extends UiPart<Stage> {
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Reimbursements")) {
                 commandResult = reimbursementLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Inventory")) {
-                commandResult = new OverallCommandResult("Implement inventory logic");
-                //should be replace with inventory's logic
+                commandResult = inventoryLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Cashier")) {
-                commandResult = new OverallCommandResult("Implement cashier logic");
+                commandResult = cashierLogic.execute(commandText);
                 //should be replace with cashier's logic
             } else {
-                commandResult = new OverallCommandResult("Implement overview logic");
-                //should be replace with overview's logic
+                commandResult = overviewLogic.execute(commandText);
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
             lion.setResponse(commandResult.getFeedbackToUser());
+
             homePlaceholder.getChildren().removeAll();
             homePlaceholder.getChildren().add(new Home(transactionLogic).getRoot());
 
@@ -263,7 +257,7 @@ public class MainWindow extends UiPart<Stage> {
             cashierPlaceholder.getChildren().add(new Cashier(cashierLogic).getRoot());
 
             overviewPlaceholder.getChildren().removeAll();
-            overviewPlaceholder.getChildren().add(new Overview().getRoot());
+            overviewPlaceholder.getChildren().add(new Overview(overviewLogic).getRoot());
 
             //later when we implement help and exit
             /*if (commandResult.isShowHelp()) {
