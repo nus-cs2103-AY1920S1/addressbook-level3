@@ -69,21 +69,24 @@ public class AddressBookParser {
         isRunningFlashcardTest = false;
     }
 
+    public void setAwaitingAnswer(boolean isAwaitingAnswer) {
+        this.isAwaitingAnswer = isAwaitingAnswer;
+    }
+
     /** Parses for test specific commands. */
     private Command parseTestCommand(Matcher matcher) throws ParseException {
 
         final String commandWord = matcher.group("commandWord");
-        switch (commandWord) {
-        // TODO: add more commands for correct/wrong etc
-        case EndTestCommand.COMMAND_WORD:
+        if (commandWord.equals(EndTestCommand.COMMAND_WORD)) {
             return new EndTestCommand(this);
-        case ShowAnswerCommand.COMMAND_WORD:
-            return new ShowAnswerCommand();
-        case RateQuestionCommand.COMMAND_WORD:
-            return new RateQuestionCommand(this);
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_TEST_COMMAND);
         }
+        if (commandWord.equals(ShowAnswerCommand.COMMAND_WORD) && isAwaitingAnswer) {
+            return new ShowAnswerCommand(this);
+        }
+        if (commandWord.equals(RateQuestionCommand.COMMAND_WORD) && !isAwaitingAnswer) {
+            return new RateQuestionCommand(this);
+        }
+        throw new ParseException(MESSAGE_UNKNOWN_TEST_COMMAND);
     }
 
     //@@author

@@ -32,6 +32,7 @@ public class RateQuestionCommand extends Command {
         }
 
         String nextQuestion = model.getTestQuestion();
+        addressBookParser.setAwaitingAnswer(true);
         return new CommandResult(MESSAGE_SUCCESS + "\n" + nextQuestion);
     }
 }

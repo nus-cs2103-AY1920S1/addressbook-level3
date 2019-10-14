@@ -63,6 +63,7 @@ public class StartCommand extends Command {
 
         addressBookParser.startTest();
         String question = model.getTestQuestion();
+        addressBookParser.setAwaitingAnswer(true);
         return new CommandResult(MESSAGE_START_TEST_SUCCESS + "\n" + question);
     }
 
