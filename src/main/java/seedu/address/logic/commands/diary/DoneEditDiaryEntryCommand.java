@@ -2,8 +2,6 @@ package seedu.address.logic.commands.diary;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Optional;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,21 +25,20 @@ public class DoneEditDiaryEntryCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Optional<DiaryEntry> diaryEntry = Optional.ofNullable(model.getPageStatus().getDiaryEntry());
+        DiaryEntry diaryEntry = model.getPageStatus().getDiaryEntry();
+        EditDiaryEntryDescriptor editDescriptor = model.getPageStatus().getEditDiaryEntryDescriptor();
 
-        if (!diaryEntry.isPresent()) {
+        if (diaryEntry == null) {
             throw new CommandException(MESSAGE_NO_DIARY_ENTRY);
         }
 
-        if (model.getPageStatus().getEditDiaryEntryDescriptor() == null) {
+        if (editDescriptor == null) {
             throw new CommandException(MESSAGE_NO_DIARY_EDIT);
         }
 
-
-        EditDiaryEntryDescriptor editDescriptor = model.getPageStatus().getEditDiaryEntryDescriptor();
         DiaryEntry newDiaryEntry = editDescriptor.buildDiaryEntry();
 
-        model.getPageStatus().getTrip().getDiary().setDiaryEntry(diaryEntry.get(), newDiaryEntry);
+        model.getPageStatus().getTrip().getDiary().setDiaryEntry(diaryEntry, newDiaryEntry);
 
         model.setPageStatus(model.getPageStatus()
                 .withNewEditDiaryEntryDescriptor(null)

@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.preferences.CancelEditPrefsCommand;
 import seedu.address.logic.commands.preferences.DoneEditPrefsCommand;

@@ -3,10 +3,12 @@ package seedu.address.logic.parser.diary;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.diary.CreateDiaryEntryCommand;
 import seedu.address.logic.commands.diary.DoneEditDiaryEntryCommand;
-import seedu.address.logic.commands.sidebar.EnterDayPageCommand;
-import seedu.address.logic.commands.sidebar.EnterItineraryPageCommand;
-import seedu.address.logic.commands.sidebar.EnterTripManagerCommand;
+import seedu.address.logic.commands.diary.EditDiaryEntryCommand;
+import seedu.address.logic.commands.diary.FlipDiaryCommand;
+import seedu.address.logic.commands.diary.gallery.AddPhotoCommand;
+import seedu.address.logic.commands.diary.gallery.DeletePhotoCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.diary.gallery.AddPhotoParser;
 import seedu.address.logic.parser.diary.gallery.DeletePhotoParser;
@@ -18,9 +20,12 @@ import seedu.address.logic.parser.navbar.NavbarViewParser;
  */
 public class DiaryParser implements PageParser {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
-            + EnterTripManagerCommand.COMMAND_WORD + " "
-            + EnterDayPageCommand.COMMAND_WORD + " "
-            + EnterItineraryPageCommand.COMMAND_WORD + " "
+            + FlipDiaryCommand.COMMAND_WORD + " "
+            + EditDiaryEntryCommand.COMMAND_WORD + " "
+            + CreateDiaryEntryCommand.COMMAND_WORD + " "
+            + DoneEditDiaryEntryCommand.COMMAND_WORD + " "
+            + AddPhotoCommand.COMMAND_WORD + " "
+            + DeletePhotoCommand.COMMAND_WORD + " "
             + NavbarViewParser.MESSAGE_COMMAND_TYPES;
 
     @Override

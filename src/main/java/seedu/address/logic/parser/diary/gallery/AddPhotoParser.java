@@ -8,9 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_TIME_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.diary.gallery.AddPhotoCommand;
@@ -33,10 +30,7 @@ public class AddPhotoParser implements Parser<AddPhotoCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPhotoCommand.MESSAGE_USAGE));
         }
 
-        Path filePath = Paths.get(argMultimap.getValue(PREFIX_DATA_FILE_PATH).get());
-        if (Files.notExists(filePath)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPhotoCommand.MESSAGE_USAGE));
-        }
+        String filePath = argMultimap.getValue(PREFIX_DATA_FILE_PATH).get();
         LocalDateTime localDateTime =
                 ParserDateUtil.getDateTimeFromString(argMultimap.getValue(PREFIX_DATE_TIME_START).get());
         String description = argMultimap.getValue(PREFIX_DESCRIPTION).get();
@@ -46,7 +40,7 @@ public class AddPhotoParser implements Parser<AddPhotoCommand> {
         try {
             photo = new Photo(filePath, description, localDateTime);
         } catch (IllegalArgumentException ex) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPhotoCommand.MESSAGE_INVALID_PHOTO), ex);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ex.getMessage()));
         }
 
 

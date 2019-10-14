@@ -21,6 +21,7 @@ public class PhotoList {
     }
 
     public PhotoList(Collection<Photo> photos) {
+        this();
         this.photos.addAll(photos);
     }
 
@@ -59,4 +60,29 @@ public class PhotoList {
         });
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        for (Photo photo : photos) {
+            builder.append(photo.toString()).append("\n");
+        }
+
+        return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof PhotoList)) {
+            return false;
+        }
+
+        PhotoList otherPhotoList = (PhotoList) obj;
+
+        return photos.equals(otherPhotoList.photos);
+    }
 }

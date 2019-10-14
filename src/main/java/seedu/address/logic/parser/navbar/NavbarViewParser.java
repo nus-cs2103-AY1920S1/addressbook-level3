@@ -23,11 +23,22 @@ public class NavbarViewParser implements PageParser {
                     })
             + "\n";
 
+    private static final String MESSAGE_NAVIGATE_SAME_PAGE = "You are already at %1$s page!";
+
+    private NavbarCommand precludedPage;
+
+    public NavbarViewParser(NavbarCommand precludedPage) {
+        this.precludedPage = precludedPage;
+    }
+
     @Override
     public Command parse(String command, String arguments) throws ParseException {
         NavbarCommand commandType;
         try {
             commandType = NavbarCommand.valueOf(command);
+            if (commandType == precludedPage) {
+                throw new IllegalArgumentException(String.format(MESSAGE_NAVIGATE_SAME_PAGE, precludedPage));
+            }
         } catch (IllegalArgumentException ex) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }

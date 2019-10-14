@@ -10,10 +10,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.appstatus.PageType;
 import seedu.address.model.diary.DiaryEntry;
-import seedu.address.model.diary.DiaryEntryList;
-import seedu.address.model.trip.Trip;
 
 /**
  * Command that flips the page of the diary.
@@ -26,7 +23,7 @@ public class FlipDiaryCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_FLIP_PAGE_SUCCESS = "Flipped the current diary page! :%1$s";
+    public static final String MESSAGE_FLIP_PAGE_SUCCESS = "Flipped the current diary page!\n:%1$s";
 
     private Index indexToFlipTo;
 
@@ -45,7 +42,8 @@ public class FlipDiaryCommand extends Command {
         }
 
         model.setPageStatus(model.getPageStatus()
-                .withNewDiaryEntry(diaryEntry.get()));
+                .withNewDiaryEntry(diaryEntry.get())
+                .withNewEditDiaryEntryDescriptor(null));
 
         return new CommandResult(String.format(MESSAGE_FLIP_PAGE_SUCCESS, diaryEntry.get()));
     }

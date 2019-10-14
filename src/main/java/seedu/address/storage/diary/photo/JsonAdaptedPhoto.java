@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -18,9 +16,10 @@ import seedu.address.model.diary.photo.Photo;
  * Jackson-friendly version of {@link Photo}.
  */
 public class JsonAdaptedPhoto {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Diary entry's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "One of the fields provided is invalid!\n"
+            + "Cause: %1$s";
 
-    private Path imagePath;
+    private String imagePath;
     private String description;
     private LocalDateTime dateTaken;
 
@@ -29,9 +28,9 @@ public class JsonAdaptedPhoto {
      */
     @JsonCreator
     public JsonAdaptedPhoto(
-            @JsonProperty("imagepath") Path imagePath,
+            @JsonProperty("imagePath") String imagePath,
             @JsonProperty("description") String description,
-            @JsonProperty("date") LocalDateTime dateTaken) {
+            @JsonProperty("dateTaken") LocalDateTime dateTaken) {
         requireAllNonNull(imagePath, description, dateTaken);
         this.imagePath = imagePath;
         this.description = description;
@@ -43,7 +42,7 @@ public class JsonAdaptedPhoto {
      */
     public JsonAdaptedPhoto(Photo source) {
         requireNonNull(source);
-        this.imagePath = Paths.get(source.getImage().getUrl());
+        this.imagePath = source.getImageFilePath();
         this.description = source.getDescription();
         this.dateTaken = source.getDateTaken();
     }
@@ -54,6 +53,13 @@ public class JsonAdaptedPhoto {
      * @throws IllegalValueException if there were any data constraints violated in the adapted diary.
      */
     public Photo toModelType() throws IllegalValueException {
-        return new Photo(imagePath, description, dateTaken);
+        Photo photo;
+        try {
+            photo = new Photo(imagePath, description, dateTaken);
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ex.getMessage()));
+        }
+
+        return photo;
     }
 }

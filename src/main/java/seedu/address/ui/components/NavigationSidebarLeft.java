@@ -2,6 +2,7 @@ package seedu.address.ui.components;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+
 import seedu.address.logic.commands.sidebar.EnterDayPageCommand;
 import seedu.address.logic.commands.sidebar.EnterTripManagerCommand;
 import seedu.address.ui.MainWindow;

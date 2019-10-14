@@ -2,15 +2,12 @@ package seedu.address.logic.commands.diary;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Optional;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.EditDiaryEntryDescriptor;
-import seedu.address.model.diary.photo.Photo;
 
 public class EditDiaryEntryCommand extends Command {
     public static final String COMMAND_WORD = "edit";
@@ -18,6 +15,8 @@ public class EditDiaryEntryCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the current diary entry\n";
 
     public static final String MESSAGE_NO_DIARY_ENTRY = "You are not currently viewing any entry!\n";
+
+    public static final String MESSAGE_SAVED_EDIT = "Remember to execute the done command to save your changes!";
 
     public static final String MESSAGE_EDIT_SUCCESS = "Brought up the edit window, go ahead and type!";
 
@@ -31,22 +30,26 @@ public class EditDiaryEntryCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Optional<DiaryEntry> diaryEntry = Optional.ofNullable(model.getPageStatus().getDiaryEntry());
+        DiaryEntry diaryEntry = model.getPageStatus().getDiaryEntry();
+        EditDiaryEntryDescriptor currentEditEntryDescriptor = model.getPageStatus().getEditDiaryEntryDescriptor();
 
-        if (!diaryEntry.isPresent()) {
+        if (diaryEntry == null) {
             throw new CommandException(MESSAGE_NO_DIARY_ENTRY);
         }
 
-        EditDiaryEntryDescriptor editDescriptor = model.getPageStatus().getEditDiaryEntryDescriptor() == null
-                ? new EditDiaryEntryDescriptor(diaryEntry.get())
-                : model.getPageStatus().getEditDiaryEntryDescriptor();
+        EditDiaryEntryDescriptor editDescriptor;
 
+        if (currentEditEntryDescriptor == null) {
+            editDescriptor = new EditDiaryEntryDescriptor(diaryEntry);
+            model.setPageStatus(model.getPageStatus()
+                    .withNewEditDiaryEntryDescriptor(editDescriptor));
 
+            return new CommandResult(MESSAGE_EDIT_SUCCESS);
+        } else {
+            currentEditEntryDescriptor.setDiaryText(newText);
 
-        model.setPageStatus(model.getPageStatus()
-                .withNewEditDiaryEntryDescriptor(editDescriptor));
-
-        return new CommandResult(MESSAGE_EDIT_SUCCESS);
+            return new CommandResult(MESSAGE_SAVED_EDIT);
+        }
     }
 
     @Override

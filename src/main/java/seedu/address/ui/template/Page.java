@@ -1,6 +1,7 @@
 package seedu.address.ui.template;
 
 import javafx.scene.Node;
+
 import seedu.address.logic.Logic;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;

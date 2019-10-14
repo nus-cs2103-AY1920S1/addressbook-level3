@@ -3,7 +3,6 @@ package seedu.address.logic.commands.diary.gallery;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_TIME_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
@@ -27,8 +26,6 @@ public class AddPhotoCommand extends Command {
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_DATA_FILE_PATH + "./image01.png "
             + PREFIX_DATE_TIME_START + "01/08/2019 1245 " + PREFIX_DESCRIPTION + "...";
-
-    public static final String MESSAGE_INVALID_PHOTO = "The photo you specified wasn't valid or dosen't exist!";
 
     public static final String MESSAGE_ADD_SUCCESS = "Added your photo! %1$s";
 

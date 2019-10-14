@@ -12,10 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.itinerary.day.DayList;
-import seedu.address.model.trip.exceptions.ClashingTripException;
-import seedu.address.model.trip.exceptions.DuplicateTripException;
-import seedu.address.model.trip.exceptions.TripNotFoundException;
 
 /**
  * Abstraction of a list of {@link DiaryEntry}s.
@@ -84,6 +80,33 @@ public class DiaryEntryList {
                 .anyMatch(entry -> {
                     return entry.getDayIndex().equals(index);
                 });
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("Diary Entries: ");
+        for (DiaryEntry diaryEntry : diaryEntries) {
+            builder.append(diaryEntry.toString()).append("\n");
+        }
+
+        return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof DiaryEntryList)) {
+            return false;
+        }
+
+        DiaryEntryList otherEntryList = (DiaryEntryList) obj;
+
+        return diaryEntries.equals(otherEntryList.diaryEntries);
     }
 
 }

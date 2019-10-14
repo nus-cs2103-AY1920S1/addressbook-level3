@@ -29,7 +29,7 @@ public class JsonAdaptedTrip {
     private final LocalDateTime endDate;
     private final String destination;
     private final Double totalBudget;
-    private final JsonAdaptedDiary jsonAdaptedDiary;
+    private final JsonAdaptedDiary diary;
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
 
     /**
@@ -43,7 +43,7 @@ public class JsonAdaptedTrip {
             @JsonProperty("destination")String destination,
             @JsonProperty("totalBudget") Double totalBudget,
             @JsonProperty("dayList")List<JsonAdaptedDay> dayList,
-            @JsonProperty("diary") JsonAdaptedDiary jsonAdaptedDiary) {
+            @JsonProperty("diary") JsonAdaptedDiary diary) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -52,7 +52,7 @@ public class JsonAdaptedTrip {
         if (dayList != null) {
             this.dayList.addAll(dayList);
         }
-        this.jsonAdaptedDiary = jsonAdaptedDiary;
+        this.diary = diary;
     }
 
     /**
@@ -69,7 +69,7 @@ public class JsonAdaptedTrip {
                 .stream().map(JsonAdaptedDay::new)
                 .collect(Collectors.toList())
         );
-        this.jsonAdaptedDiary = new JsonAdaptedDiary(source.getDiary());
+        this.diary = new JsonAdaptedDiary(source.getDiary());
     }
 
     /**
@@ -83,7 +83,7 @@ public class JsonAdaptedTrip {
             days.add(day.toModelType());
         }
 
-        Diary diary = jsonAdaptedDiary.toModelType();
+        Diary diary = this.diary.toModelType();
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

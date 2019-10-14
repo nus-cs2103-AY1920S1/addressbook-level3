@@ -1,25 +1,19 @@
 package seedu.address.ui.diary;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ScrollPane;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.diary.photo.Photo;
 import seedu.address.model.diary.photo.PhotoList;
-import seedu.address.model.person.Person;
-import seedu.address.model.trip.Trip;
 import seedu.address.ui.UiPart;
-import seedu.address.ui.components.PersonCard;
-import seedu.address.ui.trips.TripCard;
 
 /**
  * Abstraction of a gallery for displaying the {@code Photo}s of a {@code DiaryEntry}.
  */
-public class DiaryGallery extends UiPart<VBox> {
+public class DiaryGallery extends UiPart<ScrollPane> {
     private static final String FXML = "diary/DiaryGallery.fxml";
 
     @FXML
@@ -36,6 +30,11 @@ public class DiaryGallery extends UiPart<VBox> {
     private void fillPhotosPlaceholder() {
         photosPlaceholder.setItems(photoList.getObservablePhotoList());
         photosPlaceholder.setCellFactory(listView -> new PhotoListViewCell());
+    }
+
+    void setPhotoList(PhotoList photoList) {
+        this.photoList = photoList;
+        photosPlaceholder.setItems(photoList.getObservablePhotoList());
     }
 
     @Override
@@ -58,7 +57,7 @@ public class DiaryGallery extends UiPart<VBox> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Photo} using a {@code DiaryGalleryCard}.
      */
-    static class PhotoListViewCell extends ListCell<Photo> {
+    class PhotoListViewCell extends ListCell<Photo> {
         @Override
         protected void updateItem(Photo photo, boolean empty) {
             super.updateItem(photo, empty);
@@ -67,8 +66,10 @@ public class DiaryGallery extends UiPart<VBox> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new DiaryGalleryCard(photo,
-                        Index.fromZeroBased(this.getIndex())).getRoot());
+                DiaryGalleryCard diaryGalleryCard = new DiaryGalleryCard(photo, Index.fromZeroBased(this.getIndex()));
+                diaryGalleryCard.bindImageViewWidth(DiaryGallery.this.photosPlaceholder.widthProperty());
+
+                setGraphic(diaryGalleryCard.getRoot());
             }
         }
     }

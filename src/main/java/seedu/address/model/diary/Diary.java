@@ -1,13 +1,8 @@
 package seedu.address.model.diary;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.trip.exceptions.ClashingTripException;
-import seedu.address.model.trip.exceptions.DuplicateTripException;
-import seedu.address.model.trip.exceptions.TripNotFoundException;
 
 /**
  * Abstraction of the in memory storage of the diary in {@link seedu.address.model.TravelPal}.
@@ -51,13 +46,14 @@ public class Diary {
         }
 
         Diary otherDiary = (Diary) other;
-        return diaryEntryList.equals(otherDiary.getDiaryEntryList());
+
+        return diaryEntryList.equals(otherDiary.diaryEntryList);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Diary Entries: ")
+        builder.append(" Diary Entry List: ")
                 .append(diaryEntryList.toString());
 
         return builder.toString();

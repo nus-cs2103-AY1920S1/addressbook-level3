@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import javafx.scene.image.Image;
+
 import seedu.address.MainApp;
 
 /**
@@ -18,9 +19,18 @@ public class AppUtil {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
+    /**
+     * Returns an {@link Image} with a stored absoluteImagePath url.
+     * Internally, it concatenates the {@code FILE_PROTOCOL_PREFIX} with the {@code absoluteImagePath}.
+     *
+     * @param absoluteImagePath The absolute image path to use.
+     * @return The javafx {@link Image} instance.
+     * @throws IllegalArgumentException If the provided {@code absoluteImagePath} is invalid.
+     */
     public static Image getAbsoluteImage(String absoluteImagePath) throws FileNotFoundException {
         requireNonNull(absoluteImagePath);
-        return new Image(new FileInputStream(absoluteImagePath));
+        FileInputStream fileInputStream = new FileInputStream(absoluteImagePath);
+        return new Image(fileInputStream);
     }
 
     /**

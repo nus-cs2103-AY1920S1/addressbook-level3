@@ -23,7 +23,7 @@ public class JsonAdaptedDiaryEntryList {
      * Constructs a {@code JsonAdaptedDiary} with the given diary details.
      */
     @JsonCreator
-    public JsonAdaptedDiaryEntryList(@JsonProperty("entries") List<JsonAdaptedDiaryEntry> diaryEntries) {
+    public JsonAdaptedDiaryEntryList(@JsonProperty("diaryEntries") List<JsonAdaptedDiaryEntry> diaryEntries) {
         this.diaryEntries = new ArrayList<JsonAdaptedDiaryEntry>();
         if (diaryEntries != null) {
             this.diaryEntries.addAll(diaryEntries);
