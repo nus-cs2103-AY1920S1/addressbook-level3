@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.food;
 
 import seedu.address.commons.util.StringUtil;
 
@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.function.Predicate;
 
-public class NameContainsCloseExpiryDatePredicate implements Predicate<Person> {
+public class NameContainsCloseExpiryDatePredicate implements Predicate<GroceryItem> {
     private final int numberOfDays;
 
     public NameContainsCloseExpiryDatePredicate(int numberOfDays) {
@@ -16,8 +16,8 @@ public class NameContainsCloseExpiryDatePredicate implements Predicate<Person> {
     }
 
     @Override
-    public boolean test(Person person) {
-        String temp = "11/11/1111"; //groceryItem.getExpiryDate();
+    public boolean test(GroceryItem groceryItem) {
+        String temp = groceryItem.getExpiryDate().toString();
         Date date = null;
         try {
             date = new SimpleDateFormat("dd/MM/yyyy").parse(temp);

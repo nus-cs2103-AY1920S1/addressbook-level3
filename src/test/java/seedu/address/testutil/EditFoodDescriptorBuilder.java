@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditFoodDescriptor;
-import seedu.address.model.groceryitem.Amount;
-import seedu.address.model.groceryitem.ExpiryDate;
-import seedu.address.model.groceryitem.Food;
-import seedu.address.model.groceryitem.Name;
+import seedu.address.model.food.Amount;
+import seedu.address.model.food.ExpiryDate;
+import seedu.address.model.food.Food;
+import seedu.address.model.food.Name;
 import seedu.address.model.tag.Tag;
 
 /**

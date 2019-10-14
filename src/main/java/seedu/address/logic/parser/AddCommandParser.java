@@ -9,10 +9,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.groceryitem.Amount;
-import seedu.address.model.groceryitem.ExpiryDate;
-import seedu.address.model.groceryitem.GroceryItem;
-import seedu.address.model.groceryitem.Name;
+import seedu.address.model.food.Amount;
+import seedu.address.model.food.ExpiryDate;
+import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.Name;
 import seedu.address.model.tag.Tag;
 
 /**

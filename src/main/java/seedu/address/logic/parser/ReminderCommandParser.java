@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.*;
 
 import seedu.address.logic.commands.ReminderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsCloseExpiryDatePredicate;
+import seedu.address.model.food.NameContainsCloseExpiryDatePredicate;
 
 import java.util.stream.Stream;
 

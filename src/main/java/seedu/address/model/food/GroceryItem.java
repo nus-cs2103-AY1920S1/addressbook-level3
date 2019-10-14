@@ -1,4 +1,4 @@
-package seedu.address.model.groceryitem;
+package seedu.address.model.food;
 
 import java.util.Objects;
 import java.util.Set;

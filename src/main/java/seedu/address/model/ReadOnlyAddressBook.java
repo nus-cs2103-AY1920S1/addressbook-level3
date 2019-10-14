@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.groceryitem.GroceryItem;
+import seedu.address.model.food.GroceryItem;
 
 /**
  * Unmodifiable view of an address book

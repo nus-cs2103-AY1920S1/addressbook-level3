@@ -13,7 +13,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.model.groceryitem.Name;
+import seedu.address.model.food.Name;
 import seedu.address.model.tag.Tag;
 
 public class EditCommandParserTest {

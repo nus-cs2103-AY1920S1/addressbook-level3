@@ -1,4 +1,4 @@
-package seedu.address.model.groceryitem;
+package seedu.address.model.food;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

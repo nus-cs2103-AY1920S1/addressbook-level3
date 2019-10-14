@@ -1,4 +1,4 @@
-package seedu.address.model.groceryitem;
+package seedu.address.model.food;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
