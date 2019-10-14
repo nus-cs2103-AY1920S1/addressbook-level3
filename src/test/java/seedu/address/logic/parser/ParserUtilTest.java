@@ -42,7 +42,7 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#smoker";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_NRIC = "S987654A";
+    private static final String VALID_NRIC = "S9876543A";
     private static final String VALID_PHONE = "91234567";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";

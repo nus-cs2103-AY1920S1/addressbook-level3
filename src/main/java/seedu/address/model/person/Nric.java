@@ -12,14 +12,14 @@ public class Nric {
     public static final String MESSAGE_CONSTRAINTS =
             "This is not a valid Singapore Identification number.\n"
                     + "NRICs should only contain alphanumeric characters. It should start with S, T, F or G"
-                    + " followed by 6 numerical numbers and a checksum letter. It should not be blank.\n";
+                    + " followed by 7 numerical numbers and a checksum letter. It should not be blank.\n";
 
     public static final String DATA_TYPE = "NRIC";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[STFG][0-9]{6}[A-Z]";
+    public static final String VALIDATION_REGEX = "^[STFG]\\d{7}[A-Z]$";
 
     public final String nric;
 
