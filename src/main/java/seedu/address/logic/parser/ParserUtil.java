@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.CustomerName;
 import seedu.address.model.customer.Email;
+import seedu.address.model.order.Price;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -295,4 +296,18 @@ public class ParserUtil {
         return new SerialNumber(trimmedSerialNumber);
     }
 
+    /**
+     * Parses a {@code String price} into a {@code price}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code price} is invalid.
+     */
+    public static Price parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
+            throw new ParseException(Price.MESSAGE_CONSTRAINTS);
+        }
+        return new Price(trimmedPrice);
+    }
 }
