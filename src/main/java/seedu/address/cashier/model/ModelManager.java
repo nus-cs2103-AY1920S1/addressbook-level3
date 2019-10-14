@@ -55,7 +55,6 @@ public class ModelManager implements Model {
      * Returns a view of the {@code InventoryList}.
      * @return
      */
-    //@Override
     public InventoryList getInventoryList() {
         return this.inventoryList;
     }
@@ -67,7 +66,6 @@ public class ModelManager implements Model {
         return this.transactionList;
     }
 
-    //@Override
     public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
         Item originalItem = inventoryList.getOriginalItem(description);
         for (Item i : salesList) {

@@ -15,13 +15,9 @@ public interface Model {
 
     void writeInInventoryFile() throws Exception;
 
-    //InventoryList getInventoryList();
-
     void setItem(int i, Item editedItem) throws Exception;
 
     boolean hasItemInInventory(Item item);
-
-    //boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException;
 
     void readInUpdatedList();
 
