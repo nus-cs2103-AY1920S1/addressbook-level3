@@ -13,11 +13,11 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.Logic;
+import seedu.address.gamemanager.GameManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.timer.GameTimer;
+
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -30,16 +30,13 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Logic logic;
+    private GameManager gameManager;
 
     // Independent Ui parts residing in this Ui container
     private TimerDisplay timerDisplay;
     private ResultDisplay resultDisplay;
     private ModularDisplay modularDisplay;
     private HelpWindow helpWindow;
-
-    // Timer object
-    private GameTimer gameTimer;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -61,16 +58,16 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, GameManager gameManager) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        this.logic = logic;
-        this.modularDisplay = new ModularDisplay(logic);
+        this.gameManager = gameManager;
+        this.modularDisplay = new ModularDisplay(gameManager);
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        setWindowDefaultSize(gameManager.getGuiSettings());
 
         setAccelerators();
 
@@ -128,8 +125,14 @@ public class MainWindow extends UiPart<Stage> {
         //Set up timer display
         timerDisplay = new TimerDisplay();
         timerDisplayPlaceholder.getChildren().add(timerDisplay.getRoot());
+        //Set up callback function in GameManager to update TimerDisplay
+        gameManager.setTimerDisplayCallBack(this::updateTimerDisplay);
+        //Set up callback function in GameManager to update ResultDisplay
+        gameManager.setResultDisplayCallBack(this::updateResultDisplay);
+        //Set up callback function in GameManager to call MainWindow's executeCommand
+        gameManager.setMainWindowExecuteCallBack(this::executeCommand);
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(gameManager.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -171,12 +174,9 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
+        gameManager.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-        //Platform.exit();
-        //System.exit(0);
-
     }
 
     /**
@@ -185,17 +185,12 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        if (gameTimer != null) {
-            gameTimer.abortTimer();
-        }
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = gameManager.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
 
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            gameTimer = new GameTimer("Time left", 800, timerDisplay);
-            gameTimer.run();
 
             if (commandText.equals("list")) {
                 modularDisplay.swapToList(modularDisplayPlaceholder);
@@ -216,13 +211,27 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-
             resultDisplay.setFeedbackToUser(e.getMessage());
-
-            gameTimer = new GameTimer(
-                    "Clearing Result Display in", 800, timerDisplay);
-            gameTimer.run();
             throw e;
         }
     }
+
+    /**
+     * Updates the timerDisplay module of MainWindow to be called from GameTimer.
+     * @param timerMessage Message to be displayed on the TimerDisplay.
+     * @param timeLeft Time in milliseconds that is left in the current timer.
+     */
+    private void updateTimerDisplay(String timerMessage, long timeLeft) {
+        if (timeLeft <= 200) {
+            this.timerDisplay.setAlertTextColour();
+        } else {
+            this.timerDisplay.setNormalTextColour();
+        }
+        this.timerDisplay.setFeedbackToUser(timerMessage);
+    }
+
+    private void updateResultDisplay(String resultDisplayMessage) {
+        this.resultDisplay.setFeedbackToUser(resultDisplayMessage);
+    }
+
 }
