@@ -1,7 +1,7 @@
 package seedu.flashcard.logic.commands.exceptions;
 
 /**
- * Represents an error during the execution of a command.
+ * Represents an error which occurs during execution of a command.
  */
 public class CommandException extends Exception {
 

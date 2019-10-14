@@ -149,6 +149,7 @@ Format: `progress TAGNAME`
 ****
 * Statistics shown include number of completed cards and accuracy
 * TAGNAME indicates the tag to be reviewed
+* If no TAGNAME is provided statistics of all the cards will be shown
 ****
 
 Examples:
@@ -162,7 +163,7 @@ Format: `delete FLASHCARD_ID`
 ****
 * Deletes the person with the specified `FLASHCARD_ID`.
 * The ID of a flashcard refers to the specific number assigned to that flashcard upon creation.
-* The flashcard ID *must be a positive 6-digit integer* 000001, 000002, 000003, ...
+* The flashcard ID *must be a positive 6-digit integer string* 000001, 000002, 000003, ...
 ****
 
 Example:

@@ -13,7 +13,42 @@ import java.util.Set;
  * Represents a Flashcard in the flashcard list.
  * Guarantees: details are present and not null, field values are validated, immutable
  */
+<<<<<<< HEAD
 public class Flashcard {
+=======
+public abstract class Flashcard {
+
+    private Question question;
+    private Answer answer;
+    private Score score;
+    private CardId id;
+    private ArrayList<Tag> tags;
+    private String type; // new instance field to flashcard
+
+    /**
+     * Question and Answer must be specified.
+     */
+    public Flashcard(Question question, Answer answer) {
+        this.question = question;
+        this.answer = answer;
+        this.score = new Score();
+        this.id = new CardId();
+        this.tags = new ArrayList<>();
+        this.type = "Haven't assigned type";
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public Score getScore() {
+        return score;
+    }
+>>>>>>> d1c57e0ab067dc917c6d7d3f6953a795e5a47fae
 
     // Identity fields
     private final Word word;
@@ -31,6 +66,14 @@ public class Flashcard {
 
     public Word getWord() {
         return word;
+    }
+
+    public String getType() {
+        return type;
+    };
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
@@ -56,8 +99,34 @@ public class Flashcard {
         if (otherFlashcard == this) {
             return true;
         }
+<<<<<<< HEAD
         return otherFlashcard != null
                 && otherFlashcard.getWord().equals(getWord());
+=======
+    };
+
+    /**
+     * Checks if flashcard has a specific tag
+     * @param tagName
+     * @return
+     */
+    public boolean hasTag (String tagName) {
+        for (Tag tag : tags) {
+            if (tag.getName().equals(tagName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * While searching for a model, decide that whether this model contains the keyword or not.
+     * @param s the keyword we are looking for
+     * @return true if question, answer or the id contains the keyword, false otherwise
+     */
+    public boolean contains(String s) {
+        return question.contains(s) || answer.contains(s) || id.contains(s);
+>>>>>>> d1c57e0ab067dc917c6d7d3f6953a795e5a47fae
     }
 
     /**
@@ -73,9 +142,15 @@ public class Flashcard {
             return false;
         }
         Flashcard otherFlashcard = (Flashcard) other;
+<<<<<<< HEAD
         return otherFlashcard.getWord().equals(getWord())
                 && otherFlashcard.getDefinition().equals(getDefinition())
                 && otherFlashcard.getTags().equals(getTags());
+=======
+        return otherFlashcard.getId() == this.getId() && otherFlashcard.getQuestion() == this.getQuestion()
+                                                      && otherFlashcard.getAnswer() == this.getAnswer()
+                                                      && otherFlashcard.getType().equals(this.getType());
+>>>>>>> d1c57e0ab067dc917c6d7d3f6953a795e5a47fae
     }
 
     @Override

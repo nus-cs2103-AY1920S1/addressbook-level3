@@ -7,8 +7,8 @@ import seedu.flashcard.commons.exceptions.IllegalValueException;
  */
 public class ParseException extends IllegalValueException {
 
-    public ParseException(String message) {
-        super(message);
+    public ParseException(String msg) {
+        super(msg);
     }
 
     public ParseException(String message, Throwable cause) {
