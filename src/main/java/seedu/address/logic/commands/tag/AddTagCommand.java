@@ -13,9 +13,11 @@ import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.tag.DefaultTagType;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
+import seedu.address.model.tag.exceptions.InvalidTagNameException;
 
 /**
  * Adds a tag to a module.

@@ -43,7 +43,7 @@ public class CreateTagCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (DefaultTagType.contains(tagName)) {
+        if (!UserTag.isValidTagName(tagName)) {
             throw new CommandException(MESSAGE_INVALID_TAG_NAME);
         }
 
