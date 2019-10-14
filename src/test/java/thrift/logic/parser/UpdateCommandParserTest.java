@@ -11,8 +11,8 @@ import thrift.commons.core.index.Index;
 import thrift.logic.commands.CommandTestUtil;
 import thrift.logic.commands.UpdateCommand;
 import thrift.logic.commands.UpdateCommand.UpdateTransactionDescriptor;
-//import thrift.model.tag.Tag;
-//import thrift.model.transaction.Value;
+import thrift.model.tag.Tag;
+import thrift.model.transaction.Value;
 import thrift.testutil.TypicalIndexes;
 import thrift.testutil.UpdateTransactionDescriptorBuilder;
 
@@ -54,39 +54,37 @@ public class UpdateCommandParserTest {
         assertParseFailure(parser, CommandTestUtil.INDEX_TOKEN + "1 i/ string", MESSAGE_INVALID_FORMAT);
     }
 
-    /* TODO: Repair test case
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1"
+        assertParseFailure(parser, " i/1"
                 + CommandTestUtil.INVALID_VALUE, Value.VALUE_CONSTRAINTS); // invalid value
-        assertParseFailure(parser, "1"
+        assertParseFailure(parser, " i/1"
                 + CommandTestUtil.INVALID_TAG, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid value followed by valid tag
-        assertParseFailure(parser, "1"
+        assertParseFailure(parser, " i/1"
                 + CommandTestUtil.INVALID_VALUE + CommandTestUtil.TAG_LAKSA, Value.VALUE_CONSTRAINTS);
 
         // valid value followed by invalid value. The test case for invalid value followed by valid value
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1"
+        assertParseFailure(parser, " i/1"
                 + CommandTestUtil.VALUE_LAKSA + CommandTestUtil.INVALID_VALUE, Value.VALUE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Transaction} being updated,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1"
+        assertParseFailure(parser, " i/1"
                 + CommandTestUtil.TAG_LAKSA + CommandTestUtil.TAG_BRUNCH
                 + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1"
+        assertParseFailure(parser, " i/1"
                 + CommandTestUtil.TAG_LAKSA + TAG_EMPTY
                 + CommandTestUtil.TAG_BRUNCH, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY
+        assertParseFailure(parser, " i/1" + TAG_EMPTY
                 + CommandTestUtil.TAG_LAKSA + CommandTestUtil.TAG_BRUNCH, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + CommandTestUtil.INVALID_VALUE
-                        + CommandTestUtil.INVALID_TAG, Value.VALUE_CONSTRAINTS);
+        assertParseFailure(parser, " i/1" + CommandTestUtil.INVALID_VALUE
+                + CommandTestUtil.INVALID_TAG, Value.VALUE_CONSTRAINTS);
     }
-     */
 
     @Test
     public void parse_allFieldsSpecified_success() {
@@ -96,56 +94,48 @@ public class UpdateCommandParserTest {
                 .withTags(CommandTestUtil.VALID_TAG_ACCESSORY).build());
     }
 
-
-    /* TODO: Repair test case
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = TypicalIndexes.INDEX_FIRST_TRANSACTION;
-        String userInput = targetIndex.getOneBased() + CommandTestUtil.DESC_LAKSA + CommandTestUtil.VALUE_LAKSA
+        String userInput = CommandTestUtil.INDEX_TOKEN + targetIndex.getOneBased() + CommandTestUtil.VALUE_LAKSA
                 + CommandTestUtil.TAG_LAKSA;
 
-        UpdateCommand.UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder()
-                .withValue(CommandTestUtil.VALUE_AIRPODS).build();
+        UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder()
+                .withValue(CommandTestUtil.VALID_VALUE_LAKSA).withTags(CommandTestUtil.VALID_TAG_LUNCH).build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
-     */
 
-    /* TODO: Repair test case
     @Test
     public void parse_oneFieldSpecified_success() {
         Index targetIndex = TypicalIndexes.INDEX_THIRD_TRANSACTION;
 
-        String userInput = targetIndex.getOneBased() + CommandTestUtil.DESC_LAKSA + CommandTestUtil.VALUE_LAKSA
-                + CommandTestUtil.TAG_LAKSA;
-
         // description
+        String userInput = CommandTestUtil.INDEX_TOKEN + targetIndex.getOneBased() + CommandTestUtil.DESC_AIRPODS;
         UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder()
                 .withDescription(CommandTestUtil.VALID_DESCRIPTION_AIRPODS).build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
-        userInput = targetIndex.getOneBased() + CommandTestUtil.DESC_LAKSA + CommandTestUtil.VALUE_LAKSA
-                + CommandTestUtil.TAG_LAKSA;
+        userInput = CommandTestUtil.INDEX_TOKEN + targetIndex.getOneBased() + CommandTestUtil.TAG_AIRPODS;
         descriptor = new UpdateTransactionDescriptorBuilder()
                 .withTags(CommandTestUtil.VALID_TAG_ACCESSORY).build();
         expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
-     */
 
-    /* TODO: Repair test case
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = TypicalIndexes.INDEX_FIRST_TRANSACTION;
-        String userInput = targetIndex.getOneBased() + CommandTestUtil.DESC_LAKSA
+        Index targetIndex = TypicalIndexes.INDEX_THIRD_TRANSACTION;
+        String userInput = CommandTestUtil.INDEX_TOKEN + targetIndex.getOneBased() + CommandTestUtil.DESC_LAKSA
                 + CommandTestUtil.VALUE_LAKSA + CommandTestUtil.TAG_LAKSA
                 + CommandTestUtil.DESC_AIRPODS + CommandTestUtil.VALUE_AIRPODS
                 + CommandTestUtil.TAG_AIRPODS;
 
-        UpdateCommand.UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder()
+        UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder()
+                .withDescription(CommandTestUtil.VALID_DESCRIPTION_AIRPODS)
                 .withValue(CommandTestUtil.VALID_VALUE_AIRPODS)
                 .withTags(CommandTestUtil.VALID_TAG_ACCESSORY, CommandTestUtil.VALID_TAG_LUNCH)
                 .build();
@@ -153,30 +143,28 @@ public class UpdateCommandParserTest {
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
-     */
 
-    /* TODO: Repair test case
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = TypicalIndexes.INDEX_FIRST_TRANSACTION;
-        String userInput = targetIndex.getOneBased()
+        String userInput = CommandTestUtil.INDEX_TOKEN + targetIndex.getOneBased()
                 + CommandTestUtil.INVALID_VALUE + CommandTestUtil.VALUE_AIRPODS;
-        UpdateCommand.UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder()
+        UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder()
                 .withValue(CommandTestUtil.VALID_VALUE_AIRPODS).build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + CommandTestUtil.DESC_LAKSA
+        userInput = CommandTestUtil.INDEX_TOKEN + targetIndex.getOneBased() + CommandTestUtil.DESC_LAKSA
                 + CommandTestUtil.INVALID_VALUE + CommandTestUtil.VALUE_LAKSA;
         descriptor = new UpdateTransactionDescriptorBuilder()
+                .withDescription(CommandTestUtil.VALID_DESCRIPTION_LAKSA)
                 .withValue(CommandTestUtil.VALID_VALUE_LAKSA)
                 .build();
         expectedCommand = new UpdateCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
-     */
 
     @Test
     public void parse_resetTags_success() {

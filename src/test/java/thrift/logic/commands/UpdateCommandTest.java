@@ -1,6 +1,7 @@
 package thrift.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.logic.commands.CommandTestUtil.assertCommandSuccess;
 
@@ -9,14 +10,17 @@ import org.junit.jupiter.api.Test;
 import thrift.commons.core.Messages;
 import thrift.commons.core.index.Index;
 import thrift.logic.commands.UpdateCommand.UpdateTransactionDescriptor;
+import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.Model;
 import thrift.model.ModelManager;
 import thrift.model.PastUndoableCommands;
 import thrift.model.Thrift;
 import thrift.model.UserPrefs;
 import thrift.model.transaction.Expense;
+import thrift.model.transaction.Income;
 import thrift.model.transaction.Transaction;
 import thrift.testutil.ExpenseBuilder;
+import thrift.testutil.IncomeBuilder;
 import thrift.testutil.TypicalIndexes;
 import thrift.testutil.TypicalTransactions;
 import thrift.testutil.UpdateTransactionDescriptorBuilder;
@@ -33,18 +37,18 @@ public class UpdateCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         // Create initial Expense from first element in TypicalTransactions' list, to reflect original transaction after
         // updating (UpdateCommandTest private class attribute) model's first item.
-        Expense updatedExpense = new ExpenseBuilder(model.getFilteredTransactionList().get(0))
+        Income updatedExpense = new IncomeBuilder(model.getFilteredTransactionList().get(1))
                 // .withTags(model.getFilteredTransactionList().get(0).getTags().iterator().next().tagName)
                 .build();
         String expectedMessageOriginal = String.format(UpdateCommand.MESSAGE_ORIGINAL_TRANSACTION, updatedExpense);
         UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder(updatedExpense).build();
-        UpdateCommand updateCommand = new UpdateCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION, descriptor);
+        UpdateCommand updateCommand = new UpdateCommand(TypicalIndexes.INDEX_SECOND_TRANSACTION, descriptor);
 
         String expectedMessageUpdated = String.format(UpdateCommand.MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedExpense);
 
         Model expectedModel = new ModelManager(new Thrift(model.getThrift()), new UserPrefs(),
                 new PastUndoableCommands());
-        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), updatedExpense);
+        expectedModel.setTransaction(model.getFilteredTransactionList().get(1), updatedExpense);
 
         assertCommandSuccess(updateCommand, model, expectedMessageUpdated + expectedMessageOriginal,
                 expectedModel);
@@ -168,4 +172,13 @@ public class UpdateCommandTest {
                 CommandTestUtil.DESC_PURCHASE)));
     }
 
+    @Test
+    public void execute_wrongExecuteCalled_throwsCommandException() {
+        CommandTestUtil.showTransactionAtIndex(model, TypicalIndexes.INDEX_FIRST_TRANSACTION);
+        Index firstIndex = TypicalIndexes.INDEX_FIRST_TRANSACTION;
+        UpdateCommand updateCommand = new UpdateCommand(firstIndex,
+                new UpdateTransactionDescriptorBuilder().withDescription(CommandTestUtil.VALID_DESCRIPTION_LAKSA)
+                        .build());
+        assertThrows(CommandException.class, () -> updateCommand.execute(model));
+    }
 }

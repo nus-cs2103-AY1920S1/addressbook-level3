@@ -102,7 +102,7 @@ public class Value {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Value // instanceof handles nulls
-                && amount == (((Value) other).amount)
+                && amount.equals(((Value) other).amount)
                 && currency.equals(((Value) other).currency)); // state check
     }
 
