@@ -1,6 +1,10 @@
 package seedu.flashcard.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.flashcard.model.FlashcardList;
+import seedu.flashcard.model.flashcard.Flashcard;
+
 
 /**
  * The command to give a flashcard a tag.
@@ -21,6 +25,22 @@ public class TagCommand extends Command {
     // TODO: Write corresponding tests for the execution method
     @Override
     public CommandResult execute(FlashcardList flashcardList) {
-        return null;
+        requireNonNull(flashcardList);
+
+        Flashcard targetFlashcard = flashcardList.getFlashcard(tagFlashcardId);
+
+        if (targetFlashcard == null) {
+            return new CommandResult("Flashcard doesn't exist" , false, true);
+        }
+
+        if (targetFlashcard.hasTag(tagName)) {
+            return new CommandResult("Flashcard already has that tag", false, true);
+        }
+
+        flashcardList.tagFlashcard(tagFlashcardId, tagName);
+
+        return new CommandResult("Successfully tagged " + targetFlashcard.getId().getIdentityNumber()
+                + " with " + tagName, false, true);
+
     }
 }

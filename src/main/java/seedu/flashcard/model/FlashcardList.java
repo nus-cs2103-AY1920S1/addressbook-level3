@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 
 import seedu.flashcard.model.exceptions.CardNotFoundException;
-import seedu.flashcard.model.exceptions.DuplicateTagException;
 import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.McqFlashcard;
@@ -48,15 +47,14 @@ public class FlashcardList {
      * Fetch the particular model based on its id number
      * @param flashcardId the id number of the model we are looking for
      * @return the model with this id number
-     * @throws CardNotFoundException if model with this number was not found
      */
-    public Flashcard getFlashcard(int flashcardId) throws CardNotFoundException {
+    public Flashcard getFlashcard(int flashcardId) {
         for (Flashcard flashcard : flashcards) {
             if (flashcard.getId().getIdentityNumber() == flashcardId) {
                 return flashcard;
             }
         }
-        throw new CardNotFoundException();
+        return null;
     }
 
     /**
@@ -158,19 +156,16 @@ public class FlashcardList {
      * @param flashcardId the model to be tagged
      * @param tagName the tag to be added to the model
      */
-    public void tagFlashcard(int flashcardId, String tagName) throws DuplicateTagException {
+    public void tagFlashcard(int flashcardId, String tagName) {
         if (!tagManager.hasTag(tagName)) {
             tagManager.addTag(tagName);
         }
         Flashcard targetCard = getFlashcard(flashcardId);
         Tag targetTag = tagManager.getTag(tagName);
-        if (targetTag.hasCard(targetCard)) {
-            throw new DuplicateTagException();
-        }
         targetCard.addTag(targetTag);
         targetTag.addFlashcard(targetCard);
     }
-
+  
     /**
      * Inform whether the flashcardList contains a particular flashcard.
      * @param flashcard the flashcard to be searched

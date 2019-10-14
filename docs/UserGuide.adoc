@@ -149,6 +149,7 @@ Format: `progress TAGNAME`
 ****
 * Statistics shown include number of completed cards and accuracy
 * TAGNAME indicates the tag to be reviewed
+* If no TAGNAME is provided statistics of all the cards will be shown
 ****
 
 Examples:
