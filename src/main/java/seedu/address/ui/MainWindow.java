@@ -23,9 +23,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
-    private int selectedIndex = 0;
-
     private static final String FXML = "MainWindow.fxml";
+
+    private int selectedIndex = 0;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -231,7 +231,7 @@ public class MainWindow extends UiPart<Stage> {
                 try {
                     commandBox.getCommandTextField().setText(autoCompletePanel.getSelected().getSuggestedWord());
                     commandBox.getCommandTextField().positionCaret(commandBox.getCommandTextField().getText().length());
-                } catch(NullPointerException e) {
+                } catch (NullPointerException e) {
                     System.out.println("nothing is selected thus shift key does not work");
                 }
                 break;

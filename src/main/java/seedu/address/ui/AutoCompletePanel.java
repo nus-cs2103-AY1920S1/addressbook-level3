@@ -6,18 +6,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.autocomplete.AutoCompleteWord;
 import seedu.address.autocomplete.AutoCompleteWordHandler;
-import seedu.address.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of suggested words.
  */
 public class AutoCompletePanel extends UiPart<Region> {
-    private AutoCompleteWordHandler autoCompleteWordHandler;
-
     private static final String FXML = "AutoCompletePanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(AutoCompletePanel.class);
+
+    private AutoCompleteWordHandler autoCompleteWordHandler;
 
     @FXML
     private ListView<AutoCompleteWord> autoCompleteWordListView;
@@ -25,12 +21,12 @@ public class AutoCompletePanel extends UiPart<Region> {
     public AutoCompletePanel(AutoCompleteWordHandler autoCompleteWordHandler) {
         super(FXML);
         this.autoCompleteWordHandler = autoCompleteWordHandler;
-        autoCompleteWordListView.setItems(autoCompleteWordHandler.getOListOfSuggestionWords());
+        autoCompleteWordListView.setItems(autoCompleteWordHandler.getOListAutoCompleteWords());
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code AutoCompleteWord} using a {@code AutoCompleteCard}
      */
     class AutoCompleteListViewCell extends ListCell<AutoCompleteWord> {
         @Override

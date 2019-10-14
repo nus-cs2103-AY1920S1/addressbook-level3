@@ -3,13 +3,16 @@ package seedu.address.autocomplete;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * A handler that initialises autocomplete word bank and updates list of autocomplete words to be shown
+ */
 public class AutoCompleteWordHandler {
-    private ObservableList<AutoCompleteWord> oListACWords;
-    private ObservableList<AutoCompleteWord> oListACWordBank;
+    private ObservableList<AutoCompleteWord> oListAutoCompleteWords;
+    private ObservableList<AutoCompleteWord> oListAutoCompleteWordBank;
 
 
     public AutoCompleteWordHandler() {
-        this.oListACWordBank = FXCollections.observableArrayList();
+        this.oListAutoCompleteWordBank = FXCollections.observableArrayList();
 
         // Add command suggestion words
         addCommandWordsToBank();
@@ -18,15 +21,18 @@ public class AutoCompleteWordHandler {
         addPrefixToBank();*/
 
 
-        this.oListACWords = FXCollections.observableArrayList(oListACWordBank);
+        this.oListAutoCompleteWords = FXCollections.observableArrayList(oListAutoCompleteWordBank);
     }
 
+    /**
+     * Add command words to list of all suggested words
+     */
     public void addCommandWordsToBank() {
-        oListACWordBank.add(new CommandWord("list"));
-        oListACWordBank.add(new CommandWord("find"));
-        oListACWordBank.add(new CommandWord("delete"));
-        oListACWordBank.add(new CommandWord("add"));
-        oListACWordBank.add(new CommandWord("import"));
+        oListAutoCompleteWordBank.add(new CommandWord("list"));
+        oListAutoCompleteWordBank.add(new CommandWord("find"));
+        oListAutoCompleteWordBank.add(new CommandWord("delete"));
+        oListAutoCompleteWordBank.add(new CommandWord("add"));
+        oListAutoCompleteWordBank.add(new CommandWord("import"));
     }
 
     /*public void addPrefixToBank() {
@@ -35,18 +41,22 @@ public class AutoCompleteWordHandler {
 
     }*/
 
-    public ObservableList<AutoCompleteWord> getOListOfSuggestionWords() {
-        return oListACWords;
+    public ObservableList<AutoCompleteWord> getOListAutoCompleteWords() {
+        return oListAutoCompleteWords;
     }
 
+    /**
+     * Update list of autocomplete words to be suggested according to current phrase in command box textfield
+     * @param currentPhraseInCommandBox string in command box textfield
+     */
     public void updateList(String currentPhraseInCommandBox) {
-        oListACWords.clear();
-        System.out.println(oListACWords.size());
-        System.out.println(oListACWordBank.size());
+        oListAutoCompleteWords.clear();
+        System.out.println(oListAutoCompleteWords.size());
+        System.out.println(oListAutoCompleteWordBank.size());
 
-        for (AutoCompleteWord autoCompleteWord : oListACWordBank) {
+        for (AutoCompleteWord autoCompleteWord : oListAutoCompleteWordBank) {
             if (autoCompleteWord.getSuggestedWord().contains(currentPhraseInCommandBox)) {
-                oListACWords.add(autoCompleteWord);
+                oListAutoCompleteWords.add(autoCompleteWord);
             }
         }
     }

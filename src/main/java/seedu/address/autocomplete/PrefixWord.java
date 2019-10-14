@@ -1,7 +1,10 @@
 package seedu.address.autocomplete;
 
+/**
+ * Represents a prefix word(eg: n/, t/) in application
+ */
 public class PrefixWord extends AutoCompleteWord {
-    String associatedCommandWord;
+    private String associatedCommandWord;
 
     public PrefixWord(String associatedCommandWord, String suggestionWord) {
         super(suggestionWord);
