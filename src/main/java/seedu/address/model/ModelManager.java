@@ -5,12 +5,14 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
+import java.util.logging.Filter;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.task.Task;
 
 /**
@@ -22,6 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Inventory> filteredInventories;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +38,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        filteredInventories = new FilteredList<>(this.addressBook.getInventoryList());
     }
 
     public ModelManager() {
@@ -127,6 +131,41 @@ public class ModelManager implements Model {
     public void updateFilteredTasksList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
+    }
+
+    public int getTasksLength() {
+        return filteredTasks.size();
+    }
+
+
+    //=========== Inventory  =============================================================
+
+    @Override
+    public void addInventory(Inventory inventory) {
+        addressBook.addInventory(inventory);
+        updateFilteredTasksList(PREDICATE_SHOW_ALL_INVENTORIES);
+    }
+
+    @Override
+    public boolean hasInventory(Inventory inventory) {
+        requireNonNull(inventory);
+        return addressBook.hasInventory(inventory);
+    }
+
+    @Override
+    public void deleteInventory(Inventory target) {
+        addressBook.removeInventory(target);
+    }
+
+    @Override
+    public ObservableList<Inventory> getFilteredInventoriesList() {
+        return filteredInventories;
+    }
+
+    @Override
+    public void updateFilteredInventoriesList(Predicate<Inventory> predicate) {
+        requireNonNull(predicate);
+        filteredInventories.setPredicate(predicate);
     }
 
     @Override

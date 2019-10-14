@@ -34,6 +34,11 @@ public class Task {
         this.tags.addAll(tags);
     }
 
+    public Task() {
+        name = null;
+        taskStatus = null;
+    }
+
     // TODO add multiple constructors so that users can add aditional info later
 
     public TaskStatus getTaskStatus() {

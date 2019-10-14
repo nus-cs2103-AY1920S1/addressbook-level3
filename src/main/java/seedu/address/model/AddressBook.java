@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.inventory.Inventory;
+import seedu.address.model.inventory.UniqueInventoryList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
@@ -15,6 +17,7 @@ import seedu.address.model.task.UniqueTaskList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueTaskList tasks;
+    private final UniqueInventoryList inventories;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         tasks = new UniqueTaskList();
+        inventories = new UniqueInventoryList();
     }
 
     public AddressBook() {}
@@ -37,6 +41,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
+
     //// list overwrite operations
 
     /**
@@ -48,13 +53,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the inventory list with {@code inventories}.
+     * {@code inventories} must not contain duplicate inventories.
+     */
+    public void setInventories(List<Inventory>inventories) {
+        this.inventories.setInventories(inventories);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setTasks(newData.getTaskList());
+        setInventories(newData.getInventoryList());
     }
+
 
     //// task-level operations
 
@@ -93,6 +108,23 @@ public class AddressBook implements ReadOnlyAddressBook {
         tasks.remove(key);
     }
 
+
+
+    //// inventory-level operations
+    public boolean hasInventory(Inventory inventory) {
+        requireNonNull(inventory);
+        return inventories.contains(inventory);
+    }
+
+    public void addInventory(Inventory inventory) {
+        inventories.add(inventory);
+    }
+
+    public void removeInventory(Inventory target) {
+        inventories.remove(target);
+    }
+
+
     //// util methods
 
     @Override
@@ -104,6 +136,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Task> getTaskList() {
         return tasks.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Inventory> getInventoryList() {
+        return inventories.asUnmodifiableList();
     }
 
     @Override
