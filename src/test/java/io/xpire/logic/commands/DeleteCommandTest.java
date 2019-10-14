@@ -1,27 +1,41 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_DUCK;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_JELLY;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_DUCK;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_JELLY;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_FRIDGE;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_PROTEIN;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
-//import static io.xpire.testutil.TypicalIndexes.INDEX_FIFTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
-//import static io.xpire.testutil.TypicalIndexes.INDEX_FOURTH_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_FOURTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
-//import static io.xpire.testutil.TypicalIndexes.INDEX_SEVENTH_ITEM;
-//import static io.xpire.testutil.TypicalIndexes.INDEX_SIXTH_ITEM;
-//import static io.xpire.testutil.TypicalIndexes.INDEX_THIRD_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_SIXTH_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Set;
+import java.util.TreeSet;
+
+//import io.xpire.testutil.TypicalItems;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
+
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
 import io.xpire.model.UserPrefs;
 import io.xpire.model.item.Item;
+import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagComparator;
+
+import io.xpire.testutil.ItemBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -29,7 +43,12 @@ import io.xpire.model.item.Item;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalExpiryDateTracker(), new UserPrefs());
+    private Model model;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalExpiryDateTracker(), new UserPrefs());
+    }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -83,9 +102,34 @@ public class DeleteCommandTest {
 
     //test to delete tags for item with tags
     @Test
-    public void execute_deleteTagsFromItem_success() {
-        Item targetItem = model.getFilteredItemList().get(INDEX_SECOND_ITEM.getZeroBased());
-        System.out.println(targetItem);
+    public void execute_deleteTagsFromItemNotAllFields_success() {
+        Item targetItem = model.getFilteredItemList().get(INDEX_FOURTH_ITEM.getZeroBased());
+        Set<Tag> set = new TreeSet<>(new TagComparator());
+        set.add(new Tag(VALID_TAG_FRIDGE));
+        set.add(new Tag(VALID_TAG_PROTEIN));
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FOURTH_ITEM, set);
+        ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
+        Item expectedItem = new ItemBuilder().withName(VALID_NAME_DUCK)
+                                             .withExpiryDate(VALID_EXPIRY_DATE_DUCK)
+                                             .build();
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TAGS_SUCCESS, expectedItem);
+        expectedModel.setItem(targetItem, expectedItem); //set target item with no tags
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+    @Test
+    public void execute_deleteTagsFromItemAllFields_success() {
+        Item targetItem = model.getFilteredItemList().get(INDEX_SIXTH_ITEM.getZeroBased());
+        Set<Tag> set = new TreeSet<>(new TagComparator());
+        set.add(new Tag(VALID_TAG_FRIDGE));
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SIXTH_ITEM, set);
+        ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
+        Item expectedItem = new ItemBuilder().withName(VALID_NAME_JELLY)
+                                             .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
+                                             .build();
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TAGS_SUCCESS, expectedItem);
+        //expectedModel.setItem(targetItem, expectedItem); //set target item with no tags
+        //assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        //expectedModel.setItem(targetItem, targetItem); //place back the tags
     }
 
     @Test

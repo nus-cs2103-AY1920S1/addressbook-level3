@@ -72,6 +72,14 @@ public class Item {
         this.reminderThreshold = reminderThreshold;
     }
 
+    public Item(Item item) {
+        this.name = item.getName();
+        this.expiryDate = item.getExpiryDate();
+        this.quantity = item.getQuantity();
+        this.tags = item.getTags();
+        this.reminderThreshold = item.getReminderThreshold();
+    }
+
     public Name getName() {
         return this.name;
     }

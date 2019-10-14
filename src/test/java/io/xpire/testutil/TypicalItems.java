@@ -40,7 +40,7 @@ public class TypicalItems {
     public static final Item JELLY = new ItemBuilder().withName("Jelly")
                                                         .withExpiryDate("01/02/2020")
                                                         .withQuantity("4")
-                                                        .withTags("Dessert")
+                                                        .withTags("Fridge")
                                                         .withReminderThreshold("3")
                                                         .build();
     //To-add item
@@ -56,7 +56,8 @@ public class TypicalItems {
     public static Xpire getTypicalExpiryDateTracker() {
         Xpire edt = new Xpire();
         for (Item item : getTypicalItems()) {
-            edt.addItem(item);
+            Item copyItem = new Item(item);
+            edt.addItem(copyItem);
         }
         return edt;
     }

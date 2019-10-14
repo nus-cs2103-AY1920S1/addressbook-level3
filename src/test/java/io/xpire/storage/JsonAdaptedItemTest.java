@@ -33,7 +33,6 @@ public class JsonAdaptedItemTest {
     @Test
     public void toModelType_validItemDetails_returnsItem() throws Exception {
         JsonAdaptedItem item = new JsonAdaptedItem(KIWI);
-        System.out.println(KIWI);
         assertEquals(KIWI, item.toModelType());
     }
 
