@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FLASHCARD_TITLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
