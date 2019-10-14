@@ -10,7 +10,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ItemModel;
 import seedu.address.model.ItemStorage;
-import seedu.address.model.item.ActiveRemindersList;
 import seedu.address.model.item.VisualizeList;
 
 /**

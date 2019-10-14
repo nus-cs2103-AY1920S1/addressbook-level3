@@ -5,11 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.nio.file.Path;
 import java.util.PriorityQueue;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ListPropertyBase;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
