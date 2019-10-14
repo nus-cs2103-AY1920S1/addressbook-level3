@@ -10,11 +10,6 @@ public interface Logic {
     //command execution
     CommandResult execute(String commandText) throws Exception;
 
-    //storage operation
-    ReimbursementList readReimbursementListFromFile() throws Exception;
-
-    void writeIntoReimbursementFile() throws Exception;
-
     //get list
     ReimbursementList getReimbursementList();
 

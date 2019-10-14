@@ -33,9 +33,6 @@ public class LogicManager implements Logic {
 
         this.transactionModel = transactionModel;
         this.transactionStorage = transactionStorage;
-
-        //reimbursementModel.updateReimbursementList(transactionModel.getTransactionList());
-        //reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
     }
 
     @Override
@@ -45,16 +42,6 @@ public class LogicManager implements Logic {
         transactionStorage.writeFile(transactionModel.getTransactionList());
         reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
         return commandResult;
-    }
-
-    @Override
-    public ReimbursementList readReimbursementListFromFile() {
-        return this.reimbursementStorage.readReimbursementList();
-    }
-
-    @Override
-    public void writeIntoReimbursementFile() throws Exception{
-        reimbursementStorage.writeFile(this.getReimbursementList());
     }
 
     @Override

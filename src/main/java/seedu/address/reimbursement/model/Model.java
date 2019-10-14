@@ -20,9 +20,9 @@ public interface Model {
     //single reimbursement operation
     Reimbursement findReimbursement(Person person) throws NoSuchPersonReimbursementException;
 
-    Reimbursement addDeadline(Person person, String date) throws Exception;
-
     Reimbursement doneReimbursement(Person person) throws NoSuchPersonReimbursementException;
+
+    Reimbursement addDeadline(Person person, String date) throws Exception;
 
     //sort operation
     void sortListByName();

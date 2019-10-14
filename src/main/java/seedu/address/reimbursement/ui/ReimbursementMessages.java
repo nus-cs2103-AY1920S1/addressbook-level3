@@ -9,8 +9,7 @@ import seedu.address.reimbursement.model.Reimbursement;
  * Stores the messages to be printed as a response to the user.
  */
 public class ReimbursementMessages {
-    public static final String NO_SUCH_PERSON = "Sorry! There is no such person in the reimbursement list.";
-
+    public static final String LIST_COMMAND = "List all reimbursements.\n";
     public static final String SORT_BY_NAME = "The reimbursement list has been sorted by person's name.";
     public static final String SORT_BY_AMOUNT = "The reimbursement list has been sorted by amount of money.";
     public static final String SORT_BY_DEADLINE = "The reimbursement list has been sorted by deadline of the "
@@ -34,10 +33,6 @@ public class ReimbursementMessages {
     public static final String MESSAGE_INVALID_SORTDEADLINECOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
             + "sortdeadline";
 
-
-    public static final String MESSAGE_NOT_EDITED = "Sorry! Did not manage to edit transaction!";
-    public static final String NO_SUCH_INDEX_TRANSACTION = "There is no transaction at the inputted index.";
-    public static final String NOT_A_NUMBER = "Please input the index of the transaction.";
     private static final Logger logger = LogsCenter.getLogger(ReimbursementMessages.class);
 
     /**
@@ -65,11 +60,6 @@ public class ReimbursementMessages {
     public static String doneReimbursement(Reimbursement rmb) {
         String msg = "Done" + System.lineSeparator();
         msg = msg + rmb.toString();
-        return msg;
-    }
-
-    public static String listReimbursement() {
-        String msg = "List all reimbursements." + System.lineSeparator();
         return msg;
     }
 

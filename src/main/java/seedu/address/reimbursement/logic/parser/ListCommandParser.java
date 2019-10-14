@@ -13,6 +13,7 @@ public class ListCommandParser implements SortParser<ListCommand> {
 
     /**
      * Parses the command to sort by deadline.
+     *
      * @param args the given command.
      * @return a command representing the user's desired action
      * @throws Exception if the command syntax is incorrect.

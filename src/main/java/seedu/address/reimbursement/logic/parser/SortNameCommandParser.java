@@ -16,6 +16,7 @@ public class SortNameCommandParser implements SortParser<SortNameCommand> {
 
     /**
      * Parses the command to sort by name.
+     *
      * @param args the given command.
      * @return a command representing the user's desired action
      * @throws Exception if the command syntax is incorrect.

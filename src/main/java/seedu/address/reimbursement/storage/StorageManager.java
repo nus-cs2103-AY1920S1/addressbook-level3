@@ -71,10 +71,10 @@ public class StorageManager implements Storage {
         String textFileMsg = "";
         for (int i = 0; i < reimbursementList.size(); i++) {
             if (i == 0) {
-                textFileMsg = textFileMsg + (i + 1) + ". " + reimbursementList.get(i).toWriteIntoFile();
+                textFileMsg = textFileMsg + (i + 1) + ". " + reimbursementList.get(i).WriteIntoFile();
             } else {
                 textFileMsg = textFileMsg + System.lineSeparator() + (i + 1) + ". "
-                        + reimbursementList.get(i).toWriteIntoFile();
+                        + reimbursementList.get(i).WriteIntoFile();
             }
         }
         fw.write(textFileMsg);

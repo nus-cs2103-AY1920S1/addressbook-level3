@@ -21,7 +21,8 @@ public class DoneCommandParser implements GeneralParser<DoneCommand> {
 
     /**
      * Marks a reimbursement done.
-     * @param args the arguments from the user.
+     *
+     * @param args        the arguments from the user.
      * @param personModel the person to search by.
      * @return a command representing the user's desired action.
      * @throws Exception if the command syntax is invalid.
