@@ -13,5 +13,7 @@ public interface ReadOnlyUserPrefs {
 
     Path getAddressBookFilePath();
 
+    Path getActivityBookFilePath();
+
     Path getInternalStateFilePath();
 }

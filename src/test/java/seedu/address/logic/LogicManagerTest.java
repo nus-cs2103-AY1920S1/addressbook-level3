@@ -22,12 +22,14 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ActivityBook;
 import seedu.address.model.InternalState;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.storage.JsonActivityBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonInternalStateStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -47,12 +49,14 @@ public class LogicManagerTest {
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new
             JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonActivityBookStorage activityBookStorage = new
+                JsonActivityBookStorage(temporaryFolder.resolve("activityBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new
             JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonInternalStateStorage internalStateStorage = new
             JsonInternalStateStorage(temporaryFolder.resolve("state.json"));
         StorageManager storage = new StorageManager(addressBookStorage,
-                userPrefsStorage, internalStateStorage);
+                userPrefsStorage, internalStateStorage, activityBookStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -84,7 +88,10 @@ public class LogicManagerTest {
         JsonInternalStateStorage internalStateStorage = new
             JsonInternalStateStorage(temporaryFolder.resolve("state.json"));
         // TODO: make internal fail and test it as well.
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, internalStateStorage);
+        JsonActivityBookStorage activityBookStorage = new
+                JsonActivityBookStorage(temporaryFolder.resolve("activityBook.json"));
+        StorageManager storage = new
+                StorageManager(addressBookStorage, userPrefsStorage, internalStateStorage, activityBookStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -138,7 +145,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new InternalState());
+        Model expectedModel = new
+                ModelManager(model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

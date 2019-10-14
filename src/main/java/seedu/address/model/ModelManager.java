@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,6 +12,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,6 +23,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final ActivityBook activityBook;
     private final UserPrefs userPrefs;
     private final InternalState internalState;
     private final FilteredList<Person> filteredPersons;
@@ -27,20 +31,25 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook, userPrefs and internalState.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, InternalState internalState) {
+    public ModelManager(
+            ReadOnlyAddressBook addressBook,
+            ReadOnlyUserPrefs userPrefs,
+            InternalState internalState,
+            ActivityBook activityBook) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, userPrefs, activityBook);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.activityBook = new ActivityBook(activityBook);
         this.internalState = new InternalState(internalState);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new InternalState());
+        this(new AddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
     }
 
     //=========== UserPrefs ====================================================
@@ -91,6 +100,12 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
+    @Override
+    public void setActivityBookFilePath(Path activityBookFilePath) {
+        requireNonNull(activityBookFilePath);
+        userPrefs.setActivityBookFilePath(activityBookFilePath);
+    }
+
     //=========== AddressBook ================================================================================
 
     @Override
@@ -110,6 +125,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ArrayList<Person> findPerson(NameContainsKeywordsPredicate predicate) {
+        requireNonNull(predicate);
+        return addressBook.findPerson(predicate);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
@@ -125,6 +146,40 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    //=========== ActivityBook================== =============================================================
+
+    @Override
+    public Path getActivityBookFilePath() {
+        return userPrefs.getActivityBookFilePath();
+    }
+
+    @Override
+    public void setActivityBook(ActivityBook activityBook) {
+        this.activityBook.resetData(activityBook);
+    }
+
+    @Override
+    public ActivityBook getActivityBook() {
+        return activityBook;
+    }
+
+    @Override
+    public void deleteActivity(Activity target) {
+        activityBook.removeActivity(target);
+    }
+
+    @Override
+    public void addActivity(Activity activity) {
+        activityBook.addActivity(activity);
+    }
+
+    @Override
+    public void setActivity(Activity target, Activity editedActivity) {
+        requireAllNonNull(target, editedActivity);
+
+        activityBook.setActivity(target, editedActivity);
     }
 
     //=========== Filtered Person List Accessors =============================================================

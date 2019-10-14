@@ -17,6 +17,7 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.model.ActivityBook;
 import seedu.address.model.AddressBook;
 import seedu.address.model.InternalState;
 import seedu.address.model.Model;
@@ -25,8 +26,10 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.storage.ActivityBookStorage;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.InternalStateStorage;
+import seedu.address.storage.JsonActivityBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonInternalStateStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -64,6 +67,7 @@ public class MainApp extends Application {
             config.getUserPrefsFilePath()
         );
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        ActivityBookStorage activityBookStorage = new JsonActivityBookStorage(userPrefs.getActivityBookFilePath());
         InternalStateStorage internalStateStorage = new JsonInternalStateStorage(
             userPrefs.getInternalStateFilePath()
         );
@@ -75,12 +79,13 @@ public class MainApp extends Application {
             new StorageManager(
                 addressBookStorage,
                 userPrefsStorage,
-                internalStateStorage
+                internalStateStorage,
+                activityBookStorage
             );
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs, internalState);
+        model = initModelManager(storage, userPrefs, internalState, activityBookStorage);
 
         logic = new LogicManager(model, storage);
 
@@ -95,10 +100,13 @@ public class MainApp extends Application {
     private Model initModelManager(
         Storage storage,
         ReadOnlyUserPrefs userPrefs,
-        InternalState internalState
+        InternalState internalState,
+        ActivityBookStorage activityBookStorage
     ) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ActivityBook> activityBookOptional;
         ReadOnlyAddressBook initialData;
+        ActivityBook initialActivityBook;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -122,7 +130,21 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs, internalState);
+        try {
+            activityBookOptional = activityBookStorage.readActivityBook();
+            if (!activityBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty ActivityBook");
+            }
+            initialActivityBook = activityBookOptional.orElseGet(() -> new ActivityBook());
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ActivityBook");
+            initialActivityBook = new ActivityBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ActivityBook");
+            initialActivityBook = new ActivityBook();
+        }
+
+        return new ModelManager(initialData, userPrefs, internalState, initialActivityBook);
     }
 
     private void initLogging(Config config) {

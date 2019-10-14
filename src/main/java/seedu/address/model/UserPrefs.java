@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path activityBookFilePath = Paths.get("data" , "activitybook.json");
     private Path internalStateFilePath = Paths.get("data", "internalstate.json");
 
     public UserPrefs() {};
@@ -34,6 +35,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setActivityBookFilePath(newUserPrefs.getActivityBookFilePath());
         setInternalStateFilePath(newUserPrefs.getInternalStateFilePath());
     }
 
@@ -54,9 +56,18 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return addressBookFilePath;
     }
 
+    public Path getActivityBookFilePath() {
+        return activityBookFilePath;
+    }
+
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public void setActivityBookFilePath(Path activityBookFilePath) {
+        requireNonNull(activityBookFilePath);
+        this.activityBookFilePath = activityBookFilePath;
     }
 
     public void setInternalStateFilePath(Path internalStateFilePath) {
@@ -77,6 +88,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
+                && activityBookFilePath.equals(o.activityBookFilePath)
                 && internalStateFilePath.equals(o.internalStateFilePath);
     }
 
@@ -89,6 +101,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
+        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nActivity data file location: " + activityBookFilePath);
         sb.append("\nAddress data file location : " + addressBookFilePath);
         sb.append("\nState data file location : " + internalStateFilePath);
         return sb.toString();
