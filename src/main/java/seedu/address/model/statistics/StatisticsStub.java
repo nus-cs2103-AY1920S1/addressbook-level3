@@ -3,6 +3,9 @@ package seedu.address.model.statistics;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A stub for the statistics feature. Used in place of storage.
+ */
 public class StatisticsStub {
 
     private List<String> wrongQns;
