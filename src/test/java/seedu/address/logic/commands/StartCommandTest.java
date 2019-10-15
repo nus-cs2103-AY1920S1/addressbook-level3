@@ -27,7 +27,7 @@ public class StartCommandTest {
     }
 
     @Test
-    public void execute_unableToFindTag_success() {
+    public void execute_unableToFindTagEmptyTest_success() {
         String tagToFind = "thisTagDoesNotExist";
         Command startCommand = new StartCommand(addressBookParser, tagToFind);
         try {
