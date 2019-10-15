@@ -37,7 +37,9 @@ public class VersionTrackingManager {
     public StudyPlanCommitManager commitStudyPlan(StudyPlan studyPlan, String commitMessage) {
         boolean managerAlreadyExists = getStudyPlanCommitManagerList().managerAlreadyExists(studyPlan);
         if (managerAlreadyExists) {
-            return studyPlanCommitManagers.getManagerByStudyPlan(studyPlan);
+            StudyPlanCommitManager manager = studyPlanCommitManagers.getManagerByStudyPlan(studyPlan);
+            manager.commit(studyPlan, commitMessage);
+            return manager;
         } else {
             StudyPlanCommitManager manager = new StudyPlanCommitManager(studyPlan, commitMessage);
             studyPlanCommitManagers.add(manager);

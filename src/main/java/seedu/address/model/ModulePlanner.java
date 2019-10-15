@@ -215,6 +215,15 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         return moduleInfo == null ? null : moduleInfo.getInformation();
     }
 
+    /**
+     * Returns this module planner's ModulesInfo object.
+     *
+     * @return This module planner's ModulesInfo object.
+     */
+    public ModulesInfo getModulesInfo() {
+        return modulesInfo;
+    }
+
     //// commit methods
 
     /**

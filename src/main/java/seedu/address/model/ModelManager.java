@@ -143,6 +143,11 @@ public class ModelManager implements Model {
         return modulePlanner.getModuleInformation(moduleCode);
     }
 
+    @Override
+    public ModulesInfo getModulesInfo() {
+        return modulePlanner.getModulesInfo();
+    }
+
     //=========== Filtered StudyPlan List Accessors =============================================================
 
     /**

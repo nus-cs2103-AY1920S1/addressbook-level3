@@ -105,7 +105,7 @@ public interface Model {
      */
     void updateFilteredStudyPlanList(Predicate<StudyPlan> predicate);
 
-    // ===================== MODULE INFORMATION ==========================
+    // ===================== VERSION TRACKING ==========================
     /**
      * Commits the current active study plan with a commit message.
      */
@@ -118,6 +118,11 @@ public interface Model {
      * Returns true if the module code is a valid, false otherwise.
      */
     boolean isValidModuleCode(String moduleCode);
+
+    /**
+     * Returns the ModulesInfo object in the module planner.
+     */
+    ModulesInfo getModulesInfo();
 
     /**
      * Returns the module information.
