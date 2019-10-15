@@ -1,9 +1,9 @@
 package seedu.billboard.model.statistics;
 
+import java.util.List;
+
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.model.expense.Expense;
-
-import java.util.List;
 
 /**
  * Stateless class to generate statistics. Every method is a pure function, taking in a list of expenses and other

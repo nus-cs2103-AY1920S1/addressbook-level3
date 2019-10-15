@@ -2,7 +2,6 @@ package seedu.billboard.model.expense;
 
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;

@@ -24,7 +24,7 @@ public class SampleDataUtil {
             new Expense(new Name("buy kopiO"), new Description(""),
                     new Amount("1.50"), new CreatedDateTime("13/04/2019 2359"), getTagSet("com2")),
             new Expense(new Name("buy lunch"), new Description("chicken rice from deck"),
-                    new Amount("3.70"),new CreatedDateTime("1/1/2018"), getTagSet("thedeck")),
+                    new Amount("3.70"), new CreatedDateTime("1/1/2018"), getTagSet("thedeck")),
             new Expense(new Name("buy book"), new Description("so expensive wtf"),
                     new Amount("77.3"), new CreatedDateTime("3/05/2019"), getTagSet("coop")),
             new Expense(new Name("bride prof"), new Description(""),
