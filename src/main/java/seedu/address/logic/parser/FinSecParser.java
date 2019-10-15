@@ -74,7 +74,7 @@ public class FinSecParser {
 
         case CheckCommand.COMMAND_WORD:
             return new CheckCommandParser().parse(arguments);
-            
+
         case ApproveClaimCommand.COMMAND_WORD:
             return new ApproveClaimCommandParser().parse(arguments);
 

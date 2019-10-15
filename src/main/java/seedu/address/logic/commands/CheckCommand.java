@@ -3,7 +3,10 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.claim.Claim;
 import seedu.address.ui.UiManager;
+
+import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
@@ -22,8 +25,10 @@ public class CheckCommand extends Command {
             + "Parameters: 'index'\n"
             + "Example: " + COMMAND_WORD + " contacts";
 
-    public CheckCommand(Index index) {
+    private final Index index;
 
+    public CheckCommand(Index index) {
+        this.index = index;
     }
 
     @Override
@@ -31,7 +36,9 @@ public class CheckCommand extends Command {
         requireNonNull(model);
         //if the current state is not claims or contacts, the check command will be invalid
         if (UiManager.state.equals("claims")) {
-            return new CommandResult(MESSAGE_SUCCESS_CLAIM, false, false, true);
+            List<Claim> lastShownList = model.getFilteredClaimList();
+            Claim claimToShow = lastShownList.get(index.getZeroBased());
+            return new CommandResult(MESSAGE_SUCCESS_CLAIM, false, false, true, claimToShow);
         } else if (UiManager.state.equals("contacts")) {
             return new CommandResult(MESSAGE_SUCCESS_CONTACT);
         } else {

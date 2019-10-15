@@ -19,13 +19,16 @@ public class IndividualClaimWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(IndividualClaimWindow.class);
     private static final String FXML = "IndividualClaimWindow.fxml";
 
-    public final Claim claim;
+    private static Claim claim;
 
     @FXML
     private Label name;
 
     @FXML
     private Label contact;
+
+    @FXML
+    private Label date;
 
     @FXML
     private Label amount;
@@ -38,20 +41,21 @@ public class IndividualClaimWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the IndividualClaimWindow.
      */
-    public IndividualClaimWindow(Stage root, Claim claim) {
+    public IndividualClaimWindow(Stage root) {
         super(FXML, root);
-        this.claim = claim;
-        name.setText();
-        contact.setText();
-        amount.setText();
-        description.setText();
+        name.setText(claim.getName().toString());
+        contact.setText(claim.getPhone().toString());
+        date.setText(claim.getDescription().toString());
+        amount.setText(claim.getAmount().toString());
+        description.setText(claim.getDescription().toString());
     }
 
     /**
      * Creates a new IndividualClaimWindow.
      */
-    public IndividualClaimWindow() {
+    public IndividualClaimWindow(Claim claim) {
         this(new Stage());
+        this.claim = claim;
     }
 
     /**

@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.claim.Claim;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
@@ -18,15 +20,29 @@ public class CommandResult {
     private final boolean exit;
 
     /** The claim pop-up should appear*/
-    private boolean claim;
+    private boolean showClaim;
+
+    /** Claim object */
+    private Claim claim;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean claim) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showClaim) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.showClaim = showClaim;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showClaim, Claim claim) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.showClaim = showClaim;
         this.claim = claim;
     }
 
@@ -51,6 +67,14 @@ public class CommandResult {
     }
 
     public boolean isClaim() {
+        return showClaim;
+    }
+
+    /**
+     * Returns the claim in the constructor
+     * @return
+     */
+    public Claim giveClaim() {
         return claim;
     }
 
