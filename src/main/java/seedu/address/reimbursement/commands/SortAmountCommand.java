@@ -9,8 +9,7 @@ import seedu.address.reimbursement.ui.ReimbursementMessages;
 /**
  * Represents a command to sort by amount.
  */
-public class SortAmountCommand extends Command {
-    public static final String COMMAND_WORD = "sortamount";
+public class SortAmountCommand extends SortCommand {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @Override

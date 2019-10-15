@@ -4,16 +4,16 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="inventory" prefWidth="690.0" stylesheets="@Extensions.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="home" prefWidth="690.0" stylesheets="@Extensions.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-          <TableView fx:id="tableView" prefHeight="532.0">
+          <TableView fx:id="tableView" prefHeight="532.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                  <TableColumn fx:id="idCol" prefWidth="36.00000059604645" text="ID" />
-                  <TableColumn fx:id="dateCol" prefWidth="97.60000228881836" text="Date/Time" />
-                  <TableColumn fx:id="descriptionCol" prefWidth="232.80003356933594" text="Description" />
-                  <TableColumn fx:id="categoryCol" prefWidth="114.39996337890625" text="Category" />
-                  <TableColumn fx:id="amountCol" prefWidth="92.00003051757812" text="Amount" />
-                  <TableColumn fx:id="personCol" minWidth="0.0" prefWidth="108.00006103515625" text="Person" />
+                  <TableColumn fx:id="idCol" prefWidth="44.0" text="ID" />
+                  <TableColumn fx:id="dateCol" prefWidth="93.60003662109375" text="Date/Time" />
+                  <TableColumn fx:id="descriptionCol" prefWidth="200.0" text="Description" />
+                  <TableColumn fx:id="categoryCol" prefWidth="124.0" text="Category" />
+                  <TableColumn fx:id="amountCol" prefWidth="79.20001220703125" text="Amount" />
+                  <TableColumn fx:id="personCol" minWidth="0.0" prefWidth="120.0" text="Person" />
               </columns>
           </TableView>
     </children>

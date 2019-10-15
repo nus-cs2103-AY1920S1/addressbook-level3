@@ -2,11 +2,11 @@ package seedu.address.person.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.person.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.util.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.util.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.util.CliSyntax.PREFIX_NAME;
+import static seedu.address.util.CliSyntax.PREFIX_PHONE;
+import static seedu.address.util.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -18,6 +18,8 @@ import seedu.address.person.logic.commands.EditCommand;
 import seedu.address.person.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.person.logic.parser.exceptions.ParseException;
 import seedu.address.person.model.tag.Tag;
+import seedu.address.util.ArgumentMultimap;
+import seedu.address.util.ArgumentTokenizer;
 
 /**
  * Parses input arguments and creates a new EditCommand object

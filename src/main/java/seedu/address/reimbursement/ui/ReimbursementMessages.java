@@ -28,13 +28,11 @@ public class ReimbursementMessages {
             + "list";
     public static final String MESSAGE_INVALID_FINDCOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
             + "find p/PERSON";
-    public static final String MESSAGE_INVALID_SORTNAMECOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
-            + "sortname";
-    public static final String MESSAGE_INVALID_SORTAMOUNTCOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
-            + "sortamount";
-    public static final String MESSAGE_INVALID_SORTDEADLINECOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
-            + "sortdeadline";
+
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
+
+    public static final String MESSAGE_INVALID_SORT_COMMAND_FORMAT = "Sorry! Please input sort by date, amount "
+            + "or name.";
 
     private static final Logger logger = LogsCenter.getLogger(ReimbursementMessages.class);
 

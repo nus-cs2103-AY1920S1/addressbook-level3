@@ -1,11 +1,11 @@
 package seedu.address.person.logic.parser;
 
 import static seedu.address.person.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.util.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.util.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.util.CliSyntax.PREFIX_NAME;
+import static seedu.address.util.CliSyntax.PREFIX_PHONE;
+import static seedu.address.util.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -18,6 +18,9 @@ import seedu.address.person.model.person.Name;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.model.person.Phone;
 import seedu.address.person.model.tag.Tag;
+import seedu.address.util.ArgumentMultimap;
+import seedu.address.util.ArgumentTokenizer;
+import seedu.address.util.Prefix;
 
 /**
  * Parses input arguments and creates a new AddCommand object
