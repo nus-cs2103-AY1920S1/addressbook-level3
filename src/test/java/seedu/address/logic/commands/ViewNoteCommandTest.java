@@ -21,7 +21,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.note.TitleMatchesKeywordsPredicate;
 */
 
-import seedu.address.model.Model;
 import seedu.address.model.note.TitleMatchesKeywordsPredicate;
 
 /**
