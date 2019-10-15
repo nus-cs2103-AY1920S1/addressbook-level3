@@ -17,9 +17,6 @@ import seedu.address.model.calendar.person.TaskTime;
 import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.tag.TaskTag;
 
-
-
-
 /**
  * Jackson-friendly version of {@link Task}.
  */

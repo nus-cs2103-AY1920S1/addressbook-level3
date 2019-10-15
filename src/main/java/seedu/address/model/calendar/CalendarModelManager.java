@@ -13,11 +13,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.calendar.person.Task;
 
-
-
-
-
-
 /**
  * Represents the in-memory calendarModel of the address book data.
  */

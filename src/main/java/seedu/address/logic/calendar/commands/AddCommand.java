@@ -11,7 +11,6 @@ import seedu.address.logic.calendar.commands.exceptions.CommandException;
 import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.person.Task;
 
-
 /**
  * Adds a task to the address book.
  */
@@ -28,7 +27,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_TASKTAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASKTITLE + "CS2109 Assignment 7 "
-            + PREFIX_TASKTIME + "2 August 2019 "
+            + PREFIX_TASKTIME + "20/10/2019 "
             + PREFIX_TASKDESCRIPTION + "Submit to Luminus "
             + PREFIX_TASKPLACE + "NUS "
             + PREFIX_TASKTAG + "IMPORTANT "

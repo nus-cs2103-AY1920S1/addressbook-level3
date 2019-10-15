@@ -8,7 +8,6 @@ import seedu.address.logic.calendar.commands.FindCommand;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
 import seedu.address.model.calendar.person.TaskTitleContainsKeywordsPredicate;
 
-
 /**
  * Parses input arguments and creates a new FindCommand object
  */

@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.calendar.person.Task;
 import seedu.address.model.calendar.person.UniqueTaskList;
 
-
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)

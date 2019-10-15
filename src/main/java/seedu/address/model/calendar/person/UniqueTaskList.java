@@ -11,11 +11,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.calendar.person.exceptions.DuplicateTaskException;
 import seedu.address.model.calendar.person.exceptions.TaskNotFoundException;
 
-
-
-
-
-
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
  * A task is considered unique by comparing using {@code Task#isSamePerson(Task)}. As such, adding and updating of

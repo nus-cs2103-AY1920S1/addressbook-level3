@@ -9,9 +9,6 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.calendar.CalendarUserPrefs;
 import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
 
-
-
-
 /**
  * A class to access CalendarUserPrefs stored in the hard disk as a json file
  */

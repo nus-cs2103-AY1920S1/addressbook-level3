@@ -11,9 +11,6 @@ import seedu.address.model.calendar.CalendarUserPrefs;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
 
-
-
-
 /**
  * Manages storage of CalendarCalendarAddressBook data in local storage.
  */

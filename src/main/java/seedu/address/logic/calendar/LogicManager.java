@@ -17,7 +17,6 @@ import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.person.Task;
 import seedu.address.storage.calendar.Storage;
 
-
 /**
  * The main LogicManager of the app.
  */

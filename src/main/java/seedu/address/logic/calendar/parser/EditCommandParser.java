@@ -19,11 +19,6 @@ import seedu.address.logic.calendar.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
 import seedu.address.model.calendar.tag.TaskTag;
 
-
-
-
-
-
 /**
  * Parses input arguments and creates a new EditCommand object
  */

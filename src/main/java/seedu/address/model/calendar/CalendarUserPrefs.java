@@ -8,7 +8,6 @@ import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
 
-
 /**
  * Represents User's preferences.
  */

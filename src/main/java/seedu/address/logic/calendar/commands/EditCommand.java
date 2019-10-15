@@ -26,7 +26,6 @@ import seedu.address.model.calendar.person.TaskTime;
 import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.tag.TaskTag;
 
-
 /**
  * Edits the details of an existing task in the taskPlace book.
  */
@@ -38,14 +37,14 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed task list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TASKTITLE + "NAME] "
-            + "[" + PREFIX_TASKTIME + "PHONE] "
-            + "[" + PREFIX_TASKDESCRIPTION + "EMAIL] "
-            + "[" + PREFIX_TASKPLACE + "ADDRESS] "
+            + "[" + PREFIX_TASKTITLE + "TITLE] "
+            + "[" + PREFIX_TASKTIME + "TIME] "
+            + "[" + PREFIX_TASKDESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_TASKPLACE + "PLACE] "
             + "[" + PREFIX_TASKTAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_TASKTIME + "91234567 "
-            + PREFIX_TASKDESCRIPTION + "johndoe@example.com";
+            + PREFIX_TASKTIME + "12/02/2019 "
+            + PREFIX_TASKDESCRIPTION + "Submit softcopy only";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

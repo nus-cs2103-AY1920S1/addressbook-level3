@@ -7,7 +7,6 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 
-
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.
  */

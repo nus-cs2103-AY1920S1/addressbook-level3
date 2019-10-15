@@ -5,7 +5,6 @@ import static seedu.address.model.calendar.CalendarModel.PREDICATE_SHOW_ALL_PERS
 
 import seedu.address.model.calendar.CalendarModel;
 
-
 /**
  * Lists all persons in the address book to the user.
  */

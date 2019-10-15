@@ -13,7 +13,6 @@ import seedu.address.model.calendar.CalendarCalendarAddressBook;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.person.Task;
 
-
 /**
  * An Immutable CalendarCalendarAddressBook that is serializable to JSON format.
  */

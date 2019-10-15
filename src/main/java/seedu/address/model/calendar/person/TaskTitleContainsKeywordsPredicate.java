@@ -5,8 +5,6 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 
-
-
 /**
  * Tests that a {@code Task}'s {@code TaskTitle} matches any of the keywords given.
  */

@@ -6,8 +6,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.SwitchOperation;
 import seedu.address.model.calendar.CalendarModel;
 
-
-
 /**
  * Switches to a new application component.
  */

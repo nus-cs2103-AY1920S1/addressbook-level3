@@ -8,9 +8,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.calendar.CalendarUserPrefs;
 import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
 
-
-
-
 /**
  * Represents a storage for {@link CalendarUserPrefs}.
  */

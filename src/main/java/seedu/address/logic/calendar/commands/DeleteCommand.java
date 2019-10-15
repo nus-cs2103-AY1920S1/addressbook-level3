@@ -10,7 +10,6 @@ import seedu.address.logic.calendar.commands.exceptions.CommandException;
 import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.person.Task;
 
-
 /**
  * Deletes a task identified using it's displayed index from the address book.
  */

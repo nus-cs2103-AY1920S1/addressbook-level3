@@ -9,7 +9,6 @@ import seedu.address.model.calendar.CalendarUserPrefs;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
 
-
 /**
  * API of the Storage component
  */
