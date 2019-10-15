@@ -19,11 +19,11 @@ import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    public static final String INVALID_NAME = "@pple";
+    public static final String INVALID_EXPIRY_DATE = "50/50/5000";
+    public static final String INVALID_TAG = "$cold";
+    public static final String INVALID_QUANTITY = "-2";
+    public static final String INVALID_REMINDER_THRESHOLD = "-5";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";

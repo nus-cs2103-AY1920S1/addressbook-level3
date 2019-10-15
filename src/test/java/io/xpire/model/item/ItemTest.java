@@ -1,9 +1,9 @@
 package io.xpire.model.item;
 
-import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_KIWI;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_APPLE;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_BANANA;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_DRINK;
+import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_KIWI;
+import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_APPLE;
+import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_BANANA;
+import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_DRINK;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalItems.APPLE;
 import static io.xpire.testutil.TypicalItems.KIWI;

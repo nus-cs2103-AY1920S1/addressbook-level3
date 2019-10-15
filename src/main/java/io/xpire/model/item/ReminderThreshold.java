@@ -13,6 +13,7 @@ import io.xpire.commons.util.StringUtil;
 public class ReminderThreshold {
 
     public static final String MESSAGE_CONSTRAINTS = "Reminder threshold should be a non-negative integer.";
+    public static final String DEFAULT_THRESHOLD = "0";
 
     private final int reminderThreshold;
 

@@ -9,78 +9,24 @@ import java.util.List;
 
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
+<<<<<<< HEAD
 import io.xpire.logic.parser.CliSyntax;
 import io.xpire.logic.parser.exceptions.ParseException;
+=======
+>>>>>>> daafe1b34526766956433eff202cce80de0f54ff
 import io.xpire.model.Model;
 import io.xpire.model.Xpire;
 import io.xpire.model.item.ContainsKeywordsPredicate;
 import io.xpire.model.item.Item;
 import io.xpire.testutil.Assert;
-import io.xpire.testutil.EditItemDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_KIWI = "Kiwi";
-    public static final String VALID_NAME_APPLE = "Apple";
-    public static final String VALID_NAME_BANANA = "Banana";
-    public static final String VALID_NAME_MILK = "Milk";
-
-    public static final String VALID_EXPIRY_DATE_KIWI = "1/2/2020";
-    public static final String VALID_EXPIRY_DATE_APPLE = "1/2/2020";
-    public static final String VALID_EXPIRY_DATE_BANANA = "1/2/2020";
-    public static final String VALID_EXPIRY_DATE_MILK = "1/2/2020";
-
-    public static final String VALID_QUANTITY_KIWI = "2";
-    public static final String VALID_QUANTITY_APPLE = "1";
-    public static final String VALID_QUANTITY_BANANA = "5";
-    public static final String VALID_QUANTITY_MILK = "2";
-
-    public static final String VALID_TAG_FRUIT = "fruit";
-    public static final String VALID_TAG_DRINK = "drinks";
-    public static final String VALID_TAG_GREEN = "green";
-
-    public static final String NAME_DESC_KIWI = " " + CliSyntax.PREFIX_NAME + VALID_NAME_KIWI;
-    public static final String NAME_DESC_APPLE = " " + CliSyntax.PREFIX_NAME + VALID_NAME_APPLE;
-    public static final String NAME_DESC_BANANA = " " + CliSyntax.PREFIX_NAME + VALID_NAME_BANANA;
-    public static final String NAME_DESC_MILK = " " + CliSyntax.PREFIX_NAME + VALID_NAME_MILK;
-
-    public static final String EXPIRY_DATE_DESC_KIWI = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_KIWI;
-    public static final String EXPIRY_DATE_DESC_APPLE = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_APPLE;
-    public static final String EXPIRY_DATE_DESC_BANANA = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_BANANA;
-    public static final String EXPIRY_DATE_DESC_MILK = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_MILK;
-    public static final String TAG_DESC_FRUIT = " " + CliSyntax.PREFIX_TAG + VALID_TAG_FRUIT;
-    public static final String TAG_DESC_DRINK = " " + CliSyntax.PREFIX_TAG + VALID_TAG_DRINK;
-    public static final String TAG_DESC_GREEN = " " + CliSyntax.PREFIX_TAG + VALID_TAG_GREEN;
-
-    public static final String INVALID_NAME_DESC = " " + CliSyntax.PREFIX_NAME + "James&";
-    public static final String INVALID_PHONE_DESC = " " + CliSyntax.PREFIX_PHONE + "911a";
-    public static final String INVALID_EMAIL_DESC = " " + CliSyntax.PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + CliSyntax.PREFIX_ADDRESS;
-    public static final String INVALID_EXPIRY_DATE_DESC = " " + CliSyntax.PREFIX_EXPIRY_DATE + "";
-    public static final String INVALID_TAG_DESC = " " + CliSyntax.PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-
-    public static final String INVALID_NAME = "James&";
-    public static final String INVALID_EXPIRY_DATE = "";
-    public static final String INVALID_TAG = "hubby*";
-    public static final String INVALID_QUANTITY = "-2";
-
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
-
-    public static final EditCommand.EditItemDescriptor DESC_KIWI;
-    public static final EditCommand.EditItemDescriptor DESC_APPLE;
-
-    static {
-        DESC_KIWI = new EditItemDescriptorBuilder().withName(VALID_NAME_KIWI)
-                                                  .withExpiryDate(VALID_EXPIRY_DATE_KIWI)
-                                                  .withTags(VALID_TAG_FRUIT).build();
-        DESC_APPLE = new EditItemDescriptorBuilder().withName(VALID_NAME_BANANA)
-                                                    .withExpiryDate(VALID_EXPIRY_DATE_BANANA)
-                                                  .withTags(VALID_TAG_FRUIT).build();
-    }
 
     /**
      * Executes the given {@code command}, confirms that <br>

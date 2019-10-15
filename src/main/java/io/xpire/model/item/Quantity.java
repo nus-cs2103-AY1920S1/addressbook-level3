@@ -8,11 +8,14 @@ import io.xpire.logic.parser.exceptions.ParseException;
 
 /**
  * Represents the quantity of an item.
+ * Users are only allowed to key in positive integers.
+ * Internally, there can be quantity of value 0.
  * Guarantees: immutable and valid in {@link #isValidQuantity(String test)}.
  */
 public class Quantity {
+
     public static final String MESSAGE_CONSTRAINTS =
-            "Quantity should be a positive integer and should not be blank";
+            "Quantity added should be a positive integer and should not be blank";
     public static final String DEFAULT_QUANTITY = "1";
     private int quantity;
 
@@ -23,7 +26,7 @@ public class Quantity {
      */
     public Quantity(String quantity) {
         requireNonNull(quantity);
-        AppUtil.checkArgument(isValidQuantity(quantity), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidInputQuantity(quantity), MESSAGE_CONSTRAINTS);
         this.quantity = Integer.parseInt(quantity);
     }
 
@@ -34,6 +37,12 @@ public class Quantity {
         return StringUtil.isNonNegativeInteger(test);
     }
 
+    /**
+     * Returns true if a given string is a valid input quantity, i.e. a positive integer.
+     */
+    public static boolean isValidInputQuantity(String test) {
+        return StringUtil.isPositiveInteger(test);
+    }
     /**
      * Returns true if quantity is zero.
      */
