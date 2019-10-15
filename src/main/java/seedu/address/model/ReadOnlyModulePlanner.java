@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.versiontracking.VersionTrackingManager;
 
@@ -24,4 +25,9 @@ public interface ReadOnlyModulePlanner {
      * Returns the version tracking manager of this module planner.
      */
     VersionTrackingManager getVersionTrackingManager();
+
+    /**
+     * Returns the current semester of this module planner.
+     */
+    SemesterName getCurrentSemester();
 }

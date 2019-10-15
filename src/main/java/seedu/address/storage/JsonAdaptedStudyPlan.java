@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.module.Module;
@@ -14,8 +15,6 @@ import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-
 
 /**
  * Jackson-friendly version of {@link seedu.address.model.studyplan.StudyPlan}.
@@ -24,6 +23,7 @@ class JsonAdaptedStudyPlan {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Study Plan's %s field is missing!";
 
+    private final int totalNumber; // this corresponds to the static field in StudyPlan: totalNumberOfStudyPlans
     private final String title;
     private final int index;
     private final boolean isActive;
@@ -37,11 +37,13 @@ class JsonAdaptedStudyPlan {
      * Constructs a {@code JsonAdaptedStudyPlan} with the given StudyPlan details.
      */
     @JsonCreator
-    public JsonAdaptedStudyPlan(@JsonProperty("title") String title, @JsonProperty("index") int index,
+    public JsonAdaptedStudyPlan(@JsonProperty("totalNumber") int totalNumber,
+                                @JsonProperty("title") String title, @JsonProperty("index") int index,
                                 @JsonProperty("isActive") boolean isActive,
                                 @JsonProperty("semesters") List<JsonAdaptedSemester> semesters,
                                 @JsonProperty("modules") List<JsonAdaptedModule> modules,
                                 @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+        this.totalNumber = totalNumber;
         this.title = title;
         this.index = index;
         this.isActive = isActive;
@@ -60,6 +62,7 @@ class JsonAdaptedStudyPlan {
      * Converts a given {@code StudyPlan} into this class for Jackson use.
      */
     public JsonAdaptedStudyPlan(StudyPlan source) {
+        totalNumber = StudyPlan.getTotalNumberOfStudyPlans();
         title = source.getTitle().toString();
         index = source.getIndex();
         isActive = source.isActive();
@@ -121,11 +124,15 @@ class JsonAdaptedStudyPlan {
             modelModules.put(module.getModuleCode(), module.toModelType());
         }
 
-        final UniqueTagList modelTags = new UniqueTagList();
+        final List<Tag> modelTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
-            modelTags.addTag(tag.toModelType());
+            modelTags.add(tag.toModelType());
         }
 
-        return new StudyPlan(modelTitle, modelIndex, modelIsActive, modelSemesters, modelModules, modelTags);
+        StudyPlan result =
+                new StudyPlan(modelTitle, modelIndex, modelIsActive, modelSemesters, modelModules, modelTags);
+        StudyPlan.setTotalNumberOfStudyPlans(totalNumber);
+
+        return result;
     }
 }
