@@ -11,7 +11,8 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "Todo: " + this.taskDes;
+        return "Todo: " + this.taskDes + "\nPriority: " + priority + "\nFrequency: " + frequency + "\nTags:"
+                + getTags().toString();
     }
 
     /**

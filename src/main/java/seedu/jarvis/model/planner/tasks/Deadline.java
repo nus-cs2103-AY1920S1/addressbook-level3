@@ -24,7 +24,9 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "Deadline: " + this.taskDes + " by " + this.deadline;
+        return "Deadline: " + this.taskDes + " by " + this.deadline
+                + "\nPriority: " + priority + "\nFrequency: " + frequency + "\nTags:"
+                + getTags().toString();
     }
 
     /**
@@ -35,7 +37,6 @@ public class Deadline extends Task {
      */
     @Override
     public boolean isEqual(Task other) {
-        //TODO
         boolean isSameType = other instanceof Deadline;
         boolean isSameDes = taskDes.equals(other.taskDes);
         boolean isSameDate = false;
