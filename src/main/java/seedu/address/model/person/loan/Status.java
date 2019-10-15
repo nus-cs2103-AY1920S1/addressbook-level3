@@ -7,7 +7,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents the status (PAID/UNPAID) of a Loan.
  * Guarantees: immutable; valid as declared in {@link #isValidStatus(String)}
  */
-public class Status {
+public enum Status {
+    PAID("PAID"),
+    UNPAID("UNPAID");
 
     public static final String MESSAGE_CONSTRAINTS =
             "Status can only be PAID or UNPAID (case-sensitive).";
@@ -18,7 +20,7 @@ public class Status {
      * Constructs a {@code status}.
      * @param status A valid status.
      */
-    public Status(String status) {
+    Status(String status) {
         requireNonNull(status);
         checkArgument(isValidStatus(status), MESSAGE_CONSTRAINTS);
         this.status = status;
@@ -30,7 +32,8 @@ public class Status {
      * @return True if valid (string is "PAID" or "UNPAID"), false otherwise.
      */
     public static boolean isValidStatus(String testStatus) {
-        return testStatus.equals("PAID") || testStatus.equals("UNPAID");
+        return testStatus.equals(PAID.toString())
+                || testStatus.equals(UNPAID.toString());
     }
 
     /**
@@ -39,30 +42,11 @@ public class Status {
      */
     public String getStatusIcon() {
         // PAID: tick icon; UNPAID: blank space
-        return status.equals("PAID") ? "\u2713" : " ";
+        return status.equals(PAID.toString()) ? "\u2713" : " ";
     }
 
     @Override
     public String toString() {
         return status;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Status)) {
-            return false;
-        }
-
-        Status otherStatus = (Status) other;
-        return status.equals(otherStatus.status);
-    }
-
-    @Override
-    public int hashCode() {
-        return status.hashCode();
     }
 }

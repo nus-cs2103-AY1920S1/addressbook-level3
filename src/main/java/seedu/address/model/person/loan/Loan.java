@@ -83,11 +83,11 @@ public class Loan {
 
         Loan otherLoan = (Loan) other;
         return otherLoan.getPerson().isSamePerson(person)
-                && otherLoan.getDirection().equals(direction)
+                && otherLoan.getDirection() == direction
                 && otherLoan.getAmount().equals(amount)
                 && otherLoan.getDate().equals(date)
                 && otherLoan.getDescription().equals(description)
-                && otherLoan.getStatus().equals(status);
+                && otherLoan.getStatus() == status;
     }
 
     @Override
