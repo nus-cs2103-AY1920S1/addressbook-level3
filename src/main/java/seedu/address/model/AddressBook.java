@@ -59,7 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.expenses.setEntries(expenses);
     }
 
-    public void setIncome(List<Income> incomes) {
+    public void setIncomes(List<Income> incomes) {
         this.incomes.setEntries(incomes);
     }
 
