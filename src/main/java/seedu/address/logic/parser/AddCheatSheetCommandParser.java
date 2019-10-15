@@ -8,15 +8,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javafx.collections.ObservableList;
 import seedu.address.logic.commands.AddCheatSheetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.Content;
 import seedu.address.model.cheatsheet.Title;
-import seedu.address.model.note.Note;
-import seedu.address.model.note.NoteContainsTagPredicate;
 import seedu.address.model.tag.Tag;
 
 

@@ -7,13 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javafx.collections.ObservableList;
-import seedu.address.logic.commands.FilterNoteByTagCommand;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.note.Note;
-import seedu.address.model.note.NoteContainsTagPredicate;
 import seedu.address.model.tag.Tag;
 
 /**

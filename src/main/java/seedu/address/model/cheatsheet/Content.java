@@ -30,8 +30,8 @@ public class Content {
         requireNonNull(question, answer);
         checkArgument(isValidContent(question), MESSAGE_CONSTRAINTS);
         checkArgument(isValidContent(answer), MESSAGE_CONSTRAINTS);
-        this.content = "Question: " + question +
-                "\nAnswer: " + answer;
+        this.content = "Question: " + question
+                + "\nAnswer: " + answer;
 
         System.out.println(this.content);
     }

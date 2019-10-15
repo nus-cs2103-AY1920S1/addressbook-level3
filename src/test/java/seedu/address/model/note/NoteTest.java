@@ -14,14 +14,14 @@ public class NoteTest {
 
     @Test
     public void toString_format_success() {
-        Note note = new Note(new Title("this is a title"), new Content("this is a content"));
+        Note note = new Note(new Title("this is a title"), new Content("this is a content"), null);
         assertEquals(note.toString(), "Title: this is a title\nContent: this is a content");
     }
 
     @Test
     public void requireNonNull_noTitleProvided_throwsIllegalArgumentException() {
         assertThrows(java.lang.IllegalArgumentException.class, () -> new Note(new Title("title"),
-                new Content("")));
+                new Content(""), null));
     }
 
     /*

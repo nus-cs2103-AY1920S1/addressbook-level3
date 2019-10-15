@@ -2,9 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.collections.ObservableList;
 import seedu.address.model.Model;
-import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteContainsTagPredicate;
 
 /**

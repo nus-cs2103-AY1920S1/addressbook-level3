@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import seedu.address.model.tag.Tag;
 
+/**
+ * Tests that a {@code Cheatsheet}'s {@code Tag} matches any of the keywords given.
+ */
 public class CheatSheetContainsTagPredicate implements Predicate<CheatSheet> {
     private final Set<Tag> tags;
 

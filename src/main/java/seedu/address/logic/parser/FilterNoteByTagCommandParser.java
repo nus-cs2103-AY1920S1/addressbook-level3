@@ -9,7 +9,6 @@ import seedu.address.logic.commands.FilterByTagCommand;
 import seedu.address.logic.commands.FilterNoteByTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.NoteContainsTagPredicate;
-import seedu.address.model.person.PersonContainsTagPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
