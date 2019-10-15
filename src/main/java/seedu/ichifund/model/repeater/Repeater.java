@@ -6,7 +6,9 @@ import java.util.Objects;
 
 import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.Description;
+import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.transaction.Category;
+import seedu.ichifund.model.transaction.TransactionType;
 
 /**
  * Represents a Repeater in IchiFund.
@@ -16,18 +18,26 @@ public class Repeater {
     private final Description description;
     private final Amount amount;
     private final Category category;
+    private final TransactionType transactionType;
     private final MonthOffset monthStartOffset;
     private final MonthOffset monthEndOffset;
+    private final Date startDate;
+    private final Date endDate;
 
-    public Repeater(Description description, Amount amount, Category category,
-            MonthOffset monthStartOffset, MonthOffset monthEndOffset) {
-        requireAllNonNull(description, amount, category, monthStartOffset, monthEndOffset);
+    public Repeater(Description description, Amount amount, Category category, TransactionType transactionType,
+            MonthOffset monthStartOffset, MonthOffset monthEndOffset, Date startDate, Date endDate) {
+
+        requireAllNonNull(description, amount, category, transactionType, monthStartOffset, monthEndOffset,
+                startDate, endDate);
 
         this.description = description;
         this.amount = amount;
         this.category = category;
+        this.transactionType = transactionType;
         this.monthStartOffset = monthStartOffset;
         this.monthEndOffset = monthEndOffset;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public Description getDescription() {
@@ -42,12 +52,24 @@ public class Repeater {
         return this.category;
     }
 
+    public TransactionType getTransactionType() {
+        return this.transactionType;
+    }
+
     public MonthOffset getMonthStartOffset() {
         return this.monthStartOffset;
     }
 
     public MonthOffset getMonthEndOffset() {
         return this.monthEndOffset;
+    }
+
+    public Date getStartDate() {
+        return this.startDate;
+    }
+
+    public Date getEndDate() {
+        return this.endDate;
     }
 
     /**
@@ -63,8 +85,11 @@ public class Repeater {
                 && otherRepeater.getDescription().equals(getDescription())
                 && otherRepeater.getAmount().equals(getAmount())
                 && otherRepeater.getCategory().equals(getCategory())
+                && otherRepeater.getTransactionType().equals(getTransactionType())
                 && otherRepeater.getMonthStartOffset().equals(getMonthStartOffset())
-                && otherRepeater.getMonthEndOffset().equals(getMonthEndOffset());
+                && otherRepeater.getMonthEndOffset().equals(getMonthEndOffset())
+                && otherRepeater.getStartDate().equals(getStartDate())
+                && otherRepeater.getEndDate().equals(getEndDate());
     }
 
     /**
@@ -85,12 +110,16 @@ public class Repeater {
         return otherRepeater.getDescription().equals(getDescription())
                 && otherRepeater.getAmount().equals(getAmount())
                 && otherRepeater.getCategory().equals(getCategory())
+                && otherRepeater.getTransactionType().equals(getTransactionType())
                 && otherRepeater.getMonthStartOffset().equals(getMonthStartOffset())
-                && otherRepeater.getMonthEndOffset().equals(getMonthEndOffset());
+                && otherRepeater.getMonthEndOffset().equals(getMonthEndOffset())
+                && otherRepeater.getStartDate().equals(getStartDate())
+                && otherRepeater.getEndDate().equals(getEndDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, amount, category, monthStartOffset, monthEndOffset);
+        return Objects.hash(description, amount, category, transactionType, monthStartOffset, monthEndOffset,
+                startDate, endDate);
     }
 }
