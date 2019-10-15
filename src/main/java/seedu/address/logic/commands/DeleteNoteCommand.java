@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.DELETE;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import seedu.address.model.note.Note;
  */
 public class DeleteNoteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete_note";
+    public static final String COMMAND_WORD = DELETE;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the note identified by the index number used in the displayed note list.\n"

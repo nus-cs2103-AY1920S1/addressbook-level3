@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.DELETE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import seedu.address.model.flashcard.Flashcard;
  * Deletes a person identified using it's displayed index from the address book.
  */
 public class DeleteFlashcardCommand extends Command {
-    public static final String COMMAND_WORD = "del";
+    public static final String COMMAND_WORD = DELETE;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the flashcard identified by the index number used in the displayed flashcard list.\n"

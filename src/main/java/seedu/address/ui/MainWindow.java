@@ -257,7 +257,7 @@ public class MainWindow extends UiPart<Stage> {
         case CHEATSHEET:
             currentHighlightedCircle = csHighlightCircle;
             break;
-        case NOTES:
+        case NOTE:
             currentHighlightedCircle = notesHighlightCircle;
             break;
         default:
