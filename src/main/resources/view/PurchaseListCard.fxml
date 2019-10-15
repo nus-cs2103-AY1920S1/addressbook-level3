@@ -26,7 +26,7 @@
         </Label>
       </HBox>
       <Label fx:id="price" styleClass="cell_small_label" text="\$price" />
-      <Label fx:id="timeago" styleClass="cell_small_label" text="\$timeago" />
+      <Label fx:id="timeAgo" styleClass="cell_small_label" text="\$timeAgo" />
     </VBox>
   </GridPane>
 </HBox>

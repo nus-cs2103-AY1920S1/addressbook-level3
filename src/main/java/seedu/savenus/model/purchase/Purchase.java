@@ -1,5 +1,6 @@
 package seedu.savenus.model.purchase;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Objects;
@@ -42,11 +43,23 @@ public class Purchase {
         return timeOfPurchase.getTimeOfPurchaseInMillisSinceEpoch();
     }
 
-    public String getTimeAgoString() {
-        return TimeFormatter.format((
-                LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
-                        - getTimeOfPurchaseInMillisSinceEpoch()));
+    public LocalDateTime getTimeOfPurchaseInLocalDateTime() {
+        return LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(getTimeOfPurchaseInMillisSinceEpoch()), ZoneId.systemDefault());
     }
+
+    /**
+     * Returns "Today" plus local time if same day, else returns Day of the week plus Date.
+     */
+    public String getTimeAgoString() {
+        long daysAgo = TimeFormatter.getDaysAgo((getTimeOfPurchaseInLocalDateTime()));
+        if (daysAgo == 0) {
+            return "Today " + TimeFormatter.format12HourClock(getTimeOfPurchaseInLocalDateTime());
+        } else {
+            return TimeFormatter.formatDayPlusDate(getTimeOfPurchaseInLocalDateTime());
+        }
+    }
+
     /**
      * Returns true if both purchase have the same foodPurchased and timeOfPurchase fields.
      * This defines a stronger notion of equality between two purchases.
