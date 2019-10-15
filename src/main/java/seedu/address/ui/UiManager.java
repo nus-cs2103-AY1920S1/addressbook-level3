@@ -23,7 +23,7 @@ public class UiManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic logic;
-    private MainWindow mainWindow;
+    private RecipeBookWindow recipeBookWindow;
 
     public UiManager(Logic logic) {
         super();
@@ -38,9 +38,9 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts();
+            recipeBookWindow = new RecipeBookWindow(primaryStage, logic);
+            recipeBookWindow.show(); //This should be called before creating other UI parts
+            recipeBookWindow.fillInnerParts();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -53,7 +53,7 @@ public class UiManager implements Ui {
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+        showAlertDialogAndWait(recipeBookWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
     /**
