@@ -27,7 +27,6 @@ import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.storage.JsonBillboardStorage;
-import seedu.billboard.storage.JsonArchiveStorage;
 import seedu.billboard.storage.JsonUserPrefsStorage;
 import seedu.billboard.storage.StorageManager;
 import seedu.billboard.testutil.ExpenseBuilder;
@@ -45,10 +44,8 @@ public class LogicManagerTest {
     public void setUp() {
         JsonBillboardStorage billboardStorage =
                 new JsonBillboardStorage(temporaryFolder.resolve("billboard.json"));
-        JsonArchiveStorage archiveStorage =
-                new JsonArchiveStorage(temporaryFolder.resolve("archive.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(billboardStorage, archiveStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(billboardStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -75,11 +72,9 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonBillboardIoExceptionThrowingStub and JsonArchiveIoExceptionThrowingStub
         JsonBillboardStorage billboardStorage =
                 new JsonBillboardIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
-        JsonArchiveStorage archiveStorage =
-                new JsonArchiveIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(billboardStorage, archiveStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(billboardStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -133,7 +128,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getBillboard(), model.getArchives(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getBillboard(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -164,17 +159,4 @@ public class LogicManagerTest {
         }
     }
 
-    /**
-     * A stub class to throw an {@code IOException} when the save method is called.
-     */
-    private static class JsonArchiveIoExceptionThrowingStub extends JsonArchiveStorage {
-        private JsonArchiveIoExceptionThrowingStub(Path filePath) {
-            super(filePath);
-        }
-
-        @Override
-        public void saveArchive(ReadOnlyBillboard archive, Path filePath) throws IOException {
-            throw DUMMY_IO_EXCEPTION;
-        }
-    }
 }

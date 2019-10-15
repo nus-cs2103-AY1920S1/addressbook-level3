@@ -86,6 +86,11 @@ public class BillboardTest {
         public ObservableList<Expense> getExpenses() {
             return expenses;
         }
+
+        @Override
+        public List<Expense> filterAndRemoveArchiveExpenses() {
+            return getExpenses();
+        }
     }
 
 }

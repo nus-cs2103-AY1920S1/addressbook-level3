@@ -33,6 +33,8 @@ public class CommandTestUtil {
     public static final String VALID_AMOUNT_TAXES = "320.50";
     public static final String VALID_TAG_DINNER = "food";
     public static final String VALID_TAG_TAXES = "bills";
+    public static final String VALID_ARCHIVE_DINNER = "";
+    public static final String VALID_ARCHIVE_TAXES = "2018 bills";
 
     public static final String NAME_DESC_DINNER = " " + PREFIX_NAME + VALID_NAME_DINNER;
     public static final String NAME_DESC_TAXES = " " + PREFIX_NAME + VALID_NAME_TAXES;

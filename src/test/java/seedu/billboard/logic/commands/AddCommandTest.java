@@ -8,6 +8,7 @@ import static seedu.billboard.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -15,10 +16,8 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.logic.commands.exceptions.CommandException;
-import seedu.billboard.model.Billboard;
-import seedu.billboard.model.Model;
-import seedu.billboard.model.ReadOnlyBillboard;
-import seedu.billboard.model.ReadOnlyUserPrefs;
+import seedu.billboard.model.*;
+import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.testutil.ExpenseBuilder;
 
@@ -148,52 +147,62 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getArchiveFilePath() {
+        public Billboard getCombinedBillboard() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setArchiveFilePath(Path archiveFilePath) {
+        public List<String> getArchiveNames() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setArchiveExpenses(ReadOnlyBillboard archiveExpenses) {
+        public void setArchives(ReadOnlyArchiveWrapper archives) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyBillboard getArchives() {
+        public ReadOnlyArchiveWrapper getArchives() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasArchiveExpense(Expense expense) {
+        public boolean hasArchiveExpense(String archiveName, Expense expense) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteArchiveExpense(Expense target) {
+        public boolean hasArchive(String archive) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addArchiveExpense(Expense expense) {
+        public void deleteArchiveExpense(String archiveName, Expense target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setArchiveExpense(Expense target, Expense editedExpense) {
+        public void addArchiveExpense(String archiveName, Expense expense) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Expense> getFilteredArchiveExpenses() {
+        public void addArchive(Archive archive) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredArchiveExpenses(Predicate<Expense> predicate) {
+        public void setArchiveExpense(String archiveName, Expense target, Expense editedExpense) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Expense> getFilteredArchiveExpenses(String archiveName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredArchiveExpenses(String archiveName, Predicate<Expense> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

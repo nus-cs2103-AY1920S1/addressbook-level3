@@ -30,7 +30,6 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new Billboard(), new Billboard(modelManager.getBillboard()));
-        assertEquals(new Billboard(), new Billboard(modelManager.getArchives()));
     }
 
     @Test
@@ -105,8 +104,8 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(billboard, archive, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(billboard, archive, userPrefs);
+        modelManager = new ModelManager(billboard, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(billboard, userPrefs);
         assertEquals(modelManager, modelManagerCopy);
 
         // same object -> returns true
@@ -119,15 +118,12 @@ public class ModelManagerTest {
         assertNotEquals(5, modelManager);
 
         // different billboard -> returns false
-        assertNotEquals(modelManager, new ModelManager(differentBillboard, archive, userPrefs));
-
-        // different archive -> returns false
-        assertNotEquals(modelManager, new ModelManager(billboard, differentBillboard, userPrefs));
+        assertNotEquals(modelManager, new ModelManager(differentBillboard, userPrefs));
 
         // different filteredList -> returns false
         String[] keywords = BILLS.getName().name.split("\\s+");
         modelManager.updateFilteredExpenses(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertNotEquals(modelManager, new ModelManager(billboard, archive, userPrefs));
+        assertNotEquals(modelManager, new ModelManager(billboard, userPrefs));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
@@ -135,6 +131,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setBillboardFilePath(Paths.get("differentFilePath"));
-        assertNotEquals(modelManager, new ModelManager(billboard, archive, differentUserPrefs));
+        assertNotEquals(modelManager, new ModelManager(billboard, differentUserPrefs));
     }
 }
