@@ -2,6 +2,7 @@ package seedu.ezwatchlist.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -157,9 +158,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    /*public ShowListPanel getShowListPanel() {
+    public ShowListPanel getShowListPanel() {
         return showListPanel;
-    }*/
+    }
 
     /**
      * Executes the command and returns the result.
@@ -173,7 +174,8 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             //somehow use this code to display list of search results???
             //showListPanel = new ShowListPanel(logic.getSearchResultList());
-            //showListPanelPlaceholder.getChildren().add(showListPanel.getRoot());
+            //contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
+
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -190,6 +192,7 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
     @FXML
     private void goToWatchlist() {
         contentPanelPlaceholder.getChildren().clear();

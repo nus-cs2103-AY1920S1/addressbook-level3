@@ -1,6 +1,6 @@
 package seedu.ezwatchlist.model.show;
 
-import static seedu.ezwatchlist.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -29,7 +29,6 @@ public class Show {
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
     private final String imageOfShow;
-
 
     public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
