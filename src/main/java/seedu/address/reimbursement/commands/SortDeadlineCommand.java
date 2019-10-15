@@ -9,8 +9,7 @@ import seedu.address.reimbursement.ui.ReimbursementMessages;
 /**
  * Represents a command to sort by deadline.
  */
-public class SortDeadlineCommand extends Command {
-    public static final String COMMAND_WORD = "sortdeadline";
+public class SortDeadlineCommand extends SortCommand {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @Override

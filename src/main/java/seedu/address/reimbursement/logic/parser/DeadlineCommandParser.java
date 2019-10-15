@@ -1,16 +1,18 @@
 package seedu.address.reimbursement.logic.parser;
 
-import static seedu.address.reimbursement.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.reimbursement.logic.parser.CliSyntax.PREFIX_PERSON;
+import static seedu.address.util.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 
 import java.util.stream.Stream;
-
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.commands.DeadlineCommand;
 import seedu.address.reimbursement.logic.exception.ParseException;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
+import seedu.address.util.ArgumentMultimap;
+import seedu.address.util.ArgumentTokenizer;
+import seedu.address.util.Prefix;
 
 /**
  * Parser for deadline command.

@@ -1,9 +1,8 @@
 package seedu.address.transaction.logic;
 
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_PERSON;
+import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 
 import java.util.stream.Stream;
-
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
@@ -13,6 +12,9 @@ import seedu.address.transaction.commands.DeleteNameCommand;
 import seedu.address.transaction.logic.exception.NotANumberException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.ui.TransactionMessages;
+import seedu.address.util.ArgumentMultimap;
+import seedu.address.util.ArgumentTokenizer;
+import seedu.address.util.Prefix;
 
 /**
  * Parses input arguments and creates a new DeleteIndexCommand object

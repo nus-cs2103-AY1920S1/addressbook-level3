@@ -1,10 +1,9 @@
 package seedu.address.cashier.logic;
 
-import static seedu.address.cashier.logic.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.cashier.logic.CliSyntax.PREFIX_QUANTITY;
+import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
 import java.util.stream.Stream;
-
 import seedu.address.cashier.commands.AddCommand;
 import seedu.address.cashier.logic.exception.InsufficientAmountException;
 import seedu.address.cashier.logic.exception.NotANumberException;
@@ -12,6 +11,9 @@ import seedu.address.cashier.logic.exception.ParseException;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;
+import seedu.address.util.ArgumentMultimap;
+import seedu.address.util.ArgumentTokenizer;
+import seedu.address.util.Prefix;
 
 /**
  * Parses input arguments and creates a new AddCommand object.

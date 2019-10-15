@@ -1,10 +1,10 @@
 package seedu.address.transaction.logic;
 
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.transaction.logic.CliSyntax.PREFIX_PERSON;
+import static seedu.address.util.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.util.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -12,6 +12,8 @@ import java.util.Locale;
 import seedu.address.transaction.commands.EditCommand;
 import seedu.address.transaction.logic.exception.ParseException;
 import seedu.address.transaction.ui.TransactionMessages;
+import seedu.address.util.ArgumentMultimap;
+import seedu.address.util.ArgumentTokenizer;
 
 /**
  * Parses input arguments and creates a new EditCommand object

@@ -1,17 +1,19 @@
 package seedu.address.inventory.logic;
 
-import static seedu.address.inventory.logic.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.inventory.logic.CliSyntax.PREFIX_COST;
-import static seedu.address.inventory.logic.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.inventory.logic.CliSyntax.PREFIX_PRICE;
-import static seedu.address.inventory.logic.CliSyntax.PREFIX_QUANTITY;
+import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.util.CliSyntax.PREFIX_COST;
+import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.util.CliSyntax.PREFIX_PRICE;
+import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
 import java.util.stream.Stream;
-
 import seedu.address.inventory.commands.AddCommand;
 import seedu.address.inventory.logic.exception.ParseException;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.ui.InventoryMessages;
+import seedu.address.util.ArgumentMultimap;
+import seedu.address.util.ArgumentTokenizer;
+import seedu.address.util.Prefix;
 
 /**
  * Parser for Add Commands.
@@ -25,6 +27,7 @@ public class AddCommandParser {
             ArgumentMultimap argMultimap =
                     ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_QUANTITY,
                             PREFIX_COST, PREFIX_PRICE);
+
 
             if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_QUANTITY,
                     PREFIX_COST, PREFIX_PRICE) || !argMultimap.getPreamble().isEmpty()) {
