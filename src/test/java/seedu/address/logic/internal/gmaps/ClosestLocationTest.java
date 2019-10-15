@@ -20,15 +20,19 @@ class ClosestLocationTest {
 
     @Test
     void execute() {
-        await().until(() ->
-        {
-            return closestLocation != null;
-        });
-        Venue venue1 = new Venue("LT17");
-        Venue venue2 = new Venue("LT17");
-        Venue venue3 = new Venue("LT17");
-        ArrayList<Venue> venues = new ArrayList<>(Arrays.asList(venue1, venue2, venue3));
-        assertEquals(closestLocation.closestLocationVenues(venues), "NUS_LT17");
+        try {
+            await().until(() ->
+            {
+                return closestLocation != null;
+            });
+            Venue venue1 = new Venue("LT17");
+            Venue venue2 = new Venue("LT17");
+            Venue venue3 = new Venue("LT17");
+            ArrayList<Venue> venues = new ArrayList<>(Arrays.asList(venue1, venue2, venue3));
+            assertEquals(closestLocation.closestLocationVenues(venues), "NUS_LT17");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
