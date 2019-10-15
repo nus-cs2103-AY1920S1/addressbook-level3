@@ -24,7 +24,7 @@ public class ViewNoteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    private final String VIEW_NOTE_SUCCESS = "Viewing note: %1$s";
+    public static final String VIEW_NOTE_SUCCESS = "Viewing note: %1$s";
 
     private final Index targetIndex;
 

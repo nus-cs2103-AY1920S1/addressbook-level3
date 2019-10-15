@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.util.Optional;
-
 import seedu.address.model.Model;
 
 /**
