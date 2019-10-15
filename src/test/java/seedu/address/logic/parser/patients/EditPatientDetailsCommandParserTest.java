@@ -1,5 +1,6 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.patients;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -24,33 +25,41 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.CARL;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.common.ReversibleActionPairCommand;
+import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
+import seedu.address.model.Model;
 import seedu.address.model.common.Tag;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.Phone;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TestUtil;
 
-public class EditCommandParserTest {
+public class EditPatientDetailsCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPatientDetailsCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private Model model = TestUtil.getTypicalModelManager();
+    private EditPatientDetailsCommandParser parser = new EditPatientDetailsCommandParser(model);
 
     @Test
     public void parse_missingParts_failure() {
@@ -58,7 +67,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", EditPatientDetailsCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -96,12 +105,16 @@ public class EditCommandParserTest {
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY,
+            Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND,
+            Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND,
+            Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
+        assertParseFailure(parser,
+                "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
@@ -111,15 +124,19 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
                                    + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        Person personToEdit = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Person editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_AMY)
                                                   .withPhone(VALID_PHONE_BOB)
                                                   .withEmail(VALID_EMAIL_AMY)
                                                   .withAddress(VALID_ADDRESS_AMY)
                                                   .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
                                                   .build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput,
+            new ReversibleActionPairCommand(
+                new EditPatientDetailsCommand(personToEdit, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, personToEdit)
+        ));
     }
 
     @Test
@@ -127,11 +144,15 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        Person editedPerson = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB)
                                                   .withEmail(VALID_EMAIL_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput,
+            new ReversibleActionPairCommand(
+                new EditPatientDetailsCommand(ALICE, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, ALICE)
+            ));
+
     }
 
     @Test
@@ -139,33 +160,49 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        Person editedPerson = new PersonBuilder(CARL).withName(VALID_NAME_AMY).build();
+        assertParseSuccess(parser, userInput,
+            new ReversibleActionPairCommand(
+                new EditPatientDetailsCommand(CARL, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, CARL)
+            ));
 
         // phone
         userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        editedPerson = new PersonBuilder(CARL).withPhone(VALID_PHONE_AMY).build();
+        assertParseSuccess(parser, userInput,
+            new ReversibleActionPairCommand(
+                new EditPatientDetailsCommand(CARL, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, CARL)
+            ));
 
         // email
         userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        editedPerson = new PersonBuilder(CARL).withEmail(VALID_EMAIL_AMY).build();
+        assertParseSuccess(parser, userInput,
+            new ReversibleActionPairCommand(
+                new EditPatientDetailsCommand(CARL, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, CARL)
+            ));
 
         // address
         userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        editedPerson = new PersonBuilder(CARL).withAddress(VALID_ADDRESS_AMY).build();
+        assertParseSuccess(parser, userInput,
+            new ReversibleActionPairCommand(
+                new EditPatientDetailsCommand(CARL, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, CARL)
+            ));
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditPersonDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        editedPerson = new PersonBuilder(CARL).withTags(VALID_TAG_FRIEND).build();
+        assertParseSuccess(parser, userInput,
+            new ReversibleActionPairCommand(
+                new EditPatientDetailsCommand(CARL, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, CARL)
+            ));
+
     }
 
     @Test
@@ -176,14 +213,16 @@ public class EditCommandParserTest {
                                    + TAG_DESC_FRIEND
                                    + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        Person editedPerson = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB)
                                                   .withEmail(VALID_EMAIL_BOB)
                                                   .withAddress(VALID_ADDRESS_BOB)
                                                   .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                                                   .build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput,
+            new ReversibleActionPairCommand(
+                new EditPatientDetailsCommand(ALICE, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, ALICE)
+            ));
     }
 
     @Test
@@ -191,17 +230,23 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        Person editedPerson = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        assertParseSuccess(parser, userInput,
+            new ReversibleActionPairCommand(
+                new EditPatientDetailsCommand(ALICE, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, ALICE)
+            ));
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
                             + PHONE_DESC_BOB;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+        editedPerson = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                              .withAddress(VALID_ADDRESS_BOB).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseSuccess(parser, userInput,
+            new ReversibleActionPairCommand(
+                new EditPatientDetailsCommand(ALICE, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, ALICE)
+            ));
     }
 
     @Test
@@ -209,9 +254,29 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        Person editedPerson = new PersonBuilder(CARL).withTags().build();
+        assertParseSuccess(parser, userInput,
+            new ReversibleActionPairCommand(
+                new EditPatientDetailsCommand(CARL, editedPerson),
+                new EditPatientDetailsCommand(editedPerson, CARL)
+            ));
+    }
 
-        assertParseSuccess(parser, userInput, expectedCommand);
+    /**
+     * Edit filtered list where index is larger than size of filtered list,
+     * but smaller than size of address book
+     */
+    @Test
+    public void execute_invalidPersonIndexFilteredList_failure() {
+        Model model = TestUtil.getTypicalModelManager();
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        // ensures that outOfBoundIndex is still in bounds of address book list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+
+        String userInput = outOfBoundIndex.getOneBased() + TAG_EMPTY;
+
+        assertParseFailure(new EditPatientDetailsCommandParser(model), userInput,
+            Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 }

@@ -58,14 +58,14 @@ public interface Logic {
     ReferenceIdResolver getReferenceIdResolver();
 
     /**
-     * Returns an unmodifiable view of the filtered list of rooms
+     * Returns an unmodifiable view of the list of available consultation rooms.
      */
-    ObservableList<Room> getFilteredRoomList();
+    ObservableList<Room> getConsultationRoomList();
 
     /**
-     * Returns an unmodifiable view of the filtered list of ids
+     * Returns an unmodifiable view of the queue list.
      */
-    ObservableList<ReferenceId> getFilteredReferencedIdList();
+    ObservableList<ReferenceId> getQueueList();
 
     /**
      * Returns the user prefs' address book file path.
