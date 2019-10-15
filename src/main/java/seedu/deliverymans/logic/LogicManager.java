@@ -78,7 +78,6 @@ public class LogicManager implements Logic {
     public ObservableList<Customer> getFilteredCustomerList() {
         return model.getFilteredCustomerList();
     }
-    
     //=========== Restaurant =============================================================
     @Override
     public ReadOnlyRestaurantDatabase getRestaurantDatabase() {
@@ -94,7 +93,6 @@ public class LogicManager implements Logic {
     public Path getRestaurantDatabaseFilePath() {
         return model.getRestaurantDatabaseFilePath();
     }
-
 
     //=========== Order =============================================================
     @Override

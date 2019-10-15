@@ -232,7 +232,6 @@ public class ModelManager implements Model {
 
         restaurantDatabase.setRestaurant(target, editedRestaurant);
     }
-    
     //=========== Deliveryman Methods =============================================================
 
     @Override

@@ -13,7 +13,6 @@ import java.util.Comparator;
  * An UI component that displays information of a {@code Restaurant}.
  */
 public class RestaurantCard extends UiPart<Region> {
-    
     private static final String FXML = "RestaurantListCard.fxml";
 
     /**
