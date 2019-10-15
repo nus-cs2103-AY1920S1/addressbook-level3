@@ -1,12 +1,12 @@
 package seedu.jarvis.logic.parser.planner;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_FREQ;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TASK_DES;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TASK_TAG;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TASK_TYPE;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_DATE;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_FREQ;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_PRIORITY;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TAG;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_DES;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_TYPE;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -32,7 +32,7 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
     @Override
     public AddTaskCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TASK_TYPE, PREFIX_TASK_DES, PREFIX_DATE,
-                                                                    PREFIX_FREQ, PREFIX_PRIORITY, PREFIX_TASK_TAG);
+                                                                    PREFIX_FREQ, PREFIX_PRIORITY, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TASK_TYPE, PREFIX_TASK_DES)
             || !argMultimap.getPreamble().isEmpty() || (isEventOrDeadline(argMultimap)
@@ -52,7 +52,7 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
 
         String taskType = argMultimap.getValue(PREFIX_TASK_TYPE).get();
         String taskDes = argMultimap.getValue(PREFIX_TASK_DES).get();
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TASK_TAG));
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         System.out.println("hello there");
         LocalDate[] dates = new LocalDate[2];
         if (isEventOrDeadline(argMultimap)) {

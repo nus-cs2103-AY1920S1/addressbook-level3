@@ -247,7 +247,7 @@ public class AddAddressCommandTest {
         }
 
         @Override
-        public Boolean hasTask(Task t) {
+        public boolean hasTask(Task t) {
             throw new AssertionError("This method should not be called.");
         }
 
