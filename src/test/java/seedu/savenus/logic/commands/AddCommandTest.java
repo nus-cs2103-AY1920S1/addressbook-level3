@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.testutil.Assert.assertThrows;
 
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -161,7 +162,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public double getRemainingBudget() {
+        public void buyFood(Food foodToBuy) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public BigDecimal getRemainingBudget() {
             throw new AssertionError("This method should not be called.");
         }
 

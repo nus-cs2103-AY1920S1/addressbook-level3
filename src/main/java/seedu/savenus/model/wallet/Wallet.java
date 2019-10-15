@@ -1,7 +1,14 @@
 package seedu.savenus.model.wallet;
 
-import javafx.beans.property.DoubleProperty;
+import java.math.BigDecimal;
+
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
+import seedu.savenus.commons.core.Messages;
+import seedu.savenus.logic.commands.exceptions.CommandException;
+import seedu.savenus.model.food.Price;
+
 
 /**
  * Represents a user's Wallet in the application.
@@ -16,7 +23,7 @@ public class Wallet {
      * Default constructor that sets {@code remainingBudget} and {@code daysToExpire} to both 0.
      */
     public Wallet() {
-        this.remainingBudget = new RemainingBudget("0");
+        this.remainingBudget = new RemainingBudget("0.00");
         this.daysToExpire = new DaysToExpire("0");
     }
 
@@ -37,9 +44,9 @@ public class Wallet {
     }
 
     /**
-     * Returns {@code remainingBudget}'s {@code DoubleProperty}.
+     * Returns {@code remainingBudget}'s {@code StringProperty}.
      */
-    public DoubleProperty getRemainingBudgetProperty() {
+    public StringProperty getRemainingBudgetProperty() {
         return remainingBudget.getRemainingBudgetProperty();
     }
 
@@ -53,7 +60,7 @@ public class Wallet {
     /**
      * Returns {@code remainingBudget}'s {@code double} value.
      */
-    public double getRemainingBudgetAmount() {
+    public BigDecimal getRemainingBudgetAmount() {
         return remainingBudget.getRemainingBudget();
     }
 
@@ -61,8 +68,16 @@ public class Wallet {
      * Set {@code remainingBudget} with user's input.
      * @param newRemainingBudget New {@code RemainingBudget} created from user's input
      */
-    public final void setRemainingBudget(RemainingBudget newRemainingBudget) {
+    public void setRemainingBudget(RemainingBudget newRemainingBudget) {
         remainingBudget.setRemainingBudget(newRemainingBudget);
+    }
+
+    /**
+     * Overloaded method to allow setting with budget amount string.
+     * @param newRemainingBudgetString New {@code RemainingBudget} string
+     */
+    public void setRemainingBudget(String newRemainingBudgetString) {
+        setRemainingBudget(new RemainingBudget(newRemainingBudgetString));
     }
 
     /**
@@ -94,12 +109,26 @@ public class Wallet {
         daysToExpire.setDaysToExpire(newDaysToExpire);
     }
 
-
     /**
      * Update number of days left with respect to current time.
      */
     public void updateDaysToExpire() {
         daysToExpire.updateDaysToExpire();
+    }
+
+    /**
+     * Pay the input {@code Price} out of wallet.
+     * @param price {@code Price} to be deducted
+     * @throws CommandException Throws {@code CommandException} if there are insufficient funds in user's {@code Wallet}
+     */
+    public void pay(Price price) throws CommandException {
+        // Check whether wallet has enough funds
+        if (new BigDecimal(price.toString()).compareTo(getRemainingBudgetAmount()) == 1) {
+            throw new CommandException(Messages.MESSAGE_INSUFFICIENT_FUNDS);
+        } else {
+            BigDecimal remainingBudgetInCents = getRemainingBudgetAmount().subtract(new BigDecimal(price.toString()));
+            setRemainingBudget(remainingBudgetInCents.toString());
+        }
     }
 
     @Override

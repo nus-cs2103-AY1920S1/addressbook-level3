@@ -30,17 +30,6 @@ public class BudgetCommandParserTest {
     }
 
     @Test
-    public void parse_budgetAmountTooHigh_throwsParseException() {
-        assertParseFailure(parser, "10000000000 30",
-                RemainingBudget.FLOATING_POINT_CONSTRAINTS);
-    }
-
-    @Test
-    public void parse_budgetDurationTooLong_throwsParseException() {
-        assertParseFailure(parser, "100 3000000",
-                DaysToExpire.INTEGER_CONSTRAINTS);
-    }
-    @Test
     public void parse_empty_throwsParseException() {
         assertParseFailure(parser, "",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE));

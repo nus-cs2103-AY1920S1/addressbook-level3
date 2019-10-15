@@ -31,11 +31,11 @@ public class PriceTest {
         assertFalse(Price.isValidPrice("9011p041")); // alphabets within digits
         assertFalse(Price.isValidPrice("9312 1534")); // spaces within digits
         assertFalse(Price.isValidPrice("9312.1")); // digits with 1 decimal point
+        assertFalse(Price.isValidPrice("9312.1")); // too big amount
 
         // valid price numbers
         assertTrue(Price.isValidPrice("911.10")); // small amount
-        assertTrue(Price.isValidPrice("93121534.10")); // big amount
-        assertTrue(Price.isValidPrice("124293842033123.10")); // very big price numbers
+        assertTrue(Price.isValidPrice("4999.10")); // big amount
     }
 
     @Test

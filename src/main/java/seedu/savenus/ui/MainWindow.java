@@ -99,7 +99,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Bind remaining budget to displayed value
         remainingBudgetPlaceholder.textProperty().bind(logic.getMenu()
-                .getWallet().getRemainingBudgetProperty().asString("$%.02f"));
+                .getWallet().getRemainingBudgetProperty());
 
         // Update number of days left
         logic.getMenu().getWallet().updateDaysToExpire();
@@ -226,6 +226,9 @@ public class MainWindow extends UiPart<Stage> {
             // Update foodListPanel after every command
             foodListPanel = new FoodListPanel(logic.getFilteredFoodList());
             foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
+            if (commandResult.isJustAdd()) {
+                foodListPanel.showLastItem();
+            }
 
             // Update purchaseListPanel after every command
             purchaseListPanel = new PurchaseListPanel(logic.getPurchaseHistory());

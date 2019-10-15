@@ -10,9 +10,10 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
 public class Price implements Field {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Price numbers should only contain numbers and have either 0 or 2 decimal places.\n"
+            "Price numbers should only contain numbers, have either 0 or 2 decimal places\n"
+            + "Maximum food price allowed is $5000.00 \n"
             + "For example: p/1.50 or p/200";
-    public static final String VALIDATION_REGEX = "((0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
+    public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
 
     public final String value;
 
@@ -34,7 +35,10 @@ public class Price implements Field {
         if (test.matches(VALIDATION_REGEX)) {
             try {
                 Double.parseDouble(test);
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
+                return false;
+            }
+            if (Double.parseDouble(test) > 5000.00) {
                 return false;
             }
             return true;
@@ -58,7 +62,7 @@ public class Price implements Field {
     }
 
     /**
-     * Converts the input price to a more accurate representation.
+     * Converts the input price to a valid string representation.
      * @param price the input String.
      * @return the correct String representation of the input price.
      */
@@ -68,6 +72,13 @@ public class Price implements Field {
         } else {
             return String.format("%.2f", Double.parseDouble(price));
         }
+    }
+
+    /**
+     * Returns a price as a double.
+     */
+    public double toDouble() {
+        return Double.parseDouble(value);
     }
 
     /**
