@@ -50,7 +50,7 @@ public class ModelManager implements Model {
         this(new AlgoBase(), new UserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
+    //========== UserPrefs ==============================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -85,13 +85,13 @@ public class ModelManager implements Model {
         userPrefs.setAlgoBaseFilePath(algoBaseFilePath);
     }
 
-    //=========== GUI state =============================================================
+    //========== GUI State ==============================================================
     @Override
     public GuiState getGuiState() {
         return guiState;
     }
 
-    //=========== AlgoBase ================================================================================
+    //========== AlgoBase ===============================================================
 
     @Override
     public void setAlgoBase(ReadOnlyAlgoBase algoBase) {
@@ -102,6 +102,8 @@ public class ModelManager implements Model {
     public ReadOnlyAlgoBase getAlgoBase() {
         return algoBase;
     }
+
+    //========== Problem ================================================================
 
     @Override
     public boolean hasProblem(Problem problem) {
@@ -125,32 +127,6 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedProblem);
         algoBase.setProblem(target, editedProblem);
     }
-
-    @Override
-    public boolean hasPlan(Plan plan) {
-        requireNonNull(plan);
-        return algoBase.hasPlan(plan);
-    }
-
-    @Override
-    public void deletePlan(Plan target) {
-        algoBase.removePlan(target);
-    }
-
-    @Override
-    public void addPlan(Plan plan) {
-        algoBase.addPlan(plan);
-        updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
-    }
-
-    @Override
-    public void setPlan(Plan target, Plan editedPlan) {
-        requireAllNonNull(target, editedPlan);
-
-        algoBase.setPlan(target, editedPlan);
-    }
-
-    //=========== Filtered Problem List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Problem} backed by the internal list of
@@ -179,7 +155,31 @@ public class ModelManager implements Model {
         sortedProblems.setComparator(problemComparator);
     }
 
-    //=========== Filtered Plan List Accessors =============================================================
+    //========== Plan ===================================================================
+
+    @Override
+    public boolean hasPlan(Plan plan) {
+        requireNonNull(plan);
+        return algoBase.hasPlan(plan);
+    }
+
+    @Override
+    public void deletePlan(Plan target) {
+        algoBase.removePlan(target);
+    }
+
+    @Override
+    public void addPlan(Plan plan) {
+        algoBase.addPlan(plan);
+        updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+    }
+
+    @Override
+    public void setPlan(Plan target, Plan editedPlan) {
+        requireAllNonNull(target, editedPlan);
+
+        algoBase.setPlan(target, editedPlan);
+    }
 
     /**
      * Returns an unmodifiable view of the list of {@code Plan} backed by the internal list of
@@ -195,7 +195,7 @@ public class ModelManager implements Model {
         filteredPlans.setPredicate(predicate);
     }
 
-    //============== Util ==================================================================
+    //========== Util ===================================================================
 
     @Override
     public boolean equals(Object obj) {

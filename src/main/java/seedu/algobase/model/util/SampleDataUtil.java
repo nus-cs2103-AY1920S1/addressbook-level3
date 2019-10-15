@@ -1,11 +1,16 @@
 package seedu.algobase.model.util;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.plan.Plan;
+import seedu.algobase.model.plan.PlanDescription;
+import seedu.algobase.model.plan.PlanName;
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;
 import seedu.algobase.model.problem.Difficulty;
@@ -15,6 +20,7 @@ import seedu.algobase.model.problem.Remark;
 import seedu.algobase.model.problem.Source;
 import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
+import seedu.algobase.model.task.Task;
 
 /**
  * Contains utility methods for populating {@code AlgoBase} with sample data.
@@ -72,9 +78,18 @@ public class SampleDataUtil {
 
     public static ReadOnlyAlgoBase getSampleAlgoBase() {
         AlgoBase sampleAb = new AlgoBase();
+        Set<Task> tasks = new HashSet<>();
         for (Problem sampleProblem : getSampleProblems()) {
             sampleAb.addProblem(sampleProblem);
+            tasks.add(new Task(sampleProblem));
         }
+        Plan samplePlan = new Plan(new PlanName("Graph Algo"),
+            new PlanDescription("CS2040 Graph Algorithms"),
+            LocalDateTime.now(),
+            LocalDateTime.now(),
+            tasks
+        );
+        sampleAb.addPlan(samplePlan);
         return sampleAb;
     }
 

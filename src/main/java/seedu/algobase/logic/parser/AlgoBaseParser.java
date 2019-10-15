@@ -13,6 +13,8 @@ import seedu.algobase.logic.commands.ClearCommand;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.DeleteCommand;
 import seedu.algobase.logic.commands.DeletePlanCommand;
+import seedu.algobase.logic.commands.DeleteTaskCommand;
+import seedu.algobase.logic.commands.DoneTaskCommand;
 import seedu.algobase.logic.commands.EditCommand;
 import seedu.algobase.logic.commands.EditPlanCommand;
 import seedu.algobase.logic.commands.ExitCommand;
@@ -23,6 +25,7 @@ import seedu.algobase.logic.commands.ListCommand;
 import seedu.algobase.logic.commands.ListPlanCommand;
 import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.commands.SwitchCommand;
+import seedu.algobase.logic.commands.UndoneTaskCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**
@@ -52,57 +55,66 @@ public class AlgoBaseParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        // Problems
+        //Problem
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case SortCommand.COMMAND_WORD:
-            return new SortCommandParser().parse(arguments);
-
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        // Tasks
-        case AddTaskCommand.COMMAND_WORD:
-            return new AddTaskCommandParser().parse(arguments);
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
 
-        // GUI State
-        case SwitchCommand.COMMAND_WORD:
-            return new SwitchCommandParser().parse(arguments);
-
-        // Miscellaneous
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
+        //Plan
         case AddPlanCommand.COMMAND_WORD:
             return new AddPlanCommandParser().parse(arguments);
 
-        case EditPlanCommand.COMMAND_WORD:
-            return new EditPlanCommandParser().parse(arguments);
-
         case DeletePlanCommand.COMMAND_WORD:
             return new DeletePlanCommandParser().parse(arguments);
+
+        case EditPlanCommand.COMMAND_WORD:
+            return new EditPlanCommandParser().parse(arguments);
 
         case FindPlanCommand.COMMAND_WORD:
             return new FindPlanCommandParser().parse(arguments);
 
         case ListPlanCommand.COMMAND_WORD:
             return new ListPlanCommand();
+
+        //Task
+        case AddTaskCommand.COMMAND_WORD:
+            return new AddTaskCommandParser().parse(arguments);
+
+        case DeleteTaskCommand.COMMAND_WORD:
+            return new DeleteTaskCommandParser().parse(arguments);
+
+        case DoneTaskCommand.COMMAND_WORD:
+            return new DoneTaskCommandParser().parse(arguments);
+
+        case UndoneTaskCommand.COMMAND_WORD:
+            return new UndoneTaskCommandParser().parse(arguments);
+
+        //Util
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
+        case SwitchCommand.COMMAND_WORD:
+            return new SwitchCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

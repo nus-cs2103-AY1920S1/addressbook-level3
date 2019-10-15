@@ -25,11 +25,9 @@ public class Plan {
     private final LocalDateTime endDate;
     private final Set<Task> tasks;
 
-
     /**
      * Every field must be present and not null.
      */
-
     public Plan(PlanName planName, PlanDescription planDescription, LocalDateTime startDate, LocalDateTime endDate,
                 Set<Task> tasks) {
         requireAllNonNull(planName, planDescription, startDate, endDate, tasks);
@@ -39,6 +37,21 @@ public class Plan {
         this.endDate = endDate;
         this.tasks = new HashSet<>();
         this.tasks.addAll(tasks);
+    }
+
+    /**
+     * Creates and returns a {@code Plan} with the details of {@code planToUpdate}
+     * with an updated {@code taskSet}.
+     */
+    public static Plan createUpdatedPlan(Plan planToUpdate, Set taskSet) {
+        assert planToUpdate != null;
+
+        PlanName updatedName = planToUpdate.getPlanName();
+        PlanDescription updatedDescription = planToUpdate.getPlanDescription();
+        LocalDateTime startDate = planToUpdate.getStartDate();
+        LocalDateTime endDate = planToUpdate.getEndDate();
+
+        return new Plan(updatedName, updatedDescription, startDate, endDate, taskSet);
     }
 
     public PlanName getPlanName() {
