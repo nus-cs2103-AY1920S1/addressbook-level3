@@ -23,21 +23,20 @@ public class TabCommandParser implements Parser<TabCommand> {
     @Override
     public TabCommand parse(String userInput) throws ParseException {
         String tabName = userInput.trim();
-
         if (tabName.equals("") || userInput == null) {
             throw new ParseException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, TabCommand.MESSAGE_USAGE));
         } else {
-            switch(tabName) {
+            switch(tabName.toLowerCase()) {
             //Feel free to modify your tab name and respective Controller class together with your fxml file.
-            case "TypingGame":
-                return new TabCommand(new Tab(tabName, GameWindow.FXML, new GameWindow()));
-            case "Appointment":
-                return new TabCommand(new Tab(tabName, AppointmentWindow.FXML, new AppointmentWindow()));
-            case "Report":
-                return new TabCommand(new Tab(tabName, ReportWindow.FXML, new ReportWindow()));
-            case "Calendar":
-                return new TabCommand(new Tab(tabName, CalendarWindow.FXML, new CalendarWindow()));
+            case "typinggame":
+                return new TabCommand(new Tab("Typing Game", GameWindow.FXML, new GameWindow()));
+            case "appointment":
+                return new TabCommand(new Tab("Add Engagement", AppointmentWindow.FXML, new AppointmentWindow()));
+            case "report":
+                return new TabCommand(new Tab("Generate Report", ReportWindow.FXML, new ReportWindow()));
+            case "calendar":
+                return new TabCommand(new Tab("Calendar View", CalendarWindow.FXML, new CalendarWindow()));
             default:
                 throw new ParseException(
                         String.format("Invalid tab name. Please specify a valid tab menu."));
