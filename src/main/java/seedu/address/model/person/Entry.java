@@ -94,12 +94,17 @@ public class Entry {
         }
     }
 
+    /**
+     * Checks if children class of this instance is same as that of other.
+     * @param other object to compare to.
+     * @return boolean.
+     */
     protected boolean equalClass(Object other) {
-        if (this instanceof Expense && ! (other instanceof Expense)) {
+        if (this instanceof Expense && !(other instanceof Expense)) {
             return false;
-        } else if (this instanceof Income && ! (other instanceof Income)) {
+        } else if (this instanceof Income && !(other instanceof Income)) {
             return false;
-        } else if (this instanceof Wish && ! (other instanceof Wish)) {
+        } else if (this instanceof Wish && !(other instanceof Wish)) {
             return false;
         } else {
             return true;
