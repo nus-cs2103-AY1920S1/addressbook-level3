@@ -1,5 +1,6 @@
 package seedu.savenus.model;
 
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
@@ -9,7 +10,6 @@ import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Food;
-import seedu.savenus.model.food.Price;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -103,12 +103,12 @@ public interface Model {
     /**
      * Getter for current user's {@code budget} amount
      */
-    double getRemainingBudget();
+    BigDecimal getRemainingBudget();
 
     /**
      * Setter for current user's {@code Budget} to new {@code Budget}
      */
-    void setRemainingBudget(RemainingBudget newRemainingBudget);
+    void setRemainingBudget(RemainingBudget newRemainingBudget) throws CommandException;
 
     /**
      * Getter for current user's {@code daysToExpire}
@@ -118,13 +118,13 @@ public interface Model {
     /**
      * Setter for current user's {@code DaysToExpire} to new {@code DaysToExpire}
      */
-    void setDaysToExpire(DaysToExpire newDaysToExpire);
+    void setDaysToExpire(DaysToExpire newDaysToExpire) throws CommandException;
 
     /**
-     * Deducts the input price from wallet, returns true if successful and false otherwise.
-     * @param price Price to pay for.
+     * Buy Food.
+     * @param foodToBuy Food to buy
      */
-    void pay(Price price) throws CommandException;
+    void buyFood(Food foodToBuy) throws CommandException;
 
     /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();

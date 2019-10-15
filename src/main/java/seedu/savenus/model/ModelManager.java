@@ -3,6 +3,7 @@ package seedu.savenus.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
@@ -15,7 +16,6 @@ import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Food;
-import seedu.savenus.model.food.Price;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -26,7 +26,6 @@ import seedu.savenus.model.wallet.Wallet;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
     private final Menu menu;
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
@@ -40,7 +39,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(menu, userPrefs);
 
-        logger.fine("Initializing with address book: " + menu + " and user prefs " + userPrefs);
+        logger.fine("Initializing with $aveNUS menu: " + menu + " and user prefs " + userPrefs);
 
         this.menu = new Menu(menu);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -163,13 +162,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public double getRemainingBudget() {
+    public BigDecimal getRemainingBudget() {
         return menu.getWallet().getRemainingBudgetAmount();
     }
 
     @Override
-    public void setRemainingBudget(RemainingBudget newRemainingBudget) {
+    public void setRemainingBudget(RemainingBudget newRemainingBudget) throws CommandException {
         requireNonNull(newRemainingBudget);
+        if (newRemainingBudget.getRemainingBudget().compareTo(new BigDecimal(1000000.00)) == 1) {
+            throw new CommandException(RemainingBudget.FLOATING_POINT_CONSTRAINTS);
+        }
         menu.getWallet().setRemainingBudget(newRemainingBudget);
     }
 
@@ -179,15 +181,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setDaysToExpire(DaysToExpire newDaysToExpire) {
+    public void setDaysToExpire(DaysToExpire newDaysToExpire) throws CommandException {
         requireNonNull(newDaysToExpire);
+        if (newDaysToExpire.getDaysToExpire() > 365) {
+            throw new CommandException(DaysToExpire.INTEGER_CONSTRAINTS);
+        }
         menu.getWallet().setDaysToExpire(newDaysToExpire);
     }
 
     @Override
-    public void pay(Price priceToPay) throws CommandException {
-        requireNonNull(priceToPay);
-        menu.getWallet().pay(priceToPay);
+    public void buyFood(Food foodToBuy) throws CommandException {
+        requireNonNull(foodToBuy);
+        menu.getWallet().pay(foodToBuy.getPrice());
     }
 
     //=========== Filtered Food List Accessors =============================================================
