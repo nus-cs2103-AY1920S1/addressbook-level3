@@ -14,9 +14,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import seedu.address.person.commons.core.GuiSettings;
 import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.transaction.logic.exception.ParseException;
 import seedu.address.util.OverallCommandResult;
+
+
+
+
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -79,6 +85,21 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Tab homeTab;
+
+    @FXML
+    private Tab membersTab;
+
+    @FXML
+    private Tab reimbursementsTab;
+
+    @FXML
+    private Tab inventoryTab;
+
+    @FXML
+    private Tab cashierTab;
+
+    @FXML
+    private Tab overviewTab;
 
     public MainWindow(Stage primaryStage, seedu.address.transaction.logic.Logic transactionLogic,
                       seedu.address.reimbursement.logic.Logic reimbursementLogic,
@@ -152,11 +173,14 @@ public class MainWindow extends UiPart<Stage> {
         home = new Home(transactionLogic);
         homePlaceholder.getChildren().add(home.getRoot());
 
-        inventory = new Inventory(inventoryLogic);
-        inventoryPlaceholder.getChildren().add(inventory.getRoot());
+        PersonListPanel personListPanel = new PersonListPanel(personLogic.getFilteredPersonList());
+        membersPlaceholder.getChildren().add(personListPanel.getRoot());
 
         reimbursements = new Reimbursements(reimbursementLogic);
         reimbursementsPlaceholder.getChildren().add(reimbursements.getRoot());
+
+        inventory = new Inventory(inventoryLogic);
+        inventoryPlaceholder.getChildren().add(inventory.getRoot());
 
         cashier = new Cashier(cashierLogic);
         cashierPlaceholder.getChildren().add(cashier.getRoot());
@@ -166,9 +190,6 @@ public class MainWindow extends UiPart<Stage> {
 
         lion = new Lion();
         lionPlaceholder.getChildren().add(lion.getRoot());
-
-        PersonListPanel personListPanel = new PersonListPanel(personLogic.getFilteredPersonList());
-        membersPlaceholder.getChildren().add(personListPanel.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -222,6 +243,9 @@ public class MainWindow extends UiPart<Stage> {
     private OverallCommandResult executeCommand(String commandText) throws Exception {
         try {
             OverallCommandResult commandResult;
+            if (ifIsNavigationCommand(commandText)) {
+                navigateToAnotherTab(commandText);
+            }
             if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Home")) {
                 commandResult = transactionLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Members")) {
@@ -232,7 +256,6 @@ public class MainWindow extends UiPart<Stage> {
                 commandResult = inventoryLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Cashier")) {
                 commandResult = cashierLogic.execute(commandText);
-                //should be replace with cashier's logic
             } else {
                 commandResult = overviewLogic.execute(commandText);
             }
@@ -243,11 +266,11 @@ public class MainWindow extends UiPart<Stage> {
             homePlaceholder.getChildren().removeAll();
             homePlaceholder.getChildren().add(new Home(transactionLogic).getRoot());
 
-            inventoryPlaceholder.getChildren().removeAll();
-            inventoryPlaceholder.getChildren().add(new Inventory(inventoryLogic).getRoot());
-
             reimbursementsPlaceholder.getChildren().removeAll();
             reimbursementsPlaceholder.getChildren().add(new Reimbursements(reimbursementLogic).getRoot());
+
+            inventoryPlaceholder.getChildren().removeAll();
+            inventoryPlaceholder.getChildren().add(new Inventory(inventoryLogic).getRoot());
 
             cashierPlaceholder.getChildren().removeAll();
             cashierPlaceholder.getChildren().add(new Cashier(cashierLogic).getRoot());
@@ -270,5 +293,62 @@ public class MainWindow extends UiPart<Stage> {
             lion.setResponse(e.toString());
             throw e;
         }
+    }
+
+    /**
+     * Navigates to another tab and returns empty overall command result.
+     * @param userInput User input from command box.
+     * @return Empty overcommand result.
+     * @throws ParseException If an error occurs due to wrong format for tab navigation command.
+     */
+    private OverallCommandResult navigateToAnotherTab(String userInput) throws ParseException {
+        String tabName;
+        Tab tab;
+        try {
+            tabName = userInput.substring(3);
+        } catch (Exception e) {
+            logger.severe("Error with parsing.");
+            throw new ParseException("There is no such tab.");
+        }
+        switch (tabName) {
+        case "home":
+            tab = homeTab;
+            tabPane.getSelectionModel().select(tab);
+            break;
+        case "members":
+            tab = membersTab;
+            tabPane.getSelectionModel().select(tab);
+            break;
+        case "reimbursements":
+            logger.info("HERE");
+            tab = reimbursementsTab;
+            tabPane.getSelectionModel().select(tab);
+            break;
+        case "inventory":
+            tab = inventoryTab;
+            tabPane.getSelectionModel().select(tab);
+            break;
+        case "cashier":
+            tab = cashierTab;
+            tabPane.getSelectionModel().select(tab);
+            break;
+        case "overview":
+            tab = overviewTab;
+            tabPane.getSelectionModel().select(tab);
+            break;
+        default:
+            logger.severe("Error with idk what");
+            throw new ParseException("There is no such tab.");
+        }
+        return new OverallCommandResult("");
+    }
+
+    /**
+     * Checks if command is the tab navigation command
+     * @param userInput User input from command box.
+     * @return If it is a tab navigation command.
+     */
+    private boolean ifIsNavigationCommand(String userInput) {
+        return userInput.contains("go");
     }
 }
