@@ -21,6 +21,7 @@ public class GenReportCommandTest {
     public void execute_validBodyId_success() {
         CommandResult expectedCommandResult =
                 new CommandResult(String.format(MESSAGE_GENREPORT_SUCCESS, FIRST_BODY_ID_NUM));
-        assertCommandSuccess(new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum())), model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum())),
+                model, expectedCommandResult, expectedModel);
     }
 }
