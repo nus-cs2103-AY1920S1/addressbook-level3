@@ -21,7 +21,7 @@ public class GmapsApi {
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public GmapsApi() {
-        this.apiKey = "PUT IN API KEY HERE";
+        this.apiKey = "INSERT API KEY";
     }
 
     /**
