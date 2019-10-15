@@ -21,6 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.exceptions.DuplicateTitleException;
+import seedu.address.model.question.Question;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskForNote;
 import seedu.address.testutil.PersonBuilder;
@@ -94,6 +95,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Note> notes = FXCollections.observableArrayList();
+        private final ObservableList<Question> questions = FXCollections.observableArrayList();
         private final ObservableList<Task> tasks = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Note> notes, Collection<Task> tasks) {
@@ -106,6 +108,11 @@ public class AddressBookTest {
             return notes;
         }
 
+        @Override
+        public ObservableList<Question> getQuestionList() {
+            return questions;
+        }
+
         /**
          * Returns an unmodifiable view of the task list.
          */
@@ -114,5 +121,4 @@ public class AddressBookTest {
             return tasks;
         }
     }
-
 }

@@ -12,7 +12,9 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Title;
+import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
+import seedu.address.model.question.QuestionBody;
 import seedu.address.model.question.Subject;
 import seedu.address.model.task.Task;
 
@@ -72,6 +74,36 @@ public class ParserUtil {
     public static int parseNumber(String number) throws ParseException {
         requireNonNull(number);
         return Integer.parseInt(number);
+    }
+
+    /**
+     * Parses a {@code String questionBody} into a {@code QuestionBody}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code questionBody} is invalid.
+     */
+    public static QuestionBody parseQuestionBody(String questionBody) throws ParseException {
+        requireNonNull(questionBody);
+        String trimmedBody = questionBody.trim();
+        if (!QuestionBody.isValidQuestionBody(trimmedBody)) {
+            throw new ParseException(QuestionBody.MESSAGE_CONSTRAINTS);
+        }
+        return new QuestionBody(trimmedBody);
+    }
+
+    /**
+     * Parses a {@code String answer} into a {@code Answer}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code answer} is invalid.
+     */
+    public static Answer parseAnswer(String answer) throws ParseException {
+        requireNonNull(answer);
+        String trimmedAnswer = answer.trim();
+        if (!Answer.isValidAnswer(trimmedAnswer)) {
+            throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
+        }
+        return new Answer(answer);
     }
 
     /**
