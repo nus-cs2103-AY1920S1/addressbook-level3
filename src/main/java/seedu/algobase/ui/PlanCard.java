@@ -43,6 +43,10 @@ public class PlanCard extends UiPart<Region> {
         planDescription.setText(plan.getPlanDescription().value);
         startDate.setText(plan.getStartDate().format(Plan.FORMATTER));
         endDate.setText(plan.getEndDate().format(Plan.FORMATTER));
+        formatTasks(plan);
+    }
+
+    private void formatTasks(Plan plan) {
         plan.getTasks().stream()
                 .sorted(Comparator.comparing(Task::getDateTime))
                 .forEach(task -> tasks.getChildren().add(new Label(task.getProblem().toString() + '\n'
