@@ -17,7 +17,7 @@ import seedu.address.model.util.FilePath;
 
 public class ExportUtil {
 
-    public static void exportFlashCards(List<FlashCard> cards, FilePath filePath) {
+    public static void exportFlashCards(List<FlashCard> cards, FilePath filePath) throws IOException {
         XWPFDocument doc = new XWPFDocument();
 
         for (FlashCard card : cards) {
@@ -30,7 +30,11 @@ public class ExportUtil {
             addRun(paragraph, answer.toString(), false);
         }
 
-        writeDocumentToFile(doc, filePath);
+        try {
+            writeDocumentToFile(doc, filePath);
+        } catch (IOException e) {
+            throw e;
+        }
     }
 
     private static void addRun(XWPFParagraph paragraph, String text, boolean isBold) {
@@ -44,14 +48,14 @@ public class ExportUtil {
         run.addCarriageReturn();
     }
 
-    private static void writeDocumentToFile(XWPFDocument doc, FilePath filePath) {
+    private static void writeDocumentToFile(XWPFDocument doc, FilePath filePath) throws IOException {
         try {
             FileOutputStream out = new FileOutputStream(filePath.toString());
             doc.write(out);
             out.close();
             doc.close();
         } catch (IOException e) {
-
+            throw e;
         }
     }
 }

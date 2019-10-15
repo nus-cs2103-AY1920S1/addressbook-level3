@@ -6,7 +6,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 
+import java.io.IOException;
+
 import seedu.address.commons.util.ExportUtil;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
 import seedu.address.model.util.FilePath;
@@ -28,6 +31,9 @@ public class ExportCommand extends Command {
             + PREFIX_CATEGORY + "CS2105 "
             + PREFIX_FILE_PATH + "C:\\Users\\damithc\\Documents\\CS2105_Cheat_Sheet.docx";
 
+    public static final String IO_EXCEPTION_MESSAGE = "There was an error in writing to the file. "
+            + "Please try again later, or write to a different file.";
+
     private final Category category;
     private final FilePath filePath;
 
@@ -37,15 +43,19 @@ public class ExportCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         // TODO PLANT CATEGORY.
 
-        ExportUtil.exportFlashCards(
-                model.getFilteredFlashCardList(),
-                this.filePath
-        );
+        try {
+            ExportUtil.exportFlashCards(
+                    model.getFilteredFlashCardList(),
+                    this.filePath
+            );
+        } catch (IOException e) {
+            throw new CommandException(IO_EXCEPTION_MESSAGE);
+        }
 
         return new CommandResult("Export was (UN)successful! You can find your file at "
                 + "the following path:\n"
