@@ -92,8 +92,8 @@ public class ModelManagerTest {
     @Test
     public void setLoanRecordsFilePath_validPath_setsLoanRecordsFilePath() {
         Path path = Paths.get("loan/record/file/path");
-        modelManager.setCatalogFilePath(path);
-        assertEquals(path, modelManager.getCatalogFilePath());
+        modelManager.setLoanRecordsFilePath(path);
+        assertEquals(path, modelManager.getLoanRecordsFilePath());
     }
 
     @Test
@@ -173,6 +173,13 @@ public class ModelManagerTest {
         modelManager.addBook(BOOK_1);
         overdueBooks = modelManager.getOverdueBooks();
         assertTrue(overdueBooks.isEmpty());
+    }
+
+    @Test
+    public void getServingBorrower_notInServeMode_throwsAssertionError() {
+        modelManager = new ModelManager();
+
+        assertThrows(AssertionError.class, () -> modelManager.getServingBorrower());
     }
 
     @Test
