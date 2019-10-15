@@ -30,11 +30,13 @@ public abstract class Engagement {
                                 LocalDateTime start, LocalDateTime end,
                                 List<Person> attendees, Location location, String description,
                                 Priority priority) {
-        return new Meeting(start, end, attendees, location, description, priority);
-    }
-
-    public Engagement makeEngagement(String userInput) {
-        return null;
+        if (type.name().equalsIgnoreCase("meeting")) {
+            return new Meeting(start, end, attendees, location, description, priority);
+        } else if (type.name().equalsIgnoreCase("interview")) {
+            return new Interview(start, end, attendees, location, description, priority);
+        } else {
+            return new Appointment(start, end, attendees, location, description, priority);
+        }
     }
 
     public LocalDateTime getStart() {
