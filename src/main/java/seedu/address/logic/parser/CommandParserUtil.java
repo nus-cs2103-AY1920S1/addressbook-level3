@@ -200,7 +200,7 @@ public class CommandParserUtil {
         Value value = parseValue(matcher.group("exprValue"));
 
 
-        if (!RuleProcessingUtil.isValidExpression(attribute, operator, value)) {
+        if (!RuleProcessingUtil.isValidExprPredicate(attribute, operator, value)) {
             throw new ParseException(ExpressionPredicate.MESSAGE_TYPE_REQUIREMENTS);
         }
         return new ExpressionPredicate(attribute, operator, value);

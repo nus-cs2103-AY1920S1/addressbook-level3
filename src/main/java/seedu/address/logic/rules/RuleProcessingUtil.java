@@ -60,7 +60,7 @@ public class RuleProcessingUtil {
         return true;
     }
 
-    public static boolean isValidExpression(Attribute attribute, Operator operator, Value value) {
+    public static boolean isValidExprPredicate(Attribute attribute, Operator operator, Value value) {
         return operator.getExpectedType().equals(attribute.getEvaluatedType())
                 && isValueParsable(operator.getExpectedType(), value);
     }
