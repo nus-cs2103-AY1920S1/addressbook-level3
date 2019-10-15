@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.TimeBookInvalidLocation;
@@ -22,7 +21,7 @@ class SanitizeLocationTest {
         sanitizeLocation = new SanitizeLocation(new GmapsApiStub());
     }
 
-    @Disabled
+    @Test
     void getValidLocationList() throws ConnectException, TimeBookInvalidLocation {
         sanitizeLocation.sanitize("FOO");
         sanitizeLocation.sanitize("FOO-12345");
@@ -33,7 +32,7 @@ class SanitizeLocationTest {
         assertEquals(expectedValidLocationList, sanitizeLocation.getValidLocationList());
     }
 
-    @Disabled
+    @Test
     void sanitize() throws TimeBookInvalidLocation, ConnectException {
         assertEquals(sanitizeLocation.sanitize("FOO"), "NUS_FOO");
         assertEquals(sanitizeLocation.sanitize("FOO-12345"), "NUS_FOO");

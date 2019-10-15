@@ -1,6 +1,6 @@
 package seedu.address.logic.internal.gmaps;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.TimeBookInvalidLocation;
 import seedu.address.model.module.Venue;
 
 class ClosestLocationTest {
-    ClosestLocation closestLocation;
+    private ClosestLocation closestLocation;
     @BeforeEach
     void init() {
         closestLocation = new ClosestLocation();
@@ -26,11 +26,13 @@ class ClosestLocationTest {
         Venue venue3 = new Venue("LT17");
         ArrayList<Venue> venues = new ArrayList<>(Arrays.asList(venue1, venue2, venue3));
         assertEquals(closestLocation.closestLocationVenues(venues), "NUS_LT17");
+        assertEquals(null, closestLocation.closestLocationVenues(new ArrayList<>()));
     }
 
     @Test
     void closestLocation() throws IllegalValueException, TimeBookInvalidLocation {
         ArrayList<String> venues = new ArrayList<>(Arrays.asList("LT17", "LT17", "LT17"));
         assertEquals(closestLocation.closestLocationString(venues), "NUS_LT17");
+        assertEquals(null, closestLocation.closestLocationVenues(new ArrayList<>()));
     }
 }
