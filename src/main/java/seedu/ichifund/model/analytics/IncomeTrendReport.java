@@ -1,17 +1,16 @@
 package seedu.ichifund.model.analytics;
 
-import javafx.collections.ObservableList;
-import seedu.ichifund.model.Model;
-import seedu.ichifund.model.amount.Amount;
-import seedu.ichifund.model.date.Date;
-import seedu.ichifund.model.date.Month;
-import seedu.ichifund.model.date.Year;
-import seedu.ichifund.model.transaction.Transaction;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
+import seedu.ichifund.model.Model;
+import seedu.ichifund.model.amount.Amount;
+import seedu.ichifund.model.date.Month;
+import seedu.ichifund.model.date.Year;
+import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * Represents a report for income trends.
@@ -41,7 +40,7 @@ public class IncomeTrendReport extends TrendReport {
         ObservableList<Transaction> transactionList = model.getFundBook().getTransactionList();
         List<Amount> monthlyIncomeList = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            Month currentMonth = new Month(Integer.toString(i+1));
+            Month currentMonth = new Month(Integer.toString(i + 1));
             List<Amount> currentMonthIncomeList = new ArrayList<>();
             for (Transaction transaction : transactionList) {
                 if (transaction.isIn(year) && transaction.isIn(currentMonth) && !(transaction.isExpenditure())) {

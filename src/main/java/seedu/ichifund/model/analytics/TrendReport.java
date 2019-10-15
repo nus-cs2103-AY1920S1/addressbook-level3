@@ -2,14 +2,13 @@ package seedu.ichifund.model.analytics;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.analytics.exceptions.ReportException;
-import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
-
-import java.util.List;
 
 /**
  * Represents a report for expenditure, income or balance trends.

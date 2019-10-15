@@ -4,7 +4,6 @@ import seedu.ichifund.model.Model;
 import seedu.ichifund.model.analytics.exceptions.ReportException;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
-import seedu.ichifund.model.transaction.Category;
 
 /**
  * Represents a report with hidden internal logic and the ability to be generated.
