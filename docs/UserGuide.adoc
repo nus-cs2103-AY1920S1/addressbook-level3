@@ -34,16 +34,12 @@ the results. The overall appearance is similar to a simple note-taking client.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing `help` and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* `list`: lists all contacts
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: adds a contact named `John Doe` to the Address Book.
-* `delete 3`: deletes the 3rd contact shown in the current list
+.  Type the command in the command box and press kbd:[Enter] to execute it. Some commands you can try are
+* `listnote`: lists all lecture notes
+* `addnote t/Title c/Content`: adds a lecture note with title "Title" and contents "Content".
+* `deletenote 1`: deletes the first lecture note
+* `help`: open the help window
 * `exit`: exits the app
-
-.  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -291,8 +287,10 @@ The student shares notes and questions with other students with Internet connect
 === Login using email and password `[coming in v2.0]`
 The student can register and login to the application using their email and password.
 
-=== Flash card grouping suggestions `[coming in v2.0]`
-NUStudy will intelligently suggest groupings of flash cards based on their content.
+// tag::lngroup[]
+=== Lecture note grouping suggestions `[coming in v2.0]`
+NUStudy will intelligently suggest groupings of lecture notes based on their content.
+// end::lngroup[]
 
 == FAQ
 

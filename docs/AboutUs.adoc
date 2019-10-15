@@ -12,7 +12,7 @@ We are a team based in https://www.comp.nus.edu.sg[School of Computing, National
 
 === Jeremy Tan Jie Rui
 image::parcly-taxel.png[width="150", align="left"]
-{empty}[https://github.com/Parcly-Taxel[github]]
+{empty}[https://github.com/Parcly-Taxel[github]] [https://github.com/irene-lly[portfolio]]
 
 Role: Integration lead, Scheduling and tracking, Git expert +
 Responsibilities: Implementing `Note` module
