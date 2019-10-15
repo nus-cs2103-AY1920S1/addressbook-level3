@@ -3,9 +3,9 @@ package mams.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import static mams.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static mams.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
 import static mams.logic.parser.CliSyntax.PREFIX_NAME;
+import static mams.logic.parser.CliSyntax.PREFIX_PREVMODS;
 import static mams.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
@@ -21,9 +21,9 @@ import mams.logic.commands.exceptions.CommandException;
 import mams.model.Model;
 
 import mams.model.student.Credits;
-import mams.model.student.Email;
 import mams.model.student.MatricId;
 import mams.model.student.Name;
+import mams.model.student.PrevMods;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
 
@@ -40,12 +40,12 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_CREDITS + "CREDITS] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_PREVMODS + "PREVMODS] "
             + "[" + PREFIX_MATRICID + "MATRICID] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CREDITS + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_PREVMODS + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -96,11 +96,11 @@ public class EditCommand extends Command {
 
         Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
         Credits updatedCredits = editStudentDescriptor.getCredits().orElse(studentToEdit.getCredits());
-        Email updatedEmail = editStudentDescriptor.getEmail().orElse(studentToEdit.getEmail());
+        PrevMods updatedPrevMods = editStudentDescriptor.getPrevMods().orElse(studentToEdit.getPrevMods());
         MatricId updatedMatricId = editStudentDescriptor.getMatricId().orElse(studentToEdit.getMatricId());
         Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
-        return new Student(updatedName, updatedCredits, updatedEmail, updatedMatricId, updatedTags);
+        return new Student(updatedName, updatedCredits, updatedPrevMods, updatedMatricId, updatedTags);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class EditCommand extends Command {
     public static class EditStudentDescriptor {
         private Name name;
         private Credits credits;
-        private Email email;
+        private PrevMods prevMods;
         private MatricId matricId;
         private Set<Tag> tags;
 
@@ -141,7 +141,7 @@ public class EditCommand extends Command {
         public EditStudentDescriptor(EditStudentDescriptor toCopy) {
             setName(toCopy.name);
             setCredits(toCopy.credits);
-            setEmail(toCopy.email);
+            setPrevMods(toCopy.prevMods);
             setMatricId(toCopy.matricId);
             setTags(toCopy.tags);
         }
@@ -150,7 +150,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, credits, email, matricId, tags);
+            return CollectionUtil.isAnyNonNull(name, credits, prevMods, matricId, tags);
         }
 
         public void setName(Name name) {
@@ -169,12 +169,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(credits);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setPrevMods(PrevMods prevMods) {
+            this.prevMods = prevMods;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<PrevMods> getPrevMods() {
+            return Optional.ofNullable(prevMods);
         }
 
         public void setMatricId(MatricId matricId) {
@@ -219,7 +219,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getCredits().equals(e.getCredits())
-                    && getEmail().equals(e.getEmail())
+                    && getPrevMods().equals(e.getPrevMods())
                     && getMatricId().equals(e.getMatricId())
                     && getTags().equals(e.getTags());
         }

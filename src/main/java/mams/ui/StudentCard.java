@@ -17,7 +17,7 @@ public class StudentCard extends UiPart<Region> {
     private static final String FXML = "StudentListCard.fxml";
     private static final String CREDITS_LABEL_PREFIX = "Credit(s) Workload: ";
     private static final String MATRIC_LABEL_PREFIX = "Matric No.: ";
-    private static final String EMAIL_LABEL_PREFIX = "Email: ";
+    private static final String PREVMODS_LABEL_PREFIX = "PrevMods: ";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -40,7 +40,7 @@ public class StudentCard extends UiPart<Region> {
     @FXML
     private Label matricId;
     @FXML
-    private Label email;
+    private Label prevMods;
     @FXML
     private FlowPane tags;
 
@@ -51,7 +51,7 @@ public class StudentCard extends UiPart<Region> {
         name.setText(student.getName().fullName);
         credits.setText(CREDITS_LABEL_PREFIX + student.getCredits().value);
         matricId.setText(MATRIC_LABEL_PREFIX + student.getMatricId().value);
-        email.setText(EMAIL_LABEL_PREFIX + student.getEmail().value);
+        prevMods.setText(PREVMODS_LABEL_PREFIX + student.getPrevMods().value);
         student.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
