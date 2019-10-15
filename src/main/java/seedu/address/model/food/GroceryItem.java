@@ -42,12 +42,13 @@ public class GroceryItem extends Food {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" ")
+        builder.append("Name:")
+                .append(getName())
+                .append(" Amount:")
                 .append(getAmount())
-                .append(" ")
+                .append(" ExpiryDate:")
                 .append(getExpiryDate())
-                .append(" Tags: ");
+                .append(" Tags:");
         getTags().forEach(builder::append);
         return builder.toString();
     }
