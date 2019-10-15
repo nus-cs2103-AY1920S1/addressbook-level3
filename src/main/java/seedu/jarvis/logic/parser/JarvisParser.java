@@ -88,19 +88,17 @@ public class JarvisParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-
         case LookUpCommand.COMMAND_WORD:
             return new LookUpCommandParser().parse(arguments);
 
         case AddCcaCommand.COMMAND_WORD:
             return new AddCcaCommandParser().parse(arguments);
-            
+
         case AddTaskCommand.COMMAND_WORD:
             return new AddTaskCommandParser().parse(arguments);
-            
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }
