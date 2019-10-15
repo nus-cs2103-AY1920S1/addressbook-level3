@@ -19,7 +19,7 @@ import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonExce
  */
 public class JsonAdaptedClearAddressCommand extends JsonAdaptedCommand {
     public static final String MESSAGE_INVALID_COMMAND = "This command is not an ClearAddressCommand.";
-    private final List<JsonAdaptedPerson> persons;
+    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedClearAddressCommand} with the given {@code List} of {@code Person}.
@@ -27,7 +27,7 @@ public class JsonAdaptedClearAddressCommand extends JsonAdaptedCommand {
      */
     @JsonCreator
     public JsonAdaptedClearAddressCommand(List<JsonAdaptedPerson> persons) {
-        this.persons = new ArrayList<>(persons);
+        this.persons.addAll(persons);
     }
 
     /**
@@ -42,11 +42,10 @@ public class JsonAdaptedClearAddressCommand extends JsonAdaptedCommand {
             throw new InvalidCommandToJsonException(MESSAGE_INVALID_COMMAND);
         }
         ClearAddressCommand clearAddressCommand = (ClearAddressCommand) command;
-        List<Person> personList = clearAddressCommand.getClearedPersons();
-        persons = clearAddressCommand.getClearedPersons()
+        persons.addAll(clearAddressCommand.getClearedPersons()
                 .stream()
                 .map(JsonAdaptedPerson::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -57,6 +56,7 @@ public class JsonAdaptedClearAddressCommand extends JsonAdaptedCommand {
      * @throws IllegalValueException if there were any data constraints violated in the adapted
      * {@code ClearAddressCommand}.
      */
+    @Override
     public Command toModelType() throws IllegalValueException {
         List<Person> personList = new ArrayList<>();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {

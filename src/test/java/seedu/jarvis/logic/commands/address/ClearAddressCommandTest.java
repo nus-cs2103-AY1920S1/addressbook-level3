@@ -1,11 +1,14 @@
 package seedu.jarvis.logic.commands.address;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.address.TypicalPersons.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.AddressBook;
+import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
 
@@ -89,5 +93,31 @@ public class ClearAddressCommandTest {
                     assertCommandInverseSuccess(clearAddressCommand, model,
                             ClearAddressCommand.MESSAGE_INVERSE_SUCCESS_RESTORE, expectedModel);
                 });
+    }
+
+    /**
+     * Tests for equality for {@code ClearAddressCommand} objects.
+     */
+    @Test
+    public void equals() {
+        List<Person> list = Arrays.asList(AMY, BENSON, CARL);
+        ClearAddressCommand clearAddressCommand = new ClearAddressCommand(list);
+
+        // null -> false.
+        assertFalse(clearAddressCommand.equals(null));
+        // compare with same instance -> true.
+        assertTrue(clearAddressCommand.equals(clearAddressCommand));
+
+        // same list with same order -> true.
+        assertTrue(clearAddressCommand.equals(new ClearAddressCommand(list)));
+
+        // different order -> false.
+        assertFalse(clearAddressCommand.equals(new ClearAddressCommand(Arrays.asList(AMY, CARL, BENSON))));
+
+        // subset of list -> false.
+        assertFalse(clearAddressCommand.equals(new ClearAddressCommand(Arrays.asList(AMY, BENSON))));
+
+        // different list -> false.
+        assertFalse(clearAddressCommand.equals(new ClearAddressCommand(Arrays.asList(DANIEL, ELLE, GEORGE))));
     }
 }

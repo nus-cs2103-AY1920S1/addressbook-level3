@@ -10,6 +10,16 @@ import seedu.jarvis.model.Model;
  */
 public class AddTaskCommand extends Command {
 
+    /**
+     * Gets the command word of the command.
+     *
+     * @return {@code String} representation of the command word.
+     */
+    @Override
+    public String getCommandWord() {
+        return null;
+    }
+
     @Override
     public boolean hasInverseExecution() {
         return false;

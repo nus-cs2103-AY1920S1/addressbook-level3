@@ -51,6 +51,7 @@ public class JsonAdaptedAddAddressCommand extends JsonAdaptedCommand {
      * @throws IllegalValueException if there were any data constraints violated in the adapted
      * {@code AddAddressCommand}.
      */
+    @Override
     public Command toModelType() throws IllegalValueException {
         return new AddAddressCommand(toAdd.toModelType());
     }

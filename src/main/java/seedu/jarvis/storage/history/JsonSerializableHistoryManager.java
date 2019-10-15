@@ -2,11 +2,11 @@ package seedu.jarvis.storage.history;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.logic.commands.address.ClearAddressCommand;
@@ -46,9 +46,8 @@ public class JsonSerializableHistoryManager {
         }
     }
 
-
     private JsonAdaptedCommand convertToJsonAdaptedCommand(Command command) throws InvalidCommandToJsonException {
-        switch (command.getId()) {
+        switch (command.getCommandWord()) {
         case AddAddressCommand.COMMAND_WORD:
             return new JsonAdaptedAddAddressCommand(command);
         case ClearAddressCommand.COMMAND_WORD:
@@ -56,5 +55,22 @@ public class JsonSerializableHistoryManager {
         default:
             throw new InvalidCommandToJsonException(MESSAGE_INVALID_COMMAND);
         }
+    }
+
+    /**
+     * Converts this Jackson-friendly adapted {@code HistoryManager} object.
+     *
+     * @return {@code HistoryManager} of the Jackson-friendly adapted {@code JsonSerializableHistoryManager}.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted {@code HistoryManager}.
+     */
+    public HistoryManager toModelType() throws IllegalValueException {
+        HistoryManager historyManager = new HistoryManager();
+        for (JsonAdaptedCommand jsonAdaptedExecutedCommand : executedCommands) {
+            historyManager.rememberExecutedCommand(jsonAdaptedExecutedCommand.toModelType());
+        }
+        for (JsonAdaptedCommand jsonAdaptedInverselyExecutedCommand : inverselyExecutedCommands) {
+            historyManager.rememberInverselyExecutedCommand(jsonAdaptedInverselyExecutedCommand.toModelType());
+        }
+        return historyManager;
     }
 }

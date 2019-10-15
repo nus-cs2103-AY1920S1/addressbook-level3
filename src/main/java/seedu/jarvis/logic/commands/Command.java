@@ -8,15 +8,12 @@ import seedu.jarvis.model.Model;
  */
 public abstract class Command {
 
-    private String id;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    /**
+     * Gets the command word of the command.
+     *
+     * @return {@code String} representation of the command word.
+     */
+    public abstract String getCommandWord();
 
     /**
      * Returns whether the command has an inverse execution.

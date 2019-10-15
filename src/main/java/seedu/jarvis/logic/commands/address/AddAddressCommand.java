@@ -50,7 +50,6 @@ public class AddAddressCommand extends Command {
      */
     public AddAddressCommand(Person person) {
         requireNonNull(person);
-        super.setId(COMMAND_WORD);
         toAdd = person;
     }
 
@@ -61,6 +60,16 @@ public class AddAddressCommand extends Command {
      */
     public Person getPersonToAdd() {
         return toAdd;
+    }
+
+    /**
+     * Gets the command word of the command.
+     *
+     * @return {@code String} representation of the command word.
+     */
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 
     /**

@@ -5,6 +5,7 @@ import static seedu.jarvis.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
@@ -33,6 +34,16 @@ public class ClearAddressCommand extends Command {
     public ClearAddressCommand(List<Person> persons) {
         this();
         clearedPersons.addAll(persons);
+    }
+
+    /**
+     * Gets the command word of the command.
+     *
+     * @return {@code String} representation of the command word.
+     */
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 
     /**
@@ -91,4 +102,17 @@ public class ClearAddressCommand extends Command {
         return new CommandResult(MESSAGE_INVERSE_SUCCESS_RESTORE);
     }
 
+    /**
+     * Checks for equality with a given {@code Object}.
+     * Checks that it is a {@code ClearAddressCommand} with the same {@code Person} objects in the same order.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        return obj == this // short circuit if it is the same object.
+                || (obj instanceof ClearAddressCommand // instanceof handles nulls.
+                && clearedPersons.size() == ((ClearAddressCommand) obj).clearedPersons.size()
+                && IntStream.range(0, clearedPersons.size())
+                .allMatch(index -> clearedPersons.get(index).equals(
+                        ((ClearAddressCommand) obj).clearedPersons.get(index))));
+    }
 }
