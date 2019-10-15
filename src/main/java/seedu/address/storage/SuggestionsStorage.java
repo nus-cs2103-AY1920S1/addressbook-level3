@@ -31,7 +31,7 @@ public class SuggestionsStorage {
 
     /**
      * Returns the static SortedSet of suggestions.
-     * @return the SortedSet
+     * @return the SortedSet.
      */
     public static SortedSet<String> getSuggestions() {
         return suggestions;
