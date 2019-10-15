@@ -85,6 +85,8 @@ class JsonAdaptedRepeater {
         }
         if (!Amount.isValidAmount(this.amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
+        } else if (Amount.isNegative(this.amount)) {
+            throw new IllegalValueException(Amount.NEGATIVE_AMOUNT_CONSTRAINT);
         }
         final Amount modelAmount = new Amount(this.amount);
 

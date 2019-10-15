@@ -72,6 +72,8 @@ class JsonAdaptedBudget {
         }
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
+        } else if (Amount.isNegative(amount)) {
+            throw new IllegalValueException(Amount.NEGATIVE_AMOUNT_CONSTRAINT);
         }
         final Amount modelAmount = new Amount(amount);
 
