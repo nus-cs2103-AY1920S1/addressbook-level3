@@ -4,36 +4,42 @@
     "credits" : "20",
     "email" : "alexyeoh@example.com",
     "matricId" : "A0180000R",
+    "prevMods" : "",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Bernice Yu",
     "credits" : "20",
     "email" : "berniceyu@example.com",
     "matricId" : "A01455353y",
+    "prevMods" : "",
     "tagged" : [ "colleagues", "friends" ]
   }, {
     "name" : "Charlotte Oliveiro",
     "credits" : "20",
     "email" : "charlotte@example.com",
     "matricId" : "A0199239U",
+    "prevMods" : "",
     "tagged" : [ "neighbours" ]
   }, {
     "name" : "David Li",
     "credits" : "20",
     "email" : "lidavid@example.com",
     "matricId" : "A01423223T",
+    "prevMods" : "",
     "tagged" : [ "family" ]
   }, {
     "name" : "Irfan Ibrahim",
     "credits" : "20",
     "email" : "irfan@example.com",
     "matricId" : "A12039123S",
+    "prevMods" : "",
     "tagged" : [ "classmates" ]
   }, {
     "name" : "Roy Balakrishnan",
     "credits" : "20",
     "email" : "royb@example.com",
     "matricId" : "A015923848U",
+    "prevMods" : "",
     "tagged" : [ "colleagues" ]
   } ],
   "appeals": [
