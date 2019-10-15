@@ -15,6 +15,7 @@ import seedu.address.model.note.Note;
 import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Subject;
+import seedu.address.model.task.Task;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -25,6 +26,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Note> filteredNotes;
+    private final FilteredList<Task> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +40,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
+        filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
     }
 
     public ModelManager() {
@@ -116,6 +119,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Note getNote(Note note) {
+        requireNonNull(note);
+        return addressBook.getNote(note);
+    }
+
+    @Override
     public void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty) {
         requireAllNonNull(subject, difficulty);
 
@@ -151,6 +160,47 @@ public class ModelManager implements Model {
         filteredNotes.setPredicate(predicate);
     }
 
+    //=========== Filtered Task List accessors =============================================================
+
+    @Override
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return addressBook.hasTask(task);
+    }
+
+    @Override
+    public void deleteTask(Task target) {
+        addressBook.removeTask(target);
+    }
+
+    @Override
+    public void addTask(Task task) {
+        addressBook.addTask(task);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public void setTask(Task target, Task editedTask) {
+        requireAllNonNull(target, editedTask);
+
+        addressBook.setTask(target, editedTask);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task}s backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return filteredTasks;
+    }
+
+    @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredTasks.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -167,6 +217,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredNotes.equals(other.filteredNotes);
+                && filteredNotes.equals(other.filteredNotes)
+                && filteredTasks.equals(other.filteredTasks);
     }
 }

@@ -5,12 +5,16 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.note.Note;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskForNote;
 
 /**
  * A utility class containing a list of {@code Note} objects to be used in tests.
@@ -31,6 +35,10 @@ public class TypicalPersons {
             .withContent("little tokyo").build();
     public static final Note GEORGE = new PersonBuilder().withTitle("George Best")
             .withContent("4th street").build();
+
+    public static final Task ALICE_TASK = new TaskForNote(ALICE,
+            LocalDate.parse("06/08/2019", Task.FORMAT_USER_INPUT_DATE),
+            LocalTime.parse("1600", Task.FORMAT_USER_INPUT_TIME));
 
     // Manually added
     public static final Note HOON = new PersonBuilder().withTitle("Hoon Meier")
@@ -56,10 +64,18 @@ public class TypicalPersons {
         for (Note note : getTypicalPersons()) {
             ab.addNote(note);
         }
+
+        for (Task task : getTypicalTasks()) {
+            ab.addTask(task);
+        }
         return ab;
     }
 
     public static List<Note> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Task> getTypicalTasks() {
+        return new ArrayList<>(Arrays.asList(ALICE_TASK));
     }
 }
