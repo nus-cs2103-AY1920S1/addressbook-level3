@@ -221,7 +221,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             //So is this. Todo: Compile both the above and below into a new "UpdateUI" class.
-            if (commandText.equals("bank")) {
+            if (commandText.matches("bank [1-9]")) {
                 modularDisplay.swapToBanks(modularDisplayPlaceholder);
             } else if (commandText.equals("list")) {
                 modularDisplay.swapToList(modularDisplayPlaceholder);
