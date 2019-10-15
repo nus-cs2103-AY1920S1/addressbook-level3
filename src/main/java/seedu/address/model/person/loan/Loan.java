@@ -4,8 +4,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.Direction;
+import seedu.address.model.transaction.Amount;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.loan.stub.Amount;
 import seedu.address.model.person.loan.stub.Date;
 
 /**
@@ -96,7 +97,7 @@ public class Loan {
 
     @Override
     public String toString() {
-        String direction = getDirection().direction.equals("Out")
+        String directionWithFunctionWord = getDirection() == Direction.OUT
                 ? getDirection().direction.toLowerCase() + " to "
                 : getDirection().direction.toLowerCase() + " from ";
 
@@ -104,7 +105,7 @@ public class Loan {
         final StringBuilder builder = new StringBuilder();
         builder.append(" ").append(getStatus().getStatusIcon()).append(" ")
                 .append(getAmount()).append(" ")
-                .append(direction)
+                .append(directionWithFunctionWord)
                 .append(getPerson().getName()).append(divider)
                 .append(getDate()).append(divider)
                 .append(getDescription()).append(divider);
