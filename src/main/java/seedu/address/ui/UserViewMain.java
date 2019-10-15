@@ -16,10 +16,15 @@ public class UserViewMain {
    private UserViewNavigator userViewNavigator;
    private Logic logic;
 
-   public UserViewMain(Logic logic) throws IOException {
+   public UserViewMain(Logic logic) {
       this.logic = logic;
       FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/view/" + FXML));
-      fxmlLoader.load();
+
+      try {
+         fxmlLoader.load();
+      } catch (IOException e) {
+         throw new AssertionError(e);
+      }
 
       userViewController = fxmlLoader.getController();
       assert userViewController != null;

@@ -68,11 +68,7 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
-        try {
-            userViewMain = new UserViewMain(logic);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        userViewMain = new UserViewMain(logic);
 
         userViewUpdate = new UserViewUpdate(userNavigableView, userViewMain);
 
