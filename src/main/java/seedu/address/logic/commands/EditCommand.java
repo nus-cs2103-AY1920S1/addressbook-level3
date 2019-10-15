@@ -128,6 +128,8 @@ public class EditCommand extends Command {
     public static class EditAnswerableDescriptor {
         private Question question;
         private AnswerSet answerSet;
+        private Set<Answer> correctAnswerSet;
+        private Set<Answer> wrongAnswerSet;
         private Difficulty difficulty;
         private Category category;
         private Set<Tag> tags;
@@ -143,6 +145,10 @@ public class EditCommand extends Command {
         public EditAnswerableDescriptor(EditAnswerableDescriptor toCopy) {
             setQuestion(toCopy.question);
             setAnswerSet(toCopy.answerSet);
+            if (answerSet != null) {
+                setCorrectAnswerSet(toCopy.correctAnswerSet);
+                setWrongAnswerSet(toCopy.wrongAnswerSet);
+            }
             setDifficulty(toCopy.difficulty);
             setCategory(toCopy.category);
             setTags(toCopy.tags);
@@ -171,7 +177,7 @@ public class EditCommand extends Command {
             if (answerSet == null) {
                 this.answerSet = new AnswerSet();
                 this.answerSet.setCorrectAnswerSet(correctAnswerSet);
-            } else {
+            } else if (answerSet.getCorrectAnswerSet() == null){
                 this.answerSet.setCorrectAnswerSet(correctAnswerSet);
             }
         }
@@ -180,7 +186,7 @@ public class EditCommand extends Command {
             if (answerSet == null) {
                 this.answerSet = new AnswerSet();
                 this.answerSet.setWrongAnswerSet(wrongAnswerSet);
-            } else {
+            } else if (answerSet.getWrongAnswerSet() == null){
                 this.answerSet.setWrongAnswerSet(wrongAnswerSet);
             }
         }
