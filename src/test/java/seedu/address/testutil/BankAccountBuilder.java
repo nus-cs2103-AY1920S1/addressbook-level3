@@ -12,9 +12,13 @@ public class BankAccountBuilder {
 
     private BankAccount bankAccount;
 
-    public BankAccountBuilder() { bankAccount = new BankAccount(); }
+    public BankAccountBuilder() {
+        bankAccount = new BankAccount();
+    }
 
-    public BankAccountBuilder(BankAccount bankAccount) { this.bankAccount = bankAccount; }
+    public BankAccountBuilder(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
+    }
 
     /**
      * Adds a new {@code Transaction} to the {@code BankAccount} that we are building.

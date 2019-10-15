@@ -19,11 +19,12 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.*;
-import seedu.address.model.person.Person;
+import seedu.address.model.BankAccount;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
 
 /**
@@ -87,8 +88,8 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Transaction transactionInFilteredList = model.
-                getFilteredTransactionList()
+        Transaction transactionInFilteredList = model
+                .getFilteredTransactionList()
                 .get(INDEX_FIRST_PERSON.getZeroBased());
         // TODO: FIX
         Transaction editedTransaction = new TransactionBuilder(transactionInFilteredList).withAmount("1").build();
@@ -120,13 +121,15 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit person in filtered list into a duplicate in address book
-        Transaction transactionInList = model.getBankAccount().getTransactionHistory().get(INDEX_SECOND_PERSON.getZeroBased());
+        Transaction transactionInList = model
+                .getBankAccount().getTransactionHistory().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(transactionInList).build());
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
      */
+
 
     @Test
     public void execute_invalidTransactionIndexUnfilteredList_failure() {

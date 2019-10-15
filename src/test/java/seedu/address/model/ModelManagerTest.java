@@ -89,8 +89,8 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> modelManager.getFilteredTransactionList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> modelManager
+            .getFilteredTransactionList().remove(0));
     }
 
     @Test
