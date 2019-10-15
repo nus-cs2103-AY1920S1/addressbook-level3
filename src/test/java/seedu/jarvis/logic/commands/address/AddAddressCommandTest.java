@@ -29,8 +29,8 @@ import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
-import seedu.jarvis.model.planner.Task;
 import seedu.jarvis.model.planner.TaskList;
+import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.testutil.address.PersonBuilder;
 
@@ -247,7 +247,7 @@ public class AddAddressCommandTest {
         }
 
         @Override
-        public Boolean hasTask(Task t) {
+        public boolean hasTask(Task t) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -268,6 +268,11 @@ public class AddAddressCommandTest {
 
         @Override
         public Planner getPlanner() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetData(Planner planner) {
             throw new AssertionError("This method should not be called.");
         }
     }

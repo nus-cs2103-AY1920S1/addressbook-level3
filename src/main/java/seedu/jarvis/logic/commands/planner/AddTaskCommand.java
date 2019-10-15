@@ -12,22 +12,22 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.planner.Task;
+import seedu.jarvis.model.planner.tasks.Task;
 
 /**
  * Adds a task to JARVIS
  */
 public class AddTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addTask";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
             + "Parameters: "
             + PREFIX_TASK_TYPE + "TASK TYPE "
             + PREFIX_TASK_DES + "TASK DES "
-            + PREFIX_DATE + "DATE "
-            + PREFIX_PRIORITY + "PRIORITY LEVEL "
-            + PREFIX_FREQ + "FREQUENCY "
+            + PREFIX_DATE + "[DATE] "
+            + PREFIX_PRIORITY + "[PRIORITY LEVEL] "
+            + PREFIX_FREQ + "[FREQUENCY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK_TYPE + "todo "
@@ -38,7 +38,7 @@ public class AddTaskCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New task added:\n%1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
 
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted task: %1$s";
@@ -101,5 +101,12 @@ public class AddTaskCommand extends Command {
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         return null;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddTaskCommand // instanceof handles nulls
+                && toAdd.equals(((AddTaskCommand) other).toAdd));
     }
 }

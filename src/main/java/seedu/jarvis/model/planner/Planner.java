@@ -2,6 +2,8 @@ package seedu.jarvis.model.planner;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.jarvis.model.planner.tasks.Task;
+
 /**
  * Represents the planner feature in JARVIS
  */
@@ -48,7 +50,7 @@ public class Planner {
      * @return true if the planner already contains the task, false if
      *         it does not.
      */
-    public Boolean hasTask(Task t) {
+    public boolean hasTask(Task t) {
         return taskList.hasTask(t);
     }
 
