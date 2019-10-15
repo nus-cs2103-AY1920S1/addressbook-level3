@@ -1,5 +1,6 @@
 package seedu.address.inventory.model;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 /**
@@ -7,6 +8,8 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Item {
+
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
     private final String category;
     private final String description;
     private int quantity;
@@ -23,10 +26,10 @@ public class Item {
         this.description = description;
         this.category = category;
         this.quantity = quantity;
-        this.cost = cost;
-        this.totalCost = quantity * cost;
-        this.price = price;
-        this.subtotal = quantity * price;
+        this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * cost));
+        this.price = Double.parseDouble(DECIMAL_FORMAT.format(price));
+        this.subtotal = Double.parseDouble(DECIMAL_FORMAT.format(quantity * price));
         this.id = "" + id;
     }
 
@@ -37,8 +40,8 @@ public class Item {
         this.description = description;
         this.category = category;
         this.quantity = quantity;
-        this.cost = cost;
-        this.totalCost = quantity * cost;
+        this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * cost));
         this.price = 0;
         this.subtotal = 0;
         this.id = "" + i;
@@ -85,11 +88,11 @@ public class Item {
      * Updates the subtotal.
      */
     public void updateSubtotal() {
-        this.subtotal = this.price * this.quantity;
+        this.subtotal = Double.parseDouble(DECIMAL_FORMAT.format(this.price * this.quantity));
     }
 
     public void updateTotalCost() {
-        this.totalCost = this.cost * this.quantity;
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(this.cost * this.quantity));
     }
 
     public String getId() {

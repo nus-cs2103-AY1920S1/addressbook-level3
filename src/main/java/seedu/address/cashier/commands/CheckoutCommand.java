@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.ui.CashierMessages;
+import seedu.address.inventory.model.Item;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
 
@@ -41,7 +42,7 @@ public class CheckoutCommand extends Command {
         inventoryModel.readInUpdatedList();
         ClearCommand clearCommand = new ClearCommand();
         clearCommand.execute(modelManager, personModel, transactionModel, inventoryModel);
-        return new CommandResult(cashierMessages.checkoutSuccessful(String.valueOf(totalAmount),
+        return new CommandResult(cashierMessages.checkoutSuccessful(Item.DECIMAL_FORMAT.format(totalAmount),
                 String.valueOf(change)));
     }
 }
