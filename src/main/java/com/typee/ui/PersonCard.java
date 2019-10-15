@@ -35,7 +35,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label description;
     @FXML
-    private Label location;
+    private Label locationOfEngagement;
     @FXML
     private Label priority;
     @FXML
@@ -47,12 +47,12 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.engagement = engagement;
         id.setText(displayedIndex + ". ");
-        //type.setText(engagement.getClass().getName());
-        //startTime.setText(engagement.getStart().toString());
-        //endTime.setText(engagement.getEnd().toString());
-        //location.setText(engagement.getLocation().toString());
-        //priority.setText(engagement.getPriority().name());
-        //attendees.setText(engagement.getAttendees().toString());
+        type.setText(engagement.getClass().getSimpleName());
+        startTime.setText(engagement.getStart().toString());
+        endTime.setText(engagement.getEnd().toString());
+        locationOfEngagement.setText(engagement.getLocation().toString());
+        priority.setText(engagement.getPriority().name());
+        attendees.setText(engagement.getAttendees().toString());
         description.setText(engagement.getDescription());
     }
 
