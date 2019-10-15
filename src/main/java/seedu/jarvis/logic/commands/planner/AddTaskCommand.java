@@ -19,7 +19,7 @@ import seedu.jarvis.model.planner.tasks.Task;
  */
 public class AddTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addTask";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
             + "Parameters: "

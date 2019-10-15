@@ -10,6 +10,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.ExitCommand;
 import seedu.jarvis.logic.commands.HelpCommand;
 
+import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.logic.commands.address.ClearAddressCommand;
 import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand;
@@ -56,13 +57,8 @@ public class JarvisParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddTaskCommand.COMMAND_WORD:
-            if (arguments.startsWith(" n/")) {
-                return new AddAddressCommandParser().parse(arguments);
-            } else {
-                return new AddTaskCommandParser().parse(arguments);
-            }
-
+        case AddAddressCommand.COMMAND_WORD:
+            return new AddAddressCommandParser().parse(arguments);
         case EditAddressCommand.COMMAND_WORD:
             return new EditAddressCommandParser().parse(arguments);
 
@@ -92,6 +88,9 @@ public class JarvisParser {
 
         case AddCcaCommand.COMMAND_WORD:
             return new AddCcaCommandParser().parse(arguments);
+
+        case AddTaskCommand.COMMAND_WORD:
+            return new AddTaskCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
