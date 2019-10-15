@@ -1,12 +1,11 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.GenReportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.entity.IdentificationNumber;
 
 //@@author bernicechio
 /**
