@@ -17,6 +17,10 @@ public class LocationMap {
 
     private static List<Location> locations = new ArrayList<>(List.of(
             new Location("Jurong", 1, 1),
+            new Location("Tuas", 1, 1),
+            new Location("Woodlands", 1, 1),
+            new Location("Bishan", 1, 1),
+            new Location("City", 1, 1),
             new Location("Marina", 2, 0),
             new Location("Changi", 3, 1)
     ));

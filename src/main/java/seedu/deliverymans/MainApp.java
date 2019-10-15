@@ -23,7 +23,7 @@ import seedu.deliverymans.model.ReadOnlyUserPrefs;
 import seedu.deliverymans.model.UserPrefs;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
-import seedu.deliverymans.model.addressbook.util.SampleDataUtil;
+import seedu.deliverymans.model.util.SampleDataUtil;
 import seedu.deliverymans.model.database.CustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.storage.AddressBookStorage;
