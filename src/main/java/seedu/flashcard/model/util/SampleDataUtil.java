@@ -1,5 +1,8 @@
 package seedu.flashcard.model.util;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.flashcard.model.FlashcardList;
 import seedu.flashcard.model.ReadOnlyFlashcardList;
@@ -8,26 +11,25 @@ import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.Word;
 import seedu.flashcard.model.tag.Tag;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+/**
+ * Generate the sample data to make the default flashcard list nicer.
+ */
 public class SampleDataUtil {
 
     public static Flashcard[] getSampleFlashcards() {
         return new Flashcard[]{
-                new Flashcard(new Word("Compactness"),
-                        new Definition("For any open covering of a metric space, there is a finite subcover."),
-                        getTagSet("mathematics")),
-                new Flashcard(new Word("Completeness"),
-                        new Definition("Any Cauchy sequence converges in this metric space"),
-                        getTagSet("mathematics")),
-                new Flashcard(new Word("Mount Blanc Tunnel"),
-                        new Definition("An 11611 meters tunnel on the boarder of France and Italy."),
-                        getTagSet("geography")),
-                new Flashcard(new Word("Kenetsu Tunnel"),
-                        new Definition("An 10933 meters tunnel in Japan"),
-                        getTagSet("geography")),
+            new Flashcard(new Word("Compactness"),
+                new Definition("For any open covering of a metric space, there is a finite subcover."),
+                getTagSet("mathematics")),
+            new Flashcard(new Word("Completeness"),
+                new Definition("Any Cauchy sequence converges in this metric space"),
+                getTagSet("mathematics")),
+            new Flashcard(new Word("Mount Blanc Tunnel"),
+                new Definition("An 11611 meters tunnel on the boarder of France and Italy."),
+                getTagSet("geography")),
+            new Flashcard(new Word("Kenetsu Tunnel"),
+                new Definition("An 10933 meters tunnel in Japan"),
+                getTagSet("geography")),
         };
     }
 

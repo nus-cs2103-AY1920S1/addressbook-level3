@@ -2,11 +2,11 @@ package seedu.flashcard.logic.parser;
 
 import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.flashcard.logic.parser.exceptions.ParseException;
-import seedu.flashcard.logic.commands.FindCommand;
-import seedu.flashcard.model.flashcard.WordContainsKeywordsPredicate;
-
 import java.util.Arrays;
+
+import seedu.flashcard.logic.commands.FindCommand;
+import seedu.flashcard.logic.parser.exceptions.ParseException;
+import seedu.flashcard.model.flashcard.WordContainsKeywordsPredicate;
 
 /**
  * Parse input arguments to generate a {@Code EditCommand}

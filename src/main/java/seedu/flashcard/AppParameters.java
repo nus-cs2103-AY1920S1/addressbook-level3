@@ -1,15 +1,18 @@
 package seedu.flashcard;
 
-import javafx.application.Application;
-import seedu.flashcard.commons.core.LogsCenter;
-import seedu.flashcard.commons.util.FileUtil;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import javafx.application.Application;
+import seedu.flashcard.commons.core.LogsCenter;
+import seedu.flashcard.commons.util.FileUtil;
+
+/**
+ * Save the logger and the default configuration file path.
+ */
 public class AppParameters {
 
     private static final Logger logger = LogsCenter.getLogger(AppParameters.class);

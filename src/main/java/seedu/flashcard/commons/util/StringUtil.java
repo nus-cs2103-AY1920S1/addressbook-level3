@@ -7,6 +7,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 
+/**
+ * Contains all util functions for String related issues.
+ */
 public class StringUtil {
 
     /**

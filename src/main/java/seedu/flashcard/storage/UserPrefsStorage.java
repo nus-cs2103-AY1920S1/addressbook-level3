@@ -1,12 +1,12 @@
 package seedu.flashcard.storage;
 
-import seedu.flashcard.model.ReadOnlyUserPrefs;
-import seedu.flashcard.model.UserPrefs;
-import seedu.flashcard.commons.exceptions.DataConversionException;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import seedu.flashcard.commons.exceptions.DataConversionException;
+import seedu.flashcard.model.ReadOnlyUserPrefs;
+import seedu.flashcard.model.UserPrefs;
 
 /**
  * Represents a storage for {@link seedu.flashcard.model.UserPrefs}

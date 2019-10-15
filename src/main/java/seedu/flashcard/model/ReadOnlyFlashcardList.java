@@ -3,6 +3,10 @@ package seedu.flashcard.model;
 import javafx.collections.ObservableList;
 import seedu.flashcard.model.flashcard.Flashcard;
 
+/**
+ * An unmodifiable flashcard list.
+ * This is one of the communication window of the model package to the outside.
+ */
 public interface ReadOnlyFlashcardList {
 
     /**

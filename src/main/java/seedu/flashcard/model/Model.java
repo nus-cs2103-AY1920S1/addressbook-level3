@@ -1,14 +1,18 @@
 package seedu.flashcard.model;
 
+import java.nio.file.Path;
+import java.util.Set;
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.tag.Tag;
 
-import java.nio.file.Path;
-import java.util.Set;
-import java.util.function.Predicate;
-
+/**
+ * The interface of models containing the whole flashcard list.
+ * This is one of the communication windows of the model package to the outside.
+ */
 public interface Model {
 
     /**

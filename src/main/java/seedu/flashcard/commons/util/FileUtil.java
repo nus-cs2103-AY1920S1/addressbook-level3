@@ -6,6 +6,9 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Saves the common utils for all file related issues.
+ */
 public class FileUtil {
 
     private static final String CHARSET = "UTF-8";

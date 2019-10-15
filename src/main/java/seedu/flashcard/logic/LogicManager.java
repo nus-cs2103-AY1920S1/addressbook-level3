@@ -1,5 +1,9 @@
 package seedu.flashcard.logic;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.commons.core.LogsCenter;
@@ -12,10 +16,6 @@ import seedu.flashcard.model.Model;
 import seedu.flashcard.model.ReadOnlyFlashcardList;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.storage.Storage;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
 
 /**
  * The main logic manager of the system.

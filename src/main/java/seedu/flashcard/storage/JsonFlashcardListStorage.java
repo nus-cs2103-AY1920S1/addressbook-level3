@@ -2,17 +2,17 @@ package seedu.flashcard.storage;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.flashcard.commons.exceptions.IllegalValueException;
-import seedu.flashcard.commons.util.FileUtil;
-import seedu.flashcard.commons.util.JsonUtil;
-import seedu.flashcard.commons.core.LogsCenter;
-import seedu.flashcard.commons.exceptions.DataConversionException;
-import seedu.flashcard.model.ReadOnlyFlashcardList;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import seedu.flashcard.commons.core.LogsCenter;
+import seedu.flashcard.commons.exceptions.DataConversionException;
+import seedu.flashcard.commons.exceptions.IllegalValueException;
+import seedu.flashcard.commons.util.FileUtil;
+import seedu.flashcard.commons.util.JsonUtil;
+import seedu.flashcard.model.ReadOnlyFlashcardList;
 
 /**
  * A class to access FlashcardList data stored as a json file on the hard disk.
@@ -45,8 +45,8 @@ public class JsonFlashcardListStorage implements FlashcardStorage {
     @Override
     public Optional<ReadOnlyFlashcardList> readFlashcardList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
-        Optional<JsonSerializableFlashcardList> jsonFlashcardList
-                = JsonUtil.readJsonFile(filePath, JsonSerializableFlashcardList.class);
+        Optional<JsonSerializableFlashcardList> jsonFlashcardList =
+                JsonUtil.readJsonFile(filePath, JsonSerializableFlashcardList.class);
         if (!jsonFlashcardList.isPresent()) {
             return Optional.empty();
         }

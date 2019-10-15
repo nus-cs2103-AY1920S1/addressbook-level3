@@ -1,9 +1,9 @@
 package seedu.flashcard.model.flashcard;
 
-import seedu.address.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Flashcard}'s {@code Word} matches any of the keywords given.
@@ -17,8 +17,8 @@ public class WordContainsKeywordsPredicate implements Predicate<Flashcard> {
 
     @Override
     public boolean test(Flashcard flashcard) {
-        return keywords.stream().
-                anyMatch(keywords -> StringUtil.containsWordIgnoreCase(flashcard.getWord().word, keywords));
+        return keywords.stream()
+                .anyMatch(keywords -> StringUtil.containsWordIgnoreCase(flashcard.getWord().word, keywords));
     }
 
     @Override

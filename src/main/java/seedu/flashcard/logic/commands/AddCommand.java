@@ -5,8 +5,8 @@ import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_WORD;
 
-import seedu.flashcard.model.Model;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
+import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Flashcard;
 
 /**

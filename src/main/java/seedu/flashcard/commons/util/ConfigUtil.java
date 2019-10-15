@@ -1,14 +1,17 @@
 package seedu.flashcard.commons.util;
 
-
-import seedu.flashcard.commons.core.Config;
-import seedu.flashcard.commons.exceptions.DataConversionException;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import seedu.flashcard.commons.core.Config;
+import seedu.flashcard.commons.exceptions.DataConversionException;
+
+/**
+ * Stores all util functions for configuration related issues.
+ */
 public class ConfigUtil {
+
     public static Optional<Config> readConfig(Path configFilePath) throws DataConversionException {
         return JsonUtil.readJsonFile(configFilePath, Config.class);
     }

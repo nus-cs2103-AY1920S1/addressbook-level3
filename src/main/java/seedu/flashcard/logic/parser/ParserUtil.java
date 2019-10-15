@@ -2,6 +2,10 @@ package seedu.flashcard.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.commons.util.StringUtil;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
@@ -9,10 +13,9 @@ import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.Word;
 import seedu.flashcard.model.tag.Tag;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
+/**
+ * Assistance class stores common features for all parsers.
+ */
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";

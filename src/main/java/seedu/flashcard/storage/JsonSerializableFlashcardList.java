@@ -1,16 +1,17 @@
 package seedu.flashcard.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.flashcard.commons.exceptions.IllegalValueException;
 import seedu.flashcard.model.FlashcardList;
 import seedu.flashcard.model.ReadOnlyFlashcardList;
 import seedu.flashcard.model.flashcard.Flashcard;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * An Immutable FlashcardList that is serializable to JSON format.
@@ -35,7 +36,8 @@ public class JsonSerializableFlashcardList {
      * @param source future changes to this will not affect the created {@code JsonSerializableFlashcardList}.
      */
     public JsonSerializableFlashcardList(ReadOnlyFlashcardList source) {
-        flashcards.addAll(source.getFlashcardList().stream().map(JsonAdaptedFlashcard::new).collect(Collectors.toList()));
+        flashcards.addAll(source.getFlashcardList().stream()
+                .map(JsonAdaptedFlashcard::new).collect(Collectors.toList()));
     }
 
     /**

@@ -1,5 +1,7 @@
 package seedu.flashcard.ui;
 
+import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,8 +18,9 @@ import seedu.flashcard.logic.commands.CommandResult;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 
-import java.util.logging.Logger;
-
+/**
+ * Represent the whole window of the user interface, it should contain all units in the user interface.
+ */
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";

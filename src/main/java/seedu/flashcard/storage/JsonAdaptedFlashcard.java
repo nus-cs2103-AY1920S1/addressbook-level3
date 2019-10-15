@@ -1,19 +1,23 @@
 package seedu.flashcard.storage;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import seedu.flashcard.commons.exceptions.IllegalValueException;
-import seedu.flashcard.model.flashcard.Definition;
-import seedu.flashcard.model.flashcard.Flashcard;
-import seedu.flashcard.model.flashcard.Word;
-import seedu.flashcard.model.tag.Tag;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import seedu.flashcard.commons.exceptions.IllegalValueException;
+import seedu.flashcard.model.flashcard.Definition;
+import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.flashcard.Word;
+import seedu.flashcard.model.tag.Tag;
+
+/**
+ * Make the flashcard item more json friendly.
+ */
 public class JsonAdaptedFlashcard {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Flashcard's %s field is missing.";
@@ -64,7 +68,8 @@ public class JsonAdaptedFlashcard {
         final Word modelWord = new Word(word);
 
         if (definition == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Definition.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Definition.class.getSimpleName()));
         }
         if (!Definition.isValidDefinition(definition)) {
             throw new IllegalValueException(Definition.MESSAGE_CONSTRAINTS);

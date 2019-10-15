@@ -1,5 +1,7 @@
 package seedu.flashcard.ui;
 
+import java.util.logging.Logger;
+
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -9,8 +11,9 @@ import seedu.flashcard.commons.core.LogsCenter;
 import seedu.flashcard.commons.util.StringUtil;
 import seedu.flashcard.logic.Logic;
 
-import java.util.logging.Logger;
-
+/**
+ * The manager that operates the whole ui running logic.
+ */
 public class UiManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";

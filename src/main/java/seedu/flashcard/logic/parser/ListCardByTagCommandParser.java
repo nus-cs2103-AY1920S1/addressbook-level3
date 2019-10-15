@@ -3,12 +3,12 @@ package seedu.flashcard.logic.parser;
 import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Set;
+import java.util.stream.Stream;
+
 import seedu.flashcard.logic.commands.ListCardByTagCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 import seedu.flashcard.model.tag.Tag;
-
-import java.util.Set;
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments to generate {@code ListCardByTagCommandParser}

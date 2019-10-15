@@ -2,12 +2,16 @@ package seedu.flashcard.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.fxml.FXMLLoader;
-import seedu.flashcard.MainApp;
-
 import java.io.IOException;
 import java.net.URL;
 
+import javafx.fxml.FXMLLoader;
+import seedu.flashcard.MainApp;
+
+/**
+ * Represent each part in the user interface, like the card unit, text boc etc.
+ * @param <T> the root kind of this unit.
+ */
 public abstract class UiPart<T> {
     /** Resource folder where FXML files are stored. */
     public static final String FXML_FILE_FOLDER = "/view/";

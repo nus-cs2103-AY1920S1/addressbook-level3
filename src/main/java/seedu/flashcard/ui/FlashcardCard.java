@@ -1,5 +1,7 @@
 package seedu.flashcard.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -7,8 +9,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.flashcard.model.flashcard.Flashcard;
 
-import java.util.Comparator;
-
+/**
+ * Represents a single flashcard unit in the user interface.
+ */
 public class FlashcardCard extends UiPart<Region> {
 
     private static final String FXML = "FlashcardCard.fxml";

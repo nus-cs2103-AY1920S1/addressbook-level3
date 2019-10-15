@@ -1,18 +1,18 @@
 package seedu.flashcard.storage;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+
 import seedu.flashcard.commons.exceptions.DataConversionException;
 import seedu.flashcard.commons.util.JsonUtil;
 import seedu.flashcard.model.ReadOnlyUserPrefs;
 import seedu.flashcard.model.UserPrefs;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
  */
-public class JsonUserPrefsStorage implements UserPrefsStorage{
+public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     private Path filePath;
 

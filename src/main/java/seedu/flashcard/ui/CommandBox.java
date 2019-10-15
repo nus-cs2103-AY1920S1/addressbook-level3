@@ -4,9 +4,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import seedu.flashcard.logic.parser.exceptions.ParseException;
 import seedu.flashcard.logic.commands.CommandResult;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
+import seedu.flashcard.logic.parser.exceptions.ParseException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -69,6 +69,6 @@ public class CommandBox extends UiPart<Region> {
         /**
          * Executes the command and returns result.
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException, seedu.flashcard.logic.parser.exceptions.ParseException;
+        CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 }

@@ -3,17 +3,17 @@ package seedu.flashcard.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.flashcard.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.nio.file.Path;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.commons.core.LogsCenter;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.tag.Tag;
-
-import java.nio.file.Path;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
 
 /**
  * Represents the in memory model of the flashcard list data

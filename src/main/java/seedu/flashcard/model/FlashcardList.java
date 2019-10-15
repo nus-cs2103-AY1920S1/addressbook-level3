@@ -57,7 +57,8 @@ public class FlashcardList implements ReadOnlyFlashcardList {
     /**
      * Replaces the given flashcard {@code flashcard} in the list with {@code editedFlashcard}.
      * {@code target} must exist in the flashcard list.
-     * The flashcard word of {@code editedFlashcard} must not be the same as another existing flashcard in the flashcard list.
+     * The flashcard word of {@code editedFlashcard} must not
+     * be the same as another existing flashcard in the flashcard list.
      */
     public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
         requireNonNull(editedFlashcard);

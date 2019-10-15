@@ -2,10 +2,10 @@ package seedu.flashcard.model;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.flashcard.commons.core.GuiSettings;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import seedu.flashcard.commons.core.GuiSettings;
 
 /**
  * Represent the user's preferences.

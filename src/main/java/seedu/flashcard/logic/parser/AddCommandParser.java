@@ -5,15 +5,15 @@ import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_WORD;
 
+import java.util.Set;
+import java.util.stream.Stream;
+
 import seedu.flashcard.logic.commands.AddCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.Word;
 import seedu.flashcard.model.tag.Tag;
-
-import java.util.Set;
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments to generate {@Code AddCommand}
@@ -28,8 +28,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     @Override
     public AddCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap
-                = ArgumentTokenizer.tokenize(args, PREFIX_WORD, PREFIX_DEFINITION, PREFIX_TAG);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_WORD, PREFIX_DEFINITION, PREFIX_TAG);
         if (!arePrefixesPresent(argMultimap, PREFIX_WORD, PREFIX_DEFINITION, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));

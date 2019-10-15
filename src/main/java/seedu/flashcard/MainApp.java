@@ -1,5 +1,10 @@
 package seedu.flashcard;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -26,11 +31,6 @@ import seedu.flashcard.storage.StorageManager;
 import seedu.flashcard.storage.UserPrefsStorage;
 import seedu.flashcard.ui.Ui;
 import seedu.flashcard.ui.UiManager;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * Runs the application and controls the general execution logic of the whole program.
