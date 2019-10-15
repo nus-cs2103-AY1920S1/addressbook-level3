@@ -30,11 +30,10 @@ public class AddContactCommandIntegrationTest {
         Contact validContact = new ContactBuilder().build();
 
         Model expectedModel = new ModelManager(model.getPlanner(), new UserPrefs());
-        System.out.println(validContact);
         expectedModel.addContact(validContact);
 
         assertCommandSuccess(new AddContactCommand(validContact), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validContact), expectedModel);
+                String.format(AddContactCommand.MESSAGE_SUCCESS, validContact), expectedModel);
     }
 
     @Test

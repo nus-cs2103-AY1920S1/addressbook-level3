@@ -8,8 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,12 +21,10 @@ import seedu.address.logic.commands.AddDayCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.day.Day;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
@@ -60,7 +57,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         case AddActivityCommand.SECOND_COMMAND_WORD:
             return parseActivity(arguments);
         case AddContactCommand.SECOND_COMMAND_WORD:
-            return parsePerson(arguments);
+            return parseContact(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
@@ -88,9 +85,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         int numDays = ParserUtil.parseDays(argMultimap.getValue(PREFIX_DAY).get());
-        List<Day> days = Arrays.asList(new Day[numDays]);
-
-        return new AddDayCommand(days);
+        return new AddDayCommand(numDays);
     }
 
     /**
@@ -99,7 +94,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     private AddActivityCommand parseActivity(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_TAG);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE,
+                PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -108,11 +104,16 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Contact contact = Contact.emptyContact();
 
-        Activity activity = new Activity(name, address, contact, tagList);
-
-        return new AddActivityCommand(activity);
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+            Contact contact = new Contact(name, phone, null, null, new HashSet<Tag>());
+            Activity activity = new Activity(name, address, contact, tagList);
+            return new AddActivityCommand(activity);
+        } else {
+            Activity activity = new Activity(name, address, null, tagList);
+            return new AddActivityCommand(activity);
+        }
     }
 
     /**
@@ -126,7 +127,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddContactCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

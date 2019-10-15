@@ -43,7 +43,12 @@ public class AddActivityCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        //to be implemented
+
+        if (model.hasActivity(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
+        }
+
+        model.addActivity(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
