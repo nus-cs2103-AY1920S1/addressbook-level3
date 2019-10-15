@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.logic.commands.exceptions.CommandException;
@@ -151,12 +152,7 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public void setContext(ModelContext context) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ModelContext getContext() {
+        public SimpleObjectProperty<ModelContext> getContext() {
             throw new AssertionError("This method should not be called.");
         }
     }

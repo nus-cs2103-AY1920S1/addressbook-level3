@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.weme.commons.core.GuiSettings;
@@ -24,7 +25,7 @@ public class ModelManager implements Model {
     private final FilteredList<Meme> filteredMemes;
 
     // ModelContext determines which parser to use at any point of time.
-    private ModelContext context = ModelContext.CONTEXT_MEMES;
+    private SimpleObjectProperty<ModelContext> context = new SimpleObjectProperty<>(ModelContext.CONTEXT_MEMES);
 
     /**
      * Initializes a ModelManager with the given memeBook and userPrefs.
@@ -133,13 +134,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ModelContext getContext() {
+    public SimpleObjectProperty<ModelContext> getContext() {
         return context;
-    }
-
-    @Override
-    public void setContext(ModelContext context) {
-        this.context = context;
     }
 
     @Override
