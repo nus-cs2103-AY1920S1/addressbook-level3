@@ -11,7 +11,6 @@ public class Poster {
     private static final String PLACEHOLDER_IMAGE = "/images/poster-placeholder.png";
     public Image image;
 
-
     /**
      * Constructs a {@code Poster}.
      *
@@ -20,7 +19,7 @@ public class Poster {
     public Poster() {
     }
 
-    public boolean setImage(String imageUrl) {
+    public void setImage(String imageUrl) {
         image = new Image(imageUrl);
     }
 }

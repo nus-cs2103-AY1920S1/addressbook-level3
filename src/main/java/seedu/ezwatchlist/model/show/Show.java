@@ -27,11 +27,11 @@ public class Show {
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
     private final String imageOfShow;
-    private static final String placeholderImageLocation = "/images/poster-placeholder.png";
+    private static final String POSTER_PLACEHOLDER_PNG_URL = "/images/poster-placeholder.png";
 
     public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
-        this.imageOfShow = placeholderImageLocation;
+        this.imageOfShow = POSTER_PLACEHOLDER_PNG_URL;
         CollectionUtil.requireAllNonNull(name, description, isWatched, dateOfRelease, runningTime, actors);
         this.name = name;
         this.description = description;
