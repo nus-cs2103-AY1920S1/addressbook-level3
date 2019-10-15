@@ -8,6 +8,10 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCheatSheetBook;
 
+/**
+ * Represents a storage for {@link seedu.address.model.CheatSheetBook}.
+ */
+
 public interface CheatSheetBookStorage {
 
     /**
