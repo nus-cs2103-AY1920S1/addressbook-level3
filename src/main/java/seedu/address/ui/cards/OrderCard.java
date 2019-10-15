@@ -29,9 +29,13 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label index;
+    private Label id;
+    @FXML
+    private Label contactNumber;
     @FXML
     private Label customerName;
+    @FXML
+    private Label phoneId;
     @FXML
     private Label phoneName;
     @FXML
@@ -50,10 +54,12 @@ public class OrderCard extends UiPart<Region> {
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
         this.order = order;
-        index.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + ". ");
 
         customerName.setText(order.getCustomer().getCustomerName().fullName);
+        contactNumber.setText(order.getCustomer().getContactNumber().value);
 
+        phoneId.setText(order.getPhone().getIdentityNumber().value);
         phoneName.setText(order.getPhone().getPhoneName().fullName);
         phoneColour.setText(order.getPhone().getColour().value);
         phoneCapacity.setText(order.getPhone().getCapacity().value);
@@ -81,7 +87,7 @@ public class OrderCard extends UiPart<Region> {
 
         // state check
         OrderCard card = (OrderCard) other;
-        return index.getText().equals(card.index.getText())
+        return id.getText().equals(card.id.getText())
                 && order.equals(card.order);
     }
 }
