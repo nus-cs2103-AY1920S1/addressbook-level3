@@ -10,6 +10,7 @@ import seedu.address.model.ModulesInfo;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.Name;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.semester.UniqueSemesterList;
@@ -54,9 +55,8 @@ public class StudyPlan implements Cloneable {
         // switch the current active plan to the newly created one. Reason: user can directly add modules to it.
         this.isActive = true;
 
-        // add all default tags
-        // TODO: initialise it
         tags = new UniqueTagList();
+        tags.initDefaultTags();
 
         setMegaModuleHashMap(modulesInfo);
 
@@ -147,11 +147,53 @@ public class StudyPlan implements Cloneable {
      */
     private Module convertModuleInfoToModule(ModuleInfo moduleInfo) {
         // TODO: Yi Wai: assign default tags to the result (Module).
-
+        UniqueTagList moduleTagList = assignDefaultTags(moduleInfo);
         Name name = new Name(moduleInfo.getName());
         ModuleCode moduleCode = new ModuleCode(moduleInfo.getCode());
         int mcCount = moduleInfo.getMc();
-        return new Module(name, moduleCode, mcCount, Color.RED, new UniqueTagList());
+        return new Module(name, moduleCode, mcCount, Color.RED, moduleTagList);
+    }
+
+    /**
+     * Returns a {@code UniqueTagList} with the default tags attached to the module with the given module info.
+     * @param moduleInfo The module info of the module.
+     * @return A {@code UniqueTagList} with the default tags.
+     */
+    private UniqueTagList assignDefaultTags(ModuleInfo moduleInfo) {
+        UniqueTagList moduleTagList = new UniqueTagList();
+        UniqueTagList studyPlanTagList = getTags();
+        List<String> focusPrimaries = moduleInfo.getFocusPrimaries();
+        List<String> focusElectives = moduleInfo.getFocusElectives();
+        for (String focusPrimary: focusPrimaries) {
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusPrimary + ":P"));
+        }
+        for (String focusElective: focusElectives) {
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusElective + ":E"));
+        }
+        boolean canSu = moduleInfo.getSuEligibility();
+        if (canSu) {
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag("S/U-able"));
+        }
+        Semester locationOfModule;
+        for (Semester semester: semesters) {
+            UniqueModuleList uniqueModuleList = semester.getModules();
+            for (Module module: uniqueModuleList) {
+                if (module.getName().equals(moduleInfo.getName())) {
+                    locationOfModule = semester;
+                    break;
+                }
+            }
+        }
+        /*
+        // For setting completed tag
+        // Needs current semester to work
+        if (semesterNameComparator.compare(locationOfModule, currentSemester) < 0) {
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag("Completed"));
+        }
+         */
+        //TODO add core, ue?, ulr? tags
+
+        return moduleTagList;
     }
 
     private void setMegaModuleHashMap(ModulesInfo modulesInfo) {

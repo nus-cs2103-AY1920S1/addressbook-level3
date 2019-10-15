@@ -45,9 +45,9 @@ public class SemesterCard extends UiPart<Region> {
         address.setText(semester.getAddress().value);
         email.setText(semester.getEmail().value);
         semester.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.getTagName()))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
-        */
+            .sorted(Comparator.comparing(tag -> tag.getTagName()))
+            .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
+         */
     }
 
     @Override
