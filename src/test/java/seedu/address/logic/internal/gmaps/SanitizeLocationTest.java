@@ -28,7 +28,6 @@ class SanitizeLocationTest {
         ArrayList<String> expectedValidLocationList =
                 new ArrayList<String>(Arrays.asList("NUS_FOO", "NUS_BAR"));
         assertEquals(expectedValidLocationList, sanitizeLocation.getValidLocationList());
-        //assertThrows(TimeBookInvalidLocation.class, ()-> sanitizeLocation.sanitize("FOOLED"));
     }
 
     @Test
@@ -36,6 +35,5 @@ class SanitizeLocationTest {
         assertEquals(sanitizeLocation.sanitize("FOO"), "NUS_FOO");
         assertEquals(sanitizeLocation.sanitize("FOO-12345"), "NUS_FOO");
         assertEquals(sanitizeLocation.sanitize("BAR"), "NUS_BAR");
-        //assertThrows(TimeBookInvalidLocation.class, ()-> sanitizeLocation.sanitize("FOOLED"));
     }
 }
