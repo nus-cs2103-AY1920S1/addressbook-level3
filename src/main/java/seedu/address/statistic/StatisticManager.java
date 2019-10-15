@@ -97,16 +97,13 @@ public class StatisticManager implements Statistic {
                orderList.stream()
                        .filter(currentOrder -> currentOrder.getStatus() == Status.COMPLETED)
                        .filter(currentOrder -> currentOrder.getSchedule().isPresent())
-                       .filter(currentOrder -> {
-                           return statsPayload.getStartingDate().compareTo(
-                                   currentOrder.getSchedule().get().getCalendar()) <= 0;
-                       })
-                       .filter(currentOrder -> {
-                           return statsPayload.getEndingDate().compareTo(
-                                   currentOrder.getSchedule().get().getCalendar()) > 0;
-                       })
+                       .filter(currentOrder -> statsPayload.getStartingDate().compareTo(
+                               currentOrder.getSchedule().get().getCalendar()) <= 0)
+                       .filter(currentOrder -> statsPayload.getEndingDate().compareTo(
+                               currentOrder.getSchedule().get().getCalendar()) > 0)
                        .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
                        .collect(Collectors.toList());
+        completedOrderPriceList.forEach(x -> System.out.println(x));
         return completedOrderPriceList.stream().mapToDouble(d -> d).toArray();
     }
 
@@ -141,6 +138,7 @@ public class StatisticManager implements Statistic {
                                     currentOrder.getSchedule().get().getCalendar()) <= 0;
                         })
                         .filter(currentOrder -> {
+
                             return statsPayload.getEndingDate().compareTo(
                                     currentOrder.getSchedule().get().getCalendar()) > 0;
                         })

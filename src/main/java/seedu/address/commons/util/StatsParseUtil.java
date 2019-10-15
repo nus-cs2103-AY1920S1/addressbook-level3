@@ -1,12 +1,26 @@
 package seedu.address.commons.util;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * utility class to check stats Input
  */
 public class StatsParseUtil {
+
+    public static final Optional<Calendar> MIN_DATE = Optional.of(new Calendar
+            .Builder()
+            .setInstant(new Date(Long.MIN_VALUE))
+            .build());
+
+    public static final Optional<Calendar> MAX_DATE = Optional.of(new Calendar
+            .Builder()
+            .setInstant(new Date(Long.MAX_VALUE))
+            .build());
+
 
     /*
      * The word of the stat type must be one of the three below,

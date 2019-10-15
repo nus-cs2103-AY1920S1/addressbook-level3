@@ -197,40 +197,17 @@ public class MainWindow extends UiPart<Stage> {
         switch (statsPayload.getStatisticType()) {
         case PROFIT:
             String totalProfitResult = this.logic.calculateTotalProfit(statsPayload);
-            this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit from: "
-                    + statsPayload.displayStartingDate() + " to "
-                    + statsPayload.displayEndingDate());
+            this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit");
             this.statsWindow.show();
             break;
         case REVENUE:
             String totalRevenueResult = this.logic.calculateTotalRevenue(statsPayload);
-            this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue from: "
-                    + statsPayload.displayStartingDate() + " to "
-                    + statsPayload.displayEndingDate());
+            this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue");
             this.statsWindow.show();
             break;
         case COST:
             String totalCostResult = this.logic.calculateTotalCost(statsPayload);
-            this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost from: "
-                    + statsPayload.displayStartingDate() + " to "
-                    + statsPayload.displayEndingDate());
-            this.statsWindow.show();
-            break;
-        case DEFAULT_COST:
-            String totalCostResultDefault = this.logic.calculateTotalCost();
-            this.statsWindow = new StatisticsWindow(totalCostResultDefault, "Total Cost of incurred on"
-                    + " successful orders");
-            this.statsWindow.show();
-            break;
-        case DEFAULT_REVENUE:
-            String totalRevenueResultDefault = this.logic.calculateTotalRevenue();
-            this.statsWindow = new StatisticsWindow(totalRevenueResultDefault, "Total Revenue on "
-                    + "successful orders");
-            this.statsWindow.show();
-            break;
-        case DEFAULT_PROFIT:
-            String totalProfitResultDefault = this.logic.calculateTotalProfit();
-            this.statsWindow = new StatisticsWindow(totalProfitResultDefault, "Total Profit so Far:");
+            this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost");
             this.statsWindow.show();
             break;
         default:

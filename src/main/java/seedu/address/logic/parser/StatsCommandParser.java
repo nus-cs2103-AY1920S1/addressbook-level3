@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.util.StatsParseUtil;
 import seedu.address.logic.commands.statisticcommand.StatisticType;
 import seedu.address.logic.commands.statisticcommand.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -71,11 +72,14 @@ public class StatsCommandParser implements Parser<StatsCommand> {
         } else {
             switch (type) {
             case COST:
-                return new StatsCommand(StatisticType.DEFAULT_COST);
+                return new StatsCommand(StatsParseUtil.MIN_DATE, StatsParseUtil.MAX_DATE, StatisticType.COST);
             case PROFIT:
-                return new StatsCommand(StatisticType.DEFAULT_PROFIT);
+                return new StatsCommand(StatsParseUtil.MIN_DATE, StatsParseUtil.MAX_DATE, StatisticType.PROFIT);
             case REVENUE:
-                return new StatsCommand(StatisticType.DEFAULT_REVENUE);
+                System.out.println(StatsParseUtil.MIN_DATE.get());
+                System.out.println(StatsParseUtil.MAX_DATE.get());
+
+                return new StatsCommand(StatsParseUtil.MIN_DATE, StatsParseUtil.MAX_DATE, StatisticType.REVENUE);
             default:
                 throw new ParseException("Wrong Statistic type for no date calculation mode, "
                         + "default types here only include:\n"

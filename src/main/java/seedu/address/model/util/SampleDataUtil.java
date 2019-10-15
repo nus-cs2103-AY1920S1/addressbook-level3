@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -25,6 +26,8 @@ import seedu.address.model.phone.IdentityNumber;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.phone.PhoneName;
 import seedu.address.model.phone.SerialNumber;
+import seedu.address.model.schedule.Schedule;
+import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -143,8 +146,8 @@ public class SampleDataUtil {
                         Capacity.SIZE_128GB, new Colour("Jet Black"), new Cost("$1100"),
                         getTagSet("New")),
                    new Price("$1000"),
-                   Status.UNSCHEDULED,
-                   Optional.empty(), getTagSet("Urgent")),
+                   Status.COMPLETED,
+                   Optional.of(sampleSchedule()), getTagSet("Urgent")),
             new Order(UUID.randomUUID(),
                   new Customer(new CustomerName("Alex Yeoh"), new ContactNumber("87438807"),
                         new Email("alexyeoh@example.com"), getTagSet("friends")),
@@ -153,8 +156,8 @@ public class SampleDataUtil {
                         Capacity.SIZE_64GB, new Colour("White"), new Cost("$400"),
                         getTagSet("Used")),
                   new Price("$1500"),
-                  Status.UNSCHEDULED,
-                  Optional.empty(), getTagSet("New")),
+                  Status.COMPLETED,
+                    Optional.of(sampleSchedule()), getTagSet("New")),
             new Order(UUID.randomUUID(),
                   new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
                         new Email("lidavid@example.com"), getTagSet("family")),
@@ -163,11 +166,23 @@ public class SampleDataUtil {
                         Capacity.SIZE_256GB, new Colour("Black"), new Cost("$1000"),
                         getTagSet("New")),
                   new Price("$1200"),
-                  Status.UNSCHEDULED,
-                  Optional.empty(), getTagSet("New"))
+                  Status.COMPLETED,
+                    Optional.of(sampleSchedule()), getTagSet("New"))
 
         };
     }
+
+    /**
+     *Return sample Schedule object
+     */
+    private static Schedule sampleSchedule() {
+        return new Schedule(
+                UUID.randomUUID(),
+                new Calendar.Builder().setDate(2018, 10, 02).build(),
+                new Venue("test venue"),
+                getTagSet("New"));
+    }
+
 
     public static ReadOnlyDataBook<Order> getSampleOrderBook() {
         OrderBook sampleOrderBook = new OrderBook();

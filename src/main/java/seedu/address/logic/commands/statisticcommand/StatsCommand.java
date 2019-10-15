@@ -45,28 +45,9 @@ public class StatsCommand extends Command {
         this.statisticType = statisticType;
     }
 
-    /**
-     * Constructor to return statsCommand Object without Starting and ending date
-     */
-    public StatsCommand(StatisticType statisticType) {
-        this.startingDate = Optional.empty();
-        this.endingDate = Optional.empty();
-        this.statisticType = statisticType;
-    }
-
-    public boolean hasDate() {
-        return this.startingDate.isPresent() && this.endingDate.isPresent();
-    }
-
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (this.hasDate()) {
-            StatsPayload payload = new StatsPayload(startingDate.get(), endingDate.get(), statisticType);
-            return new CommandResult(MESSAGE_USAGE, payload, UiChange.STATS);
-        } else {
-            StatsPayload payload = new StatsPayload(statisticType);
-            return new CommandResult(MESSAGE_USAGE, payload, UiChange.STATS);
-        }
+        StatsPayload payload = new StatsPayload(this.startingDate.get(), this.endingDate.get(), statisticType);
+        return new CommandResult(MESSAGE_USAGE, payload, UiChange.STATS);
     }
 }
