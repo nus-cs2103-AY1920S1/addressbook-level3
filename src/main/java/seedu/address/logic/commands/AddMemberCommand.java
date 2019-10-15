@@ -27,7 +27,7 @@ public class AddMemberCommand extends Command {
             + PREFIX_MEMBER_TAG + "to finish Dashboard";
 
     public static final String MESSAGE_SUCCESS = "New member added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This member already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_MEMBER = "This member already exists in the address book";
 
     private final Member toAdd;
 
@@ -44,7 +44,7 @@ public class AddMemberCommand extends Command {
         requireNonNull(model);
 
         if (model.hasMember(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TASK);
+            throw new CommandException(MESSAGE_DUPLICATE_MEMBER);
         }
 
         model.addMember(toAdd);

@@ -1,34 +1,25 @@
 package seedu.address.storage;
 
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static seedu.address.testutil.Assert.assertThrows;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-//import org.junit.jupiter.api.Test;
-
-//import seedu.address.commons.exceptions.IllegalValueException;
-//import seedu.address.commons.util.JsonUtil;
-//import seedu.address.model.ProjectDashboard;
-//import seedu.address.testutil.TypicalTasks;
 
 public class JsonSerializableProjectDashboardTest {
 
     private static final Path TEST_DATA_FOLDER =
             Paths.get("src", "test", "data", "JsonSerializableProjectDashboardTest");
-    private static final Path TYPICAL_TASKS_FILE = TEST_DATA_FOLDER.resolve("typicalTasksProjectDashboard.json");
+    private static final Path TYPICAL_TASKS_FILE = TEST_DATA_FOLDER.resolve("TypicalTasksMembersProjectDashboard.json");
     private static final Path INVALID_TASK_FILE = TEST_DATA_FOLDER.resolve("invalidTaskProjectDashboard.json");
     private static final Path DUPLICATE_TASK_FILE = TEST_DATA_FOLDER.resolve("duplicateTaskProjectDashboard.json");
 
     /*
     @Test
-    public void toModelType_typicalTasksFile_success() throws Exception {
+    public void toModelType_TypicalTasksMembersFile_success() throws Exception {
         JsonSerializableProjectDashboard dataFromFile = JsonUtil.readJsonFile(TYPICAL_TASKS_FILE,
                 JsonSerializableProjectDashboard.class).get();
         ProjectDashboard projectDashboardFromFile = dataFromFile.toModelType();
-        ProjectDashboard typicalTasksProjectDashboard = TypicalTasks.getTypicalProjectDashboard();
-        assertEquals(projectDashboardFromFile, typicalTasksProjectDashboard);
+        ProjectDashboard TypicalTasksMembersProjectDashboard = TypicalTasksMembers.getTypicalProjectDashboard();
+        assertEquals(projectDashboardFromFile, TypicalTasksMembersProjectDashboard);
     }
 
     @Test

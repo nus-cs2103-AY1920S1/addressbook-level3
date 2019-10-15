@@ -30,7 +30,7 @@ public class FindMemberCommand extends Command {
         requireNonNull(model);
         model.updateFilteredMembersList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_MEMBERS_LISTED_OVERVIEW, model.getFilteredTasksList().size()));
+                String.format(Messages.MESSAGE_MEMBERS_LISTED_OVERVIEW, model.getFilteredMembersList().size()));
     }
 
     @Override
