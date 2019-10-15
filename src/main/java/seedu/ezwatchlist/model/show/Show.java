@@ -61,6 +61,7 @@ public class Show {
         return runningTime;
     }
 
+
     /**
      * Returns an immutable actor set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

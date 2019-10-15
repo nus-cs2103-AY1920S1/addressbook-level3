@@ -6,9 +6,9 @@ import seedu.ezwatchlist.model.person.Person;
 import seedu.ezwatchlist.model.show.Show;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building WatchList objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code WatchList wl = new WatchListBuilder().withShow(show).build();}
  */
 public class WatchListBuilder {
 
@@ -23,7 +23,7 @@ public class WatchListBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     * Adds a new {@code show} to the {@code WatchList} that we are building.
      */
     public WatchListBuilder withShow(Show show) {
         watchList.addShow(show);
