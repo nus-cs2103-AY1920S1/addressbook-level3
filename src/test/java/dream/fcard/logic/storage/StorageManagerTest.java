@@ -26,8 +26,8 @@ public class StorageManagerTest {
                         "Poofeen"
                         )));
 
-        Deck d1 = new Deck("deck1", new ArrayList<>(Arrays.asList(d1c1)));
-        Deck d2 = new Deck("deck2", new ArrayList<>(Arrays.asList(d2c1)));
+        Deck d1 = new Deck(new ArrayList<>(Arrays.asList(d1c1)), "deck1");
+        Deck d2 = new Deck(new ArrayList<>(Arrays.asList(d2c1)), "deck2");
         // create stubs
 
         StorageManager.provideRoot("~");

@@ -28,7 +28,7 @@ public class MultipleChoiceCard extends FrontBackCard {
     public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg) {
         super(frontString, backString);
         choices = choicesArg;
-        answerIndex = Integer.parseInt(back);
+        //answerIndex = Integer.parseInt(back);
     }
 
     public void editFront(String newText) {
@@ -84,9 +84,10 @@ public class MultipleChoiceCard extends FrontBackCard {
 
     @Override
     public Boolean evaluate(String in) {
-        return Integer.parseInt(in) == answerIndex;
+        return in.equals(back);
+        //return Integer.parseInt(in) == answerIndex;
     }
-  
+
     public String getFront() {
         return front;
     }
