@@ -23,22 +23,22 @@ public class BankCommand extends LoadCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     private static String name;
-    private final Index targetIndex;
-
-    public BankCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
-    }
-
-//    public BankCommand(String name) {
-//        this.name = name;
+//    private final Index targetIndex;
+//
+//    public BankCommand(Index targetIndex) {
+//        this.targetIndex = targetIndex;
 //    }
+
+    public BankCommand(String name) {
+        this.name = name;
+    }
 
     @Override
     public CommandResult execute(Model model) {
         WordBankList temp = model.getWordBankList();
         model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
-        System.out.println(temp.getWordBank(targetIndex).getName());
-        model.setWordBank(temp.getWordBank(targetIndex));
+        System.out.println(temp.getWordBank(name).getName());
+        model.setWordBank(temp.getWordBank(name));
         return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT , false, false);
     }
 

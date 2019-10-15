@@ -107,6 +107,12 @@ public class ModelManager implements Model {
 //        this.wordBank.resetData(wordBank);
     }
 
+    public void clearWordBank() {
+        wordBank.resetData(new WordBank(wordBank.getName()));
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+//        this.wordBank.resetData(wordBank);
+    }
+
     @Override
     public ReadOnlyWordBank getWordBank() {
         return wordBank;

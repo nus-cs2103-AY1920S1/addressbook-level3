@@ -18,10 +18,10 @@ public class BankCommandParser implements Parser<BankCommand> {
      */
     public BankCommand parse(String args) throws ParseException {
         try {
-            Index index = ParserUtil.parseIndex(args);
-//            String word = ParserUtil.parseWord(args);
-//            return new BankCommand(word);
-            return new BankCommand(index);
+//            Index index = ParserUtil.parseIndex(args);
+//            return new BankCommand(index);
+            String word = ParserUtil.parseWord(args).toString();
+            return new BankCommand(word);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, BankCommand.MESSAGE_USAGE), pe);

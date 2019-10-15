@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.WordBank;
@@ -52,6 +53,11 @@ public interface Model {
      * Replaces word bank data with the data in {@code wordBank}.
      */
     void setWordBank(ReadOnlyWordBank wordBank);
+
+    /**
+     * Resets the word bank data to be empty.
+     */
+    void clearWordBank();
 
     /** Returns the WordBank */
     ReadOnlyWordBank getWordBank();

@@ -18,7 +18,7 @@ public class ClearCommand extends AppCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setWordBank(null);
+        model.clearWordBank();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
