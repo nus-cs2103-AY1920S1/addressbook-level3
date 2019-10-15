@@ -176,4 +176,5 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredIncomeList(Predicate<Income> predicate);
+
 }
