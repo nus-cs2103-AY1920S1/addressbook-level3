@@ -15,13 +15,16 @@ import seedu.address.commons.core.IFridgeSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private IFridgeSettings iFridgeSettings = new IFridgeSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path iFridgeSettingsFilePath = Paths.get("data", "ifridgesettings.json");
+    private IFridgeSettings iFridgeSettings = new IFridgeSettings();
+
 
     /**
      * Creates a {@code UserPrefs} with default values.
      */
-    public UserPrefs() {}
+    public UserPrefs() {
+    }
 
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
@@ -37,7 +40,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
+        setIFridgeSettings(newUserPrefs.getIFridgeSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setIFridgeSettingsFilePath(newUserPrefs.getIFridgeSettingsFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -67,6 +72,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    public Path getIFridgeSettingsFilePath() {
+        return iFridgeSettingsFilePath;
+    }
+
+    public void setIFridgeSettingsFilePath(Path iFridgeSettingsFilePath) {
+        requireNonNull(iFridgeSettingsFilePath);
+        this.iFridgeSettingsFilePath = iFridgeSettingsFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -91,6 +105,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
+        sb.append("\nIFridge settings : " + iFridgeSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
         return sb.toString();
     }

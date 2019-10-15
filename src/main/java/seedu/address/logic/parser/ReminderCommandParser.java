@@ -20,16 +20,18 @@ public class ReminderCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ReminderCommand parse(String args) throws ParseException {
+        int r;
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_REMINDER);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_REMINDER)
+        if (args.equals("")) {
+            r = 3;
+        } else if (!arePrefixesPresent(argMultimap, PREFIX_REMINDER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE));
+        } else {
+            r = Integer.parseInt(argMultimap.getValue(PREFIX_REMINDER).get().trim());
         }
-
-        int r = Integer.parseInt(argMultimap.getValue(PREFIX_REMINDER).get().trim());
-
         return new ReminderCommand(new NameContainsCloseExpiryDatePredicate(r));
     }
 

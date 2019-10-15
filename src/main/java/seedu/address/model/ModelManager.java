@@ -88,6 +88,17 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
+    @Override
+    public Path getIFridgeSettingsFilePath() {
+        return userPrefs.getIFridgeSettingsFilePath();
+    }
+
+    @Override
+    public void setIFridgeSettingsFilePath(Path iFridgeSettingsFilePath) {
+        requireNonNull(iFridgeSettingsFilePath);
+        userPrefs.setIFridgeSettingsFilePath(iFridgeSettingsFilePath);
+    }
+
     //=========== AddressBook ================================================================================
 
     @Override

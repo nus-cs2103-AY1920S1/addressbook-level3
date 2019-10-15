@@ -63,6 +63,15 @@ public class StorageManager implements Storage {
         return addressBookStorage.readAddressBook(filePath);
     }
 
+    /*public Optional<IFridgeSettings> readIFridgeSettings() throws DataConversionException, IOException {
+        return readIFridgeSettings(UserPrefs.getIFridgeSettingsFilePath());
+    }
+
+    public Optional<IFridgeSettings> readIFridgeSettings(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return JsonUserPrefsStorage.readUserPrefs(filePath);
+    }*/
+
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());

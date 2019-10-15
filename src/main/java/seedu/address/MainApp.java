@@ -11,7 +11,9 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.ConfigUtil;
+import seedu.address.commons.util.JsonUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
@@ -23,6 +25,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.JsonAdaptedIFridgeSettings;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
@@ -153,6 +156,17 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initializedPrefs = new UserPrefs();
+        }
+
+        try {
+            Optional<JsonAdaptedIFridgeSettings> iFridgeSettings =
+                    JsonUtil.readJsonFile(initializedPrefs.getIFridgeSettingsFilePath(),
+                            JsonAdaptedIFridgeSettings.class);
+            if (iFridgeSettings.isPresent()) {
+                initializedPrefs.setIFridgeSettings(iFridgeSettings.get().toModelType());
+            }
+        } catch (DataConversionException | IllegalValueException e) {
+            e.printStackTrace();
         }
 
         //Update prefs file in case it was missing to begin with or there are new/unused fields

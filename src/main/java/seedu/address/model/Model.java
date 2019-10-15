@@ -56,6 +56,16 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
+     * Returns the user prefs' iFridge settings file path.
+     */
+    Path getIFridgeSettingsFilePath();
+
+    /**
+     * Sets the user prefs' iFridge settings file path.
+     */
+    void setIFridgeSettingsFilePath(Path iFridgeSettingsFilePath);
+
+    /**
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setGroceryList(ReadOnlyAddressBook groceryList);

@@ -8,11 +8,11 @@ import java.util.Objects;
  * Guarantees: immutable.
  */
 public class IFridgeSettings implements Serializable {
-    private static final int DEFAULT_NUMBER_OF_DAYS = 600;
+    private static final String DEFAULT_NUMBER_OF_DAYS = "3";
     private static final String DEFAULT_SORT_METHOD = "alphabetical";
     private static final String DEFAULT_LIST_DISPLAY = "merge";
 
-    private final int numberOfDays;
+    private final String numberOfDays;
     private final String sortMethod;
     private final String listDisplay;
 
@@ -23,12 +23,12 @@ public class IFridgeSettings implements Serializable {
     }
 
 
-    public IFridgeSettings(int numberOfDays, String sortMethod, String listDisplay) {
+    public IFridgeSettings(String numberOfDays, String sortMethod, String listDisplay) {
         this.numberOfDays = numberOfDays;
         this.sortMethod = sortMethod;
         this.listDisplay = listDisplay;
     }
-    public int getNumberOfDays() {
+    public String getNumberOfDays() {
         return numberOfDays;
     }
 
@@ -51,7 +51,7 @@ public class IFridgeSettings implements Serializable {
 
         IFridgeSettings o = (IFridgeSettings) other;
 
-        return numberOfDays == o.numberOfDays
+        return Objects.equals(numberOfDays, o.numberOfDays)
                 && Objects.equals(sortMethod, o.sortMethod)
                 && Objects.equals(listDisplay, o.listDisplay);
     }
