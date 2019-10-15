@@ -55,6 +55,15 @@ public class CheatSheet {
         return Collections.unmodifiableSet(contents);
     }
 
+    public String getContentsInStringForm() {
+        StringBuilder sb = new StringBuilder("");
+        for (Content c : contents) {
+            sb.append(c.toString());
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
