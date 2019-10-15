@@ -11,7 +11,7 @@ import seedu.address.model.module.SemesterNo;
  */
 public class AppSettings implements Serializable {
 
-    // Has to be updated from time to time
+    // Has to be updated from time to time!
     public static final AcadYear DEFAULT_ACAD_YEAR = new AcadYear("2019/2020");
     public static final SemesterNo DEFAULT_SEMESTER_NO = new SemesterNo("1");
 

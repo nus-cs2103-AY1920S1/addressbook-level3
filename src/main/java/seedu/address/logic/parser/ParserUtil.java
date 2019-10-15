@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -19,6 +20,7 @@ import seedu.address.model.group.GroupName;
 import seedu.address.model.group.GroupRemark;
 import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.LessonNo;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.NusModsShareLink;
 import seedu.address.model.module.SemesterNo;
@@ -134,6 +136,25 @@ public class ParserUtil {
         requireNonNull(moduleCode);
         String trimmedModuleCode = moduleCode.trim();
         return new ModuleCode(trimmedModuleCode);
+    }
+
+    /**
+     * Parses a String lesson numbers.
+     *
+     * @param lessonNos String to be parsed
+     * @return Trimmed String
+     * @throws ParseException null
+     */
+    public static List<LessonNo> parseLessonNos(String lessonNos) throws ParseException {
+        requireNonNull(lessonNos);
+        List<LessonNo> lessonNosList = new ArrayList<>();
+
+        String[] tokens = lessonNos.split(",");
+        for (String t : tokens) {
+            lessonNosList.add(new LessonNo(t.trim()));
+        }
+
+        return lessonNosList;
     }
 
     /**
