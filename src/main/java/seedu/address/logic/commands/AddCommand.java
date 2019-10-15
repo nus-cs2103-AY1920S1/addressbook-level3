@@ -87,6 +87,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasEntity(toAdd)) {
+            toAdd.getIdNum().removeMapping();
             throw new CommandException(MESSAGE_DUPLICATE_ENTITY);
         }
 
