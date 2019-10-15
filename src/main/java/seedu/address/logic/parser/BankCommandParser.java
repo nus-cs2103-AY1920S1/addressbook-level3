@@ -19,6 +19,8 @@ public class BankCommandParser implements Parser<BankCommand> {
     public BankCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
+//            String word = ParserUtil.parseWord(args);
+//            return new BankCommand(word);
             return new BankCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(

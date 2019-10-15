@@ -45,8 +45,8 @@ class JsonSerializableAddressBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public WordBank toModelType() throws IllegalValueException {
-        WordBank wordBank = new WordBank();
+    public WordBank toModelType(String name) throws IllegalValueException {
+        WordBank wordBank = new WordBank(name);
         for (JsonAdaptedCard jsonAdaptedCard : this.wordBank) {
             Card card = jsonAdaptedCard.toModelType();
             if (wordBank.hasCard(card)) {

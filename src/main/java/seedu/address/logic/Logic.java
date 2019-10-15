@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
 
 /**
  * API of the Logic component
@@ -32,6 +33,10 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Card> getFilteredPersonList();
+
+
+    /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<WordBank> getFilteredWordBankList();
 
     /**
      * Returns the user prefs' address book file path.

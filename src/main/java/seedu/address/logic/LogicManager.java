@@ -15,6 +15,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.storage.Storage;
 
@@ -76,6 +77,7 @@ public class LogicManager implements Logic {
          */
         try {
             storage.saveAddressBook(model.getWordBank());
+            System.out.println("_____bank" + model.getWordBank().getName());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -91,6 +93,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Card> getFilteredPersonList() {
         return model.getFilteredCardList();
+    }
+
+    @Override
+    public ObservableList<WordBank> getFilteredWordBankList() {
+        return model.getFilteredWordBankList();
     }
 
     @Override
