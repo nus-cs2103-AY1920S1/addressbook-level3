@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.member.Member;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.task.Task;
 //import seedu.address.model.task.NameContainsKeywordsPredicate;
 
@@ -18,6 +19,10 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Member> PREDICATE_SHOW_ALL_MEMBERS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Task> PREDICATE_SHOW_ALL_INVENTORIES = unused -> true;
+
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -123,4 +128,38 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMembersList(Predicate<Member> predicate);
+
+    /**
+     * returns length of filteredList
+     */
+    int getTasksLength();
+
+    ////Inventory-related commands
+
+    /** Returns an unmodifiable view of the filtered task list */
+    ObservableList<Inventory> getFilteredInventoriesList();
+
+    /**
+     * Updates the filter of the filtered inventories list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredInventoriesList(Predicate<Inventory> predicate);
+
+
+    /**
+     * Adds the given inventory.
+     * {@code inventory} must not already exist in the address book.
+     */
+    void addInventory(Inventory inventory);
+
+    /**
+     * Returns true if a inventory with the same identity as {@code inventory} exists in the address book.
+     */
+    boolean hasInventory(Inventory inventory);
+
+    /**
+     * Deletes the given inventory.
+     * The inventory must exist in the address book.
+     */
+    void deleteInventory(Inventory target);
 }

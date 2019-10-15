@@ -16,8 +16,12 @@ public class MemberId {
      *
      * @param displayId an alternate name for the member ID
      */
-    MemberId(String displayId) {
+    public MemberId(String displayId) {
         this.displayId = displayId;
+    }
+
+    public MemberId() {
+        this.displayId = null;
     }
 
     public String getDisplayName() {

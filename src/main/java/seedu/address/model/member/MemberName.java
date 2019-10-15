@@ -30,6 +30,10 @@ public class MemberName {
         fullName = name;
     }
 
+    public MemberName() {
+        fullName = null;
+    }
+
     /**
      * Returns true if a given string is a valid name.
      */

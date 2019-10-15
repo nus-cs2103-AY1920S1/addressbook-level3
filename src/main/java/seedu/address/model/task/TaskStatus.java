@@ -23,6 +23,10 @@ public enum TaskStatus {
         this.displayName = displayName;
     }
 
+    TaskStatus() {
+        this.displayName = null;
+    }
+
     public String getDisplayName() {
         return this.displayName;
     }

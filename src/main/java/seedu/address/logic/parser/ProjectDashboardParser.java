@@ -11,6 +11,10 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.commands.DoingTaskCommand;
+import seedu.address.logic.commands.AddInventoryCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteInventoryCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -22,7 +26,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class ProjectDasboardParser {
+public class ProjectDashboardParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -75,6 +79,12 @@ public class ProjectDasboardParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddInventoryCommand.COMMAND_WORD:
+            return new AddInventoryCommandParser().parse(arguments);
+
+        case DeleteInventoryCommand.COMMAND_WORD:
+            return new DeleteInventoryCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
