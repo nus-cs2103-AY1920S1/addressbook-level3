@@ -71,7 +71,7 @@ public class DeleteTagCommand extends Command {
             Module currentModule = moduleHashMap.get(moduleCode);
             UniqueTagList moduleTagList = currentModule.getTags();
             if (moduleTagList.containsTagWithName(tagName)) {
-                moduleTagList.remove((UserTag)moduleTagList.getTag(tagName));
+                moduleTagList.remove((UserTag) moduleTagList.getTag(tagName));
             }
         }
 

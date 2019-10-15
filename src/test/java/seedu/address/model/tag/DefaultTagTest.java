@@ -3,9 +3,11 @@ package seedu.address.model.tag;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.testutil.TagBuilder;
 
 public class DefaultTagTest {
@@ -33,15 +35,16 @@ public class DefaultTagTest {
 
     @Test
     public void isSameTag_returnsTrue() {
-        assertTrue(TagBuilder.buildDefaultCoreTag().isSameTag(TagBuilder.buildDefaultCoreTag()));
-        assertTrue(TagBuilder.buildDefaultTag(DefaultTagType.CORE).
-                isSameTag(TagBuilder.buildDefaultTag(DefaultTagType.CORE)));
+        assertTrue(TagBuilder.buildDefaultCoreTag()
+                .isSameTag(TagBuilder.buildDefaultCoreTag()));
+        assertTrue(TagBuilder.buildDefaultTag(DefaultTagType.CORE)
+                .isSameTag(TagBuilder.buildDefaultTag(DefaultTagType.CORE)));
     }
 
     @Test
     public void isSameTag_returnsFalse() {
-        assertFalse(TagBuilder.buildDefaultCoreTag().
-                isSameTag(TagBuilder.buildDefaultTag(DefaultTagType.COMPLETED)));
+        assertFalse(TagBuilder.buildDefaultCoreTag()
+                .isSameTag(TagBuilder.buildDefaultTag(DefaultTagType.COMPLETED)));
     }
 
     @Test

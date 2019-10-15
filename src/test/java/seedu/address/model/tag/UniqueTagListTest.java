@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.tag.exceptions.DuplicateTagException;
 import seedu.address.model.tag.exceptions.InvalidTagModificationException;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
@@ -137,12 +137,12 @@ public class UniqueTagListTest {
     }
 
     @Test
-    public void remove_UserTagDoesNotExist_throwsTagNotFoundException() {
+    public void remove_userTagDoesNotExist_throwsTagNotFoundException() {
         assertThrows(TagNotFoundException.class, () -> uniqueTagList.remove(TagBuilder.buildTestUserTag()));
     }
 
     @Test
-    public void remove_DefaultTag_throwsInvalidTagModificationException() {
+    public void remove_defaultTag_throwsInvalidTagModificationException() {
         DefaultTag defaultTag = TagBuilder.buildDefaultCoreTag();
         uniqueTagList.addTag(defaultTag);
         assertThrows(InvalidTagModificationException.class, () -> uniqueTagList.remove(defaultTag));
@@ -192,14 +192,13 @@ public class UniqueTagListTest {
     public void setTags_listWithDuplicateUserTags_throwsDuplicateTagException() {
         UserTag userTag = TagBuilder.buildTestUserTag();
         List<Tag> listWithDuplicateUserTags = Arrays.asList(userTag, userTag);
-        assertThrows(DuplicateTagException.class,
-                () -> uniqueTagList.setTags(listWithDuplicateUserTags));
+        assertThrows(DuplicateTagException.class, () -> uniqueTagList.setTags(listWithDuplicateUserTags));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> uniqueTagList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> uniqueTagList.asUnmodifiableObservableList()
+                .remove(0));
     }
 
     @Test
