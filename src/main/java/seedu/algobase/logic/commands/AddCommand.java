@@ -20,19 +20,23 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Problem to the algobase. "
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a Problem to the algobase.\n"
+            + "Parameters:\n"
             + PREFIX_NAME + "NAME "
             + PREFIX_AUTHOR + "AUTHOR "
             + PREFIX_WEBLINK + "WEBLINK "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
+            + PREFIX_DIFFICULTY + "DIFFICULTY "
+            + PREFIX_SOURCE + "SOURCE "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_NAME + "Sequences "
-            + PREFIX_AUTHOR + "Tung Kam Chuen "
-            + PREFIX_WEBLINK + "https://open.kattis.com/problems/sequences "
+            + PREFIX_AUTHOR + "Tung Kam Chuen\n"
+            + PREFIX_WEBLINK + "https://open.kattis.com/problems/sequences\n"
             + PREFIX_DESCRIPTION
-            + "Find the sum of the number of inversions of the 2k sequences, modulo 1000000007 (109+7). "
+            + "Find the sum of the number of inversions of the 2k sequences, modulo 1000000007 (109+7).\n"
             + PREFIX_DIFFICULTY + "3.0 "
             + PREFIX_SOURCE + "Kattis";
 

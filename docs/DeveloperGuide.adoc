@@ -319,9 +319,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |create plans containing problems |better prepare for interview
 
-|`* * *` |user |add problems to a plan |better prepare for interview
+|`* * *` |user |add tasks to a plan |better prepare for interview
 
-|`* * *` |user |mark problems as complete/incomplete within plans |better prepare for interview
+|`* * *` |user |mark tasks as complete/incomplete within plans |better prepare for interview
 
 |`* * *` |user |import database from <<json,JSON>> files |easily transfer data from one computer to another
 
@@ -337,16 +337,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `AlgoBase` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use Case 1: Add Problem
-
-*Guarantees*
-
-Problem will be added to the application if and only if the required fields are specified and the details entered are all valid.
+=== Use Case 1: Add Problems
 
 *MSS*
 
-1.  User launches AlgoBase.
-2.  User adds a new problem by entering the name of the problem, optionally specifying the description, author, weblink, source as well as any remarks or tags.
+1.  User requests to add a new problem by entering the name of the problem, optionally specifying the description, author, weblink, source as well as any remarks or tags.
+2.  AlgoBase adds a new problem with the provided details.
 3.  AlgoBase indicates successful addition of new problem.
 4.  AlgoBase displays details of problem added.
 +
@@ -361,7 +357,7 @@ Use case ends.
 +
 Use case ends.
 
-* 2b. AlgoBase detects a missing name or invalid format for some field(s).
+* 2b. AlgoBase detects that name is missing or format for some field(s) is invalid.
 +
 [none]
 ** 2b1. AlgoBase informs user that problem was not successfully added because the format is invalid.
@@ -369,21 +365,12 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 2: Edit Problem
-
-*Preconditions*
-
-1.  There are existing problems in the storage of AlgoBase.
-2.  The command is formatted correctly and the provided arguments meet the requirement for corresponding fields.
-
-*Guarantees*
-
-The matched problem in the application will be edited with the provided fields.
+=== Use Case 2: Edit Problems
 
 *MSS*
 
-1.  User launches AlgoBase.
-2.  User edits an existing problem by entering the index, followed by fields that the user intends to edit (including name, description, weblink, author, source, remark, tag, etc.).
+1.  User requests to edit an existing problem by entering the index, followed by fields that the user intends to edit (including name, description, weblink, author, source, remark, tag, etc.).
+2.  AlgoBase edits the problem using the provided details.
 3.  AlgoBase indicates successful edition of the existing problem.
 4.  AlgoBase updates the UI with the updated problem.
 +
@@ -391,14 +378,15 @@ Use case ends.
 
 *Extensions*
 [none]
-* 2a. AlgoBase detects the index is out of bounds.
+* 2a. AlgoBase detects that the index is out of bounds.
 +
 [none]
 ** 2a1. AlgoBase informs user that the edition is unsuccessful because the index is out of bounds.
 +
 Use case ends.
 
-* 2b. AlgoBase detects no provided fields.
+[none]
+* 2b. AlgoBase detects that no fields are provided.
 +
 [none]
 ** 2b1. AlgoBase informs user that nothing is updated.
@@ -406,16 +394,12 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 3: Delete Problem
-
-*Guarantees*
-
-Problem will be deleted and removed from local storage of AlgoBase and cannot find from relevant tags.
+=== Use Case 3: Delete Problems
 
 *MSS*
 
-1.  User launches AlgoBase.
-2.  User deletes an existing problem by entering index.
+1.  User requests to delete an existing problem by entering index.
+2.  AlgoBase deletes the problem from storage.
 3.  AlgoBase indicates successful deletion of the existing problem.
 4.  AlgoBase updates the UI with the remaining problems.
 +
@@ -423,7 +407,7 @@ Use case ends.
 
 *Extensions*
 [none]
-* 2a. AlgoBase detects the index is out of bounds.
+* 2a. AlgoBase detects that the index is out of bounds.
 +
 [none]
 ** 2a1. AlgoBase informs user that the deletion is unsuccessful because the index is out of bounds.
@@ -431,23 +415,23 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 4: List Problem
+=== Use Case 4: List Problems
 
 *Guarantees*
 
-A list of existing problems will be returned.
+A list of existing problems will be displayed.
 
 *MSS*
 
-1.  User launches AlgoBase.
-2.  User requests for a list of all existing problems.
-3.  AlgoBase returns a list of problems stored in AlgoBase.
+1.  User requests for a list of all existing problems.
+2.  AlgoBase retrieves all problems in storage.
+3.  AlgoBase displays in the UI the list of problems stored in AlgoBase.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 2a. There is no existing problems stored in AlgoBase.
+* 2a. AlgoBase detects no existing problems stored.
 +
 [none]
 ** 2a1. AlgoBase informs user that there is no existing problems.
@@ -455,23 +439,23 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 5: Find Problem
+=== Use Case 5: Find Problems
 
 *Guarantees*
 
-A list of existing problems with matching fields will be returned.
+A list of existing problems with matching keywords in specified fields will be displayed.
 
 *MSS*
 
-1.  User launches AlgoBase.
-2.  User requests to find a problem by specifying keywords in certain fields.
-3.  AlgoBase returns a list of problems that have matching keywords in specified fields.
+1.  User requests to find problems by specifying keywords in certain fields.
+2.  AlgoBase retrieves all problems with matching keywords in specified fields from storage.
+3.  AlgoBase displays in the UI the list of problems with matching keywords in specified fields.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 2a. The user specifies no keywords in any fields.
+* 2a. AlgoBase detects that no keywords in any fields are specified.
 +
 [none]
 ** 2a1. AlgoBase informs user that at least one constraint should be provided.
@@ -479,23 +463,23 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 6: Sort Problem
+=== Use Case 6: Sort Problems
 
 *Guarantees*
 
-A list of problems will be returned in a specific order restricted by user.
+A list of problems will be displayed in a specific order provided by user.
 
 *MSS*
 
-1.  User launches AlgoBase.
-2.  User requests to sort a set of problems by specifying rules of ordering.
-3.  AlgoBase show the set of questions in sorted order.
+1.  User requests to sort a set of problems by specifying rules of ordering.
+2.  AlgoBase sorts the problem list using the provided order.
+3.  AlgoBase displays the set of questions in sorted order.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 2a. The user specifies no sort order.
+* 2a. AlgoBase detects that no sort order is specified.
 +
 [none]
 ** 2a1. AlgoBase informs user that no sort order is given.
@@ -504,19 +488,135 @@ Use case ends.
 
 
 [discrete]
-=== Use Case 7: Switch between view of items.
+=== Use Case 7: Add Tasks to Plan
 
 *MSS*
 
-1.  User launches AlgoBase.
-2.  User requests to switch the current view of items to a different view of items.
-3.  AlgoBase shows the list of items corresponding to that view.
+1.  User requests to add a new task by entering the index of the problem and index of the plan.
+2.  AlgoBase creates a new task with the specified problem.
+3.  AlgoBase adds the newly created task to the specified plan.
+4.  AlgoBase indicates successful addition of new task to plan.
+5.  AlgoBase displays details of task added.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 2a. The specified view of items does not exist.
+* 2a. AlgoBase detects that the index of problem is out of bounds.
++
+[none]
+** 2a1. AlgoBase informs user that the addition is unsuccessful because the index of problem is out of bounds.
++
+Use case ends.
+
+[none]
+* 3a. AlgoBase detects that the index of plan is out of bounds.
++
+[none]
+** 3a1. AlgoBase informs user that the addition is unsuccessful because the index of plan is out of bounds.
++
+Use case ends.
+
+[discrete]
+=== Use Case 8: Delete Tasks from Plan
+
+*MSS*
+
+1.  User requests to delete an existing task by entering the index of the plan and index of the task.
+2.  AlgoBase deletes the specified task from the specified plan.
+3.  AlgoBase indicates successful deletion of the existing task.
+4.  AlgoBase updates the UI with the remaining tasks in the plan.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects that the index of plan is out of bounds.
++
+[none]
+** 2a1. AlgoBase informs user that the deletion is unsuccessful because the index of plan is out of bounds.
++
+Use case ends.
+
+[none]
+* 2b. AlgoBase detects that the index of task is out of bounds.
++
+[none]
+** 2b1. AlgoBase informs user that the deletion is unsuccessful because the index of task is out of bounds.
++
+Use case ends.
+
+[discrete]
+=== Use Case 9: Mark Tasks as Done in Plan
+
+*MSS*
+
+1.  User requests to mark an existing task as done by entering the index of the plan and index of the task.
+2.  AlgoBase marks the specified task as done in the specified plan.
+3.  AlgoBase indicates that the existing task is marked as done successfully.
+4.  AlgoBase displays details of the task updated.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects that the index of plan is out of bounds.
++
+[none]
+** 2a1. AlgoBase informs user that the update is unsuccessful because the index of plan is out of bounds.
++
+Use case ends.
+
+[none]
+* 2b. AlgoBase detects that the index of task is out of bounds.
++
+[none]
+** 2b1. AlgoBase informs user that the update is unsuccessful because the index of task is out of bounds.
++
+Use case ends.
+
+[discrete]
+=== Use Case 10: Mark Tasks as Undone in Plan
+
+*MSS*
+
+1.  User requests to mark an existing task as undone by entering the index of the plan and index of the task.
+2.  AlgoBase marks the specified task as undone in the specified plan.
+3.  AlgoBase indicates that the existing task is marked as done successfully.
+4.  AlgoBase displays details of the task updated.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects that the index of plan is out of bounds.
++
+[none]
+** 2a1. AlgoBase informs user that the update is unsuccessful because the index of plan is out of bounds.
++
+Use case ends.
+
+[none]
+* 2b. AlgoBase detects that the index of task is out of bounds.
++
+[none]
+** 2b1. AlgoBase informs user that the update is unsuccessful because the index of task is out of bounds.
++
+Use case ends.
+
+[discrete]
+=== Use Case 11: Switch between View of Items
+
+*MSS*
+
+1.  User requests to switch the current view of items to a different view of items.
+2.  AlgoBase displays the list of items corresponding to that view.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects that the specified view of items does not exist.
 +
 [none]
 ** 2a1. AlgoBase informs user that the specified view of items does not exist.
@@ -576,7 +676,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Deleting a problem
+=== Deleting Problems
 
 . Deleting a problem while all problems are listed
 
@@ -588,7 +688,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-=== Saving data
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 

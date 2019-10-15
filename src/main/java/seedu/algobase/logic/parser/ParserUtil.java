@@ -153,7 +153,10 @@ public class ParserUtil {
      * @throws ParseException if the given {@code remark} is invalid.
      */
     public static Remark parseRemark(String remark) throws ParseException {
-        // TODO: implementation
+        String trimmedRemark = remark.trim();
+        if (!Remark.isValidRemark(trimmedRemark)) {
+            throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
+        }
         return new Remark(remark);
     }
 
@@ -163,7 +166,10 @@ public class ParserUtil {
      * @throws ParseException if the given {@code source} is invalid.
      */
     public static Source parseSource(String source) throws ParseException {
-        // TODO: implementation
+        String trimmedSource = source.trim();
+        if (!Source.isValidSource(trimmedSource)) {
+            throw new ParseException(Source.MESSAGE_CONSTRAINTS);
+        }
         return new Source(source);
     }
 
