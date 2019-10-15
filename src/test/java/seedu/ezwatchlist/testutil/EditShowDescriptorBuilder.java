@@ -78,11 +78,11 @@ public class EditShowDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code actors} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditShowDescriptorBuilder withTags(String... tags) {
-        Set<Actor> ActorSet = Stream.of(tags).map(Actor::new).collect(Collectors.toSet());
+    public EditShowDescriptorBuilder withActors(String... actors) {
+        Set<Actor> ActorSet = Stream.of(actors).map(Actor::new).collect(Collectors.toSet());
         descriptor.setActors(ActorSet);
         return this;
     }
