@@ -29,6 +29,7 @@ public class AddCommand extends Command {
             + PREFIX_CATEGORY + "UML "
             + PREFIX_TAG + "UML "
             + PREFIX_TAG + "graphical";
+    //add type/mcq q/question 1 y/answer1 x/answer2 diff/1 cat/easy
 
     public static final String MESSAGE_SUCCESS = "New question added: %1$s";
     public static final String MESSAGE_DUPLICATE_ANSWERABLE = "This question already exists in the test bank";
