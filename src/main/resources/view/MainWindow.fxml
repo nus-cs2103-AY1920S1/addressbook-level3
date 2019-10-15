@@ -48,8 +48,8 @@
                                 <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0">
                                         <children>
-                                            <VBox fx:id="personList" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                            <VBox fx:id="transactionList" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <StackPane fx:id="transactionListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                                             </VBox>
                                         </children>
                                     </AnchorPane>
