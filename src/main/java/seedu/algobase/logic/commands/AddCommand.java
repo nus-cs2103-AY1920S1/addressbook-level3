@@ -60,8 +60,8 @@ public class AddCommand extends Command {
         if (model.hasProblem(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PROBLEM);
         }
-
         model.addProblem(toAdd);
+        model.addTags(toAdd.getTags());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

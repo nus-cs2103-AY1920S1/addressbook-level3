@@ -9,6 +9,8 @@ import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanList;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.problem.UniqueProblemList;
+import seedu.algobase.model.tag.Tag;
+import seedu.algobase.model.tag.UniqueTagList;
 
 /**
  * Wraps all data at the algobase level
@@ -17,6 +19,7 @@ import seedu.algobase.model.problem.UniqueProblemList;
 public class AlgoBase implements ReadOnlyAlgoBase {
 
     private final UniqueProblemList problems;
+    private final UniqueTagList tags;
     private final PlanList plans;
 
     /*
@@ -29,6 +32,10 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     {
         problems = new UniqueProblemList();
         plans = new PlanList();
+    }
+
+    {
+        tags = new UniqueTagList();
     }
 
     public AlgoBase() {}
@@ -48,6 +55,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         requireNonNull(newData);
 
         setProblems(newData.getProblemList());
+        setTags(newData.getTagList());
     }
 
     //========== Problem ================================================================
@@ -95,6 +103,43 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         problems.remove(key);
     }
 
+    //// tag methods
+    /**
+     * Replaces the contents of the Tag list with {@code tags}.
+     * {@code tags} must not contain duplicate tags.
+     */
+    public void setTags(List<Tag> tags) {
+        this.tags.setTags(tags);
+    }
+
+
+    //// tag-level operations
+
+    /**
+     * Returns true if a Tag with the same identity as {@code Tag} exists in the algobase.
+     */
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return tags.contains(tag);
+    }
+
+    /**
+     * Adds a Tag to the algobase.
+     * The Tag must not already exist in the algobase.
+     */
+    public void addTag(Tag p) {
+        tags.add(p);
+    }
+
+    /**
+     * Replaces the given Tag {@code target} in the list with {@code editedTag}.
+     * {@code target} must exist in the algobase.
+     * The Tag identity of {@code editedTag} must not be the same as another existing Tag in the algobase.
+     */
+    public void setTag(Tag target, Tag editedTag) {
+        requireNonNull(editedTag);
+        tags.setTag(target, editedTag);
+    }
     @Override
     public ObservableList<Problem> getProblemList() {
         return problems.asUnmodifiableObservableList();
@@ -133,6 +178,12 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      * Removes {@code key} from this {@code AlgoBase}.
      * {@code key} must exist in the algobase.
      */
+    public void removeTag(Tag key) {
+        tags.remove(key);
+    }
+
+    //// util methods
+
     public void removePlan(Plan key) {
         plans.remove(key);
     }
@@ -146,8 +197,13 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     @Override
     public String toString() {
-        return problems.asUnmodifiableObservableList().size() + " problems";
+        return tags.asUnmodifiableObservableList().size() + " tags";
         // TODO: refine later
+    }
+
+    @Override
+    public ObservableList<Tag> getTagList() {
+        return tags.asUnmodifiableObservableList();
     }
 
     @Override

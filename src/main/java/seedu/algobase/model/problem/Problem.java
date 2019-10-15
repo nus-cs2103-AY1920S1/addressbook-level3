@@ -67,6 +67,14 @@ public class Problem {
         return Collections.unmodifiableSet(tags);
     }
 
+    public void addTag(Tag tag) {
+        tags.add(tag);
+    }
+
+    public void deleteTag(Tag tag) {
+        tags.remove(tag);
+    }
+
     public Difficulty getDifficulty() {
         return difficulty;
     }

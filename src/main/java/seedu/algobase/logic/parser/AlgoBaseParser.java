@@ -8,21 +8,25 @@ import java.util.regex.Pattern;
 
 import seedu.algobase.logic.commands.AddCommand;
 import seedu.algobase.logic.commands.AddPlanCommand;
+import seedu.algobase.logic.commands.AddTagCommand;
 import seedu.algobase.logic.commands.AddTaskCommand;
 import seedu.algobase.logic.commands.ClearCommand;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.DeleteCommand;
 import seedu.algobase.logic.commands.DeletePlanCommand;
+import seedu.algobase.logic.commands.DeleteTagCommand;
 import seedu.algobase.logic.commands.DeleteTaskCommand;
 import seedu.algobase.logic.commands.DoneTaskCommand;
 import seedu.algobase.logic.commands.EditCommand;
 import seedu.algobase.logic.commands.EditPlanCommand;
+import seedu.algobase.logic.commands.EditTagCommand;
 import seedu.algobase.logic.commands.ExitCommand;
 import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.commands.FindPlanCommand;
 import seedu.algobase.logic.commands.HelpCommand;
 import seedu.algobase.logic.commands.ListCommand;
 import seedu.algobase.logic.commands.ListPlanCommand;
+import seedu.algobase.logic.commands.ListTagCommand;
 import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.commands.SwitchCommand;
 import seedu.algobase.logic.commands.UndoneTaskCommand;
@@ -112,6 +116,18 @@ public class AlgoBaseParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddTagCommand.COMMAND_WORD:
+            return new AddTagCommandParser().parse(arguments);
+
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagCommandParser().parse(arguments);
+
+        case ListTagCommand.COMMAND_WORD:
+            return new ListTagCommand();
+
+        case EditTagCommand.COMMAND_WORD:
+            return new EditTagCommandParser().parse(arguments);
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);

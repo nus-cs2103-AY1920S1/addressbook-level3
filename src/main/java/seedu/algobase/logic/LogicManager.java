@@ -17,6 +17,7 @@ import seedu.algobase.model.Model;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.tag.Tag;
 import seedu.algobase.storage.Storage;
 
 /**
@@ -64,6 +65,10 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Tag> getFilteredTagList() {
+        return model.getFilteredTagList();
+    }
+
     public GuiState getGuiState() {
         return model.getGuiState();
     }
