@@ -47,8 +47,8 @@ public class ScheduleView extends UiPart<Region> {
     private List<String> colors;
     private HashMap<DayOfWeek, StackPane> dayTimeslotStackPanes = new HashMap<DayOfWeek, StackPane>();
     private int oneHourLength = 60;
-    private int preferredWidth = 120;
-    private double blockWidth = 120;
+    private int preferredWidth = 140;
+    private double blockWidth = 140;
     private int startTime = 8;
     private int endTime = 20;
     private int currentDay;
