@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.profile.ReadOnlyHealthRecords;
+import seedu.address.model.ReadOnlyHealthRecords;
 
 /**
  * A class to access HealthRecords data stored as a json file on the hard disk.

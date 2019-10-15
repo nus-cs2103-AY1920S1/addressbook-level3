@@ -9,16 +9,21 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.profile.medical.MedicalHistory;
-import seedu.address.profile.person.BloodType;
-import seedu.address.profile.person.DoB;
-import seedu.address.profile.person.Gender;
-import seedu.address.profile.person.Height;
-import seedu.address.profile.person.Name;
-import seedu.address.profile.person.Weight;
-import seedu.address.profile.records.Timestamp;
-import seedu.address.profile.records.Type;
-import seedu.address.profile.records.Value;
+import seedu.address.model.common.Name;
+import seedu.address.model.medical.MedicalHistory;
+import seedu.address.model.person.BloodType;
+import seedu.address.model.person.DoB;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Height;
+import seedu.address.model.person.Weight;
+import seedu.address.model.recipe.Calories;
+import seedu.address.model.recipe.Carbs;
+import seedu.address.model.recipe.Fats;
+import seedu.address.model.recipe.Ingredient;
+import seedu.address.model.recipe.Protein;
+import seedu.address.model.records.Timestamp;
+import seedu.address.model.records.Type;
+import seedu.address.model.records.Value;
 
 
 /**
@@ -69,6 +74,125 @@ public class ParserUtil {
             throw new ParseException(DoB.MESSAGE_CONSTRAINTS);
         }
         return new DoB(dateOfBirth);
+    }
+
+    /**
+     * Parses a {@code String value} into a {@code Value}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code value} is invalid.
+     */
+    public static Value parseValue(String value) throws ParseException {
+        requireNonNull(value);
+        String trimmedValue = value.trim();
+        if (!Value.isValidNumber(trimmedValue)) {
+            throw new ParseException(Value.MESSAGE_CONSTRAINTS);
+        }
+        return new Value(value);
+    }
+
+    /**
+     * Parses a {@code String ingredient} into a {@code Ingredient}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code ingredient} is invalid.
+     */
+    public static Ingredient parseIngredient(String ingredient) throws ParseException {
+        requireNonNull(ingredient);
+        String trimmedIngredient = ingredient.trim();
+        if (!Ingredient.isValidIngredientName(trimmedIngredient)) {
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+        }
+        return new Ingredient(trimmedIngredient);
+    }
+
+    /**
+     * Parses {@code Collection<String> ingredients} into a {@code Set<Ingredient>}.
+     */
+    public static Set<Ingredient> parseIngredients(Collection<String> ingredients) throws ParseException {
+        requireNonNull(ingredients);
+        final Set<Ingredient> ingredientSet = new HashSet<>();
+        for (String ingredientName : ingredients) {
+            ingredientSet.add(parseIngredient(ingredientName));
+        }
+        return ingredientSet;
+    }
+
+    /**
+     * Parses a {@code String calories} into a {@code Calories}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code calories} is invalid.
+     */
+    public static Calories parseCalories(String calories) throws ParseException {
+        requireNonNull(calories);
+        String trimmedCalories = calories.trim();
+        if (!Calories.isValidCalories(trimmedCalories)) {
+            throw new ParseException(Calories.MESSAGE_CONSTRAINTS);
+        }
+        return new Calories(trimmedCalories);
+    }
+
+    /**
+     * Parses a {@code String carbs} into a {@code Carbs}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code carbs} is invalid.
+     */
+    public static Carbs parseCarbs(String carbs) throws ParseException {
+        requireNonNull(carbs);
+        String trimmedCarbs = carbs.trim();
+        if (!Carbs.isValidCarbs(trimmedCarbs)) {
+            throw new ParseException(Carbs.MESSAGE_CONSTRAINTS);
+        }
+        return new Carbs(trimmedCarbs);
+    }
+
+    /**
+     * Parses a {@code String fats} into a {@code Fats}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code fats} is invalid.
+     */
+    public static Fats parseFats(String fats) throws ParseException {
+        requireNonNull(fats);
+        String trimmedFats = fats.trim();
+        if (!Fats.isValidFats(trimmedFats)) {
+            throw new ParseException(Fats.MESSAGE_CONSTRAINTS);
+        }
+        return new Fats(trimmedFats);
+    }
+
+    /**
+     * Parses a {@code String protein} into a {@code Protein}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code protein} is invalid.
+     */
+    public static Protein parseProtein(String protein) throws ParseException {
+        requireNonNull(protein);
+        String trimmedProtein = protein.trim();
+        if (!Protein.isValidProtein(trimmedProtein)) {
+            throw new ParseException(Protein.MESSAGE_CONSTRAINTS);
+        }
+        return new Protein(trimmedProtein);
+    }
+
+    /**
+     * Parses a {@code String timestamp} into a {@code Timestamp}.
+     * Leading and trailing whitespaces will be trimmed.
+     * String will be in upper case.
+     *
+     * @throws ParseException if the given {@code timestamp} is invalid.
+     */
+    public static Timestamp parseTimestamp(String timestamp) throws ParseException {
+        requireNonNull(timestamp);
+        String trimmedTimestamp = timestamp.trim();
+        String upperTimestamp = trimmedTimestamp.toUpperCase();
+        if (!Timestamp.isValidDateTime(upperTimestamp)) {
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS);
+        }
+        return new Timestamp(upperTimestamp);
     }
 
     /**
@@ -162,7 +286,6 @@ public class ParserUtil {
         return medicalHistorySet;
     }
 
-
     /**
      * Parses a {@code String type} into a {@code Type}.
      * Leading and trailing whitespaces will be trimmed.
@@ -176,37 +299,5 @@ public class ParserUtil {
             throw new ParseException(Type.MESSAGE_CONSTRAINTS);
         }
         return new Type(trimmedType);
-    }
-
-    /**
-     * Parses a {@code String value} into a {@code Value}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code value} is invalid.
-     */
-    public static Value parseValue(String value) throws ParseException {
-        requireNonNull(value);
-        String trimmedValue = value.trim();
-        if (!Value.isValidNumber(trimmedValue)) {
-            throw new ParseException(Value.MESSAGE_CONSTRAINTS);
-        }
-        return new Value(value);
-    }
-
-    /**
-     * Parses a {@code String timestamp} into a {@code Timestamp}.
-     * Leading and trailing whitespaces will be trimmed.
-     * String will be in upper case.
-     *
-     * @throws ParseException if the given {@code timestamp} is invalid.
-     */
-    public static Timestamp parseTimestamp(String timestamp) throws ParseException {
-        requireNonNull(timestamp);
-        String trimmedTimestamp = timestamp.trim();
-        String upperTimestamp = trimmedTimestamp.toUpperCase();
-        if (!Timestamp.isValidDateTime(upperTimestamp)) {
-            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS);
-        }
-        return new Timestamp(upperTimestamp);
     }
 }

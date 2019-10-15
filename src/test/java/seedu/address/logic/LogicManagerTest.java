@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.BLOODTYPE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.DOB_DESC;
@@ -23,12 +24,14 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.profile.Model;
-import seedu.address.profile.ModelManager;
-import seedu.address.profile.ReadOnlyUserProfile;
-import seedu.address.profile.UserPrefs;
-import seedu.address.profile.person.Person;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyRecipeBook;
+import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
 import seedu.address.storage.JsonHealthRecordsStorage;
+import seedu.address.storage.JsonRecipeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.JsonUserProfileStorage;
 import seedu.address.storage.StorageManager;
@@ -45,12 +48,16 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
+        JsonRecipeBookStorage recipeBookStorage =
+                new JsonRecipeBookStorage(temporaryFolder.resolve("recipes.json"));
         JsonUserProfileStorage dukeCooksStorage =
                 new JsonUserProfileStorage(temporaryFolder.resolve("dukecooks.json"));
         JsonHealthRecordsStorage healthRecordsStorage =
                 new JsonHealthRecordsStorage(temporaryFolder.resolve("healthrecords.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(dukeCooksStorage, healthRecordsStorage, userPrefsStorage);
+        //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(dukeCooksStorage, healthRecordsStorage,
+                recipeBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -61,6 +68,12 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_recipeCommandExecutionError_throwsCommandException() {
+        String deleteCommand = "delete recipe 9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+    }
+
+    @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
@@ -68,20 +81,29 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
+        // Setup LogicManager with JsonRecipeBookIoExceptionThrowingStub
+        JsonRecipeBookStorage recipeBookStorage =
+                new JsonRecipeBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionRecipeBook.json"));
         // Setup LogicManager with JsonUserProfileIoExceptionThrowingStub
         JsonUserProfileStorage dukeCooksStorage =
                 new JsonUserProfileIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(dukeCooksStorage, null, userPrefsStorage);
+        //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(dukeCooksStorage, null,
+                recipeBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
+        //String addCommand = AddRecipeCommand.COMMAND_WORD + " " + AddRecipeCommand.VARIANT_WORD + " " + NAME_DESC_FISH
+        //        + INGREDIENT_DESC_FISH + CALORIES_DESC_FISH + CARBS_DESC_FISH + FATS_DESC_FISH + PROTEIN_DESC_FISH;
+        //Recipe expectedRecipe = new RecipeBuilder(FISH).build();
         String addCommand = AddProfileCommand.COMMAND_WORD + NAME_DESC_AMY + DOB_DESC + GENDER_DESC
                 + BLOODTYPE_DESC + HEIGHT_DESC + WEIGHT_DESC;
         Person expectedPerson = new PersonBuilder(AMY).withMedicalHistories().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
+        //expectedModel.addRecipe(expectedRecipe);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
@@ -89,6 +111,11 @@ public class LogicManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getFilteredRecipeList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredRecipeList().remove(0));
     }
 
     /**
@@ -127,7 +154,9 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getUserProfile(), model.getHealthRecords(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getUserProfile(), model.getHealthRecords(),
+                model.getRecipeBook(), new UserPrefs());
+        //Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -154,6 +183,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveUserProfile(ReadOnlyUserProfile dukeCooks, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonRecipeBookIoExceptionThrowingStub extends JsonRecipeBookStorage {
+        private JsonRecipeBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveRecipeBook(ReadOnlyRecipeBook recipeBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

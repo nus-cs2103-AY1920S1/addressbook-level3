@@ -17,7 +17,7 @@ import java.util.Set;
 import seedu.address.logic.commands.EditProfileCommand;
 import seedu.address.logic.commands.EditProfileCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.profile.medical.MedicalHistory;
+import seedu.address.model.medical.MedicalHistory;
 
 /**
  * Parses input arguments and creates a new EditProfileCommand object

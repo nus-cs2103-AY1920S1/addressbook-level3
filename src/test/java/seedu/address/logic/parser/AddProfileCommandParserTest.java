@@ -25,9 +25,9 @@ import static seedu.address.testutil.TypicalProfiles.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddProfileCommand;
-import seedu.address.profile.medical.MedicalHistory;
-import seedu.address.profile.person.Name;
-import seedu.address.profile.person.Person;
+import seedu.address.model.common.Name;
+import seedu.address.model.medical.MedicalHistory;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddProfileCommandParserTest {

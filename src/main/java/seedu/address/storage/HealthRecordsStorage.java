@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.profile.HealthRecords;
-import seedu.address.profile.ReadOnlyHealthRecords;
+import seedu.address.model.HealthRecords;
+import seedu.address.model.ReadOnlyHealthRecords;
 
 /**
  * Represents a storage for {@link HealthRecords}.

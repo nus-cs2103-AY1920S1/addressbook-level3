@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.profile.records.Record;
-import seedu.address.profile.records.Timestamp;
-import seedu.address.profile.records.Type;
-import seedu.address.profile.records.Value;
+import seedu.address.model.records.Record;
+import seedu.address.model.records.Timestamp;
+import seedu.address.model.records.Type;
+import seedu.address.model.records.Value;
 
 /**
  * Jackson-friendly version of {@link Record}.

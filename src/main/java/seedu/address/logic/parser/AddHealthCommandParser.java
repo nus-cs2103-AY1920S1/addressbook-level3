@@ -9,10 +9,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddHealthCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.profile.records.Record;
-import seedu.address.profile.records.Timestamp;
-import seedu.address.profile.records.Type;
-import seedu.address.profile.records.Value;
+import seedu.address.model.records.Record;
+import seedu.address.model.records.Timestamp;
+import seedu.address.model.records.Type;
+import seedu.address.model.records.Value;
 
 /**
  * Parses input arguments and creates a new AddHealthCommand object

@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.profile.ReadOnlyUserProfile;
-import seedu.address.profile.UserProfile;
-import seedu.address.profile.person.Person;
+import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.UserProfile;
+import seedu.address.model.person.Person;
 
 /**
  * An Immutable User Profile that is serializable to JSON format.

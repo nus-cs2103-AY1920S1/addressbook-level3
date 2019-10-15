@@ -209,9 +209,9 @@ public class HealthRecordsWindow extends UiPart<Stage> {
     @FXML
     private void switchRecipe() {
         primaryStage.hide();
-        UserProfileWindow userProfileWindow = new UserProfileWindow(getPrimaryStage(), logic);
-        userProfileWindow.show();
-        userProfileWindow.fillInnerParts();
+        RecipeBookWindow recipeBookWindow = new RecipeBookWindow(getPrimaryStage(), logic);
+        recipeBookWindow.show();
+        recipeBookWindow.fillInnerParts();
     }
 
     /**

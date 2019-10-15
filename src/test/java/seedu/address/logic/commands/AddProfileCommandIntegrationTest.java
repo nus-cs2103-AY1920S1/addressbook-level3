@@ -4,12 +4,12 @@ import static seedu.address.testutil.TypicalProfiles.getTypicalProfiles;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import seedu.address.profile.Model;
-import seedu.address.profile.ModelManager;
-import seedu.address.profile.UserPrefs;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddProfileCommand}.
+ * Contains integration tests (interaction with the RecipeModel) for {@code AddProfileCommand}.
  */
 public class AddProfileCommandIntegrationTest {
 
@@ -17,7 +17,7 @@ public class AddProfileCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalProfiles(), null, new UserPrefs());
+        model = new ModelManager(getTypicalProfiles(), null, null, new UserPrefs());
     }
 
 }

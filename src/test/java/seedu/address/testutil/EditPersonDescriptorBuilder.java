@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditProfileCommand.EditPersonDescriptor;
-import seedu.address.profile.medical.MedicalHistory;
-import seedu.address.profile.person.Name;
-import seedu.address.profile.person.Person;
+import seedu.address.model.common.Name;
+import seedu.address.model.medical.MedicalHistory;
+import seedu.address.model.person.Person;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.

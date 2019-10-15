@@ -16,21 +16,21 @@ import static seedu.address.testutil.TypicalProfiles.getTypicalProfiles;
 //import seedu.address.logic.commands.EditProfileCommand.EditPersonDescriptor;
 //import seedu.address.profile.UserProfile;
 
-import seedu.address.profile.Model;
-import seedu.address.profile.ModelManager;
-import seedu.address.profile.UserPrefs;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 
 //import seedu.address.profile.person.Person;
 //import seedu.address.testutil.EditPersonDescriptorBuilder;
 //import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and
+ * Contains integration tests (interaction with the RecipeModel, UndoCommand and RedoCommand) and
  * unit tests for EditProfileCommand.
  */
 public class EditProfileCommandTest {
 
-    private Model model = new ModelManager(getTypicalProfiles(), null, new UserPrefs());
+    private Model model = new ModelManager(getTypicalProfiles(), null, null, new UserPrefs());
 
     //    @Test
     //    public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -40,7 +40,8 @@ public class EditProfileCommandTest {
     //
     //        String expectedMessage = String.format(EditProfileCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
     //
-    //        Model expectedModel = new ModelManager(new UserProfile(model.getUserProfile()), null, new UserPrefs());
+    //        RecipeModel expectedModel = new RecipeModelManager(new UserProfile(model.getUserProfile()), null,
+    //        new UserPrefs());
     //        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
     //
     //        assertCommandSuccess(editProfileCommand, model, expectedMessage, expectedModel);
@@ -61,7 +62,8 @@ public class EditProfileCommandTest {
     //
     //        String expectedMessage = String.format(EditProfileCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
     //
-    //        Model expectedModel = new ModelManager(new UserProfile(model.getUserProfile()), null, new UserPrefs());
+    //        RecipeModel expectedModel = new RecipeModelManager(new UserProfile(model.getUserProfile()), null,
+    //        new UserPrefs());
     //        expectedModel.setPerson(lastPerson, editedPerson);
     //
     //        assertCommandSuccess(editProfileCommand, model, expectedMessage, expectedModel);
@@ -74,7 +76,8 @@ public class EditProfileCommandTest {
     //
     //        String expectedMessage = String.format(EditProfileCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
     //
-    //        Model expectedModel = new ModelManager(new UserProfile(model.getUserProfile()), null, new UserPrefs());
+    //        RecipeModel expectedModel = new RecipeModelManager(new UserProfile(model.getUserProfile()), null,
+    //        new UserPrefs());
     //
     //        assertCommandSuccess(editProfileCommand, model, expectedMessage, expectedModel);
     //    }
@@ -90,7 +93,8 @@ public class EditProfileCommandTest {
     //
     //        String expectedMessage = String.format(EditProfileCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
     //
-    //        Model expectedModel = new ModelManager(new UserProfile(model.getUserProfile()), null, new UserPrefs());
+    //        RecipeModel expectedModel = new RecipeModelManager(new UserProfile(model.getUserProfile()), null,
+    //        new UserPrefs());
     //        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
     //
     //        assertCommandSuccess(editProfileCommand, model, expectedMessage, expectedModel);

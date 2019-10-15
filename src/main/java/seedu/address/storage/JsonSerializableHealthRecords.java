@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.profile.HealthRecords;
-import seedu.address.profile.ReadOnlyHealthRecords;
-import seedu.address.profile.records.Record;
+import seedu.address.model.HealthRecords;
+import seedu.address.model.ReadOnlyHealthRecords;
+import seedu.address.model.records.Record;
 
 /**
  * An Immutable Health Records that is serializable to JSON format.

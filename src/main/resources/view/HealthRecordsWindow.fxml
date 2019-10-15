@@ -125,7 +125,7 @@
                           <Insets bottom="5" left="10" right="10" top="5" />
                         </padding>
                        </StackPane>
-                       <VBox fx:id="personList" minWidth="340" prefWidth="340" styleClass="pane-with-border">
+                       <VBox fx:id="personListCard" minWidth="340" prefWidth="340" styleClass="pane-with-border">
                         <padding>
                           <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>

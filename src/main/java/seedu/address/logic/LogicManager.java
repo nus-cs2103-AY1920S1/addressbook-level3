@@ -12,10 +12,12 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.DukeCooksParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.profile.Model;
-import seedu.address.profile.ReadOnlyUserProfile;
-import seedu.address.profile.person.Person;
-import seedu.address.profile.records.Record;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyRecipeBook;
+import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Recipe;
+import seedu.address.model.records.Record;
 import seedu.address.storage.Storage;
 
 /**
@@ -45,6 +47,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveUserProfile(model.getUserProfile());
+            storage.saveRecipeBook(model.getRecipeBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -59,6 +62,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyRecipeBook getRecipeBook() {
+        return model.getRecipeBook();
+    }
+
+    @Override
     public ReadOnlyUserProfile getUserProfile() {
         return model.getUserProfile();
     }
@@ -66,6 +74,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Recipe> getFilteredRecipeList() {
+        return model.getFilteredRecipeList();
     }
 
     @Override
@@ -81,6 +94,10 @@ public class LogicManager implements Logic {
     @Override
     public Path getHealthRecordsFilePath() {
         return model.getHealthRecordsFilePath();
+    }
+
+    public Path getRecipesFilePath() {
+        return model.getRecipesFilePath();
     }
 
     @Override

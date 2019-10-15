@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.EditProfileCommand;
 import seedu.address.logic.commands.EditProfileCommand.EditPersonDescriptor;
-import seedu.address.profile.medical.MedicalHistory;
-import seedu.address.profile.person.Name;
+import seedu.address.model.common.Name;
+import seedu.address.model.medical.MedicalHistory;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditProfileCommandParserTest {

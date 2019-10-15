@@ -195,10 +195,7 @@ public class UserProfileWindow extends UiPart<Stage> {
      */
     @FXML
     private void switchProfile() {
-        primaryStage.hide();
-        UserProfileWindow userProfileWindow = new UserProfileWindow(getPrimaryStage(), logic);
-        userProfileWindow.show();
-        userProfileWindow.fillInnerParts();
+        // do nothing
     }
 
     /**
@@ -206,7 +203,10 @@ public class UserProfileWindow extends UiPart<Stage> {
      */
     @FXML
     private void switchRecipe() {
-        // switch to recipe page
+        primaryStage.hide();
+        RecipeBookWindow recipeBookWindow = new RecipeBookWindow(getPrimaryStage(), logic);
+        recipeBookWindow.show();
+        recipeBookWindow.fillInnerParts();
     }
 
     /**

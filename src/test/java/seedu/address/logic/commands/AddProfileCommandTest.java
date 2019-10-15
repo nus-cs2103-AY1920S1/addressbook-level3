@@ -6,23 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.profile.Model;
-import seedu.address.profile.ReadOnlyHealthRecords;
-import seedu.address.profile.ReadOnlyUserPrefs;
-import seedu.address.profile.ReadOnlyUserProfile;
-import seedu.address.profile.UserProfile;
-import seedu.address.profile.person.Person;
-import seedu.address.profile.records.Record;
+import seedu.address.model.ModelStub;
+import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.UserProfile;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
+
 
 public class AddProfileCommandTest {
 
@@ -67,120 +61,7 @@ public class AddProfileCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError(
-                    "This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError(
-                    "This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getUserProfileFilePath() {
-            throw new AssertionError(
-                    "This method should not be called.");
-        }
-
-        @Override
-        public Path getHealthRecordsFilePath() {
-            throw new AssertionError(
-                    "This method should not be called.");
-        }
-
-        @Override
-        public void setUserProfileFilePath(Path userProfileFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setHealthRecordsFilePath(Path healthRecordsFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError(
-                    "This method should not be called.");
-        }
-
-        @Override
-        public void addRecord(Record record) {
-            throw new AssertionError(
-                    "This method should not be called.");
-        }
-
-        @Override
-        public void setUserProfile(ReadOnlyUserProfile userProfile) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setHealthRecords(ReadOnlyHealthRecords healthRecords) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserProfile getUserProfile() {
-            throw new AssertionError(
-                    "This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyHealthRecords getHealthRecords() {
-            throw new AssertionError(
-                    "This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setRecord(Record target, Record editedRecord) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Record> getFilteredRecordList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredRecordList(Predicate<Record> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
-
-    /**
-     * A Model stub that contains a single person.
+     * A RecipeModel stub that contains a single person.
      */
     private class ModelStubWithPerson extends ModelStub {
         private final Person person;
@@ -192,7 +73,7 @@ public class AddProfileCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A RecipeModel stub that always accept the person being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();

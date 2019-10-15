@@ -160,7 +160,10 @@ public class TempWindow extends UiPart<Stage> {
      */
     @FXML
     private void switchRecipe() {
-        // switch to recipe
+        primaryStage.hide();
+        RecipeBookWindow recipeBookWindow = new RecipeBookWindow(getPrimaryStage(), logic);
+        recipeBookWindow.show();
+        recipeBookWindow.fillInnerParts();
     }
 
     /**

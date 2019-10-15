@@ -7,10 +7,12 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.profile.Model;
-import seedu.address.profile.ReadOnlyUserProfile;
-import seedu.address.profile.person.Person;
-import seedu.address.profile.records.Record;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyRecipeBook;
+import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Recipe;
+import seedu.address.model.records.Record;
 
 /**
  * API of the Logic component
@@ -26,11 +28,21 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
+     * Returns RecipeBook.
+     *
+     * @see RecipeModel#getRecipeBook()
+     */
+    ReadOnlyRecipeBook getRecipeBook();
+
+    /**
      * Returns UserProfile.
      *
      * @see Model#getUserProfile()
      */
     ReadOnlyUserProfile getUserProfile();
+
+    /** Returns an unmodifiable view of the filtered list of recipes */
+    ObservableList<Recipe> getFilteredRecipeList();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -39,7 +51,12 @@ public interface Logic {
     ObservableList<Record> getFilteredRecordList();
 
     /**
-     * Returns the user prefs' Duke Cooks file path.
+     * Returns the user prefs' Recipe Book file path.
+     */
+    Path getRecipesFilePath();
+
+    /**
+     * Returns the user prefs' User Profile file path.
      */
     Path getUserProfileFilePath();
 

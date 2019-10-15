@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_HEIGHT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICALHISTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
-import static seedu.address.profile.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,15 +18,15 @@ import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.profile.Model;
-import seedu.address.profile.medical.MedicalHistory;
-import seedu.address.profile.person.BloodType;
-import seedu.address.profile.person.DoB;
-import seedu.address.profile.person.Gender;
-import seedu.address.profile.person.Height;
-import seedu.address.profile.person.Name;
-import seedu.address.profile.person.Person;
-import seedu.address.profile.person.Weight;
+import seedu.address.model.Model;
+import seedu.address.model.common.Name;
+import seedu.address.model.medical.MedicalHistory;
+import seedu.address.model.person.BloodType;
+import seedu.address.model.person.DoB;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Height;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Weight;
 
 /**
  * Edits the details of an existing person in Duke Cooks.
