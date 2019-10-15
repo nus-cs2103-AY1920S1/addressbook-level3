@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.InfoCommandParser;
+import seedu.savenus.logic.parser.MenuParser;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
@@ -22,6 +23,7 @@ public class InfoCommandTest {
 
     private static Model model = new ModelManager();
     private static Model expectedModel = new ModelManager();
+    private static MenuParser menuParser = new MenuParser();
     private static InfoCommandParser infoParser = new InfoCommandParser();
 
     private static final InfoCommand infoAdd = new InfoCommand(AddCommand.COMMAND_WORD);
@@ -32,6 +34,11 @@ public class InfoCommandTest {
     private static final String INVALID_COMMAND = "23ibdf";
     private static final String MULTIPLE_COMMAND = "info add edit";
 
+    private static final String VALID_USER_INPUT = "info edit";
+    private static final String INVALID_USER_INPUT = "info asdjasgdas";
+    private static final String RANDOM_INVALID_USER_INPUT = "asioufgsaf";
+    private static final String INVALID_MULTIPLE_COMMAND_USER_INPUT = "info edit add recommend";
+
     @Test
     public void equals() {
         // Same object, should return true
@@ -41,6 +48,30 @@ public class InfoCommandTest {
         // Different object, should return false
         assertTrue(!infoAdd.equals(infoBudget));
         assertFalse(infoBuy.equals(infoBudget));
+    }
+
+    @Test
+    public void input_validUserInput_parseSuccess() throws ParseException {
+        InfoCommand validEditInfo = (InfoCommand) menuParser.parseCommand(VALID_USER_INPUT);
+        CommandResult expectedCommandresult =
+                new CommandResult(InfoCommand.EDIT_INFO, false, false, false);
+        assertCommandSuccess(validEditInfo, model, expectedCommandresult, expectedModel);
+    }
+
+    @Test
+    public void input_invalidUserInput_throwParseException() {
+        assertThrows(ParseException.class, () -> menuParser.parseCommand(RANDOM_INVALID_USER_INPUT));
+    }
+
+    @Test
+    public void input_invalidUserInput_invalidCommandFailure() throws ParseException {
+        InfoCommand invalidInfo = (InfoCommand) menuParser.parseCommand(INVALID_USER_INPUT);
+        assertCommandFailure(invalidInfo, model, InfoCommand.INVALID_COMMAND_ENTERED_MESSAGE);
+    }
+
+    @Test
+    public void input_invalidUserInput_multipleCommandFailure() {
+        assertThrows(ParseException.class, () -> menuParser.parseCommand(INVALID_MULTIPLE_COMMAND_USER_INPUT));
     }
 
     @Test
