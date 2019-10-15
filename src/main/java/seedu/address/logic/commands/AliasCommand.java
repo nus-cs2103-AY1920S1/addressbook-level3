@@ -37,7 +37,7 @@ public class AliasCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    protected void validate(Model model) throws CommandException {
         requireNonNull(model);
 
         // if command_word is reserved
@@ -53,9 +53,13 @@ public class AliasCommand extends Command {
                 || model.getUserPrefs().aliasCommandWordIsAlias(commandWord)) {
             throw new CommandException(MESSAGE_RECURSIVE_WARNING);
         }
+    }
+
+    @Override
+    protected CommandResult execute(Model model) {
+        requireNonNull(model);
 
         model.addUserAlias(toAdd);
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getAliasName()));
     }
 

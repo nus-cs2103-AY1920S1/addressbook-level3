@@ -35,23 +35,23 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_expenseAcceptedByModel_addSuccessful() throws Exception {
+    public void run_expenseAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingExpenseAdded modelStub = new ModelStubAcceptingExpenseAdded();
         Expense validExpense = new ExpenseBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validExpense).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validExpense).run(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validExpense), modelStub.expensesAdded);
     }
 
     @Test
-    public void execute_duplicateExpense_throwsCommandException() {
+    public void run_duplicateExpense_throwsCommandException() {
         Expense validExpense = new ExpenseBuilder().build();
         AddCommand addCommand = new AddCommand(validExpense);
         ModelStub modelStub = new ModelStubWithExpense(validExpense);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EXPENSE, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EXPENSE, () -> addCommand.run(modelStub));
     }
 
     @Test
