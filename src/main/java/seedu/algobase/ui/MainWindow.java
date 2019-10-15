@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private DisplayTabPane displayTabPane;
     private ProblemListPanel problemListPanel;
+    private PlanListPanel planListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -110,9 +111,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
+        planListPanel = new PlanListPanel(logic.getProcessedPlanList());
         DisplayTab problemListPanelTab = new DisplayTab(ModelEnum.PROBLEM.getTabName(), problemListPanel);
         DisplayTab tagListPanelTab = new DisplayTab(ModelEnum.TAG.getTabName());
-        DisplayTab planListPanelTab = new DisplayTab(ModelEnum.PLAN.getTabName());
+        DisplayTab planListPanelTab = new DisplayTab(ModelEnum.PLAN.getTabName(), planListPanel);
 
         displayTabPane =
             new DisplayTabPane(logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab);
@@ -170,6 +172,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public ProblemListPanel getProblemListPanel() {
         return problemListPanel;
+    }
+
+    public PlanListPanel getPlanListPanel() {
+        return planListPanel;
     }
 
     /**

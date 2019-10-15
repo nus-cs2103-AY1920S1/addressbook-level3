@@ -9,6 +9,7 @@ import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.GuiState;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 
@@ -44,6 +45,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of tags */
     ObservableList<Tag> getFilteredTagList();
+
+    /** Returns an unmodifiable view of the filtered list of plans */
+    ObservableList<Plan> getProcessedPlanList();
 
     /**
      * Returns the user prefs' algobase file path.

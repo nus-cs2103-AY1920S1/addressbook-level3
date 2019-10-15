@@ -15,6 +15,7 @@ import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.GuiState;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.storage.Storage;
@@ -70,6 +71,11 @@ public class LogicManager implements Logic {
 
     public GuiState getGuiState() {
         return model.getGuiState();
+    }
+
+    @Override
+    public ObservableList<Plan> getProcessedPlanList() {
+        return model.getFilteredPlanList();
     }
 
     @Override
