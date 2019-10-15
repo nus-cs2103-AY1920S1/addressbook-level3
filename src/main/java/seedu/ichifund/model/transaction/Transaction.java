@@ -17,7 +17,7 @@ public class Transaction {
     private final Description description;
     private final Category category;
     private final Date date;
-    private final boolean isExpenditure;
+    private final TransactionType transactionType;
 
     /**
      * Every field must be present and not null.
@@ -29,7 +29,7 @@ public class Transaction {
         this.description = description;
         this.category = category;
         this.date = date;
-        this.isExpenditure = transactionType.isExpenditure();
+        this.transactionType = transactionType;
     }
 
     public Amount getAmount() {
@@ -48,15 +48,14 @@ public class Transaction {
         return date;
     }
 
-    public boolean isExpenditure() {
-        return isExpenditure;
+    public TransactionType getTransactionType() {
+        return transactionType;
     }
 
+    public boolean isExpenditure() {
+        return transactionType.isExpenditure();
+    }
 
-    /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
-     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -78,7 +77,7 @@ public class Transaction {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(amount, description, category, date, isExpenditure);
+        return Objects.hash(amount, description, category, date, transactionType);
     }
 
     @Override

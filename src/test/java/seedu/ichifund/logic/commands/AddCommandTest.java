@@ -146,6 +146,26 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void deleteTransaction(Transaction target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTransaction(Transaction target, Transaction editedTransaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Transaction> getFilteredTransactionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public void addRepeater(Repeater repeater) {
@@ -175,8 +195,6 @@ public class AddCommandTest {
         public void updateFilteredRepeaterList(Predicate<Repeater> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-
-
 
 
         @Override

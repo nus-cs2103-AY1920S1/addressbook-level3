@@ -1,4 +1,4 @@
-package seedu.ichifund.logic.parser;
+package seedu.ichifund.logic.parser.transaction;
 
 import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
@@ -11,7 +11,12 @@ import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.stream.Stream;
 
-import seedu.ichifund.logic.commands.AddTransactionCommand;
+import seedu.ichifund.logic.commands.transaction.AddTransactionCommand;
+import seedu.ichifund.logic.parser.ArgumentMultimap;
+import seedu.ichifund.logic.parser.ArgumentTokenizer;
+import seedu.ichifund.logic.parser.Parser;
+import seedu.ichifund.logic.parser.ParserUtil;
+import seedu.ichifund.logic.parser.Prefix;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.model.Amount;
 import seedu.ichifund.model.Description;
