@@ -17,7 +17,7 @@ public class MonthOffset {
 
     public MonthOffset(String offset) {
         requireNonNull(offset);
-        checkArgument(isValidOffset(offset), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidMonthOffset(offset), MESSAGE_CONSTRAINTS);
         if (offset.equals("")) {
             this.value = null;
         } else {
@@ -28,7 +28,7 @@ public class MonthOffset {
     /**
      * Returns true if a given string is a valid offset.
      */
-    public static boolean isValidOffset(String test) {
+    public static boolean isValidMonthOffset(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
