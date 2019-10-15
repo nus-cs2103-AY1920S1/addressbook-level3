@@ -59,6 +59,21 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+    public static final String VALID_TITLE_SAMPLE = "Sample title";
+    public static final String VALID_TITLE_PIPELINE = "Pipelining Definition";
+    public static final String VALID_CONTENT_SAMPLE = "Sample Content";
+    public static final String VALID_CONTENT_PIPELINE = "Pipelining is the process of making a single processor run "
+            + "multiple instructions simultaneously.";
+
+    public static final String EXPECTED_VIEW_SAMPLE = "\nTitle: Sample Title\nContent: Sample Content\nTags: "
+            + "[SampleTag2][SampleTag1]";
+    public static final String EXPECTED_VIEW_PIPELINE = "\nTitle: Pipelining Definition\nContent: Pipelining is the "
+            + "process of making a single processor run multiple instructions simultaneously.\nTags: [CS2100] "
+            + "[Midterms]";
+    public static final String EXPECTED_LIST_RESULT = "1. Sample Title - Sample Content\n2. Pipelining Definition - "
+            + "Pipelining is the process of making a single processor run multiple instructions simultaneously.\n3. "
+            + "Potatoes - I really like potatoes.";
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
@@ -89,6 +104,8 @@ public class CommandTestUtil {
             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
+            System.out.println("expectedCommandResult " + expectedCommandResult.getFeedbackToUser());
+            System.out.println("result " + result.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
