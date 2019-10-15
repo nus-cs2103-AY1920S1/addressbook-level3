@@ -120,12 +120,12 @@ public class MainApp extends Application {
             }
             initialRestaurantData = restaurantDatabaseOptional.orElseGet(SampleDataUtil::getSampleRestaurantDatabase);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. " +
-                    "Will be starting with an empty RestaurantDatabase");
+            logger.warning("Data file not in the correct format. "
+                    + "Will be starting with an empty RestaurantDatabase");
             initialRestaurantData = new RestaurantDatabase();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. " +
-                    "Will be starting with an empty RestaurantDatabase");
+            logger.warning("Problem while reading from the file. "
+                    + "Will be starting with an empty RestaurantDatabase");
             initialRestaurantData = new RestaurantDatabase();
         }
 

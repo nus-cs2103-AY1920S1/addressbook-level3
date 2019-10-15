@@ -68,12 +68,12 @@ public class JsonRestaurantDatabaseStorage implements RestaurantDatabaseStorage 
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveRestaurantDatabase(ReadOnlyRestaurantDatabase restaurantDatabase, Path filePath) throws IOException {
+    public void saveRestaurantDatabase(ReadOnlyRestaurantDatabase restaurantDatabase, Path filePath)
+            throws IOException {
         requireNonNull(restaurantDatabase);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableRestaurantDatabase(restaurantDatabase), filePath);
     }
-
 }

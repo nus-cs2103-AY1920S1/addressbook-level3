@@ -1,12 +1,12 @@
 package seedu.deliverymans.ui;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-
-import java.util.logging.Logger;
 
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.model.restaurant.Restaurant;
