@@ -38,9 +38,9 @@ public class OrderBuilder {
     private Set<Tag> tags;
 
     public OrderBuilder() {
-        id = DEFAULT_UUID;
-        customer = DEFAULT_CUSTOMER;
-        phone = DEFAULT_PHONE;
+        id = UUID.randomUUID();
+        customer = new CustomerBuilder(CUSTOMERONE).build();
+        phone = new PhoneBuilder(IPHONEONE).build();
         price = new Price(DEFAULT_PRICE);
         status = DEFAULT_STATUS;
         schedule = DEFAULT_SCHEDULE;
