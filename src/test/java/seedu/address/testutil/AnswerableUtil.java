@@ -34,6 +34,8 @@ public class AnswerableUtil {
      */
     public static String getAnswerableDetails(Answerable answerable) {
         StringBuilder sb = new StringBuilder();
+        //TODO: Implement Answerable
+        sb.append(PREFIX_QUESTION_TYPE + "mcq" + " ");
         sb.append(PREFIX_QUESTION + answerable.getQuestion().fullQuestion + " ");
         sb.append(PREFIX_DIFFICULTY + answerable.getDifficulty().value + " ");
         sb.append(PREFIX_CATEGORY + answerable.getCategory().value + " ");

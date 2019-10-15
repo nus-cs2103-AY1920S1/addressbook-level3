@@ -133,7 +133,7 @@ public class EditCommand extends Command {
         private Set<Tag> tags;
 
         public EditAnswerableDescriptor() {
-            answerSet = new AnswerSet();
+//            answerSet = new AnswerSet();
         }
 
         /**
@@ -168,12 +168,21 @@ public class EditCommand extends Command {
         }
 
         public void setCorrectAnswerSet(Set<Answer> correctAnswerSet) {
-            answerSet = new AnswerSet();
-            this.answerSet.setCorrectAnswerSet(correctAnswerSet);
+            if (answerSet == null) {
+                this.answerSet = new AnswerSet();
+                this.answerSet.setCorrectAnswerSet(correctAnswerSet);
+            } else {
+                this.answerSet.setCorrectAnswerSet(correctAnswerSet);
+            }
         }
 
         public void setWrongAnswerSet(Set<Answer> wrongAnswerSet) {
-            this.answerSet.setWrongAnswerSet(wrongAnswerSet);
+            if (answerSet == null) {
+                this.answerSet = new AnswerSet();
+                this.answerSet.setWrongAnswerSet(wrongAnswerSet);
+            } else {
+                this.answerSet.setWrongAnswerSet(wrongAnswerSet);
+            }
         }
 
         public Optional<AnswerSet> getAnswerSet() {

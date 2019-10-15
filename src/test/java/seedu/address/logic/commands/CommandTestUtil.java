@@ -42,6 +42,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String QUESTION_TYPE_MCQ = " " + PREFIX_QUESTION_TYPE + "mcq";
     public static final String QUESTION_DESC_AMY = " " + PREFIX_QUESTION + VALID_QUESTION_AMY;
     public static final String QUESTION_DESC_BOB = " " + PREFIX_QUESTION + VALID_QUESTION_BOB;
     public static final String CORRECT_ANSWER_DESC = " " + PREFIX_CORRECT + "CORRECT";
@@ -49,8 +50,8 @@ public class CommandTestUtil {
     public static final String QUESTION_TYPE_DESC = " " + PREFIX_QUESTION_TYPE + VALID_QUESTION_TYPE;
     public static final String DIFFICULTY_DESC_AMY = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_AMY;
     public static final String DIFFICULTY_DESC_BOB = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_CATEGORY + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_CATEGORY + VALID_ADDRESS_BOB;
+    public static final String CATEGORY_DESC_AMY = " " + PREFIX_CATEGORY + VALID_ADDRESS_AMY;
+    public static final String CATEGORY_DESC_BOB = " " + PREFIX_CATEGORY + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
