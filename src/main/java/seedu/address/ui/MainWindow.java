@@ -260,7 +260,7 @@ public class MainWindow extends UiPart<Stage> {
      * @param timeLeft Time in milliseconds that is left in the current timer.
      */
     private void updateTimerDisplay(String timerMessage, long timeLeft) {
-        if (timeLeft <= 200) {
+        if (timeLeft <= 200) { // todo dont hardcode!
             this.timerDisplay.setAlertTextColour();
         } else {
             this.timerDisplay.setNormalTextColour();

@@ -1,7 +1,6 @@
 package seedu.address.ui.modules;
 
 import javafx.collections.FXCollections;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -13,6 +12,8 @@ import javafx.scene.layout.VBox;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.model.card.Card;
 import seedu.address.statistics.GameStatistics;
+import seedu.address.statistics.GameStatisticsBuilder;
+import seedu.address.statistics.ScoreGrade;
 import seedu.address.ui.UiPart;
 
 import java.util.List;
@@ -67,7 +68,7 @@ public class GameResultPanel extends UiPart<Region> {
 
         // init score text
         int score = gameStatistics.getScore();
-        GameStatistics.ScoreGrade grade = gameStatistics.getScoreGrade();
+        ScoreGrade grade = gameStatistics.getGrade();
         scoreText.setText(score + "");
         switch (grade) {
         case HIGH:
@@ -83,13 +84,13 @@ public class GameResultPanel extends UiPart<Region> {
         }
 
         // init time taken text
-        timeTakenText.setText(String.format("%.2fs", gameStatistics.getTimeTakenSec()));
+        timeTakenText.setText(String.format("%.2fs", gameStatistics.getSecTaken()));
 
         // init wrongAnswersBox
         if (gameStatistics.allCorrect()) {
             wrongAnswersBox.setVisible(false);
         } else {
-            List<Card> wrongCards = gameStatistics.getAllWrongCards();
+            List<Card> wrongCards = gameStatistics.getWrongCards();
             CardBoxPanel cardBoxPanel = new CardBoxPanel(FXCollections.observableArrayList(wrongCards));
             wrongAnswersList.getChildren().add(cardBoxPanel.getRoot());
         }

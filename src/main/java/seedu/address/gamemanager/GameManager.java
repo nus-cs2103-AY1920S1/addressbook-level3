@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.card.Card;
 import seedu.address.statistics.GameStatistics;
+import seedu.address.statistics.GameStatisticsBuilder;
 
 /**
  * Class that wraps around the entire apps logic and the GameTimer. This is done to separate all logic
@@ -31,7 +32,7 @@ public class GameManager {
     // Call-back method to update ResultDisplay in MainWindow
     private ResultDisplayCallBack resultDisplayCallBack = null; // not used for now.
     private MainWindowExecuteCallBack mainWindowExecuteCallBack = null;
-    private GameStatistics gameStatistics = null;
+    private GameStatisticsBuilder gameStatisticsBuilder = null;
 
     public GameManager(Logic logic) {
         this.logic = logic;
@@ -76,7 +77,7 @@ public class GameManager {
         if (commandResult instanceof GameCommandResult) {
             // update statistics upon receiving a GameCommandResult
             GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
-            gameStatistics.addDataPoint(gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
+            gameStatisticsBuilder.addDataPoint(gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
                     gameCommandResult.getCard());
         }
 
@@ -95,11 +96,11 @@ public class GameManager {
     }
 
     public GameStatistics getGameStatistics() {
-        return gameStatistics;
+        return gameStatisticsBuilder.build();
     }
 
     public void initGameStatistics(String title) {
-        gameStatistics = new GameStatistics(title);
+        gameStatisticsBuilder = new GameStatisticsBuilder(title);
     }
 
     public ObservableList<Card> getFilteredPersonList() {
