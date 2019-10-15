@@ -4,6 +4,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedStudyPlan.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalStudyPlans.SP_1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +29,17 @@ public class JsonAdaptedStudyPlanTest {
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+
+    private static final String INVALID_SEMESTER_NAME = "HELLO";
+
+    private static final List<JsonAdaptedTag> VALID_TAGS = SP_1.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validStudyPlanDetails_returnsStudyPlan() throws Exception {
-        JsonAdaptedStudyPlan studyPlan = new JsonAdaptedStudyPlan(BENSON);
-        assertEquals(BENSON, studyPlan.toModelType());
+        JsonAdaptedStudyPlan studyPlan = new JsonAdaptedStudyPlan(SP_1);
+        assertEquals(SP_1, studyPlan.toModelType());
     }
 
     @Test

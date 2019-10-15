@@ -10,8 +10,8 @@ import seedu.address.model.tag.exceptions.InvalidTagNameException;
  * Name is valid as declared in {@link #isValidTagName(String)}
  */
 public class UserTag implements Tag {
-
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should not be default tag names";
+    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final String VALIDATION_REGEX = "\\p{ASCII}+";
 
     private String tagName;
 
