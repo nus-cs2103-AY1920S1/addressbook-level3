@@ -85,8 +85,6 @@ public class GameManager {
 
         if (commandResult.isPromptingGuess()) {
             Platform.runLater(() -> setAndRunGameTimer());
-        } else {
-            // todo clear the timer display
         }
 
         return commandResult;
