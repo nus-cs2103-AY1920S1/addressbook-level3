@@ -135,4 +135,6 @@ public interface Model {
     void setServingBorrower(BorrowerId borrowerId);
 
     boolean hasBorrowerId(BorrowerId borrowerId);
+
+    void exitsServeMode();
 }
