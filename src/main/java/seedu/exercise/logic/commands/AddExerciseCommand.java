@@ -61,6 +61,11 @@ public class AddExerciseCommand extends AddCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    /**
+     * Returns the exercise to be added to the exercise book.
+     *
+     * @return exercise to be added
+     */
     public Exercise getExercise() {
         return toAdd;
     }

@@ -1,9 +1,13 @@
 package seedu.exercise.logic.commands.history;
 
 import seedu.exercise.logic.commands.AddExerciseCommand;
+import seedu.exercise.logic.commands.ClearCommand;
 import seedu.exercise.logic.commands.DeleteExerciseCommand;
+import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.commands.UndoableCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.model.ExerciseBook;
+import seedu.exercise.model.ReadOnlyExerciseBook;
 import seedu.exercise.model.exercise.Exercise;
 
 /**
@@ -18,8 +22,8 @@ public class EventFactory {
      * Generates an Event object that can execute the behaviour of a given Command as well
      * as its opposite behaviour.
      *
-     * @param command a command to be represented with using an Event object
-     * @return an Event that can be undone or redone
+     * @param command a {@code Command} to be represented with using an Event object
+     * @return an {@code Event} that can be undone or redone
      */
     static Event commandToEvent(UndoableCommand command) throws CommandException {
         if (command instanceof AddExerciseCommand) {
@@ -29,6 +33,16 @@ public class EventFactory {
         } else if (command instanceof DeleteExerciseCommand) {
             Exercise exercise = ((DeleteExerciseCommand) command).getExercise();
             return new DeleteExerciseEvent(exercise);
+
+        } else if (command instanceof EditCommand) {
+            Exercise exerciseOld = ((EditCommand) command).getExerciseToEdit();
+            Exercise exerciseNew = ((EditCommand) command).getEditedExercise();
+            return new EditEvent(exerciseOld, exerciseNew);
+
+        } else if (command instanceof ClearCommand) {
+            ReadOnlyExerciseBook exerciseBookCleared =
+                    new ExerciseBook(((ClearCommand) command).getExerciseBookCleared());
+            return new ClearEvent(exerciseBookCleared);
 
         } else {
             throw new CommandException(

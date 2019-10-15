@@ -40,6 +40,11 @@ public class DeleteExerciseCommand extends DeleteCommand {
         return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete));
     }
 
+    /**
+     * Returns the exercise to be deleted from the exercise book.
+     *
+     * @return exercise to be deleted
+     */
     public Exercise getExercise() {
         return exerciseToDelete;
     }

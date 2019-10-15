@@ -20,6 +20,7 @@ import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.commons.util.CollectionUtil;
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.logic.commands.history.EventHistory;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.exercise.Calories;
 import seedu.exercise.model.exercise.Date;
@@ -32,7 +33,7 @@ import seedu.exercise.model.exercise.Unit;
 /**
  * Edits the details of an existing exercise in the exercise book.
  */
-public class EditCommand extends Command {
+public class EditCommand extends Command implements UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -56,6 +57,8 @@ public class EditCommand extends Command {
 
     private final Index index;
     private final EditExerciseDescriptor editExerciseDescriptor;
+    private Exercise exerciseToEdit;
+    private Exercise editedExercise;
 
     /**
      * @param index                  of the exercise in the filtered exercise list to edit
@@ -78,16 +81,35 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
 
-        Exercise exerciseToEdit = lastShownList.get(index.getZeroBased());
-        Exercise editedExercise = createEditedExercise(exerciseToEdit, editExerciseDescriptor);
+        exerciseToEdit = lastShownList.get(index.getZeroBased());
+        editedExercise = createEditedExercise(exerciseToEdit, editExerciseDescriptor);
 
         if (!exerciseToEdit.isSameExercise(editedExercise) && model.hasExercise(editedExercise)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
         }
 
         model.setExercise(exerciseToEdit, editedExercise);
+        EventHistory.getInstance().addCommandToUndoStack(this);
         model.updateFilteredExerciseList(Model.PREDICATE_SHOW_ALL_EXERCISES);
         return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise));
+    }
+
+    /**
+     * Returns the exercise to be edited in the exercise book.
+     *
+     * @return exercise to be edited
+     */
+    public Exercise getExerciseToEdit() {
+        return exerciseToEdit;
+    }
+
+    /**
+     * Returns the newly edited exercise.
+     *
+     * @return exercise with fields edited
+     */
+    public Exercise getEditedExercise() {
+        return editedExercise;
     }
 
     /**
