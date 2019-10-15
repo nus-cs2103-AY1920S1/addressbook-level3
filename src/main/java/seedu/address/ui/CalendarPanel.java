@@ -36,6 +36,9 @@ public class CalendarPanel extends UiPart<Region> {
 
     }
 
+    /**
+     * To populate the agenda with the schedules in the observable list
+     */
     public void populateAgenda() {
         agenda.appointments().clear();
 
@@ -58,6 +61,9 @@ public class CalendarPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Helper method to convert the calendar attribute in the schedule object into LocalDateTime object
+     */
     private LocalDateTime scheduleToLocalDateTime(Schedule schedule) {
         Calendar calendar = schedule.getCalendar();
         int year = calendar.get(Calendar.YEAR);
