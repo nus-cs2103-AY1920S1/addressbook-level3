@@ -249,13 +249,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            if (commandResult.hasPayloadObject()) {
-                this.handleStats(commandResult.getPayloadObject());
-            } else {
-                //retrieve the type that the command works on here;
-                List<UiChange> uiChanges = commandResult.getUiChange();
-                performUiChanges(uiChanges);
-            }
+            //retrieve the type that the command works on here;
+            performUiChanges(commandResult);
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -268,8 +263,9 @@ public class MainWindow extends UiPart<Stage> {
      * checks which panel the command acts on and switches it
      * @param input type of panel the result works on
      */
-    private void performUiChanges(List<UiChange> input) {
-        for (UiChange type : input) {
+    private void performUiChanges(CommandResult input) {
+        List<UiChange> listOfUiChange = input.getUiChange();
+        for (UiChange type : listOfUiChange) {
             switch (type) {
             case CUSTOMER:
                 this.showCustomerPanel();
@@ -285,6 +281,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case HELP:
                 this.handleHelp();
+                break;
+            case STATS:
+                this.handleStats(input.getPayloadObject());
                 break;
             case EXIT:
                 this.handleExit();
