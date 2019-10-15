@@ -1,16 +1,18 @@
 package seedu.jarvis.model.course;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.jarvis.commons.exceptions.CourseNotFoundException;
-import seedu.jarvis.model.course.exceptions.CourseAlreadyInListException;
-import seedu.jarvis.model.course.exceptions.CourseNotInListException;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.jarvis.model.course.exceptions.CourseAlreadyInListException;
+import seedu.jarvis.model.course.exceptions.CourseNotInListException;
 
+/**
+ * Represents a CourseList with unique elements.
+ */
 public class UniqueCourseList implements Iterable<Course> {
     private final ObservableList<Course> internalList = FXCollections.observableArrayList();
     private final ObservableList<Course> internalUnmodifiableList =
@@ -27,6 +29,15 @@ public class UniqueCourseList implements Iterable<Course> {
             == courses.stream().count();
     }
 
+    /**
+     * Returns an index depending on the given index and the given upper limit. The method
+     * returns 0 if the index is negative, upperLimit if it is more than upperLimit, and index
+     * itself if it is between (0, upperLimit).
+     *
+     * @param index to check
+     * @param upperLimit that the index that go to
+     * @return an index that is within the given range(0, upperLimit) inclusive
+     */
     private int checkIndex(int index, int upperLimit) {
         if (isNegative(index)) {
             return 0;
