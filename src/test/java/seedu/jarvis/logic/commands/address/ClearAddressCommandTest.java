@@ -5,7 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.jarvis.testutil.address.TypicalPersons.*;
+import static seedu.jarvis.testutil.address.TypicalPersons.AMY;
+import static seedu.jarvis.testutil.address.TypicalPersons.BENSON;
+import static seedu.jarvis.testutil.address.TypicalPersons.CARL;
+import static seedu.jarvis.testutil.address.TypicalPersons.DANIEL;
+import static seedu.jarvis.testutil.address.TypicalPersons.ELLE;
+import static seedu.jarvis.testutil.address.TypicalPersons.GEORGE;
+import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +24,12 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.Person;
+
+import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.testutil.address.PersonBuilder;
 
 public class ClearAddressCommandTest {
     private Model model;
@@ -48,8 +58,12 @@ public class ClearAddressCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), new UserPrefs(),
+                new Planner());
+        Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
+                new UserPrefs(), new Planner());
+
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearAddressCommand(), model,
@@ -63,8 +77,12 @@ public class ClearAddressCommandTest {
     @Test
     public void executeInverse_success() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
+                                 new UserPrefs(), new Planner());
+        Person validPerson = new PersonBuilder().build();
+        model.addPerson(validPerson);
+        Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
+                new UserPrefs(), new Planner());
         expectedModel.setAddressBook(new AddressBook());
         assertCommandSuccess(clearAddressCommand, model, ClearAddressCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -79,8 +97,11 @@ public class ClearAddressCommandTest {
     @Test
     public void repeatedExecutionAndInverseExecution() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-        model = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(new HistoryManager(), getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
+                                 new UserPrefs(), new Planner());
+        Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
+                new UserPrefs(), new Planner());
+        Person validPerson = new PersonBuilder().build();
 
         int cycles = 1000;
         IntStream.range(0, cycles)
