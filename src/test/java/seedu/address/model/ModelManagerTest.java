@@ -15,14 +15,13 @@ public class ModelManagerTest {
 
     private ModelManager modelManager = new ModelManager();
 
-    /*
+
     @Test
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new BankAccount(), new BankAccount(modelManager.getBankAccount()));
     }
-     */
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {

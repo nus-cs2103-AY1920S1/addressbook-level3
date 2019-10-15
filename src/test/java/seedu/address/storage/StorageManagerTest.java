@@ -61,6 +61,7 @@ public class StorageManagerTest {
     }
      */
 
+
     @Test
     public void getBankAccountFilePath() {
         assertNotNull(storageManager.getBankAccountFilePath());
