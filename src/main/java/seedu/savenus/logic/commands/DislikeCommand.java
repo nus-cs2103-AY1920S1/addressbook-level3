@@ -11,20 +11,20 @@ import seedu.savenus.model.tag.Tag;
 
 
 /**
- * Adds the user's liked recommendations to the $aveNUS recommendation system.
+ * Adds the user's disliked recommendations to the $aveNUS recommendation system.
  */
-public class LikeCommand extends PreferenceCommand {
+public class DislikeCommand extends PreferenceCommand {
 
-    public static final String COMMAND_WORD = "like";
+    public static final String COMMAND_WORD = "dislike";
 
     private final Set<Category> categoryList;
     private final Set<Tag> tagList;
     private final Set<Location> locationList;
 
     /**
-     * Creates an LikeCommand to add the user's recommendations
+     * Creates an DislikeCommand to add the user's recommendations
      */
-    public LikeCommand(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+    public DislikeCommand(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         super(categoryList, tagList, locationList);
 
         this.categoryList = categoryList;
@@ -36,15 +36,15 @@ public class LikeCommand extends PreferenceCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        return this.execute(model, true);
+        return this.execute(model, false);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof LikeCommand // instanceof handles nulls
-                && categoryList.equals(((LikeCommand) other).categoryList))
-                && tagList.equals(((LikeCommand) other).tagList)
-                && locationList.equals(((LikeCommand) other).locationList);
+                || (other instanceof DislikeCommand // instanceof handles nulls
+                && categoryList.equals(((DislikeCommand) other).categoryList))
+                && tagList.equals(((DislikeCommand) other).tagList)
+                && locationList.equals(((DislikeCommand) other).locationList);
     }
 }

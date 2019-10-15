@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
@@ -58,31 +59,36 @@ public class RecommendationSystem {
         dislikedTags = new HashSet<>();
         dislikedLocations = new HashSet<>();
         dislikedCategories = new HashSet<>();
-
-        // Some dummy data
-        likedTags.add(new Tag("Cheese"));
-        likedTags.add(new Tag("Healthy"));
-        likedTags.add(new Tag("Pasta"));
-
-        dislikedLocations.add(new Location("Some ulu location"));
-
-        likedCategories.add(new Category("Chinese"));
     }
 
     /**
      * Calculates the recommendation value for each Food provided
      */
-    private int calculateRecommendation(Food food) {
+    public int calculateRecommendation(Food food) {
         int weight = 0;
 
-        weight += LIKED_TAG_WEIGHT * likedTags.stream().filter(food.getTags()::contains).count();
-        weight -= DISLIKED_TAG_WEIGHT * dislikedTags.stream().filter(food.getTags()::contains).count();
+        weight += LIKED_TAG_WEIGHT * likedTags.stream()
+                .filter(food.getTags().stream()
+                        .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet())::contains)
+                .count();
+        weight -= DISLIKED_TAG_WEIGHT * dislikedTags.stream()
+                .filter(food.getTags().stream()
+                        .map(t -> new Tag(t.tagName.toLowerCase())).collect(Collectors.toSet())::contains)
+                .count();
 
-        weight += LIKED_CATEGORY_WEIGHT * likedCategories.stream().filter(food.getCategory()::equals).count();
-        weight -= DISLIKED_CATEGORY_WEIGHT * dislikedCategories.stream().filter(food.getCategory()::equals).count();
+        weight += LIKED_CATEGORY_WEIGHT * likedCategories.stream()
+                .filter(new Category(food.getCategory().category.toLowerCase())::equals)
+                .count();
+        weight -= DISLIKED_CATEGORY_WEIGHT * dislikedCategories.stream()
+                .filter(new Category(food.getCategory().category.toLowerCase())::equals)
+                .count();
 
-        weight += LIKED_LOCATION_WEIGHT * likedLocations.stream().filter(food.getLocation()::equals).count();
-        weight -= DISLIKED_LOCATION_WEIGHT * dislikedLocations.stream().filter(food.getLocation()::equals).count();
+        weight += LIKED_LOCATION_WEIGHT * likedLocations.stream()
+                .filter(new Location(food.getLocation().location)::equals)
+                .count();
+        weight -= DISLIKED_LOCATION_WEIGHT * dislikedLocations.stream()
+                .filter(new Location(food.getLocation().location)::equals)
+                .count();
 
         return weight;
     }
@@ -117,5 +123,41 @@ public class RecommendationSystem {
 
     public void setInUse(boolean inUse) {
         this.inUse = inUse;
+    }
+
+    public void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        likedCategories.addAll(categoryList);
+        likedTags.addAll(tagList);
+        likedLocations.addAll(locationList);
+    }
+
+    public void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+        dislikedCategories.addAll(categoryList);
+        dislikedTags.addAll(tagList);
+        dislikedLocations.addAll(locationList);
+    }
+
+    public Set<Tag> getLikedTags() {
+        return likedTags;
+    }
+
+    public Set<Location> getLikedLocations() {
+        return likedLocations;
+    }
+
+    public Set<Category> getLikedCategories() {
+        return likedCategories;
+    }
+
+    public Set<Tag> getDislikedTags() {
+        return dislikedTags;
+    }
+
+    public Set<Location> getDislikedLocations() {
+        return dislikedLocations;
+    }
+
+    public Set<Category> getDislikedCategories() {
+        return dislikedCategories;
     }
 }

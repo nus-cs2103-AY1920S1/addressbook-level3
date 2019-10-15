@@ -4,13 +4,17 @@ import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.logic.commands.exceptions.CommandException;
+import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 
@@ -160,4 +164,16 @@ public interface Model {
      * @throws NullPointerException if {@code inUse} is null.
      */
     void setRecommendationSystemInUse(boolean inUse);
+
+    /**
+     * Updates the user's liked categories, tags and locations.
+     * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
+     */
+    void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
+
+    /**
+     * Updates the user's disliked categories, tags and locations.
+     * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
+     */
+    void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
 }
