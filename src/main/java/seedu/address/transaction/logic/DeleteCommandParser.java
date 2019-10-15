@@ -27,7 +27,7 @@ public class DeleteCommandParser {
     public static DeleteCommand parse(String userInput, Model personModel) throws NotANumberException,
             NoSuchPersonException {
 
-        if (userInput.substring(1).matches("-?(0|[1-9]\\d*)")) {
+        if (userInput.length() > 1 && userInput.substring(1).matches("-?(0|[1-9]\\d*)")) {
             int index = Integer.parseInt(userInput.substring(1));
             DeleteIndexCommand deleteIndexCommand = new DeleteIndexCommand(index);
             return deleteIndexCommand;
@@ -35,7 +35,7 @@ public class DeleteCommandParser {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(userInput, PREFIX_PERSON);
         if (!arePrefixesPresent(argMultimap, PREFIX_PERSON) || !argMultimap.getPreamble().isEmpty()) {
-            throw new NotANumberException(TransactionMessages.MESSAGE_NOT_A_NUMBER);
+            throw new NotANumberException(TransactionMessages.MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
         }
 
         try {

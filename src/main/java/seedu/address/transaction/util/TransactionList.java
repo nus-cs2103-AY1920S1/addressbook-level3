@@ -12,8 +12,8 @@ import seedu.address.transaction.model.Transaction;
  * Duplicates are allowed but are considered the same transaction when commands are done.
  */
 public class TransactionList {
+    private final ArrayList<Transaction> original;
     private ArrayList<Transaction> tList;
-    private ArrayList<Transaction> original;
 
     /**
      * Initialises the transaction list when there are no prior transactions inputted.

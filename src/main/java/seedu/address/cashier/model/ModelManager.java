@@ -8,11 +8,9 @@ import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.storage.StorageManager;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.cashier.util.InventoryList;
-
 import seedu.address.inventory.model.Item;
-
+import seedu.address.inventory.model.Model;
 import seedu.address.person.model.person.Person;
-
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
@@ -55,8 +53,8 @@ public class ModelManager implements Model {
 
     /**
      * Returns a view of the {@code InventoryList}.
+     * @return
      */
-    @Override
     public InventoryList getInventoryList() {
         return this.inventoryList;
     }
@@ -68,7 +66,16 @@ public class ModelManager implements Model {
         return this.transactionList;
     }
 
-    @Override
+    /**
+     * Returns true if the quantity keyed in is less than or equals to the quantity available in inventory.
+     * Else, return false.
+     *
+     * @param description of the item to check
+     * @param quantity of the item to check
+     * @return true if sufficient quantity in inventory
+     * @throws NoSuchItemException if there is no such item in the inventory
+     */
+
     public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
         Item originalItem = inventoryList.getOriginalItem(description);
         for (Item i : salesList) {
@@ -93,6 +100,9 @@ public class ModelManager implements Model {
         return inventoryList.getOriginalItem(description).getQuantity();
     }
 
+    /**
+     * Returns true if an item with the same attributes as {@code item} exists in the Inventory List.
+     */
     @Override
     public boolean hasItemInInventory(Item item) {
         try {
@@ -146,8 +156,10 @@ public class ModelManager implements Model {
             }
         }
         Item i = inventoryList.getOriginalItem(description);
-        i.setQuantity(qty);
-        salesList.add(i);
+        Item copy = new Item(i.getDescription(), i.getCategory(), qty, i.getCost(), i.getPrice(),
+                Integer.valueOf(i.getId()));
+        copy.setQuantity(qty);
+        salesList.add(copy);
         return i;
     }
 
@@ -261,6 +273,26 @@ public class ModelManager implements Model {
         return salesList.get(index - 1);
     }
 
+    /**
+     * Returns the subtotal of the item according to the quantity and the price.
+     * @param i the item to be calculated
+     * @return the subtotal of the item
+     */
+    public double getSubtotal(Item i) {
+        return (i.getPrice() * i.getQuantity());
+    }
+
+    /**
+     * Updates the inventory list from the data file.
+     */
+    @Override
+    public void readInUpdatedList() {
+        try {
+            this.inventoryList = storage.getInventoryList();
+        } catch (Exception e) {
+            this.inventoryList = new InventoryList();
+        }
+    }
 }
 
 
