@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import mams.commons.exceptions.IllegalValueException;
 import mams.model.Mams;
 import mams.model.ReadOnlyMams;
-import mams.model.student.Student;
 import mams.model.module.Module;
+import mams.model.student.Student;
 
 
 /**
@@ -30,11 +30,18 @@ class JsonSerializableMams {
     /**
      * Constructs a {@code JsonSerializableMams} with the given students and modules.
      */
-    @JsonCreator
+    /*@JsonCreator
     public JsonSerializableMams(@JsonProperty("students") List<JsonAdaptedStudent> students,
                                 @JsonProperty("modules") List<JsonAdaptedModule> modules) {
         this.students.addAll(students);
         this.modules.addAll(modules);
+    }*/
+
+    @JsonCreator
+    public JsonSerializableMams(@JsonProperty("students") List<JsonAdaptedStudent> students,
+                                @JsonProperty("modules") List<JsonAdaptedModule> modules) {
+        this.modules.addAll(modules);
+        this.students.addAll(students);
     }
 
     /**

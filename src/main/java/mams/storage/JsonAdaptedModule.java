@@ -21,8 +21,9 @@ class JsonAdaptedModule {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";
 
     private final String moduleCode;
-    private final String sessionId;
+    private final String moduleName;
     private final String timeSlot;
+    private final String quota;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>(); //students
 
     /**
@@ -30,12 +31,13 @@ class JsonAdaptedModule {
      */
     @JsonCreator
     //todo
-    public JsonAdaptedModule(@JsonProperty("code") String moduleCode, @JsonProperty("sessionid") String sessionId,
-                             @JsonProperty("timeslot") String timeSlot,
+    public JsonAdaptedModule(@JsonProperty("code") String moduleCode, @JsonProperty("modulename") String moduleName,
+                             @JsonProperty("timeslot") String timeSlot, @JsonProperty("quota") String quota,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.moduleCode = moduleCode;
-        this.sessionId = sessionId;
+        this.moduleName = moduleName;
         this.timeSlot = timeSlot;
+        this.quota = quota;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -46,8 +48,9 @@ class JsonAdaptedModule {
      */
     public JsonAdaptedModule(Module source) {
         moduleCode = source.getModuleCode();
-        sessionId = source.getSessionId();
+        moduleName = source.getModuleName();
         timeSlot = source.getTimeSlot();
+        quota = source.getQuota();
         tagged.addAll(source.getStudents().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -72,13 +75,21 @@ class JsonAdaptedModule {
         }
         final String modelModuleCode = moduleCode;
 
-        if (sessionId == null) { //sessionId expected for Json data
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Session Id"));
+        if (moduleName == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Module Name"));
         }
-        if (!Module.isValidSessionId(sessionId)) {
-            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_SESSION_ID);
+        if (!Module.isValidModuleName(moduleName)) {
+            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_NAME);
         }
-        final String modelSessionId = sessionId;
+        final String modelModuleName = moduleName;
+
+        if (quota == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Quota"));
+        }
+        if (!Module.isValidQuota(quota)) {
+            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_QUOTA);
+        }
+        final String modelQuota = quota;
 
         if (timeSlot == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Time Slot"));
@@ -89,6 +100,6 @@ class JsonAdaptedModule {
         final String modelTimeSlot = timeSlot;
 
         final Set<Tag> modelTags = new HashSet<>(moduleTags); //students
-        return new Module(modelModuleCode, modelSessionId, modelTimeSlot, modelTags);
+        return new Module(modelModuleCode, modelModuleName, modelTimeSlot, modelQuota, modelTags);
     }
 }

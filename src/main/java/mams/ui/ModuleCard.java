@@ -23,6 +23,8 @@ public class ModuleCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label timeSlot;
+    @FXML
+    private Label quota;
 
     // TODO add more fields for module display card
 
@@ -35,6 +37,7 @@ public class ModuleCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         moduleCode.setText(module.getModuleCode());
         timeSlot.setText(module.timeSlotsToString());
+        quota.setText(module.quotaToString());
     }
 
     @Override

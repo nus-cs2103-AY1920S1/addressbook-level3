@@ -1,39 +1,71 @@
 {
-  "students" : [ {
-    "name" : "Alex Yeoh",
-    "phone" : "87438807",
-    "email" : "alexyeoh@example.com",
-    "address" : "Blk 30 Geylang Street 29, #06-40",
-    "tagged" : [ "friends" ]
+  "students" : [
+  ],
+  "modules" : [ {
+    "code" : "CS1010",
+    "modulename": "Programming Methodology",
+    "timeslot" : "1,2,45,46,47",
+    "quota" : "100",
+    "tagged" : ["test213","fesfes","we"]
   }, {
-    "name" : "Bernice Yu",
-    "phone" : "99272758",
-    "email" : "berniceyu@example.com",
-    "address" : "Blk 30 Lorong 3 Serangoon Gardens, #07-18",
-    "tagged" : [ "colleagues", "friends" ]
+    "code" : "CS1231",
+    "modulename": "2",
+    "timeslot" : "12",
+    "quota" : "100",
+    "tagged" : ["test213"]
   }, {
-    "name" : "Charlotte Oliveiro",
-    "phone" : "93210283",
-    "email" : "charlotte@example.com",
-    "address" : "Blk 11 Ang Mo Kio Street 74, #11-04",
-    "tagged" : [ "neighbours" ]
+    "code" : "CS1020",
+    "modulename": "1",
+    "timeslot" : "1",
+    "quota" : "150",
+    "tagged" : ["test213"]
   }, {
-    "name" : "David Li",
-    "phone" : "91031282",
-    "email" : "lidavid@example.com",
-    "address" : "Blk 436 Serangoon Gardens Street 26, #16-43",
-    "tagged" : [ "family" ]
+    "code" : "CS1020",
+    "modulename": "2",
+    "timeslot" : "3",
+    "quota" : "150",
+    "tagged" : ["test213"]
   }, {
-    "name" : "Irfan Ibrahim",
-    "phone" : "92492021",
-    "email" : "irfan@example.com",
-    "address" : "Blk 47 Tampines Street 20, #17-35",
-    "tagged" : [ "classmates" ]
+    "code" : "CS1030",
+    "modulename": "1",
+    "timeslot" : "5",
+    "quota" : "80",
+    "tagged" : ["test213"]
   }, {
-    "name" : "Roy Balakrishnan",
-    "phone" : "92624417",
-    "email" : "royb@example.com",
-    "address" : "Blk 45 Aljunied Street 85, #11-31",
-    "tagged" : [ "colleagues" ]
+    "code" : "CS1030",
+    "modulename": "2",
+    "timeslot" : "7",
+    "quota" : "90",
+    "tagged" : ["test213"]
+  }, {
+    "code" : "CS1040",
+    "modulename": "1",
+    "timeslot" : "4",
+    "quota" : "50",
+    "tagged" : ["test213"]
+  }, {
+    "code" : "CS1040",
+    "modulename": "2",
+    "timeslot" : "5",
+    "quota" : "50",
+    "tagged" : ["test213"]
+  }, {
+    "code" : "CS2010",
+    "modulename": "1",
+    "timeslot" : "50",
+    "quota" : "150",
+    "tagged" : ["test213"]
+  }, {
+    "code" : "CS2030",
+    "modulename": "1",
+    "timeslot" : "65",
+    "quota" : "200",
+    "tagged" : ["test213"]
+  }, {
+    "code" : "CS2020",
+    "modulename": "1",
+    "timeslot" : "30",
+    "quota" : "250",
+    "tagged" : ["test213"]
   } ]
 }
