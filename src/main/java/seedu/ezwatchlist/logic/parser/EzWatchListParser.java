@@ -12,7 +12,7 @@ import seedu.ezwatchlist.logic.commands.Command;
 import seedu.ezwatchlist.logic.commands.DeleteCommand;
 import seedu.ezwatchlist.logic.commands.EditCommand;
 import seedu.ezwatchlist.logic.commands.ExitCommand;
-import seedu.ezwatchlist.logic.commands.FindCommand;
+import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.commands.HelpCommand;
 import seedu.ezwatchlist.logic.commands.ListCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
@@ -20,7 +20,7 @@ import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class EzWatchListParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -40,7 +40,7 @@ public class AddressBookParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
@@ -56,8 +56,8 @@ public class AddressBookParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        case SearchCommand.COMMAND_WORD:
+            return new SearchCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

@@ -10,7 +10,7 @@ import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.logic.commands.Command;
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
-import seedu.ezwatchlist.logic.parser.AddressBookParser;
+import seedu.ezwatchlist.logic.parser.EzWatchListParser;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ReadOnlyAddressBook;
@@ -26,12 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final EzWatchListParser ezWatchListParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        ezWatchListParser = new EzWatchListParser();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = ezWatchListParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
@@ -58,7 +58,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+        return model.getFilteredShowList();
     }
 
     @Override
