@@ -26,8 +26,10 @@ public class Spending {
     /**
      * Every field must be present and not null.
      */
+
     public Spending(Name name, Phone phone, Email email, Cost cost, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, tags);
+        requireAllNonNull(name, phone, email, cost, tags);
+
         this.name = name;
         this.phone = phone;
         this.email = email;
