@@ -38,6 +38,9 @@ public class RuleProcessingUtil {
         }
     }
 
+    /**
+     * Returns if a value can be parsed into the specified type.
+     */
     public static boolean isValueParsable(String typeName, Value value) {
         switch (typeName) {
         case TYPE_AMOUNT:
@@ -60,6 +63,10 @@ public class RuleProcessingUtil {
         return true;
     }
 
+    /**
+     * Returns if the expression predicate is valid,
+     * i.e. attribute and value are all working with the expected type specified by the operator.
+     */
     public static boolean isValidExprPredicate(Attribute attribute, Operator operator, Value value) {
         return operator.getExpectedType().equals(attribute.getEvaluatedType())
                 && isValueParsable(operator.getExpectedType(), value);
