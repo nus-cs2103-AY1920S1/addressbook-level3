@@ -72,7 +72,7 @@ public class BankAccount implements ReadOnlyBankAccount {
         }
 
         BankAccount otherBankAccount = (BankAccount) other;
-        return this.balance.equals(otherBankAccount.balance) &&
-                this.transactions.equals(otherBankAccount.transactions);
+        return this.balance.equals(otherBankAccount.balance)
+                && this.transactions.equals(otherBankAccount.transactions);
     }
 }
