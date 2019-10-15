@@ -1,5 +1,7 @@
 package seedu.address.inventory.commands;
 
+import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_ADDED_ITEM;
+
 import java.util.logging.Logger;
 
 import seedu.address.inventory.model.Item;
@@ -27,6 +29,6 @@ public class AddCommand extends Command {
         InventoryMessages inventoryMessages = new InventoryMessages();
         model.addItem(item);
         logger.info(item.toString());
-        return new CommandResult(inventoryMessages.addedItem(item));
+        return new CommandResult(String.format(MESSAGE_ADDED_ITEM, item));
     }
 }

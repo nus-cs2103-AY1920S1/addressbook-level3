@@ -1,8 +1,9 @@
 package seedu.address.transaction.commands;
 
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_BY_PERSON;
+
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.ui.TransactionMessages;
 
 /**
  * Deletes a transaction to the transaction list according to the person.
@@ -20,6 +21,6 @@ public class DeleteNameCommand extends DeleteCommand {
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
         model.deleteAllTransactionOfPerson(person);
-        return new CommandResult(TransactionMessages.deletedTransactionsOfPerson(person));
+        return new CommandResult(String.format(MESSAGE_DELETE_BY_PERSON, person));
     }
 }

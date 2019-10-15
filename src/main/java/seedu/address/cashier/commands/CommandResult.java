@@ -7,8 +7,6 @@ import seedu.address.util.OverallCommandResult;
  */
 public class CommandResult extends OverallCommandResult {
 
-    private String feedbackToUser;
-
     /**
      * Constructs a {@code CommandResult} with the specified field.
      */

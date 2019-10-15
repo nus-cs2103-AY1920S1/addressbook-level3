@@ -38,7 +38,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public InventoryList getInventoryList() throws Exception {
+    public InventoryList getInventoryList() {
         return inventoryModel.getInventoryList();
     }
 

@@ -1,5 +1,7 @@
 package seedu.address.transaction.commands;
 
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_TRANSACTION;
+
 import seedu.address.transaction.logic.exception.ParseException;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
@@ -27,6 +29,6 @@ public class DeleteIndexCommand extends DeleteCommand {
         } catch (IndexOutOfBoundsException e) {
             throw new ParseException(TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION);
         }
-        return new CommandResult(TransactionMessages.deletedTransaction(transaction));
+        return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION, transaction));
     }
 }

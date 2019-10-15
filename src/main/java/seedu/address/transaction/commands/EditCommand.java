@@ -1,5 +1,9 @@
 package seedu.address.transaction.commands;
 
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DUPLICATE_TRANSACTION;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_PERSON;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_TRANSACTION_EDITED;
+
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -13,7 +17,6 @@ import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
-import seedu.address.transaction.ui.TransactionMessages;
 
 /**
  * Edits a transaction in the transaction list.
@@ -43,10 +46,10 @@ public class EditCommand extends Command {
                 editTransactionDescriptor, personModel);
 
         if (!transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
-            throw new CommandException(TransactionMessages.MESSAGE_DUPLICATE_TRANSACTION);
+            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
         if (!personModel.hasPerson(editedTransaction.getPerson())) {
-            throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
+            throw new NoSuchPersonException(MESSAGE_NO_SUCH_PERSON);
         }
         try {
             LocalDate.parse(editedTransaction.getDate(), Transaction.DATE_TIME_FORMATTER);
@@ -54,7 +57,7 @@ public class EditCommand extends Command {
             throw new ParseException("Please input the correct date format. DD-MMM-YYYY (eg. 02-Sep-2019).");
         }
         model.setTransaction(transactionToEdit, editedTransaction);
-        return new CommandResult(TransactionMessages.editedTransaction(editedTransaction));
+        return new CommandResult(String.format(MESSAGE_TRANSACTION_EDITED, editedTransaction));
     }
 
     /**

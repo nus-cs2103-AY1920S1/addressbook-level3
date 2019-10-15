@@ -1,4 +1,4 @@
-package seedu.address.inventory.commands;
+package seedu.address.ui.commands;
 
 import seedu.address.util.OverallCommandResult;
 
@@ -12,5 +12,9 @@ public class CommandResult extends OverallCommandResult {
      */
     public CommandResult(String feedbackToUser) {
         super(feedbackToUser);
+    }
+
+    public CommandResult(String feedbackToUser, boolean exit) {
+        super(feedbackToUser, exit);
     }
 }

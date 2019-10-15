@@ -1,5 +1,7 @@
 package seedu.address.reimbursement.commands;
 
+import static seedu.address.reimbursement.ui.ReimbursementMessages.MESSAGE_FIND_REIMBURSEMENT;
+
 import java.util.logging.Logger;
 
 import seedu.address.person.commons.core.LogsCenter;
@@ -27,6 +29,7 @@ public class FindCommand extends Command {
         ReimbursementMessages reimbursementMessages = new ReimbursementMessages();
         Reimbursement rmb = model.findReimbursement(person);
         logger.info(rmb.toString());
-        return new CommandResult(reimbursementMessages.findReimbursement(rmb));
+        return new CommandResult(String.format(MESSAGE_FIND_REIMBURSEMENT,
+                rmb.getPerson().getName().toString(), rmb.toString()));
     }
 }

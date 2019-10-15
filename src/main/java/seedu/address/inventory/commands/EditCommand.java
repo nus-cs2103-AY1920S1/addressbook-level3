@@ -1,10 +1,12 @@
 package seedu.address.inventory.commands;
 
+import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_DUPLICATE;
+import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_EDITED_ITEM;
+
 import java.util.Optional;
 
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.ModelManager;
-import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.person.commons.util.CollectionUtil;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 
@@ -13,7 +15,6 @@ import seedu.address.person.logic.commands.exceptions.CommandException;
  */
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
-    public static final String MESSAGE_DUPLICATE = "The given input is the same as that of item specified.";
     private static int id;
     private int index;
     private EditItemDescriptor editItemDescriptor;
@@ -31,7 +32,6 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(ModelManager model)
             throws Exception {
-        InventoryMessages inventoryMessages = new InventoryMessages();
         Item itemToEdit = model.findItemByIndex(index);
 
         Item editedItem = createdEditedItem(itemToEdit, editItemDescriptor);
@@ -40,7 +40,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE);
         }
         model.setItem(Integer.parseInt(itemToEdit.getId()), editedItem);
-        return new CommandResult(InventoryMessages.editedItem(itemToEdit, editedItem));
+        return new CommandResult(String.format(MESSAGE_EDITED_ITEM, itemToEdit, editedItem));
     }
 
     /**

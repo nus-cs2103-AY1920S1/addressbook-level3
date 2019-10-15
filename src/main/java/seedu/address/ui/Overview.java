@@ -3,6 +3,7 @@ package seedu.address.ui;
 import static seedu.address.overview.ui.OverviewMessages.BUDGET_SUMMARY_TEXT;
 import static seedu.address.overview.ui.OverviewMessages.EXPENSE_PIE_CHART_TITLE;
 import static seedu.address.overview.ui.OverviewMessages.EXPENSE_SUMMARY_TEXT;
+import static seedu.address.overview.ui.OverviewMessages.INVENTORY_PIE_CHART_TITLE;
 import static seedu.address.overview.ui.OverviewMessages.INVENTORY_SUMMARY_TEXT;
 import static seedu.address.overview.ui.OverviewMessages.SALES_SUMMARY_TEXT;
 
@@ -44,6 +45,18 @@ public class Overview extends UiPart<Region> {
 
     public Overview(Logic overviewLogic) {
         super(FXML);
+
+        initialiseLabels(overviewLogic);
+        initialiseExpensePieChart(overviewLogic);
+        initialiseInventoryPieChart(overviewLogic);
+
+    }
+
+    /**
+     * Initialises the Labels in the Overview tab.
+     * @param overviewLogic the logic for the overview tab.
+     */
+    void initialiseLabels(Logic overviewLogic) {
         totalExpenseValue.setText(String.format(EXPENSE_SUMMARY_TEXT, overviewLogic.getTotalExpenses(),
                 overviewLogic.getExpenseTarget()));
         totalInventoryValue.setText(String.format(INVENTORY_SUMMARY_TEXT, overviewLogic.getTotalInventory()));
@@ -51,7 +64,13 @@ public class Overview extends UiPart<Region> {
                 overviewLogic.getSalesTarget()));
         totalAmountRemaining.setText(String.format(BUDGET_SUMMARY_TEXT, overviewLogic.getRemainingBudget(),
                 overviewLogic.getBudgetTarget()));
+    }
 
+    /**
+     * Initialises the Pie Chart for expenses in the Overview tab.
+     * @param overviewLogic the logic for the overview tab.
+     */
+    void initialiseExpensePieChart(Logic overviewLogic) {
         List<PieChart.Data> pieChartData = new ArrayList<>();
         List<String> categoryList = overviewLogic.getTransactionCategories();
 
@@ -69,6 +88,29 @@ public class Overview extends UiPart<Region> {
         expensePieChart.setLabelsVisible(true);
         expensePieChart.setStartAngle(180);
 
+    }
+
+    /**
+     * Initialises the Pie Chart for inventory in the Overview tab.
+     * @param overviewLogic the logic for the overview tab.
+     */
+    void initialiseInventoryPieChart(Logic overviewLogic) {
+        List<PieChart.Data> pieChartData = new ArrayList<>();
+        List<String> categoryList = overviewLogic.getInventoryCategories();
+
+        for (int i = 0; i < categoryList.size(); i++) {
+            pieChartData.add(new PieChart.Data(categoryList.get(i),
+                    overviewLogic.getInventoryTotalByCategory(categoryList.get(i))));
+        }
+
+        ObservableList<PieChart.Data> dataToDisplay = FXCollections.observableList(pieChartData);
+
+        inventoryPieChart.setData(dataToDisplay);
+        inventoryPieChart.setTitle(INVENTORY_PIE_CHART_TITLE);
+        inventoryPieChart.setClockwise(true);
+        inventoryPieChart.setLabelLineLength(20);
+        inventoryPieChart.setLabelsVisible(true);
+        inventoryPieChart.setStartAngle(180);
     }
 
 }

@@ -1,6 +1,7 @@
 package seedu.address.reimbursement.commands;
 
 import static seedu.address.reimbursement.model.Reimbursement.DATE_TIME_FORMATTER;
+import static seedu.address.reimbursement.ui.ReimbursementMessages.MESSAGE_ADD_DEADLINE;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -11,7 +12,6 @@ import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.exception.InvalidDeadlineException;
-import seedu.address.reimbursement.ui.ReimbursementMessages;
 
 /**
  * Represents a command to add a deadline.
@@ -29,12 +29,12 @@ public class DeadlineCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws Exception {
-        ReimbursementMessages reimbursementMessages = new ReimbursementMessages();
         try {
             LocalDate deadline = LocalDate.parse(date, DATE_TIME_FORMATTER);
             Reimbursement rmb = model.addDeadline(person, deadline);
             logger.info(rmb.toString());
-            return new CommandResult(reimbursementMessages.addDeadline(rmb));
+            return new CommandResult(String.format(MESSAGE_ADD_DEADLINE, rmb.getDeadline().format(DATE_TIME_FORMATTER),
+                    rmb.toStringNoDeadline()));
 
         } catch (DateTimeParseException e) {
             throw new InvalidDeadlineException();
