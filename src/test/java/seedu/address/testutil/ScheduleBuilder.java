@@ -15,7 +15,6 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class ScheduleBuilder {
 
-    private static final UUID DEFAULT_ID = UUID.randomUUID();
     private static final String DEFAULT_VENUE = "Central Library";
     private static final Calendar DEFAULT_CALENDAR = new Calendar.Builder()
             .setDate(2019, 12, 1).setTimeOfDay(23, 30, 0).build();
@@ -26,7 +25,7 @@ public class ScheduleBuilder {
     private Set<Tag> tags;
 
     public ScheduleBuilder() {
-        id = DEFAULT_ID;
+        id = UUID.randomUUID();
         calendar = DEFAULT_CALENDAR;
         venue = new Venue(DEFAULT_VENUE);
         tags = new HashSet<>();
