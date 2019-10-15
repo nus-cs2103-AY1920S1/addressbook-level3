@@ -15,12 +15,6 @@ public class Timetable {
     private static final int NUMBER_OF_HALF_HOUR_IN_A_DAY = 48;
     private TimeSlot[] timetable = new TimeSlot[NUMBER_OF_HALF_HOUR_IN_A_DAY];
 
-    public Timetable() {
-        for (int i = 0; i < NUMBER_OF_HALF_HOUR_IN_A_DAY; i++) {
-            timetable[i] = new TimeSlot();
-        }
-    }
-
     public Timetable(List<ActivityWithTime> activities) throws TimeSlotUnavailableException {
         for (ActivityWithTime a : activities) {
             Activity activity = a.getActivity();
