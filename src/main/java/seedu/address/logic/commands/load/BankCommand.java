@@ -35,10 +35,9 @@ public class BankCommand extends LoadCommand {
 
     @Override
     public CommandResult execute(Model model) {
-        WordBankList temp = new WordBankList();
-        // Get word bank from storage
+        WordBankList temp = model.getWordBankList();
         model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
-        System.out.println("+-+-+-" + temp.getWordBank(targetIndex).getName());
+        System.out.println(temp.getWordBank(targetIndex).getName());
         model.setWordBank(temp.getWordBank(targetIndex));
         return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT , false, false);
     }

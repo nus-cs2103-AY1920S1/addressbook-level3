@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -76,8 +77,13 @@ public class LogicManager implements Logic {
         Similar methods to saveAddressBook();
          */
         try {
-            storage.saveAddressBook(model.getWordBank());
+            ReadOnlyWordBank wb = model.getWordBank();
+            Path filePath = Paths.get("data/" + wb.getName() + ".json");
+            storage.saveAddressBook(model.getWordBank(), filePath);
             System.out.println("_____bank" + model.getWordBank().getName());
+            for (Card c : wb.getCardList()) {
+                System.out.println(c);
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

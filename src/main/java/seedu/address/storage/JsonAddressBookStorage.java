@@ -57,7 +57,8 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         }
 
         try {
-            String wordBankName = filePath.toString();
+            String pathName = filePath.toString();
+            String wordBankName = pathName.substring(5, pathName.length() - 5);
             return Optional.of(jsonAddressBook.get().toModelType(wordBankName));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());

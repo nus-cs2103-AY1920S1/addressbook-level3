@@ -9,6 +9,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.game.Game;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbanklist.WordBankList;
 
 /**
  * The API of the Model component.
@@ -84,6 +85,8 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<WordBank> getFilteredWordBankList();
+
+    WordBankList getWordBankList();
 
     /**
      * Updates the filter of the filtered card list to filter by the given {@code predicate}.

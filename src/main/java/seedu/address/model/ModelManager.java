@@ -23,7 +23,7 @@ import seedu.address.model.wordbank.WordBank;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final WordBank wordBank;
+    private WordBank wordBank;
     private final WordBankList wordBankList;
     private final UserPrefs userPrefs;
     private final FilteredList<Card> filteredCards;
@@ -42,6 +42,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with word bank: " + wordBank + " and user prefs " + userPrefs);
 
         this.wordBank = new WordBank(wordBank, wordBank.getName());
+//        this.wordBank = null;
         this.wordBankList = new WordBankList();
 
         this.userPrefs = new UserPrefs(userPrefs);
@@ -101,7 +102,8 @@ public class ModelManager implements Model {
 
     @Override
     public void setWordBank(ReadOnlyWordBank wordBank) {
-        this.wordBank.resetData(wordBank);
+        this.wordBank = (WordBank) wordBank;
+//        this.wordBank.resetData(wordBank);
     }
 
     @Override
@@ -122,7 +124,11 @@ public class ModelManager implements Model {
 
     @Override
     public void addCard(Card card) {
+        System.out.println("at addCard" + wordBank.getName());
         wordBank.addCard(card);
+        for (Card c : wordBank.getCardList()) {
+            System.out.println(c);
+        }
         updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
     }
 
@@ -154,9 +160,22 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public WordBankList getWordBankList() {
+        return wordBankList;
+    }
+
+    @Override
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
+        System.out.println("Within the filtered cardlist");
+        for (Card c : filteredCards) {
+            System.out.println(c);
+        }
         filteredCards.setPredicate(predicate);
+        System.out.println("after the filtered cardlist");
+        for (Card c : filteredCards) {
+            System.out.println(c);
+        }
     }
 
     @Override
