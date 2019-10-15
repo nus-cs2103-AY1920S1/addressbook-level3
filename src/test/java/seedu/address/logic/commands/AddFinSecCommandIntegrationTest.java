@@ -25,16 +25,16 @@ public class AddFinSecCommandIntegrationTest {
         model = new ModelManager(getTypicalFinSec(), new UserPrefs());
     }
 
-    @Test
-    public void execute_newPerson_success() {
-        Contact validContact = new ContactBuilder().build();
-
-        Model expectedModel = new ModelManager(model.getFinSec(), new UserPrefs());
-        expectedModel.addContact(validContact);
-
-        assertCommandSuccess(new AddContactCommand(validContact), model,
-                String.format(AddContactCommand.MESSAGE_SUCCESS, validContact), expectedModel);
-    }
+//    @Test
+//    public void execute_newPerson_success() {
+//        Contact validContact = new ContactBuilder().build();
+//
+//        Model expectedModel = new ModelManager(model.getFinSec(), new UserPrefs());
+//        expectedModel.addContact(validContact);
+//
+//        assertCommandSuccess(new AddContactCommand(validContact), model,
+//                String.format(AddContactCommand.MESSAGE_SUCCESS, validContact), expectedModel);
+//    }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
