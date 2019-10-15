@@ -22,6 +22,7 @@ import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.Venue;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
@@ -288,6 +289,21 @@ public interface Model {
      *      3. NusModsApi
      */
     Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode);
+
+    //=========== GoogleMaps ================================================================================
+
+    /**
+     * Returns the common closest location.
+     * @param venues ArrayList of venues object
+     * @return
+     */
+    String getClosestLocationVenues(ArrayList<Venue> venues);
+    /**
+     * Returns the common closest location.
+     * @param venues ArrayList of string object
+     * @return
+     */
+    String getClosestLocationString(ArrayList<String> venues);
 
     //=========== Others =============================================================
 

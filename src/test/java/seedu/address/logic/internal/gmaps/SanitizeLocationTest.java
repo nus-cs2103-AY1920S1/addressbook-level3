@@ -33,7 +33,7 @@ class SanitizeLocationTest {
         assertEquals(expectedValidLocationList, sanitizeLocation.getValidLocationList());
     }
 
-    @Test
+    @Disabled
     void sanitize() throws TimeBookInvalidLocation, ConnectException {
         assertEquals(sanitizeLocation.sanitize("FOO"), "NUS_FOO");
         assertEquals(sanitizeLocation.sanitize("FOO-12345"), "NUS_FOO");
