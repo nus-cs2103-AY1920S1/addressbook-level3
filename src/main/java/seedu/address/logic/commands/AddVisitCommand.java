@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
  * Changes the visitList of an existing person in the address book.
  */
 public class AddVisitCommand extends Command {
-    public static final String COMMAND_WORD = "addVisit";
+    public static final String COMMAND_WORD = "addvisit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add the visitation record of the person identified "
             + "by the index number used in the last person listing. "

@@ -2,6 +2,10 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Objects;
 
 
@@ -11,7 +15,6 @@ import java.util.Objects;
 public class VisitReport {
 
     public static final String MESSAGE_CONSTRAINTS = "Visit date should follow dd/mm/yyyy format";
-    public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
 
     public final String date;
 
@@ -48,10 +51,19 @@ public class VisitReport {
     }
 
     /**
-     * Returns true if a given string is a valid tag name.
+     * Returns true if a given string is a valid date.
      */
     public static boolean isValidVisitDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+
+        //make sure month and day are valid and year is 2xxx
+        DateTimeFormatter dateFormatter =
+                DateTimeFormatter.ofPattern("dd/MM/2uuu").withResolverStyle(ResolverStyle.STRICT);
+        try {
+            LocalDate.parse(test, dateFormatter);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
     }
 
     @Override

@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -33,5 +36,30 @@ public class DeleteVisitCommandTest {
         expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(deleteVisitCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        DeleteVisitCommand deleteFirstCommand = new DeleteVisitCommand(INDEX_FIRST_PERSON, 1);
+        DeleteVisitCommand deleteSecondCommand = new DeleteVisitCommand(INDEX_SECOND_PERSON, 1);
+
+        // same object -> returns true
+        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+
+        // same values -> returns true
+        DeleteVisitCommand deleteFirstCommandCopy = new DeleteVisitCommand(INDEX_FIRST_PERSON, 1);
+        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+
+        DeleteCommand deleteFirstCommandNoIndex = new DeleteCommand(INDEX_FIRST_PERSON);
+        assertFalse(deleteFirstCommand.equals(deleteFirstCommandNoIndex));
+
+        // different types -> returns false
+        assertFalse(deleteFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(deleteFirstCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 }

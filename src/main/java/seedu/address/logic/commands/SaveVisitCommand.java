@@ -70,7 +70,8 @@ public class SaveVisitCommand extends Command {
         return index.equals(e.index)
                 && medication.equals(e.medication)
                 && diagnosis.equals(e.diagnosis)
-                && remarks.equals(e.remarks);
+                && remarks.equals(e.remarks)
+                && visitReport.date.equals(e.visitReport.date);
 
     }
 

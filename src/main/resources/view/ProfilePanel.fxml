@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.stage.Stage?>
+
+<fx:root minWidth="450" resizable="false" title="Profile" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/info_icon.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
+            </stylesheets>
+            <VBox fx:id="profilePanel" prefHeight="496.0" prefWidth="553.0" styleClass="background">
+                <children>
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                                <!-- Add Name Label -->
+                                <Label contentDisplay="RIGHT" styleClass="label-bright-header" text="Patient Profile" underline="true">
+                              <font>
+                                 <Font size="18.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                     <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                        <children>
+                           <Label fx:id="exitButton" alignment="CENTER" contentDisplay="RIGHT" onMouseClicked="#mouseClickExit" onMouseEntered="#mouseEnterExit" onMouseExited="#mouseLeaveExit" styleClass="label-bright-footnote" text="[X]">
+                              <font>
+                                 <Font size="8.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                  </children>
+               </HBox>
+               <HBox alignment="CENTER" fillHeight="false" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="200.0">
+                  <children>
+                     <Label contentDisplay="RIGHT" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="145.0" styleClass="label-bright" text="Name: ">
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
+                     </Label>
+                     <TextArea fx:id="nameField" editable="false" maxHeight="23.0" maxWidth="1.7976931348623157E308" minHeight="23.0" prefHeight="23.0" styleClass="container" text="-" HBox.hgrow="NEVER">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                        <opaqueInsets>
+                           <Insets top="20.0" />
+                        </opaqueInsets>
+                     </TextArea>
+                  </children>
+                  <VBox.margin>
+                     <Insets bottom="5.0" left="15.0" top="5.0" />
+                  </VBox.margin>
+               </HBox>
+               <HBox alignment="CENTER" fillHeight="false" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="200.0">
+                  <children>
+                     <Label contentDisplay="RIGHT" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="145.0" styleClass="label-bright" text="Tags:">
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
+                     </Label>
+                     <TextArea fx:id="tagField" editable="false" maxHeight="23.0" maxWidth="1.7976931348623157E308" minHeight="23.0" prefHeight="23.0" text="-" HBox.hgrow="NEVER">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                        <opaqueInsets>
+                           <Insets top="20.0" />
+                        </opaqueInsets>
+                     </TextArea>
+                  </children>
+                  <VBox.margin>
+                     <Insets left="15.0" />
+                  </VBox.margin>
+               </HBox>
+               <HBox alignment="CENTER" fillHeight="false" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="200.0">
+                  <children>
+                     <Label contentDisplay="RIGHT" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="145.0" styleClass="label-bright" text="Phone:" />
+                     <TextArea fx:id="phoneField" editable="false" maxHeight="23.0" maxWidth="1.7976931348623157E308" minHeight="23.0" prefHeight="23.0" text="-" HBox.hgrow="NEVER">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                        <opaqueInsets>
+                           <Insets top="20.0" />
+                        </opaqueInsets>
+                     </TextArea>
+                  </children>
+                  <VBox.margin>
+                     <Insets bottom="5.0" left="15.0" top="5.0" />
+                  </VBox.margin>
+               </HBox>
+               <HBox alignment="CENTER" fillHeight="false" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="200.0">
+                  <children>
+                     <Label contentDisplay="RIGHT" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="145.0" styleClass="label-bright" text="Email:" />
+                     <TextArea fx:id="emailField" editable="false" maxHeight="23.0" maxWidth="1.7976931348623157E308" minHeight="23.0" prefHeight="23.0" text="-" HBox.hgrow="NEVER">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                        <opaqueInsets>
+                           <Insets top="20.0" />
+                        </opaqueInsets>
+                     </TextArea>
+                  </children>
+                  <VBox.margin>
+                     <Insets bottom="5.0" left="15.0" top="5.0" />
+                  </VBox.margin>
+               </HBox>
+               <HBox alignment="TOP_CENTER" fillHeight="false" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                  <children>
+                     <Label contentDisplay="RIGHT" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="145.0" styleClass="label-bright" text="Address:" />
+                     <TextArea fx:id="addressField" editable="false" maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="50.0" prefHeight="50.0" text="-" wrapText="true" HBox.hgrow="NEVER">
+                        <font>
+                           <Font size="12.0" />
+                        </font>
+                        <opaqueInsets>
+                           <Insets top="20.0" />
+                        </opaqueInsets>
+                     </TextArea>
+                  </children>
+                  <VBox.margin>
+                     <Insets bottom="5.0" left="15.0" top="5.0" />
+                  </VBox.margin>
+               </HBox>
+               <Label styleClass="label-bright" text="Visitations:">
+                  <VBox.margin>
+                     <Insets top="5.0" />
+                  </VBox.margin>
+               </Label>
+
+                    <!-- Add Name Text Field -->
+                    <TextArea fx:id="visitField" editable="false" prefHeight="313.0" prefWidth="538.0" text="-" wrapText="true" VBox.vgrow="ALWAYS">
+                  <opaqueInsets>
+                     <Insets />
+                  </opaqueInsets>
+                  <VBox.margin>
+                     <Insets top="5.0" />
+                  </VBox.margin></TextArea>
+               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <Label alignment="CENTER" contentDisplay="RIGHT" styleClass="label-bright-footnote" text="Press 'esc' to close">
+                        <font>
+                           <Font size="8.0" />
+                        </font>
+                        <HBox.margin>
+                           <Insets top="3.0" />
+                        </HBox.margin>
+                     </Label>
+                  </children>
+               </HBox>
+                </children>
+                <opaqueInsets>
+                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                </opaqueInsets>
+                <padding>
+                    <Insets bottom="10.0" left="20.0" right="15.0" top="10.0" />
+                </padding>
+            <stylesheets>
+               <URL value="@DarkTheme.css" />
+               <URL value="@Extensions.css" />
+            </stylesheets>
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

@@ -17,6 +17,20 @@
     -fx-opacity: 1;
 }
 
+.label-bright-footnote {
+    -fx-font-size: 8pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-bright-header {
+    -fx-font-size: 16pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
@@ -27,6 +41,11 @@
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
+}
+
+.text-field-visit {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Light";
 }
 
 .tab-pane {
