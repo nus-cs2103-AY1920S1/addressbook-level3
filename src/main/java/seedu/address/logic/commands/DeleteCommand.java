@@ -38,12 +38,13 @@ public class DeleteCommand extends Command {
 
         List<? extends Entity> lastShownList = model.getFilteredEntityList(entityType);
 
-        if (!IdentificationNumber.isExistingidentificationNumber(targetIdNum)) {
+        if (!IdentificationNumber.isExistingIdentificationNumber(targetIdNum)) {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
         }
 
-        Entity entityToDelete = lastShownList.get(targetIdNum.getIdNum());
+        Entity entityToDelete = lastShownList.get(targetIdNum.getIdNum() - 1);
         model.deleteEntity(entityToDelete);
+        targetIdNum.removeMapping();
         return new CommandResult(String.format(MESSAGE_DELETE_ENTITY_SUCCESS, entityToDelete));
     }
 

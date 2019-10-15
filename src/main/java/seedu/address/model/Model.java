@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
 
@@ -19,6 +20,7 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Body> PREDICATE_SHOW_ALL_BODIES = unused -> true;
     Predicate<Worker> PREDICATE_SHOW_ALL_WORKERS = unused -> true;
+    Predicate<Worker> PREDICATE_SHOW_ALL_FRIDGES = unused -> true;
 
     /**
      * Adds an executed command to the model's command history.
@@ -116,7 +118,7 @@ public interface Model {
     ObservableList<Body> getFilteredBodyList();
 
     /** Returns an unmodifiable view of the filtered list of fridges */
-    // ObservableList<Fridge> getFilteredFridgeList();
+    ObservableList<Fridge> getFilteredFridgeList();
 
     /** Returns an unmodifiable view of the filtered list of entities */
     ObservableList<? extends Entity> getFilteredEntityList(String entityType);
@@ -138,4 +140,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBodyList(Predicate<Body> predicate);
+
+    /**
+     * Updates the filter of the filtered fridge list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredFridgeList(Predicate<Fridge> predicate);
 }

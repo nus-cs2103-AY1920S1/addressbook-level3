@@ -4,20 +4,25 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueEntityLists;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameEntity comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueEntityLists entities;
+    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -33,7 +38,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Entities in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -48,6 +53,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(List<Person> persons) {
         this.entities.setPersons(persons);
+        indicateModified();
     }
 
     /**
@@ -56,6 +62,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setWorkers(List<Worker> workers) {
         this.entities.setWorkers(workers);
+        indicateModified();
     }
 
     /**
@@ -64,6 +71,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setBodies(List<Body> bodies) {
         this.entities.setBodies(bodies);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the contents of the fridges list with {@code fridges}.
+     * {@code bodies} must not contain duplicate bodies.
+     */
+    public void setFridges(List<Fridge> fridges) {
+        this.entities.setFridges(fridges);
+        indicateModified();
     }
 
     /**
@@ -75,6 +92,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setWorkers(newData.getWorkerList());
         setBodies(newData.getBodyList());
+        setFridges(newData.getFridgeList());
     }
 
     //// person-level operations
@@ -93,6 +111,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addEntity(Entity e) {
         entities.add(e);
+        indicateModified();
     }
 
     /**
@@ -104,6 +123,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedEntity);
 
         entities.setEntity(target, editedEntity);
+        indicateModified();
     }
 
     /**
@@ -112,13 +132,34 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeEntity(Entity key) {
         entities.remove(key);
+        indicateModified();
+    }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        invalidationListenerManager.addListener(listener);
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        invalidationListenerManager.removeListener(listener);
+    }
+
+    /**
+     * Notifies listeners that t
+     * he address book has been modified.
+     */
+    protected void indicateModified() {
+        invalidationListenerManager.callListeners(this);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return entities.asUnmodifiableObservableListPerson().size() + " entities";
+        return entities.asUnmodifiableObservableListWorker().size() + " workers\n"
+                + entities.asUnmodifiableObservableListBody().size() + " bodies\n"
+                + entities.asUnmodifiableObservableListFridge().size() + " fridges";
         // TODO: refine later
     }
 
@@ -135,6 +176,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Body> getBodyList() {
         return entities.asUnmodifiableObservableListBody();
+    }
+
+    @Override
+    public ObservableList<Fridge> getFridgeList() {
+        return entities.asUnmodifiableObservableListFridge();
     }
 
     @Override

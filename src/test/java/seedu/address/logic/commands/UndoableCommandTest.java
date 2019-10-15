@@ -32,7 +32,7 @@ class UndoableCommandTest {
         // Default command state of an UndoableCommand
         Body body = new BodyBuilder().build();
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
-        UpdateCommand command = new UpdateCommand(body.getBodyIdNum(), descriptor);
+        UpdateCommand command = new UpdateCommand(body.getIdNum(), descriptor);
         assertEquals(UndoableCommand.UndoableCommandState.PRE_EXECUTION, command.getCommandState());
     }
 

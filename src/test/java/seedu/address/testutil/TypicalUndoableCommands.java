@@ -12,6 +12,6 @@ public class TypicalUndoableCommands {
 
     public static final Body TYPICAL_BODY = new BodyBuilder().build();
     public static final UpdateBodyDescriptor TYPICAL_UPDATE_BODY_DESCRIPTOR = new UpdateBodyDescriptor(TYPICAL_BODY);
-    public static final UpdateCommand TYPICAL_UPDATE_COMMAND = new UpdateCommand(TYPICAL_BODY.getBodyIdNum(),
+    public static final UpdateCommand TYPICAL_UPDATE_COMMAND = new UpdateCommand(TYPICAL_BODY.getIdNum(),
             TYPICAL_UPDATE_BODY_DESCRIPTOR);
 }

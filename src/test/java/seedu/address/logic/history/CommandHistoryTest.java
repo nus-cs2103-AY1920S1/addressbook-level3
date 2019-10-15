@@ -25,7 +25,7 @@ class CommandHistoryTest {
         Body body = new BodyBuilder().build();
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
 
-        UpdateCommand updateCommand = new UpdateCommand(body.getBodyIdNum(), descriptor);
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
         // It's okay that the command was not executed before, because no attempt was made to undo it.
         history.addExecutedCommand(updateCommand);
         assertEquals(history.getExecutedCommand(), updateCommand);
@@ -36,7 +36,7 @@ class CommandHistoryTest {
         Body body = new BodyBuilder().build();
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
 
-        UpdateCommand updateCommand = new UpdateCommand(body.getBodyIdNum(), descriptor);
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
         for (int i = 0; i <= MAX_SIZE + 5; ++i) {
             // Number of commands added goes over max history size
             history.addExecutedCommand(updateCommand);
