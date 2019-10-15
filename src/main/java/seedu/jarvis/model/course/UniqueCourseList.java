@@ -30,27 +30,6 @@ public class UniqueCourseList implements Iterable<Course> {
     }
 
     /**
-     * Returns an index depending on the given index and the given upper limit. The method
-     * returns 0 if the index is negative, upperLimit if it is more than upperLimit, and index
-     * itself if it is between (0, upperLimit).
-     *
-     * @param index to check
-     * @param upperLimit that the index that go to
-     * @return an index that is within the given range(0, upperLimit) inclusive
-     */
-    private int checkIndex(int index, int upperLimit) {
-        if (isNegative(index)) {
-            return 0;
-        } else {
-            return Math.min(index, upperLimit);
-        }
-    }
-
-    private boolean isNegative(int number) {
-        return number < 0;
-    }
-
-    /**
      * Returns true if the given course exists in the list.
      *
      * @param toCheck the course to check
@@ -83,7 +62,6 @@ public class UniqueCourseList implements Iterable<Course> {
         if (contains(toAdd)) {
             throw new CourseAlreadyInListException();
         }
-        zeroBasedIndex = checkIndex(zeroBasedIndex, internalList.size());
         internalList.add(zeroBasedIndex, toAdd);
         assert(coursesAreUnique(internalList));
     }
@@ -98,6 +76,10 @@ public class UniqueCourseList implements Iterable<Course> {
         if (!internalList.remove(toRemove)) {
             throw new CourseNotInListException();
         }
+    }
+
+    public Course get(int zeroBasedIndex) {
+        return internalList.get(zeroBasedIndex);
     }
 
     public ObservableList<Course> asUnmodifiableObservableList() {
