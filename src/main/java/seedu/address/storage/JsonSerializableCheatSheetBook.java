@@ -11,9 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyCheatSheetBook;
-import seedu.address.model.ReadOnlyFlashcardBook;
 import seedu.address.model.cheatsheet.CheatSheet;
-import seedu.address.model.flashcard.Flashcard;
 
 /**
  * An Immutable CheatSheetBook that is serializable to JSON format.
