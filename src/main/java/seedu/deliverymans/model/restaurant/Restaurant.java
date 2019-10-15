@@ -7,7 +7,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.food.Food;
+import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.order.Order;
 
 /**
@@ -36,7 +38,15 @@ public class Restaurant {
         this.name = name;
         this.location = location;
         this.rating = new Rating("0");
+        this.tags.addAll(tags);
+    }
 
+    public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags) {
+        requireAllNonNull(name, location, rating, numberOfRatings, tags);
+        this.numberOfRatings = 0;
+        this.name = name;
+        this.location = location;
+        this.rating = rating;
         this.tags.addAll(tags);
     }
 

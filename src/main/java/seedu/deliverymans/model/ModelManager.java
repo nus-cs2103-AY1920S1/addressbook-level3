@@ -18,9 +18,14 @@ import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.CustomerDatabase;
+import seedu.deliverymans.model.database.OrderBook;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
+import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
+import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.order.Order;
+import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -31,12 +36,14 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final OrderBook orderBook;
     private final CustomerDatabase customerDatabase;
+    private final RestaurantDatabase restaurantDatabase;
 
     private final UserPrefs userPrefs;
 
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Customer> filteredCustomers;
+    private final FilteredList<Restaurant> filteredRestaurants;
 
     private Context context;
 
@@ -45,25 +52,30 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyAddressBook addressBook,
                         ReadOnlyCustomerDatabase customerDatabase,
+                        ReadOnlyRestaurantDatabase restaurantDatabase,
                         ReadOnlyOrderBook orderBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, customerDatabase, userPrefs);
+        requireAllNonNull(addressBook, customerDatabase, restaurantDatabase, orderBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.customerDatabase = new CustomerDatabase(customerDatabase);
+        this.restaurantDatabase = new RestaurantDatabase(restaurantDatabase);
         this.orderBook = new OrderBook(orderBook);
         this.userPrefs = new UserPrefs(userPrefs);
+
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
+        filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
         filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
+
         context = Context.GLOBAL;
     }
 
     public ModelManager() {
-        this(new AddressBook(), new CustomerDatabase(), new OrderBook(), new UserPrefs());
+        this(new AddressBook(), new CustomerDatabase(), new RestaurantDatabase(), new OrderBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -90,6 +102,8 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    //=========== AddressBook ================================================================================
+
     @Override
     public Path getAddressBookFilePath() {
         return userPrefs.getAddressBookFilePath();
@@ -100,18 +114,6 @@ public class ModelManager implements Model {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
-
-    @Override
-    public Path getOrderBookFilePath() {
-        return userPrefs.getOrderBookFilePath();
-    }
-
-    @Override
-    public void setOrderBookFilePath(Path orderBookFilePath) {
-        requireNonNull(orderBookFilePath);
-        userPrefs.setOrderBookFilePath(orderBookFilePath);
-    }
-    //=========== AddressBook ================================================================================
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
@@ -190,6 +192,51 @@ public class ModelManager implements Model {
         customerDatabase.setCustomer(target, editedCustomer);
     }
 
+    //=========== Restaurant Methods =============================================================
+    @Override
+    public Path getRestaurantDatabaseFilePath() {
+        return userPrefs.getRestaurantDatabaseFilePath();
+    }
+
+    @Override
+    public void setRestaurantDatabaseFilePath(Path restaurantDatabaseFilePath) {
+        requireNonNull(restaurantDatabaseFilePath);
+        userPrefs.setRestaurantDatabaseFilePath(restaurantDatabaseFilePath);
+    }
+
+    @Override
+    public void setRestaurantDatabase(ReadOnlyRestaurantDatabase restaurantDatabase) {
+        this.restaurantDatabase.resetData(restaurantDatabase);
+    }
+
+    @Override
+    public ReadOnlyRestaurantDatabase getRestaurantDatabase() {
+        return restaurantDatabase;
+    }
+
+    @Override
+    public boolean hasRestaurant(Restaurant restaurant) {
+        requireNonNull(restaurant);
+        return restaurantDatabase.hasRestaurant(restaurant);
+    }
+
+    @Override
+    public void deleteRestaurant(Restaurant target) {
+        restaurantDatabase.removeRestaurant(target);
+    }
+
+    @Override
+    public void addRestaurant(Restaurant restaurant) {
+        restaurantDatabase.addRestaurant(restaurant);
+        updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
+    }
+
+    @Override
+    public void setRestaurant(Restaurant target, Restaurant editedRestaurant) {
+        requireAllNonNull(target, editedRestaurant);
+
+        restaurantDatabase.setRestaurant(target, editedRestaurant);
+    }
     //=========== Deliveryman Methods =============================================================
 
     @Override
@@ -204,6 +251,17 @@ public class ModelManager implements Model {
     }
 
     //=========== Order Methods =============================================================
+    @Override
+    public Path getOrderBookFilePath() {
+        return userPrefs.getOrderBookFilePath();
+    }
+
+    @Override
+    public void setOrderBookFilePath(Path orderBookFilePath) {
+        requireNonNull(orderBookFilePath);
+        userPrefs.setOrderBookFilePath(orderBookFilePath);
+    }
+
     @Override
     public void setOrderBook(ReadOnlyOrderBook orderBook) {
         this.orderBook.resetData(orderBook);
@@ -259,6 +317,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Restaurant> getFilteredRestaurantList() {
+        return filteredRestaurants;
+    }
+
+    @Override
     public ObservableList<Order> getFilteredOrderList() {
         return filteredOrders;
     }
@@ -279,6 +342,12 @@ public class ModelManager implements Model {
     public void updateFilteredCustomerList(Predicate<Customer> predicate) {
         requireNonNull(predicate);
         filteredCustomers.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredRestaurantList(Predicate<Restaurant> predicate) {
+        requireNonNull(predicate);
+        filteredRestaurants.setPredicate(predicate);
     }
 
     @Override

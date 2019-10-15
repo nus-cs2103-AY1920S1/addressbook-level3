@@ -4,7 +4,8 @@ package seedu.deliverymans.model.location;
  * Represents a location in the map.
  */
 public class Location {
-    private String name;
+
+    public final String name;
     private int x;
     private int y;
 

@@ -9,7 +9,7 @@ import java.util.Set;
 
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
-import seedu.deliverymans.model.addressbook.tag.Tag;
+import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.order.Order;
 
 /**

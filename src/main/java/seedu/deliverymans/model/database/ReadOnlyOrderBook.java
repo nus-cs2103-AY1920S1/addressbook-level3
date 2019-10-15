@@ -1,4 +1,4 @@
-package seedu.deliverymans.model;
+package seedu.deliverymans.model.database;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.order.Order;

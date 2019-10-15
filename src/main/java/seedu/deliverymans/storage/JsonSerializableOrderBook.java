@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
-import seedu.deliverymans.model.OrderBook;
-import seedu.deliverymans.model.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.OrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.order.Order;
 
 /**

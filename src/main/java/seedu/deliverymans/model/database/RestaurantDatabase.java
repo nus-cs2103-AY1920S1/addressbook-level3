@@ -12,7 +12,7 @@ import seedu.deliverymans.model.restaurant.UniqueRestaurantList;
  * Wraps all data at the restaurant database level
  * Duplicates are not allowed (by .isSameRestaurant comparison)
  */
-public class RestaurantDatabase {
+public class RestaurantDatabase implements ReadOnlyRestaurantDatabase {
 
     private final UniqueRestaurantList restaurants;
 
@@ -32,7 +32,7 @@ public class RestaurantDatabase {
     /**
      * Creates an RestaurantDatabase using the Restaurants in the {@code toBeCopied}
      */
-    public RestaurantDatabase(RestaurantDatabase toBeCopied) {
+    public RestaurantDatabase(ReadOnlyRestaurantDatabase toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -50,7 +50,7 @@ public class RestaurantDatabase {
     /**
      * Resets the existing data of this {@code RestaurantDatabase} with {@code newData}.
      */
-    public void resetData(RestaurantDatabase newData) {
+    public void resetData(ReadOnlyRestaurantDatabase newData) {
         requireNonNull(newData);
 
         setRestaurants(newData.getRestaurantList());

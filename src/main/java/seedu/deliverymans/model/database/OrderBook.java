@@ -1,4 +1,4 @@
-package seedu.deliverymans.model;
+package seedu.deliverymans.model.database;
 
 import static java.util.Objects.requireNonNull;
 
