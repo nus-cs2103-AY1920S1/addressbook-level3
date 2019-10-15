@@ -1,7 +1,7 @@
 package io.xpire.model;
 
-import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_APPLE;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_FRUIT;
+import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_APPLE;
+import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRUIT;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalItems.APPLE;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;

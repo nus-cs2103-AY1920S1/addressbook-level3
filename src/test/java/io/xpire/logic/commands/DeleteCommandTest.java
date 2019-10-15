@@ -1,15 +1,15 @@
 package io.xpire.logic.commands;
 
-import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_DUCK;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_JELLY;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_DUCK;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_JELLY;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_JELLY;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_REMINDER_THRESHOLD_JELLY;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_DRINK;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_FRIDGE;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_FRUIT;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_PROTEIN;
+import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_DUCK;
+import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_JELLY;
+import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_DUCK;
+import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_JELLY;
+import static io.xpire.logic.CommandParserItemUtil.VALID_QUANTITY_JELLY;
+import static io.xpire.logic.CommandParserItemUtil.VALID_REMINDER_THRESHOLD_JELLY;
+import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_DRINK;
+import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRIDGE;
+import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRUIT;
+import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_PROTEIN;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
