@@ -24,8 +24,8 @@ public class AddTaskCommand extends Command {
             + PREFIX_TASK_NAME + "finish user guide "
             + PREFIX_MEMBER_NAME + "elsa koh";
 
-    private static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    private static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
 
     private final Task toAdd;
 
