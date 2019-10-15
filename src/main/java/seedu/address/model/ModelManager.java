@@ -250,17 +250,17 @@ public class ModelManager implements Model {
             && filteredPersons.equals(other.filteredPersons);
     }
 
-    //=========== UndoableHistory ================================================================================
+    //=========== UndoRedoManager ================================================================================
 
     /**
-     * Creates a deep-copy of the current event list state and saves that copy to the UndoableHistory.
+     * Creates a deep-copy of the current event list state and saves that copy to the UndoRedoManager.
      */
     public void commitToHistory(EventList eventList) {
         undoRedoManager.commit(eventList);
     }
 
     /**
-     * Restores the previous event list state from UndoableHistory.
+     * Restores the previous event list state from UndoRedoManager.
      */
     @Override
     public void undoFromHistory() {
@@ -268,7 +268,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Restores the previously undone event list state from UndoableHistory.
+     * Restores the previously undone event list state from UndoRedoManager.
      */
     @Override
     public void redoFromHistory() {
@@ -286,7 +286,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Clears all future event list states in UndoableHistory beyond the current state.
+     * Clears all future event list states in UndoRedoManager beyond the current state.
      */
     @Override
     public void clearFutureHistory() {

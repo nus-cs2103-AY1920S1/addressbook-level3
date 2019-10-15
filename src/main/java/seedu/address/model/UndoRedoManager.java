@@ -37,7 +37,7 @@ public class UndoRedoManager {
     UndoRedoManager(EventList eventList) {
         mainEventList = eventList;
         eventListStateList = new ArrayList<>();
-        // Store a deep-copy of the mainEventList to the list
+        // Store a deep-copy of the mainEventList to the list by using EventList's copy-constructor
         eventListStateList.add(new EventList(mainEventList));
         currentStateIndex = 0;
     }
@@ -73,7 +73,7 @@ public class UndoRedoManager {
      * Creates a deep-copy of the current event list state and saves that copy to the UndoRedoManager.
      */
     void commit(EventList eventList) {
-        // Store a deep-copy of the mainEventList to the list
+        // Store a deep-copy of the mainEventList to the list by using EventList's copy-constructor
         EventList deepCopy = new EventList(eventList);
         assert currentStateIndex >= eventListStateList.size() - 1
                 : "Pointer always points to end of list during commit; All future states must have been discarded.";
