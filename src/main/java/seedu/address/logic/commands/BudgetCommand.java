@@ -6,6 +6,11 @@ import seedu.address.model.budget.Budget;
 //import seedu.address.model.income.Income;
 //import java.util.List;
 
+/**
+ * Calculates current budget for users.
+ * Budget being total income minus total claim value.
+ */
+
 public class BudgetCommand extends Command {
 
     public static final String COMMAND_WORD = "budget";
@@ -18,7 +23,7 @@ public class BudgetCommand extends Command {
         String message;
 
         //Budget budget = new Budget(claimList, incomeList);
-        Budget budget = new Budget();   //placeholder
+        Budget budget = new Budget(); //placeholder
         budget.calculateBudget();
 
         message = "Total income: "
@@ -32,6 +37,6 @@ public class BudgetCommand extends Command {
             message += "\nWarning, you are over budget!";
         }
 
-        return new CommandResult(message,false,false);
+        return new CommandResult(message, false, false);
     }
 }

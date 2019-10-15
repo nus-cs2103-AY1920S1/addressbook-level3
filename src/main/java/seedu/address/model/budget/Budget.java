@@ -7,6 +7,10 @@ import java.text.NumberFormat;
 //import java.util.List;
 import java.util.Locale;
 
+/**
+ * Represents the current budget of the user.
+ */
+
 public class Budget {
 
     //private List<Claim> claimList;
@@ -19,7 +23,7 @@ public class Budget {
     private NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
 
-    public Budget(){
+    public Budget() {
         totalIncome = 0;
         totalExpenses = 0;
     }
@@ -28,6 +32,10 @@ public class Budget {
         this.claimList = claimList;
         this.incomeList = incomeList;
     }*/
+
+    /**
+     * Calculates current budget for users.
+     */
 
     public void calculateBudget() {
         //calculateTotalIncome();
@@ -48,7 +56,7 @@ public class Budget {
         }
     }*/
 
-    private void checkIfOverBudget(double budget){
+    private void checkIfOverBudget(double budget) {
         isOverBudget = budget < 0;
     }
 
@@ -60,7 +68,7 @@ public class Budget {
         return currencyFormatter.format(totalExpenses);
     }
 
-    public String getBudgetAmount(){
+    public String getBudgetAmount() {
         return currencyFormatter.format(budgetAmount);
     }
 

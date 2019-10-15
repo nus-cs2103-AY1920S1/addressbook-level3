@@ -86,7 +86,7 @@ public class AddressBookParser {
             return new HelpCommandParser().parse(arguments);
 
         case BudgetCommand.COMMAND_WORD:
-            return new  BudgetCommand();
+            return new BudgetCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
