@@ -10,6 +10,7 @@ import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -26,6 +27,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<CheatSheet> PREDICATE_SHOW_ALL_CHEATSHEETS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -64,6 +68,15 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    /** Returns an unmodifiable view of the filtered note list */
+    ObservableList<Tag> getFilteredTagList();
+
+    /**
+     * Updates the filter of the filtered note list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTagList(Predicate<Tag> predicate);
 
     /**
      * Returns true if a note with the same identity as {@code note} exists in the address book.
