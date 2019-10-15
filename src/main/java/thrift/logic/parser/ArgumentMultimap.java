@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import thrift.logic.parser.exceptions.ParseException;
+
 /**
  * Stores mapping of prefixes to their respective arguments.
  * Each key may be associated with multiple argument values.
@@ -14,6 +16,8 @@ import java.util.Optional;
  * can be inserted multiple times for the same prefix.
  */
 public class ArgumentMultimap {
+
+    public static final String WARNING_NOT_SINGULAR_FORMAT = "Too many arguments for prefix \"%1$s\".";
 
     /** Prefixes mapped to their respective arguments**/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
@@ -37,6 +41,21 @@ public class ArgumentMultimap {
     public Optional<String> getValue(Prefix prefix) {
         List<String> values = getAllValues(prefix);
         return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
+    }
+
+    /**
+     * Returns a single value of {@code prefix}.
+     *
+     * @throws ParseException if more than one argument with the same prefix is provided
+     */
+    public Optional<String> getSingleValue(Prefix prefix) throws ParseException {
+        List<String> values = getAllValues(prefix);
+
+        if (values.size() > 1) {
+            throw new ParseException(String.format(WARNING_NOT_SINGULAR_FORMAT, prefix.getPrefix()));
+        }
+
+        return values.isEmpty() ? Optional.empty() : Optional.of(values.get(0));
     }
 
     /**
