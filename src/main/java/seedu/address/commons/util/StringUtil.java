@@ -75,21 +75,22 @@ public class StringUtil {
         requireNonNull(string2);
 
         Integer longerStringLength = Math.max(string1.length(), string2.length());
+        Integer levenshteinDistance = calculateLevenshteinDistance(string1, string2);
 
-        Double similarityPercentage = ((double) longerStringLength / calculateLevenshteinDistance(string1, string2));
+        Double similarityPercentage = ((longerStringLength - levenshteinDistance) / (double) longerStringLength);
         return similarityPercentage >= requiredSimilarityPercentage;
     }
     /**
      * Returns the cost of inserting / deleting / swapping a character. Used in {@code calculateLevenshteinDistance}
      */
-    public static int costOfSubstitution(char a, char b) {
+    private static int costOfSubstitution(char a, char b) {
         return a == b ? 0 : 1;
     }
     /**
      * Returns the smallest value from a variable amount of int.
      * Returns Integer.MAXVALUE as default value
      */
-    public static int min(int... numbers) {
+    private static int min(int... numbers) {
         return Arrays.stream(numbers)
                 .min().orElse(Integer.MAX_VALUE);
     }
