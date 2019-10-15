@@ -14,7 +14,7 @@ import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
-import seedu.ichifund.model.transaction.Transaction;
+import seedu.ichifund.model.Transaction;
 
 /**
  * An Immutable FundBook that is serializable to JSON format.

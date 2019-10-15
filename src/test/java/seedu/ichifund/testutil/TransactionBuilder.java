@@ -1,10 +1,10 @@
 package seedu.ichifund.testutil;
 
-import seedu.ichifund.model.transaction.Amount;
-import seedu.ichifund.model.transaction.Description;
+import seedu.ichifund.model.amount.Amount;
+import seedu.ichifund.model.Description;
 import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.transaction.Category;
-import seedu.ichifund.model.transaction.Transaction;
+import seedu.ichifund.model.Transaction;
 import seedu.ichifund.model.transaction.TransactionType;
 
 /**

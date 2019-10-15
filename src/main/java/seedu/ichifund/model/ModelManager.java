@@ -14,7 +14,6 @@ import seedu.ichifund.commons.core.LogsCenter;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
-import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * Represents the in-memory model of the fund book data.

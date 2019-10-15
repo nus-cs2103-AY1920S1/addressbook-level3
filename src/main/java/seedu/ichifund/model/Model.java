@@ -8,7 +8,6 @@ import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
-import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * The API of the Model component.

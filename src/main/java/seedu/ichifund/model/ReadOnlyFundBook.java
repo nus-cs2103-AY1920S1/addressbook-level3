@@ -4,7 +4,6 @@ import javafx.collections.ObservableList;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
-import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * Unmodifiable view of an fund book

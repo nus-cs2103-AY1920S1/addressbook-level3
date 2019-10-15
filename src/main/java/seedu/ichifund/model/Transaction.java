@@ -1,10 +1,13 @@
-package seedu.ichifund.model.transaction;
+package seedu.ichifund.model;
 
 import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Date;
+import seedu.ichifund.model.transaction.Category;
+import seedu.ichifund.model.transaction.TransactionType;
 
 /**
  * Represents a Transaction in IchiFund.
