@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PAGE_NUMBER;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,9 @@ public class DeletePageCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the page identified by the index number in the specified diary.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1 + [Diary Name]";
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_PAGE_NUMBER + " 1 "
+            + PREFIX_DIARY_NAME + "[Diary Name]";
 
     public static final String MESSAGE_DELETE_PAGE_SUCCESS = "Deleted Page: %1$s";
     public static final String MESSAGE_NON_EXISTENT_DIARY = "This diary does not exists in DukeCooks";

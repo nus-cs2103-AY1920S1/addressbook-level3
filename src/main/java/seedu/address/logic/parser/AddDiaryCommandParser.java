@@ -1,5 +1,8 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
+
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddDiaryCommand;
@@ -18,8 +21,15 @@ public class AddDiaryCommandParser implements Parser<AddDiaryCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddDiaryCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_DIARY_NAME);
 
-        Name name = ParserUtil.parseName(args);
+        if (!arePrefixesPresent(argMultimap, PREFIX_DIARY_NAME)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDiaryCommand.MESSAGE_USAGE));
+        }
+
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
 
         Diary diary = new Diary(name);
 

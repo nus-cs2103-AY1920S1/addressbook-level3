@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PAGE_TITLE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,8 @@ public class AddPageCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a page to a diary in DukeCooks. "
             + "Parameters: "
-            + "DIARY NAME";
+            + PREFIX_DIARY_NAME + "DIARY NAME"
+            + PREFIX_PAGE_TITLE + "PAGE TITLE";
 
     public static final String MESSAGE_SUCCESS = "New page added to diary: %1$s";
     public static final String MESSAGE_NON_EXISTENT_DIARY = "This diary does not exists in DukeCooks";

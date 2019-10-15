@@ -42,13 +42,13 @@ public class AddDiaryCommandTest {
     }
 
     @Test
-    public void execute_duplicateDiaries_throwsCommandException() {
+    public void execute_duplicateDiary_throwsCommandException() {
         Diary validDiary = new DiaryBuilder().build();
-        AddDiaryCommand addDiaryCommand = new AddDiaryCommand(validDiary);
+        AddDiaryCommand addCommand = new AddDiaryCommand(validDiary);
         ModelStub modelStub = new ModelStubWithDiary(validDiary);
 
-        assertThrows(CommandException.class,
-                AddDiaryCommand.MESSAGE_DUPLICATE_DIARY, () -> addDiaryCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddDiaryCommand.MESSAGE_DUPLICATE_DIARY,
+                () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class AddDiaryCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different diary -> returns false
+        // different diaries -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -130,7 +130,7 @@ public class AddDiaryCommandTest {
         }
 
         @Override
-        public void deleteDiary(Diary target) {
+        public void deleteDiary(Diary diary) {
             throw new AssertionError("This method should not be called.");
         }
 

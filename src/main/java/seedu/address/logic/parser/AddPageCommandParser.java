@@ -1,5 +1,8 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PAGE_TITLE;
+
 import seedu.address.logic.commands.AddPageCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.diary.Name;
@@ -18,12 +21,11 @@ public class AddPageCommandParser implements Parser<AddPageCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddPageCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_DIARY_NAME, PREFIX_PAGE_TITLE);
 
-        // ASSUMPTION: Diary names are always single word
-        String[] argsArr = args.trim().split(" ", 2);
-
-        Name name = ParserUtil.parseName(argsArr[0]);
-        Title title = ParserUtil.parseTitle(argsArr[1]);
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
+        Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_PAGE_TITLE).get());
 
         Page pageToAdd = new Page(title);
         return new AddPageCommand(pageToAdd, name);

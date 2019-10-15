@@ -16,6 +16,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.AddDiaryCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -54,8 +55,14 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "deleteDiary 9";
+        String deleteCommand = "delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_validCommand_success() throws Exception {
+        String helpCommand = HelpCommand.COMMAND_WORD;
+        assertCommandSuccess(helpCommand, HelpCommand.SHOWING_HELP_MESSAGE, model);
     }
 
     @Test
@@ -78,7 +85,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredDiaryList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredDiaryList().remove(0));
     }
 

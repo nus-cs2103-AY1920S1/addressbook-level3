@@ -14,14 +14,14 @@ import seedu.address.testutil.TypicalDiaries;
 public class JsonSerializableExerciseCatalogueTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableDukeCooksTest");
-    private static final Path TYPICAL_DIARIES_FILE = TEST_DATA_FOLDER.resolve("typicalDiariesDukeCooks.json");
+    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsDukeCooks.json");
 
     @Test
-    public void toModelType_typicalDiariesFile_success() throws Exception {
-        JsonSerializableExerciseCatalogue dataFromFile = JsonUtil.readJsonFile(TYPICAL_DIARIES_FILE,
+    public void toModelType_typicalPersonsFile_success() throws Exception {
+        JsonSerializableExerciseCatalogue dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableExerciseCatalogue.class).get();
         DukeCooks dukeCooksFromFile = dataFromFile.toModelType();
-        DukeCooks typicalDiariesDukeCooks = TypicalDiaries.getTypicalDukeCooks();
-        assertEquals(dukeCooksFromFile, typicalDiariesDukeCooks);
+        DukeCooks typicalPersonsDukeCooks = TypicalDiaries.getTypicalDukeCooks();
+        assertEquals(dukeCooksFromFile, typicalPersonsDukeCooks);
     }
 }

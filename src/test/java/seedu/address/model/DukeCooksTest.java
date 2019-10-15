@@ -3,6 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalDiaries.ALICE;
 import static seedu.address.testutil.TypicalDiaries.getTypicalDukeCooks;
@@ -16,8 +17,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.diary.Diary;
-import seedu.address.model.diary.exceptions.DuplicateDiaryException;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.DiaryBuilder;
 
 public class DukeCooksTest {
@@ -26,7 +27,7 @@ public class DukeCooksTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), dukeCooks.getDiaryList());
+        assertEquals(Collections.emptyList(), dukeCooks.getPersonList());
     }
 
     @Test
@@ -42,56 +43,58 @@ public class DukeCooksTest {
     }
 
     @Test
-    public void resetData_withDuplicateDiaries_throwsDuplicateDiaryException() {
-        // Two diaries with the same identity fields
-        Diary editedAlice = new DiaryBuilder(ALICE).build();
-        List<Diary> newDiaries = Arrays.asList(ALICE, editedAlice);
-        DukeCooksStub newData = new DukeCooksStub(newDiaries);
+    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+        // Two persons with the same identity fields
+        Person editedAlice = new DiaryBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+                .build();
+        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
+        DukeCooksStub newData = new DukeCooksStub(newPersons);
 
-        assertThrows(DuplicateDiaryException.class, () -> dukeCooks.resetData(newData));
+        assertThrows(DuplicatePersonException.class, () -> dukeCooks.resetData(newData));
     }
 
     @Test
-    public void hasDiary_nullDiary_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> dukeCooks.hasDiary(null));
+    public void hasPerson_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> dukeCooks.hasPerson(null));
     }
 
     @Test
-    public void hasDiary_diaryNotInDukeCooks_returnsFalse() {
-        assertFalse(dukeCooks.hasDiary(ALICE));
+    public void hasPerson_personNotInDukeCooks_returnsFalse() {
+        assertFalse(dukeCooks.hasPerson(ALICE));
     }
 
     @Test
-    public void hasDiary_diaryInDukeCooks_returnsTrue() {
-        dukeCooks.addDiary(ALICE);
-        assertTrue(dukeCooks.hasDiary(ALICE));
+    public void hasPerson_personInDukeCooks_returnsTrue() {
+        dukeCooks.addPerson(ALICE);
+        assertTrue(dukeCooks.hasPerson(ALICE));
     }
 
     @Test
-    public void hasDiary_diaryWithSameIdentityFieldsInDukeCooks_returnsTrue() {
-        dukeCooks.addDiary(ALICE);
-        Diary editedAlice = new DiaryBuilder(ALICE).build();
-        assertTrue(dukeCooks.hasDiary(editedAlice));
+    public void hasPerson_personWithSameIdentityFieldsInDukeCooks_returnsTrue() {
+        dukeCooks.addPerson(ALICE);
+        Person editedAlice = new DiaryBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+                .build();
+        assertTrue(dukeCooks.hasPerson(editedAlice));
     }
 
     @Test
-    public void getDiaryList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> dukeCooks.getDiaryList().remove(0));
+    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> dukeCooks.getPersonList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyDukeCooks whose diaries list can violate interface constraints.
+     * A stub ReadOnlyDukeCooks whose persons list can violate interface constraints.
      */
     private static class DukeCooksStub implements ReadOnlyDukeCooks {
-        private final ObservableList<Diary> diaries = FXCollections.observableArrayList();
+        private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
-        DukeCooksStub(Collection<Diary> diaries) {
-            this.diaries.setAll(diaries);
+        DukeCooksStub(Collection<Person> persons) {
+            this.persons.setAll(persons);
         }
 
         @Override
-        public ObservableList<Diary> getDiaryList() {
-            return diaries;
+        public ObservableList<Person> getPersonList() {
+            return persons;
         }
     }
 

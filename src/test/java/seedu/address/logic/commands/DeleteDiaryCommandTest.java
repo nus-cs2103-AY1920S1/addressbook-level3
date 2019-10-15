@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showDiaryAtIndex;
-import static seedu.address.testutil.TypicalDiaries.getTypicalDukeCooks;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DIARY;
+import static seedu.address.testutil.TypicalDiaries.getTypicalDukeCooks;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,11 +18,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.diary.Diary;
 
-
-
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteDiaryCommand}.
+ * {@code DeleteCommand}.
  */
 public class DeleteDiaryCommandTest {
 
@@ -31,22 +29,22 @@ public class DeleteDiaryCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Diary diaryToDelete = model.getFilteredDiaryList().get(INDEX_FIRST_DIARY.getZeroBased());
-        DeleteDiaryCommand deleteDiaryCommand = new DeleteDiaryCommand(INDEX_FIRST_DIARY);
+        DeleteDiaryCommand deleteCommand = new DeleteDiaryCommand(INDEX_FIRST_DIARY);
 
         String expectedMessage = String.format(DeleteDiaryCommand.MESSAGE_DELETE_DIARY_SUCCESS, diaryToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
         expectedModel.deleteDiary(diaryToDelete);
 
-        assertCommandSuccess(deleteDiaryCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDiaryList().size() + 1);
-        DeleteDiaryCommand deleteDiaryCommand = new DeleteDiaryCommand(outOfBoundIndex);
+        DeleteDiaryCommand deleteCommand = new DeleteDiaryCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteDiaryCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
     }
 
     @Test
@@ -54,28 +52,28 @@ public class DeleteDiaryCommandTest {
         showDiaryAtIndex(model, INDEX_FIRST_DIARY);
 
         Diary diaryToDelete = model.getFilteredDiaryList().get(INDEX_FIRST_DIARY.getZeroBased());
-        DeleteDiaryCommand deleteDiaryCommand = new DeleteDiaryCommand(INDEX_FIRST_DIARY);
+        DeleteDiaryCommand deleteCommand = new DeleteDiaryCommand(INDEX_FIRST_DIARY);
 
         String expectedMessage = String.format(DeleteDiaryCommand.MESSAGE_DELETE_DIARY_SUCCESS, diaryToDelete);
 
         Model expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
         expectedModel.deleteDiary(diaryToDelete);
-        showNoDiary(expectedModel);
+        showNoPerson(expectedModel);
 
-        assertCommandSuccess(deleteDiaryCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showDiaryAtIndex(model, INDEX_FIRST_DIARY);
+        showPersonAtIndex(model, INDEX_FIRST_DIARY);
 
         Index outOfBoundIndex = INDEX_SECOND_DIARY;
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getDiaryList().size());
 
-        DeleteDiaryCommand deleteDiaryCommand = new DeleteDiaryCommand(outOfBoundIndex);
+        DeleteDiaryCommand deleteCommand = new DeleteDiaryCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteDiaryCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
     }
 
     @Test

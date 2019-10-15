@@ -11,7 +11,7 @@ import seedu.address.model.DukeCooks;
 import seedu.address.model.diary.Diary;
 
 /**
- * A utility class containing a list of {@code Diary} objects to be used in tests.
+ * A utility class containing a list of {@code Person} objects to be used in tests.
  */
 public class TypicalDiaries {
 
@@ -36,7 +36,7 @@ public class TypicalDiaries {
     private TypicalDiaries() {} // prevents instantiation
 
     /**
-     * Returns an {@code DukeCooks} with all the typical persons.
+     * Returns an {@code DukeCooks} with all the typical diaries.
      */
     public static DukeCooks getTypicalDukeCooks() {
         DukeCooks ab = new DukeCooks();

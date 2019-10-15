@@ -51,13 +51,13 @@ public class JsonDukeCooksStorageTest {
     }
 
     @Test
-    public void readDukeCooks_invalidDiaryDukeCooks_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidDiaryDukeCooks.json"));
+    public void readDukeCooks_invalidPersonDukeCooks_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidPersonDukeCooks.json"));
     }
 
     @Test
-    public void readDukeCooks_invalidAndValidDiaryDukeCooks_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidAndValidDiaryDukeCooks.json"));
+    public void readDukeCooks_invalidAndValidPersonDukeCooks_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidAndValidPersonDukeCooks.json"));
     }
 
     @Test
@@ -72,14 +72,14 @@ public class JsonDukeCooksStorageTest {
         assertEquals(original, new DukeCooks(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addDiary(HOON);
-        original.removeDiary(ALICE);
+        original.addPerson(HOON);
+        original.removePerson(ALICE);
         jsonDukeCooksStorage.saveDukeCooks(original, filePath);
         readBack = jsonDukeCooksStorage.readDukeCooks(filePath).get();
         assertEquals(original, new DukeCooks(readBack));
 
         // Save and read without specifying file path
-        original.addDiary(IDA);
+        original.addPerson(IDA);
         jsonDukeCooksStorage.saveDukeCooks(original); // file path not specified
         readBack = jsonDukeCooksStorage.readDukeCooks().get(); // file path not specified
         assertEquals(original, new DukeCooks(readBack));

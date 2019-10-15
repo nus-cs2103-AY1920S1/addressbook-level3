@@ -7,17 +7,23 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddDiaryCommand;
 import seedu.address.logic.commands.DeleteDiaryCommand;
 import seedu.address.logic.commands.EditDiaryCommand;
+import seedu.address.logic.commands.EditDiaryCommand.EditDiaryDescriptor;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.diary.NameContainsKeywordsPredicate;
 import seedu.address.model.diary.Diary;
 import seedu.address.testutil.DiaryBuilder;
-import seedu.address.testutil.DiaryUtil;
 import seedu.address.testutil.EditDiaryDescriptorBuilder;
+import seedu.address.testutil.DiaryUtil;
 
 public class DukeCooksParserTest {
 
@@ -40,9 +46,9 @@ public class DukeCooksParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Diary diary = new DiaryBuilder().build();
-        EditDiaryCommand.EditDiaryDescriptor descriptor = new EditDiaryDescriptorBuilder(diary).build();
+        EditDiaryDescriptor descriptor = new EditDiaryDescriptorBuilder(diary).build();
         EditDiaryCommand command = (EditDiaryCommand) parser.parseCommand(EditDiaryCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_DIARY.getOneBased() + " " + DiaryUtil.getEditPersonDescriptorDetails(descriptor));
+                + INDEX_FIRST_DIARY.getOneBased() + " " + DiaryUtil.getEditDiaryDescriptorDetails(descriptor));
         assertEquals(new EditDiaryCommand(INDEX_FIRST_DIARY, descriptor), command);
     }
 

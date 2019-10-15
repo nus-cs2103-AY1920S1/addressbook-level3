@@ -1,10 +1,15 @@
 package seedu.address.testutil;
 
-import seedu.address.model.diary.Diary;
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.model.diary.Name;
+import seedu.address.model.diary.Name;
+import seedu.address.model.diary.Diary;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Diary objects.
+ * A utility class to help with building Person objects.
  */
 public class DiaryBuilder {
 

@@ -1,42 +1,57 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.EditDiaryCommand;
-import seedu.address.logic.commands.EditDiaryCommand.EditDiaryDescriptor;
-import seedu.address.model.diary.Diary;
-import seedu.address.model.diary.Name;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
- * A utility class to help with building EditDiaryDescriptor objects.
+ * A utility class to help with building EditPersonDescriptor objects.
  */
 public class EditDiaryDescriptorBuilder {
 
-    private EditDiaryCommand.EditDiaryDescriptor descriptor;
+    private EditPersonDescriptor descriptor;
 
     public EditDiaryDescriptorBuilder() {
-        descriptor = new EditDiaryCommand.EditDiaryDescriptor();
+        descriptor = new EditPersonDescriptor();
     }
 
-    public EditDiaryDescriptorBuilder(EditDiaryDescriptor descriptor) {
-        this.descriptor = new EditDiaryDescriptor(descriptor);
+    public EditDiaryDescriptorBuilder(EditPersonDescriptor descriptor) {
+        this.descriptor = new EditPersonDescriptor(descriptor);
     }
 
     /**
-     * Returns an {@code EditDiaryDescriptor} with fields containing {@code diary}'s details
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
      */
-    public EditDiaryDescriptorBuilder(Diary diary) {
-        descriptor = new EditDiaryCommand.EditDiaryDescriptor();
-        descriptor.setName(diary.getName());
+    public EditDiaryDescriptorBuilder(Person person) {
+        descriptor = new EditPersonDescriptor();
+        descriptor.setName(person.getName());
+        descriptor.setTags(person.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditDiaryDescriptor} that we are building.
+     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditDiaryDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }
 
-    public EditDiaryCommand.EditDiaryDescriptor build() {
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditDiaryDescriptorBuilder withTags(String... tags) {
+        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
+        descriptor.setTags(tagSet);
+        return this;
+    }
+
+    public EditPersonDescriptor build() {
         return descriptor;
     }
 }
