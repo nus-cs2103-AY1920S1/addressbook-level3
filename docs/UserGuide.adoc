@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all problems
-* **`add`**`n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Wee Han` : adds a problem called 'factorial' tagged with 'recursion' and authored by 'Wee Han'
+* **`add`**`n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Halim` : adds a problem called 'factorial' tagged with 'recursion' and authored by 'Wee Han'
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -67,10 +67,23 @@ Examples:
 
 * `add n/Sequences a/Tung Kam Chuen w/https://open.kattis.com/problems/sequences d/Find the sum of the number of inversions of the 2k sequences, modulo 1000000007 (109+7). diff/3.0 src/Kattis t/recursion`
 
-==== Listing all problems : `list`
+==== Deleting a problem : `delete`
 
-Displays a list of all existing problems. +
-Format: `list`
+Deletes an existing problem. +
+Format: `delete INDEX`
+
+* Deletes the problem at the specified `INDEX`.
+* The index refers to the index number shown in the displayed problem list.
+* The index *must be a positive integer* 1, 2, 3, ...
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd problem in the displayed list.
+* `find n/factorial` +
+`delete 1` +
+Deletes the 1st problem in the results of the `find` command.
 
 ==== Editing a problem : `edit`
 
@@ -120,24 +133,10 @@ Returns `factorial` and `Factorialize`
 * `find factorial permutations` +
 Returns any problem having names `factorial`, or `permutations`
 
-==== Deleting a problem : `delete`
+==== Listing all problems : `list`
 
-Deletes an existing problem. +
-Format: `delete INDEX`
-
-* Deletes the problem at the specified `INDEX`.
-* The index refers to the index number shown in the displayed problem list.
-* The index *must be a positive integer* 1, 2, 3, ...
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd problem in the displayed list.
-* `find n/factorial` +
-`delete 1` +
-Deletes the 1st problem in the results of the `find` command.
-
+Displays a list of all existing problems. +
+Format: `list`
 
 ==== Sorting problems: `sort`
 
@@ -218,23 +217,41 @@ Returns any problem having names `training`, or `set`
 Displays a list of all existing plans alphabetically. +
 Format: `listplan`
 
-==== Marking a problem as done: `done`
+==== Adding a new task to a plan: `addtask`
 
-Marks a problem in a given plan as done. +
-Format: `done PLAN_INDEX PROBLEM_INDEX`
-
-Examples:
-
-* `done 1 2`
-
-==== Unmarking a problem as undone: `undone`
-
-Marks a problem in a given plan as undone. +
-Format: `undone PLAN_INDEX PROBLEM_INDEX`
+Adds a task to a specified plan. +
+Format: `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX`
 
 Examples:
 
-* `undone 1 2`
+* `addtask plan/1 prob/1`
+
+==== Deleting a task from a plan: `deletetask`
+
+Deletes a specified task from a specified plan. +
+Format: `deletetask plan/PLAN_INDEX task/TASK_INDEX`
+
+Examples:
+
+* `deletetask plan/1 task/1`
+
+==== Marking a task as done: `donetask`
+
+Marks a specified task in a specified plan as done. +
+Format: `donetask plan/PLAN_INDEX task/TASK_INDEX`
+
+Examples:
+
+* `donetask plan/1 task/1`
+
+==== Marking a task as undone: `undonetask`
+
+Marks a specified task in a specified plan as undone. +
+Format: `undone plan/PLAN_INDEX prob/TASK_INDEX`
+
+Examples:
+
+* `undonetask plan/1 task/1`
 
 === Importing and Exporting data
 
@@ -245,7 +262,6 @@ Format: `import f/FORMAT p/PATH`
 
 * Format can be ‘CSV’ or ‘JSON’.
 * Directory refers to the full path of the output file.
-
 
 Examples:
 

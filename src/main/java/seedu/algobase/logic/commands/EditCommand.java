@@ -50,7 +50,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_DIFFICULTY  + "DIFFICULTY] "
             + "[" + PREFIX_SOURCE + "SOURCE] "
-            + "[" + PREFIX_TAG + "TAG]\n"
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example:\n"
             + COMMAND_WORD + " 1 "
             + PREFIX_AUTHOR + "Tung Kam Chuen "

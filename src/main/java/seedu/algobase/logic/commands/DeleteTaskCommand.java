@@ -26,8 +26,8 @@ public class DeleteTaskCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the Task identified by the index in the plan.\n"
             + "Parameters:\n"
-            + PREFIX_PLAN + "PLANINDEX "
-            + PREFIX_TASK + "TASKINDEX\n"
+            + PREFIX_PLAN + "PLAN_INDEX "
+            + PREFIX_TASK + "TASK_INDEX\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_PLAN + "1 "

@@ -29,7 +29,7 @@ public class AddCommand extends Command {
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_DIFFICULTY  + "DIFFICULTY "
             + PREFIX_SOURCE + "SOURCE "
-            + "[" + PREFIX_TAG + "TAG]\n"
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_NAME + "Sequences "
