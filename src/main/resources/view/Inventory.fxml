@@ -9,13 +9,13 @@
        <TableView fx:id="tableView" prefHeight="532.0">
            <columns>
                <TableColumn fx:id="idCol" prefWidth="36.00000059604645" text="ID" />
-               <TableColumn fx:id="descriptionCol" prefWidth="120.80003356933594" text="Description" />
-               <TableColumn fx:id="categoryCol" prefWidth="120.39996337890625" text="Category" />
-               <TableColumn fx:id="quantityCol" prefWidth="64.60000228881836" text="Quantity" />
-               <TableColumn fx:id="costCol" prefWidth="67.50003051757812" text="Cost/Unit" />
-               <TableColumn fx:id="totalCostCol" prefWidth="67.5" text="Total Cost" />
-               <TableColumn fx:id="priceCol" minWidth="0.0" prefWidth="67.50006103515625" text="Price" />
-               <TableColumn fx:id="expectedRevenueCol" prefWidth="124.5" text="Expected Revenue" />
+               <TableColumn fx:id="descriptionCol" prefWidth="140.80003356933594" text="Description" />
+               <TableColumn fx:id="categoryCol" prefWidth="100.39996337890625" text="Category" />
+               <TableColumn fx:id="quantityCol" prefWidth="44.60000228881836" text="Qty" />
+               <TableColumn fx:id="costCol" prefWidth="77.50003051757812" text="Cost/Unit" />
+               <TableColumn fx:id="totalCostCol" prefWidth="77.5" text="Total Cost" />
+               <TableColumn fx:id="priceCol" minWidth="0.0" prefWidth="47.50006103515625" text="Price" />
+               <TableColumn fx:id="expectedRevenueCol" prefWidth="130.5" text="Expected Revenue" />
            </columns>
        </TableView>
    </children>
