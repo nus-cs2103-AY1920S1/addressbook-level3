@@ -12,7 +12,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.claim.*;
+import seedu.address.model.claim.Amount;
+import seedu.address.model.claim.ApprovedClaim;
+import seedu.address.model.claim.Claim;
+import seedu.address.model.claim.Description;
+import seedu.address.model.claim.PendingClaim;
+import seedu.address.model.claim.RejectedClaim;
 import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
@@ -23,9 +28,8 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedClaim {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAdaptedClaim.class);
-
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "FinSec's %s field is missing!";
+    private static final Logger logger = LogsCenter.getLogger(JsonAdaptedClaim.class);
 
     private final String description;
     private final String amount;
@@ -34,6 +38,7 @@ class JsonAdaptedClaim {
     private final String phone;
     private final String status;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
