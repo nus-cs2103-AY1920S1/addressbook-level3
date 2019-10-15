@@ -228,4 +228,10 @@ public class ItemModelManager implements ItemModel {
         this.visualList = taskList;
     }
 
+    /**
+     * Sort the current visual list.
+     */
+    public void sort() {
+        this.visualList = visualList.sort();
+    }
 }
