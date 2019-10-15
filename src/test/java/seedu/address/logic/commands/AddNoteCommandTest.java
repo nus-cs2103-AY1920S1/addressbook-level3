@@ -25,6 +25,7 @@ import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddNoteCommandTest {
@@ -119,6 +120,21 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public boolean hasTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTask(Task target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -149,12 +165,27 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public void updateFilteredNoteList(Predicate<Note> predicate) {
+        public ObservableList<Task> getFilteredTaskList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public void updateFilteredNoteList(Predicate<Note> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+        
+        @Override
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+       
+        @Override
         public boolean hasQuestion(Question question) {
+            throw new AssertionError("This method should not be called.");
+        }
+        
+        @Override
+        public Note getNote(Note note) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -165,6 +196,11 @@ public class AddNoteCommandTest {
 
         @Override
         public void addQuestion(Question question) {
+            throw new AssertionError("This method should not be called.");
+        }
+ 
+        @Override
+        public void setTask(Task target, Task editedTask) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -240,5 +276,4 @@ public class AddNoteCommandTest {
             return new AddressBook();
         }
     }
-
 }

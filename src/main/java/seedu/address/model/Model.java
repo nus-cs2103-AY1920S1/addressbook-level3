@@ -10,6 +10,7 @@ import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
+import seedu.address.model.task.Task;
 
 /**
  * The API of the Model component.
@@ -19,6 +20,7 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Question> PREDICATE_SHOW_ALL_QUESTIONS = unused -> true;
@@ -78,6 +80,12 @@ public interface Model {
      */
     void addNote(Note note);
 
+    boolean hasTask(Task task);
+
+    void deleteTask(Task target);
+
+    void addTask(Task task);
+
     /**
      * Replaces the given lecture note {@code target} with {@code editedNote}.
      * {@code target} must exist in the address book.
@@ -90,12 +98,18 @@ public interface Model {
      */
     ObservableList<Note> getFilteredNoteList();
 
+    ObservableList<Task> getFilteredTaskList();
+
     /**
      * Updates the filter of the filtered note list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredNoteList(Predicate<Note> predicate);
+
+    void updateFilteredTaskList(Predicate<Task> predicate);
+
+    Note getNote(Note note);
 
     /**
      * Returns true if a question with the same identity as {@code question} exists in NUStudy.
@@ -134,6 +148,8 @@ public interface Model {
      * Sets the question list in quiz with specific {@code subject} and {@code difficulty}.
      */
     void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty);
+
+    void setTask(Task target, Task editedTask);
 
     /**
      * Checks the an answer input by user and return the boolean value as the result.
