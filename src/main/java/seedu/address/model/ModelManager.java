@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.task.Task;
+import seedu.address.model.member.Member;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -110,6 +111,23 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedTask);
 
         projectDashboard.setTask(target, editedTask);
+    }
+
+    @Override
+    public void addMember(Member member) {
+        projectDashboard.addMember(member);
+    }
+
+    @Override
+    public boolean hasMember(Member member) {
+        return projectDashboard.hasMember(member);
+    }
+
+    @Override
+    public void mapMemberTask(Member member, Task task) {
+        requireAllNonNull(member, task);
+
+        projectDashboard.mapMemberTask(member, task);
     }
 
     //=========== Filtered Task List Accessors =============================================================

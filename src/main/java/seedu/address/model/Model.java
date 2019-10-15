@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.task.Task;
+import seedu.address.model.member.Member;
 
 /**
  * The API of the Model component.
@@ -75,6 +76,12 @@ public interface Model {
      * The task identity of {@code editedTask} must not be the same as another existing task in the address book.
      */
     void setTask(Task target, Task editedTask);
+
+    void addMember(Member member);
+
+    boolean hasMember(Member member);
+
+    void mapMemberTask(Member member, Task task);
 
     /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Task> getFilteredTasksList();

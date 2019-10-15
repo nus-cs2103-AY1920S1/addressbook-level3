@@ -3,10 +3,15 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.member.Member;
+import seedu.address.model.member.UniqueMemberList;
+import seedu.address.model.mapping.MemberTaskMapping;
 
 /**
  * Wraps all data at the address-book level
@@ -15,6 +20,8 @@ import seedu.address.model.task.UniqueTaskList;
 public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     private final UniqueTaskList tasks;
+    private final UniqueMemberList members;
+    private final MemberTaskMapping memberTaskMapping;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +32,8 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      */
     {
         tasks = new UniqueTaskList();
+        members = new UniqueMemberList();
+        memberTaskMapping = new MemberTaskMapping();
     }
 
     public ProjectDashboard() {}
@@ -95,6 +104,32 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     //// util methods
 
+    public void addMember(Member member) {
+        members.add(member);
+    }
+
+    public boolean hasMember(Member member) {
+        requireNonNull(member);
+        return members.contains(member);
+    }
+
+    public void mapMemberTask(Member member, Task task) {
+        requireNonNull(task);
+        requireNonNull(member);
+
+        memberTaskMapping.mapMemberTask(member, task);
+    }
+
+    @Override
+    public HashMap<Member, HashSet<Task>> getMemberTaskMapping() {
+        return memberTaskMapping.getMemberTaskMapping();
+    }
+
+    @Override
+    public HashMap<Task, HashSet<Member>> getTaskMemberMapping() {
+        return memberTaskMapping.getTaskMemberMapping();
+    }
+
     @Override
     public String toString() {
         return tasks.asUnmodifiableObservableList().size() + " tasks";
@@ -106,6 +141,10 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         return tasks.asUnmodifiableObservableList();
     }
 
+    @Override
+    public ObservableList<Member> getMemberList() {
+        return members.asUnmodifiableObservableList();
+    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
