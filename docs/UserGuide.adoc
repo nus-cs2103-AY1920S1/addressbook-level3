@@ -156,13 +156,9 @@ Format: `suggest food`
 Gives a recommendation of a food item that is not logged by the user. +
 Format: `suggest new food`
 
-=== Get Statistics: `stats` `[coming in v2.0]`
+=== Get Statistics: `stats` `[coming in v1.3]`
 Gives all the statistics available. +
 Format: `stats`
-
-=== Get food statistics: `stats food` `[coming in v2.0]`
-Gives the statistics of food recorded. +
-Format: `stats food`
 
 == Health Records
 === View User Profile:  `view profile`
