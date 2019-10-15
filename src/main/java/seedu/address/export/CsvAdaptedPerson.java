@@ -21,22 +21,22 @@ import seedu.address.model.tag.Tag;
 @JsonPropertyOrder({"name", "phone", "email", "address", "tagged"})
 public class CsvAdaptedPerson {
 
-    @JsonUnwrapped
-    private final Name name;
-    @JsonUnwrapped
-    private final Phone phone;
-    @JsonUnwrapped
-    private final Email email;
-    @JsonUnwrapped
-    private final Address address;
+    @JsonProperty("name")
+    private final String name;
+    @JsonProperty("phone")
+    private final String phone;
+    @JsonProperty("email")
+    private final String email;
+    @JsonProperty("address")
+    private final String address;
     @JsonProperty("tagged")
     private final Set<Tag> tagged;
 
     public CsvAdaptedPerson(Person source) {
-        this.name = source.getName();
-        this.phone = source.getPhone();
-        this.email = source.getEmail();
-        this.address = source.getAddress();
+        this.name = source.getName().fullName;
+        this.phone = source.getPhone().value;
+        this.email = source.getEmail().value;
+        this.address = source.getAddress().value;
         this.tagged = source.getTags();
     }
 
