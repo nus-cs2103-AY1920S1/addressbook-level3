@@ -75,8 +75,11 @@ public class Course {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, faculty, description, courseCode, courseCredit, prereqTree,
-                preclusion, fulfillRequirements);
+        return Objects.hash(
+            title,
+            faculty,
+            courseCode
+        );
     }
 
     @Override
@@ -99,14 +102,30 @@ public class Course {
     public String toDisplayableString() {
         final int limit = 100;
         final StringBuilder builder = new StringBuilder();
-        builder.append(getCourseCode()).append(" ")
-                .append(getTitle()).append("\n")
-                .append(getCourseCredit()).append(" MCs\n")
-                .append("Offered by: ").append(getFaculty()).append("\n")
-                .append("Preclusion: ").append(getPreclusion()).append("\n")
-                .append("Required for: ").append(getFulfillRequirements()).append("\n")
-                .append("\n") // newline for better readability
-                .append(StringUtil.asLimitedCharactersPerLine(getDescription().toString(), limit));
+
+        if (getCourseCode() != null) {
+            builder.append(getCourseCode()).append(" ");
+        }
+        if (getTitle() != null) {
+            builder.append(getTitle()).append("\n");
+        }
+        if (getCourseCredit() != null) {
+            builder.append(getCourseCredit()).append(" MCs\n");
+        }
+        if (getFaculty() != null) {
+            builder.append("Offered by: ").append(getFaculty()).append("\n");
+        }
+        if (getPreclusion() != null) {
+            builder.append("Preclusion: ").append(getPreclusion()).append("\n");
+        }
+        if (getFulfillRequirements() != null) {
+            builder.append("Required for: ").append(getFulfillRequirements()).append("\n");
+        }
+        builder.append("\n"); // newline for better readability
+        if (getDescription() != null) {
+            builder.append(StringUtil.asLimitedCharactersPerLine(
+                    getDescription().toString(), limit));
+        }
         return builder.toString();
     }
 
