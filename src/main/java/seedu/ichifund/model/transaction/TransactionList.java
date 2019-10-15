@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.ichifund.model.Transaction;
 import seedu.ichifund.model.transaction.exceptions.TransactionNotFoundException;
 
 /**

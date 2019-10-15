@@ -13,7 +13,7 @@ import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.Model;
-import seedu.ichifund.model.Transaction;
+import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * Adds a transaction to IchiFund.

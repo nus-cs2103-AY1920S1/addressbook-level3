@@ -9,8 +9,8 @@ import java.util.Set;
 import seedu.ichifund.commons.core.index.Index;
 import seedu.ichifund.commons.util.StringUtil;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
-import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.Description;
+import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Day;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
@@ -171,6 +171,23 @@ public class ParserUtil {
         String trimmedAmount = amount.trim();
         if (!Amount.isValidAmount(trimmedAmount)) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+        return new Amount(trimmedAmount);
+    }
+
+    /**
+     * Parses a {@code String amount} into a {@code Amount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid or negative.
+     */
+    public static Amount parsePositiveAmount(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if (!Amount.isValidAmount(trimmedAmount)) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        } else if (Amount.isNegative(trimmedAmount)) {
+            throw new ParseException(Amount.NEGATIVE_AMOUNT_CONSTRAINT);
         }
         return new Amount(trimmedAmount);
     }

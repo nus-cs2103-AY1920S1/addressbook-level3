@@ -18,14 +18,14 @@ import seedu.ichifund.logic.parser.Parser;
 import seedu.ichifund.logic.parser.ParserUtil;
 import seedu.ichifund.logic.parser.Prefix;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
-import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.Description;
+import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.date.Day;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.transaction.Category;
-import seedu.ichifund.model.Transaction;
+import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.transaction.TransactionType;
 
 
@@ -52,7 +52,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         }
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+        Amount amount = ParserUtil.parsePositiveAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
         Day day = ParserUtil.parseDay(argMultimap.getValue(PREFIX_DAY).get());
         Month month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());

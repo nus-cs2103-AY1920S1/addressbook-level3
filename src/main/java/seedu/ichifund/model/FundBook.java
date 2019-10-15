@@ -12,6 +12,7 @@ import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.person.UniquePersonList;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.UniqueRepeaterList;
+import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.transaction.TransactionList;
 
 /**
