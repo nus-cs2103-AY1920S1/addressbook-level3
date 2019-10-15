@@ -3,6 +3,7 @@ package seedu.address.logic.internal.gmaps;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,30 +22,21 @@ class SanitizeLocationTest {
     }
 
     @Test
-    void getValidLocationList() {
-        try {
-            sanitizeLocation.sanitize("FOO");
-            sanitizeLocation.sanitize("FOO-12345");
-            sanitizeLocation.sanitize("BAR");
-            ArrayList<String> expectedValidLocationList =
-                    new ArrayList<String>(Arrays.asList("NUS_FOO", "NUS_BAR"));
-            assertEquals(expectedValidLocationList, sanitizeLocation.getValidLocationList());
-            assertThrows(TimeBookInvalidLocation.class, () -> sanitizeLocation.sanitize("FOOLED"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    void getValidLocationList() throws TimeBookInvalidLocation, ConnectException {
+        sanitizeLocation.sanitize("FOO");
+        sanitizeLocation.sanitize("FOO-12345");
+        sanitizeLocation.sanitize("BAR");
+        ArrayList<String> expectedValidLocationList =
+                new ArrayList<String>(Arrays.asList("NUS_FOO", "NUS_BAR"));
+        assertEquals(expectedValidLocationList, sanitizeLocation.getValidLocationList());
+        assertThrows(TimeBookInvalidLocation.class, () -> sanitizeLocation.sanitize("FOOLED"));
     }
 
     @Test
-    void sanitize() {
-        try {
-            assertEquals(sanitizeLocation.sanitize("FOO"), "NUS_FOO");
-            assertEquals(sanitizeLocation.sanitize("FOO-12345"), "NUS_FOO");
-            assertEquals(sanitizeLocation.sanitize("BAR"), "NUS_BAR");
-            assertThrows(TimeBookInvalidLocation.class, () -> sanitizeLocation.sanitize("FOOLED"));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    void sanitize() throws TimeBookInvalidLocation, ConnectException {
+        assertEquals(sanitizeLocation.sanitize("FOO"), "NUS_FOO");
+        assertEquals(sanitizeLocation.sanitize("FOO-12345"), "NUS_FOO");
+        assertEquals(sanitizeLocation.sanitize("BAR"), "NUS_BAR");
+        assertThrows(TimeBookInvalidLocation.class, () -> sanitizeLocation.sanitize("FOOLED"));
     }
 }
