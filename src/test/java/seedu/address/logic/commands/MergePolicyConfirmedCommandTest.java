@@ -325,6 +325,11 @@ public class MergePolicyConfirmedCommandTest {
         }
 
         @Override
+        public AddressBook getAddressBook() {
+            return new AddressBook();
+        }
+
+        @Override
         public void setPolicy(Policy target, Policy editedPolicy) {
             this.policy = editedPolicy;
         }
