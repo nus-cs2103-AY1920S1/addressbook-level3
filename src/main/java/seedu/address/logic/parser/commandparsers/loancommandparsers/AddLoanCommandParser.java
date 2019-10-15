@@ -71,6 +71,7 @@ public class AddLoanCommandParser implements CommandParser<AddLoanCommand> {
         Status status = Status.UNPAID;
 
         Loan loan = new Loan(person, direction, amount, date, description, status);
+        person.addLoan(loan);
 
         return new AddLoanCommand(loan);
     }

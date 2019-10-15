@@ -67,7 +67,7 @@ public class UniquePersonList implements Iterable<Person> {
 
         Person targetPerson = null;
         for (Person person : internalUnmodifiableList) {
-            if (person.isSamePerson(targetPerson)) {
+            if (person.isSamePerson(toGet)) {
                 targetPerson = person;
             }
         }

@@ -32,10 +32,12 @@ public class ListLoansCommand extends Command {
 
         // TODO Display the list in the main window instead of in the command result text box.
         StringBuilder builder = new StringBuilder();
+        builder.append("Current Loans:");
         for (Person person : model.getLoansManager().getPersonsList()) {
             builder.append("\n");
+            builder.append(person.toString()).append("\n");
             for (Loan loan : person.getLoans()) {
-                builder.append(loan).append("\n");
+                builder.append("  ").append(loan).append("\n");
             }
         }
 
