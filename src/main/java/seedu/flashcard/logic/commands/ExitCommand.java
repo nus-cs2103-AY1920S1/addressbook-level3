@@ -1,22 +1,19 @@
 package seedu.flashcard.logic.commands;
 
-import seedu.flashcard.model.FlashcardList;
+import seedu.flashcard.model.Model;
 
 /**
- * Command to exit the program.
+ * Terminates the program.
  */
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
 
-    // TODO: Specify the message of usage of exit command.
-    //  Note that this will be displayed to the user when the help command is called.
-    public static final String MESSAGE_USAGE = "";
+    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting FlashMind as requested ...";
 
-    // TODO: implement the following execution method for add command, beware to generate a good command result.
-    // TODO: write corresponding tests to test out this execution methods.
     @Override
-    public CommandResult execute(FlashcardList flashcardList) {
-        return null;
+    public CommandResult execute(Model model) {
+        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
+
 }

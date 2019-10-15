@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
-import seedu.flashcard.model.FlashcardList;
-import seedu.flashcard.model.flashcard.CardId;
+import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Flashcard;
 
 /**
@@ -17,41 +17,44 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the flashcard identified by the flashcard ID used.\n"
-            + "Parameters: ID (must be a positive 6-digit string)\n"
-            + "Example: " + COMMAND_WORD + "/d 000001";
+            + ": Deletes the flashcard identified by the index number used in the displayed flashcard list.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_INVALID_FLASHCARD_ID = "The ID you entered is invalid!";
+    public static final String MESSAGE_INVALID_FLASHCARD_INDEX = "The index you entered is invalid!";
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "The card has been deleted!";
-    private final CardId toDeleteId;
+    private final Index targetIndex;
 
-    /**
-     * Construct a new add flashcard command.
-     * @param toDeleteId the ID of the flashcard to be deleted
-     */
-    public DeleteCommand(CardId toDeleteId) {
-        requireNonNull(toDeleteId);
-        this.toDeleteId = toDeleteId;
+    public DeleteCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
+        this.targetIndex = targetIndex;
     }
 
     /**
      * Return the result from executing the delete command.
-     * @param flashcardList list of flashcards
+     * @param model list of flashcards
      * @return the execution result
      * @throws CommandException error encountered during execution of command
      */
     @Override
-    public CommandResult execute(FlashcardList flashcardList) throws CommandException {
-        requireNonNull(flashcardList);
-        List<Flashcard> lastShownList = flashcardList.getAllFlashcards();
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        List<Flashcard> lastShownList = model.getFilteredFlashcardList();
 
-        if (toDeleteId.getIdentityNumber() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_INVALID_FLASHCARD_ID);
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(MESSAGE_INVALID_FLASHCARD_INDEX);
         }
 
-        Flashcard cardToDelete = lastShownList.get(toDeleteId.getIdentityNumber());
-        flashcardList.deleteFlashcard(cardToDelete.getId().getIdentityNumber());
-        return new CommandResult(MESSAGE_DELETE_PERSON_SUCCESS, false, false);
+        Flashcard cardToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteFlashcard(cardToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, cardToDelete));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof DeleteCommand
+                && targetIndex.equals(((DeleteCommand) other).targetIndex));
     }
 
 }

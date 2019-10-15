@@ -12,12 +12,9 @@ import seedu.flashcard.logic.commands.DeleteCommand;
 import seedu.flashcard.logic.commands.EditCommand;
 import seedu.flashcard.logic.commands.ExitCommand;
 import seedu.flashcard.logic.commands.FindCommand;
-// import seedu.flashcard.logic.commands.FlipCommand;
 import seedu.flashcard.logic.commands.HelpCommand;
+import seedu.flashcard.logic.commands.ListCardByTagCommand;
 import seedu.flashcard.logic.commands.ListCommand;
-import seedu.flashcard.logic.commands.ProgressCommand;
-import seedu.flashcard.logic.commands.TagCommand;
-import seedu.flashcard.logic.commands.ViewCommand;
 
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 
@@ -58,11 +55,9 @@ public class FlashcardListParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
-        /*
-        case FlipCommand.COMMAND_WORD:
-            return new FlipCommand();
 
-         */
+        case ListCardByTagCommand.COMMAND_WORD:
+            return new ListCardByTagCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -72,15 +67,6 @@ public class FlashcardListParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
-        case ViewCommand.COMMAND_WORD:
-            return new ViewCommandParser().parse(arguments);
-
-        case TagCommand.COMMAND_WORD:
-            return new TagCommandParser().parse(arguments);
-
-        case ProgressCommand.COMMAND_WORD:
-            return new ProgressCommand(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKOWN_COMMAND);

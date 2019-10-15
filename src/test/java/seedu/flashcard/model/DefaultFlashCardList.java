@@ -4,8 +4,6 @@ import static seedu.flashcard.model.DefaultFlashCards.MOUNT_BLANC_CARD;
 
 import java.util.ArrayList;
 
-import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
-
 /**
  * Some default flashcard lists to be used for testing.
  */
