@@ -9,7 +9,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
 
 /**
  * Panel containing the list of entries.
@@ -36,6 +35,7 @@ public class EntryListPanel extends UiPart<Region> {
             super.updateItem(entry, empty);
 
             if (empty || entry == null) {
+
                 setGraphic(null);
                 setText(null);
             } else {

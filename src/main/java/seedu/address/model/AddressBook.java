@@ -30,8 +30,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        expenses = new ExpenseList();
         entries = new UniqueEntryList();
+        expenses = new ExpenseList();
         incomes = new IncomeList();
     }
 
@@ -51,16 +51,27 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setEntries(List<Expense> expenses) {
+    public void setEntries(List<Entry> entries) {
+        this.entries.setEntries(entries);
+    }
+
+    public void setExpenses(List<Expense> expenses) {
         this.expenses.setEntries(expenses);
     }
+
+    public void setIncomes(List<Income> incomes) {
+        this.incomes.setEntries(incomes);
+    }
+
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-        setEntries(newData.getExpenseList());
+        setEntries(newData.getEntryList());
+        setExpenses(newData.getExpenseList());
+        setIncomes(newData.getIncomeList());
     }
 
     //// person-level operations
