@@ -61,7 +61,7 @@
                   </StackPane>
                   <VBox HBox.hgrow="ALWAYS">
                       <children>
-                    <VBox fx:id="personList" minWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="showList" minWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                       <StackPane fx:id="contentPanelPlaceholder" VBox.vgrow="ALWAYS" />
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

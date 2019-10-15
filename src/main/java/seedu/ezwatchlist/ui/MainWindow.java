@@ -16,6 +16,9 @@ import seedu.ezwatchlist.logic.Logic;
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+import seedu.ezwatchlist.ui.ShowListPanel;
+import seedu.ezwatchlist.ui.WatchedPanel;
+import seedu.ezwatchlist.ui.SearchPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private ShowListPanel showListPanel;
     private WatchedPanel watchedPanel;
     private SearchPanel searchPanel;
     private StatisticsPanel statisticsPanel;
@@ -45,7 +48,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane contentPanelPlaceholder;
-
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -105,11 +107,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of main window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        showListPanel = new ShowListPanel(logic.getFilteredShowList());
         watchedPanel = new WatchedPanel(/*logic.getWatchedList()*/);
         searchPanel = new SearchPanel(/*logic.getWatchedList()*/);
         statisticsPanel = new StatisticsPanel(/*logic.getWatchedList()*/);
-        contentPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -155,20 +157,23 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
+    /*public ShowListPanel getShowListPanel() {
+        return showListPanel;
+    }*/
 
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            //somehow use this code to display list of search results???
+            //showListPanel = new ShowListPanel(logic.getSearchResultList());
+            //showListPanelPlaceholder.getChildren().add(showListPanel.getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -188,7 +193,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void goToWatchlist() {
         contentPanelPlaceholder.getChildren().clear();
-        contentPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
     }
 
     @FXML

@@ -12,4 +12,5 @@ public interface ApiInterface {
     public List<Movie> getMovieByName(String name);
 
     public List<TvShow> getTvShowByName(String name);
+
 }
