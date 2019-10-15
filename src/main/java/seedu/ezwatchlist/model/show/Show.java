@@ -16,7 +16,7 @@ import seedu.ezwatchlist.commons.util.CollectionUtil;
  */
 public class Show {
 
-    public String Type;
+    public String type;
     private static final String placeholderImageLocation = "/images/poster-placeholder.png";
 
     //identity fields
@@ -45,6 +45,10 @@ public class Show {
 
     public Name getName() {
         return name;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public Date getDateOfRelease() {

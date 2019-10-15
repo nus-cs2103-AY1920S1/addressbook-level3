@@ -1,15 +1,27 @@
 package seedu.ezwatchlist.logic.parser;
 
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DATE_OF_RELEASE;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
+
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.ezwatchlist.logic.commands.AddCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.TvShow;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.commons.core.Messages;
-
-import static seedu.ezwatchlist.logic.parser.CliSyntax.*;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -23,10 +35,10 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_DATE_OF_RELEASE, PREFIX_IS_WATCHED,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TYPE, PREFIX_DATE_OF_RELEASE, PREFIX_IS_WATCHED,
                         PREFIX_DESCRIPTION, PREFIX_RUNNING_TIME, PREFIX_ACTOR);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_NAME, PREFIX_DATE_OF_RELEASE, PREFIX_IS_WATCHED)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_TYPE, PREFIX_DATE_OF_RELEASE, PREFIX_IS_WATCHED)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
