@@ -24,7 +24,7 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
     @Override
     public boolean containsClashing(Event toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameEvent);
+        return internalList.stream().anyMatch(toCheck::isClashingWith);
 
     }
 
