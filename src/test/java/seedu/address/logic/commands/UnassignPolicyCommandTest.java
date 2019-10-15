@@ -13,65 +13,67 @@ import seedu.address.model.policy.Policy;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.*;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-class AssignPolicyCommandTest {
+class UnassignPolicyCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_UnfilteredList_success() {
-        Person personToAssign = model.getAddressBook().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Policy policyToAssign = model.getAddressBook().getPolicyList().get(INDEX_SECOND_POLICY.getZeroBased());
-        Person assignedPerson = new PersonBuilder(personToAssign).addPolicies(policyToAssign).build();
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_SECOND_POLICY, INDEX_FIRST_PERSON);
+        Person personToUnassign = model.getAddressBook().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Policy policyToUnassign = model.getAddressBook().getPolicyList().get(INDEX_FIRST_POLICY.getZeroBased());
+        Person assignedPerson = new PersonBuilder(personToUnassign).removePolicies(policyToUnassign).build();
+        UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(INDEX_FIRST_POLICY, INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(AssignPolicyCommand.MESSAGE_ASSIGN_POLICY_SUCCESS,
-                policyToAssign.getName(), personToAssign.getName());
+        String expectedMessage = String.format(UnassignPolicyCommand.MESSAGE_UNASSIGN_POLICY_SUCCESS,
+                policyToUnassign.getName(), personToUnassign.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getAddressBook().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased()),
                 assignedPerson);
 
-        assertCommandSuccess(assignPolicyCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(unassignPolicyCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        showPolicyAtIndex(model, INDEX_SECOND_POLICY);
+        showPolicyAtIndex(model, INDEX_FIRST_POLICY);
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Policy policyInFilteredList = model.getFilteredPolicyList().get(INDEX_FIRST_POLICY.getZeroBased());
-        Person assignedPerson = new PersonBuilder(personInFilteredList).addPolicies(policyInFilteredList).build();
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_FIRST_POLICY, INDEX_FIRST_PERSON);
+        Person unassignedPerson = new PersonBuilder(personInFilteredList).removePolicies(policyInFilteredList).build();
+        UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(INDEX_FIRST_POLICY, INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(AssignPolicyCommand.MESSAGE_ASSIGN_POLICY_SUCCESS,
+        String expectedMessage = String.format(UnassignPolicyCommand.MESSAGE_UNASSIGN_POLICY_SUCCESS,
                 model.getFilteredPolicyList().get(INDEX_FIRST_POLICY.getZeroBased()).getName(),
                 model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), assignedPerson);
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), unassignedPerson);
 
-        assertCommandSuccess(assignPolicyCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(unassignPolicyCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_alreadyAssignedUnfilteredList_failure() {
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_SECOND_POLICY, INDEX_SECOND_PERSON);
-        assertCommandFailure(assignPolicyCommand, model, String.format(AssignPolicyCommand.MESSAGE_ALREADY_ASSIGNED,
-                model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased()).getName(),
+    public void execute_alreadyUnassignedUnfilteredList_failure() {
+        UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(INDEX_SECOND_POLICY, INDEX_FIRST_PERSON);
+        assertCommandFailure(unassignPolicyCommand, model, String.format(UnassignPolicyCommand.MESSAGE_ALREADY_UNASSIGNED,
+                model.getAddressBook().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getName(),
                 model.getAddressBook().getPolicyList().get(INDEX_SECOND_POLICY.getZeroBased()).getName()));
     }
 
     @Test
-    public void execute_alreadyAssignedFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_SECOND_PERSON);
+    public void execute_alreadyUnassignedFilteredList_failure() {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
         showPolicyAtIndex(model, INDEX_SECOND_POLICY);
 
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_FIRST_POLICY, INDEX_FIRST_PERSON);
-        assertCommandFailure(assignPolicyCommand, model, String.format(AssignPolicyCommand.MESSAGE_ALREADY_ASSIGNED,
+        UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(INDEX_FIRST_POLICY, INDEX_FIRST_PERSON);
+        assertCommandFailure(unassignPolicyCommand, model, String.format(UnassignPolicyCommand.MESSAGE_ALREADY_UNASSIGNED,
                 model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getName(),
                 model.getFilteredPolicyList().get(INDEX_FIRST_POLICY.getZeroBased()).getName()));
     }
@@ -79,17 +81,17 @@ class AssignPolicyCommandTest {
     @Test
     public void execute_invalidPolicyIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPolicyList().size() + 1);
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(outOfBoundIndex, INDEX_FIRST_PERSON);
+        UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(outOfBoundIndex, INDEX_FIRST_PERSON);
 
-        assertCommandFailure(assignPolicyCommand, model, Messages.MESSAGE_INVALID_POLICY_DISPLAYED_INDEX);
+        assertCommandFailure(unassignPolicyCommand, model, Messages.MESSAGE_INVALID_POLICY_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_FIRST_POLICY, outOfBoundIndex);
+        UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(INDEX_FIRST_POLICY, outOfBoundIndex);
 
-        assertCommandFailure(assignPolicyCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(unassignPolicyCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -100,8 +102,8 @@ class AssignPolicyCommandTest {
         // check if given out of bounds index is still within range for entire list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(INDEX_FIRST_POLICY, outOfBoundIndex);
-        assertCommandFailure(assignPolicyCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(INDEX_FIRST_POLICY, outOfBoundIndex);
+        assertCommandFailure(unassignPolicyCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -112,20 +114,20 @@ class AssignPolicyCommandTest {
         // check if given out of bounds index is still within range for entire list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPolicyList().size());
 
-        AssignPolicyCommand assignPolicyCommand = new AssignPolicyCommand(outOfBoundIndex, INDEX_FIRST_PERSON);
-        assertCommandFailure(assignPolicyCommand, model, Messages.MESSAGE_INVALID_POLICY_DISPLAYED_INDEX);
+        UnassignPolicyCommand unassignPolicyCommand = new UnassignPolicyCommand(outOfBoundIndex, INDEX_FIRST_PERSON);
+        assertCommandFailure(unassignPolicyCommand, model, Messages.MESSAGE_INVALID_POLICY_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final AssignPolicyCommand standardCommand = new AssignPolicyCommand(INDEX_FIRST_POLICY, INDEX_FIRST_PERSON);
+        final UnassignPolicyCommand standardCommand = new UnassignPolicyCommand(INDEX_FIRST_POLICY, INDEX_FIRST_PERSON);
 
         // same value -> returns true
-        AssignPolicyCommand newCommand = new AssignPolicyCommand(INDEX_FIRST_POLICY, INDEX_FIRST_PERSON);
+        UnassignPolicyCommand newCommand = new UnassignPolicyCommand(INDEX_FIRST_POLICY, INDEX_FIRST_PERSON);
         assertTrue(standardCommand.equals(newCommand));
 
         // different values -> returns false
-        newCommand = new AssignPolicyCommand(INDEX_SECOND_POLICY, INDEX_FIRST_PERSON);
+        newCommand = new UnassignPolicyCommand(INDEX_SECOND_POLICY, INDEX_FIRST_PERSON);
         assertFalse(standardCommand.equals(newCommand));
 
         // null -> returns false
