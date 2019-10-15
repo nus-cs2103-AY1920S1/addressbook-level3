@@ -32,11 +32,19 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalList.stream().anyMatch(module -> module.getModuleCode().toString().equals(toCheck));
     }
 
+    /**
+     * Wrapper for the {@code contains} method to accept a Module object instead
+     * Returns true if the list contains an equivalent module as the given argument.
+     */
     public boolean contains(Module toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
     }
 
+    /**
+     * Adds the equivalent module to the list.
+     * @param toAdd Module to be added
+     */
     public void add(Module toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {

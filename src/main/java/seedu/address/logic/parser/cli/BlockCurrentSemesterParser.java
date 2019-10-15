@@ -50,5 +50,4 @@ public class BlockCurrentSemesterParser implements Parser<BlockCurrentSemesterCo
 
         return new BlockCurrentSemesterCommand(semesterName, reason);
     }
-
 }

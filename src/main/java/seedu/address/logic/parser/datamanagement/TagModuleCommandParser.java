@@ -38,7 +38,7 @@ public class TagModuleCommandParser implements Parser<TagModuleCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE, PREFIX_TAG)
-               || !argMultimap.getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     TagModuleCommand.MESSAGE_USAGE));
         }

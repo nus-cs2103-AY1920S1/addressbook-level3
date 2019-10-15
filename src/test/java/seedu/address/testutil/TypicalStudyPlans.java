@@ -15,6 +15,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import java.util.ArrayList;
 import java.util.Arrays;
  */
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.ModulePlanner;
@@ -28,9 +31,8 @@ import seedu.address.model.studyplan.Title;
  * A utility class containing a list of {@code StudyPlan} objects to be used in tests.
  */
 public class TypicalStudyPlans {
-
+    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
     private static ModulesInfo modulesInfo;
-
     // Typical study plans
     public static final StudyPlan SP_1 = new StudyPlan(new Title("first study plan"), modulesInfo);
     public static final StudyPlan SP_2 = new StudyPlan(new Title("second study plan"), modulesInfo);
@@ -50,9 +52,9 @@ public class TypicalStudyPlans {
         SP_3.addModuleToSemester(new ModuleCode("MA1521"), SemesterName.Y1S1);
     }
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalStudyPlans() {} // prevents instantiation
+    private TypicalStudyPlans() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code ModulePlanner} with all the typical studyPlans.

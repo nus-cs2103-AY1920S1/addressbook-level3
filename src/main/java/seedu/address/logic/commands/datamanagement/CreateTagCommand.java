@@ -19,10 +19,10 @@ public class CreateTagCommand extends Command {
     public static final String COMMAND_WORD = "newtag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Creates a new tag type. "
-        + "Parameters: "
-        + PREFIX_TAG + "TAG_NAME \n"
-        + "Example: "
-        + "newtag t/exchange";
+            + "Parameters: "
+            + PREFIX_TAG + "TAG_NAME \n"
+            + "Example: "
+            + "newtag t/exchange";
 
     public static final String MESSAGE_SUCCESS = "New tag created: %1$s";
     public static final String MESSAGE_DUPLICATE_TAG = "This tag already exists";
@@ -32,6 +32,7 @@ public class CreateTagCommand extends Command {
 
     /**
      * Creates an {@code CreateTagCommand} to create a tag with the given name.
+     *
      * @param tagName
      */
     public CreateTagCommand(String tagName) {

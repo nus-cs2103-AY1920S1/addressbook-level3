@@ -11,6 +11,7 @@ package seedu.address.logic.commands.storage;
 //import seedu.address.commons.core.Messages;
 //import seedu.address.commons.core.index.Index;
 //import seedu.address.commons.util.CollectionUtil;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -58,7 +59,7 @@ public class EditTitleCommand extends Command {
      */
 
     /**
-     * @param //index of the studyPlan in the filtered studyPlan list to edit
+     * @param //index                   of the studyPlan in the filtered studyPlan list to edit
      * @param //editStudyPlanDescriptor details to edit the studyPlan with
      */
     /*
@@ -70,7 +71,6 @@ public class EditTitleCommand extends Command {
         this.editStudyPlanDescriptor = new EditStudyPlanDescriptor(editStudyPlanDescriptor);
     }
     */
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         /*
@@ -100,7 +100,8 @@ public class EditTitleCommand extends Command {
      * edited with {@code editStudyPlanDescriptor}.
      */
     /*
-    private static StudyPlan createEditedStudyPlan(StudyPlan studyPlanToEdit, EditStudyPlanDescriptor editStudyPlanDescriptor) {
+    private static StudyPlan createEditedStudyPlan(StudyPlan studyPlanToEdit,
+    EditStudyPlanDescriptor editStudyPlanDescriptor) {
         assert studyPlanToEdit != null;
 
         Name updatedName = editStudyPlanDescriptor.getName().orElse(studyPlanToEdit.getName());
@@ -145,7 +146,8 @@ public class EditTitleCommand extends Command {
         private Set<UserTag> tags;
          */
 
-        public EditTitleStudyPlanDescriptor() {}
+        public EditTitleStudyPlanDescriptor() {
+        }
 
         /**
          * Copy constructor.
