@@ -1,6 +1,7 @@
 package seedu.address.model.events;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents a date and time.
@@ -38,6 +39,18 @@ public class DateTime {
      */
     public long msecsTimeUntil(DateTime futureTime) {
         return futureTime.dateTime.toEpochMilli() - this.dateTime.toEpochMilli();
+    }
+
+    /**
+     * Checks if two instances of DateTime are equal up to the current minute.
+     *
+     * @param other The DateTime to be compared to
+     * @return <code> true </code> only if both this instance and the other instance of DateTime are equal
+     *     up to the current minute, but not any more precise than that.
+     */
+    public boolean equalsPrecisionMinute(DateTime other) {
+        return this.dateTime.truncatedTo(ChronoUnit.MINUTES)
+                .equals(other.dateTime.truncatedTo(ChronoUnit.MINUTES));
     }
 
     @Override
