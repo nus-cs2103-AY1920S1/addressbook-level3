@@ -22,15 +22,15 @@ public class DeadlineTest {
     @Test
     public void isSameDeadline() {
         // same object -> returns true
-        assertTrue(DEADLINE.isSameDeadline(DEADLINE));
+        assertTrue(DEADLINE.equals(DEADLINE));
 
 
         // null -> returns false
-        assertFalse(DEADLINE.isSameDeadline(null));
+        assertFalse(DEADLINE.equals(null));
 
         // same deadline -> returns true
         Deadline editedDeadline = new Deadline(VALID_TASK, VALID_DUEDATE);
-        assertTrue(DEADLINE.isSameDeadline(editedDeadline));
+        assertTrue(DEADLINE.equals(editedDeadline));
     }
 
     @Test

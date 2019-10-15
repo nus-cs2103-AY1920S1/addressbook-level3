@@ -21,6 +21,7 @@ import seedu.address.model.flashcard.FlashCard;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "Flashcards list contains duplicate flashCard(s).";
+    public static final String MESSAGE_DUPLICATE_DEADLINE = "Deadlines list contains duplicate Deadline(s).";
 
     private final List<JsonAdaptedFlashcard> flashcards = new ArrayList<>();
     private final List<JsonAdaptedDeadline> deadlines = new ArrayList<>();
@@ -45,9 +46,9 @@ class JsonSerializableAddressBook {
                         .collect(Collectors.toList()));
         deadlines.addAll(
                 source.getDeadlineList()
-                        .stream()
-                        .map(JsonAdaptedDeadline::new)
-                        .collect(Collectors.toList()));
+                .stream()
+                .map(JsonAdaptedDeadline::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -67,6 +68,9 @@ class JsonSerializableAddressBook {
 
         for (JsonAdaptedDeadline jsonAdaptedDeadline : deadlines) {
             Deadline deadline = jsonAdaptedDeadline.toModelType();
+            if (addressBook.hasDeadline(deadline)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_DEADLINE);
+            }
             addressBook.addDeadline(deadline);
         }
         return addressBook;

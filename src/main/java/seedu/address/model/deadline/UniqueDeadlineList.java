@@ -10,12 +10,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.deadline.exceptions.DuplicateDeadlineException;
-import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
 
 /**
  * A list of flash cards that enforces uniqueness between its elements and does not allow nulls.
- * A flash card is considered unique by comparing using {@code FlashCard#isSameFlashCard(FlashCard)}.
+ * A flash card is considered unique by comparing using {@code Deadline#equals(Deadline)}.
  * As such, adding and updating of flash cards uses FlashCard#isSameFlashCard(FlashCard) for equality
  * so as to ensure that the flash card being added or updated
  * is unique in terms of identity in the UniqueFlashCardList.
@@ -24,7 +23,7 @@ import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see FlashCard#isSameFlashCard(FlashCard)
+ * @see Deadline#equals(Deadline)
  */
 public class UniqueDeadlineList implements Iterable<Deadline> {
 
@@ -38,7 +37,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
      */
     public boolean contains(Deadline toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameDeadline);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
@@ -65,7 +64,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
             throw new FlashCardNotFoundException();
         }
 
-        if (!target.isSameDeadline(editedDeadline) && contains(editedDeadline)) {
+        if (!target.equals(editedDeadline) && contains(editedDeadline)) {
             throw new DuplicateDeadlineException();
         }
 
@@ -132,7 +131,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     private boolean deadlinesAreUnique(List<Deadline> deadlines) {
         for (int i = 0; i < deadlines.size() - 1; i++) {
             for (int j = i + 1; j < deadlines.size(); j++) {
-                if (deadlines.get(i).isSameDeadline(deadlines.get(j))) {
+                if (deadlines.get(i).equals(deadlines.get(j))) {
                     return false;
                 }
             }

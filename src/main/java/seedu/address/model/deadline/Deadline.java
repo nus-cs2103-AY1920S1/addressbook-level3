@@ -37,21 +37,7 @@ public class Deadline {
     }
 
     /**
-     * Returns true if both deadlines of the same task have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two deadlines.
-     */
-    public boolean isSameDeadline(Deadline otherDeadline) {
-        if (otherDeadline == this) {
-            return true;
-        }
-        return otherDeadline != null
-                && otherDeadline.getTask().equals(getTask())
-                && (otherDeadline.getDueDate().equals(getDueDate()));
-    }
-
-    /**
-     * Returns true if both Deadlines have the same identity and data fields.
-     * This defines a stronger notion of equality between two Deadlines.
+     * Returns true if both Deadlines have the same task and due date fields.
      */
     @Override
     public boolean equals(Object other) {
@@ -64,8 +50,8 @@ public class Deadline {
         }
 
         Deadline otherDeadline = (Deadline) other;
-        return otherDeadline.getTask().equals(getTask())
-                && otherDeadline.getDueDate().equals(getDueDate());
+        return otherDeadline != null
+                && otherDeadline.toString().equals(this.toString());
     }
 
     @Override
