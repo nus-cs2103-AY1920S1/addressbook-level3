@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -108,18 +107,18 @@ public class AverageCommand extends Command {
         Map<LocalDate, Double> averagesTreeMap = new TreeMap<>(Collections.reverseOrder());
         averagesTreeMap.putAll(averages);
 
-        StringJoiner result = new StringJoiner(System.lineSeparator());
+        String result = "";
 
         averagesTreeMap.entrySet().stream()
                 .limit(count)
-                .forEach(ele -> result.add("average for " + this.recordType + " "
-                + ele.getKey() + " is " + ele.getValue()));
+                .forEach(ele -> result.concat("average for " + this.recordType + " "
+                + ele.getKey() + " is " + ele.getValue() + "\n"));
 
-        if (result.toString().isEmpty()) {
+        if (result.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_NO_RECORD, this.recordType));
         }
 
-        return new CommandResult(String.format(result.toString()));
+        return new CommandResult(String.format(result));
     }
 
     @Override
