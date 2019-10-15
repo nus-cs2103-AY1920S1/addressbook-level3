@@ -9,12 +9,14 @@ import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.AverageType;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AverageCommandParser.RecordType;
 import seedu.address.model.Model;
 import seedu.address.model.calendar.DateTime;
@@ -58,7 +60,7 @@ public class AverageCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         //TODO: Change this to use record book
         Collection<DummyRecord> recordBooks = new ArrayList<DummyRecord>();
         recordBooks.add(new DummyRecord(RecordType.BLOODSUGAR, new DateTime(LocalDate.of(2019, 10, 15), LocalTime.of(12,24)),1));
@@ -71,25 +73,32 @@ public class AverageCommand extends Command {
         recordBooks.add(new DummyRecord(RecordType.BLOODSUGAR, new DateTime(LocalDate.of(2019, 10, 12), LocalTime.of(12,24)),8));
         recordBooks.add(new DummyRecord(RecordType.BLOODSUGAR, new DateTime(LocalDate.of(2019, 10, 11), LocalTime.of(12,24)),9));
 
-
+        // Remove irrelevant record types
         Collection<DummyRecord> filteredRecords = recordBooks
                 .stream().filter(ele -> this.recordType.equals(ele.getRecordType()))
                 .collect(Collectors.toList());
 
+        // Group records according to average type
         Map<LocalDate, List<DummyRecord>> groupByTimeRecords = filteredRecords.stream()
                 .collect(Collectors.groupingBy(record -> record.getDateTime()
                 .getDate().with(TIMEADJUSTERS.get(this.averageType))));
 
+        // Calculate averages for each grouping in groupByTimeRecords
         Map<LocalDate, Double> averages = groupByTimeRecords.entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, record -> record.getValue().stream().mapToDouble(Double::doubleValue).average().getAsDouble()));
+                .collect(Collectors.toMap(Map.Entry::getKey, ele -> ele.getValue()
+                .stream().map(record -> record.getValue()).mapToDouble(Double::doubleValue).average().getAsDouble()));
 
-        String result = "";
-        for (Map.Entry<LocalDate, List<DummyRecord>> entry : groupByTimeRecords.entrySet()) {
-            result = result + entry.getKey() + ", " + entry.getValue().toString() + "\n";
-        }
+        // Sort by descending date
+        Map<LocalDate, Double> averagesTreeMap = new TreeMap<>(Collections.reverseOrder());
+        averagesTreeMap.putAll(averages);
 
-        return new CommandResult(result);
-//        return new CommandResult(String.format(String.valueOf(groupByTimeRecords.size())));
+        StringJoiner result = new StringJoiner(System.lineSeparator());
+
+        averagesTreeMap.entrySet().stream()
+                .forEach(ele -> result.add("average for " + this.recordType + " "
+                + ele.getKey() + " is " + ele.getValue()));
+
+        return new CommandResult(String.format(result.toString()));
     }
 
     @Override
