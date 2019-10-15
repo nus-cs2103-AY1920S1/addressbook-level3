@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -107,12 +108,12 @@ public class AverageCommand extends Command {
         Map<LocalDate, Double> averagesTreeMap = new TreeMap<>(Collections.reverseOrder());
         averagesTreeMap.putAll(averages);
 
-        StringBuilder result = new StringBuilder();
+        StringJoiner result = new StringJoiner(System.lineSeparator());
 
         averagesTreeMap.entrySet().stream()
                 .limit(count)
-                .forEach(ele -> result.append("average for " + this.recordType + " "
-                + ele.getKey() + " is " + ele.getValue() + "\n"));
+                .forEach(ele -> result.add("average for " + this.recordType + " "
+                + ele.getKey() + " is " + ele.getValue()));
 
         if (result.toString().isEmpty()) {
             throw new CommandException(String.format(MESSAGE_NO_RECORD, this.recordType));

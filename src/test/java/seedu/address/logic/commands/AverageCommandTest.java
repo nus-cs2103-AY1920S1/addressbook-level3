@@ -1,10 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.AverageCommand.MESSAGE_NO_RECORD;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
-
-import java.util.StringJoiner;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +13,6 @@ import seedu.address.model.record.RecordType;
 
 public class AverageCommandTest {
     private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
 
     @Test
     public void execute_zeroRecordType_throwsCommandException() {
@@ -26,23 +22,4 @@ public class AverageCommandTest {
                 RecordType.HEIGHTANDWEIGHT), () -> command.execute(model));
     }
 
-    @Test
-    public void execute_dailyAverageType_success() {
-//        StringJoiner expectedMessage = new StringJoiner(System.lineSeparator());
-//        expectedMessage.add("average for BLOODSUGAR 2019-10-09 is 4.0");
-//        expectedMessage.add("average for BLOODSUGAR 2019-10-08 is 3.0");
-//        expectedMessage.add("average for BLOODSUGAR 2019-10-02 is 2.0");
-//        expectedMessage.add("average for BLOODSUGAR 2019-10-01 is 1.0");
-//        expectedMessage.add("average for BLOODSUGAR 2019-09-15 is 5.0");
-
-        String expectedMessage = "average for BLOODSUGAR 2019-10-09 is 4.0\n"
-                + "average for BLOODSUGAR 2019-10-08 is 3.0\n"
-                + "average for BLOODSUGAR 2019-10-02 is 2.0\n"
-                + "average for BLOODSUGAR 2019-10-01 is 1.0\n"
-                + "average for BLOODSUGAR 2019-09-15 is 5.0\n";
-
-        AverageCommand command = new AverageCommand(AverageType.DAILY, RecordType.BLOODSUGAR, 5);
-        assertCommandSuccess(command, model, expectedMessage.toString(), expectedModel);
-    }
-    
 }
