@@ -17,9 +17,9 @@ import seedu.address.logic.Logic;
  */
 public class UiManager implements Ui {
 
-    public static String state;
-
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
+
+    private static String state;
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
@@ -47,6 +47,13 @@ public class UiManager implements Ui {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
+    }
+
+    /**
+     * Get state
+     */
+    public static String getState() {
+        return state;
     }
 
     /**

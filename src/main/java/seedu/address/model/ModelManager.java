@@ -255,18 +255,4 @@ public class ModelManager implements Model {
         UiManager.startWithIncomes();
     }
 
-    //=========== Individual Contact Card Accessor ============================================================
-
-    @Override
-    public void getContactCard() {
-
-    }
-    //=========== Individual Claims Card Accessor =============================================================
-
-    @Override
-    public void getClaimCard() {
-
-    }
-
-
 }

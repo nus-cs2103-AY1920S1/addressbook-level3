@@ -177,13 +177,4 @@ public interface Model {
      */
     void updateFilteredIncomeList(Predicate<Income> predicate);
 
-    /**
-     *  Returns an unmodifiable view of the specific contact card
-     */
-    void getContactCard();
-
-    /**
-     *  Returns an unmodifiable view of the specific claim card
-     */
-    void getClaimCard();
 }
