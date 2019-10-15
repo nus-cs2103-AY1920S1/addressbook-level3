@@ -27,7 +27,6 @@ public class StudyPlan implements Cloneable {
 
     private UniqueSemesterList semesters;
     private Title title;
-    private boolean isActive;
     private int index; // unique identifier of this study plan
 
     // the "Mega-List" of modules of this study plan. All modules in an *active* study plan refer to a module here.
@@ -52,7 +51,6 @@ public class StudyPlan implements Cloneable {
         setDefaultSemesters();
 
         // switch the current active plan to the newly created one. Reason: user can directly add modules to it.
-        this.isActive = true;
 
         // add all default tags
         // TODO: initialise it
@@ -64,15 +62,13 @@ public class StudyPlan implements Cloneable {
         this.index = totalNumberOfStudyPlans;
     }
 
-
     /**
      * This constructor is used for {@code JsonAdaptedStudyPlan}.
      */
-    public StudyPlan(Title modelTitle, int modelIndex, boolean modelIsActive, List<Semester> modelSemesters,
+    public StudyPlan(Title modelTitle, int modelIndex, List<Semester> modelSemesters,
                      HashMap<String, Module> modelModules, List<Tag> modelTags) {
         title = modelTitle;
         index = modelIndex;
-        isActive = modelIsActive;
         semesters = new UniqueSemesterList();
         semesters.setSemesters(modelSemesters);
         modules = modelModules;
@@ -87,14 +83,6 @@ public class StudyPlan implements Cloneable {
 
     public void setTitle(Title title) {
         this.title = title;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public boolean isActive() {
-        return isActive;
     }
 
     public Title getTitle() {
@@ -228,7 +216,6 @@ public class StudyPlan implements Cloneable {
         StudyPlan clone = (StudyPlan) super.clone();
         clone.semesters = semesters.clone();
         clone.title = title.clone();
-        clone.isActive = isActive;
         clone.index = index;
 
         // because of this, the mega-lists fields don't have final keyword
