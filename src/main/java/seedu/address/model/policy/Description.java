@@ -11,6 +11,7 @@ public class Description {
 
     public static final String MESSAGE_CONSTRAINTS = "Description should only contain alphanumeric characters and "
             + "spaces, and should not be blank! The first character should be a alphanumeric character.";
+    public static final String DATA_TYPE = "DESCRIPTION";
 
     /*
      * The first character of the description must not be a whitespace to prevent " " (a blank string) from becoming
