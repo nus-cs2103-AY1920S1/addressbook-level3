@@ -186,6 +186,7 @@ public class ModelManager implements Model {
     public void updateFilteredContactList(Predicate<seedu.address.model.contact.Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
+        UiManager.startWithContacts();
     }
 
     @Override
