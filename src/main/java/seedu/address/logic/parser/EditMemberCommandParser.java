@@ -34,7 +34,8 @@ public class EditMemberCommandParser implements Parser<EditMemberCommand> {
         try {
             id = ParserUtil.parseMemberId(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditMemberCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditMemberCommand.MESSAGE_USAGE), pe);
         }
 
         EditMemberCommand.EditMemberDescriptor editMemberDescriptor = new EditMemberCommand.EditMemberDescriptor();
