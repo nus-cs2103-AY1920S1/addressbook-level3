@@ -102,7 +102,7 @@ public class ClosestLocation {
                     min = totalDistance.get(i);
                 }
             }
-            return gmapsRecognisedLocationList.get(minIndex);
+            result = gmapsRecognisedLocationList.get(minIndex);
         } catch (IllegalValueException | TimeBookInvalidLocation e) {
             System.out.println(e.getMessage());
         }
