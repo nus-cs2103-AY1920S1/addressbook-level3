@@ -1,4 +1,4 @@
-package seedu.address.inventory.logic;
+package seedu.address.util;
 
 /**
  * A prefix that marks the beginning of an argument in an arguments string.

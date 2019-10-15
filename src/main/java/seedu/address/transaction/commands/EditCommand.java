@@ -1,7 +1,5 @@
 package seedu.address.transaction.commands;
 
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.Optional;
 
 import seedu.address.person.commons.util.CollectionUtil;
@@ -36,7 +34,6 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException {
-        TransactionMessages transactionMessages = new TransactionMessages();
         Transaction transactionToEdit = model.findTransactionInFilteredListByIndex(index);
 
         Transaction editedTransaction = createdEditedTransaction(transactionToEdit,
@@ -46,7 +43,6 @@ public class EditCommand extends Command {
             throw new CommandException(TransactionMessages.MESSAGE_DUPLICATE_TRANSACTION);
         }
         if (!personModel.hasPerson(editedTransaction.getPerson())) {
-            //personModel.addPerson(editedTransaction.getPerson());
             throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
         }
         model.setTransaction(transactionToEdit, editedTransaction);
@@ -88,8 +84,6 @@ public class EditCommand extends Command {
         private double amount;
         private String name;
         private boolean isReimbursed;
-        private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy",
-                Locale.ENGLISH);
 
 
         public EditTransactionDescriptor() {}
