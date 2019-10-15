@@ -14,12 +14,6 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-<<<<<<< HEAD
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-=======
->>>>>>> team/master
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 

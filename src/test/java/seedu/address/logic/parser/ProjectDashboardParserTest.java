@@ -30,7 +30,7 @@ import seedu.address.testutil.TaskUtil;
 
 public class ProjectDashboardParserTest {
 
-    private final ProjectDasboardParser parser = new ProjectDasboardParser();
+    private final ProjectDashboardParser parser = new ProjectDashboardParser();
 
     /*@Test
     public void parseCommand_add() throws Exception {
