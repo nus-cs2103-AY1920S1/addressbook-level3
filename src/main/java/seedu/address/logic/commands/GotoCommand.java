@@ -49,6 +49,11 @@ public class GotoCommand extends Command {
         }
     }
 
+    /**
+     * Returns a goto command
+     * @param model {@code Model} which the command should operate on.
+     * @return
+     */
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
