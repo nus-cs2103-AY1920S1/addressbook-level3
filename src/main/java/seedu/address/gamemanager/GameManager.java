@@ -25,7 +25,7 @@ public class GameManager {
 
     public static final long TIMER_MILLIS = 3000;
 
-    public Logic logic;
+    private Logic logic;
     private GameTimer gameTimer = null;
     private TimerDisplayCallBack timerDisplayCallBack = null;
     // Call-back method to update ResultDisplay in MainWindow
@@ -90,6 +90,10 @@ public class GameManager {
         }
 
         return commandResult;
+    }
+
+    public Logic getLogic() {
+        return logic;
     }
 
     public GameStatistics getGameStatistics() {
