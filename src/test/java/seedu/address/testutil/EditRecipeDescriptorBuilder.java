@@ -36,6 +36,10 @@ public class EditRecipeDescriptorBuilder {
         descriptor = new EditRecipeDescriptor();
         descriptor.setName(recipe.getName());
         descriptor.setIngredients(recipe.getIngredients());
+        descriptor.setCalories(recipe.getCalories());
+        descriptor.setCarbs(recipe.getCarbs());
+        descriptor.setFats(recipe.getFats());
+        descriptor.setProtein(recipe.getProtein());
     }
 
     /**

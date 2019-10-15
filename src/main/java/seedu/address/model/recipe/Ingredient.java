@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Ingredient {
 
     public static final String MESSAGE_CONSTRAINTS = "Ingredients names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "[a-zA-Z0-9 ]+";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String ingredientName;
 

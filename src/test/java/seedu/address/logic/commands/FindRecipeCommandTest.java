@@ -67,11 +67,11 @@ public class FindRecipeCommandTest {
     @Test
     public void execute_multipleKeywords_multipleRecipesFound() {
         String expectedMessage = String.format(MESSAGE_RECIPE_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Fried Tea Sandwich");
+        NameContainsKeywordsPredicate predicate = preparePredicate("Sandwich Fried Tea");
         FindRecipeCommand command = new FindRecipeCommand(predicate);
         expectedModel.updateFilteredRecipeList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CHICKEN, TEA, TUNA), model.getFilteredRecipeList());
+        assertEquals(Arrays.asList(TUNA, CHICKEN, TEA), model.getFilteredRecipeList());
     }
 
     /**

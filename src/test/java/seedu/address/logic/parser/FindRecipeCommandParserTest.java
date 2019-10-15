@@ -25,11 +25,11 @@ public class FindRecipeCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindRecipeCommand expectedFindRecipeCommand =
-                new FindRecipeCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedFindRecipeCommand);
+                new FindRecipeCommand(new NameContainsKeywordsPredicate(Arrays.asList("Fish", "Burger")));
+        assertParseSuccess(parser, "Fish Burger", expectedFindRecipeCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindRecipeCommand);
+        assertParseSuccess(parser, " \n Fish \n \t Burger  \t", expectedFindRecipeCommand);
     }
 
 }

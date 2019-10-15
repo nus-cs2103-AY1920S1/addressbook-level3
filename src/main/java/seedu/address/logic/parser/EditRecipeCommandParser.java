@@ -2,8 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CARBS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FATS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROTEIN;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -29,7 +33,8 @@ public class EditRecipeCommandParser implements Parser<EditRecipeCommand> {
     public EditRecipeCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENT);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENT, PREFIX_CALORIES,
+                        PREFIX_CARBS, PREFIX_FATS, PREFIX_PROTEIN);
 
         Index index;
 
@@ -44,6 +49,18 @@ public class EditRecipeCommandParser implements Parser<EditRecipeCommand> {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editRecipeDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
+        if (argMultimap.getValue(PREFIX_CALORIES).isPresent()) {
+            editRecipeDescriptor.setCalories(ParserUtil.parseCalories(argMultimap.getValue(PREFIX_CALORIES).get()));
+        }
+        if (argMultimap.getValue(PREFIX_CARBS).isPresent()) {
+            editRecipeDescriptor.setCarbs(ParserUtil.parseCarbs(argMultimap.getValue(PREFIX_CARBS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_FATS).isPresent()) {
+            editRecipeDescriptor.setFats(ParserUtil.parseFats(argMultimap.getValue(PREFIX_FATS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PROTEIN).isPresent()) {
+            editRecipeDescriptor.setProtein(ParserUtil.parseProtein(argMultimap.getValue(PREFIX_PROTEIN).get()));
+        }
 
         parseIngredientsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT))
                 .ifPresent(editRecipeDescriptor::setIngredients);
@@ -51,6 +68,8 @@ public class EditRecipeCommandParser implements Parser<EditRecipeCommand> {
         if (!editRecipeDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditRecipeCommand.MESSAGE_NOT_EDITED);
         }
+
+
 
         return new EditRecipeCommand(index, editRecipeDescriptor);
     }

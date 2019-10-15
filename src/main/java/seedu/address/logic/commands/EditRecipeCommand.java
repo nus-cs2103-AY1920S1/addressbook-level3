@@ -155,7 +155,7 @@ public class EditRecipeCommand extends EditCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, ingredients);
+            return CollectionUtil.isAnyNonNull(name, ingredients, calories, carbs, fats, protein);
         }
 
         public void setName(Name name) {

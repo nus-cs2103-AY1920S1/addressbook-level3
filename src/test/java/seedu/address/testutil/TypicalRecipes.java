@@ -62,7 +62,7 @@ public class TypicalRecipes {
             .withFats(VALID_FATS_FISH).withProtein(VALID_PROTEIN_FISH)
             .build();;
     public static final Recipe BURGER = new RecipeBuilder().withName(VALID_NAME_BURGER)
-            .withIngredients(VALID_INGREDIENT_BURGER, VALID_INGREDIENT_FISH)
+            .withIngredients(VALID_INGREDIENT_BURGER)
             .withCalories(VALID_CALORIES_BURGER).withCarbs(VALID_CARBS_BURGER)
             .withFats(VALID_FATS_BURGER).withProtein(VALID_PROTEIN_BURGER)
             .build();

@@ -1,11 +1,15 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.CALORIES_DESC_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.CARBS_DESC_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.FATS_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_DESC_BURGER;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_INGREDIENT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.PROTEIN_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CALORIES_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CARBS_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FATS_FISH;
@@ -19,6 +23,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_RECIPE;
+import static seedu.address.testutil.TypicalRecipes.FISH;
 
 import org.junit.jupiter.api.Test;
 
@@ -62,7 +67,7 @@ public class EditRecipeCommandParserTest {
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 zxc/ string", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
@@ -90,11 +95,8 @@ public class EditRecipeCommandParserTest {
         String userInput = targetIndex.getOneBased() + INGREDIENT_DESC_BURGER
                  + NAME_DESC_FISH + INGREDIENT_DESC_FISH;
 
-        EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_FISH)
-                .withIngredients(VALID_INGREDIENT_FISH)
-                .withCalories(VALID_CALORIES_FISH).withCarbs(VALID_CARBS_FISH)
-                .withFats(VALID_FATS_FISH).withProtein(VALID_PROTEIN_FISH)
-                .build();
+        EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(FISH)
+                .withIngredients(VALID_INGREDIENT_BURGER, VALID_INGREDIENT_FISH).build();
         EditRecipeCommand expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -110,9 +112,33 @@ public class EditRecipeCommandParserTest {
         EditRecipeCommand expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // tags
+        // ingredients
         userInput = targetIndex.getOneBased() + INGREDIENT_DESC_FISH;
-        descriptor = new EditRecipeDescriptorBuilder().withIngredients(INGREDIENT_DESC_FISH).build();
+        descriptor = new EditRecipeDescriptorBuilder().withIngredients(VALID_INGREDIENT_FISH).build();
+        expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // calories
+        userInput = targetIndex.getOneBased() + CALORIES_DESC_FISH;
+        descriptor = new EditRecipeDescriptorBuilder().withCalories(VALID_CALORIES_FISH).build();
+        expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // carbs
+        userInput = targetIndex.getOneBased() + CARBS_DESC_FISH;
+        descriptor = new EditRecipeDescriptorBuilder().withCarbs(VALID_CARBS_FISH).build();
+        expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // fats
+        userInput = targetIndex.getOneBased() + FATS_DESC_FISH;
+        descriptor = new EditRecipeDescriptorBuilder().withFats(VALID_FATS_FISH).build();
+        expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        //protein
+        userInput = targetIndex.getOneBased() + PROTEIN_DESC_FISH;
+        descriptor = new EditRecipeDescriptorBuilder().withProtein(VALID_PROTEIN_FISH).build();
         expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

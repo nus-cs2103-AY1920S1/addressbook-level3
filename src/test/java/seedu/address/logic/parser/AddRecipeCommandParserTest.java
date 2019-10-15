@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.CALORIES_DESC_BURGER;
+import static seedu.address.logic.commands.CommandTestUtil.CARBS_DESC_BURGER;
+import static seedu.address.logic.commands.CommandTestUtil.FATS_DESC_BURGER;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_DESC_BURGER;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_INGREDIENT_DESC;
@@ -9,12 +12,13 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BURGER;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.PROTEIN_DESC_BURGER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_BURGER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BURGER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalRecipes.BURGER;
-import static seedu.address.testutil.TypicalRecipes.FISH;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,31 +33,35 @@ public class AddRecipeCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Recipe expectedRecipe = new RecipeBuilder(BURGER).withIngredients(VALID_INGREDIENT_BURGER).build();
+        Recipe expectedRecipe = new RecipeBuilder(BURGER).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BURGER
-                 + INGREDIENT_DESC_FISH, new AddRecipeCommand(expectedRecipe));
+                 + INGREDIENT_DESC_BURGER + CALORIES_DESC_BURGER + CARBS_DESC_BURGER + FATS_DESC_BURGER
+                 + PROTEIN_DESC_BURGER, new AddRecipeCommand(expectedRecipe));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_FISH + NAME_DESC_BURGER
-                 + INGREDIENT_DESC_FISH, new AddRecipeCommand(expectedRecipe));
+                + INGREDIENT_DESC_BURGER + CALORIES_DESC_BURGER + CARBS_DESC_BURGER + FATS_DESC_BURGER
+                + PROTEIN_DESC_BURGER, new AddRecipeCommand(expectedRecipe));
 
         // multiple tags - all accepted
         Recipe expectedRecipeMultipleTags = new RecipeBuilder(BURGER)
-                .withIngredients(VALID_INGREDIENT_BURGER, VALID_INGREDIENT_BURGER)
+                .withIngredients(VALID_INGREDIENT_BURGER, VALID_INGREDIENT_FISH)
                 .build();
-        assertParseSuccess(parser, NAME_DESC_BURGER
-                + INGREDIENT_DESC_BURGER + INGREDIENT_DESC_FISH, new AddRecipeCommand(expectedRecipeMultipleTags));
+        assertParseSuccess(parser, NAME_DESC_BURGER + INGREDIENT_DESC_BURGER + INGREDIENT_DESC_FISH
+                + CALORIES_DESC_BURGER + CARBS_DESC_BURGER + FATS_DESC_BURGER
+                + PROTEIN_DESC_BURGER, new AddRecipeCommand(expectedRecipeMultipleTags));
     }
 
-    @Test
-    public void parse_optionalFieldsMissing_success() {
-        // zero tags
-        Recipe expectedRecipe = new RecipeBuilder(FISH).withIngredients().build();
-        assertParseSuccess(parser, NAME_DESC_FISH,
-                new AddRecipeCommand(expectedRecipe));
-    }
+    //    Removed this test case as recipe has no optional fields.
+    //    @Test
+    //    public void parse_optionalFieldsMissing_success() {
+    //        // zero tags
+    //        Recipe expectedRecipe = new RecipeBuilder(FISH).withIngredients().build();
+    //        assertParseSuccess(parser, NAME_DESC_FISH,
+    //                new AddRecipeCommand(expectedRecipe));
+    //    }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
@@ -71,20 +79,23 @@ public class AddRecipeCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC
-                + INGREDIENT_DESC_BURGER + INGREDIENT_DESC_FISH, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + INGREDIENT_DESC_BURGER
+                + CALORIES_DESC_BURGER + CARBS_DESC_BURGER + FATS_DESC_BURGER
+                + PROTEIN_DESC_BURGER, Name.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_BURGER
-                + INVALID_INGREDIENT_DESC + VALID_INGREDIENT_BURGER, Ingredient.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_BURGER + INVALID_INGREDIENT_DESC
+                + CALORIES_DESC_BURGER + CARBS_DESC_BURGER + FATS_DESC_BURGER
+                + PROTEIN_DESC_BURGER, Ingredient.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + INVALID_INGREDIENT_DESC
+                        + CALORIES_DESC_BURGER + CARBS_DESC_BURGER + FATS_DESC_BURGER
+                        + PROTEIN_DESC_BURGER, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BURGER
-                 + INGREDIENT_DESC_BURGER + INGREDIENT_DESC_FISH,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BURGER + INVALID_INGREDIENT_DESC
+                        + CALORIES_DESC_BURGER + CARBS_DESC_BURGER + FATS_DESC_BURGER + PROTEIN_DESC_BURGER,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRecipeCommand.MESSAGE_USAGE));
     }
 }

@@ -49,7 +49,8 @@ public class DukeCooksParserTest {
     @Test
     public void parseCommand_deleteRecipe() throws Exception {
         DeleteRecipeCommand command = (DeleteRecipeCommand) parser.parseCommand(
-                DeleteRecipeCommand.COMMAND_WORD + " " + INDEX_FIRST_RECIPE.getOneBased());
+                DeleteRecipeCommand.COMMAND_WORD + " " + DeleteRecipeCommand.VARIANT_WORD
+                        + " " + INDEX_FIRST_RECIPE.getOneBased());
         assertEquals(new DeleteRecipeCommand(INDEX_FIRST_RECIPE), command);
     }
 
@@ -57,8 +58,9 @@ public class DukeCooksParserTest {
     public void parseCommand_editRecipe() throws Exception {
         Recipe recipe = new RecipeBuilder().build();
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(recipe).build();
-        EditRecipeCommand command = (EditRecipeCommand) parser.parseCommand(EditRecipeCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_RECIPE.getOneBased() + " " + RecipeUtil.getEditRecipeDescriptorDetails(descriptor));
+        EditRecipeCommand command = (EditRecipeCommand) parser.parseCommand(EditRecipeCommand.COMMAND_WORD
+                + " " + DeleteRecipeCommand.VARIANT_WORD + " " + INDEX_FIRST_RECIPE.getOneBased() + " "
+                + RecipeUtil.getEditRecipeDescriptorDetails(descriptor));
         assertEquals(new EditRecipeCommand(INDEX_FIRST_RECIPE, descriptor), command);
     }
 
@@ -72,7 +74,8 @@ public class DukeCooksParserTest {
     public void parseCommand_findRecipe() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindRecipeCommand command = (FindRecipeCommand) parser.parseCommand(
-                FindRecipeCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+                FindRecipeCommand.COMMAND_WORD + " " + DeleteRecipeCommand.VARIANT_WORD
+                        + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindRecipeCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
