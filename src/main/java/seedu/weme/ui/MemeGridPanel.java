@@ -2,7 +2,6 @@ package seedu.weme.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.MapChangeListener;
 import org.controlsfx.control.GridCell;
 import org.controlsfx.control.GridView;
 
@@ -30,9 +29,6 @@ public class MemeGridPanel extends UiPart<Region> {
         memeGridView.setItems(memeList);
         memeGridView.setCellFactory(listView -> new MemeGridViewCell());
         this.likeData = likeData;
-        likeData.addListener((MapChangeListener<String, Integer>) change -> {
-
-        });
     }
 
     /**
