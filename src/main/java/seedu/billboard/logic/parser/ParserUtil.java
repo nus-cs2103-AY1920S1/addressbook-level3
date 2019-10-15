@@ -2,8 +2,10 @@ package seedu.billboard.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.billboard.commons.core.index.Index;
@@ -24,6 +26,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -65,6 +68,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String tagName} into a valid tag name.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given tag name is invalid.
+     */
+    public static String parseTagName(String tagName) throws ParseException {
+        requireNonNull(tagName);
+        String trimmedTag = tagName.trim();
+        if (!Tag.isValidTagName(trimmedTag)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return trimmedTag;
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
@@ -74,6 +92,18 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> tagNames} into a valid {@code List<String>}
+     */
+    public static List<String> parseTagNames(Collection<String> tagNames) throws ParseException {
+        requireNonNull(tagNames);
+        List<String> parsed = new ArrayList<>();
+        for (String tagName : tagNames) {
+            parsed.add(parseTagName(tagName));
+        }
+        return parsed;
     }
 
     /**
