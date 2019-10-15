@@ -1,0 +1,62 @@
+package seedu.address.logic.commands.expenditure;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.expenditure.Expenditure;
+
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
+
+/**
+ * Placeholder.
+ */
+public class DeleteExpenditureCommand extends Command {
+    public static final String COMMAND_WORD = "delete";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes an expenditure from expense manager.\n"
+            + "Parameters: INDEX (must be a positive integer)";
+
+    public static final String MESSAGE_DELETE_EXPENDITURE_FAILURE = "Failed to delete your expenditure, "
+            + "the index you specified is likely out of bounds!";
+    public static final String MESSAGE_DELETE_EXPENDITURE_SUCCESS = "Deleted your expenditure : %1$s!";
+
+    private final Index indexToDelete;
+
+    public DeleteExpenditureCommand(Index indexToDelete) {
+        this.indexToDelete = indexToDelete;
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        // Assumes enter trip has been called first
+        List<Expenditure> lastShownList = model.getPageStatus().getTrip().getExpenditureList().internalList;
+
+        if (indexToDelete.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_GENERIC_INDEX);
+        }
+
+        // References preserved by PageStatus
+        Expenditure expenditureToDelete = lastShownList.get(indexToDelete.getZeroBased());
+        try {
+            model.getPageStatus().getTrip().getExpenditureList().remove(indexToDelete);
+        } catch (Exception ex) {
+            return new CommandResult(MESSAGE_DELETE_EXPENDITURE_FAILURE);
+        }
+
+        return new CommandResult(String.format(MESSAGE_DELETE_EXPENDITURE_SUCCESS, expenditureToDelete));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || other instanceof DeleteExpenditureCommand;
+    }
+
+}

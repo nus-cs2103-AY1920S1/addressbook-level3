@@ -1,14 +1,13 @@
 package seedu.address.model.itinerary;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Generic abstraction of expenditure.
+ * Generic abstraction of budget.
  */
-public class Expenditure {
-    public static final String MESSAGE_CONSTRAINTS = "Expenditure can take any positive numerical value with"
+public class Budget {
+    public static final String MESSAGE_CONSTRAINTS = "Budget can take any positive numerical value with"
             + " no more than 2 decimal places, and it should not be blank";
 
     /*
@@ -20,29 +19,29 @@ public class Expenditure {
     public final Double value;
 
     /**
-     * Constructs an {@code Expenditure}.
+     * Constructs an {@code Budget}.
      *
-     * @param value A valid expenditure.
+     * @param value A valid budget.
      */
-    public Expenditure(String value) {
+    public Budget(String value) {
         requireNonNull(value);
-        checkArgument(isValidExpenditure(value), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidBudget(value), MESSAGE_CONSTRAINTS);
         this.value = Double.parseDouble(value);
     }
 
-    public Expenditure(double value) {
+    public Budget(double value) {
         requireNonNull(value);
         this.value = (double) Math.round(value * 100) / 100;
     }
 
     /**
-     * Returns true if a given string is a valid expenditure.
+     * Returns true if a given string is a valid budget.
      */
-    public static boolean isValidExpenditure(String test) {
+    public static boolean isValidBudget(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public static boolean isValidExpenditure(double test) {
+    public static boolean isValidBudget(double test) {
         return test > 0;
     }
 
@@ -54,8 +53,8 @@ public class Expenditure {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Expenditure // instanceof handles nulls
-                && value.equals(((Expenditure) other).value)); // state check
+                || (other instanceof Budget // instanceof handles nulls
+                && value.equals(((Budget) other).value)); // state check
     }
 
     @Override

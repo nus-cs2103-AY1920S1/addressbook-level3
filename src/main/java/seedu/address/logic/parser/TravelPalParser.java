@@ -14,7 +14,8 @@ import seedu.address.logic.parser.common.CommonParser;
 import seedu.address.logic.parser.contacts.ContactsParser;
 import seedu.address.logic.parser.diary.DiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.expense.ExpenseParser;
+import seedu.address.logic.parser.expense.ExpenseManagerParser;
+import seedu.address.logic.parser.expense.edit.EditExpenditureParser;
 import seedu.address.logic.parser.inventory.InventoryParser;
 import seedu.address.logic.parser.itinerary.dayview.DayViewParser;
 import seedu.address.logic.parser.itinerary.dayview.edit.EditDayParser;
@@ -92,7 +93,9 @@ public class TravelPalParser {
         case PRETRIP_INVENTORY:
             return new InventoryParser().parse(commandWord, arguments);
         case EXPENSE_MANAGER:
-            return new ExpenseParser().parse(commandWord, arguments);
+            return new ExpenseManagerParser().parse(commandWord, arguments);
+        case ADD_EXPENDITURE:
+            return new EditExpenditureParser().parse(commandWord, arguments);
         case DIARY:
             return new DiaryParser().parse(commandWord, arguments);
         case CONTACTS_MANAGER:

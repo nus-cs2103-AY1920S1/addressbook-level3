@@ -3,8 +3,9 @@ package seedu.address.logic.parser.itinerary;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
-import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 
@@ -45,18 +46,18 @@ public abstract class ItineraryParserUtil {
     }
 
     /**
-     * Parses a {@code String budget} into a {@code Expenditure}.
+     * Parses a {@code String budget} into a {@code Budget}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code Expenditure} is invalid.
+     * @throws ParseException if the given {@code Budget} is invalid.
      */
-    public static Expenditure parseBudget(String budget) throws ParseException {
+    public static Budget parseBudget(String budget) throws ParseException {
         requireNonNull(budget);
         String trimmedBudget = budget.trim();
-        if (!Expenditure.isValidExpenditure(trimmedBudget)) {
-            throw new ParseException(Expenditure.MESSAGE_CONSTRAINTS);
+        if (!Budget.isValidBudget(trimmedBudget)) {
+            throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
         }
-        return new Expenditure(trimmedBudget);
+        return new Budget(trimmedBudget);
     }
 
     /**

@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.trip.Trip;

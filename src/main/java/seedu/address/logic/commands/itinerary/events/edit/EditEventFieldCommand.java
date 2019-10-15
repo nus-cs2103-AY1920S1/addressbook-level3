@@ -23,7 +23,7 @@ import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.inventory.Inventory;
-import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
@@ -104,7 +104,7 @@ public class EditEventFieldCommand extends Command {
         private Optional<LocalDateTime> startDate;
         private Optional<LocalDateTime> endDate;
         private Optional<Location> destination;
-        private Optional<Expenditure> totalBudget;
+        private Optional<Budget> totalBudget;
 
         private Optional<Inventory> inventory;
         private Optional<Booking> booking;
@@ -212,7 +212,7 @@ public class EditEventFieldCommand extends Command {
             LocalDateTime startDate = event.getStartDate();
             LocalDateTime endDate = event.getEndDate();
             Location destination = event.getDestination();
-            Optional<Expenditure> budget = event.getTotalBudget();
+            Optional<Budget> budget = event.getTotalBudget();
             Optional<Booking> booking = event.getBooking();
             Optional<Inventory> inventory = event.getInventory();
 
@@ -283,15 +283,15 @@ public class EditEventFieldCommand extends Command {
             return destination;
         }
 
-        public void setBudget(Expenditure totalBudget) {
+        public void setBudget(Budget totalBudget) {
             this.totalBudget = Optional.of(totalBudget);
         }
 
-        public void setBudget(Optional<Expenditure> totalBudget) {
+        public void setBudget(Optional<Budget> totalBudget) {
             this.totalBudget = totalBudget;
         }
 
-        public Optional<Expenditure> getBudget() {
+        public Optional<Budget> getBudget() {
             return totalBudget;
         }
 

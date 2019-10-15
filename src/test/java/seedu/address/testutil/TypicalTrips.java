@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.TravelPal;
-import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;

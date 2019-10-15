@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.itinerary.Description;
-import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;

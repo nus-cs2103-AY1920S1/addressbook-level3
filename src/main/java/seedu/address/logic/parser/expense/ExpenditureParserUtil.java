@@ -1,17 +1,15 @@
-package seedu.address.logic.parser.trips;
+package seedu.address.logic.parser.expense;
+
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.itinerary.Budget;
+import seedu.address.model.itinerary.Name;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.itinerary.Budget;
-import seedu.address.model.itinerary.Location;
-import seedu.address.model.itinerary.Name;
-
 /**
- * Collection of methods for parsing trip's abstractions.
+ * Collection of methods for parsing expense's abstractions.
  */
-public abstract class TripParserUtil {
+public abstract class ExpenditureParserUtil {
 
     /**
      * Parses a {@code String name} into a {@code Name}.
@@ -26,21 +24,6 @@ public abstract class TripParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
-    }
-
-    /**
-     * Parses a {@code String location} into a {@code Location}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code Location} is invalid.
-     */
-    public static Location parseLocation(String location) throws ParseException {
-        requireNonNull(location);
-        String trimmedLocation = location.trim();
-        if (!Location.isValidLocation(trimmedLocation)) {
-            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
-        }
-        return new Location(trimmedLocation);
     }
 
     /**

@@ -18,7 +18,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
-import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
@@ -99,7 +100,7 @@ public class EditTripFieldCommand extends Command {
         private Optional<LocalDateTime> startDate;
         private Optional<LocalDateTime> endDate;
         private Optional<Location> destination;
-        private Optional<Expenditure> totalBudget;
+        private Optional<Budget> totalBudget;
 
         public EditTripDescriptor() {
             name = Optional.empty();
@@ -170,7 +171,7 @@ public class EditTripFieldCommand extends Command {
         public Trip buildTrip() {
             if (isAllPresent(name, startDate, endDate, destination, totalBudget)) {
                 return new Trip(name.get(), startDate.get(), endDate.get(),
-                        destination.get(), totalBudget.get(), new DayList());
+                        destination.get(), totalBudget.get(), new DayList(), new ExpenditureList());
             } else {
                 throw new NullPointerException();
             }
@@ -188,7 +189,7 @@ public class EditTripFieldCommand extends Command {
             LocalDateTime startDate = trip.getStartDate();
             LocalDateTime endDate = trip.getEndDate();
             Location destination = trip.getDestination();
-            Expenditure budget = trip.getBudget();
+            Budget budget = trip.getBudget();
             if (this.name.isPresent()) {
                 tripName = this.name.get();
             }
@@ -205,7 +206,7 @@ public class EditTripFieldCommand extends Command {
                 budget = this.totalBudget.get();
             }
 
-            return new Trip(tripName, startDate, endDate, destination, budget, trip.getDayList());
+            return new Trip(tripName, startDate, endDate, destination, budget, trip.getDayList(), trip.getExpenditureList());
         }
 
         /**
@@ -248,11 +249,11 @@ public class EditTripFieldCommand extends Command {
             return destination;
         }
 
-        public void setBudget(Expenditure totalBudget) {
+        public void setBudget(Budget totalBudget) {
             this.totalBudget = Optional.of(totalBudget);
         }
 
-        public Optional<Expenditure> getBudget() {
+        public Optional<Budget> getBudget() {
             return totalBudget;
         }
 

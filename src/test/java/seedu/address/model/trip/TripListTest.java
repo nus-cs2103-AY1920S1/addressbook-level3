@@ -15,7 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.trip.exceptions.DuplicateTripException;
 import seedu.address.model.trip.exceptions.TripNotFoundException;
 import seedu.address.testutil.TripBuilder;

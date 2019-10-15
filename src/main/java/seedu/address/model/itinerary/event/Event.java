@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import seedu.address.model.booking.Booking;
 import seedu.address.model.inventory.Inventory;
-import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 
@@ -25,14 +25,14 @@ public class Event {
 
     // Optional fields
     private final Inventory inventory;
-    private final Expenditure totalBudget;
+    private final Budget totalBudget;
     private final Booking booking;
 
     /**
      * Constructs an {@code Event}.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Booking booking,
-                 Expenditure totalBudget, Inventory inventory, Location destination) {
+                 Budget totalBudget, Inventory inventory, Location destination) {
         requireAllNonNull(name, startDate, endDate, booking, totalBudget, inventory);
         this.name = name;
         this.startDate = startDate;
@@ -45,7 +45,7 @@ public class Event {
 
     // temporary constructor until we implement booking and inventory, accepts null for now
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Expenditure totalBudget, Location destination) {
+                 Budget totalBudget, Location destination) {
         requireAllNonNull(name, startDate, endDate, totalBudget);
         this.name = name;
         this.startDate = startDate;
@@ -60,7 +60,7 @@ public class Event {
      * Constructs a trip with optional totalBudget field.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Optional<Expenditure> totalBudget, Location destination) {
+                 Optional<Budget> totalBudget, Location destination) {
         requireAllNonNull(name, startDate, endDate, totalBudget);
         this.name = name;
         this.startDate = startDate;
@@ -94,7 +94,7 @@ public class Event {
     }
 
     // Optional field getters
-    public Optional<Expenditure> getTotalBudget() {
+    public Optional<Budget> getTotalBudget() {
         return Optional.ofNullable(totalBudget);
     }
 
