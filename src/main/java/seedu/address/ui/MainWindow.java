@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Calendar;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -32,7 +31,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private Pages pages;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -74,8 +72,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // todo-this-week: call the PageScene constructor with your page scene instead, e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
-        pages = new Pages(primaryScene, new SamplePage(), calendarPage);
-
+        PageManager.getInstance(primaryStage, primaryScene, new SamplePage(), calendarPage);
     }
 
     public Stage getPrimaryStage() {
@@ -173,15 +170,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    /**
-     * Changes application page.
-     */
-    @FXML
-    private void handlePageChange(CommandResult commandResult) {
-        Scene requestedPage = pages.getPage(commandResult);
-        primaryStage.setScene(requestedPage);
-    }
-
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -203,10 +191,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isShowPage()) {
-                handlePageChange(commandResult);
             }
 
             return commandResult;

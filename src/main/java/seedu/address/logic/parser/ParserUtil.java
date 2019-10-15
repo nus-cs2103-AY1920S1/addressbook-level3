@@ -14,6 +14,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.PageType;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -120,5 +121,16 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static PageType parsePageType(String pageType) throws ParseException {
+        requireNonNull(pageType);
+        String trimmedPageType = pageType.trim();
+        try {
+            PageType requestedPage = PageType.valueOf(trimmedPageType.toUpperCase());
+            return requestedPage;
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(PageType.MESSAGE_CONSTRAINTS);
+        }
     }
 }

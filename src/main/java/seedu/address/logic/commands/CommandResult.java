@@ -23,6 +23,7 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
+    // todo: remove this method if we are implementing goto command
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showPage) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
