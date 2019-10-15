@@ -76,9 +76,22 @@ public class UniqueAppealList implements Iterable<Appeal> {
 
     /**
      * Replaces the contents of this list with {@code appeals}.
+     * {@code appeals} must not contain duplicate students.
+     */
+    public void setAppeals(List<Appeal> appeals) {
+        CollectionUtil.requireAllNonNull(appeals);
+        if (!appealsAreUnique(appeals)) {
+            throw new DuplicateAppealException();
+        }
+
+        internalList.setAll(appeals);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code appeals}.
      * {@code appeals} must not contain duplicate appeals.
      */
-    public void setAppeal(UniqueAppealList replacement) {
+    public void setAppeals(UniqueAppealList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -95,11 +108,10 @@ public class UniqueAppealList implements Iterable<Appeal> {
     }
 
 
-
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Appeal> asUnmodifiedObservableList() {
+    public ObservableList<Appeal> asUnmodifiableObservableList() {
         return internalUnmodifiedList;
     }
 
