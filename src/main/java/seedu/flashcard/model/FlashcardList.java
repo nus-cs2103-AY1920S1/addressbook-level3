@@ -178,6 +178,7 @@ public class FlashcardList {
         targetTag.addFlashcard(targetCard);
     }
 
+
     /**
      * List all Flashcards in a String
      * @return An appended string of all flashcards
@@ -190,8 +191,6 @@ public class FlashcardList {
         return builder.toString();
     }
 
-
-  
     /**
      * Inform whether the flashcardList contains a particular flashcard.
      * @param flashcard the flashcard to be searched
@@ -242,5 +241,4 @@ public class FlashcardList {
             return false;
         }
     }
-
 }
