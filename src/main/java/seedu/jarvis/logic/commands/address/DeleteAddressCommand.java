@@ -47,6 +47,17 @@ public class DeleteAddressCommand extends Command {
     }
 
     /**
+     * Creates a {@code DeleteAddressCommand} and sets targetIndex to the {@code Index} and {@code Person} that was
+     * deleted.
+     *
+     * @param targetIndex {@code Index} of the {@code Person} to be deleted.
+     * @param deletedPerson {@code Person} that was deleted.
+     */
+    public DeleteAddressCommand(Index targetIndex, Person deletedPerson) {
+        this.targetIndex = targetIndex;
+        this.deletedPerson = deletedPerson;
+    }
+    /**
      * Gets the command word of the command.
      *
      * @return {@code String} representation of the command word.
@@ -54,6 +65,14 @@ public class DeleteAddressCommand extends Command {
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
+    }
+
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    public Person getDeletedPerson() {
+        return deletedPerson;
     }
 
     /**
