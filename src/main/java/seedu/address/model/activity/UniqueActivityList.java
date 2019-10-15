@@ -13,34 +13,36 @@ import seedu.address.model.activity.exceptions.DuplicateActivityException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Activity#isSamePerson(Activity)}. As such, adding and
- * updating of persons uses Activity#isSamePerson(Activity) for equality so as to ensure that the person being added or
- * updated is unique in terms of identity in the UniqueActivityList. However, the removal of a person uses
- * Activity#equals(Object) so as to ensure that the person with exactly the same fields will be removed.
+ * A contacts is considered unique by comparing using {@code Accommodation#isSamePerson(Accommodation)}. As such,
+ * adding and updating of persons uses Accommodation#isSamePerson(Accommodation) for equality so as to ensure
+ * that the contacts being added or updated is unique in terms of identity in the UniqueAccommodationList.
+ * However, the removal of a contacts uses Accommodation#equals(Object) so as to ensure that the contacts with
+ * exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Activity#isSameActivity(Activity)
+ * @see seedu.address.model.activity.Activity#isSameActivity(seedu.address.model.activity.Activity)
  */
-public class UniqueActivityList implements Iterable<Activity> {
+public class UniqueActivityList implements Iterable<seedu.address.model.activity.Activity> {
 
-    private final ObservableList<Activity> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Activity> internalUnmodifiableList =
+    private final ObservableList<seedu.address.model.activity.Activity>
+            internalList = FXCollections.observableArrayList();
+    private final ObservableList<seedu.address.model.activity.Activity> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent contacts as the given argument.
      */
-    public boolean contains(Activity toCheck) {
+    public boolean contains(seedu.address.model.activity.Activity toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameActivity);
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a contacts to the list.
+     * The contacts must not already exist in the list.
      */
-    public void add(Activity toAdd) {
+    public void add(seedu.address.model.activity.Activity toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateActivityException();
@@ -48,7 +50,7 @@ public class UniqueActivityList implements Iterable<Activity> {
         internalList.add(toAdd);
     }
 
-    public void setActivities(UniqueActivityList replacement) {
+    public void setActivities(seedu.address.model.activity.UniqueActivityList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -57,7 +59,7 @@ public class UniqueActivityList implements Iterable<Activity> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setActivities(List<Activity> activities) {
+    public void setActivities(List<seedu.address.model.activity.Activity> activities) {
         requireAllNonNull(activities);
         if (!activitiesAreUnique(activities)) {
             throw new DuplicateActivityException();
@@ -67,11 +69,13 @@ public class UniqueActivityList implements Iterable<Activity> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedActivity}.
+     * Replaces the contacts {@code target} in the list with {@code editedAccommodation}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedActivity} must not be the same as another existing person in the list.
+     * The contacts identity of {@code editedAccommodation} must not be the same as another existing contacts in the
+     * list.
      */
-    public void setActivity(Activity target, Activity editedActivity) {
+    public void setActivity(seedu.address.model.activity.Activity target,
+                            seedu.address.model.activity.Activity editedActivity) {
         requireAllNonNull(target, editedActivity);
 
         int index = internalList.indexOf(target);
@@ -87,10 +91,10 @@ public class UniqueActivityList implements Iterable<Activity> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent contacts from the list.
+     * The contacts must exist in the list.
      */
-    public void remove(Activity toRemove) {
+    public void remove(seedu.address.model.activity.Activity toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new ActivityNotFoundException();
@@ -100,20 +104,20 @@ public class UniqueActivityList implements Iterable<Activity> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Activity> asUnmodifiableObservableList() {
+    public ObservableList<seedu.address.model.activity.Activity> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Activity> iterator() {
+    public Iterator<seedu.address.model.activity.Activity> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueActivityList // instanceof handles nulls
-                        && internalList.equals(((UniqueActivityList) other).internalList));
+                || (other instanceof seedu.address.model.activity.UniqueActivityList // instanceof handles nulls
+                        && internalList.equals(((seedu.address.model.activity.UniqueActivityList) other).internalList));
     }
 
     @Override
@@ -124,7 +128,7 @@ public class UniqueActivityList implements Iterable<Activity> {
     /**
      * Returns true if {@code activities} contains only unique activities.
      */
-    private boolean activitiesAreUnique(List<Activity> activities) {
+    private boolean activitiesAreUnique(List<seedu.address.model.activity.Activity> activities) {
         for (int i = 0; i < activities.size() - 1; i++) {
             for (int j = i + 1; j < activities.size(); j++) {
                 if (activities.get(i).isSameActivity(activities.get(j))) {

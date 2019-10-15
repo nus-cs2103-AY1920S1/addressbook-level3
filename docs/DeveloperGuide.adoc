@@ -100,7 +100,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a contact).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -173,18 +173,18 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete contact 5` command to delete the 5th contact in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new contact. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoState3.png[]
 
@@ -210,7 +210,7 @@ Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Sinc
 
 image::UndoRedoState5.png[]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following accommodation diagram summarizes what happens when a user executes a new command:
 
 image::CommitActivityDiagram.png[]
 
@@ -222,7 +222,7 @@ image::CommitActivityDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the contact being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -280,7 +280,7 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*:
 
 * a student who is inexperienced in planning for overseas trips
-* has a need to manage and schedule itinerary items
+* has a need to manage and schedule planner items
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
@@ -306,9 +306,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |traveller |access a list of accommodations |I can better plan for where to stay at
 
-|`* * *` |organised traveller |plan my daily itinerary |I can make better use of my travel time
+|`* * *` |organised traveller |plan my daily planner |I can make better use of my travel time
 
-|`* * *` |lightweight traveller |save the itinerary to my phone |I can pack light
+|`* * *` |lightweight traveller |save the planner to my phone |I can pack light
 
 |`* * *` |infrequent traveller |add contacts |I can get in touch with the hotel concierge
 
@@ -318,7 +318,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |solo traveller |keep a list of emergency contacts |I know who to contact in times of emergency
 
-|`* *` |eager traveller |follow an activity checklist |I will not miss out on anything
+|`* *` |eager traveller |follow an accommodation checklist |I will not miss out on anything
 
 |`* *` |indecisive traveller |plan for multiple trips |I can decide on a later date
 
@@ -338,7 +338,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |traveller |organise and record my travel experiences |I can share them online
 
-|`*` |inexperienced planner |receive planning recommendations |I can improve my itinerary
+|`*` |inexperienced planner |receive planning recommendations |I can improve my planner
 
 |=======================================================================
 
@@ -350,14 +350,14 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Plan²travel` application and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Schedule activity
+=== Use case: Schedule accommodation
 
 *MSS*
 
-1.  User requests to schedule activity
+1.  User requests to schedule accommodation
 2.  System shows a list of days and activities
-3.  User requests to add a specific activity to a specific day
-4.  System adds activity under selected day
+3.  User requests to add a specific accommodation to a specific day
+4.  System adds accommodation under selected day
 +
 Use case ends.
 
@@ -379,7 +379,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-* 3b. The activity index is invalid.
+* 3b. The accommodation index is invalid.
 +
 [none]
 ** 3b1. System shows an error message.
@@ -492,15 +492,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a contact
 
-. Deleting a person while all activities are listed
+. Deleting a contact while all activities are listed
 
 .. Prerequisites: List all activities using the `list` command. Multiple activities in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

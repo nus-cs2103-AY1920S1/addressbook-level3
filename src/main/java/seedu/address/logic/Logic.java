@@ -7,8 +7,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyItinerary;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyPlanner;
+import seedu.address.model.accommodation.Accommodation;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.contact.Contact;
 
 /**
  * API of the Logic component
@@ -24,19 +26,25 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the Itinerary.
+     * Returns the Planner.
      *
-     * @see seedu.address.model.Model#getItinerary()
+     * @see seedu.address.model.Model#getPlanner()
      */
-    ReadOnlyItinerary getAddressBook();
+    ReadOnlyPlanner getPlanner();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of accommodations */
+    ObservableList<Accommodation> getFilteredAccommodationList();
+
+    /** Returns an unmodifiable view of the filtered list of activities */
+    ObservableList<Activity> getFilteredActivityList();
+
+    /** Returns an unmodifiable view of the filtered list of contacts */
+    ObservableList<Contact> getFilteredContactList();
 
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getPlannerFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

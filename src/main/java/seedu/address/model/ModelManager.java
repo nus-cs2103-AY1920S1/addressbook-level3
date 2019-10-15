@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,7 +12,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.accommodation.Accommodation;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.day.Day;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -19,26 +23,30 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Itinerary itinerary;
+    private final Planner planner;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Accommodation> filteredAccommodations;
+    private final FilteredList<Activity> filteredActivities;
+    private final FilteredList<Contact> filteredContacts;
 
     /**
-     * Initializes a ModelManager with the given itinerary and userPrefs.
+     * Initializes a ModelManager with the given planner and userPrefs.
      */
-    public ModelManager(ReadOnlyItinerary addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyPlanner addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.itinerary = new Itinerary(addressBook);
+        this.planner = new Planner(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.itinerary.getPersonList());
+        filteredAccommodations = new FilteredList<>(this.planner.getAccommodationList());
+        filteredActivities = new FilteredList<>(this.planner.getActivityList());
+        filteredContacts = new FilteredList<>(this.planner.getContactList());
     }
 
     public ModelManager() {
-        this(new Itinerary(), new UserPrefs());
+        this(new Planner(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,69 +74,174 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getPlannerFilePath() {
+        return userPrefs.getPlannerFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setPlannerFilePath(Path plannerFilePath) {
+        requireNonNull(plannerFilePath);
+        userPrefs.setPlannerFilePath(plannerFilePath);
     }
 
-    //=========== Itinerary ================================================================================
+    //=========== Planner ================================================================================
 
     @Override
-    public void setItinerary(ReadOnlyItinerary itinerary) {
+    public void setPlanner(ReadOnlyPlanner planner) {
 
-        this.itinerary.resetDataPerson(itinerary);
-        this.itinerary.resetDataActivity(itinerary);
-    }
-
-    @Override
-    public ReadOnlyItinerary getItinerary() {
-        return itinerary;
+        this.planner.resetDataAccommodation(planner);
+        this.planner.resetDataActivity(planner);
+        this.planner.resetDataContact(planner);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return itinerary.hasPerson(person);
+    public ReadOnlyPlanner getPlanner() {
+        return planner;
+    }
+
+    //=========== ACCOMMODATION ================================================================================
+    @Override
+    public boolean hasAccommodation(Accommodation accommodation) {
+        requireNonNull(accommodation);
+        return planner.hasAccommodation(accommodation);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        itinerary.removePerson(target);
+    public void deleteAccommodation(Accommodation target) {
+        planner.removeAccommodation(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        itinerary.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addAccommodation(Accommodation accommodation) {
+        planner.addAccommodation(accommodation);
+        updateFilteredAccommodationList(PREDICATE_SHOW_ALL_ACCOMMODATIONS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setAccommodation(Accommodation target, Accommodation editedAccommodation) {
+        requireAllNonNull(target, editedAccommodation);
 
-        itinerary.setPerson(target, editedPerson);
+        planner.setAccommodation(target, editedAccommodation);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== ACTIVITY ================================================================================
+    @Override
+    public boolean hasActivity(Activity activity) {
+        requireNonNull(activity);
+        return planner.hasActivity(activity);
+    }
 
+    @Override
+    public void deleteActivity(Activity target) {
+        planner.removeActivity(target);
+    }
+
+    @Override
+    public void addActivity(Activity activity) {
+        planner.addActivity(activity);
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
+    }
+
+    @Override
+    public void setActivity(Activity target, Activity editedActivity) {
+        requireAllNonNull(target, editedActivity);
+
+        planner.setActivity(target, editedActivity);
+    }
+
+    //=========== DAY ================================================================================
+    @Override
+    public void deleteDay(int n) {
+        planner.removeDay(n);
+    }
+
+    @Override
+    public void addDays(int n) {
+        planner.addDays(n);
+    }
+
+    @Override
+    public void setDays(List<Day> days) {
+        planner.setDays(days);
+    }
+
+    @Override
+    public void setDays(int n) {
+        planner.setDays(n);
+    }
+
+    //=========== CONTACT ================================================================================
+    @Override
+    public boolean hasContact(Contact contact) {
+        requireNonNull(contact);
+        return planner.hasContact(contact);
+    }
+
+    @Override
+    public void deleteContact(Contact target) {
+        planner.removeContact(target);
+    }
+
+    @Override
+    public void addContact(Contact contact) {
+        planner.addContact(contact);
+        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+    }
+
+    @Override
+    public void setContact(Contact target, Contact editedContact) {
+        requireAllNonNull(target, editedContact);
+
+        planner.setContact(target, editedContact);
+    }
+
+    //=========== Filtered List Accessors =============================================================
+    // ACCOMMODATION FilteredList
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Contact} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Accommodation> getFilteredAccommodationList() {
+        return filteredAccommodations;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredAccommodationList(Predicate<Accommodation> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredAccommodations.setPredicate(predicate);
+    }
+
+    // ACTIVITY FilteredList
+    /**
+     * Returns an unmodifiable view of the list of {@code Contact} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Activity> getFilteredActivityList() {
+        return filteredActivities;
+    }
+
+    @Override
+    public void updateFilteredActivityList(Predicate<Activity> predicate) {
+        requireNonNull(predicate);
+        filteredActivities.setPredicate(predicate);
+    }
+
+    // CONTACT FilteredList
+    /**
+     * Returns an unmodifiable view of the list of {@code Contact} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Contact> getFilteredContactList() {
+        return filteredContacts;
+    }
+
+    @Override
+    public void updateFilteredContactList(Predicate<Contact> predicate) {
+        requireNonNull(predicate);
+        filteredContacts.setPredicate(predicate);
     }
 
     @Override
@@ -145,9 +258,11 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return itinerary.equals(other.itinerary)
+        return planner.equals(other.planner)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredAccommodations.equals(other.filteredAccommodations)
+                && filteredActivities.equals(other.filteredActivities)
+                && filteredContacts.equals(other.filteredContacts);
     }
 
 }

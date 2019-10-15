@@ -11,18 +11,19 @@ import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.activity.Activity;
+import seedu.address.model.accommodation.Accommodation;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.day.Day;
-import seedu.address.model.person.Person;
+
 
 /**
- * Adds a person to the address book.
+ * Adds a contacts to the address book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a contacts to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -37,30 +38,30 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New contacts added: %1$s";
+    public static final String MESSAGE_DUPLICATE_CONTACT = "This contacts already exists in the address book";
 
-    private final Person personToAdd;
-    private final Activity activityToAdd;
+    private final Contact contactToAdd;
+    private final Accommodation accommodationToAdd;
     private final List<Day> daysToAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Contact}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        personToAdd = person;
-        activityToAdd = null;
+    public AddCommand(Contact contact) {
+        requireNonNull(contact);
+        contactToAdd = contact;
+        accommodationToAdd = null;
         daysToAdd = null;
     }
 
     /**
-     * Creates an AddCommand to add the specified {@code Activity}
+     * Creates an AddCommand to add the specified {@code Accommodation}
      */
-    public AddCommand(Activity activity) {
-        requireNonNull(activity);
-        personToAdd = null;
-        activityToAdd = activity;
+    public AddCommand(Accommodation accommodation) {
+        requireNonNull(accommodation);
+        contactToAdd = null;
+        accommodationToAdd = accommodation;
         daysToAdd = null;
     }
 
@@ -69,8 +70,8 @@ public class AddCommand extends Command {
      */
     public AddCommand(List<Day> days) {
         requireNonNull(days);
-        personToAdd = null;
-        activityToAdd = null;
+        contactToAdd = null;
+        accommodationToAdd = null;
         daysToAdd = days;
     }
 
@@ -79,25 +80,25 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(personToAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasContact(contactToAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
 
-        model.addPerson(personToAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, personToAdd));
+        model.addContact(contactToAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, contactToAdd));
     }
 
     @Override
     public boolean equals(Object other) {
-        if (personToAdd != null && activityToAdd == null && daysToAdd == null) {
+        if (contactToAdd != null && accommodationToAdd == null && daysToAdd == null) {
             return other == this // short circuit if same object
                     || (other instanceof AddCommand // instanceof handles nulls
-                    && (personToAdd.equals(((AddCommand) other).personToAdd)));
-        } else if (personToAdd == null && activityToAdd != null && daysToAdd == null) {
+                    && (contactToAdd.equals(((AddCommand) other).contactToAdd)));
+        } else if (contactToAdd == null && accommodationToAdd != null && daysToAdd == null) {
             return other == this // short circuit if same object
                     || (other instanceof AddCommand // instanceof handles nulls
-                    && (activityToAdd.equals(((AddCommand) other).activityToAdd)));
-        } else if (personToAdd == null && activityToAdd == null && daysToAdd != null) {
+                    && (accommodationToAdd.equals(((AddCommand) other).accommodationToAdd)));
+        } else if (contactToAdd == null && accommodationToAdd == null && daysToAdd != null) {
             return other == this // short circuit if same object
                     || (other instanceof AddCommand // instanceof handles nulls
                     && (daysToAdd.equals(((AddCommand) other).daysToAdd)));

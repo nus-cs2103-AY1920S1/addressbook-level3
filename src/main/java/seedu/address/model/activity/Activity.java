@@ -5,13 +5,16 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.contact.Contact;
+import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents an Activity in the trip planner.
+ * Represents an Accommodation in the trip planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Activity {
@@ -20,16 +23,18 @@ public class Activity {
     private final Name name;
 
     //Data fields
-    private final Location location;
+    private final Address address;
+    private final Contact contact;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Activity(Name name, Location location, Set<Tag> tags) {
-        requireAllNonNull(name, location, tags);
+    public Activity(Name name, Address address, Contact contact, Set<Tag> tags) {
+        requireAllNonNull(name, address, tags);
         this.name = name;
-        this.location = location;
+        this.address = address;
+        this.contact = contact;
         this.tags.addAll(tags);
     }
 
@@ -37,10 +42,13 @@ public class Activity {
         return name;
     }
 
-    public Location getLocation() {
-        return location;
+    public Address getAddress() {
+        return address;
     }
 
+    public Optional<Contact> getContact() {
+        return Optional.ofNullable(contact);
+    }
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -54,14 +62,14 @@ public class Activity {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSameActivity(Activity otherActivity) {
+    public boolean isSameActivity(seedu.address.model.activity.Activity otherActivity) {
         if (otherActivity == this) {
             return true;
         }
 
         return otherActivity != null
                 && otherActivity.getName().equals(getName())
-                && (otherActivity.getLocation().equals(getLocation()));
+                && (otherActivity.getAddress().equals(getAddress()));
     }
     /**
      * Returns true if both activities have the same identity and data fields.
@@ -73,20 +81,21 @@ public class Activity {
             return true;
         }
 
-        if (!(other instanceof Activity)) {
+        if (!(other instanceof seedu.address.model.activity.Activity)) {
             return false;
         }
 
-        Activity otherActivity = (Activity) other;
+        seedu.address.model.activity.Activity otherActivity = (seedu.address.model.activity.Activity) other;
         return otherActivity.getName().equals(getName())
-                && otherActivity.getLocation().equals(getLocation())
-                && otherActivity.getTags().equals(getTags());
+                && otherActivity.getAddress().equals(getAddress())
+                && otherActivity.getTags().equals(getTags())
+                && otherActivity.getContact().equals(getContact());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, location, tags);
+        return Objects.hash(name, address, tags);
     }
 
     @Override
@@ -94,7 +103,7 @@ public class Activity {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Location: ")
-                .append(getLocation())
+                .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

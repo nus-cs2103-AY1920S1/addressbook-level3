@@ -19,14 +19,13 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.activity.Activity;
-import seedu.address.model.activity.Location;
+import seedu.address.model.accommodation.Accommodation;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Email;
+import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
+import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,7 +33,7 @@ import seedu.address.model.tag.Tag;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
-    private static final Pattern ADD_COMMAND_FORMAT = Pattern.compile("(?<type>day|activity|person)(?<arguments>.*)");
+    private static final Pattern ADD_COMMAND_FORMAT = Pattern.compile("(?<type>day|activity|contact)(?<arguments>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -56,8 +55,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             return parseDay(arguments);
         case "activity":
             return parseActivity(arguments);
-        case "person":
-            return parsePerson(arguments);
+        case "contact":
+            return parseContact(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
@@ -91,7 +90,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand for a Activity
+     * Parses the given {@code String} of arguments in the context of the AddCommand for a Accommodation
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -103,20 +102,21 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Contact contact = Contact.emptyContact();
 
-        Activity activity = new Activity(name, location, tagList);
+        Accommodation accommodation = new Accommodation(name, address, contact, tagList);
 
-        return new AddCommand(activity);
+        return new AddCommand(accommodation);
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand for a Person
+     * Parses the given {@code String} of arguments in the context of the AddCommand for a Contact
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    private AddCommand parsePerson(String args) throws ParseException {
+    private AddCommand parseContact(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
@@ -128,12 +128,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        seedu.address.model.field.Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Contact contact = new Contact(name, phone, email, address, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(contact);
     }
 
 }

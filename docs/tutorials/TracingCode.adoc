@@ -103,14 +103,14 @@ public CommandResult execute(String commandText) throws CommandException, ParseE
 
      CommandResult commandResult;
      //Parse user input from String to a Command
-     Command command = addressBookParser.parseCommand(commandText);
+     Command command = plannerParser.parseCommand(commandText);
      //Executes the Command and stores the result
      commandResult = command.execute(model);
 
      try {
          //We can deduce that the previous line of code modifies model in some way
          // since it's being stored here.
-         storage.saveAddressBook(model.getAddressBook());
+         storage.savePlanner(model.getPlanner());
      } catch (IOException ioe) {
          throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
      }
@@ -125,7 +125,7 @@ image:StepOver.png[]
 +
 . `Step into` the line where user input in parsed from a String to a Command.
 +
-.AddressBookParser#parseCommand()
+.PlannerParser#parseCommand()
 [source, java]
 ----
 public Command parseCommand(String userInput) throws ParseException {
@@ -141,7 +141,7 @@ image:Variables.png[]
 . We see that the value of `commandWord` is now `edit` but `arguments` is still not processed in any meaningful way.
 . Stepping into the `switch`, we obviously stop at
 +
-.AddressBookParser#parseCommand()
+.PlannerParser#parseCommand()
 [source, java]
 ----
 ...
@@ -159,8 +159,8 @@ obtain the arguments and index required.
 Sometimes you might end up stepping into functions that are not of interest. Simply `step out` of them!
 ====
 . The rest of the method seems to exhaustively check for the existence of each possible parameter of the `edit`
-command and store any possible changes in an `EditPersonDescriptor`. Recall that we can verify the contents of
-`editPersonDesciptor` through the `Variable` tool window.
+command and store any possible changes in an `EditContactDescriptor`. Recall that we can verify the contents of
+`editContactDesciptor` through the `Variable` tool window.
 +
 image:EditCommand.png[]
 . Let's continue stepping through until we return to `LogicManager#execute()`.
@@ -179,41 +179,41 @@ image::LogicSequenceDiagram.png[]
 @Override
 public CommandResult execute(Model model) throws CommandException {
     ...
-    Person personToEdit = lastShownList.get(index.getZeroBased());
-    Person editedActivity = createEditedPerson(personToEdit, editPersonDescriptor);
-    if (!personToEdit.isSamePerson(editedActivity) && model.hasPerson(editedActivity)) {
-        throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+    Contact contactToEdit = lastShownList.get(index.getZeroBased());
+    Contact editedAccommodation = createEditedContact(contactToEdit, editContactDescriptor);
+    if (!contactToEdit.isSameContact(editedAccommodation) && model.hasContact(editedAccommodation)) {
+        throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
     }
-    model.setPerson(personToEdit, editedActivity);
-    model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedActivity));
+    model.setContact(contactToEdit, editedAccommodation);
+    model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+    return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedAccommodation));
 }
 ----
 . As suspected, `command#execute()` does indeed make changes to `model`.
 . We can a closer look at how storage works by repeatedly stepping into the code until we arrive at
-`JsonAddressBook#saveAddressBook()`.
-. Again, it appears that the heavy lifting is delegated. Let's take a look at ``JsonSerializableAddressBook``'s
+`JsonPlanner#savePlanner()`.
+. Again, it appears that the heavy lifting is delegated. Let's take a look at ``JsonSerializablePlanner``'s
 constructor.
 +
-.JsonSerializableAddressBook#JsonSerializableAddressBook()
+.JsonSerializablePlanner#JsonSerializablePlanner()
 [source, java]
 ----
 /**
- * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+ * Converts a given {@code ReadOnlyPlanner} into this class for Jackson use.
  *
  * @param source future changes to this will not affect the created
- * {@code JsonSerializableAddressBook}.
+ * {@code JsonSerializablePlanner}.
  */
-public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+public JsonSerializablePlanner(ReadOnlyPlanner source) {
     activities.addAll(
-        source.getPersonList()
+        source.getContactList()
               .stream()
-              .map(JsonAdaptedPerson::new)
+              .map(JsonAdaptedContact::new)
               .collect(Collectors.toList()));
 }
 ----
-. It appears that a `JsonAdaptedPerson` is created for each `Person` and then added to the
-`JsonSerializableAddressBook`.
+. It appears that a `JsonAdaptedContact` is created for each `Contact` and then added to the
+`JsonSerializablePlanner`.
 . We can continue to step through until we return to `MainWindow#executeCommand()`.
 . Stepping into ``resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());``, we end up in:
 +
@@ -230,7 +230,7 @@ public void setFeedbackToUser(String feedbackToUser) {
 == Conclusion
 
 In this tutorial, we traced a valid edit command from raw user input to the result being displayed to the user. From
-this tutorial, you learned more about the inner workings of AddressBook and how the various components mesh together
+this tutorial, you learned more about the inner workings of Planner and how the various components mesh together
 to form one cohesive product.
 
 .What's next?
@@ -251,8 +251,8 @@ handled?
 . What components will you have to modify to perform the following enhancements to the application?
 .. Make command words case-insensitive
 .. Allow `delete` to remove more than one index at a time
-.. Save the address book in the CSV format instead
+.. Save the planner in the CSV format instead
 .. Add a new command
-.. Add a new field to `Person`
-.. Add a new entity to the address book
+.. Add a new field to `Contact`
+.. Add a new entity to the planner
 ****

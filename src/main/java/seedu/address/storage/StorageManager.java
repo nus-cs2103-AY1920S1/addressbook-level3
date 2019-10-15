@@ -7,23 +7,23 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyItinerary;
+import seedu.address.model.ReadOnlyPlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of Itinerary data in local storage.
+ * Manages storage of Planner data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private ItineraryStorage itineraryStorage;
+    private PlannerStorage plannerStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(ItineraryStorage itineraryStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(PlannerStorage plannerStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.itineraryStorage = itineraryStorage;
+        this.plannerStorage = plannerStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +45,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ Itinerary methods ==============================
+    // ================ Planner methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return itineraryStorage.getAddressBookFilePath();
+    public Path getPlannerFilePath() {
+        return plannerStorage.getPlannerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyItinerary> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(itineraryStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyPlanner> readPlanner() throws DataConversionException, IOException {
+        return readPlanner(plannerStorage.getPlannerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyItinerary> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyPlanner> readPlanner(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return itineraryStorage.readAddressBook(filePath);
+        return plannerStorage.readPlanner(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyItinerary addressBook) throws IOException {
-        saveAddressBook(addressBook, itineraryStorage.getAddressBookFilePath());
+    public void savePlanner(ReadOnlyPlanner planner) throws IOException {
+        savePlanner(planner, plannerStorage.getPlannerFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyItinerary addressBook, Path filePath) throws IOException {
+    public void savePlanner(ReadOnlyPlanner planner, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        itineraryStorage.saveAddressBook(addressBook, filePath);
+        plannerStorage.savePlanner(planner, filePath);
     }
 
 }

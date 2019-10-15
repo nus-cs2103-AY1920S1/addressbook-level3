@@ -15,16 +15,16 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.Itinerary;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyItinerary;
+import seedu.address.model.Planner;
+import seedu.address.model.ReadOnlyPlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.ItineraryStorage;
-import seedu.address.storage.JsonItineraryStorage;
+import seedu.address.storage.JsonPlannerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.PlannerStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing Itinerary ]===========================");
+        logger.info("=============================[ Initializing Planner ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        ItineraryStorage itineraryStorage = new JsonItineraryStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(itineraryStorage, userPrefsStorage);
+        PlannerStorage plannerStorage = new JsonPlannerStorage(userPrefs.getPlannerFilePath());
+        storage = new StorageManager(plannerStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -74,20 +74,20 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyItinerary> addressBookOptional;
-        ReadOnlyItinerary initialData;
+        Optional<ReadOnlyPlanner> plannerOptional;
+        ReadOnlyPlanner initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample Itinerary");
+            plannerOptional = storage.readPlanner();
+            if (!plannerOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Planner");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = plannerOptional.orElseGet(SampleDataUtil::getSamplePlanner);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Itinerary");
-            initialData = new Itinerary();
+            logger.warning("Data file not in the correct format. Will be starting with an empty Planner");
+            initialData = new Planner();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Itinerary");
-            initialData = new Itinerary();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Planner");
+            initialData = new Planner();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -151,7 +151,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Itinerary");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Planner");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,7 +167,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting Itinerary " + MainApp.VERSION);
+        logger.info("Starting Planner " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

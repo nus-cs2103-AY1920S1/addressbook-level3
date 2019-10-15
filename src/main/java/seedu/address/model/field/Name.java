@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents an Activity's name in the trip planner's activity list.
+ * Represents the name of an Activity, Accommodation or Contact in the application.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

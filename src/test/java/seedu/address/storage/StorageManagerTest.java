@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.getTypicalPlanner;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.Itinerary;
-import seedu.address.model.ReadOnlyItinerary;
+import seedu.address.model.Planner;
+import seedu.address.model.ReadOnlyPlanner;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonItineraryStorage addressBookStorage = new JsonItineraryStorage(getTempFilePath("ab"));
+        JsonPlannerStorage plannerStorage = new JsonPlannerStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(plannerStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void plannerReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonItineraryStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonItineraryStorageTest} class.
+         * {@link JsonPlannerStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonPlannerStorageTest} class.
          */
-        Itinerary original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyItinerary retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new Itinerary(retrieved));
+        Planner original = getTypicalPlanner();
+        storageManager.savePlanner(original);
+        ReadOnlyPlanner retrieved = storageManager.readPlanner().get();
+        assertEquals(original, new Planner(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getPlannerFilePath() {
+        assertNotNull(storageManager.getPlannerFilePath());
     }
 
 }
