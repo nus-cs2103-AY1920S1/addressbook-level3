@@ -111,16 +111,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getIFridgeSettingsFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setIFridgeSettingsFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addGroceryItem(GroceryItem food) {
             throw new AssertionError("This method should not be called.");
         }

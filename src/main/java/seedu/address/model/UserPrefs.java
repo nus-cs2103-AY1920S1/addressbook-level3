@@ -16,7 +16,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
-    private Path iFridgeSettingsFilePath = Paths.get("data", "ifridgesettings.json");
     private IFridgeSettings iFridgeSettings = new IFridgeSettings();
 
 
@@ -42,7 +41,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setIFridgeSettings(newUserPrefs.getIFridgeSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
-        setIFridgeSettingsFilePath(newUserPrefs.getIFridgeSettingsFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -70,15 +68,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
-    }
-
-    public Path getIFridgeSettingsFilePath() {
-        return iFridgeSettingsFilePath;
-    }
-
-    public void setIFridgeSettingsFilePath(Path iFridgeSettingsFilePath) {
-        requireNonNull(iFridgeSettingsFilePath);
-        this.iFridgeSettingsFilePath = iFridgeSettingsFilePath;
     }
 
     @Override
