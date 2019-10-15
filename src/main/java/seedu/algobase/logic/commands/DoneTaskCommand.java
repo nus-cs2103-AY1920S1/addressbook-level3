@@ -55,11 +55,10 @@ public class DoneTaskCommand extends Command {
         }
 
         Plan planToUpdate = lastShownPlanList.get(doneTaskDescriptor.planIndex.getZeroBased());
-        Set<Task> taskSet = planToUpdate.getTasks();
-        List<Task> taskList = new ArrayList<>(taskSet);
+        List<Task> taskList = new ArrayList<>(planToUpdate.getTasks());
         Task task = taskList.get(doneTaskDescriptor.taskIndex.getZeroBased());
         taskList.remove(doneTaskDescriptor.taskIndex.getZeroBased());
-        taskSet = new HashSet<>(taskList);
+        Set<Task> taskSet = new HashSet<>(taskList);
         taskSet.add(new Task(task.getProblem(), true));
         Plan updatedPlan = Plan.createUpdatedPlan(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);

@@ -17,7 +17,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_SORTING_METHOD = new Prefix("m/");
     public static final Prefix PREFIX_SORTING_ORDER = new Prefix("ord/");
     public static final Prefix PREFIX_PLAN = new Prefix("plan/");
-    public static final Prefix PREFIX_PROBLEM = new Prefix("pro/");
+    public static final Prefix PREFIX_PROBLEM = new Prefix("prob/");
     public static final Prefix PREFIX_TASK = new Prefix("task/");
     public static final Prefix PREFIX_START_DATE = new Prefix("s/");
     public static final Prefix PREFIX_END_DATE = new Prefix("e/");

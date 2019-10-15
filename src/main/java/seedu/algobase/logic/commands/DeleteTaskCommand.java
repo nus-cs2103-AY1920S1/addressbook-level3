@@ -37,7 +37,7 @@ public class DeleteTaskCommand extends Command {
     private final DeleteTaskDescriptor deleteTaskDescriptor;
 
     /**
-     * Creates a DeleteTaskCommand to delete a {@code Task} to the specified {@code Plan}
+     * Creates a DeleteTaskCommand to delete a {@code Task} in the specified {@code Plan}
      *
      * @param deleteTaskDescriptor details of the plan and problem involved
      */
@@ -55,11 +55,10 @@ public class DeleteTaskCommand extends Command {
         }
 
         Plan planToUpdate = lastShownPlanList.get(deleteTaskDescriptor.planIndex.getZeroBased());
-        Set<Task> taskSet = planToUpdate.getTasks();
-        List<Task> taskList = new ArrayList<>(taskSet);
+        List<Task> taskList = new ArrayList<>(planToUpdate.getTasks());
         Task task = taskList.get(deleteTaskDescriptor.taskIndex.getZeroBased());
         taskList.remove(deleteTaskDescriptor.taskIndex.getZeroBased());
-        taskSet = new HashSet<>(taskList);
+        Set<Task> taskSet = new HashSet<>(taskList);
         Plan updatedPlan = Plan.createUpdatedPlan(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, task));

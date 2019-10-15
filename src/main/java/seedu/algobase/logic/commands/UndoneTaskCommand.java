@@ -55,11 +55,10 @@ public class UndoneTaskCommand extends Command {
         }
 
         Plan planToUpdate = lastShownPlanList.get(undoneTaskDescriptor.planIndex.getZeroBased());
-        Set<Task> taskSet = planToUpdate.getTasks();
-        List<Task> taskList = new ArrayList<>(taskSet);
+        List<Task> taskList = new ArrayList<>(planToUpdate.getTasks());
         Task task = taskList.get(undoneTaskDescriptor.taskIndex.getZeroBased());
         taskList.remove(undoneTaskDescriptor.taskIndex.getZeroBased());
-        taskSet = new HashSet<>(taskList);
+        Set<Task> taskSet = new HashSet<>(taskList);
         taskSet.add(new Task(task.getProblem(), false));
         Plan updatedPlan = Plan.createUpdatedPlan(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
