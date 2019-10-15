@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class JsonAdaptedFlashcard {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing.";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Flashcard's %s field is missing.";
 
     private final String word;
     private final String definition;

@@ -10,8 +10,8 @@ import static seedu.flashcard.commons.util.AppUtil.checkArgument;
 public class Word {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Words should only contain alphabets, no spaces is allowed, and it should not be blank";
-    public static final String VALIDATION_REGEX = "^[a-zA-Z]*$";
+            "Words should only contain alphabets, and it should not be blank";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String word;
 
