@@ -74,7 +74,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public void addEngagement(Engagement engagement) {
-        persons.add(engagement);
+        //persons.add(engagement);
     }
 
     /**
