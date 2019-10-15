@@ -17,6 +17,8 @@ import seedu.address.logic.Logic;
  */
 public class UiManager implements Ui {
 
+    public static String state;
+
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
@@ -40,6 +42,7 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillWithContacts();
+            state = "contacts";
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -52,6 +55,7 @@ public class UiManager implements Ui {
         try {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillWithContacts();
+            state = "contacts";
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -67,6 +71,7 @@ public class UiManager implements Ui {
         try {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillWithClaims();
+            state = "claims";
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -82,6 +87,7 @@ public class UiManager implements Ui {
         try {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillWithIncomes();
+            state = "incomes";
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);

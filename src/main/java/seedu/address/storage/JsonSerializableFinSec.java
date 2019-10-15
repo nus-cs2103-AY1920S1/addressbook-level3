@@ -21,7 +21,7 @@ import seedu.address.model.ReadOnlyFinSec;
 
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable FinSec that is serializable to JSON format.
  */
 @JsonRootName(value = "finsec")
 
@@ -89,5 +89,4 @@ class JsonSerializableFinSec {
         }
         return finSec;
     }
-
 }

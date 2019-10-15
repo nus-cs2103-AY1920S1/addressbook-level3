@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ClaimListPanel claimListPanel;
     private IncomeListPanel incomeListPanel;
+    private IndividualClaimWindow individualClaimWindow;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -63,6 +64,8 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
+
+        individualClaimWindow = new IndividualClaimWindow();
 
         helpWindow = new HelpWindow();
     }
@@ -155,6 +158,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the claim window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleClaim() {
+        if (!individualClaimWindow.isShowing()) {
+            individualClaimWindow.show();
+        } else {
+            individualClaimWindow.focus();
+        }
+    }
+
+    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -215,6 +230,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isClaim()) {
+                handleClaim();
             }
 
             return commandResult;
