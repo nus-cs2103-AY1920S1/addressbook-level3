@@ -414,11 +414,11 @@ Use case resumes at step 2.
 _{More to be added}_
 
 [discrete]
-=== Use case: Change View
+=== Use case: Goto view
 
 *MSS*
 
-1. User requests to change view (People, Claims, Income)
+1. User requests to goto view (People, Claims, Income)
 2. FinSec shows a list of views available
 3. User requests which view to go to
 4. FinSec brings user to that view
@@ -440,6 +440,32 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Check details of person (Only available within Claims/Contacts lists)
+
+*MSS*
+
+1. User requests to view list of people
+2. FinSec shows a list of people
+3. User requests which person to check by index
+4. FinSec displays person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The person list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
 
 [discrete]
 === Use case: Add Claim
@@ -532,34 +558,6 @@ Use case ends.
 
 [none]
 * 3a. The income entered is invalid.
-+
-[none]
-** 3a1. FinSec shows an error message.
-+
-Use case resumes at step 2.
-
-
-[discrete]
-=== Use case: Check details of person
-
-*MSS*
-
-1. User requests to view list of people
-2. FinSec shows a list of people
-3. User requests which person to check by index
-4. FinSec displays person
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The person list is empty.
-+
-Use case ends.
-
-[none]
-* 3a. The index entered is invalid.
 +
 [none]
 ** 3a1. FinSec shows an error message.
