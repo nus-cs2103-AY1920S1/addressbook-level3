@@ -16,7 +16,7 @@ public class SortCommandParser {
      * and returns a SortCommand object for execution.
      * @throws ParseException If the user input does not conform the expected format
      */
-    public Command parse(String arguments) throws ParseException{
+    public Command parse(String arguments) throws ParseException {
         String[] argsArr = arguments.split(" ");
         if (argsArr[1].equals("date")) {
             return new SortDeadlineCommand();

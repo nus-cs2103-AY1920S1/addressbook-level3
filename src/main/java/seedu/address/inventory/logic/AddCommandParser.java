@@ -7,6 +7,7 @@ import static seedu.address.util.CliSyntax.PREFIX_PRICE;
 import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
 import java.util.stream.Stream;
+
 import seedu.address.inventory.commands.AddCommand;
 import seedu.address.inventory.logic.exception.ParseException;
 import seedu.address.inventory.model.Item;

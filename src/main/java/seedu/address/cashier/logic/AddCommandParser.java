@@ -4,6 +4,7 @@ import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
 import java.util.stream.Stream;
+
 import seedu.address.cashier.commands.AddCommand;
 import seedu.address.cashier.logic.exception.InsufficientAmountException;
 import seedu.address.cashier.logic.exception.NotANumberException;
