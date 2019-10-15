@@ -19,10 +19,12 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCategoryCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.QuestionContainsAnyKeywordsPredicate;
 import seedu.address.testutil.EditFlashCardDescriptorBuilder;
@@ -77,6 +79,15 @@ public class AddressBookParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new QuestionContainsAnyKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findCategory() throws Exception {
+        List<String> keywords = Arrays.asList("C", "cs2101");
+        FindCategoryCommand command = (FindCategoryCommand) parser.parseCommand(
+                FindCategoryCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindCategoryCommand(new CategoryContainsAnyKeywordsPredicate(keywords)), command);
+
     }
 
     @Test

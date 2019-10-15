@@ -55,7 +55,7 @@ public class EditCommandTest {
 
         FlashCardBuilder flashCardInList = new FlashCardBuilder(lastFlashCard);
         FlashCard editedFlashCard = flashCardInList.withQuestion(VALID_QUESTION_2).withAnswer(VALID_ANSWER_2)
-                .withTags(VALID_CATEGORY_HISTORY).build();
+                .withCatgeories(VALID_CATEGORY_HISTORY).build();
 
         EditFlashCardDescriptor descriptor = new EditFlashCardDescriptorBuilder().withQuestion(VALID_QUESTION_2)
                 .withAnswer(VALID_ANSWER_2).withCategories(VALID_CATEGORY_HISTORY).build();

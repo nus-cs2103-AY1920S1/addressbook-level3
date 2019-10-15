@@ -24,21 +24,21 @@ public class TypicalFlashCards {
     public static final FlashCard STORE_AND_FORWARD = new FlashCardBuilder().withQuestion("Store-and-forward")
             .withRating("good")
             .withAnswer("Entire packet must arrive at a router before it can be transmitted on the next link")
-            .withTags("CS2105").build();
+            .withCatgeories("CS2105").build();
     public static final FlashCard DELAY = new FlashCardBuilder().withQuestion("End-to-end delay")
             .withRating("good")
             .withAnswer("2L/R (assuming no other delay)")
-            .withTags("computerNetworking", "CS2105").build();
+            .withCatgeories("computerNetworking", "CS2105").build();
     public static final FlashCard SOURCE_DELAY = new FlashCardBuilder().withQuestion("Sources of Packet Delay?")
             .withAnswer("Nodal processing, queuing, transmission, propagation")
             .withRating("good").build();
     public static final FlashCard PROP_DELAY = new FlashCardBuilder().withQuestion("Formula for propagation delay")
             .withAnswer("d, length of physical link (m) / s, propagation speed in medium (~2x10^8 m/sec) ")
-            .withRating("good").withTags("CS2105").build();
+            .withRating("good").withCatgeories("Delay").build();
     public static final FlashCard TRANS_DELAY =
             new FlashCardBuilder().withQuestion("Formula for transmission delay")
                     .withAnswer("L, packet length (bits) / R, link bandwidth (bps)")
-                    .withRating("good")
+                    .withRating("good").withCatgeories("c")
                     .build();
     public static final FlashCard THROUGHPUT =
             new FlashCardBuilder().withQuestion("Throughput definition")
@@ -71,13 +71,13 @@ public class TypicalFlashCards {
             new FlashCardBuilder().withQuestion(VALID_QUESTION_1)
                     .withAnswer(VALID_ANSWER_1)
                     .withRating(VALID_RATING_1)
-                    .withTags(VALID_CATEGORY_LOCATION)
+                    .withCatgeories(VALID_CATEGORY_LOCATION)
                     .build();
     public static final FlashCard NUS =
             new FlashCardBuilder().withQuestion(VALID_QUESTION_2)
                     .withAnswer(VALID_ANSWER_2)
                     .withRating(VALID_RATING_2)
-                    .withTags(VALID_CATEGORY_HISTORY, VALID_CATEGORY_LOCATION)
+                    .withCatgeories(VALID_CATEGORY_HISTORY, VALID_CATEGORY_LOCATION)
                     .build();
 
     public static final String KEYWORD_MATCHING_SORT = "sort"; // A keyword that matches MEIER

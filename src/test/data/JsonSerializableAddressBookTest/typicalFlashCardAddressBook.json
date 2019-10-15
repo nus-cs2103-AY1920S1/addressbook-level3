@@ -18,11 +18,12 @@
     "question" : "Formula for propagation delay",
     "answer": "d, length of physical link (m) / s, propagation speed in medium (~2x10^8 m/sec) ",
     "rating": "good",
-    "categories": [ "CS2105" ]
+    "categories": [ "DELAY" ]
   }, {
     "question" : "Formula for transmission delay",
     "answer": "L, packet length (bits) / R, link bandwidth (bps)",
-    "rating": "good"
+    "rating": "good",
+    "categories" : ["C"]
   }, {
     "question" : "Throughput definition",
     "answer": "How many bits can be transmitted per unit time",

@@ -45,7 +45,7 @@ public class UniqueFlashCardListTest {
         FlashCard editedAlice =
                 new FlashCardBuilder(STORE_AND_FORWARD)
                         .withRating(VALID_RATING_2)
-                        .withTags(VALID_CATEGORY_HISTORY)
+                        .withCatgeories(VALID_CATEGORY_HISTORY)
                         .build();
         assertTrue(uniqueFlashCardList.contains(editedAlice));
     }
@@ -92,7 +92,7 @@ public class UniqueFlashCardListTest {
         FlashCard editedAlice =
                 new FlashCardBuilder(STORE_AND_FORWARD)
                         .withRating(VALID_RATING_2)
-                        .withTags(VALID_CATEGORY_HISTORY)
+                        .withCatgeories(VALID_CATEGORY_HISTORY)
                          .build();
         uniqueFlashCardList.setFlashcard(STORE_AND_FORWARD, editedAlice);
         UniqueFlashCardList expectedUniqueFlashCardList = new UniqueFlashCardList();

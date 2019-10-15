@@ -17,11 +17,14 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EndTestCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.FindCategoryCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.StartCommand;
+import seedu.address.logic.commands.StatsCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -34,6 +37,7 @@ public class AddressBookParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    //@@author keiteo
     private boolean isRunningFlashcardTest = false;
 
     /**
@@ -75,6 +79,7 @@ public class AddressBookParser {
         }
     }
 
+    //@@author
     /** Parses for normal commands. */
     private Command parseNormalCommand(Matcher matcher) throws ParseException {
         final String commandWord = matcher.group("commandWord");
@@ -96,6 +101,9 @@ public class AddressBookParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
+        case FindCategoryCommand.COMMAND_WORD:
+            return new FindCategoryCommandParser().parse(arguments);
+
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
@@ -107,6 +115,9 @@ public class AddressBookParser {
 
         case CalendarCommand.COMMAND_WORD:
             return new CalendarCommand();
+            
+        case StatsCommand.COMMAND_WORD:
+            return new StatsCommand();
 
         case DeadlineCommand.COMMAND_WORD:
             return new DeadlineCommandParser().parse(arguments);
@@ -121,4 +132,5 @@ public class AddressBookParser {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
+
 }
