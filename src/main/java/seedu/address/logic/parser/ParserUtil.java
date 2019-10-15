@@ -121,17 +121,19 @@ public class ParserUtil {
 
     public static WeightUnit parseWeightUnit(String weightUnit) throws ParseException {
         switch (weightUnit){
-            case "g":
-                return WeightUnit.GRAM;
+        case "GRAM":
+        case "g":
+            return WeightUnit.GRAM;
 
-            case "kg":
-                return WeightUnit.KILOGRAM;
+        case "KILOGRAM":
+        case "kg":
+            return WeightUnit.KILOGRAM;
+        case "POUND":
+        case "lbs":
+            return WeightUnit.POUND;
 
-            case "lbs":
-                return WeightUnit.POUND;
-
-            default:
-                throw new ParseException(ExerciseDetail.MESSAGE_CONSTRAINTS);
+        default:
+            throw new ParseException(ExerciseDetail.MESSAGE_CONSTRAINTS);
         }
     }
 
@@ -158,9 +160,11 @@ public class ParserUtil {
 
     public static DistanceUnit parseDistanceUnit(String distanceUnit) throws ParseException {
         switch (distanceUnit){
+            case "METER":
             case "m":
                 return DistanceUnit.METER;
 
+            case "KILOMETER":
             case "km":
                 return DistanceUnit.KILOMETER;
 

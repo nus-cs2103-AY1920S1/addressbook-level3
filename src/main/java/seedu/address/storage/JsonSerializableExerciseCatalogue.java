@@ -27,7 +27,7 @@ class JsonSerializableExerciseCatalogue {
      * Constructs a {@code JsonSerializableExerciseCatalogue} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableExerciseCatalogue(@JsonProperty("persons") List<JsonAdaptedExercise> exercises) {
+    public JsonSerializableExerciseCatalogue(@JsonProperty("exercises") List<JsonAdaptedExercise> exercises) {
         this.exercises.addAll(exercises);
     }
 
@@ -37,7 +37,7 @@ class JsonSerializableExerciseCatalogue {
     * @param source future changes to this will not affect the created {@code JsonSerializableExerciseCatalogue}.
     */
     public JsonSerializableExerciseCatalogue(ReadOnlyDukeCooks source) {
-        exercises.addAll(source.getPersonList().stream().map(JsonAdaptedExercise::new).collect(Collectors.toList()));
+        exercises.addAll(source.getExerciseList().stream().map(JsonAdaptedExercise::new).collect(Collectors.toList()));
     }
 
     /**
@@ -49,10 +49,10 @@ class JsonSerializableExerciseCatalogue {
         DukeCooks dukeCooks = new DukeCooks();
         for (JsonAdaptedExercise jsonAdaptedExercise : exercises) {
             Exercise exercise = jsonAdaptedExercise.toModelType();
-            if (dukeCooks.hasPerson(exercise)) {
+            if (dukeCooks.hasExercise(exercise)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            dukeCooks.addPerson(exercise);
+            dukeCooks.addExercise(exercise);
         }
         return dukeCooks;
     }

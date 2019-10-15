@@ -24,7 +24,7 @@ public class DukeCooksBuilder {
      * Adds a new {@code Person} to the {@code DukeCooks} that we are building.
      */
     public DukeCooksBuilder withPerson(Exercise exercise) {
-        dukeCooks.addPerson(exercise);
+        dukeCooks.addExercise(exercise);
         return this;
     }
 

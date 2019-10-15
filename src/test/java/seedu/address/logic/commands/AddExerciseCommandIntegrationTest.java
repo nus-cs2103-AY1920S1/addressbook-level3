@@ -25,7 +25,7 @@ public class AddExerciseCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Exercise exerciseInList = model.getDukeCooks().getPersonList().get(0);
+        Exercise exerciseInList = model.getDukeCooks().getExerciseList().get(0);
         assertCommandFailure(new AddExerciseCommand(exerciseInList), model, AddExerciseCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

@@ -1,11 +1,14 @@
 package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.details.ExerciseDetail;
 import seedu.address.model.details.Repetitions;
 
 public class JsonAdaptedRepetitions<Integer> extends JsonAdaptedExerciseDetail {
+
+    private static final String DETAILTYPE = "Repetitions";
 
     /**
      * Constructs a {@code JsonAdaptedRepetitions} with the given {@code magnitude}
@@ -13,6 +16,7 @@ public class JsonAdaptedRepetitions<Integer> extends JsonAdaptedExerciseDetail {
      */
     @JsonCreator
     public JsonAdaptedRepetitions(int magnitude){
+        this.type = DETAILTYPE;
         this.magnitude = magnitude;
     }
 
@@ -21,8 +25,11 @@ public class JsonAdaptedRepetitions<Integer> extends JsonAdaptedExerciseDetail {
      * @param source
      */
     public JsonAdaptedRepetitions(Repetitions source) {
+        this.type = DETAILTYPE;
         this.magnitude = source.getMagnitude();
     }
+
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
 
     /**
      * Converts this Jackson-friendly adapted tag object into the model's {@code ExerciseDetail} object.

@@ -4,6 +4,10 @@ public enum DistanceUnit {
     METER,
     KILOMETER;
 
+    public String toJson(){
+        return name();
+    }
+
     @Override
     public String toString() {
         if (this == DistanceUnit.METER) {

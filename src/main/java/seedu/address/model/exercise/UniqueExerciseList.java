@@ -79,7 +79,7 @@ public class UniqueExerciseList implements Iterable<Exercise> {
         }
     }
 
-    public void setPersons(UniqueExerciseList replacement) {
+    public void setExercises(UniqueExerciseList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -88,7 +88,7 @@ public class UniqueExerciseList implements Iterable<Exercise> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Exercise> exercises) {
+    public void setExercises(List<Exercise> exercises) {
         requireAllNonNull(exercises);
         if (!personsAreUnique(exercises)) {
             throw new DuplicateExerciseException();

@@ -55,7 +55,7 @@ public class TypicalPersons {
     public static DukeCooks getTypicalDukeCooks() {
         DukeCooks ab = new DukeCooks();
         for (Exercise exercise : getTypicalPersons()) {
-            ab.addPerson(exercise);
+            ab.addExercise(exercise);
         }
         return ab;
     }

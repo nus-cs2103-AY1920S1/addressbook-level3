@@ -5,6 +5,10 @@ public enum WeightUnit {
     KILOGRAM,
     POUND;
 
+    public String toJson(){
+        return name();
+    }
+
     @Override
     public String toString() {
         if (this == WeightUnit.GRAM) {

@@ -130,7 +130,7 @@ public class UniqueExerciseListTest {
 
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueExerciseList.setPersons((UniqueExerciseList) null));
+        assertThrows(NullPointerException.class, () -> uniqueExerciseList.setExercises((UniqueExerciseList) null));
     }
 
     @Test
@@ -138,20 +138,20 @@ public class UniqueExerciseListTest {
         uniqueExerciseList.add(ALICE);
         UniqueExerciseList expectedUniqueExerciseList = new UniqueExerciseList();
         expectedUniqueExerciseList.add(BOB);
-        uniqueExerciseList.setPersons(expectedUniqueExerciseList);
+        uniqueExerciseList.setExercises(expectedUniqueExerciseList);
         assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
     }
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueExerciseList.setPersons((List<Exercise>) null));
+        assertThrows(NullPointerException.class, () -> uniqueExerciseList.setExercises((List<Exercise>) null));
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
         uniqueExerciseList.add(ALICE);
         List<Exercise> exerciseList = Collections.singletonList(BOB);
-        uniqueExerciseList.setPersons(exerciseList);
+        uniqueExerciseList.setExercises(exerciseList);
         UniqueExerciseList expectedUniqueExerciseList = new UniqueExerciseList();
         expectedUniqueExerciseList.add(BOB);
         assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
@@ -160,7 +160,7 @@ public class UniqueExerciseListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Exercise> listWithDuplicateExercises = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateExerciseException.class, () -> uniqueExerciseList.setPersons(listWithDuplicateExercises));
+        assertThrows(DuplicateExerciseException.class, () -> uniqueExerciseList.setExercises(listWithDuplicateExercises));
     }
 
     @Test

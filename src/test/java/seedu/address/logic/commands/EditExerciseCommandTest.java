@@ -111,7 +111,7 @@ public class EditExerciseCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit person in filtered list into a duplicate in Duke Cooks
-        Exercise exerciseInList = model.getDukeCooks().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Exercise exerciseInList = model.getDukeCooks().getExerciseList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(exerciseInList).build());
 
@@ -136,7 +136,7 @@ public class EditExerciseCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getExerciseList().size());
 
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());

@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.dukeCooks = new DukeCooks(dukeCooks);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredExercises = new FilteredList<>(this.dukeCooks.getPersonList());
+        filteredExercises = new FilteredList<>(this.dukeCooks.getExerciseList());
     }
 
     public ModelManager() {
@@ -91,7 +91,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasExercise(Exercise exercise) {
         requireNonNull(exercise);
-        return dukeCooks.hasPerson(exercise);
+        return dukeCooks.hasExercise(exercise);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addExercise(Exercise exercise) {
-        dukeCooks.addPerson(exercise);
+        dukeCooks.addExercise(exercise);
         updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISE);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireAllNonNull(target, editedExercise);
 
-        dukeCooks.setPerson(target, editedExercise);
+        dukeCooks.setExercise(target, editedExercise);
     }
 
     //=========== Filtered Person List Accessors =============================================================

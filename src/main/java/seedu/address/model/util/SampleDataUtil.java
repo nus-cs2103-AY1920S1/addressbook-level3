@@ -45,7 +45,7 @@ public class SampleDataUtil {
     public static ReadOnlyDukeCooks getSampleDukeCooks() {
         DukeCooks sampleDc = new DukeCooks();
         for (Exercise sampleExercise : getSamplePersons()) {
-            sampleDc.addPerson(sampleExercise);
+            sampleDc.addExercise(sampleExercise);
         }
         return sampleDc;
     }

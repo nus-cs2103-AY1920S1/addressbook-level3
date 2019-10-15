@@ -72,14 +72,14 @@ public class JsonDukeCooksStorageTest {
         assertEquals(original, new DukeCooks(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
+        original.addExercise(HOON);
         original.removePerson(ALICE);
         jsonDukeCooksStorage.saveDukeCooks(original, filePath);
         readBack = jsonDukeCooksStorage.readDukeCooks(filePath).get();
         assertEquals(original, new DukeCooks(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addExercise(IDA);
         jsonDukeCooksStorage.saveDukeCooks(original); // file path not specified
         readBack = jsonDukeCooksStorage.readDukeCooks().get(); // file path not specified
         assertEquals(original, new DukeCooks(readBack));
