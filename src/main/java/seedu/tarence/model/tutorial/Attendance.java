@@ -92,12 +92,21 @@ public class Attendance {
     /**
      * Adds Student to Attendance, used when adding a Student to a Tutorial.
      */
-    public void addStudent(Student student) throws WeekNotFoundException {
+    public void addStudent(Student student) {
         Set<Week> weeks = attendance.keySet();
         for (Week week : weeks) {
             setAttendance(week, student, false);
-        };
+        }
+    }
 
+    /**
+     * Deletes Student from Attendance, used when deleting a Student from a Tutorial.
+     */
+    public void deleteStudent(Student student) {
+        Set<Week> weeks = attendance.keySet();
+        for (Week week : weeks) {
+            getWeek(week).remove(student);
+        }
     }
 
     /**

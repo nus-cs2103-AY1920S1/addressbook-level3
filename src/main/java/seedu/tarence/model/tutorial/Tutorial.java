@@ -86,6 +86,7 @@ public class Tutorial {
      */
     public void deleteStudent(Student student) {
         students.remove(student);
+        attendance.deleteStudent(student);
     }
 
     /**

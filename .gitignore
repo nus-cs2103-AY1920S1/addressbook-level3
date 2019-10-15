@@ -21,3 +21,4 @@ src/test/data/sandbox/
 .DS_Store
 
 /bin
+/.vscode/
