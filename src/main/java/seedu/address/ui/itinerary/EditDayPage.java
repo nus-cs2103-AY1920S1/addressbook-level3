@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import seedu.address.logic.Logic;
@@ -106,6 +107,7 @@ public class EditDayPage extends Page<AnchorPane> {
         });
 
         fillPage(); //update and overwrite with existing edit descriptor
+        formItemsPlaceholder.getChildren().add(new Label("Edit Day"));
 
         formItemsPlaceholder.getChildren().addAll(
                 dayNameFormItem.getRoot(),

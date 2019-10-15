@@ -61,7 +61,7 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
         nameLabel.setText(model.getPageStatus().getTrip().getName().toString());
         startDateLabel.setText("Arrival: " + model.getPageStatus().getTrip().getStartDate().format(DATE_FORMATTER).toString());
         endDateLabel.setText("Departure: " + model.getPageStatus().getTrip().getEndDate().format(DATE_FORMATTER).toString());
-        destinationLabel.setText(model.getPageStatus().getTrip().getDestination().toString());
+        destinationLabel.setText("Destination: " + model.getPageStatus().getTrip().getDestination().toString());
         totalBudgetLabel.setText("Total Budget: " + model.getPageStatus().getTrip().getBudget().toString());
 
         List<Day> days = model.getPageStatus().getTrip().getDayList().internalUnmodifiableList;
