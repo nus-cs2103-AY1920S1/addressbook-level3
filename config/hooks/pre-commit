@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo -e "\n================ Running pre-commit checks ================"
+
+./gradlew checkstyleMain checkstyleTest asciidoctor
+
+# Store the last exit code in a variable
+RESULT=$?
+
+if [ $RESULT -eq 0 ]
+then
+    echo -e "\n================ Pre-commit checks: PASSED ================\n"
+else
+    echo -e "\n================ Pre-commit checks: FAILED ================"
+fi
+
+# Return exit code to determine if commit passes
+exit $RESULT
