@@ -1,65 +1,65 @@
 package seedu.address.model.deadline;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 public class DeadlineTest {
 
-    private final String VALID_TASK_STR = "Complete Deadline Scheduler.";
-    private final String VALID_TASK_STR_2 = "Complete Calendar GUI.";
-    private final String VALID_DUEDATE_STR = "01/10/2019";
-    private final String VALID_DUEDATE_STR_2 = "11/10/2019";
-    private final Task VALID_TASK = new Task(VALID_TASK_STR);
-    private final DueDate VALID_DUEDATE = new DueDate(VALID_DUEDATE_STR);
-    private final Task VALID_TASK_2 = new Task(VALID_TASK_STR_2);
-    private final DueDate VALID_DUEDATE_2 = new DueDate(VALID_DUEDATE_STR_2);
-    public final Deadline DEADLINE = new Deadline(VALID_TASK, VALID_DUEDATE);
+    private final String validTaskStr = "Complete Deadline Scheduler.";
+    private final String validTaskStr2 = "Complete Calendar GUI.";
+    private final String ValidDueDateStr = "01/10/2019";
+    private final String ValidDueDateStr2 = "11/10/2019";
+    private final Task validTask = new Task(validTaskStr);
+    private final DueDate validDueDate = new DueDate(ValidDueDateStr);
+    private final Task validTask2 = new Task(validTaskStr2);
+    private final DueDate validDueDate2 = new DueDate(ValidDueDateStr2);
+    public final Deadline validDeadline = new Deadline(validTask, validDueDate);
 
 
     @Test
     public void isSameDeadline() {
         // same object -> returns true
-        assertTrue(DEADLINE.isSameDeadline(DEADLINE));
+        assertTrue(validDeadline.isSameDeadline(validDeadline));
 
 
         // null -> returns false
-        assertFalse(DEADLINE.isSameDeadline(null));
+        assertFalse(validDeadline.isSameDeadline(null));
 
         // same deadline -> returns true
-        Deadline editedDeadline = new Deadline(VALID_TASK, VALID_DUEDATE);
-        assertTrue(DEADLINE.isSameDeadline(editedDeadline));
+        Deadline editedDeadline = new Deadline(validTask, validDueDate);
+        assertTrue(validDeadline.isSameDeadline(editedDeadline));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Deadline deadline = new Deadline(VALID_TASK, VALID_DUEDATE);
-        assertTrue(DEADLINE.equals(deadline));
+        Deadline deadline = new Deadline(validTask, validDueDate);
+        assertTrue(validDeadline.equals(deadline));
 
         // same object -> returns true
-        assertTrue(DEADLINE.equals(DEADLINE));
+        assertTrue(validDeadline.equals(validDeadline));
 
         // null -> returns false
-        assertFalse(DEADLINE.equals(null));
+        assertFalse(validDeadline.equals(null));
 
         // different type -> returns false
-        assertFalse(DEADLINE.equals(5));
+        assertFalse(validDeadline.equals(5));
 
         // different deadline -> returns false
         // Revisit!
-        Deadline otherDeadline = new Deadline(VALID_TASK_2, VALID_DUEDATE_2);
-        assertFalse(deadline.equals(otherDeadline));
+        Deadline otherDeadline = new Deadline(validTask2, validDueDate2);
+        assertFalse(validDeadline.equals(otherDeadline));
 
         // different task -> returns false
-        Deadline editedDeadlineTask = new Deadline(VALID_TASK_2, VALID_DUEDATE_2);
-        assertNotEquals(DEADLINE.toString(), editedDeadlineTask.toString());
+        Deadline editedDeadlineTask = new Deadline(validTask2, validDueDate2);
+        assertNotEquals(validDeadline.toString(), editedDeadlineTask.toString());
 
         // different due date -> returns false
-        Deadline editedDeadlineDueDate = new Deadline(VALID_TASK, VALID_DUEDATE_2);
-        assertNotEquals(DEADLINE.toString(), editedDeadlineDueDate.toString());
+        Deadline editedDeadlineDueDate = new Deadline(validTask2, validDueDate2);
+        assertNotEquals(validDeadline.toString(), editedDeadlineDueDate.toString());
 
     }
 }

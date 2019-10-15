@@ -1,22 +1,15 @@
 package seedu.address.storage;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.deadline.DueDate;
 import seedu.address.model.deadline.Task;
-import seedu.address.model.flashcard.Answer;
-import seedu.address.model.flashcard.Question;
-import seedu.address.model.flashcard.Rating;
-
-import javax.xml.validation.Validator;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedDeadline.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class JsonAdaptedDeadlineTest {
     private static final String INVALID_TASK_STR = " ";
