@@ -12,10 +12,6 @@ import seedu.address.model.game.Game;
 public class SkipCommand extends GameCommand {
     public static final String COMMAND_WORD = "skip";
 
-    public SkipCommand() {
-
-    }
-
     @Override
     public CommandResult execute(Model model) {
         if (model.getGame() == null) {

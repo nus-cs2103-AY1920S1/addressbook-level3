@@ -34,6 +34,8 @@ public class StartCommand extends SwitchCommand {
             + ": Starts the word bank identified by the index number used in the displayed card list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
+    private static final String MESSAGE_GAME_IN_PROGRESS = "A game session is still in progress!"
+            + " (Use 'stop' to terminate) Guess the word:";
     private String wordBankName;
 
     public StartCommand(String wordBankName) {
@@ -46,7 +48,13 @@ public class StartCommand extends SwitchCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
+
+        if (model.getGame() != null && !model.getGame().isOver()) {
+            throw new CommandException(MESSAGE_GAME_IN_PROGRESS
+                    + "\n" + model.getGame().getCurrQuestion());
+        }
+
         String pathString = "data/" + wordBankName + ".json";
         Path filePath = Paths.get(pathString);
         WordBank wordBank = SampleDataUtil.getSampleWordBank();

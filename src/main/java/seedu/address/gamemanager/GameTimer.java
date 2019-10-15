@@ -19,6 +19,7 @@ public class GameTimer implements Runnable {
     private String mainMessage;
     private GameManager.MainWindowExecuteCallBack mainWindowExecuteCallBack;
     private GameManager.TimerDisplayCallBack timerDisplayCallBack;
+    private boolean cancelled = false;
 
     /**
      * Creates a new GameTimer instance, but does not run it yet.
@@ -47,8 +48,9 @@ public class GameTimer implements Runnable {
      * Aborts the current timer even if it has not finished running.
      */
     public void abortTimer() {
-        timerDisplayCallBack.updateTimerDisplay("", 0);
         this.timer.cancel();
+        cancelled = true;
+        timerDisplayCallBack.updateTimerDisplay("", 0);
     }
 
     /**
@@ -57,19 +59,20 @@ public class GameTimer implements Runnable {
      */
     public void run() {
         timer.schedule(new TimerTask() {
-            private boolean cancelled = false;
+            private long timeLeft = currentMilliSeconds;
             public void run() {
                 Platform.runLater(() -> {
+                    /* Guard block to prevent concurrency issues. Timer.cancel() has no
+                     * real time guarantee.
+                     */
+                    if (cancelled) {
+                        return;
+                    }
+
                     if (timeLeft >= 0) {
                         timerDisplayCallBack.updateTimerDisplay(
                                 mainMessage + ": " + ((double) timeLeft) / 1000, timeLeft);
                     } else {
-                        /* Guard block to prevent concurrency issues. Timer.cancel() has no
-                        * real time guarantee.
-                         */
-                        if (cancelled) {
-                            return;
-                        }
                         cancelled = true;
 
                         timer.cancel();

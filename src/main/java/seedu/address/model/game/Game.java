@@ -11,6 +11,11 @@ import seedu.address.model.wordbank.WordBank;
  * Guarantees: WordBank is not null, and that WordBank is not empty.
  */
 public class Game {
+
+    public static final int CORRECT_GUESS = 1;
+    public static final int WRONG_GUESS = 0;
+    private boolean isOver = false;
+
     // Current WordBank cannot be changed once assigned.
     private final WordBank wordBank;
 
@@ -60,8 +65,22 @@ public class Game {
         return cardIndex;
     }
 
+    /**
+     * Returns the state of the Game, whether it is over. Note once a Game has been stopped, it
+     * cannot be resumed at any point, for now
+     * @return True if game is indeed terminated.
+     */
     public boolean isOver() {
-        return getCurrIndex().getZeroBased() >= wordBank.size();
+        if (isOver) {
+            return true;
+        } else {
+            isOver = getCurrIndex().getZeroBased() >= wordBank.size() ? true : false;
+            return isOver;
+        }
+    }
+
+    public void forceStop() {
+        isOver = true;
     }
 
     public void moveToNextCard() {
