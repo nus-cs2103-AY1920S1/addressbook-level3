@@ -10,6 +10,7 @@ import seedu.address.reimbursement.model.Reimbursement;
 public class SortByAmount implements Comparator<Reimbursement> {
     /**
      * Compares two Reimbursements to see which has a bigger amount
+     *
      * @param a the first Reimbursement to be compared
      * @param b the second Reimbursement to be compared
      * @return 1 if the first is bigger than the second, 0 if they are the same, -1 otherwise.

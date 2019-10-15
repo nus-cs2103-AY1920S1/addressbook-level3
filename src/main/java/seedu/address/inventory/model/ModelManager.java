@@ -25,7 +25,6 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
     public InventoryList getInventoryList() {
         return this.inventoryList;
     }
@@ -35,6 +34,9 @@ public class ModelManager implements Model {
         inventoryList.set(i - 1, editedItem);
     }
 
+    /**
+     * Returns true if an item with the same attributes as {@code item} exists in the Inventory List.
+     */
     @Override
     public boolean hasItemInInventory(Item item) {
         for (int i = 0; i < inventoryList.size(); i++) {
@@ -70,7 +72,15 @@ public class ModelManager implements Model {
         storage.writeFile(inventoryList);
     }
 
-    @Override
+    /**
+     * Returns true if the quantity keyed in is less than or equals to the quantity available in inventory.
+     * Else, return false.
+     *
+     * @param description of the item to check
+     * @param quantity of the item to check
+     * @return true if sufficient quantity in inventory
+     * @throws NoSuchItemException if there is no such item in the inventory
+     */
     public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
         if (inventoryList.getOriginalItem(description).getQuantity() > quantity) {
             return false;
@@ -79,7 +89,10 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
+    /**
+     * Updates the index of the items.
+     * @throws NoSuchIndexException if the index is invalid
+     */
     public void updateIndexes() throws NoSuchIndexException {
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.get(i);
@@ -87,22 +100,21 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
     public void sortByDescription() {
         inventoryList.sortByDescription();
     }
 
-    @Override
     public void sortByCategory() {
         inventoryList.sortByCategory();
     }
 
-    @Override
     public void sortByQuantity() {
         inventoryList.sortByQuantity();
     }
 
-    @Override
+    /**
+     * Updates the recent inventory list from the data file.
+     */
     public void readInUpdatedList() {
         try {
             this.inventoryList = storage.getInventoryList();

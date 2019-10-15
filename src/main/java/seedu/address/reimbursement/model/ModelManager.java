@@ -1,13 +1,12 @@
 package seedu.address.reimbursement.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
-import seedu.address.reimbursement.model.exception.InvalidDeadlineException;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
-import seedu.address.transaction.util.TransactionList;
 
 /**
  * ModelManager. Manages the models for Reimbursements.
@@ -39,9 +38,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateReimbursementList(TransactionList transList) {
-        reimbursementList = new ReimbursementList(transList);
-        filteredList = reimbursementList;
+    public void updateReimbursementList(ReimbursementList reimbursementList) {
+        this.reimbursementList = reimbursementList;
+        filteredList = this.reimbursementList;
     }
 
     @Override
@@ -72,12 +71,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Reimbursement addDeadline(Person person, String date) throws Exception {
-        if (date.length() != 8) {
-            throw new InvalidDeadlineException();
-        } else {
-            reimbursementList.addDeadline(person, date);
-        }
+    public Reimbursement addDeadline(Person person, LocalDate deadline) throws Exception {
+        reimbursementList.addDeadline(person, deadline);
         filteredList = reimbursementList;
         return findReimbursement(person);
     }
