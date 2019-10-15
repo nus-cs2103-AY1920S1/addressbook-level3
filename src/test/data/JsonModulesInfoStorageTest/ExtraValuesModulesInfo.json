@@ -8,10 +8,8 @@
       "isCore": true,
       "extra": "look at me!",
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "CS2040S description",
       "prereqTreeString": "(AND CS1231S CS1101S)"
@@ -27,7 +25,6 @@
         "MIR"
       ],
       "focusElectives": [
-
       ],
       "extra": "extra bullshit",
       "description": "CS4248 description",

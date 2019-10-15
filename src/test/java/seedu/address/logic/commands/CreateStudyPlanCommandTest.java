@@ -4,15 +4,19 @@ package seedu.address.logic.commands;
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 //import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
+import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.testutil.StudyPlanBuilder;
 
 //import java.nio.file.Path;
 //import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.function.Predicate;
-
-import org.junit.jupiter.api.Test;
-
 //import javafx.collections.ObservableList;
 //import seedu.address.commons.core.GuiSettings;
 //import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,10 +24,6 @@ import org.junit.jupiter.api.Test;
 // import seedu.address.model.ModulePlanner;
 //import seedu.address.model.ReadOnlyModulePlanner;
 //import seedu.address.model.ReadOnlyUserPrefs;
-
-import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
-import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.testutil.StudyPlanBuilder;
 
 public class CreateStudyPlanCommandTest {
 
@@ -48,8 +48,8 @@ public class CreateStudyPlanCommandTest {
 
     @Test
     public void execute_duplicateStudyPlan_throwsCommandException() {
-        StudyPlan validStudyPlan = new StudyPlanBuilder().build();
-        CreateStudyPlanCommand addCommand = new CreateStudyPlanCommand(validStudyPlan);
+//        StudyPlan validStudyPlan = new StudyPlanBuilder().build();
+//        CreateStudyPlanCommand addCommand = new CreateStudyPlanCommand(validStudyPlan);
         //ModelStub modelStub = new ModelStubWithStudyPlan(validStudyPlan);
 
         //assertThrows(CommandException.class, CreateStudyPlanCommand.MESSAGE_DUPLICATE_STUDYPLAN,

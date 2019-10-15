@@ -48,5 +48,4 @@ public class DeleteModuleFromSemesterParser implements Parser<DeleteModuleComman
 
         return new DeleteModuleCommand(moduleCode, semesterName);
     }
-
 }

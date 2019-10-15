@@ -40,6 +40,7 @@ public class ModulesInfo {
 
     /**
      * Finds a specific module information that has the given module code.
+     *
      * @param moduleCode Module code
      * @return Module information
      */

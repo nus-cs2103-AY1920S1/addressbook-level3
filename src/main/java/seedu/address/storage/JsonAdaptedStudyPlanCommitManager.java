@@ -42,8 +42,8 @@ class JsonAdaptedStudyPlanCommitManager {
         studyPlanIndex = source.getStudyPlanIndex();
         List<Commit> commitList = source.getCommitList().getCommits();
         List<JsonAdaptedCommit> adaptedCommitList = commitList.stream()
-                                                              .map(JsonAdaptedCommit::new)
-                                                              .collect(Collectors.toList());
+                .map(JsonAdaptedCommit::new)
+                .collect(Collectors.toList());
         commits = adaptedCommitList;
     }
 

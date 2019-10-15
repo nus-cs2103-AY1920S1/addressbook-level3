@@ -22,10 +22,10 @@ public class ViewTagsCommand extends Command {
     public static final String COMMAND_WORD = "viewtags";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all tags attached to a specific module. "
-        + "Parameters: "
-        + "MODULE CODE \n"
-        + "Example: "
-        + "viewtags CS3230";
+            + "Parameters: "
+            + "MODULE CODE \n"
+            + "Example: "
+            + "viewtags CS3230";
 
     public static final String MESSAGE_SUCCESS = "All tags for the module shown %1$s.";
     public static final String MESSAGE_INVALID_MODULE_CODE = "The provided module code is invalid";
@@ -60,7 +60,7 @@ public class ViewTagsCommand extends Command {
     private Module getTargetModule(StudyPlan activeStudyPlan) throws ModuleNotFoundException {
         HashMap<String, Module> moduleHashMap = activeStudyPlan.getModules();
         Set<String> moduleNames = moduleHashMap.keySet();
-        for (String moduleName: moduleNames) {
+        for (String moduleName : moduleNames) {
             Module currentModule = moduleHashMap.get(moduleName);
             if (currentModule.getModuleCode().toString().equals(moduleCode)) {
                 return currentModule;

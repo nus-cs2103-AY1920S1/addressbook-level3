@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.cli;
 
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 

@@ -34,6 +34,7 @@ public class StudyPlanCommitManager {
 
     /**
      * Commits a study plan.
+     *
      * @param studyPlan study plan to commit.
      */
     public void commit(StudyPlan studyPlan, String commitMessage) {

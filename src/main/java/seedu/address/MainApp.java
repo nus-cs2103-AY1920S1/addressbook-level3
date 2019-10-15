@@ -65,9 +65,9 @@ public class MainApp extends Application {
 
         // TODO: modulesInfo is not used from here on out -- use it with ModelManager
         // These show how the module information could be used for verification
-        modulesInfo.verify("CS4248", Arrays.asList(new String[] {"CS3243", "ST2334"})); // true
-        modulesInfo.verify("CS4248", Arrays.asList(new String[] {"CS3245", "ST2334"})); // true
-        modulesInfo.verify("CS4248", Arrays.asList(new String[] {"CS3243", "ST2131"})); // false
+        modulesInfo.verify("CS4248", Arrays.asList("CS3243", "ST2334")); // true
+        modulesInfo.verify("CS4248", Arrays.asList("CS3245", "ST2334")); // true
+        modulesInfo.verify("CS4248", Arrays.asList("CS3243", "ST2131")); // false
 
         storage = new StorageManager(modulePlannerStorage, userPrefsStorage, modulesInfoStorage);
 

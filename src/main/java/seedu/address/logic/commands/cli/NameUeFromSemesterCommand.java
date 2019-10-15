@@ -9,7 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.semester.SemesterName;
 
-public class NameUEFromSemesterCommand extends Command {
+public class NameUeFromSemesterCommand extends Command {
     public static final String COMMAND_WORD = "nameue";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Names a UE from the given semester with the given module name. "
@@ -24,7 +24,7 @@ public class NameUEFromSemesterCommand extends Command {
     private final SemesterName sem;
     private final String moduleCode;
 
-    public NameUEFromSemesterCommand(String moduleCode, SemesterName sem) {
+    public NameUeFromSemesterCommand(String moduleCode, SemesterName sem) {
         requireNonNull(moduleCode);
         requireNonNull(sem);
         this.sem = sem;
@@ -35,19 +35,19 @@ public class NameUEFromSemesterCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.semesterHasUE(this.sem)) {
+        if (model.semesterHasUe(this.sem)) {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
         }
 
-        model.renameUEInSemester(sem, moduleCode);
+        model.renameUeInSemester(sem, moduleCode);
         return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode, sem));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof NameUEFromSemesterCommand // instanceof handles nulls
-                && sem.equals(((NameUEFromSemesterCommand) other).sem)
-                && moduleCode.equals(((NameUEFromSemesterCommand) other).moduleCode));
+                || (other instanceof NameUeFromSemesterCommand // instanceof handles nulls
+                && sem.equals(((NameUeFromSemesterCommand) other).sem)
+                && moduleCode.equals(((NameUeFromSemesterCommand) other).moduleCode));
     }
 }

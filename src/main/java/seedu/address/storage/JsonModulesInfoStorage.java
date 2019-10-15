@@ -30,6 +30,7 @@ public class JsonModulesInfoStorage implements ModulesInfoStorage {
 
     /**
      * Similar to {@link #readModulesInfo()}
+     *
      * @param prefsFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */

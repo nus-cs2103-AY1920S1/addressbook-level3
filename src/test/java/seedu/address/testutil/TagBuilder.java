@@ -1,8 +1,5 @@
 package seedu.address.testutil;
 
-import seedu.address.model.ModulesInfo;
-import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.model.studyplan.Title;
 import seedu.address.model.tag.DefaultTag;
 import seedu.address.model.tag.DefaultTagType;
 import seedu.address.model.tag.UserTag;

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.storage;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.Objects.requireNonNullElse;
 
 import java.util.List;
 
@@ -12,7 +11,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 
 /**
  * Deletes a study plan identified using it's displayed index from the module planner.

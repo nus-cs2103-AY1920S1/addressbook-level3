@@ -27,11 +27,11 @@ public class TagModuleCommand extends Command {
     public static final String COMMAND_WORD = "tag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds the specified tag to the specified module. "
-        + "Parameters: "
-        + PREFIX_MODULE_CODE + "MODULE CODE "
-        + PREFIX_TAG + "TAG_NAME \n"
-        + "Example: "
-        + "tag CS3230 t/exchange";
+            + "Parameters: "
+            + PREFIX_MODULE_CODE + "MODULE CODE "
+            + PREFIX_TAG + "TAG_NAME \n"
+            + "Example: "
+            + "tag CS3230 t/exchange";
 
     public static final String MESSAGE_SUCCESS_TAG_ADDED = "New tag created: %1$s \n" + "Tag added to module \n%2$s";
     public static final String MESSAGE_SUCCESS = "Tag added to module \n%1$s";
@@ -44,6 +44,7 @@ public class TagModuleCommand extends Command {
 
     /**
      * Creates an {@code TagModuleCommand} to add a tag with the given name to the module of the given module code.
+     *
      * @param tagName
      */
     public TagModuleCommand(String tagName, String moduleCode) {
@@ -87,7 +88,7 @@ public class TagModuleCommand extends Command {
     private Module getTargetModule(StudyPlan activeStudyPlan) throws ModuleNotFoundException {
         HashMap<String, Module> moduleHashMap = activeStudyPlan.getModules();
         Set<String> moduleNames = moduleHashMap.keySet();
-        for (String moduleName: moduleNames) {
+        for (String moduleName : moduleNames) {
             Module currentModule = moduleHashMap.get(moduleName);
             if (currentModule.getModuleCode().toString().equals(moduleCode)) {
                 return currentModule;
@@ -110,7 +111,8 @@ public class TagModuleCommand extends Command {
 
     /**
      * Creates a new tag with the given tag name and adds it to the {@code UniqueTaglist}
-     * @param tagName The name of the tag.
+     *
+     * @param tagName       The name of the tag.
      * @param uniqueTagList The list that the tag is to be added to.
      * @return The tag that was created.
      */

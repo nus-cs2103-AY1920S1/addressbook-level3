@@ -1,6 +1,5 @@
 package seedu.address.model.semester;
 
-import java.util.Iterator;
 import java.util.List;
 
 import seedu.address.model.module.Module;
