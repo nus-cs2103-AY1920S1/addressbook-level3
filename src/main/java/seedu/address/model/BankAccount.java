@@ -60,4 +60,19 @@ public class BankAccount implements ReadOnlyBankAccount {
     public ObservableList<Transaction> getTransactionHistory() {
         return transactions.asUnmodifiableObservableList();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof BankAccount)) {
+            return false;
+        }
+
+        BankAccount otherBankAccount = (BankAccount) other;
+        return this.balance.equals(otherBankAccount.balance) &&
+                this.transactions.equals(otherBankAccount.transactions);
+    }
 }
