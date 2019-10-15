@@ -1,4 +1,4 @@
-package seedu.deliverymans.model.restaurant;
+package seedu.deliverymans.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.AppUtil.checkArgument;

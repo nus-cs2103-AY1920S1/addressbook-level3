@@ -9,7 +9,7 @@ import seedu.deliverymans.logic.commands.deliveryman.EditCommand;
 import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.deliverymans.model.addressbook.tag.Tag;
+import seedu.deliverymans.model.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object

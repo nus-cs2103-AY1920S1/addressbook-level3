@@ -11,8 +11,9 @@ import seedu.deliverymans.commons.util.StringUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
-import seedu.deliverymans.model.addressbook.person.Email;
-import seedu.deliverymans.model.addressbook.tag.Tag;
+import seedu.deliverymans.model.Tag;
+import seedu.deliverymans.model.location.Location;
+import seedu.deliverymans.model.location.LocationMap;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -51,6 +52,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String name} into a {@code Location}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code location} is invalid.
+     */
+    public static Location parseLocation(String location) throws ParseException {
+        requireNonNull(location);
+        String trimmedLocation = location.trim();
+        if (!LocationMap.isValidLocation(trimmedLocation)) {
+            throw new ParseException(LocationMap.MESSAGE_CONSTRAINTS);
+        }
+        return LocationMap.getLocation(trimmedLocation).get();
+    }
+
+    /**
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -63,21 +79,6 @@ public class ParserUtil {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
-    }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
     }
 
     /**
