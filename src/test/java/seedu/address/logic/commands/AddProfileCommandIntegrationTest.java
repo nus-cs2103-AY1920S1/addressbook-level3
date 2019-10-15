@@ -17,7 +17,7 @@ public class AddProfileCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalDukeCooks(), new UserPrefs());
+        model = new ModelManager(getTypicalDukeCooks(), null, new UserPrefs());
     }
 
 }

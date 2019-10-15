@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path dukeCooksFilePath = Paths.get("data" , "dukecooks.json");
+    private Path healthRecordsFilePath = Paths.get("data", "healthrecords.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setDukeCooksFilePath(newUserPrefs.getDukeCooksFilePath());
+        setHealthRecordsFilePath(newUserPrefs.getHealthRecordsFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -54,6 +56,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setDukeCooksFilePath(Path dukeCooksFilePath) {
         requireNonNull(dukeCooksFilePath);
         this.dukeCooksFilePath = dukeCooksFilePath;
+    }
+
+    public Path getHealthRecordsFilePath() {
+        return healthRecordsFilePath;
+    }
+
+    public void setHealthRecordsFilePath(Path healthRecordsFilePath) {
+        requireNonNull(healthRecordsFilePath);
+        this.healthRecordsFilePath = healthRecordsFilePath;
     }
 
     @Override

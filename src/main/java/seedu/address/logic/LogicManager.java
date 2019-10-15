@@ -15,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.profile.Model;
 import seedu.address.profile.ReadOnlyDukeCooks;
 import seedu.address.profile.person.Person;
+import seedu.address.profile.records.Record;
 import seedu.address.storage.Storage;
 
 /**
@@ -48,6 +49,12 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
+        try {
+            storage.saveHealthRecords(model.getHealthRecords());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
         return commandResult;
     }
 
@@ -62,8 +69,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        return model.getFilteredRecordList();
+    }
+
+    @Override
     public Path getDukeCooksFilePath() {
         return model.getDukeCooksFilePath();
+    }
+
+    @Override
+    public Path getHealthRecordsFilePath() {
+        return model.getHealthRecordsFilePath();
     }
 
     @Override

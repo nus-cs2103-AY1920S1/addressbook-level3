@@ -29,6 +29,7 @@ import seedu.address.profile.ReadOnlyDukeCooks;
 import seedu.address.profile.UserPrefs;
 import seedu.address.profile.person.Person;
 import seedu.address.storage.JsonDukeCooksStorage;
+import seedu.address.storage.JsonHealthRecordsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -46,8 +47,10 @@ public class LogicManagerTest {
     public void setUp() {
         JsonDukeCooksStorage dukeCooksStorage =
                 new JsonDukeCooksStorage(temporaryFolder.resolve("dukecooks.json"));
+        JsonHealthRecordsStorage healthRecordsStorage =
+                new JsonHealthRecordsStorage(temporaryFolder.resolve("healthrecords.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(dukeCooksStorage, healthRecordsStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -70,7 +73,7 @@ public class LogicManagerTest {
                 new JsonDukeCooksIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(dukeCooksStorage, null, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -124,7 +127,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getDukeCooks(), model.getHealthRecords(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

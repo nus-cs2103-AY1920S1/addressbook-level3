@@ -16,14 +16,18 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.profile.DukeCooks;
+import seedu.address.profile.HealthRecords;
 import seedu.address.profile.Model;
 import seedu.address.profile.ModelManager;
 import seedu.address.profile.ReadOnlyDukeCooks;
+import seedu.address.profile.ReadOnlyHealthRecords;
 import seedu.address.profile.ReadOnlyUserPrefs;
 import seedu.address.profile.UserPrefs;
 import seedu.address.profile.util.SampleDataUtil;
 import seedu.address.storage.DukeCooksStorage;
+import seedu.address.storage.HealthRecordsStorage;
 import seedu.address.storage.JsonDukeCooksStorage;
+import seedu.address.storage.JsonHealthRecordsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -57,7 +61,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         DukeCooksStorage dukeCooksStorage = new JsonDukeCooksStorage(userPrefs.getDukeCooksFilePath());
-        storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
+        HealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(userPrefs.getHealthRecordsFilePath());
+        storage = new StorageManager(dukeCooksStorage, healthRecordsStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -74,8 +79,24 @@ public class MainApp extends Application {
      * or an empty dukeCooks will be used instead if errors occur when reading {@code storage}'s Duke Cooks.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        ReadOnlyDukeCooks initialDukeCooks;
+        initialDukeCooks = initDukeCooks(storage);
+
+        ReadOnlyHealthRecords initialHealthRecords;
+        initialHealthRecords = initHealthRecords(storage);
+
+        return new ModelManager(initialDukeCooks, initialHealthRecords, userPrefs);
+    }
+
+    /**
+     * Returns a {@code ReadOnlyDukeCooks} with the data from {@code storage}'s DukeCooks. <br>
+     * The data from the sample DukeCooks will be used instead if {@code storage}'s persons is not found,
+     * or an empty DukeCook will be used instead if errors occur when reading {@code storage}'s DukeCooks.
+     */
+    private ReadOnlyDukeCooks initDukeCooks(Storage storage) {
         Optional<ReadOnlyDukeCooks> dukeCooksOptional;
         ReadOnlyDukeCooks initialData;
+
         try {
             dukeCooksOptional = storage.readDukeCooks();
             if (!dukeCooksOptional.isPresent()) {
@@ -90,7 +111,33 @@ public class MainApp extends Application {
             initialData = new DukeCooks();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code ReadOnlyHealthRecords} with the data from {@code storage}'s health records. <br>
+     * The data from the sample health records will be used instead if {@code storage}'s Health records is not found,
+     * or an empty healthRecords will be used instead if errors occur when reading {@code storage}'s Health Records.
+     */
+    private ReadOnlyHealthRecords initHealthRecords(Storage storage) {
+        Optional<ReadOnlyHealthRecords> healthRecordsOptional;
+        ReadOnlyHealthRecords initialData;
+
+        try {
+            healthRecordsOptional = storage.readHealthRecords();
+            if (!healthRecordsOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with sample Health Records");
+            }
+            initialData = healthRecordsOptional.orElseGet(SampleDataUtil::getSampleHealthRecords);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Health Records");
+            initialData = new HealthRecords();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty Health Records");
+            initialData = new HealthRecords();
+        }
+
+        return initialData;
     }
 
     private void initLogging(Config config) {

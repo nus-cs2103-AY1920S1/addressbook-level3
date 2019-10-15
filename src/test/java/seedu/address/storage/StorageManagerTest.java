@@ -25,8 +25,9 @@ public class StorageManagerTest {
     @BeforeEach
     public void setUp() {
         JsonDukeCooksStorage dukeCooksStorage = new JsonDukeCooksStorage(getTempFilePath("ab"));
+        JsonHealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(getTempFilePath("hr"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(dukeCooksStorage, userPrefsStorage);
+        storageManager = new StorageManager(dukeCooksStorage, healthRecordsStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

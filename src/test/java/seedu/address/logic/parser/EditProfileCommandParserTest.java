@@ -27,7 +27,7 @@ public class EditProfileCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditProfileCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private EditProfileCommandParser parser = new EditProfileCommandParser();
 
     @Test
     public void parse_missingParts_failure() {

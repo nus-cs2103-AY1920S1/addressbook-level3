@@ -12,7 +12,7 @@ public class DateParser {
 
     private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private static final DateTimeFormatter datetimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    private static final DateTimeFormatter datetimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     /**
      * Returns true if given string is a valid date of specified dateFormat
@@ -20,6 +20,18 @@ public class DateParser {
     public static boolean isValidDate(String date) {
         try {
             dateFormat.parse(date);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Returns true if given string is a valid datetime of specified datetimeFormat
+     */
+    public static boolean isValidDateTime(String datetime) {
+        try {
+            datetimeFormat.parse(datetime);
         } catch (DateTimeParseException e) {
             return false;
         }

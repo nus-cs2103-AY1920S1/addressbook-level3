@@ -25,7 +25,7 @@ public class DukeCooksTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), dukeCooks.getPersonList());
+        assertEquals(Collections.emptyList(), dukeCooks.getUserProfileList());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class DukeCooksTest {
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> dukeCooks.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> dukeCooks.getUserProfileList().remove(0));
     }
 
     /**
@@ -67,7 +67,7 @@ public class DukeCooksTest {
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
+        public ObservableList<Person> getUserProfileList() {
             return persons;
         }
     }

@@ -13,4 +13,6 @@ public interface ReadOnlyUserPrefs {
 
     Path getDukeCooksFilePath();
 
+    Path getHealthRecordsFilePath();
+
 }

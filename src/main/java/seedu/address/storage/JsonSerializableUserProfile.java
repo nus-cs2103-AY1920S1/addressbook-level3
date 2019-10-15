@@ -37,7 +37,8 @@ class JsonSerializableUserProfile {
     * @param source future changes to this will not affect the created {@code JsonSerializableUserProfile}.
     */
     public JsonSerializableUserProfile(ReadOnlyDukeCooks source) {
-        userprofile.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        userprofile.addAll(source.getUserProfileList().stream().map(JsonAdaptedPerson::new)
+                .collect(Collectors.toList()));
     }
 
     /**

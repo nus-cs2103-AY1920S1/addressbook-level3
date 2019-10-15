@@ -18,8 +18,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.profile.DukeCooks;
 import seedu.address.profile.Model;
 import seedu.address.profile.ReadOnlyDukeCooks;
+import seedu.address.profile.ReadOnlyHealthRecords;
 import seedu.address.profile.ReadOnlyUserPrefs;
 import seedu.address.profile.person.Person;
+import seedu.address.profile.records.Record;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddProfileCommandTest {
@@ -75,12 +77,14 @@ public class AddProfileCommandTest {
 
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError(
+                    "This method should not be called.");
         }
 
         @Override
         public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError(
+                    "This method should not be called.");
         }
 
         @Override
@@ -90,7 +94,14 @@ public class AddProfileCommandTest {
 
         @Override
         public Path getDukeCooksFilePath() {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError(
+                    "This method should not be called.");
+        }
+
+        @Override
+        public Path getHealthRecordsFilePath() {
+            throw new AssertionError(
+                    "This method should not be called.");
         }
 
         @Override
@@ -99,8 +110,20 @@ public class AddProfileCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void setHealthRecordsFilePath(Path healthRecordsFilePath) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            throw new AssertionError(
+                    "This method should not be called.");
+        }
+
+        @Override
+        public void addRecord(Record record) {
+            throw new AssertionError(
+                    "This method should not be called.");
         }
 
         @Override
@@ -109,12 +132,29 @@ public class AddProfileCommandTest {
         }
 
         @Override
-        public ReadOnlyDukeCooks getDukeCooks() {
+        public void setHealthRecords(ReadOnlyHealthRecords healthRecords) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public ReadOnlyDukeCooks getDukeCooks() {
+            throw new AssertionError(
+                    "This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyHealthRecords getHealthRecords() {
+            throw new AssertionError(
+                    "This method should not be called.");
+        }
+
+        @Override
         public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRecord(Record target, Record editedRecord) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,7 +164,17 @@ public class AddProfileCommandTest {
         }
 
         @Override
+        public ObservableList<Record> getFilteredRecordList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredRecordList(Predicate<Record> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

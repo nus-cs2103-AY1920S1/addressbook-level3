@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddHealthCommand;
 import seedu.address.logic.commands.AddProfileCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditProfileCommand;
@@ -42,10 +43,13 @@ public class DukeCooksParser {
         switch (commandWord) {
 
         case AddProfileCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new AddProfileCommandParser().parse(arguments);
 
         case EditProfileCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditProfileCommandParser().parse(arguments);
+
+        case AddHealthCommand.COMMAND_WORD:
+            return new AddHealthCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

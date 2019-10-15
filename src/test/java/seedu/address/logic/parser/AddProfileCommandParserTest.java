@@ -31,7 +31,7 @@ import seedu.address.profile.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddProfileCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+    private AddProfileCommandParser parser = new AddProfileCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {

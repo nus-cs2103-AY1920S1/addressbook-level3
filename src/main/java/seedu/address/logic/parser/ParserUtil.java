@@ -16,6 +16,10 @@ import seedu.address.profile.person.Gender;
 import seedu.address.profile.person.Height;
 import seedu.address.profile.person.Name;
 import seedu.address.profile.person.Weight;
+import seedu.address.profile.records.Timestamp;
+import seedu.address.profile.records.Type;
+import seedu.address.profile.records.Value;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -156,5 +160,53 @@ public class ParserUtil {
             medicalHistorySet.add(parseMedicalHistory(tagName));
         }
         return medicalHistorySet;
+    }
+
+
+    /**
+     * Parses a {@code String type} into a {@code Type}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code type} is invalid.
+     */
+    public static Type parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (!Type.isValidType(trimmedType)) {
+            throw new ParseException(Type.MESSAGE_CONSTRAINTS);
+        }
+        return new Type(trimmedType);
+    }
+
+    /**
+     * Parses a {@code String value} into a {@code Value}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code value} is invalid.
+     */
+    public static Value parseValue(String value) throws ParseException {
+        requireNonNull(value);
+        String trimmedValue = value.trim();
+        if (!Value.isValidNumber(trimmedValue)) {
+            throw new ParseException(Value.MESSAGE_CONSTRAINTS);
+        }
+        return new Value(value);
+    }
+
+    /**
+     * Parses a {@code String timestamp} into a {@code Timestamp}.
+     * Leading and trailing whitespaces will be trimmed.
+     * String will be in upper case.
+     *
+     * @throws ParseException if the given {@code timestamp} is invalid.
+     */
+    public static Timestamp parseTimestamp(String timestamp) throws ParseException {
+        requireNonNull(timestamp);
+        String trimmedTimestamp = timestamp.trim();
+        String upperTimestamp = trimmedTimestamp.toUpperCase();
+        if (!Timestamp.isValidDateTime(upperTimestamp)) {
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS);
+        }
+        return new Timestamp(upperTimestamp);
     }
 }

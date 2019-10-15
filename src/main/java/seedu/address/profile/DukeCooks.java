@@ -10,7 +10,7 @@ import seedu.address.profile.person.UniqueUserProfile;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameRecord comparison)
  */
 public class DukeCooks implements ReadOnlyDukeCooks {
 
@@ -32,9 +32,9 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     /**
      * Creates a DukeCooks using the Persons in the {@code toBeCopied}
      */
-    public DukeCooks(ReadOnlyDukeCooks toBeCopied) {
+    public DukeCooks(ReadOnlyDukeCooks dukeCooks) {
         this();
-        resetData(toBeCopied);
+        resetData(dukeCooks);
     }
 
     //// list overwrite operations
@@ -53,7 +53,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     public void resetData(ReadOnlyDukeCooks newData) {
         requireNonNull(newData);
 
-        setUserprofile(newData.getPersonList());
+        setUserprofile(newData.getUserProfileList());
     }
 
     //// person-level operations
@@ -85,7 +85,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Person> getUserProfileList() {
         return userprofile.asUnmodifiableObservableList();
     }
 

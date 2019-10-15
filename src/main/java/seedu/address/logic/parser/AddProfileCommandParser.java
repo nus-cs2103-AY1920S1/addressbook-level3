@@ -26,7 +26,7 @@ import seedu.address.profile.person.Weight;
 /**
  * Parses input arguments and creates a new AddProfileCommand object
  */
-public class AddCommandParser implements Parser<AddProfileCommand> {
+public class AddProfileCommandParser implements Parser<AddProfileCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddProfileCommand

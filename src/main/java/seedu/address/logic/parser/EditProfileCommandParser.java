@@ -22,7 +22,7 @@ import seedu.address.profile.medical.MedicalHistory;
 /**
  * Parses input arguments and creates a new EditProfileCommand object
  */
-public class EditCommandParser implements Parser<EditProfileCommand> {
+public class EditProfileCommandParser implements Parser<EditProfileCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditProfileCommand

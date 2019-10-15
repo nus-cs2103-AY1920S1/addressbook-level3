@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.profile.person.Person;
+import seedu.address.profile.records.Record;
 
 /**
  * Represents the in-memory model of Duke Cooks data.
@@ -20,25 +21,32 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final DukeCooks dukeCooks;
+    private final HealthRecords healthRecords;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Record> filteredRecords;
 
     /**
      * Initializes a ModelManager with the given dukeCooks and userPrefs.
      */
-    public ModelManager(ReadOnlyDukeCooks dukeCooks, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyDukeCooks dukeCooks, ReadOnlyHealthRecords healthRecords,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(dukeCooks, userPrefs);
+        requireAllNonNull(dukeCooks, healthRecords, userPrefs);
 
-        logger.fine("Initializing with Duke Cooks: " + dukeCooks + " and user prefs " + userPrefs);
+        logger.fine("Initializing with Duke Cooks: " + dukeCooks
+                + "with Health Records: " + healthRecords
+                + "and user prefs " + userPrefs);
 
         this.dukeCooks = new DukeCooks(dukeCooks);
+        this.healthRecords = new HealthRecords(healthRecords);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.dukeCooks.getPersonList());
+        filteredPersons = new FilteredList<>(this.dukeCooks.getUserProfileList());
+        filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
     }
 
     public ModelManager() {
-        this(new DukeCooks(), new UserPrefs());
+        this(new DukeCooks(), new HealthRecords(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -76,6 +84,17 @@ public class ModelManager implements Model {
         userPrefs.setDukeCooksFilePath(dukeCooksFilePath);
     }
 
+    @Override
+    public Path getHealthRecordsFilePath() {
+        return userPrefs.getHealthRecordsFilePath();
+    }
+
+    @Override
+    public void setHealthRecordsFilePath(Path healthRecordsFilePath) {
+        requireNonNull(healthRecordsFilePath);
+        userPrefs.setHealthRecordsFilePath(healthRecordsFilePath);
+    }
+
     //=========== DukeBooks ================================================================================
 
     @Override
@@ -101,6 +120,31 @@ public class ModelManager implements Model {
         dukeCooks.setPerson(target, editedPerson);
     }
 
+    //=========== Health Records ============================================================================
+
+    @Override
+    public void setHealthRecords(ReadOnlyHealthRecords healthRecords) {
+        this.healthRecords.resetData(healthRecords);
+    }
+
+    @Override
+    public ReadOnlyHealthRecords getHealthRecords() {
+        return healthRecords;
+    }
+
+    @Override
+    public void addRecord(Record record) {
+        healthRecords.addRecord(record);
+        updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
+    }
+
+    @Override
+    public void setRecord(Record target, Record editedRecord) {
+        requireAllNonNull(target, editedRecord);
+
+        healthRecords.setRecord(target, editedRecord);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -116,6 +160,23 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Record List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Record} backed by the internal list of
+     * {@code versionedDukeCooks}
+     */
+    @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        return filteredRecords;
+    }
+
+    @Override
+    public void updateFilteredRecordList(Predicate<Record> predicate) {
+        requireNonNull(predicate);
+        filteredRecords.setPredicate(predicate);
     }
 
     @Override
