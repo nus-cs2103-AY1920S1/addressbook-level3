@@ -1,8 +1,9 @@
 package seedu.address.ui;
 
+import java.util.Arrays;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,13 +21,12 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
 
     @FXML
-    private TextField commandTextField;
+    private AutoCompleteTextField commandTextField;
 
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.getEntries().addAll(Arrays.asList("add-c", "add-p", "add-o", "add-s"));
     }
 
     /**
@@ -40,13 +40,6 @@ public class CommandBox extends UiPart<Region> {
         } catch (CommandException | ParseException | EnumNotPresentException e) {
             setStyleToIndicateCommandFailure();
         }
-    }
-
-    /**
-     * Sets the command box style to use the default style.
-     */
-    private void setStyleToDefault() {
-        commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
 
     /**
