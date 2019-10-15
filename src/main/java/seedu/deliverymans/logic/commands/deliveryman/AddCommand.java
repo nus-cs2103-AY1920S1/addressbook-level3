@@ -10,7 +10,7 @@ import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
- * Add a deliveryman to the deliveryman book.
+ * Adds a deliveryman to the deliveryman book.
  * User must be in deliveryman context to use this command.
  */
 public class AddCommand extends Command {
