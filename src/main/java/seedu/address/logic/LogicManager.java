@@ -77,6 +77,7 @@ public class LogicManager implements Logic {
          */
         try {
             storage.saveAddressBook(model.getWordBank());
+            System.out.println("_____bank" + model.getWordBank().getName());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

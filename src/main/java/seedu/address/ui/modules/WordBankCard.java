@@ -13,7 +13,7 @@ import seedu.address.ui.UiPart;
  */
 public class WordBankCard extends UiPart<Region> {
 
-    private static final String FXML = "CardCard.fxml";
+    private static final String FXML = "WordBankCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -31,8 +31,6 @@ public class WordBankCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label description;
 
     /**
      * Card containing the details of the word bank.
@@ -42,10 +40,12 @@ public class WordBankCard extends UiPart<Region> {
      */
     public WordBankCard(WordBank wordBank, int displayedIndex) {
         super(FXML);
+        System.out.println("++++ 1 called");
         this.wordBank = wordBank;
         id.setText(displayedIndex + ". ");
+        System.out.println(wordBank.getName());
         name.setText(wordBank.getName());
-        description.setText(wordBank.getName());
+        System.out.println("++++ 2 called");
     }
 
     @Override
