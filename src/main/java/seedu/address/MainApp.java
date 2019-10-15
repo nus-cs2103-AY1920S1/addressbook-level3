@@ -5,6 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -12,16 +15,21 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
+import seedu.address.commons.util.JsonUtil;
+import seedu.address.commons.util.SimpleJsonUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.NusModsData;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TimeBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.module.AcadCalendar;
+import seedu.address.model.module.Holidays;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -33,7 +41,8 @@ import seedu.address.storage.TimeBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-import seedu.address.ui.UiViewManager;
+import seedu.address.websocket.NusModsApi;
+import seedu.address.websocket.NusModsParser;
 
 /**
  * Runs the application.
@@ -70,9 +79,7 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
-        Ui uiUsed = new UiManager(logic);
-        ui = uiUsed;
-        UiViewManager.setUi(uiUsed);
+        ui = new UiManager(logic);
     }
 
     /**
@@ -114,7 +121,61 @@ public class MainApp extends Application {
             logger.severe("Failed to load TimeBook, starting with a new instance");
         }
 
-        return new ModelManager(initialData, timeBook, userPrefs);
+        NusModsData nusModsData = initNusModsData(storage, userPrefs);
+
+        return new ModelManager(initialData, timeBook, nusModsData, userPrefs);
+    }
+
+    /**
+     * Returns an {@code NusModsData} with the data from {@code storage} and {@code userPrefs}.
+     */
+    private NusModsData initNusModsData(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        NusModsData nusModsData = new NusModsData();
+        Path condensedModuleListFilePath = userPrefs.getCondensedModuleListFilePath();
+        Path academicCalendarFilePath = userPrefs.getAcademicCalendarFilePath();
+        Path holidaysFilePath = userPrefs.getHolidaysFilePath();
+        logger.info("Using condensed module list file : " + condensedModuleListFilePath);
+        logger.info("Using academic calendar file : " + academicCalendarFilePath);
+        logger.info("Using holidays file : " + holidaysFilePath);
+
+        NusModsApi api = new NusModsApi();
+
+        //todo: load condensed list
+
+        Optional<JSONObject> calObjOptional;
+        calObjOptional = SimpleJsonUtil.readJsonFile(academicCalendarFilePath, JSONObject.class);
+        if (calObjOptional.isEmpty()) {
+            calObjOptional = api.getAcademicCalendar();
+        }
+        if (calObjOptional.isEmpty()) {
+            logger.severe("Failed to get academic calendar from API! "
+                    + "You will not be able to add NUSMods data to schedule.");
+        }
+        try {
+            JsonUtil.saveJsonFile(calObjOptional.get(), academicCalendarFilePath);
+        } catch (IOException e) {
+            logger.warning("Failed to save academic calendar file : " + StringUtil.getDetails(e));
+        }
+        AcadCalendar acadCalendar = NusModsParser.parseAcadCalendar(calObjOptional.get());
+        nusModsData.setAcadCalendar(acadCalendar);
+
+        Optional<JSONArray> holsObjOptional;
+        holsObjOptional = SimpleJsonUtil.readJsonFile(holidaysFilePath, JSONArray.class);
+        if (holsObjOptional.isEmpty()) {
+            holsObjOptional = api.getHolidays();
+        }
+        if (holsObjOptional.isEmpty()) {
+            logger.warning("Failed to get holidays from API! Adding NUSMods data will not be holiday-aware.");
+        }
+        try {
+            JsonUtil.saveJsonFile(holsObjOptional.get(), holidaysFilePath);
+        } catch (IOException e) {
+            logger.warning("Failed to save holidays file : " + StringUtil.getDetails(e));
+        }
+        Holidays holidays = NusModsParser.parseHolidays(holsObjOptional.get());
+        nusModsData.setHolidays(holidays);
+
+        return nusModsData;
     }
 
     private void initLogging(Config config) {

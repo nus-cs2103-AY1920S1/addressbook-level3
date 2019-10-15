@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,8 +18,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.TimeBook;
-import seedu.address.model.display.mainwindow.MainWindowDisplay;
+import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.sidepanel.GroupDisplay;
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -64,13 +69,28 @@ public class LogicManager implements Logic {
     //=========== UI Model =============================================================
 
     @Override
-    public MainWindowDisplay getMainWindowDisplay() {
-        return model.getMainWindowDisplay();
+    public DetailWindowDisplay getMainWindowDisplay() {
+        return model.getDetailWindowDisplay();
     }
 
     @Override
     public SidePanelDisplay getSidePanelDisplay() {
         return model.getSidePanelDisplay();
+    }
+
+    @Override
+    public ObservableList<PersonDisplay> getFilteredPersonDisplayList() {
+        ObservableList<Person> persons = model.getFilteredPersonList();
+        return FXCollections.observableList(persons.stream()
+                        .map(person -> new PersonDisplay((Person) person))
+                        .collect(Collectors.toCollection(ArrayList::new)));
+    }
+
+    @Override
+    public ObservableList<GroupDisplay> getFilteredGroupDisplayList() {
+        ObservableList<Group> persons = model.getObservableGroupList();
+        return FXCollections.observableList(persons.stream()
+                .map(group -> new GroupDisplay(group)).collect(Collectors.toCollection(ArrayList::new)));
     }
 
 
@@ -102,6 +122,12 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Group> getGroupList() {
+        //To Do.
+        return model.getObservableGroupList();
     }
 
     @Override

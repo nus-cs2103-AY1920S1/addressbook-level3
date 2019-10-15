@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.mainwindow.MainWindowDisplay;
+import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -34,7 +34,7 @@ public class DeletePersonCommand extends Command {
             if (model.deletePerson(toDelete.getPersonId())) {
 
                 // update main window display
-                model.updateMainWindowDisplay(new MainWindowDisplay());
+                model.updateDetailWindowDisplay(new DetailWindowDisplay());
 
                 // update side panel display
                 model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);

@@ -22,13 +22,30 @@ public class CommandResult {
     private final boolean exit;
 
     /**
+     * The application should export a file.
+     */
+    private final boolean export;
+
+    /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.export = false;
     }
+
+    /**
+     * Constructs an alternative CommandResult that would affect the UI.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean export) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.export = export;
+    }
+
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
@@ -50,6 +67,10 @@ public class CommandResult {
         return exit;
     }
 
+    public boolean isExport() {
+        return export;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -64,12 +85,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && export == otherCommandResult.export;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, export);
     }
 
 }

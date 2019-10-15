@@ -6,17 +6,22 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import org.json.simple.JSONObject;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.display.mainwindow.MainWindowDisplay;
-import seedu.address.model.display.mainwindow.MainWindowDisplayType;
-import seedu.address.model.display.mainwindow.WeekSchedule;
-import seedu.address.model.display.sidepanel.Display;
+import seedu.address.commons.util.SimpleJsonUtil;
+import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
@@ -28,12 +33,20 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.DetailedModuleList;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.SemesterNo;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
+import seedu.address.websocket.NusModsApi;
+import seedu.address.websocket.NusModsParser;
 
 
 /**
@@ -45,6 +58,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    //To Do.
+    //private final FilteredList<Group> groupFilteredList;
 
     private TimeBook timeBook = null;
 
@@ -52,8 +67,10 @@ public class ModelManager implements Model {
     private GroupList groupList;
     private PersonToGroupMappingList personToGroupMappingList;
 
+    private NusModsData nusModsData;
+
     // UI display
-    private MainWindowDisplay mainWindowDisplay;
+    private DetailWindowDisplay detailWindowDisplay;
     private SidePanelDisplay sidePanelDisplay;
 
     /**
@@ -72,13 +89,13 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-
         this.personList = personList;
         this.groupList = groupList;
         this.personToGroupMappingList = personToGroupMappingList;
     }
 
-    public ModelManager(ReadOnlyAddressBook addressBook, TimeBook timeBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, TimeBook timeBook,
+                        NusModsData nusModsData, ReadOnlyUserPrefs userPrefs) {
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
@@ -86,6 +103,8 @@ public class ModelManager implements Model {
         this.personList = timeBook.getPersonList();
         this.groupList = timeBook.getGroupList();
         this.personToGroupMappingList = timeBook.getPersonToGroupMappingList();
+
+        this.nusModsData = nusModsData;
 
         int personCounter = -1;
         for (int i = 0; i < personList.getPersons().size(); i++) {
@@ -114,10 +133,12 @@ public class ModelManager implements Model {
 
     public ModelManager(PersonList personList, GroupList groupList, PersonToGroupMappingList personToGroupMappingList) {
         this(new AddressBook(), personList, groupList, personToGroupMappingList, new UserPrefs());
+        //this.addressBook.setPersons(personList.getPersons());
+        this.timeBook = new TimeBook(personList, groupList, personToGroupMappingList);
     }
 
     public ModelManager(TimeBook timeBook) {
-        this(new AddressBook(), timeBook, new UserPrefs());
+        this(new AddressBook(), timeBook, new NusModsData(), new UserPrefs());
     }
 
     public ModelManager() {
@@ -157,6 +178,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public AppSettings getAppSettings() {
+        return userPrefs.getAppSettings();
+    }
+
+    @Override
+    public void setAppSettings(AppSettings appSettings) {
+        requireNonNull(appSettings);
+        userPrefs.setAppSettings(appSettings);
+    }
+
+    @Override
     public GuiSettings getGuiSettings() {
         return userPrefs.getGuiSettings();
     }
@@ -176,6 +208,16 @@ public class ModelManager implements Model {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public AcadYear getDefaultAcadYear() {
+        return userPrefs.getAcadYear();
+    }
+
+    @Override
+    public SemesterNo getDefaultSemesterNo() {
+        return userPrefs.getSemesterNo();
     }
 
     //=========== AddressBook ================================================================================
@@ -198,7 +240,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+        return timeBook.getUnmodifiablePersonList();
     }
 
     @Override
@@ -218,7 +260,6 @@ public class ModelManager implements Model {
     @Override
     public Person addPerson(PersonDescriptor personDescriptor) {
         Person isAdded = this.personList.addPerson(personDescriptor);
-        this.addressBook.addPerson(isAdded);
         return isAdded;
     }
 
@@ -274,6 +315,11 @@ public class ModelManager implements Model {
     @Override
     public GroupList getGroupList() {
         return groupList;
+    }
+
+    @Override
+    public ObservableList<Group> getObservableGroupList() {
+        return timeBook.getUnmodifiableGroupList();
     }
 
     @Override
@@ -353,8 +399,8 @@ public class ModelManager implements Model {
     //=========== UI Model =============================================================
 
     @Override
-    public MainWindowDisplay getMainWindowDisplay() {
-        return mainWindowDisplay;
+    public DetailWindowDisplay getDetailWindowDisplay() {
+        return detailWindowDisplay;
     }
 
     @Override
@@ -363,31 +409,32 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateMainWindowDisplay(MainWindowDisplay mainWindowDisplay) {
-        this.mainWindowDisplay = mainWindowDisplay;
+    public void updateDetailWindowDisplay(DetailWindowDisplay detailWindowDisplay) {
+        this.detailWindowDisplay = detailWindowDisplay;
     }
 
     @Override
-    public void updateMainWindowDisplay(Name name, LocalDateTime time, MainWindowDisplayType type) {
-        ArrayList<Person> persons = new ArrayList<>();
-        persons.add(findPerson(name));
-        WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, persons);
-        MainWindowDisplay mainWindowDisplay = new MainWindowDisplay(weekSchedule, type);
-        updateMainWindowDisplay(mainWindowDisplay);
+    public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type) {
+        ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
+        WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, findPerson(name));
+        weekSchedules.add(weekSchedule);
+        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
+        updateDetailWindowDisplay(detailWindowDisplay);
     }
 
     @Override
-    public void updateMainWindowDisplay(GroupName groupName, LocalDateTime time, MainWindowDisplayType type) {
+    public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type) {
         Group group = groupList.findGroup(groupName);
+        GroupDisplay groupDisplay = new GroupDisplay(group);
         ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
-        ArrayList<Person> persons = new ArrayList<>();
+        ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
         for (int i = 0; i < personIds.size(); i++) {
-            persons.add(findPerson(personIds.get(i)));
+            Person person = findPerson(personIds.get(i));
+            WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person);
+            weekSchedules.add(weekSchedule);
         }
-
-        WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, persons);
-        MainWindowDisplay mainWindowDisplay = new MainWindowDisplay(weekSchedule, type);
-        updateMainWindowDisplay(mainWindowDisplay);
+        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type, groupDisplay);
+        updateDetailWindowDisplay(detailWindowDisplay);
     }
 
     @Override
@@ -398,31 +445,18 @@ public class ModelManager implements Model {
     @Override
     public void updateSidePanelDisplay(SidePanelDisplayType type) {
         SidePanelDisplay sidePanelDisplay;
-
-        switch (type) {
-        case PERSONS:
-            ArrayList<Display> displayPersons = new ArrayList<>();
-            ArrayList<Person> persons = timeBook.getPersonList().getPersons();
-            for (int i = 0; i < persons.size(); i++) {
-                displayPersons.add(new PersonDisplay(persons.get(i)));
-            }
-            sidePanelDisplay = new SidePanelDisplay(displayPersons, type);
-            updateSidePanelDisplay(sidePanelDisplay);
-            break;
-
-        case GROUPS:
-            ArrayList<Display> displayGroups = new ArrayList<>();
-            ArrayList<Group> groups = timeBook.getGroupList().getGroups();
-            for (int i = 0; i < groups.size(); i++) {
-                displayGroups.add(new GroupDisplay(groups.get(i)));
-            }
-            sidePanelDisplay = new SidePanelDisplay(displayGroups, type);
-            updateSidePanelDisplay(sidePanelDisplay);
-            break;
-
-        default:
-            break;
+        ArrayList<PersonDisplay> displayPersons = new ArrayList<>();
+        ArrayList<GroupDisplay> displayGroups = new ArrayList<>();
+        ArrayList<Person> persons = timeBook.getPersonList().getPersons();
+        ArrayList<Group> groups = timeBook.getGroupList().getGroups();
+        for (int i = 0; i < persons.size(); i++) {
+            displayPersons.add(new PersonDisplay(persons.get(i)));
         }
+        for (int i = 0; i < groups.size(); i++) {
+            displayGroups.add(new GroupDisplay(groups.get(i)));
+        }
+        sidePanelDisplay = new SidePanelDisplay(displayPersons, displayGroups, type);
+        updateSidePanelDisplay(sidePanelDisplay);
     }
 
     //=========== Suggesters =============================================================
@@ -472,6 +506,60 @@ public class ModelManager implements Model {
             }
         }
         return suggestions;
+    }
+
+    //=========== NusModsData ================================================================================
+
+    @Override
+    public NusModsData getNusModsData() {
+        return nusModsData;
+    };
+
+    @Override
+    public Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode) throws ModuleNotFoundException {
+        Module module;
+
+        try {
+            module = nusModsData.getDetailedModuleList().findModule(acadYear, moduleCode);
+        } catch (ModuleNotFoundException ex1) {
+            try {
+                //TODO: just remove this layer altogether, module list should be small enough to keep in-memory
+                Path path = this.userPrefs.getDetailedModuleListFilePath();
+                String key = acadYear.toString() + " " + moduleCode.toString();
+                Optional<JSONObject> objOptional = SimpleJsonUtil.readJsonFile(path, JSONObject.class);
+                if (objOptional.isEmpty()) {
+                    throw new ModuleNotFoundException();
+                }
+                module = NusModsParser.parseModule(objOptional.get());
+            } catch (ModuleNotFoundException ex2) {
+                Optional<JSONObject> moduleObj = new NusModsApi(acadYear).getModule(moduleCode);
+                if (moduleObj.isEmpty()) {
+                    throw new ModuleNotFoundException();
+                }
+                module = NusModsParser.parseModule(moduleObj.get());
+                nusModsData.addDetailedModule(module);
+            }
+        }
+
+        return module;
+    };
+
+    @Override
+    public DetailedModuleList getDetailedModuleList() {
+        return nusModsData.getDetailedModuleList();
+    }
+
+    @Override
+    public void addDetailedModule(Module module) {
+        nusModsData.addDetailedModule(module);
+    }
+
+    public String getAcadSemStartDateString(AcadYear acadYear, SemesterNo semesterNo) {
+        return nusModsData.getAcadCalendar().getStartDateString(acadYear, semesterNo);
+    };
+
+    public List<String> getHolidayDateStrings() {
+        return nusModsData.getHolidays().getHolidayDates();
     }
 
     //=========== Others =============================================================

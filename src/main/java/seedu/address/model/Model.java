@@ -3,12 +3,14 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.display.mainwindow.MainWindowDisplay;
-import seedu.address.model.display.mainwindow.MainWindowDisplayType;
+import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
@@ -18,6 +20,11 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.DetailedModuleList;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.SemesterNo;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
@@ -47,6 +54,16 @@ public interface Model {
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
+     * Returns the user prefs' App settings.
+     */
+    public AppSettings getAppSettings();
+
+    /**
+     * Sets the user prefs' App settings.
+     */
+    public void setAppSettings(AppSettings appSettings);
+
+    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
@@ -65,6 +82,16 @@ public interface Model {
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
+
+    /**
+     * Returns the App setting's acadYear.
+     */
+    public AcadYear getDefaultAcadYear();
+
+    /**
+     * Returns the App setting's semesterNo.
+     */
+    public SemesterNo getDefaultSemesterNo();
 
     //=========== AddressBook ================================================================================
 
@@ -142,6 +169,11 @@ public interface Model {
     GroupList getGroupList();
 
     /**
+     * Returns an observable list of groups.
+     */
+    ObservableList<Group> getObservableGroupList();
+
+    /**
      * Adds a Group with groupDescriptor into the list of Groups.
      */
     Group addGroup(GroupDescriptor groupDescriptor);
@@ -208,7 +240,7 @@ public interface Model {
     /**
      * Returns the current main window display model.
      */
-    MainWindowDisplay getMainWindowDisplay();
+    DetailWindowDisplay getDetailWindowDisplay();
 
     /**
      * Returns the current side panel display model.
@@ -218,17 +250,17 @@ public interface Model {
     /**
      * Updates the current main window display.
      */
-    void updateMainWindowDisplay(MainWindowDisplay mainWindowDisplay);
+    void updateDetailWindowDisplay(DetailWindowDisplay detailWindowDisplay);
 
     /**
      * Updates the current main window display with a Person's schedule.
      */
-    void updateMainWindowDisplay(Name name, LocalDateTime time, MainWindowDisplayType type);
+    void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type);
 
     /**
      * Updates the current main window display with a Group's schedule.
      */
-    void updateMainWindowDisplay(GroupName groupName, LocalDateTime time, MainWindowDisplayType type);
+    void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type);
 
     /**
      * Updates the current side panel display.
@@ -256,6 +288,27 @@ public interface Model {
      * Returns a list of Group's names that starts with prefix.
      */
     ArrayList<String> groupSuggester(String prefix);
+
+    //=========== NusModsData ================================================================================
+
+    NusModsData getNusModsData();
+
+    /**
+     * Returns a module for the academic year and module code.
+     * Tries to find the module from 3 sources in the order:
+     *      1. Model.NusModsData.DetailedModuleList (in-memory)
+     *      2. Json Files
+     *      3. NusModsApi
+     */
+    Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode);
+
+    String getAcadSemStartDateString(AcadYear acadYear, SemesterNo semesterNo);
+
+    List<String> getHolidayDateStrings();
+
+    DetailedModuleList getDetailedModuleList();
+
+    void addDetailedModule(Module module);
 
     //=========== Others =============================================================
 

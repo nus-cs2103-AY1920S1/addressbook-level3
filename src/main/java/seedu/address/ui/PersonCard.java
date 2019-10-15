@@ -7,7 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import javafx.scene.layout.StackPane;
+import seedu.address.model.display.sidepanel.PersonDisplay;
+import seedu.address.ui.util.BubbleGenerator;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -24,14 +26,14 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final PersonDisplay person;
 
     @FXML
     private HBox cardPane;
     @FXML
     private Label name;
     @FXML
-    private Label id;
+    private StackPane personId;
     @FXML
     private Label phone;
     @FXML
@@ -43,10 +45,10 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(PersonDisplay person, int displayedIndex) {
         super(FXML);
         this.person = person;
-        id.setText(displayedIndex + ". ");
+        personId.getChildren().add(new BubbleGenerator(displayedIndex, 50, 2).getBubble());
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
@@ -71,7 +73,6 @@ public class PersonCard extends UiPart<Region> {
 
         // state check
         PersonCard card = (PersonCard) other;
-        return id.getText().equals(card.id.getText())
-                && person.isSamePerson(card.person);
+        return person.isSamePerson(card.person);
     }
 }

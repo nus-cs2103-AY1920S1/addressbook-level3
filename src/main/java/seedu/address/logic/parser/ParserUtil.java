@@ -5,8 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -14,6 +17,11 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.GroupRemark;
+import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.LessonNo;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.NusModsShareLink;
+import seedu.address.model.module.SemesterNo;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -116,16 +124,79 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a String module, and trims the String.
+     * Parses a String moduleCode, and trims the String.
      *
-     * @param module String to be trimmed
+     * @param moduleCode String to be trimmed
      * @return Trimmed String
      * @throws ParseException null
      */
-    public static String parseModule(String module) throws ParseException {
-        requireNonNull(module);
-        String trimmedModule = module.trim();
-        return trimmedModule;
+    public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
+        requireNonNull(moduleCode);
+        String trimmedModuleCode = moduleCode.trim();
+        return new ModuleCode(trimmedModuleCode);
+    }
+
+    /**
+     * Parses a String lesson numbers.
+     *
+     * @param lessonNos String to be parsed
+     * @return Trimmed String
+     * @throws ParseException null
+     */
+    public static List<LessonNo> parseLessonNos(String lessonNos) throws ParseException {
+        requireNonNull(lessonNos);
+        List<LessonNo> lessonNosList = new ArrayList<>();
+
+        String[] tokens = lessonNos.split(",");
+        for (String t : tokens) {
+            lessonNosList.add(new LessonNo(t.trim()));
+        }
+
+        return lessonNosList;
+    }
+
+    /**
+     * Parses a String semesterNo, and trims the String.
+     *
+     * @param acadYear String to be trimmed
+     * @return Trimmed String
+     * @throws ParseException null
+     */
+    public static AcadYear parseAcadYear(String acadYear) throws ParseException {
+        requireNonNull(acadYear);
+        String trimmedAcadYear = acadYear.trim();
+        return new AcadYear(trimmedAcadYear);
+    }
+
+    /**
+     * Parses a String semesterNo, and trims the String.
+     *
+     * @param semesterNo String to be trimmed
+     * @return Trimmed String
+     * @throws ParseException null
+     */
+    public static SemesterNo parseSemesterNo(String semesterNo) throws ParseException {
+        requireNonNull(semesterNo);
+        String trimmedSemesterNo = semesterNo.trim();
+
+        SemesterNo semNo = new SemesterNo(trimmedSemesterNo);
+        return semNo;
+    }
+
+    /**
+     * Parses a String nusModsLink to an {@code NusModsShareLink}.
+     *
+     * @param nusModsLink String to be parsed
+     * @return NusModsShareLink
+     * @throws ParseException null
+     */
+    public static NusModsShareLink parseNusModsLink(String nusModsLink) throws ParseException {
+        requireNonNull(nusModsLink);
+        String trimmedNusModsLink = nusModsLink.trim();
+        if (!NusModsShareLink.isValidUrl(trimmedNusModsLink)) {
+            throw new ParseException(NusModsShareLink.MESSAGE_CONSTRAINTS);
+        }
+        return new NusModsShareLink(nusModsLink);
     }
 
     /**
@@ -199,5 +270,17 @@ public class ParserUtil {
         } catch (DateTimeParseException e) {
             return null;
         }
+    }
+
+    /**
+     * Parses a String into a ArrayList of locations.
+     *
+     * @param locationsString to be parsed
+     * @return ArrayList of locations
+     */
+    public static ArrayList<String> parseLocations(String locationsString) {
+        String[] locationsArr = locationsString.split(" ");
+        ArrayList<String> locations = new ArrayList<>(Arrays.asList(locationsArr));
+        return locations;
     }
 }

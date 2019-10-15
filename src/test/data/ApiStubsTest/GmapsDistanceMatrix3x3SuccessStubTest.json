@@ -1,0 +1,126 @@
+{
+  "destination_addresses": [
+    "10 Lower Kent Ridge Rd, National University of Singapore, Singapore",
+    "21 Lower Kent Ridge Rd, Singapore 119077",
+    "11 Computing Dr, Singapore 117416"
+  ],
+  "origin_addresses": [
+    "10 Lower Kent Ridge Rd, National University of Singapore, Singapore",
+    "21 Lower Kent Ridge Rd, Singapore 119077",
+    "11 Computing Dr, Singapore 117416"
+  ],
+  "rows": [
+    {
+      "elements": [
+        {
+          "distance": {
+            "text": "1 m",
+            "value": 0
+          },
+          "duration": {
+            "text": "1 min",
+            "value": 0
+          },
+          "status": "OK"
+        },
+        {
+          "distance": {
+            "text": "2.3 km",
+            "value": 2268
+          },
+          "duration": {
+            "text": "7 mins",
+            "value": 395
+          },
+          "status": "OK"
+        },
+        {
+          "distance": {
+            "text": "2.3 km",
+            "value": 2293
+          },
+          "duration": {
+            "text": "8 mins",
+            "value": 455
+          },
+          "status": "OK"
+        }
+      ]
+    },
+    {
+      "elements": [
+        {
+          "distance": {
+            "text": "0.8 km",
+            "value": 821
+          },
+          "duration": {
+            "text": "3 mins",
+            "value": 187
+          },
+          "status": "OK"
+        },
+        {
+          "distance": {
+            "text": "1 m",
+            "value": 0
+          },
+          "duration": {
+            "text": "1 min",
+            "value": 0
+          },
+          "status": "OK"
+        },
+        {
+          "distance": {
+            "text": "0.5 km",
+            "value": 498
+          },
+          "duration": {
+            "text": "2 mins",
+            "value": 98
+          },
+          "status": "OK"
+        }
+      ]
+    },
+    {
+      "elements": [
+        {
+          "distance": {
+            "text": "2.5 km",
+            "value": 2534
+          },
+          "duration": {
+            "text": "9 mins",
+            "value": 526
+          },
+          "status": "OK"
+        },
+        {
+          "distance": {
+            "text": "0.7 km",
+            "value": 674
+          },
+          "duration": {
+            "text": "3 mins",
+            "value": 181
+          },
+          "status": "OK"
+        },
+        {
+          "distance": {
+            "text": "1 m",
+            "value": 0
+          },
+          "duration": {
+            "text": "1 min",
+            "value": 0
+          },
+          "status": "OK"
+        }
+      ]
+    }
+  ],
+  "status": "OK"
+}

@@ -9,19 +9,24 @@ import seedu.address.model.gmaps.Location;
  * This class is used for process location object arraylist
  */
 public class LocationArrayListUtils {
-    public static ArrayList<Location> getSubList(ArrayList<Location> arrayList, int start, int end) {
-        ArrayList<Location> newArrayList = new ArrayList<>();
-        if (start < 0 || start > arrayList.size()) {
-            throw new InvalidParameterException("Value for start parameter is out of bound");
-        } else if (end < 0 || end > arrayList.size()) {
-            throw new InvalidParameterException("Value for end parameter is out of bound");
-        } else if (start > end) {
-            throw new InvalidParameterException("Start > end is an invalid logic");
+    /**
+     * This method is used to get the index of the location with the same name
+     * @param arrayList
+     * @param locationName
+     * @return
+     */
+    public static int getIndex(ArrayList<Location> arrayList, String locationName) {
+        int index = -1;
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i).getLocationName().equals(locationName)) {
+                index = i;
+                break;
+            }
         }
-        for (int i = start; i <= end; i++) {
-            Location currLocation = arrayList.get(i);
-            newArrayList.add(currLocation);
+        if (index > -1) {
+            return index;
+        } else {
+            throw new InvalidParameterException("Cannot find location " + locationName + " in arrayList");
         }
-        return newArrayList;
     }
 }

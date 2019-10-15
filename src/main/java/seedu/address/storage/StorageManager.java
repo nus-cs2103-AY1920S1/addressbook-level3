@@ -78,9 +78,11 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ TimeBook methods ==============================
+
     @Override
     public Path getTimeBookFilePath() {
-        return null;
+        return timeBookStorage.getTimeBookFilePath();
     }
 
     @Override

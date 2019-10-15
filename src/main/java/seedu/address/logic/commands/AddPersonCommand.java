@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.mainwindow.MainWindowDisplayType;
+import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -48,7 +48,7 @@ public class AddPersonCommand extends Command {
             if (person != null) {
 
                 // update main window
-                model.updateMainWindowDisplay(person.getName(), LocalDateTime.now(), MainWindowDisplayType.SCHEDULE);
+                model.updateDetailWindowDisplay(person.getName(), LocalDateTime.now(), DetailWindowDisplayType.EMPTY);
 
                 // update side panel
                 model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
