@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.panels;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -7,11 +7,14 @@ import java.util.logging.Logger;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import jfxtras.scene.control.agenda.Agenda;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.Order;
 import seedu.address.model.schedule.Schedule;
+import seedu.address.ui.UiPart;
 
 /**
  * Panel containing the calendar.
@@ -23,6 +26,9 @@ public class CalendarPanel extends UiPart<Region> {
     private ObservableList<Schedule> scheduleList;
     private ObservableList<Order> orderList;
 
+    @FXML
+    private VBox calendarBox;
+
     public CalendarPanel(ObservableList<Schedule> scheduleList, ObservableList<Order> orderList) {
         super(FXML);
 
@@ -30,8 +36,10 @@ public class CalendarPanel extends UiPart<Region> {
         this.orderList = orderList;
 
         agenda = new Agenda();
+        calendarBox.getChildren().add(agenda);
         populateAgenda();
 
+        // set up listener
         scheduleList.addListener((ListChangeListener<Schedule>) change -> populateAgenda());
 
     }
@@ -46,7 +54,7 @@ public class CalendarPanel extends UiPart<Region> {
             int orderIndex = 0;
             for (Order order : orderList) {
                 Optional<Schedule> s = order.getSchedule();
-                if (s.isPresent() && s.get().equals(schedule)) {
+                if (s.isPresent() && s.get().isSameSchedule(schedule)) {
                     // change to 1-based
                     orderIndex = orderList.indexOf(order) + 1;
                     break;
