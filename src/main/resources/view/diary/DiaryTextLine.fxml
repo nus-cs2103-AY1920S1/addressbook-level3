@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="lineTextLabel" text="Just some placeholder text" HBox.hgrow="ALWAYS" />
+      <Label fx:id="lineTextLabel" styleClass="diaryTextLine" stylesheets="@diary.css" text="Just some placeholder text" HBox.hgrow="ALWAYS">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
