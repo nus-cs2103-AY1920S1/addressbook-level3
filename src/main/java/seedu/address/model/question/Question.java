@@ -57,7 +57,9 @@ public abstract class Question {
 
     @Override
     public String toString() {
-        return question;
+        return question
+            + "\nAnswer: "
+            + answer;
     }
 
     @Override
@@ -72,5 +74,18 @@ public abstract class Question {
 
         Question otherQuestion = (Question) o;
         return this.question.equals(otherQuestion.question);
+    }
+
+    /**
+     * Returns true if both questions is the same. This defines a weaker notion of equality between
+     * two questions.
+     */
+    public boolean isSameQuestion(Question otherQuestion) {
+        if (otherQuestion == this) {
+            return true;
+        }
+
+        return otherQuestion != null
+            && otherQuestion.equals(question);
     }
 }

@@ -6,17 +6,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.note.NoteAddCommand;
-import seedu.address.logic.commands.question.QuestionAddCommand;
+import seedu.address.logic.commands.question.QuestionCommand;
 import seedu.address.logic.commands.quiz.QuizCommand;
 import seedu.address.logic.commands.student.StudentAddCommand;
 
@@ -29,7 +26,7 @@ import seedu.address.logic.parser.student.StudentCommandParser;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class NjoyParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -56,7 +53,7 @@ public class AddressBookParser {
         case QuizCommand.COMMAND_WORD:
             return new QuizCommandParser().parse(arguments);
 
-        case QuestionAddCommand.COMMAND_WORD:
+        case QuestionCommand.COMMAND_WORD:
             return new QuestionCommandParser().parse(arguments);
 
         case NoteAddCommand.COMMAND_WORD:
@@ -64,15 +61,6 @@ public class AddressBookParser {
 
         case StudentAddCommand.COMMAND_WORD:
             return new StudentCommandParser().parse(arguments);
-
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

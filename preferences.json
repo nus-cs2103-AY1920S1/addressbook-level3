@@ -3,12 +3,12 @@
     "windowWidth" : 960.0,
     "windowHeight" : 1057.0,
     "windowCoordinates" : {
-<<<<<<< HEAD
-      "x" : 2400,
-      "y" : -701
+      "x" : 682,
+      "y" : 54
     }
   },
   "addressBookFilePath" : "data/addressbook.json",
-  "studentRecordFilePath" : "data/students.json"
+  "studentRecordFilePath" : "data/students.json",
+  "savedQuestionsFilePath" : "data/questions.json"
 }
 

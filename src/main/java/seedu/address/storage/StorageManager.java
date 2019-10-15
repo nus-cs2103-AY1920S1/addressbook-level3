@@ -11,6 +11,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyStudentRecord;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.question.ReadOnlyQuestions;
+import seedu.address.storage.question.QuestionStorage;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -20,15 +22,17 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private StudentRecordStorage studentRecordStorage;
+    private QuestionStorage questionStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          StudentRecordStorage studentRecordStorage) {
+        StudentRecordStorage studentRecordStorage, QuestionStorage questionStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.studentRecordStorage = studentRecordStorage;
+        this.questionStorage = questionStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -48,7 +52,6 @@ public class StorageManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-
     // ================ AddressBook methods ==============================
 
     @Override
@@ -57,12 +60,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyAddressBook> readAddressBook()
+        throws DataConversionException, IOException {
         return readAddressBook(addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath)
+        throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return addressBookStorage.readAddressBook(filePath);
     }
@@ -86,13 +91,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyStudentRecord> readStudentRecord() throws DataConversionException, IOException {
+    public Optional<ReadOnlyStudentRecord> readStudentRecord()
+        throws DataConversionException, IOException {
         return readStudentRecord(studentRecordStorage.getStudentRecordFilePath());
     }
 
     @Override
     public Optional<ReadOnlyStudentRecord> readStudentRecord(Path filePath)
-            throws DataConversionException, IOException {
+        throws DataConversionException, IOException {
         logger.fine("Attempting to read student data from file: " + filePath);
         return studentRecordStorage.readStudentRecord(filePath);
     }
@@ -103,9 +109,40 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveStudentRecord(ReadOnlyStudentRecord studentRecord, Path filePath) throws IOException {
+    public void saveStudentRecord(ReadOnlyStudentRecord studentRecord, Path filePath)
+        throws IOException {
         logger.fine("Attempting to write to student data file: " + filePath);
         studentRecordStorage.saveStudentRecord(studentRecord, filePath);
+    }
+
+    // ================ Question methods ==============================
+
+    @Override
+    public Path getSavedQuestionsFilePath() {
+        return questionStorage.getSavedQuestionsFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyQuestions> readQuestions() throws DataConversionException, IOException {
+        return readQuestions(questionStorage.getSavedQuestionsFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyQuestions> readQuestions(Path filePath)
+        throws DataConversionException, IOException {
+        logger.fine("Attempting to read question data from file: " + filePath);
+        return questionStorage.readQuestions(filePath);
+    }
+
+    @Override
+    public void saveQuestions(ReadOnlyQuestions questions) throws IOException {
+        saveQuestions(questions, questionStorage.getSavedQuestionsFilePath());
+    }
+
+    @Override
+    public void saveQuestions(ReadOnlyQuestions questions, Path filePath) throws IOException {
+        logger.fine("Attempting to write to student data file: " + filePath);
+        questionStorage.saveQuestions(questions, filePath);
     }
 
 }
