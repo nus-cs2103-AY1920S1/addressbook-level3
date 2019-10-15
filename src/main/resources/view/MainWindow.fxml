@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.HBox?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="NUStudy" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -45,12 +46,21 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="noteList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="noteListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+        <HBox minWidth="450" prefWidth="450" styleClass="pane-with-border">
+          <VBox fx:id="noteList" styleClass="pane-with-border" minWidth="440" prefWidth="440" VBox.vgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="noteListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
+          <VBox fx:id="taskList" styleClass="pane-with-border" minWidth="440" prefWidth="440" VBox.vgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+        </HBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

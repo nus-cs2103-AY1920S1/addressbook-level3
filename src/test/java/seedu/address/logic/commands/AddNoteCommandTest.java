@@ -24,7 +24,9 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
+import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddNoteCommandTest {
@@ -119,6 +121,21 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public boolean hasTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTask(Task target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -149,6 +166,11 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public ObservableList<Task> getFilteredTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredNoteList(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -164,12 +186,57 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasQuestion(Question question) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Note getNote(Note note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public void addQuestion(Question question) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTask(Task target, Task editedTask) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean checkQuizAnswer(int index, Answer answer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteQuestion(Question target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setQuestion(Question target, Question editedQuestion) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Question> getFilteredQuestionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredQuestionList(Predicate<Question> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -220,5 +287,4 @@ public class AddNoteCommandTest {
             return new AddressBook();
         }
     }
-
 }

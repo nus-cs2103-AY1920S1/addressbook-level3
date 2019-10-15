@@ -20,7 +20,7 @@ endif::[]
 . *IntelliJ* IDE
 +
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
+IntelliJ by default has Gradle and JavaFX plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 == Setting up the project in your computer
@@ -68,8 +68,6 @@ If you plan to develop this fork as a separate product (i.e. instead of contribu
 === Setting up CI
 
 Set up Travis to perform continuous integration for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
-
-After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
 
 === Getting started with coding
 

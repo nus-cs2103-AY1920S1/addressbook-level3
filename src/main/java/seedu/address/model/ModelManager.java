@@ -16,8 +16,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
+import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.statistics.StatisticsStub;
+import seedu.address.model.task.Task;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -28,6 +30,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Note> filteredNotes;
+    private final FilteredList<Question> filteredQuestions;
+    private final FilteredList<Task> filteredTasks;
     private final StatisticsStub statisticsStub;
 
     /**
@@ -42,6 +46,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
+        filteredQuestions = new FilteredList<>(this.addressBook.getQuestionList());
+        filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
         this.statisticsStub = new StatisticsStub();
     }
 
@@ -96,6 +102,7 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
+    // note
     @Override
     public boolean hasNote(Note note) {
         requireNonNull(note);
@@ -118,6 +125,38 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedNote);
 
         addressBook.setNote(target, editedNote);
+    }
+
+
+    // question
+    @Override
+    public boolean hasQuestion(Question question) {
+        requireNonNull(question);
+        return addressBook.hasQuestion(question);
+    }
+
+    @Override
+    public void deleteQuestion(Question target) {
+        addressBook.removeQuestion(target);
+    }
+
+    @Override
+    public void addQuestion(Question question) {
+        addressBook.addQuestion(question);
+        updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
+    }
+
+    @Override
+    public void setQuestion(Question target, Question editedQuestion) {
+        requireAllNonNull(target, editedQuestion);
+
+        addressBook.setQuestion(target, editedQuestion);
+    }
+
+    @Override
+    public Note getNote(Note note) {
+        requireNonNull(note);
+        return addressBook.getNote(note);
     }
 
     @Override
@@ -156,6 +195,63 @@ public class ModelManager implements Model {
         filteredNotes.setPredicate(predicate);
     }
 
+    //=========== Filtered Question List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Question} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Question> getFilteredQuestionList() {
+        return filteredQuestions;
+    }
+
+    @Override
+    public void updateFilteredQuestionList(Predicate<Question> predicate) {
+        requireNonNull(predicate);
+        filteredQuestions.setPredicate(predicate);
+    }
+
+    //=========== Filtered Task List accessors =============================================================
+
+    @Override
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return addressBook.hasTask(task);
+    }
+
+    @Override
+    public void deleteTask(Task target) {
+        addressBook.removeTask(target);
+    }
+
+    @Override
+    public void addTask(Task task) {
+        addressBook.addTask(task);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public void setTask(Task target, Task editedTask) {
+        requireAllNonNull(target, editedTask);
+        addressBook.setTask(target, editedTask);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task}s backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return filteredTasks;
+    }
+
+    @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredTasks.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -172,7 +268,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredNotes.equals(other.filteredNotes);
+                && filteredNotes.equals(other.filteredNotes)
+                && filteredQuestions.equals(other.filteredQuestions)
+                && filteredTasks.equals(other.filteredTasks);
     }
 
     //=========== Statistics ===============================================================================
