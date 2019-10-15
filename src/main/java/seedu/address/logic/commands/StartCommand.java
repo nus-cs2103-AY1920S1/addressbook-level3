@@ -26,7 +26,7 @@ public class StartCommand extends Command {
 
     public static final String MESSAGE_NO_FLASHCARDS = "No flashcards to test!";
 
-    private static final String MESSAGE_START_TEST_SUCCESS = "Starting test...";
+    public static final String MESSAGE_START_TEST_SUCCESS = "Starting test...";
 
     private final AddressBookParser addressBookParser;
 

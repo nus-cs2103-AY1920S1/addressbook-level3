@@ -14,7 +14,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.util.FlashCardTestModel;
 
 /**
  * Represents the in-memory model of the address book data.
