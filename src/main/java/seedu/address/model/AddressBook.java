@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Objects;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.UniqueNoteList;
@@ -24,9 +25,7 @@ import seedu.address.model.task.TaskList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueNoteList notes;
-
     private final UniqueQuestionList questions;
-
     private final QuizQuestionList quiz;
     private final TaskList tasks;
 
@@ -168,10 +167,28 @@ public class AddressBook implements ReadOnlyAddressBook {
     // quiz operations
 
     /**
-     * Sets the question list in quiz with specific {@code subject} and {@code difficulty}.
+     * Returns a list with questions for quiz with {@code numOfQuestions}, {@code subject} and {@code difficulty}.
      */
-    public void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty) {
-        quiz.setQuizQuestionList(numOfQuestions, subject, difficulty);
+    public ObservableList<Question> getQuizQuestions(int numOfQuestions, Subject subject, Difficulty difficulty) {
+        ObservableList<Question> quizQuestions = FXCollections.observableArrayList();
+
+        for (int i = 0; i < questions.getSize(); i++) {
+            Question question = questions.get(i);
+            if (question.getSubject().equals(subject) && question.getDifficulty().equals(difficulty)) {
+                quizQuestions.add(question);
+            }
+            if (quizQuestions.size() == numOfQuestions) {
+                break;
+            }
+        }
+        return quizQuestions;
+    }
+
+    /**
+     * Sets the question list in quiz as {@code quizQuestionList}.
+     */
+    public void setQuizQuestionList(ObservableList<Question> quizQuestionList) {
+        quiz.setQuizQuestionList(quizQuestionList);
     }
 
     /**

@@ -159,11 +159,19 @@ public class ModelManager implements Model {
         return addressBook.getNote(note);
     }
 
+    //quiz
     @Override
-    public void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty) {
+    public ObservableList<Question> getQuizQuestions(int numOfQuestions, Subject subject, Difficulty difficulty) {
         requireAllNonNull(subject, difficulty);
 
-        addressBook.setQuizQuestionList(numOfQuestions, subject, difficulty);
+        return addressBook.getQuizQuestions(numOfQuestions, subject, difficulty);
+    }
+
+    @Override
+    public void setQuizQuestionList(ObservableList<Question> quizQuestionList) {
+        requireNonNull(quizQuestionList);
+
+        addressBook.setQuizQuestionList(quizQuestionList);
     }
 
     @Override

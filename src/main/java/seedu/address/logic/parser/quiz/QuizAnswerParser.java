@@ -14,7 +14,7 @@ public class QuizAnswerParser implements Parser<QuizCheckAnswer> {
     /**
      * Used for initial separation of question index and answer.
      */
-    private static final Pattern BASIC_INPUT_FORMAT = Pattern.compile("(?<index>\\s+)(?<answer>)");
+    private static final Pattern BASIC_INPUT_FORMAT = Pattern.compile("(?<index>\\S+)(?<answer>.*)");
 
     /**
      * Parses the given {@code String} of user input in the context of the quiz answer

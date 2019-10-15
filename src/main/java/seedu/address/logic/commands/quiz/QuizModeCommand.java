@@ -5,11 +5,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
+import javafx.collections.ObservableList;
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.question.Difficulty;
+import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 
 /**
@@ -50,7 +52,8 @@ public class QuizModeCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        model.setQuizQuestionList(numOfQuestions, subject, difficulty);
+        ObservableList<Question> quizQuestionList = model.getQuizQuestions(numOfQuestions, subject, difficulty);
+        model.setQuizQuestionList(quizQuestionList);
         LogicManager.setIsQuiz(true);
         return new CommandResult(MESSAGE_SUCCESS);
     }

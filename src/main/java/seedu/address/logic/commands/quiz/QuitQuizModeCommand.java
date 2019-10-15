@@ -12,7 +12,7 @@ import seedu.address.model.Model;
  */
 public class QuitQuizModeCommand extends Command {
     public static final String COMMAND_WORD = "quit";
-    public static final String MESSAGE_SUCCESS = "You have successfully exit from the quiz mode!";
+    public static final String MESSAGE_SUCCESS = "You have exited from the quiz mode!";
 
     @Override
     public CommandResult execute(Model model) {

@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.AddressBook;
 import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
@@ -20,16 +21,11 @@ public class QuizQuestionList implements Iterable<Question> {
     private final UniqueQuestionList questions = new UniqueQuestionList();
 
     /**
-     * Sets the question list in quiz with specific {@code subject} and {@code difficulty}.
+     * Sets the question list in quiz as {@code quizQuestionList}.
      */
-    public void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty) {
-        requireAllNonNull(subject, difficulty);
-
-        for (int i = 0; i < numOfQuestions; i++) {
-            Question target = questions.get(i);
-            if (target.getSubject().equals(subject) && target.getDifficulty().equals(difficulty)) {
-                internalList.add(target);
-            }
+    public void setQuizQuestionList(ObservableList<Question> quizQuestionList) {
+        for (int i = 0; i < quizQuestionList.size(); i++) {
+            internalList.add(quizQuestionList.get(i));
         }
     }
 
