@@ -1,6 +1,6 @@
 package seedu.ezwatchlist.model.show;
 
-import static seedu.ezwatchlist.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -16,7 +16,9 @@ import seedu.ezwatchlist.commons.util.CollectionUtil;
  */
 public class Show {
 
-    public String Type;
+    public String type;
+    private static final String POSTER_PLACEHOLDER_PNG_URL = "/images/poster-placeholder.png";
+
     //identity fields
     private final Name name;
     private final Date dateOfRelease;
@@ -27,7 +29,8 @@ public class Show {
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
     private final String imageOfShow;
-    private static final String POSTER_PLACEHOLDER_PNG_URL = "/images/poster-placeholder.png";
+
+    
 
     public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
@@ -43,6 +46,10 @@ public class Show {
 
     public Name getName() {
         return name;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public Date getDateOfRelease() {

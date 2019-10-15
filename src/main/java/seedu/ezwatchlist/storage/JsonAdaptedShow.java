@@ -27,25 +27,26 @@ class JsonAdaptedShow {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Show's %s field is missing!";
 
     private final String name;
+    private final String type;
     private final String dateOfRelease;
     private final boolean isWatched;
     private final String description;
     private final int runningTime;
     private final List<JsonAdaptedActor> actors = new ArrayList<>();
-    private final String type;
 
     /**
      * Constructs a {@code JsonAdaptedShow} with the given show details.
      */
     @JsonCreator
     public JsonAdaptedShow(@JsonProperty("name") String name,
+                           @JsonProperty("type") String type,
                            @JsonProperty("dateOfRelease") String dateOfRelease,
                            @JsonProperty("watched") boolean isWatched,
                            @JsonProperty("description") String description,
                            @JsonProperty("runningTime") int runningTime,
-                           @JsonProperty("actors") List<JsonAdaptedActor> actors,
-                           @JsonProperty("type") String type) {
+                           @JsonProperty("actors") List<JsonAdaptedActor> actors) {
         this.name = name;
+        this.type = type;
         this.dateOfRelease = dateOfRelease;
         this.isWatched = isWatched;
         this.description = description;
@@ -53,7 +54,6 @@ class JsonAdaptedShow {
         if (actors != null) {
             this.actors.addAll(actors);
         }
-        this.type = type;
     }
 
     /**
@@ -61,6 +61,7 @@ class JsonAdaptedShow {
      */
     public JsonAdaptedShow(Show source) {
         name = source.getName().showName;
+        type = source.getType();
         dateOfRelease = source.getDateOfRelease().value;
         isWatched = source.isWatched().value;
         description = source.getDescription().fullDescription;
@@ -68,7 +69,6 @@ class JsonAdaptedShow {
         actors.addAll(source.getActors().stream()
                 .map(JsonAdaptedActor::new)
                 .collect(Collectors.toList()));
-        type = source.Type;
     }
 
     /**
@@ -121,7 +121,7 @@ class JsonAdaptedShow {
 
         final Set<Actor> modelActors = new HashSet<>(showActors);
         Show show = new Show(modelName, modelDescription, modelIsWatched, modelDateOfRelease, modelRunningTime, modelActors);
-        show.Type = type;
+        show.type = type;
         return show;
     }
 
