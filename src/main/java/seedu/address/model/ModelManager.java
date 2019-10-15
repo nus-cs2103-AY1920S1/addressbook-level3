@@ -44,7 +44,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new WordBank(), new UserPrefs());
+        this(new WordBank("sample-id"), new UserPrefs());
     }
 
     // Placeholder setGame method

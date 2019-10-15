@@ -3,6 +3,7 @@ package seedu.address.model.wordbank;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
@@ -16,6 +17,7 @@ public class WordBank implements ReadOnlyWordBank {
 
     private final UniqueCardList cards;
     private String name;
+    private final String id;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -28,13 +30,15 @@ public class WordBank implements ReadOnlyWordBank {
         cards = new UniqueCardList();
     }
 
-    public WordBank() {}
+    public WordBank(String id) {
+        this.id = id;
+    }
 
     /**
      * Creates a WordBank using the Cards in the {@code toBeCopied}
      */
     public WordBank(ReadOnlyWordBank toBeCopied) {
-        this();
+        this(toBeCopied.getId());
         resetData(toBeCopied);
     }
 
@@ -103,6 +107,11 @@ public class WordBank implements ReadOnlyWordBank {
     }
 
     @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
     public int size() {
         return cards.size();
     }
@@ -121,12 +130,13 @@ public class WordBank implements ReadOnlyWordBank {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof WordBank // instanceof handles nulls
-                && cards.equals(((WordBank) other).cards));
+                && cards.equals(((WordBank) other).cards))
+                && id.equals(((WordBank) other).id);
     }
 
     @Override
     public int hashCode() {
-        return cards.hashCode();
+        return id.hashCode();
     }
     /**
      * Returns true if both cards have the same meaning.

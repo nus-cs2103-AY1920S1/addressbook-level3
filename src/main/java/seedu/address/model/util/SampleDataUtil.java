@@ -14,6 +14,8 @@ import seedu.address.model.wordbank.WordBank;
  * Contains utility methods for populating {@code WordBank} with sample data.
  */
 public class SampleDataUtil {
+    public static final String SAMPLE_ID = "sample-id";
+
     public static Card[] getSampleCards() {
         return new Card[] {
             new Card(new Word("Abra"), new Meaning("It sleeps eighteen hours a day, but employs telekinesis even "
@@ -36,7 +38,7 @@ public class SampleDataUtil {
     }
 
     public static WordBank getSampleWordBank() {
-        WordBank sampleWb = new WordBank();
+        WordBank sampleWb = new WordBank(SAMPLE_ID);
         for (Card sampleCard : getSampleCards()) {
             sampleWb.addCard(sampleCard);
         }

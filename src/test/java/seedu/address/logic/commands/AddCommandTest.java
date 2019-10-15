@@ -199,7 +199,7 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyWordBank getWordBank() {
-            return new WordBank();
+            return new WordBank("abc");
         }
     }
 }

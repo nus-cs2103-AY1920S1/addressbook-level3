@@ -8,6 +8,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.statistics.GameStatistics;
 
 /**
  * API of the Storage component
@@ -34,4 +35,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
 
     @Override
     void saveAddressBook(ReadOnlyWordBank addressBook) throws IOException;
+
+    @Override
+    void saveAddressBookStatistics(ReadOnlyWordBank addressBook, GameStatistics statistics) throws IOException;
 }

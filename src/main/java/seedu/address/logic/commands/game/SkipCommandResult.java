@@ -16,8 +16,7 @@ public class SkipCommandResult extends GameCommandResult {
                 MESSAGE_SKIPPED
                 + "\n"
                 + additionalMsg,
-                isFinished,
-                false);
+                isFinished);
     }
 
     @Override

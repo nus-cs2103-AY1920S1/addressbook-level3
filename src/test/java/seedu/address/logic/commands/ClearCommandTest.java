@@ -25,7 +25,7 @@ public class ClearCommandTest {
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalWordBank(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalWordBank(), new UserPrefs());
-        expectedModel.setWordBank(new WordBank());
+        expectedModel.setWordBank(new WordBank("abc"));
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

@@ -10,10 +10,12 @@ import seedu.address.model.wordbank.WordBank;
  */
 public class WordBankBuilder {
 
+    public static final String SAMPLE_ID = "sample-id";
+
     private WordBank wordBank;
 
     public WordBankBuilder() {
-        wordBank = new WordBank();
+        wordBank = new WordBank(SAMPLE_ID);
     }
 
     public WordBankBuilder(WordBank wordBank) {

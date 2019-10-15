@@ -10,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.game.FinishGameResult;
 import seedu.address.logic.commands.game.GameCommandResult;
 import seedu.address.logic.commands.switches.StartCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -74,11 +75,20 @@ public class GameManager {
             initGameStatistics(startCommandResult.getTitle());
         }
 
+        // handles game related actions
         if (commandResult instanceof GameCommandResult) {
-            // update statistics upon receiving a GameCommandResult
             GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
-            gameStatisticsBuilder.addDataPoint(gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
-                    gameCommandResult.getCard());
+
+            // update statistics upon receiving a GameCommandResult with a Card
+            if (gameCommandResult.getCard().isPresent()) {
+                gameStatisticsBuilder.addDataPoint(gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
+                        gameCommandResult.getCard().get());
+            }
+            // should attach the result to FinishGameResult to be passed to Logic
+            if (gameCommandResult.isFinishedGame()) {
+                abortAnyExistingGameTimer();
+                return new FinishGameResult(gameStatisticsBuilder.build());
+            }
         }
 
         // GameTimer is always abort when a new command is entered while Game is running.
@@ -87,6 +97,7 @@ public class GameManager {
         if (commandResult.isPromptingGuess()) {
             Platform.runLater(() -> setAndRunGameTimer());
         }
+
 
         return commandResult;
     }

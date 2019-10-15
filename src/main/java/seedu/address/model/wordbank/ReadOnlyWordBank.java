@@ -13,6 +13,9 @@ public interface ReadOnlyWordBank {
      * Returns an unmodifiable view of the word bank.
      * This list will not contain any duplicate cards.
      */
+
+    String getId();
+
     ObservableList<Card> getCardList();
 
     Card getCard(Index index);

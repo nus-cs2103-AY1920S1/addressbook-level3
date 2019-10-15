@@ -11,6 +11,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.game.FinishGameResult;
+import seedu.address.logic.commands.game.GameCommandResult;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -75,7 +77,12 @@ public class LogicManager implements Logic {
         Similar methods to saveAddressBook();
          */
         try {
-            storage.saveAddressBook(model.getWordBank());
+            if (commandResult instanceof FinishGameResult) {
+                FinishGameResult finishGameResult = (FinishGameResult) commandResult;
+                storage.saveAddressBookStatistics(model.getWordBank(), finishGameResult.getStatistics());
+            } else {
+                storage.saveAddressBook(model.getWordBank());
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

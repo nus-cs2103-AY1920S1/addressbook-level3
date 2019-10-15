@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.statistics.GameStatistics;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -73,5 +74,18 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
+
+    @Override
+    public void saveAddressBookStatistics(ReadOnlyWordBank addressBook, GameStatistics statistics) throws IOException {
+        saveAddressBookStatistics(addressBook, statistics, addressBookStorage.getAddressBookFilePath());
+    }
+
+    @Override
+    public void saveAddressBookStatistics(ReadOnlyWordBank addressBook, GameStatistics statistics, Path filePath)
+            throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        addressBookStorage.saveAddressBookStatistics(addressBook, statistics, filePath);
+    }
+
 
 }

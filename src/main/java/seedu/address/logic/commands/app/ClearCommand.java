@@ -19,7 +19,7 @@ public class ClearCommand extends AppCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setWordBank(new WordBank());
+        model.setWordBank(new WordBank(model.getWordBank().getId()));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
