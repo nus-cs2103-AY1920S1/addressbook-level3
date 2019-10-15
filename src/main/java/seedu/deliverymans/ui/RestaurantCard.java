@@ -5,9 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.deliverymans.model.restaurant.Restaurant;
 
 import java.util.Comparator;
+
+import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
  * An UI component that displays information of a {@code Restaurant}.

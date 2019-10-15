@@ -28,7 +28,8 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "FastFood";
 
     public static final String MESSAGE_SUCCESS = "New restaurant added: %1$s";
-    public static final String MESSAGE_DUPLICATE_RESTAURANT = "This restaurant already exists in the restaurant database";
+    public static final String MESSAGE_DUPLICATE_RESTAURANT =
+            "This restaurant already exists in the restaurant database";
 
     private final Restaurant toAdd;
 

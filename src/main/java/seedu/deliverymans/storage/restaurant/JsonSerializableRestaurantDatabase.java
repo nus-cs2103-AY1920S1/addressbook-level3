@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
-import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
+import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
@@ -36,7 +36,10 @@ public class JsonSerializableRestaurantDatabase {
      * @param source future changes to this will not affect the created {@code JsonSerializableRestaurantDatabase}.
      */
     public JsonSerializableRestaurantDatabase(ReadOnlyRestaurantDatabase source) {
-        restaurants.addAll(source.getRestaurantList().stream().map(JsonAdaptedRestaurant::new).collect(Collectors.toList()));
+        restaurants.addAll(source.getRestaurantList()
+                .stream()
+                .map(JsonAdaptedRestaurant::new)
+                .collect(Collectors.toList()));
     }
 
     /**

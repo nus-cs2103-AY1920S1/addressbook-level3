@@ -1,8 +1,5 @@
 package seedu.deliverymans.model.location;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.deliverymans.commons.util.AppUtil.checkArgument;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

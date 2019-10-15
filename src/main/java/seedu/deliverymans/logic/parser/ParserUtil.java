@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.deliverymans.commons.core.index.Index;

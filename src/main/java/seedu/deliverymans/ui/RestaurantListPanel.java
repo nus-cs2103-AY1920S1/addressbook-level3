@@ -5,10 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.deliverymans.commons.core.LogsCenter;
-import seedu.deliverymans.model.restaurant.Restaurant;
 
 import java.util.logging.Logger;
+
+import seedu.deliverymans.commons.core.LogsCenter;
+import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
  * Panel containing the list of restaurants.

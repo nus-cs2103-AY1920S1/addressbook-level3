@@ -6,17 +6,14 @@ import java.util.stream.Collectors;
 
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Tag;
-import seedu.deliverymans.model.database.OrderBook;
-import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
-import seedu.deliverymans.model.addressbook.person.Email;
 import seedu.deliverymans.model.addressbook.person.Person;
-import seedu.deliverymans.model.addressbook.person.Phone;
 import seedu.deliverymans.model.addressbook.person.Remark;
+import seedu.deliverymans.model.database.OrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
-import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.location.LocationMap;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
@@ -34,16 +31,16 @@ public class SampleDataUtil {
 
     public static Restaurant[] getSampleRestaurants() {
         return new Restaurant[]{
-                new Restaurant(new Name("KFC"), LocationMap.getLocation("Jurong").get(),
-                        getTagSet("FastFood", "Western")),
-                new Restaurant(new Name("Prata House"), LocationMap.getLocation("Bishan").get(),
-                        getTagSet("Indian")),
-                new Restaurant(new Name("SkyBar Bar and Restaurant"), LocationMap.getLocation("Marina").get(),
-                        getTagSet("Bar")),
-                new Restaurant(new Name("IchiNiSan Ramen"), LocationMap.getLocation("City").get(),
-                        getTagSet("Japanese")),
-                new Restaurant(new Name("Piggys Self Barbeque"), LocationMap.getLocation("Woodlands").get(),
-                        getTagSet("Barbeque"))
+            new Restaurant(new Name("KFC"), LocationMap.getLocation("Jurong").get(),
+                    getTagSet("FastFood", "Western")),
+            new Restaurant(new Name("Prata House"), LocationMap.getLocation("Bishan").get(),
+                    getTagSet("Indian")),
+            new Restaurant(new Name("SkyBar Bar and Restaurant"), LocationMap.getLocation("Marina").get(),
+                    getTagSet("Bar")),
+            new Restaurant(new Name("IchiNiSan Ramen"), LocationMap.getLocation("City").get(),
+                    getTagSet("Japanese")),
+            new Restaurant(new Name("Piggys Self Barbeque"), LocationMap.getLocation("Woodlands").get(),
+                    getTagSet("Barbeque"))
         };
     }
 

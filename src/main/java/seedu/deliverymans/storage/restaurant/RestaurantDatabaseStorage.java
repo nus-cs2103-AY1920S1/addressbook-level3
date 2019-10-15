@@ -28,7 +28,8 @@ public interface RestaurantDatabaseStorage {
     /**
      * @see #getRestaurantDatabaseFilePath()
      */
-    Optional<ReadOnlyRestaurantDatabase> readRestaurantDatabase(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyRestaurantDatabase> readRestaurantDatabase(Path filePath)
+            throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyRestaurantDatabase} to the storage.

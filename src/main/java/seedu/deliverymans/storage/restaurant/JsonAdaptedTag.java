@@ -2,6 +2,7 @@ package seedu.deliverymans.storage.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.model.Tag;
 

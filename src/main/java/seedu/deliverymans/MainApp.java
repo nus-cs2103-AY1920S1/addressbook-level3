@@ -17,11 +17,16 @@ import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.LogicManager;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.ModelManager;
-import seedu.deliverymans.model.database.*;
 import seedu.deliverymans.model.ReadOnlyUserPrefs;
 import seedu.deliverymans.model.UserPrefs;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
+import seedu.deliverymans.model.database.CustomerDatabase;
+import seedu.deliverymans.model.database.OrderBook;
+import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
+import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
+import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.util.SampleDataUtil;
 import seedu.deliverymans.storage.AddressBookStorage;
 import seedu.deliverymans.storage.JsonAddressBookStorage;
@@ -115,10 +120,12 @@ public class MainApp extends Application {
             }
             initialRestaurantData = restaurantDatabaseOptional.orElseGet(SampleDataUtil::getSampleRestaurantDatabase);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty RestaurantDatabase");
+            logger.warning("Data file not in the correct format. " +
+                    "Will be starting with an empty RestaurantDatabase");
             initialRestaurantData = new RestaurantDatabase();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty RestaurantDatabase");
+            logger.warning("Problem while reading from the file. " +
+                    "Will be starting with an empty RestaurantDatabase");
             initialRestaurantData = new RestaurantDatabase();
         }
 
@@ -136,7 +143,8 @@ public class MainApp extends Application {
             initialOrderData = new OrderBook();
         }
 
-        return new ModelManager(initialAddressData, initialCustomerData, initialRestaurantData, initialOrderData, userPrefs);
+        return new ModelManager(initialAddressData, initialCustomerData, initialRestaurantData, initialOrderData,
+                userPrefs);
     }
 
     private void initLogging(Config config) {

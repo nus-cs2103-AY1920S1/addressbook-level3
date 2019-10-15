@@ -51,7 +51,7 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    //=========== AddressBook Database / Filepath methods =============================================================
+    //=========== AddressBook Database / Filepath methods =====================================================
 
     /**
      * Returns the user prefs' address book file path.
@@ -214,9 +214,9 @@ public interface Model {
 
     /**
      * Replaces the given restaurant {@code target} with {@code editedRestaurant}.
-     * {@code target} must exist in the address book.
-     * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant in the address
-     * book.
+     * {@code target} must exist in the restaurant database.
+     * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant
+     * in the restaurant database.
      */
     void setRestaurant(Restaurant target, Restaurant editedRestaurant);
 

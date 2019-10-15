@@ -7,10 +7,10 @@ import java.util.logging.Logger;
 
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.commons.exceptions.DataConversionException;
-import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.ReadOnlyUserPrefs;
 import seedu.deliverymans.model.UserPrefs;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.storage.restaurant.RestaurantDatabaseStorage;
 
@@ -94,7 +94,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyRestaurantDatabase> readRestaurantDatabase(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyRestaurantDatabase> readRestaurantDatabase(Path filePath)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return restaurantDatabaseStorage.readRestaurantDatabase(filePath);
     }
@@ -105,7 +106,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveRestaurantDatabase(ReadOnlyRestaurantDatabase restaurantDatabase, Path filePath) throws IOException {
+    public void saveRestaurantDatabase(ReadOnlyRestaurantDatabase restaurantDatabase, Path filePath)
+            throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         restaurantDatabaseStorage.saveRestaurantDatabase(restaurantDatabase, filePath);
     }

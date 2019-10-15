@@ -16,8 +16,6 @@ import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.location.LocationMap;
 import seedu.deliverymans.model.restaurant.Rating;
 import seedu.deliverymans.model.restaurant.Restaurant;
-import seedu.deliverymans.storage.restaurant.JsonAdaptedTag;
-
 
 /**
  * Jackson-friendly version of {@link Restaurant}.
@@ -80,7 +78,8 @@ public class JsonAdaptedRestaurant {
         final Name modelName = new Name(name);
 
         if (location == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Location.class.getSimpleName()));
         }
         if (!LocationMap.isValidLocation(location)) {
             throw new IllegalValueException(LocationMap.MESSAGE_CONSTRAINTS);
