@@ -55,6 +55,6 @@ public class QuizModeCommand extends Command {
         ObservableList<Question> quizQuestionList = model.getQuizQuestions(numOfQuestions, subject, difficulty);
         model.setQuizQuestionList(quizQuestionList);
         LogicManager.setIsQuiz(true);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, true, false);
     }
 }

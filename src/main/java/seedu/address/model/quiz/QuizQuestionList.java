@@ -21,9 +21,7 @@ public class QuizQuestionList implements Iterable<Question> {
      * Sets the question list in quiz as {@code quizQuestionList}.
      */
     public void setQuizQuestionList(ObservableList<Question> quizQuestionList) {
-        for (int i = 0; i < quizQuestionList.size(); i++) {
-            internalList.add(quizQuestionList.get(i));
-        }
+        internalList.setAll(quizQuestionList);
     }
 
     /**
@@ -32,7 +30,7 @@ public class QuizQuestionList implements Iterable<Question> {
     public boolean checkQuizAnswer(int index, Answer answer) {
         requireAllNonNull(answer);
 
-        return internalList.get(index).getAnswer().equals(answer);
+        return internalList.get(index - 1).getAnswer().equals(answer);
     }
 
     /**
@@ -52,5 +50,17 @@ public class QuizQuestionList implements Iterable<Question> {
     @Override
     public Iterator<Question> iterator() {
         return internalList.iterator();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof QuizQuestionList // instanceof handles nulls
+                && internalList.equals(((QuizQuestionList) other).internalList));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
     }
 }

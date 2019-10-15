@@ -42,6 +42,11 @@ public interface Logic {
     ObservableList<Question> getFilteredQuestionList();
 
     /**
+     * Returns an unmodifiable view of the filtered list of quiz questions.
+     */
+    ObservableList<Question> getFilteredQuizQuestionList();
+
+    /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();

@@ -42,6 +42,6 @@ public class GetStatisticsCommand extends Command {
         requireNonNull(model);
         model.updateFilteredNoteList(PREDICATE_SHOW_NO_NOTES);
         model.getStatistics();
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
     }
 }

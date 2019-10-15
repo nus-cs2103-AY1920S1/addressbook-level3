@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.question.Question;
-import seedu.address.model.quiz.QuizQuestionList;
 
 public class QuizQuestionListCard extends UiPart<Region> {
     private final static String FXML = "QuizQuestionListCard";
@@ -14,8 +13,8 @@ public class QuizQuestionListCard extends UiPart<Region> {
 
     @FXML
     private HBox cardPane;
-//    @FXML
-//    private Label title;
+    @FXML
+    private Label subject;
     @FXML
     private Label id;
     @FXML
@@ -25,6 +24,7 @@ public class QuizQuestionListCard extends UiPart<Region> {
         super(FXML);
         this.question = question;
         id.setText(displayedIndex + ". ");
+        subject.setText(question.getSubject().toString());
         questionBody.setText(question.getQuestionBody().toString());
     }
 
