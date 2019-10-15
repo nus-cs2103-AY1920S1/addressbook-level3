@@ -49,7 +49,7 @@ public class Amount implements Comparable<Amount> {
      * @param cents String representing value in cents.
      * @return Combined value in cents
      */
-    private int getValueFromDollarAndCents(String dollar, String cents) {
+    private static int getValueFromDollarAndCents(String dollar, String cents) {
         int dollarValue = Integer.parseInt(dollar);
         int centsValue = Integer.parseInt(cents);
         if (dollarValue < 0) {
@@ -90,7 +90,7 @@ public class Amount implements Comparable<Amount> {
      * @param cents The number of cents in an {@code Amount} that is less than 100.
      * @return A two character {@code String}.
      */
-    private String convertCentsToString(int cents) {
+    private static String convertCentsToString(int cents) {
         if (cents == 0) {
             return "00";
         } else if (cents < 10) {
@@ -110,7 +110,7 @@ public class Amount implements Comparable<Amount> {
      * @param amounts List of {@code Amount} to be added.
      * @return An {@code Amount} obtained from summation.
      */
-    public Amount addAll(List<Amount> amounts) {
+    public static Amount addAll(List<Amount> amounts) {
         int valueInCents = 0;
         for (Amount amount : amounts) {
             valueInCents += amount.getValueInCents();
@@ -125,7 +125,7 @@ public class Amount implements Comparable<Amount> {
      * @param operand2 Second operand to be added.
      * @return An {@code Amount} obtained from addition.
      */
-    public Amount add(Amount operand1, Amount operand2) {
+    public static Amount add(Amount operand1, Amount operand2) {
         return new Amount(operand1.getValueInCents() + operand2.getValueInCents());
     }
 
@@ -136,7 +136,7 @@ public class Amount implements Comparable<Amount> {
      * @param operand2 Second operand to be subtracted from first operand.
      * @return An {@code Amount} obtained from subtraction.
      */
-    public Amount subtract(Amount operand1, Amount operand2) {
+    public static Amount subtract(Amount operand1, Amount operand2) {
         return new Amount(operand1.getValueInCents() - operand2.getValueInCents());
     }
 
@@ -146,7 +146,7 @@ public class Amount implements Comparable<Amount> {
      * @param amount {@code Amount} object to be negated.
      * @return The negative of an {@code Amount}.
      */
-    public Amount negate(Amount amount) {
+    public static Amount negate(Amount amount) {
         return new Amount(-amount.getValueInCents());
     }
 
