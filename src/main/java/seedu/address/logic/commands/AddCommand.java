@@ -59,7 +59,7 @@ public class AddCommand extends Command {
 
         if (model.hasPerson(toAdd)) {
             String exceptionMessage = "";
-            if (toAdd.hasEqualCompulsoryFields(model.getPerson(toAdd))) {
+            if (toAdd.hasEqualEditableFields(model.getPerson(toAdd))) {
                 exceptionMessage = generateExceptionMessageWithoutMergePrompt(model.getPerson(toAdd));
                 throw new DuplicatePersonWithoutMergeException(exceptionMessage);
             } else {

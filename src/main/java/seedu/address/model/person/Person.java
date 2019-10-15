@@ -106,10 +106,10 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same compulsory fields.
+     * Returns true if both persons of the same editable fields.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean hasEqualCompulsoryFields(Person otherPerson) {
+    public boolean hasEqualEditableFields(Person otherPerson) {
         if (otherPerson == this) {
             return true;
         }
