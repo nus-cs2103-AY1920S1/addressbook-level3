@@ -13,9 +13,11 @@ public class SwitchCommand extends Command {
 
     public static final String COMMAND_WORD = "switch";
     public static final String MESSAGE_SUCCESS = "Switched to tab %1$s!";
-    public static final String MESSAGE_USAGE = "Switches the current display tab in the GUI"
-        + "by the index number of the current tab. "
-        + "Parameters: INDEX (must be a positive integer) ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+        + ": Switches the current display tab in the GUI"
+        + "by the index number of the current tab.\n"
+        + "Parameters: INDEX (must be a positive integer)\n"
+        + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_INVALID_INDEX = "There is no tab at index %1$s!";
 

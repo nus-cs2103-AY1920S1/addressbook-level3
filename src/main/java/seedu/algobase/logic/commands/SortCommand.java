@@ -41,11 +41,13 @@ public class SortCommand extends Command {
     }
 
     public static final String COMMAND_WORD = "sort";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the current view in a certain order. "
-            + "Parameters: "
-        + PREFIX_SORTING_METHOD + "SORTING_METHOD "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Sorts the current view in a certain order. "
+            + "Parameters:\n"
+            + PREFIX_SORTING_METHOD + "SORTING_METHOD "
             + PREFIX_SORTING_ORDER + "SORTING_ORDER\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_SORTING_METHOD + "name "
             + PREFIX_SORTING_ORDER + "ascend";
     public static final String MESSAGE_SUCCESS = "AlgoBase has been sorted!";

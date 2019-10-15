@@ -128,7 +128,7 @@ public class Problem {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, author, webLink, description, tags, remark, source);
+        return Objects.hash(name, author, webLink, description, difficulty, remark, source, tags);
     }
 
     @Override
@@ -141,12 +141,14 @@ public class Problem {
                 .append(getWebLink())
                 .append(" Description: ")
                 .append(getDescription())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
-        builder.append(" Remark: ")
+                .append(" Difficulty: ")
+                .append(getDifficulty())
+                .append(" Remark: ")
                 .append(getRemark())
                 .append(" Source: ")
-                .append(getSource());
+                .append(getSource())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 

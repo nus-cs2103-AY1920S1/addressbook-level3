@@ -25,10 +25,11 @@ public class UndoneTaskCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the Task identified by the index as undone in the plan.\n"
-            + "Parameters: "
-            + PREFIX_PLAN + "PLAN"
-            + PREFIX_TASK + "TASK\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Parameters:\n"
+            + PREFIX_PLAN + "PLAN_INDEX"
+            + PREFIX_TASK + "TASK_INDEX\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_PLAN + "1 "
             + PREFIX_TASK + "10";
 
