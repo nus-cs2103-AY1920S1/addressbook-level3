@@ -76,18 +76,8 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case FinancialTrackerCommand.COMMAND_WORD:
-            return new FinancialTrackerCommand();
-
-        case CalendarCommand.COMMAND_WORD:
-            return new CalendarCommand();
-
-        case ItineraryCommand.COMMAND_WORD:
-            return new ItineraryCommand();
-
-        // todo: remove this when everyone has implemented the UI of their page
-        case SampleCommand.COMMAND_WORD:
-            return new SampleCommand();
+        case GoToCommand.COMMAND_WORD:
+            return new GoToParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
