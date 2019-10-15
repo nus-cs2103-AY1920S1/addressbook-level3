@@ -30,7 +30,7 @@ public interface Logic {
      *
      * @see Model#getUserProfile()
      */
-    ReadOnlyUserProfile getDukeCooks();
+    ReadOnlyUserProfile getUserProfile();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -41,7 +41,7 @@ public interface Logic {
     /**
      * Returns the user prefs' Duke Cooks file path.
      */
-    Path getDukeCooksFilePath();
+    Path getUserProfileFilePath();
 
     /**
      * Returns the user prefs' Health Records file path.

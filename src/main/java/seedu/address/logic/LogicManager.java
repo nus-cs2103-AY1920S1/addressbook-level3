@@ -59,7 +59,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyUserProfile getDukeCooks() {
+    public ReadOnlyUserProfile getUserProfile() {
         return model.getUserProfile();
     }
 
@@ -74,7 +74,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getDukeCooksFilePath() {
+    public Path getUserProfileFilePath() {
         return model.getUserProfileFilePath();
     }
 
