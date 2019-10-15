@@ -79,8 +79,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (categories.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> categorieset = categories.size() == 1 && categories.contains("") ? Collections.emptySet() : categories;
-        return Optional.of(ParserUtil.parseCategories(categorieset));
+        Collection<String> categorySet = categories.size() == 1 && categories.contains("") ? Collections.emptySet() : categories;
+        return Optional.of(ParserUtil.parseCategories(categorySet));
     }
 
 }

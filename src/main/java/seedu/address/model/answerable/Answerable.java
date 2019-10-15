@@ -101,7 +101,7 @@ public abstract class Answerable {
                 .append(getAnswerSet())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
-                .append(" categories: ");
+                .append(" Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();
     }
