@@ -23,7 +23,7 @@ public class StatsCommand extends Command {
 
         double totalCost = 0;
         for (Spending i: lastShownList) {
-            totalCost += Double.parseDouble(i.getPhone().toString());
+            totalCost += Double.parseDouble(i.getCost().toString());
         }
 
         return new CommandResult(MESSAGE_SUCCESS + "\nTotal Cost: $" + String.format("%.2f", totalCost));

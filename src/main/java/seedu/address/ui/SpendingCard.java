@@ -35,7 +35,7 @@ public class SpendingCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label address;
+    private Label cost;
     @FXML
     private Label email;
     @FXML
@@ -47,7 +47,7 @@ public class SpendingCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(spending.getName().fullName);
         phone.setText(spending.getPhone().value);
-        address.setText(spending.getAddress().value);
+        cost.setText(spending.getCost().value);
         email.setText(spending.getEmail().value);
         spending.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

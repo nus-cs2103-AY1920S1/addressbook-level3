@@ -28,13 +28,12 @@ class StatsCommandTest {
     public void execute_displayStatsForAll_success() {
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-        double totalCost = Double.parseDouble(ALICE.getPhone().toString())
-            + Double.parseDouble(BENSON.getPhone().toString()) + Double.parseDouble(CARL.getPhone().toString())
-            + Double.parseDouble(DANIEL.getPhone().toString()) + Double.parseDouble(ELLE.getPhone().toString())
-            + Double.parseDouble(FIONA.getPhone().toString()) + Double.parseDouble(GEORGE.getPhone().toString());
+        double totalCost = Double.parseDouble(ALICE.getCost().toString())
+            + Double.parseDouble(BENSON.getCost().toString()) + Double.parseDouble(CARL.getCost().toString())
+            + Double.parseDouble(DANIEL.getCost().toString()) + Double.parseDouble(ELLE.getCost().toString())
+            + Double.parseDouble(FIONA.getCost().toString()) + Double.parseDouble(GEORGE.getCost().toString());
 
         String expectedMessage = StatsCommand.MESSAGE_SUCCESS + "\nTotal Cost: $" + String.format("%.2f", totalCost);
-        System.out.println(expectedMessage);
         assertCommandSuccess(new StatsCommand(), model , expectedMessage, expectedModel);
     }
 
