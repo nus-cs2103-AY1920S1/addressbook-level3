@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path itineraryFilePath = Paths.get("data" , "itinerary.json");
+    private Path plannerFilePath = Paths.get("data" , "planner.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,7 +35,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setItineraryFilePath(newUserPrefs.getItineraryFilePath());
+        setPlannerFilePath(newUserPrefs.getPlannerFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +47,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getItineraryFilePath() {
-        return itineraryFilePath;
+    public Path getPlannerFilePath() {
+        return plannerFilePath;
     }
 
-    public void setItineraryFilePath(Path itineraryFilePath) {
-        requireNonNull(itineraryFilePath);
-        this.itineraryFilePath = itineraryFilePath;
+    public void setPlannerFilePath(Path plannerFilePath) {
+        requireNonNull(plannerFilePath);
+        this.plannerFilePath = plannerFilePath;
     }
 
     @Override
@@ -68,19 +68,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && itineraryFilePath.equals(o.itineraryFilePath);
+                && plannerFilePath.equals(o.plannerFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, itineraryFilePath);
+        return Objects.hash(guiSettings, plannerFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + itineraryFilePath);
+        sb.append("\nLocal data file location : " + plannerFilePath);
         return sb.toString();
     }
 

@@ -33,8 +33,19 @@ public class ContactUtil {
         sb.append("contact ");
         sb.append(PREFIX_NAME + contact.getName().toString() + " ");
         sb.append(PREFIX_PHONE + contact.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + contact.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + contact.getAddress().value + " ");
+
+        if (contact.getEmail().isPresent()) {
+            sb.append(PREFIX_EMAIL + contact.getEmail().get().value + " ");
+        } else {
+            sb.append(PREFIX_EMAIL + " ");
+        }
+
+        if (contact.getAddress().isPresent()) {
+            sb.append(PREFIX_ADDRESS + contact.getAddress().get().value + " ");
+        } else {
+            sb.append(PREFIX_ADDRESS + " ");
+        }
+
         contact.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );

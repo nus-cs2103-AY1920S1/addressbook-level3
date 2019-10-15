@@ -19,7 +19,7 @@ activate model MODEL_COLOR
 model -[MODEL_COLOR]-> logic
 deactivate model
 
-logic -[LOGIC_COLOR]> storage : saveAddressBook(itinerary)
+logic -[LOGIC_COLOR]> storage : saveAddressBook(planner)
 activate storage STORAGE_COLOR
 
 storage -[STORAGE_COLOR]> storage : Save to file

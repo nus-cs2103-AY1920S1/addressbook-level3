@@ -118,7 +118,7 @@ return getPrintableString(p.getPhone(), p.getEmail(), p.getAddress());
 ----
 
 == Follow Liskov Substitution Principle `[LO-LSP]`
-
+A
 === References
 
 * https://se-edu.github.io/se-book/principles/liskovSubstitutionPrinciple/[se-edu/se-book: Principles: Liskov Substitution Principle]

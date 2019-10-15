@@ -5,8 +5,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.contact.Contact;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
@@ -22,15 +24,17 @@ public class Activity {
 
     //Data fields
     private final Address address;
+    private final Contact contact;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Activity(Name name, Address address, Set<Tag> tags) {
+    public Activity(Name name, Address address, Contact contact, Set<Tag> tags) {
         requireAllNonNull(name, address, tags);
         this.name = name;
         this.address = address;
+        this.contact = contact;
         this.tags.addAll(tags);
     }
 
@@ -42,6 +46,9 @@ public class Activity {
         return address;
     }
 
+    public Optional<Contact> getContact() {
+        return Optional.ofNullable(contact);
+    }
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -81,7 +88,8 @@ public class Activity {
         seedu.address.model.activity.Activity otherActivity = (seedu.address.model.activity.Activity) other;
         return otherActivity.getName().equals(getName())
                 && otherActivity.getAddress().equals(getAddress())
-                && otherActivity.getTags().equals(getTags());
+                && otherActivity.getTags().equals(getTags())
+                && otherActivity.getContact().equals(getContact());
     }
 
     @Override

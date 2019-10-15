@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE;
-import static seedu.address.testutil.TypicalContacts.getTypicalItinerary;
+import static seedu.address.testutil.TypicalContacts.getTypicalPlanner;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,25 +24,25 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.testutil.ContactBuilder;
 
-public class ItineraryTest {
+public class PlannerTest {
 
-    private final Itinerary itinerary = new Itinerary();
+    private final Planner planner = new Planner();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), itinerary.getContactList());
+        assertEquals(Collections.emptyList(), planner.getContactList());
     }
 
     @Test
     public void resetDataContact_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> itinerary.resetDataContact(null));
+        assertThrows(NullPointerException.class, () -> planner.resetDataContact(null));
     }
 
     @Test
-    public void resetDataContact_withValidReadOnlyItinerary_replacesData() {
-        Itinerary newData = getTypicalItinerary();
-        itinerary.resetDataContact(newData);
-        assertEquals(newData, itinerary);
+    public void resetDataContact_withValidReadOnlyPlanner_replacesData() {
+        Planner newData = getTypicalPlanner();
+        planner.resetDataContact(newData);
+        assertEquals(newData, planner);
     }
 
     @Test
@@ -51,49 +51,49 @@ public class ItineraryTest {
         Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Contact> newContacts = Arrays.asList(ALICE, editedAlice);
-        ItineraryStub newData = new ItineraryStub(newContacts);
+        PlannerStub newData = new PlannerStub(newContacts);
 
-        assertThrows(DuplicateContactException.class, () -> itinerary.resetDataContact(newData));
+        assertThrows(DuplicateContactException.class, () -> planner.resetDataContact(newData));
     }
 
     @Test
     public void hasContact_nullContact_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> itinerary.hasContact(null));
+        assertThrows(NullPointerException.class, () -> planner.hasContact(null));
     }
 
     @Test
-    public void hasContact_contactNotInItinerary_returnsFalse() {
-        assertFalse(itinerary.hasContact(ALICE));
+    public void hasContact_contactNotInPlanner_returnsFalse() {
+        assertFalse(planner.hasContact(ALICE));
     }
 
     @Test
-    public void hasContact_contactInItinerary_returnsTrue() {
-        itinerary.addContact(ALICE);
-        assertTrue(itinerary.hasContact(ALICE));
+    public void hasContact_contactInPlanner_returnsTrue() {
+        planner.addContact(ALICE);
+        assertTrue(planner.hasContact(ALICE));
     }
 
     @Test
-    public void hasContact_contactWithSameIdentityFieldsInItinerary_returnsTrue() {
-        itinerary.addContact(ALICE);
+    public void hasContact_contactWithSameIdentityFieldsInPlanner_returnsTrue() {
+        planner.addContact(ALICE);
         Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(itinerary.hasContact(editedAlice));
+        assertTrue(planner.hasContact(editedAlice));
     }
 
     @Test
     public void getContactList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> itinerary.getContactList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> planner.getContactList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyItinerary whose contacts list can violate interface constraints.
+     * A stub ReadOnlyPlanner whose contacts list can violate interface constraints.
      */
-    private static class ItineraryStub implements ReadOnlyItinerary {
+    private static class PlannerStub implements ReadOnlyPlanner {
         private final ObservableList<Accommodation> accommodations = FXCollections.observableArrayList();
         private final ObservableList<Activity> activities = FXCollections.observableArrayList();
         private final ObservableList<Contact> contacts = FXCollections.observableArrayList();
 
-        ItineraryStub(Collection<Contact> contacts) {
+        PlannerStub(Collection<Contact> contacts) {
             this.contacts.setAll(contacts);
         }
 

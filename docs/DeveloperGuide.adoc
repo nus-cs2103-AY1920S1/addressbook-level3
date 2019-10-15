@@ -173,7 +173,7 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th contact in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete contact 5` command to delete the 5th contact in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
@@ -280,7 +280,7 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*:
 
 * a student who is inexperienced in planning for overseas trips
-* has a need to manage and schedule itinerary items
+* has a need to manage and schedule planner items
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
@@ -306,9 +306,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |traveller |access a list of accommodations |I can better plan for where to stay at
 
-|`* * *` |organised traveller |plan my daily itinerary |I can make better use of my travel time
+|`* * *` |organised traveller |plan my daily planner |I can make better use of my travel time
 
-|`* * *` |lightweight traveller |save the itinerary to my phone |I can pack light
+|`* * *` |lightweight traveller |save the planner to my phone |I can pack light
 
 |`* * *` |infrequent traveller |add contacts |I can get in touch with the hotel concierge
 
@@ -338,7 +338,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |traveller |organise and record my travel experiences |I can share them online
 
-|`*` |inexperienced planner |receive planning recommendations |I can improve my itinerary
+|`*` |inexperienced planner |receive planning recommendations |I can improve my planner
 
 |=======================================================================
 

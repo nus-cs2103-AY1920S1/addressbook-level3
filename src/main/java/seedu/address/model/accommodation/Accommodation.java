@@ -24,7 +24,7 @@ public class Accommodation {
 
     //Data fields
     private final Address address;
-    private final Optional<Contact> contact;
+    private final Contact contact;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -35,7 +35,7 @@ public class Accommodation {
         requireAllNonNull(name, address, tags);
         this.name = name;
         this.address = address;
-        this.contact = Optional.ofNullable(contact);
+        this.contact = contact;
         this.tags.addAll(tags);
     }
 
@@ -47,8 +47,8 @@ public class Accommodation {
         return address;
     }
 
-    public Contact getContact() {
-        return contact.orElse(null); }
+    public Optional<Contact> getContact() {
+        return Optional.ofNullable(contact); }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -90,7 +90,8 @@ public class Accommodation {
         Accommodation otherAccommodation = (Accommodation) other;
         return otherAccommodation.getName().equals(getName())
                 && otherAccommodation.getAddress().equals(getAddress())
-                && otherAccommodation.getTags().equals(getTags());
+                && otherAccommodation.getTags().equals(getTags())
+                && otherAccommodation.getContact().equals(getContact());
     }
 
     @Override

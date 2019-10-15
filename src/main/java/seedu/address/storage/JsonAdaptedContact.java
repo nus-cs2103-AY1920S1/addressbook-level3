@@ -52,8 +52,8 @@ class JsonAdaptedContact {
     public JsonAdaptedContact(Contact source) {
         name = source.getName().toString();
         phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        email = source.getEmail().isPresent() ? source.getEmail().get().value : "";
+        address = source.getAddress().isPresent() ? source.getAddress().get().value : "";
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

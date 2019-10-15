@@ -8,7 +8,7 @@ import seedu.address.model.contact.Contact;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyItinerary {
+public interface ReadOnlyPlanner {
 
     /**
      * Returns an unmodifiable view of the persons list.

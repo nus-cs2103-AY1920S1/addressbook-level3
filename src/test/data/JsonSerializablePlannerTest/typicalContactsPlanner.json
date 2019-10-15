@@ -1,5 +1,5 @@
 {
-  "_comment": "Itinerary save file which contains the same Contact values as in TypicalContacts#getTypicalItinerary()",
+  "_comment": "Planner save file which contains the same Contact values as in TypicalContacts#getTypicalPlanner()",
   "contacts" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",

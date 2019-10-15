@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
-import static seedu.address.testutil.TypicalContacts.getTypicalItinerary;
+import static seedu.address.testutil.TypicalContacts.getTypicalPlanner;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalItinerary(), new UserPrefs());
-        expectedModel = new ModelManager(model.getItinerary(), new UserPrefs());
+        model = new ModelManager(getTypicalPlanner(), new UserPrefs());
+        expectedModel = new ModelManager(model.getPlanner(), new UserPrefs());
     }
 
     @Test

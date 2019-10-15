@@ -5,14 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyItinerary;
+import seedu.address.model.ReadOnlyPlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends ItineraryStorage, UserPrefsStorage {
+public interface Storage extends PlannerStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -21,12 +21,12 @@ public interface Storage extends ItineraryStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getItineraryFilePath();
+    Path getPlannerFilePath();
 
     @Override
-    Optional<ReadOnlyItinerary> readItinerary() throws DataConversionException, IOException;
+    Optional<ReadOnlyPlanner> readPlanner() throws DataConversionException, IOException;
 
     @Override
-    void saveItinerary(ReadOnlyItinerary itinerary) throws IOException;
+    void savePlanner(ReadOnlyPlanner planner) throws IOException;
 
 }

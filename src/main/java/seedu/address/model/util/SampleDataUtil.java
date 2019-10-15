@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.Itinerary;
-import seedu.address.model.ReadOnlyItinerary;
+import seedu.address.model.Planner;
+import seedu.address.model.ReadOnlyPlanner;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
@@ -14,7 +14,7 @@ import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code Itinerary} with sample data.
+ * Contains utility methods for populating {@code Planner} with sample data.
  */
 public class SampleDataUtil {
     public static Contact[] getSampleContacts() {
@@ -40,8 +40,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyItinerary getSampleItinerary() {
-        Itinerary sampleAb = new Itinerary();
+    public static ReadOnlyPlanner getSamplePlanner() {
+        Planner sampleAb = new Planner();
         for (Contact sampleContact : getSampleContacts()) {
             sampleAb.addContact(sampleContact);
         }

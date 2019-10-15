@@ -3,7 +3,7 @@ package seedu.address.model.day;
 import java.util.List;
 
 /**
- * Represents a Day in the travel planner's itinerary.
+ * Represents a Day in the travel planner's planner.
  * Guarantees: timetable is present and not null, field values are validated, immutable.
  */
 public class Day {

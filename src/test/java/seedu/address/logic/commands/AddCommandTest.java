@@ -17,9 +17,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Itinerary;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyItinerary;
+import seedu.address.model.Planner;
+import seedu.address.model.ReadOnlyPlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.activity.Activity;
@@ -102,24 +102,24 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        // ITINERARY METHODS
+        // PLANNER METHODS
         @Override
-        public Path getItineraryFilePath() {
+        public Path getPlannerFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setItineraryFilePath(Path itineraryFilePath) {
+        public void setPlannerFilePath(Path plannerFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setItinerary(ReadOnlyItinerary newData) {
+        public void setPlanner(ReadOnlyPlanner newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyItinerary getItinerary() {
+        public ReadOnlyPlanner getPlanner() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -272,8 +272,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyItinerary getItinerary() {
-            return new Itinerary();
+        public ReadOnlyPlanner getPlanner() {
+            return new Planner();
         }
     }
 

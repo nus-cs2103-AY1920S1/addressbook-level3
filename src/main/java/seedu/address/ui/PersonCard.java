@@ -21,7 +21,7 @@ public class PersonCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on Itinerary level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on Planner level 4</a>
      */
 
     public final Contact contact;
@@ -47,8 +47,8 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().toString());
         phone.setText(contact.getPhone().value);
-        address.setText(contact.getAddress().value);
-        email.setText(contact.getEmail().value);
+        address.setText(contact.getAddress().isPresent() ? contact.getAddress().get().value : "");
+        email.setText(contact.getEmail().isPresent() ? contact.getEmail().get().value : "");
         contact.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

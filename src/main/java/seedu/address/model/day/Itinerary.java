@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DayManager class helps to manage the list of days in an Itinerary.
+ * Itinerary class helps to manage the list of days in an Planner.
  */
-public class DayManager {
+public class Itinerary {
     private List<Day> days;
     private int numberOfDays;
 
     /**
-     * Creates a new instance of DayManager with the necessary fields instantiated.
+     * Creates a new instance of Itinerary with the necessary fields instantiated.
      */
-    public DayManager() {
+    public Itinerary() {
         days = new ArrayList<>();
         numberOfDays = 0;
     }
@@ -25,7 +25,7 @@ public class DayManager {
     }
 
     /**
-     * Sets the total number of days in the itinerary.
+     * Sets the total number of days in the planner.
      * @param n number of days.
      */
     public void setDays(int n) {
@@ -35,7 +35,7 @@ public class DayManager {
     }
 
     /**
-     * Set the days in an itinerary.
+     * Set the days in an planner.
      * @param days list of days to be imported.
      */
     public void setDays(List<Day> days) {
@@ -64,7 +64,7 @@ public class DayManager {
 
     @Override
     public boolean equals(Object object) {
-        return days.equals(((DayManager) object).getDays());
+        return days.equals(((Itinerary) object).getDays());
     }
 
 }

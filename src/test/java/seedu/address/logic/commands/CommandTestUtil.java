@@ -15,8 +15,8 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Itinerary;
 import seedu.address.model.Model;
+import seedu.address.model.Planner;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditContactDescriptorBuilder;
@@ -104,11 +104,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        Itinerary expectedItinerary = new Itinerary(actualModel.getItinerary());
+        Planner expectedPlanner = new Planner(actualModel.getPlanner());
         List<Contact> expectedFilteredList = new ArrayList<>(actualModel.getFilteredContactList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedItinerary, actualModel.getItinerary());
+        assertEquals(expectedPlanner, actualModel.getPlanner());
         assertEquals(expectedFilteredList, actualModel.getFilteredContactList());
     }
     /**

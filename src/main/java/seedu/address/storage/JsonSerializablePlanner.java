@@ -9,15 +9,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Itinerary;
-import seedu.address.model.ReadOnlyItinerary;
+import seedu.address.model.Planner;
+import seedu.address.model.ReadOnlyPlanner;
 import seedu.address.model.contact.Contact;
 
 /**
- * An Immutable Itinerary that is serializable to JSON format.
+ * An Immutable Planner that is serializable to JSON format.
  */
-@JsonRootName(value = "itinerary")
-class JsonSerializableItinerary {
+@JsonRootName(value = "planner")
+class JsonSerializablePlanner {
 
     public static final String MESSAGE_DUPLICATE_CONTACT = "Contacts list contains duplicate contacts(s).";
 
@@ -27,34 +27,34 @@ class JsonSerializableItinerary {
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableItinerary(@JsonProperty("contacts") List<JsonAdaptedContact> contacts) {
+    public JsonSerializablePlanner(@JsonProperty("contacts") List<JsonAdaptedContact> contacts) {
         this.contacts.addAll(contacts);
     }
 
     /**
-     * Converts a given {@code ReadOnlyItinerary} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyPlanner} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableItinerary(ReadOnlyItinerary source) {
+    public JsonSerializablePlanner(ReadOnlyPlanner source) {
         contacts.addAll(source.getContactList().stream().map(JsonAdaptedContact::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code Itinerary} object.
+     * Converts this address book into the model's {@code Planner} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public Itinerary toModelType() throws IllegalValueException {
-        Itinerary itinerary = new Itinerary();
+    public Planner toModelType() throws IllegalValueException {
+        Planner planner = new Planner();
         for (JsonAdaptedContact jsonAdaptedContact : contacts) {
             Contact contact = jsonAdaptedContact.toModelType();
-            if (itinerary.hasContact(contact)) {
+            if (planner.hasContact(contact)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_CONTACT);
             }
-            itinerary.addContact(contact);
+            planner.addContact(contact);
         }
-        return itinerary;
+        return planner;
     }
 
 }

@@ -29,9 +29,9 @@ import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.ContactUtil;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 
-public class ItineraryParserTest {
+public class PlannerParserTest {
 
-    private final ItineraryParser parser = new ItineraryParser();
+    private final PlannerParser parser = new PlannerParser();
 
     @Test
     public void parseCommand_add() throws Exception {

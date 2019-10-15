@@ -21,10 +21,10 @@ public class Contact {
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final Optional<Email> email;
+    private final Email email;
 
     // Data fields
-    private final Optional<Address> address;
+    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -34,8 +34,8 @@ public class Contact {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
-        this.email = Optional.ofNullable(email);
-        this.address = Optional.ofNullable(address);
+        this.email = email;
+        this.address = address;
         this.tags.addAll(tags);
     }
 
@@ -51,12 +51,12 @@ public class Contact {
         return phone;
     }
 
-    public Email getEmail() {
-        return email.orElse(Email.emptyEmail());
+    public Optional<Email> getEmail() {
+        return Optional.ofNullable(email);
     }
 
-    public Address getAddress() {
-        return address.orElse(Address.emptyAddress());
+    public Optional<Address> getAddress() {
+        return Optional.ofNullable(address);
     }
 
     /**
@@ -76,6 +76,7 @@ public class Contact {
             return true;
         }
 
+        // Needs to be changed
         return otherContact != null
                 && otherContact.getName().equals(getName())
                 && (otherContact.getPhone().equals(getPhone()) || otherContact.getEmail().equals(getEmail()));
@@ -116,9 +117,9 @@ public class Contact {
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
-                .append(getEmail())
+                .append(getEmail().isPresent() ? getEmail().get().value : "")
                 .append(" Address: ")
-                .append(getAddress())
+                .append(getAddress().isPresent() ? getAddress().get().value : "")
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.Itinerary;
+import seedu.address.model.Planner;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -60,10 +60,10 @@ public class TypicalContacts {
     private TypicalContacts() {} // prevents instantiation
 
     /**
-     * Returns an {@code Itinerary} with all the typical persons.
+     * Returns an {@code Planner} with all the typical persons.
      */
-    public static Itinerary getTypicalItinerary() {
-        Itinerary ab = new Itinerary();
+    public static Planner getTypicalPlanner() {
+        Planner ab = new Planner();
         for (Contact contact : getTypicalContacts()) {
             ab.addContact(contact);
         }

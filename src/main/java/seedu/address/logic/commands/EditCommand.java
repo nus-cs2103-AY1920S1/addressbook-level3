@@ -48,7 +48,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Edited Contact: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_CONTACT = "This contacts already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book.";
 
     private final Index index;
     private final EditContactDescriptor editContactDescriptor;
@@ -94,8 +94,8 @@ public class EditCommand extends Command {
         assert contactToEdit != null;
         Name updatedName = editContactDescriptor.getName().orElse(contactToEdit.getName());
         Phone updatedPhone = editContactDescriptor.getPhone().orElse(contactToEdit.getPhone());
-        Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail());
-        Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
+        Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail().orElse(null));
+        Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress().orElse(null));
         Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
 
         return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);

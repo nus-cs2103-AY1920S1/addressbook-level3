@@ -13,19 +13,19 @@ import seedu.address.model.activity.UniqueActivityList;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.day.Day;
-import seedu.address.model.day.DayManager;
+import seedu.address.model.day.Itinerary;
 
 
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class Itinerary implements ReadOnlyItinerary {
+public class Planner implements ReadOnlyPlanner {
     private String country;
     private final UniqueActivityList activities;
     private final UniqueAccommodationList accommodations;
     private final UniqueContactList contacts;
-    private final DayManager days;
+    private final Itinerary days;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -38,15 +38,15 @@ public class Itinerary implements ReadOnlyItinerary {
         activities = new UniqueActivityList();
         accommodations = new UniqueAccommodationList();
         contacts = new UniqueContactList();
-        days = new DayManager();
+        days = new Itinerary();
     }
 
-    public Itinerary() {}
+    public Planner() {}
 
     /**
-     * Creates an Itinerary using the Persons in the {@code toBeCopied}
+     * Creates an Planner using the Persons in the {@code toBeCopied}
      */
-    public Itinerary(ReadOnlyItinerary toBeCopied) {
+    public Planner(ReadOnlyPlanner toBeCopied) {
         this();
         resetDataContact(toBeCopied);
         //resetDataActivity(toBeCopied);
@@ -56,9 +56,9 @@ public class Itinerary implements ReadOnlyItinerary {
     //// For ACCOMMODATION list overwrite operations
 
     /**
-     * Resets the existing data of this {@code Itinerary} with {@code newData}.
+     * Resets the existing data of this {@code Planner} with {@code newData}.
      */
-    public void resetDataAccommodation(ReadOnlyItinerary newData) {
+    public void resetDataAccommodation(ReadOnlyPlanner newData) {
         requireNonNull(newData);
 
         setAccommodations(newData.getAccommodationList());
@@ -103,7 +103,7 @@ public class Itinerary implements ReadOnlyItinerary {
     }
 
     /**
-     * Removes {@code key} from this {@code Itinerary}.
+     * Removes {@code key} from this {@code Planner}.
      * {@code key} must exist in the address book.
      */
     public void removeAccommodation(Accommodation key) {
@@ -113,9 +113,9 @@ public class Itinerary implements ReadOnlyItinerary {
     //// For ACTIVITY list overwrite operations
 
     /**
-     * Resets the existing data of this {@code Itinerary} with {@code newData}.
+     * Resets the existing data of this {@code Planner} with {@code newData}.
      */
-    public void resetDataActivity(ReadOnlyItinerary newData) {
+    public void resetDataActivity(ReadOnlyPlanner newData) {
         requireNonNull(newData);
 
         setActivities(newData.getActivityList());
@@ -160,7 +160,7 @@ public class Itinerary implements ReadOnlyItinerary {
     }
 
     /**
-     * Removes {@code key} from this {@code Itinerary}.
+     * Removes {@code key} from this {@code Planner}.
      * {@code key} must exist in the address book.
      */
     public void removeActivity(Activity key) {
@@ -170,9 +170,9 @@ public class Itinerary implements ReadOnlyItinerary {
     //// For CONTACT list overwrite operations
 
     /**
-     * Resets the existing data of this {@code Itinerary} with {@code newData}.
+     * Resets the existing data of this {@code Planner} with {@code newData}.
      */
-    public void resetDataContact(ReadOnlyItinerary newData) {
+    public void resetDataContact(ReadOnlyPlanner newData) {
         requireNonNull(newData);
 
         setContacts(newData.getContactList());
@@ -217,7 +217,7 @@ public class Itinerary implements ReadOnlyItinerary {
     }
 
     /**
-     * Removes {@code key} from this {@code Itinerary}.
+     * Removes {@code key} from this {@code Planner}.
      * {@code key} must exist in the address book.
      */
     public void removeContact(Contact key) {
@@ -251,7 +251,7 @@ public class Itinerary implements ReadOnlyItinerary {
     }
 
     /**
-     * Removes {@code key} from this {@code Itinerary}.
+     * Removes {@code key} from this {@code Planner}.
      * {@code key} must exist in the address book.
      */
     public void removeDay(int n) {
@@ -286,11 +286,11 @@ public class Itinerary implements ReadOnlyItinerary {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Itinerary // instanceof handles nulls
-                && accommodations.equals(((Itinerary) other).accommodations))
-                && activities.equals(((Itinerary) other).activities)
-                && contacts.equals(((Itinerary) other).contacts)
-                && days.equals(((Itinerary) other).days);
+                || (other instanceof Planner // instanceof handles nulls
+                && accommodations.equals(((Planner) other).accommodations))
+                && activities.equals(((Planner) other).activities)
+                && contacts.equals(((Planner) other).contacts)
+                && days.equals(((Planner) other).days);
     }
 
     @Override

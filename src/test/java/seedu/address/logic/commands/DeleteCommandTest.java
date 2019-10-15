@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
-import static seedu.address.testutil.TypicalContacts.getTypicalItinerary;
+import static seedu.address.testutil.TypicalContacts.getTypicalPlanner;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
 
@@ -24,7 +24,7 @@ import seedu.address.model.contact.Contact;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalItinerary(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalPlanner(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +33,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getItinerary(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getPlanner(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
-        Model expectedModel = new ModelManager(model.getItinerary(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getPlanner(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
         showNoContact(expectedModel);
 
@@ -69,7 +69,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_CONTACT;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getItinerary().getContactList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getPlanner().getContactList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

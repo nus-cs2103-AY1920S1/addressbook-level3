@@ -43,20 +43,20 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getItineraryFilePath();
+    Path getPlannerFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setItineraryFilePath(Path addressBookFilePath);
+    void setPlannerFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code itinerary}.
+     * Replaces address book data with the data in {@code planner}.
      */
-    void setItinerary(ReadOnlyItinerary itinerary);
+    void setPlanner(ReadOnlyPlanner planner);
 
-    /** Returns the Itinerary */
-    ReadOnlyItinerary getItinerary();
+    /** Returns the Planner */
+    ReadOnlyPlanner getPlanner();
 
     // ACCOMMODATION METHODS
     /**

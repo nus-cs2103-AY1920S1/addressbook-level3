@@ -10,10 +10,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.ItineraryParser;
+import seedu.address.logic.parser.PlannerParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyItinerary;
+import seedu.address.model.ReadOnlyPlanner;
 import seedu.address.model.contact.Contact;
 import seedu.address.storage.Storage;
 
@@ -26,12 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final ItineraryParser itineraryParser;
+    private final PlannerParser plannerParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        itineraryParser = new ItineraryParser();
+        plannerParser = new PlannerParser();
     }
 
     @Override
@@ -39,11 +39,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = itineraryParser.parseCommand(commandText);
+        Command command = plannerParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveItinerary(model.getItinerary());
+            storage.savePlanner(model.getPlanner());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,8 +52,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyItinerary getItinerary() {
-        return model.getItinerary();
+    public ReadOnlyPlanner getPlanner() {
+        return model.getPlanner();
     }
 
     @Override
@@ -62,8 +62,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getItineraryFilePath() {
-        return model.getItineraryFilePath();
+    public Path getPlannerFilePath() {
+        return model.getPlannerFilePath();
     }
 
     @Override

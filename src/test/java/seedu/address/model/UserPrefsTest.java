@@ -13,9 +13,9 @@ public class UserPrefsTest {
     }
 
     @Test
-    public void setItineraryFilePath_nullPath_throwsNullPointerException() {
+    public void setPlannerFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
-        assertThrows(NullPointerException.class, () -> userPrefs.setItineraryFilePath(null));
+        assertThrows(NullPointerException.class, () -> userPrefs.setPlannerFilePath(null));
     }
 
 }
