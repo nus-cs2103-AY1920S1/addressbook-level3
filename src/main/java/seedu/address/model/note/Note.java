@@ -22,11 +22,6 @@ public class Note {
     // Data field
     private final Set<Tag> tags = new HashSet<>();
 
-    public Note() {
-        this.title = new Title("sample title");
-        this.content = new Content("sample content");
-    }
-
     /**
      * Every field must be present and not null, except for tags.
      */
@@ -98,10 +93,11 @@ public class Note {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Title: ")
+        builder.append("\nTitle: ")
                 .append(getTitle())
                 .append("\nContent: ")
-                .append(getContent()).append(" Tags: ");
+                .append(getContent())
+                .append("\nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
