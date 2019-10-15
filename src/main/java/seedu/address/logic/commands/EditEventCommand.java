@@ -35,7 +35,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing event in the address book.
  */
-public class EditEventCommand extends EventRelatedCommand {
+public class EditEventCommand extends Command {
 
     public static final String COMMAND_WORD = "edit_ev";
 
