@@ -169,6 +169,22 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     }
 
     /**
+     * Activates the first study plan in the list of study plans. This is used in {@code DeleteCommand}.
+     * If there is no study plan in the list, the method returns false.
+     *
+     * @return boolean to indicate whether the first study plan has been activated.
+     */
+    public boolean activateFirstStudyPlan() {
+        if (studyPlans.getSize() == 0) {
+            return false;
+        } else {
+            int indexOfFirstStudyPlan = studyPlans.iterator().next().getIndex();
+            activateStudyPlan(indexOfFirstStudyPlan);
+            return true;
+        }
+    }
+
+    /**
      * Removes {@code key} from this {@code ModulePlanner}.
      * {@code key} must exist in the module planner.
      */

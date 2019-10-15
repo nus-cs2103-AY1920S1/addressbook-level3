@@ -230,10 +230,11 @@ public class StudyPlan implements Cloneable {
     }
 
     @Override
+    // TODO: this currently compares only the index. Does this need to be modified?
     public boolean equals(Object other) {
         if (other instanceof StudyPlan) {
-            return this.index == ((StudyPlan) other).index
-                    && this.semesters.equals(((StudyPlan) other).getSemesters());
+            return this.index == ((StudyPlan) other).index;
+            //&& this.semesters.equals(((StudyPlan) other).getSemesters());
         } else {
             return false;
         }

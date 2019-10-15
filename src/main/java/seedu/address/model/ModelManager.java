@@ -108,6 +108,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean activateFirstStudyPlan() {
+        return modulePlanner.activateFirstStudyPlan();
+    }
+
+    @Override
     public void deleteStudyPlan(StudyPlan target) {
         modulePlanner.removeStudyPlan(target);
     }

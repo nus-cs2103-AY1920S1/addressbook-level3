@@ -69,6 +69,12 @@ public interface Model {
     StudyPlan getActiveStudyPlan();
 
     /**
+     * Activates the first study plan in the list. If the list is null, prompts the user.
+     * Returns true if successful, and returns false if no study plan exists.
+     */
+    boolean activateFirstStudyPlan();
+
+    /**
      * Returns an activated study plan with the given index populated with relevant details.
      */
     StudyPlan activateStudyPlan(int index);
