@@ -43,6 +43,20 @@ public class Deliveryman {
     }
 
     /**
+     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two persons.
+     */
+    public boolean isSameDeliveryman(Deliveryman otherDeliveryman) {
+        if (otherDeliveryman == this) {
+            return true;
+        }
+
+        return otherDeliveryman != null
+                && otherDeliveryman.getName().equals(getName())
+                && otherDeliveryman.getPhone().equals(getPhone());
+    }
+
+    /**
      * Returns true if both persons have the same identity. Data fields need not be same.
      * This defines a stronger notion of equality between two persons.
      */
