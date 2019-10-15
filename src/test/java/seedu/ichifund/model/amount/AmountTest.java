@@ -1,9 +1,11 @@
 package seedu.ichifund.model.amount;
 
-import org.junit.jupiter.api.Test;
-import seedu.ichifund.model.amount.Amount;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ichifund.testutil.Assert.assertThrows;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class AmountTest {
 
@@ -18,22 +20,22 @@ class AmountTest {
         assertThrows(NullPointerException.class, () -> Amount.isValidAmount(null));
 
         // invalid amount
-        assertEquals(Amount.isValidAmount("50.0"), false);
-        assertEquals(Amount.isValidAmount("50."), false);
-        assertEquals(Amount.isValidAmount(".05"), false);
-        assertEquals(Amount.isValidAmount("050"), false);
-        assertEquals(Amount.isValidAmount("050.00"), false);
-        assertEquals(Amount.isValidAmount("00.00"), false);
+        assertFalse(Amount.isValidAmount("50.0"));
+        assertFalse(Amount.isValidAmount("50."));
+        assertFalse(Amount.isValidAmount(".05"));
+        assertFalse(Amount.isValidAmount("050"));
+        assertFalse(Amount.isValidAmount("050.00"));
+        assertFalse(Amount.isValidAmount("00.00"));
 
         // valid amount
-        assertEquals(Amount.isValidAmount("50.00"), true);
-        assertEquals(Amount.isValidAmount("-49.70"), true);
-        assertEquals(Amount.isValidAmount("50"), true);
-        assertEquals(Amount.isValidAmount("-50"), true);
-        assertEquals(Amount.isValidAmount("-0.50"), true);
-        assertEquals(Amount.isValidAmount("0.50"), true);
-        assertEquals(Amount.isValidAmount("0.00"), true);
-        assertEquals(Amount.isValidAmount("0"), true);
+        assertTrue(Amount.isValidAmount("50.00"));
+        assertTrue(Amount.isValidAmount("-49.70"));
+        assertTrue(Amount.isValidAmount("50"));
+        assertTrue(Amount.isValidAmount("-50"));
+        assertTrue(Amount.isValidAmount("-0.50"));
+        assertTrue(Amount.isValidAmount("0.50"));
+        assertTrue(Amount.isValidAmount("0.00"));
+        assertTrue(Amount.isValidAmount("0"));
     }
 
     @Test
