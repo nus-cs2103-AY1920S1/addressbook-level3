@@ -104,7 +104,7 @@
     "modulename": "Computer Organisation",
     "moduledescription": "1The objective of this module is to familiarise students with the fundamentals of computing devices. Through this module students will understand the basics of data representation, and how the various parts of a computer work, separately and with each other. This allows students to understand the issues in computing devices, and how these issues affect the implementation of solutions. Topics covered include data representation systems, combinational and sequential circuit design techniques, assembly language, processor execution cycles, pipelining, memory hierarchy and input/output systems.",
     "lecturername": "LI ZHAOYING",
-    "timeslot" : "33,34,12,13,14",
+    "timeslot" : "32,33,12,13,14",
     "quota" : "666",
     "tagged": [
       "A6614133H",
@@ -146,7 +146,7 @@
     "modulename": "Effective Communication for Computing Professionals",
     "moduledescription": "1This module aims to equip students with the skills needed to communicate technical information to technical and nontechnical audiences, and to create comprehensible software documentation. A student-centric approach will be adopted to encourage independent and collaborative learning while engaging students in team-based projects. Students will learn interpersonal and intercultural communication skills as well as hone their oral and written communication skills. Assessment modes include a variety of oral and written communication tasks such as reports, software guides, oral presentations, software demonstrations and project blogs.",
     "lecturername": "Shirley James",
-    "timeslot" : "29,30,31,56,57",
+    "timeslot" : "29,30,31,54,55",
     "quota" : "111",
     "tagged": [
       "A6614133H",
