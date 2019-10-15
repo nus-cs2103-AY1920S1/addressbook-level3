@@ -47,7 +47,6 @@ public class AddCommandParserTest {
         // missing bars
         CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + VALID_EXPIRY_DATE_APPLE,
                 expectedMessage);
-
     }
 
     @Test
