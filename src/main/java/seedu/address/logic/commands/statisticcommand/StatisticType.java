@@ -6,10 +6,7 @@ package seedu.address.logic.commands.statisticcommand;
 public enum StatisticType {
     PROFIT("PROFIT"),
     REVENUE("REVENUE"),
-    COST("COST"),
-    DEFAULT_COST("DEFAULT COST"),
-    DEFAULT_PROFIT("DEFAULT PROFIT"),
-    DEFAULT_REVENUE("DEFAULT REVENUE");
+    COST("COST");
 
     private final String type;
 
