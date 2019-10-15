@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalContacts.getTypicalFinSec;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -47,34 +46,34 @@ public class DeleteCommandTest {
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-//    @Test
-//    public void execute_validIndexFilteredList_success() {
-//        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-//
-//        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-//        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-//
-//        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete);
-//
-//        Model expectedModel = new ModelManager(model.getFinSec(), new UserPrefs());
-//        expectedModel.deleteContact(contactToDelete);
-//        showNoPerson(expectedModel);
-//
-//        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-//    }
+    //    @Test
+    //    public void execute_validIndexFilteredList_success() {
+    //        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    //
+    //        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+    //        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+    //
+    //        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete);
+    //
+    //        Model expectedModel = new ModelManager(model.getFinSec(), new UserPrefs());
+    //        expectedModel.deleteContact(contactToDelete);
+    //        showNoPerson(expectedModel);
+    //
+    //        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    //    }
 
-//    @Test
-//    public void execute_invalidIndexFilteredList_throwsCommandException() {
-//        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-//
-//        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-//        // ensures that outOfBoundIndex is still in bounds of address book list
-//        assertTrue(outOfBoundIndex.getZeroBased() < model.getFinSec().getContactList().size());
-//
-//        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
-//
-//        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-//    }
+    //    @Test
+    //    public void execute_invalidIndexFilteredList_throwsCommandException() {
+    //        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    //
+    //        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+    //        // ensures that outOfBoundIndex is still in bounds of address book list
+    //        assertTrue(outOfBoundIndex.getZeroBased() < model.getFinSec().getContactList().size());
+    //
+    //        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+    //
+    //        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    //    }
 
     @Test
     public void equals() {
