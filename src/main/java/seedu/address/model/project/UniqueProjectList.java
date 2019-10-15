@@ -1,16 +1,15 @@
 package seedu.address.model.project;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.project.exceptions.DuplicateProjectException;
+import seedu.address.model.project.exceptions.ProjectNotFoundException;
 
 import java.util.Iterator;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.project.Project;
-import seedu.address.model.project.exceptions.DuplicateProjectException;
-import seedu.address.model.project.exceptions.ProjectNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * I just copied from UniquePeronList
@@ -88,6 +87,12 @@ public class UniqueProjectList implements Iterable<Project> {
         }
 
         internalList.setAll(Projects);
+    }
+
+    public void deleteMember(String member) {
+        for (Project project : internalList) {
+            project.deleteMember(member);
+        }
     }
 
     /**

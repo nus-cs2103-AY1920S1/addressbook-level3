@@ -61,9 +61,10 @@ class JsonAdaptedPerson {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        projects.addAll(source.getProjectList().asUnmodifiableObservableList().stream()
+        /*projects.addAll(source.getProjectList().asUnmodifiableObservableList().stream()
                 .map(JsonAdaptedProject::new)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList()));*/
+
     }
 
     /**
@@ -121,9 +122,10 @@ class JsonAdaptedPerson {
             modelProjectList.add(project.toModelType());
         }
 
-        Person person = new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+        /*Person person = new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
         person.getProjectList().setProjects(modelProjectList);
-        return person;
+        return person;*/
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
     }
 
 }

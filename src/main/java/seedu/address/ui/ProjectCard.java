@@ -41,7 +41,7 @@ public class ProjectCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         title.setText(project.getTitle().title);
         description.setText(project.getDescription().description);
-        project.getPersonList().forEach(person -> members.getChildren().add(new Label(person.getName().toString())));
+        project.getMembers().forEach(member -> members.getChildren().add(new Label(member)));
     }
 
     @Override

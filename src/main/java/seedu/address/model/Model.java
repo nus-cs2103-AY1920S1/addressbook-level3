@@ -1,13 +1,13 @@
 package seedu.address.model;
 
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.function.Predicate;
-
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Project;
+
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * The API of the Model component.
@@ -140,6 +140,14 @@ public interface Model {
      * The project identity of {@code editedProject} must not be the same as another existing Project in the project list.
      */
     void setProject(Project target, Project editedProject);
+
+    /**
+     * Deletes a given member from every project involved.
+     * The member must exist in at least one project.
+     */
+    void deleteMember(String name);
+
+    //=========== Filtered Project List Accessors =============================================================
 
     /** Returns an unmodifiable view of the filtered project list */
     ObservableList<Project> getFilteredProjectList();

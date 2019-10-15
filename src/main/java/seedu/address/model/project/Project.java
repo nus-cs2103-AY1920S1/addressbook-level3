@@ -1,6 +1,9 @@
 package seedu.address.model.project;
 
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.Person;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -13,7 +16,7 @@ public class Project {
     // Identity fields
     private final Title title;
     private final Description description;
-    private final UniquePersonList personList = new UniquePersonList();
+    private final List<String> members = new ArrayList<>();
 
     public Project(Title name, Description description) {
         requireAllNonNull(name, description);
@@ -29,10 +32,30 @@ public class Project {
         return this.title.equals(project.getTitle().title);
     }
 
-    public UniquePersonList getPersonList() {
-        return this.personList;
+    public List<String> getMembers() {
+        return this.members;
     }
 
+    public Project clone() {
+        Project project = new Project(title, description);
+        project.setMembers(this.members);
+        return project;
+    }
+
+    private void setMembers(List<String> members) {
+        this.members.addAll(members);
+    }
+
+    public void deleteMember(String member) {
+        int index = members.indexOf(member);
+        if (index != -1) {
+            members.remove(index);
+        }
+    }
+
+    public boolean hasMember(Person person) {
+        return members.contains(person.getName().fullName);
+    }
 
 
     @Override
@@ -43,6 +66,10 @@ public class Project {
                 .append(getTitle())
                 .append(" Description: ")
                 .append(getDescription());
+
+        for (String a : members) {
+            builder.append(a + " ");
+        }
         return builder.toString();
     }
 

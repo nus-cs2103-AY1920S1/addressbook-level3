@@ -3,14 +3,12 @@ package seedu.address.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Person;
 import seedu.address.model.project.Description;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Title;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link Project}.
@@ -21,14 +19,14 @@ class JsonAdaptedProject {
 
     private final String title;
     private final String description;
-    private final List<JsonAdaptedPerson> members = new ArrayList<>();
+    private final List<String> members = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedProject} with the given project details.
      */
     @JsonCreator
     public JsonAdaptedProject(@JsonProperty("title") String title, @JsonProperty("phone") String description,
-                              @JsonProperty("members") List<JsonAdaptedPerson> members) {
+                              @JsonProperty("members") List<String> members) {
         this.title = title;
         this.description = description;
         if (members != null) {
@@ -42,9 +40,7 @@ class JsonAdaptedProject {
     public JsonAdaptedProject(Project source) {
         title = source.getTitle().title;
         description = source.getDescription().description;
-        members.addAll(source.getPersonList().asUnmodifiableObservableList().stream()
-                .map(JsonAdaptedPerson::new)
-                .collect(Collectors.toList()));
+        members.addAll(source.getMembers());
     }
 
     /**
@@ -63,13 +59,13 @@ class JsonAdaptedProject {
         }
         final Description modelDescription = new Description(description);
 
-        final List<Person> modelPersonList = new ArrayList();
-        for (JsonAdaptedPerson person : members) {
-            modelPersonList.add(person.toModelType());
+        final List<String> modelPersonList = new ArrayList<>();
+        for (String person : members) {
+            modelPersonList.add(person);
         }
 
         Project project = new Project(modelTitle, modelDescription);
-        project.getPersonList().setPersons(modelPersonList);
+        project.getMembers().addAll(modelPersonList);
         return project;
     }
 
