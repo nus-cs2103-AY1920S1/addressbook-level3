@@ -12,11 +12,21 @@ import seedu.address.reimbursement.logic.exception.ParseException;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
+/**
+ * Parser for deadline command.
+ */
 public class DeadlineCommandParser implements GeneralParser<DeadlineCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }
 
+    /**
+     * Adds a deadline to a reimbursement.
+     * @param args the arguments from the user.
+     * @param personModel the person to search by.
+     * @return a command representing the user's desired action.
+     * @throws Exception if the command syntax is invalid.
+     */
     public DeadlineCommand parse(String args, Model personModel)
             throws Exception {
         ArgumentMultimap argMultimap =

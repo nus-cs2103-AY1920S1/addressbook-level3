@@ -1,7 +1,7 @@
 package seedu.address.transaction.logic;
 
 /**
- * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
+ * Contains Command Line Interface (CLI) syntax definitions common to multiple transaction tab commands
  */
 public class CliSyntax {
 

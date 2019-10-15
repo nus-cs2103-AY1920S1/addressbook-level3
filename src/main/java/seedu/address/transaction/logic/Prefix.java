@@ -2,7 +2,7 @@ package seedu.address.transaction.logic;
 
 /**
  * A prefix that marks the beginning of an argument in an arguments string.
- * E.g. 't/' in 'add James t/ friend'.
+ * E.g. 'dt/' in 'add dt/24-Aug-2019 d/coffee c/food a/12 p/Alex Yeoh'.
  */
 public class Prefix {
     private final String prefix;

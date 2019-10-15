@@ -1,5 +1,8 @@
 package seedu.address.transaction.model.exception;
 
+/**
+ * Signals that the user inputs a person not in the data base.
+ */
 public class NoSuchPersonException extends Exception {
 
     private String msg;

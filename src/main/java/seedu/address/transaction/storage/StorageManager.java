@@ -6,11 +6,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.util.TransactionList;
 
+/**
+ * Manages storage of transaction data in local storage.
+ */
 public class StorageManager implements Storage {
     private final String filepath;
     private final seedu.address.person.model.Model personModel;
@@ -20,11 +23,8 @@ public class StorageManager implements Storage {
         this.personModel = personModel;
     }
 
-    public TransactionList getTransactionList() {
-        return getTransactionList(filepath);
-    }
-
-    private TransactionList getTransactionList(String filepath) {
+    @Override
+    public TransactionList readTransactionList() {
         try {
             ArrayList<Transaction> transactionArrayList = new ArrayList<>();
             File f = new File(filepath);
@@ -42,7 +42,29 @@ public class StorageManager implements Storage {
         }
     }
 
-    public static Transaction readInFileLine(String line, seedu.address.person.model.Model personModel) {
+    @Override
+    public void writeFile(TransactionList transactionList) throws IOException {
+        FileWriter fw = new FileWriter(this.filepath);
+        String textFileMsg = "";
+        for (int i = 0; i < transactionList.size(); i++) {
+            if (i == 0) {
+                textFileMsg = textFileMsg + (i + 1) + ". " + transactionList.get(i).toWriteIntoFile();
+            } else {
+                textFileMsg = textFileMsg + System.lineSeparator() + (i + 1) + ". "
+                        + transactionList.get(i).toWriteIntoFile();
+            }
+        }
+        fw.write(textFileMsg);
+        fw.close();
+    }
+
+    /**
+     * Reads in a single text file line and parses it to create the {@code Transaction} object.
+     * @param line Line of text.
+     * @param personModel Address Book model.
+     * @return Transaction created.
+     */
+    private static Transaction readInFileLine(String line, seedu.address.person.model.Model personModel) {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
         Person person = personModel.getPersonByName(stringArr[4]);
@@ -53,22 +75,6 @@ public class StorageManager implements Storage {
     }
 
     private static boolean isReimbursed(String num) {
-        return num.equals("1")? true: false;
-    }
-
-
-    public void writeFile(TransactionList transactionList) throws IOException, NoSuchIndexException {
-        FileWriter fw = new FileWriter(this.filepath);
-        String textFileMsg = "";
-        for (int i = 0; i < transactionList.size(); i++) {
-            if (i == 0) {
-                textFileMsg = textFileMsg + (i + 1) + ". " + transactionList.get(i).toWriteIntoFile();
-            } else {
-                textFileMsg = textFileMsg + System.lineSeparator() + (i + 1) + ". " +
-                        transactionList.get(i).toWriteIntoFile();
-            }
-        }
-        fw.write(textFileMsg);
-        fw.close();
+        return num.equals("1") ? true : false;
     }
 }

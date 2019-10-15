@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -14,24 +15,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="home" prefWidth="690.0" stylesheets="@Extensions.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="home" prefWidth="690.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
       <GridPane fx:id="overview" alignment="CENTER" layoutY="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="688.0" minWidth="10.0" prefWidth="677.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="243.0" minHeight="8.0" prefHeight="35.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="493.0" minHeight="10.0" prefHeight="467.0" valignment="CENTER" vgrow="ALWAYS" />
+          <RowConstraints maxHeight="243.0" minHeight="8.0" prefHeight="20.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="440.0" valignment="CENTER" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
             <Label contentDisplay="CENTER" text="Summary of finances">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets />
                </GridPane.margin>
                <font>
                   <Font size="18.0" />
                </font>
+               <stylesheets>
+                  <URL value="@Extensions.css" />
+                  <URL value="@DarkTheme.css" />
+               </stylesheets>
             </Label>
             <GridPane GridPane.rowIndex="1">
               <columnConstraints>
@@ -53,12 +58,12 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label text="Total Spent:">
+                        <Label fx:id="totalExpenseValue" text="Total Spent:">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <PieChart>
+                        <PieChart fx:id="expensePieChart" style="-fx-background-insets: 0; -fx-border-width: 0;">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -75,12 +80,12 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label text="Inventory Value:">
+                        <Label fx:id="totalInventoryValue" text="Inventory Value:">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <PieChart>
+                        <PieChart fx:id="inventoryPieChart">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -97,7 +102,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label text="Net Profit:">
+                        <Label fx:id="totalSalesValue" text="Total Sales:">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -125,7 +130,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label text="Amount Remaining:">
+                        <Label fx:id="totalAmountRemaining" text="Amount Remaining:">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -144,8 +149,20 @@
                      </children>
                   </VBox>
                </children>
+               <stylesheets>
+                  <URL value="@Extensions.css" />
+                  <URL value="@DarkTheme.css" />
+               </stylesheets>
             </GridPane>
          </children>
+         <stylesheets>
+            <URL value="@DarkTheme.css" />
+            <URL value="@Extensions.css" />
+         </stylesheets>
       </GridPane>
    </children>
+   <stylesheets>
+      <URL value="@Extensions.css" />
+      <URL value="@DarkTheme.css" />
+   </stylesheets>
 </AnchorPane>

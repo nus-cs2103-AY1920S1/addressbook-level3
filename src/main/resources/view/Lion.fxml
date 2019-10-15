@@ -11,7 +11,7 @@
 
 <VBox fx:id="Lion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="215.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="216.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" minHeight="25.0" prefWidth="216.0">
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
@@ -23,7 +23,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="response" alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" maxHeight="466.0" maxWidth="167.0" prefHeight="362.0" prefWidth="167.0" text="Hi! I am Leo your trusty helper!" wrapText="true" />
+                  <Label fx:id="response" alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" maxHeight="466.0" maxWidth="167.0" prefHeight="362.0" prefWidth="167.0" text="Hi! I am Leo your trusty helper!" wrapText="true" AnchorPane.leftAnchor="14.0" />
                   <ImageView fx:id="lionMascot" fitHeight="120.0" fitWidth="120.0" layoutX="38.0" layoutY="402.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/TempMascot.png" />

@@ -1,17 +1,18 @@
 package seedu.address.person.model;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.person.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.person.commons.core.GuiSettings;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.person.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -149,6 +150,6 @@ public class ModelManager implements Model {
     }
 
     public Person getPersonByName(String name) throws PersonNotFoundException {
-       return addressBook.getPersonByName(name);
+        return addressBook.getPersonByName(name);
     }
 }

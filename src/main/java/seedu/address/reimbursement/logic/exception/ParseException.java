@@ -1,5 +1,8 @@
 package seedu.address.reimbursement.logic.exception;
 
+/**
+ * Represents an exception occurred when parsing.
+ */
 public class ParseException extends Exception {
     private String msg;
 
