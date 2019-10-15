@@ -2,8 +2,8 @@ package seedu.ichifund.model.analytics;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.ichifund.model.Model;
