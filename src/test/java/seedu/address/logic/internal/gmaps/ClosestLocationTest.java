@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -14,8 +15,9 @@ import seedu.address.model.module.Venue;
 class ClosestLocationTest {
     private ClosestLocation closestLocation;
     @BeforeEach
-    void init() {
+    void init() throws InterruptedException{
         closestLocation = new ClosestLocation();
+        TimeUnit.SECONDS.sleep(10);
     }
 
     @Test
