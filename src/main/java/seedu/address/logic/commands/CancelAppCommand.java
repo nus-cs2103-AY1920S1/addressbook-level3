@@ -26,8 +26,6 @@ public class CancelAppCommand extends ReversibleCommand {
             + "Example: " + "appoinments 001A \n"
             + COMMAND_WORD + " 1";
     public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "Appointment cancelled: %1$s";
-    public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Person '%1$s' has been removed.";
-    public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of person: %1$s";
 
     private final Index apptIdx;
     private Event appointment;
@@ -61,6 +59,7 @@ public class CancelAppCommand extends ReversibleCommand {
         return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, appointment));
     }
 
+    /*
     @Override
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
@@ -76,5 +75,5 @@ public class CancelAppCommand extends ReversibleCommand {
 
         return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, appointment));
     }
-
+*/
 }

@@ -16,9 +16,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_APPOINTMENT_DATE_TIME = "The appointment dateTime provided is invalid!";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_EVENTS_LISTED_OVERVIEW = "%1$d events listed!";
-    public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX = "The appointment index provided "
+    public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX = "The appointment index provided ";
     public static final String MESSAGE_DUPLICATE_CHANGE = "the new date for a appointment has been used for other appointment";
     public static final String MESSAGE_DUPLICATE_SETTLE = "you have settled this missed appointment already";
     public static final String MESSAGE_NOT_PATIENTLIST = "current displaying appointment are not belong to the same patient\n";
-    public static final String MESSAGE_NOT_MISSEDLIST = "current displaying appointment are not belong to missed appointment list\n"
+    public static final String MESSAGE_NOT_MISSEDLIST = "current displaying appointment are not belong to missed appointment list\n";
 }

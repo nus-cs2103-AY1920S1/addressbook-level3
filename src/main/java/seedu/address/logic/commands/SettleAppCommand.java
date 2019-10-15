@@ -70,6 +70,7 @@ public class SettleAppCommand extends ReversibleCommand {
         return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, newAppt));
     }
 
+    /*
     @Override
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
@@ -82,5 +83,5 @@ public class SettleAppCommand extends ReversibleCommand {
         model.updateToMissedEventList();
 
         return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, oldAppt));
-    }
+    }*/
 }

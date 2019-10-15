@@ -35,8 +35,6 @@ public class ChangeAppCommand extends ReversibleCommand {
     private Timing timing;
 
     public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "Appointment cancelled: %1$s";
-    public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo successful! Person '%1$s' has been removed.";
-    public static final String MESSAGE_UNDO_ADD_ERROR = "Could not undo the addition of person: %1$s";
 
     public ChangeAppCommand(Index index, Timing timing){
         this.apptIdx = index;
@@ -74,6 +72,8 @@ public class ChangeAppCommand extends ReversibleCommand {
         return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, newAppt));
     }
 
+    /*
+
     @Override
     public CommandResult undo(Model model) throws CommandException {
         requireNonNull(model);
@@ -90,5 +90,5 @@ public class ChangeAppCommand extends ReversibleCommand {
 
         return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, oldAppt));
     }
-
+*/
 }

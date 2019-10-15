@@ -32,7 +32,7 @@ public class AddAppCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This appointment is already scheduled.";
-    public static final String MESSAGE_CLASH_APPOINTMENT = "This appointment clashes with a pre-existing appointment."
+    public static final String MESSAGE_CLASH_APPOINTMENT = "This appointment clashes with a pre-existing appointment.";
 
     private final Event appointment;
 

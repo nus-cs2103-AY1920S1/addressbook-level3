@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandResult;
+import seedu.address.logic.commands.common.NonActionableCommand;
+import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.model.Model;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
@@ -11,7 +13,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * mark a appointment's status as MISSED for a patient.
  */
-public class MissAppCommand extends Command {
+public class MissAppCommand extends NonActionableCommand {
     public static final String COMMAND_WORD = "missAppt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all the missed appointment before today "
