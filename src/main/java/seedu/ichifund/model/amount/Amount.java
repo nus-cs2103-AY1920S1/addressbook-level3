@@ -38,6 +38,10 @@ public class Amount implements Comparable<Amount> {
         }
     }
 
+    private Amount(int valueInCents) {
+        this.valueInCents = valueInCents;
+    }
+
     /**
      * Returns integer representing value from a {@code String dollar} and a {@code String cents}
      *
@@ -55,9 +59,6 @@ public class Amount implements Comparable<Amount> {
         }
     }
 
-    private Amount(int valueInCents) {
-        this.valueInCents = valueInCents;
-    }
 
     /**
      * Returns true if a given string is a valid amount.
@@ -77,7 +78,7 @@ public class Amount implements Comparable<Amount> {
     @Override
     public String toString() {
         int dollars = valueInCents / 100;
-        int cents = java.lang.Math.abs(valueInCents) % 100;  // Absolute value required due to behaviour of %
+        int cents = java.lang.Math.abs(valueInCents) % 100; // Absolute value required due to behaviour of %
         String centsString = convertCentsToString(cents);
         return dollars + "." + centsString;
     }
