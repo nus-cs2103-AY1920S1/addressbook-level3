@@ -27,6 +27,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final InternalState internalState;
     private final FilteredList<Person> filteredPersons;
+    private Context context;
 
     /**
      * Initializes a ModelManager with the given addressBook, userPrefs and internalState.
@@ -46,10 +47,22 @@ public class ModelManager implements Model {
         this.activityBook = new ActivityBook(activityBook);
         this.internalState = new InternalState(internalState);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        context = Context.MAIN;
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
+    }
+
+    //=========== UserPrefs ====================================================
+    @Override
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public Context getContext() {
+        return context;
     }
 
     //=========== UserPrefs ====================================================
@@ -214,6 +227,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
+                && activityBook.equals(other.activityBook)
                 && userPrefs.equals(other.userPrefs)
                 && internalState.equals(other.internalState)
                 && filteredPersons.equals(other.filteredPersons);
