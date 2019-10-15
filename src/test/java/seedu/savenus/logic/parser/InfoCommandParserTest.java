@@ -1,15 +1,15 @@
 package seedu.savenus.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.savenus.logic.commands.CommandResult;
 import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
-
-import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 public class InfoCommandParserTest {
 
@@ -30,7 +30,7 @@ public class InfoCommandParserTest {
     }
 
     @Test
-    public void input_invalidUserInput_ThrowsParseException() {
+    public void input_invalidUserInput_throwsParseException() {
         assertThrows(ParseException.class, () -> menuParser.parseCommand(INVALID_USER_INPUT));
     }
 }
