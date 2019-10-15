@@ -92,6 +92,10 @@ public class GameManager {
         return commandResult;
     }
 
+    public Logic getLogic() {
+        return logic;
+    }
+
     public GameStatistics getGameStatistics() {
         return gameStatistics;
     }
