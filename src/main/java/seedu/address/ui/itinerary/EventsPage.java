@@ -42,10 +42,7 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
     private Label bookingLabel;
 
     @FXML
-    private VBox sideBarLeft;
-
-    @FXML
-    private VBox sideBarRight;
+    private Label nameLabel;
 
 
     public EventsPage(MainWindow mainWindow, Logic logic, Model model) {
@@ -56,14 +53,6 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
      * Fills up all the placeholders of this window.
      */
     public void fillPage() {
-        // nav bar
-        sideBarRight.getChildren().clear();
-        sideBarLeft.getChildren().clear();
-        NavigationSidebarRight navigationSidebarRight = new NavigationSidebarRight(mainWindow);
-        NavigationSidebarLeft navigationSidebarLeft = new NavigationSidebarLeft(mainWindow);
-        sideBarLeft.getChildren().add(navigationSidebarLeft.getRoot());
-        sideBarRight.getChildren().add(navigationSidebarRight.getRoot());
-
         // Filling events
         eventCardContainer.getChildren().clear();
         List<Event> events = model.getPageStatus().getDay().getEventList().internalUnmodifiableList;
@@ -82,6 +71,7 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
                                     } else {
                                         totalBudgetLabel.setText("NO BUDGET SET");
                                     }
+                                    nameLabel.setText(events.get(index.getZeroBased()).getName().toString());
                                 }
                             });
                     return eventCard.getRoot();

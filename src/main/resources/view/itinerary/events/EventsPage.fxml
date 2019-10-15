@@ -73,6 +73,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
+                  <Label fx:id="nameLabel" alignment="CENTER" layoutX="10.0" layoutY="77.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="\$Name" />
                   <Label fx:id="inventoryLabel" alignment="CENTER" text="\$Inventory" GridPane.rowIndex="2" />
                   <Label fx:id="totalBudgetLabel" text="\$TotalBudget" GridPane.rowIndex="3" />
                   <Label fx:id="bookingLabel" text="\$Booking" GridPane.rowIndex="4" />
