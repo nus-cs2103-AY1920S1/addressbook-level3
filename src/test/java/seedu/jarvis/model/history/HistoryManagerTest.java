@@ -33,8 +33,8 @@ import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.planner.Planner;
-import seedu.jarvis.model.planner.Task;
 import seedu.jarvis.model.planner.TaskList;
+import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 
 /**
@@ -603,8 +603,7 @@ public class HistoryManagerTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public Boolean hasTask(Task t) {
+        public boolean hasTask(Task t) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -625,6 +624,11 @@ public class HistoryManagerTest {
 
         @Override
         public Planner getPlanner() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetData(Planner planner) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -8,11 +8,6 @@ public class CliSyntax {
      * CLI syntax for AddressBook commands.
      */
     public static class AddressSyntax {
-        public static final Prefix PREFIX_TASK_TYPE = new Prefix("t/");
-        public static final Prefix PREFIX_TASK_DES = new Prefix("des/");
-        public static final Prefix PREFIX_DATE = new Prefix("d/");
-        public static final Prefix PREFIX_PRIORITY = new Prefix("p/");
-        public static final Prefix PREFIX_FREQ = new Prefix("f/");
         public static final Prefix PREFIX_NAME = new Prefix("n/");
         public static final Prefix PREFIX_PHONE = new Prefix("p/");
         public static final Prefix PREFIX_EMAIL = new Prefix("e/");
@@ -37,7 +32,7 @@ public class CliSyntax {
         public static final Prefix PREFIX_DATE = new Prefix("d/");
         public static final Prefix PREFIX_PRIORITY = new Prefix("p/");
         public static final Prefix PREFIX_FREQ = new Prefix("f/");
-        public static final Prefix PREFIX_TAG = new Prefix("t/");
+        public static final Prefix PREFIX_TAG = new Prefix("#");
     }
 
     /**

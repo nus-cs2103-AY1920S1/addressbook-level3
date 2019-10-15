@@ -24,8 +24,8 @@ import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
-import seedu.jarvis.model.planner.Task;
 import seedu.jarvis.model.planner.TaskList;
+import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.userprefs.UserPrefs;
 
@@ -485,12 +485,17 @@ public class ModelManager implements Model {
      *         it does not.
      */
     @Override
-    public Boolean hasTask(Task t) {
+    public boolean hasTask(Task t) {
         return planner.hasTask(t);
     }
 
     @Override
     public Planner getPlanner() {
         return planner;
+    }
+
+    @Override
+    public void resetData(Planner planner) {
+        this.planner.resetData(planner);
     }
 }

@@ -30,8 +30,8 @@ import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
-import seedu.jarvis.model.planner.Task;
 import seedu.jarvis.model.planner.TaskList;
+import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.testutil.PurchaseBuilder;
 
@@ -338,13 +338,18 @@ public class PaidCommandTest {
         }
 
         @Override
-        public Boolean hasTask(Task t) {
-            return null;
+        public boolean hasTask(Task t) {
+            return false;
         }
 
         @Override
         public Planner getPlanner() {
             return null;
+        }
+
+        @Override
+        public void resetData(Planner planner) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

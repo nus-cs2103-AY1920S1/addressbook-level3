@@ -2,6 +2,8 @@ package seedu.jarvis.model.planner;
 
 import java.util.ArrayList;
 
+import seedu.jarvis.model.planner.tasks.Task;
+
 /**
  * Represents a list of tasks in the planner
  */
@@ -38,7 +40,7 @@ public class TaskList {
      * @param t the task in question
      * @return true if Task t already exists in the planner, and false if it does not
      */
-    public Boolean hasTask(Task t) {
+    public boolean hasTask(Task t) {
         for (Task task : tasks) {
             if (task.isEqual(t)) {
                 return true;
