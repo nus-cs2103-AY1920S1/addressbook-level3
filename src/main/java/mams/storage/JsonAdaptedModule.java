@@ -32,7 +32,6 @@ class JsonAdaptedModule {
      * Constructs a {@code JsonAdaptedStudent} with the given student details.
      */
     @JsonCreator
-    //todo
     public JsonAdaptedModule(@JsonProperty("code") String moduleCode, @JsonProperty("modulename") String moduleName,
                              @JsonProperty("moduledescription") String moduleDescription,
                              @JsonProperty("lecturername") String lecturerName,
