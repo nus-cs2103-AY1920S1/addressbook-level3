@@ -15,7 +15,6 @@ import java.util.logging.Logger;
  */
 public class FlashcardListPanel extends UiPart<Region>{
 
-    // TODO: make it points to the right fxml file.
     private static final String FXML = "FlashcardListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(FlashcardListPanel.class);
 

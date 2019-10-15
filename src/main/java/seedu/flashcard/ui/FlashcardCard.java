@@ -11,7 +11,6 @@ import java.util.Comparator;
 
 public class FlashcardCard extends UiPart<Region> {
 
-    // TODO: make it points to the right fxml file.
     private static final String FXML = "FlashcardCard.fxml";
 
     /**

@@ -26,6 +26,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @return new add command
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap
                 = ArgumentTokenizer.tokenize(args, PREFIX_WORD, PREFIX_DEFINITION, PREFIX_TAG);

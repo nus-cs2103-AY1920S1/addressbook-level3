@@ -3,8 +3,10 @@ package seedu.flashcard.model;
 import javafx.collections.ObservableList;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.tag.Tag;
 
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Predicate;
 
 public interface Model {
@@ -13,6 +15,11 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Flashcard> PREDICATE_SHOW_ALL_FLASHCARDS = unused -> true;
+
+    /**
+     * {@code Predicate} that evaluates true for flashcards contains the given tag.
+     */
+    Predicate<Flashcard> getHasTagPredicate(Set<Tag> tag);
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}

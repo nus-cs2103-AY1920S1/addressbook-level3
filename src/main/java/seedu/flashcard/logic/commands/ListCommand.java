@@ -6,7 +6,7 @@ import static seedu.flashcard.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 import seedu.flashcard.model.Model;
 
 /**
- * The command to list out all flashcards or the flashcards under a given tag.
+ * The command to list out all flashcards.
  */
 public class ListCommand extends Command {
 

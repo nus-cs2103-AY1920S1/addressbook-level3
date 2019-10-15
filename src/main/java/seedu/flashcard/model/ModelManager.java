@@ -8,8 +8,10 @@ import javafx.collections.transformation.FilteredList;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.commons.core.LogsCenter;
 import seedu.flashcard.model.flashcard.Flashcard;
+import seedu.flashcard.model.tag.Tag;
 
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -40,6 +42,12 @@ public class ModelManager implements Model {
         this.flashcardList = new FlashcardList(flashcardList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFlashcards = new FilteredList<Flashcard>(this.flashcardList.getFlashcardList());
+    }
+
+    @Override
+    public Predicate<Flashcard> getHasTagPredicate(Set<Tag> tag) {
+        requireNonNull(tag);
+        return flashcard -> flashcard.hasAnyTag(tag);
     }
 
     @Override

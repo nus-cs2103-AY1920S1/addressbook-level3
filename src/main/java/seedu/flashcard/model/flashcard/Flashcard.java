@@ -50,6 +50,18 @@ public class Flashcard {
     }
 
     /**
+     * Returns true if this flashcard has any one of the tags in the given tag sets.
+     */
+    public boolean hasAnyTag(Set<Tag> tags) {
+        for (Tag tag : tags) {
+            if (getTags().contains(tag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Defines that if and only if two flashcards containing the same word can be considered as the same.
      */
     public boolean isSameFlashcard(Flashcard otherFlashcard) {

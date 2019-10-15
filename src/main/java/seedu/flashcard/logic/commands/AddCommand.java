@@ -18,8 +18,8 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a flashcard to a flashcard list. "
             + "Parameters: "
-            + PREFIX_WORD + "WORD "
-            + PREFIX_DEFINITION + "DEFINITION "
+            + "[" + PREFIX_WORD + "WORD]"
+            + "[" + PREFIX_DEFINITION + "DEFINITION]"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_WORD + "Refactor "
