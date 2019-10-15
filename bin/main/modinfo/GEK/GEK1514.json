@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1514",
+    "courseCredit": "4",
+    "description": "Phenomenal developments in microelectronics in the last fifty years have revolutionized many aspects of our lives, and fostered the rapid development in many new technologies, ranging from computers to telecommunications to the internet. The aim of this module is to give students who are not majoring in Electrical Engineering a broad, basic appreciation of microelectronics and its impact on our lives. They will be introduced to the basic principles of semiconductors, how transistors work and how integrated circuits are fabricated. These will be presented at a conceptual level, with the help of analogies and models. There will also be a hands-on laboratory session in which the students will be introduced to some of the basic processes in microelectronics fabrication.",
+    "faculty": "Engineering",
+    "preclusion": "Students who have read EE2021 or EE3431C are not allowed to read this module.",
+    "title": "Microelectronics Revolution - From Sand To IC"
+}

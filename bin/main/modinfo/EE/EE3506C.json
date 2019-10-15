@@ -1,0 +1,11 @@
+{
+    "courseCode": "EE3506C",
+    "courseCredit": "4",
+    "description": "This module covers the fundamental principles of modern electrical energy systems; including three-phase analysis, electric generations, electric loads, and power electronic converters. The module is designed specifically to help students develop a broad systems perspective and an understanding of the principal elements of electrical energy systems. The expectation is that students completing the module will be able to handle adequately the electrical aspects of a range of applications. This will serve as the foundation of higher-level topics in power engineering. Furthermore, students will be prepared to work effectively with electrical engineers on the joint solution of complex problems.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE4503"
+    ],
+    "preclusion": "EE3505C Electrical Energy Systems",
+    "title": "Intro to Elect Energy Systems"
+}

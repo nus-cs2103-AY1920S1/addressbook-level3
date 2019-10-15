@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "SP2173",
+    "courseCredit": "4",
+    "description": "This is the first module of an interdisciplinary program covering nature at different scales from 'Atoms to Molecules', 'The Cells', 'The Earth' and 'The Universe'. 'Atoms to Molecules' strives to answer a simple question: 'How do atoms come together to produce the vibrant diversity observed in the physical, chemical and biological world?' To this end we follow mans\u2019 quest to understand the atom, the development of \u2018quantum mechanics\u2019 and how this leads to our understanding of molecules as collections of atoms. We will also visit the development of techniques that probe the microscopic domain and use some of them (spectroscopy, tunnelling microscopy) in hands-on experiments. We will conclude by studying novel, cutting edge topics such as fullerenes and graphene. Extensive use of computational tools (e.g. MATHEMATICA) will be made for simulations and surmounting mathematical barriers.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "SP2174",
+        "SP3277"
+    ],
+    "title": "Atoms to Molecules"
+}

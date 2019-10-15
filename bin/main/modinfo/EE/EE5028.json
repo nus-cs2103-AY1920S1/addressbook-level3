@@ -1,0 +1,7 @@
+{
+    "courseCode": "EE5028",
+    "courseCredit": "2",
+    "description": "This module will introduce the students to the fundamentals for securing cyber physical systems and industries reliant on information and communication technologies. The students will be exposed to the key technologies behind cyber physical systems and Industry 4.0 and their security vulnerabilities. Tools and techniques for protecting against these vulnerabilities will be introduced and the students will also work with data from case studies from security breached in industrial systems to gain hand on experience in detecting and defending against cyber attacks. The module will use practical systems such as smart grids for illustrating the concepts and as test cases.",
+    "faculty": "Engineering",
+    "title": "Security for Industrial Control Systems"
+}

@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "fyp": true,
+        "year": true
+    },
+    "courseCode": "MLE4101R",
+    "courseCredit": "16",
+    "description": "",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "MLE2103",
+            "MLE2104",
+            "MLE2105",
+            "MLE3101"
+        ]
+    },
+    "title": "Integrated B.ENG./B.SC. (Hons) Dissertation"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "fyp": true
+    },
+    "courseCode": "EU4401",
+    "courseCredit": "15",
+    "description": "Students enrolled in the module can select an EU-based topic and the supervisor based in any discipline across FASS. Regardless of the department of the supervisor, the HT will follow the requirements, format, limits and deadlines set by the History Department. The Honours Thesis is a research and writing exercise usually done in the final semester of a student pursuing an Honours degree.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EU4660",
+    "title": "Honours Thesis"
+}

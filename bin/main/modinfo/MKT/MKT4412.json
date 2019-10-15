@@ -1,0 +1,13 @@
+{
+    "courseCode": "MKT4412",
+    "courseCredit": "4",
+    "description": "This course aims to acquaint students with academic research in various areas of marketing. To achieve this goal, students will be required to read and discuss several assigned articles each week. These articles are designed to equip students with a working knowledge of the current literature in marketing research. Through this process, students will hopefully acquire critical thinking skills to carefully appraise, rather than blindly accept, a piece of research. In addition, students will be required to exercise their creative and analytical abilities in developing, implementing, and presenting a research project on a group basis.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "MKT1003X"
+        ]
+    },
+    "title": "Marketing Theory: Cultivating Critical Thinking"
+}

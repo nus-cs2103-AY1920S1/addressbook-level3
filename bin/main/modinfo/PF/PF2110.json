@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PF2110",
+    "courseCredit": "4",
+    "description": "This module covers the fundamental concepts of facilities management for different types of real assets. It explores the principles that underpin sustainable facilities management and the perspectives of stakeholders. Topics include FM activities, FM strategy, outsourcing, maintenance management, performance management and safety, resource management, FM technology, financial management, and procurement.",
+    "faculty": "Design and Environment",
+    "preclusion": "PF1105",
+    "title": "Fundamentals of Facilities Management"
+}

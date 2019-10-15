@@ -1,0 +1,20 @@
+{
+    "courseCode": "PC2134",
+    "courseCredit": "4",
+    "description": "This module aims to give students the necessary mathematical skills for other physics courses. The topics to be covered include: complex numbers and hyperbolic functions; multivariable calculus; elements of vector calculus; Taylor series; Fourier series, Dirac delta-function, Fourier transforms, Laplace transforms, physical applications; second-order ordinary and partial differential equations, wave equation, diffusion equation, Poisson\u2019s equation; Green\u2019s functions; Sturm-Liouville theory; special functions associated with physical systems, Hermite polynomials, Bessel functions, Legendre functions.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC3274",
+        "PC3238",
+        "PC3236",
+        "PC3130"
+    ],
+    "preclusion": "MA1511 and MA1512",
+    "prereqTree": {
+        "and": [
+            "MA1101R",
+            "MA1102R"
+        ]
+    },
+    "title": "Mathematical Mtds in Physics I"
+}

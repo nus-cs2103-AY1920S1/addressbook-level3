@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CH2272",
+    "courseCredit": "4",
+    "description": "This module is a general introduction to the history of art in China, from its earliest manifestations in the Neolithic-period to the contemporary period. Major art forms to be studied may include ceramics, jade, architecture, painting and calligraphy. The social and cultural contexts of important art works from different periods in Chinese history will also be discussed. The course is intended for all students who are interested in Chinese art and culture.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "CH3272"
+    ],
+    "preclusion": "CH2293",
+    "title": "Introduction to Chinese Art (taught in Chinese)"
+}

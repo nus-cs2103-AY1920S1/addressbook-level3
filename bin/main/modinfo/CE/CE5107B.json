@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "CE5107B",
+    "courseCredit": "2",
+    "description": "This is an advanced module in deep foundation engineering. Topics covered include piles subject to ground movement, piles in difficult ground, foundations for marine structures, construction related problems, pile driving analysis and dynamic testing, and static pile tests, as well as design via Eurocode 7. Participants will learn how to deal with design and construction issues pertaining to deep foundations under more general and realistic practical situations. Specific learning objectives include performing design calculations for piles and pile groups under more complex loading modes and ground conditions and pile installation and testing.",
+    "faculty": "Engineering",
+    "title": "Pile Foundation Problems and EC7 Impact"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "EN2275",
+    "courseCredit": "4",
+    "description": "As if writing itself were not hard enough, literature modules include highly challenging texts. Putting the problem of writing to the fore, this course develops the student\u2019s ability to write persuasive and elegant essays about ambiguity, subjectivity, figurative language, and so forth. While writing essays of various length, students will learn to develop their analyses and to use various kinds of evidence (including secondary criticism and literary theory) with greater precision.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EN1101E",
+            "GEK1000"
+        ]
+    },
+    "title": "Writing About Literature"
+}

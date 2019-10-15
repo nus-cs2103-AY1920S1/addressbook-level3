@@ -1,0 +1,36 @@
+{
+    "courseCode": "IS4010",
+    "courseCredit": "12",
+    "description": "This module enables students to apply the computing knowledge and skills that they have acquired in class to industry internships in companies/organizations. Students in industry internships will be jointly guided by supervisors from both the companies/organizations and the school Their progress on internship projects will be monitored during internship period, and their performance will be assessed through letter grades at the end of the internship. The internship duration will be 6 months, consisting of both a full-time and part-time component. Full-time internship attachment will last for 3 months during the NUS vacation period, and will continue on a part-time basis that will last for 3 months during the NUS study semester.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "IS2101",
+                    "CS2101"
+                ]
+            },
+            {
+                "or": [
+                    "IS1105",
+                    "IS3101",
+                    "IS3103"
+                ]
+            },
+            {
+                "or": [
+                    "IS2103",
+                    "CS2107",
+                    {
+                        "and": [
+                            "BT2101",
+                            "BT2102"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "title": "Industry Internship Programme"
+}

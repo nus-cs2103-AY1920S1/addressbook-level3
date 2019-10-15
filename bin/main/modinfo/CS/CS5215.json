@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS5215",
+    "courseCredit": "4",
+    "description": "Constraint programming is an alternative approach to computing in which the programming process is limited to a generation of requirements (constraints) and to solving of them by general methods and domain dependent methods. This module discusses the basic aspects of constraint programming, focusing on how to model and solve the constraints. Students will learn problem modelling by means of constraints and the main techniques used to solve such systems of constraints. The module focuses on the fundamental notions of constraint satisfaction problems, local consistency, constraint propagation, complete and incomplete constraint solvers, and various search methods.",
+    "faculty": "Computing",
+    "prereqTree": "CS2104",
+    "title": "Constraint Processing"
+}

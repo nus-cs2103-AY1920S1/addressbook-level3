@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA2105",
+    "courseCredit": "4",
+    "description": "Explores the techniques, repertoire and aesthetics of computer music. Composition and research projects are completed using the resources of the Computer Music Studios. Participation in at least one public performance programme is required.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA2106"
+    ],
+    "prereqTree": "MUA1114",
+    "title": "Introduction To Computer Music 1"
+}

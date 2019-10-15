@@ -1,0 +1,17 @@
+{
+    "courseCode": "EN2274",
+    "courseCredit": "4",
+    "description": "This module is an introduction to screen writing, covering the skills and techniques needed to create an effective screenplay. Students will explore and analyse ideas, formats, story, characterisation, structure, conflict, plot, scene, atmosphere, dialogue, visual style, subtext, rhythm and pace. Students will also be encouraged to develop professional writing habits. The module will have both an analytical and a creative component. Students will both interpret screenwriting techniques and apply them to their own short screenplays. Examples from a wide variety of genres in world cinema will be studied and comparisons will be made between the written screenplay and the final film.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "EN1101E",
+            "TS1101E",
+            "GEK1011",
+            "GEK1000",
+            "GEM1003"
+        ]
+    },
+    "title": "Introduction to Screenwriting"
+}

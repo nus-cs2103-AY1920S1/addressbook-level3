@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAM2201",
+    "courseCredit": "4",
+    "description": "This module is a progression from Malay 1 and it seeks to build upon the standard attained by students in that module. This follow-up module introduces students by gradation to the use of standard Malay in relation to administration, commerce and the modern professions. The overriding aim of the module is for students to attain a functional competency in the Malay language for formal and practical purposes where necessary and relevant, aspects of Malay grammar would be taught.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAM3201"
+    ],
+    "prereqTree": "LAM1201",
+    "title": "Malay 2"
+}

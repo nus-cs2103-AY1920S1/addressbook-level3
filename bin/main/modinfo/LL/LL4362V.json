@@ -1,0 +1,13 @@
+{
+    "courseCode": "LL4362V",
+    "courseCredit": "5",
+    "description": "Forensic science can play a large part in criminal litigation, from DNA and fingerprint evidence to the detection of forgery. Forensic scientists can play a significant role by presenting evidence in a trial, and effective trial lawyers should be equipped with the skills and knowledge to manage, present, and challenge forensic evidence. This interdisciplinary module brings law and science undergraduates together to equip them with key communication and analytical skills to present forensic evidence in Court in the most effective way. Key topics covered include advance trial techniques, the law of evidence, and aspects of forensic science.",
+    "faculty": "Law",
+    "prereqTree": {
+        "or": [
+            "LC1001",
+            "LSM1306"
+        ]
+    },
+    "title": "Advanced Criminal Litigation - Forensics on Trial"
+}

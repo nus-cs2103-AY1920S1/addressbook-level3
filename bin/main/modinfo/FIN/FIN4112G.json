@@ -1,0 +1,15 @@
+{
+    "courseCode": "FIN4112G",
+    "courseCredit": "4",
+    "description": "This course covers major private equity investment types including venture capital, growth capital, buyouts, sovereign wealth funds and venture philanthropy. The course adopts a case analytic approach and includes discussion on private equity cycles, from fund raising, structuring to deal screening, valuation, investment negotiations, fund management and performance reporting. An underlying theme of this part of the course is to evaluate to what extent private equity markets can create wealth and promote economic growth.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN4112F: Seminars in Finance: Private Equity and Investment Banking",
+    "prereqTree": {
+        "and": [
+            "FIN3101",
+            "FIN3102",
+            "FIN3103"
+        ]
+    },
+    "title": "SIF: Private Equity"
+}

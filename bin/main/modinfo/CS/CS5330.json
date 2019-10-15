@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS5330",
+    "courseCredit": "4",
+    "description": "The module will cover basic concepts in the design and analysis of randomized algorithms. It will cover both basic techniques, such as Chernoff bounds, random walks, and the probabilistic method, and a variety of practical algorithmic applications, such as load balancing, hash functions, and graph/network algorithms. The focus will be on utilizing randomization to develop algorithms that are more efficient and/or simpler than their deterministic counterparts.",
+    "faculty": "Computing",
+    "prereqTree": "CS3230",
+    "title": "Randomized Algorithms"
+}

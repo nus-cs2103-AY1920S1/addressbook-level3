@@ -1,0 +1,9 @@
+{
+    "courseCode": "IT2002",
+    "courseCredit": "4",
+    "description": "The aim of this module is to provide students with practical knowledge and understanding of basic issues and techniques in data management, with sufficient theory to understand the reasons for these techniques. Topics include conceptual (entity relationship model) and logical design (relational model) of database models, relational database management (data definition, data manipulation, SQL, visual interactive query interfaces), and their use in application development (in particular, data extraction from DBMS to spreadsheets application and data extraction to Web applications). Projects in developing a database within an application form an essential component of this module.",
+    "faculty": "Computing",
+    "preclusion": "CS2102 or CS2102S. SoC students and Arts and social sciences students reading CNM as a subject/concentration are not allowed to \nread this module as CFM/ULR-Breadth.",
+    "prereqTree": "CS1010",
+    "title": "Database Technology and Management"
+}

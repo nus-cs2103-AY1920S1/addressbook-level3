@@ -1,0 +1,8 @@
+{
+    "courseCode": "ECA5304",
+    "courseCredit": "4",
+    "description": "This module provides a general introduction to data mining methods. The focus of this module will be on the well-known classification algorithms with examples and applications in business and economics. Students will learn using R to execute both classical and state-of-art algorithms to solve real-world decision problems. Students will also learn important and practical techniques for data analytics in business and economics, including handling missing values, features selection, and unbalanced classification. Emerging topics in business economics, such as text mining in accounting and finance or satellite image classification for predicting economics activities, will be covered in this module as well.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "BT5152E and ECA5304",
+    "title": "Decision Making Technology for Business and Economics"
+}

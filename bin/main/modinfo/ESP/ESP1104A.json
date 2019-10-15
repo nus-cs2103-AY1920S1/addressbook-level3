@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ESP1104A",
+    "courseCredit": "6",
+    "description": "This module introduces students to the fundamental electronic principles of sensor systems for a variety of different disciplines. Particular emphasis will be given to circuits that are used in research and development, such as sensor amplifiers, filters, and data-acquisition. The module has both analogue and digital circuit principles, and involves project activities that involve hands-on construction of sensors, their circuits and translating their signals into digital data on to a computer.",
+    "faculty": "Engineering",
+    "title": "Sensor System Electronics"
+}

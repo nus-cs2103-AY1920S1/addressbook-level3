@@ -1,0 +1,13 @@
+{
+    "courseCode": "LL4076V",
+    "courseCredit": "5",
+    "description": "This course will examine the legal and policy issues relating to information technology and the use of the Internet. Issues to be examined include the conduct of electronic commerce, cybercrimes, electronic evidence, privacy and data protection. (This course will not cover the intellectual property issues, which are addressed instead in \"IT Law: IP Issues\".) Students who are interested in the interface between law, technology and policy will learn to examine the sociological, political, commercial and technical background behind these rules, evaluate the legal rules and policy ramifications of these rules, and formulate new rules and policies to address these problems.",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5283V",
+        "LL6283V",
+        "LL4283V"
+    ],
+    "preclusion": "Students who are taking or have taken LL4076.",
+    "title": "IT Law I"
+}

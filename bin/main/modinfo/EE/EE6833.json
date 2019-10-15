@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6833",
+    "courseCredit": "4",
+    "description": "This module covers selected topics in advanced microwave and antenna engineering problems. Topics include: advanced filter designs; system in package; transistor small signal modelling and large signal modelling; RF wireless power and energy harvesting; antenna bandwidth enhancement and miniaturization techniques; antennas in package; wearable and implantable antennas; etc. Selected papers on most recent research progress will be discussed. Case studies will be examined.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE5303",
+            "EE5303R",
+            "EE5308",
+            "EE5308R"
+        ]
+    },
+    "title": "Selected Topics in Microwave and Antenna Engineering"
+}

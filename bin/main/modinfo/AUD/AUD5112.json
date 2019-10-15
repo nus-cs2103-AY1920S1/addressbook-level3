@@ -1,0 +1,21 @@
+{
+    "courseCode": "AUD5112",
+    "courseCredit": "4",
+    "description": "This compulsory module is an extension of AUD5106 that introduces students to advance methods of diagnostic audiological assessment (objective and subjective tests) and management of adult patients. This module involves lecture in the morning and clinical practicum in the afternoon, whereby students will need to prepare and discuss session plans for cases to be observed on the day with clinical supervisor.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "AUD5217",
+        "AUD5218",
+        "AUD5221"
+    ],
+    "prereqTree": {
+        "or": [
+            "AUD5101",
+            "AUD5102",
+            "AUD5103",
+            "AUD5104",
+            "AUD5105"
+        ]
+    },
+    "title": "Clinical Audiology A - Part 2"
+}

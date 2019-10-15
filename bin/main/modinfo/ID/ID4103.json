@@ -1,0 +1,14 @@
+{
+    "courseCode": "ID4103",
+    "courseCredit": "12",
+    "description": "The objective of this module is to focus students on documentation, detailing of production drawings and specifications. It will enable students to understand design implications in anticipation of the manufacturing process and production. Major topics will emphasize detailing from the design point of view. It will include drawing conventions, specification writing, knowledge of national standards in industry and current mass production practice.",
+    "faculty": "Design and Environment",
+    "preclusion": "Module not offered to non-industrial design students",
+    "prereqTree": {
+        "and": [
+            "ID3103",
+            "ID3104"
+        ]
+    },
+    "title": "Design Detailing"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PH2212",
+    "courseCredit": "4",
+    "description": "An introduction to some of the main figures and movements of Continental European Philosophy. The purpose is to provide a broad synoptic view of the Continental tradition with special attention paid to historical development. Topics to be discussed include phenomenology, existentialism, structuralism, hermeneutics, Critical Theory, and post\u2010structuralism/post\u2010modernism. Thinkers to be discussed include Husserl, Heidegger, Sartre, Levi\u2010Strauss, Derrida, Gadamer, Habermas, Lyotard and Levinas. The main objective is to familiarize the student with the key concepts, ideas and arguments in the Continental tradition.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EU2214, GEK2030",
+    "title": "Introduction to Continental Philosophy"
+}

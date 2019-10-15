@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSC4207",
+    "courseCredit": "5",
+    "description": "This advanced undergraduate course introduces students to some of the foundational concepts in condensed matter physics including the idea of crystals; two-dimensional lattices; space group symmetries; Electronic structure; Bloch\u2019s theorem, Density of States, and simple models of the effects of interactions and disorder in realistic systems.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YSC3210",
+            "YSC3224"
+        ]
+    },
+    "title": "Solid State Physics"
+}

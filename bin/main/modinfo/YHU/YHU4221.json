@@ -1,0 +1,16 @@
+{
+    "courseCode": "YHU4221",
+    "courseCredit": "5",
+    "description": "This module will provide the practical curatorial skills, theories, and historical and conceptual foundation for managing, curating, and displaying artworks in art museums and galleries. Students will learn how to properly handle art objects, manage art collections, and write proposals, didactic panels, and catalogues. Through hands-on experience, they will learn how to display objects; learn how to research and write about display objects. Students will write proposals for their own curatorial projects for the NUS Museum. We will visit three major museums and art galleries in Singapore. Guest lectures will be by curators, directors, art conservators, and art educators.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YHU4207"
+    ],
+    "prereqTree": {
+        "or": [
+            "YHU2291",
+            "YHU4207"
+        ]
+    },
+    "title": "Curatorial Studies"
+}

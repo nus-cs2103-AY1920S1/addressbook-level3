@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MKT1705D",
+    "courseCredit": "4",
+    "description": "This module is designed to provide knowledge, techniques and understanding of marketing principles. It provides students with a conceptual framework to analyse and interpret marketing phenomena and to suggest courses of action in response to marketing problems. It covers topics such as the marketing concept, the marketing environment and the marketing mix which includes product, pricing, distribution and promotion. Other related topics include consumer behaviour, market segmentation and targeting, marketing research and information system, marketing planning, implementation and control, and public issues in marketing. This is a foundation module for business students and provides the basis for later concentration in the marketing area.",
+    "faculty": "NUS Business School",
+    "preclusion": "MKT1003; MKT1003X; RST and EMG students",
+    "title": "Principles of Marketing"
+}

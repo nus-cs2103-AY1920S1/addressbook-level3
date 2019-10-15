@@ -1,0 +1,10 @@
+{
+    "courseCode": "MUA3205",
+    "courseCredit": "4",
+    "description": "An introduction to the performance of jazz or popular music as practiced in the USA from the 1920s to the early 1950s. This module shows you how to perform and improvise jazz music as an instrumentalist or vocalist through the study and practice of class materials and listening. Theoretical materials will include chord scale theory, basic jazz musical forms, chord extensions, basic reharmonization techniques, and roman numeral analysis in jazz. The improvisational concepts taught are based on jazz theory and practice. There will be a listening list of about 80 well-known jazz pieces.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3206"
+    ],
+    "title": "Jazz Study and Performance 1"
+}

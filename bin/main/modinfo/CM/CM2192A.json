@@ -1,0 +1,14 @@
+{
+    "courseCode": "CM2192A",
+    "courseCredit": "2",
+    "description": "This is a module that focuses on practical aspects in fundamental analytical chemistry.",
+    "faculty": "Science",
+    "preclusion": "CM2192",
+    "prereqTree": {
+        "or": [
+            "CM1191",
+            "FST1101"
+        ]
+    },
+    "title": "Experiments in Chemistry 3A"
+}

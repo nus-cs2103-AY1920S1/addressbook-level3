@@ -1,0 +1,14 @@
+{
+    "courseCode": "ECA5101",
+    "courseCredit": "4",
+    "description": "This course is designed to provide students with a sound understanding of modern microeconomic theory. It will cover the aspects of microeconomic theory that are required to analyse contemporary economics issues and to create new models to explain the behaviour of individuals, firms, and markets, and to evaluate economic policies. The topics will include consumer and producer theories, analysis of risk and uncertainty, game theory and its applications in economics, general equilibrium, market failure and welfare economics. The course considers the problem of incomplete and asymmetric information in market interactions, including the issues of moral hazard, adverse selection, and signaling. The impact of government policies on economic activities will also be examined.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "ECA5374",
+        "ECA5376",
+        "ECA5884",
+        "ECA5383"
+    ],
+    "preclusion": "EC5151, EC5101A",
+    "title": "Microeconomics"
+}

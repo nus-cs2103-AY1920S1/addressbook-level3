@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NUR1127",
+    "courseCredit": "4",
+    "description": "This introductory module aims to provide health professionals with an understanding of psychological concepts underpinning health, illness and well being. It explores the foundations of health and behavior, factors affecting health and behavior, psychophysiological aspects of health, and prevention of illness and promotion of health.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "preclusion": "NUR2122 Psychology for Nurses",
+    "title": "Psychology for Nurses"
+}

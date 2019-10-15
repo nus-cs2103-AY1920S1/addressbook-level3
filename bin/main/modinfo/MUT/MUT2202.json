@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUT2202",
+    "courseCredit": "4",
+    "description": "This module explores counterpoint as a major compositional technique in music of different genres through the ages. The various topics range from the birth of polyphony to high renaissance polyphony, and the development of counterpoint during the common practice period through the 20th century. The module aims to bridge compositional thinking with performance and interpretative analysis. Because of this, analysis, composition, and performance are equally represented as modes of learning. Major assessment is in the form of analytical work and music compositions that are performed in class and/or public concerts.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUT3202"
+    ],
+    "prereqTree": "MUT1101",
+    "title": "Counterpoint Through the Ages"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "DSC4217",
+    "courseCredit": "4",
+    "description": "This course prepares students with fundamental knowledge of using R, a powerful complete analytical environment, to organize, visualize, and analyze data. It is, however, not a programming course. It will focus on case studies from the most commonly used tasks that a business analyst will face on a day-to-day basis and how R could be used to handle such cases. The topics covered in the course include foundations of R programming, data visualization, regression-based data modelling, classification, and social media analysis.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            "DSC1007",
+            "DSC2008"
+        ]
+    },
+    "title": "Business Analytics with R"
+}

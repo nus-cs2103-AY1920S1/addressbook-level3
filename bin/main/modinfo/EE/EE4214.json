@@ -1,0 +1,13 @@
+{
+    "courseCode": "EE4214",
+    "courseCredit": "4",
+    "description": "The objectives of this module are to present the theoretical foundations of real-time systems and to discuss the practical aspects of their implementation. It describes the characteristics of a real-time computing system and students are taught how to design a real-time embedded system using structured data flow methodology. Concepts of time-critical I/O and real-time deadlines are emphasized, as are the important aspects of real-time operating systems, scheduling and the practical implementation of embedded systems and firmware. Other topics covered include deadlock management and process communications. Various case studies on industrial real-time systems will be exhibited to give students a real-world feel for such systems. Students will undertake a mini project involving a real-time embedded system. Topics covered: Introduction to real-time and embedded systems; Time critical I/O handling; Real-time embedded software design; Concurrent programming; Real-time operating systems; Scheduling and time-critical processing; Deadlock management; Process communications; Case studies of real-time embedded systems.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "CG2007",
+            "EE2024"
+        ]
+    },
+    "title": "Real-Time Embedded Systems"
+}

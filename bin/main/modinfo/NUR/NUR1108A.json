@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NUR1108A",
+    "courseCredit": "7",
+    "description": "This module enables students to integrate theory and clinical knowledge in the community and surgical settings.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "NUR2116"
+    ],
+    "title": "Nursing Practice Experience 1.2"
+}

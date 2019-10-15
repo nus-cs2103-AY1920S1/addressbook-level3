@@ -1,0 +1,8 @@
+{
+    "courseCode": "PC5247",
+    "courseCredit": "4",
+    "description": "The module is intended to provide detailed treatment of the principles of lasers and working knowledge of major optical techniques used in manipulating laser spatial mode properties and their temporal and spectral characteristics. The topics being covered include laser beams, laser theory, laser survey, modulation techniques, non-linear optics, and fiber optics.",
+    "faculty": "Science",
+    "prereqTree": "PC3247",
+    "title": "Photonics II"
+}

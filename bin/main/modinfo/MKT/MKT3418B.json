@@ -1,0 +1,17 @@
+{
+    "courseCode": "MKT3418B",
+    "courseCredit": "4",
+    "description": "This module aimed at developing skills towards the management of new and existing products, where products cover both tangible goods as well as intangible services. Possible topics to be covered include: the changing role of the product manager; product portfolio management; product planning and concept testing; test marketing and new product introduction; and packaging. Several teaching methods will be used. Apart from lectures, students may be given assigned readings and cases to develop their skills. In addition, students may have the opportunity to apply their skills in group projects.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3418 or BZ3603",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "BH1003",
+            "BZ1003",
+            "BK2003",
+            "TR2201"
+        ]
+    },
+    "title": "Product and Brand Management"
+}

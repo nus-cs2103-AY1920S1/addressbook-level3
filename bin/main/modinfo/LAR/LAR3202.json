@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAR3202",
+    "courseCredit": "4",
+    "description": "Arabic 4 is a continuation of Arabic 3. In this module, all skills of the language are equally dealt with. Further emphasis is placed on students\u2019 ability to communicate more fluently. More authentic language situations are brought into the classroom and used as language models. Students are asked to personalize these situations, putting into practice newly acquired vocabulary and structures. To consolidate the students\u2019 learning of new vocabulary and structures, they are asked to write compositions on a variety of topics in a way that match their linguistic ability.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAR4201"
+    ],
+    "prereqTree": "LAR3201",
+    "title": "Arabic 4"
+}

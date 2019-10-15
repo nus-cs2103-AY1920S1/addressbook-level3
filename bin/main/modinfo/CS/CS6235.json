@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS6235",
+    "courseCredit": "4",
+    "description": "This graduate-level module covers advanced topics in the theoretical aspects of computer science that are of current research or application interests. Topics falling under this module include algorithms, theory of computation, formal models, and semantics. The exact topic may vary from year to year and depends on the instructor teaching the module. Upon completion of this module, the student will have a deeper understanding on some of the latest research problems in one of the areas of theoretical computer science. This module will help prepare students towards doing research in theoretical computer science.",
+    "faculty": "Computing",
+    "prereqTree": "CS3230",
+    "title": "Advanced Topics in Theoretical Computer Science"
+}

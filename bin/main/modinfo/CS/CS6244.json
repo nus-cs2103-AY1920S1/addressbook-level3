@@ -1,0 +1,26 @@
+{
+    "courseCode": "CS6244",
+    "courseCredit": "4",
+    "description": "An array of new robots with amazing capabilities appeared in the last decade, e.g., self-driving cars, humanoids, and robot vacuum cleaners. They will gradually, but surely, transform our ways of life in the near future. This course presents the key algorithmic ideas and implementation techniques that enable autonomous robot planning and control. It covers the geometric, probabilistic, and dynamic models and the associated methods commonly used in robotics. Application to related fields, such as computer animation and computation biology, will also be discussed.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS3230",
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1311",
+                    "MA1506",
+                    "MA1508E"
+                ]
+            },
+            {
+                "or": [
+                    "ST2131",
+                    "ST2334"
+                ]
+            }
+        ]
+    },
+    "title": "Robot Motion Planning & Control"
+}

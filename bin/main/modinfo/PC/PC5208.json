@@ -1,0 +1,13 @@
+{
+    "courseCode": "PC5208",
+    "courseCredit": "4",
+    "description": "The purpose of this course is to provide an introduction to the microscopic and phenomenological theories of superconductivity. It lays the analytical foundation for the understanding a wide range of modern applications of both low- and high- temperature superconductors. The lecture links established theories with current research activities in the development of the physics and technology of the superconductors. Students should have a background in quantum mechanics and thermal physics.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PC4214",
+            "PC4240"
+        ]
+    },
+    "title": "Superconductivity"
+}

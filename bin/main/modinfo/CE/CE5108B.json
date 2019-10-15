@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "CE5108B",
+    "courseCredit": "2",
+    "description": "This module builds upon the knowledge and skills acquired in 'CE5108A Lateral Earth Pressures and Retaining Wall Design Design via Eurocode 7' to cover the topic of deep excavations related to deep shafts and multi\u2010strut supported walls. Participants are taught to deal with design and construction issues pertaining to deep excavations, such as drained and undrained conditions, as well as field monitoring practices. Applications of commercial geotechnical FEM software are taught to aid in design and analysis of deep excavations to limit ground deformations and satisfy both serviceability requirements as well as Eurocode 7 ultimate limit states.",
+    "faculty": "Engineering",
+    "title": "Deep Excavations Design Using Eurocode 7"
+}

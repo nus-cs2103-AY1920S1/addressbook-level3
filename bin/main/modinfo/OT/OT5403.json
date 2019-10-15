@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "OT5403",
+    "courseCredit": "4",
+    "description": "This module introduces the commonly used downhole measurements of petroleum reservoirs. The module will cover electrical, acoustic, nuclear, NMR, and seismic measurements. The module will cover the physics, hardware, data processing and interpretation of each kind of measurement. Both wireline and Logging While Drilling measurements will be discussed.",
+    "faculty": "Engineering",
+    "title": "Petrophysics and Downhole Measurements"
+}

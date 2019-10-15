@@ -1,0 +1,8 @@
+{
+    "courseCode": "IE4240",
+    "courseCredit": "4",
+    "description": "This module introduces students to the basic concepts in project management. The process encompasses project planning, project scheduling, cost estimation and budgeting, resource allocation, monitoring and control, and risk assessment and management. The principles behind the process and the approaches to their execution will be covered. This module enables students to define and plan a project within the constraints of the environment. The plan will serve as a blueprint for the implementation and control of a project.",
+    "faculty": "Engineering",
+    "prereqTree": "IE2111",
+    "title": "Project Management"
+}

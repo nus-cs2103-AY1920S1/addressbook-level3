@@ -1,0 +1,13 @@
+{
+    "courseCode": "DSC3222K",
+    "courseCredit": "4",
+    "description": "This course aims to inculcate students with an intermediate understanding of supply chain management in particular strategies related to logistics and transportation from a managerial perspective. At the end of the module, students are expected to be conversant with the key strategies in place as practised currently by multi-nationals, the policies that are established by governments in Asia, and the state of practice in countries in Asia.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "DSC3201",
+            "DSC2006"
+        ]
+    },
+    "title": "TIOSCM: Logistics and Transportation"
+}

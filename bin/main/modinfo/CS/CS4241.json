@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS4241",
+    "courseCredit": "4",
+    "description": "With the proliferation digital media, more and more information is available in non-textual forms. The ability to index, manage and retrieve media contents is of paramount importance. This module introduces the theory, design and technologies of media search. It covers the design of media search engine, the extraction of media features and their indexing, media concept annotation, media search paradigms, and interactive search. It also covers the applications of media search in social media, enterprise and personal media.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS3245",
+            "CS3246"
+        ]
+    },
+    "title": "Multimedia Information Retrieval"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSS4233",
+    "courseCredit": "5",
+    "description": "Is populism good for democracy? This upper-level seminar will introduce advanced undergraduates to various theories of populism and to important cases of populism from around the globe. Countries considered will include France, India, Indonesia, Turkey, the United States, and Venezuela. Various explanations for the populist resurgence will also be considered, including: charismatic leadership, economic,inequality, party systems and new social media.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSS3277",
+            "YSS2217",
+            "YSS1206"
+        ]
+    },
+    "title": "Populism and Democracy"
+}

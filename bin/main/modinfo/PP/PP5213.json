@@ -1,0 +1,13 @@
+{
+    "courseCode": "PP5213",
+    "courseCredit": "4",
+    "description": "Asia's share of the world's GDP, which is currently little above twenty percent, is likely to double by 2030. This has drawn much attention to the dynamic emerging Asian region, especially to the economic giants China and India. This course explores different aspects of contemporary international economic issues in the region. Coverage will be broad, focusing on financial crises, reserve accumulation, capital flows and currency wars, on the one hand, and issues relating to foreign direct investment and developments in China and India, on the other.",
+    "faculty": "LKY School of Public Policy",
+    "prereqTree": {
+        "and": [
+            "PP5101",
+            "PP5102"
+        ]
+    },
+    "title": "Contemporary Financial Policy Issues in Emerging Asia"
+}

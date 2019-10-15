@@ -1,0 +1,13 @@
+{
+    "courseCode": "SP3203",
+    "courseCredit": "4",
+    "description": "The aim of the module is to provide students with handson research experience in aquatic ecology; the design, execution and analysis of surveys and experiments. Emphasis is placed on how quantitative scientific methods are applied to study aquatic ecosystems incorporating both theory and practice. The theory is primarily in the form of ecological survey planning and aquatic experimental design. The practical component provides the skills necessary to conduct real aquatic ecology research and present findings. The module covers hypothesis formulation, analytical methods and procedures specific to aquatic systems, as well as the use of statistical information for making ecological inferences. Awareness will be developed of what types of research are realistic given time, skill and budget constraints.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM2251",
+            "GE2229"
+        ]
+    },
+    "title": "Aquatic Ecology Research"
+}

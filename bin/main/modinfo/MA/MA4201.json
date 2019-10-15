@@ -1,0 +1,14 @@
+{
+    "courseCode": "MA4201",
+    "courseCredit": "4",
+    "description": "This is a second course on commutative rings and is targeted at aspiring undergraduates who intend to pursue a graduate course in pure mathematics and wish to have some commutative algebra background. Commutative algebra has applications in many areas of abstract algebra, including representation theory, number theory and algebraic geometry. Major topics: Radicals of commutative rings, Nakayama's lemma, localisation, integral dependence, primary decomposition, Noetherian and Artinian rings.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "MA3202",
+            "MA3203",
+            "MA3201"
+        ]
+    },
+    "title": "Commutative Algebra"
+}

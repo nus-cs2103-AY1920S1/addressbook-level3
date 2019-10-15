@@ -1,0 +1,11 @@
+{
+    "courseCode": "PLC5018",
+    "courseCredit": "4",
+    "description": "This module focuses on the development of advanced clinical psychology research methodology and statistics knowledge, skills and competencies, as part of doctorate-level training of scientist-practitioner Clinical Psychologists. The module will be organized around research methodology topics relevant to clinical psychology (examples include, but are not limited to, treatment outcome research, small-N designs, systematic reviews and meta-analyses, qualitative clinical and clinical health psychology research, observational methods, randomised control intervention trials, etc.); and topics in statistics highly relevant for doctorate-level applied clinical psychology research (i.e. mediation and moderation analyses, multiple regression analyses, statistical modelling, analyses of randomised control trials, etc.).",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PLC5019"
+    ],
+    "prereqTree": "PLC5008",
+    "title": "Specialised Applications in Clinical Psychology I"
+}

@@ -1,0 +1,16 @@
+{
+    "courseCode": "ESE3401",
+    "courseCredit": "4",
+    "description": "This module introduces students to the unit operations and processes application for domestic water supply and wastewater treatment. Integration of physical, chemical and biological processes is the basis of current water and wastewater design practice. This module will enable students to understand the main treatment processes and engineering concerns of water and wastewater treatment systems. Students learn to identify the appropriate treatment system to address water and wastewater treatment needs and design basic processes of water and wastewater treatment systems.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ESE4401",
+        "ESE4405",
+        "ESE4407",
+        "ESE4408",
+        "ESE4409"
+    ],
+    "preclusion": "TCE3001",
+    "prereqTree": "ESE2401",
+    "title": "Sustainable Urban Water Technologies"
+}

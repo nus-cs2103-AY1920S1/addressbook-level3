@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "MT5006B",
+    "courseCredit": "2",
+    "description": "This module introduces the links between new product development and the corporate strategy of a company. The relationships between the different types of organizational structure and new product development strategy will also be discussed. Other topics that will be covered include platform and derivative product development and also product technology roadmap.",
+    "faculty": "Engineering",
+    "preclusion": "MT5006 Strategic and New Product Development",
+    "title": "New Product Development and Corporate Strategy"
+}

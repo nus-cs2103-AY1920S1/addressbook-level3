@@ -1,0 +1,11 @@
+{
+    "courseCode": "NM3209",
+    "courseCredit": "4",
+    "description": "This module introduces students to interactive media design through the process of creation and reflecting on what has been created, with a particular focus on the relationship between computation and interactivity. Through hands\u2010on design work, study of readings and works, and writing of critical reflections, students learn about relevant design issues arising from different domains, platforms, and interface modalities. Topics include interactive art, games, stories, visualization, simulation, and exhibits. The module also touches on current design innovations in interactive media, including mobile and tablet-based computing, the use of real\u2010time data, robotic toys, as well as voice, touch, and gesture\u2010based interaction.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "CS3240"
+    ],
+    "preclusion": "NM2217",
+    "title": "Designing for Interactivity"
+}

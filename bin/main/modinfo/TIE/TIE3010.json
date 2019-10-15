@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TIE3010",
+    "courseCredit": "4",
+    "description": "This foundation module aims to introduce students to the fundamental concepts and underlying principles of systems thinking, as well as modeling methods and tools that are applicable to the design of industrial systems. The topics in this module include introductory systems concepts, mental models and causal loop diagrams, while the modeling methods and tools to be covered include that of operations research and data analysis. The application of these topics to simple systems design problems will be illustrated through laboratory sessions. Real-world case studies will be presented to show how these concepts have been applied in industrial contexts.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIE4252"
+    ],
+    "preclusion": "IE3010E",
+    "title": "Systems Thinking and Design"
+}

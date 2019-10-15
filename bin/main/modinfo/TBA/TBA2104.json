@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "TBA2104",
+    "courseCredit": "4",
+    "description": "Predictive analytics uses an assortment of statistical techniques to predict future events or behaviors based on collected data. For example, businesses could use predictive analytics to answer questions about consumer behavior and market movements and to anticipate future events, forecast plausible outcomes, and make informed decisions that enable organisations to gain and sustain competitive advantages. Data can be combined and analysed to make predictions with a certain degree of reliability. Students will learn predictive analytics by using Excel or R to construct statistical models like regression, time-series forecasting, weighted moving averages among others.",
+    "faculty": "Cont and Lifelong Education",
+    "title": "Predictive Analytics"
+}

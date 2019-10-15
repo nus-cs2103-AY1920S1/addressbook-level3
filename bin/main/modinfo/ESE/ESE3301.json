@@ -1,0 +1,11 @@
+{
+    "courseCode": "ESE3301",
+    "courseCredit": "4",
+    "description": "The module provides students with a strong foundation in environmental microbiology and its application to pollution control systems. It provides an introduction to the principles of microbiology in environmental engineering. After an overview of microbial classification and the applications of environmental microbiology, the course addresses aspects of microbial ecology and population dynamics. Microbial characteristics of the terrestrial and aquatic environment are covered, as well as aspects of indoor air pollution control. Microbial biogeochemical cycling of elements is examined with respect to nitrogen, carbon and sulphur. Aspects of genetic engineering in environmental microbiology are introduced with regard to applied biotechnologies.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ESE4301",
+        "ESE4408"
+    ],
+    "title": "Environmental Microbiological Principles"
+}

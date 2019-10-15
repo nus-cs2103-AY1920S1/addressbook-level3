@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MDG5229",
+    "courseCredit": "4",
+    "description": "This module is designed to give the students a system understanding of the key signal transduction pathways in the cell, with close implication in health and disease. The main topics include the following: (1) PI3K-MTOR pathways (2) MAPK pathways (3) Tyrosine kinase pathways (4) GPCR (5) Small GTPase (6) TNF signalling pathways (7) NF-kB pathways (8) Jak-STAT pathways (9) TGFb-Smad pathways (10) Hippo signaling (11) Hedgehog signalling (12) AMPK signaling (13) Ubiquitination and protein degradation These topics will be taught by leading experts with strong research background from NUHS, Duke-NUS and IMCB.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "title": "Advanced Topics in Signal Transduction"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EE1111A",
+    "courseCredit": "4",
+    "description": "This module introduces first year electrical engineering students to what engineers do and to the engineer's thought process. This is the first of a two-part module: Engineering Principles and Practice (EPP) I and II. Real engineering systems will be used to show how engineers use different disciplines of engineering to make things work. Through grasping engineering fundamentals, students learn how engineering systems work and fail (EPP I). Through learning where systems get energy and how they are controlled, students learn how multi-disciplinary concepts are tied together (EPP II). Students will also learn basic design, experimentation and evaluation of engineering systems.",
+    "faculty": "Engineering",
+    "preclusion": "EG1111\nEE1111",
+    "title": "Electrical Engineering Principles and Practice I"
+}

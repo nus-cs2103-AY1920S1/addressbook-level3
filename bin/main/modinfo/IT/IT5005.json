@@ -1,0 +1,8 @@
+{
+    "courseCode": "IT5005",
+    "courseCredit": "4",
+    "description": "The study of artificial intelligence, or AI, aims to make machines achieve human-level intelligence. This module provides a comprehensive introduction to the fundamental components of AI, including how problem-solving, knowledge representation and reasoning, planning and decision making, and learning. The module prepares students without any AI background to pursue advanced modules in AI.",
+    "faculty": "Computing",
+    "prereqTree": "IT5001",
+    "title": "Artificial Intelligence"
+}

@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YLC1202",
+    "courseCredit": "5",
+    "description": "This module is designed for 1) students who already possess some proficiency in spoken Chinese but no formal education in Chinese; 2) students returning from summer study abroad programs; and 3) non-heritage students with prior coursework in Chinese who wish to further develop their reading and writing skills in Chinese. Students will take a placement test prior to the beginning of the course.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YLC2201"
+    ],
+    "prereqTree": "YLC1201",
+    "title": "Beginning Chinese 2"
+}

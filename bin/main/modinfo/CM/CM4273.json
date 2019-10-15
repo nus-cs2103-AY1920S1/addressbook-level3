@@ -1,0 +1,14 @@
+{
+    "courseCode": "CM4273",
+    "courseCredit": "4",
+    "description": "This module introduces modern computational methods used in drug discovery and drug development. It covers topics such as drug design process, structure and ligand based drug design, molecular mechanics methods, homology model, molecular docking, pharmacophore models, quantitative structure-reactivity relationship (QSAR), de novo ligand design, quantum mechanics techniques, cheminformatics, database search tools, and virtual screening. Hands-on experience in using computational software and visualization tools will be provided.",
+    "faculty": "Science",
+    "preclusion": "CM5236",
+    "prereqTree": {
+        "or": [
+            "CM3221",
+            "CM3222"
+        ]
+    },
+    "title": "Computational Drug Design"
+}

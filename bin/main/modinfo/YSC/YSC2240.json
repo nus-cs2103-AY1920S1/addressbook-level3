@@ -1,0 +1,24 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YSC2240",
+    "courseCredit": "2",
+    "description": "This stand-alone tutorial will train students to conduct animal behaviour research. Students will coordinate with the instructor about the specific topic and may study natural or captive animal populations. Students will use sampling techniques and analyses specific to animal behaviour, and will carry out a complete study on animal behaviour. Portions of this module may take place in Singapore parks or at the Singapore Zoo. Students should come away from this tutorial being able to design, carry out, and analyse data, for scholarly studies on animal behaviour, cognition, or evolution. This tutorial can transition into a YNC summer research internship.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1122",
+            {
+                "or": [
+                    "YCC1131",
+                    "YSC2211",
+                    "YSC2216",
+                    "YSC3235",
+                    "YSS2201"
+                ]
+            }
+        ]
+    },
+    "title": "Research Tutorial in Animal Behaviour"
+}

@@ -1,0 +1,18 @@
+{
+    "courseCode": "MLE3202",
+    "courseCredit": "4",
+    "description": "Introduction to the interdisciplinary nature of biomedical materials; biology, chemistry, and materials science and engineering. Classes and properties of materials used in medicine and dentistry. Biological and biochemical properties of proteins, cells and tissues. Biocompatibility and host reactions to biomedical implant materials. Testing of biomedical materials. Degradation of biomedical materials. Past, present and future applications of materials in medicine and dentistry. Learning objectives: Introductory knowledge on biomedical materials.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MLE4203"
+    ],
+    "prereqTree": {
+        "or": [
+            "MLE1101",
+            "MLE1111",
+            "MLE1001",
+            "MLE1002"
+        ]
+    },
+    "title": "Materials for Biointerfaces"
+}

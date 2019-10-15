@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAB3201",
+    "courseCredit": "4",
+    "description": "This module is a continuation of Bahasa Indonesia 2. Emphasis continues to be on proficiency in all four skills, within selected range of vocabulary and grammar. Students will master language relating to a wider range of daily life situations and will gain flexibility in their language use. Reading will no longer be strictly limited to what is contained in the textbook specially prepared for the class. Gradually, short selection from media and literature sources such as short stories, poems, announcements, reports and other short, topic-specific pieces will be introduced to begin to familiarize students with actual usage while not overwhelming them with new vocabulary and grammatical forms.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAB3202"
+    ],
+    "prereqTree": "LAB2201",
+    "title": "Bahasa Indonesia 3"
+}

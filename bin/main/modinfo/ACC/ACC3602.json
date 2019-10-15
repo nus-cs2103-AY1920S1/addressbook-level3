@@ -1,0 +1,14 @@
+{
+    "courseCode": "ACC3602",
+    "courseCredit": "4",
+    "description": "The course examines various means by which control can be exercised and the types of accounting information that allow for different means of control. Topics to be covered include the nature of control, responsibility centers, economic value added, transfer pricing, strategic planning, budgeting, performance evaluation systems, executive compensation, control for differentiated strategies, control for multinational organisations. Students learn how control is exercised through case analyses, case presentations and in-class discussions. The case approach makes control &quot;come alive&quot; for the students with descriptions of control at various real organisations. The case presentations make the students think critically and strategically. The in-class discussions allow the students to evaluate the pros and cons of different approaches and solutions to control problems.",
+    "faculty": "NUS Business School",
+    "preclusion": "Students who have passed FNA3112 are not allowed to take ACC3602.",
+    "prereqTree": {
+        "or": [
+            "FNA2002",
+            "ACC2002"
+        ]
+    },
+    "title": "Managerial Planning and Control"
+}

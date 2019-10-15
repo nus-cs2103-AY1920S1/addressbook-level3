@@ -1,0 +1,12 @@
+{
+    "courseCode": "ECA5333",
+    "courseCredit": "4",
+    "description": "This module is to offer a broad overview of financial assets traded in the money, options, and stock markets. It includes valuation of bonds and securities, analysis of options and futures contracts, asset pricing models and some applications.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "ECA5315",
+        "ECA5334"
+    ],
+    "preclusion": "EC5274/EC5333. In addition, candidates who have passed EC4209/EC4333 or its equivalent may, with the approval of the Head of the Department, be exempted to read module EC5274/ECA5333. For these candidates, the requirements of EC5274/ECA5333 as a prerequisite for other modules will then be waived.",
+    "title": "Financial Markets & Portfolio Management"
+}

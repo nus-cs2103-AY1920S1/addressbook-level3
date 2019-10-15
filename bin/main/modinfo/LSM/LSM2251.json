@@ -1,0 +1,18 @@
+{
+    "courseCode": "LSM2251",
+    "courseCredit": "4",
+    "description": "This module introduces students to the science of ecology and its role in understanding environmental processes. It covers both the major concepts and their real-world applications. Topics will include models in ecology, organisms in their environment, evolution and extinction, life history strategies, population biology, ecological interactions, community ecology, ecological energetics, nutrient cycling, landscape ecology.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM3267",
+        "LSM4263",
+        "LSM4265",
+        "LSM3254",
+        "LSM3255",
+        "LSM3263",
+        "LSM3265",
+        "SP3203",
+        "LSM3273"
+    ],
+    "title": "Ecology and Environment"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "EE3731E",
+    "courseCredit": "4",
+    "description": "This module provides an introduction to signal processing methods. It aimed at preparing students for high-level technical electives and graduate modules in signal processing and new media. The topics covered include: digital filtering, multirate digital signal processing, introduction to wavelet transform, probability and random signals, Wiener filter, AMAR model, linear prediction, singular value decomposition, principle component analysis and multimedia applications.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TEE3731",
+    "prereqTree": {
+        "and": [
+            "TE2003",
+            "EE2023E"
+        ]
+    },
+    "title": "Signal Processing Methods"
+}

@@ -1,0 +1,45 @@
+{
+    "courseCode": "MA3220",
+    "courseCredit": "4",
+    "description": "The study of ordinary differential equations (ODEs) has been a centerpiece in both pure and applied mathematics, such as in mathematical analysis, dynamical systems and mathematical modeling. The aim of this module is to give a thorough treatment on the fundamental theory of ODEs and the methods of solving ODEs. Major topics: Review of first order equations, Basic theory of linear differential equations, Variation of parameters, Principle of superposition, Wronskian, Abel's formula, Adjoint and self-adjoint equations, Lagrange and Green's identities, Sturm's separation and comparison theorems, Linear differential systems, Series solutions of second order linear differential equations, Method of Frobenius, Initial value problems, Lipschitz condition, Picard's method of successive approximations, Existence and uniqueness of solution, Gronwall\u2019s inequality, Continuous dependence on initial value.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA4233",
+        "MA3266",
+        "MA4255",
+        "MA4252",
+        "MA4221"
+    ],
+    "preclusion": "MA2312, PC2174",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1104",
+                    "MA2104",
+                    "MA1505",
+                    "MA1507",
+                    "MA1511",
+                    "MA1521"
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1311",
+                    "MA1506",
+                    "MA1508",
+                    "MA1508E",
+                    "MA1513"
+                ]
+            },
+            {
+                "or": [
+                    "MA2108",
+                    "MA2108S"
+                ]
+            }
+        ]
+    },
+    "title": "Ordinary Differential Equations"
+}

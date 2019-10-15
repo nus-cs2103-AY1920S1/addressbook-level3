@@ -1,0 +1,16 @@
+{
+    "courseCode": "MA4247",
+    "courseCredit": "4",
+    "description": "This is a second course in complex analysis which aims to introduce the student to some of the beautiful main results and applications of complex analysis. The nature of the topic allows the student to learn and understand the proofs and applications of some very strong results with relatively little background, it also shows the interplay between geometry, analysis and algebra. Major topics: Argument principle (including Rouche's Theorem), open mapping theorem, maximum modulus principle, conformal mapping and linear fractional transformations, harmonic functions, and analytic continuation.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5253"
+    ],
+    "prereqTree": {
+        "or": [
+            "MA3111",
+            "MA3111S"
+        ]
+    },
+    "title": "Complex Analysis II"
+}

@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EG1108",
+    "courseCredit": "3",
+    "description": "This module introduces basic concepts in electrical and computer engineering in an integrated manner. It motivates the understanding of basic concepts in the context of practical engineering applications. The main part of the course gives the students a very strong foundation in DC and AC circuit analysis. The rest of the course gives the students a good flavor of what electrical engineering is all about. This is done using simple application examples that demonstrate the importance of AC and DC analysis. The topics covered are: Kirchhoff's Current and Voltage Laws, Ohm's Law. Resistive networks. Ideal and real sources. AC Circuits: phasors, impedance, power, power factor, resonance. Energy storage elements: capacitors and inductors. Introduction to circuit concepts including diodes, operational amplifiers, transformers, DC machines and logic gates using applications.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE3013C",
+        "EE2021",
+        "EE2020",
+        "EE2025",
+        "EE3505C"
+    ],
+    "preclusion": "CG1108/EE1002",
+    "title": "Electrical Engineering"
+}

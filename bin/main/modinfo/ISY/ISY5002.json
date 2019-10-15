@@ -1,0 +1,10 @@
+{
+    "courseCode": "ISY5002",
+    "courseCredit": "13",
+    "description": "This module teaches how to design and build systems that make decisions by recognising complex patterns in data. Examples are robotic systems and smart city applications that take as input diverse sensor data streams. These systems will utilise the latest pattern recognition, machine learning and sensor signal processing techniques.",
+    "faculty": "Institute of Systems Science",
+    "fulfillRequirements": [
+        "ISY5007"
+    ],
+    "title": "Pattern Recognition Systems"
+}

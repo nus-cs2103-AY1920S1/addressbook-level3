@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSC4202",
+    "courseCredit": "5",
+    "description": "Galois theory connects the symmetries of algebraic equations with their solubility. A triumph of 19th century algebra, Galois theory still plays a central role in modern arithmetic and geometry. Reviewing group theory, fields, and linear algebra along the way, this course will proceed through the main theorems of Galois theory. Highlights will include a modern treatment of the constructible numbers (e.g., the impossibility of trisecting angles with a rule and compass, the construction of the 17-gon) and the solubility of polynomials (e.g. solubility of the cubic and quartic, insolubility of the quintic).",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSC2232",
+            "YSC3237",
+            "YSC3204"
+        ]
+    },
+    "title": "Galois Theory"
+}

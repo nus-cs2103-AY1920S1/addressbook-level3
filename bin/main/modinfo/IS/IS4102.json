@@ -1,0 +1,11 @@
+{
+    "courseCode": "IS4102",
+    "courseCredit": "8",
+    "description": "In this module, students are required to complete a Systems Development Life Cycle to develop an e-business system based on principles taught in previous modules. This project can be viewed as a large-scale practical module. Emphasis will be placed on system design, user interface design, database design, security strategy, and performance. Students will appreciate differences in the scalability, usability, performance and security aspects. They will also sharpen communication skills through close team interactions, consultations, and formal presentations. Students will also develop a comprehensive understanding of the issues of e-business implementation from an enterprise architecture standpoint.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CP3106",
+        "UIS3953R"
+    ],
+    "title": "E-Business Capstone Project"
+}

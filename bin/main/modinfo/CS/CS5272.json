@@ -1,0 +1,25 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CS5272",
+    "courseCredit": "4",
+    "description": "This course focuses on the design and implementation of software for programmable embedded systems. Embedded computing systems hidden inside everyday electronic devices such as hand-phones, digital cameras etc. are becoming more and more prevalent. However, the heterogeneous nature of the underlying hardware as well as tight constraints on size, cost, power, and timing pose significant challenges to embedded software development. This course presents techniques that address these distinctive characteristics of embedded software implementation. Topics include embedded software development for programmable processors and reconfigurable hardware, component-based design, optimizations for performance, power, code size, operating system issues, and case studies of available systems.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "EE5902",
+        "EE5903"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CG2271",
+                    "CS2106"
+                ]
+            },
+            "CS2103"
+        ]
+    },
+    "title": "Embedded Software Design"
+}

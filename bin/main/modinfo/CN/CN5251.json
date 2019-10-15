@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "CN5251",
+    "courseCredit": "4",
+    "description": "The objective of this module is to provide students with a broad spectrum of knowledge in fundamentals of membrane science and engineering, as well as in membrane applications for chemical, environmental and biomedical engineering. The module starts with the introduction of various membranes and their applications. We then teach the general theory of membrane transport for pressure, concentration and electric field driven separation and purification processes. The basic principles of membrane fabrication for symmetric, asymmetric and composite membranes will be studied. Other focuses will be given to membrane fouling, liquid membranes, and facilitated transport in order to broaden students' knowledge in membrane usage and functional membranes. In order to inspire student interests in membrane applications for life science, the module will also include membranes for controlled release devices, biomimetic and biological membranes for life science.",
+    "faculty": "Engineering",
+    "title": "Membrane Science & Technology"
+}

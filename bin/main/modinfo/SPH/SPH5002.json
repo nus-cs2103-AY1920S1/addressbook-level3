@@ -1,0 +1,19 @@
+{
+    "courseCode": "SPH5002",
+    "courseCredit": "8",
+    "description": "This module provides students with the foundational knowledge of epidemiology and biostatistics, and introduces students to the key principles of qualitative research methods. Students will learn how to quantify the burden of disease in populations, identify potential risk factors, develop and test hypotheses. Key considerations for the design of observational, interventional, and screening studies, and basic skills related to the analyses and interpretation of data from such studies will be emphasised. Students will gain an appreciation of the complementary nature of qualitative and quantitative research methodologies in answering public health questions.",
+    "faculty": "SSH School of Public Health",
+    "fulfillRequirements": [
+        "SPH6001",
+        "SPH6003",
+        "SPH5005",
+        "SPH5102",
+        "SPH5104",
+        "SPH5202",
+        "SPH5203",
+        "SPH5405",
+        "SPH5407"
+    ],
+    "preclusion": "CO5102 Principles of Epidemiology and CO5103 Quantitative Epidemiologic Methods",
+    "title": "Public Health Research Methods"
+}

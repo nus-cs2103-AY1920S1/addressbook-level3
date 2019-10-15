@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK2031",
+    "courseCredit": "4",
+    "description": "This module will provide an introduction to some standard accounts of how humans ought to relate to the natural environment. We begin by examining the issue of whether only humans are entitled to moral consideration, and go on to consider what other objects might be deserving of such consideration. We then explore how our attitude towards the natural world is shaped by what we take to be morally considerable.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PH2216, UPI2205",
+    "title": "Environmental Philosophy"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG5230",
+    "courseCredit": "3",
+    "description": "A prototype is typically created quickly and simulates only essential aspects of the system. The prototype code might be eventually thrown away, or could form the basis for constructing a component of the final product. Using prototypes, developers can obtain valuable feedback from the users early in the project lifecycle and can assess whether the software architecture can support demanding technical requirements. Prototypes also allow managers to assess the feasibility of estimates and whether the deadlines proposed can be successfully met. This course presents a software prototyping framework and how it might be supported directly by the Python programming language.",
+    "faculty": "Institute of Systems Science",
+    "title": "Software Prototyping"
+}

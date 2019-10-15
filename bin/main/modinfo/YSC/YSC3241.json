@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSC3241",
+    "courseCredit": "5",
+    "description": "This course aims to complement the theoretical and experimental knowledge gained through course work and laboratory experience by introducing students to computational methods in molecular biology. The focus will be on applying modern bioinformatics and modelling methods to large datasets encouraging a hands on approach to big data processing.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSC3233",
+            "YSC2233"
+        ]
+    },
+    "title": "Introduction to Computational and Systems Biology"
+}

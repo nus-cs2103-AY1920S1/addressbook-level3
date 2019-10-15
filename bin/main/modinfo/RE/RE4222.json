@@ -1,0 +1,13 @@
+{
+    "courseCode": "RE4222",
+    "courseCredit": "4",
+    "description": "This module introduces students to a systematic framework of studying public policy and examining impact on the real estate markets and larger economy. A key learning objective is to understand the policy making process, policy analysis frameworks, as well as subsequent policy evaluation. Students can analyse different policy options for solving urban problems and project the likely consequences for real estate variables. Practical topics can include policies and regulations relate to land use and supply, taxation and public finance, residential and commercial estate transactions and management, HBD towns and build environment, housing affordability, aging, and urban transportation.",
+    "faculty": "Design and Environment",
+    "prereqTree": {
+        "and": [
+            "RE2102",
+            "RE3102"
+        ]
+    },
+    "title": "Public Policy and Real Estate Markets"
+}

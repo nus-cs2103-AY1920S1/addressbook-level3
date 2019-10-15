@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "fyp": true
+    },
+    "courseCode": "SE4401",
+    "courseCredit": "15",
+    "description": "Students are required to conduct research on a Southeast Asian topic under the supervision of a member of staff. Topics will be chosen by students in consultation with staff. The length of the honours thesis should not exceed 12,000 words. The honours thesis is equivalent to three modules.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "SE4660",
+    "title": "Honours Thesis"
+}

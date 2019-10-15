@@ -1,0 +1,8 @@
+{
+    "courseCode": "MLE5213",
+    "courseCredit": "4",
+    "description": "This module provides a foundation for students interested in doing research into magnetic materials The module focuses on a deeper understanding of the fundamentals of magnetism and magnetic materials, integrating the physics and engineering applications. It is intended for advanced MSE undergraduates and MSE postgraduates who do not have previous training in this area. Topics covered in this module are magnetostatics, magnetism of electrons, magnetism of localized electrons on the atom, ferromagnetism and exchange, antiferromagnetism, micromagnetism, domains and hysteresis, nanoscale magnetism, selected topics of current advanced magnetic materials. The module will finish with aspects of current research on magnetic materials.",
+    "faculty": "Engineering",
+    "preclusion": "MLE4209 Magnetism and Magnetic Materials",
+    "title": "Magnetic Materials"
+}

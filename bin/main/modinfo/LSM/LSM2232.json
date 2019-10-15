@@ -1,0 +1,28 @@
+{
+    "courseCode": "LSM2232",
+    "courseCredit": "4",
+    "description": "This module deals with the structure, organization and function of genes and genomes in both prokaryotes and eukaryotes (e.g. DNA topology, hierarchy of packaging of DNA in chromosomes and relationship to gene activity and genome dynamics). The functional roles of DNA regulatory cis-elements and transcription factors involved in gene expression will be examined. The molecular events in the control and regulation of transcription; post-transcriptional modifications and RNA processing; temporal and spatial gene expression will be examined in detail. The cause and/or effect of dysfunction of gene expression in diseases will be discussed.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM3246",
+        "LSM4225",
+        "LSM3232",
+        "LSM3225",
+        "LSM3216",
+        "LSM3235",
+        "LSM4242",
+        "LSM3241",
+        "LSM4234",
+        "LSM4227",
+        "LSM4235",
+        "LSM4210"
+    ],
+    "preclusion": "LSM2102",
+    "prereqTree": {
+        "and": [
+            "LSM1102",
+            "LSM1106"
+        ]
+    },
+    "title": "Genes, Genomes and Biomedical Implications"
+}

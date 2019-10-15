@@ -1,0 +1,18 @@
+{
+    "courseCode": "CS3234",
+    "courseCredit": "4",
+    "description": "This module introduces logic as a means for specifying and solving computational problems. It explores how logic can be used to represent computational problems, how these representations can be proven correct, and how they can be executed on a computer. Students learn about logic as formal systems (semantic, axiomatic, and deductive) and how to write proofs in the different systems. They also learn how to use a proof assistant such as Coq and how to program in a logic programming language such as Prolog. Topics include classical and intuitionistic logic, SAT, Peano\u2019s axioms, Hoare logic, and other selected logic systems.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5209",
+        "CS4214",
+        "UIS5951R"
+    ],
+    "prereqTree": {
+        "or": [
+            "MA1100",
+            "CS1231"
+        ]
+    },
+    "title": "Logic for Proofs and Programs"
+}

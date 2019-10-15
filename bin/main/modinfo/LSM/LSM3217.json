@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "LSM3217",
+    "courseCredit": "4",
+    "description": "This module introduces human ageing theories, molecular basis of ageing, system level effects of ageing, ageing related diseases, and interventions that increase longevity. Major topics to be covered in the first half include biology of ageing theories (Oxidative stress, Genetic, Autoimmune and Neuroendocrine), with an emphasis on molecular pathways such as telomere shortening, mitochondrial and ER stress, sirtuins and mTOR and autophagy. The second half of lectures include ageing brain, heart and related diseases, health implications for the individual and interventions that increases longevity such as hormesis, dietary restriction, resveratrol, rapamycin and growth hormones.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4217"
+    ],
+    "prereqTree": "LSM2233",
+    "title": "Human Ageing"
+}

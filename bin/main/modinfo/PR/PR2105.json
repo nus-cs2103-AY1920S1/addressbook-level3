@@ -1,0 +1,30 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PR2105",
+    "courseCredit": "4",
+    "description": "Learning objectives: To understand the nature and significance of microorganisms. To apply this knowledge in the identification, control and application of microorganisms in the pharmaceutical and allied fields.Major topics: Fundamentals of pharmaceutical microbiology. Microorganisms of pharmaceutical and clinical significance. Disinfectants and antiseptics.Target students: Pharmacy Year Two",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR3102"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CM1417",
+                    "CM1417X"
+                ]
+            },
+            {
+                "or": [
+                    "LSM1301",
+                    "LSM1301FC",
+                    "LSM1301X"
+                ]
+            }
+        ]
+    },
+    "title": "Pharmaceutical Microbiology"
+}

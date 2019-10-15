@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSC2205",
+    "courseCredit": "5",
+    "description": "Mathematical Methods for Physical Scientists: This module introduces important mathematical methods that are essential for treating a variety of problems in the physical sciences. Topics could include vector calculus, linear algebra, differential equations, complex analysis, integral transforms, curvilinear coordinates, and calculus of variations. The module will focus on aspects of each topic pertinent to the physical sciences.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3209",
+        "YSC3210",
+        "YSC3211",
+        "YSC4213"
+    ],
+    "title": "Mathematical Methods in Physical Sciences"
+}

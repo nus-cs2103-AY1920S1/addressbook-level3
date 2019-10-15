@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "OT5405A",
+    "courseCredit": "2",
+    "description": "This module will cover the basics of enhanced oil recovery including two phase flow in porous media, relative permeability, capillary pressure, Buckley-Leverett equation, displacement and sweep efficiency, mobility control, capillary desaturation curves.",
+    "faculty": "Engineering",
+    "title": "Fundamentals of Enhanced Oil Recovery"
+}

@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CM1501",
+    "courseCredit": "4",
+    "description": "Aliphatic hydrocarbons. Stereochemistry. Alkyl halides. Alcohols. Ethers and epoxides. Aldehydes and ketones. Carboxylic acids and derivatives. Aromatic hydrocarbons. Polycyclic aromatic hydrocarbons. Amines and diazonium compounds. Macromolecules. Principles of spectroscopy.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "BN3301",
+        "BN3402",
+        "MLE3104",
+        "FST2102B"
+    ],
+    "preclusion": "CM1121, CM1503, CM1401",
+    "title": "Organic Chemistry for Engineers"
+}

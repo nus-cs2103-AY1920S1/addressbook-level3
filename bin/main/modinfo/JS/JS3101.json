@@ -1,0 +1,13 @@
+{
+    "courseCode": "JS3101",
+    "courseCredit": "4",
+    "description": "This module guides students towards using source materials in the Japanese language for their research. Based on their disciplinary interests, students will develop a research question and write a substantial paper based on Japanese language sources. Catering to students with different levels of Japanese language ability, this can be a review paper based on academic work in Japanese or a research paper using primary materials of different levels of difficulties, for example newspaper articles, government committee protocols, NGO publications, websites, or Japanese advertisements.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "JS2101",
+            "LAJ2202"
+        ]
+    },
+    "title": "Approaches to Japanese Studies II"
+}

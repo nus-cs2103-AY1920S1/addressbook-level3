@@ -1,0 +1,13 @@
+{
+    "courseCode": "TEE3331",
+    "courseCredit": "4",
+    "description": "Feedback systems are ubiquitous in both the natural and engineered world. They are essential for maintaining our environment, enabling our transportation and communications systems; and are critical elements in our aerospace and industrial systems. For the most part, feedback control systems function accurately and reliably in the background. This course aims at introducing the magic of feedback, and tools for analysing and designing control systems. The fundamental knowledge of feedback and the related area of control systems are useful to students with diverse interests. Topics covered include feedback principles, time and frequency analysis of control systems, and simple controller design.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TME4245",
+        "TEE4303"
+    ],
+    "preclusion": "EE2010E, EE3331E",
+    "prereqTree": "TEE2023",
+    "title": "Feedback Control Systems"
+}

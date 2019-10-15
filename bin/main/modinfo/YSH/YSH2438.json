@@ -1,0 +1,10 @@
+{
+    "courseCode": "YSH2438",
+    "courseCredit": "1",
+    "description": "This course covers fundamental concepts in financial markets and valuation. We will learn about financial securities such as stocks, bonds, forwards/futures, and options, and the methods to value them. We will discuss the concepts of risk and return, portfolio optimization, diversification, and market efficiency.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSH2439"
+    ],
+    "title": "Introduction to Financial Markets 1"
+}

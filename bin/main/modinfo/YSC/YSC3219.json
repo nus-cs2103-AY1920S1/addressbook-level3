@@ -1,0 +1,8 @@
+{
+    "courseCode": "YSC3219",
+    "courseCredit": "5",
+    "description": "Is there an algorithm for telling whether your iTunes update freezes or that it will finish if we wait long enough? Is there an algorithm for telling whether the Android app that we are about to download is a malware? Can we be sure that, if intercepted, our emails cannot be read by unintended recipients? We will follow the path taken by Alan Turing, which will lead to some of the most surprising discoveries in computer science. The course will cover various models of computation (finite automata, grammars, Turing machines) and classic topics in computability/complexity theory (eg, undecidability, NP\u2010completeness).",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YSC1202",
+    "title": "Theory of Computation"
+}

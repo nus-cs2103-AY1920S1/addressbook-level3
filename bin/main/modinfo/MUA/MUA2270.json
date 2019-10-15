@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA2270",
+    "courseCredit": "4",
+    "description": "The module explores the techniques of digital synthesis and signal processing within the Max programming environment. In-class activities and project-based assignments address simple synthesizer and effects unit creation utilizing both time-domain and frequency-domain techniques.",
+    "faculty": "YST Conservatory of Music",
+    "title": "Synthesis and Signal Processing"
+}

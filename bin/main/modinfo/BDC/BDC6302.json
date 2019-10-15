@@ -1,0 +1,13 @@
+{
+    "courseCode": "BDC6302",
+    "courseCredit": "4",
+    "description": "Discrete optimization is the study of problems where the goal is to find an optimal arrangement from among a finite set of possible arrangements. Discrete problems are also called combinatorial optimization problems. Many applications in business, industry, and computer science lead to such problems, and we will touch on the theory behind these applications. The course takes a modern view of discrete optimization and covers the main areas of application and the main optimization algorithms. It covers the following topics (tentative): \u2022 integer and combinatorial optimization: introduction and basic definitions \u2022 alternative formulations \u2022 optimality, relaxation and bounds \u2022 Graph Theory and Network Flow \u2022 integral polyhedral, including matching problems, matroid and the Matroid Greedy algorithm \u2022 polyhedral approaches: theory of valid inequalities, cutting-plane algorithms The course also discusses how these approaches can be used to tackle problems arising in modern service system, including static and dynamic matching markets, ad words allocation, pricing and assortment optimization etc.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "BDC6111",
+            "IE6001"
+        ]
+    },
+    "title": "Discrete Optimization and Algorithms"
+}

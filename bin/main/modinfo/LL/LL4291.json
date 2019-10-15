@@ -1,0 +1,27 @@
+{
+    "courseCode": "LL4291",
+    "courseCredit": "4",
+    "description": "The class will survey approaches to understanding legal pluralism in a range of settings, focusing on the various ways in which autonomous normative orders, including systems of law, interact with one another. Topics include: how 'outsider' groups (e.g., Mayan Indians in Mexico, Roma-Gypsy communities, merchant guilds) govern themselves while resisting submission to the state law; the tensions between custom, state law, and human rights in Asia after the colonialist period; and the ways in which the pluralist structure of international treaty law and organization are transforming law and courts at the national level.",
+    "faculty": "Law",
+    "preclusion": "LL4291V/LL5291V/LL6291V Legal Pluralism and Global Law",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "LL4050V",
+                    "LL5050V",
+                    "LC5050V"
+                ]
+            },
+            {
+                "or": [
+                    "LL4050",
+                    "LL5050",
+                    "LL6050",
+                    "LC5050"
+                ]
+            }
+        ]
+    },
+    "title": "Legal Pluralism and Global Law"
+}

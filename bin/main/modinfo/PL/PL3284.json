@@ -1,0 +1,14 @@
+{
+    "courseCode": "PL3284",
+    "courseCredit": "4",
+    "description": "This module is designed to provide psychology majors with hands-on experience using research designs and methods commonly used in applied psychology such as health, engineering, education, and industrial/organizational psychology. Students will work in teams to carry out research exercises on specific topics in applied psychology. Topics to be covered will vary depending on the specific application of psychology. The focus will be an understanding the rationale, design, and interpretation of empirical research in the specific application. Target students are psychology majors who intend on a career in psychology or to pursue a postgraduate degree.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132"
+        ]
+    },
+    "title": "Lab in Applied Psychology (Scale Construction)"
+}

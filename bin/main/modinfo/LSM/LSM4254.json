@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM4254",
+    "courseCredit": "4",
+    "description": "This module introduces students to taxonomy and systematics; i.e., the science of grouping biodiversity into species, describing the species, and classifying this diversity into higher-level taxa that reflect evolutionary history. The module has two main goals: (1) It introduces the main concepts and goals of taxonomy and systematics. (2) It teaches the qualitative and quantitative techniques that are today used to describe/identify species and higher-level taxa based on the analysis of morphological and DNA sequence evidence. The aim is to equip environmental as well as other biologists with a thorough understanding of taxonomic/systematic units and the tools needed for evaluating and quantifying diversity in samples of plant and animal specimens.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM3241",
+            "LSM3252"
+        ]
+    },
+    "title": "Principles of Taxonomy and Systematics"
+}

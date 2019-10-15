@@ -1,0 +1,9 @@
+{
+    "courseCode": "IE4242E",
+    "courseCredit": "4",
+    "description": "This module introduces students to the basics of cost management. Concepts relating component items and process steps to value-added functions are introduced as a precursor to the analysis of system cost over the entire life cycle of products and services. It also deals with tools and approaches to select equipment, materials for cost-effective operations. This module enables students to cost out a system and recommend approaches to develop strategies for increasing the cost effectiveness of the system.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TIE4242",
+    "prereqTree": "IE2140E",
+    "title": "Cost Analysis And Management"
+}

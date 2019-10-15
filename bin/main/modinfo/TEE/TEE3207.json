@@ -1,0 +1,14 @@
+{
+    "courseCode": "TEE3207",
+    "courseCredit": "4",
+    "description": "This course teaches students the basics in the design of the various classes of microprocessors. Contents include design of simple micro-controllers, high performance CPU design using parallel techniques, memory organization and parallel processing systems. Topics also include the development of support tools to enable efficient usage of the developed microprocessor. The course emphasizes practical design and students are expected to be able to synthesize microprocessors at the gate level at the end of this course.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "EE3207E",
+    "prereqTree": {
+        "or": [
+            "TEE2024",
+            "TEE2028"
+        ]
+    },
+    "title": "Computer Architecture"
+}

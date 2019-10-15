@@ -1,0 +1,15 @@
+{
+    "courseCode": "FE5208",
+    "courseCredit": "4",
+    "description": "This module will cover both term structure models as well as the valuations of interest rate derivatives. The topics covered include Vasicek , Ho-Lee, Cox-Ingersoll-Ross (CIR), Heath-Jarrow-Morton (HJM) and LIBOR market models. On the numerical side it will cover Black-Derman-Toy (BDT) and Hull-White models as well as some simulation methods.",
+    "faculty": "Risk Management Institute",
+    "prereqTree": {
+        "and": [
+            "FE5101",
+            "FE5101D",
+            "FE5112",
+            "FE5112D"
+        ]
+    },
+    "title": "Term Structure and Interest Rate Derivatives"
+}

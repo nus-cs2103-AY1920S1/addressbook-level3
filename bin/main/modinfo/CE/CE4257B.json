@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CE4257B",
+    "courseCredit": "2",
+    "description": "This module is a continuation of CE4257A to further equip participants with relevant knowledge and skills in using finite element method (FEM) in civil engineering applications. 3D solid elements for stress analysis will be covered as extension of 1D and 2D elements. A generalised formulation, namely the weighted residual method, will be covered to solve problems beyond stress analysis (such as seepage, flow and heat transfer problems). Practical issues in modelling civil engineering structures will be discussed. The module is targeted at practicing engineers involved in application of the finite element method in civil engineering problems.",
+    "faculty": "Engineering",
+    "title": "Finite Element Analysis for Civil Engineering"
+}

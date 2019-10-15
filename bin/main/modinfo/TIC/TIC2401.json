@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TIC2401",
+    "courseCredit": "4",
+    "description": "This module introduces computer systems to students from the perspective of a programmer. Students learn about the computer systems, focusing on the hardware and operating systems, and how they impact the design, implementation, and performance of a programme. Topics covered include data representations, machine-level representations of C programmes, processor architecture, memory hierarchy, programme optimisation, linking, interrupts and signals, memory management, system-level I/O, and concurrency.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIC3302",
+        "TIC4005"
+    ],
+    "preclusion": "EE4214E, TEE4214",
+    "prereqTree": "TIC1002",
+    "title": "Introduction to Computer Systems"
+}

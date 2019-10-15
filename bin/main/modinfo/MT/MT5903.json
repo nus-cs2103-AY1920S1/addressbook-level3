@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "MT5903",
+    "courseCredit": "2",
+    "description": "Students taking this module will conduct an in-depth analysis of a contemporary technological innovation management problem, preferably those that provided by companies, using theories and concepts in the field of technological innovation management. Supervised by academic and company experts, the students will perform the relevant literature review, collect and analyze primary data (if applicable), and propose solutions to the problem. In doing so, the students will also acquire problem-solving and management consulting skills, other than the ability to apply and integrate relevant technological innovation management theories into a realworld problem.",
+    "faculty": "Engineering",
+    "preclusion": "MT5900 MOT Research Project\nSDM5990 SDM Research Project",
+    "title": "Technological Innovation Management Practicum"
+}

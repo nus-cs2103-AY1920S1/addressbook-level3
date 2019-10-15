@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "PHS2120",
+    "courseCredit": "4",
+    "description": "This module will provide the knowledge and understanding on the complete development plan ensuing successful lead identification in the drug discovery process, describing preclinical studies, formulation and product developments, clinical trials and post-marketing studies. The importance of quality, quality assurance and control and key global/regional regulatory frameworks and strategies for product development will be covered. Following postmarketing approval, upcoming innovative regulatory and marketing strategies for effective lifecycle management of a pharmaceutical product such as improved patient compliance, revenue growth, expanded clinical benefits, cost advantages, life extension exclusivity etc will also be introduced.",
+    "faculty": "Science",
+    "prereqTree": "PR1110A",
+    "title": "Drug Product Development and Lifecycle Management"
+}

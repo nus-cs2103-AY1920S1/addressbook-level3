@@ -1,0 +1,14 @@
+{
+    "courseCode": "TME4263",
+    "courseCredit": "4",
+    "description": "This module provides the fundamental concepts related to the simulation of manufacturing systems. How the data between the manufacturing systems are transferred, their standard protocols are also covered. In addition the following topics are covered: Concepts of discrete-event modelling and simulation, definitions, types, essential elements in modelling, design and implementation of manufacturing simulation models, petri-nets, model verification and validation, input information collection and analysis, interpretation of outputs, use of random inputs and variance reduction techniques, protocol standards, communication topology, MAP/TOP.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TM4263",
+    "prereqTree": {
+        "or": [
+            "TME3162",
+            "ME3162E"
+        ]
+    },
+    "title": "Manufact'G Simulat'N & Data Communicat'N"
+}

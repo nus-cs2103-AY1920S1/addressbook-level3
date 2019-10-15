@@ -1,0 +1,22 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TIC3301",
+    "courseCredit": "4",
+    "description": "The module focuses on the managerial aspects of information security and prepares students for their future roles as information security managers or information security professionals. Through this module, students will appreciate the challenges of managing information security in the modern organisation. Topics include risk management, security policies and programmes, managing the security function, and planning for continuity.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIC4301",
+        "TIC4302",
+        "TIC4306"
+    ],
+    "prereqTree": {
+        "and": [
+            "TIC2301",
+            "TIC2101"
+        ]
+    },
+    "title": "Information Security Management"
+}

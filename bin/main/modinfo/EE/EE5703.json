@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "EE5703",
+    "courseCredit": "4",
+    "description": "This module forms one of the foundation modules for all students who want to specialise in Electric Energy System Engineering. The aim of the module is to introduce the various components of Electric Drives. The role of electric drives in modern industrial automation will be emphasised. The importance of using Adjustable Speed Drives for energy conservation would also be highlighted. Various types of electric drives such as AC, DC, SRM and special drives such as PMSM drives will be introduced and their steady-state as well as transient performances will be discussed. This module has direct industrial relevance and would be useful not only to electrical but also to mechanical engineering students working in the areas of automation and mechatronics.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE6703"
+    ],
+    "preclusion": "EE5703R, MCH5203",
+    "prereqTree": "EE4502",
+    "title": "Industrial Drives"
+}

@@ -1,0 +1,17 @@
+{
+    "courseCode": "CS4232",
+    "courseCredit": "4",
+    "description": "The objective of this module is to provide students with a theoretical understanding of what can be computed, and an introduction to the theory of complexity. It aims to introduce (1) some standard formal models of computation so as to develop an understanding of what can or cannot be computed by various computing devices; (2) some reasoning techniques commonly used in computer science; these include model equivalence, non-determinism, digitalisation, simulation and reduction; and (3) the mathematical formulation of objects in computer science so as to study their properties.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5230",
+        "CS5236"
+    ],
+    "prereqTree": {
+        "or": [
+            "CS1231",
+            "CS1231S"
+        ]
+    },
+    "title": "Theory of Computation"
+}

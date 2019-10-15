@@ -1,0 +1,14 @@
+{
+    "courseCode": "TCN2116",
+    "courseCredit": "4",
+    "description": "The module covers the basic principles of chemical kinetics of both homogeneous (single phase) and heterogeneous (multi-phases) reaction systems and reactor design. Module contents include classification of chemical reactions, stoichiometry, chemical kinetics and reaction mechanism of both homogeneous and heterogeneous reactions, simple and multiple reactions, selectivity, yield and product distribution, definition and derivation of performance equations of ideal reactors (ideal batch, plug and constant stirred tank reactors), rate data collection and treatment, recycle and multiple reactors, temperature effects, heterogeneous reaction systems (fluid-fluid, fluid solid and catalytic reactions), identification and analysis of rate processes, concentration profile and overall rate equation, pore diffusion in porous catalysts, deactivation, reactor configuration and design, Basic introduction to non-ideal flow and residence time distribution analysis.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TCN3421",
+        "TCN4122",
+        "TCN4208"
+    ],
+    "preclusion": "TC2106, CN2116E",
+    "prereqTree": "TCN1111",
+    "title": "Chemical Kinetics And Reactor Design"
+}

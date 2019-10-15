@@ -1,0 +1,8 @@
+{
+    "courseCode": "EB5205",
+    "courseCredit": "3",
+    "description": "The objective of this module is to teach students how to make better use of data in analyzing physicians, patients and treatments and thereby improving the decision making of the organization. A wide variety of analytical techniques and methods will covered, such as Recall Testing, Awareness, Trial and Usage (ATU), Patient Diary Studies (PDS), Key Opinion Leader (KOL), Perceptual Mapping, Segmentation, Profiling, Conjoint Analysis, Omnibus Studies and Quality of Life. Based on specific organization objectives, students will learn when to use specific methods, how to conduct the study and interpret the results.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": "EB5001",
+    "title": "Clinical Health Analytics"
+}

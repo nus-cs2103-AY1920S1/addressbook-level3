@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "OT5202B",
+    "courseCredit": "2",
+    "description": "This module provides students with design knowledge on steel offshore structures. The major topics covered include platform design; bracing patterns and role of redundancy; member and joint designs; material selection and welding requirements; and design for fabrication, loadout, transportation, installation and inplace phases. The module will be valuable to students interested in offshore engineering.",
+    "faculty": "Engineering",
+    "title": "Design of Fixed Offshore Structures"
+}

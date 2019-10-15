@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG5015",
+    "courseCredit": "4",
+    "description": "After taking this course, the student should be able to: Understand the architecture of modern E-Business solutions and bridge the gap between business strategy and technical deployment. Participate effectively in the architectural analysis and design for an E-business solution as part of the architecture team on a project. Identify possible architectural options in a variety of design scenarios, and assess their relative advantages and disadvantages to determine the most suitable option. Understand how to plan and manage the technical development of large-scale E-business systems in a structured manner. Topics covered in the course include: The Architecture Process; Technical Architecture: Building the E-Business Platform; Application and Data Architectures: Providing Functionality; Security Architecture: Securing an E-Business Architecture; E-Business Architecture Workshop; Operations Architecture: Ensuring Architecture Liveliness. There is an in-course assignment. This course is appropriate for all software engineers who are developing e-Business applications.",
+    "faculty": "Institute of Systems Science",
+    "title": "Enterprise Architecture"
+}

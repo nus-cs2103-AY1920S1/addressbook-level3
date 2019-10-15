@@ -1,0 +1,7 @@
+{
+    "courseCode": "ME6405",
+    "courseCredit": "4",
+    "description": "Today many robots such as the self-driving cars and drones are no longer rigidly fixed behind safety barricades in factories. These robots are mobile and operate autonomously in environments that are shared with human beings. In this course, we will look at some of the basic mathematical concepts and algorithms that make up the brain of autonomous mobile robots. Topics that are covered include collision avoidance, motion planning, probabilistic methods and 3D robotics vision.",
+    "faculty": "Engineering",
+    "title": "Autonomous Mobile Robotics"
+}

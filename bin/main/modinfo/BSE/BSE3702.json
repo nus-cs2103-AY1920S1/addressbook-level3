@@ -1,0 +1,16 @@
+{
+    "courseCode": "BSE3702",
+    "courseCredit": "4",
+    "description": "This module develops the microeconomic principles and conceptual frameworks for evaluating and formulating business strategy. Topics include the boundaries of firms, the analysis of industry economics, strategic positioning and competitive advantage, and the role of resources and capabilities in shaping and sustaining competitive advantage.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "BSP1703",
+            "BSP1707",
+            "EC1101E",
+            "EC1301",
+            "EC2101"
+        ]
+    },
+    "title": "Economics of Strategy"
+}

@@ -1,0 +1,16 @@
+{
+    "courseCode": "YSS4238",
+    "courseCredit": "5",
+    "description": "What means sustainable development and how can it be financed? We investigate the changing visions, approaches, and experiences of development in Asia. We focus on the political economy and the policies leading to growth and its inequality and wellbeing impacts. We analyze the role of (international) state, business, and civil society actors. One illustration of such ideational and financial influences will be microfinance. Awarded the Nobel Prize for its role in poverty alleviation and women\u00b4s empowerment, it increasingly made negative headlines. Does micro-finance provide a feasible market-driven solution? How does globalization and liberalization influence other new approaches to sustainable development?",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSS3255",
+            "YSS3254",
+            "YSS2218",
+            "YSS2202",
+            "YSS3225"
+        ]
+    },
+    "title": "Micro-Finance and Sustainable Development in Asia"
+}

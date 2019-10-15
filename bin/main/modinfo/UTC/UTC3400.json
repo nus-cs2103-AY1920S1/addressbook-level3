@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "ism": true
+    },
+    "courseCode": "UTC3400",
+    "courseCredit": "4",
+    "description": "The Independent Study Module (ISM) provides an opportunity for senior undergraduates who are staying at the College of Alice & Peter Tan (CAPT) to do independent critical reading or research work. Unlike a UROP, where the student contributes to an existing research project, an ISM is an individual study programme conceptualized by the student. ISMs undertaken at CAPT must be inter-disciplinary, multidisciplinary, or trans-disciplinary in topic and/or approach. Student and supervisor need to submit for approval an ISM contract that gives a clear account of the topic, programme of study, evaluation, and other pertinent details. The ISM is a graded module.",
+    "faculty": "Residential College",
+    "preclusion": "GEM3902",
+    "title": "Independent Study"
+}

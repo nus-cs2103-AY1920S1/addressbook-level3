@@ -1,0 +1,14 @@
+{
+    "courseCode": "EC3101",
+    "courseCredit": "4",
+    "description": "This module is a continuation of the foundation module on microeconomics. It is designed to equip students with the standard tools and techniques to analyze microeconomic issues and to prepare them to access higher level modules that utilize microeconomic analysis. The module begins with a review of several foundation topics on consumer and producer theory covered in the prerequisite course, i.e. EC2101. It then moves on to discuss the general equilibrium model, whereby consumers and producers are put together in a general equilibrium framework. After that, it covers choice over time, i.e. inter-temporal choice and choices over different states of the world, i.e. choices under uncertainty. It then continues with game theory. This topic will be discussed extensively. Coverage will include various solution concepts for one-shot games and sequential move games. Applications of the theory on the issues of oligopolistic competition, entry and entry prevention, and network economics will receive a great deal of attention. Finally, the module ends with the asymmetric information, i.e. moral hazard and adverse selection and its application on the internal organisation of the firm. Throughout the course, empirical observations and real-life cases pertaining to the issues discussed in this module are presented.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EC5387",
+        "EC5387R",
+        "EC3396",
+        "EC3880A",
+        "EC3395"
+    ],
+    "title": "Microeconomic Analysis II"
+}

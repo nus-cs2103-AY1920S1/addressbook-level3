@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "RE2705",
+    "courseCredit": "4",
+    "description": "This module employs tools from microeconomic analysis to explain the urbanization process and the operation of real estate markets. The topics include economic factors driving city formation; market forces shaping the urban spatial structure; determinants of metropolitan and regional growth; quality of life measurements; urban sprawl and skyscrapers; urban transportation; neighbourhoods and racial/income segregation; land-use regulations; and urban governance.",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "RE3703"
+    ],
+    "preclusion": "RE2102 Real Estate Economics\nEC3381 Urban Economics",
+    "title": "Urban Economics"
+}

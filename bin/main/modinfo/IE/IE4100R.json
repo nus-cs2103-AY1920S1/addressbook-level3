@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "fyp": true,
+        "year": true
+    },
+    "courseCode": "IE4100R",
+    "courseCredit": "8",
+    "description": "The objective of the module is to give students exposure to research. In this module, each student is assigned to a research project that requires application of industrial and systems engineering concepts. The module provides the opportunity for students to conduct self study by reviewing literature, defining a problem, analyzing the problem critically, conducting design of experiments, and recommending solutions. It also enables students to improve their communication skills through technical report writing and oral presentation.",
+    "faculty": "Engineering",
+    "preclusion": "IE4102",
+    "title": "B.Eng.Dissertation"
+}

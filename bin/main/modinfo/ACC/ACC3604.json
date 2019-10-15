@@ -1,0 +1,9 @@
+{
+    "courseCode": "ACC3604",
+    "courseCredit": "4",
+    "description": "The primary aim of this course is to develop a solid understanding of the legal framework required in the operations of business entities especially companies. It covers the entire life-span of a business entity, namely from the formation of the entity to its liquidation. It also includes the various legal obligations and implications in operating the business entity. A secondary objective is to introduce the pertinent provisions of securities legislation such as the Securities &amp; Futures Act and the Takeover Code.",
+    "faculty": "NUS Business School",
+    "preclusion": "Students who have passed FNA3122 or LL4055 are not allowed to take ACC3604.",
+    "prereqTree": "BSP1004",
+    "title": "Corporate and Securities Law"
+}

@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "ism": true,
+        "su": true
+    },
+    "courseCode": "EE1002",
+    "courseCredit": "4",
+    "description": "This is a first course which introduces students to some electrical and magnetic components which are the building blocks for electrical engineering. Such components include resistors, capacitors, inductors, diodes, transistors, op amps and transformers. Students will work in groups in the lab to design simple circuits and systems using these components. In the process, students learn about physical quantities of voltage and currents, circuit principles, power and energy, and operations of the diode, transistors, op amps and transformers. Some of the circuits will be integrated into a bigger system (e.g. an autonomous vehicle), culminating in a competition for all students. In this module, students also learn soft-skills such as the importance of resourcefulness, teamwork, time-management, project presentation, integrity and effective communications.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE3013C",
+        "EE2021",
+        "EE2020",
+        "EE2025",
+        "EE3505C",
+        "TEE2026"
+    ],
+    "preclusion": "EG1108/CG1108 Electrical Engineering",
+    "title": "Introduction to Circuits and Systems"
+}

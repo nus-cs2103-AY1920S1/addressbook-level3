@@ -1,0 +1,13 @@
+{
+    "courseCode": "CN4248",
+    "courseCredit": "4",
+    "description": "In this module, the concepts of sustainability and sustainable development and their engineering and social relevance in the development of chemical processes and products are introduced. The principles of green chemistry are presented. Clean energy and energy sustainability issues are objectively analyzed. This is followed by a detailed discussion on the developments in scientific methodologies for sustainable engineering design of processes. Concepts of product stewardship and product design are also introduced. The methodologies and concepts are enumerated with relevant case studies. The students demonstrate their understanding through continual assessment tests, and written reports and oral presentations on open-ended projects.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "CN2116",
+            "CN3132"
+        ]
+    },
+    "title": "Sustainable Process Development"
+}

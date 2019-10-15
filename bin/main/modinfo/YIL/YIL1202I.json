@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YIL1202I",
+    "courseCredit": "5",
+    "description": "Beginning Italian 2 is a continuation of Beginning Italian 1 and builds upon what students learned in their first semester. It is designed to help students expand their basic ability to read, write, understand, and speak Italian as well as to deepen their cultural competency. Stress will be placed on the acquisition of basic structures, which will be developed and reinforced in subsequent modules. The course will be conducted in Italian via teleconference from Yale.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YIL2201I"
+    ],
+    "prereqTree": "YIL1201I",
+    "title": "Directed Language Study: Beginning Italian 2"
+}

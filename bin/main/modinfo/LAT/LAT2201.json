@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAT2201",
+    "courseCredit": "4",
+    "description": "This module aims to further enhance students' proficiency in the four basic skills of speaking, listening, reading, and writing. Students will be exposed to more language functions and a wider range of topics. Through reading formulaic authentic texts, students will be introduced to the language in written form as it appears in daily communicative situations to achieve further understanding of the country, its culture and its people. At the end of this course, students will be equipped with a sound foundation of the language to maintain communication on topics relating to their personal and immediate environment.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAT3201"
+    ],
+    "prereqTree": "LAT1201",
+    "title": "Thai 2"
+}

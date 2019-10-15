@@ -1,0 +1,10 @@
+{
+    "courseCode": "ME6505",
+    "courseCredit": "4",
+    "description": "This module is designed to provide an in-depth graduate level foundation in biomaterial science and engineering principles. Students will be introduced to the practical aspects of biomaterials in medical devices, in particularly the fabrication of devices, including materials selection, processing, performance, biocompatibility issues and regulatory requirements. Topics of interest include hip prostheses, articular joints, surgical sutures, tissue engineering scaffolds for hard and soft tissues, and case studies of failed medical prostheses. A short research proposal on implanted material for medical devices will be prepared by students, in place of continuous assessment. A problem base approach teaching ethodology will be used to encourage the learning process. On completion of this lecture course, students should be able to suggest suitable biomaterials and plan appropriate processing techniques for given biomedical applications.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME5600A"
+    ],
+    "title": "Engineering Materials in Medicine"
+}

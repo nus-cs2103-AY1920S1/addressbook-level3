@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS4222",
+    "courseCredit": "5",
+    "description": "This course explores the structures of power within the European State since WWII. The course content will explore historical context, political integration of the European Union (EU), the domestic politics of specific European countries, as well as the effects of integration on the governance in member states, and specific elections and outcomes. Students will also analyze the position of EU in the international system. Contemporary issues of Brexit and the rise of populism in European democracies. Assessment will challenge students to create an in-depth policy memo which synthesizes the historical, political and practice of politics of Europe.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSS2202",
+            "YSS1206"
+        ]
+    },
+    "title": "Contemporary European Politics"
+}

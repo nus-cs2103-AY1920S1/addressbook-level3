@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "LSM3256",
+    "courseCredit": "4",
+    "description": "This module introduces students to the fundamentals of tropical horticulture, with emphasis on the situation in Singapore, a tropical garden city. Topics include plant growth and development and factors affecting them, pests and diseases and their control, growing media, plant nutrition, tropical urban horticulture of ornamentals, vegetable and fruit crops, and native plants, vertical and roof greening, turf grass management, landscape design, organic methods and impact of horticulture on conservation. Field trips, demonstrations, and projects will enable students to enjoy hands-on experience in cultivating plants.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM1105",
+            "LSM2231",
+            "LSM2252",
+            "LSM2254"
+        ]
+    },
+    "title": "Tropical Horticulture"
+}

@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EC2104",
+    "courseCredit": "4",
+    "description": "This module seeks to enable students to integrate relevant basic mathematical knowhow with economic analysis. The main objective is to develop in the students the process skills for formulating and solving economic problems mathematically. Topics include equilibrium analysis, understanding and use of matrix algebra and differential and integral calculus in formulating and solving economic problems, comparative\u2010static analysis, and selected optimization problems in economics.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EC5387",
+        "EC5387R",
+        "EC3314"
+    ],
+    "preclusion": "EC3311, ANY MA MODULE THAT IS NOT MA1301 OR MA1301FC OR MA1301X OR MA1311 OR MA1312 OR MA1421.",
+    "title": "Quantitative Methods for Economic Analysis"
+}

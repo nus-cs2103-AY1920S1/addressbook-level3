@@ -1,0 +1,13 @@
+{
+    "courseCode": "GE5223",
+    "courseCredit": "4",
+    "description": "This module aims to introduce students the fundamental concepts and components of Geographic Information Systems (GIS). Fundamental concepts covered include spatial data models, data quality, cartographic principles, and spatial analysis. Hands\u2010on training provided includes spatial data development, attribute management, geovisualization, and spatial analysis operations. Some selected cases of GIS applications in social sciences, humanities, environmental studies, and management will be introduced. The role of GIS as an integrated platform for decision making will be highlighted. The module is for students who have no prior GIS background but wish to apply geospatial techniques in their respective fields of interest.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "GE5219",
+        "GE6225",
+        "GE6226"
+    ],
+    "preclusion": "Students with prior GIS training should consult with the lecturer in charge to decide if the module is suitable.",
+    "title": "Introduction to Applied GIS"
+}

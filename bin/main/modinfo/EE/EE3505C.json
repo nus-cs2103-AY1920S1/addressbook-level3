@@ -1,0 +1,18 @@
+{
+    "courseCode": "EE3505C",
+    "courseCredit": "4",
+    "description": "The module covers generation, transmission and distribution of electric energy in large-scale modern power system. Upon completion of this course, students will be able to model, analyze, and predict the performance of three-phase systems, transformers, and transmission and distribution networks. The topics covered are: three-phase systems; real, reactive and apparent power. rotating magnetic field; synchronous and asynchronous machines; transformers; single line representation of three-phase systems; per unit notation; electricity transmission networks; high voltage cables; distribution systems; Singapore electricity network; power quality; harmonics; and environmental considerations.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE4503"
+    ],
+    "preclusion": "EE2022 Electrical Energy Systems",
+    "prereqTree": {
+        "or": [
+            "EE1002",
+            "EG1108",
+            "CG1108"
+        ]
+    },
+    "title": "Electrical Energy Systems"
+}

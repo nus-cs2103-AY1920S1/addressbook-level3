@@ -1,0 +1,16 @@
+{
+    "courseCode": "BN3501",
+    "courseCredit": "4",
+    "description": "This module is designed to impart fundamental concepts of equilibrium thermodynamics and reaction kinetics that may be applied to the study of biological systems. The student is expected to acquire an understanding of the role of thermodynamic reasoning and kinetic analysis in providing a deeper insight into many biochemical and biophysical problems. The topics covered will include thermodynamic functions, chemical potential, chemical reaction and phase equilibria, multicomponent systems, electrochemical potential, solubility, ligand binding equilibria, calorimetry, enzyme kinetics, microbial fermentation, ligand binding kinetics.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "MA1506",
+            "PC1432",
+            "CN2122",
+            "ME2134",
+            "BN2202"
+        ]
+    },
+    "title": "Equilibrium and Kinetic Bioprocesses"
+}

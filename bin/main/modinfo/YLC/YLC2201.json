@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YLC2201",
+    "courseCredit": "5",
+    "description": "This course is designed for students who completed First year Chinese (two semesters: YLC1201 & 1202) or have equivalent Chinese proficiency. It emphasizes on the ability to communicate and function accurately and appropriately in Modern Chinese. Students will take a placement test. The course aims to develop students by: (1) acquiring basic knowledge and communicative skills in speaking, listening, reading, and writing Chinese; (2) gaining solid understanding of the cultural and social context of Chinese; (3) developing research skill to understand Chinese texts and culture by using Chinese input system and online dictionary, as well as useful online resources.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YLC2202"
+    ],
+    "prereqTree": "YLC1202",
+    "title": "Intermediate Chinese 1"
+}

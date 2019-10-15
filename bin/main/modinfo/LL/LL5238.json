@@ -1,0 +1,21 @@
+{
+    "courseCode": "LL5238",
+    "courseCredit": "4",
+    "description": "The course will cover the international, comparative and domestic aspects of corporate finance law and practice. The emphasis of the course will be on the actual application of corporate finance law in practice, the policies that have shaped the laws in Singapore and elsewhere, and the international conventions that have evolved in this area. Topics include: cash flow, value and risk; term loans and loan syndications; fund raising and capital markets; securitisations; derivatives; and financing mergers and acquisitions.",
+    "faculty": "Law",
+    "preclusion": "Students should not have done a substantially similar subject. Students doing or have done any of the following module(s) are precluded:  \n1) Securities Regulation [LL4055/LL5055/LL6055]; \n(2) Corporate Law & Finance [LL4188/LL5188/LLD5188/LL6188];  \n(3) Corporate Finance Law & Practice in Singapore [LL4182/LL5182/LLD5182/LL6182];  \n(4) International Corporate Finance [LL4409/LL5409/LL6409]",
+    "prereqTree": {
+        "and": [
+            "LC1003",
+            {
+                "or": [
+                    "LC2008",
+                    "LC5008",
+                    "LCD5008",
+                    "LC6008"
+                ]
+            }
+        ]
+    },
+    "title": "International Corporate Finance"
+}

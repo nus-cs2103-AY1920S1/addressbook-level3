@@ -1,0 +1,21 @@
+{
+    "courseCode": "EC5103",
+    "courseCredit": "4",
+    "description": "This is an introductory level core module for graduate students. Students are required to have a background knowledge in econometrics at least at the level of EC3304 Econometrics II. Students who do not have this background will be advised to take EC3304 first as an additional module which will not be counted towards CAP. The broad topics covered include mathematical and statistical pre-requisites (matrix algebra and statistical inference), standard regression analysis (OLS, GLS, IV, ML, SUR techniques), and applications oriented topics on cointegration, panel data, and limited dependent variable models.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EC5314",
+        "EC6103",
+        "EC6313",
+        "EC5314R"
+    ],
+    "preclusion": "EC5154",
+    "prereqTree": {
+        "or": [
+            "EC5253",
+            "EC5304",
+            "ECA5103"
+        ]
+    },
+    "title": "Econometric Modelling and Applications I"
+}

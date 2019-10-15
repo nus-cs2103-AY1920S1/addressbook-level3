@@ -1,0 +1,9 @@
+{
+    "courseCode": "TEE4112",
+    "courseCredit": "4",
+    "description": "Radio and microwave systems rely on efficient transmission and distribution of electromagnetic (EM) energy. Radio and microwave systems need to be immune from external EM interference and need to ensure that they do not cause interference of their own. To achieve these requirements, this module will equip and foster the students with balanced and particularly more hands-on oriented contents on radio frequency (RF) designs and practical systems, through live experiments, software learning, and real-life RF examples. Topics covered: transmission systems, resonator cavity, impedance matching network, electromagnetic interference (EMI) and shielding, multi-port scattering and corresponding measurement methods, radiation, and antenna characterizations.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "EE4112E",
+    "prereqTree": "TEE2011",
+    "title": "Radio Frequency Design and Systems"
+}

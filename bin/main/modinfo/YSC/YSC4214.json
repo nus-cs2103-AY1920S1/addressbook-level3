@@ -1,0 +1,7 @@
+{
+    "courseCode": "YSC4214",
+    "courseCredit": "5",
+    "description": "The course introduces the basic ideas of quantum information and computation (QIC), i.e., to use quantum mechanical systems to perform information-processing tasks. QIC is a multi-disciplinary field, grounded in physics, but with many connections to mathematics and computer science. The course will focus on theoretical concepts and developments, and will provide the foundations for more advanced and/or topical quantum information courses. Knowledge of basic linear algebra will be assumed. Prior exposure to quantum mechanics is preferred but not required.",
+    "faculty": "Yale-NUS College",
+    "title": "Theory of Quantum Information and Computation"
+}

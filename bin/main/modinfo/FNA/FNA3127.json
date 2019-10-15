@@ -1,0 +1,13 @@
+{
+    "courseCode": "FNA3127",
+    "courseCredit": "4",
+    "description": "This module introduces students to the basic concepts of income taxation in Singapore. Since a large portion of a business organisations profits goes towards the payment of income tax, it is absolutely crucial for students to have an understanding of how tax works and how to legally minimize it. This module would be relevant to those who wish to work in the fields of accounting, consulting or financial management.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "FNA1002",
+            "BSP1004"
+        ]
+    },
+    "title": "Taxation"
+}

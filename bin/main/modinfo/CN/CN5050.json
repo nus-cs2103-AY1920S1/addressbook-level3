@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CN5050",
+    "courseCredit": "4",
+    "description": "The objective is to introduce the concept and theory of diffusion, and their application in the design and analysis of industrially important advanced separation processes. The module starts with a review of basic diffusion concepts and calculations followed by the impact of flow dynamics on diffusional mass transfer. These concepts are then applied to the understanding and design of absorption with chemical reaction, adsorption, and membrane separation processes. This is a postgraduate module targeted at students who are interested in design and/or operation of diffusional separation processes. Some background in equilibrium thermodynamics and principles of diffusion will be beneficial.",
+    "faculty": "Engineering",
+    "title": "Advanced Separation Processes"
+}

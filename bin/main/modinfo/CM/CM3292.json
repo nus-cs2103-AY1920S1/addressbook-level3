@@ -1,0 +1,18 @@
+{
+    "courseCode": "CM3292",
+    "courseCredit": "4",
+    "description": "Laboratory work in Analytical and Physical Chemistry. This module is a major requirement for Chemistry students.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "CM2101",
+            {
+                "or": [
+                    "CM2142",
+                    "CM2192"
+                ]
+            }
+        ]
+    },
+    "title": "Advanced Experiments In Analytical & Physical Chemistry"
+}

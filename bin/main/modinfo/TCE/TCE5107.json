@@ -1,0 +1,14 @@
+{
+    "courseCode": "TCE5107",
+    "courseCredit": "4",
+    "description": "The course introduces students to the advanced principles and concepts on the analysis and design of pile foundations. Students will also learn how to appreciate and appraise complex pile foundation problems under various loading and boundary conditions. The course enables students to acquire the knowledge and practical skills through the course project assignments and case studies in the practice of advanced pile design.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CE5107",
+    "prereqTree": {
+        "and": [
+            "TCE2112",
+            "TCE3116"
+        ]
+    },
+    "title": "Pile Foundations"
+}

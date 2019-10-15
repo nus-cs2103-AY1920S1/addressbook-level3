@@ -1,0 +1,17 @@
+{
+    "courseCode": "IE2111",
+    "courseCredit": "4",
+    "description": "This module introduces the principles and practice of engineering economics and financial decision making faced by engineers. Students will learn how to deal with the financial and economic aspects in the design, evaluation and management of engineering systems involving capital investments and cash flows over time. Topics covered include principles and practices of cash flow analysis, decision making involving single and multiple alternatives, depreciation of capital assets and after-tax project cash-flow analysis, replacement analysis of capital assets, and dealing with risk & uncertainty. Case studies and computational tools will be used to model, analyse and solve complex problems effectively.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "IE4240",
+        "IE4242",
+        "IE4249",
+        "IE4243",
+        "IE4250",
+        "IE3105"
+    ],
+    "preclusion": "IE2140\nIE2140",
+    "prereqTree": "IE1111R",
+    "title": "Industrial & Systems Engrg Principles & Practice II"
+}

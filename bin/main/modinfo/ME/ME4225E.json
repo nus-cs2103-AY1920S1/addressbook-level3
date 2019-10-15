@@ -1,0 +1,9 @@
+{
+    "courseCode": "ME4225E",
+    "courseCredit": "4",
+    "description": "This elective module extends the basic heat transfer principles covered in earlier modules to engineering applications. Although some important new physical processes are introduced, the main emphasis is on the use of these to the design-analysis of industrial systems. The use of empirical data for situations where detailed analysis is difficult will be demonstrated through the solution of design examples. The main topics include: Heat exchangers with phase change; Boiling; Condensation; Combined heat and mass transfer; Heat transfer enhancement; Cooling of electronic equipment; and Design examples.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TM4225, TME4225, ME2143",
+    "prereqTree": "ME3122E",
+    "title": "Applied Heat Transfer"
+}

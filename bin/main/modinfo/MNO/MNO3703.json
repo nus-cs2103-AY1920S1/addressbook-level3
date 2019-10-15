@@ -1,0 +1,14 @@
+{
+    "courseCode": "MNO3703",
+    "courseCredit": "4",
+    "description": "Taking an interdisciplinary approach to leadership, this module prepares students to re-examine the nature of work, organization and leadership. Looking from outside in, this module begins by examining the impact of the external environment on organizations, and transformations in the nature of doing business on employee-employer relationships The module will also highlight the implications that the changing nature of work has on how leaders\u2019 manage work performance and organizational control. Key issues and impact of this new norm on organization performance and diverse workforce will be highlighted.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "MNO1706",
+            "MNO1706X",
+            "PL3239"
+        ]
+    },
+    "title": "Leading in the 21st Century"
+}

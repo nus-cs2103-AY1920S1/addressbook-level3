@@ -1,0 +1,15 @@
+{
+    "courseCode": "PC5212",
+    "courseCredit": "4",
+    "description": "The module provides an introduction to the scientific foundations of the function, fabrication and characterization of nano-structured materials and nano-devices. The topics covered are: reviews of quantum mechanics in reduced dimensions and solid state physics, common techniques for nano-structure fabrication and characterization, transport in low-D systems, optoelectronics of nanostructures, nanotubes and nanowires, clusters and nano-crystallites, molecular electronics, magnetic nano-structures. This module is designed for postgraduate students who are interested in nanoscience and nanotechnology research and applications.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PC4130",
+            "PC4240",
+            "PC4201",
+            "PC4214"
+        ]
+    },
+    "title": "Physics of Nanostructures"
+}

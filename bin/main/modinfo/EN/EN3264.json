@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3264",
+    "courseCredit": "4",
+    "description": "This course provides an intensive introduction to key topics in post\u2010colonial theory through an overview of representative literary and theoretical texts. The syllabus demonstrates the vexed significance of the 'post' in post\u2010colonial cultural traditions. In tracing how decolonization remains bound up with older, colonial forms of knowledge/power, we approach post\u2010coloniality as an aftermath. Through a range of writerly forms and cultural media, we identify the post\u2010colonial in the question of 'tradition' and its centrality to 'non\u2010Western' modernity; in inscriptions of race/ethnicity/sexuality into Third World humanism; as the mourning for a vanishing past; as aesthetic resistance to homogenizing processes of modernization.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "In Other Wor(l)ds: Post \u2010colonial Theory & Literature"
+}

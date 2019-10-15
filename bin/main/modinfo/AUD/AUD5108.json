@@ -1,0 +1,18 @@
+{
+    "courseCode": "AUD5108",
+    "courseCredit": "2",
+    "description": "This module provides an understanding of different type of electrophysiological assessment techniques (e.g. auditory brainstem response, middle and late latency response, P300, mismatch negativity) that can be applied on patients of different ages. Students will also learn about the conduct and pitfalls of these electrophysiological assessment techniques through clinical practicum.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "AUD5114",
+        "AUD5218",
+        "AUD5219"
+    ],
+    "prereqTree": {
+        "or": [
+            "AUD5102",
+            "AUD5103"
+        ]
+    },
+    "title": "Electrophysiological Assessment A"
+}

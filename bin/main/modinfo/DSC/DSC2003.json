@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "DSC2003",
+    "courseCredit": "4",
+    "description": "Management science makes use of analytical methods to distil intelligence for leaders' decision-making. Thus, this module is concerned with modelling and problem solving, and shall find applications in fields like finance, economics, operations management, logistics, and engineering. As an introductory module, we strive for breadth, giving an overview of several practical approaches, as well as sufficient depth, so as to provide a substantial feel for the discipline and a good foundation for further reading. Topics will include linear programming (including spreadsheet solution &amp; sensitivity analysis), integer programming, network flow models, project management, decision analysis, and queuing models.(Although no prerequisite is stated, this module assumes prior knowledge of basic probability concepts like expected value, variance, conditional probability, Bayes's Rule, Normal distribution, and Poisson distribution. Students should ensure that they are adequately prepared for this module.)",
+    "faculty": "NUS Business School",
+    "preclusion": "BH2003 or BZ3415 or BK3503 or BK3519A or MA2215.\nAll Industrial &amp; Systems Engineering (ISE) students.",
+    "title": "Management Science"
+}

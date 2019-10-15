@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTW2001H",
+    "courseCredit": "4",
+    "description": "We live in a time characterized by an intensified awareness of risk. Our perception of risk, whether related to new technology or social activity, is greatly influenced by how mass media represents it. Taking prominent social theories of risk as its critical frame of reference, this course will explore the role of news, television shows, popular fiction and films in shaping public opinion on, and responses to, potential and presumed threats. These range from environmental pollution, pathogens and medical procedures to terrorism, cybercrime, immigration/immigrants and un(der)employment. Case studies may include Fukushima, Chernobyl and the Y2K phenomenon.",
+    "faculty": "NUS",
+    "preclusion": "IEM2201%,\nUTW2001%",
+    "prereqTree": {
+        "or": [
+            "IEM1201",
+            "UTW1001"
+        ]
+    },
+    "title": "RISK and Popular Culture"
+}

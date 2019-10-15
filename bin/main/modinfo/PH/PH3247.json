@@ -1,0 +1,15 @@
+{
+    "courseCode": "PH3247",
+    "courseCredit": "4",
+    "description": "This course considers topics in philosophical logic. Consider, for example: 'This sentence is false'. If it is true, it is false. But if it is false, it is true. Resolving the paradox is extremely difficult, requiring revision to classical logic or the theory of truth. The course will cover this and other topics in philosophical logic such as vagueness and the sorites paradox, the paradoxes of material implication, essentialism and necessity, and probability and induction, all of which turn out to be deeply entangled with hard philosophical questions.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PH2214",
+    "prereqTree": {
+        "or": [
+            "GEM2006",
+            "PH2110",
+            "GET1028"
+        ]
+    },
+    "title": "Philosophical Logic"
+}

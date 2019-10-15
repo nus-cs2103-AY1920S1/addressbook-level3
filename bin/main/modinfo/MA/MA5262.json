@@ -1,0 +1,13 @@
+{
+    "courseCode": "MA5262",
+    "courseCredit": "4",
+    "description": "This module studies stochastic operations research models. It covers the following topics: stochastic dynamic programming, reliability theory, selected topics in inventory theory, selected topics in queuing theory. The course is for graduate students with interest in operations research.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "MA3237",
+            "MA3253"
+        ]
+    },
+    "title": "Stochastic Operations Research Models"
+}

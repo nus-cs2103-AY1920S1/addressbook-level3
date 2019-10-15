@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE5002",
+    "courseCredit": "4",
+    "description": "Statistical analysis and experimentation techniques for engineers. Topics include analysis of variance, regression analysis, factorial and fractional factorial designs, response surface methodology and non-parametric methods. The module is application oriented and examples drawn from industrial applications rather than mathematical development will be used wherever possible to introduce a topic.",
+    "faculty": "Engineering",
+    "title": "Applied Engineering Statistics"
+}

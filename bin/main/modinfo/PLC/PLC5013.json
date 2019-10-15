@@ -1,0 +1,11 @@
+{
+    "courseCode": "PLC5013",
+    "courseCredit": "4",
+    "description": "This module provides professional practice experience related to the theoretical foundations of clinical psychopathology, assessment, diagnosis and intervention covered in coursework modules. Students will undertake an intensive block (40 days) of direct clinical experience either in a hospital or a community setting, under the supervision of an experienced clinical psychologist. The focus of this third placement will be on the continued development of clinical skills in planning and carrying out intervention with psychiatric patients with minimal guidance. If considered appropriate by their supervising clinician, students may progress to independent management of clients by the end of the placement.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PLC5014"
+    ],
+    "prereqTree": "PLC5012",
+    "title": "Clinical Placement 3"
+}

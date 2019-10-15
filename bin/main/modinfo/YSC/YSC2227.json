@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSC2227",
+    "courseCredit": "2",
+    "description": "C is one of the most commonly used programming languages, especially in science, engineering and electronics. Many operating systems and microcontrollers are at least partly coded in C. C is lightweight, fast and offers a complex memory management system. This apparent simplicity does not mean that it is simple to learn and master though, as it requires deep understanding of how memory works and how data is represented. In this course, we will cover the C language along with memory management and segmentation. C can be useful for Capstones in applied mathematics and natural sciences.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YSC3217 Programming Operating Systems, Interfaces & eXtras",
+    "prereqTree": {
+        "or": [
+            "YSC2221",
+            "YSC1212"
+        ]
+    },
+    "title": "C: A Language for Science and Engineering"
+}

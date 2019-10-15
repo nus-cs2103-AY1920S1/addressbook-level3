@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM4223",
+    "courseCredit": "4",
+    "description": "An advanced course in the study of infectious diseases of man with emphasis on new and emerging infections as well as those of major clinical/economic importance. Core topics include understanding the principles and practice of Medical Microbiology, the nature and emergence of antimicrobial resistance, changing epidemiology of infections and laboratory diagnosis using classical diagnostic techniques and current molecular approaches. Seminars will be conducted as team presentations to explore current topics on infectious diseases in depth. A strong practical component is included.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM3225",
+            "LSM3232"
+        ]
+    },
+    "title": "Advances in Antimicrobial Strategies"
+}

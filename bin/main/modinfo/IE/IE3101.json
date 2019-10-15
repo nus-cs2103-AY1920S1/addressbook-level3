@@ -1,0 +1,19 @@
+{
+    "courseCode": "IE3101",
+    "courseCredit": "4",
+    "description": "This module goes beyond the foundation and deals mainly with the applications of statistics in the engineering context. Topics include review of statistical decision making and hypothesis testing, ANOVA with homogeneity of variance tests, concepts of blocking, RCBD, fixed and random effects models with multiple comparison procedures, factorial experiments, nonparametric methods, an introduction to bootstrapping with IE-based case studies. Students will be able to appreciate the importance of good planning and also conduct and evaluate simple experiments.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "IE4230",
+        "IE4239"
+    ],
+    "prereqTree": {
+        "or": [
+            "ST2334",
+            "EE2012",
+            "CE2407",
+            "BN2102"
+        ]
+    },
+    "title": "Statistics For Engineering Applications"
+}

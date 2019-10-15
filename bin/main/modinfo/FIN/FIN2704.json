@@ -1,0 +1,46 @@
+{
+    "courseCode": "FIN2704",
+    "courseCredit": "4",
+    "description": "This course helps students to understand the key concepts and tools in Finance. It provides a broad overview of the financial environment under which a firm operates. It equips the students with the conceptual and analytical skills necessary to make sound financial decisions for a firm. Topics to be covered include introduction to finance, financial statement analysis, long-term financial planning, time value of money, risk and return analysis, capital budgeting methods and applications, common stock valuation, bond valuation, short term management and financing.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC3705",
+        "ACC3706",
+        "ACC4761H",
+        "FIN3701",
+        "FIN3702",
+        "FIN3703",
+        "FIN3711",
+        "FIN3712",
+        "FIN3713",
+        "FIN3715",
+        "FIN3761B",
+        "FIN3761C",
+        "FIN3761D",
+        "FIN4714",
+        "FIN4717",
+        "FIN3701A",
+        "FIN3701B",
+        "FIN3701C",
+        "FIN3701D",
+        "FIN3702A",
+        "FIN3702B",
+        "FIN3702C",
+        "FIN3702D",
+        "FIN3703A",
+        "FIN3703B",
+        "FIN3703C",
+        "FIN3703D",
+        "FIN3719",
+        "FIN3720"
+    ],
+    "preclusion": "FIN2004",
+    "prereqTree": {
+        "or": [
+            "ACC1701",
+            "ACC1701X",
+            "EC2204"
+        ]
+    },
+    "title": "Finance"
+}

@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6438",
+    "courseCredit": "4",
+    "description": "The main objective of this course is to introduce students to the basic concepts of magnetism, magnetic materials and devices and related applications in data storage from the electrical engineering perspective. As this module is intended to help students who are doing research in relevant areas to master both theoretical knowledge and practical techniques in areas of magnetism and magnetic materials, a significant portion of this module will be devoted to the coverage of various types of characterization techniques of magnetic materials. Apart from attending lectures, students will also have to do a presentation on selected topics relevant to contents covered in this module.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE5431",
+            "EE5431R",
+            "EE5433R"
+        ]
+    },
+    "title": "Magnetic materials and devices"
+}

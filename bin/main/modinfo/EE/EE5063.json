@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true
+    },
+    "courseCode": "EE5063",
+    "courseCredit": "2",
+    "description": "This is a module for engineering students of any disciplines. It serves as a modular course for students wishing to pick up skills in practical modelling approaches for dynamic systems. It covers the practical approaches to modelling and identification of dynamical systems. Case studies of mechatronic applications will be done. Hands-on sessions will also be conducted.",
+    "faculty": "Engineering",
+    "preclusion": "EE5109",
+    "title": "Modelling of Mechatronic Systems"
+}

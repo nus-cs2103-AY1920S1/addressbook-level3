@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS4211",
+    "courseCredit": "4",
+    "description": "Before software can be designed, its requirements must be well understood. This in turns requires a thorough understanding of the application domain. Based on the requirements, software engineers construct design models, and then use these design models as guide to construct software implementations. This module will cover formal specification and verification techniques for accurately capturing and reasoning about requirements, model and code. The topics covered include modeling notations, temporal logics, model checking, software model checking, theorem proving, and symbolic execution based analysis. Most importantly, the module will attempt to inculcate an appreciation and understanding of formal thinking in software design and construction.",
+    "faculty": "Computing",
+    "prereqTree": "CS2103",
+    "title": "Formal Methods for Software Engineering"
+}

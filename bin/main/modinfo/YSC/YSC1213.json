@@ -1,0 +1,16 @@
+{
+    "courseCode": "YSC1213",
+    "courseCredit": "5",
+    "description": "This introductory physics course uses the platform of hands-on electronics to introduce students to concepts in electro-magnetism including electrostatics and electrodynamics. Using electronic components to build linear and non-linear oscillators, students will be introduced to concepts in nonlinear dynamics and chaos theory. The course is intended for both science majors and also non-majors.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC2203",
+        "YSC3213",
+        "YSC2212",
+        "YSC2225",
+        "YSC2228",
+        "YSC3246",
+        "YSC2246"
+    ],
+    "title": "General Physics"
+}

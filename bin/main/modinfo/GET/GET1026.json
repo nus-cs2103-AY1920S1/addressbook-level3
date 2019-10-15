@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GET1026",
+    "courseCredit": "4",
+    "description": "What is good reasoning? We will try to answer this question by studying the mechanics of reasoning. Students will learn what an argument is, what the difference between validity and soundness is, and what it means to say that an argument is valid in virtue of its form. They will also be introduced to various strategies and pitfalls in reasoning. In addition, to hone their analytical skills, students will be given arguments\u2014drawn from philosophy and other areas\u2014to unpack and evaluate. It is hoped that in the process of learning what counts as good reasoning, one will become a better reasoner.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GEK2048",
+    "title": "Effective Reasoning"
+}

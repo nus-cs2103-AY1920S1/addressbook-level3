@@ -1,0 +1,16 @@
+{
+    "courseCode": "ST3232",
+    "courseCredit": "4",
+    "description": "This module covers common designs of experiments and their analysis. Topics include basic experimental designs, analysis of one-way and two way layout data, multiple comparisons, factorial designs, 2k-factorial designs, blocking and confounding, fractional factorial design and nested designs. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ST5220"
+    ],
+    "prereqTree": {
+        "or": [
+            "ST2132",
+            "ST2334"
+        ]
+    },
+    "title": "Design & Analysis of Experiments"
+}

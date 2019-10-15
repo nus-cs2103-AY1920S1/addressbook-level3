@@ -1,0 +1,13 @@
+{
+    "courseCode": "EN2276",
+    "courseCredit": "4",
+    "description": "The module offers an introduction to the study of literature in an age where the increasing importance of film, television, and the internet has led to far-reaching changes in humanities disciplines and a broadening of the field of literary studies. Students will study critical texts in literary and media theory, which will give them the means to develop informed and critical readings in literature, media, and culture. The module in this way also provides an introduction to contemporary critical theory. Each week, students will study chapters introducing them to a given critical discourse (e.g., Psychoanalysis) and its application.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EN1101E",
+            "GEK1000"
+        ]
+    },
+    "title": "Literature, Media and Theory"
+}

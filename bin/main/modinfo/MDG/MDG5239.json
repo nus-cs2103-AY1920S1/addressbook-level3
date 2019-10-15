@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MDG5239",
+    "courseCredit": "4",
+    "description": "The module is a continuation from MDG5238 Clinical Pharmacology and Pharmacotherapeutics I on the study of pharmacological properties of various classes of clinically useful drugs. It is organized according to drugs acting on various body systems; namely the neurology, musculoskeletal, pain and endocrinology. The whole group of antimicrobials for the treatment of infections and anti-cancer drugs will also be included. The scientific basis of the therapeutic applications of these drugs will be demonstrated to the students, thus promoting the safe and rational use of drugs in clinical therapeutics.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "prereqTree": "MDG5238",
+    "title": "Clinical Pharmacology and Pharmacotherapeutics II"
+}

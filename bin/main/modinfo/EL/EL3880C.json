@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3880C",
+    "courseCredit": "4",
+    "description": "Grammaticalisation studies have been extensively developed recently in North America and Europe, in parallel with modern cognitive-functionalist methods. In this module, we apply grammaticalisation theory to historical and variation aspects of the English language. We will initially explore basic pragmatic and cognitive aspects associated with grammaticalisation, followed by general characteristics, processes, and effects of grammaticalisation. New developments and more controversial points will be discussed towards the end of the course. The module is especially useful for students working in language variation and historical change in English or other languages, and students researching in the field of sociolinguistics or language acquisition.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Grammaticalisation"
+}

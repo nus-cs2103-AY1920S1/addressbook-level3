@@ -1,0 +1,13 @@
+{
+    "courseCode": "CN4215R",
+    "courseCredit": "4",
+    "description": "This module provides students with the necessary background for food processing in the context of chemical engineering operations. The module combines food science and engineering operations as an integrated food-engineering course. It starts with food science topics such as food chemistry, microbiology and nutrition. It then focuses on the applications of various chemical engineering operations (refrigeration, freezing, evaporation, drying, thermal sterilisation) to food processing. The course also covers other relevant topics such as food rheology and packaging of food products. This module is targeted at level 4 chemical engineering students.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "CN2125",
+            "CN3132"
+        ]
+    },
+    "title": "Food Technology and Engineering"
+}

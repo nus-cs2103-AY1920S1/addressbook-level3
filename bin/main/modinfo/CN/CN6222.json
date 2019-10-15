@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CN6222",
+    "courseCredit": "4",
+    "description": "The objective of this module is to provide an overview of the chemical reaction engineering aspects of pharmaceutical and fine chemical synthesis. Emphasis is placed on the importance of controlling chemo- regio- and stereoselectivity. Most pharmaceutical and fine chemical syntheses are performed in the liquid phase. As preliminaries, a number of relevant physical-chemical concepts are introduced. Since many liquid syntheses are metal-mediated, emphasis is given to homogeneous catalysis and modified heterogeneous. This naturally leads to a host of important environmental issues. This is a postgraduate module targeted at students who have are interested chemical reaction engineering and particularly the special considerations required for the pharmaceutical and fine chemical industries.",
+    "faculty": "Engineering",
+    "preclusion": "CN4232 and CN5222",
+    "title": "Pharmaceuticals & Fine Chemicals"
+}

@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5883B",
+    "courseCredit": "4",
+    "description": "This course introduces the basic mathematical, statistical, physical, and chemical knowledge required to model the Earth\u2019s climate system. Given the complexity of the system, theory of how to approximate equations and make them relevant over temporal and spatial scales is introduced. Through experimentation and hands on learning, students will learn to understand and build models of varying complexity describing the Earth and its Climate System. Finally, students will use and modify these models to perform their own studies on relevant questions. Topics include: Conservation equations; Dynamics; Thermodynamics, physics, chemistry; Radiative Forcing, Response, and Feedbacks; Coupling Across Scales; Non-linearities.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "and": [
+            "MA1505",
+            "MA1506"
+        ]
+    },
+    "title": "Topics in Hydraulic & Water Resources \u2013  Modelling Climate Change"
+}

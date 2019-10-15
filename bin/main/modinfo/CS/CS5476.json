@@ -1,0 +1,14 @@
+{
+    "courseCode": "CS5476",
+    "courseCredit": "4",
+    "description": "With the advent of the Internet-of-Things, the computing paradigm is quickly changing from the traditional cyber domain to cyber-physical domain. This is made possible from devices that are equipped with sensors and actuators that interact with the physical world. In this module, we will investigate how such sensing systems affect the notion of computer security. We will also explore the state-of-the-art research in the areas of sensing systems and how they can provide benefits to the security of the Internet-ofThings. Furthermore, this module will also investigate how an attacker may compromise the sensing information to exploit security vulnerabilities in these systems.",
+    "faculty": "Computing",
+    "preclusion": "CS4276",
+    "prereqTree": {
+        "or": [
+            "CG3002",
+            "CS3237"
+        ]
+    },
+    "title": "IoT Security"
+}

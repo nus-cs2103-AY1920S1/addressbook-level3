@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAH3201",
+    "courseCredit": "4",
+    "description": "Hindi 3 is a continuation of Hindi 2. It is an integrated module which will help students gain intermediate proficiency in the four skills (listening, speaking, reading, and writing), grammar, and vocabulary, for personal interaction and communication in authentic situations.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAH3202"
+    ],
+    "prereqTree": "LAH2201",
+    "title": "Hindi 3"
+}

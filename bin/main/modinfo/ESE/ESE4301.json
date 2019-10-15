@@ -1,0 +1,8 @@
+{
+    "courseCode": "ESE4301",
+    "courseCredit": "4",
+    "description": "This course introduces students to the biological aspects of wastewater biotechnology. These include process metabolism, biology and functions in activated sludge, anaerobic digestion, nutrients removal and biofilms processes. This course will enable students to expand their background of environmental technology in the biological aspects of wastewater treatment processes, and to integrate the biological aspects of wastewater treatment into the physical and chemical aspects previously learned. The students will also learn how to identify solutions for operational problems associated with wastewater treatment processes through the microscopic observations.",
+    "faculty": "Engineering",
+    "prereqTree": "ESE3301",
+    "title": "Wastewater Biotechnology"
+}

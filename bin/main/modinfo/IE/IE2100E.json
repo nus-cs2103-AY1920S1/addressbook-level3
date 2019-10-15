@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "IE2100E",
+    "courseCredit": "4",
+    "description": "The module builds upon the foundation in ST2131/TS2120/IE2120E and stresses on applications of stochastic modeling. Topics include: Review of exponential distribution; Conditional probability and conditional expectation; Discrete time Markov chains; Poisson process; Basic queuing models and continuous time Markov chains and Renewal theory. The emphasis of this course will be on model formulation and probabilistic analysis. Students will eventually be conversant with the properties of these models and appreciate their roles in engineering applications.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "IE4239E"
+    ],
+    "preclusion": "DSC3215, TIE2100",
+    "title": "Probability Models with Applications"
+}

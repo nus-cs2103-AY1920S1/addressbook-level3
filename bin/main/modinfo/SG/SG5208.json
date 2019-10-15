@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG5208",
+    "courseCredit": "3",
+    "description": "The objectives of this course will be to advance the use of OO design patterns in software development. The course will explain how the use of OO design patterns will improve the transition from Object Oriented analysis to design, and will generally improve Object Oriented implementation. The course will Introduce design patterns, and will show how Design Patterns work using a Case Study. The course will also describe Object Oriented Design Principles and will include Design Pattern Programming Workshops using C++, Java, C#, etc. The course will also cover Web-based Application Patterns and will finally describe the benefits of Design Patterns. There will be a design/programming project. This course is intended for OO designers/developers who wish to use advanced techniques to develop OO systems.",
+    "faculty": "Institute of Systems Science",
+    "title": "Object Oriented Design Patterns"
+}

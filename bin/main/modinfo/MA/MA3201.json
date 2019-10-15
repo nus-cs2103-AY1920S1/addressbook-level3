@@ -1,0 +1,31 @@
+{
+    "courseCode": "MA3201",
+    "courseCredit": "4",
+    "description": "The objective of this module is to provide the essentials of ring theory and module theory. Major topics: rings, ring isomorphism theorems, prime and maximal ideals, integral domains, field of fractions, factorization, unique factorization domains, principal ideal domains, Euclidean domains, factorization in polynomial domains, modules, module isomorphism theorems, cyclic modules, free modules of finite rank, finitely generated modules, finitely generated modules over a principal ideal domain.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5208",
+        "MA5211",
+        "MA5203",
+        "MA4201",
+        "MA4261",
+        "MA4203"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA2202",
+                    "MA2202S"
+                ]
+            },
+            {
+                "or": [
+                    "MA2101",
+                    "MA2101S"
+                ]
+            }
+        ]
+    },
+    "title": "Algebra II"
+}

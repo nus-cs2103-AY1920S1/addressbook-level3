@@ -1,0 +1,11 @@
+{
+    "courseCode": "MLE3105",
+    "courseCredit": "4",
+    "description": "Polarisation mechanisms; ferroelectricity and piezoelectricity; domain structure and hystereisis; permittivity and dielectric loss; optical properties of dielectric materials; fundamental of magnetism: magnetic moment, magnetic coupling and magnetic anisotropy; technical magnetisation: domain structure, magnetic hysteresis; introduction to magnetic materials.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "MLE4209"
+    ],
+    "prereqTree": "MLE2105",
+    "title": "Dielectric and Magnetic Materials"
+}

@@ -1,0 +1,12 @@
+{
+    "courseCode": "MUA2240",
+    "courseCredit": "4",
+    "description": "As a logical progression from modules MUA1111 and MUA1112, students will continue to study and perform works for piano ensemble - either piano duos or duets. Coaching sessions provide in-depth insight into the specific piece(s) chosen for study; whilst active participation is expected in the studio class, which provides an overview of the most significant works relevant to the genre. Students must participate in a public, assessed performance as the final examination of the prepared work(s); and to reflect upon their learning process in the context of this module by updating their e-portfolios.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3240"
+    ],
+    "preclusion": "MUA2155",
+    "prereqTree": "MUA1112",
+    "title": "Collaborative Piano - Piano Ensemble"
+}

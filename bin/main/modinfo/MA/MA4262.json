@@ -1,0 +1,14 @@
+{
+    "courseCode": "MA4262",
+    "courseCredit": "4",
+    "description": "This module is suitable not only for mathematics majors, but also for science and engineering majors who need a rigorous introduction to the concepts of measures and integrals. It covers Lebesgue measure and Lebesgue integral in a rigorous manner. We begin complicated proofs with an introduction which shows why the proof works. Examples are included to show why each hypothesis of a major theorem is necessary. Major topics: Lebesgue measure. Outer measure. Measurable sets. Regularity of Lebesgue measure. Existence of nonmeasurable sets. Measurable functions. Egoroff's Theorem. Lusin's Theorem. Lebesgue integral. Convergence theorem. Differentiation. Vitali covering lemma. Functions of bounded variation. Absolute continuity. Lp spaces. Holder's inequality. Minkowski's inequality. Riesz-Fischer theorem.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5259",
+        "MA5248",
+        "MA5206",
+        "MA5205"
+    ],
+    "prereqTree": "MA3209",
+    "title": "Measure and Integration"
+}

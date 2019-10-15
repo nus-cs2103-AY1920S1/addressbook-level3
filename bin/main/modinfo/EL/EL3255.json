@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3255",
+    "courseCredit": "4",
+    "description": "This module focuses on the ideological issues surrounding the role and impact of English in Southeast Asia. Key topics include: English as a native language in Southeast Asia; English as a gatekeeper for social mobility and economic development; English language education and the question of who has the authority to decide what constitutes 'good' or 'proper' English. Target students: Those who are willing to critically engage in a debate on the impact of English on Southeast Asian language policies and cultural identities.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "English in Southeast Asia"
+}

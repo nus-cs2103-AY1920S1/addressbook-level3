@@ -1,0 +1,7 @@
+{
+    "courseCode": "TD5102",
+    "courseCredit": "4",
+    "description": "This course teaches how to go from an executable, but un-optimized specification in a language C, C++ or SystemC, to an optimized implementation. In particular we will focus on specifying a multimedia system in SystemC and on source code transformations which reduce the requirements for the data memories, and therefore optimize performance and energy consumption. Furthermore we focus on the exploitation of parallelism at different levels of granularity.",
+    "faculty": "Engineering",
+    "title": "Embedded Systems in Silicon"
+}

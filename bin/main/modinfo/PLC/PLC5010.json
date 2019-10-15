@@ -1,0 +1,10 @@
+{
+    "courseCode": "PLC5010",
+    "courseCredit": "12",
+    "description": "This module aims to help students prepare a scholarly report of their proposed applied research project submitted in PLC5009 Research Proposal. Under the supervision of a member of the faculty, students will make appropriate modifications to the planned design, complete data collection and analyses, and prepare draft reports. Students will also receive comments and feedback from other faculty, clinical supervisors and peer students. Students then present their completed research projects orally and submit the final draft of the report as a thesis of about 20,000 words in APA style for examination.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PLC5020"
+    ],
+    "title": "Research Project"
+}

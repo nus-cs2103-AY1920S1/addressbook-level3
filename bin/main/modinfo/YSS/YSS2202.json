@@ -1,0 +1,22 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YSS2202",
+    "courseCredit": "5",
+    "description": "This course introduces students to concepts, theories, and cases associated with the study of international politics. We will study contemporary scholarly texts and examine empirical evidence relating to key historical experiences such as the Cold War, which inform contemporary international relations theories.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS3225",
+        "YSS3227",
+        "YSS4205",
+        "YSS4211",
+        "YSS4222",
+        "YSS4238",
+        "YSS4237",
+        "YSS4243",
+        "YSS2236",
+        "YSS3292"
+    ],
+    "title": "International Relations"
+}

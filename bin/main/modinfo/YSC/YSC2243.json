@@ -1,0 +1,10 @@
+{
+    "courseCode": "YSC2243",
+    "courseCredit": "5",
+    "description": "This is an introductory module in probability theory, which is essential for many MCS modules, as well as in other scientific disciplines such as biology and economics. The course covers the basic principles of the theory of probability and its applications.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3249"
+    ],
+    "title": "Probability"
+}

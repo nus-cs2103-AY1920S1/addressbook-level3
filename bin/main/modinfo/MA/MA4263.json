@@ -1,0 +1,23 @@
+{
+    "courseCode": "MA4263",
+    "courseCredit": "4",
+    "description": "The aim of this course is to introduce the standard techniques in analytic number theory through the study of two classical results, namely, the prime number theorem and Dirichlet's theorem on primes in arithmetic progressions. Major topics: Arithmetical functions. Merten's estimates. Riemann zeta function. Prime number theorem. Characters of abelian groups. Dirichlet's theorem on primes in arithmetic progression.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA2202",
+                    "MA2202S"
+                ]
+            },
+            {
+                "or": [
+                    "MA3111",
+                    "MA3111S"
+                ]
+            }
+        ]
+    },
+    "title": "Introduction to Analytic Number Theory"
+}

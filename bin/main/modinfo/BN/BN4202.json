@@ -1,0 +1,14 @@
+{
+    "courseCode": "BN4202",
+    "courseCredit": "4",
+    "description": "This module introduces fluid dynamic principles and their application in natural organs. Also studied are their substitutes, particularly the flow consideration in their design. Topics include: whole heart, intra-aortic balloon pump, blood pump, heart valve, blood substitutes, blood vessels, oxygenator, kidney, pancreas, liver. Special student projects involve the design of diagnostic and therapeutic instruments and devices for cardiovascular applications.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "CN2122",
+            "ME2134",
+            "BN2202"
+        ]
+    },
+    "title": "Biofluids Dynamics"
+}

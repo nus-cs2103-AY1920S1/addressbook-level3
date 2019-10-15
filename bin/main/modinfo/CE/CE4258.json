@@ -1,0 +1,17 @@
+{
+    "courseCode": "CE4258",
+    "courseCredit": "4",
+    "description": "This module provides students with basic knowledge of structural stability and dynamics for the analysis of civil engineering structures. The topics covered include general principles of stability and dynamics; buckling of beam, columns and frames; design against local and overall stability. Dynamics analysis will cover single-degree-of-freedom systems, multi-degree-of-freedom systems and continuous systems. Students are taught to deal with general stability and vibration problems of frames including computer applications and numerical formulation. The module of specialized context targets at undergraduate and graduate students in research or engineering practices relating to structural engineering applications",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CE5885A"
+    ],
+    "preclusion": "TCE4258",
+    "prereqTree": {
+        "and": [
+            "CE2407",
+            "CE3155"
+        ]
+    },
+    "title": "Structural Stability & Dynamics"
+}

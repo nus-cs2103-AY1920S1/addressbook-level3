@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM3222",
+    "courseCredit": "4",
+    "description": "A working knowledge of human neuroanatomy is essential for many fields of biomedical science, practice and research. The purpose of this module is to cover the basic functional neuroanatomy of the human nervous system, including overview, neurohistology, peripheral nervous system, autonomic nervous system and central nervous system. It takes a regional-systemic approach to understanding human nervous system structure and function - that parallels the core knowledge used in clinical practice. Emphasis is placed on the unique anatomical features and neurochemistry of different parts of the central and peripheral nervous system, while demonstrating their synaptic connectivity and interrelatedness of their functions.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM1102",
+            "LSM1106"
+        ]
+    },
+    "title": "Human Neuroanatomy"
+}

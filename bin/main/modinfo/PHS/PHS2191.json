@@ -1,0 +1,13 @@
+{
+    "courseCode": "PHS2191",
+    "courseCredit": "4",
+    "description": "This module introduces the theory and practical applications of major tools and techniques used in in the continuum of drug discovery and development. Factual knowledge in pharmaceutical/medicinal chemistry techniques, such as synthetic skills, lead optimization, molecular modelling, will be integrated with laboratory practice.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PHS1120",
+            "PHS2143"
+        ]
+    },
+    "title": "Laboratory Techniques in Pharmaceutical Science I"
+}

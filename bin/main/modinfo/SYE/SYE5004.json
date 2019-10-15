@@ -1,0 +1,8 @@
+{
+    "courseCode": "SYE5004",
+    "courseCredit": "4",
+    "description": "This module deals mainly with the complex decision-making process in the planning, design, operation and maintenance of large scale systems. It examines the goals of a system, its stakeholders, and its boundaries (political, social, environmental etc) and limitations including the complexities involved to understand the issues in planning, design and management of such large scale systems. In addition, the possible effects and unintended consequences are also considered. To do this, it draws upon some of the best practices from engineering, businesses management and political and social sciences. Case studies of systems that have been implemented in Singapore or being planned are used to illustrate the practical aspects of systems engineering.",
+    "faculty": "Engineering",
+    "preclusion": "IE5404 Large Scale Systems Engineering",
+    "title": "Large Scale Systems Engineering"
+}

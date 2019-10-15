@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAG4203",
+    "courseCredit": "5",
+    "description": "This module seeks to further develop the students' ability to comprehend texts as well as to effectively communicate their views on highly complex social, political, cultural and environmental topics. Students will be introduced to rhetorically more demanding text types such as argumentative texts or commentaries (e.g. newspaper and magazine articles, television documentaries etc.). This module will be conducted in German.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAG4204"
+    ],
+    "prereqTree": "LAG4202",
+    "title": "German Studies 1"
+}

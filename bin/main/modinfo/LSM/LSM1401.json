@@ -1,0 +1,26 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LSM1401",
+    "courseCredit": "4",
+    "description": "This module aims to provide student with a strong background in the fundamental aspects of biochemistry including selected topics in cell biology, microbial systems and molecular genetics, with an emphasis on their applications to chemical and pharmaceutical industries as well as engineering practices (in particular bioengineering, chemical engineering, environmental engineering, and engineering science). Upon completing this module, the student is expected to have sufficient knowledge in fundamental life processes in order to appreciate and relate the importance of biochemistry in industry as well as in everyday life. The student should also be well prepared to take up higher level modules for which biochemistry is the prerequisite.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "BN3301",
+        "BN3402",
+        "BN4501",
+        "CN2108",
+        "CN4233R",
+        "CN4247R",
+        "CN4240R",
+        "CN4241R",
+        "CN4249",
+        "LSM2103",
+        "LSM2101",
+        "LSM2102",
+        "CM4227"
+    ],
+    "preclusion": "Not for Life Sciences major/minor and student must not have read LSM1101 or its equivalent.",
+    "title": "Fundamentals of Biochemistry"
+}

@@ -1,0 +1,18 @@
+{
+    "courseCode": "PC3232",
+    "courseCredit": "4",
+    "description": "This is an intermediate course in nuclear physics, with an introduction to particle physics. Properties of nuclei, e.g., masses, spins, and moments, are introduced and an introductory discussion of nuclear models is presented, the semi-empirical mass formula, the Fermi gas model, the shell model and some aspects of the collective model are discussed. The energy balances and spin/parity selection rules of alpha, beta and gamma decay processes are discussed in considerable detail. The various types of interaction between radiation and matter are discussed, and an introduction to radiation detectors is given. A discussion of the operational principles and technological aspects of accelerators and an introductory survey of particle physics completes the material covered.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC3294",
+        "PC4245"
+    ],
+    "preclusion": "PC3232B",
+    "prereqTree": {
+        "or": [
+            "PC2130",
+            "PC2130B"
+        ]
+    },
+    "title": "Nuclear & Particle Physics"
+}

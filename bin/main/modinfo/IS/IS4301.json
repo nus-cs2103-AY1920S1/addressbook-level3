@@ -1,0 +1,8 @@
+{
+    "courseCode": "IS4301",
+    "courseCredit": "4",
+    "description": "Acceleration of the pace of digital transformation and adaption to business changes have caused IT organizations to integrate Agile methods and DevOps with traditional IT development and operations. This module introduces students with essential concepts of Agile IT and DevOps for participation in agile IT business transformations. Topics covered shall include waterfall vs. agile, integrated agile methods (Xtreme Programming, Scrum), DevOps, hybrid-IT, Platform as a service, monolithic vs. microservice architecture, containerization, toolchains, open innovations and case studies. Banking industry services will be used to enable students to practise concepts taught in this course.",
+    "faculty": "Computing",
+    "prereqTree": "IS4100",
+    "title": "Agile IT with DevOps"
+}

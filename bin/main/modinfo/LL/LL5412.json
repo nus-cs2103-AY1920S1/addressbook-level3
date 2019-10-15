@@ -1,0 +1,14 @@
+{
+    "courseCode": "LL5412",
+    "courseCredit": "8",
+    "description": "This course is designed to provide an overview of securities regulation, corporate governance and mergers and acquisitions, in Singapore and, where relevant, jurisdictions such as the US, UK, Australia, China and HK. Topics to be covered generally include: regulatory authorities and capital markets; supervision of intermediaries; the \"going public\" process; legal position of stockbrokers; insider trading and securities frauds; globalisation, technology and regulatory harmonisation; and regulation of takeover activity. In addition, aspects of syndicated loan and bond financing, and securitisation, will be studied in some detail. Students will be expected to use the Internet to search for comparative materials. Advisory Note for students from Civil Law Jurisdiction: Not appropriate for civil law students.",
+    "faculty": "Law",
+    "preclusion": "Students doing or have done any of the following module(s) are precluded: (1) International Corporate Finance [8MC - LL4409/LL5409/LLD5409/LL6409; 4MC - LL4238/LL5238/LL6238; 5MC \u2013 LL4238V/LL5238V/LL6238V]; (2) Corporate Finance Law & Practice in Singapore [4MC - LL4182/LL5182/LL6182; 5MC \u2013 LL4182V/LL5182V/LL6182V]; (3) Securities Regulation [4MC - L4055/LL5055/LL6055; 5MC \u2013 LL4055V/LL5055V/LL6055V];  (4) Securities Regulation [Module code: L53.3040 OR LW.10180] under the NYU@NUS Summer Session.",
+    "prereqTree": {
+        "or": [
+            "LC2008",
+            "LLB2008"
+        ]
+    },
+    "title": "Securities and Capital Markets Regulation"
+}

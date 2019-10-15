@@ -1,0 +1,13 @@
+{
+    "courseCode": "TIC4304",
+    "courseCredit": "4",
+    "description": "This module aims to prepare students for understanding the security of the latest web platform and its interplay with operating systems and the cloud infrastructure. The topics covered include the design of web browsers and web applications, vulnerabilities in web applications and web browsers, design of web scanners, authentication in webbased platforms, security policies and enforcement mechanisms. This module also covers security topics on the interface between the web platform and the backend systems, such as the underlying database systems and cloud infrastructure.",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": {
+        "and": [
+            "TIC2601",
+            "TIC3302"
+        ]
+    },
+    "title": "Web Security"
+}

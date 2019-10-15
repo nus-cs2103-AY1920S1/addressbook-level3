@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3310",
+    "courseCredit": "5",
+    "description": "Modernism, originally a European movement that spanned the period between World Wars I and II, has since defied temporal and geographical boundaries and become a transnational movement that reaches into the 21st century. This course invites students to join current debates about what makes a text or work of art, 'modernist'? What is the relationship between imperialism and modernism? How did art and literature from Africa and Asia contribute to early modernism, and what are global forms of modernism today? Authors may include: Woolf, Joyce, Eliot, Anand, Conrad, Brodie, Rhys, Ondaatje, and Soyinka.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Global Modernisms"
+}

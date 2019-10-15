@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5509",
+    "courseCredit": "4",
+    "description": "This module provides students with advanced knowledge on the design methodology for steel and composite structures. It also provides a learning experience on the key concepts and engineering concerns of steel-concrete composite frames and tubular structures. The topics covered include steel frame structures, steel-concrete composite systems, tubular structures and joints and long-span structures. Students will learn innovative design by exploring various structural schemes, conducting value engineering study and safety assessment of steel structural systems and their joints. The students are expected to demonstrate their proficiency in structural steel design through term paper projects. The target students include both undergraduate and graduate students who are involved in research or engineering practices related to structural steel.",
+    "faculty": "Engineering",
+    "preclusion": "TCE5509",
+    "prereqTree": "CE3166",
+    "title": "Advanced Structural Steel Design"
+}

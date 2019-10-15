@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME6107",
+    "courseCredit": "4",
+    "description": "This class will cover the fundamental and physical basis of plastic/inelastic deformation and other dissipative processes. Here we will develop continuum-based isotropic plasticity and crystal-plasticity-type constitutive equations through a rigorous thermodynamic approach. The first part of the course will be devoted to the teaching of continuum mechanics/balance laws/thermodynamics, the second part will focus on the development of constitutive equations for plasticity and the third part will concentrate on the application of plasticity theory through numerical techniques.",
+    "faculty": "Engineering",
+    "prereqTree": "ME6105",
+    "title": "Plasticity and Inelastic Deformation"
+}

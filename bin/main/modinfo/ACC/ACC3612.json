@@ -1,0 +1,25 @@
+{
+    "courseCode": "ACC3612",
+    "courseCredit": "4",
+    "description": "To provide students with the ability and competency to exercise judgement and apply techniques in risk management to matters encountered by accounting professionals at the organisational level and to react to current developments or new practices. This module covers risk management frameworks, risk management techniques and basic components of a business continuity plan.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC4612A",
+        "ACC4612H",
+        "ACC4614",
+        "ACC4162E"
+    ],
+    "preclusion": "Students who have passed FNA3125 are not allowed to take ACC3612.",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "FNA2004",
+                    "FIN2004"
+                ]
+            },
+            "BSP1004"
+        ]
+    },
+    "title": "Risk Management and Internal Control"
+}

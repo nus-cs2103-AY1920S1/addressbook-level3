@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6310",
+    "courseCredit": "4",
+    "description": "This course provides an in-depth treatment of the fundamental principles and concepts of computer communication networks. The course divides the discussion in terms of fours layers: link, network, transport and application. For each layer, the course first presents the fundamental design principles and an in-depth analysis of factors that affect the overall system performance. Next, the course uses these design principles to describe the design of state-of-theart as well as real-world protocols for each layer. The course also includes an examination of the security aspects of each layer. Issues on the design and implementation of actual protocols will be addressed through a design project.",
+    "faculty": "Engineering",
+    "preclusion": "EE5310 Communication Networking Fundamentals",
+    "prereqTree": {
+        "and": [
+            "EE2012",
+            "EE3204",
+            "EE4210"
+        ]
+    },
+    "title": "Communication Networking Fundamentals (Advanced)"
+}

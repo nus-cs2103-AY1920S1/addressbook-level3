@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LSM1105",
+    "courseCredit": "4",
+    "description": "Evolutionary biology covers the history of life on our planet and the processes that produced the multiple life forms of Earth. Topics include: the origins of life, the eukaryotic cell, and multicellularity; the generation of genetic variation and the sorting of that variation through random processes and through natural and sexual selection; the origin of new traits, new life histories, and new species; the origins of sex, sociality, and altruism; the evolution of humans; and applications of evolutionary biology to solving modern-day problems.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM2288",
+        "LSM2289",
+        "LSM3252",
+        "LSM2241",
+        "LSM3256",
+        "LSM4259"
+    ],
+    "title": "Evolutionary Biology"
+}

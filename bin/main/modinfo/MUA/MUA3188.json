@@ -1,0 +1,17 @@
+{
+    "courseCode": "MUA3188",
+    "courseCredit": "4",
+    "description": "Live Sound Reinforcement provides students with thorough coverage of technology and techniques of microphone techniques, loudspeaker setup and signal connection. The topics will include techniques for both wired and wireless microphone, the principle of both analog and digital live console, the principle and application of loudspeaker for live sound purpose and music balance creation for live performances.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3189",
+        "MUA4271"
+    ],
+    "prereqTree": {
+        "and": [
+            "MUA2170",
+            "MUA2171"
+        ]
+    },
+    "title": "Live Sound Reinforcement"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS4242",
+    "courseCredit": "4",
+    "description": "The emergence of WWW, smart mobile devices and social networks has revolutionised the way we communicate, create, disseminate, and consume information. This has ushered in a new era of communications that involves complex information exchanges and user relationships. This module aims to provide students with a good understanding of the social network phenomena and computational skills for analysing the complex social relation networks between users, the contents they shared, and the ways contents and events are perceived and propagated through the social networks. The analysis will provide better understanding of the concerns and interests of users, and uncover live and emerging events that will affect the community.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS2108",
+            "CS3245"
+        ]
+    },
+    "title": "Social Media Computing"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "CS4249",
+    "courseCredit": "4",
+    "description": "This module teaches the underlying science of Human-Computer Interaction (HCI) and its application to user interface design. It surveys a wide range of psychological theories beginning with organizational behaviour approaches, understanding of work and workflow within organizations, and moving on to understanding human psychological architecture and processing constraints. It demonstrates via a combination of scientific theory understanding and engineering modelling the solutions of design problems facing a user interface designer. It also covers new design methods and techniques available and the new conceptual mechanisms used in HCI such as the metaphors for describing user interaction.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS3240",
+            "NM2213",
+            "NM2216"
+        ]
+    },
+    "title": "Phenomena and Theories of Human-Computer Interaction"
+}

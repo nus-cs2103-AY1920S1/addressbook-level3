@@ -1,0 +1,7 @@
+{
+    "courseCode": "CS4223R",
+    "courseCredit": "1",
+    "description": "The world of parallel computer architecture has gone through a significant transformation in the recent years from high-end supercomputers used only for scientific applications to the multi-cores (multiple processing cores on a single chip) that are ubiquitous in mainstream computing systems including desktops, servers, and embedded systems. In the context of this exciting development, the aim of this module is to examine the design issues that are critical to modern parallel architectures. Topics include instruction-level parallelism through static and dynamic scheduling, shared memory, message-passing, and data parallel computer architectures, cache coherence protocols, hardware synchronization primitives, and memory consistency models.",
+    "faculty": "Computing",
+    "title": "Multi-core Architectures"
+}

@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "fyp": true,
+        "year": true
+    },
+    "courseCode": "XFC4101",
+    "courseCredit": "12",
+    "description": "The objective of this module is to enable students to work on an individual integrated research project spanning over two semesters, with approximately 400 hours of workload. Students learn how to apply skills acquired in the classroom and also think of innovative ways of solving problems, and learn to work in a research environment. The project demonstrates a student\u2019s work ethic, initiative, determination, and ability to think independently. On completion of the project, the student has to submit a dissertation describing the project work, and give an oral presentation before a panel of examiners.",
+    "faculty": "Computing",
+    "preclusion": "CS4101 B.Comp. Dissertation or CS4349 Game Research\nProject",
+    "title": "Integrated Honours Thesis"
+}

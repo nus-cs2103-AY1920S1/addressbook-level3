@@ -1,0 +1,14 @@
+{
+    "courseCode": "TS2239",
+    "courseCredit": "4",
+    "description": "This module focuses on the close reading of dramatic texts in order to study the dynamic relationship between text &amp; performance. Through the examination of 4 major modern playwrights working in different historical, geographical and cultural contexts, this course will explore the development of modern drama in the 20th century, the significance of text as the basis of theatrical realization, the variety of staging possibilities engendered by the dramaturgy of the play-text, and the synergistic partnership of word and action in creating the huge variety of text-based theatre in the 20th century.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "EN1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Major Playwrights of the 20th Century"
+}

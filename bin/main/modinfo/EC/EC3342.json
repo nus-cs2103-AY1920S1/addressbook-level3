@@ -1,0 +1,14 @@
+{
+    "courseCode": "EC3342",
+    "courseCredit": "4",
+    "description": "International trade is about how nations interact through trade of goods and services. This module focuses on the real transactions across borders (i.e., those transactions that involve a physical movement of goods or a tangible commitment of economic resources), such as the pattern of trade, gains from trade, and trade volume.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC3341",
+    "prereqTree": {
+        "and": [
+            "EC2101",
+            "EC2102"
+        ]
+    },
+    "title": "International Trade I"
+}

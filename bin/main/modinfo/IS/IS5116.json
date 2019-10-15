@@ -1,0 +1,9 @@
+{
+    "courseCode": "IS5116",
+    "courseCredit": "4",
+    "description": "The key concepts of entrepreneurship are first covered, giving students the necessary background knowledge and an opportunity to develop a tech startup venture as a team project. Following that, sessions are set aside for students to learn a wide range of issues about entrepreneurship by asking questions and hearing first hand from people who are active in the startup eco-system as entrepreneurs or investors. The student would understand what is involved in building a high tech start-up company and know how to develop an entrepreneurial venture. He would also be familiar with the entrepreneurship eco-system in Singapore.",
+    "faculty": "Computing",
+    "preclusion": "IS3251",
+    "prereqTree": "IS3103",
+    "title": "Digital Entrepreneurship"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTW1001R",
+    "courseCredit": "4",
+    "description": "This course discusses the nature of oratory and how it potentially influences the public mind, that is, how the public perceives, understands, and acts upon social and political realities. Students will be introduced to ways of critically analyzing speeches as they interrogate the power and limitations of oratory in influencing the public mind. Students will consider the following questions: What elements in the speeches enable speakers to \u2018adjust ideas to people and people to ideas\u2019? How do speeches shape and get shaped by their contexts? How are ideas expressed in the speeches transformed to create impact on the public mind?",
+    "faculty": "NUS",
+    "preclusion": "IEM1201%,\nUTW1001%,\nES1501%",
+    "title": "Oratory and the Public Mind"
+}

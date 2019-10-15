@@ -1,0 +1,14 @@
+{
+    "courseCode": "ST3239",
+    "courseCredit": "4",
+    "description": "This module gives an introduction to the design of sample surveys and estimation procedures, with emphasis on practical applications in survey sampling. Topics include planning of surveys, questionnaire construction, methods of data collection, fieldwork procedures, sources of errors, basic ideas of sampling, simple random sampling, stratified, systematic, replicated, cluster and quota sampling, sample size determination and cost. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "MA2216",
+            "ST2131",
+            "ST2334"
+        ]
+    },
+    "title": "Survey Methodology"
+}

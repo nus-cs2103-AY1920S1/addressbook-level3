@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU2232",
+    "courseCredit": "5",
+    "description": "The aim of the course is to cultivate historical, global and comparative perspectives on the cultural diversity of science fiction using critical terms of literary analysis. It explores the expansive genre of science fiction, its relation to literary utopia, speculative fiction, and fantasy. By beginning with less wellknown Indigenous American, Latin American, Russian, Sinophone, and Southeast Asian literary texts and films, before examining more established works by Euro\u2010American authors, this course emphasizes the global reach and significance of science fiction.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Global Science Fiction: Their Worlds, Ourselves"
+}

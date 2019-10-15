@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3259",
+    "courseCredit": "5",
+    "description": "This course examines poetic tradition in three major religions of the world: Hinduism, Buddhism, Christianity. Why does the divine voice express so often itself through poetry? Why is poetry the privileged vehicle in which communications between the divine and the human occur? Cross-cultural problems we will study: the body and soul, devotion, mysticism, the lyric voice, revealed scripture and tradition, theological disputes, the gaze, desire, gender, eros, allegory.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1113"
+        ]
+    },
+    "title": "World Religious Poetry"
+}

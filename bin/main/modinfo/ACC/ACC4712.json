@@ -1,0 +1,9 @@
+{
+    "courseCode": "ACC4712",
+    "courseCredit": "4",
+    "description": "It is designed to broaden the career prospects of the accounting graduates in the realm of forensic accounting. This case-based syllabus includes the investigation and detection of financial crime, fraud, insurance claim, legal dispute, Insolvency, money laundering, serious tax crime, terror financing, corruption, identity theft, market manipulation, hidden assets, etc. Knowledge and skills to be taught in the module include data analytics, common modus operandi of financial crime, loss recovery, admissibility of evidence, interviewing suspects and witnesses, presentation in the court of law, and career opportunities as a forensic accountant.",
+    "faculty": "NUS Business School",
+    "preclusion": "ACC4613",
+    "prereqTree": "ACC3701",
+    "title": "Forensic Accounting"
+}

@@ -1,0 +1,28 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TEE2028",
+    "courseCredit": "4",
+    "description": "This module teaches students how to program microcontrollers and achieve computer interfacing using C programming and industry standard protocols. The course extends the C programming students have learnt earlier, covers microprocessor instruction sets and how to program microcontrollers to interface with other devices in order to build an embedded system. The course culminates in an assignment in which students design and build an embedded system that meets requirements and specifications.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "EE3207E",
+        "EE3208E",
+        "EE4214E",
+        "TEE4214",
+        "TEE3207",
+        "TEE3208"
+    ],
+    "preclusion": "EE2007E, EE2024E, TEE2024",
+    "prereqTree": {
+        "or": [
+            "EE2020E",
+            "TEE2020",
+            "TEE2026"
+        ]
+    },
+    "title": "Microcontroller Programming and Interfacing"
+}

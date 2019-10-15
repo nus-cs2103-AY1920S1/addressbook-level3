@@ -1,0 +1,30 @@
+{
+    "courseCode": "EN3249",
+    "courseCredit": "4",
+    "description": "This module offers an introduction to the study of art, film and media culture. It explores the changing role of visual media across the centuries, from pre\u2010modern societies through to today\u2019s digital, networked cultures. How have technological and economic changes generated new visual media? How have these media in turn shaped social and economic life? A range of case studies will be drawn from art history, film, popular culture and online media. What are the differences between art, film and other visual culture, and are these differences still relevant in the \u2018convergent\u2019 world of digital media culture?",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "YHU4207"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Introduction to Visual Culture: Art, Film and Media"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NUR2202C",
+    "courseCredit": "8",
+    "description": "This module allows students to integrate knowledge of pathophysiology, health assessment, principles of medical and nursing management and pharmacology related to gastrointestinal, musculoskeletal, renal, urinary and immunological conditions. Students will also develop critical thinking skills through conducting health assessments, interpreting results of diagnostic investigations and problem-solving.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "preclusion": "NUR2116 and NUR2118",
+    "title": "Pathophysiology, Pharmacology and Nursing Practice II"
+}

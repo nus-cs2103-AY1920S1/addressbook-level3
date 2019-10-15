@@ -1,0 +1,29 @@
+{
+    "courseCode": "FIN4719",
+    "courseCredit": "4",
+    "description": "Technologies are transforming and disrupting the financial services industry. This module introduces financial data analytics by integrating finance domain knowledge and programming skills together. The module aims to give students an understanding on how technological advances can assist and improve various functions in the financial services industry, and equip students with the technical tools and programming skills that can assist with decision making in the financial services industry. It will also benefit students aspiring to enter the growing FinTech-related sectors.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN4124 FinTech and Financial Data Analytics",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "FIN3702",
+                    "QF3101"
+                ]
+            },
+            {
+                "or": [
+                    "DAO2702",
+                    "DSC2008",
+                    "CS1010",
+                    "CS1010E",
+                    "CS1010S",
+                    "CS1010X",
+                    "CS1101S"
+                ]
+            }
+        ]
+    },
+    "title": "FinTech and Financial Data Analytics"
+}

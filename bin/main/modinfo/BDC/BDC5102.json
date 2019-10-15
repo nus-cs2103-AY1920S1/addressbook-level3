@@ -1,0 +1,7 @@
+{
+    "courseCode": "BDC5102",
+    "courseCredit": "4",
+    "description": "This module introduces students to some of the main stochastic models used in engineering and management science applications: discrete-time Markov chains, Poisson processes, birth and death processes and other continuous Markov chains, renewal reward processes, Markov decision problems. The primary objective of the module is to provide graduate students with foundational and critical knowledge on probability models and stochastic processes.",
+    "faculty": "NUS Business School",
+    "title": "Stochastic Operations Research Models"
+}

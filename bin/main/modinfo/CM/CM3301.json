@@ -1,0 +1,8 @@
+{
+    "courseCode": "CM3301",
+    "courseCredit": "4",
+    "description": "This module covers forensic identification, criminalistics, DNA profiling, narcotics and toxicology. Topics on forensic identification and criminalistics includes crime scene investigation, nature of physical evidence, characteristics of evidence, an in-depth study of glass and fibre as sources of evidence in criminalistics investigations. For DNA profiling, this module would focus on screening methods for biological materials, the various instrumentation platforms and the application of forensic DNA in Singapore crime cases. In narcotics, the topics covered include forensic drug analysis and legislation, clandestine drug manufacturing, drug metabolism and analysis of urine for drug abuse. For toxicology, an in-depth study of toxicological analysis will be covered.",
+    "faculty": "Science",
+    "prereqTree": "GEK1542",
+    "title": "Advanced Forensic Science"
+}

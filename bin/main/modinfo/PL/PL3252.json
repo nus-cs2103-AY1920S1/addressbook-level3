@@ -1,0 +1,14 @@
+{
+    "courseCode": "PL3252",
+    "courseCredit": "4",
+    "description": "This module offers an exploration of current socialcognitive research on emotions. Emotions are complex, multiply-determined states that influence our experiences, biochemistry, thinking, actions, relationships, motivations, and behaviours, as well as our health. Topics to be covered in this module include 'what is the nature of emotion?', 'what functions, if any, do specific emotions serve?', 'what are their antecedents and their consequences?', among others. The discussion of emotion will stretch across various sub-disciplines in psychology, such as developmental psychology, biological psychology, social and personality psychology, cognitive neuroscience, social-cognition, cross-cultural psychology and evolutionary psychology.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PL3880B",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL3235"
+        ]
+    },
+    "title": "Social-Cognitive Perspectives on Emotion"
+}

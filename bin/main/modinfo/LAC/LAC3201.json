@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAC3201",
+    "courseCredit": "4",
+    "description": "This is an intermediate Chinese module which is a continuation of Chinese 2. It consists of three main components: conversation, grammar and Chinese character learning. Another 160 Chinese characters and 260 phrases will be introduced. Students are also required to give short speeches and project presentations in the tutorials. Students' language skills in listening, speaking, reading and writing are further strengthened.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAC3202"
+    ],
+    "prereqTree": "LAC2201",
+    "title": "Chinese 3"
+}

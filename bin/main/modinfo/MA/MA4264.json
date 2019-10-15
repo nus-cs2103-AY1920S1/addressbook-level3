@@ -1,0 +1,27 @@
+{
+    "courseCode": "MA4264",
+    "courseCredit": "4",
+    "description": "Game theory provides a mathematical tool for multi-person decision making. The aim of this module is to provide an introduction to game theory, studying basic concepts, models and solutions of games and their applications. Major topics: Games of normal form and extensive form; Applications in Economics; Relations between game theory and decision making. Games of complete information: Static games with finite or infinite strategy spaces, Nash equilibrium of pure and mixed strategy; Dynamic games, backward induction solutions, information sets, subgame-perfect equilibrium, finitely and infinitely repeated games. Games of incomplete information: Bayesian equilibrium; First price sealed auction, second price sealed auction, and other auctions; Dynamic Bayesian games; Perfect Bayesian equilibrium; Signaling games. Cooperative games: Bargaining theory; Cores of n-person cooperative games; The Shapley value and its applications in voting, cost sharing, etc.",
+    "faculty": "Science",
+    "preclusion": "EC3312.",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA3236",
+                    "MA3252",
+                    "DSC3214",
+                    "DSN3701"
+                ]
+            },
+            {
+                "or": [
+                    "MA2216",
+                    "ST2131",
+                    "ST2334"
+                ]
+            }
+        ]
+    },
+    "title": "Game Theory"
+}

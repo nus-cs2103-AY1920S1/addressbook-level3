@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6131",
+    "courseCredit": "4",
+    "description": "This course covers various basic and selected advanced topics in wireless communication. It begins with an overview of current wireless systems and standards, followed by a mathematical characterization of the wireless channel. It then examines the fundamental capacity limits of wireless channels and the characteristics of the capacity-achieving transmission strategies. This part is followed by practical digital modulation techniques and their performance under wireless channel impairments, including diversity techniques to compensate for flat-fading, multicarrier modulation to combat frequency-selective fading, and multiple antenna space-time communications. The course concludes with a discussion of various practical multiple access schemes in wireless cellular systems.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE5137",
+            "EE5137R",
+            "EE5306"
+        ]
+    },
+    "title": "Wireless Communications (Advanced)"
+}

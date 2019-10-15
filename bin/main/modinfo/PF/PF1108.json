@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PF1108",
+    "courseCredit": "4",
+    "description": "This module covers aspects of building performance in relation to technical and human requirements. Major topics include external and climatic effects including pollution, humidity, solar radiation sky illuminance, and noise; role and performance of building elements; passive and active control; air-conditioning and natural ventilation, artificial and daylighting; indoor air quality; building acoustics; human requirements.",
+    "faculty": "Design and Environment",
+    "preclusion": "PF1104",
+    "title": "Introduction to Building Performance"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "ESP5402",
+    "courseCredit": "4",
+    "description": "This module aims to provide fundamental theory of transport phenomena and train the student in mathematical modelling. The former comprises the derivation and understanding of the macroscopic and microscopic conservation laws for mass, momentum, and energy, together with the relevant constitutive relations and boundary conditions; the latter focuses on simplified back-of-the-envelope calculations such as scaling and dimensional analysis to complement and aid in the interpretation of results. These concepts are applied to a wide array of simplified as well as industrially relevant problems with focus on energy systems, where mathematical models are constructed, solved numerically or analytically and finally presented.",
+    "faculty": "Engineering",
+    "title": "Transport Phenomena in Energy Systems"
+}

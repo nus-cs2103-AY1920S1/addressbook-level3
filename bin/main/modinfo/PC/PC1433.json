@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PC1433",
+    "courseCredit": "4",
+    "description": "The module consists of two parts. In Part 1, students will be introduced to the concepts and principles of mechanics of rigid bodies and their applications to solve practical problems. The topics to be covered include: force systems, equilibrium, kinematics of particles, kinetic of particles, work and energy, impulse and momentum, kinetics of system of particles, kinematics of rigid bodies, damped and undamped vibrations. In Part 2, students will be introduced to the fundamentals of wave mechanics. General description of wave propagation; types of waves: longitudinal, transverse and circular waves; speed of a travelling wave; propagation of energy and momentum; power and intensity; sound waves, oscillations of a string; light waves; superposition of waves; interference; standing waves, resonant waves; harmonics; resonance.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ESP2106",
+        "PC2193",
+        "PC2133",
+        "PC2132",
+        "PC2130B"
+    ],
+    "preclusion": "STUDENTS WHO HAVE PASSED EITHER PC1141 OR PC1431 OR PC1431FC OR PC1431X ARE NOT ALLOWED TO TAKE THIS MODULE.",
+    "title": "Mechanics and Waves"
+}

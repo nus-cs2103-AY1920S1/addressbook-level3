@@ -1,0 +1,13 @@
+{
+    "courseCode": "FNA4112E",
+    "courseCredit": "4",
+    "description": "This course aims to impart skills to help individuals manage their personal finances, and private wealth. Topics The course has two parts. Part I covers basic aspects of financial planning: Understanding key steps in financial planning Financial statements and ratios Time value of money Short and long term financial planning Liquidity management Credit management The second part of the course focuses on private wealth management. Topics include: Fixed income investment strategies Equity investment strategies Mutual funds Structured products Hedge funds and other alternative investments Investing in real estate Taxation, estate planning and wealth protection Target Audience The course is primarily intended for individuals who wish to improve their money management skills. However, it is also suitable for those who aspire to be independent financial advisors or a career in private wealth management.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "and": [
+            "FNA3101",
+            "ST1131A"
+        ]
+    },
+    "title": "SIF: Personal Finance and Private Wealth Management"
+}

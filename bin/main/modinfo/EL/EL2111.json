@@ -1,0 +1,14 @@
+{
+    "courseCode": "EL2111",
+    "courseCredit": "4",
+    "description": "The module aims to introduce how language change can take place orthographically, phonologically, grammatically and lexically. These changes do not take place at random but can be usefully accounted for by considering the socio-cultural contexts of use. The major topics covered include the history of English in Britain, English in North America and the New Englishes including Singaporean English. This module is suitable for students intending to read English Language as a major, as well as other interested students.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EL2211",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Historical Variation in English"
+}

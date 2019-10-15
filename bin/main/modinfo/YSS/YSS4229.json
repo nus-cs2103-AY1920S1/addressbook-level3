@@ -1,0 +1,18 @@
+{
+    "courseCode": "YSS4229",
+    "courseCredit": "5",
+    "description": "This course explores anthropological perspectives on how human rights discourses are produced and used in the world today. While the modern idea of human rights was only formalized in the aftermath of the Second World War, since that time, human rights discourses have spread around the world and been adopted transnationally by widely varying actors. Starting from the premise that the transnational discourse of rights must be understood in local contexts, we will explore the meaning and use of human rights from different perspectives.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC2121",
+            {
+                "or": [
+                    "YSS3277",
+                    "YSS3202"
+                ]
+            }
+        ]
+    },
+    "title": "The Anthropology of Human Rights"
+}

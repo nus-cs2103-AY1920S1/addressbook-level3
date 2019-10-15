@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1544",
+    "courseCredit": "4",
+    "description": "Games being a form of human activities since antiquity are often played with strategies that require critical thinking and decision making. Many of the number games like the game of nim have a rich mathematics favour. Real life social games contain combinatorial and probabilistic strategies. Simple economic activities can also be modelled in terms of games. In this module, selected real-life social games are discussed and treated in ways that bring out their mathematical creativity. The objective is to let students gain an appreciation of mathematics, its beauty and applications through the discussion of some of these games. In particular, we give an introduction of elementary non-zero sum and non-cooperative game as developed by von Neumann and Nash.",
+    "faculty": "Science",
+    "preclusion": "GET1018.",
+    "title": "The Mathematics of Games"
+}

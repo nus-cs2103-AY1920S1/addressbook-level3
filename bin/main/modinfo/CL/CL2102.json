@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CL2102",
+    "courseCredit": "4",
+    "description": "This module is designed to provide students with a systematic knowledge of Chinese phonology. The topics covered are syllable, intonation, the Neutral Tone, the diminutive marker &quot;er&quot;, the influence of phonology on lexicon and grammar, etc. The differences and commonalities between Standard Chinese and the various dialects will be discussed whenever pertinent. Students will do 3-4 exercises and an essay about 2500 characters. The course is designed for students across the University with an interest in the Chinese language.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "CL2202",
+    "title": "Chinese Phonetics"
+}

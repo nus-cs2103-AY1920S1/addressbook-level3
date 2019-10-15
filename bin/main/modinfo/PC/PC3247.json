@@ -1,0 +1,17 @@
+{
+    "courseCode": "PC3247",
+    "courseCredit": "4",
+    "description": "The objective of this module is to establish the interconnectedness of knowledge between principles of optics and modern sciences/technologies and identify the applications in our daily life. It covers wave properties, refraction and dispersion, interference, Michelson interferometer, Fabry-Perot cavity and optical resonator, interference filter, Fraunhofer and Fresnel diffraction, resolution limit, Fourier transformation, holography; polarisation, birefringence and wave plates, light absorption and emission, lasers. This module is targeted at physics and non-physics students, who are interested in principles of modern optics.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC5247"
+    ],
+    "preclusion": "PC2231",
+    "prereqTree": {
+        "or": [
+            "PC2131",
+            "EE2005"
+        ]
+    },
+    "title": "Modern Optics"
+}

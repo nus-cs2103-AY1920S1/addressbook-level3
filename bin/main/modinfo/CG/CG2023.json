@@ -1,0 +1,18 @@
+{
+    "courseCode": "CG2023",
+    "courseCredit": "4",
+    "description": "This is a fundamental course in signals and systems, specially developed for computer engineering students. Signals play an important role in carrying information. In particular the idea of frequency domain analysis of signals and systems are important concepts for all computer engineers. The concepts which will be covered include time and frequency domain representations, Fourier transform, spectrum and bandwidth of a signal, frequency response of systems (Bode diagrams), sampling theorem, aliasing, signal reconstruction, and filtering.",
+    "faculty": "Multi Disciplinary Programme",
+    "fulfillRequirements": [
+        "EE4704",
+        "EE4205"
+    ],
+    "preclusion": "EE2023 Signals and Systems",
+    "prereqTree": {
+        "or": [
+            "MA1506",
+            "MA1512"
+        ]
+    },
+    "title": "Signals and Systems"
+}

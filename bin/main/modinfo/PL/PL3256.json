@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3256",
+    "courseCredit": "4",
+    "description": "Infant development refers to changes in cognitive, social and motor abilities that occur during the first year of life. The course will include an overview of research methods in psychological research on infants and of psychological theories that have inspired infancy research. Research in prenatal development that bears on infant cognitive development will be covered. In addition, recent research on visual perception, linguistic development, numerical knowledge, categorization, social\u2010emotional development and motor development will be covered.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3234"
+        ]
+    },
+    "title": "Infant Development"
+}

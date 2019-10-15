@@ -1,0 +1,14 @@
+{
+    "courseCode": "MKT3761A",
+    "courseCredit": "4",
+    "description": "This course is designed to introduce students to the world of wealth management marketing, and to give them an indepth understanding of the challenges and complexities of marketing in a highly regulated and rapidly evolving industry. Students will get practical insights into the use of marketing applications in product, segment and service marketing in the retail, affluent and private banking sectors. It aims to hone their skills to improve the effectiveness of the marketing strategies, techniques and programs to meet the demanding priorities of the client, the business and the regulators in this fast-changing and regulated landscape.",
+    "faculty": "NUS Business School",
+    "preclusion": "MKT3422A; MKT3428.",
+    "prereqTree": {
+        "or": [
+            "MKT1705",
+            "MKT1705X"
+        ]
+    },
+    "title": "TIM: Wealth Management Marketing"
+}

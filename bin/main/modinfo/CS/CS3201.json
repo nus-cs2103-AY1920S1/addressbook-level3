@@ -1,0 +1,23 @@
+{
+    "courseCode": "CS3201",
+    "courseCredit": "4",
+    "description": "This module is the first part of a two-part series on the practice of software engineering in Software Development Life Cycle (SDLC). These two modules together provide the students with hands-on experience in working in project groups through a complete SDLC to develop a well-designed, welltested, large-scaled software system. This first part focuses on applying best software engineering practices on the analysis and design of software system. The students will practice analysis of user\u2019s needs, formulation of computing requirements to meet the user\u2019s needs, modeling and design of the computer systems according to the requirements, and evaluation of the design.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CP3106",
+        "UIS3953R"
+    ],
+    "preclusion": "CS3215",
+    "prereqTree": {
+        "and": [
+            "CS2103",
+            {
+                "or": [
+                    "CS2101",
+                    "IS2101"
+                ]
+            }
+        ]
+    },
+    "title": "Software Engineering Project I"
+}

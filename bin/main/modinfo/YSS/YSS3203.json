@@ -1,0 +1,8 @@
+{
+    "courseCode": "YSS3203",
+    "courseCredit": "5",
+    "description": "The field of behavioral economics draws on insights from other disciplines, especially psychology, to enrich our understanding of economic behaviour and decision making generally. Individuals frequently make decisions that systematically depart from the predictions of standard economic models. In this course we will attempt to understand these departures by integrating the psychology of human behavior into economic analysis. This course analyzes all types of decisions made by agents on a daily basis (from which breakfast to have to where to send the kids for education, etc.). Special focus will be put on decision making in a context of bounded rationality.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YSS2203",
+    "title": "Behavioral Economics"
+}

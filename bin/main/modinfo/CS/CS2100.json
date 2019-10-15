@@ -1,0 +1,16 @@
+{
+    "courseCode": "CS2100",
+    "courseCredit": "4",
+    "description": "The objective of this module is to familiarise students with the fundamentals of computing devices. Through this module students will understand the basics of data representation, and how the various parts of a computer work, separately and with each other. This allows students to understand the issues in computing devices, and how these issues affect the implementation of solutions. Topics covered include data representation systems, combinational and sequential circuit design techniques, assembly language, processor execution cycles, pipelining, memory hierarchy and input/output systems.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6284",
+        "CS2106",
+        "CS3210",
+        "CS3237",
+        "EE5902"
+    ],
+    "preclusion": "CS1104 or Students from Department of ECE",
+    "prereqTree": "CS1010",
+    "title": "Computer Organisation"
+}

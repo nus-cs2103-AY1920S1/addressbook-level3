@@ -1,0 +1,13 @@
+{
+    "courseCode": "IS4261",
+    "courseCredit": "4",
+    "description": "The module will teach students how to create innovation-driven business model through both process innovation and product innovation. The focus is on businesses that are technology innovation driven. The module contents will cover disruptive technologies, cross-channel business model development, mobilization of networked business, canvas drawing, social media-based product and marketing innovation, etc. In particular, students will learn how to identify technology innovation opportunities and manage innovation process. The students can appreciate the value of IT ecosystems and platform-based business operations.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "IS3103",
+            "IS3101"
+        ]
+    },
+    "title": "Designing IT-enabled Business Innovations"
+}

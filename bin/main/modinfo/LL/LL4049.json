@@ -1,0 +1,13 @@
+{
+    "courseCode": "LL4049",
+    "courseCredit": "4",
+    "description": "Conflict of Laws addresses three fundamental questions in international civil litigation: (1) Which country should hear the case? (2) Which law should be applied? (3) What is the effect of a foreign judgment? This course focuses on the second question, examining the theories, techniques and methods in choice of law, and issues in the exclusion of foreign law. Coverage includes problems in contract and torts, and other areas that may be selected from time to time. Coverage is primarily from the point of view of the common law which applies in Singapore, but references will be made from time to time to techniques used in other jurisdictions. This course is complementary to International Commercial Litigation (which focuses on Questions (1) and (3)), but it also stands on its own as an introduction to the conflict of laws.",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL6191",
+        "LL5191",
+        "LL4191"
+    ],
+    "preclusion": "Commercial Law in Cross-Border Applications (LL4356C / LS5369) and Introduction to Private International Law (LM5308 /LC5308 / LD5308).",
+    "title": "Principles Of Conflict Of Laws"
+}

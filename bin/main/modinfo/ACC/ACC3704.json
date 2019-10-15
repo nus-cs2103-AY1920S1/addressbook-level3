@@ -1,0 +1,18 @@
+{
+    "courseCode": "ACC3704",
+    "courseCredit": "4",
+    "description": "The module covers financial accounting at an advanced level, with a focus on business combination accounting, group accounting (subsidiaries, associates and joint arrangements), foreign currency accounting (transactions and translation) and related party disclosures.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC4714",
+        "ACC4715"
+    ],
+    "preclusion": "ACC3606",
+    "prereqTree": {
+        "and": [
+            "ACC2707",
+            "ACC2708"
+        ]
+    },
+    "title": "Advanced Corporate Accounting and Reporting"
+}

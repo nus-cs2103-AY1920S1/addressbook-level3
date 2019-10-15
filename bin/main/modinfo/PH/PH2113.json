@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PH2113",
+    "courseCredit": "4",
+    "description": "This module introduces students to the basic principles of computation, particularly as they pertain to philosophy and related fields. Along the way, students will develop fluency with Python, a popular and easyto-learn programming language. Although the course will contain philosophical themes, it may serve as a general introduction to computation for students in all disciplines.",
+    "faculty": "Arts and Social Science",
+    "title": "Computation and Philosophy"
+}

@@ -1,0 +1,18 @@
+{
+    "courseCode": "LSM2191",
+    "courseCredit": "4",
+    "description": "This module introduces the theory and practical applications of techniques used in molecular biology and protein biochemistry. Factual knowledge in recombinant DNA techniques, such as RNA isolation, reverse transcription, polymerase chain reaction, recombinant DNA construction and recombinant protein expression; and in protein purification, such as liquid chromatography, polyacrylamide gel electrophoresis and western blotting, will be integrated with laboratory practice.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM3247",
+        "LSM3227",
+        "CM3242"
+    ],
+    "prereqTree": {
+        "or": [
+            "LSM1102",
+            "LSM1106"
+        ]
+    },
+    "title": "Laboratory Techniques in Life Sciences"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "SPH5302",
+    "courseCredit": "4",
+    "description": "Exposure to environmental hazards such as toxins, chemicals, biological agents, noise and radiation are oftentimes unavoidable, especially in the workplace setting. This module covers basic concepts as well as specific topics on Toxicology and Industrial Hygiene that are relevant to current occupational and public health practice. Emphasis will be on the approach to major environmental and occupational toxins and hazards. Case studies will be used to allow participants the opportunity to practise effective problem-solving skills.",
+    "faculty": "SSH School of Public Health",
+    "fulfillRequirements": [
+        "SPH5303"
+    ],
+    "preclusion": "CO5305 Industrial Hygiene\nCO5306 Public Health Toxicology",
+    "title": "Occupational Toxicology and Industrial Hygiene"
+}

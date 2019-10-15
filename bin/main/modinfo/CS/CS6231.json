@@ -1,0 +1,14 @@
+{
+    "courseCode": "CS6231",
+    "courseCredit": "4",
+    "description": "This module aims to prepare PhD students for research in security and privacy, by investigating security issues in various theoretical as well as system computer science areas such as software, networks, data analytics and machine learning, etc. It addresses security and privacy concepts and design principles from an adversarial perspective. Selected topics in security and privacy are covered, such as software security, applied cryptography, privacy-preserving data analysis, and design of secure distributed systems. Emerging topics of current research interests may be included as well.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS4236",
+            "CS3235",
+            "CS5231"
+        ]
+    },
+    "title": "Advanced Topics in Security and Privacy"
+}

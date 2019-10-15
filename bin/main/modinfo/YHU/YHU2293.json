@@ -1,0 +1,11 @@
+{
+    "courseCode": "YHU2293",
+    "courseCredit": "5",
+    "description": "This module will introduce students to the practice of writing fiction, primarily the short story. Students will learn about character development, scene, setting, dialogue and other important elements. Weekly exercises and readings will form a foundation from which students can build their understanding of the craft of fiction.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YHU4215"
+    ],
+    "preclusion": "YHU1212",
+    "title": "Introduction to Fiction Writing"
+}

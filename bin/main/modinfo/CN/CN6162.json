@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CN6162",
+    "courseCredit": "4",
+    "description": "Survey of functional polymers. Polymer applications in photoresists, e-beam resists, printed wiring as encapsulants in polymer blends and polymer membranes. Electroactive polymers. Polymers in optoelectronics. Surface modified and functionalized polymers. Miscibility in polymer blends. Membrane science. Membrane making and membrane characterization.",
+    "faculty": "Engineering",
+    "preclusion": "CN5162",
+    "title": "Advanced Polymeric Materials"
+}

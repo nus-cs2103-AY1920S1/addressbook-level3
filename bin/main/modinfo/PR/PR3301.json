@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "ssgf": true
+    },
+    "courseCode": "PR3301",
+    "courseCredit": "4",
+    "description": "Learning objectives: This module will introduce the principles of formulation, manufacturing technology and product quality assurance of a range of commonly used pharmaceutical dosage forms. Students will learn a body of technical knowledge and acquire practical skills in the manufacture and product quality evaluation of solutions, emulsions, suspensions, ointments, gels, suppositories, sterile products, microcapsules, capsules, tablets, inhalation products, powders and controlled-release products. Target students: Candidates without a Bachelor degree in Pharmacy will have to read this module as a Bridging Module.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR5302",
+        "PR5303",
+        "PR4206",
+        "PR4204"
+    ],
+    "preclusion": "Pharmacy Major",
+    "title": "Pharmaceutical Dosage Forms"
+}

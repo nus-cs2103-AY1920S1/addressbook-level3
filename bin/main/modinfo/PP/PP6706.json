@@ -1,0 +1,8 @@
+{
+    "courseCode": "PP6706",
+    "courseCredit": "4",
+    "description": "This is the second in a two-module series in research methods in public policy. This module provides a more in-depth understanding of the theory and practice of empirical methods, both quantitative and qualitative, used to study the causal effects of policy on observed outcomes. It focuses on the applications of econometric techniques to policy research with real world data sets. Students apply these techniques to real-life case studies and present analyses in class.",
+    "faculty": "LKY School of Public Policy",
+    "prereqTree": "PP6701",
+    "title": "Quantitative Methods for Public Policy Research"
+}

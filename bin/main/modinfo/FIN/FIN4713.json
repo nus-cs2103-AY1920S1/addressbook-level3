@@ -1,0 +1,30 @@
+{
+    "courseCode": "FIN4713",
+    "courseCredit": "4",
+    "description": "This advanced Seminar in Finance module will serve as a comprehensive real world examination of the quantitative, fundamental, behavioral, and model-based approaches utilized for performing security valuation in the financial industry. Major topics covered include Discounted Cash Flow Valuation, Relative Valuation, Multifactor Models, Liquidity, and Value Enhancement Strategies. Lectures will involve frequent interaction with practitioners from the industry, hands-on lab projects, and real-life examples. Students are also expected to research, write, and publish equity investment reports (preferably on companies with limited research analyst coverage) and/or portfolio investment strategies. These individual equity reports and a presentation in the form of a team-based stock pitch will subsequently be presented by the students to a panel of senior members from the Singapore investment management industry so as to showcase & ascertain students? equity research and stock-picking skills. There may also be an opportunity to put our skills to the test and manage real money (i.e., a live student-managed fund) during the course of the semester. This course is suitable for students interested in a career as a financial analyst (both on the buy-side and sell-side), or as a portfolio manager.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN4115",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    {
+                        "or": [
+                            "ACC1701",
+                            "ACC1701X",
+                            "EC2204"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "FIN3701",
+                            "RE3807"
+                        ]
+                    }
+                ]
+            },
+            "FIN3702"
+        ]
+    },
+    "title": "Advanced Portfolio Management: Securities Analysis & Valuation"
+}

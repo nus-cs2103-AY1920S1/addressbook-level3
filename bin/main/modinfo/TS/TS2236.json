@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS2236",
+    "courseCredit": "4",
+    "description": "Intended for students majoring in Theatre Studies, this module aims to explore how the boundaries of social and cultural identities are constructed and crossed in performance. By looking at various forms of performance texts, it will examine a) racial and gender identities represented in the body and language, b) patterns of image-making and c) the performative dynamics of the encounter between different identities. Throughout the course, students will be guided to address the questions of how the differences across the borderlines are represented and challenged and, also, whether these boundaries are ultimately directed towards specific cultural ends.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Crossing Boundaries in Performance"
+}

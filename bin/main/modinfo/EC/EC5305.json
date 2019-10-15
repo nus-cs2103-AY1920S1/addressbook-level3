@@ -1,0 +1,13 @@
+{
+    "courseCode": "EC5305",
+    "courseCredit": "4",
+    "description": "This module introduces students to numerical methods in economics commonly used to simulate and solve models in the fields of macroeconomics, international trade, finance, and industrial organization. The first half of the module focuses on learning the basic tools of numerical analysis including optimization, approximation, non-linear equations, numerical differentiation/integration and parallel computation. The second half of the module applies these tools to solving dynamic equilibrium models that are widely adopted for quantitativeapplied research in macroeconomics. No prior experience in coding is required, and this module aims at facilitating students\u2019 own development in MATLAB/FORTRAN programming.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EC5101",
+            "EC5102"
+        ]
+    },
+    "title": "Computational\u00a0Methods\u00a0in\u00a0Economics"
+}

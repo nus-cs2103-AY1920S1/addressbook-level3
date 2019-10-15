@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CN5111",
+    "courseCredit": "4",
+    "description": "Students will learn the fundamentals, methods and software for formulating and solving optimization problems of relevance to chemical engineering. They will study various methods of linear/nonlinear and unconstrained/constrained programming, which would enable them to select and use appropriate solution algorithm and/or software for solving a given problem. They will also execute the various steps in optimization and demonstrate their acquired knowledge by solving a sufficiently complex practical problem of their own choice in a term project. This is for graduate students who wish to learn optimization",
+    "faculty": "Engineering",
+    "title": "Optimization of Chemical Processes"
+}

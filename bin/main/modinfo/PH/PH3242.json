@@ -1,0 +1,13 @@
+{
+    "courseCode": "PH3242",
+    "courseCredit": "4",
+    "description": "The self is a philosophical crossroads where mind, metaphysics, and morals come together to bear on questions of profound interest to all who partake of the human condition. Topics to be covered include the spatial and temporal boundaries of the self, the rationality (or otherwise) of the fear of death, the idea that the self is an illusion, the idea that it is a social construction, and the relative importance of biology, psychology, and phenomenology to the question of who we are.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "PH2213",
+            "PH2241"
+        ]
+    },
+    "title": "The Self"
+}

@@ -1,0 +1,24 @@
+{
+    "courseCode": "FIN3117",
+    "courseCredit": "4",
+    "description": "This course builds on basic financial theory and the principles courses in economics. It addresses topics that are important for managing financial institutions in a rapidly changing national and global environment. Upon successful completion of the course, student should be able to understand the role of financial institutions in the economy; explain why banks are unique, and therefore merit special attention; to understand the analytical foundations underlying financial institutions management, and be able to use them to analyse important financial issues, including financial crisis; be familiar with risk management techniques to deal with the various risks banks and other financial institutions face.",
+    "faculty": "NUS Business School",
+    "preclusion": "Students who have passed FNA3117 are not allowed to take FIN3117. Not for students who have passed FE5105.",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "FNA2004",
+                    "FIN2004"
+                ]
+            },
+            {
+                "or": [
+                    "FNA3102",
+                    "FIN3102"
+                ]
+            }
+        ]
+    },
+    "title": "Bank Management"
+}

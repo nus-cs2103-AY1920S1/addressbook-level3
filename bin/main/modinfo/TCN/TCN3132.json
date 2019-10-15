@@ -1,0 +1,24 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TCN3132",
+    "courseCredit": "5",
+    "description": "In this module, equilibrium stage and rate-based design concepts in separation processes are introduced. Starting from simple stage, binary separation, the theoretical treatment is extended to multi-component, multi-stage processes. After brief introduction to inter-phase mass transfer, basic concepts in rate-based design for the more important separation processes such as absorption and distillation are illustrated. The rate-based design concept is then extended to operations involving simultaneous heat and mass transfer such as in cooling tower and dryer. The process design principles are illustrated with distillation, absorption, extraction, adsorption, cooling tower and drying processes.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TCN4122",
+        "TCN4215"
+    ],
+    "preclusion": "TC2113, CN3132E",
+    "prereqTree": {
+        "or": [
+            "TCN1111",
+            "TCN2121",
+            "TCN2125"
+        ]
+    },
+    "title": "Separation Processes"
+}

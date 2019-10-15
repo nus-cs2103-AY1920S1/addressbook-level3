@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EU2217",
+    "courseCredit": "4",
+    "description": "This introductory course gives students a basic understanding of the ideas, institutions, and actors that influence the political life of modern Europe. We explore the domestic politics of several European states including France, and the U.K., as well as relations among European states before and after World War II, with special attention to European integration. While most of our attention will be devoted to western Europe, we will discuss political transitions in eastern Europe and the process of EU expansion. The module is intended for students in European Studies, Political Science, and others with an interest in Europe.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EU2208, PS2236, PS2213, PS2206B",
+    "title": "European Politics"
+}

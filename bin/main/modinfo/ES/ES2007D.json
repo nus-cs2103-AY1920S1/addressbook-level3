@@ -1,0 +1,22 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ES2007D",
+    "courseCredit": "4",
+    "description": "The ES2007D Professional Communication course is a customized core module for Real Estate students in the School of Design and Environment. This course has been designed to help students develop their writing and oral skills to prepare them effectively for their prospective career in an increasingly global and competitive environment. Students learn to generate and organize ideas for clear, convincing and effective oral and written messages, present these ideas with linguistic and graphic competence and deliver messages appropriate to their audience, context and purpose. Topics include the fundamentals of interpersonal and intercultural communication, em ail/letter writing skills, report/proposal writing skills, meeting/negotiation skills, and oral presentation skills. Evaluation of competency is based on continual assessment.",
+    "faculty": "NUS",
+    "preclusion": "CS2301, ES2002, IS2101, CS2101, CG1413, ES1601.",
+    "prereqTree": {
+        "and": [
+            "ES1000",
+            {
+                "or": [
+                    "ES1102",
+                    "ES1103"
+                ]
+            }
+        ]
+    },
+    "title": "Professional Communication"
+}

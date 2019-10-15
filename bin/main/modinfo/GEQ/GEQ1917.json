@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "su": true,
+        "year": true
+    },
+    "courseCode": "GEQ1917",
+    "courseCredit": "4",
+    "description": "This inter-disciplinary module will provide foundational knowledge and skills relating to the emerging problem of sustainability. Probing questions about how humans impact and react to environmental change will be asked. Students will explore current and future global environmental change issues from the standpoints of science, technology, and policy. The science behind global change (climate variability and change, natural weather disasters such as floods and droughts, environmental degradation); human aspects of change (water crises and conflict, agriculture and food security, energy sustainability, climate, health); and technology and policy issues relating to mitigation and adaptation (renewable energy, carbon trading, water resource engineering, agricultural development) will be covered.",
+    "faculty": "Residential College",
+    "preclusion": "GEM1917 (twin-code)",
+    "title": "Understanding and Critiquing Sustainability"
+}

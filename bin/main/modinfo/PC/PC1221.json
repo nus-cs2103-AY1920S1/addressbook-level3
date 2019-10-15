@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PC1221",
+    "courseCredit": "4",
+    "description": "This module aims to bridge the gap between O level physics and 1st year university physics level. The module covers the fundamentals of two branches of physics: mechanics and thermodynamics. Topics included in the part on mechanics are linear motion, curvilinear motion, relative motion, circular motion, Newtons laws of motion, work and energy, conservation of energy, linear momentum and conservation, rotational kinematics, torque and moment of inertia, rotational dynamics, conservation of angular momentum, gravitation and planetary motion, static equilibrium, oscillatory motion and fluid mechanics. The part on thermodynamics encompasses topics such as temperature and zeroth law of thermodynamics, temperature scales, thermal expansion, heat and internal energy, thermal processes, first law of thermodynamics, ideal gas laws and kinetic theory of gasses. .",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CS3242"
+    ],
+    "preclusion": "A' LEVEL OR H2 PASS IN PHYSICS OR PC1141, OR PC1142 OR PC1431 OR PC1431FC or PC1431X OR PC1221FC or PC1221X",
+    "title": "Fundamentals of Physics I"
+}

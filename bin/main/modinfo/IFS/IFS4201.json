@@ -1,0 +1,12 @@
+{
+    "courseCode": "IFS4201",
+    "courseCredit": "8",
+    "description": "This module aims to equip students with a final exposure to working in industry with theories, methods and applications of information security. Students put their knowledge into practice solving security related problems to a specific, sizable industry project. Students will also sharpen communication skills through close team interactions, consultations, and formal presentations. Students will be jointly guided by supervisors from both the companies/organisations and the school. Their progress will be monitored during the internship period, and their performance will be assessed through letter grades at the end of internship. The project duration is expected to be approximately 16 weeks (full-time).",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "IFS4202"
+    ],
+    "preclusion": "IFS4205 (InfoSec capstone project)\nCS3205 (old code) has been changed to IFS4205",
+    "prereqTree": "CP3880",
+    "title": "Information Security Industry Capstone Project"
+}

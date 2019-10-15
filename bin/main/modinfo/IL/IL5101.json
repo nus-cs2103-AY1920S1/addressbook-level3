@@ -1,0 +1,10 @@
+{
+    "courseCode": "IL5101",
+    "courseCredit": "4",
+    "description": "IT leaders need to cultivate deep business knowledge to successfully enable business initiatives supported by IT. They must possess not only technical leadership but also the business acumen and strategic vision to create and monitor value from technology investments. Effective IT leaders participate in the setting of clear and concise technology-enabled business strategies to rejuvenate and transform their organization, exploit new business opportunities, and solve cross-functional business issues to deliver competitive advantage. Students will learn in this course the concepts and methodologies to formulate and implement business-IT strategies.",
+    "faculty": "Institute of Systems Science",
+    "fulfillRequirements": [
+        "IL5107"
+    ],
+    "title": "Strategic Alignment of Business and IT"
+}

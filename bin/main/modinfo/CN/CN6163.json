@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CN6163",
+    "courseCredit": "4",
+    "description": "The module begins with an introduction of how chemical engineering principles contribute to nanomaterials-driven sustainability. Following that is in-depth discourses on the fundamental concepts in the chemistry and physics of inorganic nanomaterials. Then, design of functional inorganic nanomaterials is introduced followed by the systematic discussion on synthesis, characterization, functionalization, properties and applications. Applications of these concepts would be realized in diverse, current and important sustainability topics such as inorganic nanomaterials for renewable energy generation and storage, green catalysis for fine chemicals, applications in environment and human health, and public concerns of inorganic nanomaterials exposure.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "CN5020",
+            "CN5030"
+        ]
+    },
+    "title": "Inorganic Nanomaterials for Sustainability"
+}

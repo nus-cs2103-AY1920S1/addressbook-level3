@@ -1,0 +1,14 @@
+{
+    "courseCode": "FIN3703A",
+    "courseCredit": "4",
+    "description": "This course seeks to provide an understanding of the role of financial markets in the economy. Topics to be covered include the importance of the structure (architecture) of the financial system, the functions of markets and institutions, and their implications for resource mobilisation, resource allocation, allocative efficiency, and risk management. In addition, we consider the structure of financial markets for different instruments, the range of instruments traded therein, and the mechanisms facilitating trade in financial assets, and an assessment of the structure and efficiency of these markets in Singapore vis-\u00e0-vis similar markets in other industrialised economies. To assess issues of efficiency and market structure, the course will include frequent references to markets in other economies, including the US, Australia, the UK, Hong Kong as well as other emerging market economics.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN3103",
+    "prereqTree": {
+        "or": [
+            "FIN2704",
+            "FIN2704X"
+        ]
+    },
+    "title": "Financial Markets"
+}

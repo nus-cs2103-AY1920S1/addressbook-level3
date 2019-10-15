@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EC2303",
+    "courseCredit": "4",
+    "description": "This is an introductory statistics course for economists. No prior background in statistics is needed as the course is intended to provide a rigorous statistical foundation for students who intend to study econometrics. The module begins with ways of summarizing economic data, including the use of frequency distributions and measures of central tendency and dispersion. This is followed by an initiation into the concepts of classical probability, paving the way for the important topics of random variables and probability distributions. Next, the core ideas of classical statistical inference are introduced - including sampling distributions, point and interval estimation, hypothesis testing and analysis of variance. Finally, correlation and regression analyses will be covered.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EC5387",
+        "EC5387R",
+        "EC3303",
+        "EC3305",
+        "BSS4003A",
+        "BSN4811",
+        "SPH3101"
+    ],
+    "preclusion": "All ST and SA modules, DSC1007 or DSC1007X, MA2216, BT1101",
+    "title": "Foundations for Econometrics"
+}

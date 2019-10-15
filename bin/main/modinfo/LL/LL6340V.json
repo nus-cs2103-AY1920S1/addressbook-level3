@@ -1,0 +1,19 @@
+{
+    "courseCode": "LL6340V",
+    "courseCredit": "5",
+    "description": "One of the most pressing current issues of international concern is the highest ever level of global displacement, with over twenty million refugees in the world. This course examines the international legal regime for the protection of refugees. With the 1951 Refugee Convention as its 'backbone', the course focuses on the 'refugee' definition, the exclusion and withdrawal of refugee status, status determination procedures, the rights of recognised refugees and asylum-seekers, the non-refoulement principle, complementary protection, States\u2019 responsibility-sharing, responsibility-shifting and deterrence of asylum-seekers, the status of Palestinian refugees, UNHCR\u2019s supervisory responsibility, and regional protection systems (particularly the Common European Asylum System).",
+    "faculty": "Law",
+    "preclusion": "LL4340/LL5340/LL6340 International Refugee Law",
+    "prereqTree": {
+        "or": [
+            "LL4050",
+            "LL5050",
+            "LL6050",
+            "LC5050",
+            "LL5050V",
+            "LL6050V",
+            "LC5050V"
+        ]
+    },
+    "title": "International Refugee Law"
+}

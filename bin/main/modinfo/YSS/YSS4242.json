@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSS4242",
+    "courseCredit": "5",
+    "description": "An anthropological study of contemporary Asian cities. Focus on new ethnographies about cities in East, Southeast, and South Asia. Topics include rural-urban migration, redevelopment, evictions, social movements, land grabbing, master-planned developments, heritage preservation, utopian aspirations, social housing, slums and precariousness, and spatial cleansing.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSS2227",
+            "YSS3202",
+            "YSS3277"
+        ]
+    },
+    "title": "Urban Ethnography of Asia"
+}

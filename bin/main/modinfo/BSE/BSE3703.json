@@ -1,0 +1,20 @@
+{
+    "courseCode": "BSE3703",
+    "courseCredit": "4",
+    "description": "This model introduces the science and art of building and using econometric models. It aims to equip business students to: (i) Understand and appreciate econometric analysis in economic and business reports; and (ii) Carry out estimation using least squares regression to support business analysis.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BSN4811A",
+        "BSS4003B"
+    ],
+    "preclusion": "RE3801 ; EC2303; EC3303.",
+    "prereqTree": {
+        "or": [
+            "BSP1703",
+            "BSP1707",
+            "EC1101E",
+            "EC1301"
+        ]
+    },
+    "title": "Econometrics for Business I"
+}

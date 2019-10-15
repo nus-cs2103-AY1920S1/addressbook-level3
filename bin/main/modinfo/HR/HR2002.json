@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "HR2002",
+    "courseCredit": "3",
+    "description": "This multi-disciplinary module, specially designed for students from the Faculty of Engineering, invites students to examine, from different perspectives, some major themes pertaining to the management of human capital in a knowledge-intensive world of industry today. Departing from the more conventional approaches, students will examine the dynamics of and constraints to individual and organisational behaviours in the context of the challenges posed by an increasingly competitive global landscape. In this module, students would be encouraged to critically evaluate how multiple \u2018intelligences\u2019 \u2013 emotional, social and professional \u2013 can be developed and tapped upon to help them effectively carry out the multi-faceted roles that they are oftentimes called upon to fulfil.",
+    "faculty": "NUS Business School",
+    "preclusion": "Students who have passed or are reading HR2001 or HR2101 or HR3111 are not allowed to take HR2002",
+    "title": "Human Capital in Organizations"
+}

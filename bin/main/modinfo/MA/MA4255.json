@@ -1,0 +1,22 @@
+{
+    "courseCode": "MA4255",
+    "courseCredit": "4",
+    "description": "Ordinary and partial differential equations are routinely used to model a variety of natural and social phenomena. This course is concerned with the basic theory of numerical methods for solving these equations. Through the study of this module, students will gain an understanding of (1) various numerical integration schemes for solving ordinary differential equations, and (2) finite difference methods for solving various linear partial differential equations. Major topics: (ODE) One-step and linear multistep methods, Runge-Kutta methods, A-stability, convergence; (PDE) Difference calculus, finite difference methods for initial value problems, boundary value problems, and initial-boundary value problems, consistency, stability analysis via von Neumann method and matrix method, convergence, Lax Equivalence Theorem.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5233"
+    ],
+    "preclusion": "ME4233",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA2213",
+                    "DSA2102"
+                ]
+            },
+            "MA3220"
+        ]
+    },
+    "title": "Numerical Methods in Differential Equations"
+}

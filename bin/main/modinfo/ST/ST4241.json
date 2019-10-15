@@ -1,0 +1,13 @@
+{
+    "courseCode": "ST4241",
+    "courseCredit": "4",
+    "description": "This course will provide an introduction to the design and analysis of clinical trials. Emphasis is on the statistical aspects. Topics include introduction to clinical trials, phases of clinical trials, objectives and endpoints, the study cohort, controls, randomization and blinding, sample size determination, treatment allocation, monitoring trial progress: compliance, dropouts and interim analyses, monitoring for evidence of adverse or beneficial treatment effects, ethical issues, quality of life assessment, data analysis involving multiple treatment groups and endpoints, stratification and subgroup analysis, intent to treat analysis, analysis of compliance data, surrogate endpoints, multi-centre trials and good practice versus misconduct. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "ST3242",
+            "ST2132"
+        ]
+    },
+    "title": "Design & Analysis of Clinical Trials"
+}

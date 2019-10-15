@@ -1,0 +1,8 @@
+{
+    "courseCode": "MLE4204",
+    "courseCredit": "4",
+    "description": "This module teaches the synthesis and growth of various nanostructures. Major topics are: techniques that are used in synthesis and growth of nanostructures, including clusters, nanodots, nanowells, nanotubes, nanowires, nanocomposite particles, nanostructured thin films and multi-layers; patterning and self-assembly techniques; thermodynamics and kinetics of nanostructures; characterization techniques for nanostructures.",
+    "faculty": "Engineering",
+    "prereqTree": "MLE2101",
+    "title": "Synthesis And Growth Of Nanostructures"
+}

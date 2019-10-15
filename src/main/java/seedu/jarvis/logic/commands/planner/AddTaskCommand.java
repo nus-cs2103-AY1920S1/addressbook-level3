@@ -12,7 +12,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.planner.Task;
+import seedu.jarvis.model.planner.tasks.Task;
 
 /**
  * Adds a task to JARVIS
@@ -91,5 +91,12 @@ public class AddTaskCommand extends Command {
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         return null;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddTaskCommand // instanceof handles nulls
+                && toAdd.equals(((AddTaskCommand) other).toAdd));
     }
 }

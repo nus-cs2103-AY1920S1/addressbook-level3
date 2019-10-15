@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MNO1706D",
+    "courseCredit": "4",
+    "description": "This course is designed to introduce students to human behavior in organizational contexts. The study of organizational behavior involves examining processes at the individual, group and organizational levels. Both theoretical and applied approaches will be developed. Instructional methods include lectures, experiential exercises, group activities, videos and case studies. Extensive class participation is expected.",
+    "faculty": "NUS Business School",
+    "preclusion": "MNO1001; MNO1001X; PL3239",
+    "title": "Organisational Behavior"
+}

@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2719",
+    "courseCredit": "4",
+    "description": "This module provides a systems reading of social and economic thought with emphasis on the experience of Singapore. This module will outline the major contributions and weaknesses of received theory and critique them from an interdisciplinary or systems angle. It will contrast the methodological differences between the price-led systems and demand-led systems. Lastly, it will draw on the historical experience of Singapore to illustrate the differences between the behavioural-deductive and systems-inductive approaches to studying social and economic performance.",
+    "faculty": "Residential College",
+    "preclusion": "UTS2710 or UTC27%",
+    "prereqTree": {
+        "or": [
+            "GEM1918",
+            "GEM1919",
+            "UTC1700",
+            "UTC1701",
+            "UTC1702"
+        ]
+    },
+    "title": "Society and Economy in Singapore: A Systems View"
+}

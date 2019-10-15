@@ -1,0 +1,15 @@
+{
+    "courseCode": "CS4212",
+    "courseCredit": "4",
+    "description": "The objective of this module is to introduce the principal ideas behind program compilation, and discusses various techniques for program parsing, program analysis, program optimisation, and run-time organisation required for program execution. Topics covered include regular expressions, context-free grammars, lexical analysis, syntax analysis; different algorithms for parsing codes, such as top-down parsing, bottom-up parsing; translation to abstract syntax using modern parser generator technology, intermediate representation, semantics analysis, type system, un-optimised code generation, code optimisation, data-flow analysis, instruction scheduling.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5214",
+        "CS5218",
+        "CS5271",
+        "CS6202",
+        "CS6215"
+    ],
+    "prereqTree": "CS2104",
+    "title": "Compiler Design"
+}

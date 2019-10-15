@@ -1,0 +1,19 @@
+{
+    "courseCode": "SPH5407",
+    "courseCredit": "4",
+    "description": "This module will equip the students in skills to conduct different forms of programme evaluations (formative/summative, process/outcome/impact, cost effectiveness analysis etc) in different contexts (as an internal or external evaluator of a programme). The students will acquire practical skills on how to prepare for an evaluation, conduct an evaluation and appropriately disseminate the evaluation results to the relevant stakeholders.",
+    "faculty": "SSH School of Public Health",
+    "preclusion": "CO5222 Programme Evaluation",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "SPH5002",
+                    "CO5102"
+                ]
+            },
+            "CO5103"
+        ]
+    },
+    "title": "Programme Evaluation"
+}

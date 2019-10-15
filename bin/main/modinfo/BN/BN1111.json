@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BN1111",
+    "courseCredit": "4",
+    "description": "Engineering Principles and Practice I (EPP I) is the first in a pair of modules designed to introduce first year students to a biomedical engineer\u2019s way of thinking and addressing problems through exposure to real-life medical technologies. These technologies will be used to demonstrate the fundamental knowledge and skills a biomedical engineer is expected to possess. In this module, students will be exposed to key engineering problems such as how to analyse a complex medical device, along with how to conceptualise, represent and present their such devices.",
+    "faculty": "Engineering",
+    "preclusion": "BN1101",
+    "title": "Biomedical Engineering Principles and Practice I"
+}

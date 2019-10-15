@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS4234",
+    "courseCredit": "5",
+    "description": "The course offers an advanced-level, in-depth understanding urban heritage, both as it manifests in the built environment but also in intangible social and cultural phenomena. The course begins by defining what heritage is in urban contexts, and inquiring into the special pressures urbanisation places on 'inherited' built forms and ways of life. The module will draw on historical developments in urban heritage politics and planning in both North America and Europe, but the key emphasis will be on in-depth understanding of the emergence of urban heritage landscapes in Asian cities. The course offers an advanced-level, in-depth understanding urban heritage, both as it manifests in the built environment but also in intangible social and cultural phenomena. The course begins by defining what heritage is in urban contexts, and inquiring into the special pressures urbanisation places on 'inherited' built forms and ways of life. The course will tackle the following topics: \u2022 the contested politics of whose past becomes heritage, and why? \u2022 the relationship between urban heritage places, memory and identity \u2022 civil society interests and political activism \u2022 scholarly architectural debates about how to preserve the past: restoration, preservation, conservation, renewal etc (Ruskin et al) \u2022 state-based processes of recognition and preservation \u2022 international frameworks for conservation \u2022 The tensions between heritage, tourism and authenticity The module will draw on historical developments in urban heritage politics and planning in both North America and Europe, but the key emphasis will be on in-depth understanding of the emergence of urban heritage landscapes in Asian cities.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSS2220",
+            "YHU3276"
+        ]
+    },
+    "title": "Urban Heritage: Place, Memory, Identity"
+}

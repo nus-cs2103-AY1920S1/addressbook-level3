@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST5209",
+    "courseCredit": "4",
+    "description": "Stationary processes, ARIMA processes, forecasting, parameter estimation, spectral analysis, non-stationary and seasonal models. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": "ST3233",
+    "title": "Analysis of Time Series Data"
+}

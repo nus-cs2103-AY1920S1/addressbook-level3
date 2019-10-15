@@ -1,0 +1,14 @@
+{
+    "courseCode": "MA5208",
+    "courseCredit": "4",
+    "description": "This module is a first course in algebraic geometry, introducing the basic objects (varieties) and basic geometric constructs and notions (products, fibers of morphisms, dimensions, tangent spaces, smoothness) with applications to curves and surfaces. It is suitable for students who intend to work in number theory, representation theory, algebraic geometry and topology and geometry in general.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "MA3201",
+            "MA5203",
+            "MA5204"
+        ]
+    },
+    "title": "Algebraic Geometry"
+}

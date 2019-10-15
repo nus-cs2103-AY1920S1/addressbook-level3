@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MDG5240",
+    "courseCredit": "2",
+    "description": "The purpose of the ISM is for the students to engage and promote self-study, critical thinking and independent research abilities, to a real-world problem focused on clinical health issues. The team-based project, from solving a real-world clinical health issue to commercialising the product or process, must be relevant to industrial and clinical areas. Students will work in small teams on a project which must be approved by the module coordinator before thay are allowed to proceed. The students should identify a supervisor/mentor who is willing to oversee the projects and obtain their approval before submitting the proposal for consideration.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "prereqTree": {
+        "or": [
+            "MDG5236",
+            "MDG5237"
+        ]
+    },
+    "title": "Independent Study Module \u2013Innovation Capstone Project"
+}

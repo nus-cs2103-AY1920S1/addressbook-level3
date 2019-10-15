@@ -1,0 +1,11 @@
+{
+    "courseCode": "IS3150",
+    "courseCredit": "4",
+    "description": "This course introduces students to the fundamental principles and practices of digital marketing, including social media and mobile marketing. Students will be cognizant of social media campaigns, IT crisis management, and brand image management. They will have an excellent grasp of social media analytics, the 5Ps (product, pricing, promotion, place, and participation), market analysis and consumers' behavior. The course will also introduce concepts in customer relationship management (CRM), including the application, implementation and management of CRM technologies, CRM strategy and data warehouse, customer metrics and economic returns from CRM. At the end of the course, students will be able to deliver coherent digital marketing and comprehensive customer relationship management.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "IS5005"
+    ],
+    "prereqTree": "IS2101",
+    "title": "Digital Media Marketing"
+}

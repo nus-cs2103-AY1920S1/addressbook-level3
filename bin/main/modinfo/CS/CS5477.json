@@ -1,0 +1,21 @@
+{
+    "courseCode": "CS5477",
+    "courseCredit": "4",
+    "description": "One of the most important capability for robots such as self-driving cars, domestic mobile robots, and drones to achieve full autonomy is the ability to perceive the 3D environment. A camera is an excellent choice as the main sensory device for robotic perception because it produces information-rich images, and is lightweight, low cost and requires little or no maintenance. This module covers the mathematical concepts and algorithms that allow us to recover the 3D geometry of the camera motions and the structures in its environment. Topics include projective geometry, camera model, one-/two-/three-/N-View reconstructions and stereo, generalized cameras and nonrigid structure-from-motion.",
+    "faculty": "Computing",
+    "preclusion": "CS4277",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1311",
+                    "MA1506",
+                    "MA1508E"
+                ]
+            },
+            "CS2040"
+        ]
+    },
+    "title": "3D Computer Vision"
+}

@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YCC2132",
+    "courseCredit": "5",
+    "description": "Foundations of Science 2 aims to develop the skills, patterns of thought, and facility with science and technology that will enable the non\u2010science major to lead a responsible life in this century. The rapid expansion of biotechnology and medicine, the explosion of computer technologies, datasets of all kinds, and the impacts of society on the environment all challenge our capacity not only to understand our civilization but to sustain it for future generations. Foundations of Science will provide our students the base understandings to contribute to the leadership needed to provide a sustainable planet for future generations. We will engage in deep and prolonged discussions that consider how the future will look through the interplay between environment, the rapidly growing population and its consumption of energy and resources, and how this affects the health of the planet and its citizens.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC2208",
+        "YSC2207",
+        "YID3201"
+    ],
+    "title": "Foundations of Science 2"
+}

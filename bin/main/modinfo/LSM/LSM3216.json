@@ -1,0 +1,17 @@
+{
+    "courseCode": "LSM3216",
+    "courseCredit": "4",
+    "description": "This module will focus on key events that take place in different stages of vertebrate nervous system development including neural induction, neurogenesis, glial biology, neuronal growth and polarity, axonal guidance, synapse formation, and regeneration. Pathological states such as muscular dystrophy, spinal cord injury, Parkinson\u2019s disease, and other neurodegenerative diseases will be studied, both in terms of understanding the deficits as well as examining potential solutions to improve the outcomes of these neuronal diseases. Latest findings will be discussed, allowing students to learn the current state of research in developmental neurobiology.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4213"
+    ],
+    "preclusion": "LSM3213 Molecular and Cellular Neurobiology",
+    "prereqTree": {
+        "and": [
+            "LSM2232",
+            "LSM2233"
+        ]
+    },
+    "title": "Neuronal Development and Diseases"
+}

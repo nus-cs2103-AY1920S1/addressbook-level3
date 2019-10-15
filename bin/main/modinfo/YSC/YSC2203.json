@@ -1,0 +1,19 @@
+{
+    "courseCode": "YSC2203",
+    "courseCredit": "5",
+    "description": "The course discusses the principles of classical mechanics within a rigorous mathematical framework. Topics may include kinematics, conservative forces, central-force motion, small oscillations, rigid bodies, variational problems, the Lagrangian and Hamiltonian formalisms, non-inertial frames, and special relativity. This course is a prerequisite for most of the Major modules in Physics.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC3210",
+        "YSC3246",
+        "YSC4222",
+        "YSC4223"
+    ],
+    "prereqTree": {
+        "and": [
+            "YSC1213",
+            "YSC1216"
+        ]
+    },
+    "title": "Classical Mechanics"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS6240",
+    "courseCredit": "4",
+    "description": "This module aims to provide a comprehensive and rigorous treatment of the main approaches in multimedia (document, image, video, graphics) analysis. Three main themes are covered: (1) representation and modelling of multimedia entities using various modelling approaches, (2) matching of a model with an input entity, and (3) derivation of a model from sample entities. It focuses on the non-vector-space approach, which complements the vector-space approach to multimedia analysis.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS4243",
+            "CS5240"
+        ]
+    },
+    "title": "Multimedia Analysis"
+}

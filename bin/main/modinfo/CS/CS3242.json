@@ -1,0 +1,43 @@
+{
+    "courseCode": "CS3242",
+    "courseCredit": "4",
+    "description": "This module aims to provide fundamental concepts in 3D modeling and animation. It also serves as a bridge to advanced media modules. After taking this module, students should be able to use these concepts to easily build or work with digital models, manipulate the models by means of computer deformation and animation, and use lighting and rendering techniques to create appealing scenes. Topics include coordinate spaces, transforms, 3D model representations, hierarchical structures, deformation, procedural modelling, particle systems, character animation, shading networks, lighting, and scripting concepts.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS3283"
+    ],
+    "preclusion": "CS4342",
+    "prereqTree": {
+        "and": [
+            "CS3241",
+            {
+                "or": [
+                    "PC1221",
+                    "PC1221X"
+                ]
+            },
+            {
+                "or": [
+                    "MA1102R",
+                    "MA1505",
+                    {
+                        "and": [
+                            "MA1511",
+                            "MA1512"
+                        ]
+                    },
+                    "MA1521"
+                ]
+            },
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1311",
+                    "MA1506",
+                    "MA1508E"
+                ]
+            }
+        ]
+    },
+    "title": "3D Modeling and Animation"
+}

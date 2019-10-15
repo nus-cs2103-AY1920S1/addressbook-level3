@@ -1,0 +1,8 @@
+{
+    "courseCode": "QF4102A",
+    "courseCredit": "4",
+    "description": "The module will have two basic elements. First course work with topics includes: implied trinomial trees, finite difference lattices, Monte Carlo methods, model risk, discrete the module will be a group project to develop a financial modelling tool. Project tropics will be extensions of models contained in the course work. Projects will involve financial modelling as well as writing and presenting a project report. This module targets students in the Quantitative Finance programme.",
+    "faculty": "Science",
+    "prereqTree": "QF3101",
+    "title": "Financial Modelling and Computation"
+}

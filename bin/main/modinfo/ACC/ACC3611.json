@@ -1,0 +1,23 @@
+{
+    "courseCode": "ACC3611",
+    "courseCredit": "4",
+    "description": "Corporate governance has been defined to involve &quot;a set of relationships between a company's management, its board, its shareholders and other stakeholders [and that which] provides the structure through which the objectives of the company are set, and the means of attaining those objectives and monitoring performance are determined&quot; (OECD Principles of Corporate Governance, 2004). This module covers corporate governance from a multidisciplinary perspective, including law, finance, accounting and economics, and discusses ethical dilemmas and challenges faced by managers and employees and how these can be addressed.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "ACC4612A",
+        "ACC4612G"
+    ],
+    "preclusion": "Students who have passed FNA3124 or LL4065 are not allowed to take ACC3611.",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "FNA1002",
+                    "ACC1002"
+                ]
+            },
+            "BSP1004"
+        ]
+    },
+    "title": "Corporate Governance and Ethics"
+}

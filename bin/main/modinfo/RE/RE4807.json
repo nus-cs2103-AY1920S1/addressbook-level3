@@ -1,0 +1,9 @@
+{
+    "courseCode": "RE4807",
+    "courseCredit": "4",
+    "description": "This module introduces the concepts, principles, theories, techniques and practices of risk analysis and management in real estate investments. Topics include concept of real estate market risks; real estate strategic risk management; Value-at-Risk (VaR); sensitivity and scenario analyses; Monte Carlo simulation; risk hedging and property derivatives; option pricing theory and real options.",
+    "faculty": "Design and Environment",
+    "preclusion": "RE4213 Real Estate Risk Analysis and Management",
+    "prereqTree": "RE3701",
+    "title": "Real Estate Risk Analysis and Management"
+}

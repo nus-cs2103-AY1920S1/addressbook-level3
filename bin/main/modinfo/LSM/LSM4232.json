@@ -1,0 +1,8 @@
+{
+    "courseCode": "LSM4232",
+    "courseCredit": "4",
+    "description": "Technological advances allow us to study and modulate various cellular processes generated from the dynamic remodeling of cytoskeleton in cells, and explore the roles and interplay of mechanical forces and biochemical signaling on how they migrate the cell, mediate intracellular trafficking and eventually move our body. This module explores the mechanism of cytoskeleton dynamics and apply it to the process of cell movement and intracellular trafficking, which are important for our body physiology such as skeletal muscle performance. Emphasis will be placed on understanding the cellular and molecular mechanisms that lend themselves to experimental manipulation and for future therapeutic intervention.",
+    "faculty": "Science",
+    "prereqTree": "LSM2233",
+    "title": "Advanced Cell Biology"
+}

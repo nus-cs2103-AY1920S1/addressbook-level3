@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAG4204",
+    "courseCredit": "5",
+    "description": "This module will introduce advanced students to various themes and topics in German culture and society. The texts for this module will be drawn from German literature, the press, and visual and computer media. The module will be conducted in German. It will offer students a further insight into major issues in German culture, society and history.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": "LAG4203",
+    "title": "German Studies 2"
+}

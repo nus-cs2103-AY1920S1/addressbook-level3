@@ -1,0 +1,23 @@
+{
+    "courseCode": "PR3105",
+    "courseCredit": "4",
+    "description": "Learning objectives: To be familiar with the epidemiology of the disease state. To understand the pathophysiology of each disease state. To be familiar with the clinical presentation and diagnosis of each disease state. To be familiar with the non-pharmacologic management of each disease. To be able to discuss the pharmacotherapeutic agents employed for each disease state. To understand the relative efficacy and safety of drugs used in each disease state. To be able to monitor the clinical outcomes in terms of efficacy and safety of each drug used.Major topics: Introduction to pharmaceutical care and drug-related problems. Laboratory medicine. Parameters which affect drug therapy decisions in selected diseases: diabetes mellitus, pulmonary, renal and hepatic diseases.Target students: Pharmacy Year Three",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR4101",
+        "PR4103",
+        "PR4104"
+    ],
+    "prereqTree": {
+        "and": [
+            "PX3108",
+            {
+                "or": [
+                    "PP2107",
+                    "PA2107"
+                ]
+            }
+        ]
+    },
+    "title": "Pharmacotherapy I"
+}

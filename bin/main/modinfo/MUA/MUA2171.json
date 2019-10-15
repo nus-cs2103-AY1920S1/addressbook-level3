@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA2171",
+    "courseCredit": "4",
+    "description": "This module will provide students with extensive practical hands-on experience to consolidate the theory and skills they learned in modules up to and including Multitrack Recording 1. Students will work with local Pop, Rock or Jazz bands to finish at least 5 professional multi-track recording projects the course of the semester. Lectures and lab sessions will introduce and expand upon relevant course topics in microphone use, signal processing, digital audio, musical acoustics, and mixing console operation.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3170",
+        "MUA3188"
+    ],
+    "title": "Multitrack Recording 2"
+}

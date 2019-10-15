@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3203",
+    "courseCredit": "4",
+    "description": "This module introduces students to the key concepts in semantics and pragmatics. In order to test the usefulness of these concepts, students will learn to apply them to the analysis of data. The major topics covered may include some or all of the following: sense; reference; mental representation; word meaning and lexical relations, event and participant types; conceptual structure; deixis; entailment and presupposition; the role of context in interpretation; conventional and conversational implicatures; direct and indirect speech acts; and politeness.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Semantics and Pragmatics"
+}

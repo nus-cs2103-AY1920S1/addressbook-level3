@@ -1,0 +1,14 @@
+{
+    "courseCode": "TME4251",
+    "courseCredit": "4",
+    "description": "This elective module in materials science examines the importance of temperature and its effects on the structure and properties of materials common in mechanical engineering. Besides the thermodynamic principles of phase equilibria and the kinetics of phase transformations, students will be introduced to standard industrial practices, as well as the latest techniques in non-conventional processing of materials. Topics include thermodynamics and kinetics in metallic alloy systems, thermal modification processes, surface modification processes and rapid thermal processing.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TM4251, ME4251E",
+    "prereqTree": {
+        "or": [
+            "TME2151",
+            "ME2151E"
+        ]
+    },
+    "title": "Thermal Engineering Of Materials"
+}

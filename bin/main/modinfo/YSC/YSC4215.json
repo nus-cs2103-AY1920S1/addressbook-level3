@@ -1,0 +1,9 @@
+{
+    "courseCode": "YSC4215",
+    "courseCredit": "5",
+    "description": "A software or mobile application is nothing without a good interface. In this module, students will learn about user centred design and rapid prototyping. In User Centered Design, the final user is involved in the creation process. Rapid prototyping is a complementary approach in which the product will be quickly iterated and prototyped using different fidelities, from low (paper and cardboard prototypes, see Google Cardboard) to medium and high fidelity prototypes (3D printed/laser cut for physical devices or mockups). The module is project based and the final result will be a high fidelity prototype of an actual application or device.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "YSC3226 (previous module code)",
+    "prereqTree": "YSC3232",
+    "title": "Designing Interactive Systems"
+}

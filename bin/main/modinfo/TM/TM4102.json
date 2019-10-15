@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "TM4102",
+    "courseCredit": "8",
+    "description": "This module consists mainly of a research-based project carried out under the supervision of one or more faculty members. It introduces students to the basic methodology of research in the context of a problem of current research interest. The module is normally taken over two consecutive semesters, and is a core requirement of the B.Tech. programme.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TME4102, TM4101",
+    "title": "B.Tech. Dissertation"
+}

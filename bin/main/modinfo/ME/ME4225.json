@@ -1,0 +1,11 @@
+{
+    "courseCode": "ME4225",
+    "courseCredit": "4",
+    "description": "The main topics include: 2D steady state heat conduction; transient heat conduction; turbulent heat transfer, boiling; condensation; heat exchangers with phase change; mass transfer",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ESP4401"
+    ],
+    "prereqTree": "ME3122",
+    "title": "Applied Heat Transfer"
+}

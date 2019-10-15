@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAM4201",
+    "courseCredit": "5",
+    "description": "This module aims to equip students with adequate skills and strategies to engage in discourse with native or other foreign speakers on complex social, political, cultural and environmental topics. The course will enable students to participate in meaningful conversation involving complex and practical issues pertaining to socio-cultural and professional issues.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAM4202"
+    ],
+    "prereqTree": "LAM3202",
+    "title": "Malay 5"
+}
