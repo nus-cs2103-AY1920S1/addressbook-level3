@@ -13,9 +13,9 @@ import mams.logic.commands.CommandTestUtil;
 import mams.logic.commands.EditCommand;
 import mams.logic.commands.EditCommand.EditStudentDescriptor;
 import mams.model.student.Credits;
-import mams.model.student.Email;
 import mams.model.student.MatricId;
 import mams.model.student.Name;
+import mams.model.student.PrevMods;
 import mams.model.tag.Tag;
 import mams.testutil.EditStudentDescriptorBuilder;
 
@@ -64,15 +64,15 @@ public class EditCommandParserTest {
         CommandParserTestUtil.assertParseFailure(parser, "1"
                 + CommandTestUtil.INVALID_CREDITS_DESC, Credits.MESSAGE_CONSTRAINTS); // invalid credits
         CommandParserTestUtil.assertParseFailure(parser, "1"
-                + CommandTestUtil.INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
+                + CommandTestUtil.INVALID_PREVMODS_DESC, PrevMods.MESSAGE_CONSTRAINTS); // invalid prevMods
         CommandParserTestUtil.assertParseFailure(parser, "1"
                 + CommandTestUtil.INVALID_MATRICID_DESC, MatricId.MESSAGE_CONSTRAINTS); // invalid matricId
         CommandParserTestUtil.assertParseFailure(parser, "1"
                 + CommandTestUtil.INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
-        // invalid credits followed by valid email
+        // invalid credits followed by valid prevMods
         CommandParserTestUtil.assertParseFailure(parser, "1"
-                + CommandTestUtil.INVALID_CREDITS_DESC + CommandTestUtil.EMAIL_DESC_AMY, Credits.MESSAGE_CONSTRAINTS);
+                + CommandTestUtil.INVALID_CREDITS_DESC + CommandTestUtil.PREVMODS_DESC_AMY, Credits.MESSAGE_CONSTRAINTS);
 
         // valid credits followed by invalid credits. The test case for invalid credits followed by valid credits
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
@@ -92,7 +92,7 @@ public class EditCommandParserTest {
 
         // multiple invalid values, but only the first invalid value is captured
         CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_NAME_DESC
-                        + CommandTestUtil.INVALID_EMAIL_DESC + CommandTestUtil.VALID_MATRICID_AMY
+                        + CommandTestUtil.INVALID_PREVMODS_DESC + CommandTestUtil.VALID_MATRICID_AMY
                         + CommandTestUtil.VALID_CREDITS_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
@@ -102,11 +102,11 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_SECOND_STUDENT;
         String userInput = targetIndex.getOneBased()
                 + CommandTestUtil.CREDITS_DESC_BOB + CommandTestUtil.TAG_DESC_HUSBAND
-                + CommandTestUtil.EMAIL_DESC_AMY + CommandTestUtil.MATRICID_DESC_AMY
+                + CommandTestUtil.PREVMODS_DESC_AMY + CommandTestUtil.MATRICID_DESC_AMY
                 + CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.TAG_DESC_FRIEND;
 
         EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY)
-                .withCredits(CommandTestUtil.VALID_CREDITS_BOB).withEmail(CommandTestUtil.VALID_EMAIL_AMY)
+                .withCredits(CommandTestUtil.VALID_CREDITS_BOB).withPrevMods(CommandTestUtil.VALID_PREVMODS_AMY)
                 .withMatricId(CommandTestUtil.VALID_MATRICID_AMY)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND, CommandTestUtil.VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -118,11 +118,11 @@ public class EditCommandParserTest {
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_STUDENT;
         String userInput = targetIndex.getOneBased() + CommandTestUtil.CREDITS_DESC_BOB
-                + CommandTestUtil.EMAIL_DESC_AMY;
+                + CommandTestUtil.PREVMODS_DESC_AMY;
 
         EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder()
                 .withCredits(CommandTestUtil.VALID_CREDITS_BOB)
-                .withEmail(CommandTestUtil.VALID_EMAIL_AMY).build();
+                .withPrevMods(CommandTestUtil.VALID_PREVMODS_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
@@ -144,9 +144,9 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
-        // email
-        userInput = targetIndex.getOneBased() + CommandTestUtil.EMAIL_DESC_AMY;
-        descriptor = new EditStudentDescriptorBuilder().withEmail(CommandTestUtil.VALID_EMAIL_AMY).build();
+        // prevMods
+        userInput = targetIndex.getOneBased() + CommandTestUtil.PREVMODS_DESC_AMY;
+        descriptor = new EditStudentDescriptorBuilder().withPrevMods(CommandTestUtil.VALID_PREVMODS_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -167,15 +167,15 @@ public class EditCommandParserTest {
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_STUDENT;
         String userInput = targetIndex.getOneBased()
-                + CommandTestUtil.CREDITS_DESC_AMY + CommandTestUtil.MATRICID_DESC_AMY + CommandTestUtil.EMAIL_DESC_AMY
+                + CommandTestUtil.CREDITS_DESC_AMY + CommandTestUtil.MATRICID_DESC_AMY + CommandTestUtil.PREVMODS_DESC_AMY
                 + CommandTestUtil.TAG_DESC_FRIEND + CommandTestUtil.CREDITS_DESC_AMY + CommandTestUtil.MATRICID_DESC_AMY
-                + CommandTestUtil.EMAIL_DESC_AMY + CommandTestUtil.TAG_DESC_FRIEND
+                + CommandTestUtil.PREVMODS_DESC_AMY + CommandTestUtil.TAG_DESC_FRIEND
                 + CommandTestUtil.CREDITS_DESC_BOB + CommandTestUtil.MATRICID_DESC_BOB
-                + CommandTestUtil.EMAIL_DESC_BOB + CommandTestUtil.TAG_DESC_HUSBAND;
+                + CommandTestUtil.PREVMODS_DESC_BOB + CommandTestUtil.TAG_DESC_HUSBAND;
 
         EditCommand.EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder()
                 .withCredits(CommandTestUtil.VALID_CREDITS_BOB)
-                .withEmail(CommandTestUtil.VALID_EMAIL_BOB).withMatricId(CommandTestUtil.VALID_MATRICID_BOB)
+                .withPrevMods(CommandTestUtil.VALID_PREVMODS_BOB).withMatricId(CommandTestUtil.VALID_MATRICID_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_FRIEND, CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -195,11 +195,11 @@ public class EditCommandParserTest {
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + CommandTestUtil.EMAIL_DESC_BOB
+        userInput = targetIndex.getOneBased() + CommandTestUtil.PREVMODS_DESC_BOB
                 + CommandTestUtil.INVALID_CREDITS_DESC + CommandTestUtil.MATRICID_DESC_BOB
                 + CommandTestUtil.CREDITS_DESC_BOB;
         descriptor = new EditStudentDescriptorBuilder().withCredits(CommandTestUtil.VALID_CREDITS_BOB)
-                .withEmail(CommandTestUtil.VALID_EMAIL_BOB)
+                .withPrevMods(CommandTestUtil.VALID_PREVMODS_BOB)
                 .withMatricId(CommandTestUtil.VALID_MATRICID_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);

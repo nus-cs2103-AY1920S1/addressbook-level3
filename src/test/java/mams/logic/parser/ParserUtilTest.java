@@ -15,22 +15,22 @@ import org.junit.jupiter.api.Test;
 
 import mams.logic.parser.exceptions.ParseException;
 import mams.model.student.Credits;
-import mams.model.student.Email;
 import mams.model.student.MatricId;
 import mams.model.student.Name;
+import mams.model.student.PrevMods;
 import mams.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_CREDITS = "20";
     private static final String INVALID_MATRICID = " ";
-    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_PREVMODS = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_CREDITS = "20";
     private static final String VALID_MATRICID = "A0169982H";
-    private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_PREVMODS = "CS2030, CS1231";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -122,26 +122,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+    public void parsePrevMods_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePrevMods((String) null));
     }
 
     @Test
-    public void parseEmail_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+    public void parsePrevMods_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePrevMods(INVALID_PREVMODS));
     }
 
     @Test
-    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
+    public void parsePrevMods_validValueWithoutWhitespace_returnsPrevMods() throws Exception {
+        PrevMods expectedPrevMods = new PrevMods(VALID_PREVMODS);
+        assertEquals(expectedPrevMods, ParserUtil.parsePrevMods(VALID_PREVMODS));
     }
 
     @Test
-    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    public void parsePrevMods_validValueWithWhitespace_returnsTrimmedPrevMods() throws Exception {
+        String prevModsWithWhitespace = WHITESPACE + VALID_PREVMODS + WHITESPACE;
+        PrevMods expectedPrevMods = new PrevMods(VALID_PREVMODS);
+        assertEquals(expectedPrevMods, ParserUtil.parsePrevMods(prevModsWithWhitespace));
     }
 
     @Test

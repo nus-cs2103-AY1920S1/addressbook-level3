@@ -19,7 +19,7 @@ public class StudentUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(CliSyntax.PREFIX_NAME + student.getName().fullName + " ");
         sb.append(CliSyntax.PREFIX_CREDITS + student.getCredits().value + " ");
-        sb.append(CliSyntax.PREFIX_EMAIL + student.getEmail().value + " ");
+        sb.append(CliSyntax.PREFIX_PREVMODS + student.getPrevMods().value + " ");
         sb.append(CliSyntax.PREFIX_MATRICID + student.getMatricId().value + " ");
         student.getTags().stream().forEach(
             s -> sb.append(CliSyntax.PREFIX_TAG + s.tagName + " ")
@@ -35,7 +35,7 @@ public class StudentUtil {
         descriptor.getName().ifPresent(name -> sb.append(CliSyntax.PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getCredits().ifPresent(credits -> sb.append(CliSyntax.PREFIX_CREDITS)
                 .append(credits.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(CliSyntax.PREFIX_EMAIL).append(email.value).append(" "));
+        descriptor.getPrevMods().ifPresent(prevMods -> sb.append(CliSyntax.PREFIX_PREVMODS).append(prevMods.value).append(" "));
         descriptor.getMatricId().ifPresent(address -> sb.append(CliSyntax.PREFIX_MATRICID)
                 .append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {

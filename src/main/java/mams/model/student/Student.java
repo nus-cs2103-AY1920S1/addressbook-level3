@@ -17,7 +17,7 @@ public class Student {
     // Identity fields
     private final Name name;
     private final Credits credits;
-    private final Email email;
+    private final PrevMods prevMods;
 
     // Data fields
     private final MatricId matricId;
@@ -26,11 +26,11 @@ public class Student {
     /**
      * Every field must be present and not null.
      */
-    public Student(Name name, Credits credits, Email email, MatricId matricId, Set<Tag> tags) {
-        CollectionUtil.requireAllNonNull(name, credits, email, matricId, tags);
+    public Student(Name name, Credits credits, PrevMods prevMods, MatricId matricId, Set<Tag> tags) {
+        CollectionUtil.requireAllNonNull(name, credits, prevMods, matricId, tags);
         this.name = name;
         this.credits = credits;
-        this.email = email;
+        this.prevMods = prevMods;
         this.matricId = matricId;
         this.tags.addAll(tags);
     }
@@ -43,8 +43,8 @@ public class Student {
         return credits;
     }
 
-    public Email getEmail() {
-        return email;
+    public PrevMods getPrevMods() {
+        return prevMods;
     }
 
     public MatricId getMatricId() {
@@ -69,7 +69,7 @@ public class Student {
         }
         return otherStudent != null
                 && otherStudent.getName().equals(getName())
-                && (otherStudent.getCredits().equals(getCredits()) || otherStudent.getEmail().equals(getEmail()));
+                && (otherStudent.getCredits().equals(getCredits()) || otherStudent.getPrevMods().equals(getPrevMods()));
     }
 
     /**
@@ -89,7 +89,7 @@ public class Student {
         Student otherStudent = (Student) other;
         return otherStudent.getName().equals(getName())
                 && otherStudent.getCredits().equals(getCredits())
-                && otherStudent.getEmail().equals(getEmail())
+                && otherStudent.getPrevMods().equals(getPrevMods())
                 && otherStudent.getMatricId().equals(getMatricId())
                 && otherStudent.getTags().equals(getTags());
     }
@@ -97,7 +97,7 @@ public class Student {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, credits, email, matricId, tags);
+        return Objects.hash(name, credits, prevMods, matricId, tags);
     }
 
     @Override
@@ -106,8 +106,8 @@ public class Student {
         builder.append(getName())
                 .append(" Credits: ")
                 .append(getCredits())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" PrevMods: ")
+                .append(getPrevMods())
                 .append(" Matric Id: ")
                 .append(getMatricId())
                 .append(" Tags: ");

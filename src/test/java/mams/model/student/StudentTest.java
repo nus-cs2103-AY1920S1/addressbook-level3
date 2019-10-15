@@ -31,17 +31,17 @@ public class StudentTest {
 
         // same name, same credits, different attributes -> returns true
         editedAlice = new StudentBuilder(TypicalStudents.ALICE)
-                .withEmail(CommandTestUtil.VALID_EMAIL_BOB).withMatricId(CommandTestUtil.VALID_MATRICID_BOB)
+                .withPrevMods(CommandTestUtil.VALID_PREVMODS_BOB).withMatricId(CommandTestUtil.VALID_MATRICID_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         Assertions.assertTrue(TypicalStudents.ALICE.isSameStudent(editedAlice));
 
-        // same name, same email, different attributes -> returns true
+        // same name, same prevMods, different attributes -> returns true
         editedAlice = new StudentBuilder(TypicalStudents.ALICE)
                 .withCredits(CommandTestUtil.VALID_CREDITS_BOB).withMatricId(CommandTestUtil.VALID_MATRICID_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         Assertions.assertTrue(TypicalStudents.ALICE.isSameStudent(editedAlice));
 
-        // same name, same credits, same email, different attributes -> returns true
+        // same name, same credits, same prevMods, different attributes -> returns true
         editedAlice = new StudentBuilder(TypicalStudents.ALICE)
                 .withMatricId(CommandTestUtil.VALID_MATRICID_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         Assertions.assertTrue(TypicalStudents.ALICE.isSameStudent(editedAlice));

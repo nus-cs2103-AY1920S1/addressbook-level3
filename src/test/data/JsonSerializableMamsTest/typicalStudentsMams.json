@@ -3,43 +3,43 @@
   "students" : [ {
     "name" : "Alice Pauline",
     "credits" : "16",
-    "email" : "alice@example.com",
+    "prevMods" : "alice@example.com",
     "matricId" : "A01527367W",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "credits" : "20",
-    "email" : "johnd@example.com",
+    "prevMods" : "johnd@example.com",
     "matricId" : "A01527367W",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "credits" : "18",
-    "email" : "heinz@example.com",
+    "prevMods" : "heinz@example.com",
     "matricId" : "A01527367W",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
     "credits" : "20",
-    "email" : "cornelia@example.com",
+    "prevMods" : "cornelia@example.com",
     "matricId" : "A01527367W",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "credits" : "20",
-    "email" : "werner@example.com",
+    "prevMods" : "werner@example.com",
     "matricId" : "A01527367W",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "credits" : "26",
-    "email" : "lydia@example.com",
+    "prevMods" : "lydia@example.com",
     "matricId" : "A01527367W",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
     "credits" : "16",
-    "email" : "anna@example.com",
+    "prevMods" : "anna@example.com",
     "matricId" : "A01527367W",
     "tagged" : [ ]
   } ]
