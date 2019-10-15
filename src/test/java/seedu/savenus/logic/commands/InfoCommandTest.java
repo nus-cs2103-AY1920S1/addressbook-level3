@@ -15,7 +15,6 @@ import seedu.savenus.logic.parser.MenuParser;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
-import seedu.savenus.model.info.AddInfo;
 
 /**
  * Contains tests for {@code InfoCommand}
