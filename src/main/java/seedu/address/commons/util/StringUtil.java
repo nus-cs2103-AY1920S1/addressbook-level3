@@ -65,4 +65,22 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns true if {@code s} represents a positive double value
+     * e.g. 1, 2.50, 3.38, ..., {@code Double.MAX_VALUE} <br>
+     * Will return false for any other non-null string input
+     * e.g. empty string, "-1", "3 0" (contains whitespace), "1 a" (contains letters)
+     * @throws NullPointerException if {@code s} is null.
+     */
+    public static boolean isPositiveDouble(String s) {
+        requireNonNull(s);
+
+        try {
+            double value = Double.parseDouble(s);
+            return value > 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }

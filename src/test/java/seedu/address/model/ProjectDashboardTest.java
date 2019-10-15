@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
@@ -90,6 +91,7 @@ public class ProjectDashboardTest {
     private static class ProjectDashboardStub implements ReadOnlyProjectDashboard {
         private final ObservableList<Task> tasks = FXCollections.observableArrayList();
         private final ObservableList<Member> members = FXCollections.observableArrayList();
+        private final ObservableList<Inventory> inventories = FXCollections.observableArrayList();
 
         ProjectDashboardStub(Collection<Task> tasks) {
             this.tasks.setAll(tasks);
@@ -103,6 +105,11 @@ public class ProjectDashboardTest {
         @Override
         public ObservableList<Member> getMemberList() {
             return members;
+        }
+
+        @Override
+        public ObservableList<Inventory> getInventoryList() {
+            return inventories;
         }
     }
 

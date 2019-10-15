@@ -88,6 +88,8 @@ public class AddTaskCommandParserTest {
                 + INVALID_TASK_STATUS_DESC
                 + TAG_DESC_FINANCE + TAG_DESC_PUBLICITY, TaskStatus.MESSAGE_CONSTRAINTS);
 
+
+
         // invalid tag
         assertParseFailure(parser, TASK_NAME_DESC_PUBLICITY + INVALID_TAG_DESC + VALID_TAG_PUBLICITY,
                 Tag.MESSAGE_CONSTRAINTS);

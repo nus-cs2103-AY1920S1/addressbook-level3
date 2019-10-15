@@ -9,6 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.inventory.InvName;
+import seedu.address.model.inventory.Price;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.TaskStatus;
@@ -46,6 +48,34 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String invname} into a {@code InvName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static InvName parseInvName(String invname) throws ParseException {
+        requireNonNull(invname);
+        String trimmedName = invname.trim();
+        if (!InvName.isValidName(trimmedName)) {
+            throw new ParseException(InvName.MESSAGE_CONSTRAINTS);
+        }
+        return new InvName(trimmedName);
+    }
+
+    /**
+     * Parses {@code price} into an {@code Price} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static Price parsePrice(String price) throws ParseException {
+        String trimmedIndex = price.trim();
+        if (!StringUtil.isPositiveDouble(trimmedIndex)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        return new Price(Double.parseDouble(trimmedIndex));
     }
 
     /**
