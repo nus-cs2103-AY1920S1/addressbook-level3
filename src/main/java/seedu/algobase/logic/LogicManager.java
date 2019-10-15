@@ -66,6 +66,7 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Tag> getFilteredTagList() {
         return model.getFilteredTagList();
+    }
 
     public GuiState getGuiState() {
         return model.getGuiState();

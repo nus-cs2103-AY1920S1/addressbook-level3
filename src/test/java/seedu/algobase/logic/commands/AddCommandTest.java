@@ -6,12 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.tag.Tag;
 import seedu.algobase.testutil.ProblemBuilder;
 
 class AddCommandTest {
@@ -36,6 +38,7 @@ class AddCommandTest {
      */
     private class ModelStubAcceptingProblemAdded extends DefaultModelStub {
         final ArrayList<Problem> problemsAdded = new ArrayList<>();
+        final ArrayList<Tag> tagsAdded = new ArrayList<>();
 
         @Override
         public boolean hasProblem(Problem problem) {
@@ -47,6 +50,19 @@ class AddCommandTest {
         public void addProblem(Problem problem) {
             requireNonNull(problem);
             problemsAdded.add(problem);
+        }
+
+        @Override
+        public void addTag(Tag tag) {
+            requireNonNull(tag);
+            tagsAdded.add(tag);
+        }
+
+        @Override
+        public void addTags(Set<Tag> tags) {
+            for (Tag tag : tags) {
+                addTag(tag);
+            }
         }
 
         @Override

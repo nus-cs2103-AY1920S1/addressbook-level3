@@ -140,7 +140,6 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         requireNonNull(editedTag);
         tags.setTag(target, editedTag);
     }
-  
     @Override
     public ObservableList<Problem> getProblemList() {
         return problems.asUnmodifiableObservableList();

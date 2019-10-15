@@ -46,7 +46,6 @@ public class UniqueTagList implements Iterable<Tag> {
             throw new DuplicateTagException();
         }
         internalList.add(toAdd);
-        System.out.println(internalList.toString() + "==============");
     }
 
     /**
@@ -74,7 +73,6 @@ public class UniqueTagList implements Iterable<Tag> {
      * The Tag must exist in the list.
      */
     public void remove(Tag toRemove) {
-        System.out.println("remove");
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new TagNotFoundException();
@@ -91,7 +89,6 @@ public class UniqueTagList implements Iterable<Tag> {
      * {@code tags} must not contain duplicate tags.
      */
     public void setTags(List<Tag> tags) {
-        System.out.println("nothing happeneds ");
         requireAllNonNull(tags);
         if (!tagsAreUnique(tags)) {
             throw new DuplicateTagException();
