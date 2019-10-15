@@ -15,6 +15,16 @@ public class ApprovedClaim extends Claim {
         super(description, amount, date, name, phone, tags, status);
     }
 
+    public ApprovedClaim(Claim source) {
+        super(source.getDescription(),
+                source.getAmount(),
+                source.getDate(),
+                source.getName(),
+                source.getPhone(),
+                source.getTags(),
+                status);
+    }
+
     /**
      * Returns true if both claims have same identity and data fields.
      * This defines a stronger notion of equality between two claims.

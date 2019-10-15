@@ -15,6 +15,11 @@ public class PendingClaim extends Claim {
         super(description, amount, date, name, phone, tags, status);
     }
 
+    @Override
+    public boolean canChangeStatus() {
+        return true;
+    }
+
     /**
      * Returns true if both claims have same identity and data fields.
      * This defines a stronger notion of equality between two claims.
