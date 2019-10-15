@@ -93,36 +93,36 @@ public class JsonAdaptedAppeal {
         if (appealId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "appealId"));
         }
-        if (!Appeal.isValidAppealId(appealId)) {
-            throw new IllegalValueException(Appeal.MESSAGE_CONSTRAINTS_APPEAL_ID);
-        }
+//        if (!Appeal.isValidAppealId(appealId)) {
+//            throw new IllegalValueException(Appeal.MESSAGE_CONSTRAINTS_APPEAL_ID);
+//        }
         final String modelAppealId = appealId;
 
         //Appeal Type
         if (appealType == null) { //sessionId expected for Json data
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Appeal Type"));
         }
-        if (!Appeal.isValidAppealType(appealType)) {
-            throw new IllegalValueException(Appeal.MESSAGE_CONSTRAINTS_APPEAL_TYPE);
-        }
+//        if (!Appeal.isValidAppealType(appealType)) {
+//            throw new IllegalValueException(Appeal.MESSAGE_CONSTRAINTS_APPEAL_TYPE);
+//        }
         final String modelAppealType = appealType;
 
         //Student Id
         if (studentId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Student ID"));
         }
-        if (!MatricId.isValidMatricId(studentId)) {
-            throw new IllegalValueException(MatricId.MESSAGE_CONSTRAINTS);
-        }
+//        if (!MatricId.isValidMatricId(studentId)) {
+//            throw new IllegalValueException(MatricId.MESSAGE_CONSTRAINTS);
+//        }
         final String modelStudentId = studentId;
 
         //Academic Year
         if (academicYear == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Academic year"));
         }
-        if (!Appeal.isValidAppealId(academicYear)) {
-            throw new IllegalValueException(Appeal.MESSAGE_CONSTRAINTS_ACADEMICYEAR);
-        }
+//        if (!Appeal.isAcademicYear(academicYear)) {
+//            throw new IllegalValueException(Appeal.MESSAGE_CONSTRAINTS_ACADEMICYEAR);
+//        }
         final String modelAcademicYear = academicYear;
 
         //Student workload
@@ -132,27 +132,27 @@ public class JsonAdaptedAppeal {
         final String modelAppealDescription = appealDescription;
 
         //Previous module for swapping
-        if (!Module.isValidModuleCode(previousModule)) {
-            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
-        }
+//        if (!Module.isValidModuleCode(previousModule)) {
+//            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
+//        }
         final String modelPreviousModule = previousModule;
 
         //New Module for swapping
-        if (!Module.isValidModuleCode(newModule)) {
-            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
-        }
+//        if (!Module.isValidModuleCode(newModule)) {
+//            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
+//        }
         final String modelNewModule = newModule;
 
         //Module requested to be added
-        if (!Module.isValidModuleCode(moduleToAdd)) {
-            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
-        }
+//        if (!Module.isValidModuleCode(moduleToAdd)) {
+//            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
+//        }
         final String modelModuleToAdd = moduleToAdd;
 
-        //Module requested to be dropped
-        if (!Module.isValidModuleCode(moduleToDrop)) {
-            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
-        }
+//        //Module requested to be dropped
+//        if (!Module.isValidModuleCode(moduleToDrop)) {
+//            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
+//        }
         final String modelModuleToDrop = moduleToDrop;
 
         //Is this appeal resolved

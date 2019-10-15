@@ -48,7 +48,7 @@
     {
       "appealId": "C000000",
       "appealType": "Increase workload",
-      "academicYear": "AY19/20",
+      "academicYear": "AY2019",
       "studentId": "A0180000",
       "studentWorkload": 24,
       "previousModule": "",
@@ -60,9 +60,9 @@
       "appealemark": ""
     },
     {
-      "appealId": "C00001",
+      "appealId": "C000001",
       "appealType": "Drop module",
-      "academicYear": "AY",
+      "academicYear": "AY2019",
       "studentId": "A0180001",
       "studentWorkload": 28,
       "previousModule": "",
@@ -74,9 +74,9 @@
       "remark": ""
     },
     {
-      "appealId": "C00002",
+      "appealId": "C000002",
       "appealType": "Drop module",
-      "academicYear": "AY",
+      "academicYear": "AY2019",
       "studentId": "A0180002",
       "studentWorkload": 28,
       "previousModule": "",
@@ -88,9 +88,9 @@
       "remark": ""
     },
     {
-      "appealId": "C00003",
+      "appealId": "C000003",
       "appealType": "Add module",
-      "academicYear": "AY",
+      "academicYear": "AY2020",
       "studentId": "A0180003",
       "studentWorkload": 20,
       "previousModule": "",
@@ -102,9 +102,9 @@
       "remark": ""
     },
     {
-      "appealId": "C00004",
+      "appealId": "C000004",
       "appealType": "Increase workload",
-      "academicYear": "AY",
+      "academicYear": "AY2019",
       "studentId": "A0180004",
       "studentWorkload": 20,
       "previousModule": "",
@@ -116,9 +116,9 @@
       "remark": ""
     },
     {
-      "appealId": "C00005",
+      "appealId": "C000005",
       "appealType": "Add module",
-      "academicYear": "AY",
+      "academicYear": "AY2019",
       "studentId": "A0180005",
       "studentWorkload": 20,
       "previousModule": "",
@@ -130,7 +130,7 @@
       "remark": ""
     },
     {
-      "appealId": "C00006",
+      "appealId": "C000006",
       "appealType": "Add module",
       "academicYear": "AY",
       "studentId": "A0180006",
@@ -144,9 +144,9 @@
       "remark": ""
     },
     {
-      "appealId": "C00007",
+      "appealId": "C000007",
       "appealType": "Drop module",
-      "academicYear": "AY",
+      "academicYear": "A2019Y",
       "studentId": "A0180007",
       "studentWorkload": 30,
       "previousModule": "",
@@ -158,9 +158,9 @@
       "remark": ""
     },
     {
-      "appealId": "C00008",
+      "appealId": "C000008",
       "appealType": "Drop module",
-      "academicYear": "AY",
+      "academicYear": "AY2019",
       "studentId": "A0180008",
       "studentWorkload": 21,
       "previousModule": "",

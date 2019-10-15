@@ -14,7 +14,7 @@ public class Appeal {
             "Appeals should start with 'C' followed by a 6 digit number";
 
     public static final String MESSAGE_CONSTRAINTS_APPEAL_TYPE =
-            "Appeals should be either add module, remove module or increase workload";
+            "Appeal type should be either add module, remove module or increase workload";
 
     /**
      * "C" followed by strictly 6 digits.
@@ -73,7 +73,8 @@ public class Appeal {
                   boolean resolved,
                   String remark) {
 
-        CollectionUtil.requireAllNonNull(appealId, appealType, studentId, academicYear, appealDescription);
+        CollectionUtil.requireAllNonNull(appealId, appealType, studentId, academicYear,
+                studentWorkload, appealDescription );
         this.appealId = appealId;
         this.appealType = appealType;
         this.studentId = studentId;

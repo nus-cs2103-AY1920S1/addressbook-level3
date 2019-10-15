@@ -1,8 +1,46 @@
-[
+{
+  "students" : [ {
+    "name" : "Alex Yeoh",
+    "credits" : "20",
+    "email" : "alexyeoh@example.com",
+    "matricId" : "A0180000R",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Bernice Yu",
+    "credits" : "20",
+    "email" : "berniceyu@example.com",
+    "matricId" : "A01455353y",
+    "tagged" : [ "colleagues", "friends" ]
+  }, {
+    "name" : "Charlotte Oliveiro",
+    "credits" : "20",
+    "email" : "charlotte@example.com",
+    "matricId" : "A0199239U",
+    "tagged" : [ "neighbours" ]
+  }, {
+    "name" : "David Li",
+    "credits" : "20",
+    "email" : "lidavid@example.com",
+    "matricId" : "A01423223T",
+    "tagged" : [ "family" ]
+  }, {
+    "name" : "Irfan Ibrahim",
+    "credits" : "20",
+    "email" : "irfan@example.com",
+    "matricId" : "A12039123S",
+    "tagged" : [ "classmates" ]
+  }, {
+    "name" : "Roy Balakrishnan",
+    "credits" : "20",
+    "email" : "royb@example.com",
+    "matricId" : "A015923848U",
+    "tagged" : [ "colleagues" ]
+  } ],
+  "appeals": [
     {
       "appealId": "C000000",
       "appealType": "Increase workload",
-      "academicYear": "AY19/20",
+      "academicYear": "AY2019",
       "studentId": "A0180000",
       "studentWorkload": 24,
       "previousModule": "",
@@ -11,12 +49,12 @@
       "moduleToDrop": "",
       "appealDescription": "I want to increase my workload so I can graduate on time",
       "resolved": false,
-      "appealemark": ""
+      "remark": ""
     },
     {
-      "appealId": "C00001",
+      "appealId": "C000001",
       "appealType": "Drop module",
-      "AcademicYear": "AY",
+      "academicYear": "AY2019",
       "studentId": "A0180001",
       "studentWorkload": 28,
       "previousModule": "",
@@ -28,9 +66,9 @@
       "remark": ""
     },
     {
-      "appealId": "C00002",
+      "appealId": "C000002",
       "appealType": "Drop module",
-      "AcademicYear": "AY",
+      "academicYear": "AY2019",
       "studentId": "A0180002",
       "studentWorkload": 28,
       "previousModule": "",
@@ -42,9 +80,9 @@
       "remark": ""
     },
     {
-      "appealId": "C00003",
+      "appealId": "C000003",
       "appealType": "Add module",
-      "AcademicYear": "AY",
+      "academicYear": "AY2020",
       "studentId": "A0180003",
       "studentWorkload": 20,
       "previousModule": "",
@@ -56,9 +94,9 @@
       "remark": ""
     },
     {
-      "appealId": "C00004",
+      "appealId": "C000004",
       "appealType": "Increase workload",
-      "AcademicYear": "AY",
+      "academicYear": "AY2019",
       "studentId": "A0180004",
       "studentWorkload": 20,
       "previousModule": "",
@@ -70,9 +108,9 @@
       "remark": ""
     },
     {
-      "appealId": "C00005",
+      "appealId": "C000005",
       "appealType": "Add module",
-      "AcademicYear": "AY",
+      "academicYear": "AY2019",
       "studentId": "A0180005",
       "studentWorkload": 20,
       "previousModule": "",
@@ -84,9 +122,9 @@
       "remark": ""
     },
     {
-      "appealId": "C00006",
+      "appealId": "C000006",
       "appealType": "Add module",
-      "AcademicYear": "AY",
+      "academicYear": "AY",
       "studentId": "A0180006",
       "studentWorkload": 20,
       "previousModule": "",
@@ -96,34 +134,6 @@
       "appealDescription": "I wish to take this module to clear my prerequisite",
       "resolved": false,
       "remark": ""
-    },
-    {
-      "appealId": "C00007",
-      "appealType": "Drop module",
-      "AcademicYear": "AY",
-      "studentId": "A0180007",
-      "studentWorkload": 30,
-      "previousModule": "",
-      "newModule": "",
-      "moduleToAdd": "",
-      "moduleToDrop": "",
-      "appealDescription": "Cannot cope",
-      "resolved": false,
-      "remark": ""
-    },
-    {
-      "appealId": "C00008",
-      "appealType": "Drop module",
-      "AcademicYear": "AY",
-      "studentId": "A0180008",
-      "studentWorkload": 21,
-      "previousModule": "",
-      "newModule": "",
-      "moduleToAdd": "",
-      "moduleToDrop": "",
-      "appealDescription": "I am taking too many modules",
-      "resolved": false,
-      "remark": ""
     }
   ]
-
+}

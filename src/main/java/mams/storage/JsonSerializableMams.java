@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import mams.commons.exceptions.IllegalValueException;
 import mams.model.Mams;
 import mams.model.ReadOnlyMams;
+import mams.model.appeal.Appeal;
 import mams.model.student.Student;
 
 /**
@@ -22,13 +23,15 @@ class JsonSerializableMams {
     public static final String MESSAGE_DUPLICATE_STUDENT = "Students list contains duplicate student(s).";
 
     private final List<JsonAdaptedStudent> students = new ArrayList<>();
+    private final List<JsonAdaptedAppeal> appeals = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableMams} with the given students.
      */
     @JsonCreator
-    public JsonSerializableMams(@JsonProperty("students") List<JsonAdaptedStudent> students) {
+    public JsonSerializableMams(@JsonProperty("students") List<JsonAdaptedStudent> students, @JsonProperty("appeals") List<JsonAdaptedAppeal> appeals) {
         this.students.addAll(students);
+        this.appeals.addAll(appeals);
     }
 
     /**
@@ -38,8 +41,13 @@ class JsonSerializableMams {
      */
     public JsonSerializableMams(ReadOnlyMams source) {
         students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
+//        appeals.addAll(source.getAppealList().stream().map(JsonAdaptedAppeal::new)).collect(Collectors.toList());
+
     }
 
+//    public JsonSerializableMams(ReadOnlyMams source) {
+//        appeals.addAll(source.getAppealList().stream().map(JsonAdaptedAppeal::new).collect(Collectors.toList()));
+//    }
     /**
      * Converts this address book into the model's {@code Mams} object.
      *
@@ -53,6 +61,13 @@ class JsonSerializableMams {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_STUDENT);
             }
             mams.addStudent(student);
+        }
+        for(JsonAdaptedAppeal jsonAdaptedAppeal: appeals) {
+            Appeal appeal = jsonAdaptedAppeal.toModelType();
+            if (mams.hasAppeal((appeal))) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_STUDENT);
+            }
+            mams.addAppeal(appeal);
         }
         return mams;
     }
