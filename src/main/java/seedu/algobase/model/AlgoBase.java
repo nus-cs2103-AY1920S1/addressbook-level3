@@ -61,6 +61,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         requireNonNull(newData);
 
         setProblems(newData.getProblemList());
+        setTags(newData.getTagList());
     }
 
     //// Problem-level operations
@@ -126,6 +127,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      */
     public void addTag(Tag p) {
         tags.add(p);
+        System.out.println(tags.toString() + "*********=========*");
     }
 
     /**

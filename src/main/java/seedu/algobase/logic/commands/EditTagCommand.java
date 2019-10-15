@@ -69,6 +69,11 @@ public class EditTagCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_PROBLEM_SUCCESS, editedTag));
     }
 
+    /**
+     * @param tagToEdit tag that need to edit
+     * @param name new tag name for tagToEdit
+     * @return Tag with updated name.
+     */
     private static Tag createEditedTag(Tag tagToEdit, Optional<String> name) {
         assert tagToEdit != null;
         String updatedName;
