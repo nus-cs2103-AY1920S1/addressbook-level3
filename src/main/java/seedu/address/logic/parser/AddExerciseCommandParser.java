@@ -22,10 +22,10 @@ import seedu.address.model.details.Repetitions;
 import seedu.address.model.details.Sets;
 import seedu.address.model.details.Weight;
 import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.ExerciseName;
 import seedu.address.model.exercise.Intensity;
 import seedu.address.model.exercise.MuscleType;
 import seedu.address.model.exercise.MusclesTrained;
-import seedu.address.model.exercise.Name;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -48,33 +48,35 @@ public class AddExerciseCommandParser implements Parser<AddExerciseCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExerciseCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        MuscleType primaryMuscle = ParserUtil.parseMuscleType(argMultimap.getValue(PREFIX_PRIMARY_MUSCLE).get());
+        ExerciseName exerciseName = WorkoutPlannerParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        MuscleType primaryMuscle = WorkoutPlannerParserUtil
+                .parseMuscleType(argMultimap.getValue(PREFIX_PRIMARY_MUSCLE).get());
         MusclesTrained musclesTrained = new MusclesTrained(primaryMuscle, new ArrayList<>());
-        Intensity intensity = ParserUtil.parseIntensity(argMultimap.getValue(PREFIX_INTENSITY).get());
+        Intensity intensity = WorkoutPlannerParserUtil.parseIntensity(argMultimap.getValue(PREFIX_INTENSITY).get());
         Set<ExerciseDetail> exerciseDetailList = new HashSet<>();
 
         if (!argMultimap.getValue(PREFIX_DISTANCE).isEmpty()) {
-            Distance distance = ParserUtil.parseDistance(argMultimap.getValue(PREFIX_DISTANCE).get());
+            Distance distance = WorkoutPlannerParserUtil.parseDistance(argMultimap.getValue(PREFIX_DISTANCE).get());
             exerciseDetailList.add(distance);
         }
 
         if (!argMultimap.getValue(PREFIX_REPETITIONS).isEmpty()) {
-            Repetitions repetitions = ParserUtil.parseRepetitions(argMultimap.getValue(PREFIX_REPETITIONS).get());
+            Repetitions repetitions = WorkoutPlannerParserUtil
+                    .parseRepetitions(argMultimap.getValue(PREFIX_REPETITIONS).get());
             exerciseDetailList.add(repetitions);
         }
 
         if (!argMultimap.getValue(PREFIX_SETS).isEmpty()) {
-            Sets sets = ParserUtil.parseSets(argMultimap.getValue(PREFIX_SETS).get());
+            Sets sets = WorkoutPlannerParserUtil.parseSets(argMultimap.getValue(PREFIX_SETS).get());
             exerciseDetailList.add(sets);
         }
 
         if (!argMultimap.getValue(PREFIX_WEIGHT).isEmpty()) {
-            Weight weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
+            Weight weight = WorkoutPlannerParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
             exerciseDetailList.add(weight);
         }
 
-        Exercise exercise = new Exercise(name, musclesTrained, intensity, exerciseDetailList);
+        Exercise exercise = new Exercise(exerciseName, musclesTrained, intensity, exerciseDetailList);
 
         return new AddExerciseCommand(exercise);
     }

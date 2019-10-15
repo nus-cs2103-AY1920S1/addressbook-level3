@@ -2,42 +2,45 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_PUSHUP;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_SITUP;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_SITUP;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REPS_SIXTY;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.EditExerciseCommand.EditExerciseDescriptor;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditExerciseDescriptorBuilder;
 
 public class EditExerciseDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        EditExerciseDescriptor descriptorWithSameValues = new EditExerciseDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditExerciseDescriptor descriptorWithSameValues = new EditExerciseDescriptor(DESC_PUSHUP);
+        assertTrue(DESC_PUSHUP.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(DESC_PUSHUP.equals(DESC_PUSHUP));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_PUSHUP.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(DESC_PUSHUP.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(DESC_PUSHUP.equals(DESC_SITUP));
 
         // different name -> returns false
-        EditExerciseCommand.EditExerciseDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        EditExerciseCommand.EditExerciseDescriptor editedAmy = new EditExerciseDescriptorBuilder(DESC_PUSHUP)
+                .withName(VALID_NAME_SITUP).build();
+        assertFalse(DESC_PUSHUP.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditExerciseDescriptorBuilder(DESC_PUSHUP)
+                .withDetails(null, null, null, null, null, VALID_REPS_SIXTY)
+                .build();
+        assertFalse(DESC_PUSHUP.equals(editedAmy));
     }
 }

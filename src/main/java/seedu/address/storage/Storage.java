@@ -7,15 +7,15 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyWorkoutPlanner;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.WorkoutPlannerUserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends DukeCooksStorage, UserPrefsStorage {
+public interface Storage extends WorkoutPlannerStorage, UserPrefsStorage {
 
     @Override
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
+    Optional<WorkoutPlannerUserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;

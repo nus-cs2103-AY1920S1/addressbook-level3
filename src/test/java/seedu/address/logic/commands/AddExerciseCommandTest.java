@@ -16,12 +16,12 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.WorkoutPlanner;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
+import seedu.address.model.WorkoutPlanner;
 import seedu.address.model.exercise.Exercise;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ExerciseBuilder;
 
 public class AddExerciseCommandTest {
 
@@ -33,27 +33,29 @@ public class AddExerciseCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Exercise validExercise = new PersonBuilder().build();
+        Exercise validExercise = new ExerciseBuilder().build();
 
         CommandResult commandResult = new AddExerciseCommand(validExercise).execute(modelStub);
 
-        assertEquals(String.format(AddExerciseCommand.MESSAGE_SUCCESS, validExercise), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddExerciseCommand
+                .MESSAGE_SUCCESS, validExercise), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validExercise), modelStub.personsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Exercise validExercise = new PersonBuilder().build();
+        Exercise validExercise = new ExerciseBuilder().build();
         AddExerciseCommand addExerciseCommand = new AddExerciseCommand(validExercise);
         ModelStub modelStub = new ModelStubWithPerson(validExercise);
 
-        assertThrows(CommandException.class, AddExerciseCommand.MESSAGE_DUPLICATE_PERSON, () -> addExerciseCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddExerciseCommand
+                .MESSAGE_DUPLICATE_PERSON, () -> addExerciseCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Exercise alice = new PersonBuilder().withName("Alice").build();
-        Exercise bob = new PersonBuilder().withName("Bob").build();
+        Exercise alice = new ExerciseBuilder().withName("Alice").build();
+        Exercise bob = new ExerciseBuilder().withName("Bob").build();
         AddExerciseCommand addAliceCommand = new AddExerciseCommand(alice);
         AddExerciseCommand addBobCommand = new AddExerciseCommand(bob);
 
@@ -79,12 +81,12 @@ public class AddExerciseCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public void setWorkoutPlannerUserPrefs(ReadOnlyUserPrefs workoutPlannerUserPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public ReadOnlyUserPrefs getWorkoutPlannerUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 

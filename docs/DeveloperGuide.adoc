@@ -53,7 +53,7 @@ The rest of the App consists of four components.
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its _API_ in an `interface` with the same exerciseName as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
@@ -428,7 +428,7 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to create a new diary
-2.  A new diary is created with the specified name
+2.  A new diary is created with the specified exerciseName
 
 +
 Use case ends.
@@ -436,7 +436,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Diary name already exists.
+* 1a. Diary exerciseName already exists.
 +
 [none]
 ** 1a1. DukeCooks displays an error message.

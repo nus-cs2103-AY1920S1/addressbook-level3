@@ -20,7 +20,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final WorkoutPlanner dukeCooks;
-    private final UserPrefs userPrefs;
+    private final WorkoutPlannerUserPrefs workoutPlannerUserPrefs;
     private final FilteredList<Exercise> filteredExercises;
 
     /**
@@ -33,47 +33,47 @@ public class ModelManager implements Model {
         logger.fine("Initializing with Duke Cooks: " + dukeCooks + " and user prefs " + userPrefs);
 
         this.dukeCooks = new WorkoutPlanner(dukeCooks);
-        this.userPrefs = new UserPrefs(userPrefs);
+        this.workoutPlannerUserPrefs = new WorkoutPlannerUserPrefs(userPrefs);
         filteredExercises = new FilteredList<>(this.dukeCooks.getExerciseList());
     }
 
     public ModelManager() {
-        this(new WorkoutPlanner(), new UserPrefs());
+        this(new WorkoutPlanner(), new WorkoutPlannerUserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public void setWorkoutPlannerUserPrefs(ReadOnlyUserPrefs workoutPlannerUserPrefs) {
+        requireNonNull(workoutPlannerUserPrefs);
+        this.workoutPlannerUserPrefs.resetData(workoutPlannerUserPrefs);
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public ReadOnlyUserPrefs getWorkoutPlannerUserPrefs() {
+        return workoutPlannerUserPrefs;
     }
 
     @Override
     public GuiSettings getGuiSettings() {
-        return userPrefs.getGuiSettings();
+        return workoutPlannerUserPrefs.getGuiSettings();
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
-        userPrefs.setGuiSettings(guiSettings);
+        workoutPlannerUserPrefs.setGuiSettings(guiSettings);
     }
 
     @Override
     public Path getDukeCooksFilePath() {
-        return userPrefs.getExercisesFilePath();
+        return workoutPlannerUserPrefs.getExercisesFilePath();
     }
 
     @Override
     public void setDukeCooksFilePath(Path dukeCooksFilePath) {
         requireNonNull(dukeCooksFilePath);
-        userPrefs.setExercisesFilePath(dukeCooksFilePath);
+        workoutPlannerUserPrefs.setExercisesFilePath(dukeCooksFilePath);
     }
 
     //=========== DukeBooks ================================================================================
@@ -144,7 +144,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return dukeCooks.equals(other.dukeCooks)
-                && userPrefs.equals(other.userPrefs)
+                && workoutPlannerUserPrefs.equals(other.workoutPlannerUserPrefs)
                 && filteredExercises.equals(other.filteredExercises);
     }
 

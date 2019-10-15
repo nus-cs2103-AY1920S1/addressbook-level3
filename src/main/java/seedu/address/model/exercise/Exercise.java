@@ -16,7 +16,7 @@ import seedu.address.model.details.ExerciseDetail;
 public class Exercise {
 
     // Identity fields
-    private final Name name;
+    private final ExerciseName exerciseName;
     private final MusclesTrained musclesTrained;
     private final Intensity intensity;
 
@@ -26,17 +26,17 @@ public class Exercise {
     /**
      * Every field must be present and not null.
      */
-    public Exercise(Name name, MusclesTrained musclesTrained,
+    public Exercise(ExerciseName exerciseName, MusclesTrained musclesTrained,
                     Intensity intensity, Set<ExerciseDetail> exerciseDetails) {
-        requireAllNonNull(name, musclesTrained, intensity, exerciseDetails);
-        this.name = name;
+        requireAllNonNull(exerciseName, musclesTrained, intensity, exerciseDetails);
+        this.exerciseName = exerciseName;
         this.musclesTrained = musclesTrained;
         this.intensity = intensity;
         this.exerciseDetails.addAll(exerciseDetails);
     }
 
-    public Name getName() {
-        return name;
+    public ExerciseName getExerciseName() {
+        return exerciseName;
     }
 
     public MusclesTrained getMusclesTrained() {
@@ -65,7 +65,7 @@ public class Exercise {
         }
 
         return otherExercise != null
-                && otherExercise.getName().equals(getName());
+                && otherExercise.getExerciseName().equals(getExerciseName());
     }
 
     /**
@@ -83,7 +83,7 @@ public class Exercise {
         }
 
         Exercise otherExercise = (Exercise) other;
-        return otherExercise.getName().equals(getName())
+        return otherExercise.getExerciseName().equals(getExerciseName())
                 && otherExercise.getMusclesTrained().equals(getMusclesTrained())
                 && otherExercise.getIntensity().equals(getIntensity())
                 && otherExercise.getExerciseDetails().equals(getExerciseDetails());
@@ -92,13 +92,13 @@ public class Exercise {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, musclesTrained, intensity, exerciseDetails);
+        return Objects.hash(exerciseName, musclesTrained, intensity, exerciseDetails);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getExerciseName())
                 .append(" Muscle Type: ")
                 .append(getMusclesTrained())
                 .append(" Intensity: ")

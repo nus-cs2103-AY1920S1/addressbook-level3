@@ -40,8 +40,8 @@ image::Ui.png[width="790"]
 
 == Recipe Book
 === Adding a recipe:  `add recipe`
-Initializes creation of a recipe with input name. DukeCooks will prompt for ingredients. User may key in ingredients with price, in the format: `<name>` `$<price>`. Once done, user may enter `done`. DukeCooks will prompt for nutritional value in the format: `<kcal> <carbs(g)> <fat(g)> <protein(g)>`.  +
-Format: `add recipe <name>`
+Initializes creation of a recipe with input exerciseName. DukeCooks will prompt for ingredients. User may key in ingredients with price, in the format: `<exerciseName>` `$<price>`. Once done, user may enter `done`. DukeCooks will prompt for nutritional value in the format: `<kcal> <carbs(g)> <fat(g)> <protein(g)>`.  +
+Format: `add recipe <exerciseName>`
 
 Examples:
 
@@ -57,8 +57,8 @@ Output: _Ingredients list for “Chicken Rice” is complete! Please enter the n
 Output: _Nutritional value for “Chicken Rice” captured. “Chicken Rice” successfully created!_
 
 === Deleting a recipe: `delete recipe`
-Deletes recipe with specified name. +
-Format: `delete recipe <name>`
+Deletes recipe with specified exerciseName. +
+Format: `delete recipe <exerciseName>`
 
 Examples:
 
@@ -76,7 +76,7 @@ Output: Lists all recipes.
 
 ===  Viewing a recipe: `view recipe`
 Lists ingredients of specified recipe, nutritional value, and image, difficulty and preparation time, if applicable. +
-Format: `view recipe <name>`
+Format: `view recipe <exerciseName>`
 
 Examples:
 
@@ -84,24 +84,24 @@ Examples:
 Output: Shows the recipe named “Chicken Rice”, as long as it exists in the recipe book.
 
 === Giving a recipe an image: `[coming in v2.0]`
-Adds image of recipe by retrieving the image with the specified file name. Files are to be placed in the folder [to be implemented]. +
-Format: `recipe <name> image <filename>`
+Adds image of recipe by retrieving the image with the specified file exerciseName. Files are to be placed in the folder [to be implemented]. +
+Format: `recipe <exerciseName> image <filename>`
 
 === Giving a recipe a difficulty level: `[coming in v2.0]`
 Tags the recipe specified with the difficulty, ranging from 1 to 3. +
-Format: `recipe <name> difficulty <difficulty>`
+Format: `recipe <exerciseName> difficulty <difficulty>`
 
 === Giving a recipe preparation timing: `[coming in v2.0]`
 Tags the recipe specified with the preparation time, in minutes. +
-Format: `recipe <name> preptime <time(min)>`
+Format: `recipe <exerciseName> preptime <time(min)>`
 
 === Adding a shopping list: `[coming in v2.0]`
-Creates a new shopping list with specified name. +
-Format: `add shoplist <name>`
+Creates a new shopping list with specified exerciseName. +
+Format: `add shoplist <exerciseName>`
 
 ===  Deleting a shopping list: `[coming in v2.0]`
 Deletes specified shopping list. +
-Format: `delete shoplist <name>`
+Format: `delete shoplist <exerciseName>`
 
 === Listing your shopping lists: `[coming in v2.0]`
 Lists all shopping list names. +
@@ -109,23 +109,23 @@ Format: `list shoplist`
 
 === Viewing a shopping list: `[coming in v2.0]`
 Collates the ingredients to be bought and returns them as a list. Also displays the total cost of the shopping list, and each ingredient’s individual price. +
-Format: `view shoplist <name>`
+Format: `view shoplist <exerciseName>`
 
 === Adding recipe to a shopping list: `[coming in v2.0]`
 Adds specified recipe to the shopping list. +
-Format: `shoplist <name> add <recipe>`
+Format: `shoplist <exerciseName> add <recipe>`
 
 === Deleting a recipe from a shopping list: `[coming in v2.0]`
 Deletes specified recipe from the shopping list. +
-Format: `shoplist <name> delete <recipe>`
+Format: `shoplist <exerciseName> delete <recipe>`
 
 === Add a meal plan: `[coming in v2.0]`
-Creates a new meal plan with specified name. +
-Format: `add mealplan <name>`
+Creates a new meal plan with specified exerciseName. +
+Format: `add mealplan <exerciseName>`
 
 === Delete a meal plan: `[coming in v2.0]`
 Deletes specified meal plan. +
-Format: `delete mealplan <name>`
+Format: `delete mealplan <exerciseName>`
 
 === List your meal plans: `[coming in v2.0]`
 Lists all meal plan names. +
@@ -133,15 +133,15 @@ Format: `list mealplan`
 
 === View a meal plan: `[coming in v2.0]`
 Displays daily nutritional value of the meal plan. +
-Format: `view mealplan <name>`
+Format: `view mealplan <exerciseName>`
 
 === Add recipe to a meal plan: `[coming in v2.0]`
 Adds the specified recipe to the specified meal plan, according to the day listed in the `<day>` field. The `<day>` field is a number ranging from 1 to 7, for the 7 days present in the meal plan. +
-Format: `mealplan <name> <day> add <recipe name>`
+Format: `mealplan <exerciseName> <day> add <recipe exerciseName>`
 
 === Generate a shopping list for a meal plan: `[coming in v2.0]`
-Generates a shopping list for the specified meal plan. If `<shoplist name>` is not specified, we use `<name>` by default. +
-Format: `mealplan <name> shoplist <shoplist name>`
+Generates a shopping list for the specified meal plan. If `<shoplist exerciseName>` is not specified, we use `<exerciseName>` by default. +
+Format: `mealplan <exerciseName> shoplist <shoplist exerciseName>`
 
 == Dashboard (Analytics + Suggestions)
 === Get suggestions: `suggest`
@@ -335,7 +335,7 @@ Generates a PDF copy of all the blood sugar and blood pressure records respectiv
 Adds an exercise to exercise list. App will then prompt for the muscle type, level of intensity (out of 5), instructions as well as images of the steps (in directory form) (optional) in order.
 
 Once done you can add the recommended number of sets (optional), recommended number of repetitions (optional), recommended timing in minutes(optional), weight (optional) in the format: `s/SETS r/REPETITIONS w/WEIGHT t/TIMING` +
-Format: `add exercise <name>`
+Format: `add exercise <exerciseName>`
 
 Examples:
 
@@ -381,7 +381,7 @@ If the list of exercises is empty, a list of preset exercises are generated.
 
 === Create Workout: `workout`
 Adds a workout to workout list. The app will then display a list of exercises to be added to the workout, you can then filter this by adding specifications such as muscle type. To add an exercise, simply specify the index on the current list that is displayed. If the exercise has a recommended number or reps, sets, weight and timing you will be asked whether to follow it. Otherwise you can specify what you wish. Once you have added all the exercises, you will then be asked to specify the amount of time for rest in between sets. +
-Format: `workout <name>`
+Format: `workout <exerciseName>`
 
 === List Workout: `list workout`
 List exercises which matches optional parameters specified eg. muscle type/intensity/total time. +
@@ -402,30 +402,30 @@ Format: `run <index>`
 
 == Food Diary
 === Create Diary: `create diary`
-Creates a new diary with the specified name +
-Format: `create diary <diary name>`
+Creates a new diary with the specified exerciseName +
+Format: `create diary <diary exerciseName>`
 
 * Diary names are unique
 
 Examples:
 
 * `create diary Healthy Living` +
- Creates a new diary with the name “Healthy Living”
+ Creates a new diary with the exerciseName “Healthy Living”
 
 === Delete Diary: `delete diary`
-Deletes the diary with the specified name +
-Format: `delete diary <diary name>`
+Deletes the diary with the specified exerciseName +
+Format: `delete diary <diary exerciseName>`
 
-* Diary name should already exist
+* Diary exerciseName should already exist
 
 Examples:
 
 * `delete diary Healthy Living` +
- Deletes the diary with the name “Healthy Living”
+ Deletes the diary with the exerciseName “Healthy Living”
 
 === Add Page: `add page`
 Adds a page to the end of the specified diary +
-Format: `add page <type> <diary name>` +
+Format: `add page <type> <diary exerciseName>` +
 * Diary should already exist
 
 NOTE: Users can only add pages of types: health, food or exercise.
@@ -443,7 +443,7 @@ Adds an exercise page to the diary named “Healthy Living”
 
 === Delete Page: `delete page`
 Deletes the specified page from the specified diary +
-Format: `delete page <index> <diary name>`
+Format: `delete page <index> <diary exerciseName>`
 
 * Diary should already exist
 * Index should a positive integer
@@ -455,7 +455,7 @@ Examples:
 
 === Link Recipes: `[Coming in v2.0]`
 Creates a new food page in the specified diary, using pre-existing recipes +
-Format: `link recipe <recipe name> /to <diary name>`
+Format: `link recipe <recipe exerciseName> /to <diary exerciseName>`
 
 * Diary should already exist
 * Recipe should already exist
@@ -469,7 +469,7 @@ Examples:
 
 ===  Link Exercises: `[Coming in v2.0]`
 Creates a new exercise page in the specified diary, using pre-existing exercises +
-Format: `link exercise <exercise name> /to <diary name>`
+Format: `link exercise <exercise exerciseName> /to <diary exerciseName>`
 
 * Diary should already exist
 * Exercise should already exist
@@ -483,7 +483,7 @@ Examples:
 
 === Link Health Records: `[Coming in v2.0]`
 Creates a new health page in the specified diary, using pre-existing records +
-Format: `link records <record id> /to <diary name>`
+Format: `link records <record id> /to <diary exerciseName>`
 
 * Diary should already exist
 * Records should already exist
@@ -497,7 +497,7 @@ Examples:
 
 === Edit Diary: `[Coming in v2.0]`
 Allows user to edit some basic information in the diary +
-Format: `edit <diary name>`
+Format: `edit <diary exerciseName>`
 
 * Diary should already exist
 
@@ -508,7 +508,7 @@ Examples:
 
 === Edit Page: `[Coming in v2.0]`
 Allows user to edit basic information in the specified page of the specified diary +
-Format: `edit page <index> <diary name>`
+Format: `edit page <index> <diary exerciseName>`
 
 * Diary should already exist
 * Index should be a positive integer
@@ -520,7 +520,7 @@ Examples:
 
 === View Diary: `[Coming in v2.0]`
 Allows user to view the specified diary in a page-form +
-Format: `view  <diary name>`
+Format: `view  <diary exerciseName>`
 
 * Diary should already exist
 
@@ -531,7 +531,7 @@ Examples:
 
 === Print Diary: `[Coming in v2.0]`
 Allows user to print the specified diary in PDF format +
-Format: `print <diary name>`
+Format: `print <diary exerciseName>`
 
 * Diary should already exist
 
@@ -544,9 +544,9 @@ A PDF format of the diary named “Healthy Living” will be generated
 
 *Recipe Book*
 
-* *Add recipe* : `add recipe <name>` +
+* *Add recipe* : `add recipe <exerciseName>` +
 e.g. `add recipe Chicken Rice`
-* *Delete recipe* : `delete recipe <name>` +
+* *Delete recipe* : `delete recipe <exerciseName>` +
 e.g. `delete recipe Chicken Rice`
 * *List recipes* : `list recipe`
 * *View recipe* : `view recipe` +
@@ -575,12 +575,12 @@ e.g. `delete health BP129391`
 
 *Workout Tracker*
 
-* *Adding an exercise* : `add exercise <name>` +
+* *Adding an exercise* : `add exercise <exerciseName>` +
 e.g. `add exercise Inclined Bench Press`
 * *List exercise* : `list exercise [MUSCLEGROUP] [INTENSITY]`
 * *Delete exercise* : `delete exercise <index>`
 * *View exercise* : `view exercise<index>`
-* *Create workout* : `workout <name>`
+* *Create workout* : `workout <exerciseName>`
 * *List workout* : `list exercise [MUSCLEGROUP] [INTENSITY] [TOTALTIME]`
 * *Delete workout* : `delete workout <index>`
 * *Run workout* : `run <index>`
@@ -589,9 +589,9 @@ e.g. `add exercise Inclined Bench Press`
 
 * *Create Diary* : `create diary` +
 e.g. `create diary Healthy Living`
-* *Delete Diary* : `delete diary <diary name>` +
+* *Delete Diary* : `delete diary <diary exerciseName>` +
 e.g. `delete diary Healthy Living`
-* *Add page* : `add page <type> <diary name>` +
+* *Add page* : `add page <type> <diary exerciseName>` +
 e.g. `add page health Healthy Living`
-* *Delete page* : `delete page <index> <diary name>` +
+* *Delete page* : `delete page <index> <diary exerciseName>` +
 e.g. `delete page 2 Healthy Living`

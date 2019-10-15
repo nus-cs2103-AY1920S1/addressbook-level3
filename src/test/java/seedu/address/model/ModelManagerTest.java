@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXERCISE;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalExercises.ABS_ROLLOUT;
+import static seedu.address.testutil.TypicalExercises.BURPEES;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,28 +24,28 @@ public class ModelManagerTest {
 
     @Test
     public void constructor() {
-        assertEquals(new UserPrefs(), modelManager.getUserPrefs());
+        assertEquals(new WorkoutPlannerUserPrefs(), modelManager.getWorkoutPlannerUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new WorkoutPlanner(), new WorkoutPlanner(modelManager.getDukeCooks()));
     }
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setWorkoutPlannerUserPrefs(null));
     }
 
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
-        UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setExercisesFilePath(Paths.get("address/book/file/path"));
-        userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
-        modelManager.setUserPrefs(userPrefs);
-        assertEquals(userPrefs, modelManager.getUserPrefs());
+        WorkoutPlannerUserPrefs workoutPlannerUserPrefs = new WorkoutPlannerUserPrefs();
+        workoutPlannerUserPrefs.setExercisesFilePath(Paths.get("address/book/file/path"));
+        workoutPlannerUserPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
+        modelManager.setWorkoutPlannerUserPrefs(workoutPlannerUserPrefs);
+        assertEquals(workoutPlannerUserPrefs, modelManager.getWorkoutPlannerUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
-        UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setExercisesFilePath(Paths.get("new/address/book/file/path"));
-        assertEquals(oldUserPrefs, modelManager.getUserPrefs());
+        WorkoutPlannerUserPrefs oldWorkoutPlannerUserPrefs = new WorkoutPlannerUserPrefs(workoutPlannerUserPrefs);
+        workoutPlannerUserPrefs.setExercisesFilePath(Paths.get("new/address/book/file/path"));
+        assertEquals(oldWorkoutPlannerUserPrefs, modelManager.getWorkoutPlannerUserPrefs());
     }
 
     @Test
@@ -79,13 +79,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personNotInDukeCooks_returnsFalse() {
-        assertFalse(modelManager.hasExercise(ALICE));
+        assertFalse(modelManager.hasExercise(ABS_ROLLOUT));
     }
 
     @Test
     public void hasPerson_personInDukeCooks_returnsTrue() {
-        modelManager.addExercise(ALICE);
-        assertTrue(modelManager.hasExercise(ALICE));
+        modelManager.addExercise(ABS_ROLLOUT);
+        assertTrue(modelManager.hasExercise(ABS_ROLLOUT));
     }
 
     @Test
@@ -95,13 +95,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        WorkoutPlanner dukeCooks = new DukeCooksBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        WorkoutPlanner dukeCooks = new DukeCooksBuilder().withExercise(ABS_ROLLOUT).withExercise(BURPEES).build();
         WorkoutPlanner differentDukeCooks = new WorkoutPlanner();
-        UserPrefs userPrefs = new UserPrefs();
+        WorkoutPlannerUserPrefs workoutPlannerUserPrefs = new WorkoutPlannerUserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(dukeCooks, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(dukeCooks, userPrefs);
+        modelManager = new ModelManager(dukeCooks, workoutPlannerUserPrefs);
+        ModelManager modelManagerCopy = new ModelManager(dukeCooks, workoutPlannerUserPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -114,19 +114,19 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different dukeCooks -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentDukeCooks, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentDukeCooks, workoutPlannerUserPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = ABS_ROLLOUT.getExerciseName().exerciseName.split("\\s+");
         modelManager.updateFilteredExerciseList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(dukeCooks, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(dukeCooks, workoutPlannerUserPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISE);
 
         // different userPrefs -> returns false
-        UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setExercisesFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(dukeCooks, differentUserPrefs)));
+        WorkoutPlannerUserPrefs differentWorkoutPlannerUserPrefs = new WorkoutPlannerUserPrefs();
+        differentWorkoutPlannerUserPrefs.setExercisesFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(dukeCooks, differentWorkoutPlannerUserPrefs)));
     }
 }

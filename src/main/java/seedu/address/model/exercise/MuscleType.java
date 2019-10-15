@@ -52,8 +52,8 @@ public class MuscleType {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && muscleType.equals(((Name) other).fullName)); // state check
+                || (other instanceof ExerciseName // instanceof handles nulls
+                && muscleType.equals(((ExerciseName) other).exerciseName)); // state check
     }
 
     @Override

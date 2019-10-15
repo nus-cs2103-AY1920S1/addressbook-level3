@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 public class Repetitions<Integer> extends ExerciseDetail {
 
-    public Repetitions(int repetitions) {
+    public Repetitions(java.lang.Integer repetitions) {
         requireNonNull(repetitions);
         super.magnitude = repetitions;
     }

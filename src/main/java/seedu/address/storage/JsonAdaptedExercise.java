@@ -10,17 +10,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.WorkoutPlannerParserUtil;
 import seedu.address.model.details.Distance;
 import seedu.address.model.details.ExerciseDetail;
 import seedu.address.model.details.Repetitions;
 import seedu.address.model.details.Sets;
 import seedu.address.model.details.Weight;
 import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.ExerciseName;
 import seedu.address.model.exercise.Intensity;
 import seedu.address.model.exercise.MuscleType;
 import seedu.address.model.exercise.MusclesTrained;
-import seedu.address.model.exercise.Name;
 
 /**
  * Jackson-friendly version of {@link Exercise}.
@@ -59,7 +59,7 @@ class JsonAdaptedExercise {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedExercise(Exercise source) {
-        name = source.getName().fullName;
+        name = source.getExerciseName().exerciseName;
         intensity = source.getIntensity().toString();
         primaryMuscle = source.getMusclesTrained().getPrimaryMuscle().toString();
         secondaryMuscles.addAll(source.getMusclesTrained().getSecondaryMuscles().stream()
@@ -107,19 +107,20 @@ class JsonAdaptedExercise {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String
+                    .format(MISSING_FIELD_MESSAGE_FORMAT, ExerciseName.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        if (!ExerciseName.isValidName(name)) {
+            throw new IllegalValueException(ExerciseName.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final ExerciseName modelExerciseName = new ExerciseName(name);
 
         if (primaryMuscle == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     MuscleType.class.getSimpleName()));
         }
         if (!MuscleType.isValidMuscleType(primaryMuscle)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(ExerciseName.MESSAGE_CONSTRAINTS);
         }
         final MuscleType modelPrimaryMuscle = new MuscleType(primaryMuscle);
 
@@ -128,13 +129,13 @@ class JsonAdaptedExercise {
                     Intensity.class.getSimpleName()));
         }
         if (!Intensity.isValidIntensity(intensity)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(ExerciseName.MESSAGE_CONSTRAINTS);
         }
-        final Intensity modelIntensity = ParserUtil.parseIntensity(intensity);
+        final Intensity modelIntensity = WorkoutPlannerParserUtil.parseIntensity(intensity);
 
         MusclesTrained modelMuscleTrained = new MusclesTrained(modelPrimaryMuscle, secondaryMuscles);
         final Set<ExerciseDetail> modelExerciseDetails = new HashSet<>(exerciseDetails);
-        return new Exercise(modelName, modelMuscleTrained, modelIntensity, modelExerciseDetails);
+        return new Exercise(modelExerciseName, modelMuscleTrained, modelIntensity, modelExerciseDetails);
     }
 
 }

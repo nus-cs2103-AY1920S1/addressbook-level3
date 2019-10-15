@@ -43,7 +43,7 @@ public class ExerciseCard extends UiPart<Region> {
         super(FXML);
         this.exercise = exercise;
         id.setText(displayedIndex + ". ");
-        name.setText(exercise.getName().fullName);
+        name.setText(exercise.getExerciseName().exerciseName);
         primaryMuscle.setText("Primary Muscle: " + exercise.getMusclesTrained().getPrimaryMuscle());
         intensity.setText("Intensity: " + exercise.getIntensity().toString());
         exercise.getExerciseDetails().stream()

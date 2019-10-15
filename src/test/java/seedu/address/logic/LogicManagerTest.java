@@ -3,9 +3,9 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PUSHUP;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalExercises.PUSHUP;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -16,18 +16,18 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.AddExerciseCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListExerciseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyWorkoutPlanner;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.WorkoutPlannerUserPrefs;
 import seedu.address.model.exercise.Exercise;
-import seedu.address.storage.JsonDukeCooksStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.StorageManager;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.storage.JsonWorkoutPlannerStorage;
+import seedu.address.storage.WorkoutPlannerStorageManager;
+import seedu.address.testutil.ExerciseBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -40,10 +40,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonDukeCooksStorage dukeCooksStorage =
-                new JsonDukeCooksStorage(temporaryFolder.resolve("exercises.json"));
+        JsonWorkoutPlannerStorage dukeCooksStorage =
+                new JsonWorkoutPlannerStorage(temporaryFolder.resolve("exercises.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
+        WorkoutPlannerStorageManager storage = new WorkoutPlannerStorageManager(dukeCooksStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -61,23 +61,28 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListExerciseCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListExerciseCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonDukeCooksIoExceptionThrowingStub
-        JsonDukeCooksStorage dukeCooksStorage =
-                new JsonDukeCooksIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
+        JsonWorkoutPlannerStorage workoutPlannerStorage =
+                new JsonWorkoutPlannerIoExceptionThrowingStub(temporaryFolder
+                        .resolve("ioExceptionWorkoutPlanner.json"));
         JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
+                new JsonUserPrefsStorage(temporaryFolder
+                        .resolve("ioExceptionUserPrefs.json"));
+        WorkoutPlannerStorageManager storage = new WorkoutPlannerStorageManager(workoutPlannerStorage,
+                userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddExerciseCommand.COMMAND_WORD + NAME_DESC_AMY;
-        Exercise expectedExercise = new PersonBuilder(AMY).withTags().build();
+        String addCommand = AddExerciseCommand.COMMAND_WORD + NAME_DESC_PUSHUP;
+        Exercise expectedExercise = new ExerciseBuilder(PUSHUP)
+                .withDetails(null, null, null, null, null, null)
+                .build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addExercise(expectedExercise);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
@@ -125,7 +130,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getDukeCooks(), new WorkoutPlannerUserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -145,8 +150,8 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonDukeCooksIoExceptionThrowingStub extends JsonDukeCooksStorage {
-        private JsonDukeCooksIoExceptionThrowingStub(Path filePath) {
+    private static class JsonWorkoutPlannerIoExceptionThrowingStub extends JsonWorkoutPlannerStorage {
+        private JsonWorkoutPlannerIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 

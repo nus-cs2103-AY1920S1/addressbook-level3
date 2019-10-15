@@ -6,7 +6,7 @@ import seedu.address.model.exercise.Exercise;
 /**
  * A utility class to help with building DukeCooks objects.
  * Example usage: <br>
- *     {@code DukeCooks dc = new DukeCooksBuilder().withPerson("John", "Doe").build();}
+ *     {@code DukeCooks dc = new DukeCooksBuilder().withExercise("John", "Doe").build();}
  */
 public class DukeCooksBuilder {
 
@@ -23,7 +23,7 @@ public class DukeCooksBuilder {
     /**
      * Adds a new {@code Person} to the {@code DukeCooks} that we are building.
      */
-    public DukeCooksBuilder withPerson(Exercise exercise) {
+    public DukeCooksBuilder withExercise(Exercise exercise) {
         dukeCooks.addExercise(exercise);
         return this;
     }

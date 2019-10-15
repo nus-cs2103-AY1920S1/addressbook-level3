@@ -16,10 +16,10 @@ import seedu.address.model.details.Weight;
 import seedu.address.model.details.unit.DistanceUnit;
 import seedu.address.model.details.unit.WeightUnit;
 import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.ExerciseName;
 import seedu.address.model.exercise.Intensity;
 import seedu.address.model.exercise.MuscleType;
 import seedu.address.model.exercise.MusclesTrained;
-import seedu.address.model.exercise.Name;
 
 /**
  * Contains utility methods for populating {@code DukeCooks} with sample data.
@@ -27,24 +27,24 @@ import seedu.address.model.exercise.Name;
 public class SampleDataUtil {
     public static Exercise[] getSamplePersons() {
         return new Exercise[] {
-            new Exercise(new Name("Pushups"),
+            new Exercise(new ExerciseName("Pushups"),
                 getMuscleTrained("Chest", "Biceps", "Back", "Shoulders"),
                 Intensity.HIGH,
                 getDetails(null, null, null, null, 30, 3)),
-            new Exercise(new Name("Sprint Sets"),
+            new Exercise(new ExerciseName("Sprint Sets"),
                 getMuscleTrained("Cardiovascular", "Thighs", "Calves"),
                 Intensity.HIGH,
                 getDetails(null, null, (float) 400, DistanceUnit.METER, null, 8)),
-            new Exercise(new Name("Planks"),
+            new Exercise(new ExerciseName("Planks"),
                 getMuscleTrained("Abs", "Shoulders"), Intensity.MEDIUM,
                 getDetails(null, null, null, null, 30, 3)),
-            new Exercise(new Name("Bicep Curl"),
+            new Exercise(new ExerciseName("Bicep Curl"),
                 getMuscleTrained("Biceps"), Intensity.LOW,
                 getDetails((float) 10.0, WeightUnit.KILOGRAM, null, null, 12, 4)),
-            new Exercise(new Name("Jumping Jacks"),
+            new Exercise(new ExerciseName("Jumping Jacks"),
                 getMuscleTrained("Cardiovascular"), Intensity.MEDIUM,
                 getDetails(null, null, null, null, 100, null)),
-            new Exercise(new Name("Weighted Sprints"),
+            new Exercise(new ExerciseName("Weighted Sprints"),
                 getMuscleTrained("Cardiovascular", "Thighs", "Hamstrings", "Calves"),
                 Intensity.HIGH, getDetails((float) 500, WeightUnit.GRAM, (float) 400, DistanceUnit.METER, null, 8))
         };

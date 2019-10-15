@@ -23,10 +23,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.details.ExerciseDetail;
 import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.ExerciseName;
 import seedu.address.model.exercise.Intensity;
 import seedu.address.model.exercise.MuscleType;
 import seedu.address.model.exercise.MusclesTrained;
-import seedu.address.model.exercise.Name;
 
 /**
  * Edits the details of an existing exercise in Duke Cooks.
@@ -97,7 +97,8 @@ public class EditExerciseCommand extends Command {
                                                  EditExerciseDescriptor editExerciseDescriptor) {
         assert exerciseToEdit != null;
 
-        Name updatedName = editExerciseDescriptor.getName().orElse(exerciseToEdit.getName());
+        ExerciseName updatedExerciseName = editExerciseDescriptor
+                .getExerciseName().orElse(exerciseToEdit.getExerciseName());
         MuscleType updatedPrimaryMuscle = editExerciseDescriptor.getPrimaryMuscle()
                 .orElse(exerciseToEdit.getMusclesTrained().getPrimaryMuscle());
         MusclesTrained updatedMusclesTrained = new MusclesTrained(updatedPrimaryMuscle,
@@ -106,7 +107,7 @@ public class EditExerciseCommand extends Command {
         Set<ExerciseDetail> updatedExerciseDetails = editExerciseDescriptor
                 .getExerciseDetails().orElse(exerciseToEdit.getExerciseDetails());
 
-        return new Exercise(updatedName, updatedMusclesTrained, updatedIntensity, updatedExerciseDetails);
+        return new Exercise(updatedExerciseName, updatedMusclesTrained, updatedIntensity, updatedExerciseDetails);
     }
 
     @Override
@@ -132,7 +133,7 @@ public class EditExerciseCommand extends Command {
      * corresponding field value of the exercise.
      */
     public static class EditExerciseDescriptor {
-        private Name name;
+        private ExerciseName exerciseName;
         private MuscleType primaryMuscle;
         private Intensity intensity;
         private Set<ExerciseDetail> exerciseDetails;
@@ -144,7 +145,7 @@ public class EditExerciseCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditExerciseDescriptor(EditExerciseDescriptor toCopy) {
-            setName(toCopy.name);
+            setExerciseName(toCopy.exerciseName);
             setPrimaryMuscle(toCopy.primaryMuscle);
             setIntensity(toCopy.intensity);
             setExerciseDetails(toCopy.exerciseDetails);
@@ -154,11 +155,11 @@ public class EditExerciseCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, exerciseDetails);
+            return CollectionUtil.isAnyNonNull(exerciseName, exerciseDetails);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setExerciseName(ExerciseName exerciseName) {
+            this.exerciseName = exerciseName;
         }
 
         public void setIntensity(Intensity intensity) {
@@ -169,8 +170,8 @@ public class EditExerciseCommand extends Command {
             this.primaryMuscle = primaryMuscle;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<ExerciseName> getExerciseName() {
+            return Optional.ofNullable(exerciseName);
         }
 
         public Optional<MuscleType> getPrimaryMuscle() {
@@ -214,7 +215,7 @@ public class EditExerciseCommand extends Command {
             // state check
             EditExerciseDescriptor e = (EditExerciseDescriptor) other;
 
-            return getName().equals(e.getName())
+            return getExerciseName().equals(e.getExerciseName())
                     && getExerciseDetails().equals(e.getExerciseDetails());
         }
     }

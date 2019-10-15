@@ -19,15 +19,15 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyWorkoutPlanner;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.WorkoutPlanner;
+import seedu.address.model.WorkoutPlannerUserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.DukeCooksStorage;
-import seedu.address.storage.JsonDukeCooksStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonWorkoutPlannerStorage;
 import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.WorkoutPlannerStorage;
+import seedu.address.storage.WorkoutPlannerStorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -55,13 +55,14 @@ public class MainApp extends Application {
         config = initConfig(appParameters.getConfigPath());
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-        UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        DukeCooksStorage dukeCooksStorage = new JsonDukeCooksStorage(userPrefs.getExercisesFilePath());
-        storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
+        WorkoutPlannerUserPrefs workoutPlannerUserPrefs = initPrefs(userPrefsStorage);
+        WorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(workoutPlannerUserPrefs
+                .getExercisesFilePath());
+        storage = new WorkoutPlannerStorageManager(workoutPlannerStorage, userPrefsStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModelManager(storage, workoutPlannerUserPrefs);
 
         logic = new LogicManager(model, storage);
 
@@ -138,21 +139,21 @@ public class MainApp extends Application {
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
      */
-    protected UserPrefs initPrefs(UserPrefsStorage storage) {
+    protected WorkoutPlannerUserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
-        UserPrefs initializedPrefs;
+        WorkoutPlannerUserPrefs initializedPrefs;
         try {
-            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new UserPrefs());
+            Optional<WorkoutPlannerUserPrefs> prefsOptional = storage.readUserPrefs();
+            initializedPrefs = prefsOptional.orElse(new WorkoutPlannerUserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
                     + "Using default user prefs");
-            initializedPrefs = new UserPrefs();
+            initializedPrefs = new WorkoutPlannerUserPrefs();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
-            initializedPrefs = new UserPrefs();
+            initializedPrefs = new WorkoutPlannerUserPrefs();
         }
 
         //Update prefs file in case it was missing to begin with or there are new/unused fields
@@ -175,7 +176,7 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping Duke Cooks ] =============================");
         try {
-            storage.saveUserPrefs(model.getUserPrefs());
+            storage.saveUserPrefs(model.getWorkoutPlannerUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

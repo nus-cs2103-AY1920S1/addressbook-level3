@@ -2,56 +2,62 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_SETS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PUSHUP;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_SITUP;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.REPS_DESC_SIXTY;
+import static seedu.address.logic.commands.CommandTestUtil.SETS_DESC_FIVE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_SITUP;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REPS_SIXTY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SETS_FIVE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalExercises.PUSHUP;
+import static seedu.address.testutil.TypicalExercises.SITUP;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddExerciseCommand;
-import seedu.address.model.exercise.Name;
-import seedu.address.model.exercise.Exercise;
 import seedu.address.model.details.ExerciseDetail;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.ExerciseName;
+import seedu.address.testutil.ExerciseBuilder;
 
 public class AddExerciseCommandParserTest {
     private AddExerciseCommandParser parser = new AddExerciseCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Exercise expectedExercise = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Exercise expectedExercise = new ExerciseBuilder(SITUP)
+                .withDetails(null, null, null, null, null, VALID_SETS_FIVE)
+                .build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB
-                 + TAG_DESC_FRIEND, new AddExerciseCommand(expectedExercise));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_SITUP
+                 + SETS_DESC_FIVE, new AddExerciseCommand(expectedExercise));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB
-                 + TAG_DESC_FRIEND, new AddExerciseCommand(expectedExercise));
+        assertParseSuccess(parser, NAME_DESC_PUSHUP + NAME_DESC_SITUP
+                 + SETS_DESC_FIVE, new AddExerciseCommand(expectedExercise));
 
         // multiple tags - all accepted
-        Exercise expectedExerciseMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Exercise expectedExerciseMultipleTags = new ExerciseBuilder(SITUP)
+                .withDetails(null, null, null, null,
+                        VALID_REPS_SIXTY, VALID_SETS_FIVE)
                 .build();
-        assertParseSuccess(parser, NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddExerciseCommand(expectedExerciseMultipleTags));
+        assertParseSuccess(parser, NAME_DESC_SITUP
+                + REPS_DESC_SIXTY + SETS_DESC_FIVE, new AddExerciseCommand(expectedExerciseMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Exercise expectedExercise = new PersonBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY,
+        Exercise expectedExercise = new ExerciseBuilder(PUSHUP)
+                .withDetails(null, null, null, null, null, null)
+                .build();
+        assertParseSuccess(parser, NAME_DESC_PUSHUP,
                 new AddExerciseCommand(expectedExercise));
     }
 
@@ -60,11 +66,11 @@ public class AddExerciseCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExerciseCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB,
+        assertParseFailure(parser, VALID_NAME_SITUP,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB,
+        assertParseFailure(parser, VALID_NAME_SITUP,
                 expectedMessage);
     }
 
@@ -72,19 +78,19 @@ public class AddExerciseCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
+                + REPS_DESC_SIXTY + SETS_DESC_FIVE, ExerciseName.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB
-                + INVALID_TAG_DESC + VALID_TAG_FRIEND, ExerciseDetail.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_SITUP
+                + INVALID_SETS_DESC + VALID_SETS_FIVE, ExerciseDetail.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+                ExerciseName.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB
-                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_SITUP
+                 + REPS_DESC_SIXTY + SETS_DESC_FIVE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExerciseCommand.MESSAGE_USAGE));
     }
 }

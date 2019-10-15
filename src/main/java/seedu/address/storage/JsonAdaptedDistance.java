@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.WorkoutPlannerParserUtil;
 import seedu.address.model.details.Distance;
 import seedu.address.model.details.ExerciseDetail;
 import seedu.address.model.details.unit.DistanceUnit;
@@ -51,7 +51,7 @@ public class JsonAdaptedDistance<Float> extends JsonAdaptedExerciseDetail {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public ExerciseDetail toModelType() throws IllegalValueException {
-        DistanceUnit modelUnit = ParserUtil.parseDistanceUnit(unit);
+        DistanceUnit modelUnit = WorkoutPlannerParserUtil.parseDistanceUnit(unit);
         return new Distance((java.lang.Float) magnitude, modelUnit);
     }
 }
