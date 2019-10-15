@@ -38,11 +38,11 @@ public class SampleDataUtil {
                         getTagSet("FastFood", "Western")),
                 new Restaurant(new Name("Prata House"), LocationMap.getLocation("Bishan").get(),
                         getTagSet("Indian")),
-                new Restaurant(new Name("SkyBar Bar & Restaurant"), LocationMap.getLocation("Marina").get(),
+                new Restaurant(new Name("SkyBar Bar and Restaurant"), LocationMap.getLocation("Marina").get(),
                         getTagSet("Bar")),
                 new Restaurant(new Name("IchiNiSan Ramen"), LocationMap.getLocation("City").get(),
                         getTagSet("Japanese")),
-                new Restaurant(new Name("Piggy's Self Barbeque"), LocationMap.getLocation("Woodlands").get(),
+                new Restaurant(new Name("Piggys Self Barbeque"), LocationMap.getLocation("Woodlands").get(),
                         getTagSet("Barbeque"))
         };
     }

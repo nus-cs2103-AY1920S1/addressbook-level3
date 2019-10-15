@@ -38,7 +38,15 @@ public class Restaurant {
         this.name = name;
         this.location = location;
         this.rating = new Rating("0");
+        this.tags.addAll(tags);
+    }
 
+    public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags) {
+        requireAllNonNull(name, location, rating, numberOfRatings, tags);
+        this.numberOfRatings = 0;
+        this.name = name;
+        this.location = location;
+        this.rating = rating;
         this.tags.addAll(tags);
     }
 

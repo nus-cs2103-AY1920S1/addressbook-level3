@@ -5,7 +5,7 @@ package seedu.deliverymans.model.location;
  */
 public class Location {
 
-    private String name;
+    public final String name;
     private int x;
     private int y;
 
