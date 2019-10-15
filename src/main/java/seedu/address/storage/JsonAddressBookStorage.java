@@ -92,6 +92,9 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         String[] pathArray = dataDirectory.list();
 
         for (int i = 0; i < pathArray.length; i++) {
+            if (!pathArray[i].endsWith(".json")) {
+                continue;
+            }
             String wordBankPathString = "data/" + pathArray[i];
             Path wordBankPath = Paths.get(wordBankPathString);
             try {

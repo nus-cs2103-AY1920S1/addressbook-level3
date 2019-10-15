@@ -39,7 +39,6 @@ public class GameStatistics {
         return grade;
     }
 
-
     public double getSecTaken() {
         return secTaken;
     }

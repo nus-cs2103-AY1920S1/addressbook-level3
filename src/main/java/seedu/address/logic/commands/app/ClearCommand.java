@@ -20,6 +20,7 @@ public class ClearCommand extends AppCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setWordBank(null);
+        // todo may need to clear wb stats here also
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

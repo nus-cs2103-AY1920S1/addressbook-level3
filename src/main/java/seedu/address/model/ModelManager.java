@@ -16,6 +16,7 @@ import seedu.address.model.game.Game;
 import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.statistics.WordBankStatistics;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -177,5 +178,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredCards.equals(other.filteredCards);
     }
-
 }

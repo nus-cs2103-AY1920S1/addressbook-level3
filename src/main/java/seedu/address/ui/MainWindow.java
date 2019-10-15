@@ -199,7 +199,8 @@ public class MainWindow extends UiPart<Stage> {
             throw new IllegalStateException("gameStatistics in gameManager should not be null when game"
                     + "is finished");
         }
-        modularDisplay.swapToGameResult(modularDisplayPlaceholder, gameManager.getGameStatistics());
+        modularDisplay.swapToGameResult(modularDisplayPlaceholder, gameManager.getGameStatistics(),
+                gameManager.getLogic().getWordBankStatistics());
     }
 
     /**

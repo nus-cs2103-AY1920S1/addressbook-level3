@@ -10,7 +10,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.game.FinishGameResult;
 import seedu.address.logic.commands.game.GameCommandResult;
 import seedu.address.logic.commands.switches.StartCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -85,10 +84,10 @@ public class GameManager {
                 gameStatisticsBuilder.addDataPoint(gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
                         gameCommandResult.getCard().get());
             }
-            // should attach the result to FinishGameResult to be passed to Logic
+            // should make logic save the updated game statistics
             if (gameCommandResult.isFinishedGame()) {
                 abortAnyExistingGameTimer();
-                return new FinishGameResult(gameStatisticsBuilder.build());
+                logic.saveUpdatedWbStatistics(gameStatisticsBuilder.build());
             }
         }
 

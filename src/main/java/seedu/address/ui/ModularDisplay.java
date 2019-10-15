@@ -4,6 +4,7 @@ import javafx.scene.layout.StackPane;
 import seedu.address.gamemanager.GameManager;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.GameStatisticsBuilder;
+import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.modules.GameResultPanel;
 import seedu.address.ui.modules.CardListPanel;
 import seedu.address.ui.modules.LoadBankPanel;
@@ -64,10 +65,12 @@ public class ModularDisplay {
      *
      * @param paneToDisplay The view to change.
      * @param gameStatistics The statistics to be shown in the game result panel.
+     * @param wbStatistics The overall word bank statistics.
      */
-    public void swapToGameResult(StackPane paneToDisplay, GameStatistics gameStatistics) {
+    public void swapToGameResult(StackPane paneToDisplay, GameStatistics gameStatistics,
+                                 WordBankStatistics wbStatistics) {
         paneToDisplay.getChildren().clear();
-        paneToDisplay.getChildren().add(new GameResultPanel(gameStatistics).getRoot());
+        paneToDisplay.getChildren().add(new GameResultPanel(gameStatistics, wbStatistics).getRoot());
     }
 
     /**

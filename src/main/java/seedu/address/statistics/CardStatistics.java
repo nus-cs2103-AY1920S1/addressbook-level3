@@ -23,4 +23,13 @@ public class CardStatistics {
     public int getNumCorrect() {
         return numCorrect;
     }
+
+    public void addWrong() {
+        ++numShown;
+    }
+
+    public void addCorrect() {
+        ++numCorrect;
+        ++numShown;
+    }
 }

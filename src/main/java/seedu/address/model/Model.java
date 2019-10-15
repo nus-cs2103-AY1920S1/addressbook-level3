@@ -9,6 +9,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.game.Game;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.statistics.WordBankStatistics;
 
 /**
  * The API of the Model component.

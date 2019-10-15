@@ -10,6 +10,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.statistics.GameStatistics;
+import seedu.address.statistics.WordBankStatistics;
 
 /**
  * API of the Logic component
@@ -52,4 +54,8 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    void saveUpdatedWbStatistics(GameStatistics gameStats) throws CommandException;
+
+    WordBankStatistics getWordBankStatistics();
 }

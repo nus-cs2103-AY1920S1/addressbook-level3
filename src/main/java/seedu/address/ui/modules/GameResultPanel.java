@@ -13,12 +13,13 @@ import seedu.address.commons.util.AppUtil;
 import seedu.address.model.card.Card;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.ScoreGrade;
+import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.UiPart;
 
 import java.util.List;
 
 /**
- * Panel containing the game result.
+ * Panel containing the game result. todo this can be separated into several ui elements.
  */
 public class GameResultPanel extends UiPart<Region> {
     private static final String FXML = "GameResultPanel.fxml";
@@ -50,12 +51,27 @@ public class GameResultPanel extends UiPart<Region> {
     private Label timeTakenText;
 
     @FXML
+    private Label gameFeedbackHeader;
+
+    @FXML
     private VBox wrongAnswersBox;
 
     @FXML
     private StackPane wrongAnswersList;
 
-    public GameResultPanel(GameStatistics gameStatistics) {
+    @FXML
+    private Label highScoreText;
+
+    @FXML
+    private Label fastestClearText;
+
+    @FXML
+    private VBox mostMissedBox;
+
+    @FXML
+    private StackPane mostMissedList;
+
+    public GameResultPanel(GameStatistics gameStatistics, WordBankStatistics wbStatistics) {
         super(FXML);
         AnchorPane.setLeftAnchor(title, 0.0);
         title.setText(gameStatistics.getTitle());
@@ -85,13 +101,32 @@ public class GameResultPanel extends UiPart<Region> {
         // init time taken text
         timeTakenText.setText(String.format("%.2fs", gameStatistics.getSecTaken()));
 
+        // init high score text
+        highScoreText.setText(wbStatistics.getHighestScore().toString());
+
+        // init fastest clear text
+        fastestClearText.setText(
+                wbStatistics.getFastestClear().isPresent()
+                        ? String.format("%.2fs", wbStatistics.getFastestClear().get())
+                        : " - ");
+
         // init wrongAnswersBox
         if (gameStatistics.allCorrect()) {
-            wrongAnswersBox.setVisible(false);
+            wrongAnswersBox.setMaxHeight(0);
+            gameFeedbackHeader.setText("Good Job! You answered everything correctly!");
         } else {
             List<Card> wrongCards = gameStatistics.getWrongCards();
             CardBoxPanel cardBoxPanel = new CardBoxPanel(FXCollections.observableArrayList(wrongCards));
             wrongAnswersList.getChildren().add(cardBoxPanel.getRoot());
+            gameFeedbackHeader.setText("Remember these!");
         }
+
+//        // init mostMissedBox
+//        List<Card> mostMissed = wbStatistics.getMostMissedCards(5);
+//        if (mostMissed.isEmpty()) {
+//            mostMissedBox.setVisible(false);
+//        } else {
+//
+//        }
     }
 }
