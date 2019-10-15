@@ -1,30 +1,32 @@
-package seedu.jarvis.model.planner;
+package seedu.jarvis.model.planner.tasks;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 /**
  * Represents a Deadline task in JARVIS
  */
 public class Deadline extends Task {
 
-    private Calendar deadline;
+    private LocalDate deadline;
 
-    public Deadline(String taskDes, Calendar deadline) {
+    public Deadline(String taskDes, LocalDate deadline) {
         super(taskDes);
         this.deadline = deadline;
     }
 
     /**
      * Retrieves the due date of a deadline task
-     * @return the calendar object that represents the due date
+     * @return the LocalDate object that represents the due date
      */
-    public Calendar getDueDate() {
+    public LocalDate getDueDate() {
         return deadline;
     }
 
     @Override
     public String toString() {
-        return "Deadline: " + this.taskDes + " by " + this.deadline;
+        return "Deadline: " + this.taskDes + " by " + this.deadline
+                + "\nPriority: " + priority + "\nFrequency: " + frequency + "\nTags:"
+                + getTags().toString();
     }
 
     /**
@@ -34,11 +36,10 @@ public class Deadline extends Task {
      * @return true if both tasks are equal, false if they are not
      */
     @Override
-    protected Boolean isEqual(Task other) {
-        //TODO
-        Boolean isSameType = other instanceof Deadline;
-        Boolean isSameDes = taskDes.equals(other.taskDes);
-        Boolean isSameDate = false;
+    public boolean isEqual(Task other) {
+        boolean isSameType = other instanceof Deadline;
+        boolean isSameDes = taskDes.equals(other.taskDes);
+        boolean isSameDate = false;
         if (isSameType) {
             Deadline dOther = (Deadline) other;
             isSameDate = deadline.compareTo(dOther.getDueDate()) == 0;

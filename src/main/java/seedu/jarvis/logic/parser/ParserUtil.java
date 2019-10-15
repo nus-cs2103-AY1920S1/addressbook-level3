@@ -2,6 +2,8 @@ package seedu.jarvis.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +20,14 @@ import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.Equipment;
 import seedu.jarvis.model.cca.EquipmentList;
+import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
+import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
+import seedu.jarvis.model.planner.Frequency;
+import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.model.planner.tasks.Deadline;
+import seedu.jarvis.model.planner.tasks.Event;
+import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.planner.tasks.Todo;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -25,6 +35,10 @@ import seedu.jarvis.model.cca.EquipmentList;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MONEY_MESSAGE_CONSTRAINTS = "Money spent cannot be equal to or less than 0.";
+    public static final String MESSAGE_INVALID_DATE = "Date is invalid. Please follow the format: dd/mm/yyyy.";
+    public static final String MESSAGE_INVALID_TASK_TYPE = "Task type is invalid. Valid task types are: 'todo', 'event'"
+                                                            + "and 'deadline' only.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -100,6 +114,36 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static InstallmentDescription parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!InstallmentDescription.isValidDescription(trimmedDescription)) {
+            throw new ParseException(InstallmentDescription.MESSAGE_CONSTRAINTS);
+        }
+        return new InstallmentDescription(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static InstallmentMoneyPaid parseMoneySpent(String money) throws ParseException {
+        requireNonNull(money);
+        String trimmedMoney = money.trim();
+        if (!InstallmentMoneyPaid.isValidAmount(trimmedMoney)) {
+            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
+        }
+        return new InstallmentMoneyPaid(trimmedMoney);
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -125,6 +169,98 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String priority} into a {@code Priority}.
+     * @return the priority level of the task
+     * @throws ParseException if the given {@code Priority} is invalid.
+     */
+    public static Priority parsePriority(String priority) throws ParseException {
+        requireNonNull(priority);
+        String trimmedPriority = priority.trim();
+        if (!Priority.isValidPriority(trimmedPriority)) {
+            throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
+        }
+
+        if (priority.equals("high")) {
+            return Priority.HIGH;
+        } else if (priority.equals("med")) {
+            return Priority.MED;
+        } else {
+            return Priority.LOW;
+        }
+    }
+
+    /**
+     * Parses a {@code String frequency} into a {@code Frequency}.
+     * @return the frequency level of the task
+     * @throws ParseException if the given {@code Frequency} is invalid.
+     */
+    public static Frequency parseFrequency(String frequency) throws ParseException {
+        requireNonNull(frequency);
+        String trimmedFrequency = frequency.trim();
+        if (!Frequency.isValidFrequency(trimmedFrequency)) {
+            throw new ParseException(Frequency.MESSAGE_CONSTRAINTS);
+        }
+
+        switch (frequency) {
+        case "daily":
+            return Frequency.DAILY;
+        case "weekly":
+            return Frequency.WEEKLY;
+        case "monthly":
+            return Frequency.MONTHLY;
+        default:
+            return Frequency.YEARLY;
+        }
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code Calendar date} for tasks
+     * @param date the date to be parsed
+     * @return an array of Calendars to be added into the Task objects
+     */
+    public static LocalDate[] parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        LocalDate[] res = new LocalDate[2];
+        try {
+            String trimmedDate = date.trim();
+            String[] splitDate = trimmedDate.split("//");
+            int count = 0;
+            for (String d : splitDate) {
+                LocalDate formattedDate = LocalDate.parse(d, Task.getDateFormat());
+                res[count] = formattedDate;
+                count++;
+            }
+        } catch (DateTimeParseException e) {
+            throw new ParseException(MESSAGE_INVALID_DATE);
+        }
+
+        return res;
+    }
+
+    /**
+     * Builds a task for AddTaskCommandParser
+     * @param taskType the type of task
+     * @param taskDes description of the task
+     * @param dates dates of the task, if any
+     * @return returns a task
+     * @throws ParseException if task type input by the user is wrong
+     */
+    public static Task buildTask(String taskType, String taskDes, LocalDate[] dates) throws ParseException {
+        Task t;
+        if (taskType.equals("event")) {
+            t = new Event(taskDes, dates[0], dates[1]);
+        } else if (taskType.equals("deadline")) {
+            t = new Deadline(taskDes, dates[0]);
+        } else if (taskType.equals("todo")) {
+            t = new Todo(taskDes);
+        } else {
+            throw new ParseException(MESSAGE_INVALID_TASK_TYPE);
+        }
+        return t;
+    }
+
 
     //=========== CcaTracker =============================================================================
 

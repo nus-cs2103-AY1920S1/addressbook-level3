@@ -1,16 +1,16 @@
-package seedu.jarvis.model.planner;
+package seedu.jarvis.model.planner.tasks;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 /**
  * Represents an Event task in JARVIS
  */
 public class Event extends Task {
 
-    private Calendar start;
-    private Calendar end;
+    private LocalDate start;
+    private LocalDate end;
 
-    public Event(String taskDes, Calendar start, Calendar end) {
+    public Event(String taskDes, LocalDate start, LocalDate end) {
         super(taskDes);
         this.start = start;
         this.end = end;
@@ -18,17 +18,17 @@ public class Event extends Task {
 
     /**
      * Retrieves the start date of the event
-     * @return the calendar object that represents the start date
+     * @return the LocalDate object that represents the start date
      */
-    protected Calendar getStartDate() {
+    protected LocalDate getStartDate() {
         return start;
     }
 
     /**
      * Retrieves the end date of the event
-     * @return the calendar object that represents the end date
+     * @return the LocalDate object that represents the end date
      */
-    protected Calendar getEndDate() {
+    protected LocalDate getEndDate() {
         return end;
     }
 
@@ -39,11 +39,11 @@ public class Event extends Task {
      * @return true if both tasks are equal, false if they are not
      */
     @Override
-    protected Boolean isEqual(Task other) {
-        Boolean isSameType = other instanceof Event;
-        Boolean isSameDes = taskDes.equals(other.taskDes);
-        Boolean isSameStartDate = false;
-        Boolean isSameEndDate = false;
+    public boolean isEqual(Task other) {
+        boolean isSameType = other instanceof Event;
+        boolean isSameDes = taskDes.equals(other.taskDes);
+        boolean isSameStartDate = false;
+        boolean isSameEndDate = false;
         if (isSameType) {
             Event eOther = (Event) other;
             isSameStartDate = start.compareTo(eOther.getStartDate()) == 0;
@@ -55,6 +55,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "Event: " + this.taskDes + " from " + this.start + " to " + this.end;
+        return "Event: " + this.taskDes + " from " + this.start + " to " + this.end
+                + "\nPriority: " + priority + "\nFrequency: " + frequency + "\nTags:"
+                + getTags().toString();
     }
 }

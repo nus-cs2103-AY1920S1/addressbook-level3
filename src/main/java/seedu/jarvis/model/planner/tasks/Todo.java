@@ -1,4 +1,4 @@
-package seedu.jarvis.model.planner;
+package seedu.jarvis.model.planner.tasks;
 
 /**
  * Represents a Todo task in JARVIS
@@ -11,7 +11,8 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "Todo: " + this.taskDes;
+        return "Todo: " + this.taskDes + "\nPriority: " + priority + "\nFrequency: " + frequency + "\nTags:"
+                + getTags().toString();
     }
 
     /**
@@ -21,7 +22,7 @@ public class Todo extends Task {
      * @return true if both tasks are equal, false if they are not
      */
     @Override
-    protected Boolean isEqual(Task other) {
+    public boolean isEqual(Task other) {
         return (other instanceof Todo) && taskDes.equals(other.taskDes);
     }
 }

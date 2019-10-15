@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,10 +18,14 @@ import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
+import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
-import seedu.jarvis.model.planner.Task;
 import seedu.jarvis.model.planner.TaskList;
+import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.userprefs.UserPrefs;
 
@@ -32,7 +37,7 @@ public class ModelManager implements Model {
 
     private final HistoryManager historyManager;
     private final AddressBook addressBook;
-    //private final FinanceTracker financeTracker;
+    private final FinanceTracker financeTracker;
     private final UserPrefs userPrefs;
 
     private final CcaTracker ccaTracker;
@@ -43,25 +48,25 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-
-    public ModelManager(CcaTracker ccaTracker, HistoryManager historyManager, ReadOnlyAddressBook addressBook,
-                        ReadOnlyUserPrefs userPrefs, Planner planner) {
+    public ModelManager(CcaTracker ccaTracker, HistoryManager historyManager, FinanceTracker financeTracker,
+                ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, Planner planner) {
         super();
-        requireAllNonNull(ccaTracker, historyManager, addressBook, userPrefs, planner);
+        requireAllNonNull(ccaTracker, historyManager, financeTracker, addressBook, userPrefs, planner);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.ccaTracker = new CcaTracker(ccaTracker);
         this.historyManager = new HistoryManager(historyManager);
         this.addressBook = new AddressBook(addressBook);
+        this.financeTracker = new FinanceTracker(financeTracker);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.userPrefs = new UserPrefs(userPrefs);
         this.planner = new Planner(planner);
     }
 
     public ModelManager() {
-        this(new CcaTracker(), new HistoryManager(), new AddressBook(), new UserPrefs(), new Planner());
-
+        this(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new AddressBook(), new UserPrefs(),
+                new Planner());
     }
 
 
@@ -180,6 +185,149 @@ public class ModelManager implements Model {
     @Override
     public boolean commit() {
         return historyManager.commit(this);
+    }
+
+    //=========== FinanceTracker ================================================================================
+    /**
+     * Gets the {@code FinanceTracker}.
+     *
+     * @return {@code FinanceTracker} object.
+     */
+    @Override
+    public FinanceTracker getFinanceTracker() {
+        return financeTracker;
+    }
+
+    /**
+     * Replaces {@code FinanceTracker} data with the data in {@code FinanceTracker} given as argument.
+     *
+     * @param financeTracker {@code FinanceTracker} data to be used.
+     */
+    @Override
+    public void setFinanceTracker(FinanceTracker financeTracker) {
+        this.financeTracker.resetData(financeTracker);
+    }
+
+    @Override
+    public Purchase getPurchase(int paymentIndex) {
+        return financeTracker.getPurchase(paymentIndex);
+    }
+
+    @Override
+    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
+        return financeTracker.getInstallment(instalIndex);
+    }
+
+    /**
+     * Adds single use payment.
+     *
+     * @param purchase
+     */
+    @Override
+    public void addPurchase(Purchase purchase) {
+        financeTracker.addSinglePurchase(purchase);
+    }
+
+    /**
+     * Deletes single use payment.
+     *
+     * @param itemNumber
+     */
+    @Override
+    public void deletePurchase(int itemNumber) {
+        financeTracker.deleteSinglePurchase(itemNumber);
+    }
+
+    /**
+     * Checks for the existence of the same purchase. Purchases are allowed to be duplicated, thus method always returns
+     * false.
+     *
+     * @param purchase to be added
+     * @return boolean that is always false
+     */
+    @Override
+    public boolean hasPurchase(Purchase purchase) {
+        return false;
+    }
+
+    /**
+     * Adds installment.
+     *
+     * @param installment
+     */
+    @Override
+    public void addInstallment(Installment installment) {
+        financeTracker.addInstallment(installment);
+    }
+
+    /**
+     * Deletes installment.
+     *
+     * @param instalNumber
+     */
+    @Override
+    public Installment deleteInstallment(int instalNumber) throws InstallmentNotFoundException {
+        return financeTracker.deleteInstallment(instalNumber);
+    }
+
+    @Override
+    public boolean hasInstallment(Installment installment) {
+        return financeTracker.hasInstallment(installment);
+    }
+
+    /**
+     * Edits an existing installment by its value.
+     *
+     * @param installmentNumber
+     * @param description
+     * @param value
+     */
+    @Override
+    public void editInstallmentByValue(int installmentNumber, String description, double value) {
+        financeTracker.editInstallment(installmentNumber, description, value);
+    }
+
+    /**
+     * Retrieves list of all installments
+     *
+     * @return InstallmentList
+     */
+    @Override
+    public ArrayList<Installment> getInstallmentList() {
+        return financeTracker.getInstallmentList();
+    }
+
+    /**
+     * Sets the monthly limit for spending.
+     *
+     * @param value
+     */
+    @Override
+    public void setMonthlyLimit(double value) {
+        financeTracker.setMonthlyLimit(value);
+    }
+
+    /**
+     * Lists all purchases and payments from this month.
+     *
+     */
+    @Override
+    public void listSpending() {
+        financeTracker.listSpending();
+    }
+
+    public ObservableList<Purchase> getPurchasesList() {
+        return financeTracker.getPurchasesList();
+    }
+
+    @Override
+    public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
+        financeTracker.updateFilteredPurchaseList(predicate);
+    }
+
+    @Override
+    public ObservableList<Purchase> getFilteredPurchaseList() {
+        return financeTracker.getFilteredPurchaseList();
     }
 
     //=========== AddressBook ================================================================================
@@ -337,12 +485,17 @@ public class ModelManager implements Model {
      *         it does not.
      */
     @Override
-    public Boolean hasTask(Task t) {
+    public boolean hasTask(Task t) {
         return planner.hasTask(t);
     }
 
     @Override
     public Planner getPlanner() {
         return planner;
+    }
+
+    @Override
+    public void resetData(Planner planner) {
+        this.planner.resetData(planner);
     }
 }
