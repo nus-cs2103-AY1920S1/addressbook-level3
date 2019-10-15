@@ -9,6 +9,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
+//@@author keiteo
 public class StartCommandTest {
 
     private AddressBookParser addressBookParser = new AddressBookParser();
