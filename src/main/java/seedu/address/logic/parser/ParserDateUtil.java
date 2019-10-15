@@ -13,13 +13,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public abstract class ParserDateUtil {
     /** The required input date format to use. */
-    private static final String DATE_TIME_FORMAT = "d/M/y HHmm";
+    public static final String DATE_TIME_FORMAT = "d/M/y HHmm";
     /** The required input date format to use. */
-    private static final String DATE_FORMAT = "d/M/y";
+    public static final String DATE_FORMAT = "d/M/y";
     /** The required input time format to use. */
-    private static final String TIME_FORMAT = "HHmm";
+    public static final String TIME_FORMAT = "HHmm";
     /** The output format for displaying dates and times. */
-    private static final String DISPLAY_FORMAT = "d MMM y h:mma";
+    public static final String DISPLAY_FORMAT = "d MMM y h:mma";
     /** The dateTime formatter that uses the DATE_TIME_FORMAT pattern. */
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
     /** The dateTime formatter that uses the DATE_FORMAT pattern. */

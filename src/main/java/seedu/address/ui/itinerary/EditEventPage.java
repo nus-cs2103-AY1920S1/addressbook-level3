@@ -16,16 +16,12 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.itinerary.events.edit.CancelEditEventCommand;
 import seedu.address.logic.commands.itinerary.events.edit.DoneEditEventCommand;
 import seedu.address.logic.commands.itinerary.events.edit.EditEventFieldCommand;
-import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
-import seedu.address.ui.components.form.DateFormItem;
 import seedu.address.ui.components.form.DoubleFormItem;
 import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.components.form.TimeFormItem;
 import seedu.address.ui.template.Page;
-
-import java.time.format.DateTimeFormatter;
 
 /**
  * WARNING INCOMEPLETE: TODO: FIELDS FOR INVENTORY AND BOOKING.
@@ -35,8 +31,6 @@ public class EditEventPage extends Page<AnchorPane> {
 
     private TextFormItem eventNameFormItem;
     private TextFormItem eventDestinationFormItem;
-    private DateFormItem eventStartDateFormItem;
-    private DateFormItem eventEndDateFormItem;
     private TimeFormItem eventStartTimeFormItem;
     private TimeFormItem eventEndTimeFormItem;
     private DoubleFormItem eventTotalBudgetFormItem;
@@ -89,13 +83,13 @@ public class EditEventPage extends Page<AnchorPane> {
                             + " " + PREFIX_NAME + nameFormValue);
         });
 
-        eventStartTimeFormItem = new TimeFormItem("Start time : ", startTime ->{
+        eventStartTimeFormItem = new TimeFormItem("Start time : ", startTime -> {
             mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
                     + " " + PREFIX_DATE_START
                     + model.getPageStatus().getDay().getStartDate().format(DATE_FORMATTER)
                     + " " + startTime.format(TIME_FORMATTER));
         });
-        eventEndTimeFormItem = new TimeFormItem("End time : ", endTime ->{
+        eventEndTimeFormItem = new TimeFormItem("End time : ", endTime -> {
             mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
                     + " " + PREFIX_DATE_END
                     + model.getPageStatus().getDay().getEndDate().format(DATE_FORMATTER)

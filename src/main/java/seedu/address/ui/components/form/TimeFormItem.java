@@ -1,12 +1,17 @@
 package seedu.address.ui.components.form;
 
+import java.time.LocalTime;
+
+import java.util.function.Consumer;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 
-import java.time.LocalTime;
-import java.util.function.Consumer;
-
+/**
+ * Abstraction of a form item allowing the user to choose a time in a day.
+ * Backed by JavaFx's {@code Spinner} control.
+ */
 public class TimeFormItem extends FormItem<LocalTime> {
     private static final String FXML = "components/forms/TimeFormItem.fxml";
 
@@ -22,18 +27,21 @@ public class TimeFormItem extends FormItem<LocalTime> {
     @FXML
     private Spinner<Double> minuteSpinner;
 
-    public TimeFormItem(String textFormItemName, Double hours, Double minutes, Consumer<LocalTime> executeChangeHandler) {
+    public TimeFormItem(String textFormItemName, Double hours, Double minutes,
+             Consumer<LocalTime> executeChangeHandler) {
         super(FXML, executeChangeHandler);
         formItemLabel.setText(textFormItemName);
         //initializing hour spinner
         hourSpinner.setValueFactory(
-                new SpinnerValueFactory.DoubleSpinnerValueFactory(MIN_SPINNER_VALUE, MAX_HOUR_SPINNER_VALUE, SPINNER_INCREMENT)
+                new SpinnerValueFactory.DoubleSpinnerValueFactory(MIN_SPINNER_VALUE,
+                         MAX_HOUR_SPINNER_VALUE, SPINNER_INCREMENT)
         );
         hourSpinner.getValueFactory().setValue(hours);
 
         //initializing minute spinner
         minuteSpinner.setValueFactory(
-                new SpinnerValueFactory.DoubleSpinnerValueFactory(MIN_SPINNER_VALUE, MAX_MINUTE_SPINNER_VALUE, SPINNER_INCREMENT)
+                new SpinnerValueFactory.DoubleSpinnerValueFactory(MIN_SPINNER_VALUE,
+                         MAX_MINUTE_SPINNER_VALUE, SPINNER_INCREMENT)
         );
         minuteSpinner.getValueFactory().setValue(minutes);
 
@@ -47,7 +55,7 @@ public class TimeFormItem extends FormItem<LocalTime> {
             }
         });
 
-        minuteSpinner.getEditor().textProperty().addListener((observable, oldValue, newValue) ->  {
+        minuteSpinner.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 Double.parseDouble(newValue);
                 hourSpinner.commitValue();
@@ -69,7 +77,7 @@ public class TimeFormItem extends FormItem<LocalTime> {
     }
 
     public TimeFormItem(String textFormItemName, Consumer<LocalTime> executeChangeHandler) {
-        this(textFormItemName,  DEFAULT_SPINNER_VALUE, DEFAULT_SPINNER_VALUE, executeChangeHandler);
+        this(textFormItemName, DEFAULT_SPINNER_VALUE, DEFAULT_SPINNER_VALUE, executeChangeHandler);
     }
 
     @Override
