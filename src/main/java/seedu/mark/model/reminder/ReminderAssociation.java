@@ -90,7 +90,7 @@ public class ReminderAssociation {
      */
     public ObservableList<Reminder> getReminderList() {
         ObservableList<Reminder> reminderList = FXCollections.observableArrayList();
-        reminderList.addAll(association.values());
+        reminderList.addAll(association.values()); 
         reminderList.sort(comparator);
         return reminderList;
     }
