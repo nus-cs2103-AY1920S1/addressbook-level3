@@ -1,15 +1,5 @@
 package seedu.address.logic.commands;
 
-<<<<<<< HEAD
-=======
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
-
-import java.util.List;
-import java.util.Set;
-
->>>>>>> d2e10e7a9051df4792c19bd6fab68b1beb71392e
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
