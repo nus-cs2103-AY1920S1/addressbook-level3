@@ -2,6 +2,8 @@ package seedu.ezwatchlist.api;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TvResultsPage;
+import info.movito.themoviedbapi.model.Artwork;
+import info.movito.themoviedbapi.model.ArtworkType;
 import info.movito.themoviedbapi.model.Credits;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
@@ -11,12 +13,10 @@ import info.movito.themoviedbapi.model.tv.TvEpisode;
 import info.movito.themoviedbapi.model.tv.TvSeason;
 import info.movito.themoviedbapi.model.tv.TvSeries;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import seedu.ezwatchlist.api.model.ApiInterface;
+import seedu.ezwatchlist.api.model.ImageRetrieval;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
@@ -42,10 +42,15 @@ public class ApiMain implements ApiInterface {
     public List<Movie> getMovieByName(String name) {
         MovieResultsPage page = ApiCall.getSearch().searchMovie(name, null, null, true, null);
         ArrayList<Movie> movies = new ArrayList<>();
+
         for (MovieDb m : page.getResults()) {
             movies.add(new Movie(new Name(m.getTitle()), new Description("placeholder")/*m.getTagline())*/, new IsWatched(false), new Date(m.getReleaseDate()),
                     new RunningTime(m.getRuntime()), new HashSet<Actor>()));
+            m.getPosterPath();
+            List<Artwork> artworkTypes = m.getImages();
+            artworkTypes.get(0);
         }
+
         return movies;
     }
 
@@ -80,38 +85,50 @@ public class ApiMain implements ApiInterface {
         return tvShows;
     }
 
+    public void testImage(String name) {
+        MovieResultsPage page = ApiCall.getSearch().searchMovie(name, null, null, true, null);
+        List<MovieDb> movies = page.getResults();
+        MovieDb firstMovie = movies.get(0);
+        ImageRetrieval imageRetrieval = new ImageRetrieval(ApiCall, firstMovie.getPosterPath());
+        imageRetrieval.downloadImage();
+    }
 
 
-    /**
-     * test function
-     * @param args
-     * @throws IOException
+//
+//    /**
+//     * test function
+//     * @param args
+//     * @throws IOException
 
     public static void main(String[] args) throws IOException {
-        TmdbApi tmdbApi = new TmdbApi(API_KEY);
-        TmdbMovies movies = tmdbApi.getMovies();
-        MovieDb movie = movies.getMovie(5353, null, TmdbMovies.MovieMethod.similar, TmdbMovies.MovieMethod.keywords, TmdbMovies.MovieMethod.credits, TmdbMovies.MovieMethod.images);
-        System.out.println(movie.getOriginalTitle());
-        p2( movie.getSimilarMovies());
-        List<Artwork> artworks = movie.getImages();
-        String filePath = artworks.get(0).getFilePath();
-        TmdbConfiguration configuration = tmdbApi.getConfiguration();
-        final String baseUrl = configuration.getBaseUrl() + "w500";
-        BufferedImage img = ImageIO.read(new URL(baseUrl + filePath));
-        Graphics g = img.getGraphics();
-        g.drawImage(img, 0, 0, null);
+        ApiMain apiMain = new ApiMain();
 
-        //keywords
-        List<Keyword> keywordList = movie.getKeywords();
-        p(keywordList);
-        List<Genre> genres = movie.getGenres();
-        System.out.println("genres");
-        p(genres);
-        System.out.println("casts");
-        List<PersonCast> cast = movie.getCast();
-        p(cast);
-        System.out.println("crew");
-        p(movie.getCrew());
+        Scanner sc = new Scanner(System.in);
+        String input = sc.next();
+        apiMain.testImage(input);
+//        TmdbMovies movies = tmdbApi.getMovies();
+//        MovieDb movie = movies.getMovie(5353, null, TmdbMovies.MovieMethod.similar, TmdbMovies.MovieMethod.keywords, TmdbMovies.MovieMethod.credits, TmdbMovies.MovieMethod.images);
+//        System.out.println(movie.getOriginalTitle());
+//        p2( movie.getSimilarMovies());
+//        List<Artwork> artworks = movie.getImages();
+//        String filePath = artworks.get(0).getFilePath();
+//        TmdbConfiguration configuration = tmdbApi.getConfiguration();
+//        final String baseUrl = configuration.getBaseUrl() + "w500";
+//        BufferedImage img = ImageIO.read(new URL(baseUrl + filePath));
+//        Graphics g = img.getGraphics();
+//        g.drawImage(img, 0, 0, null);
+//
+//        //keywords
+//        List<Keyword> keywordList = movie.getKeywords();
+//        p(keywordList);
+//        List<Genre> genres = movie.getGenres();
+//        System.out.println("genres");
+//        p(genres);
+//        System.out.println("casts");
+//        List<PersonCast> cast = movie.getCast();
+//        p(cast);
+//        System.out.println("crew");
+//        p(movie.getCrew());
     }
 
     public static <T> void p (List<T> s) {
@@ -124,5 +141,5 @@ public class ApiMain implements ApiInterface {
             System.out.println(m.getOriginalTitle());
         }
     }
-    */
+
 }

@@ -35,6 +35,8 @@ public class ShowCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label type;
+    @FXML
     private Label dateOfRelease;
     @FXML
     private Label isWatched;
@@ -52,6 +54,7 @@ public class ShowCard extends UiPart<Region> {
         this.show = show;
         id.setText(displayedIndex + ". ");
         name.setText(show.getName().showName);
+        type.setText(show.type);
         dateOfRelease.setText(show.getDateOfRelease().value);
         isWatched.setText(Boolean.toString(show.isWatched().value));
         description.setText(show.getDescription().fullDescription);

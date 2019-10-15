@@ -20,12 +20,7 @@ import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.show.Description;
-import seedu.ezwatchlist.model.show.RunningTime;
-import seedu.ezwatchlist.model.show.Name;
-import seedu.ezwatchlist.model.show.Show;
-import seedu.ezwatchlist.model.show.Date;
-import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.*;
 import seedu.ezwatchlist.model.actor.Actor;
 
 /**
@@ -103,8 +98,16 @@ public class EditCommand extends Command {
         RunningTime updatedRunningTime = editShowDescriptor.getRunningTime().orElse(showToEdit.getRunningTime());
         Set<Actor> updatedActors = editShowDescriptor.getActors().orElse(showToEdit.getActors());
 
-        return new Show(updatedName, updatedDescription, updatedIsWatched,
-                updatedDateOfRelease, updatedRunningTime, updatedActors);
+        if (showToEdit.type.equals("Movie")) {
+            Movie editedShow = new Movie(updatedName, updatedDescription, updatedIsWatched,
+                    updatedDateOfRelease, updatedRunningTime, updatedActors);
+            return editedShow;
+        } else { //showToEdit.type.equals("Tv show")
+            TvShow editedShow = new TvShow(updatedName, updatedDescription, updatedIsWatched,
+                    updatedDateOfRelease, updatedRunningTime, updatedActors,
+                    0,0,null);
+            return editedShow;
+        }
     }
 
     @Override

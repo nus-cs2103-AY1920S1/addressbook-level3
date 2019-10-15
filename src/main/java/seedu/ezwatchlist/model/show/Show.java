@@ -1,6 +1,6 @@
 package seedu.ezwatchlist.model.show;
 
-import static seedu.ezwatchlist.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -16,8 +16,8 @@ import seedu.ezwatchlist.commons.util.CollectionUtil;
  */
 public class Show {
 
-    public String Type;
-    private static final String placeholderImageLocation = "/images/poster-placeholder.png";
+    public String type;
+    private static final String POSTER_PLACEHOLDER_PNG_URL = "/images/poster-placeholder.png";
 
     //identity fields
     private final Name name;
@@ -30,10 +30,11 @@ public class Show {
     private final Set<Actor> actors = new HashSet<>();
     private final String imageOfShow;
 
+    
 
     public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
-        this.imageOfShow = placeholderImageLocation;
+        this.imageOfShow = POSTER_PLACEHOLDER_PNG_URL;
         CollectionUtil.requireAllNonNull(name, description, isWatched, dateOfRelease, runningTime, actors);
         this.name = name;
         this.description = description;
@@ -45,6 +46,10 @@ public class Show {
 
     public Name getName() {
         return name;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public Date getDateOfRelease() {
@@ -62,6 +67,7 @@ public class Show {
     public RunningTime getRunningTime() {
         return runningTime;
     }
+
 
     /**
      * Returns an immutable actor set, which throws {@code UnsupportedOperationException}
