@@ -15,7 +15,6 @@ import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.EngagementType;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
-import com.typee.model.person.Name;
 import com.typee.model.person.Person;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -34,15 +33,9 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ENGAGEMENT_TYPE,
-                        PREFIX_START_TIME, PREFIX_END_TIME,
-                        PREFIX_ATTENDEES, PREFIX_DESCRIPTION, PREFIX_LOCATION, PREFIX_PRIORITY);
+        ArgumentMultimap argMultimap = getArgumentMultimap(args);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ENGAGEMENT_TYPE,
-                PREFIX_START_TIME, PREFIX_END_TIME,
-                PREFIX_ATTENDEES, PREFIX_DESCRIPTION, PREFIX_LOCATION, PREFIX_PRIORITY)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (isInvalidMultimap(argMultimap)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
@@ -58,6 +51,19 @@ public class AddCommandParser implements Parser<AddCommand> {
                 attendees, location, description, priority);
 
         return new AddCommand(engagement);
+    }
+
+    private boolean isInvalidMultimap(ArgumentMultimap argMultimap) {
+        return (!arePrefixesPresent(argMultimap, PREFIX_ENGAGEMENT_TYPE,
+                PREFIX_START_TIME, PREFIX_END_TIME,
+                PREFIX_ATTENDEES, PREFIX_DESCRIPTION, PREFIX_LOCATION, PREFIX_PRIORITY)
+                || !argMultimap.getPreamble().isEmpty());
+    }
+
+    private ArgumentMultimap getArgumentMultimap(String args) {
+        return ArgumentTokenizer.tokenize(args, PREFIX_ENGAGEMENT_TYPE,
+                PREFIX_START_TIME, PREFIX_END_TIME,
+                PREFIX_ATTENDEES, PREFIX_DESCRIPTION, PREFIX_LOCATION, PREFIX_PRIORITY);
     }
 
     private List<Person> parseAttendees(String attendees) {
