@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private ModularDisplay modularDisplay;
     private CurrentModeFooter currentModeFooter;
     private HelpWindow helpWindow;
+    private CommandBox commandBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -144,7 +145,7 @@ public class MainWindow extends UiPart<Stage> {
         currentModeFooter = new CurrentModeFooter();
         currentModePlaceholder.getChildren().add(currentModeFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -208,6 +209,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+
             CommandResult commandResult = gameManager.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
 
@@ -237,6 +239,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isPromptingGuess()) {
+                commandBox.setGuessTextAndCaret();
+            } else {
+                commandBox.clearCommandBox();
             }
 
             if (commandResult instanceof GameCommandResult) {

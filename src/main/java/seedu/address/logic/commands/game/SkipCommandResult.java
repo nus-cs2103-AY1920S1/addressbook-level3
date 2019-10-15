@@ -20,6 +20,7 @@ public class SkipCommandResult extends GameCommandResult {
                 false);
     }
 
+
     @Override
     public GameDataPoint getGameDataPoint(long millisElapsed) {
         return GameDataPoint.createSkipData(millisElapsed);
