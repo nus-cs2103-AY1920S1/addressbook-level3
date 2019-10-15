@@ -83,7 +83,7 @@ public class EditCheatSheetCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static CheatSheet createEditedCheatSheet(CheatSheet cheatSheetToEdit,
+    public static CheatSheet createEditedCheatSheet(CheatSheet cheatSheetToEdit,
                                                  EditCheatSheetDescriptor editCheatSheetDescriptor) {
         assert cheatSheetToEdit != null;
 

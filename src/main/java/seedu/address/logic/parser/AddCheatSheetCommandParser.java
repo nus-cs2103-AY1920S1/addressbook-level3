@@ -8,11 +8,15 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import javafx.collections.ObservableList;
 import seedu.address.logic.commands.AddCheatSheetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.Content;
 import seedu.address.model.cheatsheet.Title;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteContainsTagPredicate;
 import seedu.address.model.tag.Tag;
 
 
@@ -36,8 +40,8 @@ public class AddCheatSheetCommandParser implements Parser<AddCheatSheetCommand> 
         }
 
         Title title = CheatsheetParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
-        Set<Content> contentList = new HashSet<>();
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Content> contentList = new HashSet<>();
 
         CheatSheet cheatsheet = new CheatSheet(title, contentList, tagList);
 
@@ -51,6 +55,5 @@ public class AddCheatSheetCommandParser implements Parser<AddCheatSheetCommand> 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
 }
 
