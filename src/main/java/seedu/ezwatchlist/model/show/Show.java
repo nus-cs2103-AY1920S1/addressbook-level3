@@ -8,17 +8,18 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.commons.util.CollectionUtil;
 
 /**
  * Represents a Show in the watchlist.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public abstract class Show {
+public class Show {
 
     //identity fields
     private final Name name;
     private final Date dateOfRelease;
-    private final boolean isWatched;
+    private final IsWatched isWatched;
 
     //data fields
     private final Description description;
@@ -27,10 +28,10 @@ public abstract class Show {
     private final String imageOfShow;
     private static final String placeholderImageLocation = "/images/poster-placeholder.png";
 
-    public Show(Name name, Description description, boolean isWatched, Date dateOfRelease,
+    public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
         this.imageOfShow = placeholderImageLocation;
-        requireAllNonNull(name, description, isWatched, dateOfRelease, runningTime, actors);
+        CollectionUtil.requireAllNonNull(name, description, isWatched, dateOfRelease, runningTime, actors);
         this.name = name;
         this.description = description;
         this.isWatched = isWatched;
@@ -47,7 +48,7 @@ public abstract class Show {
         return dateOfRelease;
     }
 
-    public boolean isWatched() {
+    public IsWatched isWatched() {
         return isWatched;
     }
 

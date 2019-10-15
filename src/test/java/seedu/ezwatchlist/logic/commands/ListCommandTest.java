@@ -8,6 +8,10 @@ import static seedu.ezwatchlist.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/ListCommandTest.java
+import seedu.ezwatchlist.logic.commands.ListCommand;
+=======
+>>>>>>> orgmain/branch-v1.2:src/test/java/seedu/ezwatchlist/logic/commands/ListCommandTest.java
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;

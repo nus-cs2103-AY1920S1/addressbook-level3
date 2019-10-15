@@ -1,5 +1,7 @@
 package seedu.ezwatchlist.model.show;
 
+import seedu.ezwatchlist.commons.util.AppUtil;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
@@ -26,7 +28,7 @@ public class Date {
      */
     public Date(String date) {
         requireNonNull(date);
-        checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         value = date;
     }
 

@@ -11,6 +11,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import javafx.application.Application;
+import seedu.ezwatchlist.AppParameters;
 
 public class AppParametersTest {
 

@@ -1,23 +1,25 @@
 package seedu.ezwatchlist.logic.parser;
 
-import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DATE_OF_RELEASE;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.ezwatchlist.logic.commands.AddCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.model.person.Address;
-import seedu.ezwatchlist.model.person.Email;
-import seedu.ezwatchlist.model.person.Name;
-import seedu.ezwatchlist.model.person.Person;
-import seedu.ezwatchlist.model.person.Phone;
-import seedu.ezwatchlist.model.tag.Tag;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -31,22 +33,24 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DATE_OF_RELEASE, PREFIX_IS_WATCHED,
+                        PREFIX_DESCRIPTION, PREFIX_RUNNING_TIME, PREFIX_ACTOR);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DATE_OF_RELEASE, PREFIX_IS_WATCHED)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Date dateOfRelease = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_RELEASE).get());
+        IsWatched isWatched = ParserUtil.parseIsWatched(argMultimap.getValue(PREFIX_IS_WATCHED).get());
+        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        RunningTime runningTime = ParserUtil.parseRunningTime(argMultimap.getValue(PREFIX_RUNNING_TIME).get());
+        Set<Actor> actorList = ParserUtil.parseActors(argMultimap.getAllValues(PREFIX_ACTOR));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Show show = new Show(name, description, isWatched, dateOfRelease, runningTime, actorList);
 
-        return new AddCommand(person);
+        return new AddCommand(show);
     }
 
     /**

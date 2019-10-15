@@ -10,11 +10,11 @@ import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.logic.commands.Command;
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
-import seedu.ezwatchlist.logic.parser.AddressBookParser;
+import seedu.ezwatchlist.logic.parser.WatchListParser;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.ReadOnlyAddressBook;
-import seedu.ezwatchlist.model.person.Person;
+import seedu.ezwatchlist.model.ReadOnlyWatchList;
+import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.storage.Storage;
 
 /**
@@ -26,12 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final WatchListParser watchListParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        watchListParser = new WatchListParser();
     }
 
     @Override
@@ -39,11 +39,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = watchListParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveWatchList(model.getWatchList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,18 +52,23 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyWatchList getWatchList() {
+        return model.getWatchList();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Show> getFilteredShowList() {
+        return model.getFilteredShowList();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public ObservableList<Show> getSearchResultList() {
+        return model.getSearchResultList();
+    }
+
+    @Override
+    public Path getWatchListFilePath() {
+        return model.getWatchListFilePath();
     }
 
     @Override
