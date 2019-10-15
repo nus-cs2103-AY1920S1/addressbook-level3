@@ -1,16 +1,11 @@
 package seedu.address.model.tag;
 
-import java.util.HashSet;
-
-import seedu.address.model.module.Module;
-
 /**
  * Represents a default Tag.
  */
 public class DefaultTag implements Tag {
 
     private DefaultTagType defaultTagType;
-    private HashSet<Module> attachedModules = new HashSet<Module>();
 
     /**
      * Constructs a {@code DefaultTag}.
@@ -18,6 +13,13 @@ public class DefaultTag implements Tag {
      */
     public DefaultTag(DefaultTagType defaultTagType) {
         this.defaultTagType = defaultTagType;
+    }
+
+    /**
+     * Returns true if a given string is a valid tag name.
+     */
+    public static boolean isValidTagName(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     /**
@@ -37,14 +39,6 @@ public class DefaultTag implements Tag {
     }
 
     /**
-     * Checks if the tag can be renamed.
-     * @return False as default tags cannot be renamed.
-     */
-    public boolean canBeRenamed() {
-        return false;
-    }
-
-    /**
      * Returns the name of the tag.
      * @return The name of the tag.
      */
@@ -53,7 +47,7 @@ public class DefaultTag implements Tag {
     }
 
     /**
-     * Returns true if the other tag is also a {@code DefaultTag} and the two tags have the same default type.
+     * Returns true if the other tag is also a {@code DefaultTag} and both tags have the same default type.
      * @param other The other {@code Tag}.
      */
     @Override

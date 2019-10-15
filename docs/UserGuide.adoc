@@ -270,10 +270,10 @@ _S/U-able_ modules are modules that permit the *Satisfactory/Unsatisfactory opti
 _UE_ modules are *Unrestricted Elective* modules.
 * `ULR` +
 _ULR_ modules are modules that count towards *University Level Requirements*.
-* `P` +
-_P_ modules are modules that count towards Focus Area Primaries.
-* `E` +
-_E_ modules are modules that count towards Focus Area Electives.
+* `FOCUS_AREA_NAME:P` +
+_P_ modules are modules that count towards Focus Area Primaries for _FOCUS_AREA_NAME_.
+* `FOCUS_AREA_NAME:E` +
+_E_ modules are modules that count towards Focus Area Electives for _FOCUS_AREA_NAME_.
 ****
 
 ==== Viewing all tags : `viewalltags`

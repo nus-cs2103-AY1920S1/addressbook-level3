@@ -9,8 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UserTag;
 
 /**
@@ -64,26 +64,26 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a raw {@code String tagName} into a formatted tagName.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code tagName} is invalid.
      */
-    public static UserTag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!UserTag.isValidTagName(trimmedTag)) {
-            throw new ParseException(UserTag.MESSAGE_CONSTRAINTS);
+    public static String parseTag(String tagName) throws ParseException {
+        requireNonNull(tagName);
+        String trimmedTagName = tagName.trim();
+        if (!Tag.isValidTagName(trimmedTagName)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new UserTag(trimmedTag);
+        return trimmedTagName;
     }
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
-    public static Set<UserTag> parseTags(Collection<String> tags) throws ParseException {
+    public static Set<String> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
-        final Set<UserTag> tagSet = new HashSet<>();
+        final Set<String> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(parseTag(tagName));
         }

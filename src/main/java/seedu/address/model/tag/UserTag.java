@@ -3,14 +3,13 @@ package seedu.address.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.module.Module;
+import seedu.address.model.tag.exceptions.InvalidTagNameException;
 
 /**
  * Represents a user-created Tag.
  * Name is valid as declared in {@link #isValidTagName(String)}
  */
 public class UserTag implements Tag {
-
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{ASCII}+";
 
@@ -22,18 +21,11 @@ public class UserTag implements Tag {
      */
     public UserTag(String tagName) {
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
-    }
-
-    /**
-     * Constructs a {@code UserTag} and attaches a {@code Module}.
-     * @param tagName A valid tag name.
-     * @param module A valid module.
-     */
-    public UserTag(String tagName, Module module) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        try {
+            checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        } catch (IllegalArgumentException exception) {
+            throw new InvalidTagNameException(exception.getMessage());
+        }
         this.tagName = tagName;
     }
 
@@ -41,7 +33,7 @@ public class UserTag implements Tag {
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && (!DefaultTagType.contains(test));
     }
 
     /**
@@ -58,14 +50,6 @@ public class UserTag implements Tag {
      */
     public String getTagName() {
         return tagName;
-    }
-
-    /**
-     * Checks if the tag can be renamed.
-     * @return True as user-created tags can be renamed.
-     */
-    public boolean canBeRenamed() {
-        return true;
     }
 
     /**
