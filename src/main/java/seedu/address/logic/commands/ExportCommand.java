@@ -7,11 +7,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.util.ExportUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
+import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
+import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.util.FilePath;
 
 /**
@@ -46,11 +51,9 @@ public class ExportCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // TODO PLANT CATEGORY.
-
         try {
             ExportUtil.exportFlashCards(
-                    model.getFilteredFlashCardList(),
+                    getFlashCardsByCategory(model, category),
                     this.filePath
             );
         } catch (IOException e) {
@@ -68,5 +71,18 @@ public class ExportCommand extends Command {
                 || (other instanceof ExportCommand // instanceof handles nulls
                 && category.equals(((ExportCommand) other).category)
                 && filePath.equals(((ExportCommand) other).filePath)); // state check
+    }
+
+    private static ObservableList<FlashCard> getFlashCardsByCategory(Model model, Category category) {
+        String categoryKeywordArray[] = new String[1];
+        categoryKeywordArray[0] = category.categoryName;
+        List<String> categoryKeywordList = Arrays.asList(categoryKeywordArray);
+
+        CategoryContainsAnyKeywordsPredicate predicate = new CategoryContainsAnyKeywordsPredicate(
+                categoryKeywordList
+        );
+
+        model.updateFilteredFlashCardList(predicate);
+        return model.getFilteredFlashCardList();
     }
 }
