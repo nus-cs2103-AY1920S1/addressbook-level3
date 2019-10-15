@@ -30,7 +30,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
 
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
     private final ObservableList<Tag> internalUnmodifiableList =
-        FXCollections.unmodifiableObservableList(internalList);
+            FXCollections.unmodifiableObservableList(internalList);
     private final HashMap<String, Tag> mapTags = new HashMap<String, Tag>();
 
     /**
@@ -50,6 +50,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
     /**
      * Adds a {@code Tag} to the list.
      * The tag must not already exist in the list.
+     *
      * @param toAdd The {@code Tag} to be added.
      * @throws DuplicateTagException if the list already contains the tag.
      */
@@ -157,7 +158,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         internalList.setAll(tags);
         mapTags.clear();
         initDefaultTags();
-        for (Tag newTag: tags) {
+        for (Tag newTag : tags) {
             mapTags.put(newTag.getTagName(), newTag);
         }
     }
@@ -171,6 +172,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
 
     /**
      * Finds a specific tag that has the given tag name.
+     *
      * @param tagName Name of the tag
      * @return Tag
      */
@@ -186,8 +188,8 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof seedu.address.model.tag.UniqueTagList // instanceof handles nulls
-            && internalList.equals(((seedu.address.model.tag.UniqueTagList) other).internalList));
+                || (other instanceof seedu.address.model.tag.UniqueTagList // instanceof handles nulls
+                && internalList.equals(((seedu.address.model.tag.UniqueTagList) other).internalList));
     }
 
     @Override
@@ -222,7 +224,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
      * Initialises default tags for the unique tag list, using all values in {@code DefaultTagType}.
      */
     public void initDefaultTags() {
-        for (DefaultTagType defaultTagType: DefaultTagType.values()) {
+        for (DefaultTagType defaultTagType : DefaultTagType.values()) {
             addTag(new DefaultTag(defaultTagType));
         }
     }

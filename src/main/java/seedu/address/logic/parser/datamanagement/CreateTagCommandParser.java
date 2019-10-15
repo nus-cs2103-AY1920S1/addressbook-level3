@@ -34,12 +34,12 @@ public class CreateTagCommandParser implements Parser<CreateTagCommand> {
      */
     public CreateTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TAG)
-            || !argMultimap.getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                CreateTagCommand.MESSAGE_USAGE));
+                    CreateTagCommand.MESSAGE_USAGE));
         }
         String tagName = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
         return new CreateTagCommand(tagName);

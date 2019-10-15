@@ -1,20 +1,20 @@
 package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.Assert.assertThrows;
+
+import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
+
 //import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.Assert.assertThrows;
 //import static seedu.address.testutil.TypicalStudyPlans.getTypicalModulePlanner;
-
 //import java.util.Arrays;
 //import java.util.Collection;
-
-import java.util.Collections;
 //import java.util.List;
-
-import org.junit.jupiter.api.Test;
 
 //import javafx.collections.FXCollections;
 //import javafx.collections.ObservableList;

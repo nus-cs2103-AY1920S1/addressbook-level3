@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.cli.NameUEFromSemesterCommand;
+import seedu.address.logic.commands.cli.NameUeFromSemesterCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -17,7 +17,7 @@ import seedu.address.model.semester.SemesterName;
 /**
  * Parses input arguments and creates a new NameUEFromSemesterCommand object
  */
-public class NameUEFromSemesterParser implements Parser<NameUEFromSemesterCommand> {
+public class NameUeFromSemesterParser implements Parser<NameUeFromSemesterCommand> {
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -33,7 +33,7 @@ public class NameUEFromSemesterParser implements Parser<NameUEFromSemesterComman
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public NameUEFromSemesterCommand parse(String args) throws ParseException {
+    public NameUeFromSemesterCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_SEMESTER);
         String[] tokens = args.split(" ");
@@ -42,11 +42,11 @@ public class NameUEFromSemesterParser implements Parser<NameUEFromSemesterComman
                 || tokens.length != 2
                 || tokens[1].isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    NameUEFromSemesterCommand.MESSAGE_USAGE));
+                    NameUeFromSemesterCommand.MESSAGE_USAGE));
         }
         SemesterName semester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
         String ueName = tokens[1].trim();
-        return new NameUEFromSemesterCommand(ueName, semester);
+        return new NameUeFromSemesterCommand(ueName, semester);
     }
 
 }

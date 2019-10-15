@@ -42,7 +42,7 @@ public class StudyPlanBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code StudyPlan} that we are building.
      */
-    public StudyPlanBuilder withTags(String ... tags) {
+    public StudyPlanBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }

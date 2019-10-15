@@ -17,6 +17,7 @@ public class UserTag implements Tag {
 
     /**
      * Constructs a {@code UserTag}.
+     *
      * @param tagName A valid tag name.
      */
     public UserTag(String tagName) {
@@ -38,6 +39,7 @@ public class UserTag implements Tag {
 
     /**
      * Checks if the tag is a default tag.
+     *
      * @return False as user-created tags are not considered default tags.
      */
     public boolean isDefault() {
@@ -46,6 +48,7 @@ public class UserTag implements Tag {
 
     /**
      * Returns the name of the tag.
+     *
      * @return The name of the tag.
      */
     public String getTagName() {
@@ -54,6 +57,7 @@ public class UserTag implements Tag {
 
     /**
      * Renames the tag.
+     *
      * @param newName The new name of the tag.
      */
     public void rename(String newName) {
@@ -62,6 +66,7 @@ public class UserTag implements Tag {
 
     /**
      * Returns true if the other tag is also a {@code UserTag} and the two tags have the same tag name.
+     *
      * @param other The other {@code Tag}.
      */
     @Override
@@ -69,7 +74,7 @@ public class UserTag implements Tag {
         if (other.isDefault()) {
             return false;
         }
-        return tagName.equals(((UserTag) other).getTagName());
+        return tagName.equals(other.getTagName());
     }
 
     @Override

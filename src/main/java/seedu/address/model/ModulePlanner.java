@@ -213,6 +213,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     /**
      * Returns the current semester. The user cannot change any module before the current semester. But they can
      * still change those in the current semester and after the current semester.
+     *
      * @return the semester name of the current semester.
      */
     public SemesterName getCurrentSemester() {

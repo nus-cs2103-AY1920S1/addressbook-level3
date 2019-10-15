@@ -88,6 +88,7 @@ public class ModuleInfo {
 
     /**
      * Parses the prerequisite tree from a given string.
+     *
      * @param s Given string representing the prerequisite tree. Either the empty string, a module code, or (OP _ _).
      * @return Prerequisite tree
      */
@@ -113,6 +114,7 @@ public class ModuleInfo {
     /**
      * Splits the String of operands into its logical groupings.
      * Example: "CS1 (AND (OR CS2 CS3) CS4) CS5" => ["CS1", "(AND (OR CS2 CS3) CS4)", "CS5"]
+     *
      * @param operands String that represents the operands all together
      * @return List of Strings, where each represents a single operand to be further parsed
      */

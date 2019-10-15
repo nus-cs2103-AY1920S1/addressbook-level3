@@ -10,6 +10,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.semester.SemesterName;
 
+/**
+ * Adds module to a semester
+ */
 public class AddModuleCommand extends Command {
     public static final String COMMAND_WORD = "addmodule";
     public static final String MESSAGE_USAGE = COMMAND_WORD

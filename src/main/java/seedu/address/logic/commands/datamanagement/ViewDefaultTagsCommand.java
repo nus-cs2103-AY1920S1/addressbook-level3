@@ -23,8 +23,8 @@ public class ViewDefaultTagsCommand extends Command {
     public static final String COMMAND_WORD = "viewdefaulttags";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all default tags. "
-        + "Example: "
-        + "viewdefaulttags";
+            + "Example: "
+            + "viewdefaulttags";
 
     public static final String MESSAGE_SUCCESS = "All default tags shown %1$s.";
 

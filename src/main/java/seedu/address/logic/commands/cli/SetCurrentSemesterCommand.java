@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.cli;
 
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
@@ -10,6 +9,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.semester.SemesterName;
 
+/**
+ * Sets a semester as the current semester
+ */
 public class SetCurrentSemesterCommand extends Command {
     public static final String COMMAND_WORD = "setcurrent";
     public static final String MESSAGE_USAGE = COMMAND_WORD

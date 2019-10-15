@@ -1,6 +1,16 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.ModulePlanner;
+import seedu.address.model.ModulesInfo;
+import seedu.address.model.studyplan.StudyPlan;
+
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -8,21 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 //import static seedu.address.testutil.Assert.assertThrows;
-
-import java.util.ArrayList;
 //import java.util.Arrays;
-import java.util.List;
-
 //import seedu.address.commons.core.index.Index;
-
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ModulePlanner;
-
-import seedu.address.model.ModulesInfo;
 //import seedu.address.model.studyplan.NameContainsKeywordsPredicate;
-import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.testutil.EditTitleStudyPlanDescriptorBuilder;
 //import seedu.address.testutil.EditTitleStudyPlanDescriptorBuilder;
 
 /**
@@ -75,6 +73,7 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
     */
+
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>

@@ -1,7 +1,5 @@
 package seedu.address.model.versiontracking;
 
-import java.util.List;
-
 import seedu.address.model.studyplan.StudyPlan;
 
 /**
@@ -32,6 +30,7 @@ public class VersionTrackingManager {
 
     /**
      * Creates the commit manager for a study plan if it does not exist, so that the user can start making commits.
+     *
      * @param studyPlan
      */
     public StudyPlanCommitManager commitStudyPlan(StudyPlan studyPlan, String commitMessage) {

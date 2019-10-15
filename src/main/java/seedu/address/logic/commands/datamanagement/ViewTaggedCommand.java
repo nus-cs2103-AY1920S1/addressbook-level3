@@ -24,10 +24,10 @@ public class ViewTaggedCommand extends Command {
     public static final String COMMAND_WORD = "viewtagged";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all modules attached to specific tags. "
-        + "Parameters: "
-        + "TAG_NAME... \n"
-        + "Example: "
-        + "viewtagged core completed";
+            + "Parameters: "
+            + "TAG_NAME... \n"
+            + "Example: "
+            + "viewtagged core completed";
 
     public static final String MESSAGE_SUCCESS = "All modules with the specified tags shown %1$s.";
 
@@ -55,7 +55,7 @@ public class ViewTaggedCommand extends Command {
     private Set<Module> getMatchingModules(String tagName, HashMap<String, Module> moduleHashMap) {
         Set<String> moduleNames = moduleHashMap.keySet();
         Set<Module> matchingModules = new HashSet<Module>();
-        for (String moduleName: moduleNames) {
+        for (String moduleName : moduleNames) {
             Module currentModule = moduleHashMap.get(moduleName);
             boolean matches = checkMatch(currentModule, tagName);
             if (matches) {
@@ -67,14 +67,14 @@ public class ViewTaggedCommand extends Command {
 
     private Set<Module> getAllMatchingModules(HashMap<String, Module> moduleHashMap) {
         Set<Module> allMatchingModules = new HashSet<Module>();
-        for (String tagName: tagNames) {
+        for (String tagName : tagNames) {
             Set<Module> matchingModules = getMatchingModules(tagName, moduleHashMap);
             if (allMatchingModules.size() == 0) {
                 allMatchingModules.addAll(matchingModules);
             } else {
                 allMatchingModules = allMatchingModules.stream()
-                    .filter(matchingModules::contains)
-                    .collect(Collectors.toSet());
+                        .filter(matchingModules::contains)
+                        .collect(Collectors.toSet());
             }
         }
         return allMatchingModules;
@@ -82,13 +82,14 @@ public class ViewTaggedCommand extends Command {
 
     /**
      * Checks if there are any tags attached to the current module that has the given tag name.
+     *
      * @param currentModule The module with an existing list of tags.
-     * @param tagName The name of the tag that is to be checked.
+     * @param tagName       The name of the tag that is to be checked.
      * @return True if the module has a tag with the given name.
      */
     private boolean checkMatch(Module currentModule, String tagName) {
         UniqueTagList tags = currentModule.getTags();
-        for (Tag tag: tags) {
+        for (Tag tag : tags) {
             boolean match = tag.getTagName().equals(tagName);
             if (match) {
                 return true;

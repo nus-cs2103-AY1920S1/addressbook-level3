@@ -32,7 +32,7 @@ public enum DefaultTagType {
 
     private String defaultTagTypeName;
 
-    private DefaultTagType(String defaultTagTypeName) {
+    DefaultTagType(String defaultTagTypeName) {
         this.defaultTagTypeName = defaultTagTypeName;
     }
 
@@ -42,6 +42,7 @@ public enum DefaultTagType {
 
     /**
      * Checks if the given name is one of the default tag type names.
+     *
      * @param name The given name that is to be checked.
      * @return True if it is one of the default tag type names.
      */

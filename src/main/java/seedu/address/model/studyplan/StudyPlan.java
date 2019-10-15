@@ -144,6 +144,7 @@ public class StudyPlan implements Cloneable {
 
     /**
      * Returns a {@code UniqueTagList} with the default tags attached to the module with the given module info.
+     *
      * @param moduleInfo The module info of the module.
      * @return A {@code UniqueTagList} with the default tags.
      */
@@ -152,10 +153,10 @@ public class StudyPlan implements Cloneable {
         UniqueTagList studyPlanTagList = getTags();
         List<String> focusPrimaries = moduleInfo.getFocusPrimaries();
         List<String> focusElectives = moduleInfo.getFocusElectives();
-        for (String focusPrimary: focusPrimaries) {
+        for (String focusPrimary : focusPrimaries) {
             moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusPrimary + ":P"));
         }
-        for (String focusElective: focusElectives) {
+        for (String focusElective : focusElectives) {
             moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusElective + ":E"));
         }
         boolean canSu = moduleInfo.getSuEligibility();
@@ -163,9 +164,9 @@ public class StudyPlan implements Cloneable {
             moduleTagList.addTag(studyPlanTagList.getDefaultTag("S/U-able"));
         }
         Semester locationOfModule;
-        for (Semester semester: semesters) {
+        for (Semester semester : semesters) {
             UniqueModuleList uniqueModuleList = semester.getModules();
-            for (Module module: uniqueModuleList) {
+            for (Module module : uniqueModuleList) {
                 if (module.getName().equals(moduleInfo.getName())) {
                     locationOfModule = semester;
                     break;
@@ -196,7 +197,7 @@ public class StudyPlan implements Cloneable {
     /**
      * Adds a module to a semester, given the {@code ModuleCode} and {@code SemesterName}.
      *
-     * @param moduleCode module code of the module to be added.
+     * @param moduleCode   module code of the module to be added.
      * @param semesterName semester name of the target semester.
      * @throws SemesterNotFoundException
      */
@@ -221,7 +222,7 @@ public class StudyPlan implements Cloneable {
      * Blocks a semester with the given {@code SemesterName} so that the user cannot add modules to that semester.
      * The user can enter a reason for blocking it (e.g. NOC, internship).
      */
-    public void blockSemester (SemesterName semesterName, String reasonForBlock) throws SemesterNotFoundException {
+    public void blockSemester(SemesterName semesterName, String reasonForBlock) throws SemesterNotFoundException {
         Semester semesterToBlock = null;
         Iterator<Semester> iterator = semesters.iterator();
         while (iterator.hasNext()) {

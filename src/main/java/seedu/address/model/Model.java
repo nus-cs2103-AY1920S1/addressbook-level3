@@ -113,6 +113,7 @@ public interface Model {
     void updateFilteredStudyPlanList(Predicate<StudyPlan> predicate);
 
     // ===================== VERSION TRACKING ==========================
+
     /**
      * Commits the current active study plan with a commit message.
      */
@@ -164,9 +165,9 @@ public interface Model {
     /**
      * Checks whether or not the specified semester contains a UE
      */
-    boolean semesterHasUE(SemesterName semesterName);
+    boolean semesterHasUe(SemesterName semesterName);
 
-    void renameUEInSemester(SemesterName semesterName, String moduleCode);
+    void renameUeInSemester(SemesterName semesterName, String moduleCode);
 
     void setSemester(SemesterName semester);
 

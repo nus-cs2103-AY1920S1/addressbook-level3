@@ -47,5 +47,4 @@ public class SetCurrentSemesterParser implements Parser<SetCurrentSemesterComman
 
         return new SetCurrentSemesterCommand(semesterName);
     }
-
 }
