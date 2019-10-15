@@ -10,7 +10,7 @@ import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 public class Year {
     public static final String MESSAGE_CONSTRAINTS =
             "Year should only contain years from 2000 to 9999";
-    public static final String VALIDATION_REGEX = "[2-9]|\\d\\d\\d";
+    public static final String VALIDATION_REGEX = "[2-9]\\d\\d\\d";
     public final int yearNumber;
 
     /**
@@ -29,6 +29,16 @@ public class Year {
      */
     public static boolean isValidYear(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if the {@code Year} object represents a leap year.
+     * Leap years occur once every 4 years, except for every year divisible by 100 that is not divisible by 400.
+     *
+     * @return true if the {@code Year} is a leap year.
+     */
+    public boolean isLeapYear() {
+        return (yearNumber % 4 == 0) && (yearNumber % 100 != 0 || yearNumber % 400 == 0);
     }
 
     @Override

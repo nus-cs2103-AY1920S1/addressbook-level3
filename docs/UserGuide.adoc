@@ -230,15 +230,25 @@ Loans shown sorted by any given constrain, date or value owed.
 
 === Budgets
 
-==== Setting monthly budget: `bset`
+==== Add a monthly budget: `badd`
 
 Sets monthly expenditure budget. +
-Format: `bset a/AMOUNT`
+Format: `badd de/DESCRIPTION a/AMOUNT`
 
 Examples:
 
-* `bset a/1000` +
+* `badd de/Saving for future a/1000` +
 Sets monthly expenditure budget to $1000.
+
+==== Delete a monthly budget: `bdelete`
+
+Deletes the budget identified by the index number used in the displayed budget list. +
+Format: `bdelete INDEX`
+
+Examples:
+
+* `bdelete 1` +
+Deletes the first entry on the displayed budget list.
 
 ==== Excluding expenditure from budget: `bexclude`
 

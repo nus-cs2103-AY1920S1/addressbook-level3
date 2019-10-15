@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Transaction's description in the transaction recorder.
+ * Represents a Transaction's category in the transaction recorder.
  * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
 public class Category {
@@ -48,7 +48,8 @@ public class Category {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Category // instanceof handles nulls
-                && category.equals(((Category) other).category)); // state check
+                && category.toLowerCase() // case-insensitive check
+                .equals(((Category) other).category.toLowerCase()));
     }
 
     @Override

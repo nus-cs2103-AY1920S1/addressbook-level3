@@ -42,5 +42,8 @@
     "email" : "anna@example.com",
     "address" : "4th street",
     "tagged" : [ ]
-  } ]
+  } ],
+  "transactions" : [ ],
+  "repeaters" : [ ],
+  "budgets" : [ ]
 }

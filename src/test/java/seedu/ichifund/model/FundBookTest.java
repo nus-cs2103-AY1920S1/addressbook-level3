@@ -18,9 +18,15 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.person.exceptions.DuplicatePersonException;
+import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.transaction.Transaction;
+import seedu.ichifund.testutil.BudgetBuilder;
 import seedu.ichifund.testutil.PersonBuilder;
+import seedu.ichifund.testutil.RepeaterBuilder;
+import seedu.ichifund.testutil.TransactionBuilder;
 
 public class FundBookTest {
 
@@ -48,8 +54,14 @@ public class FundBookTest {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
+        Repeater repeater = new RepeaterBuilder().build();
+        Budget budget = new BudgetBuilder().build();
+        Transaction transaction = new TransactionBuilder().build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        FundBookStub newData = new FundBookStub(newPersons);
+        List<Repeater> repeaters = Collections.singletonList(repeater);
+        List<Budget> budgets = Collections.singletonList(budget);
+        List<Transaction> transactions = Collections.singletonList(transaction);
+        FundBookStub newData = new FundBookStub(newPersons, repeaters, budgets, transactions);
 
         assertThrows(DuplicatePersonException.class, () -> fundBook.resetData(newData));
     }
@@ -88,14 +100,36 @@ public class FundBookTest {
      */
     private static class FundBookStub implements ReadOnlyFundBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Repeater> repeaters = FXCollections.observableArrayList();
+        private final ObservableList<Budget> budgets = FXCollections.observableArrayList();
+        private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
 
-        FundBookStub(Collection<Person> persons) {
+        FundBookStub(Collection<Person> persons, Collection<Repeater> repeaters, Collection<Budget> budgets,
+                     Collection<Transaction> transactions) {
             this.persons.setAll(persons);
+            this.repeaters.setAll(repeaters);
+            this.budgets.setAll(budgets);
+            this.transactions.setAll(transactions);
         }
 
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Repeater> getRepeaterList() {
+            return repeaters;
+        }
+
+        @Override
+        public ObservableList<Budget> getBudgetList() {
+            return budgets;
+        }
+
+        @Override
+        public ObservableList<Transaction> getTransactionList() {
+            return transactions;
         }
     }
 

@@ -1,4 +1,4 @@
-package seedu.ichifund.model;
+package seedu.ichifund.model.amount;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.AppUtil.checkArgument;
@@ -15,8 +15,10 @@ public class Amount implements Comparable<Amount> {
             "Amount should be in the format '<dollars>.<cents>' or '<dollars>'.\n"
                     + "<dollars> consists of numbers with no leading zeroes, unless it is '0'.\n"
                     + "<cents> consists of numbers, and is exactly 2 digits long.";
+    public static final String NEGATIVE_AMOUNT_CONSTRAINT =
+            "Amount should not be negative for transactions, repeatables, budgets, and loans.\n";
     public static final String CENTS_REGEX = "(\\.\\d\\d)"; // '.' followed by exactly two numerical digits
-    public static final String DOLLARS_REGEX = "([1-9]\\d*|0)"; // '0', or number without leading zeroes
+    public static final String DOLLARS_REGEX = "\\-?([1-9]\\d*|0)"; // '0', or number without leading zeroes
     public static final String VALIDATION_REGEX = DOLLARS_REGEX + CENTS_REGEX + "?"; // Dollars, with cents optionally
     public final int valueInCents;
 
@@ -28,11 +30,11 @@ public class Amount implements Comparable<Amount> {
     public Amount(String amount) {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
-        String[] amounts = amount.split(".");
+        String[] amounts = amount.split("\\.");
         if (amounts.length == 1) { // String contains only dollar and no cents
             valueInCents = Integer.parseInt(amount) * 100;
         } else { // String contains only cents
-            valueInCents = Integer.parseInt(amounts[0]) * 100 + Integer.parseInt(amounts[1]);
+            valueInCents = getValueFromDollarAndCents(amounts[0], amounts[1]);
         }
     }
 
@@ -41,22 +43,44 @@ public class Amount implements Comparable<Amount> {
     }
 
     /**
+     * Returns integer representing value from a {@code String dollar} and a {@code String cents}
+     *
+     * @param dollar String representing value in dollars, can have negative sign.
+     * @param cents String representing value in cents.
+     * @return Combined value in cents
+     */
+    private static int getValueFromDollarAndCents(String dollar, String cents) {
+        int dollarValue = Integer.parseInt(dollar);
+        int centsValue = Integer.parseInt(cents);
+        if (dollarValue < 0) {
+            return dollarValue * 100 - centsValue;
+        } else {
+            return dollarValue * 100 + centsValue;
+        }
+    }
+
+
+    /**
      * Returns true if a given string is a valid amount.
      */
     public static boolean isValidAmount(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns true if a given string is a negative amount.
+     * String must first correspond to a valid amount.
+     */
+    public static boolean isNegative(String test) {
+        return test.substring(0, 1).equals("-");
+    }
+
     @Override
     public String toString() {
-        if (valueInCents < 0) {
-            return "-" + (new Amount(-valueInCents)).toString();
-        } else {
-            int dollars = valueInCents / 100;
-            int cents = valueInCents % 100;
-            String centsString = convertCentsToString(cents);
-            return "$" + dollars + "." + centsString;
-        }
+        int dollars = valueInCents / 100;
+        int cents = java.lang.Math.abs(valueInCents) % 100; // Absolute value required due to behaviour of %
+        String centsString = convertCentsToString(cents);
+        return dollars + "." + centsString;
     }
 
     /**
@@ -66,7 +90,7 @@ public class Amount implements Comparable<Amount> {
      * @param cents The number of cents in an {@code Amount} that is less than 100.
      * @return A two character {@code String}.
      */
-    private String convertCentsToString(int cents) {
+    private static String convertCentsToString(int cents) {
         if (cents == 0) {
             return "00";
         } else if (cents < 10) {
@@ -86,7 +110,7 @@ public class Amount implements Comparable<Amount> {
      * @param amounts List of {@code Amount} to be added.
      * @return An {@code Amount} obtained from summation.
      */
-    public Amount addAll(List<Amount> amounts) {
+    public static Amount addAll(List<Amount> amounts) {
         int valueInCents = 0;
         for (Amount amount : amounts) {
             valueInCents += amount.getValueInCents();
@@ -101,7 +125,7 @@ public class Amount implements Comparable<Amount> {
      * @param operand2 Second operand to be added.
      * @return An {@code Amount} obtained from addition.
      */
-    public Amount add(Amount operand1, Amount operand2) {
+    public static Amount add(Amount operand1, Amount operand2) {
         return new Amount(operand1.getValueInCents() + operand2.getValueInCents());
     }
 
@@ -112,7 +136,7 @@ public class Amount implements Comparable<Amount> {
      * @param operand2 Second operand to be subtracted from first operand.
      * @return An {@code Amount} obtained from subtraction.
      */
-    public Amount subtract(Amount operand1, Amount operand2) {
+    public static Amount subtract(Amount operand1, Amount operand2) {
         return new Amount(operand1.getValueInCents() - operand2.getValueInCents());
     }
 
@@ -122,7 +146,7 @@ public class Amount implements Comparable<Amount> {
      * @param amount {@code Amount} object to be negated.
      * @return The negative of an {@code Amount}.
      */
-    public Amount negate(Amount amount) {
+    public static Amount negate(Amount amount) {
         return new Amount(-amount.getValueInCents());
     }
 

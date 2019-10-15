@@ -3,8 +3,13 @@ package seedu.ichifund.model.analytics;
 import static java.util.Objects.requireNonNull;
 
 import seedu.ichifund.model.Model;
+import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.analytics.exceptions.ReportException;
 import seedu.ichifund.model.date.Date;
+import seedu.ichifund.model.date.Month;
+import seedu.ichifund.model.date.Year;
+
+import java.util.List;
 
 /**
  * Represents a report for expenditure, income or balance trends.
@@ -14,10 +19,11 @@ public abstract class TrendReport extends Report {
     /**
      * Constructs a {@code TrendReport}.
      *
-     * @param date A date.
+     * @param month A month.
+     * @param year A year.
      */
-    public TrendReport(Date date) {
-        super(date);
+    public TrendReport(Month month, Year year) {
+        super(month, year);
     }
 
     /**
@@ -37,6 +43,7 @@ public abstract class TrendReport extends Report {
      * Fetches the relevant transaction information to generate the trend report.
      *
      * @param model {@code Model} which the report should be based on.
+     * @param year {@code year} which the report should be based on.
      */
-    public abstract void fetch(Model model, Date date);
+    public abstract List<Amount> fetch(Model model, Year year);
 }
