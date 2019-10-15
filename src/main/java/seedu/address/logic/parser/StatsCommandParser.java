@@ -48,12 +48,12 @@ public class StatsCommandParser implements Parser<StatsCommand> {
                     StatsCommand.NON_DEFAULT_MESSAGE_USAGE));
         }
         if (startingDateValue.isPresent() && endingDateValue.isPresent()) {
-            Optional<Calendar> startingDate = Optional.of(ParserUtil.parseDateCalendar(
-                    argMultiMap.getValue(PREFIX_STARTING_DATE).get()));
-            Optional<Calendar> endingDate = Optional.of(ParserUtil.parseDateCalendar(
-                    argMultiMap.getValue(PREFIX_ENDING_DATE).get()));
+            Calendar startingDate = ParserUtil.parseDateCalendar(
+                    argMultiMap.getValue(PREFIX_STARTING_DATE).get());
+            Calendar endingDate = ParserUtil.parseDateCalendar(
+                    argMultiMap.getValue(PREFIX_ENDING_DATE).get());
 
-            if (startingDate.get().compareTo(endingDate.get()) > 0) {
+            if (startingDate.compareTo(endingDate) > 0) {
                 throw new ParseException(String.format(MESSAGE_INVALID_DATE_INPUT_FORMAT,
                         StatsCommand.MESSAGE_USAGE));
             }

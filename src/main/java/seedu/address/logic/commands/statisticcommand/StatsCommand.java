@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.statisticcommand;
 
 import java.util.Calendar;
-import java.util.Optional;
 
 import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.commands.Command;
@@ -30,16 +29,16 @@ public class StatsCommand extends Command {
             + "ending dates have to be present\n"
             + "Example: d1/2017.04.12 d2/2018.06.23";
 
-    private final Optional<Calendar> startingDate;
+    private final Calendar startingDate;
 
-    private final Optional<Calendar> endingDate;
+    private final Calendar endingDate;
 
     private final StatisticType statisticType;
 
     /**
      * Constructor to return StatsCommand object
      */
-    public StatsCommand(Optional<Calendar> startingDate, Optional<Calendar> endingDate, StatisticType statisticType) {
+    public StatsCommand(Calendar startingDate, Calendar endingDate, StatisticType statisticType) {
         this.startingDate = startingDate;
         this.endingDate = endingDate;
         this.statisticType = statisticType;
@@ -47,7 +46,7 @@ public class StatsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        StatsPayload payload = new StatsPayload(this.startingDate.get(), this.endingDate.get(), statisticType);
+        StatsPayload payload = new StatsPayload(this.startingDate, this.endingDate, statisticType);
         return new CommandResult(MESSAGE_USAGE, payload, UiChange.STATS);
     }
 }
