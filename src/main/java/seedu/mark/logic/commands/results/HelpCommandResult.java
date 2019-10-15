@@ -1,4 +1,4 @@
-package seedu.mark.logic.commands.commandresult;
+package seedu.mark.logic.commands.results;
 
 /**
  * Represents the result of a help command execution.

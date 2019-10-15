@@ -16,7 +16,7 @@
 <?import javafx.stage.Stage?>
 
 <fx:root minHeight="600" minWidth="1100" onCloseRequest="#handleExit" title="Mark - Your Personal Bookmark Manager"
-         type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+         type="javafx.stage.Stage" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/bookmark_icon.png" />
   </icons>
@@ -84,6 +84,13 @@
             </padding>
           </StackPane>
         </SplitPane>
+
+        <VBox fx:id="folderStructure" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+          <padding>
+            <Insets top="10" right="10" bottom="10" left="10" />
+          </padding>
+          <StackPane fx:id="folderStructurePlaceholder" VBox.vgrow="ALWAYS"/>
+        </VBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

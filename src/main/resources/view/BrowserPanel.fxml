@@ -17,7 +17,7 @@
 
         </TextField>
         <Button fx:id="homeButton"
-                onAction="#gotoHomepage"
+                onAction="#loadHomepage"
                 mnemonicParsing="false">
             <graphic>
                 <ImageView fx:id="homepageLogo"

@@ -19,7 +19,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Bookmark> {
     @Override
     public boolean test(Bookmark bookmark) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsPhraseIgnoreCase(bookmark.getName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsPhraseIgnoreCase(bookmark.getName().value, keyword));
     }
 
     @Override

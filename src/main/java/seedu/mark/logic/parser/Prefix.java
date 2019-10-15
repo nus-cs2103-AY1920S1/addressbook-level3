@@ -2,7 +2,7 @@ package seedu.mark.logic.parser;
 
 /**
  * A prefix that marks the beginning of an argument in an arguments string.
- * E.g. 't/' in 'add James t/ friend'. // TODO: Change example
+ * E.g. 't/' in 'add leetcode u/ https://leetcode.com t/ coding'.
  */
 public class Prefix {
     private final String prefix;

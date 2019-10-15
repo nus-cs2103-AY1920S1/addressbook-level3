@@ -6,22 +6,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.mark.commons.core.GuiSettings;
-import seedu.mark.logic.commands.commandresult.CommandResult;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Mark;
-import seedu.mark.model.Model;
+import seedu.mark.model.ModelStub;
 import seedu.mark.model.ReadOnlyMark;
-import seedu.mark.model.ReadOnlyUserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.storage.StorageStub;
 import seedu.mark.testutil.BookmarkBuilder;
 
 public class AddCommandTest {
@@ -36,7 +32,8 @@ public class AddCommandTest {
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded();
         Bookmark validBookmark = new BookmarkBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validBookmark).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validBookmark)
+                .execute(modelStub, new StorageStub());
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validBookmark),
                 commandResult.getFeedbackToUser());
@@ -50,7 +47,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithBookmark(validBookmark);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_BOOKMARK, () ->
-                addCommand.execute(modelStub));
+                addCommand.execute(modelStub, new StorageStub()));
     }
 
     @Test
@@ -75,81 +72,6 @@ public class AddCommandTest {
 
         // different bookmark -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getMarkFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setMarkFilePath(Path markFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addBookmark(Bookmark bookmark) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setMark(ReadOnlyMark newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyMark getMark() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasBookmark(Bookmark bookmark) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteBookmark(Bookmark target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setBookmark(Bookmark target, Bookmark editedBookmark) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Bookmark> getFilteredBookmarkList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredBookmarkList(Predicate<Bookmark> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**
@@ -186,6 +108,11 @@ public class AddCommandTest {
         public void addBookmark(Bookmark bookmark) {
             requireNonNull(bookmark);
             bookmarksAdded.add(bookmark);
+        }
+
+        @Override
+        public void saveMark() {
+            // called by {@code AddCommand#execute()}
         }
 
         @Override

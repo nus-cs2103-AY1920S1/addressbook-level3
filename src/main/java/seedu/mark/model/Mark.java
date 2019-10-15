@@ -2,11 +2,16 @@ package seedu.mark.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
+
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.UniqueBookmarkList;
+import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
  * Wraps all data at the bookmark-manager level
@@ -16,8 +21,11 @@ public class Mark implements ReadOnlyMark {
 
     private final UniqueBookmarkList bookmarks;
 
+    private final FolderStructure folderStructure;
+
     public Mark() {
         bookmarks = new UniqueBookmarkList();
+        folderStructure = new FolderStructure(Folder.ROOT_FOLDER, new ArrayList<>());
     }
 
     /**
@@ -45,6 +53,7 @@ public class Mark implements ReadOnlyMark {
         requireNonNull(newData);
 
         setBookmarks(newData.getBookmarkList());
+        setFolderStructure(newData.getFolderStructure().clone());
     }
 
     //// bookmark-level operations
@@ -85,6 +94,26 @@ public class Mark implements ReadOnlyMark {
         bookmarks.remove(key);
     }
 
+    //// folder operations
+
+    /**
+     * Replaces the folder structure with the specified {@code folderStructure}.
+     */
+    public void setFolderStructure(FolderStructure folderStructure) {
+        this.folderStructure.getSubfolders().clear();
+        this.folderStructure.getSubfolders().addAll(folderStructure.getSubfolders());
+    }
+
+
+    /**
+     * Creates a new folder with name {@code folder} under {@code parentFolder}.
+     * {@code folder} must not exist.
+     * {@code parentFolder} must exist.
+     */
+    public void addFolder(Folder folder, Folder parentFolder) {
+        this.folderStructure.addFolder(folder, parentFolder);
+    }
+
     //// util methods
 
     @Override
@@ -99,14 +128,25 @@ public class Mark implements ReadOnlyMark {
     }
 
     @Override
+    public FolderStructure getFolderStructure() {
+        return folderStructure;
+    }
+
+
+    public boolean hasFolder(Folder folder) {
+        return getFolderStructure().hasFolder(folder);
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Mark // instanceof handles nulls
-                && bookmarks.equals(((Mark) other).bookmarks));
+                && bookmarks.equals(((Mark) other).bookmarks)
+                && folderStructure.equals(((Mark) other).folderStructure));
     }
 
     @Override
     public int hashCode() {
-        return bookmarks.hashCode();
+        return Objects.hash(bookmarks, folderStructure);
     }
 }

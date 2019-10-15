@@ -1,5 +1,7 @@
 package seedu.mark.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -14,8 +16,9 @@ import javafx.stage.Stage;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.Logic;
-import seedu.mark.logic.commands.commandresult.CommandResult;
+import seedu.mark.logic.commands.TabCommand.Tab;
 import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
 
 /**
@@ -44,7 +47,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane mainViewAreaPlaceholder;
-    //private StackPane browserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -60,6 +62,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane folderStructurePlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -118,13 +123,17 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
+        browserPanel = new BrowserPanel(logic.getCurrentUrlProperty());
         dashboardPanel = new DashboardPanel();
         offlinePanel = new OfflinePanel();
         mainViewAreaPlaceholder.getChildren().add(dashboardPanel.getRoot());
 
         bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());
+
+        FolderStructureTreeView folderStructureTreeView = new FolderStructureTreeView(
+                logic.getFolderStructure(), logic.getFilteredBookmarkList());
+        folderStructurePlaceholder.getChildren().add(folderStructureTreeView.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -194,6 +203,28 @@ public class MainWindow extends UiPart<Stage> {
         mainViewAreaPlaceholder.getChildren().set(0, offlinePanel.getRoot());
     }
 
+    /**
+     * Directs to the appropriate handler to switch Tab.
+     * @param tab The tab to switch to
+     */
+    private void handleTabSwitchRequestIfAny(Tab tab) {
+        requireNonNull(tab);
+
+        switch (tab) {
+        case DASHBOARD:
+            handleSwitchToDashboard();
+            break;
+        case ONLINE:
+            handleSwitchToOnline();
+            break;
+        case OFFLINE:
+            handleSwitchToOffline();
+            break;
+        default:
+            break;
+        }
+    }
+
     public BookmarkListPanel getBookmarkListPanel() {
         return bookmarkListPanel;
     }
@@ -229,12 +260,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isSwitchViewDashboard()) {
-                handleSwitchToDashboard();
-            } else if (commandResult.isSwitchViewOnline()) {
-                handleSwitchToOnline();
-            } else if (commandResult.isSwitchViewOffline()) {
-                handleSwitchToOffline();
+            if (commandResult.getTab() != null) {
+                handleTabSwitchRequestIfAny(commandResult.getTab());
             }
 
             return commandResult;

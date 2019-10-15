@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
@@ -34,6 +35,7 @@ public class BrowserPanel extends UiPart<Region> {
     public static final URL REDIRECTION_PAGE =
             requireNonNull(MainApp.class
                     .getResource(FXML_FILE_FOLDER + "redirectionPage.html"));
+    public static final String HOME_PAGE_URL = "https://google.com.sg";
 
     /** Name of corresponding fxml file. */
     private static final String FXML = "BrowserPanel.fxml";
@@ -52,14 +54,21 @@ public class BrowserPanel extends UiPart<Region> {
     private WebEngine webEngine;
     private String currentPageUrl;
 
-    public BrowserPanel() {
+    public BrowserPanel(SimpleObjectProperty<Url> currentBookmarkUrl) {
         super(FXML);
 
         loadGuiAddress();
         loadGuiGoogleButton();
         loadGuiBrowser();
 
-        gotoHomepage();
+        // Load page when current bookmark url changes.
+        currentBookmarkUrl.addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                loadHomepage();
+                return;
+            }
+            loadPage(newValue.toString());
+        });
     }
 
     /**
@@ -104,8 +113,7 @@ public class BrowserPanel extends UiPart<Region> {
                             public void changed(ObservableValue<? extends State> observable,
                                                 State oldValue,
                                                 State newValue) {
-
-                                currentPageUrl = webEngine.getLocation();
+                                currentPageUrl = getCurrentPageUrl();
                                 if (newValue == State.FAILED) {
                                     logger.info("browser: unable to connect to internet");
                                     loadDefaultPage();
@@ -121,9 +129,18 @@ public class BrowserPanel extends UiPart<Region> {
                                 }
                             }
                         });
+        loadHomepage();
     }
 
     ////////////////////// MAIN METHODS /////////////////////////
+
+    /**
+     * Gets the url of the page the browser currently shows.
+     * @return url of current page.
+     */
+    public String getCurrentPageUrl() {
+        return webEngine.getLocation();
+    }
 
     /**
      * Loads page with url on the webview.
@@ -136,11 +153,18 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
-     * Gets the url of the page the browser currently shows.
-     * @return url of current page.
+     * Loads a default HTML file with a background that matches the general theme.
      */
-    public String getCurrentPageUrl() {
-        return webEngine.getLocation();
+    private void loadDefaultPage() {
+        loadPage(DEFAULT_PAGE.toExternalForm());
+    }
+
+    /**
+     * Changes webview to google search page.
+     */
+    @FXML
+    private void loadHomepage() {
+        loadPage(HOME_PAGE_URL);
     }
 
     /**
@@ -149,13 +173,6 @@ public class BrowserPanel extends UiPart<Region> {
      */
     private void showAddressOnAddressBar(String url) {
         addressBar.setText(url);
-    }
-
-    /**
-     * Loads a default HTML file with a background that matches the general theme.
-     */
-    private void loadDefaultPage() {
-        loadPage(DEFAULT_PAGE.toExternalForm());
     }
 
     /**
@@ -173,7 +190,7 @@ public class BrowserPanel extends UiPart<Region> {
             Thread.sleep(500);
             gotoGoogle();
         } catch (InterruptedException e) {
-            gotoHomepage();
+            loadHomepage();
         }
     }
 
@@ -186,6 +203,7 @@ public class BrowserPanel extends UiPart<Region> {
         //if address legit then load
         //if not legit h
         String input = addressBar.getText();
+        logger.info("Reading address from address bar: " + input);
 
         //logger.info("Checking validity of input URL: " + isValidUrl(input));
         String url = makeValidUrl(input);
@@ -206,7 +224,7 @@ public class BrowserPanel extends UiPart<Region> {
         //TODO: check Url.isValidUrl is appropriate for this (parse and check if the url is a valid url)
         //check if have protocol in front
         //if true then test out by creating a url and catching malinformedurlexception?
-        return Url.isValidUrl(url);
+        return Url.isValidUrl(url); //dummy code
     }
 
     /**
@@ -230,14 +248,6 @@ public class BrowserPanel extends UiPart<Region> {
 
         //else ask users to google search it; give alert and redirect to google
         return null; //dummy code
-    }
-
-    /**
-     * Changes webview to google search page.
-     */
-    @FXML
-    private void gotoHomepage() {
-        loadPage("https://google.com.sg");
     }
 
     private void gotoGoogle() {

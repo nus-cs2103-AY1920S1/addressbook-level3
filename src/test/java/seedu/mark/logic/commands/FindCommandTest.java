@@ -19,6 +19,7 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
+import seedu.mark.storage.StorageStub;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -60,7 +61,7 @@ public class FindCommandTest {
         IdentifiersContainKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredBookmarkList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, new StorageStub(), expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredBookmarkList());
     }
 
@@ -70,7 +71,7 @@ public class FindCommandTest {
         IdentifiersContainKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredBookmarkList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, new StorageStub(), expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredBookmarkList());
     }
 

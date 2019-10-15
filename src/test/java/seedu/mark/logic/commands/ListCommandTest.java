@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
+import seedu.mark.storage.StorageStub;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -28,12 +29,14 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCommand(), model, new StorageStub(),
+                ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showBookmarkAtIndex(model, INDEX_FIRST_BOOKMARK);
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCommand(), model, new StorageStub(),
+                ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
