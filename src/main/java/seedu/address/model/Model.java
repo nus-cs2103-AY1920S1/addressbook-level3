@@ -98,6 +98,18 @@ public interface Model {
     void addClaim(Claim claim);
 
     /**
+     * Approves the given claim.
+     * {@code claim} must exist.
+     */
+    void approveClaim(Claim claim);
+
+    /**
+     * Rejects the given claim.
+     * {@code claim} must exist.
+     */
+    void rejectClaim(Claim claim);
+
+    /**
      * Replaces the given contact {@code target} with {@code editedContact}.
      * {@code target} must exist in the address book.
      * The contact identity of {@code editedContact} must not be the same as another existing contact in the address book.

@@ -1,5 +1,6 @@
 package seedu.address.model.claim;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -14,13 +15,14 @@ import seedu.address.model.tag.Tag;
 /**
  * Represent a Claim in the Financial Planner
  */
-public class Claim {
+public abstract class Claim {
 
     // Identity fields
     private final Description description;
     private final Amount amount;
     private final Name name;
     private final Phone phone;
+    private final Status status;
 
     // Data fields
     private final Date date;
@@ -30,7 +32,7 @@ public class Claim {
      * Every field must be present and not null.
      */
     public Claim(Description description, Amount amount, Date date,
-                 Name name, Phone phone, Set<Tag> tags) {
+                 Name name, Phone phone, Set<Tag> tags, Status status) {
         requireAllNonNull(description, amount, name, phone, tags);
         this.description = description;
         this.amount = amount;
@@ -38,6 +40,7 @@ public class Claim {
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
+        this.status = status;
     }
 
     public Description getDescription() {
@@ -67,6 +70,14 @@ public class Claim {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Status getStatus() {
+        return this.status;
+    }
+
+    public boolean canChangeStatus() {
+        return false;
     }
 
     /**

@@ -35,6 +35,8 @@ public class IncomeCard extends UiPart<Region> {
     @FXML
     private Label amount;
     @FXML
+    private Label date;
+    @FXML
     private Label name;
     @FXML
     private Label phone;
@@ -47,6 +49,7 @@ public class IncomeCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(income.getDescription().text);
         amount.setText(income.getAmount().value);
+        date.setText(income.getDate().text);
         name.setText(income.getName().fullName);
         phone.setText(income.getPhone().value);
         income.getTags().stream()

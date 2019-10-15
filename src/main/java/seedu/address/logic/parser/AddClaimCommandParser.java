@@ -11,6 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.Description;
+import seedu.address.model.claim.PendingClaim;
 import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
@@ -43,7 +44,7 @@ public class AddClaimCommandParser implements Parser<AddClaimCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Claim claim = new Claim(description, amount, date, name, phone, tagList);
+        Claim claim = new PendingClaim(description, amount, date, name, phone, tagList);
 
         return new AddClaimCommand(claim);
     }

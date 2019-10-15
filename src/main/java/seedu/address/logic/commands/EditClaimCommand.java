@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.Description;
+import seedu.address.model.claim.PendingClaim;
 import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
@@ -103,7 +104,7 @@ public class EditClaimCommand extends Command {
         Phone updatedPhone = editClaimDescriptor.getPhone().orElse(claimToEdit.getPhone());
         Set<Tag> updatedTags = editClaimDescriptor.getTags().orElse(claimToEdit.getTags());
 
-        return new Claim(updatedDescription, updatedAmount, updatedDate, updatedName,
+        return new PendingClaim(updatedDescription, updatedAmount, updatedDate, updatedName,
                 updatedPhone, updatedTags);
     }
 

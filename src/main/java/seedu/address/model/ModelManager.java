@@ -145,6 +145,18 @@ public class ModelManager implements Model {
         finSec.setClaim(target, editedClaim);
     }
 
+    @Override
+    public void approveClaim(Claim claim) {
+        requireNonNull(claim);
+        finSec.approveClaim(claim);
+    }
+
+    @Override
+    public void rejectClaim(Claim claim) {
+        requireNonNull(claim);
+        finSec.rejectClaim(claim);
+    }
+
     //=========== Incomes ================================================================================
     @Override
     public boolean hasIncome(Income income) {
@@ -187,6 +199,7 @@ public class ModelManager implements Model {
     public void updateFilteredContactList(Predicate<seedu.address.model.contact.Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
+        UiManager.startWithContacts();
     }
 
     @Override

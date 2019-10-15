@@ -3,12 +3,12 @@ package seedu.address.model.income;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Description;
+import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
@@ -22,26 +22,28 @@ import seedu.address.model.tag.Tag;
 public class Income {
 
     // Identity fields
+    private final Description description;
+    private final Amount amount;
     private final Name name;
     private final Phone phone;
-    private final Description description;
 
     //Data fields
-    private final Amount amount;
+
     private final Set<Tag> tags = new HashSet<>();
     private final Date dateAdded;
 
     /**
      * Every field must be present and not null.
      */
-    public Income(Description description, Amount amount, Name name, Phone phone, Set<Tag> tags) {
+    public Income(Description description, Amount amount, Date date, Name name, Phone phone, Set<Tag> tags) {
         requireAllNonNull(name, phone, description, amount, tags);
         this.description = description;
         this.amount = amount;
+        this.dateAdded = date;
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
-        this.dateAdded = new Date();
+
     }
 
     public Description getDescription() {
@@ -60,7 +62,7 @@ public class Income {
         return amount;
     }
 
-    public Date getDateAdded() {
+    public Date getDate() {
         return dateAdded;
     }
 
@@ -84,7 +86,9 @@ public class Income {
 
         return otherIncome != null
                 && otherIncome.getName().equals(getName())
-                && (otherIncome.getDescription().equals(getDescription()) || otherIncome.getPhone().equals(getPhone()));
+                && otherIncome.getPhone().equals(getPhone())
+                && (otherIncome.getDescription().equals(getDescription())
+                        || otherIncome.getAmount().equals(getAmount()));
     }
 
     /**
@@ -107,7 +111,7 @@ public class Income {
                 && otherIncome.getDescription().equals(getDescription())
                 && otherIncome.getAmount().equals(getAmount())
                 && otherIncome.getTags().equals(getTags())
-                && otherIncome.getDateAdded().equals(getDateAdded());
+                && otherIncome.getDate().equals(getDate());
     }
 
 
