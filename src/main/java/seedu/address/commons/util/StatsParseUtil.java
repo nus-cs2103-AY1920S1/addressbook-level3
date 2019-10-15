@@ -21,12 +21,6 @@ public class StatsParseUtil {
             .setInstant(new Date(Long.MAX_VALUE))
             .build());
 
-
-    /*
-     * The word of the stat type must be one of the three below,
-     */
-    private static final String STAT_TYPE_VALIDATION_REGEX = "\b(?<!@)(PROFIT|REVENUE|COST)\b";
-
     /**
      * list of valid stat types
      */

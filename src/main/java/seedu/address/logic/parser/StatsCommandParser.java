@@ -76,9 +76,6 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             case PROFIT:
                 return new StatsCommand(StatsParseUtil.MIN_DATE, StatsParseUtil.MAX_DATE, StatisticType.PROFIT);
             case REVENUE:
-                System.out.println(StatsParseUtil.MIN_DATE.get());
-                System.out.println(StatsParseUtil.MAX_DATE.get());
-
                 return new StatsCommand(StatsParseUtil.MIN_DATE, StatsParseUtil.MAX_DATE, StatisticType.REVENUE);
             default:
                 throw new ParseException("Wrong Statistic type for no date calculation mode, "

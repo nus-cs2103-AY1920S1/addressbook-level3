@@ -1,6 +1,9 @@
 package seedu.address.statistic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.util.TypicalStatsPayload.DEFAULT_STATS_PAYLOAD_COST_1;
+import static seedu.address.commons.util.TypicalStatsPayload.DEFAULT_STATS_PAYLOAD_PROFIT_1;
+import static seedu.address.commons.util.TypicalStatsPayload.DEFAULT_STATS_PAYLOAD_REVENUE_1;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,17 +26,18 @@ public class StatisticsManagerTest {
     @Test
     public void execute_calculateTotalRevenueOnCompleted() {
         OrderBookStub orderBookStub = new OrderBookStub();
-        String actualResult = "500.0";
-        String testResult = this.statisticModule.calculateTotalRevenueOnCompleted(orderBookStub);
+        String actualResult = "0.0";
+        String testResult = this.statisticModule.calculateTotalRevenueOnCompleted(orderBookStub,
+                DEFAULT_STATS_PAYLOAD_REVENUE_1);
         assertEquals(actualResult, testResult);
     }
 
     @Test
     public void execute_calculateTotalProfitOnCompleted() {
         OrderBookStub orderBookStub = new OrderBookStub();
-        PhoneBookStub phoneBookStub = new PhoneBookStub();
-        String actualResult = "200.0";
-        String testResult = this.statisticModule.calculateTotalProfitOnCompleted(orderBookStub, phoneBookStub);
+        String actualResult = "0.0";
+        String testResult = this.statisticModule.calculateTotalProfitOnCompleted(orderBookStub,
+                DEFAULT_STATS_PAYLOAD_PROFIT_1);
         assertEquals(actualResult, testResult);
     }
 
@@ -41,8 +45,9 @@ public class StatisticsManagerTest {
     public void execute_calculateTotalCostOnCompleted() {
         OrderBookStub orderBookStub = new OrderBookStub();
         PhoneBookStub phoneBookStub = new PhoneBookStub();
-        String actualResult = "300.0";
-        String testResult = this.statisticModule.calculateTotalCostOnCompleted(orderBookStub, phoneBookStub);
+        String actualResult = "0.0";
+        String testResult = this.statisticModule.calculateTotalCostOnCompleted(orderBookStub,
+                DEFAULT_STATS_PAYLOAD_COST_1);
         assertEquals(actualResult, testResult);
     }
 
@@ -88,7 +93,6 @@ public class StatisticsManagerTest {
             return phones;
         }
     }
-
 
 }
 

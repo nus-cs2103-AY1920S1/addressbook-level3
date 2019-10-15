@@ -81,29 +81,15 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Gets logic to calculate total profit
-     */
-    String calculateTotalProfit();
-
-    /**
      * Gets logic to calculate total profit based on user input
      */
     String calculateTotalProfit(StatsPayload statsPayload);
-
-    /**
-     * Gets logic to calculate Total Revenue
-     */
-    String calculateTotalRevenue();
 
     /**
      * Gets logic to calculate Total Revenue based on user input
      */
     String calculateTotalRevenue(StatsPayload statsPayload);
 
-    /**
-     * Gets logic to calculate total profit
-     */
-    String calculateTotalCost();
 
     /**
      * Gets logic to calculate total profit based on user input

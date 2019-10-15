@@ -114,18 +114,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public String calculateTotalProfit() {
-        return this.statistic.calculateTotalProfitOnCompleted(this.getOrderBook(), this.getPhoneBook());
-    }
-
-    @Override
     public String calculateTotalProfit(StatsPayload statsPayload) {
-        return this.statistic.calculateTotalProfitOnCompleted(this.getOrderBook(), this.getPhoneBook(), statsPayload);
-    }
-
-    @Override
-    public String calculateTotalRevenue() {
-        return this.statistic.calculateTotalRevenueOnCompleted(this.getOrderBook());
+        return this.statistic.calculateTotalProfitOnCompleted(this.getOrderBook(), statsPayload);
     }
 
     @Override
@@ -134,12 +124,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public String calculateTotalCost() {
-        return this.statistic.calculateTotalCostOnCompleted(this.getOrderBook(), this.getPhoneBook());
-    }
-
-    @Override
     public String calculateTotalCost(StatsPayload statsPayload) {
-        return this.statistic.calculateTotalCostOnCompleted(this.getOrderBook(), this.getPhoneBook(), statsPayload);
+        return this.statistic.calculateTotalCostOnCompleted(this.getOrderBook(), statsPayload);
     }
 }
