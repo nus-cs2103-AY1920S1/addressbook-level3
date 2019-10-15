@@ -62,7 +62,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         mapTags.put(toAdd.getTagName(), toAdd);
     }
 
-    public ObservableList<Tag> getTags() {
+    public ObservableList<Tag> getTagsAsList() {
         return internalUnmodifiableList;
     }
 
