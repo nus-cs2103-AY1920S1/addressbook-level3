@@ -42,6 +42,16 @@ public class LookUpCommand extends Command {
         toShow = course;
     }
 
+    /**
+     * Gets the command word of the command.
+     *
+     * @return {@code String} representation of the command word.
+     */
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
+
     @Override
     public boolean hasInverseExecution() {
         return false;
