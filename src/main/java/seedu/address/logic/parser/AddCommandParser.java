@@ -6,9 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -42,17 +39,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-
-        Optional<String> dateField = argMultimap.getValue(PREFIX_DATE);
-        Date date;
-        if (!dateField.isPresent()) {
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-            String dateS = currentDateTime.format(formatter);
-            date = ParserUtil.parseDate(dateS);
-        } else {
-            date = ParserUtil.parseDate(dateField.get());
-        }
+        Date date = ParserUtil.parseDate(argMultimap);
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Expense expense = new Expense(name, amount, date, tagList);
