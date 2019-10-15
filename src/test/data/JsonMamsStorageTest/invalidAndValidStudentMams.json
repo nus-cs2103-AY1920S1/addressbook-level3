@@ -2,12 +2,12 @@
   "students": [ {
     "name": "Valid Person",
     "credits": "20",
-    "email": "hans@example.com",
+    "prevMods": "hans@example.com",
     "matricId": "A91283187U"
   }, {
     "name": "Person With Invalid Credits Field",
     "credits": "948asdf2424",
-    "email": "hans@example.com",
+    "prevMods": "hans@example.com",
     "matricId": "A0129301H"
   } ]
 }

@@ -31,7 +31,7 @@ public class MatricId {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid prevMods.
      */
     public static boolean isValidMatricId(String test) {
         return test.matches(VALIDATION_REGEX);

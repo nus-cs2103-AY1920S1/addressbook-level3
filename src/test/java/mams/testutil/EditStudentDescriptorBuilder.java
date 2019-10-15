@@ -6,9 +6,9 @@ import java.util.stream.Stream;
 
 import mams.logic.commands.EditCommand;
 import mams.model.student.Credits;
-import mams.model.student.Email;
 import mams.model.student.MatricId;
 import mams.model.student.Name;
+import mams.model.student.PrevMods;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
 
@@ -34,7 +34,7 @@ public class EditStudentDescriptorBuilder {
         descriptor = new EditCommand.EditStudentDescriptor();
         descriptor.setName(student.getName());
         descriptor.setCredits(student.getCredits());
-        descriptor.setEmail(student.getEmail());
+        descriptor.setPrevMods(student.getPrevMods());
         descriptor.setMatricId(student.getMatricId());
         descriptor.setTags(student.getTags());
     }
@@ -56,10 +56,10 @@ public class EditStudentDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditStudentDescriptor} that we are building.
+     * Sets the {@code PrevMods} of the {@code EditStudentDescriptor} that we are building.
      */
-    public EditStudentDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+    public EditStudentDescriptorBuilder withPrevMods(String prevMods) {
+        descriptor.setPrevMods(new PrevMods(prevMods));
         return this;
     }
 
