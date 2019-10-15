@@ -1,5 +1,6 @@
 package seedu.tarence.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -10,10 +11,15 @@ import org.junit.jupiter.api.Test;
 
 import seedu.tarence.commons.core.Messages;
 import seedu.tarence.commons.core.index.Index;
+import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.UserPrefs;
+import seedu.tarence.model.builder.ModuleBuilder;
 import seedu.tarence.model.builder.TutorialBuilder;
+import seedu.tarence.model.module.ModCode;
+import seedu.tarence.model.module.Module;
+import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
@@ -24,6 +30,7 @@ public class DeleteTutorialCommandTest {
 
     public static final String VALID_MODCODE = "GET1029";
     public static final String VALID_MODCODE_ALT = "CS2040";
+    public static final String SIMILAR_MODCODE = "GET1028";
     public static final String VALID_TUTNAME = "WhyIsThisClassAt8am";
     private Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
 
@@ -48,6 +55,22 @@ public class DeleteTutorialCommandTest {
         DeleteTutorialCommand deleteTutorialCommand = new DeleteTutorialCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteTutorialCommand, model, Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_similarTutorialModuleSuggested_promptSuggestionSelection() throws CommandException {
+        ModuleBuilder.DEFAULT_TUTORIALS.clear();
+        Module similarModule = new ModuleBuilder().withModCode(SIMILAR_MODCODE).build();
+        Tutorial validTutorial = new TutorialBuilder().withModCode(SIMILAR_MODCODE).withTutName(VALID_TUTNAME).build();
+        similarModule.addTutorial(validTutorial);
+        model.addModule(similarModule);
+
+        String expectedMessage = String.format(Messages.MESSAGE_SUGGESTED_CORRECTIONS, "Tutorial", VALID_MODCODE
+                + " " + VALID_TUTNAME) + "1. " + SIMILAR_MODCODE + ", " + VALID_TUTNAME + "\n";
+
+        CommandResult commandResult = new DeleteTutorialCommand(new ModCode(VALID_MODCODE),
+                new TutName(VALID_TUTNAME)).execute(model);
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
 
     /* TODO: implement later?

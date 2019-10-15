@@ -66,7 +66,9 @@ public class AddStudentCommandParserTest {
 
     @Test
     public void parse_allIndexFormatFieldsPresent_success() {
-        Student expectedStudent = new StudentBuilder(AMY).build();
+        Student expectedStudent = new StudentBuilder(AMY)
+                .withTutName(AddStudentCommandParser.TEMP_TUT_NAME.toString())
+                .withModCode(AddStudentCommandParser.TEMP_MOD_CODE.toString()).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_AMY + EMAIL_DESC_AMY
@@ -92,8 +94,12 @@ public class AddStudentCommandParserTest {
 
     @Test
     public void parse_optionalIndexFormatFields_success() {
-        Student expectedStudentAmy = new StudentBuilder(AMY).build();
-        Student expectedStudentBob = new StudentBuilder(BOB).withoutMatricNum().withoutNusnetId().build();
+        Student expectedStudentAmy = new StudentBuilder(AMY)
+                .withTutName(AddStudentCommandParser.TEMP_TUT_NAME.toString())
+                .withModCode(AddStudentCommandParser.TEMP_MOD_CODE.toString()).build();
+        Student expectedStudentBob = new StudentBuilder(BOB).withoutMatricNum().withoutNusnetId()
+                .withTutName(AddStudentCommandParser.TEMP_TUT_NAME.toString())
+                .withModCode(AddStudentCommandParser.TEMP_MOD_CODE.toString()).build();
 
         // Missing optional fields
         assertParseSuccess(parser, NAME_DESC_BOB + EMAIL_DESC_BOB

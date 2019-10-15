@@ -1,13 +1,18 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_MODULE_IN_APPLICATION;
+import static seedu.tarence.commons.core.Messages.MESSAGE_SUGGESTED_CORRECTIONS;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.Messages;
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
+import seedu.tarence.logic.finder.Finder;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
@@ -58,8 +63,17 @@ public class DeleteModuleCommand extends Command {
             }
             moduleToDelete = lastShownList.get(targetIndex.get().getZeroBased());
         } else {
-            if (!model.hasModuleOfCode(targetModCode.get())) {
-                throw new CommandException(Messages.MESSAGE_INVALID_MODULE_IN_APPLICATION);
+            ModCode modCode = targetModCode.get();
+            if (!model.hasModuleOfCode(modCode)) {
+                List<ModCode> similarModCodes = new Finder(model).findSimilarModCodes(modCode);
+                if (similarModCodes.size() == 0) {
+                    throw new CommandException(MESSAGE_INVALID_MODULE_IN_APPLICATION);
+                }
+
+                String suggestedCorrections = createSuggestedCommands(similarModCodes, model);
+                model.storePendingCommand(new SelectSuggestionCommand());
+                return new CommandResult(String.format(MESSAGE_SUGGESTED_CORRECTIONS, "Module",
+                        modCode) + suggestedCorrections);
             }
 
             for (Module module : lastShownList) {
@@ -81,6 +95,27 @@ public class DeleteModuleCommand extends Command {
         model.deleteTutorialsFromModule(moduleToDelete);
         model.deleteModule(moduleToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
+    }
+
+    /**
+     * Generates and stores {@code DeleteModuleCommand}s from a list of {@code ModCode}s.
+     *
+     * @param similarModCodes List of {@code ModCode}s similar to the user's input.
+     * @param model The {@code Model} in which to store the generated commands.
+     * @return string representing the suggested {@code ModCode}s and their corresponding indexes for user selection.
+     */
+    private String createSuggestedCommands(List<ModCode> similarModCodes, Model model) {
+        List<Command> suggestedCommands = new ArrayList<>();
+        StringBuilder s = new StringBuilder();
+        int index = 1;
+        for (ModCode similarModCode : similarModCodes) {
+            suggestedCommands.add(new DeleteModuleCommand(similarModCode));
+            s.append(index).append(". ").append(similarModCode).append("\n");
+            index++;
+        }
+        String suggestedCorrections = s.toString();
+        model.storeSuggestedCommands(suggestedCommands, suggestedCorrections);
+        return suggestedCorrections;
     }
 
     @Override

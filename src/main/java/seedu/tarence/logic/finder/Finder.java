@@ -1,7 +1,5 @@
 package seedu.tarence.logic.finder;
 
-import static seedu.tarence.logic.commands.AddTutorialCommand.MESSAGE_INVALID_MODULE;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +39,6 @@ public class Finder {
                 similarModCodes.add(module.getModCode());
             }
         }
-        if (similarModCodes.size() == 0) {
-            throw new CommandException(MESSAGE_INVALID_MODULE);
-        }
         return similarModCodes;
     }
 
@@ -54,13 +49,10 @@ public class Finder {
      */
     public List<TutName> findSimilarTutNames (TutName tutName) throws CommandException {
         List<TutName> similarTutNames = new ArrayList<>();
-        for (Tutorial tutorial : model.getApplication().getTutorialList()) {
+        for (Tutorial tutorial : model.getFilteredTutorialList()) {
             if (FuzzySearch.ratio(tutName.toString(), tutorial.getTutName().toString()) > thresholdTutName) {
                 similarTutNames.add(tutorial.getTutName());
             }
-        }
-        if (similarTutNames.size() == 0) {
-            throw new CommandException(MESSAGE_INVALID_MODULE);
         }
         return similarTutNames;
     }
