@@ -18,14 +18,6 @@ public class PlanCard extends UiPart<Region> {
 
     private static final String FXML = "PlanListCard.fxml";
 
-    /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
-     */
-
     public final Plan plan;
 
     @FXML
@@ -59,17 +51,18 @@ public class PlanCard extends UiPart<Region> {
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
+        // checks if same object
         if (other == this) {
             return true;
         }
 
-        // instanceof handles nulls
+        // checks if object of same class
+        // handles null
         if (!(other instanceof PlanCard)) {
             return false;
         }
 
-        // state check
+        // check fields equality
         PlanCard card = (PlanCard) other;
         return id.getText().equals(card.id.getText())
                 && plan.equals(card.plan);
