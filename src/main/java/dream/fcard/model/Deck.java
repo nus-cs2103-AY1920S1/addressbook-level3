@@ -106,7 +106,7 @@ public class Deck implements JsonInterface {
     public String getName() {
         return deckName;
     }
-  
+
     public ArrayList<FlashCard> getCards() {
         return this.cards;
     }

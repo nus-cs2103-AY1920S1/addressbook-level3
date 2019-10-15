@@ -49,7 +49,7 @@ public class JavascriptCard implements FlashCard {
     }
 
     public void editBack(String newText) {
-        output = newText;
+        back = newText;
     }
 
     public String getFront() {
@@ -57,6 +57,6 @@ public class JavascriptCard implements FlashCard {
     }
 
     public String getBack() {
-        return output;
+        return back;
     }
 }

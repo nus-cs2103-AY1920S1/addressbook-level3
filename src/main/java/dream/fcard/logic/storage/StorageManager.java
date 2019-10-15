@@ -163,7 +163,7 @@ public class StorageManager {
                     }
                     cards.add(card);
                 }
-                return new Deck(deckJson.get(Schema.DECK_NAME).getString(), cards);
+                return new Deck(cards, deckJson.get(Schema.DECK_NAME).getString());
             } catch (JsonWrongValueException e1) {
                 System.out.println("JSON file wrong schema");
             }
