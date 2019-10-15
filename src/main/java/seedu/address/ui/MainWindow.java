@@ -30,15 +30,27 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
+    /*
+     * Root {@code StackPane} element that contains the command input region.
+     */
     @FXML
     private StackPane commandBoxContainer;
 
+    /*
+     * Root {@code StackPane} element that contains the main content.
+     */
     @FXML
     private StackPane contentContainer;
 
+    /*
+     * Root {@code StackPane} element that contains the result display label.
+     */
     @FXML
     private StackPane resultDisplayContainer;
 
+    /*
+     * Root {@code StackPane} element that contains the status.
+     */
     @FXML
     private StackPane statusBarContainer;
 
@@ -60,7 +72,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * Fills up all the containers of this window.
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
