@@ -34,7 +34,7 @@ public class DeleteTaskCommand extends Command {
             + PREFIX_PLAN + "1 "
             + PREFIX_TASK + "10";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Task %1$s deleted from Plan %2$s";
 
     private final DeleteTaskDescriptor deleteTaskDescriptor;
 
@@ -64,7 +64,8 @@ public class DeleteTaskCommand extends Command {
         Plan updatedPlan = Plan.createUpdatedPlan(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, task));
+        return new CommandResult(
+            String.format(MESSAGE_DELETE_TASK_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
     }
 
     @Override

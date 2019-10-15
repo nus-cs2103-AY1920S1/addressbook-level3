@@ -34,7 +34,7 @@ public class DoneTaskCommand extends Command {
             + PREFIX_PLAN + "1 "
             + PREFIX_TASK + "10";
 
-    public static final String MESSAGE_DONE_TASK_SUCCESS = "Marked Task as done: %1$s";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Task %1$s marked as done in Plan %2$s";
 
     private final DoneTaskDescriptor doneTaskDescriptor;
 
@@ -65,7 +65,8 @@ public class DoneTaskCommand extends Command {
         Plan updatedPlan = Plan.createUpdatedPlan(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, task));
+        return new CommandResult(
+            String.format(MESSAGE_DONE_TASK_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
     }
 
     @Override

@@ -34,7 +34,7 @@ public class AddTaskCommand extends Command {
             + PREFIX_PLAN + "1 "
             + PREFIX_PROBLEM + "10";
 
-    public static final String MESSAGE_SUCCESS = "New task %1$s added to plan %2$s";
+    public static final String MESSAGE_SUCCESS = "New Task %1$s added to Plan %2$s";
 
     private final AddTaskDescriptor addTaskDescriptor;
 
@@ -71,7 +71,8 @@ public class AddTaskCommand extends Command {
         Plan updatedPlan = Plan.createUpdatedPlan(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, task, updatedPlan));
+        return new CommandResult(
+            String.format(MESSAGE_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
     }
 
     @Override
