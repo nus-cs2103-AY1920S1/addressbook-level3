@@ -59,6 +59,26 @@ public class Student {
         return Collections.unmodifiableSet(tags);
     }
 
+    public Set<Tag> getCurrentModules() {
+        Set<Tag> ret = new HashSet<>();
+        for (Tag tag : tags) {
+            if (tag.type.equals("module")) {
+                ret.add(tag);
+            }
+        }
+        return Collections.unmodifiableSet(ret);
+    }
+
+    public Set<Tag> getCurrentAppeals() {
+        Set<Tag> ret = new HashSet<>();
+        for (Tag tag : tags) {
+            if (tag.type.equals("appeal")) {
+                ret.add(tag);
+            }
+        }
+        return Collections.unmodifiableSet(ret);
+    }
+
     /**
      * Returns true if both students of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two students.
