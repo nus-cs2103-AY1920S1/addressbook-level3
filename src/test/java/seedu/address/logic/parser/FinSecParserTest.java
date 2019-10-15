@@ -82,12 +82,6 @@ public class FinSecParserTest {
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(GotoContactsCommand.COMMAND_WORD) instanceof GotoContactsCommand);
-        assertTrue(parser.parseCommand(GotoContactsCommand.COMMAND_WORD + " 3") instanceof GotoContactsCommand);
-    }
-
-    @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
             -> parser.parseCommand(""));

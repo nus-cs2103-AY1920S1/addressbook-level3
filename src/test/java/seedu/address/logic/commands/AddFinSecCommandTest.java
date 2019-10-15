@@ -35,7 +35,7 @@ public class AddFinSecCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        seedu.address.model.contact.Contact validContact = new ContactBuilder().build();
+        Contact validContact = new ContactBuilder().build();
 
         CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub);
 
@@ -45,7 +45,7 @@ public class AddFinSecCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        seedu.address.model.contact.Contact validContact = new ContactBuilder().build();
+        Contact validContact = new ContactBuilder().build();
         AddContactCommand addContactCommand = new AddContactCommand(validContact);
         ModelStub modelStub = new ModelStubWithPerson(validContact);
 
@@ -55,8 +55,8 @@ public class AddFinSecCommandTest {
 
     @Test
     public void equals() {
-        seedu.address.model.contact.Contact alice = new ContactBuilder().withName("Alice").build();
-        seedu.address.model.contact.Contact bob = new ContactBuilder().withName("Bob").build();
+        Contact alice = new ContactBuilder().withName("Alice").build();
+        Contact bob = new ContactBuilder().withName("Bob").build();
         AddContactCommand addAliceCommand = new AddContactCommand(alice);
         AddContactCommand addBobCommand = new AddContactCommand(bob);
 
@@ -112,7 +112,7 @@ public class AddFinSecCommandTest {
         }
 
         @Override
-        public void addContact(seedu.address.model.contact.Contact contact) {
+        public void addContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -127,27 +127,27 @@ public class AddFinSecCommandTest {
         }
 
         @Override
-        public boolean hasContact(seedu.address.model.contact.Contact contact) {
+        public boolean hasContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteContact(seedu.address.model.contact.Contact target) {
+        public void deleteContact(Contact target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setContact(seedu.address.model.contact.Contact target, seedu.address.model.contact.Contact editedContact) {
+        public void setContact(Contact target, Contact editedContact) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<seedu.address.model.contact.Contact> getFilteredContactList() {
+        public ObservableList<Contact> getFilteredContactList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredContactList(Predicate<seedu.address.model.contact.Contact> predicate) {
+        public void updateFilteredContactList(Predicate<Contact> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -175,6 +175,20 @@ public class AddFinSecCommandTest {
 
         @Override
         public void setClaim(Claim target, Claim editedClaim) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public void approveClaim(Claim claim) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public void rejectClaim(Claim claim) {
             /*
             FUNCTION TO BE EDITED
              */
@@ -240,13 +254,13 @@ public class AddFinSecCommandTest {
     private class ModelStubWithPerson extends ModelStub {
         private final Contact contact;
 
-        ModelStubWithPerson(seedu.address.model.contact.Contact contact) {
+        ModelStubWithPerson(Contact contact) {
             requireNonNull(contact);
             this.contact = contact;
         }
 
         @Override
-        public boolean hasContact(seedu.address.model.contact.Contact contact) {
+        public boolean hasContact(Contact contact) {
             requireNonNull(contact);
             return this.contact.isSamePerson(contact);
         }
@@ -256,16 +270,16 @@ public class AddFinSecCommandTest {
      * A Model stub that always accept the contact being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<seedu.address.model.contact.Contact> personsAdded = new ArrayList<>();
+        final ArrayList<Contact> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasContact(seedu.address.model.contact.Contact contact) {
+        public boolean hasContact(Contact contact) {
             requireNonNull(contact);
             return personsAdded.stream().anyMatch(contact::isSamePerson);
         }
 
         @Override
-        public void addContact(seedu.address.model.contact.Contact contact) {
+        public void addContact(Contact contact) {
             requireNonNull(contact);
             personsAdded.add(contact);
         }

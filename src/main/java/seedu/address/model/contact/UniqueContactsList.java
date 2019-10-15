@@ -8,15 +8,15 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.contact.exceptions.PersonNotFoundException;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
+import seedu.address.model.contact.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A contact is considered unique by comparing using {@code FinSec#isSamePerson(FinSec)}. As such, adding and updating of
- * persons uses FinSec#isSamePerson(FinSec) for equality so as to ensure that the contact being added or updated is
- * unique in terms of identity in the UniqueContactsList. However, the removal of a contact uses FinSec#equals(Object) so
- * as to ensure that the contact with exactly the same fields will be removed.
+ * A contact is considered unique by comparing using {@code FinSec#isSamePerson(FinSec)}. As such, adding and updating
+ * of persons uses FinSec#isSamePerson(FinSec) for equality so as to ensure that the contact being added or updated is
+ * unique in terms of identity in the UniqueContactsList. However, the removal of a contact uses FinSec#equals(Object)
+ * so as to ensure that the contact with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *

@@ -1,12 +1,15 @@
 package seedu.address.model.claim;
 
+import java.util.Set;
+
 import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
 
-import java.util.Set;
-
+/**
+ * Represent a rejected claim in the Financial Planner
+ */
 public class RejectedClaim extends Claim {
 
     private static final Status status = Status.REJECTED;

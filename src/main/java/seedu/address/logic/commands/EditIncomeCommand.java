@@ -1,13 +1,21 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CASH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCOMES;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -165,19 +173,33 @@ public class EditIncomeCommand extends Command {
             this.amount = amount;
         }
 
-        public Optional<Amount> getAmount() { return Optional.ofNullable(amount); }
+        public Optional<Amount> getAmount() {
+            return Optional.ofNullable(amount);
+        }
 
-        public void setDate(Date date) { this.date = date; }
+        public void setDate(Date date) {
+            this.date = date;
+        }
 
-        public Optional<Date> getDate() { return Optional.ofNullable(date); }
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
+        }
 
-        public void setName(Name name) { this.name = name; }
+        public void setName(Name name) {
+            this.name = name;
+        }
 
-        public Optional<Name> getName() { return Optional.ofNullable(name); }
+        public Optional<Name> getName() {
+            return Optional.ofNullable(name);
+        }
 
-        public void setPhone(Phone phone) { this.phone = phone; }
+        public void setPhone(Phone phone) {
+            this.phone = phone;
+        }
 
-        public Optional<Phone> getPhone() { return Optional.ofNullable(phone); }
+        public Optional<Phone> getPhone() {
+            return Optional.ofNullable(phone);
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.

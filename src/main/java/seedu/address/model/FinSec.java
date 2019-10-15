@@ -11,9 +11,9 @@ import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.RejectedClaim;
 import seedu.address.model.claim.UniqueClaimsList;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.UniqueContactsList;
 import seedu.address.model.income.Income;
 import seedu.address.model.income.UniqueIncomesList;
-import seedu.address.model.contact.UniqueContactsList;
 
 /**
  * Wraps all data at the address-book level
@@ -107,7 +107,8 @@ public class FinSec implements ReadOnlyFinSec {
     /**
      * Replaces the given contact {@code target} in the list with {@code editedContact}.
      * {@code target} must exist in the address book.
-     * The contact identity of {@code editedContact} must not be the same as another existing contact in the address book.
+     * The contact identity of {@code editedContact} must not be the same as another existing contact in
+     * the address book.
      */
     public void setContact(Contact target, Contact editedContact) {
         requireNonNull(editedContact);
@@ -236,7 +237,11 @@ public class FinSec implements ReadOnlyFinSec {
         return claims.asUnmodifiableObservableList();
     }
 
-
+    /**
+     * Checks whether if this FinSec object equals to another.
+     * @param other The other FinSec object to be checked.
+     * @return Boolean value for equality against {@code other}.
+     */
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FinSec // instanceof handles nulls

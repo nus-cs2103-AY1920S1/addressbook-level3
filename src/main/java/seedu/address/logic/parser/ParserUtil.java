@@ -15,10 +15,10 @@ import seedu.address.model.claim.Description;
 import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
-import seedu.address.model.help.SecondaryCommand;
-import seedu.address.model.help.Type;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Email;
+import seedu.address.model.help.SecondaryCommand;
+import seedu.address.model.help.Type;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -203,6 +203,12 @@ public class ParserUtil {
         return new Amount(amount);
     }
 
+    /**
+     * Parses a {@code String date} into a {@code Date}.
+     * Leading and trailling whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
