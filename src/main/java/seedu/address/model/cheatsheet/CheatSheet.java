@@ -31,8 +31,11 @@ public class CheatSheet {
         this.tags.addAll(tags);
     }
 
-    // temporary cheatsheet constructor, just title and tags
-
+    /**
+     * Creates the cheatsheet object: Default = Contents are taken according to tags given
+     * @param title
+     * @param tags
+     */
     public CheatSheet(Title title, Set<Tag> tags) {
         requireAllNonNull(title, tags);
         this.title = title;
@@ -49,6 +52,10 @@ public class CheatSheet {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public boolean containsTag(Tag tag) {
+        return this.tags.contains(tag);
     }
 
     public Set<Content> getContents() {

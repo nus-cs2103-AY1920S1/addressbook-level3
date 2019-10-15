@@ -61,7 +61,7 @@ public class NoteBuilder {
     }
 
     public Note build() {
-        return new Note(title, phone);
+        return new Note(title, phone, null);
     }
 
 }

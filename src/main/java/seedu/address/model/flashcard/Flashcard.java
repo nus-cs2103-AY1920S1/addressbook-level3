@@ -60,6 +60,10 @@ public class Flashcard {
         return Collections.unmodifiableSet(tags);
     }
 
+    public boolean containsTag(Tag tag) {
+        return this.tags.contains(tag);
+    }
+
     /**
      * Returns true if both flashcards have all the same fields.
      */
