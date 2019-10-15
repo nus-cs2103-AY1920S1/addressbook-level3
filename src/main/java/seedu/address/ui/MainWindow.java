@@ -5,8 +5,8 @@ import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
@@ -21,7 +21,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.flashcard.Flashcard;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -40,19 +39,16 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private Flashcard flashcard;
+    private FlashcardTabController flashcardTabController;
+
+    @FXML
+    private TabPane activityWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane flashcardQnsPanelPlaceholder;
-
-    @FXML
-    private StackPane flashcardAnsPanelPlaceholder;
 
     @FXML
     private StackPane personListPanelPlaceholder;
@@ -75,11 +71,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private ImageView currentHighlightedCircle;
 
-    @FXML
-    private Label qnLabel;
-
-    @FXML
-    private Label ansLabel;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -94,6 +85,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        flashcardTabController = new FlashcardTabController();
 
         currentHighlightedCircle = fcHighlightCircle;
     }
@@ -218,7 +211,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.getFlashcard().isPresent()) {
-                displayFlashcard(commandResult.getFlashcard().get());
+                flashcardTabController.loadFlashcard(commandResult.getFlashcard().get());
             }
 
             return commandResult;
@@ -260,10 +253,5 @@ public class MainWindow extends UiPart<Stage> {
         FadeTransition ft = new FadeTransition(Duration.millis(400), targetCircle);
         ft.setToValue(1);
         ft.play();
-    }
-
-    private void displayFlashcard(Flashcard flashcard) {
-        qnLabel.setText(flashcard.getQuestion().toString());
-        ansLabel.setText(flashcard.getAnswer().toString());
     }
 }
