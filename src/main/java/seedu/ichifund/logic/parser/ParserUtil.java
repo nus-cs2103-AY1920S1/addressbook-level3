@@ -262,7 +262,7 @@ public class ParserUtil {
     public static MonthOffset parseMonthOffset(String monthOffset) throws ParseException {
         requireNonNull(monthOffset);
         String trimmedMonthOffset = monthOffset.trim();
-        if (!MonthOffset.isValidOffset(trimmedMonthOffset)) {
+        if (!MonthOffset.isValidMonthOffset(trimmedMonthOffset)) {
             throw new ParseException(MonthOffset.MESSAGE_CONSTRAINTS);
         }
         return new MonthOffset(trimmedMonthOffset);

@@ -112,7 +112,7 @@ class JsonAdaptedRepeater {
             throw new IllegalValueException(String.format(
                         MISSING_FIELD_MESSAGE_FORMAT, MonthOffset.class.getSimpleName()));
         }
-        if (!MonthOffset.isValidOffset(this.monthStartOffset)) {
+        if (!MonthOffset.isValidMonthOffset(this.monthStartOffset)) {
             throw new IllegalValueException(MonthOffset.MESSAGE_CONSTRAINTS);
         }
         final MonthOffset modelMonthStartOffset = new MonthOffset(this.monthStartOffset);
@@ -121,7 +121,7 @@ class JsonAdaptedRepeater {
             throw new IllegalValueException(String.format(
                         MISSING_FIELD_MESSAGE_FORMAT, MonthOffset.class.getSimpleName()));
         }
-        if (!MonthOffset.isValidOffset(this.monthEndOffset)) {
+        if (!MonthOffset.isValidMonthOffset(this.monthEndOffset)) {
             throw new IllegalValueException(MonthOffset.MESSAGE_CONSTRAINTS);
         }
         final MonthOffset modelMonthEndOffset = new MonthOffset(this.monthEndOffset);
