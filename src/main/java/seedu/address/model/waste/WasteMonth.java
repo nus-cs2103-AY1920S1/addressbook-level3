@@ -18,6 +18,11 @@ public class WasteMonth implements Comparable<WasteMonth> {
         this.year = year;
     }
 
+    public WasteMonth(LocalDate date) {
+        this.month = date.getMonthValue();
+        this.year = date.getYear();
+    }
+
     public int getMonth() {
         return month;
     }
