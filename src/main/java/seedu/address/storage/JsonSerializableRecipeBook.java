@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.DukeCooks;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyRecipeBook;
+import seedu.address.model.RecipeBook;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -32,28 +32,28 @@ class JsonSerializableRecipeBook {
     }
 
     /**
-    * Converts a given {@code ReadOnlyDukeCooks} into this class for Jackson use.
+    * Converts a given {@code ReadOnlyRecipeBook} into this class for Jackson use.
     *
     * @param source future changes to this will not affect the created {@code JsonSerializableRecipeBook}.
     */
-    public JsonSerializableRecipeBook(ReadOnlyDukeCooks source) {
+    public JsonSerializableRecipeBook(ReadOnlyRecipeBook source) {
         recipes.addAll(source.getRecipeList().stream().map(JsonAdaptedRecipe::new).collect(Collectors.toList()));
     }
 
     /**
-    *  Converts this Exercise Catalogue into the model's {@code DukeCooks} object.
+    *  Converts this Exercise Catalogue into the model's {@code RecipeBook} object.
     *
     * @throws IllegalValueException if there were any data constraints violated.
     */
-    public DukeCooks toModelType() throws IllegalValueException {
-        DukeCooks dukeCooks = new DukeCooks();
+    public RecipeBook toModelType() throws IllegalValueException {
+        RecipeBook recipeBook = new RecipeBook();
         for (JsonAdaptedRecipe jsonAdaptedRecipe : recipes) {
             Recipe recipe = jsonAdaptedRecipe.toModelType();
-            if (dukeCooks.hasRecipe(recipe)) {
+            if (recipeBook.hasRecipe(recipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_RECIPE);
             }
-            dukeCooks.addRecipe(recipe);
+            recipeBook.addRecipe(recipe);
         }
-        return dukeCooks;
+        return recipeBook;
     }
 }

@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.DukeCooks;
+import seedu.address.model.RecipeBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.RecipeBuilder;
@@ -115,12 +115,12 @@ public class AddRecipeCommandTest {
         }
 
         @Override
-        public void setDukeCooks(ReadOnlyDukeCooks dukeCooks) {
+        public void setRecipeBook(ReadOnlyRecipeBook recipeBook) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyDukeCooks getDukeCooks() {
+        public ReadOnlyRecipeBook getRecipeBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -187,8 +187,8 @@ public class AddRecipeCommandTest {
         }
 
         @Override
-        public ReadOnlyDukeCooks getDukeCooks() {
-            return new DukeCooks();
+        public ReadOnlyRecipeBook getRecipeBook() {
+            return new RecipeBook();
         }
     }
 

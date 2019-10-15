@@ -18,12 +18,12 @@ import seedu.address.model.recipe.Ingredient;
 import seedu.address.model.recipe.Name;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_NAME = "T@mago Maki";
+    private static final String INVALID_INGREDIENT = "Nor!";
 
-    private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_NAME = "Tamago Maki";
+    private static final String VALID_INGREDIENT_1 = "Eggs";
+    private static final String VALID_INGREDIENT_2 = "Nori";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -71,48 +71,48 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTag_null_throwsNullPointerException() {
+    public void parseIngredient_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseIngredient(null));
     }
 
     @Test
-    public void parseTag_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseIngredient(INVALID_TAG));
+    public void parseIngredient_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseIngredient(INVALID_INGREDIENT));
     }
 
     @Test
-    public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Ingredient expectedIngredient = new Ingredient(VALID_TAG_1);
-        assertEquals(expectedIngredient, ParserUtil.parseIngredient(VALID_TAG_1));
+    public void parseIngredient_validValueWithoutWhitespace_returnsIngredient() throws Exception {
+        Ingredient expectedIngredient = new Ingredient(VALID_INGREDIENT_1);
+        assertEquals(expectedIngredient, ParserUtil.parseIngredient(VALID_INGREDIENT_1));
     }
 
     @Test
-    public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Ingredient expectedIngredient = new Ingredient(VALID_TAG_1);
-        assertEquals(expectedIngredient, ParserUtil.parseIngredient(tagWithWhitespace));
+    public void parseIngredient_validValueWithWhitespace_returnsTrimmedIngredient() throws Exception {
+        String ingredientWithWhitespace = WHITESPACE + VALID_INGREDIENT_1 + WHITESPACE;
+        Ingredient expectedIngredient = new Ingredient(VALID_INGREDIENT_1);
+        assertEquals(expectedIngredient, ParserUtil.parseIngredient(ingredientWithWhitespace));
     }
 
     @Test
-    public void parseTags_null_throwsNullPointerException() {
+    public void parseIngredients_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseIngredients(null));
     }
 
     @Test
-    public void parseTags_collectionWithInvalidTags_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseIngredients(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
+    public void parseIngredients_collectionWithInvalidIngredients_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseIngredients(Arrays.asList(VALID_INGREDIENT_1, INVALID_INGREDIENT)));
     }
 
     @Test
-    public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
+    public void parseIngredients_emptyCollection_returnsEmptySet() throws Exception {
         assertTrue(ParserUtil.parseIngredients(Collections.emptyList()).isEmpty());
     }
 
     @Test
-    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Ingredient> actualIngredientSet = ParserUtil.parseIngredients(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Ingredient> expectedIngredientSet = new HashSet<Ingredient>(Arrays.asList(new Ingredient(VALID_TAG_1),
-                new Ingredient(VALID_TAG_2)));
+    public void parseIngredients_collectionWithValidIngredients_returnsIngredientSet() throws Exception {
+        Set<Ingredient> actualIngredientSet = ParserUtil.parseIngredients(Arrays.asList(VALID_INGREDIENT_1, VALID_INGREDIENT_2));
+        Set<Ingredient> expectedIngredientSet = new HashSet<Ingredient>(Arrays.asList(new Ingredient(VALID_INGREDIENT_1),
+                new Ingredient(VALID_INGREDIENT_2)));
 
         assertEquals(expectedIngredientSet, actualIngredientSet);
     }

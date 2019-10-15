@@ -60,7 +60,7 @@ public class RecipeTest {
         Recipe editedAlice = new RecipeBuilder(MILO).withName(VALID_NAME_BURGER).build();
         assertFalse(MILO.equals(editedAlice));
 
-        // different tags -> returns false
+        // different ingredients -> returns false
         editedAlice = new RecipeBuilder(MILO).withIngredients(VALID_INGREDIENT_BURGER).build();
         assertFalse(MILO.equals(editedAlice));
     }

@@ -114,12 +114,12 @@ public class UniqueRecipeListTest {
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
+    public void remove_recipeDoesNotExist_throwsRecipeNotFoundException() {
         assertThrows(RecipeNotFoundException.class, () -> uniqueRecipeList.remove(MILO));
     }
 
     @Test
-    public void remove_existingPerson_removesPerson() {
+    public void remove_existingRecipe_removesRecipe() {
         uniqueRecipeList.add(MILO);
         uniqueRecipeList.remove(MILO);
         UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
@@ -127,12 +127,12 @@ public class UniqueRecipeListTest {
     }
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
+    public void setRecipes_nullUniqueRecipeList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueRecipeList.setRecipes((UniqueRecipeList) null));
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setRecipes_uniqueRecipeList_replacesOwnListWithProvidedUniqueRecipeList() {
         uniqueRecipeList.add(MILO);
         UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
         expectedUniqueRecipeList.add(BURGER);
@@ -141,12 +141,12 @@ public class UniqueRecipeListTest {
     }
 
     @Test
-    public void setPersons_nullList_throwsNullPointerException() {
+    public void setRecipes_nullList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueRecipeList.setRecipes((List<Recipe>) null));
     }
 
     @Test
-    public void setPersons_list_replacesOwnListWithProvidedList() {
+    public void setRecipes_list_replacesOwnListWithProvidedList() {
         uniqueRecipeList.add(MILO);
         List<Recipe> recipeList = Collections.singletonList(BURGER);
         uniqueRecipeList.setRecipes(recipeList);
@@ -156,7 +156,7 @@ public class UniqueRecipeListTest {
     }
 
     @Test
-    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
+    public void setRecipes_listWithDuplicateRecipes_throwsDuplicateRecipeException() {
         List<Recipe> listWithDuplicateRecipes = Arrays.asList(MILO, MILO);
         assertThrows(DuplicateRecipeException.class, () -> uniqueRecipeList.setRecipes(listWithDuplicateRecipes));
     }

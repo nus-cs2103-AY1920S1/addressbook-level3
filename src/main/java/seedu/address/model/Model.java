@@ -35,7 +35,7 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' DukeCooks file path.
+     * Returns the user prefs' RecipeBook file path.
      */
     Path getRecipesFilePath();
 
@@ -45,12 +45,12 @@ public interface Model {
     void setRecipesFilePath(Path recipesFilePath);
 
     /**
-     * Replaces Duke Cooks data with the data in {@code dukeCooks}.
+     * Replaces Duke Cooks data with the data in {@code recipeBook}.
      */
-    void setDukeCooks(ReadOnlyDukeCooks dukeCooks);
+    void setRecipeBook(ReadOnlyRecipeBook recipeBook);
 
-    /** Returns DukeCooks */
-    ReadOnlyDukeCooks getDukeCooks();
+    /** Returns RecipeBook */
+    ReadOnlyRecipeBook getRecipeBook();
 
     /**
      * Returns true if a recipe with the same identity as {@code recipe} exists in Duke Cooks.

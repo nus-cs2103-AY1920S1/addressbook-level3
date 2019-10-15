@@ -11,14 +11,14 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showRecipeAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
-import static seedu.address.testutil.TypicalRecipes.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditRecipeCommand.EditRecipeDescriptor;
-import seedu.address.model.DukeCooks;
+import seedu.address.model.RecipeBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -32,7 +32,7 @@ import seedu.address.testutil.RecipeBuilder;
  */
 public class EditRecipeCommandTest {
 
-    private Model model = new ModelManager(getTypicalDukeCooks(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -42,7 +42,7 @@ public class EditRecipeCommandTest {
 
         String expectedMessage = String.format(EditRecipeCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
+        Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
         assertCommandSuccess(editRecipeCommand, model, expectedMessage, expectedModel);
@@ -63,7 +63,7 @@ public class EditRecipeCommandTest {
 
         String expectedMessage = String.format(EditRecipeCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
+        Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
         expectedModel.setRecipe(lastRecipe, editedRecipe);
 
         assertCommandSuccess(editRecipeCommand, model, expectedMessage, expectedModel);
@@ -76,7 +76,7 @@ public class EditRecipeCommandTest {
 
         String expectedMessage = String.format(EditRecipeCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
+        Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
 
         assertCommandSuccess(editRecipeCommand, model, expectedMessage, expectedModel);
     }
@@ -92,7 +92,7 @@ public class EditRecipeCommandTest {
 
         String expectedMessage = String.format(EditRecipeCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
+        Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
         assertCommandSuccess(editRecipeCommand, model, expectedMessage, expectedModel);
@@ -112,7 +112,7 @@ public class EditRecipeCommandTest {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
 
         // edit recipe in filtered list into a duplicate in Duke Cooks
-        Recipe recipeInList = model.getDukeCooks().getRecipeList().get(INDEX_SECOND_RECIPE.getZeroBased());
+        Recipe recipeInList = model.getRecipeBook().getRecipeList().get(INDEX_SECOND_RECIPE.getZeroBased());
         EditRecipeCommand editRecipeCommand = new EditRecipeCommand(INDEX_FIRST_RECIPE,
                 new EditRecipeDescriptorBuilder(recipeInList).build());
 
@@ -137,7 +137,7 @@ public class EditRecipeCommandTest {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
         Index outOfBoundIndex = INDEX_SECOND_RECIPE;
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getRecipeList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getRecipeBook().getRecipeList().size());
 
         EditRecipeCommand editRecipeCommand = new EditRecipeCommand(outOfBoundIndex,
                 new EditRecipeDescriptorBuilder().withName(VALID_NAME_BURGER).build());

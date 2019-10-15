@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showRecipeAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
-import static seedu.address.testutil.TypicalRecipes.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalDukeCooks(), new UserPrefs());
-        expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
+        model = new ModelManager(getTypicalRecipeBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
     }
 
     @Test

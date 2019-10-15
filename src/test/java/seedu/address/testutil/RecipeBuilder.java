@@ -65,8 +65,8 @@ public class RecipeBuilder {
      * Parses the {@code ingredients} into a {@code Set<Ingredient>} and set it
      * to the {@code Recipe} that we are building.
      */
-    public RecipeBuilder withIngredients(String ... tags) {
-        this.ingredients = SampleDataUtil.getIngredientSet(tags);
+    public RecipeBuilder withIngredients(String ... ingredients) {
+        this.ingredients = SampleDataUtil.getIngredientSet(ingredients);
         return this;
     }
 

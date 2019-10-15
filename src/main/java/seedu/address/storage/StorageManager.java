@@ -7,23 +7,23 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of DukeCooks data in local storage.
+ * Manages storage of RecipeBook data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private DukeCooksStorage dukeCooksStorage;
+    private RecipeBookStorage recipeBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(DukeCooksStorage dukeCooksStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(RecipeBookStorage recipeBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.dukeCooksStorage = dukeCooksStorage;
+        this.recipeBookStorage = recipeBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +45,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ DukeCooks methods ==============================
+    // ================ RecipeBook methods ==============================
 
     @Override
     public Path getRecipesFilePath() {
-        return dukeCooksStorage.getRecipesFilePath();
+        return recipeBookStorage.getRecipesFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyDukeCooks> readDukeCooks() throws DataConversionException, IOException {
-        return readDukeCooks(dukeCooksStorage.getRecipesFilePath());
+    public Optional<ReadOnlyRecipeBook> readRecipeBook() throws DataConversionException, IOException {
+        return readRecipeBook(recipeBookStorage.getRecipesFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyDukeCooks> readDukeCooks(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyRecipeBook> readRecipeBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return dukeCooksStorage.readDukeCooks(filePath);
+        return recipeBookStorage.readRecipeBook(filePath);
     }
 
     @Override
-    public void saveDukeCooks(ReadOnlyDukeCooks dukeCooks) throws IOException {
-        saveDukeCooks(dukeCooks, dukeCooksStorage.getRecipesFilePath());
+    public void saveRecipeBook(ReadOnlyRecipeBook recipeBook) throws IOException {
+        saveRecipeBook(recipeBook, recipeBookStorage.getRecipesFilePath());
     }
 
     @Override
-    public void saveDukeCooks(ReadOnlyDukeCooks dukeCooks, Path filePath) throws IOException {
+    public void saveRecipeBook(ReadOnlyRecipeBook recipeBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        dukeCooksStorage.saveDukeCooks(dukeCooks, filePath);
+        recipeBookStorage.saveRecipeBook(recipeBook, filePath);
     }
 
 }

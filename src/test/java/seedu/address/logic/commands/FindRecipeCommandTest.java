@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalRecipes.CHICKEN;
 import static seedu.address.testutil.TypicalRecipes.TEA;
 import static seedu.address.testutil.TypicalRecipes.TUNA;
-import static seedu.address.testutil.TypicalRecipes.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +24,8 @@ import seedu.address.model.recipe.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindRecipeCommand}.
  */
 public class FindRecipeCommandTest {
-    private Model model = new ModelManager(getTypicalDukeCooks(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalDukeCooks(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalRecipeBook(), new UserPrefs());
 
     @Test
     public void equals() {

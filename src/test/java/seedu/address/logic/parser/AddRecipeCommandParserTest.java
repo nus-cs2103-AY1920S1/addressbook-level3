@@ -45,19 +45,19 @@ public class AddRecipeCommandParserTest {
                 + INGREDIENT_DESC_BURGER + CALORIES_DESC_BURGER + CARBS_DESC_BURGER + FATS_DESC_BURGER
                 + PROTEIN_DESC_BURGER, new AddRecipeCommand(expectedRecipe));
 
-        // multiple tags - all accepted
-        Recipe expectedRecipeMultipleTags = new RecipeBuilder(BURGER)
+        // multiple ingredients - all accepted
+        Recipe expectedRecipeMultipleIngredients = new RecipeBuilder(BURGER)
                 .withIngredients(VALID_INGREDIENT_BURGER, VALID_INGREDIENT_FISH)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BURGER + INGREDIENT_DESC_BURGER + INGREDIENT_DESC_FISH
                 + CALORIES_DESC_BURGER + CARBS_DESC_BURGER + FATS_DESC_BURGER
-                + PROTEIN_DESC_BURGER, new AddRecipeCommand(expectedRecipeMultipleTags));
+                + PROTEIN_DESC_BURGER, new AddRecipeCommand(expectedRecipeMultipleIngredients));
     }
 
     //    Removed this test case as recipe has no optional fields.
     //    @Test
     //    public void parse_optionalFieldsMissing_success() {
-    //        // zero tags
+    //        // zero ingredientss
     //        Recipe expectedRecipe = new RecipeBuilder(FISH).withIngredients().build();
     //        assertParseSuccess(parser, NAME_DESC_FISH,
     //                new AddRecipeCommand(expectedRecipe));
@@ -83,7 +83,7 @@ public class AddRecipeCommandParserTest {
                 + CALORIES_DESC_BURGER + CARBS_DESC_BURGER + FATS_DESC_BURGER
                 + PROTEIN_DESC_BURGER, Name.MESSAGE_CONSTRAINTS);
 
-        // invalid tag
+        // invalid ingredient
         assertParseFailure(parser, NAME_DESC_BURGER + INVALID_INGREDIENT_DESC
                 + CALORIES_DESC_BURGER + CARBS_DESC_BURGER + FATS_DESC_BURGER
                 + PROTEIN_DESC_BURGER, Ingredient.MESSAGE_CONSTRAINTS);

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.DukeCooks;
+import seedu.address.model.RecipeBook;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -72,10 +72,10 @@ public class TypicalRecipes {
     private TypicalRecipes() {} // prevents instantiation
 
     /**
-     * Returns an {@code DukeCooks} with all the typical recipes.
+     * Returns an {@code RecipeBook} with all the typical recipes.
      */
-    public static DukeCooks getTypicalDukeCooks() {
-        DukeCooks dc = new DukeCooks();
+    public static RecipeBook getTypicalRecipeBook() {
+        RecipeBook dc = new RecipeBook();
         for (Recipe recipe : getTypicalRecipes()) {
             dc.addRecipe(recipe);
         }

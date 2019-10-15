@@ -37,7 +37,7 @@ public class EditRecipeDescriptorTest {
         EditRecipeDescriptor editedAmy = new EditRecipeDescriptorBuilder(DESC_FISH).withName(VALID_NAME_BURGER).build();
         assertFalse(DESC_FISH.equals(editedAmy));
 
-        // different tags -> returns false
+        // different ingredients -> returns false
         editedAmy = new EditRecipeDescriptorBuilder(DESC_FISH).withIngredients(VALID_INGREDIENT_BURGER).build();
         assertFalse(DESC_FISH.equals(editedAmy));
     }

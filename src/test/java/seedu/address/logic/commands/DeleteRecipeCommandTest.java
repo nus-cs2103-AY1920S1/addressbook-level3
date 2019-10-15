@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showRecipeAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
-import static seedu.address.testutil.TypicalRecipes.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ import seedu.address.model.recipe.Recipe;
  */
 public class DeleteRecipeCommandTest {
 
-    private Model model = new ModelManager(getTypicalDukeCooks(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +33,7 @@ public class DeleteRecipeCommandTest {
 
         String expectedMessage = String.format(DeleteRecipeCommand.MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
         expectedModel.deleteRecipe(recipeToDelete);
 
         assertCommandSuccess(deleteRecipeCommand, model, expectedMessage, expectedModel);
@@ -56,7 +56,7 @@ public class DeleteRecipeCommandTest {
 
         String expectedMessage = String.format(DeleteRecipeCommand.MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete);
 
-        Model expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
         expectedModel.deleteRecipe(recipeToDelete);
         showNoRecipe(expectedModel);
 
@@ -69,7 +69,7 @@ public class DeleteRecipeCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_RECIPE;
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getRecipeList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getRecipeBook().getRecipeList().size());
 
         DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand(outOfBoundIndex);
 

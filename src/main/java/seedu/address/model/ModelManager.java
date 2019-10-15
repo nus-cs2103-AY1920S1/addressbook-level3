@@ -19,26 +19,26 @@ import seedu.address.model.recipe.Recipe;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final DukeCooks dukeCooks;
+    private final RecipeBook recipeBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Recipe> filteredRecipes;
 
     /**
-     * Initializes a ModelManager with the given dukeCooks and userPrefs.
+     * Initializes a ModelManager with the given recipeBook and userPrefs.
      */
-    public ModelManager(ReadOnlyDukeCooks dukeCooks, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(dukeCooks, userPrefs);
+        requireAllNonNull(recipeBook, userPrefs);
 
-        logger.fine("Initializing with Duke Cooks: " + dukeCooks + " and user prefs " + userPrefs);
+        logger.fine("Initializing with Duke Cooks: " + recipeBook + " and user prefs " + userPrefs);
 
-        this.dukeCooks = new DukeCooks(dukeCooks);
+        this.recipeBook = new RecipeBook(recipeBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredRecipes = new FilteredList<>(this.dukeCooks.getRecipeList());
+        filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
     }
 
     public ModelManager() {
-        this(new DukeCooks(), new UserPrefs());
+        this(new RecipeBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -79,29 +79,29 @@ public class ModelManager implements Model {
     //=========== DukeBooks ================================================================================
 
     @Override
-    public void setDukeCooks(ReadOnlyDukeCooks dukeCooks) {
-        this.dukeCooks.resetData(dukeCooks);
+    public void setRecipeBook(ReadOnlyRecipeBook recipeBook) {
+        this.recipeBook.resetData(recipeBook);
     }
 
     @Override
-    public ReadOnlyDukeCooks getDukeCooks() {
-        return dukeCooks;
+    public ReadOnlyRecipeBook getRecipeBook() {
+        return recipeBook;
     }
 
     @Override
     public boolean hasRecipe(Recipe recipe) {
         requireNonNull(recipe);
-        return dukeCooks.hasRecipe(recipe);
+        return recipeBook.hasRecipe(recipe);
     }
 
     @Override
     public void deleteRecipe(Recipe target) {
-        dukeCooks.removeRecipe(target);
+        recipeBook.removeRecipe(target);
     }
 
     @Override
     public void addRecipe(Recipe recipe) {
-        dukeCooks.addRecipe(recipe);
+        recipeBook.addRecipe(recipe);
         updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
     }
 
@@ -109,14 +109,14 @@ public class ModelManager implements Model {
     public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
 
-        dukeCooks.setRecipe(target, editedRecipe);
+        recipeBook.setRecipe(target, editedRecipe);
     }
 
     //=========== Filtered Recipe List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Recipe} backed by the internal list of
-     * {@code versionedDukeCooks}
+     * {@code versionedRecipeBook}
      */
     @Override
     public ObservableList<Recipe> getFilteredRecipeList() {
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return dukeCooks.equals(other.dukeCooks)
+        return recipeBook.equals(other.recipeBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredRecipes.equals(other.filteredRecipes);
     }

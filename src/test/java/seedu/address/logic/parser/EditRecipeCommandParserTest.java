@@ -36,7 +36,7 @@ import seedu.address.testutil.EditRecipeDescriptorBuilder;
 
 public class EditRecipeCommandParserTest {
 
-    private static final String TAG_EMPTY = " " + PREFIX_INGREDIENT;
+    private static final String INGREDIENT_EMPTY = " " + PREFIX_INGREDIENT;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditRecipeCommand.MESSAGE_USAGE);
@@ -73,15 +73,15 @@ public class EditRecipeCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_INGREDIENT_DESC, Ingredient.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_INGREDIENT_DESC, Ingredient.MESSAGE_CONSTRAINTS); // invalid ingredient
 
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Recipe} being edited,
-        // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + INGREDIENT_DESC_FISH + INGREDIENT_DESC_BURGER + TAG_EMPTY,
+        // while parsing {@code PREFIX_INGREDIENT} alone will reset the ingredients of the {@code Recipe} being edited,
+        // parsing it together with a valid ingredient results in error
+        assertParseFailure(parser, "1" + INGREDIENT_DESC_FISH + INGREDIENT_DESC_BURGER + INGREDIENT_EMPTY,
                 Ingredient.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + INGREDIENT_DESC_FISH + TAG_EMPTY + INGREDIENT_DESC_BURGER,
+        assertParseFailure(parser, "1" + INGREDIENT_DESC_FISH + INGREDIENT_EMPTY + INGREDIENT_DESC_BURGER,
                 Ingredient.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + INGREDIENT_DESC_FISH + INGREDIENT_DESC_BURGER,
+        assertParseFailure(parser, "1" + INGREDIENT_EMPTY + INGREDIENT_DESC_FISH + INGREDIENT_DESC_BURGER,
                 Ingredient.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
@@ -159,9 +159,9 @@ public class EditRecipeCommandParserTest {
     }
 
     @Test
-    public void parse_resetTags_success() {
+    public void parse_resetIngredients_success() {
         Index targetIndex = INDEX_THIRD_RECIPE;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
+        String userInput = targetIndex.getOneBased() + INGREDIENT_EMPTY;
 
         EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withIngredients().build();
         EditRecipeCommand expectedCommand = new EditRecipeCommand(targetIndex, descriptor);

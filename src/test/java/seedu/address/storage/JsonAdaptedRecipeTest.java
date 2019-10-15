@@ -36,72 +36,72 @@ public class JsonAdaptedRecipeTest {
     private static final String VALID_PROTEIN = OMELETTE.getProtein().value;
 
     @Test
-    public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedRecipe person = new JsonAdaptedRecipe(OMELETTE);
-        assertEquals(OMELETTE, person.toModelType());
+    public void toModelType_validRecipeDetails_returnsRecipe() throws Exception {
+        JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(OMELETTE);
+        assertEquals(OMELETTE, recipe.toModelType());
     }
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedRecipe person =
+        JsonAdaptedRecipe recipe =
                 new JsonAdaptedRecipe(INVALID_NAME, VALID_INGREDIENTS,
                         VALID_CALORIES, VALID_CARBS, VALID_FATS, VALID_PROTEIN);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedRecipe person = new JsonAdaptedRecipe(null, VALID_INGREDIENTS,
+        JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(null, VALID_INGREDIENTS,
                 VALID_CALORIES, VALID_CARBS, VALID_FATS, VALID_PROTEIN);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
     @Test
     public void toModelType_invalidIngredients_throwsIllegalValueException() {
-        List<JsonAdaptedIngredient> invalidTags = new ArrayList<>(VALID_INGREDIENTS);
-        invalidTags.add(new JsonAdaptedIngredient(INVALID_INGREDIENT));
-        JsonAdaptedRecipe person =
-                new JsonAdaptedRecipe(VALID_NAME, invalidTags,
+        List<JsonAdaptedIngredient> invalidIngredients = new ArrayList<>(VALID_INGREDIENTS);
+        invalidIngredients.add(new JsonAdaptedIngredient(INVALID_INGREDIENT));
+        JsonAdaptedRecipe recipe =
+                new JsonAdaptedRecipe(VALID_NAME, invalidIngredients,
                         VALID_CALORIES, VALID_CARBS, VALID_FATS, VALID_PROTEIN);
-        assertThrows(IllegalValueException.class, person::toModelType);
+        assertThrows(IllegalValueException.class, recipe::toModelType);
     }
 
     @Test
     public void toModelType_invalidCalories_throwsIllegalValueException() {
-        JsonAdaptedRecipe person =
+        JsonAdaptedRecipe recipe =
                 new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
                         INVALID_CALORIES, VALID_CARBS, VALID_FATS, VALID_PROTEIN);
         String expectedMessage = Calories.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
     @Test
     public void toModelType_invalidCarbs_throwsIllegalValueException() {
-        JsonAdaptedRecipe person =
+        JsonAdaptedRecipe recipe =
                 new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
                         VALID_CALORIES, INVALID_CARBS, VALID_FATS, VALID_PROTEIN);
         String expectedMessage = Carbs.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
     @Test
     public void toModelType_invalidFats_throwsIllegalValueException() {
-        JsonAdaptedRecipe person =
+        JsonAdaptedRecipe recipe =
                 new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
                         VALID_CALORIES, VALID_CARBS, INVALID_FATS, VALID_PROTEIN);
         String expectedMessage = Fats.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
     @Test
     public void toModelType_invalidProtein_throwsIllegalValueException() {
-        JsonAdaptedRecipe person =
+        JsonAdaptedRecipe recipe =
                 new JsonAdaptedRecipe(VALID_NAME, VALID_INGREDIENTS,
                         VALID_CALORIES, VALID_CARBS, VALID_FATS, INVALID_PROTEIN);
         String expectedMessage = Protein.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
 }

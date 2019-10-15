@@ -12,14 +12,14 @@ public class IngredientTest {
     }
 
     @Test
-    public void constructor_invalidTagName_throwsIllegalArgumentException() {
-        String invalidTagName = "";
-        assertThrows(IllegalArgumentException.class, () -> new Ingredient(invalidTagName));
+    public void constructor_invalidIngredientName_throwsIllegalArgumentException() {
+        String invalidIngredientName = "";
+        assertThrows(IllegalArgumentException.class, () -> new Ingredient(invalidIngredientName));
     }
 
     @Test
-    public void isValidTagName() {
-        // null tag name
+    public void isValidIngredientName() {
+        // null ingredient name
         assertThrows(NullPointerException.class, () -> Ingredient.isValidIngredientName(null));
     }
 

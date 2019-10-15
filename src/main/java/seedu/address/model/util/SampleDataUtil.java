@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.DukeCooks;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyRecipeBook;
+import seedu.address.model.RecipeBook;
 import seedu.address.model.recipe.Calories;
 import seedu.address.model.recipe.Carbs;
 import seedu.address.model.recipe.Fats;
@@ -15,7 +15,7 @@ import seedu.address.model.recipe.Protein;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Contains utility methods for populating {@code DukeCooks} with sample data.
+ * Contains utility methods for populating {@code RecipeBook} with sample data.
  */
 public class SampleDataUtil {
     public static Recipe[] getSampleRecipes() {
@@ -41,8 +41,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyDukeCooks getSampleDukeCooks() {
-        DukeCooks sampleDc = new DukeCooks();
+    public static ReadOnlyRecipeBook getSampleRecipeBook() {
+        RecipeBook sampleDc = new RecipeBook();
         for (Recipe sampleRecipe : getSampleRecipes()) {
             sampleDc.addRecipe(sampleRecipe);
         }

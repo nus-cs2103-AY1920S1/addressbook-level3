@@ -10,10 +10,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.DukeCooksParser;
+import seedu.address.logic.parser.RecipeBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.storage.Storage;
 
@@ -26,12 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final DukeCooksParser dukeCooksParser;
+    private final RecipeBookParser recipeBookParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        dukeCooksParser = new DukeCooksParser();
+        recipeBookParser = new RecipeBookParser();
     }
 
     @Override
@@ -39,11 +39,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = dukeCooksParser.parseCommand(commandText);
+        Command command = recipeBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveDukeCooks(model.getDukeCooks());
+            storage.saveRecipeBook(model.getRecipeBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,8 +52,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyDukeCooks getDukeCooks() {
-        return model.getDukeCooks();
+    public ReadOnlyRecipeBook getRecipeBook() {
+        return model.getRecipeBook();
     }
 
     @Override

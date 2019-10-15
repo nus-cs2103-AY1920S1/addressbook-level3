@@ -6,7 +6,7 @@ import seedu.address.model.recipe.Recipe;
 /**
  * Unmodifiable view of Duke Cooks
  */
-public interface ReadOnlyDukeCooks {
+public interface ReadOnlyRecipeBook {
 
     /**
      * Returns an unmodifiable view of the recipes list.

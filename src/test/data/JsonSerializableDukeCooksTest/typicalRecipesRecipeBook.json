@@ -1,5 +1,5 @@
 {
-  "_comment": "DukeCooks save file which contains the same Recipe values as in TypicalRecipes#getTypicalDukeCooks()",
+  "_comment": "RecipeBook save file which contains the same Recipe values as in TypicalRecipes#getTypicalRecipeBook()",
   "recipes" : [ {
     "name" : "Milo",
     "ingredients" : [ "Milo Powder" ],

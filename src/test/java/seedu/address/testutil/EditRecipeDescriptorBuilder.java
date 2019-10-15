@@ -51,7 +51,7 @@ public class EditRecipeDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Ingredient>} and set it to the {@code EditRecipeDescriptor}
+     * Parses the {@code ingredients} into a {@code Set<Ingredient>} and set it to the {@code EditRecipeDescriptor}
      * that we are building.
      */
     public EditRecipeDescriptorBuilder withIngredients(String... ingredients) {

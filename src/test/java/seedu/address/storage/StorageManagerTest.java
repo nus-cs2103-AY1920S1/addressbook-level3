@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalRecipes.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.DukeCooks;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.RecipeBook;
+import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonDukeCooksStorage dukeCooksStorage = new JsonDukeCooksStorage(getTempFilePath("ab"));
+        JsonRecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(dukeCooksStorage, userPrefsStorage);
+        storageManager = new StorageManager(recipeBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,16 +48,16 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void dukeCooksReadSave() throws Exception {
+    public void recipeBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonDukeCooksStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonDukeCooksStorageTest} class.
+         * {@link JsonRecipeBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonRecipeBookStorageTest} class.
          */
-        DukeCooks original = getTypicalDukeCooks();
-        storageManager.saveDukeCooks(original);
-        ReadOnlyDukeCooks retrieved = storageManager.readDukeCooks().get();
-        assertEquals(original, new DukeCooks(retrieved));
+        RecipeBook original = getTypicalRecipeBook();
+        storageManager.saveRecipeBook(original);
+        ReadOnlyRecipeBook retrieved = storageManager.readRecipeBook().get();
+        assertEquals(original, new RecipeBook(retrieved));
     }
 
     @Test

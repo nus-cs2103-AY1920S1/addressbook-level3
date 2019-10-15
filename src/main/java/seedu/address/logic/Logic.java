@@ -7,7 +7,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -24,11 +24,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns DukeCooks.
+     * Returns RecipeBook.
      *
-     * @see seedu.address.model.Model#getDukeCooks()
+     * @see seedu.address.model.Model#getRecipeBook()
      */
-    ReadOnlyDukeCooks getDukeCooks();
+    ReadOnlyRecipeBook getRecipeBook();
 
     /** Returns an unmodifiable view of the filtered list of recipes */
     ObservableList<Recipe> getFilteredRecipeList();

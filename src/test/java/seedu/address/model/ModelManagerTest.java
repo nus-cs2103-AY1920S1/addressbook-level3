@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.recipe.NameContainsKeywordsPredicate;
-import seedu.address.testutil.DukeCooksBuilder;
+import seedu.address.testutil.RecipeBookBuilder;
 
 public class ModelManagerTest {
 
@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new DukeCooks(), new DukeCooks(modelManager.getDukeCooks()));
+        assertEquals(new RecipeBook(), new RecipeBook(modelManager.getRecipeBook()));
     }
 
     @Test
@@ -78,12 +78,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasRecipe_recipeNotInDukeCooks_returnsFalse() {
+    public void hasRecipe_recipeNotInRecipeBook_returnsFalse() {
         assertFalse(modelManager.hasRecipe(MILO));
     }
 
     @Test
-    public void hasRecipe_recipeInDukeCooks_returnsTrue() {
+    public void hasRecipe_recipeInRecipeBook_returnsTrue() {
         modelManager.addRecipe(MILO);
         assertTrue(modelManager.hasRecipe(MILO));
     }
@@ -95,13 +95,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        DukeCooks dukeCooks = new DukeCooksBuilder().withRecipe(MILO).withRecipe(OMELETTE).build();
-        DukeCooks differentDukeCooks = new DukeCooks();
+        RecipeBook recipeBook = new RecipeBookBuilder().withRecipe(MILO).withRecipe(OMELETTE).build();
+        RecipeBook differentRecipeBook = new RecipeBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(dukeCooks, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(dukeCooks, userPrefs);
+        modelManager = new ModelManager(recipeBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(recipeBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,13 +113,13 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different dukeCooks -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentDukeCooks, userPrefs)));
+        // different recipeBook -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentRecipeBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = MILO.getName().fullName.split("\\s+");
         modelManager.updateFilteredRecipeList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(dukeCooks, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(recipeBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
@@ -127,6 +127,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setRecipesFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(dukeCooks, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(recipeBook, differentUserPrefs)));
     }
 }

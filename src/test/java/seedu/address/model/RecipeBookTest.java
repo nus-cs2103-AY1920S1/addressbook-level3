@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_BURGER;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalRecipes.MILO;
-import static seedu.address.testutil.TypicalRecipes.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,25 +21,25 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.address.testutil.RecipeBuilder;
 
-public class DukeCooksTest {
+public class RecipeBookTest {
 
-    private final DukeCooks dukeCooks = new DukeCooks();
+    private final RecipeBook recipeBook = new RecipeBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), dukeCooks.getRecipeList());
+        assertEquals(Collections.emptyList(), recipeBook.getRecipeList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> dukeCooks.resetData(null));
+        assertThrows(NullPointerException.class, () -> recipeBook.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyDukeCooks_replacesData() {
-        DukeCooks newData = getTypicalDukeCooks();
-        dukeCooks.resetData(newData);
-        assertEquals(newData, dukeCooks);
+    public void resetData_withValidReadOnlyRecipeBook_replacesData() {
+        RecipeBook newData = getTypicalRecipeBook();
+        recipeBook.resetData(newData);
+        assertEquals(newData, recipeBook);
     }
 
     @Test
@@ -48,47 +48,47 @@ public class DukeCooksTest {
         Recipe editedMilo = new RecipeBuilder(MILO).withIngredients(VALID_INGREDIENT_BURGER)
                 .build();
         List<Recipe> newRecipes = Arrays.asList(MILO, editedMilo);
-        DukeCooksStub newData = new DukeCooksStub(newRecipes);
+        RecipeBookStub newData = new RecipeBookStub(newRecipes);
 
-        assertThrows(DuplicateRecipeException.class, () -> dukeCooks.resetData(newData));
+        assertThrows(DuplicateRecipeException.class, () -> recipeBook.resetData(newData));
     }
 
     @Test
     public void hasRecipe_nullRecipe_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> dukeCooks.hasRecipe(null));
+        assertThrows(NullPointerException.class, () -> recipeBook.hasRecipe(null));
     }
 
     @Test
-    public void hasRecipe_recipeNotInDukeCooks_returnsFalse() {
-        assertFalse(dukeCooks.hasRecipe(MILO));
+    public void hasRecipe_recipeNotInRecipeBook_returnsFalse() {
+        assertFalse(recipeBook.hasRecipe(MILO));
     }
 
     @Test
-    public void hasRecipe_recipeInDukeCooks_returnsTrue() {
-        dukeCooks.addRecipe(MILO);
-        assertTrue(dukeCooks.hasRecipe(MILO));
+    public void hasRecipe_recipeInRecipeBook_returnsTrue() {
+        recipeBook.addRecipe(MILO);
+        assertTrue(recipeBook.hasRecipe(MILO));
     }
 
     @Test
-    public void hasRecipe_recipeWithSameIdentityFieldsInDukeCooks_returnsTrue() {
-        dukeCooks.addRecipe(MILO);
+    public void hasRecipe_recipeWithSameIdentityFieldsInRecipeBook_returnsTrue() {
+        recipeBook.addRecipe(MILO);
         Recipe editedMilo = new RecipeBuilder(MILO).withIngredients(VALID_INGREDIENT_BURGER)
                 .build();
-        assertTrue(dukeCooks.hasRecipe(editedMilo));
+        assertTrue(recipeBook.hasRecipe(editedMilo));
     }
 
     @Test
     public void getRecipeList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> dukeCooks.getRecipeList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> recipeBook.getRecipeList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyDukeCooks whose recipes list can violate interface constraints.
+     * A stub ReadOnlyRecipeBook whose recipes list can violate interface constraints.
      */
-    private static class DukeCooksStub implements ReadOnlyDukeCooks {
+    private static class RecipeBookStub implements ReadOnlyRecipeBook {
         private final ObservableList<Recipe> recipes = FXCollections.observableArrayList();
 
-        DukeCooksStub(Collection<Recipe> recipes) {
+        RecipeBookStub(Collection<Recipe> recipes) {
             this.recipes.setAll(recipes);
         }
 

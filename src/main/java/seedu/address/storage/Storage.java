@@ -5,14 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends DukeCooksStorage, UserPrefsStorage {
+public interface Storage extends RecipeBookStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -24,9 +24,9 @@ public interface Storage extends DukeCooksStorage, UserPrefsStorage {
     Path getRecipesFilePath();
 
     @Override
-    Optional<ReadOnlyDukeCooks> readDukeCooks() throws DataConversionException, IOException;
+    Optional<ReadOnlyRecipeBook> readRecipeBook() throws DataConversionException, IOException;
 
     @Override
-    void saveDukeCooks(ReadOnlyDukeCooks dukeCooks) throws IOException;
+    void saveRecipeBook(ReadOnlyRecipeBook recipeBook) throws IOException;
 
 }
