@@ -89,7 +89,8 @@ class JsonAdaptedStudent {
         final Credits modelCredits = new Credits(credits);
 
         if (prevMods == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PrevMods.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PrevMods.class.getSimpleName()));
         }
         if (!PrevMods.isValidPrevMods(prevMods)) {
             throw new IllegalValueException(PrevMods.MESSAGE_CONSTRAINTS);
