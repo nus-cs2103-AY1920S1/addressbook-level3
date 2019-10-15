@@ -1,6 +1,6 @@
 package seedu.billboard.model.tag;
 
-import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.billboard.model.expense.Expense;
@@ -9,9 +9,9 @@ import seedu.billboard.model.expense.Expense;
  * Tests that a {@code Expense}'s {@code Tags} matches any of the keywords given.
  */
 public class ContainsTagPredicate implements Predicate<Expense> {
-    private final List<Tag> tags;
+    private final Set<Tag> tags;
 
-    public ContainsTagPredicate(List<Tag> tags) {
+    public ContainsTagPredicate(Set<Tag> tags) {
         this.tags = tags;
     }
 

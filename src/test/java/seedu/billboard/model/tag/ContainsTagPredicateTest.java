@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +16,8 @@ public class ContainsTagPredicateTest {
 
     @Test
     public void equals() {
-        List<Tag> firstPredicateTagNameList = Collections.singletonList(new Tag("first"));
-        List<Tag> secondPredicateTagNameList = Arrays.asList(new Tag("first"), new Tag("second"));
+        Set<Tag> firstPredicateTagNameList = new HashSet<>(Collections.singletonList(new Tag("first")));
+        Set<Tag> secondPredicateTagNameList = new HashSet<>(Arrays.asList(new Tag("first"), new Tag("second")));
 
         ContainsTagPredicate firstPredicate = new ContainsTagPredicate(firstPredicateTagNameList);
         ContainsTagPredicate secondPredicate = new ContainsTagPredicate(secondPredicateTagNameList);
@@ -41,35 +42,36 @@ public class ContainsTagPredicateTest {
     @Test
     public void test_tagContainsTagName_returnsTrue() {
         // One tag name
-        ContainsTagPredicate predicate = new ContainsTagPredicate(Collections.singletonList(new Tag("school")));
+        ContainsTagPredicate predicate = new ContainsTagPredicate(
+                new HashSet<>(Collections.singletonList(new Tag("school"))));
         assertTrue(predicate.test(new ExpenseBuilder().withTags("school").build()));
 
         // Multiple tag names
-        predicate = new ContainsTagPredicate(Arrays.asList(new Tag("school"), new Tag("cs")));
+        predicate = new ContainsTagPredicate(new HashSet<>(Arrays.asList(new Tag("school"), new Tag("cs"))));
         assertTrue(predicate.test(new ExpenseBuilder().withTags("school", "cs").build()));
 
         // Only one matching tag name
-        predicate = new ContainsTagPredicate(Arrays.asList(new Tag("school"), new Tag("cs")));
+        predicate = new ContainsTagPredicate(new HashSet<>(Arrays.asList(new Tag("school"), new Tag("cs"))));
         assertTrue(predicate.test(new ExpenseBuilder().withTags("school").build()));
     }
 
     @Test
     public void test_tagDoesNotContainTagNames_returnsFalse() {
         //empty tag name
-        ContainsTagPredicate predicate = new ContainsTagPredicate(Collections.emptyList());
+        ContainsTagPredicate predicate = new ContainsTagPredicate(new HashSet<>());
         assertFalse(predicate.test(new ExpenseBuilder().withTags("school").build()));
 
         // Non-matching tag name
-        predicate = new ContainsTagPredicate(Collections.singletonList(new Tag("drinks")));
+        predicate = new ContainsTagPredicate(new HashSet<>(Collections.singletonList(new Tag("drinks"))));
         assertFalse(predicate.test(new ExpenseBuilder().withTags("food").build()));
 
         // Keywords match description and amount but does not match name
-        predicate = new ContainsTagPredicate(Arrays.asList(new Tag("food")));
+        predicate = new ContainsTagPredicate(new HashSet<>(Arrays.asList(new Tag("food"))));
         assertFalse(predicate.test(new ExpenseBuilder().withName("food")
                 .withDescription("bought food").withAmount("9.60").withTags("school").build()));
 
         // Case sensitive
-        predicate = new ContainsTagPredicate(Collections.singletonList(new Tag("drinks")));
+        predicate = new ContainsTagPredicate(new HashSet<>(Collections.singletonList(new Tag("drinks"))));
         assertFalse(predicate.test(new ExpenseBuilder().withTags("DRINKS").build()));
     }
 }
