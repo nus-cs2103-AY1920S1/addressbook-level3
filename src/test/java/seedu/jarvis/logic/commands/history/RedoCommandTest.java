@@ -113,6 +113,11 @@ public class RedoCommandTest {
      */
     private static class CommandStub extends Command {
         @Override
+        public String getCommandWord() {
+            throw new AssertionError("This message should not be called.");
+        }
+
+        @Override
         public boolean hasInverseExecution() {
             return true;
         }

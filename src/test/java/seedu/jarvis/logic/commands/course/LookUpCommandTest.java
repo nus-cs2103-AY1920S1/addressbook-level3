@@ -1,13 +1,7 @@
 package seedu.jarvis.logic.commands.course;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.jarvis.testutil.course.CourseTestUtil.CourseStub;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
@@ -15,6 +9,11 @@ import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static seedu.jarvis.testutil.Assert.assertThrows;
+import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.course.CourseTestUtil.CourseStub;
 
 
 public class LookUpCommandTest {
