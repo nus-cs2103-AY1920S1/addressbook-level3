@@ -31,6 +31,9 @@ public class AutoCompleteTextField extends TextField {
         super();
         //tree set of suggestions to be shown when user is entering
         suggestions = SuggestionsStorage.getSuggestions();
+        suggestions.add("add_contact");
+        suggestions.add("add_claim");
+        suggestions.add("add_income");
         suggestionsPopup = new ContextMenu();
         textProperty().addListener(new ChangeListener<String>()
         {
