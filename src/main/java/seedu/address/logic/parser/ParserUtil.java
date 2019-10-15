@@ -12,12 +12,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.View;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Description;
+import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.help.SecondaryCommand;
 import seedu.address.model.help.Type;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+import seedu.address.model.contact.Address;
+import seedu.address.model.contact.Email;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -43,7 +44,7 @@ public class ParserUtil {
         } else if (view.equals("claims")) {
             viewIndex = 2;
             return true;
-        } else if (view.equals("income")) {
+        } else if (view.equals("incomes")) {
             viewIndex = 3;
             return true;
         } else {
@@ -200,6 +201,15 @@ public class ParserUtil {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
         return new Amount(amount);
+    }
+
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Date.isValidDate(date)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        }
+        return new Date(date);
     }
 
     /**

@@ -116,7 +116,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!-- ======== START OF CLASS DATA ======== -->
 <main role="main">
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">seedu.address.model.person</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">seedu.address.model.contact</a></div>
 <h2 title="Class Person" class="title">Class Person</h2>
 </div>
 <div class="contentContainer">
@@ -124,7 +124,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>seedu.address.model.person.Person</li>
+<li>seedu.address.model.contact.Person</li>
 </ul>
 </li>
 </ul>
@@ -156,10 +156,10 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(seedu.address.model.person.Name,seedu.address.model.person.Phone,seedu.address.model.person.Email,seedu.address.model.person.Address,java.util.Set)">Person</a></span>&#8203;(<a href="Name.html" title="class in seedu.address.model.person">Name</a>&nbsp;name,
-      <a href="Phone.html" title="class in seedu.address.model.person">Phone</a>&nbsp;phone,
-      <a href="Email.html" title="class in seedu.address.model.person">Email</a>&nbsp;email,
-      <a href="Address.html" title="class in seedu.address.model.person">Address</a>&nbsp;address,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(seedu.address.model.contact.Name,seedu.address.model.contact.Phone,seedu.address.model.contact.Email,seedu.address.model.contact.Address,java.util.Set)">Person</a></span>&#8203;(<a href="Name.html" title="class in seedu.address.model.contact">Name</a>&nbsp;name,
+      <a href="Phone.html" title="class in seedu.address.model.contact">Phone</a>&nbsp;phone,
+      <a href="Email.html" title="class in seedu.address.model.contact">Email</a>&nbsp;email,
+      <a href="Address.html" title="class in seedu.address.model.contact">Address</a>&nbsp;address,
       java.util.Set&lt;<a href="../tag/Tag.html" title="class in seedu.address.model.tag">Tag</a>&gt;&nbsp;tags)</code></th>
 <td class="colLast">
 <div class="block">Every field must be present and not null.</div>
@@ -187,26 +187,26 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
 <td class="colLast">
-<div class="block">Returns true if both persons have the same identity and data fields.</div>
+<div class="block">Returns true if both contacts have the same identity and data fields.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="Address.html" title="class in seedu.address.model.person">Address</a></code></td>
+<td class="colFirst"><code><a href="Address.html" title="class in seedu.address.model.contact">Address</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAddress()">getAddress</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="Email.html" title="class in seedu.address.model.person">Email</a></code></td>
+<td class="colFirst"><code><a href="Email.html" title="class in seedu.address.model.contact">Email</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEmail()">getEmail</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code><a href="Name.html" title="class in seedu.address.model.person">Name</a></code></td>
+<td class="colFirst"><code><a href="Name.html" title="class in seedu.address.model.contact">Name</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getName()">getName</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code><a href="Phone.html" title="class in seedu.address.model.person">Phone</a></code></td>
+<td class="colFirst"><code><a href="Phone.html" title="class in seedu.address.model.contact">Phone</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPhone()">getPhone</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -225,9 +225,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isSamePerson(seedu.address.model.person.Person)">isSamePerson</a></span>&#8203;(<a href="Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;otherPerson)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isSamePerson(seedu.address.model.contact.Person)">isSamePerson</a></span>&#8203;(<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;otherContact)</code></th>
 <td class="colLast">
-<div class="block">Returns true if both persons of the same name have at least one other identity field that is the same.</div>
+<div class="block">Returns true if both contacts of the same name have at least one other identity field that is the same.</div>
 </td>
 </tr>
 <tr id="i8" class="altColor">
@@ -259,16 +259,16 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(seedu.address.model.person.Name,seedu.address.model.person.Phone,seedu.address.model.person.Email,seedu.address.model.person.Address,java.util.Set)">
+<a id="&lt;init&gt;(seedu.address.model.contact.Name,seedu.address.model.contact.Phone,seedu.address.model.contact.Email,seedu.address.model.contact.Address,java.util.Set)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Person</h4>
-<pre>public&nbsp;Person&#8203;(<a href="Name.html" title="class in seedu.address.model.person">Name</a>&nbsp;name,
-              <a href="Phone.html" title="class in seedu.address.model.person">Phone</a>&nbsp;phone,
-              <a href="Email.html" title="class in seedu.address.model.person">Email</a>&nbsp;email,
-              <a href="Address.html" title="class in seedu.address.model.person">Address</a>&nbsp;address,
+<pre>public&nbsp;Person&#8203;(<a href="Name.html" title="class in seedu.address.model.contact">Name</a>&nbsp;name,
+              <a href="Phone.html" title="class in seedu.address.model.contact">Phone</a>&nbsp;phone,
+              <a href="Email.html" title="class in seedu.address.model.contact">Email</a>&nbsp;email,
+              <a href="Address.html" title="class in seedu.address.model.contact">Address</a>&nbsp;address,
               java.util.Set&lt;<a href="../tag/Tag.html" title="class in seedu.address.model.tag">Tag</a>&gt;&nbsp;tags)</pre>
 <div class="block">Every field must be present and not null.</div>
 </li>
@@ -289,7 +289,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getName</h4>
-<pre class="methodSignature">public&nbsp;<a href="Name.html" title="class in seedu.address.model.person">Name</a>&nbsp;getName()</pre>
+<pre class="methodSignature">public&nbsp;<a href="Name.html" title="class in seedu.address.model.contact">Name</a>&nbsp;getName()</pre>
 </li>
 </ul>
 <a id="getPhone()">
@@ -298,7 +298,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getPhone</h4>
-<pre class="methodSignature">public&nbsp;<a href="Phone.html" title="class in seedu.address.model.person">Phone</a>&nbsp;getPhone()</pre>
+<pre class="methodSignature">public&nbsp;<a href="Phone.html" title="class in seedu.address.model.contact">Phone</a>&nbsp;getPhone()</pre>
 </li>
 </ul>
 <a id="getEmail()">
@@ -307,7 +307,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getEmail</h4>
-<pre class="methodSignature">public&nbsp;<a href="Email.html" title="class in seedu.address.model.person">Email</a>&nbsp;getEmail()</pre>
+<pre class="methodSignature">public&nbsp;<a href="Email.html" title="class in seedu.address.model.contact">Email</a>&nbsp;getEmail()</pre>
 </li>
 </ul>
 <a id="getAddress()">
@@ -316,7 +316,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getAddress</h4>
-<pre class="methodSignature">public&nbsp;<a href="Address.html" title="class in seedu.address.model.person">Address</a>&nbsp;getAddress()</pre>
+<pre class="methodSignature">public&nbsp;<a href="Address.html" title="class in seedu.address.model.contact">Address</a>&nbsp;getAddress()</pre>
 </li>
 </ul>
 <a id="getTags()">
@@ -330,15 +330,15 @@ extends java.lang.Object</pre>
  if modification is attempted.</div>
 </li>
 </ul>
-<a id="isSamePerson(seedu.address.model.person.Person)">
+<a id="isSamePerson(seedu.address.model.contact.Person)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>isSamePerson</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;isSamePerson&#8203;(<a href="Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;otherPerson)</pre>
-<div class="block">Returns true if both persons of the same name have at least one other identity field that is the same.
- This defines a weaker notion of equality between two persons.</div>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;isSamePerson&#8203;(<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;otherContact)</pre>
+<div class="block">Returns true if both contacts of the same name have at least one other identity field that is the same.
+ This defines a weaker notion of equality between two contacts.</div>
 </li>
 </ul>
 <a id="equals(java.lang.Object)">
@@ -348,8 +348,8 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>equals</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;other)</pre>
-<div class="block">Returns true if both persons have the same identity and data fields.
- This defines a stronger notion of equality between two persons.</div>
+<div class="block">Returns true if both contacts have the same identity and data fields.
+ This defines a stronger notion of equality between two contacts.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>

@@ -14,9 +14,9 @@ import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Person;
+import seedu.address.model.contact.Address;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Email;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -44,9 +44,9 @@ public class AddContactCommandParser implements Parser<AddContactCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Contact contact = new Contact(name, phone, email, address, tagList);
 
-        return new AddContactCommand(person);
+        return new AddContactCommand(contact);
     }
 
     /**

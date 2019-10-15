@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMAND;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.stream.Stream;
 
@@ -17,6 +17,9 @@ import seedu.address.model.help.Type;
 
 public class HelpCommandParser implements Parser<HelpCommand> {
 
+    private static final Prefix PREFIX_COMMAND = new Prefix("abc");
+    private static final Prefix PREFIX_TYPE = new Prefix("abc");
+
     /**
      * Parses the given {@code String} of arguments in the context of the HelpCommand
      * and returns a HelpCommand object for execution.
@@ -30,7 +33,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         if (arePrefixesPresent(argMultimap, PREFIX_COMMAND, PREFIX_TYPE)) {
             SecondaryCommand secondaryCommand = ParserUtil.parseCommand(argMultimap.getValue(PREFIX_COMMAND).get());
             Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
-            return new HelpCommand(secondaryCommand, type);
+            return new HelpCommand();
         } else {
             return new HelpCommand();
         }

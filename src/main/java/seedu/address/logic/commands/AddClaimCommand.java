@@ -1,18 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CASH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.claim.Claim;
 
 /**
- * Adds a person to the address book.
+ * Adds a contact to the address book.
  */
 public class AddClaimCommand extends Command {
 
@@ -22,12 +18,14 @@ public class AddClaimCommand extends Command {
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_CASH + "CASH AMOUNT "
+            + PREFIX_DATE + "DATE (dd-MM-yyyy) "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Logistics for Hackathon"
-            + PREFIX_CASH + "102.50"
+            + PREFIX_CASH + "102.50 "
+            + PREFIX_DATE + "25/11/2019 "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_TAG + "friends "
@@ -39,7 +37,7 @@ public class AddClaimCommand extends Command {
     private final Claim toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code FinSec}
      */
     public AddClaimCommand(Claim claim) {
         requireNonNull(claim);

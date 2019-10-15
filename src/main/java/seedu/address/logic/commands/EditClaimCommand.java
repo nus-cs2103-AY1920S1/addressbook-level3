@@ -22,6 +22,8 @@ import seedu.address.model.Model;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.Description;
+import seedu.address.model.claim.PendingClaim;
+import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
@@ -97,11 +99,13 @@ public class EditClaimCommand extends Command {
 
         Description updatedDescription = editClaimDescriptor.getDescription().orElse(claimToEdit.getDescription());
         Amount updatedAmount = editClaimDescriptor.getAmount().orElse(claimToEdit.getAmount());
+        Date updatedDate = editClaimDescriptor.getDate().orElse(claimToEdit.getDate());
         Name updatedName = editClaimDescriptor.getName().orElse(claimToEdit.getName());
         Phone updatedPhone = editClaimDescriptor.getPhone().orElse(claimToEdit.getPhone());
         Set<Tag> updatedTags = editClaimDescriptor.getTags().orElse(claimToEdit.getTags());
 
-        return new Claim(updatedDescription, updatedAmount, updatedName, updatedPhone, updatedTags);
+        return new PendingClaim(updatedDescription, updatedAmount, updatedDate, updatedName,
+                updatedPhone, updatedTags);
     }
 
     @Override
@@ -129,6 +133,7 @@ public class EditClaimCommand extends Command {
     public static class EditClaimDescriptor {
         private Description description;
         private Amount amount;
+        private Date date;
         private Name name;
         private Phone phone;
         private Set<Tag> tags;
@@ -142,6 +147,7 @@ public class EditClaimCommand extends Command {
         public EditClaimDescriptor(EditClaimDescriptor toCopy) {
             setDescription(toCopy.description);
             setAmount(toCopy.amount);
+            setDate(toCopy.date);
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setTags(toCopy.tags);
@@ -168,6 +174,14 @@ public class EditClaimCommand extends Command {
 
         public Optional<Amount> getAmount() {
             return Optional.ofNullable(amount);
+        }
+
+        public void setDate(Date date) {
+            this.date = date;
+        }
+
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
         }
 
         public void setName(Name name) {

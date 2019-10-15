@@ -160,7 +160,7 @@ implements <a href="Storage.html" title="interface in seedu.address.storage">Sto
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(seedu.address.storage.AddressBookStorage,seedu.address.storage.UserPrefsStorage)">StorageManager</a></span>&#8203;(<a href="AddressBookStorage.html" title="interface in seedu.address.storage">AddressBookStorage</a>&nbsp;addressBookStorage,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(seedu.address.storage.FinSecStorage,seedu.address.storage.UserPrefsStorage)">StorageManager</a></span>&#8203;(<a href="AddressBookStorage.html" title="interface in seedu.address.storage">AddressBookStorage</a>&nbsp;finSecStorage,
               <a href="UserPrefsStorage.html" title="interface in seedu.address.storage">UserPrefsStorage</a>&nbsp;userPrefsStorage)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -217,14 +217,14 @@ implements <a href="Storage.html" title="interface in seedu.address.storage">Sto
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveAddressBook(seedu.address.model.ReadOnlyAddressBook)">saveAddressBook</a></span>&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;addressBook)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveAddressBook(seedu.address.model.ReadOnlyContact)">saveAddressBook</a></span>&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;finSec)</code></th>
 <td class="colLast">
 <div class="block">Saves the given <a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model"><code>ReadOnlyAddressBook</code></a> to the storage.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveAddressBook(seedu.address.model.ReadOnlyAddressBook,java.nio.file.Path)">saveAddressBook</a></span>&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;addressBook,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveAddressBook(seedu.address.model.ReadOnlyContact,java.nio.file.Path)">saveAddressBook</a></span>&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;finSec,
                java.nio.file.Path&nbsp;filePath)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -259,13 +259,13 @@ implements <a href="Storage.html" title="interface in seedu.address.storage">Sto
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(seedu.address.storage.AddressBookStorage,seedu.address.storage.UserPrefsStorage)">
+<a id="&lt;init&gt;(seedu.address.storage.FinSecStorage,seedu.address.storage.UserPrefsStorage)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>StorageManager</h4>
-<pre>public&nbsp;StorageManager&#8203;(<a href="AddressBookStorage.html" title="interface in seedu.address.storage">AddressBookStorage</a>&nbsp;addressBookStorage,
+<pre>public&nbsp;StorageManager&#8203;(<a href="AddressBookStorage.html" title="interface in seedu.address.storage">AddressBookStorage</a>&nbsp;finSecStorage,
                       <a href="UserPrefsStorage.html" title="interface in seedu.address.storage">UserPrefsStorage</a>&nbsp;userPrefsStorage)</pre>
 </li>
 </ul>
@@ -399,44 +399,44 @@ implements <a href="Storage.html" title="interface in seedu.address.storage">Sto
 </dl>
 </li>
 </ul>
-<a id="saveAddressBook(seedu.address.model.ReadOnlyAddressBook)">
+<a id="saveAddressBook(seedu.address.model.ReadOnlyContact)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>saveAddressBook</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;saveAddressBook&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;addressBook)
+<pre class="methodSignature">public&nbsp;void&nbsp;saveAddressBook&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;finSec)
                      throws java.io.IOException</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyAddressBook)">AddressBookStorage</a></code></span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyContact)">AddressBookStorage</a></code></span></div>
 <div class="block">Saves the given <a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model"><code>ReadOnlyAddressBook</code></a> to the storage.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyAddressBook)">saveAddressBook</a></code>&nbsp;in interface&nbsp;<code><a href="AddressBookStorage.html" title="interface in seedu.address.storage">AddressBookStorage</a></code></dd>
+<dd><code><a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyContact)">saveAddressBook</a></code>&nbsp;in interface&nbsp;<code><a href="AddressBookStorage.html" title="interface in seedu.address.storage">AddressBookStorage</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Storage.html#saveAddressBook(seedu.address.model.ReadOnlyAddressBook)">saveAddressBook</a></code>&nbsp;in interface&nbsp;<code><a href="Storage.html" title="interface in seedu.address.storage">Storage</a></code></dd>
+<dd><code><a href="Storage.html#saveAddressBook(seedu.address.model.ReadOnlyContact)">saveAddressBook</a></code>&nbsp;in interface&nbsp;<code><a href="Storage.html" title="interface in seedu.address.storage">Storage</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>addressBook</code> - cannot be null.</dd>
+<dd><code>finSec</code> - cannot be null.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.io.IOException</code> - if there was any problem writing to the file.</dd>
 </dl>
 </li>
 </ul>
-<a id="saveAddressBook(seedu.address.model.ReadOnlyAddressBook,java.nio.file.Path)">
+<a id="saveAddressBook(seedu.address.model.ReadOnlyContact,java.nio.file.Path)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>saveAddressBook</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;saveAddressBook&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;addressBook,
+<pre class="methodSignature">public&nbsp;void&nbsp;saveAddressBook&#8203;(<a href="../model/ReadOnlyAddressBook.html" title="interface in seedu.address.model">ReadOnlyAddressBook</a>&nbsp;finSec,
                             java.nio.file.Path&nbsp;filePath)
                      throws java.io.IOException</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyAddressBook,java.nio.file.Path)">saveAddressBook</a></code>&nbsp;in interface&nbsp;<code><a href="AddressBookStorage.html" title="interface in seedu.address.storage">AddressBookStorage</a></code></dd>
+<dd><code><a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyContact,java.nio.file.Path)">saveAddressBook</a></code>&nbsp;in interface&nbsp;<code><a href="AddressBookStorage.html" title="interface in seedu.address.storage">AddressBookStorage</a></code></dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.io.IOException</code></dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyAddressBook)"><code>AddressBookStorage.saveAddressBook(ReadOnlyAddressBook)</code></a></dd>
+<dd><a href="AddressBookStorage.html#saveAddressBook(seedu.address.model.ReadOnlyContact)"><code>AddressBookStorage.saveAddressBook(ReadOnlyAddressBook)</code></a></dd>
 </dl>
 </li>
 </ul>

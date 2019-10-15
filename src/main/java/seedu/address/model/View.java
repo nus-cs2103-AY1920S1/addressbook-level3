@@ -7,7 +7,7 @@ public class View {
 
     private final String togo;
 
-    private final Integer index;
+    public static int index;
 
     /**
      * Constructs a view with the specific type and index

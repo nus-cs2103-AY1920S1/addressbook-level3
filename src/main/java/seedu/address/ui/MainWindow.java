@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -33,6 +32,8 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private ClaimListPanel claimListPanel;
+    private IncomeListPanel incomeListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -107,10 +108,42 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    void fillWithContacts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills up window with claims
+     */
+    void fillWithClaims() {
+        claimListPanel = new ClaimListPanel(logic.getFilteredClaimList());
+        personListPanelPlaceholder.getChildren().add(claimListPanel.getRoot());
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills up window with incomes
+     */
+    void fillWithIncomes() {
+        incomeListPanel = new IncomeListPanel(logic.getFilteredIncomeList());
+        personListPanelPlaceholder.getChildren().add(incomeListPanel.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -170,7 +203,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -185,7 +218,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             return commandResult;
-        } catch (CommandException | ParseException | IOException e) {
+        } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

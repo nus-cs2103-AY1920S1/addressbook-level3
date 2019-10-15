@@ -1,14 +1,6 @@
 package seedu.address.model.help;
 
-import seedu.address.logic.commands.AddClaimCommand;
-import seedu.address.logic.commands.AddContactCommand;
-import seedu.address.logic.commands.AddIncomeCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditClaimCommand;
-import seedu.address.logic.commands.EditContactCommand;
-import seedu.address.logic.commands.EditIncomeCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.*;
 
 /**
  * Contains a brief descriptions of all the commands in FinSec
@@ -52,6 +44,9 @@ public class BriefDescriptions {
 
         case "find":
             return FindCommand.MESSAGE_USAGE;
+
+        case "goto":
+            return GotoCommand.MESSAGE_USAGE;
 
         default: return "Command should be self-explanatory with no additional parameters.\n"
                 + "Use 'type/guide' if you really want to know the exact details "

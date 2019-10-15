@@ -116,7 +116,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!-- ======== START OF CLASS DATA ======== -->
 <main role="main">
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">seedu.address.model.person</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">seedu.address.model.contact</a></div>
 <h2 title="Class UniquePersonList" class="title">Class UniquePersonList</h2>
 </div>
 <div class="contentContainer">
@@ -124,7 +124,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>seedu.address.model.person.UniquePersonList</li>
+<li>seedu.address.model.contact.UniqueContactsList</li>
 </ul>
 </li>
 </ul>
@@ -133,22 +133,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code>java.lang.Iterable&lt;<a href="Person.html" title="class in seedu.address.model.person">Person</a>&gt;</code></dd>
+<dd><code>java.lang.Iterable&lt;<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&gt;</code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">UniquePersonList</span>
 extends java.lang.Object
-implements java.lang.Iterable&lt;<a href="Person.html" title="class in seedu.address.model.person">Person</a>&gt;</pre>
-<div class="block">A list of persons that enforces uniqueness between its elements and does not allow nulls.
- A person is considered unique by comparing using <code>Person#isSamePerson(Person)</code>. As such, adding and updating of
- persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- as to ensure that the person with exactly the same fields will be removed.
+implements java.lang.Iterable&lt;<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&gt;</pre>
+<div class="block">A list of contacts that enforces uniqueness between its elements and does not allow nulls.
+ A contact is considered unique by comparing using <code>Person#isSamePerson(Person)</code>. As such, adding and updating of
+ contacts uses Person#isSamePerson(Person) for equality so as to ensure that the contact being added or updated is
+ unique in terms of identity in the UniquePersonList. However, the removal of a contact uses Person#equals(Object) so
+ as to ensure that the contact with exactly the same fields will be removed.
 
  Supports a minimal set of list operations.</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="Person.html#isSamePerson(seedu.address.model.person.Person)"><code>Person.isSamePerson(Person)</code></a></dd>
+<dd><a href="Person.html#isSamePerson(seedu.address.model.contact.Person)"><code>Person.isSamePerson(Person)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -193,13 +193,13 @@ implements java.lang.Iterable&lt;<a href="Person.html" title="class in seedu.add
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#add(seedu.address.model.person.Person)">add</a></span>&#8203;(<a href="Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;toAdd)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#add(seedu.address.model.contact.Person)">add</a></span>&#8203;(<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;toAdd)</code></th>
 <td class="colLast">
-<div class="block">Adds a person to the list.</div>
+<div class="block">Adds a contact to the list.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>javafx.collections.ObservableList&lt;<a href="Person.html" title="class in seedu.address.model.person">Person</a>&gt;</code></td>
+<td class="colFirst"><code>javafx.collections.ObservableList&lt;<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#asUnmodifiableObservableList()">asUnmodifiableObservableList</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the backing list as an unmodifiable <code>ObservableList</code>.</div>
@@ -207,9 +207,9 @@ implements java.lang.Iterable&lt;<a href="Person.html" title="class in seedu.add
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#contains(seedu.address.model.person.Person)">contains</a></span>&#8203;(<a href="Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;toCheck)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#contains(seedu.address.model.contact.Person)">contains</a></span>&#8203;(<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;toCheck)</code></th>
 <td class="colLast">
-<div class="block">Returns true if the list contains an equivalent person as the given argument.</div>
+<div class="block">Returns true if the list contains an equivalent contact as the given argument.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -223,35 +223,35 @@ implements java.lang.Iterable&lt;<a href="Person.html" title="class in seedu.add
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>java.util.Iterator&lt;<a href="Person.html" title="class in seedu.address.model.person">Person</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.Iterator&lt;<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#iterator()">iterator</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#remove(seedu.address.model.person.Person)">remove</a></span>&#8203;(<a href="Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;toRemove)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#remove(seedu.address.model.contact.Person)">remove</a></span>&#8203;(<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;toRemove)</code></th>
 <td class="colLast">
-<div class="block">Removes the equivalent person from the list.</div>
+<div class="block">Removes the equivalent contact from the list.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPerson(seedu.address.model.person.Person,seedu.address.model.person.Person)">setPerson</a></span>&#8203;(<a href="Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;target,
-         <a href="Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;editedPerson)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPerson(seedu.address.model.contact.Person,seedu.address.model.contact.Person)">setPerson</a></span>&#8203;(<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;target,
+         <a href="Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;editedContact)</code></th>
 <td class="colLast">
-<div class="block">Replaces the person <code>target</code> in the list with <code>editedPerson</code>.</div>
+<div class="block">Replaces the contact <code>target</code> in the list with <code>editedContact</code>.</div>
 </td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPersons(java.util.List)">setPersons</a></span>&#8203;(java.util.List&lt;<a href="Person.html" title="class in seedu.address.model.person">Person</a>&gt;&nbsp;persons)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPersons(java.util.List)">setPersons</a></span>&#8203;(java.util.List&lt;<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&gt;&nbsp;contacts)</code></th>
 <td class="colLast">
-<div class="block">Replaces the contents of this list with <code>persons</code>.</div>
+<div class="block">Replaces the contents of this list with <code>contacts</code>.</div>
 </td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPersons(seedu.address.model.person.UniquePersonList)">setPersons</a></span>&#8203;(<a href="UniquePersonList.html" title="class in seedu.address.model.person">UniquePersonList</a>&nbsp;replacement)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPersons(seedu.address.model.contact.UniqueContactsList)">setPersons</a></span>&#8203;(<a href="UniquePersonList.html" title="class in seedu.address.model.contact">UniquePersonList</a>&nbsp;replacement)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -304,58 +304,58 @@ implements java.lang.Iterable&lt;<a href="Person.html" title="class in seedu.add
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="contains(seedu.address.model.person.Person)">
+<a id="contains(seedu.address.model.contact.Person)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>contains</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;contains&#8203;(<a href="Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;toCheck)</pre>
-<div class="block">Returns true if the list contains an equivalent person as the given argument.</div>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;contains&#8203;(<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;toCheck)</pre>
+<div class="block">Returns true if the list contains an equivalent contact as the given argument.</div>
 </li>
 </ul>
-<a id="add(seedu.address.model.person.Person)">
+<a id="add(seedu.address.model.contact.Person)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>add</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;add&#8203;(<a href="Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;toAdd)</pre>
-<div class="block">Adds a person to the list.
- The person must not already exist in the list.</div>
+<pre class="methodSignature">public&nbsp;void&nbsp;add&#8203;(<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;toAdd)</pre>
+<div class="block">Adds a contact to the list.
+ The contact must not already exist in the list.</div>
 </li>
 </ul>
-<a id="setPerson(seedu.address.model.person.Person,seedu.address.model.person.Person)">
+<a id="setPerson(seedu.address.model.contact.Person,seedu.address.model.contact.Person)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setPerson</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setPerson&#8203;(<a href="Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;target,
-                      <a href="Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;editedPerson)</pre>
-<div class="block">Replaces the person <code>target</code> in the list with <code>editedPerson</code>.
+<pre class="methodSignature">public&nbsp;void&nbsp;setPerson&#8203;(<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;target,
+                      <a href="Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;editedContact)</pre>
+<div class="block">Replaces the contact <code>target</code> in the list with <code>editedContact</code>.
  <code>target</code> must exist in the list.
- The person identity of <code>editedPerson</code> must not be the same as another existing person in the list.</div>
+ The contact identity of <code>editedContact</code> must not be the same as another existing contact in the list.</div>
 </li>
 </ul>
-<a id="remove(seedu.address.model.person.Person)">
+<a id="remove(seedu.address.model.contact.Person)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>remove</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;remove&#8203;(<a href="Person.html" title="class in seedu.address.model.person">Person</a>&nbsp;toRemove)</pre>
-<div class="block">Removes the equivalent person from the list.
- The person must exist in the list.</div>
+<pre class="methodSignature">public&nbsp;void&nbsp;remove&#8203;(<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&nbsp;toRemove)</pre>
+<div class="block">Removes the equivalent contact from the list.
+ The contact must exist in the list.</div>
 </li>
 </ul>
-<a id="setPersons(seedu.address.model.person.UniquePersonList)">
+<a id="setPersons(seedu.address.model.contact.UniqueContactsList)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setPersons</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setPersons&#8203;(<a href="UniquePersonList.html" title="class in seedu.address.model.person">UniquePersonList</a>&nbsp;replacement)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;setPersons&#8203;(<a href="UniquePersonList.html" title="class in seedu.address.model.contact">UniquePersonList</a>&nbsp;replacement)</pre>
 </li>
 </ul>
 <a id="setPersons(java.util.List)">
@@ -364,9 +364,9 @@ implements java.lang.Iterable&lt;<a href="Person.html" title="class in seedu.add
 <ul class="blockList">
 <li class="blockList">
 <h4>setPersons</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setPersons&#8203;(java.util.List&lt;<a href="Person.html" title="class in seedu.address.model.person">Person</a>&gt;&nbsp;persons)</pre>
-<div class="block">Replaces the contents of this list with <code>persons</code>.
- <code>persons</code> must not contain duplicate persons.</div>
+<pre class="methodSignature">public&nbsp;void&nbsp;setPersons&#8203;(java.util.List&lt;<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&gt;&nbsp;contacts)</pre>
+<div class="block">Replaces the contents of this list with <code>contacts</code>.
+ <code>contacts</code> must not contain duplicate contacts.</div>
 </li>
 </ul>
 <a id="asUnmodifiableObservableList()">
@@ -375,7 +375,7 @@ implements java.lang.Iterable&lt;<a href="Person.html" title="class in seedu.add
 <ul class="blockList">
 <li class="blockList">
 <h4>asUnmodifiableObservableList</h4>
-<pre class="methodSignature">public&nbsp;javafx.collections.ObservableList&lt;<a href="Person.html" title="class in seedu.address.model.person">Person</a>&gt;&nbsp;asUnmodifiableObservableList()</pre>
+<pre class="methodSignature">public&nbsp;javafx.collections.ObservableList&lt;<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&gt;&nbsp;asUnmodifiableObservableList()</pre>
 <div class="block">Returns the backing list as an unmodifiable <code>ObservableList</code>.</div>
 </li>
 </ul>
@@ -385,10 +385,10 @@ implements java.lang.Iterable&lt;<a href="Person.html" title="class in seedu.add
 <ul class="blockList">
 <li class="blockList">
 <h4>iterator</h4>
-<pre class="methodSignature">public&nbsp;java.util.Iterator&lt;<a href="Person.html" title="class in seedu.address.model.person">Person</a>&gt;&nbsp;iterator()</pre>
+<pre class="methodSignature">public&nbsp;java.util.Iterator&lt;<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&gt;&nbsp;iterator()</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>iterator</code>&nbsp;in interface&nbsp;<code>java.lang.Iterable&lt;<a href="Person.html" title="class in seedu.address.model.person">Person</a>&gt;</code></dd>
+<dd><code>iterator</code>&nbsp;in interface&nbsp;<code>java.lang.Iterable&lt;<a href="Person.html" title="class in seedu.address.model.contact">Person</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>
