@@ -16,9 +16,8 @@ import seedu.address.model.semester.exceptions.SemesterNotFoundException;
  * A {@code Semester} is considered unique by comparing using {@code Semester#equals(Semester)}.
  * As such, adding, updating and removing of semesters uses Semester#equals(Semester) for equality so as to ensure
  * that the semester is unique in terms of identity in the UniqueSemesterList.
- *
+ * <p>
  * Supports a minimal set of list operations.
- *
  */
 public class UniqueSemesterList implements Iterable<Semester>, Cloneable {
     private final ObservableList<Semester> internalList = FXCollections.observableArrayList();

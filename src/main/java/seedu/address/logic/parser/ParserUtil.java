@@ -11,7 +11,6 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UserTag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -25,6 +24,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -38,6 +38,7 @@ public class ParserUtil {
     /**
      * Parses {@code semester} into an {@code SemesterName} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if specified semester is not valid.
      */
     public static SemesterName parseSemester(String semester) throws ParseException {
@@ -56,6 +57,7 @@ public class ParserUtil {
 
     /**
      * Checks whether or not the module is valid.
+     *
      * @throws ParseException if specified module is not valid.
      */
     public static String parseModule(String module) throws ParseException {

@@ -35,8 +35,8 @@ class JsonAdaptedSkeletalModule {
 
     /**
      * Converts this Jackson-friendly adapted skeletal module object into the model's {@code Module} object.
-     *  Note that this only creates a skeletal {@code Module} object, which will only be activated when
-     *  its study plan is active.
+     * Note that this only creates a skeletal {@code Module} object, which will only be activated when
+     * its study plan is active.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted semester.
      */

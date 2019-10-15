@@ -82,6 +82,7 @@ public class Module implements Cloneable {
 
     /**
      * Adds the specified tag to the module if it is not already there.
+     *
      * @param tag Tag to be attached to the module.
      * @return True if the tag has been added and false otherwise.
      */
@@ -103,6 +104,7 @@ public class Module implements Cloneable {
 
     /**
      * Deletes the specified user tag to the module if the module has it.
+     *
      * @param userTag user tag to be deleted from the module.
      * @return True if the user tag has been deleted and false otherwise.
      */
@@ -157,7 +159,9 @@ public class Module implements Cloneable {
                 .append(" MCs: ")
                 .append(getMcCount())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
+        if (getTags() != null) {
+            getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
 

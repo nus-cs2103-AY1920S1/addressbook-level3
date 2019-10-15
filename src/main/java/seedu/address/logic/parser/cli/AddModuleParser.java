@@ -48,5 +48,4 @@ public class AddModuleParser implements Parser<AddModuleCommand> {
 
         return new AddModuleCommand(moduleCode, semesterName);
     }
-
 }

@@ -134,6 +134,10 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
         return internalUnmodifiableList;
     }
 
+    public int getSize() {
+        return internalList.size();
+    }
+
     @Override
     public Iterator<StudyPlan> iterator() {
         return internalList.iterator();
@@ -143,7 +147,7 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueStudyPlanList // instanceof handles nulls
-                        && internalList.equals(((UniqueStudyPlanList) other).internalList));
+                && internalList.equals(((UniqueStudyPlanList) other).internalList));
     }
 
     @Override

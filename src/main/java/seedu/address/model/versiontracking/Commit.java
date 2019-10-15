@@ -9,10 +9,12 @@ public class Commit {
     private static int numberOfCommits = 0;
 
     private int index;
+    private String commitMessage;
     private StudyPlan studyPlan;
 
-    public Commit(StudyPlan studyPlan) {
+    public Commit(StudyPlan studyPlan, String commitMessage) {
         this.studyPlan = studyPlan;
+        this.commitMessage = commitMessage;
 
         numberOfCommits++;
         index = numberOfCommits;
@@ -22,9 +24,10 @@ public class Commit {
      * This constructor is used for {@code JsonAdaptedCommit} to construct a {@code Commit} object based on
      * given details.
      */
-    public Commit(int index, StudyPlan studyPlan) {
+    public Commit(int index, StudyPlan studyPlan, String commitMessage) {
         this.index = index;
         this.studyPlan = studyPlan;
+        this.commitMessage = commitMessage;
     }
 
     public int getIndex() {
@@ -33,5 +36,9 @@ public class Commit {
 
     public StudyPlan getStudyPlan() {
         return studyPlan;
+    }
+
+    public String getCommitMessage() {
+        return commitMessage;
     }
 }

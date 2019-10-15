@@ -108,6 +108,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean activateFirstStudyPlan() {
+        return modulePlanner.activateFirstStudyPlan();
+    }
+
+    @Override
     public void deleteStudyPlan(StudyPlan target) {
         modulePlanner.removeStudyPlan(target);
     }
@@ -124,6 +129,12 @@ public class ModelManager implements Model {
 
         modulePlanner.setStudyPlan(target, editedStudyPlan);
     }
+    //=========== Version Tracking ============================================================================
+
+    @Override
+    public void commitActiveStudyPlan(String commitMessage) {
+        modulePlanner.commitActiveStudyPlan(commitMessage);
+    }
 
     //=========== Module Information ============================================================================
 
@@ -135,6 +146,11 @@ public class ModelManager implements Model {
     @Override
     public String getModuleInformation(String moduleCode) {
         return modulePlanner.getModuleInformation(moduleCode);
+    }
+
+    @Override
+    public ModulesInfo getModulesInfo() {
+        return modulePlanner.getModulesInfo();
     }
 
     //=========== Filtered StudyPlan List Accessors =============================================================
@@ -208,16 +224,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean semesterHasUE(SemesterName semesterName) {
+    public boolean semesterHasUe(SemesterName semesterName) {
         // TODO: UE implementation
         // getSemester(semesterName).getModules().
         return true;
     }
 
-    public void renameUEInSemester(SemesterName semesterName, String moduleCode) {
+    @Override
+    public void renameUeInSemester(SemesterName semesterName, String moduleCode) {
         // TODO: UE implementation
     }
 
+    @Override
     public void blockSemester(SemesterName sem, String reason) {
         // TODO: blockSemester in StudyPlan class
         // this.modulePlanner.getActiveStudyPlan().blockSemester(semester);

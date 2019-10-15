@@ -7,10 +7,8 @@
       "su": false,
       "isCore": true,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "CS2040S description",
       "prereqTreeString": "(AND CS1231S CS1101S)"
@@ -26,7 +24,6 @@
         "MIR"
       ],
       "focusElectives": [
-
       ],
       "description": "CS4248 description",
       "prereqTreeString": "(AND (OR CS3243 CS3245) ST2334)"

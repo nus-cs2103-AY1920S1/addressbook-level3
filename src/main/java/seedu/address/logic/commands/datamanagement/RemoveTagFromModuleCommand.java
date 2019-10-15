@@ -39,8 +39,14 @@ public class RemoveTagFromModuleCommand extends Command {
     private final String moduleCode;
 
     /**
+<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/datamanagement/RemoveTagFromModuleCommand.java
      * Creates an {@code RemoveTagFromModuleCommand} to move a tag with the given name from the specified module.
      * @param tagName The name of the tag.
+=======
+     * Creates an {@code RemoveTagCommand} to move a tag with the given name from the specified module.
+     *
+     * @param tagName    The name of the tag.
+>>>>>>> master:src/main/java/seedu/address/logic/commands/datamanagement/RemoveTagCommand.java
      * @param moduleCode The module code of the module from which the tag is to be deleted.
      */
 
@@ -76,13 +82,14 @@ public class RemoveTagFromModuleCommand extends Command {
 
     /**
      * Checks if there are any tags attached to the current module that has the given tag name.
+     *
      * @param currentModule The module with an existing list of tags.
-     * @param tagName The name of the tag that is to be checked.
+     * @param tagName       The name of the tag that is to be checked.
      * @return True if the module has a tag with the given name.
      */
     private boolean checkMatch(Module currentModule, String tagName) {
         UniqueTagList tags = currentModule.getTags();
-        for (Tag tag: tags) {
+        for (Tag tag : tags) {
             boolean match = tag.getTagName().equals(tagName);
             if (match) {
                 return true;

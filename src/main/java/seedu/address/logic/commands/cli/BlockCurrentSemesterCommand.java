@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.cli;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
 import seedu.address.logic.commands.Command;
@@ -10,6 +9,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.semester.SemesterName;
 
+/**
+ * Blocks the current semester with a specified reason
+ */
 public class BlockCurrentSemesterCommand extends Command {
     public static final String COMMAND_WORD = "block";
     public static final String MESSAGE_USAGE = COMMAND_WORD
