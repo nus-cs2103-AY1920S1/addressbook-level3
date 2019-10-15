@@ -1,17 +1,12 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.TransactionBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -25,7 +20,7 @@ public class AddCommandIntegrationTest {
         model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
     }
 
-    // TODO: FIX
+    // TODO: Refactor into InCommandIntegrationTest
     /*
     @Test
     public void execute_newPerson_success() {
