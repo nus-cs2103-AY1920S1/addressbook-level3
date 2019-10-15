@@ -4,6 +4,7 @@ import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import static io.xpire.logic.commands.CommandTestUtil.INVALID_EXPIRY_DATE;
 import static io.xpire.logic.commands.CommandTestUtil.INVALID_NAME;
+import static io.xpire.logic.commands.CommandTestUtil.INVALID_QUANTITY;
 import static io.xpire.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_APPLE;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_APPLE;
@@ -16,6 +17,7 @@ import io.xpire.logic.commands.AddCommand;
 import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
+import io.xpire.model.item.Quantity;
 import io.xpire.testutil.ItemBuilder;
 
 public class AddCommandParserTest {
@@ -59,6 +61,9 @@ public class AddCommandParserTest {
         CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "|" + INVALID_EXPIRY_DATE
             + "|" , ExpiryDate.MESSAGE_CONSTRAINTS_FORMAT);
 
+        // invalid quantity
+        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "|" + VALID_EXPIRY_DATE_APPLE
+                + "|" + INVALID_QUANTITY, Quantity.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         CommandParserTestUtil.assertParseFailure(parser, INVALID_NAME + "|" + VALID_EXPIRY_DATE_APPLE
