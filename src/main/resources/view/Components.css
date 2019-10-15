@@ -3,7 +3,7 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
-/* 
+/*
  *  ================ LABEL COMPONENT ================
  */
 
@@ -13,7 +13,7 @@
     -fx-text-fill: #404040;
 }
 
-/* 
+/*
  *  ================ SCROLLBAR COMPONENT ================
  *  Minimalist MacOS-like design.
  */
@@ -54,7 +54,7 @@
     -fx-text-fill: white;
 }
 
-/* 
+/*
  *  ================ LISTVIEW COMPONENT ================
  *  One-directional listing of items (JavaFX elements).
  */
@@ -92,7 +92,7 @@
     -fx-border-color: moccasin;
 }
 
-/* 
+/*
  *  ================ TABLEVIEW COMPONENT ================
  *  Table-based view with customisable rows and columns.
  */

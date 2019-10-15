@@ -33,7 +33,7 @@ public class GuiSettings implements Serializable {
         if (settings.getWindowCoordinates() == null) {
             return new GuiSettings();
         }
-        
+
         Point coordinates = settings.getWindowCoordinates();
         int x = (int) Math.floor(coordinates.getX() + 0.5);
         int y = (int) Math.floor(coordinates.getY() + 0.5);
