@@ -27,7 +27,7 @@ public class AddCcaCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CCA_NAME + "Swimming "
             + PREFIX_CCA_TYPE + "sport "
-            + PREFIX_EQUIPMENT_NAME + "swimming trunks"
+            + PREFIX_EQUIPMENT_NAME + "swimming trunks "
             + PREFIX_EQUIPMENT_NAME + "goggles";
 
     public static final String MESSAGE_SUCCESS = "New Cca added: %1$s";
@@ -58,7 +58,6 @@ public class AddCcaCommand extends Command {
 
         model.addCca(toAddCca);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAddCca));
-
     }
 
     @Override
