@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.BudgetCommand;
 
+/**
+ * Contains information on Budget command.
+ */
 public class BudgetInfo {
 
     public static final String COMMAND_WORD = BudgetCommand.COMMAND_WORD;

@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.DeleteCommand;
 
+/**
+ * Contains information on Delete command.
+ */
 public class DeleteInfo {
 
     public static final String COMMAND_WORD = DeleteCommand.COMMAND_WORD;

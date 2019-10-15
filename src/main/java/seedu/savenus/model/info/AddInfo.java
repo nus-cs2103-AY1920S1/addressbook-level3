@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.AddCommand;
 
+/**
+ * Contains information on Add command.
+ */
 public class AddInfo {
 
     public static final String COMMAND_WORD = AddCommand.COMMAND_WORD;

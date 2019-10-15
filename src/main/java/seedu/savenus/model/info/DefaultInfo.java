@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.DefaultCommand;
 
+/**
+ * Contains information on default command.
+ */
 public class DefaultInfo {
 
     public static final String COMMAND_WORD = DefaultCommand.COMMAND_WORD;

@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.RecommendCommand;
 
+/**
+ * Contains information on Recommend command.
+ */
 public class RecommendInfo {
 
     public static final String COMMAND_WORD = RecommendCommand.COMMAND_WORD;

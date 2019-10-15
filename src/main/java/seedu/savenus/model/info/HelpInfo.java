@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.HelpCommand;
 
+/**
+ * Contains information on Help command.
+ */
 public class HelpInfo {
 
     public static final String COMMAND_WORD = HelpCommand.COMMAND_WORD;

@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.FindCommand;
 
+/**
+ * Contains information on Find command.
+ */
 public class FindInfo {
 
     public static final String COMMAND_WORD = FindCommand.COMMAND_WORD;

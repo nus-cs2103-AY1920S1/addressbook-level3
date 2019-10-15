@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.BuyCommand;
 
+/**
+ * Contains information on Buy command.
+ */
 public class BuyInfo {
 
     public static final String COMMAND_WORD = BuyCommand.COMMAND_WORD;

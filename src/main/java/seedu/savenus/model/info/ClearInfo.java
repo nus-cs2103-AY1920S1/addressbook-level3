@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.ClearCommand;
 
+/**
+ * Contains information on Clear command.
+ */
 public class ClearInfo {
 
     public static final String COMMAND_WORD = ClearCommand.COMMAND_WORD;

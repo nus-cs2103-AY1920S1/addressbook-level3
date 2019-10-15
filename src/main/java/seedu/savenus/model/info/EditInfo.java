@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.EditCommand;
 
+/**
+ * Contains information on Edit command.
+ */
 public class EditInfo {
 
     public static final String COMMAND_WORD = EditCommand.COMMAND_WORD;

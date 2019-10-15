@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.ListCommand;
 
+/**
+ * Contains information on List command.
+ */
 public class ListInfo {
 
     public static final String COMMAND_WORD = ListCommand.COMMAND_WORD;

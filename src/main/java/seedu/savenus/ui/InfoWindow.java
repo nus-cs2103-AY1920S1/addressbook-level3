@@ -8,8 +8,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seedu.savenus.commons.core.LogsCenter;
-import seedu.savenus.model.info.AddInfo;
 import seedu.savenus.logic.commands.InfoCommand;
+import seedu.savenus.model.info.AddInfo;
 import seedu.savenus.model.info.BudgetInfo;
 import seedu.savenus.model.info.BuyInfo;
 import seedu.savenus.model.info.ClearInfo;
@@ -176,6 +176,11 @@ public class InfoWindow extends UiPart<Stage> {
             usageExample.setText(SortInfo.USAGE);
             output.setText(SortInfo.OUTPUT);
             break;
+        default :
+            commandWord.setText("YOU ARE NOT SUP  POSED TO SEE TH IS PAG  E");
+            infoMessage.setText("PLEA SE   EXIT TH E INFO SCR EEN");
+            usageExample.setText("DO IT N O W                    BEFORE");
+            output.setText(".");
         }
         getRoot().show();
         getRoot().centerOnScreen();

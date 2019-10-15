@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.InfoCommand;
 
+/**
+ * Contains information on Info command.
+ */
 public class InfoInfo {
 
     public static final String COMMAND_WORD = InfoCommand.COMMAND_WORD;

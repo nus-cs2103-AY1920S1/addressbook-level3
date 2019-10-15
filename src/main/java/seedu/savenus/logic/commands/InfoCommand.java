@@ -3,6 +3,9 @@ package seedu.savenus.logic.commands;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 
+/**
+ * Displays information on a particular command.
+ */
 public class InfoCommand extends Command {
 
     public static final String COMMAND_WORD = "info";
@@ -97,6 +100,6 @@ public class InfoCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof InfoCommand // instanceof handles nulls
-                &&  getInput().equals(((InfoCommand) other).getInput()));
+                && getInput().equals(((InfoCommand) other).getInput()));
     }
 }

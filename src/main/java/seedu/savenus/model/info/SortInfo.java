@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.SortCommand;
 
+/**
+ * Contains information on Sort command.
+ */
 public class SortInfo {
 
     public static final String COMMAND_WORD = SortCommand.COMMAND_WORD;
