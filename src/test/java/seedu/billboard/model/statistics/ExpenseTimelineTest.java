@@ -25,13 +25,14 @@ public class ExpenseTimelineTest {
     @Test
     public void constructor_numberOfIntervalsAndSizeOfAggregateExpenseListMismatch_throwsException()
             throws IllegalValueException {
+
         DateRange dateRange = new DateRange(LocalDate.of(2016, 6, 12),
                 LocalDate.of(2017, 6, 21));
-        DateInterval interval = DateInterval.MONTH;
+        DateInterval interval = DateInterval.MONTH; // 12 months
 
         List<Amount> amounts = IntStream.range(0, 11)
                 .mapToObj(i -> new Amount(i + ""))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()); // 11 aggregate expenses
 
         assertThrows(IllegalValueException.class, () -> new ExpenseTimeline(dateRange, interval, amounts));
     }

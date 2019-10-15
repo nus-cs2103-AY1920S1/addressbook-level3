@@ -38,6 +38,7 @@ public class ModelManager implements Model {
         this.billboard = new Billboard(billboard);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExpense = new FilteredList<>(this.billboard.getExpenses());
+
     }
 
     public ModelManager() {
