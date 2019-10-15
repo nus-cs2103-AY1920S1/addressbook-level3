@@ -11,6 +11,9 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
+/**
+ * Adds a restaurant to the system.
+ */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
@@ -32,9 +35,9 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Restaurant}
      */
-    public AddCommand(Restaurant customer) {
-        requireNonNull(customer);
-        toAdd = customer;
+    public AddCommand(Restaurant restaurant) {
+        requireNonNull(restaurant);
+        toAdd = restaurant;
     }
 
     @Override
