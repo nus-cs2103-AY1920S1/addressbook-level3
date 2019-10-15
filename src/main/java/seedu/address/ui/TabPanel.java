@@ -31,7 +31,7 @@ public class TabPanel extends UiPart<Region> {
     private StackPane orderListPanelPlaceholder;
     @FXML
     //private StackPane scheduleListPanelPlaceholder;
-    private BorderPane calendarPanelPlaceHolder;
+    private StackPane calendarPanelPlaceHolder;
 
     @FXML
     private TabPane tabPanel;
@@ -51,7 +51,7 @@ public class TabPanel extends UiPart<Region> {
         orderListPanelPlaceholder.getChildren().add(orderlistPanel.getRoot());
 
         this.calendarPanel = calendarPanel;
-        calendarPanelPlaceHolder.setCenter(calendarPanel.getAgenda());
+        calendarPanelPlaceHolder.getChildren().add(calendarPanel.getAgenda());
 
         //scheduleListPanel = scheduleListPanel;
         //scheduleListPanelPlaceholder.getChildren().add(scheduleListPanel.getRoot());

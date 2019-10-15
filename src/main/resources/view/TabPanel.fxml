@@ -79,7 +79,7 @@
                        <Insets top="5" right="0" bottom="0" left="0" />
                    </padding>
 
-                   <BorderPane fx:id="calendarPanelPlaceHolder" VBox.vgrow="ALWAYS"/>
+                   <StackPane fx:id="calendarPanelPlaceHolder" VBox.vgrow="ALWAYS"/>
                </VBox>
            </content>
          </Tab>

@@ -47,7 +47,6 @@ public class MainWindow extends UiPart<Stage> {
     private CustomerListPanel customerListPanel;
     private PhoneListPanel phoneListPanel;
     private OrderListPanel orderListPanel;
-    //private ScheduleListPanel scheduleListPanel;
     private CalendarPanel calendarPanel;
 
     @FXML
@@ -129,10 +128,8 @@ public class MainWindow extends UiPart<Stage> {
         customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
         phoneListPanel = new PhoneListPanel(logic.getFilteredPhoneList());
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
-        //scheduleListPanel = new ScheduleListPanel(logic.getFilteredScheduleList());
-        calendarPanel = new CalendarPanel(logic.getFilteredScheduleList());
+        calendarPanel = new CalendarPanel(logic.getFilteredScheduleList(), logic.getFilteredOrderList());
 
-        //tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel, scheduleListPanel);
         tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel, calendarPanel);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
 

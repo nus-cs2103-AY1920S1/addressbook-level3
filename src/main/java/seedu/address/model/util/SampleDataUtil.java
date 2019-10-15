@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -10,6 +11,7 @@ import seedu.address.model.CustomerBook;
 import seedu.address.model.OrderBook;
 import seedu.address.model.PhoneBook;
 import seedu.address.model.ReadOnlyDataBook;
+import seedu.address.model.ScheduleBook;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.CustomerName;
@@ -25,6 +27,8 @@ import seedu.address.model.phone.IdentityNumber;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.phone.PhoneName;
 import seedu.address.model.phone.SerialNumber;
+import seedu.address.model.schedule.Schedule;
+import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -144,7 +148,8 @@ public class SampleDataUtil {
                         getTagSet("New")),
                    new Price("$1000"),
                    Status.UNSCHEDULED,
-                   Optional.empty(), getTagSet("Urgent")),
+                   Optional.empty(),
+                   getTagSet("Urgent")),
             new Order(UUID.randomUUID(),
                   new Customer(new CustomerName("Alex Yeoh"), new ContactNumber("87438807"),
                         new Email("alexyeoh@example.com"), getTagSet("friends")),
@@ -154,7 +159,8 @@ public class SampleDataUtil {
                         getTagSet("Used")),
                   new Price("$1500"),
                   Status.UNSCHEDULED,
-                  Optional.empty(), getTagSet("New")),
+                  Optional.empty(),
+                    getTagSet("New")),
             new Order(UUID.randomUUID(),
                   new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
                         new Email("lidavid@example.com"), getTagSet("family")),
@@ -164,8 +170,7 @@ public class SampleDataUtil {
                         getTagSet("New")),
                   new Price("$1200"),
                   Status.UNSCHEDULED,
-                  Optional.empty(), getTagSet("New"))
-
+                  Optional.empty(), getTagSet("New")),
         };
     }
 
@@ -175,6 +180,26 @@ public class SampleDataUtil {
             sampleOrderBook.addOrder(sampleOrder);
         }
         return sampleOrderBook;
+    }
+
+    public static Schedule[] getSampleSchedules() {
+        return new Schedule[] {
+                new Schedule(UUID.randomUUID(), new Calendar.Builder().setDate(2019, 9, 14)
+                        .setTimeOfDay(12, 30, 0).build(),
+                        new Venue("MRT"), getTagSet("Urgent")),
+                new Schedule(UUID.randomUUID(), new Calendar.Builder().setDate(2019, 9, 16)
+                        .setTimeOfDay(14, 30, 0).build(),
+                        new Venue("NUS"), getTagSet("Good")),
+
+        };
+    }
+
+    public static ReadOnlyDataBook<Schedule> getSampleScheduleBook() {
+        ScheduleBook sampleScheduleBook = new ScheduleBook();
+        for (Schedule sampleSchedule : getSampleSchedules()) {
+            sampleScheduleBook.addSchedule(sampleSchedule);
+        }
+        return sampleScheduleBook;
     }
 
 }
