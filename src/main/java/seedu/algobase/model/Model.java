@@ -116,7 +116,7 @@ public interface Model {
     void addTag(Tag tag);
 
     /**
-     * Adds the given Tag lists.
+     * Adds the given Tag list.
      * {@code Tag} must not already exist in the algobase.
      */
     void addTags(Set<Tag> tags);

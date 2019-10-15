@@ -12,14 +12,15 @@ import seedu.algobase.model.tag.Tag;
  */
 public class AddTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "newtag";
+    public static final String COMMAND_WORD = "addtag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Tag to the algobase. "
             + "Parameters: "
-            + PREFIX_TAG + "TAG NAME";
+            + PREFIX_TAG + "TAG NAME\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_TAG + "Easy";
 
     public static final String MESSAGE_SUCCESS = "New Tag added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PROBLEM = "This Tag already exists in the algobase";
+    public static final String MESSAGE_DUPLICATE_TAG = "This Tag already exists in the algobase.";
 
     private final Tag toAdd;
 
@@ -36,7 +37,7 @@ public class AddTagCommand extends Command {
         requireNonNull(model);
 
         if (model.hasTag(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PROBLEM);
+            throw new CommandException(MESSAGE_DUPLICATE_TAG);
         }
 
         model.addTag(toAdd);

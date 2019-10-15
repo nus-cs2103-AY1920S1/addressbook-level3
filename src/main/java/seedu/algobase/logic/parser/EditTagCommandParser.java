@@ -31,6 +31,6 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTagCommand.MESSAGE_USAGE), pe);
         }
 
-        return new EditTagCommand(index, argMultimap.getValue(PREFIX_TAG));
+        return new EditTagCommand(index, argMultimap.getValue(PREFIX_TAG).get());
     }
 }

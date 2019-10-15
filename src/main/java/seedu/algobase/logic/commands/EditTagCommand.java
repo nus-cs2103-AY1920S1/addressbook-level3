@@ -5,14 +5,12 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_TAGS;
 
 import java.util.List;
-import java.util.Optional;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.tag.Tag;
-import seedu.algobase.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Edits the details of an existing Tag in the algobase.
@@ -27,18 +25,17 @@ public class EditTagCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_TAG + "TAG] "
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG + "Easy";
-    public static final String MESSAGE_EDIT_PROBLEM_SUCCESS = "Edited Tag: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_EDIT_TAG_SUCCESS = "Edited Tag: %1$s";
     public static final String MESSAGE_DUPLICATE_TAG = "This Tag already exists in the algobase.";
 
     private final Index index;
-    private final Optional<String> name;
+    private final String name;
 
     /**
      * @param index of the Tag in the filtered Tag list to edit
      * @param name details to edit the Tag with
      */
-    public EditTagCommand(Index index, Optional<String> name) {
+    public EditTagCommand(Index index, String name) {
         requireNonNull(index);
         requireNonNull(name);
 
@@ -52,7 +49,7 @@ public class EditTagCommand extends Command {
         List<Tag> lastShownList = model.getFilteredTagList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PROBLEM_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
         }
 
         Tag tagToEdit = lastShownList.get(index.getZeroBased());
@@ -66,7 +63,7 @@ public class EditTagCommand extends Command {
         model.setTags(tagToEdit, editedTag);
 
         model.updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PROBLEM_SUCCESS, editedTag));
+        return new CommandResult(String.format(MESSAGE_EDIT_TAG_SUCCESS, editedTag));
     }
 
     /**
@@ -74,14 +71,11 @@ public class EditTagCommand extends Command {
      * @param name new tag name for tagToEdit
      * @return Tag with updated name.
      */
-    private static Tag createEditedTag(Tag tagToEdit, Optional<String> name) {
+    private static Tag createEditedTag(Tag tagToEdit, String name) {
         assert tagToEdit != null;
+        assert name != null;
         String updatedName;
-        if (name.isPresent()) {
-            updatedName = name.get();
-        } else {
-            throw new TagNotFoundException();
-        }
+        updatedName = name;
         return new Tag(updatedName);
     }
 
@@ -93,7 +87,7 @@ public class EditTagCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditTagCommand)) {
             return false;
         }
 

@@ -10,7 +10,7 @@ import seedu.algobase.model.Model;
  */
 public class ListTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "lstag";
+    public static final String COMMAND_WORD = "listtag";
 
     public static final String MESSAGE_SUCCESS = "Listed all tags";
 
