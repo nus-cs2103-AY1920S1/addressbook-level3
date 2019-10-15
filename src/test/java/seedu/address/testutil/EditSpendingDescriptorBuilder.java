@@ -6,9 +6,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditSpendingDescriptor;
 import seedu.address.model.spending.Address;
+import seedu.address.model.spending.Date;
 import seedu.address.model.spending.Email;
 import seedu.address.model.spending.Name;
-import seedu.address.model.spending.Phone;
 import seedu.address.model.spending.Spending;
 import seedu.address.model.tag.Tag;
 
@@ -33,7 +33,7 @@ public class EditSpendingDescriptorBuilder {
     public EditSpendingDescriptorBuilder(Spending spending) {
         descriptor = new EditSpendingDescriptor();
         descriptor.setName(spending.getName());
-        descriptor.setPhone(spending.getPhone());
+        descriptor.setDate(spending.getDate());
         descriptor.setEmail(spending.getEmail());
         descriptor.setAddress(spending.getAddress());
         descriptor.setTags(spending.getTags());
@@ -48,10 +48,10 @@ public class EditSpendingDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Date} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditSpendingDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditSpendingDescriptorBuilder withDate(String date) {
+        descriptor.setDate(new Date(date));
         return this;
     }
 

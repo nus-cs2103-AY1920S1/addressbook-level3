@@ -17,7 +17,7 @@ public class Spending {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final Date date;
     private final Email email;
 
     private final Address address;
@@ -26,10 +26,10 @@ public class Spending {
     /**
      * Every field must be present and not null.
      */
-    public Spending(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Spending(Name name, Date date, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, date, email, address, tags);
         this.name = name;
-        this.phone = phone;
+        this.date = date;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
@@ -39,8 +39,8 @@ public class Spending {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Date getDate() {
+        return date;
     }
 
     public Email getEmail() {
@@ -69,7 +69,7 @@ public class Spending {
 
         return otherSpending != null
                 && otherSpending.getName().equals(getName())
-                && (otherSpending.getPhone().equals(getPhone()) || otherSpending.getEmail().equals(getEmail()));
+                && (otherSpending.getDate().equals(getDate()) || otherSpending.getEmail().equals(getEmail()));
     }
 
     /**
@@ -88,7 +88,7 @@ public class Spending {
 
         Spending otherSpending = (Spending) other;
         return otherSpending.getName().equals(getName())
-                && otherSpending.getPhone().equals(getPhone())
+                && otherSpending.getDate().equals(getDate())
                 && otherSpending.getAddress().equals(getAddress())
                 && otherSpending.getEmail().equals(getEmail())
                 && otherSpending.getTags().equals(getTags());
@@ -97,15 +97,15 @@ public class Spending {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, date, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
