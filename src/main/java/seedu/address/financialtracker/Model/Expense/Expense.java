@@ -12,6 +12,18 @@ public class Expense {
         this.country = country;
     }
 
+    public Amount getAmount() {
+        return amount;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public Description getDesc() {
+        return desc;
+    }
+
     /**
      * Returns true if both expense have the same data fields.
      * This defines a stronger notion of equality between two expenses.

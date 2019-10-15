@@ -10,11 +10,11 @@ public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
             "Amount should only contain numbers";
     public static final String VALIDATION_REGEX = "\\d{1,}";
-    private String amount;
+    public final String value;
 
     public Amount(String amount) {
         requireNonNull(amount);
-        this.amount = amount;
+        this.value = amount;
     }
 
     /**
@@ -26,7 +26,7 @@ public class Amount {
 
     @Override
     public String toString() {
-        return amount;
+        return value;
     }
 
 }
