@@ -27,7 +27,6 @@ public class LikeDataImpl {
             int currLikes = likeMap.get(memeRef);
             likeMap.replace(memeRef, currLikes + change);
         }
-        System.out.println(likeMap);
     }
 
     public int getLikesByMemeRef(String memeRef) {

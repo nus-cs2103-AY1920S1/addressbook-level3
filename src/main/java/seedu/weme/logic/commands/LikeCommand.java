@@ -14,7 +14,7 @@ import seedu.weme.model.meme.Meme;
 /**
  * Edits the details of an existing meme in the meme book.
  */
-public class LikeMemeCommand extends Command {
+public class LikeCommand extends Command {
 
     public static final String COMMAND_WORD = "like";
 
@@ -30,7 +30,7 @@ public class LikeMemeCommand extends Command {
     /**
      * @param index of the meme in the filtered meme list to like
      */
-    public LikeMemeCommand(Index index) {
+    public LikeCommand(Index index) {
         requireNonNull(index);
 
         this.index = index;
@@ -60,12 +60,12 @@ public class LikeMemeCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof LikeMemeCommand)) {
+        if (!(other instanceof LikeCommand)) {
             return false;
         }
 
         // state check
-        LikeMemeCommand e = (LikeMemeCommand) other;
+        LikeCommand e = (LikeCommand) other;
         return index.equals(e.index);
     }
 
