@@ -16,7 +16,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
-import seedu.address.ui.Pages;
 import seedu.address.ui.ResultDisplay;
 import seedu.address.ui.UiPart;
 
@@ -118,8 +117,6 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
      */
     @FXML
     private void handlePageChange(CommandResult commandResult) {
-        Scene requestedPage = Pages.getPage(commandResult);
-        ((Stage) this.getScene().getWindow()).setScene(requestedPage);
     }
 
     /**
