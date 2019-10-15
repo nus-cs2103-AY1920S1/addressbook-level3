@@ -115,7 +115,7 @@ public class AddressBookParser {
 
         case CalendarCommand.COMMAND_WORD:
             return new CalendarCommand();
-            
+
         case StatsCommand.COMMAND_WORD:
             return new StatsCommand();
 

@@ -72,6 +72,11 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         internalList.set(index, editedDeadline);
     }
 
+    public void setDeadline(UniqueDeadlineList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
     /**
      * Removes the equivalent flashCard from the list.
      * The flashCard must exist in the list.
@@ -81,11 +86,6 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         if (!internalList.remove(toRemove)) {
             throw new FlashCardNotFoundException();
         }
-    }
-
-    public void setDeadline(UniqueDeadlineList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
     }
 
     /**
