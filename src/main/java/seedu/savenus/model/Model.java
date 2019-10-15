@@ -160,4 +160,9 @@ public interface Model {
      * @throws NullPointerException if {@code inUse} is null.
      */
     void setRecommendationSystemInUse(boolean inUse);
+
+    /**
+     * Get a history of the list of commands
+     */
+    List<String> getCommandHistory();
 }

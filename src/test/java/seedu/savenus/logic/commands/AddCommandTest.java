@@ -220,6 +220,11 @@ public class AddCommandTest {
         public void setRecommendationSystemInUse(boolean inUse) {
             // Empty stub
         }
+
+        @Override
+        public List<String> getCommandHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
