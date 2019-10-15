@@ -19,8 +19,6 @@ import seedu.address.logic.commands.itinerary.events.EnterCreateEventCommand;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.ui.MainWindow;
-import seedu.address.ui.components.NavigationSidebarLeft;
-import seedu.address.ui.components.NavigationSidebarRight;
 import seedu.address.ui.template.PageWithSidebar;
 
 /**

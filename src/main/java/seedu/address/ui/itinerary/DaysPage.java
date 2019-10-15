@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.common.EnterPrefsCommand;
@@ -21,8 +20,6 @@ import seedu.address.logic.commands.itinerary.days.EnterDayCommand;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.ui.MainWindow;
-import seedu.address.ui.components.NavigationSidebarLeft;
-import seedu.address.ui.components.NavigationSidebarRight;
 import seedu.address.ui.template.PageWithSidebar;
 
 /**
