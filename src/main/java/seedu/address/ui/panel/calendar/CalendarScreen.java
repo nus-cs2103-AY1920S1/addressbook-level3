@@ -3,7 +3,6 @@ package seedu.address.ui.panel.calendar;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,20 +10,20 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 
 import javafx.scene.layout.StackPane;
-import seedu.address.model.events.EventSource;
-import seedu.address.model.listeners.EventListListener;
 import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
 
 /**
  * An Ui that stores the logged feedback from the program to the user.
  */
-public class Calendar extends UiPart<Region> {
+public class CalendarScreen extends UiPart<Region> {
 
     private static final String FXML = "Calendar.fxml";
 
+    private Integer month;
+    private Integer year;
+    private LocalDate localDate;
     private YearMonth yearMonth;
-    private LocalDate calendarDate;
     private ArrayList<CalendarGridDay> dayIndexList;
 
     private UiParser uiParser;
@@ -33,7 +32,7 @@ public class Calendar extends UiPart<Region> {
     private GridPane calendarGrid;
 
     @FXML
-    private Label month;
+    private Label monthYearTitle;
 
     @FXML
     private StackPane details;
@@ -41,23 +40,17 @@ public class Calendar extends UiPart<Region> {
     /**
      * Constructor for ListPanel. Stores the event list, and task list[in v2.0].
      */
-    public Calendar(UiParser uiParser) {
+    public CalendarScreen(Integer month, Integer year, UiParser uiParser) {
         super(FXML);
-        this.yearMonth = YearMonth.now();
-        this.calendarDate = LocalDate.now();
+        this.month = month;
+        this.year = year;
         this.uiParser = uiParser;
+        this.localDate = LocalDate.of(year, month, 1);
+        this.yearMonth = YearMonth.of(year, month);
         this.dayIndexList = new ArrayList<>();
-        setCurrentMonth();
-        resetCalendar();
-    }
+        this.monthYearTitle.setText(uiParser.getEnglishDate(month, year));
 
-    /**
-     * Sets the label to be the current Month.
-     */
-    private void setCurrentMonth() {
-        String currentMonth = yearMonth.getMonth().toString().toLowerCase();
-        currentMonth = currentMonth.substring(0, 1).toUpperCase() + currentMonth.substring(1);
-        month.setText(currentMonth + " " + yearMonth.getYear());
+        resetCalendar();
     }
 
     /**
@@ -65,8 +58,8 @@ public class Calendar extends UiPart<Region> {
      */
     private void resetCalendar() {
         int index = 1;
-        int startingDay = calendarDate.withDayOfMonth(1).getDayOfWeek().getValue();
-        int totalDays = yearMonth.lengthOfMonth();
+        int startingDay = this.localDate.withDayOfMonth(1).getDayOfWeek().getValue();
+        int totalDays = this.yearMonth.lengthOfMonth();
         for (int weeks = 0; weeks < 6; weeks++) {
             for (int days = 0; days < 7; days++) {
                 if (weeks == 0 && days == 0) {

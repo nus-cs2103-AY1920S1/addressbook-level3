@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -190,6 +191,20 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         listPanel.getRoot().setVisible(false);
         logPanel.getRoot().setVisible(true);
         viewTitle.setText("Log");
+    }
+
+    /**
+     * Changes of the timeline of the calendar
+     */
+    public void changeTimelineDate(Instant dateTime) {
+        calendarPanel.changeTimelineDate(dateTime);
+    }
+
+    /**
+     * Changes of the calendar screen of the calendar
+     */
+    public void changeCalendarScreenDate(Instant dateTime) {
+        calendarPanel.changeCalendarScreenDate(dateTime);
     }
 
     @Override

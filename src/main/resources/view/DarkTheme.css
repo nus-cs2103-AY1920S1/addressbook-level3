@@ -382,9 +382,9 @@
     -fx-font-size: 11pt;
 }
 
-#month {
+#monthYearTitle {
     -fx-font-family: "Roboto Medium";
-    -fx-font-size: 16pt
+    -fx-font-size: 14pt
 }
 
 /** For Timeline **/

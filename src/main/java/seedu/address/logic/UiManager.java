@@ -1,5 +1,8 @@
 package seedu.address.logic;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -54,6 +57,21 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
                     this.mainWindow.viewList();
                 } else if (commandInput.equals("view_log")) {
                     this.mainWindow.viewLog();
+                } else if (commandInput.equals("change_timeline")) {
+                    // TODO: Add a parser that parse the user input into DateTime class or Instant class
+                    // Then I'll parse the Instant into day, month, year
+                    // This is to change the timeline date
+                    // Changes the calendar date as well
+                    LocalDate date = LocalDate.parse("2019-11-18");
+                    Instant dateTime = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
+                    this.mainWindow.changeTimelineDate(dateTime);
+                } else if (commandInput.equals("change_calendar")) {
+                    // TODO: Add a parser that parse the user input into DateTime class or Instant class
+                    // The day doesn't matter for this, only need month and year
+                    // This is to change the calendar date
+                    LocalDate date = LocalDate.parse("2019-11-18");
+                    Instant dateTime = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
+                    this.mainWindow.changeCalendarScreenDate(dateTime);
                 } else {
                     // Notify listeners of new command input.
                     this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));

@@ -1,5 +1,6 @@
 package seedu.address.ui.panel.calendar;
 
+import java.time.Instant;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -18,9 +19,10 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
     private static final String FXML = "CalendarPanel.fxml";
 
     private UiParser uiParser;
-    private Calendar calendar;
-    private TimelineDayView timeline;
+    private CalendarScreen calendarScreen;
+    private TimelineDayView timelineDayView;
     private Details details;
+    private Instant date;
 
     @FXML
     private StackPane timelinePlaceholder;
@@ -32,23 +34,48 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
     private VBox detailsPlaceholder;
 
     /**
-     * Constructor for ListPanel. Stores the event list, and task list[in v2.0].
+     * Constructor for CalendarPanel. Contains the 3 main viewing points for the calendar panel.
+     * The points are calendar screen view, timeline view and details view.
      */
     public CalendarPanel(UiParser uiParser) {
         super(FXML);
         this.uiParser = uiParser;
-        this.calendar = new Calendar(uiParser);
-        this.timeline = new TimelineDayView(15, 10, 2019, uiParser);
+        this.date = Instant.now();
+
+        Integer[] dayMonthYear = uiParser.getDateToNumbers(this.date);
+        this.calendarScreen = new CalendarScreen(dayMonthYear[1], dayMonthYear[2], uiParser);
+        this.timelineDayView = new TimelineDayView(dayMonthYear[0], dayMonthYear[1], dayMonthYear[2], uiParser);
         this.details = new Details(uiParser);
 
-        timelinePlaceholder.getChildren().add(this.timeline.getRoot()); // Left
-        calendarPlaceholder.getChildren().add(this.calendar.getRoot()); // Top Right
+        timelinePlaceholder.getChildren().add(this.timelineDayView.getRoot()); // Left
+        calendarPlaceholder.getChildren().add(this.calendarScreen.getRoot()); // Top Right
         detailsPlaceholder.getChildren().add(this.details.getRoot()); // Bottom Right
 
     }
 
+    public void changeTimelineDate(Instant dateTime) {
+        Integer[] dayMonthYear = uiParser.getDateToNumbers(dateTime);
+        // Change Timeline Date
+        timelinePlaceholder.getChildren().clear();
+        timelineDayView = new TimelineDayView(dayMonthYear[0], dayMonthYear[1], dayMonthYear[2], uiParser);
+        timelinePlaceholder.getChildren().add(timelineDayView.getRoot());
+
+        // Change CalendarScreen Date
+        calendarPlaceholder.getChildren().clear();
+        calendarScreen = new CalendarScreen(dayMonthYear[1], dayMonthYear[2], uiParser);
+        calendarPlaceholder.getChildren().add(calendarScreen.getRoot());
+    }
+
+    public void changeCalendarScreenDate(Instant dateTime) {
+        Integer[] dayMonthYear = uiParser.getDateToNumbers(dateTime);
+        // Change CalendarScreen Date
+        calendarPlaceholder.getChildren().clear();
+        calendarScreen = new CalendarScreen(dayMonthYear[1], dayMonthYear[2], uiParser);
+        calendarPlaceholder.getChildren().add(calendarScreen.getRoot());
+    }
+
     @Override
     public void onEventListChange(List<EventSource> events) {
-        this.timeline.eventChange(events);
+        this.timelineDayView.eventChange(events);
     }
 }

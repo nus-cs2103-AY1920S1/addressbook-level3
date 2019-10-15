@@ -146,8 +146,6 @@ public class TimelineDayView extends UiPart<Region> {
         }
     }
 
-
-
     /**
      * Adds all the timeboxes to the list for easier time reading and writing
      */
