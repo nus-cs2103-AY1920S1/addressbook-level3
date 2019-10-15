@@ -12,11 +12,11 @@ public class Country {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-    private String country;
+    public final String value;
 
     public Country(String country) {
         requireNonNull(country);
-        this.country = country;
+        this.value = country;
     }
 
     /**
@@ -29,6 +29,6 @@ public class Country {
 
     @Override
     public String toString() {
-        return country;
+        return value;
     }
 }

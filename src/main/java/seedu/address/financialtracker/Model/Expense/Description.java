@@ -12,11 +12,11 @@ public class Description {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-    private String desc;
+    public final String value;
 
     public Description(String desc) {
         requireNonNull(desc);
-        this.desc = desc;
+        this.value = desc;
     }
 
     /**
@@ -29,6 +29,6 @@ public class Description {
 
     @Override
     public String toString() {
-        return desc;
+        return value;
     }
 }
