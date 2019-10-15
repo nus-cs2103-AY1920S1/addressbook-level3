@@ -36,7 +36,7 @@ public class AddressBookParser {
 
     private ElisaStateHistory elisaStateHistory;
 
-    public AddressBookParser(ElisaStateHistory elisaStateHistory){
+    public AddressBookParser(ElisaStateHistory elisaStateHistory) {
         this.elisaStateHistory = elisaStateHistory;
     }
 

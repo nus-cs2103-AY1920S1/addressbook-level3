@@ -13,13 +13,13 @@ public class UndoCommand extends Command {
 
     private ElisaStateHistory elisaStateHistory;
 
-    public UndoCommand(ElisaStateHistory elisaStateHistory){
+    public UndoCommand(ElisaStateHistory elisaStateHistory) {
         this.elisaStateHistory = elisaStateHistory;
     }
 
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
-        if(elisaStateHistory.size() <= 1){
+        if (elisaStateHistory.size() <= 1) {
             throw new CommandException(Messages.MESSAGE_NOTHING_TO_UNDO);
         }
         return new CommandResult("Undo successful!", true);
