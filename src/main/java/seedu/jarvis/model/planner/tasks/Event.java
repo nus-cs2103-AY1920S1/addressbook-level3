@@ -1,16 +1,18 @@
 package seedu.jarvis.model.planner.tasks;
 
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an Event task in JARVIS
  */
 public class Event extends Task {
 
-    private Calendar start;
-    private Calendar end;
+    private LocalDate start;
+    private LocalDate end;
+    public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public Event(String taskDes, Calendar start, Calendar end) {
+    public Event(String taskDes, LocalDate start, LocalDate end) {
         super(taskDes);
         this.start = start;
         this.end = end;
@@ -18,17 +20,17 @@ public class Event extends Task {
 
     /**
      * Retrieves the start date of the event
-     * @return the calendar object that represents the start date
+     * @return the LocalDate object that represents the start date
      */
-    protected Calendar getStartDate() {
+    protected LocalDate getStartDate() {
         return start;
     }
 
     /**
      * Retrieves the end date of the event
-     * @return the calendar object that represents the end date
+     * @return the LocalDate object that represents the end date
      */
-    protected Calendar getEndDate() {
+    protected LocalDate getEndDate() {
         return end;
     }
 

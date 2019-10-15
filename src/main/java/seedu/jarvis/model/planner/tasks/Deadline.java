@@ -1,24 +1,26 @@
 package seedu.jarvis.model.planner.tasks;
 
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a Deadline task in JARVIS
  */
 public class Deadline extends Task {
 
-    private Calendar deadline;
+    private LocalDate deadline;
+    public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public Deadline(String taskDes, Calendar deadline) {
+    public Deadline(String taskDes, LocalDate deadline) {
         super(taskDes);
         this.deadline = deadline;
     }
 
     /**
      * Retrieves the due date of a deadline task
-     * @return the calendar object that represents the due date
+     * @return the LocalDate object that represents the due date
      */
-    public Calendar getDueDate() {
+    public LocalDate getDueDate() {
         return deadline;
     }
 

@@ -498,12 +498,17 @@ public class HistoryManagerTest {
         }
 
         @Override
-        public Boolean hasTask(Task t) {
+        public boolean hasTask(Task t) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public Planner getPlanner() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetData(Planner planner) {
             throw new AssertionError("This method should not be called.");
         }
     }

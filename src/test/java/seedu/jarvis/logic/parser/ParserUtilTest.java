@@ -3,10 +3,13 @@ package seedu.jarvis.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.jarvis.logic.parser.ParserUtil.parsePriority;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +22,11 @@ import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
 import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.model.planner.Frequency;
+import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.model.planner.tasks.Event;
+import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.planner.tasks.Todo;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -192,5 +200,57 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    void parsePriority_validInput_success() throws Exception {
+        Priority actual = ParserUtil.parsePriority("high");
+        Priority expected = Priority.HIGH;
+
+        assertEquals(0, expected.compareTo(actual));
+    }
+
+    @Test
+    void parsePriority_invalidInput_throwsException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePriority("highest"));
+    }
+
+    @Test
+    void parseFrequency_validInput_success() throws Exception {
+        Frequency actual = ParserUtil.parseFrequency("weekly");
+        Frequency expected = Frequency.WEEKLY;
+        assertEquals(0, expected.compareTo(actual));
+    }
+
+    @Test
+    void parseFrequency_invalidInput_throwsException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseFrequency("every week"));
+    }
+
+    @Test
+    void parseDate_validInput_success() throws Exception {
+        LocalDate[] actual = ParserUtil.parseDate("18/10/2019");
+        LocalDate expected = LocalDate.parse("18/10/2019", Event.dateFormat);
+        assertEquals(0, expected.compareTo(actual[0]));
+    }
+
+    @Test
+    void parseDate_invalidInput_throwsException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("hello there"));
+    }
+
+    @Test
+    void buildTask_validInput_success() throws Exception {
+        Task expected = new Todo("borrow book");
+        LocalDate[] dates = new LocalDate[2];
+        Task actual = ParserUtil.buildTask("todo", "borrow book", dates);
+        assertTrue(expected.isEqual(actual));
+    }
+
+    @Test
+    void buildTask_invalidInput_throwsException() {
+        LocalDate[] dates = new LocalDate[2];
+        assertThrows(ParseException.class, () -> ParserUtil.buildTask("task", "borrow book",
+                dates));
     }
 }

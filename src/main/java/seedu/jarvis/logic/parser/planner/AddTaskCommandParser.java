@@ -23,6 +23,7 @@ import seedu.jarvis.model.planner.Priority;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Optional;
 import java.util.Set;
@@ -57,13 +58,19 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         String taskType = argMultimap.getValue(PREFIX_TASK_TYPE).get();
         String taskDes = argMultimap.getValue(PREFIX_TASK_DES).get();
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TASK_TAG));
-
-        Calendar[] dates = null;
+        System.out.println("hello there");
+        LocalDate[] dates = new LocalDate[2];
         if (isEventOrDeadline(argMultimap)) {
+            System.out.println("hi there");
             dates = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         }
 
-        Task task = ParserUtil.buildTask(taskType, taskDes, dates, priority, frequency, tagList);
+        Task task = ParserUtil.buildTask(taskType, taskDes, dates);
+        task.addFrequency(frequency);
+        task.addPriority(priority);
+        for (Tag tag : tagList) {
+            task.addTag(tag);
+        }
         return new AddTaskCommand(task);
     }
 
@@ -76,7 +83,7 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
     }
 
     private static boolean isEventOrDeadline(ArgumentMultimap argMultimap) {
-        Optional<String> type = argMultimap.getValue(PREFIX_TASK_TYPE);
+        String type = argMultimap.getValue(PREFIX_TASK_TYPE).get();
         return type.equals("event") || type.equals("deadline");
 
     }

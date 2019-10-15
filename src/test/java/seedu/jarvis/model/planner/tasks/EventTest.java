@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,9 +17,8 @@ class EventTest {
 
     @Test
     void addPriority() {
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        end.set(Calendar.DAY_OF_MONTH, 20);
+        LocalDate start = LocalDate.parse("18/10/2019", Event.dateFormat);
+        LocalDate end = LocalDate.parse("19/10/2019", Event.dateFormat);
         Event e = new Event("homework", start, end);
         e.addPriority(Priority.HIGH);
         assertNotNull(e.priority);
@@ -27,9 +26,8 @@ class EventTest {
 
     @Test
     void addFrequency() {
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        end.set(Calendar.DAY_OF_MONTH, 20);
+        LocalDate start = LocalDate.parse("18/10/2019", Event.dateFormat);
+        LocalDate end = LocalDate.parse("19/10/2019", Event.dateFormat);
         Event e = new Event("homework", start, end);
         e.addFrequency(Frequency.DAILY);
         assertNotNull(e.frequency);
@@ -37,9 +35,8 @@ class EventTest {
 
     @Test
     void addTag() {
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        end.set(Calendar.DAY_OF_MONTH, 20);
+        LocalDate start = LocalDate.parse("18/10/2019", Event.dateFormat);
+        LocalDate end = LocalDate.parse("19/10/2019", Event.dateFormat);
         Event e = new Event("homework", start, end);
         Tag t = new Tag("school");
         e.addTag(t);
@@ -48,9 +45,8 @@ class EventTest {
 
     @Test
     void getTags() {
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        end.set(Calendar.DAY_OF_MONTH, 20);
+        LocalDate start = LocalDate.parse("18/10/2019", Event.dateFormat);
+        LocalDate end = LocalDate.parse("19/10/2019", Event.dateFormat);
         Event e = new Event("homework", start, end);
         Tag t = new Tag("school");
         e.addTag(t);
@@ -59,14 +55,12 @@ class EventTest {
 
     @Test
     void isEqual_validInput_true() {
-        Calendar startOne = Calendar.getInstance();
-        Calendar endOne = Calendar.getInstance();
-        endOne.set(Calendar.DAY_OF_MONTH, 20);
+        LocalDate startOne = LocalDate.parse("18/10/2019", Event.dateFormat);
+        LocalDate endOne = LocalDate.parse("19/10/2019", Event.dateFormat);
         Event one = new Event("borrow book", startOne, endOne);
 
-        Calendar startTwo = Calendar.getInstance();
-        Calendar endTwo = Calendar.getInstance();
-        endTwo.set(Calendar.DAY_OF_MONTH, 20);
+        LocalDate startTwo = LocalDate.parse("18/10/2019", Event.dateFormat);
+        LocalDate endTwo = LocalDate.parse("19/10/2019", Event.dateFormat);
         Event two = new Event("borrow book", startTwo, endTwo);
 
         assertTrue(one.isEqual(two));
@@ -74,15 +68,12 @@ class EventTest {
 
     @Test
     void isEqual_validInput_false() {
-        Calendar startOne = Calendar.getInstance();
-        startOne.set(2019, 12, 10);
-        Calendar endOne = Calendar.getInstance();
-        endOne.set(2019, 12, 10);
+        LocalDate startOne = LocalDate.parse("18/10/2019", Event.dateFormat);
+        LocalDate endOne = LocalDate.parse("19/10/2019", Event.dateFormat);
         Event one = new Event("borrow hello", startOne, endOne);
 
-        Calendar startTwo = Calendar.getInstance();
-        Calendar endTwo = Calendar.getInstance();
-        endTwo.set(Calendar.DAY_OF_MONTH, 20);
+        LocalDate startTwo = LocalDate.parse("18/10/2019", Event.dateFormat);
+        LocalDate endTwo = LocalDate.parse("19/10/2019", Event.dateFormat);
         Event two = new Event("borrow book", startTwo, endTwo);
 
         assertFalse(one.isEqual(two));
@@ -90,22 +81,19 @@ class EventTest {
 
     @Test
     void getStartDate_true() {
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        end.set(Calendar.DAY_OF_MONTH, 20);
+        LocalDate start = LocalDate.parse("18/10/2019", Event.dateFormat);
+        LocalDate end = LocalDate.parse("19/10/2019", Event.dateFormat);
         Event testEvent = new Event("borrow book", start, end);
-        Calendar testCal = Calendar.getInstance();
+        LocalDate testCal = LocalDate.parse("18/10/2019", Event.dateFormat);
         assertEquals(0, testCal.compareTo(testEvent.getStartDate()));
     }
 
     @Test
     void getEndDate_true() {
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        end.set(Calendar.DAY_OF_MONTH, 20);
+        LocalDate start = LocalDate.parse("18/10/2019", Event.dateFormat);
+        LocalDate end = LocalDate.parse("19/10/2019", Event.dateFormat);
         Event testEvent = new Event("borrow book", start, end);
-        Calendar testCal = Calendar.getInstance();
-        testCal.set(Calendar.DAY_OF_MONTH, 20);
+        LocalDate testCal = LocalDate.parse("19/10/2019", Event.dateFormat);
         assertEquals(0, testCal.compareTo(testEvent.getEndDate()));
     }
 

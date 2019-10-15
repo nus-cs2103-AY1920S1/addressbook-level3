@@ -2,9 +2,12 @@ package seedu.jarvis.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.jarvis.commons.core.index.Index;
@@ -182,50 +185,36 @@ public class ParserUtil {
      * @param date the date to be parsed
      * @return an array of Calendars to be added into the Task objects
      */
-    public static Calendar[] parseDate(String date) throws ParseException {
+    public static LocalDate[] parseDate(String date) throws ParseException {
         requireNonNull(date);
-        Calendar[] res = new Calendar[2];
+        LocalDate[] res = new LocalDate[2];
         try {
             String trimmedDate = date.trim();
-            String[] splitDate = date.split("//");
+            String[] splitDate = trimmedDate.split("//");
             int count = 0;
             for (String d : splitDate) {
-                String[] dateAsInts = d.split("/");
-                int day = Integer.parseInt(dateAsInts[0]);
-                int month = Integer.parseInt(dateAsInts[1]);
-                int year = Integer.parseInt(dateAsInts[2]);
-                Calendar c = Calendar.getInstance();
-                c.set(day, month, year);
-                res[count] = c;
+                LocalDate formattedDate = LocalDate.parse(d, Event.dateFormat);
+                res[count] = formattedDate;
                 count++;
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (DateTimeParseException e) {
             throw new ParseException(MESSAGE_INVALID_DATE);
         }
 
         return res;
     }
 
-    public static Task buildTask(String taskType, String taskDes, Calendar[] dates, Priority priority,
-                                 Frequency frequency, Set<Tag> tagList) throws ParseException {
+    public static Task buildTask(String taskType, String taskDes, LocalDate[] dates) throws ParseException {
         Task t;
-
-        if (taskType.equals("event")) {
-            t = new Event(taskDes, dates[0], dates[1]);
-        } else if (taskType.equals("deadline")) {
-            t = new Deadline(taskDes, dates[0]);
-        } else if (taskType.equals("todo")) {
-            t = new Todo(taskDes);
-        } else {
-            throw new ParseException(MESSAGE_INVALID_TASK_TYPE);
-        }
-
-        t.addPriority(priority);
-        t.addFrequency(frequency);
-        for (Tag tag : tagList) {
-            t.addTag(tag);
-        }
-
+            if (taskType.equals("event")) {
+                t = new Event(taskDes, dates[0], dates[1]);
+            } else if (taskType.equals("deadline")) {
+                t = new Deadline(taskDes, dates[0]);
+            } else if (taskType.equals("todo")) {
+                t = new Todo(taskDes);
+            } else {
+                throw new ParseException(MESSAGE_INVALID_TASK_TYPE);
+            }
         return t;
     }
 

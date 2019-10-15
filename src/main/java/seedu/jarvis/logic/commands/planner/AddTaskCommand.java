@@ -92,4 +92,11 @@ public class AddTaskCommand extends Command {
     public CommandResult executeInverse(Model model) throws CommandException {
         return null;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddTaskCommand // instanceof handles nulls
+                && toAdd.equals(((AddTaskCommand) other).toAdd));
+    }
 }

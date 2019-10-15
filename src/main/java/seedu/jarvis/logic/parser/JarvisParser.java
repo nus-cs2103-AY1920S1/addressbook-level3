@@ -56,7 +56,11 @@ public class JarvisParser {
         switch (commandWord) {
 
         case AddTaskCommand.COMMAND_WORD:
-            return new AddTaskCommandParser().parse(arguments);
+            if(arguments.startsWith(" n/")) {
+                return new AddAddressCommandParser().parse(arguments);
+            } else {
+                return new AddTaskCommandParser().parse(arguments);
+            }
 
         case EditAddressCommand.COMMAND_WORD:
             return new EditAddressCommandParser().parse(arguments);
