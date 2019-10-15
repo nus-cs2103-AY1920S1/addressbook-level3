@@ -121,10 +121,10 @@ public class ReimbursementList {
     }
 
     /**
-     * Marks reimbursemenet as done and returns the reimbursement.
-     * @param person Person that was reimbursed.
-     * @return Reimbursement done.
-     * @throws NoSuchPersonReimbursementException If an error occurs due to no such reimbursement for that person.
+     * Marks a reimbursement as done.
+     * @param person the person this reimbursement is owed to.
+     * @return the new reimbursement object.
+     * @throws NoSuchPersonReimbursementException if no such reimbursement is owed to this person.
      */
     public Reimbursement doneReimbursement(Person person) throws NoSuchPersonReimbursementException {
         Reimbursement rmb = findReimbursement(person);

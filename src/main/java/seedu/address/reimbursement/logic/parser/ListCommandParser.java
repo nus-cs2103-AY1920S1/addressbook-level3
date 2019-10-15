@@ -7,7 +7,7 @@ import seedu.address.reimbursement.logic.exception.ParseException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
 /**
- * Parses a list command.
+ * Parses List commands.
  */
 public class ListCommandParser implements SortParser<ListCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {

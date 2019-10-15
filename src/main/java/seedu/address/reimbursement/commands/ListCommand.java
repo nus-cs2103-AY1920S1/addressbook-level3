@@ -8,7 +8,7 @@ import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementExce
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
 /**
- * Represents a list command.
+ * Represents a command to list all reimbursements.
  */
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
