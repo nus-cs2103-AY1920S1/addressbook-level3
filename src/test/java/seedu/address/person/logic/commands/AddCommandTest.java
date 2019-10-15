@@ -22,6 +22,10 @@ import seedu.address.person.model.ReadOnlyAddressBook;
 import seedu.address.person.model.ReadOnlyUserPrefs;
 import seedu.address.person.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.transaction.logic.Logic;
+import seedu.address.transaction.logic.LogicManager;
+import seedu.address.transaction.model.ModelManager;
+import seedu.address.transaction.util.TransactionList;
 
 public class AddCommandTest {
 
@@ -34,8 +38,11 @@ public class AddCommandTest {
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
+        TransactionList transactionList = new TransactionList();
+        seedu.address.transaction.model.Model model = new ModelManager(transactionList);
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        Logic logic = new LogicManager();
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, );
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
@@ -145,6 +152,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person getPersonByName(String name) {
             throw new AssertionError("This method should not be called.");
         }
     }

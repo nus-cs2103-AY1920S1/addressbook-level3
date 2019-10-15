@@ -2,9 +2,7 @@ package seedu.address.cashier.commands;
 
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchItemException;
-
 import seedu.address.cashier.ui.CashierMessages;
-
 import seedu.address.inventory.model.Item;
 
 

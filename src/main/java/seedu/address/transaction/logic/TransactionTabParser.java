@@ -52,7 +52,6 @@ public class TransactionTabParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments, transactionListSize, personModel);
 
-
         case DeleteIndexCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments, personModel);
 
