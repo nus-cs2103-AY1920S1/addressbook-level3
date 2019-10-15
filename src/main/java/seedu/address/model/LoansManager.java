@@ -10,6 +10,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.loan.Loan;
+import seedu.address.model.person.loan.exceptions.LoanNotFoundException;
 
 /**
  * Manages the loans of each person in a list of persons.
@@ -64,7 +65,7 @@ public class LoansManager {
             Person targetPerson = persons.get(editedLoan.getPerson());
             targetPerson.setLoan(targetPerson.getLoan(editedLoan), editedLoan);
         } else {
-            // TODO Handle loan not found action (make an exception).
+            throw new LoanNotFoundException();
         }
     }
 
@@ -80,7 +81,7 @@ public class LoansManager {
                 persons.remove(targetPerson);
             }
         } else {
-            // TODO Handle loan not found action (make an exception).
+            throw new LoanNotFoundException();
         }
     }
 

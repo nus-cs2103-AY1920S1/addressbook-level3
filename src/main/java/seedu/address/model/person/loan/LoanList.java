@@ -9,6 +9,8 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import seedu.address.model.person.loan.exceptions.LoanNotFoundException;
+
 /**
  * A list of loans that does not allow nulls.
  *
@@ -62,7 +64,7 @@ public class LoanList implements Iterable<Loan> {
         }
 
         if (targetLoan == null) {
-            // TODO Handle loan not found in list (make an exception).
+            throw new LoanNotFoundException();
         }
 
         return targetLoan;
@@ -79,7 +81,7 @@ public class LoanList implements Iterable<Loan> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            // TODO Handle loan not found in list.
+            throw new LoanNotFoundException();
         }
 
         internalList.set(index, editedLoan);
@@ -106,7 +108,7 @@ public class LoanList implements Iterable<Loan> {
     public void delete(Loan toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            // TODO Handle loan not found in list.
+            throw new LoanNotFoundException();
         }
     }
 
