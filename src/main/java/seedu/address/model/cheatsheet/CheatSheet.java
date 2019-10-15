@@ -61,6 +61,10 @@ public class CheatSheet {
         return Collections.unmodifiableSet(tags);
     }
 
+    public boolean containsTag(Tag tag) {
+        return this.tags.contains(tag);
+    }
+
     public Set<Content> getContents() {
         return Collections.unmodifiableSet(contents);
     }
