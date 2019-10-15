@@ -89,6 +89,12 @@ public interface Model {
     void setFoods(List<Food> list);
 
     /**
+     * A simple method to replace the filtered food list with the contents of a new list.
+     * @param fieldList the new list of food.
+     */
+    void editFilteredFoodList(List<String> fieldList);
+
+    /**
      * Buy the given food.
      * The food must exist in the menu.
      */

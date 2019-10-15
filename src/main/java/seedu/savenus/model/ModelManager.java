@@ -16,6 +16,7 @@ import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.FoodFilter;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -213,6 +214,12 @@ public class ModelManager implements Model {
     public void updateFilteredFoodList(Predicate<Food> predicate) {
         requireNonNull(predicate);
         filteredFoods.setPredicate(predicate);
+    }
+
+    @Override
+    public void editFilteredFoodList(List<String> fieldList) {
+        requireNonNull(fieldList);
+        filteredFoods.setPredicate(new FoodFilter(fieldList));
     }
 
     //=========== Recommendation System =============================================================
