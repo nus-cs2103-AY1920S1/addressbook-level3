@@ -5,14 +5,17 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyDukeCooks;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
+import seedu.address.profile.ReadOnlyHealthRecords;
+import seedu.address.profile.ReadOnlyUserPrefs;
+import seedu.address.profile.ReadOnlyUserProfile;
+import seedu.address.profile.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends DukeCooksStorage, UserPrefsStorage {
+public interface Storage extends UserProfileStorage, HealthRecordsStorage, UserPrefsStorage {
+
+    // ================ UserPrefs methods ==============================
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -20,13 +23,26 @@ public interface Storage extends DukeCooksStorage, UserPrefsStorage {
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    @Override
-    Path getDukeCooksFilePath();
+    // ================ UserProfile methods ==============================
 
     @Override
-    Optional<ReadOnlyDukeCooks> readDukeCooks() throws DataConversionException, IOException;
+    Path getUserProfileFilePath();
 
     @Override
-    void saveDukeCooks(ReadOnlyDukeCooks dukeCooks) throws IOException;
+    Optional<ReadOnlyUserProfile> readUserProfile() throws DataConversionException, IOException;
+
+    @Override
+    void saveUserProfile(ReadOnlyUserProfile dukeCooks) throws IOException;
+
+    // ================ Health Records methods ==============================
+
+    @Override
+    Path getHealthRecordsFilePath();
+
+    @Override
+    Optional<ReadOnlyHealthRecords> readHealthRecords() throws DataConversionException, IOException;
+
+    @Override
+    void saveHealthRecords(ReadOnlyHealthRecords healthRecords) throws IOException;
 
 }

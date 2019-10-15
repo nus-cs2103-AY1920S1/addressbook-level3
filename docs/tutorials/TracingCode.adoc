@@ -205,7 +205,7 @@ constructor.
  * {@code JsonSerializableAddressBook}.
  */
 public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-    persons.addAll(
+    userprofile.addAll(
         source.getPersonList()
               .stream()
               .map(JsonAdaptedPerson::new)

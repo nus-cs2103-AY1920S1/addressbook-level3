@@ -7,8 +7,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyDukeCooks;
-import seedu.address.model.person.Person;
+import seedu.address.profile.Model;
+import seedu.address.profile.ReadOnlyUserProfile;
+import seedu.address.profile.person.Person;
+import seedu.address.profile.records.Record;
 
 /**
  * API of the Logic component
@@ -24,19 +26,27 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns DukeCooks.
+     * Returns UserProfile.
      *
-     * @see seedu.address.model.Model#getDukeCooks()
+     * @see Model#getUserProfile()
      */
-    ReadOnlyDukeCooks getDukeCooks();
+    ReadOnlyUserProfile getUserProfile();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered list of records */
+    ObservableList<Record> getFilteredRecordList();
+
     /**
      * Returns the user prefs' Duke Cooks file path.
      */
-    Path getDukeCooksFilePath();
+    Path getUserProfileFilePath();
+
+    /**
+     * Returns the user prefs' Health Records file path.
+     */
+    Path getHealthRecordsFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

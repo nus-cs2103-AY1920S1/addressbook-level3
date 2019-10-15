@@ -1,11 +1,15 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.BLOODTYPE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.DOB_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.HEIGHT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.WEIGHT_DESC;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalProfiles.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -14,18 +18,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddProfileCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyDukeCooks;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.storage.JsonDukeCooksStorage;
+import seedu.address.profile.Model;
+import seedu.address.profile.ModelManager;
+import seedu.address.profile.ReadOnlyUserProfile;
+import seedu.address.profile.UserPrefs;
+import seedu.address.profile.person.Person;
+import seedu.address.storage.JsonHealthRecordsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserProfileStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
 
@@ -40,10 +45,12 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonDukeCooksStorage dukeCooksStorage =
-                new JsonDukeCooksStorage(temporaryFolder.resolve("dukecooks.json"));
+        JsonUserProfileStorage dukeCooksStorage =
+                new JsonUserProfileStorage(temporaryFolder.resolve("dukecooks.json"));
+        JsonHealthRecordsStorage healthRecordsStorage =
+                new JsonHealthRecordsStorage(temporaryFolder.resolve("healthrecords.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(dukeCooksStorage, healthRecordsStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -54,12 +61,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
@@ -67,17 +68,18 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonDukeCooksIoExceptionThrowingStub
-        JsonDukeCooksStorage dukeCooksStorage =
-                new JsonDukeCooksIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
+        // Setup LogicManager with JsonUserProfileIoExceptionThrowingStub
+        JsonUserProfileStorage dukeCooksStorage =
+                new JsonUserProfileIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(dukeCooksStorage, null, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        String addCommand = AddProfileCommand.COMMAND_WORD + NAME_DESC_AMY + DOB_DESC + GENDER_DESC
+                + BLOODTYPE_DESC + HEIGHT_DESC + WEIGHT_DESC;
+        Person expectedPerson = new PersonBuilder(AMY).withMedicalHistories().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
@@ -125,7 +127,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getUserProfile(), model.getHealthRecords(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -145,13 +147,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonDukeCooksIoExceptionThrowingStub extends JsonDukeCooksStorage {
-        private JsonDukeCooksIoExceptionThrowingStub(Path filePath) {
+    private static class JsonUserProfileIoExceptionThrowingStub extends JsonUserProfileStorage {
+        private JsonUserProfileIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveDukeCooks(ReadOnlyDukeCooks dukeCooks, Path filePath) throws IOException {
+        public void saveUserProfile(ReadOnlyUserProfile dukeCooks, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

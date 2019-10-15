@@ -45,7 +45,7 @@ module Slim::Helpers
 
   ##
   # Creates an HTML tag with the given name and optionally attributes. Can take
-  # a block that will run between the opening and closing tags.
+  # a block that will run between the opening and closing medicalHistories.
   #
   # @param name [#to_s] the name of the tag.
   # @param attributes [Hash]
@@ -207,11 +207,11 @@ module Slim::Helpers
     %(<meta name="#{name}" content="#{content}">) if content
   end
 
-  # Returns formatted style/link and script tags for header.
+  # Returns formatted style/link and script medicalHistories for header.
   def styles_and_scripts
     scripts = []
     styles = []
-    tags = []
+    medicalHistories = []
 
     stylesheet = attr :stylesheet
     stylesdir = attr :stylesdir, ''
@@ -280,21 +280,21 @@ module Slim::Helpers
 
     styles.each do |item|
       if item.key?(:text)
-        tags << html_tag(:style, {}, item[:text])
+        medicalHistories << html_tag(:style, {}, item[:text])
       else
-        tags << html_tag(:link, rel: 'stylesheet', href: urlize(*item[:href]))
+        medicalHistories << html_tag(:link, rel: 'stylesheet', href: urlize(*item[:href]))
       end
     end
 
     scripts.each do |item|
       if item.key? :text
-        tags << html_tag(:script, {type: item[:type]}, item[:text])
+        medicalHistories << html_tag(:script, {type: item[:type]}, item[:text])
       else
-        tags << html_tag(:script, type: item[:type], src: urlize(*item[:src]))
+        medicalHistories << html_tag(:script, type: item[:type], src: urlize(*item[:src]))
       end
     end
 
-    tags.join "\n"
+    medicalHistories.join "\n"
   end
 
 end
