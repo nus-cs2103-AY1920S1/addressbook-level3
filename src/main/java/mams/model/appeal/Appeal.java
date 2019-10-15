@@ -22,6 +22,10 @@ public class Appeal {
     public static final String VALIDATION_REGEX_APPEAL_CODE = "C\\d{6}$";
 
     /**
+     * "AY" followed by 4 numbers
+     */
+    public static final String VALIDATION_REGEX_ACADEMIC_YEAR = "AY\\d{4}$";
+    /**
      * "AY" followed by 4 digit year
      */
     public static final String MESSAGE_CONSTRAINTS_ACADEMICYEAR =
@@ -306,6 +310,10 @@ public class Appeal {
         return test.equalsIgnoreCase("increase workload")
                 || test.equalsIgnoreCase("add module")
                 || test.equalsIgnoreCase("remove module");
+    }
+
+    public static boolean isValidAcademicYear(String test) {
+        return test.matches(VALIDATION_REGEX_ACADEMIC_YEAR);
     }
 
 

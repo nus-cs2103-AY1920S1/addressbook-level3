@@ -120,7 +120,7 @@ public class JsonAdaptedAppeal {
         if (academicYear == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Academic year"));
         }
-        if (!Appeal.isValidAppealId(academicYear)) {
+        if (!Appeal.isValidAcademicYear(academicYear)) {
             throw new IllegalValueException(Appeal.MESSAGE_CONSTRAINTS_ACADEMICYEAR);
         }
         final String modelAcademicYear = academicYear;
@@ -132,25 +132,25 @@ public class JsonAdaptedAppeal {
         final String modelAppealDescription = appealDescription;
 
         //Previous module for swapping
-        if (!Module.isValidModuleCode(previousModule)) {
+        if (!previousModule.isEmpty() && !Module.isValidModuleCode(previousModule)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
         }
         final String modelPreviousModule = previousModule;
 
         //New Module for swapping
-        if (!Module.isValidModuleCode(newModule)) {
+        if (!previousModule.isEmpty() && !Module.isValidModuleCode(previousModule)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
         }
         final String modelNewModule = newModule;
 
         //Module requested to be added
-        if (!Module.isValidModuleCode(moduleToAdd)) {
+        if (!previousModule.isEmpty() && !Module.isValidModuleCode(previousModule)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
         }
         final String modelModuleToAdd = moduleToAdd;
 
         //Module requested to be dropped
-        if (!Module.isValidModuleCode(moduleToDrop)) {
+        if (!previousModule.isEmpty() && !Module.isValidModuleCode(previousModule)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
         }
         final String modelModuleToDrop = moduleToDrop;
