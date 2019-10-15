@@ -18,13 +18,15 @@ public class UserViewUpdate {
     }
 
     /**
-     * Retrieves user command's preamble and calls UserViewMain to retrieve the child component of the placeholder pane.
+     * Retrieves user command's preamble and retrieves the respective pane.
      * Clears the current view first and switches to the desired view.
      *
-     * @param commandText the placeholder pane in the view
+     * @param commandText raw command of user
      */
     public void parseUserCommand(String commandText) {
         String preamble = commandText.split(" ")[0];
+
+        assert !(preamble.isEmpty());
 
         paneToRender.getChildren().clear();
 

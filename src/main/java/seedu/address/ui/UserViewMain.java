@@ -8,8 +8,7 @@ import seedu.address.logic.Logic;
 import java.io.IOException;
 
 /**
- * Sets up the controller to dynamically change user views.
- * Defines it's own controller {@code UserViewController}.
+ * Sets up the controller {@code UserViewController} to dynamically change user views.
  */
 public class UserViewMain {
    private static final String FXML = "UserViewMain.fxml";
@@ -21,11 +20,13 @@ public class UserViewMain {
       this.logic = logic;
       FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/view/" + FXML));
       fxmlLoader.load();
+
       userViewController = fxmlLoader.getController();
+      assert userViewController != null;
+
       userViewNavigator = new UserViewNavigator();
 
       UserViewNavigator.setMainController(userViewController);
-
    }
 
    /**

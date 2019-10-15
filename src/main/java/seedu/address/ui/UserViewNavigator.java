@@ -35,8 +35,8 @@ public class UserViewNavigator {
      * @param logic to access the task data
      */
     public void loadDashboard(Logic logic) {
-        projectDashboardView = new ProjectDashboardView(logic.getFilteredTaskListNotStarted(), logic.getFilteredTaskListDoing(),
-                logic.getFilteredTaskListDone());
+        projectDashboardView = new ProjectDashboardView(logic.getFilteredTaskListNotStarted(),
+                logic.getFilteredTaskListDoing(), logic.getFilteredTaskListDone());
         userViewController.setUserView(projectDashboardView);
     }
 
