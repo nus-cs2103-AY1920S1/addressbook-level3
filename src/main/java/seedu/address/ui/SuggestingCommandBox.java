@@ -43,13 +43,13 @@ public class SuggestingCommandBox extends CommandBox {
 
     /**
      * Setup the necessary bindings that will cause the popup to show or hide.
-     * Popup will only be shown when the command TextField is in focus and there are user command suggestions.
+     * Popup will only be shown when the command TextField is in focus and the user has typed something.
      */
     private void bindShowHidePopup() {
         final BooleanExpression isCommandTextFieldFocused = commandTextField.focusedProperty();
-        // final BooleanExpression hasCommandSuggestions = Bindings.size(filteredCommandSuggestions).greaterThan(0);
+        final BooleanExpression hasInput = commandTextField.textProperty().isNotEmpty();
 
-        final BooleanExpression shouldShowPopupExpression = isCommandTextFieldFocused;
+        final BooleanExpression shouldShowPopupExpression = isCommandTextFieldFocused.and(hasInput);
         final Consumer<Window> setupShowHide = window -> {
             shouldShowPopupExpression.addListener((unused1, unused2, shouldShowPopup) -> {
                 if (shouldShowPopup) {
