@@ -17,6 +17,7 @@ import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
+import seedu.algobase.model.task.Task;
 
 /**
  * Represents the in-memory model of the algobase data.
@@ -31,6 +32,7 @@ public class ModelManager implements Model {
     private final FilteredList<Tag> filteredTags;
     private final SortedList<Problem> sortedProblems;
     private final FilteredList<Plan> filteredPlans;
+    private final FilteredList<Task> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given algoBase and userPrefs.
@@ -48,6 +50,7 @@ public class ModelManager implements Model {
         filteredTags = new FilteredList<>(this.algoBase.getTagList());
         sortedProblems = new SortedList<>(filteredProblems);
         filteredPlans = new FilteredList<>(this.algoBase.getPlanList());
+        filteredTasks = new FilteredList<>(this.algoBase.getCurrentTaskList());
     }
 
     public ModelManager() {
@@ -132,7 +135,34 @@ public class ModelManager implements Model {
         algoBase.setProblem(target, editedProblem);
     }
 
-    //=========== Tag ================================================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Problem} backed by the internal list of
+     * {@code versionedAlgoBase}
+     */
+    @Override
+    public ObservableList<Problem> getFilteredProblemList() {
+        return sortedProblems;
+    }
+
+    @Override
+    public void updateFilteredProblemList(Predicate<Problem> predicate) {
+        requireNonNull(predicate);
+        filteredProblems.setPredicate(predicate);
+    }
+
+    /**
+     * Updates the Problem list according to the given {@code problemComparator}.
+     *
+     * @param problemComparator a comparator of problems
+     * @throws NullPointerException if {@code problemComparator} is null;
+     */
+    @Override
+    public void updateSortedProblemList(Comparator<Problem> problemComparator) {
+        requireNonNull(problemComparator);
+        sortedProblems.setComparator(problemComparator);
+    }
+
+    //=========== Tag ===================================================================
 
     @Override
     public boolean hasTag(Tag tag) {
@@ -191,33 +221,19 @@ public class ModelManager implements Model {
         }
     }
 
-    //=========== Filtered Problem List Accessors =============================================================
-
     /**
-     * Returns an unmodifiable view of the list of {@code Problem} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Tag} backed by the internal list of
      * {@code versionedAlgoBase}
      */
     @Override
-    public ObservableList<Problem> getFilteredProblemList() {
-        return sortedProblems;
+    public ObservableList<Tag> getFilteredTagList() {
+        return filteredTags;
     }
 
     @Override
-    public void updateFilteredProblemList(Predicate<Problem> predicate) {
+    public void updateFilteredTagList(Predicate<Tag> predicate) {
         requireNonNull(predicate);
-        filteredProblems.setPredicate(predicate);
-    }
-
-    /**
-     * Updates the Problem list according to the given {@code problemComparator}.
-     *
-     * @param problemComparator a comparator of problems
-     * @throws NullPointerException if {@code problemComparator} is null;
-     */
-    @Override
-    public void updateSortedProblemList(Comparator<Problem> problemComparator) {
-        requireNonNull(problemComparator);
-        sortedProblems.setComparator(problemComparator);
+        filteredTags.setPredicate(predicate);
     }
 
     //========== Plan ===================================================================
@@ -260,6 +276,17 @@ public class ModelManager implements Model {
         filteredPlans.setPredicate(predicate);
     }
 
+    //========== Task ===================================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
+     * {@code versionedAlgoBase}
+     */
+    @Override
+    public ObservableList<Task> getCurrentTaskList() {
+        return filteredTasks;
+    }
+
     //========== Util ===================================================================
 
     @Override
@@ -279,22 +306,5 @@ public class ModelManager implements Model {
         return algoBase.equals(other.algoBase)
                 && userPrefs.equals(other.userPrefs)
                 && filteredProblems.equals(other.filteredProblems);
-    }
-
-    //=========== Filtered Tag List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Tag} backed by the internal list of
-     * {@code versionedAlgoBase}
-     */
-    @Override
-    public ObservableList<Tag> getFilteredTagList() {
-        return filteredTags;
-    }
-
-    @Override
-    public void updateFilteredTagList(Predicate<Tag> predicate) {
-        requireNonNull(predicate);
-        filteredTags.setPredicate(predicate);
     }
 }
