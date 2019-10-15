@@ -171,7 +171,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         }
 
         if (!userTagsAreUnique(userTags)) {
-            // throw new DuplicateTagException();
+            throw new DuplicateTagException();
         }
         internalList.setAll(tags);
         mapTags.clear();

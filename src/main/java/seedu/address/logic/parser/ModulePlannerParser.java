@@ -86,7 +86,7 @@ public class ModulePlannerParser {
 
             case DeleteCommand.COMMAND_WORD:
                 return new DeleteStudyPlanParser().parse(arguments);
-            
+
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
