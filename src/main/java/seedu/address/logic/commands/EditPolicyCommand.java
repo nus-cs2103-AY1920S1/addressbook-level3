@@ -72,6 +72,11 @@ public class EditPolicyCommand extends Command {
         this.editPolicyDescriptor = new EditPolicyDescriptor(editPolicyDescriptor);
     }
 
+    public EditPolicyCommand() {
+        this.index = null;
+        this.editPolicyDescriptor = null;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -122,6 +127,21 @@ public class EditPolicyCommand extends Command {
         return new Policy(updatedName, updatedDescription, updatedCoverage, updatedPrice, updatedStartAge,
                 updatedEndAge, updatedCriteria, updatedTags);
     }
+
+    /**
+     * Performs an edit of one field of a {@code Policy} in the addressbook. This method should only be called by a
+     * {@code MergePolicyConfirmedCommand}/
+     * @param policy Policy in the addressbook.
+     * @param editPolicyDescriptor {@code EditPolicyDescriptor} for policy with updated field.
+     * @param model Model that is used for the address book.
+     * @return The updated {@code Person}.
+     */
+    public Policy executeForMerge(Policy policy, EditPolicyDescriptor editPolicyDescriptor, Model model) {
+        Policy editedPolicy = createEditedPolicy(policy, editPolicyDescriptor);
+        model.setPolicy(policy, editedPolicy);
+        return editedPolicy;
+    }
+
 
     @Override
     public boolean equals(Object other) {
