@@ -87,6 +87,12 @@ public class WasteList implements ReadOnlyWasteList {
 
     //// Waste List Archive operations
 
+    /**
+     * Adds a food item to the waste list archive for a given waste month.
+     *
+     * @param item the food item to be added
+     * @param wm the waste month in concern
+     */
     public void addFoodItemToArchive(GroceryItem item, WasteMonth wm) {
         if (!wasteArchive.containsKey(wm)) {
             createNewWasteMonth(wm);
@@ -95,6 +101,10 @@ public class WasteList implements ReadOnlyWasteList {
         archivedWasteList.add(item);
     }
 
+    /**
+     * Creates a new waste month, unique food list key-value pair in wasteArchive
+     * @param wm the waste month to be created
+     */
     public void createNewWasteMonth(WasteMonth wm) {
         wasteArchive.put(wm, new UniqueFoodList());
     }
