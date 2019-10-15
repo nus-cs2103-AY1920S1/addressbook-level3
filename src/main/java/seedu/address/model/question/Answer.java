@@ -19,14 +19,14 @@ public class Answer {
      */
     public Answer(String answer) {
         requireNonNull(answer);
-        checkArgument(isValidArgument(answer), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidAnswer(answer), MESSAGE_CONSTRAINTS);
         this.answer = answer;
     }
 
     /**
      * Returns true if a given string represents valid answer.
      */
-    public static boolean isValidArgument(String test) {
+    public static boolean isValidAnswer(String test) {
         return test.trim().length() > 0;
     }
 

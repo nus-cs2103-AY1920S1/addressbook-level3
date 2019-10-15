@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.note.exceptions.DuplicateTitleException;
 import seedu.address.model.note.exceptions.NoteNotFoundException;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
@@ -114,6 +113,11 @@ public class TaskList implements Iterable<Task> {
         return internalList.hashCode();
     }
 
+    /**
+     * Marks the selected task as done.
+     *
+     * @param taskDone The task to be marked as done.
+     */
     public void markTaskAsDone(Task taskDone) {
         requireNonNull(taskDone);
 

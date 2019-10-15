@@ -12,6 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
+/**
+ * Marks a task in the task list as done.
+ */
 public class DoneTaskCommand extends Command {
     public static final String COMMAND_WORD = "rdone";
 
@@ -40,7 +43,6 @@ public class DoneTaskCommand extends Command {
         }
 
         Task taskDone = lastShownList.get(targetIndex.getZeroBased());
-//        taskDone.markAsDone();
         model.markTaskAsDone(taskDone);
         model.updateFilteredTaskList(Model.PREDICATE_SHOW_ALL_TASKS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskDone));

@@ -4,10 +4,12 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
+import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.task.Task;
 
@@ -19,7 +21,14 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
+
+    /** {@code Predicate} that always evaluate to false */
+    Predicate<Note> PREDICATE_SHOW_NO_NOTES = unused -> false;
+
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Question> PREDICATE_SHOW_ALL_QUESTIONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -72,7 +81,7 @@ public interface Model {
     void deleteNote(Note target);
 
     /**
-     * Adds the given (not yet existing) lecture note
+     * Adds the given (not yet existing) lecture note.
      */
     void addNote(Note note);
 
@@ -106,6 +115,10 @@ public interface Model {
      */
     void updateFilteredNoteList(Predicate<Note> predicate);
 
+    void getStatistics();
+
+    ObservableList<PieChart.Data> getStatsChartData();
+
     /**
      * Updates the filter of the filtered task list to filter by the given {@code predicate}.
      *
@@ -114,6 +127,39 @@ public interface Model {
     void updateFilteredTaskList(Predicate<Task> predicate);
 
     Note getNote(Note note);
+
+    /**
+     * Returns true if a question with the same identity as {@code question} exists in NUStudy.
+     */
+    boolean hasQuestion(Question question);
+
+    /**
+     * Adds the given question.
+     * {@code question} must not already exist in NUStudy.
+     */
+    void addQuestion(Question question);
+
+    /**
+     * Deletes the given question.
+     * The question must exist in NUStudy.
+     */
+    void deleteQuestion(Question target);
+
+    /**
+     * Replaces the given question {@code target} with {@code editedQuestion}.
+     * {@code target} must exist in NUStudy.
+     * The question body of {@code editedQuestion} must not be the same as another existing question in NUStudy.
+     */
+    void setQuestion(Question target, Question editedQuestion);
+
+    /** Returns an unmodifiable view of the filtered question list */
+    ObservableList<Question> getFilteredQuestionList();
+
+    /**
+     * Updates the filter of the filtered question list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredQuestionList(Predicate<Question> predicate);
 
     /**
      * Sets the question list in quiz with specific {@code subject} and {@code difficulty}.

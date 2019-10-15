@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -16,6 +17,7 @@ import seedu.address.logic.parser.quiz.QuizParser;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
+import seedu.address.model.question.Question;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
@@ -74,6 +76,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Note> getFilteredNoteList() {
         return model.getFilteredNoteList();
+    }
+
+    @Override
+    public ObservableList<PieChart.Data> getStatsChartData() {
+        return model.getStatsChartData();
+    }
+
+    @Override
+    public ObservableList<Question> getFilteredQuestionList() {
+        return model.getFilteredQuestionList();
     }
 
     @Override

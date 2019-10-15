@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -23,6 +24,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
+import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.PersonBuilder;
@@ -174,7 +176,22 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public void getStatistics() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<PieChart.Data> getStatsChartData() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public void updateFilteredTaskList(Predicate<Task> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasQuestion(Question question) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -189,6 +206,11 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public void addQuestion(Question question) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setTask(Task target, Task editedTask) {
             throw new AssertionError("This method should not be called.");
         }
@@ -199,7 +221,32 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public void deleteQuestion(Question target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setQuestion(Question target, Question editedQuestion) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Question> getFilteredQuestionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredQuestionList(Predicate<Question> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void clearQuizQuestionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void markTaskAsDone(Task taskDone) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -245,5 +292,4 @@ public class AddNoteCommandTest {
             return new AddressBook();
         }
     }
-
 }

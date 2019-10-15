@@ -10,7 +10,9 @@ import seedu.address.model.note.Note;
 import seedu.address.model.note.UniqueNoteList;
 import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
+import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
+import seedu.address.model.question.UniqueQuestionList;
 import seedu.address.model.quiz.QuizQuestionList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
@@ -22,6 +24,9 @@ import seedu.address.model.task.TaskList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueNoteList notes;
+
+    private final UniqueQuestionList questions;
+
     private final QuizQuestionList quiz;
     private final TaskList tasks;
 
@@ -35,6 +40,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     {
         notes = new UniqueNoteList();
+
+        questions = new UniqueQuestionList();
+
         quiz = new QuizQuestionList();
         tasks = new TaskList();
     }
@@ -60,12 +68,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the question list with {@code questions}.
+     * {@code questions} must not contain duplicate questions.
+     */
+    public void setQuestions(List<Question> questions) {
+        this.questions.setQuestions(questions);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setNotes(newData.getNoteList());
+        setQuestions(newData.getQuestionList());
         setTasks(newData.getTaskList());
     }
 
@@ -112,6 +129,42 @@ public class AddressBook implements ReadOnlyAddressBook {
         notes.remove(title);
     }
 
+    //// question operations
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    public boolean hasQuestion(Question question) {
+        requireNonNull(question);
+        return questions.contains(question);
+    }
+
+    /**
+     * Adds a question to NUStudy.
+     * The question must not already exist in NUStudy.
+     */
+    public void addQuestion(Question q) {
+        questions.add(q);
+    }
+
+    /**
+     * Replaces the given question {@code target} in the list with {@code editedQuestion}.
+     * {@code target} must exist in NUStudy.
+     * The question body of {@code editedQuestion} must not be the same as another existing question in NUStudy.
+     */
+    public void setQuestion(Question target, Question editedQuestion) {
+        requireNonNull(editedQuestion);
+
+        questions.setQuestion(target, editedQuestion);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeQuestion(Question key) {
+        questions.remove(key);
+    }
+
     // quiz operations
 
     /**
@@ -134,6 +187,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void clearQuizQuestionList() {
         quiz.clearQuizQuestionList();
     }
+
     // util methods
 
     @Override
@@ -148,16 +202,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Question> getQuestionList() {
+        return questions.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && notes.equals(((AddressBook) other).notes)
+                && questions.equals(((AddressBook) other).questions)
                 && tasks.equals(((AddressBook) other).tasks));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(notes, tasks);
+        return Objects.hash(notes, quiz, questions, tasks);
     }
 
     public ObservableList<Task> getTaskList() {

@@ -3,12 +3,14 @@ package seedu.address.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
+import seedu.address.model.question.Question;
 import seedu.address.model.task.Task;
 
 /**
@@ -33,6 +35,11 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of lecture notes */
     ObservableList<Note> getFilteredNoteList();
+
+    ObservableList<PieChart.Data> getStatsChartData();
+
+    /** Returns an unmodifiable view of the filtered list of questions */
+    ObservableList<Question> getFilteredQuestionList();
 
     /**
      * Returns the user prefs' address book file path.

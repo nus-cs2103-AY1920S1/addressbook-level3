@@ -72,6 +72,9 @@ public abstract class Task {
 
     public abstract void setNote(Note note);
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         if (this.isDone) {
             throw new RedundantOperationException("The task has already been marked done");
