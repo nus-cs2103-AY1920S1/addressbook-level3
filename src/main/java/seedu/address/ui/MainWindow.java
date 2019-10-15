@@ -260,8 +260,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * checks which panel the command acts on and switches it
-     * @param input type of panel the result works on
+     * checks which Uichange the command acts on and switches it
      */
     private void performUiChanges(CommandResult input) {
         List<UiChange> listOfUiChange = input.getUiChange();
