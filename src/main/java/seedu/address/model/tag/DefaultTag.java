@@ -1,16 +1,11 @@
 package seedu.address.model.tag;
 
-import java.util.HashSet;
-
-import seedu.address.model.module.Module;
-
 /**
  * Represents a default Tag.
  */
 public class DefaultTag implements Tag {
 
     private DefaultTagType defaultTagType;
-    private HashSet<Module> attachedModules = new HashSet<Module>();
 
     /**
      * Constructs a {@code DefaultTag}.
@@ -18,6 +13,13 @@ public class DefaultTag implements Tag {
      */
     public DefaultTag(DefaultTagType defaultTagType) {
         this.defaultTagType = defaultTagType;
+    }
+
+    /**
+     * Returns true if a given string is a valid tag name.
+     */
+    public static boolean isValidTagName(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     /**

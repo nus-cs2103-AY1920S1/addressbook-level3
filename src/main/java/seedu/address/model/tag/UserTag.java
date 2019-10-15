@@ -11,9 +11,7 @@ import seedu.address.model.tag.exceptions.InvalidTagNameException;
  */
 public class UserTag implements Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric and should not be "
-            + "default tag names";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS = "Tags names should not be default tag names";
 
     private String tagName;
 

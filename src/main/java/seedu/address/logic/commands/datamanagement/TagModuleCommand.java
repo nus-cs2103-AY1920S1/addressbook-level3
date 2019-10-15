@@ -1,7 +1,9 @@
-package seedu.address.logic.commands.tag;
+package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -13,28 +15,26 @@ import seedu.address.model.Model;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.model.tag.DefaultTagType;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
-import seedu.address.model.tag.exceptions.InvalidTagNameException;
 
 /**
  * Adds a tag to a module.
  */
-public class AddTagCommand extends Command {
+public class TagModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "tag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds the specified tag to the specified module. "
         + "Parameters: "
-        + "MODULE CODE "
-        + "TAG_NAME \n"
+        + PREFIX_MODULE_CODE + "MODULE CODE "
+        + PREFIX_TAG + "TAG_NAME \n"
         + "Example: "
-        + "tag CS3230 exchange";
+        + "tag CS3230 t/exchange";
 
-    public static final String MESSAGE_SUCCESS_TAG_ADDED = "New tag created: %1$s \n" + "Tag added to module";
-    public static final String MESSAGE_SUCCESS = "Tag added to module";
+    public static final String MESSAGE_SUCCESS_TAG_ADDED = "New tag created: %1$s \n" + "Tag added to module \n%2$s";
+    public static final String MESSAGE_SUCCESS = "Tag added to module \n%1$s";
     public static final String MESSAGE_EXISTING_TAG = "This tag is already attached to this module";
     public static final String MESSAGE_INVALID_MODULE_CODE = "The provided module code is invalid";
 
@@ -43,10 +43,10 @@ public class AddTagCommand extends Command {
     private boolean newTagCreated = false;
 
     /**
-     * Creates an {@code AddTagCommand} to add a tag with the given name to the module of the given module code.
+     * Creates an {@code TagModuleCommand} to add a tag with the given name to the module of the given module code.
      * @param tagName
      */
-    public AddTagCommand(String tagName, String moduleCode) {
+    public TagModuleCommand(String tagName, String moduleCode) {
         requireAllNonNull(tagName, moduleCode);
         this.tagName = tagName;
         this.moduleCode = moduleCode;
@@ -74,10 +74,10 @@ public class AddTagCommand extends Command {
         module.addTag(toAdd);
 
         if (newTagCreated) {
-            return new CommandResult(String.format(MESSAGE_SUCCESS_TAG_ADDED, toAdd));
+            return new CommandResult(String.format(MESSAGE_SUCCESS_TAG_ADDED, toAdd, module));
         }
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, module));
     }
 
     private boolean moduleContainsTag(Module module, Tag tag) {

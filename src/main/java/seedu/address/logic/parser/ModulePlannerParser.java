@@ -14,13 +14,17 @@ import seedu.address.logic.commands.cli.NameUEFromSemesterCommand;
 import seedu.address.logic.commands.cli.SetCurrentSemesterCommand;
 import seedu.address.logic.commands.datamanagement.FindCommand;
 import seedu.address.logic.commands.gui.HelpCommand;
+import seedu.address.logic.commands.datamanagement.CreateTagCommand;
+import seedu.address.logic.commands.datamanagement.TagModuleCommand;
 import seedu.address.logic.commands.verification.CheckCommand;
 import seedu.address.logic.parser.cli.AddModuleParser;
 import seedu.address.logic.parser.cli.BlockCurrentSemesterParser;
 import seedu.address.logic.parser.cli.DeleteModuleFromSemesterParser;
 import seedu.address.logic.parser.cli.NameUEFromSemesterParser;
 import seedu.address.logic.parser.cli.SetCurrentSemesterParser;
+import seedu.address.logic.parser.datamanagement.CreateTagCommandParser;
 import seedu.address.logic.parser.datamanagement.FindCommandParser;
+import seedu.address.logic.parser.datamanagement.TagModuleCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.verification.CheckCommandParser;
 
@@ -71,6 +75,12 @@ public class ModulePlannerParser {
 
             case CheckCommand.COMMAND_WORD:
                 return new CheckCommandParser().parse(arguments);
+
+            case CreateTagCommand.COMMAND_WORD:
+                return new CreateTagCommandParser().parse(arguments);
+
+            case TagModuleCommand.COMMAND_WORD:
+                return new TagModuleCommandParser().parse(arguments);
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -62,6 +62,10 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         mapTags.put(toAdd.getTagName(), toAdd);
     }
 
+    public ObservableList<Tag> getTags() {
+        return internalUnmodifiableList;
+    }
+
     /**
      * Replaces the UserTag {@code target} in the list with {@code editedTag}.
      * {@code target} must exist in the list.

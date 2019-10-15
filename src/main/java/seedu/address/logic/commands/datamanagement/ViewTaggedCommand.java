@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.tag;
+package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
 

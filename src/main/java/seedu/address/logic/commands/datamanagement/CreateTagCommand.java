@@ -1,13 +1,13 @@
-package seedu.address.logic.commands.tag;
+package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.model.tag.DefaultTagType;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
 
@@ -20,13 +20,13 @@ public class CreateTagCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Creates a new tag type. "
         + "Parameters: "
-        + "TAG_NAME \n"
+        + PREFIX_TAG + "TAG_NAME \n"
         + "Example: "
-        + "newtag exchange";
+        + "newtag t/exchange";
 
     public static final String MESSAGE_SUCCESS = "New tag created: %1$s";
     public static final String MESSAGE_DUPLICATE_TAG = "This tag already exists";
-    public static final String MESSAGE_INVALID_TAG_NAME = "This tag name is reserved for default tags";
+    public static final String MESSAGE_INVALID_TAG_NAME = UserTag.MESSAGE_CONSTRAINTS;
 
     private final String tagName;
 

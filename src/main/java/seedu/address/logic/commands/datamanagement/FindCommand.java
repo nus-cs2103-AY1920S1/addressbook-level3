@@ -14,6 +14,8 @@ import seedu.address.model.studyplan.NameContainsKeywordsPredicate;
  */
 public class FindCommand extends Command {
 
+    //todo modify
+
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all studyPlans whose names contain any of "
