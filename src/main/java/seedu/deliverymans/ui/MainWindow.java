@@ -167,7 +167,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Changes context of system depending on {@code context}
      */
-    private void changeList(Context context) {
+    private void changeContext(Context context) {
         switch (context) {
         case CUSTOMER:
             customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
@@ -202,7 +202,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.getContext() != null) {
-                changeList(commandResult.getContext());
+                changeContext(commandResult.getContext());
             }
 
             if (commandResult.isShowHelp()) {
