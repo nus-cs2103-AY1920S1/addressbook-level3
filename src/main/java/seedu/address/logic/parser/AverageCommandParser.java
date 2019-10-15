@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AverageCommand;
 import seedu.address.logic.commands.exceptions.AverageType;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.record.RecordType;
 
 /**
  * Parses input arguments and creates a new AverageCommand object
@@ -19,13 +20,6 @@ public class AverageCommandParser implements Parser<AverageCommand> {
     private static final String DEFAULT_COUNT_STRING = "5";
 
     private static final String COUNT_REGEX = "[1-9]";
-
-    /**
-     * Type of record that can be used.
-     */
-    public enum RecordType {
-        DIET, EXERCISE, BLOODSUGAR, HEIGHTANDWEIGHT, MEDICALEXPENSES
-    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the AverageCommand

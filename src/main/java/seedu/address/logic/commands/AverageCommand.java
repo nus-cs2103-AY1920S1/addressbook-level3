@@ -17,9 +17,10 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.AverageType;
-import seedu.address.logic.parser.AverageCommandParser.RecordType;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.calendar.DateTime;
+import seedu.address.model.record.RecordType;
 
 /**
  * Shows daily/weekly/monthly average of different record types.
@@ -30,7 +31,7 @@ public class AverageCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows daily/weekly/monthly average of different "
             + "record types.\n"
-            + "Parameters: a/AVERAGE_TYPE r/RECORD_TYPE [n/COUNT]\n"
+            + "Parameters: a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]\n"
             + "Example: " + COMMAND_WORD + " a/daily r/bloodsugar n/5";
 
     public static final String MESSAGE_INVALID_COUNT = "n/COUNT";
@@ -38,6 +39,8 @@ public class AverageCommand extends Command {
     public static final String MESSAGE_INVALID_AVGTYPE = "a/AVERAGE_TYPE";
 
     public static final String MESSAGE_INVALID_RECORDTYPE = "r/RECORD_TYPE";
+
+    public static final String MESSAGE_NO_RECORD = "Sorry! You do not have any %1$s record.";
 
     private static final Map<AverageType, TemporalAdjuster> TIMEADJUSTERS = Map.of(
             AverageType.DAILY, TemporalAdjusters.ofDateAdjuster(date -> date),
@@ -51,30 +54,43 @@ public class AverageCommand extends Command {
 
     private final int count;
 
+    private final Collection<DummyRecord> recordBook;
+
     public AverageCommand(AverageType averageType, RecordType recordType, int count) {
         requireNonNull(averageType);
         requireNonNull(recordType);
         this.averageType = averageType;
         this.recordType = recordType;
         this.count = count;
+        this.recordBook = new ArrayList<>();
+
+        // sample data
+        // TODO: Remove this after integration
+        recordBook.add(new DummyRecord(RecordType.BLOODSUGAR,
+                new DateTime(LocalDate.of(2019, 10, 1), LocalTime.of(12, 24)), 1));
+        recordBook.add(new DummyRecord(RecordType.BLOODSUGAR,
+                new DateTime(LocalDate.of(2019, 10, 2), LocalTime.of(12, 24)), 2));
+        recordBook.add(new DummyRecord(RecordType.BLOODSUGAR,
+                new DateTime(LocalDate.of(2019, 10, 8), LocalTime.of(12, 24)), 3));
+        recordBook.add(new DummyRecord(RecordType.BLOODSUGAR,
+                new DateTime(LocalDate.of(2019, 10, 9), LocalTime.of(12, 24)), 4));
+        recordBook.add(new DummyRecord(RecordType.BLOODSUGAR,
+                new DateTime(LocalDate.of(2019, 9, 15), LocalTime.of(12, 24)), 5));
+        recordBook.add(new DummyRecord(RecordType.BLOODSUGAR,
+                new DateTime(LocalDate.of(2019, 9, 14), LocalTime.of(12, 24)), 6));
+        recordBook.add(new DummyRecord(RecordType.BLOODSUGAR,
+                new DateTime(LocalDate.of(2019, 7, 13), LocalTime.of(12, 24)), 7));
+        recordBook.add(new DummyRecord(RecordType.BLOODSUGAR,
+                new DateTime(LocalDate.of(2019, 6, 12), LocalTime.of(12, 24)), 8));
+        recordBook.add(new DummyRecord(RecordType.MEDICALEXPENSES,
+                new DateTime(LocalDate.of(2019, 10, 11), LocalTime.of(12, 24)), 9));
     }
 
     @Override
-    public CommandResult execute(Model model) {
-        //TODO: Change this to use record book
-        Collection<DummyRecord> recordBooks = new ArrayList<DummyRecord>();
-        recordBooks.add(new DummyRecord(RecordType.BLOODSUGAR, new DateTime(LocalDate.of(2019, 10, 15), LocalTime.of(12,24)),1));
-        recordBooks.add(new DummyRecord(RecordType.BLOODSUGAR, new DateTime(LocalDate.of(2019, 9, 15), LocalTime.of(12,24)), 2));
-        recordBooks.add(new DummyRecord(RecordType.BLOODSUGAR, new DateTime(LocalDate.of(2019, 8, 15), LocalTime.of(12,24)), 3));
-        recordBooks.add(new DummyRecord(RecordType.BLOODSUGAR, new DateTime(LocalDate.of(2019, 7, 15), LocalTime.of(12,24)), 4));
-        recordBooks.add(new DummyRecord(RecordType.BLOODSUGAR, new DateTime(LocalDate.of(2019, 6, 15), LocalTime.of(12,24)), 5));
-        recordBooks.add(new DummyRecord(RecordType.BLOODSUGAR, new DateTime(LocalDate.of(2019, 10, 14), LocalTime.of(12,24)),6));
-        recordBooks.add(new DummyRecord(RecordType.BLOODSUGAR, new DateTime(LocalDate.of(2019, 10, 13), LocalTime.of(12,24)),7));
-        recordBooks.add(new DummyRecord(RecordType.BLOODSUGAR, new DateTime(LocalDate.of(2019, 10, 12), LocalTime.of(12,24)),8));
-        recordBooks.add(new DummyRecord(RecordType.BLOODSUGAR, new DateTime(LocalDate.of(2019, 10, 11), LocalTime.of(12,24)),9));
+    public CommandResult execute(Model model) throws CommandException {
 
         // Remove irrelevant record types
-        Collection<DummyRecord> filteredRecords = recordBooks
+        Collection<DummyRecord> filteredRecords = recordBook
                 .stream().filter(ele -> this.recordType.equals(ele.getRecordType()))
                 .collect(Collectors.toList());
 
@@ -95,8 +111,13 @@ public class AverageCommand extends Command {
         StringJoiner result = new StringJoiner(System.lineSeparator());
 
         averagesTreeMap.entrySet().stream()
+                .limit(count)
                 .forEach(ele -> result.add("average for " + this.recordType + " "
                 + ele.getKey() + " is " + ele.getValue()));
+
+        if (result.toString().isEmpty()) {
+            throw new CommandException(String.format(MESSAGE_NO_RECORD, this.recordType));
+        }
 
         return new CommandResult(String.format(result.toString()));
     }
@@ -113,14 +134,14 @@ public class AverageCommand extends Command {
     /**
      * A dummy class to replace actual implementation of Record class
      */
-    private class DummyRecord {
+    public static class DummyRecord {
         private final RecordType recordType;
 
         private final DateTime dateTime;
 
         private final double value;
 
-        private DummyRecord(RecordType recordType, DateTime dateTime, double value) {
+        public DummyRecord(RecordType recordType, DateTime dateTime, double value) {
             this.recordType = recordType;
             this.dateTime = dateTime;
             this.value = value;
