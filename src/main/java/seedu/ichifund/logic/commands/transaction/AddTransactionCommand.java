@@ -25,20 +25,20 @@ public class AddTransactionCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to IchiFund. "
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
-            + PREFIX_TRANSACTION_TYPE + "TRANSACTION_TYPE "
             + PREFIX_AMOUNT + "AMOUNT "
+            + PREFIX_CATEGORY + "CATEGORY "
             + PREFIX_DAY + "DAY "
             + PREFIX_MONTH + "MONTH "
             + PREFIX_YEAR + "YEAR "
-            + PREFIX_CATEGORY + "CATEGORY "
+            + PREFIX_TRANSACTION_TYPE + "TRANSACTION_TYPE "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Buy lunch "
-            + PREFIX_TRANSACTION_TYPE + "expenditure "
             + PREFIX_AMOUNT + "5.28 "
+            + PREFIX_CATEGORY + "Food "
             + PREFIX_DAY + "5 "
             + PREFIX_MONTH + "10 "
             + PREFIX_YEAR + "2019 "
-            + PREFIX_CATEGORY + "Food ";
+            + PREFIX_TRANSACTION_TYPE + "expenditure ";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
 

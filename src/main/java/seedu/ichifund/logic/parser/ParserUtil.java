@@ -130,22 +130,6 @@ public class ParserUtil {
         return tagSet;
     }
 
-
-    /**
-     * Parses a {@code String category} into a {@code Category}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Category parseCategory(String category) throws ParseException {
-        requireNonNull(category);
-        String trimmedCategory = category.trim();
-        if (!Category.isValidCategory(trimmedCategory)) {
-            throw new ParseException(Category.MESSAGE_CONSTRAINTS);
-        }
-        return new Category(trimmedCategory);
-    }
-
     /**
      * Parses a {@code String description} into a {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
@@ -191,6 +175,21 @@ public class ParserUtil {
             throw new ParseException(Amount.NEGATIVE_AMOUNT_CONSTRAINT);
         }
         return new Amount(trimmedAmount);
+    }
+
+    /**
+     * Parses a {@code String category} into a {@code Category}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static Category parseCategory(String category) throws ParseException {
+        requireNonNull(category);
+        String trimmedCategory = category.trim();
+        if (!Category.isValidCategory(trimmedCategory)) {
+            throw new ParseException(Category.MESSAGE_CONSTRAINTS);
+        }
+        return new Category(trimmedCategory);
     }
 
     /**

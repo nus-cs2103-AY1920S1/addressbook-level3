@@ -7,14 +7,16 @@ import java.util.Objects;
 import seedu.ichifund.model.Description;
 import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Date;
+import seedu.ichifund.model.date.Month;
+import seedu.ichifund.model.date.Year;
 
 /**
  * Represents a Transaction in IchiFund.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Transaction {
-    private final Amount amount;
     private final Description description;
+    private final Amount amount;
     private final Category category;
     private final Date date;
     private final TransactionType transactionType;
@@ -32,12 +34,12 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
-    public Amount getAmount() {
-        return amount;
-    }
-
     public Description getDescription() {
         return description;
+    }
+
+    public Amount getAmount() {
+        return amount;
     }
 
     public Category getCategory() {
@@ -56,6 +58,18 @@ public class Transaction {
         return transactionType.isExpenditure();
     }
 
+    public boolean isIn(Month month) {
+        return getDate().isIn(month);
+    }
+
+    public boolean isIn(Year year) {
+        return getDate().isIn(year);
+    }
+
+    public boolean isIn(Category category) {
+        return getCategory().equals(category);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -71,13 +85,13 @@ public class Transaction {
                 && otherTransaction.getAmount().equals(getAmount())
                 && otherTransaction.getCategory().equals(getCategory())
                 && otherTransaction.getDate().equals(getDate())
-                && (otherTransaction.isExpenditure() == isExpenditure());
+                && otherTransaction.getTransactionType().equals(getTransactionType());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(amount, description, category, date, transactionType);
+        return Objects.hash(description, amount, category, date, transactionType);
     }
 
     @Override
@@ -89,7 +103,9 @@ public class Transaction {
                 .append(" Category: ")
                 .append(getCategory())
                 .append(" Date: ")
-                .append(getDate());
+                .append(getDate())
+                .append(" Transaction Type: ")
+                .append(getTransactionType());
         return builder.toString();
     }
 

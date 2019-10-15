@@ -18,10 +18,12 @@ import seedu.ichifund.logic.commands.ListCommand;
 import seedu.ichifund.logic.commands.budget.AddBudgetCommand;
 import seedu.ichifund.logic.commands.budget.DeleteBudgetCommand;
 import seedu.ichifund.logic.commands.transaction.AddTransactionCommand;
+import seedu.ichifund.logic.commands.transaction.FilterTransactionCommand;
 import seedu.ichifund.logic.parser.budget.AddBudgetCommandParser;
 import seedu.ichifund.logic.parser.budget.DeleteBudgetCommandParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.logic.parser.transaction.AddTransactionCommandParser;
+import seedu.ichifund.logic.parser.transaction.FilterTransactionCommandParser;
 
 /**
  * Parses user input.
@@ -76,6 +78,9 @@ public class IchiFundParser {
 
         case AddTransactionCommand.COMMAND_WORD:
             return new AddTransactionCommandParser().parse(arguments);
+
+        case FilterTransactionCommand.COMMAND_WORD:
+            return new FilterTransactionCommandParser().parse(arguments);
 
         case AddBudgetCommand.COMMAND_WORD:
             return new AddBudgetCommandParser().parse(arguments);

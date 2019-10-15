@@ -41,11 +41,11 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
      */
     public AddTransactionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_DAY,
-                        PREFIX_MONTH, PREFIX_YEAR, PREFIX_CATEGORY, PREFIX_TRANSACTION_TYPE);
+                ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_AMOUNT, PREFIX_CATEGORY, PREFIX_DAY,
+                        PREFIX_MONTH, PREFIX_YEAR, PREFIX_TRANSACTION_TYPE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_DAY,
-                PREFIX_MONTH, PREFIX_YEAR, PREFIX_CATEGORY, PREFIX_TRANSACTION_TYPE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_AMOUNT, PREFIX_CATEGORY, PREFIX_DAY,
+                PREFIX_MONTH, PREFIX_YEAR, PREFIX_TRANSACTION_TYPE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddTransactionCommand.MESSAGE_USAGE));
