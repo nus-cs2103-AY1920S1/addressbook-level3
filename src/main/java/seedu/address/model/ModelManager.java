@@ -26,7 +26,7 @@ public class ModelManager implements Model {
     private WordBank wordBank;
     private final WordBankList wordBankList;
     private final UserPrefs userPrefs;
-    private final FilteredList<Card> filteredCards;
+    private FilteredList<Card> filteredCards;
     private final FilteredList<WordBank> filteredWordBanks;
 
     //Placeholder game model
@@ -103,6 +103,7 @@ public class ModelManager implements Model {
     @Override
     public void setWordBank(ReadOnlyWordBank wordBank) {
         this.wordBank = (WordBank) wordBank;
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
 //        this.wordBank.resetData(wordBank);
     }
 
@@ -124,11 +125,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addCard(Card card) {
-        System.out.println("at addCard" + wordBank.getName());
         wordBank.addCard(card);
-        for (Card c : wordBank.getCardList()) {
-            System.out.println(c);
-        }
         updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
     }
 
@@ -167,15 +164,14 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
-        System.out.println("Within the filtered cardlist");
-        for (Card c : filteredCards) {
+        System.out.println("++++++++++");
+        System.out.println(wordBank.getName());
+        for(Card c : filteredCards) {
             System.out.println(c);
         }
         filteredCards.setPredicate(predicate);
-        System.out.println("after the filtered cardlist");
-        for (Card c : filteredCards) {
-            System.out.println(c);
-        }
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        System.out.println("++++++++++");
     }
 
     @Override
