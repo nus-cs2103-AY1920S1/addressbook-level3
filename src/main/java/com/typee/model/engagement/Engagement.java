@@ -9,17 +9,17 @@ import com.typee.model.person.Person;
  * Represents a generalization of meetings, interviews and appointments.
  */
 public abstract class Engagement {
-    protected LocalDateTime start;
-    protected LocalDateTime end;
-    protected List<Person> attendees;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
+    protected AttendeeList attendees;
     protected Location location;
     protected String description;
     protected Priority priority;
 
     protected Engagement(LocalDateTime start, LocalDateTime end,
-                         List<Person> attendees, Location location, String description, Priority priority) {
-        this.start = start;
-        this.end = end;
+                         AttendeeList attendees, Location location, String description, Priority priority) {
+        this.startTime = start;
+        this.endTime = end;
         this.attendees = attendees;
         this.location = location;
         this.description = description;
@@ -28,7 +28,7 @@ public abstract class Engagement {
 
     public static Engagement of(EngagementType type,
                                 LocalDateTime start, LocalDateTime end,
-                                List<Person> attendees, Location location, String description,
+                                AttendeeList attendees, Location location, String description,
                                 Priority priority) {
         if (type.name().equalsIgnoreCase("meeting")) {
             return new Meeting(start, end, attendees, location, description, priority);
@@ -39,27 +39,27 @@ public abstract class Engagement {
         }
     }
 
-    public LocalDateTime getStart() {
-        return start;
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
-    public void setStart(LocalDateTime start) {
-        this.start = start;
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 
-    public LocalDateTime getEnd() {
-        return end;
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 
-    public void setEnd(LocalDateTime end) {
-        this.end = end;
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
-    public List<Person> getAttendees() {
+    public AttendeeList getAttendees() {
         return attendees;
     }
 
-    public void setAttendees(List<Person> attendees) {
+    public void setAttendees(AttendeeList attendees) {
         this.attendees = attendees;
     }
 
@@ -88,8 +88,8 @@ public abstract class Engagement {
     }
 
     public boolean isSameEngagement(Engagement engagement) {
-        return engagement.end.equals(end)
-                && engagement.start.equals(start)
+        return engagement.endTime.equals(endTime)
+                && engagement.startTime.equals(startTime)
                 && engagement.location.equals(location);
     }
 }

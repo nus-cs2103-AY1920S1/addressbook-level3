@@ -48,8 +48,8 @@ public class PersonCard extends UiPart<Region> {
         this.engagement = engagement;
         id.setText(displayedIndex + ". ");
         type.setText(engagement.getClass().getSimpleName());
-        startTime.setText(engagement.getStart().toString());
-        endTime.setText(engagement.getEnd().toString());
+        startTime.setText(engagement.getStartTime().toString());
+        endTime.setText(engagement.getEndTime().toString());
         locationOfEngagement.setText(engagement.getLocation().toString());
         priority.setText(engagement.getPriority().name());
         attendees.setText(engagement.getAttendees().toString());

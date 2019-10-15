@@ -7,10 +7,10 @@ import java.util.List;
 public class Meeting extends Engagement {
 
     protected Meeting(LocalDateTime start, LocalDateTime end,
-                      List<Person> attendees, Location location, String description, Priority priority) {
+                      AttendeeList attendees, Location location, String description, Priority priority) {
         super(start, end, attendees, location, description, priority);
-        this.start = start;
-        this.end = end;
+        this.startTime = start;
+        this.endTime = end;
         this.attendees = attendees;
         this.location = location;
         this.description = description;
@@ -20,6 +20,6 @@ public class Meeting extends Engagement {
     @Override
     public String toString() {
         return String.format("Meeting of %s priority from %s to %s at %s.", priority.toString(),
-                start.toString(), end.toString(), location.toString());
+                startTime.toString(), endTime.toString(), location.toString());
     }
 }

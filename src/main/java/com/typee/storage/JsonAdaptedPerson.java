@@ -3,15 +3,14 @@ package com.typee.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.typee.commons.exceptions.IllegalValueException;
+import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.EngagementType;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
-import com.typee.model.person.Name;
 import com.typee.model.person.Person;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -53,8 +52,8 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Engagement source) {
         engagementType = source.getClass().getSimpleName();
-        startTime = source.getStart().toString();
-        endTime = source.getEnd().toString();
+        startTime = source.getStartTime().toString();
+        endTime = source.getEndTime().toString();
         location = source.getLocation().toString();
         description = source.getDescription();
         attendees = source.getAttendees().toString();
@@ -70,7 +69,7 @@ class JsonAdaptedPerson {
         // TODO : Date validation.
         final EngagementType modelType = validateAndGetEngagementType();
         final Location modelLocation = validateAndGetLocation();
-        final List<Person> modelAttendees = validateAndGetAttendees();
+        final AttendeeList modelAttendees = validateAndGetAttendees();
         final Priority modelPriority = validateAndGetPriority();
         final String modelDescription = validateAndGetDescription();
 
@@ -92,14 +91,16 @@ class JsonAdaptedPerson {
         return Priority.of(priority);
     }
 
-    private List<Person> validateAndGetAttendees() throws IllegalValueException {
+    private AttendeeList validateAndGetAttendees() throws IllegalValueException {
         if (attendees == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, List.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    AttendeeList.class.getSimpleName()));
         }
-        if (attendees.isBlank() || attendees.equalsIgnoreCase(EMPTY_LIST)) {
-            throw new IllegalValueException("Invalid person list!");
+        if (!AttendeeList.isValid(attendees)) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    AttendeeList.MESSAGE_CONSTRAINTS));
         }
-        return new ArrayList<>();
+        return AttendeeList.getListGivenValidInput(attendees);
     }
 
     private Location validateAndGetLocation() throws IllegalValueException {
