@@ -7,6 +7,7 @@ import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
+import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 import io.xpire.model.util.SampleDataUtil;
@@ -19,17 +20,20 @@ public class ItemBuilder {
     public static final String DEFAULT_NAME = "Kiwi";
     public static final String DEFAULT_QUANTITY = "1";
     public static final String DEFAULT_EXPIRY_DATE = "01/02/2020";
+    private static final String DEFAULT_REMINDER_THRESHOLD = "1";
 
     private Name name;
     private ExpiryDate expiryDate;
     private Quantity quantity;
     private Set<Tag> tags;
+    private ReminderThreshold reminderThreshold;
 
     public ItemBuilder() {
         name = new Name(DEFAULT_NAME);
         expiryDate = new ExpiryDate(DEFAULT_EXPIRY_DATE);
         quantity = new Quantity(DEFAULT_QUANTITY);
         tags = new TreeSet<>(new TagComparator());
+        reminderThreshold = new ReminderThreshold(DEFAULT_REMINDER_THRESHOLD);
     }
 
     /**
@@ -42,6 +46,7 @@ public class ItemBuilder {
         TreeSet<Tag> set = new TreeSet<>(new TagComparator());
         set.addAll(itemToCopy.getTags());
         tags = set;
+        reminderThreshold = itemToCopy.getReminderThreshold();
     }
 
     /**
@@ -76,8 +81,21 @@ public class ItemBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code ReminderThreshold} of the {@code Item} that we are building.
+     */
+    public ItemBuilder withThreshold(String reminderThreshold) {
+        this.reminderThreshold = new ReminderThreshold(reminderThreshold);
+        return this;
+    }
+
+    /**
+     * Constructs a new {@code Item} with the modified fields.
+     */
     public Item build() {
-        return new Item(name, expiryDate, quantity, tags);
+        Item newItem = new Item(name, expiryDate, quantity, tags);
+        newItem.setReminderThreshold(reminderThreshold);
+        return newItem;
     }
 
 }

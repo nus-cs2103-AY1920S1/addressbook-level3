@@ -3,12 +3,15 @@ package io.xpire.model.item;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import io.xpire.commons.util.DateUtil;
+
 /**
  * Represents an Item's reminder date in the expiry date tracker.
  */
 public class ReminderDate {
 
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final String DATE_FORMAT = "d/M/yyyy";
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
     private LocalDate date;
 
@@ -25,9 +28,16 @@ public class ReminderDate {
         return this.date;
     }
 
+    /**
+     * Returns true if a given string is a valid expiry date with format d/M/yyyy.
+     */
+    public static boolean isValidReminderDate(String date) {
+        return DateUtil.convertStringToDate(date, DATE_FORMAT) != null;
+    }
+
     @Override
     public String toString() {
-        return "Reminder on: " + this.date.format(DATE_FORMAT);
+        return "Reminder on: " + this.date.format(DATE_FORMATTER);
     }
 
     @Override

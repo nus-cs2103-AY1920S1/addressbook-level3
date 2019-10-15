@@ -14,6 +14,8 @@ public class ReminderThreshold {
 
     public static final String MESSAGE_CONSTRAINTS = "Reminder threshold should be a non-negative integer.";
 
+    public static final int MAX_VALUE = 36500;
+
     private final int reminderThreshold;
 
     /**
@@ -31,7 +33,7 @@ public class ReminderThreshold {
      * Returns true if a given integer is a valid reminder threshold.
      */
     public static boolean isValidReminderThreshold(String test) {
-        return StringUtil.isNonNegativeInteger(test);
+        return StringUtil.isNonNegativeInteger(test) && Integer.parseInt(test) <= MAX_VALUE;
     }
 
     public int getValue() {

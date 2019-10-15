@@ -25,17 +25,17 @@ public class CommandTestUtil {
     public static final String VALID_NAME_KIWI = "Kiwi";
     public static final String VALID_NAME_APPLE = "Apple";
     public static final String VALID_NAME_BANANA = "Banana";
-    public static final String VALID_NAME_MILK = "Milk";
+    public static final String VALID_NAME_EXPIRED_MILK = "Milk";
 
     public static final String VALID_EXPIRY_DATE_KIWI = "1/2/2020";
     public static final String VALID_EXPIRY_DATE_APPLE = "1/2/2020";
     public static final String VALID_EXPIRY_DATE_BANANA = "1/2/2020";
-    public static final String VALID_EXPIRY_DATE_MILK = "1/2/2020";
+    public static final String VALID_EXPIRY_DATE_EXPIRED_MILK = "1/2/2020";
 
     public static final String VALID_QUANTITY_KIWI = "2";
     public static final String VALID_QUANTITY_APPLE = "1";
     public static final String VALID_QUANTITY_BANANA = "5";
-    public static final String VALID_QUANTITY_MILK = "2";
+    public static final String VALID_QUANTITY_EXPIRED_MILK = "2";
 
     public static final String VALID_TAG_FRUIT = "fruit";
     public static final String VALID_TAG_DRINK = "drinks";
@@ -44,12 +44,13 @@ public class CommandTestUtil {
     public static final String NAME_DESC_KIWI = " " + CliSyntax.PREFIX_NAME + VALID_NAME_KIWI;
     public static final String NAME_DESC_APPLE = " " + CliSyntax.PREFIX_NAME + VALID_NAME_APPLE;
     public static final String NAME_DESC_BANANA = " " + CliSyntax.PREFIX_NAME + VALID_NAME_BANANA;
-    public static final String NAME_DESC_MILK = " " + CliSyntax.PREFIX_NAME + VALID_NAME_MILK;
+    public static final String NAME_DESC_EXPIRED_MILK = " " + CliSyntax.PREFIX_NAME + VALID_NAME_EXPIRED_MILK;
 
     public static final String EXPIRY_DATE_DESC_KIWI = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_KIWI;
     public static final String EXPIRY_DATE_DESC_APPLE = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_APPLE;
     public static final String EXPIRY_DATE_DESC_BANANA = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_BANANA;
-    public static final String EXPIRY_DATE_DESC_MILK = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_MILK;
+    public static final String EXPIRY_DATE_DESC_EXPIRED_MILK = " "
+            + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_EXPIRED_MILK;
     public static final String TAG_DESC_FRUIT = " " + CliSyntax.PREFIX_TAG + VALID_TAG_FRUIT;
     public static final String TAG_DESC_DRINK = " " + CliSyntax.PREFIX_TAG + VALID_TAG_DRINK;
     public static final String TAG_DESC_GREEN = " " + CliSyntax.PREFIX_TAG + VALID_TAG_GREEN;

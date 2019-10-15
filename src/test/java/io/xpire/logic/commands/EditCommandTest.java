@@ -3,11 +3,11 @@ package io.xpire.logic.commands;
 
 import static io.xpire.logic.commands.CommandTestUtil.DESC_APPLE;
 import static io.xpire.logic.commands.CommandTestUtil.DESC_KIWI;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_MILK;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_EXPIRED_MILK;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_APPLE;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_KIWI;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_MILK;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_MILK;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_EXPIRED_MILK;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_EXPIRED_MILK;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
@@ -59,12 +59,13 @@ public class EditCommandTest {
         Item lastItem = model.getFilteredItemList().get(indexLastItem.getZeroBased());
 
         ItemBuilder itemInList = new ItemBuilder(lastItem);
-        Item editedItem = itemInList.withName(VALID_NAME_MILK).withExpiryDate(VALID_EXPIRY_DATE_MILK)
-                            .withQuantity(VALID_QUANTITY_MILK).build();
+        Item editedItem = itemInList.withName(VALID_NAME_EXPIRED_MILK).withExpiryDate(VALID_EXPIRY_DATE_EXPIRED_MILK)
+                            .withQuantity(VALID_QUANTITY_EXPIRED_MILK).build();
 
-        EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_MILK)
-                                                                       .withExpiryDate(VALID_EXPIRY_DATE_MILK)
-                                                                       .withQuantity(VALID_QUANTITY_MILK).build();
+        EditItemDescriptor descriptor = new EditItemDescriptorBuilder().withName(VALID_NAME_EXPIRED_MILK)
+                                                                       .withExpiryDate(VALID_EXPIRY_DATE_EXPIRED_MILK)
+                                                                       .withQuantity(VALID_QUANTITY_EXPIRED_MILK)
+                                                                       .build();
 
         EditCommand editCommand = new EditCommand(indexLastItem, descriptor);
 
