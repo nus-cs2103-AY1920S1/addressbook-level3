@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.semester.Semester;
+import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 
 /**
@@ -67,6 +69,12 @@ public interface Model {
     StudyPlan getActiveStudyPlan();
 
     /**
+     * Activates the first study plan in the list. If the list is null, prompts the user.
+     * Returns true if successful, and returns false if no study plan exists.
+     */
+    boolean activateFirstStudyPlan();
+
+    /**
      * Returns an activated study plan with the given index populated with relevant details.
      */
     StudyPlan activateStudyPlan(int index);
@@ -102,4 +110,62 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredStudyPlanList(Predicate<StudyPlan> predicate);
+
+    // ===================== VERSION TRACKING ==========================
+
+    /**
+     * Commits the current active study plan with a commit message.
+     */
+    void commitActiveStudyPlan(String commitMessage);
+
+
+    // ===================== MODULE INFORMATION ==========================
+
+    /**
+     * Returns true if the module code is a valid, false otherwise.
+     */
+    boolean isValidModuleCode(String moduleCode);
+
+    /**
+     * Returns the ModulesInfo object in the module planner.
+     */
+    ModulesInfo getModulesInfo();
+
+    /**
+     * Returns the module information.
+     */
+    String getModuleInformation(String moduleCode);
+
+
+    /**
+     * Returns true if a Semester contains a module with same identity as {@code module}.
+     */
+    boolean semesterHasModule(String moduleCode, SemesterName semesterName);
+
+    /**
+     * Adds specified module to specified semester
+     */
+    void addModule(String moduleCode, SemesterName sem);
+
+    /**
+     * Blocks specified semester with given reason
+     */
+    void blockSemester(SemesterName sem, String reason);
+
+    /**
+     * Removes module from semester
+     */
+    void removeModule(String moduleCode, SemesterName semesterName);
+
+    /**
+     * Checks whether or not the specified semester contains a UE
+     */
+    boolean semesterHasUe(SemesterName semesterName);
+
+    void renameUeInSemester(SemesterName semesterName, String moduleCode);
+
+    void setSemester(SemesterName semester);
+
+    Semester getSemester(SemesterName semesterName);
+
 }

@@ -6,7 +6,7 @@ import seedu.address.model.studyplan.StudyPlan;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code ModulePlanner ab = new ModulePlannerBuilder().withStudyPlan("John", "Doe").build();}
+ * {@code ModulePlanner ab = new ModulePlannerBuilder().withStudyPlan("John", "Doe").build();}
  */
 public class ModulePlannerBuilder {
 

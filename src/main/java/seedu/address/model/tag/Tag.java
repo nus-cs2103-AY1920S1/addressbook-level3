@@ -5,12 +5,17 @@ package seedu.address.model.tag;
  */
 public interface Tag {
 
-    public boolean isDefault();
+    String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
+    String VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public boolean canBeRenamed();
+    boolean isDefault();
 
-    public boolean isSameTag(Tag other);
+    boolean isSameTag(Tag other);
 
-    public String getTagName();
+    String getTagName();
+
+    static boolean isValidTagName(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
 
 }

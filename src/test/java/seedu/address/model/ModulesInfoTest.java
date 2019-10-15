@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalModulesInfo.CS2040S;
 import static seedu.address.testutil.TypicalModulesInfo.getTypicalModulesInfo;
 
-import java.util.HashSet;
-
 import org.junit.jupiter.api.Test;
+
+//import java.util.HashSet;
 
 public class ModulesInfoTest {
 
@@ -30,6 +30,7 @@ public class ModulesInfoTest {
         assertEquals(moduleInfo, CS2040S);
     }
 
+    /*
     @Test
     public void getFocusAreaNames_returnsAllNames() {
         HashSet<String> set = modulesInfo.getFocusAreaNames();
@@ -38,4 +39,5 @@ public class ModulesInfoTest {
         expectedSet.add("MIR");
         assertEquals(set, expectedSet);
     }
+     */
 }

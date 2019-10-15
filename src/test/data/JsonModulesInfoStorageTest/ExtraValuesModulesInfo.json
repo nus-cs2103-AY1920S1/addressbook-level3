@@ -5,13 +5,11 @@
       "name": "Data Structures and Algorithms",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "extra": "look at me!",
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "CS2040S description",
       "prereqTreeString": "(AND CS1231S CS1101S)"
@@ -21,13 +19,12 @@
       "name": "Natural Language Processing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI",
         "MIR"
       ],
       "focusElectives": [
-
       ],
       "extra": "extra bullshit",
       "description": "CS4248 description",

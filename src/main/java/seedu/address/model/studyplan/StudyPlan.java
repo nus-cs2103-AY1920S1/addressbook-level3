@@ -10,10 +10,13 @@ import seedu.address.model.ModulesInfo;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.Name;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.semester.UniqueSemesterList;
+import seedu.address.model.semester.exceptions.SemesterAlreadyBlockedException;
 import seedu.address.model.semester.exceptions.SemesterNotFoundException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -21,11 +24,10 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class StudyPlan implements Cloneable {
 
-    private static int totalNumberOfStudyPlans = 0; // TODO: will this reset to zero every time application restarts?
+    private static int totalNumberOfStudyPlans = 0;
 
     private UniqueSemesterList semesters;
     private Title title;
-    private boolean isActive;
     private int index; // unique identifier of this study plan
 
     // the "Mega-List" of modules of this study plan. All modules in an *active* study plan refer to a module here.
@@ -50,11 +52,9 @@ public class StudyPlan implements Cloneable {
         setDefaultSemesters();
 
         // switch the current active plan to the newly created one. Reason: user can directly add modules to it.
-        this.isActive = true;
 
-        // add all default tags
-        // TODO: initialise it
         tags = new UniqueTagList();
+        tags.initDefaultTags();
 
         setMegaModuleHashMap(modulesInfo);
 
@@ -62,20 +62,18 @@ public class StudyPlan implements Cloneable {
         this.index = totalNumberOfStudyPlans;
     }
 
-
     /**
      * This constructor is used for {@code JsonAdaptedStudyPlan}.
      */
-    public StudyPlan(Title modelTitle, int modelIndex, boolean modelIsActive, List<Semester> modelSemesters,
-                     HashMap<String, Module> modelModules, UniqueTagList modelTags) {
+    public StudyPlan(Title modelTitle, int modelIndex, List<Semester> modelSemesters,
+                     HashMap<String, Module> modelModules, List<Tag> modelTags) {
         title = modelTitle;
         index = modelIndex;
-        isActive = modelIsActive;
         semesters = new UniqueSemesterList();
         semesters.setSemesters(modelSemesters);
-
         modules = modelModules;
-        tags = modelTags;
+        tags = new UniqueTagList();
+        tags.setTags(modelTags);
     }
 
     // make a copy of the current study without incrementing the index, for version tracking commits
@@ -85,14 +83,6 @@ public class StudyPlan implements Cloneable {
 
     public void setTitle(Title title) {
         this.title = title;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public boolean isActive() {
-        return isActive;
     }
 
     public Title getTitle() {
@@ -117,6 +107,14 @@ public class StudyPlan implements Cloneable {
         return tags;
     }
 
+    public static int getTotalNumberOfStudyPlans() {
+        return totalNumberOfStudyPlans;
+    }
+
+    public static void setTotalNumberOfStudyPlans(int totalNumberOfStudyPlans) {
+        StudyPlan.totalNumberOfStudyPlans = totalNumberOfStudyPlans;
+    }
+
     /**
      * Populates the unique semester list with the 8 semesters in the normal 4-year candidature. These
      * semesters will be empty initially.
@@ -137,11 +135,54 @@ public class StudyPlan implements Cloneable {
      */
     private Module convertModuleInfoToModule(ModuleInfo moduleInfo) {
         // TODO: Yi Wai: assign default tags to the result (Module).
-
+        UniqueTagList moduleTagList = assignDefaultTags(moduleInfo);
         Name name = new Name(moduleInfo.getName());
         ModuleCode moduleCode = new ModuleCode(moduleInfo.getCode());
         int mcCount = moduleInfo.getMc();
-        return new Module(name, moduleCode, mcCount, Color.RED, new UniqueTagList());
+        return new Module(name, moduleCode, mcCount, Color.RED, moduleTagList);
+    }
+
+    /**
+     * Returns a {@code UniqueTagList} with the default tags attached to the module with the given module info.
+     *
+     * @param moduleInfo The module info of the module.
+     * @return A {@code UniqueTagList} with the default tags.
+     */
+    private UniqueTagList assignDefaultTags(ModuleInfo moduleInfo) {
+        UniqueTagList moduleTagList = new UniqueTagList();
+        UniqueTagList studyPlanTagList = getTags();
+        List<String> focusPrimaries = moduleInfo.getFocusPrimaries();
+        List<String> focusElectives = moduleInfo.getFocusElectives();
+        for (String focusPrimary : focusPrimaries) {
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusPrimary + ":P"));
+        }
+        for (String focusElective : focusElectives) {
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag(focusElective + ":E"));
+        }
+        boolean canSu = moduleInfo.getSuEligibility();
+        if (canSu) {
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag("S/U-able"));
+        }
+        Semester locationOfModule;
+        for (Semester semester : semesters) {
+            UniqueModuleList uniqueModuleList = semester.getModules();
+            for (Module module : uniqueModuleList) {
+                if (module.getName().equals(moduleInfo.getName())) {
+                    locationOfModule = semester;
+                    break;
+                }
+            }
+        }
+        /*
+        // For setting completed tag
+        // Needs current semester to work
+        if (semesterNameComparator.compare(locationOfModule, currentSemester) < 0) {
+            moduleTagList.addTag(studyPlanTagList.getDefaultTag("Completed"));
+        }
+         */
+        //TODO add core, ue?, ulr? tags
+
+        return moduleTagList;
     }
 
     private void setMegaModuleHashMap(ModulesInfo modulesInfo) {
@@ -156,18 +197,17 @@ public class StudyPlan implements Cloneable {
     /**
      * Adds a module to a semester, given the {@code ModuleCode} and {@code SemesterName}.
      *
-     * @param moduleCode module code of the module to be added.
+     * @param moduleCode   module code of the module to be added.
      * @param semesterName semester name of the target semester.
      * @throws SemesterNotFoundException
      */
     public void addModuleToSemester(ModuleCode moduleCode, SemesterName semesterName)
             throws SemesterNotFoundException {
         Semester targetSemester = null;
-        Iterator<Semester> semesterIterator = semesters.iterator();
-        while (semesterIterator.hasNext()) {
-            Semester semester = semesterIterator.next();
+        for (Semester semester : semesters) {
             if (semester.getSemesterName().equals(semesterName)) {
                 targetSemester = semester;
+                break;
             }
         }
         if (targetSemester == null) {
@@ -175,25 +215,30 @@ public class StudyPlan implements Cloneable {
         }
 
         Module moduleToAdd = modules.get(moduleCode.toString());
-
         targetSemester.addModule(moduleToAdd);
-    }
-
-    /**
-     * Sets the current semester. The user cannot change any module before the current semester. But they can
-     * still change those in the current semester and after the current semester.
-     */
-    public void setCurrentSemester() {
-        // TODO: implement this
     }
 
     /**
      * Blocks a semester with the given {@code SemesterName} so that the user cannot add modules to that semester.
      * The user can enter a reason for blocking it (e.g. NOC, internship).
      */
-    public void blockSemester(SemesterName semesterName, String reasonForBlock) {
-        // TODO: implement this
-
+    public void blockSemester(SemesterName semesterName, String reasonForBlock) throws SemesterNotFoundException {
+        Semester semesterToBlock = null;
+        Iterator<Semester> iterator = semesters.iterator();
+        while (iterator.hasNext()) {
+            Semester semester = iterator.next();
+            if (semester.getSemesterName().equals(semesterName)) {
+                semesterToBlock = semester;
+            }
+        }
+        if (semesterToBlock == null) {
+            throw new SemesterNotFoundException();
+        }
+        if (semesterToBlock.isBlocked()) {
+            throw new SemesterAlreadyBlockedException();
+        }
+        semesterToBlock.setBlocked(true);
+        semesterToBlock.setReasonForBlocked(reasonForBlock);
     }
 
     /**
@@ -214,7 +259,6 @@ public class StudyPlan implements Cloneable {
         StudyPlan clone = (StudyPlan) super.clone();
         clone.semesters = semesters.clone();
         clone.title = title.clone();
-        clone.isActive = isActive;
         clone.index = index;
 
         // because of this, the mega-lists fields don't have final keyword
@@ -229,10 +273,11 @@ public class StudyPlan implements Cloneable {
     }
 
     @Override
+    // TODO: this currently compares only the index. Does this need to be modified?
     public boolean equals(Object other) {
         if (other instanceof StudyPlan) {
-            return this.index == ((StudyPlan) other).index
-                    && this.semesters.equals(((StudyPlan) other).getSemesters());
+            return this.index == ((StudyPlan) other).index;
+            //&& this.semesters.equals(((StudyPlan) other).getSemesters());
         } else {
             return false;
         }

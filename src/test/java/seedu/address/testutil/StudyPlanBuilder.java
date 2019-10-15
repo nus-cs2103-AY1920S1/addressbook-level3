@@ -42,12 +42,15 @@ public class StudyPlanBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code StudyPlan} that we are building.
      */
-    public StudyPlanBuilder withTags(String ... tags) {
+    public StudyPlanBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
 
+    /**
+     * Builds a new studyplan.
+     */
     public StudyPlan build() {
         //return new StudyPlan(name, phone, email, address, tags);
         return new StudyPlan(new Title("this is just a temporary holder"), new ModulesInfo());

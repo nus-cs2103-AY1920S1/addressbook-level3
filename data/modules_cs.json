@@ -5,12 +5,10 @@
       "name": "Programming Methodology",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This module introduces the concepts of programming and computational problem solving, and is the first and foremost introductory module to computing. Starting from a small core of fundamental abstractions, the module introduces programming as a method for communicating computational processes. The module begins with purely functional programming based on a simple substitution-based execution model, and ends with a powerful modern imperative language based on a realistic environment-based execution model. Topics covered include: functional abstraction, recursion, higher-order functions, data abstraction, algorithmic strategies, state mutation, loops and arrays, evaluation strategies, sorting and searching, debugging and testing.",
       "prereqTreeString": ""
@@ -20,12 +18,10 @@
       "name": "Discrete Structures",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This module introduces mathematical tools required in the study of computer science. Topics include: (1) Logic and proof techniques: propositions, conditionals, quantifications. (2) Relations and Functions: Equivalence relations and partitions. Partially ordered sets. Well-Ordering Principle. Function equality. Boolean/identity/inverse functions. Bijection. (3) Mathematical formulation of data models (linear model, trees, graphs). (4) Counting and Combinatoric: Pigeonhole Principle. Inclusion-Exclusion Principle. Number of relations on a set, number of injections from one finite set to another, Diagonalization proof: An infinite countable set has an uncountable power set; Algorithmic proof: An infinite set has a countably infinite subset. Subsets of countable sets are countable.",
       "prereqTreeString": ""
@@ -35,12 +31,10 @@
       "name": "Programming Methodology II",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This module is a follow up to CS1010. It explores two modern programming paradigms, object-oriented programming and functional programming. Through a series of integrated assignments, students will learn to develop medium-scale software programs in the order of thousands of lines of code and tens of classes using objectoriented design principles and advanced programming constructs available in the two paradigms. Topics include\nobjects and classes, composition, association, inheritance, interface, polymorphism, abstract classes, dynamic binding, lambda expression, effect-free programming, first class functions, closures, continuations, monad, etc.",
       "prereqTreeString": "CS1101S"
@@ -50,12 +44,10 @@
       "name": "Data Structures and Algorithms",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This module introduces students to the design and\nimplementation of fundamental data structures and\nalgorithms. The module covers basic data structures\n(linked lists, stacks, queues, hash tables, binary heaps,\ntrees, and graphs), searching and sorting algorithms, and\nbasic analysis of algorithms.",
       "prereqTreeString": "(AND CS1231S CS1101S)"
@@ -65,12 +57,10 @@
       "name": "Computer Organisation",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "The objective of this module is to familiarise students with the fundamentals of computing devices. Through this module students will understand the basics of data representation, and how the various parts of a computer work, separately and with each other. This allows students to understand the issues in computing devices, and how these issues affect the implementation of solutions. Topics covered include data representation systems, combinational and sequential circuit design techniques, assembly language, processor execution cycles, pipelining, memory hierarchy and input/output systems.",
       "prereqTreeString": "CS1101S"
@@ -80,12 +70,11 @@
       "name": "Software Engineering",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
         "SE"
       ],
       "focusElectives": [
-
       ],
       "description": "This module introduces the necessary conceptual and analytical tools for systematic and rigorous development of software systems. It covers four main areas of software development, namely object-oriented system analysis, object-oriented system modelling and design, implementation, and testing, with emphasis on system modelling and design and implementation of software modules that work cooperatively to fulfill the requirements of the system. Tools and techniques for software development, such as Unified Modelling Language (UML), program specification, and testing methods, will be taught. Major software engineering issues such as modularisation criteria, program correctness, and software quality will also be covered.",
       "prereqTreeString": "(AND CS2030 CS2040S)"
@@ -95,12 +84,11 @@
       "name": "Introduction to Computer Networks",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
         "NDS"
       ],
       "focusElectives": [
-
       ],
       "description": "This module aims to provide a broad introduction to computer networks and network application programming. It covers the main concepts, the fundamental principles, and the high-level workings of important protocols in each of the Internet protocol layer. Topics include the Web and Web applications, DNS services, socket programming, reliable protocols, transport and network layer protocols, secure communication, LAN, and data communication. Practical assignments and handson exercises expose students to network application programming and various networking tools and utilities.",
       "prereqTreeString": "CS2040S"
@@ -110,12 +98,10 @@
       "name": "Introduction to Operating Systems",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This module introduces the basic concepts in operating systems and links it with contemporary operating systems (eg. Unix/Linux and Windows). It focuses on OS structuring and architecture, processes, memory management, concurrency and file systems. Topics include kernel architecture, system calls, interrupts, models of processes, process abstraction and services, scheduling, review of physical memory and memory management hardware, kernel memory management, virtual memory and paging, caches, working set, deadlock, mutual exclusion, synchronisation mechanisms, data and metadata in file systems, directories and structure, file system abstraction and operations, OS protection mechanisms, and user authentication.",
       "prereqTreeString": "CS2100"
@@ -125,12 +111,11 @@
       "name": "Design and Analysis of Algorithms",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
         "Algo"
       ],
       "focusElectives": [
-
       ],
       "description": "This module introduces different techniques of designing and analysing algorithms. Students will learn about the framework for algorithm analysis, for example, lower bound arguments, average case analysis, and the theory of NP-completeness. In addition, students are exposed to various algorithm design paradigms. The module serves two purposes: to improve the students' ability to design algorithms in different areas, and to prepare students for the study of more advanced algorithms. The module covers lower and upper bounds, recurrences, basic algorithm paradigms (such as prune-and-search, dynamic programming, branch-and-bound, graph traversal, and randomised approaches), amortized analysis, NP-completeness, and some selected advanced topics.",
       "prereqTreeString": "(AND CS2040S CS1231S)"
@@ -140,12 +125,10 @@
       "name": "IS Innovations in Organisation",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "The module gives a wide yet insightful understanding of the impact of IT on organisation and society. Issues such as Internet and “new economy” geographies; impacts of IT and creation of IT innovation for public\nhealth, urban planning, and regional equity, food systems, climate change can be discussed. Other issues for consideration could be dark web and IT security advancement, open vs. closed innovation creation. Misuse of IT that put ethics and professionalism into question will be also discussed.",
       "prereqTreeString": ""
@@ -155,12 +138,10 @@
       "name": "Effective Communication for Computing Professionals",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This module aims to equip students with the skills needed to communicate technical information to technical and nontechnical audiences, and to create comprehensible software documentation. A student-centric approach will\nbe adopted to encourage independent and collaborative learning while engaging students in team-based projects. Students will learn interpersonal and intercultural\ncommunication skills as well as hone their oral and written communication skills. Assessment modes include a variety of oral and written communication tasks such as reports, software guides, oral presentations, software demonstrations and project blogs.",
       "prereqTreeString": ""
@@ -170,12 +151,10 @@
       "name": "Communicating in the Information Age",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "In a context of prolific production and convenient access to content and innovation in the Information Age, how should one critically process and clearly communicate ideas to various audiences? In this module, students will learn to question and articulate their analysis of assumptions and assertions on issues facing the Information Age through processes such as identifying bias and substantiating arguments. The Ennis’ (1986, 2001) taxonomy of critical thinking dispositions will be employed to develop students’ analytical thinking skills and their ability to articulate cogent responses to arguments or to defend their own positions in both written and oral form.",
       "prereqTreeString": ""
@@ -185,12 +164,10 @@
       "name": "Calculus for Computing",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This module provides a basic foundation for calculus and its related subjects required by computing students. The objective is to train the students to be able to handle calculus techniques arising in their courses of specialization. In addition to the standard calculus material, the course also covers simple mathematical modeling techniques and numerical methods in connection with ordinary differential equations. \n\n\n\nMajor topics: \n\nPreliminaries on sets and number systems. \n\nCalculus of functions of one variable and applications. \n\nSequences, series and power series.   \n\nFunctions of several variables. Extrema.\n\nFirst and second order differential equations. \n\nBasic numerical methods for ordinary differential equations.",
       "prereqTreeString": ""
@@ -200,12 +177,10 @@
       "name": "Linear Algebra I",
       "mc": 4,
       "su": true,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This module is a first course in linear algebra.  Fundamental concepts of linear algebra will be introduced and investigated in the context of the Euclidean spaces R^n.  Proofs of results will be presented in the concrete setting.  Students are expected to acquire computational facilities and geometric intuition with regard to vectors and matrices.  Some applications will be presented. Major topics: Systems of linear equations, matrices, determinants, Euclidean spaces, linear combinations and linear span, subspaces, linear independence, bases and dimension, rank of a matrix, inner products, eigenvalues and eigenvectors, diagonalization, linear transformations between Euclidean spaces, applications.",
       "prereqTreeString": ""
@@ -215,12 +190,10 @@
       "name": "Probability and Statistics",
       "mc": 4,
       "su": false,
-      "core": true,
+      "isCore": true,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "Basic concepts of probability, conditional probability, independence, random variables, joint and marginal distributions, mean and variance, some common probability distributions, sampling distributions, estimation and hypothesis testing based on a normal population.  This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites. Preclude ME students taking or have taken ME4273.",
       "prereqTreeString": "MA1521"
@@ -230,12 +203,11 @@
       "name": "Introduction to Information Theory",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Algo"
       ],
       "focusElectives": [
-
       ],
       "description": "This module introduces the basics of modern information theory. It covers how information can be quantified, and what this quantification tells us about how well we can compress and transmit information without error. It discusses basic error correcting techniques, and information-theoretic cryptography. Topics covered\ninclude: mathematical techniques, entropy measures, fundamental limits to data compression and noisy-channel coding, examples of error-correcting codes, examples of information theoretic cryptography (commitments, secure computation, key distribution, randomness extraction).",
       "prereqTreeString": "(AND CS1231S ST2334)"
@@ -245,14 +217,13 @@
       "name": "Parallel and Distributed Algorithms",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Algo",
         "Para",
         "NDS"
       ],
       "focusElectives": [
-
       ],
       "description": "This course will examine some fundamental issues in parallel programming and distributed computing, and the relationships between the two.  Parallel programming: mutual exclusion, semaphores, consistency, wait-free synchronization.  Distributed computing: time, global state, snapshots, message ordering.  Relationships: consensus, fault-tolerance, transactions, self-stabilization.",
       "prereqTreeString": "(OR CS3230 CS3210)"
@@ -262,12 +233,11 @@
       "name": "Theory of Computation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Algo"
       ],
       "focusElectives": [
-
       ],
       "description": "The objective of this module is to provide students with a theoretical understanding of what can be computed, and an introduction to the theory of complexity. It aims to introduce (1) some standard formal models of computation so as to develop an understanding of what can or cannot be computed by various computing devices; (2) some reasoning techniques commonly used in computer science; these include model equivalence, non-determinism, digitalisation, simulation and reduction; and (3) the mathematical formulation of objects in computer science so as to study their properties.",
       "prereqTreeString": "(OR CS1231S CS1231S)"
@@ -277,12 +247,11 @@
       "name": "Optimisation Algorithms",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Algo"
       ],
       "focusElectives": [
-
       ],
       "description": "This module covers common algorithmic techniques for solving optimisation problems, and introduces students to approaches for finding good-enough solutions to NP-hard problems. Topics covered include linear and integer programming, network flow algorithms, local search heuristics, approximation algorithms, and randomized algorithms. Through analysis and application of the techniques to a variety of canonical problems, students develop confidence to (i) appropriately model a given optimisation problem, (ii) apply appropriate algorithmic techniques to solve the problem, (iii) analyse the properties of the problem and candidate algorithms, such as time and space complexity, convergence, approximability, and optimality bound.",
       "prereqTreeString": "(AND CS3230 MA1101R)"
@@ -292,9 +261,8 @@
       "name": "Competitive Programming",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "Algo"
@@ -307,9 +275,8 @@
       "name": "Algorithmic Foundations of Privacy",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "Algo",
@@ -323,9 +290,8 @@
       "name": "Quantum Computing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "Algo"
@@ -338,9 +304,8 @@
       "name": "Computational Complexity",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "Algo"
@@ -353,9 +318,8 @@
       "name": "Algorithms at Scale",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "Algo"
@@ -368,9 +332,8 @@
       "name": "Advanced Automata Theory",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "Algo"
@@ -383,9 +346,8 @@
       "name": "Computational Geometry and Applications",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "Algo",
@@ -399,9 +361,8 @@
       "name": "Advanced Combinatorial Methods in Bioinformatics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "Algo"
@@ -414,9 +375,8 @@
       "name": "Randomized Algorithms",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "Algo"
@@ -429,12 +389,11 @@
       "name": "Introduction to Artificial Intelligence",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI"
       ],
       "focusElectives": [
-
       ],
       "description": "The module introduces the basic concepts in search and knowledge representation as well as to a number of sub-areas of artificial intelligence. It focuses on covering the essential concepts in AI. The module covers Turing test, blind search, iterative deepening, production systems, heuristic search, A* algorithm, minimax and alpha-beta procedures, predicate and first-order logic, resolution refutation, non-monotonic reasoning, assumption-based truth maintenance systems, inheritance hierarchies, the frame problem, certainly factors, Bayes' rule, frames and semantic nets, planning, learning, natural language, vision, and expert systems and LISP.",
       "prereqTreeString": "(AND CS2040S CS1231S)"
@@ -444,12 +403,11 @@
       "name": "Machine Learning",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI"
       ],
       "focusElectives": [
-
       ],
       "description": "This module introduces basic concepts and algorithms in machine learning and neural networks. The main reason for studying computational learning is to make better use of powerful computers to learn knowledge (or regularities) from the raw data. The ultimate objective is to build self-learning systems to relieve human from some of already-too-many programming tasks. At the end of the course, students are expected to be familiar with the theories and paradigms of computational learning, and capable of implementing basic learning systems.",
       "prereqTreeString": "(AND CS2040S MA1101R MA1521 ST2334)"
@@ -459,7 +417,7 @@
       "name": "Computer Vision and Pattern Recognition",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI"
       ],
@@ -474,12 +432,11 @@
       "name": "Knowledge Representation and Reasoning",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI"
       ],
       "focusElectives": [
-
       ],
       "description": "This course will focus on core issues of representation and reasoning of the knowledge in the context of design of intelligent machines. We will focus on how logic can be used to formalise and perform deduction from existing knowledge. We will then discuss compilation techniques. Finally, we will discuss limitations of monotonic logic and discuss challenges for non-monotonic reasoning.",
       "prereqTreeString": "CS3243"
@@ -489,12 +446,11 @@
       "name": "AI Planning and Decision Making",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI"
       ],
       "focusElectives": [
-
       ],
       "description": "This module introduces the major concepts and paradigms in planning and decision making in complex environments. It examines issues, challenges, and techniques in problem representation, goal or objective specification, response selection, and action\nconsequence for a wide range of strategic and tactical planning and decision making situations. Topics covered include deterministic and non-deterministic planning,\npractical planning and acting under resource constraints and uncertainy, expected utility and rational decision making, decision networks, Markov decision processes,\nelementary game theory, and multi-agent planning and decision making.",
       "prereqTreeString": "(AND CS3243 ST2334)"
@@ -504,13 +460,12 @@
       "name": "Natural Language Processing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "AI",
         "MIR"
       ],
       "focusElectives": [
-
       ],
       "description": "This module deals with computer processing of human languages, emphasizing a corpus-based empirical approach. The topics covered include: 1. Linguistic essentials. 2. Basic techniques and algorithms: Hidden Markov model, Viterbi algorithm, supervised learning algorithms. 3. Words: part-of-speech tagging. 4. Syntax: noun phrase chunking, named entity tagging, parsing (top down, bottom up, probabilistic). 5. Semantics: word sense disambiguation. 6. Pragmatics: discourse, co-reference resolution. 7. Applications: text categorisation, text summarisation, language identification, information extraction, question answering, machine translation.",
       "prereqTreeString": "(AND (OR CS3243 CS3245) ST2334)"
@@ -520,9 +475,8 @@
       "name": "Constraint Logic Programming",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "AI",
@@ -536,9 +490,8 @@
       "name": "Knowledge Discovery Methods in Bioinformatics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "AI",
@@ -552,9 +505,8 @@
       "name": "3D Computer Vision",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "AI"
@@ -567,9 +519,8 @@
       "name": "Foundation in Logic and AI",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "AI"
@@ -582,9 +533,8 @@
       "name": "Knowledge Discovery and Data Mining",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "AI",
@@ -598,9 +548,8 @@
       "name": "Neural Networks and Deep Learning",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "AI"
@@ -613,9 +562,8 @@
       "name": "Uncertainty Modelling in AI",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "AI"
@@ -628,9 +576,8 @@
       "name": "Theory and Algorithms for Machine Learning",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "AI"
@@ -643,12 +590,11 @@
       "name": "Computer Graphics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "CGG"
       ],
       "focusElectives": [
-
       ],
       "description": "This module teaches some graphics hardware devices, reviews the mathematics related to the understanding, and discusses the fundamental areas of computer graphics. After completing the course, students are expected to understand the basic computer graphics terminology and concepts, and to be able to design and implement simple 2D and 3D interactive computer graphics related programs. As an enrichment part of the course, students are introduced the state-of-the-art development in computer graphics by viewing interesting video clips and experimenting with demo program made available in the course web.",
       "prereqTreeString": "(AND CS2030 CS2040S)"
@@ -658,12 +604,11 @@
       "name": "3D Modeling and Animation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "CGG"
       ],
       "focusElectives": [
-
       ],
       "description": "This module aims to provide fundamental concepts in 3D modeling and animation. It also serves as a bridge to advanced media modules. After taking this module, students should be able to use these concepts to easily build or work with digital models, manipulate the models by means of computer deformation and animation, and use lighting and rendering techniques to create appealing scenes. Topics include coordinate spaces, transforms, 3D model representations, hierarchical structures, deformation, procedural modelling, particle systems, character animation, shading networks, lighting, and scripting concepts.",
       "prereqTreeString": "(AND CS3241 MA1101R MA1521)"
@@ -673,12 +618,11 @@
       "name": "Game Development",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "CGG"
       ],
       "focusElectives": [
-
       ],
       "description": "The objective of this module is to introduce techniques for electronic game design and programming. This module covers a range of important topics including 3D maths, game physics, game AI, sound, as well as user interface for computer games. Furthermore, it will give an overview of computer game design to the students. Through laboratory programming exercises, the students will have hands-on programming experience with popular game engines and will develop basic games using those engines.",
       "prereqTreeString": "CS3241"
@@ -688,12 +632,11 @@
       "name": "Graphics Rendering Techniques",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "CGG"
       ],
       "focusElectives": [
-
       ],
       "description": "This module provides a general treatment of real-time and offline rendering techniques in 3D computer graphics. Specific topics include the raster graphics pipeline, viewing and transformation, real-time mapping techniques, real-time shadow algorithms, local reflection models, global illumination, distributed ray tracing, photon mapping, radiosity, volume rendering, image-based rendering and modelling, and strategies for anti-aliasing and photo-realism.",
       "prereqTreeString": "CS3241"
@@ -703,12 +646,11 @@
       "name": "Game Development Project",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "CGG"
       ],
       "focusElectives": [
-
       ],
       "description": "The objective of this project-based module is to provide an opportunity for the students to work in a group to design and develop a game following the main stages of game development process. The module will focus on the design of core dynamic, game mechanics, strategy, progression, balancing, game levels, interface and technical features including 3D graphics, animation, AI, physics, and networking. In addition, software engineering principles will be practised in developing the game software.",
       "prereqTreeString": "CS3247"
@@ -718,9 +660,8 @@
       "name": "Multimodal Processing in Mobile Platforms",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "CGG"
@@ -733,9 +674,8 @@
       "name": "Interaction Design",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "CGG"
@@ -748,9 +688,8 @@
       "name": "User Interface Development",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "CGG"
@@ -763,9 +702,8 @@
       "name": "Interaction Design for Virtual and Augmented Reality",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "CGG"
@@ -778,9 +716,8 @@
       "name": "Phenomena and Theories of Human-Computer Interaction",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "CGG"
@@ -793,9 +730,8 @@
       "name": "Networked and Mobile Gaming",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "CGG",
@@ -809,9 +745,8 @@
       "name": "General-Purpose Computation on GPU",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "CGG",
@@ -825,9 +760,8 @@
       "name": "Real-Time Graphics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "CGG"
@@ -840,9 +774,8 @@
       "name": "Theoretical Foundations in MultiMedia",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "CGG"
@@ -855,9 +788,8 @@
       "name": "Advanced Computer Animation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "CGG"
@@ -870,9 +802,8 @@
       "name": "Information Visualisation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "CGG"
@@ -885,12 +816,11 @@
       "name": "Introduction to Information Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "ComSec"
       ],
       "focusElectives": [
-
       ],
       "description": "This module serves as an introductory module on information security. It illustrates the fundamentals of how systems fail due to malicious activities and how they can be protected. The module also places emphasis on the practices of secure programming and implementation. Topics covered include classical/historical ciphers, introduction to modern ciphers and cryptosystems, ethical, legal and organisational aspects, classic examples of direct attacks on computer systems such as input validation vulnerability, examples of other forms of attack such as social engineering/phishing attacks, and the practice of secure programming.",
       "prereqTreeString": "CS1101S"
@@ -900,12 +830,11 @@
       "name": "Computer Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "ComSec"
       ],
       "focusElectives": [
-
       ],
       "description": "The objective of this module is to provide a broad understanding of computer security with some indepth discussions on selected topics in system and network security. This module covers the following topics: intrusion detection, DNS security, electronic mail security, authentication, access control, buffer overflow, memory and stack protection, selected topics in application security, for instance, web security, and well-known attacks.",
       "prereqTreeString": "(AND CS2105 CS2106 CS2107)"
@@ -915,12 +844,11 @@
       "name": "Cryptography Theory and Practice",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "ComSec"
       ],
       "focusElectives": [
-
       ],
       "description": "This module aims to introduce the foundation, principles and concepts behind cryptology and the design of secure communication systems. The emphasis is on the formulation and techniques of various cryptographic primitives, and on the secure usage of such primitives to achieve the goals of confidentially, integrity, and authenticity in both theoretical settings and practical scenarios. Basic topics include pseudorandom functions, symmetric key encryption, public key encryption, message\nauthentication codes, hash functions, digital signatures, key exchange and PKI. Selected topics may include: secret sharing, TCP/IP security, Kerberos, SSL, trusted computing, side-channel attacks.",
       "prereqTreeString": "(AND CS2040S CS1231S CS2107)"
@@ -930,12 +858,11 @@
       "name": "Computer Security Practice",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "ComSec"
       ],
       "focusElectives": [
-
       ],
       "description": "This is a practice security module with emphasis on hands-on experiences of computer security. The objective of this module is to connect computer security knowledge to practical skills, including common attacks and protection mechanisms, system administration, and development of secured software. Topics covered include network security, operating system security, and application security, such as DNS attacks, memory-error exploits, and web application attacks. Students will learn through lab-based exercises and assignments.",
       "prereqTreeString": "CS3235"
@@ -945,13 +872,12 @@
       "name": "Software Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "ComSec",
         "SE"
       ],
       "focusElectives": [
-
       ],
       "description": "Software engineering processes need to include security considerations in the modern world. This module familiarizes students to security issues in different stages of the software life-cycle. At the end of the module, the students are expected to understand secure programming practices, be able to analyse and check for impact of malicious inputs in programs, and employ specific testing techniques which can help detect software vulnerabilities.",
       "prereqTreeString": "(AND CS3235 CS2103T)"
@@ -961,9 +887,8 @@
       "name": "Operating Systems Design and Pragmatics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "ComSec"
@@ -976,9 +901,8 @@
       "name": "IoT Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "ComSec"
@@ -991,9 +915,8 @@
       "name": "Systems Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "ComSec"
@@ -1006,9 +929,8 @@
       "name": "Advanced Operating Systems",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "ComSec",
@@ -1022,9 +944,8 @@
       "name": "Network Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "ComSec",
@@ -1038,9 +959,8 @@
       "name": "Database Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "ComSec",
@@ -1054,9 +974,8 @@
       "name": "Web Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "ComSec"
@@ -1069,9 +988,8 @@
       "name": "Biometric Authentication",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "ComSec"
@@ -1084,9 +1002,8 @@
       "name": "Legal Aspects of Information Security",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "ComSec"
@@ -1099,9 +1016,8 @@
       "name": "Digital Forensics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "ComSec"
@@ -1114,9 +1030,8 @@
       "name": "Penetration Testing Practice",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "ComSec"
@@ -1129,9 +1044,8 @@
       "name": "Information Security Management",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "ComSec"
@@ -1144,12 +1058,11 @@
       "name": "Database Systems",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "DB"
       ],
       "focusElectives": [
-
       ],
       "description": "The aim of this module is to introduce the fundamental concepts and techniques necessary for the understanding and practice of design and implementation of database applications and of the management of data with relational database management systems. The module covers practical and theoretical aspects of design with entity-relationship model, theory of functional dependencies and normalisation by decomposition in second, third and Boyce-Codd normal forms. The module covers practical and theoretical aspects of programming with SQL data definition and manipulation sublanguages, relational tuple calculus, relational domain calculus and relational algebra.",
       "prereqTreeString": "(AND (OR CS2030 CS2040S) CS1231S)"
@@ -1159,12 +1072,11 @@
       "name": "Database Systems Implementation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "DB"
       ],
       "focusElectives": [
-
       ],
       "description": "This module provides an in-depth study of the concepts and implementation issues related to database management systems. It first covers the physical implementation of relational data model, which includes storage management, access methods, query processing, and optimisation. Then it covers issues and techniques dealing with multi-user application environments, namely, transactions, concurrency control and recovery. The third part covers object-database systems that are useful extension of relational databases to deal with complex data types. The last part covers database technologies required for modern decision support systems, including data warehousing, data mining and knowledge discovery and on-line analytical processing.",
       "prereqTreeString": "(AND CS2040S CS2102)"
@@ -1174,12 +1086,11 @@
       "name": "Database Applications Design and Tuning",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "DB"
       ],
       "focusElectives": [
-
       ],
       "description": "This module addresses the design and performance tuning of\ndatabase applications. The syllabus focusses on relational database applications implemented with relational database management systems. Topics covered include normalisation theory (functional, multi-valued and join dependency, normal forms, decomposition and synthesis methods), entityrelationship approach and SQL tuning (performance evaluation, execution plan verification, indexing, de-normalization, code level and transactions tuning). The syllabus optionally includes selected topics in the technologies, design and performance tuning of non-relational database applications (for instance, network and hierarchical models and nested relational model for an historical perspective, as well as XML and NoSQL systems for a modern perspective).",
       "prereqTreeString": "CS3223"
@@ -1189,12 +1100,11 @@
       "name": "Distributed Databases",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "DB"
       ],
       "focusElectives": [
-
       ],
       "description": "This module studies the management of data in a distributed environment. It covers the fundamental principles of distributed data management and includes distribution design, data integration, distributed query processing and optimization, distributed transaction management, and replication. It will also look at how these techniques can be adapted to support database management in emerging technologies (e.g., parallel systems, peer-to-peer systems, cloud computing).",
       "prereqTreeString": "CS3223"
@@ -1204,12 +1114,11 @@
       "name": "Big Data Systems for Data Science",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "DB"
       ],
       "focusElectives": [
-
       ],
       "description": "Data science incorporates varying elements and builds on techniques and theories from many fields, including statistics, data engineering, data mining, visualization, data warehousing, and high-performance computing systems with the goal of extracting meaning from big data and creating data products. Data science utilizes advanced computing systems such as Apache Hadoop and Spark to address big data challenges. In this module, students will learn various computing systems and optimization techniques that are used in data science with emphasis on the system building and algorithmic optimizations of these techniques.",
       "prereqTreeString": "CS2102"
@@ -1219,9 +1128,8 @@
       "name": "Database Tuning",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "DB"
@@ -1234,12 +1142,11 @@
       "name": "Introduction to Media Computing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "MIR"
       ],
       "focusElectives": [
-
       ],
       "description": "This module introduces students to (i) the fundamental principles, theory, algorithms, and data structures behind digital representation, compression, synchronization, and processing of image, audio, and video data types, and (ii) challenges and issues in developing media-rich applications, such as media streaming and media retrieval. Students will be exposed to the workings of common media file format and common manipulation techniques on media data. After taking the module, students should be confident enough in developing media applications and make appropriate trade-off and design decisions when dealing in media data in their software.",
       "prereqTreeString": "CS2040S"
@@ -1249,12 +1156,11 @@
       "name": "Information Retrieval",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "MIR"
       ],
       "focusElectives": [
-
       ],
       "description": "This module discusses the basic concepts and methods of information retrieval including capturing, representing, storing, organizing, and retrieving unstructured or loosely structured information. The most well-known aspect of information retrieval is document retrieval: the process of indexing and retrieving text documents. However, the field of information retrieval includes almost any type of\nunstructured or semi-structured data, including newswire stories, transcribed speech, email, blogs, images, or video. Therefore, information retrieval is a critical aspect of Web search engines. This module also serves as the foundation for subsequent modules on the understanding, processing and retrieval of particular web media.",
       "prereqTreeString": "(AND CS2030 CS2040S)"
@@ -1264,12 +1170,11 @@
       "name": "Social Media Computing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "MIR"
       ],
       "focusElectives": [
-
       ],
       "description": "The emergence of WWW, smart mobile devices and social networks has revolutionised the way we communicate, create, disseminate, and consume information. This has ushered in a new era of communications that involves complex information exchanges and user relationships. This module aims to provide students with a good understanding of the social network phenomena and computational skills for analysing the complex social relation networks between users, the contents they shared, and the ways contents and events are perceived and propagated through the social networks. The analysis will provide better understanding of the concerns and interests of users, and uncover live and emerging events that will affect the community.",
       "prereqTreeString": "(AND CS2108 CS3245)"
@@ -1279,12 +1184,11 @@
       "name": "Sound and Music Computing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "MIR"
       ],
       "focusElectives": [
-
       ],
       "description": "This module introduces the fundamental technologies employed in sound and music computing which are grouped into three major areas: Sound, Music, and Interaction. It begins with an introduction to sound production, propagation and perception, followed by digital sound recording, editing, post-processing and compression. Its core components consists of the analytic and synthetic approaches of sound and music. The analytic approach pertains to analysis and understanding, whereas the synthetic approach pertains to generation and processing. Interaction aspects include multimodal mobile music interface and sound interaction design. Finally, music information retrieval will be introduced as an application of analytic techniques.",
       "prereqTreeString": "(AND CS2108 MA1101R MA1521)"
@@ -1294,9 +1198,8 @@
       "name": "Text Mining",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "MIR"
@@ -1309,9 +1212,8 @@
       "name": "Speech Processing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "MIR"
@@ -1324,9 +1226,8 @@
       "name": "Digital Libraries",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "MIR"
@@ -1339,12 +1240,11 @@
       "name": "Computer Networks Practice",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "NDS"
       ],
       "focusElectives": [
-
       ],
       "description": "This module aims to provide an opportunity for the students to learn commonly-used network protocols in greater technical depth with their implementation details than a basic networking course. Students will perform hands-on experiments in configuring and interconnecting LANs using networking devices/technologies (e.g., routers, switches, SDN switches, and hubs), networking protocols (e.g., DHCP, DNS, RIP, OSPF, ICMP, TCP, UDP, wireless LAN, VLAN protocols, SIP, SSL, IPSec-VPN) and networking tools (e.g, tcpdump, netstat, ping, traceroute). Students will learn higher-layer network protocols and develop network applications (client/server, P2P) via socket programming.",
       "prereqTreeString": "CS2105"
@@ -1354,12 +1254,11 @@
       "name": "Wireless Networking",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "NDS"
       ],
       "focusElectives": [
-
       ],
       "description": "This module aims to provide solid foundation for students in the area of wireless networks and introduces students to the emerging area of cyber-physical-system/Internet-of-Things. The module will cover wireless networking across all layers of the networking stack including physical, link, MAC, routing and application layers. Different network technologies with different characteristic will also be covered, including cellular networks, Wi-Fi, Bluetooth and ZigBee. Some key concepts that cut across all layers and network types are mobility management, energy efficiency, and integration of sensing and communications. The module emphasizes on exposing students to practical network system issues through building software prototypes.",
       "prereqTreeString": "(AND CS2105 ST2334)"
@@ -1369,12 +1268,11 @@
       "name": "Internet Architecture",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "NDS"
       ],
       "focusElectives": [
-
       ],
       "description": "This module aims to focus on advanced networking concepts pertaining to the modern Internet architecture and applications. It covers a range of topics including network performance (throughput, delay, Little’s Law and M/M/1 queuing formula), and resource allocation and buffer management (max-min fair, round-robin and RED), intra- and inter-domain routing (RIP, OSPF and BGP), congestion control and modern variations of TCP (AIMD and Cubic TCP), peer-to-peer applications and content delivery networks (BitTorrent, Skype, Akamai), and data center networking and management (SDN and OpenFlow).",
       "prereqTreeString": "(AND CS2105 ST2334)"
@@ -1384,9 +1282,8 @@
       "name": "Distributed Systems",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "NDS",
@@ -1400,9 +1297,8 @@
       "name": "Cloud Computing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "NDS",
@@ -1416,9 +1312,8 @@
       "name": "Advanced Computer Networks",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "NDS"
@@ -1431,9 +1326,8 @@
       "name": "Systems Support for Continuous Media",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "NDS"
@@ -1446,12 +1340,11 @@
       "name": "Parallel Computing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Para"
       ],
       "focusElectives": [
-
       ],
       "description": "The aim of this module is to provide an introduction to the field of parallel computing with hands-on parallel programming experience on real parallel machines. The module is divided into four parts: parallel computation models and parallelism, parallel architectures, parallel algorithm design and programming, and new parallel computing models. Topics includes: theory of parallelism and models; shared-memory architectures; distributed-memory architectures; data parallel architectures; interconnection networks, topologies and basic of communication operations; principles of parallel algorithm design; performance\nand scalability of parallel programs, overview of new parallel computing models such as grid, cloud, GPGPU.",
       "prereqTreeString": "CS2100"
@@ -1461,13 +1354,12 @@
       "name": "Parallel and Concurrent Programming",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Para",
         "PL"
       ],
       "focusElectives": [
-
       ],
       "description": "A concurrent system consists of a set of processes that executes simultaneously and that may collaborate by communicating and synchronising with one another. Examples of concurrent systems are parallel programs that describe sets of collaborating processes. This module introduces the design, development and debugging of parallel programs. It will build on the concurrency concepts gained from the Operating Systems module. It covers concepts and modelling tools for specifying and reasoning (about the properties of) concurrent systems and parallel programs. It also covers principles of performance analysis, asynchronous and asynchronous parallel programming, and engineering concurrent systems and parallel programs.",
       "prereqTreeString": "CS2106"
@@ -1477,12 +1369,11 @@
       "name": "Multi-core Architectures",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "Para"
       ],
       "focusElectives": [
-
       ],
       "description": "The world of parallel computer architecture has gone through a significant transformation in the recent years from high-end supercomputers used only for scientific applications to the multi-cores (multiple processing cores on a single chip) that are ubiquitous in mainstream computing systems including desktops, servers, and embedded systems. In the context of this exciting development, the aim of this module is to examine the design issues that are critical to modern parallel architectures. Topics include instruction-level parallelism through static and dynamic scheduling, shared memory, message-passing, and data parallel computer architectures, cache coherence protocols, hardware synchronization primitives, and memory consistency models.",
       "prereqTreeString": "(AND CS2106 CS3210)"
@@ -1492,9 +1383,8 @@
       "name": "Foundation in Operating Systems",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "Para"
@@ -1507,9 +1397,8 @@
       "name": "Advanced Computer Architecture",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "Para"
@@ -1522,9 +1411,8 @@
       "name": "Computer System Performance Analysis",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "Para"
@@ -1537,12 +1425,11 @@
       "name": "Programming Language Concepts",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "PL"
       ],
       "focusElectives": [
-
       ],
       "description": "This module introduces the concepts that serve as a basis for hundreds of programming languages. It aims to provide the students with a basic understanding and appreciation of the various essential programming-languages constructs, programming paradigms, evaluation criteria and language implementation issues. The module covers concepts from imperative, object-oriented, functional, logic, constraints, and concurrent programming. These concepts are illustrated by examples from varieties of languages such as Pascal, C, Java, Smalltalk, Scheme, Haskell, Prolog. The module also introduces various implementation issues, such as pseudo-code interpretation, static and dynamic semantics, abstract machine, type inferencing, etc.",
       "prereqTreeString": "CS2030"
@@ -1552,12 +1439,11 @@
       "name": "Programming Language Implementation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "PL"
       ],
       "focusElectives": [
-
       ],
       "description": "This module provides the students with theoretical knowledge and practical skill in the implementation of programming languages. It discusses implementation aspects of fundamental programming paradigms (imperative, functional and object-oriented), and of basic programming language concepts such as binding, scope, parameter-passing mechanisms and types. It introduces the language processing techniques of interpretation and compilation and virtual machines. The lectures are accompanied by lab sessions which will focus on language processing tools, and take the student through a sequence of programming language implementations. This modules\nalso covers automatic memory management, dynamic linking and just-in-time compilation, as features of modern execution systems.",
       "prereqTreeString": "(AND CS2040S CS2030)"
@@ -1567,12 +1453,11 @@
       "name": "Compiler Design",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "PL"
       ],
       "focusElectives": [
-
       ],
       "description": "The objective of this module is to introduce the principal ideas behind program compilation, and discusses various techniques for program parsing, program analysis, program optimisation, and run-time organisation required for program execution. Topics covered include regular expressions, context-free grammars, lexical analysis, syntax analysis; different algorithms for parsing codes, such as top-down parsing, bottom-up parsing; translation to abstract syntax using modern parser generator technology, intermediate representation, semantics analysis, type system, un-optimised code generation, code optimisation, data-flow analysis, instruction scheduling.",
       "prereqTreeString": "CS2104"
@@ -1582,9 +1467,8 @@
       "name": "Logic for Proofs and Programs",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "PL",
@@ -1598,9 +1482,8 @@
       "name": "Formal Specification and Design Techniques",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "PL",
@@ -1614,9 +1497,8 @@
       "name": "Design of Optimising Compilers",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "PL"
@@ -1629,9 +1511,8 @@
       "name": "Constraint Processing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "PL",
@@ -1645,9 +1526,8 @@
       "name": "Principles and Practice of Program Analysis",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "PL"
@@ -1660,12 +1540,11 @@
       "name": "Software Engineering Principles and Patterns",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "SE"
       ],
       "focusElectives": [
-
       ],
       "description": "This module provides an in-depth, hands-on experience in key aspects of software engineering that accompany the development of software. Based on proven principles and best practices, this module focuses on software architectural design from the perspective of the software process. It covers techniques for requirement elicitation and specification that provide sound base for architectural design. The module covers design decision exploration as well as patterns that explicate principles and best practices in replicable form.",
       "prereqTreeString": "CS2103T"
@@ -1675,12 +1554,11 @@
       "name": "Formal Methods for Software Engineering",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "SE"
       ],
       "focusElectives": [
-
       ],
       "description": "Before software can be designed, its requirements must be well understood. This in turns requires a thorough understanding of the application domain. Based on the requirements, software engineers construct design models, and then use these design models as guide to construct software implementations. This module will cover formal specification and verification techniques for accurately capturing and reasoning about requirements, model and code. The topics covered include modeling notations, temporal logics, model checking, software model checking, theorem proving, and symbolic execution based analysis. Most importantly, the module will attempt to inculcate an appreciation and understanding of formal thinking in software design and construction.",
       "prereqTreeString": "CS2103T"
@@ -1690,12 +1568,11 @@
       "name": "Software Testing",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
         "SE"
       ],
       "focusElectives": [
-
       ],
       "description": "This module covers the concepts and practice of software testing including unit testing, integration testing, and regression testing. Various testing coverage criteria will be discussed. Debugging methods for finding the root-cause of errors in failing test cases will also be investigated. The use of testing and analysis for performance prediction, performance clustering and performance debugging will be studied. Students will acquire crucial skills on testing and debugging through hands-on assignments.",
       "prereqTreeString": "CS3219"
@@ -1705,9 +1582,8 @@
       "name": "Software Product Engineering for Digital Markets",
       "mc": 5,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "SE"
@@ -1720,9 +1596,8 @@
       "name": "Software Engineering on Modern Application Platforms",
       "mc": 5,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "SE"
@@ -1735,9 +1610,8 @@
       "name": "Web Programming and Applications",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "SE"
@@ -1750,9 +1624,8 @@
       "name": "Automated Software Validation",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "SE"
@@ -1765,9 +1638,8 @@
       "name": "Embedded Software Design",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
         "SE"
@@ -1780,12 +1652,10 @@
       "name": "Introduction to Computational Biology",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This course aims to develop flexible and logical problem solving skills, understanding of main bioinformatics problems, and appreciation of main techniques and approaches to bioinformatics. Through case studies and hands-on exercises, the student will (i) master the basic tools and approaches for analysis of DNA sequences, protein sequences, gene expression profiles, etc. (ii) understand important problems and applications of computational biology, including identifying functional features in DNA and protein sequences, predicting protein function, and deriving diagnostic models from gene expression profiles, (iii) be confident to propose new solutions to both existing and emerging problems in computational biology.",
       "prereqTreeString": "CS2040S"
@@ -1795,12 +1665,10 @@
       "name": "Combinatorial Methods in Bioinformatics",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "After the complete sequencing of a number of genomes, we are in the stage to understand the mystery of our body, that is, we need to understand the information encoded in the genome and its relationship with RNA and protein.\nThis aim of this module is to cover algorithms related to this stage. In the module, we will cover the algorithms related to genome annotation, motif identification, proteomics, population genetics, microarray, etc.",
       "prereqTreeString": "CS2220"
@@ -1810,12 +1678,10 @@
       "name": "Simulation and Modelling Techniques",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This module aims to provide students with a working knowledge of applying\nsimulation techniques to model, simulate and study complex systems. It covers techniques in simulation model design, model execution, and model analysis. Students will have hands-on experience using a simulation package. The module will also introduce concepts of parallel and distributed simulation, and high level architecture.",
       "prereqTreeString": "(AND CS4231 ST2334)"
@@ -1825,12 +1691,10 @@
       "name": "Software Engineering Project",
       "mc": 8,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This module provides students with hands-on experience in\nworking in project groups through a complete SDLC to\ndevelop a well-designed, well-tested, large-scaled software\nsystem. The students will apply the current best software\nengineering practices on the analysis, design,\nimplementation, and testing of software system. Through\nthe project, students will practise analysis of user’s needs,\nformulation of computing requirements to meet the user’s\nneeds, modelling and design of the computer systems\naccording to the requirements, evaluation of the design,\nefficient implementation of software components, system\nintegration, software version control, and rigorous testing.",
       "prereqTreeString": "(OR CS2103T CS2103T)"
@@ -1840,12 +1704,10 @@
       "name": "Thematic Systems Project I",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This module is the first part of a two-part series on the development of large-scaled computer systems to solve real-world problems under specific themes such as healthcare, security and surveillance, tourism, etc. Students with complementary technical expertise will form project teams to work on real-world projects under the supervision of CS professors and industrial partners. This\nfirst part focuses on the analysis of the real-world problems, formulation of the computing requirements of the desired solution that meets the user’s needs, design of the computer systems according to the requirements, and evaluation of the design.",
       "prereqTreeString": "CS2103T"
@@ -1855,12 +1717,10 @@
       "name": "Thematic Systems Project II",
       "mc": 4,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This module is the second part of a two-part series on the development of large-scaled computer systems to solve real-world problems under specific themes such as healthcare, security and surveillance, tourism, etc. Students with complementary technical expertise will form project teams to work on real-world projects under the supervision of CS professors and industrial partners. This\nsecond part focuses on the development of algorithms required for the systems, implementation and testing of the algorithms and the systems, and evaluation of the systems according to the users’ requirements.",
       "prereqTreeString": "CS3281"
@@ -1870,12 +1730,10 @@
       "name": "Advanced Technology Attachment Programme",
       "mc": 12,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "",
       "prereqTreeString": "(AND CS2101 (OR CS2103T CS2103T))"
@@ -1885,12 +1743,10 @@
       "name": "Industry Internship Programme",
       "mc": 12,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This module enables students to apply the computing knowledge and skills that they have acquired in class to industry internships in companies/organizations. Students in industry internships will be jointly guided by supervisors from both the companies/organizations and the school Their progress on internship projects will be monitored during internship period, and their performance will be assessed through letter grades at the end of the internship. The internship duration will be 6 months, consisting of both a full-time and part-time component. Full-time internship attachment will last for 3 months during the NUS vacation period, and will continue on a part-time basis that will last for 3 months during the NUS study semester.",
       "prereqTreeString": "(AND CS2101 CS2107)"
@@ -1900,12 +1756,10 @@
       "name": "Internship",
       "mc": 6,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "The IT industry and related businesses are developing rapidly for which students need to have an opportunity to expose themselves to the latest industry developments. This internship module requires students to work in a\ncompany for a period of three months. Their progress on projects will be monitored during attachment, and their performance will be graded as “Completed\nSatisfactory/Completed Unsatisfactory (CS/CU)” at the end of the attachment, based on the final project report. During the attachment, students are not expected to take other modules offered by the university.",
       "prereqTreeString": ""
@@ -1915,12 +1769,10 @@
       "name": "Internship II",
       "mc": 6,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "The IT industry and related businesses are developing\nrapidly for which students need to have an opportunity to\nexpose themselves to the latest industry developments.\nThis internship module requires students to work in a company for a period of three months. Their progress on projects will be monitored during attachment, and their performance will be graded as “Completed Satisfactory/Completed Unsatisfactory (CS/CU)” at the end of the attachment, based on the final project report.\n\nThis is the second three month internship for the School of Computing students. With two internships, the student will be able to experience work in two distinct types of organizations, such as a start-up and a MNC, or in two different industries.",
       "prereqTreeString": "CP3200"
@@ -1930,12 +1782,10 @@
       "name": "Computing for Voluntary Welfare Organisations",
       "mc": 6,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "This is a project-based module that provides students with\ntraining in software engineering by working on an actual\nsoftware system that supports a local voluntary welfare\norganisation. This module is graded on a Completed\nSatisfactorily/Completed Unsatisfactorily (CS/CU) basis.",
       "prereqTreeString": "(AND CS2030 CS2040S)"
@@ -1945,12 +1795,10 @@
       "name": "B.Comp. Dissertation",
       "mc": 12,
       "su": false,
-      "core": false,
+      "isCore": false,
       "focusPrimaries": [
-
       ],
       "focusElectives": [
-
       ],
       "description": "",
       "prereqTreeString": ""

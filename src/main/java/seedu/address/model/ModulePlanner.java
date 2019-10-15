@@ -16,6 +16,7 @@ import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.versiontracking.StudyPlanCommitManager;
 import seedu.address.model.versiontracking.VersionTrackingManager;
 
 /**
@@ -168,6 +169,22 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     }
 
     /**
+     * Activates the first study plan in the list of study plans. This is used in {@code DeleteCommand}.
+     * If there is no study plan in the list, the method returns false.
+     *
+     * @return boolean to indicate whether the first study plan has been activated.
+     */
+    public boolean activateFirstStudyPlan() {
+        if (studyPlans.getSize() == 0) {
+            return false;
+        } else {
+            int indexOfFirstStudyPlan = studyPlans.iterator().next().getIndex();
+            activateStudyPlan(indexOfFirstStudyPlan);
+            return true;
+        }
+    }
+
+    /**
      * Removes {@code key} from this {@code ModulePlanner}.
      * {@code key} must exist in the module planner.
      */
@@ -180,6 +197,57 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public VersionTrackingManager getVersionTrackingManager() {
         return versionTrackingManager;
+    }
+
+    /**
+     * Sets the current semester. The user cannot change any module before the current semester. But they can
+     * still change those in the current semester and after the current semester.
+     */
+    public void setCurrentSemester(SemesterName semesterName) {
+        currentSemester = semesterName;
+    }
+
+    /**
+     * Returns the current semester. The user cannot change any module before the current semester. But they can
+     * still change those in the current semester and after the current semester.
+     *
+     * @return the semester name of the current semester.
+     */
+    public SemesterName getCurrentSemester() {
+        return currentSemester;
+    }
+
+    /**
+     * Returns the {@code ModuleInfo} with the given module code.
+     */
+    public ModuleInfo getModule(String moduleCode) {
+        return modulesInfo.find(moduleCode);
+    }
+
+    /**
+     * Returns module information of the given module code, as a string.
+     */
+    public String getModuleInformation(String moduleCode) {
+        ModuleInfo moduleInfo = modulesInfo.find(moduleCode);
+        return moduleInfo == null ? null : moduleInfo.getInformation();
+    }
+
+    /**
+     * Returns this module planner's ModulesInfo object.
+     *
+     * @return This module planner's ModulesInfo object.
+     */
+    public ModulesInfo getModulesInfo() {
+        return modulesInfo;
+    }
+
+    //// commit methods
+
+    /**
+     * Commits the current active study plan.
+     */
+    public void commitActiveStudyPlan(String commitMessage) {
+        StudyPlanCommitManager manager = versionTrackingManager.commitStudyPlan(activeStudyPlan, commitMessage);
     }
 
     //// util methods

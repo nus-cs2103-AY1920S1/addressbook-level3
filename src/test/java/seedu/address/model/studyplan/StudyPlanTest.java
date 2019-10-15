@@ -1,5 +1,6 @@
 package seedu.address.model.studyplan;
 
+/*
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
@@ -12,9 +13,12 @@ import static seedu.address.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.StudyPlanBuilder;
-
+ */
 public class StudyPlanTest {
 
+    // TODO implement tests
+
+    /*
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         StudyPlan studyPlan = new StudyPlanBuilder().build();
@@ -30,7 +34,8 @@ public class StudyPlanTest {
         assertFalse(ALICE.isSameStudyPlan(null));
 
         // different phone and email -> returns false
-        StudyPlan editedAlice = new StudyPlanBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        StudyPlan editedAlice = new StudyPlanBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+                .build();
         assertFalse(ALICE.isSameStudyPlan(editedAlice));
 
         // different name -> returns false
@@ -90,4 +95,5 @@ public class StudyPlanTest {
         editedAlice = new StudyPlanBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
     }
+     */
 }

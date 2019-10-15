@@ -3,37 +3,30 @@ package seedu.address.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.module.Module;
+import seedu.address.model.tag.exceptions.InvalidTagNameException;
 
 /**
  * Represents a user-created Tag.
  * Name is valid as declared in {@link #isValidTagName(String)}
  */
 public class UserTag implements Tag {
-
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String VALIDATION_REGEX = "\\p{ASCII}+";
 
     private String tagName;
 
     /**
      * Constructs a {@code UserTag}.
+     *
      * @param tagName A valid tag name.
      */
     public UserTag(String tagName) {
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
-    }
-
-    /**
-     * Constructs a {@code UserTag} and attaches a {@code Module}.
-     * @param tagName A valid tag name.
-     * @param module A valid module.
-     */
-    public UserTag(String tagName, Module module) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        try {
+            checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        } catch (IllegalArgumentException exception) {
+            throw new InvalidTagNameException(exception.getMessage());
+        }
         this.tagName = tagName;
     }
 
@@ -41,11 +34,12 @@ public class UserTag implements Tag {
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && (!DefaultTagType.contains(test));
     }
 
     /**
      * Checks if the tag is a default tag.
+     *
      * @return False as user-created tags are not considered default tags.
      */
     public boolean isDefault() {
@@ -54,6 +48,7 @@ public class UserTag implements Tag {
 
     /**
      * Returns the name of the tag.
+     *
      * @return The name of the tag.
      */
     public String getTagName() {
@@ -61,15 +56,8 @@ public class UserTag implements Tag {
     }
 
     /**
-     * Checks if the tag can be renamed.
-     * @return True as user-created tags can be renamed.
-     */
-    public boolean canBeRenamed() {
-        return true;
-    }
-
-    /**
      * Renames the tag.
+     *
      * @param newName The new name of the tag.
      */
     public void rename(String newName) {
@@ -78,6 +66,7 @@ public class UserTag implements Tag {
 
     /**
      * Returns true if the other tag is also a {@code UserTag} and the two tags have the same tag name.
+     *
      * @param other The other {@code Tag}.
      */
     @Override
@@ -85,7 +74,7 @@ public class UserTag implements Tag {
         if (other.isDefault()) {
             return false;
         }
-        return tagName.equals(((UserTag) other).getTagName());
+        return tagName.equals(other.getTagName());
     }
 
     @Override

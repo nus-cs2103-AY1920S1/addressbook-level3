@@ -41,8 +41,8 @@ class JsonAdaptedVersionTrackingManager {
                 source.getStudyPlanCommitManagerList().getStudyPlanCommitManagers();
         if (managers != null) {
             managers.addAll(sourceManagers.stream()
-                                          .map(JsonAdaptedStudyPlanCommitManager::new)
-                                          .collect(Collectors.toList()));
+                    .map(JsonAdaptedStudyPlanCommitManager::new)
+                    .collect(Collectors.toList()));
         }
     }
 

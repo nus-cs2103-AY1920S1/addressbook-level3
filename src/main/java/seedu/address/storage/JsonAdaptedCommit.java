@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.studyplan.StudyPlan;
@@ -15,6 +14,7 @@ class JsonAdaptedCommit {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Commit's %s field is missing!";
 
     private int index;
+    private String commitMessage;
     private JsonAdaptedStudyPlan studyPlan;
 
     /**
@@ -22,9 +22,11 @@ class JsonAdaptedCommit {
      */
     @JsonCreator
     public JsonAdaptedCommit(@JsonProperty("index") int index,
-                             @JsonProperty("studyPlan") JsonAdaptedStudyPlan studyPlan) {
+                             @JsonProperty("studyPlan") JsonAdaptedStudyPlan studyPlan,
+                             @JsonProperty("commitMessage") String commitMessage) {
         this.index = index;
         this.studyPlan = studyPlan;
+        this.commitMessage = commitMessage;
     }
 
     /**
@@ -33,6 +35,7 @@ class JsonAdaptedCommit {
     public JsonAdaptedCommit(Commit source) {
         index = source.getIndex();
         studyPlan = new JsonAdaptedStudyPlan(source.getStudyPlan());
+        commitMessage = source.getCommitMessage();
     }
 
     /**
@@ -43,7 +46,8 @@ class JsonAdaptedCommit {
     public Commit toModelType() throws IllegalValueException {
         StudyPlan modelStudyPlan = studyPlan.toModelType();
         int modelIndex = index;
+        String modelCommitMessage = commitMessage;
 
-        return new Commit(modelIndex, modelStudyPlan);
+        return new Commit(modelIndex, modelStudyPlan, modelCommitMessage);
     }
 }

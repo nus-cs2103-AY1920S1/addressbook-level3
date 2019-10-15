@@ -82,6 +82,7 @@ public class Module implements Cloneable {
 
     /**
      * Adds the specified tag to the module if it is not already there.
+     *
      * @param tag Tag to be attached to the module.
      * @return True if the tag has been added and false otherwise.
      */
@@ -103,6 +104,7 @@ public class Module implements Cloneable {
 
     /**
      * Deletes the specified user tag to the module if the module has it.
+     *
      * @param userTag user tag to be deleted from the module.
      * @return True if the user tag has been deleted and false otherwise.
      */
@@ -139,36 +141,7 @@ public class Module implements Cloneable {
             return false;
         }
 
-        seedu.address.model.module.Module otherModule = (seedu.address.model.module.Module) other;
-
-        boolean result = true;
-
-        // TODO: refactor this, ensure there are no nulls upon creation
-        // need to make sure they are not null to prevent null pointer exception
-        if ((name == null && ((Module) other).name != null) || name != null && ((Module) other).name == null) {
-            result = false;
-        } else if ((color == null && ((Module) other).color != null)
-                || color != null && ((Module) other).color == null) {
-            result = false;
-        } else if ((tags == null && ((Module) other).tags != null) || tags != null && ((Module) other).tags == null) {
-            result = false;
-        } else if (name != null && ((Module) other).name != null) {
-            if (!otherModule.getName().equals(getName())) {
-                result = false;
-            }
-        } else if ((color != null && ((Module) other).color != null)) {
-            if (!otherModule.getColor().equals(color)) {
-                result = false;
-            }
-        } else if (otherModule.getMcCount() != getMcCount()) {
-            result = false;
-        } else if (!otherModule.getTags().equals(getTags())) {
-            result = false;
-        } else if (!otherModule.getModuleCode().equals(getModuleCode())) {
-            result = false;
-        }
-
-        return result;
+        return this.moduleCode.equals(((Module) other).moduleCode);
     }
 
     @Override
@@ -186,7 +159,9 @@ public class Module implements Cloneable {
                 .append(" MCs: ")
                 .append(getMcCount())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
+        if (getTags() != null) {
+            getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
 

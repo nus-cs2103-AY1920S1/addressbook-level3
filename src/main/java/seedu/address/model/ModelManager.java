@@ -11,6 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.semester.Semester;
+import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 
 /**
@@ -105,6 +108,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean activateFirstStudyPlan() {
+        return modulePlanner.activateFirstStudyPlan();
+    }
+
+    @Override
     public void deleteStudyPlan(StudyPlan target) {
         modulePlanner.removeStudyPlan(target);
     }
@@ -120,6 +128,29 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedStudyPlan);
 
         modulePlanner.setStudyPlan(target, editedStudyPlan);
+    }
+    //=========== Version Tracking ============================================================================
+
+    @Override
+    public void commitActiveStudyPlan(String commitMessage) {
+        modulePlanner.commitActiveStudyPlan(commitMessage);
+    }
+
+    //=========== Module Information ============================================================================
+
+    @Override
+    public boolean isValidModuleCode(String moduleCode) {
+        return modulePlanner.getModule(moduleCode) != null;
+    }
+
+    @Override
+    public String getModuleInformation(String moduleCode) {
+        return modulePlanner.getModuleInformation(moduleCode);
+    }
+
+    @Override
+    public ModulesInfo getModulesInfo() {
+        return modulePlanner.getModulesInfo();
     }
 
     //=========== Filtered StudyPlan List Accessors =============================================================
@@ -157,4 +188,57 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredStudyPlans.equals(other.filteredStudyPlans);
     }
+
+
+    @Override
+    public boolean semesterHasModule(String moduleCode, SemesterName semesterName) {
+        Semester semester = getSemester(semesterName);
+        return semester.getModules().contains(moduleCode);
+    }
+
+    @Override
+    public void addModule(String moduleCode, SemesterName semesterName) {
+        this.getActiveStudyPlan().addModuleToSemester(new ModuleCode(moduleCode), semesterName);
+    }
+
+    @Override
+    public void removeModule(String moduleCode, SemesterName semesterName) {
+        this.getSemester(semesterName).removeModule(moduleCode);
+    }
+
+    @Override
+    public Semester getSemester(SemesterName semesterName) {
+        for (Semester current : modulePlanner.getActiveStudyPlan().getSemesters()) {
+            if (current.getSemesterName() == semesterName) {
+                return current;
+            }
+        }
+        System.out.println("ERROR HERE");
+        return null;
+    }
+
+    @Override
+    public void setSemester(SemesterName semester) {
+        // TODO: setCurrentSemester in StudyPlan class
+        // this.modulePlanner.getActiveStudyPlan().setCurrentSemester(semester);
+    }
+
+    @Override
+    public boolean semesterHasUe(SemesterName semesterName) {
+        // TODO: UE implementation
+        // getSemester(semesterName).getModules().
+        return true;
+    }
+
+    @Override
+    public void renameUeInSemester(SemesterName semesterName, String moduleCode) {
+        // TODO: UE implementation
+    }
+
+    @Override
+    public void blockSemester(SemesterName sem, String reason) {
+        // TODO: blockSemester in StudyPlan class
+        // this.modulePlanner.getActiveStudyPlan().blockSemester(semester);
+    }
+
 }
