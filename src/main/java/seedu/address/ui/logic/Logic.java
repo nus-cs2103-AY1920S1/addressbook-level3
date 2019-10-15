@@ -1,7 +1,5 @@
 package seedu.address.ui.logic;
 
-import java.util.List;
-
 import seedu.address.overview.commands.CommandResult;
 
 /**

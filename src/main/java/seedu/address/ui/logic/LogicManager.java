@@ -10,7 +10,7 @@ import seedu.address.overview.commands.CommandResult;
 public class LogicManager implements Logic {
 
     @FXML
-    TabPane tabPane;
+    private TabPane tabPane;
 
     public LogicManager(TabPane tabPane) {
         this.tabPane = tabPane;
