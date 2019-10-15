@@ -16,15 +16,23 @@ import seedu.address.logic.parser.exceptions.ParseException;
 class DateUtilTest {
 
     @Test
-    public void parseDate_validDate() throws ParseException {
+    public void parseDate_validDate_correctResult() throws ParseException {
         Calendar c = Calendar.getInstance();
         c.set(2019, Calendar.DECEMBER, 25, 0, 0, 0);
+
         Date date = c.getTime();
 
-        // Known bug: Natty does not parse 25/12/2019
-        Date parsedDate = DateUtil.parseDate("12/25/2019 midnight");
+        // Manually fix the date so Natty passes.
+        // mm/dd/yyyy will not be supported.
+        Date parsedDate2 = DateUtil.parseDate("25/12/2019 midnight");
+        assertEquals(DateUtil.formatDate(date), DateUtil.formatDate(parsedDate2));
 
-        assertEquals(DateUtil.formatDate(date), DateUtil.formatDate(parsedDate));
+        c.set(2019, Calendar.OCTOBER, 12, 0, 0, 0);
+        date = c.getTime();
+
+        Date parsedDate3 = DateUtil.parseDate("12/10/2019 midnight");
+        assertEquals(DateUtil.formatDate(date), DateUtil.formatDate(parsedDate3));
+
         assertThrows(ParseException.class, () -> DateUtil.parseDate("does not work"));
     }
 }
