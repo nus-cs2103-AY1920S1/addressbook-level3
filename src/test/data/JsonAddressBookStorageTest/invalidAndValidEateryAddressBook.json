@@ -1,0 +1,9 @@
+{
+  "eateries": [ {
+    "name": "Valid Eatery",
+    "address": "4th street"
+  }, {
+    "name": "Eatery With Invalid Phone Field",
+    "address": "4th street"
+  } ]
+}

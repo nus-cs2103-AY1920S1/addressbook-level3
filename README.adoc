@@ -1,10 +1,8 @@
-= Address Book (Level 3)
+= EatMe
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-W11-3/main[image:https://travis-ci.org/AY1920S1-CS2103T-W11-3/main.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
 https://coveralls.io/github/AY1920S1-CS2103T-W11-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-W11-3/main/badge.svg?branch=master[Coverage Status]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -14,22 +12,30 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* A common issue when people hang out with friends is deciding on what to eat. As a person spends time to scan through their memory for good eateries, the meal timing will be delayed.
+* Aiming to solve the issue, we came out with EatMe.
+* A product that aims to help users to manage the eateries that they had visited, and keep track of their experience and expenditure.
+* Although EatMe has a fully functional GUI, most of the user interactions happen using a CLI (Command Line Interface).
+* EatMe allows users to:
+1. Manage the eateries they visited
+1. Include their own reviews on the eateries
+1. Follow the feeds of their favourite bloggers
+1. Create their own unique to-eat list.
+1. etc.
+* With EatMe, leave all the thinking behind and have an easy time deciding on where to eat.
+
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* The original source code belongs to AddressBook-Level3 by SE-EDU initiated at https://se-education.org
 
 == Licence : link:LICENSE[MIT]
+
