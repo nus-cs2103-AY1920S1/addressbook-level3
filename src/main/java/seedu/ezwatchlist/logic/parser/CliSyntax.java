@@ -12,5 +12,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_IS_WATCHED = new Prefix("w/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("s/");
     public static final Prefix PREFIX_ACTOR = new Prefix("a/");
+    public static final Prefix PREFIX_TYPE = new Prefix("t/");
 
 }
