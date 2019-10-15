@@ -25,7 +25,6 @@ class SanitizeLocationTest {
     void getValidLocationList() throws ConnectException, TimeBookInvalidLocation {
         sanitizeLocation.sanitize("FOO");
         sanitizeLocation.sanitize("FOO-12345");
-        sanitizeLocation.sanitize("FOO_12345");
         sanitizeLocation.sanitize("BAR");
         assertThrows(TimeBookInvalidLocation.class, ()-> sanitizeLocation.sanitize("FOOLED"));
         ArrayList<String> expectedValidLocationList =
@@ -37,7 +36,6 @@ class SanitizeLocationTest {
     void sanitize() throws TimeBookInvalidLocation, ConnectException {
         assertEquals(sanitizeLocation.sanitize("FOO"), "NUS_FOO");
         assertEquals(sanitizeLocation.sanitize("FOO-12345"), "NUS_FOO");
-        assertEquals(sanitizeLocation.sanitize("FOO_12345"), "NUS_FOO");
         assertEquals(sanitizeLocation.sanitize("BAR"), "NUS_BAR");
         assertThrows(TimeBookInvalidLocation.class, ()-> sanitizeLocation.sanitize("FOOLED"));
     }
