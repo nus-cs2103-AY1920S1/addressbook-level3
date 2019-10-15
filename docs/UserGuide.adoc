@@ -96,7 +96,7 @@ Format: `info INDEX`
 
 ==== Clearing all entries : `clear`
 
-Clears the most recent search +
+Clears the most recent search and displays all books +
 Format: `clear`
 
 ==== Adding a book: `add`
@@ -289,12 +289,12 @@ Liberry data are saved in the hard disk automatically after any command that cha
 == Command Summary
 
 * *Help* : `help`
-* *Find a book* : `find { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] }` +
+* *Find a book* : `find { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] } [NUMBER]` +
 e.g. `find t/Animal Farm a/George Orwell`, `find g/mystery g/children -available` +
 `[-rated] [-popular] [-new]` ** - Coming in v2.0**
 * *View book info* : `info INDEX`
 * *Clear results* : `clear`
-* *Add a book* : `add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]` +
+* *Add a book* : `add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]... ` +
 e.g. `add t/Harry Botter and the Baby's Potty a/Reali Jolking sn/B02010 g/children`
 * *Delete a book* : `delete INDEX` or `delete sn/BOOK_SN`
 * *Register a borrower* : `register u/NAME p/PHONE_NUMBER e/EMAIL` +
