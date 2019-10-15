@@ -14,10 +14,12 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.framework.junit5.Stop;
-import org.testfx.util.WaitForAsyncUtils;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import tagline.logic.Logic;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.testutil.CommandResultBuilder;
@@ -47,16 +49,26 @@ public class ResultPaneTest {
     private MainWindow mainWindow;
     private LogicStub logic;
 
-    @Start
-    void setup(Stage stage) throws TimeoutException {
-        logic = new LogicStub(testFolder);
+    /**
+     * Set up the main window.
+     */
+    private void initMainWindow(Stage stage, Logic logic) throws TimeoutException {
+        if (stage.getStyle() != StageStyle.DECORATED) {
+            stage.initStyle(StageStyle.DECORATED);
+        }
+
         FxToolkit.setupStage(s -> {
             mainWindow = new MainWindow(s, logic);
             mainWindow.show();
             mainWindow.fillInnerParts();
         });
-        WaitForAsyncUtils.waitForFxEvents();
         FxToolkit.showStage();
+    }
+
+    @Start
+    void setup(Stage stage) throws TimeoutException {
+        logic = new LogicStub(testFolder);
+        initMainWindow(stage, logic);
     }
 
     @Stop
@@ -86,9 +98,10 @@ public class ResultPaneTest {
     /**
      * Sends a command which returns a specified {@code CommandResult}.
      */
-    void sendCommandWithResult(FxRobot robot, CommandResult commandResult) throws TimeoutException {
+    void sendCommandWithResult(FxRobot robot, CommandResult commandResult) {
         logic.setCommandResult(commandResult);
-        robot.clickOn(".commandSendButton");
+        robot.clickOn(".commandTextField");
+        robot.type(KeyCode.ENTER);
     }
 
     @Test
