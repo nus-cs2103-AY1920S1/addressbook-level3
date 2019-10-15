@@ -2,11 +2,16 @@ package seedu.address.autocomplete;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.LogsCenter;
+
+import java.util.logging.Logger;
 
 /**
  * A handler that initialises autocomplete word bank and updates list of autocomplete words to be shown
  */
 public class AutoCompleteWordHandler {
+    private static final Logger logger = LogsCenter.getLogger(AutoCompleteWordHandler.class);
+
     private ObservableList<AutoCompleteWord> oListAutoCompleteWords;
     private ObservableList<AutoCompleteWord> oListAutoCompleteWordBank;
 
@@ -51,13 +56,12 @@ public class AutoCompleteWordHandler {
      */
     public void updateList(String currentPhraseInCommandBox) {
         oListAutoCompleteWords.clear();
-        System.out.println(oListAutoCompleteWords.size());
-        System.out.println(oListAutoCompleteWordBank.size());
 
         for (AutoCompleteWord autoCompleteWord : oListAutoCompleteWordBank) {
             if (autoCompleteWord.getSuggestedWord().contains(currentPhraseInCommandBox)) {
                 oListAutoCompleteWords.add(autoCompleteWord);
             }
         }
+        logger.info("Current number of suggested word is " + oListAutoCompleteWords.size());
     }
 }

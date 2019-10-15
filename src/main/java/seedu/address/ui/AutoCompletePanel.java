@@ -6,11 +6,15 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.autocomplete.AutoCompleteWord;
 import seedu.address.autocomplete.AutoCompleteWordHandler;
+import seedu.address.commons.core.LogsCenter;
+
+import java.util.logging.Logger;
 
 /**
  * Panel containing the list of suggested words.
  */
 public class AutoCompletePanel extends UiPart<Region> {
+    private static final Logger logger = LogsCenter.getLogger(AutoCompletePanel.class);
     private static final String FXML = "AutoCompletePanel.fxml";
 
     private AutoCompleteWordHandler autoCompleteWordHandler;
@@ -32,7 +36,6 @@ public class AutoCompletePanel extends UiPart<Region> {
         @Override
         protected void updateItem(AutoCompleteWord autoCompleteWord, boolean empty) {
             super.updateItem(autoCompleteWord, empty);
-            System.out.println("updateItem called");
 
             if (empty || autoCompleteWord == null) {
                 setGraphic(null);
@@ -42,10 +45,6 @@ public class AutoCompletePanel extends UiPart<Region> {
             }
         }
     }
-
-    /*public void setList() {
-
-    }*/
 
     public AutoCompleteWord getSelected() {
         return autoCompleteWordListView.getSelectionModel().getSelectedItem();
@@ -60,6 +59,7 @@ public class AutoCompletePanel extends UiPart<Region> {
     }
 
     public void updateListView(String currentPhraseInCommandBox) {
+        logger.info("Updated list");
         autoCompleteWordHandler.updateList(currentPhraseInCommandBox);
     }
 }

@@ -212,7 +212,6 @@ public class MainWindow extends UiPart<Stage> {
                 }
                 selectedIndex = newIndex;
 
-                System.out.println("PRESSED UP current index" + newIndex);
                 autoCompletePanel.select(newIndex);
                 commandBox.getCommandTextField().positionCaret(commandBox.getCommandTextField().getText().length());
                 break;
@@ -223,16 +222,14 @@ public class MainWindow extends UiPart<Stage> {
                 }
                 selectedIndex = newIndex2;
 
-                System.out.println("PRESSED DOWN current index" + newIndex2);
                 autoCompletePanel.select(newIndex2);
                 break;
             case SHIFT:
-                System.out.println("PRESSED SHIFT");
                 try {
                     commandBox.getCommandTextField().setText(autoCompletePanel.getSelected().getSuggestedWord());
                     commandBox.getCommandTextField().positionCaret(commandBox.getCommandTextField().getText().length());
                 } catch (NullPointerException e) {
-                    System.out.println("nothing is selected thus shift key does not work");
+                    logger.info("Nothing is selected thus shift key does not work");
                 }
                 break;
             default:
