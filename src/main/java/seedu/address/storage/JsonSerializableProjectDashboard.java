@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.inventory.Inventory;
+import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 
 /**
@@ -21,15 +23,23 @@ import seedu.address.model.task.Task;
 class JsonSerializableProjectDashboard {
 
     public static final String MESSAGE_DUPLICATE_TASKS = "Tasks list contains duplicate task(s).";
+    public static final String MESSAGE_DUPLICATE_INVENTORIES = "Inventory list contains duplicate inventory(s).";
+    public static final String MESSAGE_DUPLICATE_MEMBERS = "Member list contains duplicate member(s).";
 
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
+    private final List<JsonAdaptedMember> members = new ArrayList<>();
+    private final List<JsonAdaptedInventory> inventory = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableProjectDashboard} with the given task.
      */
     @JsonCreator
-    public JsonSerializableProjectDashboard(@JsonProperty("tasks") List<JsonAdaptedTask> tasks) {
+    public JsonSerializableProjectDashboard(@JsonProperty("tasks") List<JsonAdaptedTask> tasks,
+                                            @JsonProperty("members") List<JsonAdaptedMember> members,
+                                            @JsonProperty("inventories") List<JsonAdaptedInventory> inventory) {
         this.tasks.addAll(tasks);
+        this.inventory.addAll(inventory);
+        this.members.addAll(members);
     }
 
     /**
@@ -38,7 +48,12 @@ class JsonSerializableProjectDashboard {
      * @param source future changes to this will not affect the created {@code JsonSerializableProjectDashboard}.
      */
     public JsonSerializableProjectDashboard(ReadOnlyProjectDashboard source) {
-        tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
+        tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTask::new)
+                .collect(Collectors.toList()));
+        members.addAll(source.getMemberList().stream().map(JsonAdaptedMember::new)
+                .collect(Collectors.toList()));
+        inventory.addAll(source.getInventoryList().stream().map(JsonAdaptedInventory::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -48,12 +63,29 @@ class JsonSerializableProjectDashboard {
      */
     public ProjectDashboard toModelType() throws IllegalValueException {
         ProjectDashboard projectDashboard = new ProjectDashboard();
+
         for (JsonAdaptedTask jsonAdaptedTask : tasks) {
             Task task = jsonAdaptedTask.toModelType();
             if (projectDashboard.hasTask(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TASKS);
             }
             projectDashboard.addTask(task);
+        }
+
+        for (JsonAdaptedInventory jsonAdaptedInv : inventory) {
+            Inventory inventory = jsonAdaptedInv.toModelType();
+            if (projectDashboard.hasInventory(inventory)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_INVENTORIES);
+            }
+            projectDashboard.addInventory(inventory);
+        }
+
+        for (JsonAdaptedMember jsonAdaptedMem: members) {
+            Member member = jsonAdaptedMem.toModelType();
+            if (projectDashboard.hasMember(member)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MEMBERS);
+            }
+            projectDashboard.addMember(member);
         }
         return projectDashboard;
     }

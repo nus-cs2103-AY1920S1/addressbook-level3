@@ -5,8 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.inventory.Inventory;
+import seedu.address.model.inventory.UniqueInventoryList;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.UniqueMemberList;
+
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
@@ -18,6 +21,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     private final UniqueTaskList tasks;
     private final UniqueMemberList members;
+    private final UniqueInventoryList inventories;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -29,7 +33,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     {
         tasks = new UniqueTaskList();
         members = new UniqueMemberList();
-
+        inventories = new UniqueInventoryList();
     }
 
     public ProjectDashboard() {}
@@ -41,6 +45,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         this();
         resetData(toBeCopied);
     }
+
 
     //// list overwrite operations
 
@@ -54,12 +59,24 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     /**
      * Resets the existing data of this {@code ProjectDashboard} with {@code newData}.
+     * Replaces the contents of the inventory list with {@code inventories}.
+     */
+    public void setInventories(List<Inventory>inventories) {
+        this.inventories.setInventories(inventories);
+    }
+
+    /**
+     * Resets the existing data of this {@code ProjectDashboard} with {@code newData}.
+>>>>>>> expenses1:src/main/java/seedu/address/model/AddressBook.java
      */
     public void resetData(ReadOnlyProjectDashboard newData) {
         requireNonNull(newData);
 
         setTasks(newData.getTaskList());
+        setInventories(newData.getInventoryList());
+        setMembers(newData.getMemberList());
     }
+
 
     //// task-level operations
 
@@ -98,6 +115,34 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         tasks.remove(key);
     }
 
+
+
+    //// inventory-level operations
+    /**
+     * Returns true if a inventory with the same identity as {@code inventory} exists in the dashboard.
+     */
+    public boolean hasInventory(Inventory inventory) {
+        requireNonNull(inventory);
+        return inventories.contains(inventory);
+    }
+
+    /**
+     * Adds a inventory to the dashboard.
+     * The inventory must not already exist in the dashboard.
+     */
+    public void addInventory(Inventory inventory) {
+        inventories.add(inventory);
+    }
+
+    /**
+     * Removes {@code key} from this {@code ProjectDashboard}.
+     * {@code key} must exist in the dashboard.
+     */
+    public void removeInventory(Inventory target) {
+        inventories.remove(target);
+    }
+
+
     //// util methods
 
     @Override
@@ -109,6 +154,11 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     @Override
     public ObservableList<Task> getTaskList() {
         return tasks.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Inventory> getInventoryList() {
+        return inventories.asUnmodifiableList();
     }
 
     @Override

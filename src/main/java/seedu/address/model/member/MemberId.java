@@ -25,7 +25,7 @@ public class MemberId {
      */
     public static boolean isValidId(String test) {
         return test.matches(VALIDATION_REGEX);
-    }
+    }    
 
     public String getDisplayName() {
         return this.displayId;

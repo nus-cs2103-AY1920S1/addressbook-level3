@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
@@ -178,6 +179,36 @@ public class AddTaskCommandTest {
         @Override
         public void updateFilteredMembersList(Predicate<Member> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getTasksLength() {
+            return 0;
+        }
+
+        @Override
+        public ObservableList<Inventory> getFilteredInventoriesList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredInventoriesList(Predicate<Inventory> predicate) {
+
+        }
+
+        @Override
+        public void addInventory(Inventory inventory) {
+
+        }
+
+        @Override
+        public boolean hasInventory(Inventory inventory) {
+            return false;
+        }
+
+        @Override
+        public void deleteInventory(Inventory target) {
+
         }
     }
 

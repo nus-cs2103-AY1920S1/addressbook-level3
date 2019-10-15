@@ -1,14 +1,15 @@
-package seedu.address.model.task;
+package seedu.address.model.inventory;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.model.task.Name;
+
 /**
- * Represents a Task's name in the address book.
+ * Represents a Inventory's name in ProjectDashBoard.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class Name {
-
+public class InvName {
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
@@ -25,13 +26,13 @@ public class Name {
      *
      * @param name A valid name.
      */
-    public Name(String name) {
+    public InvName(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
 
-    public Name() {
+    public InvName() {
         fullName = null;
     }
 
@@ -59,5 +60,4 @@ public class Name {
     public int hashCode() {
         return fullName.hashCode();
     }
-
 }

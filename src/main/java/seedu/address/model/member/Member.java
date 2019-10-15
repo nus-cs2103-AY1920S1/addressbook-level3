@@ -34,6 +34,12 @@ public class Member {
         this.tags.addAll(tags);
     }
 
+    public Member() {
+        this.name = null;
+        this.id = null;
+        this.tags.addAll(null);
+    }
+
     // TODO add multiple constructors so that users can add additional info later
     public void setTask(Task task) {
         this.memberTasks.add(task);
