@@ -12,7 +12,7 @@ import java.util.Comparator;
 public class FlashcardCard extends UiPart<Region> {
 
     // TODO: make it points to the right fxml file.
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "FlashcardCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
