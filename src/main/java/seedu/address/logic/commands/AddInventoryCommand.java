@@ -2,12 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_TASKID;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.core.index.InvIndex;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.inventory.InvName;
@@ -19,7 +18,7 @@ import seedu.address.model.task.Task;
  * Adds a task to the address book.
  */
 
-public class AddInventoryCommand extends Command{
+public class AddInventoryCommand extends Command {
     public static final String COMMAND_WORD = "add-inv";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a inventory to the project Dashboard. "
@@ -36,22 +35,22 @@ public class AddInventoryCommand extends Command{
     public static final String MESSAGE_DUPLICATE_INVENTORY = "This inventory already exists in the address book";
     public static final String MESSAGE_INDEX_EXCEEDED = "ThE index entered for tasks is invalid";
 
-    private final Index taskID;
+    private final Index taskId;
     private final InvName name;
     private final Price price;
 
     /**
      * Creates an AddCommand to add the specified {@code Task}
      */
-    public AddInventoryCommand(Index taskID, InvName name, Price price) {
-        requireAllNonNull(taskID, name, price);
-        this.taskID = taskID;
+    public AddInventoryCommand(Index taskId, InvName name, Price price) {
+        requireAllNonNull(taskId, name, price);
+        this.taskId = taskId;
         this.name = name;
         this.price = price;
     }
-    public AddInventoryCommand(Index taskID, InvName name) {
-        requireAllNonNull(taskID, name);
-        this.taskID = taskID;
+    public AddInventoryCommand(Index taskId, InvName name) {
+        requireAllNonNull(taskId, name);
+        this.taskId = taskId;
         this.name = name;
         this.price = new Price(0);
     }
@@ -61,11 +60,11 @@ public class AddInventoryCommand extends Command{
         requireNonNull(model);
         int tasksLength = model.getTasksLength();
 
-        if (taskID.getOneBased() > tasksLength) {
-           throw new CommandException(MESSAGE_INDEX_EXCEEDED);
+        if (taskId.getOneBased() > tasksLength) {
+            throw new CommandException(MESSAGE_INDEX_EXCEEDED);
         }
 
-        Task taskToAdd = model.getFilteredTasksList().get(taskID.getZeroBased());
+        Task taskToAdd = model.getFilteredTasksList().get(taskId.getZeroBased());
         Inventory toAdd = new Inventory(taskToAdd, name, price);
 
         if (model.hasInventory(toAdd)) {
@@ -80,8 +79,8 @@ public class AddInventoryCommand extends Command{
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddInventoryCommand // instanceof handles nulls
-                && taskID.equals(((AddInventoryCommand) other).taskID))
-                && name.equals(((AddInventoryCommand)other).name)
-                && price.equals(((AddInventoryCommand)other).price);
+                && taskId.equals(((AddInventoryCommand) other).taskId))
+                && name.equals(((AddInventoryCommand) other).name)
+                && price.equals(((AddInventoryCommand) other).price);
     }
 }

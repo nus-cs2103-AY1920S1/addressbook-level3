@@ -5,11 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.inventory.Inventory;
+import seedu.address.model.inventory.UniqueInventoryList;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.UniqueMemberList;
 
-import seedu.address.model.inventory.Inventory;
-import seedu.address.model.inventory.UniqueInventoryList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
@@ -117,15 +117,26 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
 
     //// inventory-level operations
+    /**
+     * Returns true if a inventory with the same identity as {@code inventory} exists in the dashboard.
+     */
     public boolean hasInventory(Inventory inventory) {
         requireNonNull(inventory);
         return inventories.contains(inventory);
     }
 
+    /**
+     * Adds a inventory to the dashboard.
+     * The inventory must not already exist in the dashboard.
+     */
     public void addInventory(Inventory inventory) {
         inventories.add(inventory);
     }
 
+    /**
+     * Removes {@code key} from this {@code ProjectDashboard}.
+     * {@code key} must exist in the dashboard.
+     */
     public void removeInventory(Inventory target) {
         inventories.remove(target);
     }

@@ -8,9 +8,19 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.inventory.Exceptions.DuplicateInventoryException;
-import seedu.address.model.inventory.Exceptions.InventoryNotFoundException;
+import seedu.address.model.inventory.exceptions.DuplicateInventoryException;
+import seedu.address.model.inventory.exceptions.InventoryNotFoundException;
 
+/**
+ * A list of inventories that enforces uniqueness between its elements and does not allow nulls.
+ * A inventory is considered unique by comparing using {@code Inventory#isSameInventory(Inventory)}.
+ * As such, adding and updating of persons uses Inventory#isSameInventory(Inventory) for equality so as to ensure that
+ * the inventory being added or updated is unique in terms of identity in the UniqueInventoryList. However, the
+ * removal of a inventory uses Inventory#equals(Object) so as to ensure that the inventory with exactly the same fields
+ * will be removed.
+ * Supports a minimal set of list operations.
+ *
+ */
 public class UniqueInventoryList implements Iterable<Inventory> {
     private final ObservableList<Inventory> internalList = FXCollections.observableArrayList();
     private final ObservableList<Inventory> internalUnmodifiableList =

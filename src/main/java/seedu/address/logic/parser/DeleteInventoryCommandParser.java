@@ -6,6 +6,9 @@ import seedu.address.commons.core.index.InvIndex;
 import seedu.address.logic.commands.DeleteInventoryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new DeleteInventoryCommand object
+ */
 public class DeleteInventoryCommandParser implements Parser<DeleteInventoryCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteInventoryCommand

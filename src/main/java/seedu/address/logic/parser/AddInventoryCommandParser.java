@@ -10,10 +10,14 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddInventoryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Price;
 
+/**
+ * Parses the given {@code String} of arguments in the context of the AddInventoryCommand
+ * and returns an AddInventoryCommand object for execution.
+ * @throws ParseException if the user input does not conform the expected format
+ */
 public class AddInventoryCommandParser implements Parser<AddInventoryCommand> {
 
     /**
@@ -38,16 +42,16 @@ public class AddInventoryCommandParser implements Parser<AddInventoryCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddInventoryCommand.MESSAGE_USAGE));
         }
-        Index taskID = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INVENTORY_TASKID).get());
+        Index taskId = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INVENTORY_TASKID).get());
 
         //parse price
         if (argMultimap.getValue(PREFIX_INVENTORY_PRICE).isPresent()) {
             Price price = ParserUtil.parsePrice((argMultimap.getValue(PREFIX_INVENTORY_PRICE).get()));
             //Inventory inventory = new Inventory(taskID, name, price);
-            return new AddInventoryCommand(taskID, name, price);
+            return new AddInventoryCommand(taskId, name, price);
         } else {
             //Inventory inventory = new Inventory(taskID, name);
-            return new AddInventoryCommand(taskID, name);
+            return new AddInventoryCommand(taskId, name);
         }
 
     }

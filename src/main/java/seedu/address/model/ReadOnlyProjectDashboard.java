@@ -1,11 +1,11 @@
 package seedu.address.model;
 
-import java.util.List;
-
 import javafx.collections.ObservableList;
-import seedu.address.model.member.Member;
+
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
+
 
 /**
  * Unmodifiable view of an address book

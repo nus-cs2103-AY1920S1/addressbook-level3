@@ -3,6 +3,10 @@ package seedu.address.model.inventory;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * represents the price of inventory
+ * ensures the price is a positive value
+ */
 public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -35,7 +39,7 @@ public class Price {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(double price) {
-        return price>=0;
+        return price >= 0;
     }
 
     public double getPrice() {
@@ -52,7 +56,7 @@ public class Price {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Price // instanceof handles nulls
-                && (price==(((Price) other).price))); // state check
+                && (price == (((Price) other).price))); // state check
     }
 
     @Override

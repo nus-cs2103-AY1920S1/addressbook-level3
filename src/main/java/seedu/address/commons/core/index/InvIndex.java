@@ -5,8 +5,9 @@ package seedu.address.commons.core.index;
  *
  * {@code InvIndex} should be used right from the start (when parsing in a new user input), so that if the current
  * component wants to communicate with another component, it can send an {@code InvIndex} to avoid having to know what
- * base the other component is using for its inventory index. However, after receiving the {@code InvIndex}, that component can
- * convert it back to an int if the inventory index will not be passed to a different component again.
+ * base the other component is using for its inventory index. However, after receiving the {@code InvIndex},
+ * that component can convert it back to an int if the inventory index will not be passed to a different component
+ * again.
  */
 public class InvIndex {
     private int zeroBasedIndex;

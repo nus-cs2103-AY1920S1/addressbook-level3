@@ -5,6 +5,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import seedu.address.model.task.Name;
 
+/**
+ * Represents a Inventory's name in ProjectDashBoard.
+ * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ */
 public class InvName {
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";

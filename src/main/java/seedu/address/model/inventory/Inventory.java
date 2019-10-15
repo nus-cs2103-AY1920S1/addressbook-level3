@@ -4,10 +4,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.task.Task;
 
-
+/**
+ * Represents a Inventory in ProjectDashBoard.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Inventory {
     // Identity fields
     private final Task task;

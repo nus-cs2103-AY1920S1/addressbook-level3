@@ -24,22 +24,9 @@ import static seedu.address.testutil.TypicalTasks.REVIEW_BUDGET;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddCommandParserTest.java
-import seedu.address.logic.commands.AddCommand;
-<<<<<<< HEAD
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-=======
->>>>>>> team/master
-import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Name;
-=======
 import seedu.address.logic.commands.AddTaskCommand;
 //import seedu.address.model.tag.Tag;
 //import seedu.address.model.task.Name;
->>>>>>> cc494bb9b9a872cdb89471da760811905ccda0c2:src/test/java/seedu/address/logic/parser/AddTaskCommandParserTest.java
 import seedu.address.model.task.Task;
 //import seedu.address.model.task.TaskStatus;
 import seedu.address.testutil.TaskBuilder;

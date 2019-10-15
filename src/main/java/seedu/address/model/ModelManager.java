@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
-import java.util.logging.Filter;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -13,9 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 
-import seedu.address.model.member.Member;
-
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.member.Member;
 
 import seedu.address.model.task.Task;
 //import seedu.address.model.task.NameContainsKeywordsPredicate;

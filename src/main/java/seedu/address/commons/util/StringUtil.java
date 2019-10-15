@@ -76,7 +76,7 @@ public class StringUtil {
     public static boolean isPositiveDouble(String s) {
         requireNonNull(s);
 
-        try{
+        try {
             double value = Double.parseDouble(s);
             return value > 0;
         } catch (NumberFormatException e) {

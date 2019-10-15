@@ -48,12 +48,12 @@ class JsonSerializableProjectDashboard {
      * @param source future changes to this will not affect the created {@code JsonSerializableProjectDashboard}.
      */
     public JsonSerializableProjectDashboard(ReadOnlyProjectDashboard source) {
-        tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTask::new).
-                collect(Collectors.toList()));
-        members.addAll(source.getMemberList().stream().map(JsonAdaptedMember::new).
-                collect(Collectors.toList()));
-        inventories.addAll(source.getInventoryList().stream().map(JsonAdaptedInventory::new).
-                collect(Collectors.toList()));
+        tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTask::new)
+                .collect(Collectors.toList()));
+        members.addAll(source.getMemberList().stream().map(JsonAdaptedMember::new)
+                .collect(Collectors.toList()));
+        inventories.addAll(source.getInventoryList().stream().map(JsonAdaptedInventory::new)
+                .collect(Collectors.toList()));
     }
 
     /**

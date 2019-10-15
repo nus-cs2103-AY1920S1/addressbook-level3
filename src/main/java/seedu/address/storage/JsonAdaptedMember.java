@@ -15,6 +15,9 @@ import seedu.address.model.member.MemberId;
 import seedu.address.model.member.MemberName;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Jackson-friendly version of {@link Member}.
+ */
 public class JsonAdaptedMember {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Member's %s field is missing!";
 
@@ -59,7 +62,8 @@ public class JsonAdaptedMember {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, MemberName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                                                            MemberName.class.getSimpleName()));
         }
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
