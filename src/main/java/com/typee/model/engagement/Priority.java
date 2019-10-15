@@ -20,6 +20,12 @@ public enum Priority {
         }
     }
 
+    public static boolean isValid(String string) {
+        return string.equalsIgnoreCase("low")
+                || string.equalsIgnoreCase("medium")
+                || string.equalsIgnoreCase("high");
+    }
+
     public static String getMessageConstraints() {
         return "Priority can only be low, medium or high!";
     }

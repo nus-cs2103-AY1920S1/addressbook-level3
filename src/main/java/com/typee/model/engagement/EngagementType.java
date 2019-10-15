@@ -9,6 +9,12 @@ public enum EngagementType {
         return "An engagement has to be one of meeting, interview or appointment.";
     }
 
+    public static boolean isValid(String string) {
+        return string.equalsIgnoreCase("meeting")
+                || string.equalsIgnoreCase("interview")
+                || string.equalsIgnoreCase("appointment");
+    }
+
     public static EngagementType of(String engagementType) throws IllegalArgumentException {
         if (engagementType.equalsIgnoreCase(EngagementType.MEETING.name())) {
             return EngagementType.MEETING;

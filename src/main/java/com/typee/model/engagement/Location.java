@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class Location {
 
     public static String location;
+    public static final String MESSAGE_CONSTRAINTS = "Locations cannot be blank.";
 
     public Location(String location) {
         this.location = location;
@@ -19,6 +20,10 @@ public class Location {
 
     public static void setLocation(String location) {
         Location.location = location;
+    }
+
+    public static boolean isValid(String string) {
+        return !string.isBlank();
     }
 
     @Override
