@@ -46,8 +46,8 @@
         <padding>
           <Insets top="1" bottom="1" />
         </padding>
-        <Label fx:id="emailPrefix" styleClass="prefix-label, prefix_purple" text="Email" />
-        <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+        <Label fx:id="prevModsPrefix" styleClass="prefix-label, prefix_purple" text="Modules Taken" />
+        <Label fx:id="prevMods" styleClass="cell_small_label" text="\$prevMods" />
       </HBox>
     </VBox>
   </GridPane>

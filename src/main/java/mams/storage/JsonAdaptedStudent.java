@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import mams.commons.exceptions.IllegalValueException;
 import mams.model.student.Credits;
-import mams.model.student.Email;
 import mams.model.student.MatricId;
 import mams.model.student.Name;
+import mams.model.student.PrevMods;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
 
@@ -26,7 +26,7 @@ class JsonAdaptedStudent {
 
     private final String name;
     private final String credits;
-    private final String email;
+    private final String prevMods;
     private final String matricId;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -36,11 +36,11 @@ class JsonAdaptedStudent {
     @JsonCreator
     //todo
     public JsonAdaptedStudent(@JsonProperty("name") String name, @JsonProperty("credits") String credits,
-                              @JsonProperty("email") String email, @JsonProperty("matricId") String matricId,
+                              @JsonProperty("prevMods") String prevMods, @JsonProperty("matricId") String matricId,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.credits = credits;
-        this.email = email;
+        this.prevMods = prevMods;
         this.matricId = matricId;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -53,7 +53,7 @@ class JsonAdaptedStudent {
     public JsonAdaptedStudent(Student source) {
         name = source.getName().fullName;
         credits = source.getCredits().value;
-        email = source.getEmail().value;
+        prevMods = source.getPrevMods().value;
         matricId = source.getMatricId().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -72,7 +72,8 @@ class JsonAdaptedStudent {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -87,13 +88,14 @@ class JsonAdaptedStudent {
         }
         final Credits modelCredits = new Credits(credits);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (prevMods == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PrevMods.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        if (!PrevMods.isValidPrevMods(prevMods)) {
+            throw new IllegalValueException(PrevMods.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final PrevMods modelPrevMods = new PrevMods(prevMods);
 
         if (matricId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -105,7 +107,7 @@ class JsonAdaptedStudent {
         final MatricId modelMatricId = new MatricId(matricId);
 
         final Set<Tag> modelTags = new HashSet<>(studentTags);
-        return new Student(modelName, modelCredits, modelEmail, modelMatricId, modelTags);
+        return new Student(modelName, modelCredits, modelPrevMods, modelMatricId, modelTags);
     }
 
 }

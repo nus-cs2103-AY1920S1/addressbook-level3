@@ -86,7 +86,7 @@ private Label address;
 ...
 <Label fx:id="credits" styleClass="cell_small_label" text="\$credits" />
 <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-<Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+<Label fx:id="prevMods" styleClass="cell_small_label" text="\$prevMods" />
 ...
 ----
 
@@ -109,7 +109,7 @@ While keeping the `address` field in the json files does not cause the tests to 
   "persons": [ {
     "name": "Person with invalid name field: Ha!ns Mu@ster",
     "credits": "20",
-    "email": "hans@example.com",
+    "prevMods": "hans@example.com",
     "address": "4th street"
   } ]
 }

@@ -1,0 +1,39 @@
+{
+  "students" : [ {
+    "name" : "Alex Yeoh",
+    "credits" : "20",
+    "email" : "alexyeoh@example.com",
+    "matricId" : "A0180000R",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Bernice Yu",
+    "credits" : "20",
+    "email" : "berniceyu@example.com",
+    "matricId" : "A01455353y",
+    "tagged" : [ "colleagues", "friends" ]
+  }, {
+    "name" : "Charlotte Oliveiro",
+    "credits" : "20",
+    "email" : "charlotte@example.com",
+    "matricId" : "A0199239U",
+    "tagged" : [ "neighbours" ]
+  }, {
+    "name" : "David Li",
+    "credits" : "20",
+    "email" : "lidavid@example.com",
+    "matricId" : "A01423223T",
+    "tagged" : [ "family" ]
+  }, {
+    "name" : "Irfan Ibrahim",
+    "credits" : "20",
+    "email" : "irfan@example.com",
+    "matricId" : "A12039123S",
+    "tagged" : [ "classmates" ]
+  }, {
+    "name" : "Roy Balakrishnan",
+    "credits" : "20",
+    "email" : "royb@example.com",
+    "matricId" : "A015923848U",
+    "tagged" : [ "colleagues" ]
+  } ]
+}
