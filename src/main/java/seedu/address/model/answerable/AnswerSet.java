@@ -1,6 +1,7 @@
 package seedu.address.model.answerable;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,6 +12,14 @@ public class AnswerSet {
 
     public Set<Answer> correctAnswerSet;
     public Set<Answer> wrongAnswerSet;
+
+    /**
+     * Default Constructor for Answer.
+     */
+    public AnswerSet() {
+        this.correctAnswerSet = new HashSet<>();
+        this.wrongAnswerSet = new HashSet<>();
+    }
 
     public AnswerSet(Set<Answer> correctAnswerSet, Set<Answer> wrongAnswerSet) {
         this.correctAnswerSet = correctAnswerSet;
@@ -30,12 +39,12 @@ public class AnswerSet {
         return wrongAnswerSet;
     }
 
-    public void setWrongAnswerSet(Set<Answer> wrongAnswerSet) {
-        this.wrongAnswerSet = wrongAnswerSet;
-    }
-
     public void setCorrectAnswerSet(Set<Answer> correctAnswerSet) {
         this.correctAnswerSet = correctAnswerSet;
+    }
+
+    public void setWrongAnswerSet(Set<Answer> wrongAnswerSet) {
+        this.wrongAnswerSet = wrongAnswerSet;
     }
 
     @Override

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalAnswerables.ALICE;
+import static seedu.address.testutil.TypicalAnswerables.A_ANSWERABLE;
 import static seedu.address.testutil.TypicalAnswerables.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -46,9 +46,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateAnswerable_throwsDuplicateAnswerableException() {
         // Two answerables with the same identity fields
-        Answerable editedAlice = new AnswerableBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Answerable> newAnswerables = Arrays.asList(ALICE, editedAlice);
+        List<Answerable> newAnswerables = Arrays.asList(A_ANSWERABLE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newAnswerables);
 
         assertThrows(DuplicateAnswerableException.class, () -> addressBook.resetData(newData));
@@ -61,19 +61,19 @@ public class AddressBookTest {
 
     @Test
     public void hasAnswerable_answerableNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasAnswerable(ALICE));
+        assertFalse(addressBook.hasAnswerable(A_ANSWERABLE));
     }
 
     @Test
     public void hasAnswerable_answerableInAddressBook_returnsTrue() {
-        addressBook.addAnswerable(ALICE);
-        assertTrue(addressBook.hasAnswerable(ALICE));
+        addressBook.addAnswerable(A_ANSWERABLE);
+        assertTrue(addressBook.hasAnswerable(A_ANSWERABLE));
     }
 
     @Test
     public void hasAnswerable_answerableWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addAnswerable(ALICE);
-        Answerable editedAlice = new AnswerableBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        addressBook.addAnswerable(A_ANSWERABLE);
+        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasAnswerable(editedAlice));
     }

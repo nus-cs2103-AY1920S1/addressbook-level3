@@ -1,8 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DIFFICULTY_DESC;
@@ -10,6 +11,8 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DIFFICULTY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DIFFICULTY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_TYPE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.QUESTION_TYPE_MCQ;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
@@ -19,6 +22,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.WRONG_ANSWER_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -94,18 +98,18 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_QUESTION_DESC + VALID_ADDRESS_AMY + VALID_DIFFICULTY_AMY,
-                Question.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_QUESTION_DESC + QUESTION_TYPE_MCQ + CORRECT_ANSWER_DESC
+                + WRONG_ANSWER_DESC + VALID_ADDRESS_AMY + VALID_DIFFICULTY_AMY, Question.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_ANSWERABLE;
         String userInput = targetIndex.getOneBased() + DIFFICULTY_DESC_BOB + TAG_DESC_HUSBAND
-                + ADDRESS_DESC_AMY + QUESTION_DESC_AMY + TAG_DESC_FRIEND;
+                + CATEGORY_DESC_AMY + QUESTION_DESC_AMY + TAG_DESC_FRIEND;
 
         EditCommand.EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_AMY)
-                .withDifficulty(VALID_DIFFICULTY_BOB).withAddress(VALID_ADDRESS_AMY)
+                .withDifficulty(VALID_DIFFICULTY_BOB).withCategory(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -139,8 +143,8 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // address
-        userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
-        descriptor = new EditAnswerableDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
+        userInput = targetIndex.getOneBased() + CATEGORY_DESC_AMY;
+        descriptor = new EditAnswerableDescriptorBuilder().withCategory(VALID_ADDRESS_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -154,12 +158,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_ANSWERABLE;
-        String userInput = targetIndex.getOneBased() + DIFFICULTY_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND + DIFFICULTY_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND
-                + DIFFICULTY_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + DIFFICULTY_DESC_AMY + CATEGORY_DESC_AMY
+                + TAG_DESC_FRIEND + DIFFICULTY_DESC_AMY + CATEGORY_DESC_AMY + TAG_DESC_FRIEND
+                + DIFFICULTY_DESC_BOB + CATEGORY_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+                .withCategory(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -175,10 +179,10 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + INVALID_DIFFICULTY_DESC + ADDRESS_DESC_BOB
+        userInput = targetIndex.getOneBased() + INVALID_DIFFICULTY_DESC + CATEGORY_DESC_BOB
                 + DIFFICULTY_DESC_BOB;
         descriptor = new EditAnswerableDescriptorBuilder().withDifficulty(VALID_DIFFICULTY_BOB)
-                .withAddress(VALID_ADDRESS_BOB).build();
+                .withCategory(VALID_ADDRESS_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

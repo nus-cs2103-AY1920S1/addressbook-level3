@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalAnswerables.ALICE;
-import static seedu.address.testutil.TypicalAnswerables.BOB;
+import static seedu.address.testutil.TypicalAnswerables.A_ANSWERABLE;
+import static seedu.address.testutil.TypicalAnswerables.BETA;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,141 +24,141 @@ public class UniqueAnswerableListTest {
     private final UniqueAnswerableList uniqueAnswerableList = new UniqueAnswerableList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullAnswerable_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueAnswerableList.contains(null));
     }
 
     @Test
     public void contains_personNotInList_returnsFalse() {
-        assertFalse(uniqueAnswerableList.contains(ALICE));
+        assertFalse(uniqueAnswerableList.contains(A_ANSWERABLE));
     }
 
     @Test
     public void contains_personInList_returnsTrue() {
-        uniqueAnswerableList.add(ALICE);
-        assertTrue(uniqueAnswerableList.contains(ALICE));
+        uniqueAnswerableList.add(A_ANSWERABLE);
+        assertTrue(uniqueAnswerableList.contains(A_ANSWERABLE));
     }
 
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueAnswerableList.add(ALICE);
-        Answerable editedAlice = new AnswerableBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        uniqueAnswerableList.add(A_ANSWERABLE);
+        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueAnswerableList.contains(editedAlice));
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void add_nullAnswerable_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueAnswerableList.add(null));
     }
 
     @Test
-    public void add_duplicatePerson_throwsDuplicatePersonException() {
-        uniqueAnswerableList.add(ALICE);
-        assertThrows(DuplicateAnswerableException.class, () -> uniqueAnswerableList.add(ALICE));
+    public void add_duplicateAnswerable_throwsDuplicateAnswerableException() {
+        uniqueAnswerableList.add(A_ANSWERABLE);
+        assertThrows(DuplicateAnswerableException.class, () -> uniqueAnswerableList.add(A_ANSWERABLE));
     }
 
     @Test
-    public void setPerson_nullTargetPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueAnswerableList.setAnswerable(null, ALICE));
+    public void setAnswerable_nullTargetAnswerable_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueAnswerableList.setAnswerable(null, A_ANSWERABLE));
     }
 
     @Test
-    public void setPerson_nullEditedPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueAnswerableList.setAnswerable(ALICE, null));
+    public void setAnswerable_nullEditedAnswerable_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueAnswerableList.setAnswerable(A_ANSWERABLE, null));
     }
 
     @Test
-    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(AnswerableNotFoundException.class, () -> uniqueAnswerableList.setAnswerable(ALICE, ALICE));
+    public void setAnswerable_targetAnswerableNotInList_throwsAnswerableNotFoundException() {
+        assertThrows(AnswerableNotFoundException.class, () -> uniqueAnswerableList.setAnswerable(A_ANSWERABLE, A_ANSWERABLE));
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
-        uniqueAnswerableList.add(ALICE);
-        uniqueAnswerableList.setAnswerable(ALICE, ALICE);
+    public void setAnswerable_editedAnswerableIsSameAnswerable_success() {
+        uniqueAnswerableList.add(A_ANSWERABLE);
+        uniqueAnswerableList.setAnswerable(A_ANSWERABLE, A_ANSWERABLE);
         UniqueAnswerableList expectedUniqueAnswerableList = new UniqueAnswerableList();
-        expectedUniqueAnswerableList.add(ALICE);
+        expectedUniqueAnswerableList.add(A_ANSWERABLE);
         assertEquals(expectedUniqueAnswerableList, uniqueAnswerableList);
     }
 
     @Test
-    public void setPerson_editedPersonHasSameIdentity_success() {
-        uniqueAnswerableList.add(ALICE);
-        Answerable editedAlice = new AnswerableBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void setAnswerable_editedAnswerableHasSameIdentity_success() {
+        uniqueAnswerableList.add(A_ANSWERABLE);
+        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        uniqueAnswerableList.setAnswerable(ALICE, editedAlice);
+        uniqueAnswerableList.setAnswerable(A_ANSWERABLE, editedAlice);
         UniqueAnswerableList expectedUniqueAnswerableList = new UniqueAnswerableList();
         expectedUniqueAnswerableList.add(editedAlice);
         assertEquals(expectedUniqueAnswerableList, uniqueAnswerableList);
     }
 
     @Test
-    public void setPerson_editedPersonHasDifferentIdentity_success() {
-        uniqueAnswerableList.add(ALICE);
-        uniqueAnswerableList.setAnswerable(ALICE, BOB);
+    public void setAnswerable_editedAnswerableHasDifferentIdentity_success() {
+        uniqueAnswerableList.add(A_ANSWERABLE);
+        uniqueAnswerableList.setAnswerable(A_ANSWERABLE, BETA);
         UniqueAnswerableList expectedUniqueAnswerableList = new UniqueAnswerableList();
-        expectedUniqueAnswerableList.add(BOB);
+        expectedUniqueAnswerableList.add(BETA);
         assertEquals(expectedUniqueAnswerableList, uniqueAnswerableList);
     }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
-        uniqueAnswerableList.add(ALICE);
-        uniqueAnswerableList.add(BOB);
-        assertThrows(DuplicateAnswerableException.class, () -> uniqueAnswerableList.setAnswerable(ALICE, BOB));
+    public void setAnswerable_editedAnswerableHasNonUniqueIdentity_throwsDuplicateAnswerableException() {
+        uniqueAnswerableList.add(A_ANSWERABLE);
+        uniqueAnswerableList.add(BETA);
+        assertThrows(DuplicateAnswerableException.class, () -> uniqueAnswerableList.setAnswerable(A_ANSWERABLE, BETA));
     }
 
     @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullAnswerable_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueAnswerableList.remove(null));
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        assertThrows(AnswerableNotFoundException.class, () -> uniqueAnswerableList.remove(ALICE));
+    public void remove_personDoesNotExist_throwsAnswerableNotFoundException() {
+        assertThrows(AnswerableNotFoundException.class, () -> uniqueAnswerableList.remove(A_ANSWERABLE));
     }
 
     @Test
-    public void remove_existingPerson_removesPerson() {
-        uniqueAnswerableList.add(ALICE);
-        uniqueAnswerableList.remove(ALICE);
+    public void remove_existingAnswerable_removesAnswerable() {
+        uniqueAnswerableList.add(A_ANSWERABLE);
+        uniqueAnswerableList.remove(A_ANSWERABLE);
         UniqueAnswerableList expectedUniqueAnswerableList = new UniqueAnswerableList();
         assertEquals(expectedUniqueAnswerableList, uniqueAnswerableList);
     }
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
+    public void setAnswerables_nullUniqueAnswerableList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueAnswerableList.setAnswerables((UniqueAnswerableList) null));
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
-        uniqueAnswerableList.add(ALICE);
+    public void setAnswerables_uniqueAnswerableList_replacesOwnListWithProvidedUniqueAnswerableList() {
+        uniqueAnswerableList.add(A_ANSWERABLE);
         UniqueAnswerableList expectedUniqueAnswerableList = new UniqueAnswerableList();
-        expectedUniqueAnswerableList.add(BOB);
+        expectedUniqueAnswerableList.add(BETA);
         uniqueAnswerableList.setAnswerables(expectedUniqueAnswerableList);
         assertEquals(expectedUniqueAnswerableList, uniqueAnswerableList);
     }
 
     @Test
-    public void setPersons_nullList_throwsNullPointerException() {
+    public void setAnswerables_nullList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueAnswerableList.setAnswerables((List<Answerable>) null));
     }
 
     @Test
-    public void setPersons_list_replacesOwnListWithProvidedList() {
-        uniqueAnswerableList.add(ALICE);
-        List<Answerable> answerableList = Collections.singletonList(BOB);
+    public void setAnswerables_list_replacesOwnListWithProvidedList() {
+        uniqueAnswerableList.add(A_ANSWERABLE);
+        List<Answerable> answerableList = Collections.singletonList(BETA);
         uniqueAnswerableList.setAnswerables(answerableList);
         UniqueAnswerableList expectedUniqueAnswerableList = new UniqueAnswerableList();
-        expectedUniqueAnswerableList.add(BOB);
+        expectedUniqueAnswerableList.add(BETA);
         assertEquals(expectedUniqueAnswerableList, uniqueAnswerableList);
     }
 
     @Test
-    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
-        List<Answerable> listWithDuplicateAnswerables = Arrays.asList(ALICE, ALICE);
+    public void setAnswerables_listWithDuplicateAnswerables_throwsDuplicateAnswerableException() {
+        List<Answerable> listWithDuplicateAnswerables = Arrays.asList(A_ANSWERABLE, A_ANSWERABLE);
         assertThrows(DuplicateAnswerableException.class, () -> uniqueAnswerableList.setAnswerables(listWithDuplicateAnswerables));
     }
 

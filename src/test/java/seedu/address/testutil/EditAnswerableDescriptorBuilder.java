@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditAnswerableDescriptor;
+import seedu.address.model.answerable.Answer;
 import seedu.address.model.answerable.Answerable;
 import seedu.address.model.answerable.Category;
 import seedu.address.model.answerable.AnswerSet;
@@ -51,9 +52,9 @@ public class EditAnswerableDescriptorBuilder {
     /**
      * Sets the {@code Question} of the {@code EditAnswerableDescriptor} that we are building.
      */
-    public EditAnswerableDescriptorBuilder withAnswer(String answer) {
+    public EditAnswerableDescriptorBuilder withAnswerSet(AnswerSet answerSet) {
         //TODO: Implement Answerable
-        descriptor.setAnswerSet(new AnswerSet(answer));
+        descriptor.setAnswerSet(answerSet);
         return this;
     }
     /**
@@ -67,8 +68,8 @@ public class EditAnswerableDescriptorBuilder {
     /**
      * Sets the {@code Category} of the {@code EditAnswerableDescriptor} that we are building.
      */
-    public EditAnswerableDescriptorBuilder withAddress(String address) {
-        descriptor.setCategory(new Category(address));
+    public EditAnswerableDescriptorBuilder withCategory(String category) {
+        descriptor.setCategory(new Category(category));
         return this;
     }
 

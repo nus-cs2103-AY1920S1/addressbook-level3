@@ -33,8 +33,7 @@ public class DifficultyTest {
         assertFalse(Difficulty.isValidDifficulty("9312 1534")); // spaces within digits
 
         //TODO: Implement valid difficulty. These are not valid for test bank
-        assertTrue(Difficulty.isValidDifficulty("911")); // exactly 3 numbers
-        assertTrue(Difficulty.isValidDifficulty("93121534"));
-        assertTrue(Difficulty.isValidDifficulty("124293842033123")); // long difficulty numbers
+        assertTrue(Difficulty.isValidDifficulty("1")); // exactly 1 number
+        assertTrue(Difficulty.isValidDifficulty("2"));
     }
 }

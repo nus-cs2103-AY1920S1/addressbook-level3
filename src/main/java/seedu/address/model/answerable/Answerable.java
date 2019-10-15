@@ -71,7 +71,8 @@ public abstract class Answerable {
 
         return otherAnswerable != null
                 && otherAnswerable.getQuestion().equals(getQuestion())
-                && otherAnswerable.getAnswerSet().equals(getAnswerSet());
+                && otherAnswerable.getAnswerSet().equals(getAnswerSet())
+                && otherAnswerable.getDifficulty().equals(getDifficulty());
     }
 
     /**

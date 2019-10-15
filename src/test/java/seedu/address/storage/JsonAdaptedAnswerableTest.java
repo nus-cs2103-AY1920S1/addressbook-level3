@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedAnswerable.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalAnswerables.BENSON;
+import static seedu.address.testutil.TypicalAnswerables.B_ANSWERABLE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,28 +12,30 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Category;
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.answerable.Question;
 
 public class JsonAdaptedAnswerableTest {
-    private static final String INVALID_QUESTION = "R@chel";
+    private static final String INVALID_QUESTION = " ";
     private static final String INVALID_DIFFICULTY = "+651234";
     private static final String INVALID_CATEGORY = " ";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_QUESTION = BENSON.getQuestion().toString();
-    private static final String VALID_ANSWER = BENSON.getAnswerSet().toString();
-    private static final String VALID_DIFFICULTY = BENSON.getDifficulty().toString();
-    private static final String VALID_CATEGORY = BENSON.getCategory().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_QUESTION = B_ANSWERABLE.getQuestion().toString();
+    //TODO: Remove Dependency
+    private static final AnswerSet VALID_ANSWER = B_ANSWERABLE.getAnswerSet();
+    private static final String VALID_DIFFICULTY = B_ANSWERABLE.getDifficulty().toString();
+    private static final String VALID_CATEGORY = B_ANSWERABLE.getCategory().toString();
+    private static final List<JsonAdaptedTag> VALID_TAGS = B_ANSWERABLE.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedAnswerable person = new JsonAdaptedAnswerable(BENSON);
-        assertEquals(BENSON, person.toModelType());
+        JsonAdaptedAnswerable person = new JsonAdaptedAnswerable(B_ANSWERABLE);
+        assertEquals(B_ANSWERABLE, person.toModelType());
     }
 
     @Test
