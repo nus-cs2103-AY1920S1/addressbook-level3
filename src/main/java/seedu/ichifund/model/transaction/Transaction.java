@@ -7,6 +7,8 @@ import java.util.Objects;
 import seedu.ichifund.model.Description;
 import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Date;
+import seedu.ichifund.model.date.Month;
+import seedu.ichifund.model.date.Year;
 
 /**
  * Represents a Transaction in IchiFund.
@@ -54,6 +56,18 @@ public class Transaction {
 
     public boolean isExpenditure() {
         return transactionType.isExpenditure();
+    }
+
+    public boolean isIn(Month month) {
+        return getDate().isIn(month);
+    }
+
+    public boolean isIn(Year year) {
+        return getDate().isIn(year);
+    }
+
+    public boolean isIn(Category category) {
+        return getCategory().equals(category);
     }
 
     @Override
