@@ -7,7 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.cap.person.Person;
+
+import seedu.address.model.common.Module;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -24,34 +25,26 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Module module;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label moduleCode;
     @FXML
-    private Label id;
+    private Label title;
     @FXML
-    private Label phone;
+    private Label description;
     @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
-    private FlowPane tags;
+    private Label faculty;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(Module module, int displayedIndex) {
         super(FXML);
-        this.person = person;
-        id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        this.module = module;
+        moduleCode.setText(module.getModuleCode().toString());
+        title.setText(module.getTitle().toString());
+        description.setText(module.getDescription().toString());
+        faculty.setText(module.getFaculty().toString());
     }
 
     @Override
@@ -68,7 +61,7 @@ public class PersonCard extends UiPart<Region> {
 
         // state check
         PersonCard card = (PersonCard) other;
-        return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+        return moduleCode.getText().equals(card.moduleCode.getText())
+                && module.equals(card.module);
     }
 }

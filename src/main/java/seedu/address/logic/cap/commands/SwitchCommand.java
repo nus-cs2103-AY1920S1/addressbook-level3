@@ -11,7 +11,7 @@ import seedu.address.model.cap.Model;
  */
 public class SwitchCommand extends Command {
 
-    public static final String COMMAND_WORD = "switch";
+    public static final String COMMAND_WORD = "switch cap";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": need to pass the argument "
             + "you want to switch";
@@ -30,7 +30,7 @@ public class SwitchCommand extends Command {
         swOperation.execute();
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_STATE_CHANGE, model.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_STATE_CHANGE, model.getFilteredModuleList().size()));
     }
 
     @Override

@@ -2,17 +2,21 @@ package seedu.address.model.common;
 
 import java.util.Objects;
 import static java.util.Objects.requireNonNull;
-import seedu.address.model.cap.person.Person;
+import seedu.address.model.cap.person.ModuleCode;
+import seedu.address.model.cap.person.Title;
+import seedu.address.model.cap.person.Credit;
+import seedu.address.model.cap.person.Faculty;
+import seedu.address.model.cap.person.Description;
 
 /**
  * Represents a NUS modules in the address book.
  */
 public class Module {
-    private String moduleCode;
-    private String title;
-    private String description;
-    private int credit;
-    private String faculty;
+    private ModuleCode moduleCode;
+    private Title title;
+    private Description description;
+    private Credit credit;
+    private Faculty faculty;
     private boolean isSU;
     private String preclusion;
     private String prerequisite;
@@ -26,7 +30,7 @@ public class Module {
      * @param faculty The faculty the module is held at.
      * @param isSU Satisfactory and unsatisfactory option for grade
      */
-    public Module(String moduleCode, String title, String description, int credit, String faculty,
+    public Module(ModuleCode moduleCode, Title title, Description description, Credit credit, Faculty faculty,
                   boolean isSU, String preclusion, String prerequisite) {
         requireNonNull(moduleCode);
         requireNonNull(title);
@@ -43,20 +47,29 @@ public class Module {
         this.prerequisite = prerequisite;
     }
 
-    private String getModuleCode() {
+    public Module(ModuleCode moduleCode, Title title, Description description, Credit credit, Faculty faculty) {
+        this(moduleCode, title, description, credit,
+                faculty, true, "None", "None");
+    }
+
+    public ModuleCode getModuleCode() {
         return moduleCode;
     }
 
-    private String getTitle() {
+    public Title getTitle() {
         return title;
     }
 
-    private int getCredit() {
+    public Credit getCredit() {
         return credit;
     }
 
-    private String getFaculty() {
+    public Faculty getFaculty() {
         return faculty;
+    }
+
+    public Description getDescription() {
+        return description;
     }
 
     public boolean isSameModule(Module otherModule) {
@@ -75,7 +88,7 @@ public class Module {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Module)) {
             return false;
         }
 

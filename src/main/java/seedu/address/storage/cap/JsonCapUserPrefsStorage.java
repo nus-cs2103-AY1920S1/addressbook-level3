@@ -12,11 +12,11 @@ import seedu.address.model.cap.UserPrefs;
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
  */
-public class JsonUserPrefsStorage implements UserPrefsStorage {
+public class JsonCapUserPrefsStorage implements UserPrefsStorage {
 
     private Path filePath;
 
-    public JsonUserPrefsStorage(Path filePath) {
+    public JsonCapUserPrefsStorage(Path filePath) {
         this.filePath = filePath;
     }
 

@@ -1,15 +1,15 @@
 package seedu.address.logic.cap.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TAG;
 
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_CREDIT;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_DESCRIPTION;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.model.cap.Model;
-import seedu.address.model.cap.person.Person;
+import seedu.address.model.common.Module;
 
 /**
  * Adds a person to the address book.
@@ -20,41 +20,34 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_MODULE_CODE + "MODULE CODE "
+            + PREFIX_TITLE + "TITLE "
+            + PREFIX_FACULTY + "FACULTY "
+            + PREFIX_CREDIT + "CREDIT "
+            + PREFIX_DESCRIPTION + "ADDRESS ";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New module added to modulo tracker: %1$s";
+    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in this semester";
 
-    private final Person toAdd;
+    private final Module toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Module module) {
+        requireNonNull(module);
+        toAdd = module;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasModule(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_MODULE);
         }
 
-        model.addPerson(toAdd);
+        model.addModule(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

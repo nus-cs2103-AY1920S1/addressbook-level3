@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.cap.AddressBook;
-import seedu.address.model.cap.ReadOnlyAddressBook;
-import seedu.address.model.cap.person.Person;
+import seedu.address.model.cap.CapLog;
+import seedu.address.model.cap.ReadOnlyModulo;
+import seedu.address.model.common.Module;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -19,16 +19,16 @@ import seedu.address.model.cap.person.Person;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Module list contains duplicate person(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedPerson> modules = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableAddressBook(@JsonProperty("modules") List<JsonAdaptedPerson> modules) {
+        this.modules.addAll(modules);
     }
 
     /**
@@ -36,8 +36,8 @@ class JsonSerializableAddressBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList()
+    public JsonSerializableAddressBook(ReadOnlyModulo source) {
+        modules.addAll(source.getModuleList()
                 .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
@@ -46,14 +46,14 @@ class JsonSerializableAddressBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+    public CapLog toModelType() throws IllegalValueException {
+        CapLog addressBook = new CapLog();
+        for (JsonAdaptedPerson jsonAdaptedPerson : modules) {
+            Module module = jsonAdaptedPerson.toModelType();
+            if (addressBook.hasModule(module)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
             }
-            addressBook.addPerson(person);
+            addressBook.addModule(module);
         }
         return addressBook;
     }

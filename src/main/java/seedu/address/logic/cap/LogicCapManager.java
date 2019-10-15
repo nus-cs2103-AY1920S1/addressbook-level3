@@ -10,28 +10,28 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.cap.commands.Command;
 import seedu.address.logic.cap.commands.CommandResult;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
-import seedu.address.logic.cap.parser.AddressBookParser;
+import seedu.address.logic.cap.parser.CapLogParser;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
 import seedu.address.model.cap.Model;
-import seedu.address.model.cap.ReadOnlyAddressBook;
-import seedu.address.model.cap.person.Person;
+import seedu.address.model.cap.ReadOnlyModulo;
 import seedu.address.storage.cap.Storage;
+import seedu.address.model.common.Module;
 
 /**
  * The main LogicManager of the app.
  */
-public class LogicManager implements Logic {
+public class LogicCapManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
+    private final Logger logger = LogsCenter.getLogger(LogicCapManager.class);
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final CapLogParser capLogParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicCapManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        capLogParser = new CapLogParser();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         //Parse user input from String to a Command
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = capLogParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
@@ -56,13 +56,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyModulo getAddressBook() {
         return model.getAddressBook();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Module> getFilteredModuleList() {
+        return model.getFilteredModuleList();
     }
 
     @Override

@@ -1,27 +1,28 @@
 package seedu.address.logic.cap.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_CREDIT;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_DESCRIPTION;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.cap.commands.AddCommand;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.cap.person.Address;
-import seedu.address.model.cap.person.Email;
-import seedu.address.model.cap.person.Name;
-import seedu.address.model.cap.person.Person;
-import seedu.address.model.cap.person.Phone;
-import seedu.address.model.cap.tag.Tag;
+import seedu.address.model.cap.person.ModuleCode;
+import seedu.address.model.cap.person.Title;
+import seedu.address.model.cap.person.Credit;
+import seedu.address.model.cap.person.Faculty;
+import seedu.address.model.cap.person.Description;
+import seedu.address.logic.cap.commands.AddCommand;
+import seedu.address.model.common.Module;
+
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
+
 public class AddCommandParser implements Parser<AddCommand> {
 
     /**
@@ -31,22 +32,22 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE, PREFIX_TITLE, PREFIX_CREDIT, PREFIX_FACULTY, PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE, PREFIX_TITLE, PREFIX_CREDIT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
+        Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
+        Credit credit = ParserUtil.parseCredit(Integer.parseInt(argMultimap.getValue(PREFIX_CREDIT).get()));
+        Faculty faculty = ParserUtil.parseFaculty(argMultimap.getValue(PREFIX_FACULTY).get());
+        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Module module = new Module(moduleCode, title, description, credit, faculty);
 
-        return new AddCommand(person);
+        return new AddCommand(module);
     }
 
     /**
