@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.module.Module;
@@ -26,7 +25,6 @@ class JsonAdaptedStudyPlan {
     private final int totalNumber; // this corresponds to the static field in StudyPlan: totalNumberOfStudyPlans
     private final String title;
     private final int index;
-    private final boolean isActive;
     private final List<JsonAdaptedSemester> semesters = new ArrayList<>();
 
     // each study plan also keeps track of a unique module list and a unique tag list
@@ -39,14 +37,12 @@ class JsonAdaptedStudyPlan {
     @JsonCreator
     public JsonAdaptedStudyPlan(@JsonProperty("totalNumber") int totalNumber,
                                 @JsonProperty("title") String title, @JsonProperty("index") int index,
-                                @JsonProperty("isActive") boolean isActive,
                                 @JsonProperty("semesters") List<JsonAdaptedSemester> semesters,
                                 @JsonProperty("modules") List<JsonAdaptedModule> modules,
                                 @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.totalNumber = totalNumber;
         this.title = title;
         this.index = index;
-        this.isActive = isActive;
         if (semesters != null) {
             this.semesters.addAll(semesters);
         }
@@ -65,7 +61,6 @@ class JsonAdaptedStudyPlan {
         totalNumber = StudyPlan.getTotalNumberOfStudyPlans();
         title = source.getTitle().toString();
         index = source.getIndex();
-        isActive = source.isActive();
 
         Iterator<Semester> semesterIterator = source.getSemesters().iterator();
         while (semesterIterator.hasNext()) {
@@ -108,12 +103,6 @@ class JsonAdaptedStudyPlan {
         }
         final int modelIndex = index;
 
-        // if (isActive == null) {
-        //     throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-        //     Email.class.getSimpleName()));
-        // }
-        final boolean modelIsActive = isActive;
-
         final List<Semester> modelSemesters = new ArrayList<>();
         for (JsonAdaptedSemester semester : semesters) {
             modelSemesters.add(semester.toModelType());
@@ -130,7 +119,7 @@ class JsonAdaptedStudyPlan {
         }
 
         StudyPlan result =
-                new StudyPlan(modelTitle, modelIndex, modelIsActive, modelSemesters, modelModules, modelTags);
+                new StudyPlan(modelTitle, modelIndex, modelSemesters, modelModules, modelTags);
         StudyPlan.setTotalNumberOfStudyPlans(totalNumber);
 
         return result;

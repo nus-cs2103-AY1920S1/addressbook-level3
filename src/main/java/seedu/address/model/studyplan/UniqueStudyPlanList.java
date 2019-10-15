@@ -134,6 +134,10 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
         return internalUnmodifiableList;
     }
 
+    public int getSize() {
+        return internalList.size();
+    }
+
     @Override
     public Iterator<StudyPlan> iterator() {
         return internalList.iterator();

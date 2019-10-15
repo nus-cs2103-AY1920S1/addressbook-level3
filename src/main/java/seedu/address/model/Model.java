@@ -69,6 +69,12 @@ public interface Model {
     StudyPlan getActiveStudyPlan();
 
     /**
+     * Activates the first study plan in the list. If the list is null, prompts the user.
+     * Returns true if successful, and returns false if no study plan exists.
+     */
+    boolean activateFirstStudyPlan();
+
+    /**
      * Returns an activated study plan with the given index populated with relevant details.
      */
     StudyPlan activateStudyPlan(int index);
@@ -105,12 +111,24 @@ public interface Model {
      */
     void updateFilteredStudyPlanList(Predicate<StudyPlan> predicate);
 
+    // ===================== VERSION TRACKING ==========================
+    /**
+     * Commits the current active study plan with a commit message.
+     */
+    void commitActiveStudyPlan(String commitMessage);
+
+
     // ===================== MODULE INFORMATION ==========================
 
     /**
      * Returns true if the module code is a valid, false otherwise.
      */
     boolean isValidModuleCode(String moduleCode);
+
+    /**
+     * Returns the ModulesInfo object in the module planner.
+     */
+    ModulesInfo getModulesInfo();
 
     /**
      * Returns the module information.

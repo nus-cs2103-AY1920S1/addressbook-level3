@@ -157,7 +157,9 @@ public class Module implements Cloneable {
                 .append(" MCs: ")
                 .append(getMcCount())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
+        if (getTags() != null) {
+            getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
 

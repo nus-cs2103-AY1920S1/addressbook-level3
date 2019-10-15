@@ -9,9 +9,10 @@ public class StudyPlanCommitManager {
     private int studyPlanIndex;
     private CommitList commitList;
 
-    public StudyPlanCommitManager(StudyPlan studyPlan) {
+    public StudyPlanCommitManager(StudyPlan studyPlan, String commitMessage) {
         this.studyPlanIndex = studyPlan.getIndex();
         this.commitList = new CommitList();
+        commit(studyPlan, commitMessage);
     }
 
     /**
@@ -35,13 +36,13 @@ public class StudyPlanCommitManager {
      * Commits a study plan.
      * @param studyPlan study plan to commit.
      */
-    public void commit(StudyPlan studyPlan) {
+    public void commit(StudyPlan studyPlan, String commitMessage) {
         StudyPlan planToCommit = null;
         try {
             planToCommit = studyPlan.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-        commitList.commitStudyPlan(planToCommit);
+        commitList.commitStudyPlan(planToCommit, commitMessage);
     }
 }

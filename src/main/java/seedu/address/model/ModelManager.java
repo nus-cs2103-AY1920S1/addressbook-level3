@@ -108,6 +108,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean activateFirstStudyPlan() {
+        return modulePlanner.activateFirstStudyPlan();
+    }
+
+    @Override
     public void deleteStudyPlan(StudyPlan target) {
         modulePlanner.removeStudyPlan(target);
     }
@@ -124,6 +129,12 @@ public class ModelManager implements Model {
 
         modulePlanner.setStudyPlan(target, editedStudyPlan);
     }
+    //=========== Version Tracking ============================================================================
+
+    @Override
+    public void commitActiveStudyPlan(String commitMessage) {
+        modulePlanner.commitActiveStudyPlan(commitMessage);
+    }
 
     //=========== Module Information ============================================================================
 
@@ -135,6 +146,11 @@ public class ModelManager implements Model {
     @Override
     public String getModuleInformation(String moduleCode) {
         return modulePlanner.getModuleInformation(moduleCode);
+    }
+
+    @Override
+    public ModulesInfo getModulesInfo() {
+        return modulePlanner.getModulesInfo();
     }
 
     //=========== Filtered StudyPlan List Accessors =============================================================
