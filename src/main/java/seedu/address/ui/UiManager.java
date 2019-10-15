@@ -1,17 +1,24 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
-
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.InputStream;
+import java.util.logging.Logger;
 
 /**
  * The manager of the UI component.\
@@ -20,7 +27,7 @@ import seedu.address.logic.Logic;
 public class UiManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
-
+    public static final String ALERT_SOUND_PATH = "/alert.wav";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/notebook-icon.png";
 
@@ -44,6 +51,10 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            Timeline timeline = new Timeline(new KeyFrame(
+                    Duration.millis(10000),
+                    ae -> countDownAlert()));
+            timeline.play();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -75,6 +86,37 @@ public class UiManager implements Ui {
         alert.showAndWait();
     }
 
+    /**
+     * Test alert for scheduler.
+     */
+    private void countDownAlert() {
+
+        final Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.initOwner(mainWindow.getPrimaryStage());
+        alert.setTitle("title");
+        alert.setHeaderText("headerText");
+        alert.setContentText("contentText");
+        playSound();
+        alert.show();
+
+    }
+    /**
+     * handles playing alert audio for scheduled alert
+     */
+    private void playSound()
+    {
+        try
+        {
+            InputStream inputStream = this.getClass().getResourceAsStream(ALERT_SOUND_PATH);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(inputStream);
+            Clip sound = AudioSystem.getClip();
+            sound.open(audioStream);
+            sound.start();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
     /**
      * Shows an error alert dialog with {@code title} and error message, {@code e},
      * and exits the application after the user has closed the alert dialog.
