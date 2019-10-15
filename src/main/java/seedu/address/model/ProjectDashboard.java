@@ -84,7 +84,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     /**
      * Replaces the given task {@code target} in the list with {@code editedTask}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the project dashboard.
      * The task identity of {@code editedTask} must not be the same as another existing task in the project dashboard.
      */
     public void setTask(Task target, Task editedTask) {
@@ -106,7 +106,12 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     //// util methods
 
     // TODO make this algo more efficient, code may break if lists are overloaded
-    public void splitTasksBasedOnStatus() {
+
+    /**
+     * Utility method to split the main task list into three separate lists based on progress status.
+     * Called by methods in this class which manipulate the main task list.
+     */
+    private void splitTasksBasedOnStatus() {
 
         // prevent duplicates
         tasksNotStarted.clearAll();
@@ -128,6 +133,9 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
             case DONE:
                 tasksDone.add(task);
                 break;
+
+            default:
+                // no action
 
             }
         }

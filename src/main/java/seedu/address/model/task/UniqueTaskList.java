@@ -79,13 +79,16 @@ public class UniqueTaskList implements Iterable<Task> {
         }
     }
 
+    /**
+     * Clears the task list of all tasks.
+     */
+    public void clearAll() {
+        internalList.clear();
+    }
+
     public void setTasks(UniqueTaskList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
-    }
-
-    public void clearAll() {
-        internalList.clear();
     }
 
     /**

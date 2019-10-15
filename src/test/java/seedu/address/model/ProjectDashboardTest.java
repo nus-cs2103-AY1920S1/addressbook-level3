@@ -96,7 +96,7 @@ public class ProjectDashboardTest {
     }
 
     @Test
-    public void removeTaskDoing_splitTasksBasedOnTask_checkAllTaskLists_returnsFalse() {
+    public void removeTaskDoing_splitTasksBasedOnTask_expectedTasksPresentInExpectedLists() {
         projectDashboard.addTask(GET_SPONSORS);
         projectDashboard.removeTask(GET_SPONSORS);
         assertFalse(projectDashboard.getTaskList().contains(GET_SPONSORS));
@@ -106,7 +106,7 @@ public class ProjectDashboardTest {
     }
 
     @Test
-    public void overloadDashboardWithDifferentTasks_splitTasksBasedOnStatus_presentInExpectedLists() {
+    public void overloadDashboardWithDifferentTasks_splitTasksBasedOnStatus_expectedTasksPresentInExpectedLists() {
         projectDashboard.addTask(ORDER_SHIRTS);
         projectDashboard.addTask(GET_SPONSORS);
         assertTrue(projectDashboard.getTasksDone().isEmpty());
@@ -166,6 +166,8 @@ public class ProjectDashboardTest {
                     tasksDone.add(task);
                     break;
 
+                default:
+                    // no action
                 }
             }
         }

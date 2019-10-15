@@ -12,13 +12,12 @@ import seedu.address.ui.views.TaskListPanel;
  */
 public class UserViewNavigator {
 
+    /** The main application layout controller. */
+    private static UserViewController userViewController;
 
     /** The views to switch between **/
     private ProjectDashboardView projectDashboardView;
     private TaskListPanel taskListPanel;
-
-    /** The main application layout controller. */
-    private static UserViewController userViewController;
 
     /**
      * Stores the main controller for later use in navigation tasks.
