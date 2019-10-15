@@ -3,13 +3,16 @@ package seedu.flashcard.model.flashcard;
 import static java.util.Objects.requireNonNull;
 import static seedu.flashcard.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.flashcard.model.flashcard.exceptions.CardNotFoundException;
 import seedu.flashcard.model.flashcard.exceptions.DuplicateCardException;
+import seedu.flashcard.model.tag.Tag;
 
 /**
  * A list of flashcards that enforces uniqueness between its elements and does not allow nulls.
@@ -102,6 +105,17 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
      */
     public ObservableList<Flashcard> asUnimodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Returns all tags appeared in the system
+     */
+    public Set<Tag> getAllTags() {
+        Set<Tag> allTags = new HashSet<Tag>();
+        for (Flashcard flashcard : internalList) {
+            allTags.addAll(flashcard.getTags());
+        }
+        return allTags;
     }
 
     @Override

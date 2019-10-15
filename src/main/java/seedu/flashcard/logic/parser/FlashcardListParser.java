@@ -15,7 +15,7 @@ import seedu.flashcard.logic.commands.FindCommand;
 import seedu.flashcard.logic.commands.HelpCommand;
 import seedu.flashcard.logic.commands.ListCardByTagCommand;
 import seedu.flashcard.logic.commands.ListCommand;
-
+import seedu.flashcard.logic.commands.ListTagCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 
 /**
@@ -67,6 +67,9 @@ public class FlashcardListParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ListTagCommand.COMMAND_WORD:
+            return new ListTagCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKOWN_COMMAND);

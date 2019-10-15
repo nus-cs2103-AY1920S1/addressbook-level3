@@ -26,6 +26,11 @@ public interface Model {
     Predicate<Flashcard> getHasTagPredicate(Set<Tag> tag);
 
     /**
+     * Get the set of all tags in the system.
+     */
+    Set<Tag> getAllSystemTags();
+
+    /**
      * Replaces user prefs data with the data in {@code userPrefs}
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);

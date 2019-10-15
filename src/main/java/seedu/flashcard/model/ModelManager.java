@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.flashcard.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -48,6 +49,11 @@ public class ModelManager implements Model {
     public Predicate<Flashcard> getHasTagPredicate(Set<Tag> tag) {
         requireNonNull(tag);
         return flashcard -> flashcard.hasAnyTag(tag);
+    }
+
+    @Override
+    public Set<Tag> getAllSystemTags() {
+        return flashcardList.getAllFlashcardTags();
     }
 
     @Override
