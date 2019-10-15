@@ -73,16 +73,11 @@ public class DeleteCommand extends Command {
             return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, targetItem));
         case TAGS:
             assert this.tagSet != null;
-            Item newTaggedItem;
-            try {
-                newTaggedItem = removeTagsFromItem(targetItem, this.tagSet);
-            } catch (CommandException error) {
-                return new CommandResult(String.format(MESSAGE_DELETE_TAGS_FAILURE, targetItem));
-            }
+            Item newTaggedItem = removeTagsFromItem(targetItem, this.tagSet);
             model.setItem(targetItem, newTaggedItem);
             return new CommandResult(String.format(MESSAGE_DELETE_TAGS_SUCCESS, targetItem));
         default:
-            return new CommandResult(MESSAGE_DELETE_FAILURE);
+            throw new CommandException(Messages.MESSAGE_UNKNOWN_DELETE_MODE);
         }
     }
 
@@ -97,7 +92,7 @@ public class DeleteCommand extends Command {
         Set<Tag> originalTags = targetItem.getTags();
         Set<Tag> newTags = new TreeSet<>(new TagComparator());
         if (!originalTags.containsAll(tagSet)) {
-            throw new CommandException("Specified tags to delete are not found.");
+            throw new CommandException(Messages.MESSAGE_INVALID_TAGS);
         }
         for (Tag tag: originalTags) {
             if (!tagSet.contains(tag)) {

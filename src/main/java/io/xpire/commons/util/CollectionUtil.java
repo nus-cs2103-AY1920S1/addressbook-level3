@@ -43,13 +43,14 @@ public class CollectionUtil {
      * @param mappers Functions that do string processing.
      * @return A collection of strings.
      */
+    @SafeVarargs
     public static Collection<String> stringifyCollection(Collection<?> items, Function<String, String>... mappers) {
         Function<String, String> finalMapper = Function.identity();
         for (Function<String, String> mapper : mappers) {
             finalMapper = finalMapper.andThen(mapper);
         }
         return items.stream()
-                .map(item -> item.toString())
+                .map(Object::toString)
                 .map(finalMapper)
                 .collect(Collectors.toList());
     }
