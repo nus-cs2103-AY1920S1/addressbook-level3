@@ -64,16 +64,15 @@ public class FreeSchedule {
                 } else {
                     if (newFreeStartTime != null) {
                         freeSchedule.get(DayOfWeek.of(i))
-                                .add(new FreeTimeslot(lastVenues, newFreeStartTime, currentTime));
+                                .add(new FreeTimeslot(new ArrayList<>(lastVenues), newFreeStartTime, currentTime));
                         newFreeStartTime = null;
                     }
                 }
 
                 if (currentTime.equals(ENDTIME)) {
-
                     if (!isClash) {
                         freeSchedule.get(DayOfWeek.of(i))
-                                .add(new FreeTimeslot(lastVenues, newFreeStartTime, currentTime));
+                                .add(new FreeTimeslot(new ArrayList<>(lastVenues), newFreeStartTime, currentTime));
                     }
                     break;
                 }

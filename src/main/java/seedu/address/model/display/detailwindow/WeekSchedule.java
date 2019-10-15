@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import seedu.address.model.display.sidepanel.PersonDisplay;
@@ -67,6 +68,9 @@ public class WeekSchedule {
                             currentVenue
                     );
                     weekSchedule.get(currentStartTime.getDayOfWeek()).add(timeslot);
+                    weekSchedule.get(currentStartTime.getDayOfWeek()).sort(
+                            Comparator.comparing(DayTimeslot::getStartTime)
+                    );
                 }
             }
         }
