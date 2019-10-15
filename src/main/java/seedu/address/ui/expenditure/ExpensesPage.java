@@ -33,6 +33,12 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> {
 
     @FXML
     private Label totalBudgetLabel;
+
+    @FXML
+    private Label totalExpenditureLabel;
+
+    @FXML
+    private Label budgetLeftLabel;
     
     @FXML
     private VBox sideBarLeft;
@@ -61,13 +67,22 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> {
         expenditureCardContainer.getChildren().clear();
         List<Expenditure> expenses = model.getPageStatus().getTrip().getExpenditureList().internalUnmodifiableList;
 
+        double totalExpenditure = expenses.stream().mapToDouble(expense -> {
+            return Double.parseDouble(expense.getBudget().toString());
+        }).sum();
+
+        double totalBudget = Double.parseDouble(model.getPageStatus().getTrip().getBudget().toString());
+
         List<Node> expenditureCards = IntStream.range(0, expenses.size())
-                .mapToObj(i -> Index.fromZeroBased(i))
+                .mapToObj(Index::fromZeroBased)
                 .map(index -> {
                     ExpenditureCard expenditureCard = new ExpenditureCard(expenses.get(index.getZeroBased()), index);
                     return expenditureCard.getRoot();
                 }).collect(Collectors.toList());
         expenditureCardContainer.getChildren().addAll(FXCollections.observableArrayList(expenditureCards));
+        totalBudgetLabel.setText("Your budget for the trip: $" + totalBudget);
+        totalExpenditureLabel.setText("Your total expenses: $" + totalExpenditure);
+        budgetLeftLabel.setText("Your budget left: $" + (totalBudget - totalExpenditure));
     }
 
     @FXML
