@@ -10,7 +10,9 @@ import seedu.ichifund.model.transaction.Transaction;
 import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ichifund.logic.parser.CliSyntax.*;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
 public class FilterTransactionCommand extends Command {
 
