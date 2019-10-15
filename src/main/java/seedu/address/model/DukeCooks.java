@@ -10,11 +10,11 @@ import seedu.address.model.recipe.UniqueRecipeList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameRecipe comparison)
  */
 public class DukeCooks implements ReadOnlyDukeCooks {
 
-    private final UniqueRecipeList persons;
+    private final UniqueRecipeList recipes;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,13 +24,13 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      *   among constructors.
      */
     {
-        persons = new UniqueRecipeList();
+        recipes = new UniqueRecipeList();
     }
 
     public DukeCooks() {}
 
     /**
-     * Creates a DukeCooks using the Persons in the {@code toBeCopied}
+     * Creates a DukeCooks using the Recipes in the {@code toBeCopied}
      */
     public DukeCooks(ReadOnlyDukeCooks toBeCopied) {
         this();
@@ -43,8 +43,8 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      * Replaces the contents of the recipe list with {@code recipes}.
      * {@code recipes} must not contain duplicate recipes.
      */
-    public void setPersons(List<Recipe> recipes) {
-        this.persons.setRecipes(recipes);
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes.setRecipes(recipes);
     }
 
     /**
@@ -53,7 +53,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     public void resetData(ReadOnlyDukeCooks newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getRecipeList());
+        setRecipes(newData.getRecipeList());
     }
 
     //// recipe-level operations
@@ -63,7 +63,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      */
     public boolean hasRecipe(Recipe recipe) {
         requireNonNull(recipe);
-        return persons.contains(recipe);
+        return recipes.contains(recipe);
     }
 
     /**
@@ -71,7 +71,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      * The recipe must not already exist in Duke Cooks.
      */
     public void addRecipe(Recipe p) {
-        persons.add(p);
+        recipes.add(p);
     }
 
     /**
@@ -82,7 +82,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireNonNull(editedRecipe);
 
-        persons.setRecipe(target, editedRecipe);
+        recipes.setRecipe(target, editedRecipe);
     }
 
     /**
@@ -90,31 +90,31 @@ public class DukeCooks implements ReadOnlyDukeCooks {
      * {@code key} must exist in Duke Cooks.
      */
     public void removeRecipe(Recipe key) {
-        persons.remove(key);
+        recipes.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return recipes.asUnmodifiableObservableList().size() + " recipes";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Recipe> getRecipeList() {
-        return persons.asUnmodifiableObservableList();
+        return recipes.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DukeCooks // instanceof handles nulls
-                && persons.equals(((DukeCooks) other).persons));
+                && recipes.equals(((DukeCooks) other).recipes));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return recipes.hashCode();
     }
 }

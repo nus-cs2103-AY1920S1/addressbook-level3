@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.recipe.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in Duke Cooks whose name contains any of the argument keywords.
+ * Finds and lists all recipes in Duke Cooks whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindRecipeCommand extends FindCommand {

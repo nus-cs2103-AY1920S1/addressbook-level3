@@ -18,7 +18,7 @@ import seedu.address.model.recipe.Recipe;
  * Contains utility methods for populating {@code DukeCooks} with sample data.
  */
 public class SampleDataUtil {
-    public static Recipe[] getSamplePersons() {
+    public static Recipe[] getSampleRecipes() {
         return new Recipe[] {
             new Recipe(new Name("Tea"),
                 getIngredientSet("Tea Leaves"),
@@ -43,7 +43,7 @@ public class SampleDataUtil {
 
     public static ReadOnlyDukeCooks getSampleDukeCooks() {
         DukeCooks sampleDc = new DukeCooks();
-        for (Recipe sampleRecipe : getSamplePersons()) {
+        for (Recipe sampleRecipe : getSampleRecipes()) {
             sampleDc.addRecipe(sampleRecipe);
         }
         return sampleDc;

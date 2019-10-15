@@ -72,17 +72,17 @@ public class TypicalRecipes {
     private TypicalRecipes() {} // prevents instantiation
 
     /**
-     * Returns an {@code DukeCooks} with all the typical persons.
+     * Returns an {@code DukeCooks} with all the typical recipes.
      */
     public static DukeCooks getTypicalDukeCooks() {
-        DukeCooks ab = new DukeCooks();
-        for (Recipe recipe : getTypicalPersons()) {
-            ab.addRecipe(recipe);
+        DukeCooks dc = new DukeCooks();
+        for (Recipe recipe : getTypicalRecipes()) {
+            dc.addRecipe(recipe);
         }
-        return ab;
+        return dc;
     }
 
-    public static List<Recipe> getTypicalPersons() {
+    public static List<Recipe> getTypicalRecipes() {
         return new ArrayList<>(Arrays.asList(MILO, OMELETTE, TUNA, MAGGI, CHICKEN, TEA, FRIES));
     }
 }

@@ -30,7 +30,7 @@ public interface Logic {
      */
     ReadOnlyDukeCooks getDukeCooks();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of recipes */
     ObservableList<Recipe> getFilteredRecipeList();
 
     /**
