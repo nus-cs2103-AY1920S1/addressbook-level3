@@ -32,15 +32,4 @@ public interface Storage extends BillboardStorage, UserPrefsStorage {
     @Override
     void saveBillboard(ReadOnlyBillboard billboard) throws IOException;
 
-    /*
-    // ================ Archive methods ==============================
-    @Override
-    Path getArchiveFilePath();
-
-    @Override
-    Optional<ReadOnlyArchiveWrapper> readArchive() throws DataConversionException, IOException;
-
-    @Override
-    void saveArchive(ReadOnlyArchiveWrapper archive) throws IOException;
-*/
 }

@@ -54,7 +54,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyBillboard getBillboard() {
-        return model.getBillboardExpenses();
+        return model.getBillboard();
     }
 
     @Override
@@ -87,8 +87,4 @@ public class LogicManager implements Logic {
         return model.getFilteredArchiveExpenses(archiveName);
     }
 
-    @Override
-    public Path getArchiveFilePath() {
-        return model.getArchiveFilePath();
-    }
 }

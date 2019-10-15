@@ -113,12 +113,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setBillboardExpenses(ReadOnlyBillboard newData) {
+        public void setBillboard(ReadOnlyBillboard newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyBillboard getBillboardExpenses() {
+        public ReadOnlyBillboard getBillboard() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -235,7 +235,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyBillboard getBillboardExpenses() {
+        public ReadOnlyBillboard getBillboard() {
             return new Billboard();
         }
     }

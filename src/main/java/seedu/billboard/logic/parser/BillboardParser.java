@@ -61,14 +61,14 @@ public class BillboardParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case CreateArchiveCommand.COMMAND_WORD:
-            return new CreateArchiveCommandParser().parse(arguments);
+        case AddArchiveCommand.COMMAND_WORD:
+            return new AddArchiveCommandParser().parse(arguments);
 
         case ListArchiveCommand.COMMAND_WORD:
             return new ListArchiveCommandParser().parse(arguments);
 
-        case "test":
-            return new TestCommand();
+        case ListArchiveNamesCommand.COMMAND_WORD:
+            return new ListArchiveNamesCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

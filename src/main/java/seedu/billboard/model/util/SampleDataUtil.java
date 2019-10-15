@@ -38,20 +38,6 @@ public class SampleDataUtil {
         };
     }
 
-    public static Archive getSampleArchive() {
-        List<Expense> expenses = new ArrayList<>();
-        for (Expense sampleExpense : getSampleExpenses()) {
-            expenses.add(sampleExpense);
-        }
-        return new Archive("Sample Archive", expenses);
-    }
-
-    public static ReadOnlyArchiveWrapper getSampleArchiveWrapper() {
-        ArchiveWrapper sampleAw =  new ArchiveWrapper();
-        sampleAw.addArchive(getSampleArchive());
-        return sampleAw;
-    }
-
     public static ReadOnlyBillboard getSampleBillboard() {
         Billboard sampleBb = new Billboard();
         for (Expense sampleExpense : getSampleExpenses()) {

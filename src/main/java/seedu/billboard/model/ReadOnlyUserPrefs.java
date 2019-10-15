@@ -13,6 +13,5 @@ public interface ReadOnlyUserPrefs {
 
     Path getBillboardFilePath();
 
-    Path getArchiveFilePath();
 
 }

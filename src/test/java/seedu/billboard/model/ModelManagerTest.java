@@ -29,7 +29,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new Billboard(), new Billboard(modelManager.getBillboardExpenses()));
+        assertEquals(new Billboard(), new Billboard(modelManager.getBillboard()));
         assertEquals(new Billboard(), new Billboard(modelManager.getArchives()));
     }
 

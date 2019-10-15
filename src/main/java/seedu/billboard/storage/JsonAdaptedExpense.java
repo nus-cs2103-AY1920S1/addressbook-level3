@@ -96,12 +96,12 @@ class JsonAdaptedExpense {
 
         if (archiveName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Description.class.getSimpleName()));
+                    "Archive name"));
         }
         final String modelArchiveName = archiveName;
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Expense(modelName, modelDescription, modelAmount, modelTags, archiveName);
+        return new Expense(modelName, modelDescription, modelAmount, modelTags, modelArchiveName);
 
 
     }

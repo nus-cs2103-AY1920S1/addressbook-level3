@@ -17,21 +17,23 @@ import seedu.billboard.model.ReadOnlyBillboard;
 /**
  * A class to access Billboard data stored as a json file on the hard disk.
  */
-public class JsonBillboardStorage extends JsonFileStorage implements BillboardStorage {
+public class JsonBillboardStorage implements BillboardStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonBillboardStorage.class);
 
+    private Path filePath;
+
     public JsonBillboardStorage(Path filePath) {
-        super(filePath);
+        this.filePath = filePath;
     }
 
     public Path getBillboardFilePath() {
-        return getFilePath();
+        return filePath;
     }
 
     @Override
     public Optional<ReadOnlyBillboard> readBillboard() throws DataConversionException {
-        return readBillboard(getFilePath());
+        return readBillboard(getBillboardFilePath());
     }
 
     /**
@@ -59,7 +61,7 @@ public class JsonBillboardStorage extends JsonFileStorage implements BillboardSt
 
     @Override
     public void saveBillboard(ReadOnlyBillboard billboard) throws IOException {
-        saveBillboard(billboard, getFilePath());
+        saveBillboard(billboard, getBillboardFilePath());
     }
 
     /**

@@ -76,7 +76,7 @@ public class MainApp extends Application {
             initialData = billboardOptional.orElseGet(SampleDataUtil::getSampleBillboard);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Billboard");
-            initialData = new Billboard();
+            initialData = SampleDataUtil.getSampleBillboard();
         } catch (IOException e) {
             logger.warning("Problem while reading from the data file. Will be starting with an empty Billboard");
             initialData = new Billboard();

@@ -6,6 +6,9 @@ import seedu.billboard.model.Model;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Displays the list of expenses in an archive.
+ */
 public class ListArchiveCommand extends Command {
 
     public static final String COMMAND_WORD = "list-arc";
@@ -29,7 +32,7 @@ public class ListArchiveCommand extends Command {
         requireNonNull(model);
 
         if(archiveName.equals("")) {
-            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new CommandException(Messages.MESSAGE_INVALID_ARCHIVE_NAME);
         }
 
         if(!model.hasArchive(archiveName)) {

@@ -25,7 +25,7 @@ import seedu.billboard.model.expense.Expense;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Billboard billboardExpenses;
+    private final Billboard billboard;
     private final ArchiveWrapper archives;
     private final UserPrefs userPrefs;
     private final FilteredList<Expense> filteredExpense;
@@ -37,15 +37,17 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyBillboard initialBillboard, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(initialBillboard, userPrefs);
-        this.billboardExpenses = getNonArchivedBillboard(initialBillboard);
-        archives = getArchiveWrapper(initialBillboard);
+
+        List<Expense> archiveExpenses = initialBillboard.filterAndRemoveArchiveExpenses();
+        this.archives = new ArchiveWrapper(archiveExpenses);
+        this.billboard = new Billboard(initialBillboard);
         this.userPrefs = new UserPrefs(userPrefs);
 
-        logger.fine("Initializing with billboard: " + billboardExpenses
+        logger.fine("Initializing with billboard: " + billboard
                 + " and Archives: " + archives
                 + "and user prefs " + userPrefs);
 
-        filteredExpense = new FilteredList<>(this.billboardExpenses.getExpenses());
+        filteredExpense = new FilteredList<>(this.billboard.getExpenses());
         filteredArchives = new HashMap<>();
         Set<String> archiveNames = this.archives.getArchiveNames();
         for (String archiveName : archiveNames) {
@@ -58,24 +60,10 @@ public class ModelManager implements Model {
         this(new Billboard(), new UserPrefs());
     }
 
-    private Billboard getNonArchivedBillboard(ReadOnlyBillboard billboardExpenses) {
-        List<Expense> Expenses = billboardExpenses.getExpenses();
-        List<Expense> nonArchivedExpenses = Expenses.stream().filter(x -> !x.isArchived()).collect(Collectors.toList());
-        Billboard nonArchivedBillboard = new Billboard();
-        nonArchivedBillboard.setExpenses(nonArchivedExpenses);
-        return nonArchivedBillboard;
-    }
-
-    private ArchiveWrapper getArchiveWrapper(ReadOnlyBillboard billboardExpenses) {
-        List<Expense> Expenses = billboardExpenses.getExpenses();
-        List<Expense> archivedExpenses = Expenses.stream().filter(Expense::isArchived).collect(Collectors.toList());
-        return new ArchiveWrapper(archivedExpenses);
-    }
-
     @Override
     public Billboard getCombinedBillboard() {
         List<Expense> combinedExpenses = new ArrayList<>();
-        List<Expense> nonArchiveExpenses = billboardExpenses.getExpenses();
+        List<Expense> nonArchiveExpenses = billboard.getExpenses();
         List<Expense> archiveExpense = archives.getExpenseList();
 
         combinedExpenses.addAll(nonArchiveExpenses);
@@ -123,53 +111,47 @@ public class ModelManager implements Model {
         userPrefs.setBillboardFilePath(billboardFilePath);
     }
 
-    @Override
-    public Path getArchiveFilePath() {
-        return userPrefs.getArchiveFilePath();
-    }
-
-    @Override
-    public void setArchiveFilePath(Path archiveFilePath) {
-        requireNonNull(archiveFilePath);
-        userPrefs.setArchiveFilePath(archiveFilePath);
-    }
-
     //=========== Billboard ================================================================================
 
     @Override
-    public void setBillboardExpenses(ReadOnlyBillboard billboardExpenses) {
-        this.billboardExpenses.resetData(billboardExpenses);
+    public void setBillboard(ReadOnlyBillboard billboard) {
+        this.billboard.resetData(billboard);
     }
 
     @Override
-    public ReadOnlyBillboard getBillboardExpenses() {
-        return billboardExpenses;
+    public ReadOnlyBillboard getBillboard() {
+        return billboard;
     }
 
     @Override
     public boolean hasExpense(Expense expense) {
         requireNonNull(expense);
-        return billboardExpenses.hasExpense(expense);
+        return billboard.hasExpense(expense);
     }
 
     @Override
     public void deleteExpense(Expense target) {
-        billboardExpenses.removeExpense(target);
+        billboard.removeExpense(target);
     }
 
     @Override
     public void addExpense(Expense expense) {
-        billboardExpenses.addExpense(expense);
+        billboard.addExpense(expense);
         updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
     }
 
     @Override
     public void setExpense(Expense target, Expense editedExpense) {
         requireAllNonNull(target, editedExpense);
-        billboardExpenses.setExpense(target, editedExpense);
+        billboard.setExpense(target, editedExpense);
     }
 
     //=========== Archive ================================================================================
+
+    @Override
+    public List<String> getArchiveNames() {
+        return new ArrayList<>(archives.getArchiveNames());
+    }
 
     @Override
     public void setArchives(ReadOnlyArchiveWrapper archives) {
@@ -206,6 +188,9 @@ public class ModelManager implements Model {
     @Override
     public void addArchive(Archive archive) {
         archives.addArchive(archive);
+        String archiveName = archive.getArchiveName();
+        filteredArchives.put(archiveName,
+                new FilteredList<>(this.archives.getArchiveExpenses(archiveName)));
     }
 
     @Override
@@ -257,7 +242,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return billboardExpenses.equals(other.billboardExpenses)
+        return billboard.equals(other.billboard)
                 && archives.equals(other.archives)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExpense.equals(other.filteredExpense)

@@ -1,6 +1,7 @@
 package seedu.billboard.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -52,10 +53,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code billboard}.
      */
-    void setBillboardExpenses(ReadOnlyBillboard billboardExpenses);
+    void setBillboard(ReadOnlyBillboard billboard);
 
     /** Returns the Billboard */
-    ReadOnlyBillboard getBillboardExpenses();
+    ReadOnlyBillboard getBillboard();
 
     /**
      * Returns true if a expense with the same identity as {@code expense} exists in the address book.
@@ -93,14 +94,9 @@ public interface Model {
     // ================ Archive methods ==============================
 
     /**
-     * Returns the user prefs' archive file path.
+     * Returns a list of all existing archive names.
      */
-    Path getArchiveFilePath();
-
-    /**
-     * Sets the user prefs' archive file path.
-     */
-    void setArchiveFilePath(Path archiveFilePath);
+    List<String> getArchiveNames();
 
     /**
      * Replaces archive data with the data in {@code billboard}.

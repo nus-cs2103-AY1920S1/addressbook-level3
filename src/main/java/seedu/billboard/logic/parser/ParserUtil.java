@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.billboard.commons.core.Messages;
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.commons.util.StringUtil;
 import seedu.billboard.logic.parser.exceptions.ParseException;
@@ -104,5 +105,14 @@ public class ParserUtil {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
         return new Amount(trimmedAmount);
+    }
+
+    public static String parseArchive(String archive) throws ParseException {
+        requireNonNull(archive);
+        String trimmedArchive = archive.trim();
+        if (trimmedArchive.equals("")) {
+            throw new ParseException(Messages.MESSAGE_INVALID_ARCHIVE_NAME);
+        }
+        return trimmedArchive;
     }
 }

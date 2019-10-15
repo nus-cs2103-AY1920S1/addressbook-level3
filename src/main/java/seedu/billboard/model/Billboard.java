@@ -3,6 +3,7 @@ package seedu.billboard.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
@@ -54,6 +55,24 @@ public class Billboard implements ReadOnlyBillboard {
         requireNonNull(newData);
 
         setExpenses(newData.getExpenses());
+    }
+
+    private List<Expense> filterArchiveExpenses() {
+        return expenses.asUnmodifiableObservableList()
+                .stream().filter(Expense::isArchived).collect(Collectors.toList());
+    }
+
+    private void removeArchiveExpenses() {
+        List<Expense> nonArchiveExpenses = expenses.asUnmodifiableObservableList()
+                .stream().filter(x -> !x.isArchived()).collect(Collectors.toList());
+        setExpenses(nonArchiveExpenses);
+    }
+
+    @Override
+    public List<Expense> filterAndRemoveArchiveExpenses() {
+        List<Expense> archiveExpenses = filterArchiveExpenses();
+        removeArchiveExpenses();
+        return archiveExpenses;
     }
 
     //// expense-level operations
