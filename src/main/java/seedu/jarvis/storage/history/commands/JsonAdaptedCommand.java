@@ -7,6 +7,7 @@ import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.storage.history.commands.address.JsonAdaptedAddAddressCommand;
 import seedu.jarvis.storage.history.commands.address.JsonAdaptedClearAddressCommand;
+import seedu.jarvis.storage.history.commands.address.JsonAdaptedDeleteAddressCommand;
 
 /**
  * Abstract class that represents a Jackson-Friendly command.
@@ -17,8 +18,9 @@ import seedu.jarvis.storage.history.commands.address.JsonAdaptedClearAddressComm
         property = "type"
 )
 @JsonSubTypes({
+        @JsonSubTypes.Type(value = JsonAdaptedAddAddressCommand.class, name = "JsonAdaptedAddAddressCommand"),
         @JsonSubTypes.Type(value = JsonAdaptedClearAddressCommand.class, name = "JsonAdaptedClearAddressCommand"),
-        @JsonSubTypes.Type(value = JsonAdaptedAddAddressCommand.class, name = "JsonAdaptedAddAddressCommand")
+        @JsonSubTypes.Type(value = JsonAdaptedDeleteAddressCommand.class, name = "JsonAdaptedDeleteAddressCommand")
 })
 public abstract class JsonAdaptedCommand {
     /**
