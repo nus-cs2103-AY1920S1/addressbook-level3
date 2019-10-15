@@ -4,7 +4,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CORRECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WRONG;
 
@@ -15,7 +14,6 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.answerable.Answer;
 import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Answerable;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Answerable.

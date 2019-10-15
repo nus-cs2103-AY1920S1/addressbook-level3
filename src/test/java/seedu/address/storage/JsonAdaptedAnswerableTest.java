@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.answerable.AnswerSet;
-import seedu.address.model.answerable.Category;
+import seedu.address.model.category.Category;
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.answerable.Question;
 
@@ -28,8 +28,8 @@ public class JsonAdaptedAnswerableTest {
     private static final AnswerSet VALID_ANSWER = B_ANSWERABLE.getAnswerSet();
     private static final String VALID_DIFFICULTY = B_ANSWERABLE.getDifficulty().toString();
     private static final String VALID_CATEGORY = B_ANSWERABLE.getCategory().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = B_ANSWERABLE.getTags().stream()
-            .map(JsonAdaptedTag::new)
+    private static final List<JsonAdaptedCategory> VALID_TAGS = B_ANSWERABLE.getTags().stream()
+            .map(JsonAdaptedCategory::new)
             .collect(Collectors.toList());
 
     @Test
@@ -85,8 +85,8 @@ public class JsonAdaptedAnswerableTest {
 
     @Test
     public void toModelType_invalidTags_throwsIllegalValueException() {
-        List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
-        invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
+        List<JsonAdaptedCategory> invalidTags = new ArrayList<>(VALID_TAGS);
+        invalidTags.add(new JsonAdaptedCategory(INVALID_TAG));
         JsonAdaptedAnswerable person =
                 new JsonAdaptedAnswerable(VALID_QUESTION, VALID_ANSWER, VALID_DIFFICULTY, VALID_CATEGORY, invalidTags);
         assertThrows(IllegalValueException.class, person::toModelType);

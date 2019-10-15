@@ -11,12 +11,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.answerable.Answerable;
-import seedu.address.model.answerable.Category;
+
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.answerable.Mcq;
 import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Question;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 
 /**
  * Jackson-friendly version of {@link Answerable}.
@@ -28,22 +28,20 @@ class JsonAdaptedAnswerable {
     private final String question;
     private final AnswerSet answerSet;
     private final String difficulty;
-    private final String category;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedCategory> categories = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedAnswerable} with the given answerable details.
      */
     @JsonCreator
     public JsonAdaptedAnswerable(@JsonProperty("question") String question, @JsonProperty("answerSet") AnswerSet answerSet,
-                 @JsonProperty("difficulty") String difficulty, @JsonProperty("category") String category,
-                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                 @JsonProperty("difficulty") String difficulty,
+                 @JsonProperty("tagged") List<JsonAdaptedCategory> categories) {
         this.question = question;
         this.answerSet = answerSet;
         this.difficulty = difficulty;
-        this.category = category;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
+        if (categories != null) {
+            this.categories.addAll(categories);
         }
     }
 
@@ -53,10 +51,9 @@ class JsonAdaptedAnswerable {
     public JsonAdaptedAnswerable(Answerable source) {
         question = source.getQuestion().fullQuestion;
         difficulty = source.getDifficulty().value;
-        category = source.getCategory().value;
         answerSet = source.getAnswerSet();
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
+        categories.addAll(source.getCategories().stream()
+                .map(JsonAdaptedCategory::new)
                 .collect(Collectors.toList()));
     }
 
@@ -66,9 +63,9 @@ class JsonAdaptedAnswerable {
      * @throws IllegalValueException if there were any data constraints violated in the adapted answerable.
      */
     public Answerable toModelType() throws IllegalValueException {
-        final List<Tag> answerableTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            answerableTags.add(tag.toModelType());
+        final List<Category> answerableTags = new ArrayList<>();
+        for (JsonAdaptedCategory category : categories) {
+            answerableTags.add(category.toModelType());
         }
 
         if (question == null) {
@@ -92,18 +89,10 @@ class JsonAdaptedAnswerable {
             throw new IllegalValueException(Difficulty.MESSAGE_CONSTRAINTS);
         }
         final Difficulty modelDifficulty = new Difficulty(difficulty);
-        if (category == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Category.class.getSimpleName()));
-        }
-        if (!Category.isValidCategory(category)) {
-            throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
-        }
-        final Category modelCategory = new Category(category);
 
-        final Set<Tag> modelTags = new HashSet<>(answerableTags);
+        final Set<Category> modelCategories = new HashSet<>(answerableTags);
 
         //TODO: Implement Answerable
-        return new Mcq(modelQuestion, modelAnswer, modelDifficulty, modelCategory, modelTags);
+        return new Mcq(modelQuestion, modelAnswer, modelDifficulty, modelCategories);
     }
-
 }

@@ -22,7 +22,7 @@ public class AddCommand extends Command {
             + PREFIX_QUESTION + "QUESTION "
             + PREFIX_DIFFICULTY + "DIFFICULTY "
             + PREFIX_CATEGORY + "CATEGORY "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "category]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_QUESTION + "Which of the following is a valid sequence diagram? "
             + PREFIX_DIFFICULTY + "3 "

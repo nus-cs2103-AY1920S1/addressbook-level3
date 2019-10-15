@@ -1,6 +1,6 @@
 package seedu.address.model.answerable;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 
 import java.util.Set;
 
@@ -15,7 +15,7 @@ public class Mcq extends Answerable {
     /**
      * Every field must be present and not null.
      */
-    public Mcq(Question question, AnswerSet answer, Difficulty difficulty, Category category, Set<Tag> tags) {
-        super(question, answer, difficulty, category, tags);
+    public Mcq(Question question, AnswerSet answer, Difficulty difficulty, Set<Category> categories) {
+        super(question, answer, difficulty, categories);
     }
 }

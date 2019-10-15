@@ -23,7 +23,7 @@ public class Answer {
     /**
      * Constructs a {@code Answer}.
      *
-     * @param answer A valid tag name.
+     * @param answer A valid category name.
      */
     public Answer(String answer) {
         requireNonNull(answer);
@@ -32,7 +32,7 @@ public class Answer {
     }
 
     /**
-     * Returns true if a given string is a valid tag name.
+     * Returns true if a given string is a valid category name.
      */
     public static boolean isValidAnswer(String test) {
         return test.matches(VALIDATION_REGEX);

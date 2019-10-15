@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.answerable.QuestionContainsKeywordsPredicate;
+import seedu.address.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 
 /**
  * Finds and lists all answerables in test bank whose name contains any of the argument keywords.
