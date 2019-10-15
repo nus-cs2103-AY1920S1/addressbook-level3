@@ -5,7 +5,6 @@ import static seedu.address.cashier.ui.CashierMessages.MESSAGE_CHECKOUT_SUCCESS;
 import java.util.logging.Logger;
 
 import seedu.address.cashier.model.ModelManager;
-import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
@@ -35,7 +34,6 @@ public class CheckoutCommand extends Command {
                                  seedu.address.transaction.model.Model transactionModel,
                                  seedu.address.inventory.model.Model inventoryModel)
             throws Exception {
-        CashierMessages cashierMessages = new CashierMessages();
         Person p = modelManager.getCashier();
         modelManager.checkoutAsTransaction(totalAmount, p, transactionModel);
         logger.info(p.toString());

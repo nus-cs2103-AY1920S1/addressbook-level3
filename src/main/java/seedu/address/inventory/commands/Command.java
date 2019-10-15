@@ -15,6 +15,5 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws NoSuchIndexException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(ModelManager model)
-            throws Exception;
+    public abstract CommandResult execute(ModelManager model) throws Exception;
 }

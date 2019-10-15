@@ -9,8 +9,6 @@ import seedu.address.util.OverallCommandResult;
  */
 public class CommandResult extends OverallCommandResult {
 
-    private String feedbackToUser;
-
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
