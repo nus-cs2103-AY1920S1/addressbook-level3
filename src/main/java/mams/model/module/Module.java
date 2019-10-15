@@ -49,15 +49,16 @@ public class Module {
     public static final String VALIDATION_REGEX_MODULE_NAME = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     /*
-     * Module Description has the same requirements as module name.
+     * The first character of the module name must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX_MODULE_DESCRIPTION = "[ ]*";
+    public static final String VALIDATION_REGEX_MODULE_DESCRIPTION = "[^\\s].*";
 
 
     /*
      * Lecturer name has the same requirements as module name.
      */
-    public static final String VALIDATION_REGEX_LECTURER_NAME = VALIDATION_REGEX_MODULE_NAME;
+    public static final String VALIDATION_REGEX_LECTURER_NAME = "[\\p{Alnum}][\\p{Alnum} ]*";
 
 
     // Identity fields
@@ -306,15 +307,15 @@ public class Module {
 
         switch (day) {
         case 0:
-            return "MONDAY";
+            return "Monday";
         case 1:
-            return "TUESDAY";
+            return "Tuesday";
         case 2:
-            return "WEDNESDAY";
+            return "Wednesday";
         case 3:
-            return "THURSDAY";
+            return "Thursday";
         case 4:
-            return "FRIDAY";
+            return "Friday";
         default:
             return "Invalid day";
         }
