@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 
 import seedu.address.person.commons.core.GuiSettings;
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.transaction.logic.exception.ParseException;
 import seedu.address.ui.logic.Logic;
 import seedu.address.ui.logic.LogicManager;
 import seedu.address.util.OverallCommandResult;

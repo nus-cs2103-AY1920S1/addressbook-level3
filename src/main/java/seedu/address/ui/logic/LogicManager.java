@@ -5,8 +5,8 @@ import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import seedu.address.ui.HelpWindow;
-import seedu.address.ui.logic.exception.ParseException;
 import seedu.address.ui.commands.CommandResult;
+import seedu.address.ui.logic.exception.ParseException;
 
 /**
  * Manages the logic behind the transaction tab.
