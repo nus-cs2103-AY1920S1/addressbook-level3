@@ -43,7 +43,7 @@ public class JsonAdaptedTransaction {
      */
     public JsonAdaptedTransaction(Transaction source) {
         this.description = source.getDescription().toString();
-        this.amount = source.getAmount().toString().substring(1);
+        this.amount = source.getAmount().toString();
         this.category = source.getCategory().toString();
         this.date = new JsonAdaptedDate(source.getDate());
         this.transactionType = source.getTransactionType().toString();

@@ -45,7 +45,7 @@ class JsonAdaptedBudget {
      */
     public JsonAdaptedBudget(Budget source) {
         description = source.getDescription().toString();
-        amount = source.getAmount().toString().substring(1);
+        amount = source.getAmount().toString();
         month = source.getMonth() != null ? source.getMonth().toString() : null;
         year = source.getYear() != null ? source.getYear().toString() : null;
         category = source.getCategory() != null ? source.getCategory().toString() : null;
