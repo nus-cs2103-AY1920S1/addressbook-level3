@@ -57,7 +57,7 @@ public class ExportCommand extends Command {
             throw new CommandException(IO_EXCEPTION_MESSAGE);
         }
 
-        return new CommandResult("Export was (UN)successful! You can find your file at "
+        return new CommandResult("Export was successful! You can find your file at "
                 + "the following path:\n"
                 + this.filePath);
     }
