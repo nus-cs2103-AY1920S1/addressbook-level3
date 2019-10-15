@@ -96,14 +96,7 @@ public class EditPolicyCommand extends Command {
         model.setPolicy(policyToEdit, editedPolicy);
         model.updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
 
-        // Update persons with the edited policy
-        for (Person p : model.getAddressBook().getPersonList()) {
-            if (p.hasPolicy(policyToEdit)) {
-                Person policyRemoved = new PersonBuilder(p).removePolicies(policyToEdit).build();
-                Person editedPerson = new PersonBuilder(policyRemoved).addPolicies(editedPolicy).build();
-                model.setPerson(p, editedPerson);
-            }
-        }
+        updatePersonsWithPolicy(policyToEdit, editedPolicy, model);
 
         return new CommandResult(String.format(MESSAGE_EDIT_POLICY_SUCCESS, editedPolicy));
     }
@@ -139,7 +132,24 @@ public class EditPolicyCommand extends Command {
     public Policy executeForMerge(Policy policy, EditPolicyDescriptor editPolicyDescriptor, Model model) {
         Policy editedPolicy = createEditedPolicy(policy, editPolicyDescriptor);
         model.setPolicy(policy, editedPolicy);
+        updatePersonsWithPolicy(policy, editedPolicy, model);
         return editedPolicy;
+    }
+
+    /**
+     * Updates persons with an edited policy.
+     * @param oldPolicy Previous policy.
+     * @param newPolicy Edited policy.
+     * @param model Addressbook model.
+     */
+    public void updatePersonsWithPolicy(Policy oldPolicy, Policy newPolicy, Model model) {
+        for (Person p : model.getAddressBook().getPersonList()) {
+            if (p.hasPolicy(oldPolicy)) {
+                Person policyRemoved = new PersonBuilder(p).removePolicies(oldPolicy).build();
+                Person editedPerson = new PersonBuilder(policyRemoved).addPolicies(newPolicy).build();
+                model.setPerson(p, editedPerson);
+            }
+        }
     }
 
 
