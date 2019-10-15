@@ -28,7 +28,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final UndoableHistory undoableHistory;
+    private final UndoRedoManager undoRedoManager;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
@@ -47,7 +47,7 @@ public class ModelManager implements Model {
         EventList eventList = new EventList(readOnlyEventList);
 
         this.addressBook = new AddressBook(addressBook);
-        this.undoableHistory = new UndoableHistory(eventList);
+        this.undoRedoManager = new UndoRedoManager(eventList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
@@ -137,7 +137,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addEvent(EventSource event) {
-        EventList eventList = undoableHistory.getCurrentState();
+        EventList eventList = undoRedoManager.getCurrentState();
 
         eventList.add(event);
 
@@ -149,7 +149,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteEvent(EventSource target) {
-        EventList eventList = undoableHistory.getCurrentState();
+        EventList eventList = undoRedoManager.getCurrentState();
 
         eventList.remove(target);
 
@@ -161,17 +161,17 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyEventList getEventList() {
-        return undoableHistory.getCurrentState();
+        return undoRedoManager.getCurrentState();
     }
 
     @Override
     public boolean hasEvent(EventSource event) {
-        return undoableHistory.getCurrentState().contains(event);
+        return undoRedoManager.getCurrentState().contains(event);
     }
 
     @Override
     public void setEvent(EventSource target, EventSource editedEvent) {
-        EventList eventList = undoableHistory.getCurrentState();
+        EventList eventList = undoRedoManager.getCurrentState();
 
         eventList.replace(target, editedEvent);
 
@@ -183,7 +183,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setEventList(ReadOnlyEventList readOnlyEventList) {
-        EventList eventList = undoableHistory.getCurrentState();
+        EventList eventList = undoRedoManager.getCurrentState();
 
         eventList.resetData(readOnlyEventList);
 
@@ -212,7 +212,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<EventSource> getFilteredEventList() {
-        return undoableHistory.getCurrentState().getReadOnlyList();
+        return undoRedoManager.getCurrentState().getReadOnlyList();
     }
 
     @Override
@@ -240,7 +240,7 @@ public class ModelManager implements Model {
      * Creates a deep-copy of the current event list state and saves that copy to the UndoableHistory.
      */
     public void commitToHistory(EventList eventList) {
-        undoableHistory.commit(eventList);
+        undoRedoManager.commit(eventList);
     }
 
     /**
@@ -248,7 +248,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void undoFromHistory() {
-        undoableHistory.undo();
+        undoRedoManager.undo();
     }
 
     /**
@@ -256,7 +256,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void redoFromHistory() {
-        undoableHistory.redo();
+        undoRedoManager.redo();
     }
 
     /**
@@ -266,7 +266,7 @@ public class ModelManager implements Model {
      */
     @Override
     public boolean canUndoHistory() {
-        return undoableHistory.canUndo();
+        return undoRedoManager.canUndo();
     }
 
     /**
@@ -274,7 +274,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void clearFutureHistory() {
-        undoableHistory.clearFutureHistory();
+        undoRedoManager.clearFutureHistory();
     }
 
 }

@@ -14,7 +14,7 @@ import seedu.address.model.events.EventList;
  * Whenever an undo or redo command is executed, mainEventList restores itself to a
  * past/future state by copying the data in its duplicate over to itself.
  */
-public class UndoableHistory {
+public class UndoRedoManager {
 
     /** The eventList that the GUI is in sync with.
      * This mainEventList is updated every time an
@@ -34,7 +34,7 @@ public class UndoableHistory {
     private ArrayList<EventList> eventListStateList;
     private int currentStateIndex;
 
-    UndoableHistory(EventList eventList) {
+    UndoRedoManager(EventList eventList) {
         mainEventList = eventList;
         eventListStateList = new ArrayList<>();
         // Store a deep-copy of the mainEventList to the list
@@ -106,10 +106,10 @@ public class UndoableHistory {
         if (other == this) { // short circuit if same object
             return true;
         } else {
-            if (!(other instanceof UndoableHistory)) {
+            if (!(other instanceof UndoRedoManager)) {
                 return false;
             }
-            UndoableHistory otherHistory = ((UndoableHistory) other);
+            UndoRedoManager otherHistory = ((UndoRedoManager) other);
             if (currentStateIndex != otherHistory.currentStateIndex
                     || eventListStateList.size() != otherHistory.eventListStateList.size()) {
                 return false;
