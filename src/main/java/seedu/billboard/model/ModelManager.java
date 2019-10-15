@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.LogsCenter;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -108,8 +111,13 @@ public class ModelManager implements Model {
     @Override
     public void setExpense(Expense target, Expense editedExpense) {
         requireAllNonNull(target, editedExpense);
-
         billboard.setExpense(target, editedExpense);
+    }
+
+    @Override
+    public Set<Tag> retrieveTags(List<String> toRetrieve) {
+        requireNonNull(toRetrieve);
+        return billboard.retrieveTags(toRetrieve);
     }
 
     //=========== Filtered Expense List Accessors =============================================================

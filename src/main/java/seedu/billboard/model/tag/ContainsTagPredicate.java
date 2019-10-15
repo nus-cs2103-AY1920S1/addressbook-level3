@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import seedu.billboard.model.expense.Expense;
 
+/**
+ * Tests that a {@code Expense}'s {@code Tags} matches any of the keywords given.
+ */
 public class ContainsTagPredicate implements Predicate<Expense> {
     private final List<Tag> tags;
 
