@@ -33,9 +33,6 @@ public class DoneCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this || other instanceof DoneCommand) {
-            return true;
-        }
-        return false;
+        return (other == this || other instanceof DoneCommand);
     }
 }

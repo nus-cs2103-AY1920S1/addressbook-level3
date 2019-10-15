@@ -25,6 +25,6 @@ public class ServeCommandParserTest {
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ServeCommand.MESSAGE_USAGE);
-        assertParseFailure(parser, " ", expectedMessage);
+        assertParseFailure(parser, PREAMBLE_WHITESPACE, expectedMessage);
     }
 }
