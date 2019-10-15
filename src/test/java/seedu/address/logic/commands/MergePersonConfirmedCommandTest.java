@@ -17,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.PersonBuilder;
+import seedu.address.logic.commands.merge.MergePersonCommand;
+import seedu.address.logic.commands.merge.MergePersonConfirmedCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -27,52 +29,53 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyName;
 
-public class MergeRejectedCommandTest {
+public class MergePersonConfirmedCommandTest {
 
     @Test
     public void constructor_nullCommand_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new MergeRejectedCommand(null));
+        assertThrows(NullPointerException.class, () -> new MergePersonConfirmedCommand(null));
     }
 
     @Test
-    public void execute_mergeRejectedWithOneMergeLeft_mergeSuccessful() throws Exception {
+    public void execute_mergeConfirmedWithOneMergeLeft_mergeSuccessful() throws Exception {
         Person validPerson = new PersonBuilder().build();
         Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_BOB).build();
-        MergeCommandStub mergeCommandStub = new MergeCommandStub(inputPerson);
+        MergePersonCommandStub mergeCommandStub = new MergePersonCommandStub(inputPerson);
         ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
-        CommandResult commandResult = new MergeRejectedCommand(mergeCommandStub).execute(modelStub);
-        assertEquals(String.format(MergeRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED, Phone.DATA_TYPE)
+        CommandResult commandResult = new MergePersonConfirmedCommand(mergeCommandStub).execute(modelStub);
+        assertEquals(String.format(MergePersonConfirmedCommand.MESSAGE_MERGE_FIELD_SUCCESS, Phone.DATA_TYPE)
                 + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
-                mergeCommandStub.getOriginalPerson()), commandResult.getFeedbackToUser());
-        assertEquals(modelStub.getPerson(), new PersonBuilder().build());
+                inputPerson), commandResult.getFeedbackToUser());
+        assertEquals(modelStub.getPerson(), inputPerson);
     }
 
     @Test
     public void execute_mergeConfirmedWithMoreThanOneMergeLeft_mergeSuccessful() throws Exception {
         Person validPerson = new PersonBuilder().build();
         Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB).build();
-        MergeCommandStubWithMultipleMerges mergeCommandStub = new MergeCommandStubWithMultipleMerges(inputPerson);
+        MergePersonCommandStubWithMultipleMerges mergeCommandStub =
+                new MergePersonCommandStubWithMultipleMerges(inputPerson);
         ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
-        CommandResult commandResult = new MergeRejectedCommand(mergeCommandStub).execute(modelStub);
-        assertEquals(String.format(MergeRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED, Phone.DATA_TYPE)
+        CommandResult commandResult = new MergePersonConfirmedCommand(mergeCommandStub).execute(modelStub);
+        assertEquals(String.format(MergePersonConfirmedCommand.MESSAGE_MERGE_FIELD_SUCCESS, Phone.DATA_TYPE)
                 + "\n" + mergeCommandStub.getNextMergePrompt(), commandResult.getFeedbackToUser());
-        assertEquals(modelStub.getPerson(), new PersonBuilder().build());
+        assertEquals(modelStub.getPerson(), new PersonBuilder().withPhone(VALID_PHONE_BOB).build());
     }
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        MergeCommandStub commandWithAlice = new MergeCommandStub(alice);
-        MergeCommandStub commandWithBob = new MergeCommandStub(bob);
-        MergeRejectedCommand mergeAliceCommand = new MergeRejectedCommand(commandWithAlice);
-        MergeRejectedCommand mergeBobCommand = new MergeRejectedCommand(commandWithBob);
+        MergePersonCommandStub commandWithAlice = new MergePersonCommandStub(alice);
+        MergePersonCommandStub commandWithBob = new MergePersonCommandStub(bob);
+        MergePersonConfirmedCommand mergeAliceCommand = new MergePersonConfirmedCommand(commandWithAlice);
+        MergePersonConfirmedCommand mergeBobCommand = new MergePersonConfirmedCommand(commandWithBob);
 
         // same object -> returns true
         assertTrue(mergeAliceCommand.equals(mergeAliceCommand));
 
         // same values -> returns true
-        MergeRejectedCommand mergeAliceCommandCopy = new MergeRejectedCommand(commandWithAlice);
+        MergePersonConfirmedCommand mergeAliceCommandCopy = new MergePersonConfirmedCommand(commandWithAlice);
         assertTrue(mergeAliceCommand.equals(mergeAliceCommandCopy));
 
         // different types -> returns false
@@ -85,7 +88,7 @@ public class MergeRejectedCommandTest {
         assertFalse(mergeAliceCommand.equals(mergeBobCommand));
     }
 
-    private class MergeCommandStub extends MergeCommand {
+    private class MergePersonCommandStub extends MergePersonCommand {
         /**
          * Creates an Merge Command to update the original {@code Person} to the new {@code Person}
          *
@@ -93,7 +96,7 @@ public class MergeRejectedCommandTest {
          */
         private Person originalPerson = new PersonBuilder().build();
 
-        public MergeCommandStub(Person inputPerson) {
+        public MergePersonCommandStub(Person inputPerson) {
             super(inputPerson);
         }
 
@@ -130,7 +133,7 @@ public class MergeRejectedCommandTest {
 
     }
 
-    private class MergeCommandStubWithMultipleMerges extends MergeCommand {
+    private class MergePersonCommandStubWithMultipleMerges extends MergePersonCommand {
         /**
          * Creates an Merge Command to update the original {@code Person} to the new {@code Person}
          *
@@ -139,7 +142,7 @@ public class MergeRejectedCommandTest {
         private Person originalPerson = new PersonBuilder().build();
         private ArrayList<String> dataTypes = new ArrayList<>();
 
-        public MergeCommandStubWithMultipleMerges(Person inputPerson) {
+        public MergePersonCommandStubWithMultipleMerges(Person inputPerson) {
             super(inputPerson);
             dataTypes.add(Phone.DATA_TYPE);
             dataTypes.add(Address.DATA_TYPE);
