@@ -1,0 +1,10 @@
+Color Scheme for Horo:
+
+Background: #121212
+Surface Base: #1F1F1F
+Error Red: #CF6679
+Lit Teal: #03DAC6
+Light Purple: #BB86FC
+Lime Green: #ADFC86
+Dim Orange: FCD986
+Hot Pink: FC86D1

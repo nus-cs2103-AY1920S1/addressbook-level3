@@ -48,8 +48,12 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
         try {
             mainWindow = new MainWindow(primaryStage, commandInput -> {
                 // TODO: Temporary command
-                if (commandInput.equals("view")) {
-                    this.mainWindow.toggleView();
+                if (commandInput.equals("view_calendar")) {
+                    this.mainWindow.viewCalendar();
+                } else if (commandInput.equals("view_list")) {
+                    this.mainWindow.viewList();
+                } else if (commandInput.equals("view_log")) {
+                    this.mainWindow.viewLog();
                 } else {
                     // Notify listeners of new command input.
                     this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));

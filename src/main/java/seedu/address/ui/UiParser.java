@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.text.DateFormatSymbols;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -41,5 +42,23 @@ public class UiParser {
                 .withZone(ZoneId.systemDefault());
         String eventDate = dateFormat.format(date);
         return Integer.valueOf(eventDate);
+    }
+
+    public Integer getHour(Instant time) {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH")
+                .withZone(ZoneId.systemDefault());
+        return Integer.valueOf(timeFormatter.format(time));
+    }
+
+    public String getTime(Instant time) {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+                .withZone(ZoneId.systemDefault());
+        return timeFormatter.format(time);
+    }
+
+    public String getEnglishDate(Integer day, Integer month, Integer year) {
+        String monthStr = new DateFormatSymbols().getMonths()[month-1].toLowerCase();
+        monthStr = monthStr.substring(0, 1).toUpperCase() + monthStr.substring(1);
+        return day + " " + monthStr + " " + year;
     }
 }

@@ -2,8 +2,8 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import seedu.address.model.events.EventSource;
 
 /**
@@ -11,43 +11,31 @@ import seedu.address.model.events.EventSource;
  */
 public class EventCard extends UiPart<Region> {
 
-    private static final String FXML = "EventListCard.fxml";
+    private static final String FXML = "EventCard.fxml";
 
-    public final EventSource eventSource;
+    private UiParser uiParser;
+    private EventSource event;
+    private String eventName;
+    private String eventDate;
 
     @FXML
-    private HBox cardPane;
-    @FXML
-    private Label name;
-    @FXML
-    private Label dateTime;
+    private StackPane eventCardBase;
 
-    /**
-     * Constructor for EventCard. Creates an event card that will be placed in EventListPanel.
-     * @param eventSource The instance of the event itself.
-     * @param displayedIndex The number representing the event.
-     */
-    public EventCard(EventSource eventSource, int displayedIndex, UiParser uiParser) {
+    @FXML
+    private Label eventCardName;
+
+    @FXML
+    private Label eventCardDate;
+
+    public EventCard(EventSource event, UiParser uiParser) {
         super(FXML);
-        this.eventSource = eventSource;
-        name.setText(displayedIndex + ". " + eventSource.getDescription().toString());
-        dateTime.setText(uiParser.parseDateToString(eventSource.getStartDateTime().getDateTime()));
+        this.uiParser = uiParser;
+        this.event = event;
+        this.eventName = event.getDescription();
+        this.eventDate = uiParser.getTime(event.getStartDateTime().getDateTime());
+
+        eventCardName.setText(this.eventName);
+        eventCardDate.setText(this.eventDate);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof EventCard)) {
-            return false;
-        }
-
-        // state check
-        EventCard card = (EventCard) other;
-        return eventSource.equals(card.eventSource);
-    }
 }

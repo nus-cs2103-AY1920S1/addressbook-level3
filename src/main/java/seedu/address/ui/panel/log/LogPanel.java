@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.panel.log;
 
 import static java.util.Objects.requireNonNull;
 
@@ -8,6 +8,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
+import seedu.address.ui.UiPart;
 
 /**
  * An Ui that stores the logged feedback from the program to the user.
@@ -27,12 +28,6 @@ public class LogPanel extends UiPart<Region> {
      */
     public LogPanel() {
         super(FXML);
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        double screenHeight = primaryScreenBounds.getHeight();
-        double screenWidth = primaryScreenBounds.getWidth();
-
-        boxLog.setPrefHeight(screenHeight - screenHeight / 5);
-        boxLog.setPrefWidth(screenWidth / 2);
     }
 
     /**

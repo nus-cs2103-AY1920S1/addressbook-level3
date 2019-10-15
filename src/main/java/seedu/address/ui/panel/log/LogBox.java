@@ -1,8 +1,9 @@
-package seedu.address.ui;
+package seedu.address.ui.panel.log;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import seedu.address.ui.UiPart;
 
 /**
  * An UI component that displays the feedback to the user.
