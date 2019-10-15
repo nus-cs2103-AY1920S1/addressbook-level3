@@ -16,6 +16,8 @@ public class FeedbackWasteCommand extends Command {
             + ": Gives you feedback based on your current food waste performance for the month.\n"
             + "Example: wlist " + COMMAND_WORD;
 
+    private static final String MESSAGE_SUCCESS = "Successfully displayed feedback results";
+
     /**
      * Executes the command and returns the result message.
      *
@@ -31,6 +33,6 @@ public class FeedbackWasteCommand extends Command {
         model.
 
          */
-        return null;
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

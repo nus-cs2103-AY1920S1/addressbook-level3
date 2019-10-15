@@ -13,6 +13,7 @@ import seedu.address.model.food.Amount;
 import seedu.address.model.food.ExpiryDate;
 import seedu.address.model.food.Name;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.waste.WasteMonth;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -104,5 +105,13 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a String object into a WasteMonth object
+     */
+    public static WasteMonth parseWasteMonth(String date) throws ParseException {
+        requireNonNull(date);
+        return null;
     }
 }

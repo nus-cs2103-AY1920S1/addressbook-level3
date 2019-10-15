@@ -22,6 +22,13 @@ public class WasteList implements ReadOnlyAddressBook{
         wasteList = new UniqueFoodList();
     }
 
+    /**
+     * To initialize a waste list archive.
+     */
+    public static void initialiseWasteArchive() {
+        wasteArchive = new TreeMap<>();
+    }
+
     public WasteList() {}
 
     /**
