@@ -27,8 +27,7 @@ public class Tag {
         AppUtil.checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         if (Appeal.isValidAppealId(tagName)) {
             this.type = "appeal";
-        }
-        else {
+        } else {
             this.type = "module";
         }
         this.tagName = tagName;

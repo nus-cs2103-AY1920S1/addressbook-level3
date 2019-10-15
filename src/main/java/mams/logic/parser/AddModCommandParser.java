@@ -2,10 +2,10 @@ package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static mams.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static mams.logic.parser.CliSyntax.PREFIX_PREVMODS;
 import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static mams.logic.parser.CliSyntax.PREFIX_NAME;
+import static mams.logic.parser.CliSyntax.PREFIX_PREVMODS;
 import static mams.logic.parser.CliSyntax.PREFIX_SESSIONID;
 import static mams.logic.parser.CliSyntax.PREFIX_TAG;
 
