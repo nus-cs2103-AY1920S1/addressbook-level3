@@ -12,31 +12,39 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.financialtracker.ui.FinancialTrackerPage;
+import seedu.address.itinerary.ui.ItineraryPage;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar
+ * and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
+public class MainWindow extends UiPart<Stage> implements Page {
 
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
+    private Scene mainScene;
     private Logic logic;
+    private Pages pages;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CodeWindow codeWindow;
+    private FinancialTrackerPage financialTrackerPage;
+    private CalendarPage calendarPage;
+    private ItineraryPage itineraryPage;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -73,6 +81,16 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         codeWindow = new CodeWindow();
+        financialTrackerPage = new FinancialTrackerPage();
+        calendarPage = new CalendarPage();
+        itineraryPage = new ItineraryPage();
+
+        mainScene = primaryStage.getScene();
+
+        // todo-this-week: call the PageScene constructor with your page scene instead,
+        // e.g. Pages(primaryScene, diaryScene)
+        // note that one of the PageScene's constructor is a vararg
+        pages = new Pages(this, new SamplePage(), itineraryPage, financialTrackerPage, calendarPage);
     }
 
     public Stage getPrimaryStage() {
@@ -92,18 +110,18 @@ public class MainWindow extends UiPart<Stage> {
 
         /*
          * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
+         * https://bugs.openjdk.java.net/browse/JDK-8131666 is fixed in later version of
+         * SDK.
          *
          * According to the bug report, TextInputControl (TextField, TextArea) will
          * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
+         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will not
+         * work when the focus is in them because the key event is consumed by the
+         * TextInputControl(s).
          *
          * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
+         * help window purposely so to support accelerators even when focus is in
+         * CommandBox or ResultDisplay.
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
@@ -186,6 +204,15 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Changes application page.
+     */
+    @FXML
+    private void handlePageChange(CommandResult commandResult) {
+        Scene requestedPage = pages.getPage(commandResult);
+        primaryStage.setScene(requestedPage);
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -209,11 +236,25 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isShowPage()) {
+                handlePageChange(commandResult);
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    @Override
+    public Scene getScene() {
+        return mainScene;
+    }
+
+    @Override
+    public PageType getPageType() {
+        return PageType.MAIN;
     }
 }

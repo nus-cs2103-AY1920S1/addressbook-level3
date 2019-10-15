@@ -6,16 +6,20 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.calendar.commands.CalendarCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FinancialTrackerCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RemarkCommand;
+import seedu.address.logic.commands.SampleCommand;
+import seedu.address.itinerary.commands.ItineraryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -71,6 +75,19 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case FinancialTrackerCommand.COMMAND_WORD:
+            return new FinancialTrackerCommand();
+
+        case CalendarCommand.COMMAND_WORD:
+            return new CalendarCommand();
+
+        case ItineraryCommand.COMMAND_WORD:
+            return new ItineraryCommand();
+
+        // todo: remove this when everyone has implemented the UI of their page
+        case SampleCommand.COMMAND_WORD:
+            return new SampleCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
