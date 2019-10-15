@@ -36,17 +36,34 @@ public class TypicalItems {
                                                       .withQuantity("2")
                                                       .withThreshold("20").build();
 
-    public static final Item EXPIRED_MILK = new ItemBuilder().withName("Milk")
-                                                     .withExpiryDate(PASSED_A_WEEK)
-                                                     .withQuantity("2").build();
+    //with tags
+    public static final Item DUCK = new ItemBuilder().withName("Duck")
+                                                     .withExpiryDate(IN_A_MONTH)
+                                                     .withTags("Fridge", "Protein")
+                                                     .build();
 
+    //with all fields (tags, reminder threshold, quantity)
+    public static final Item JELLY = new ItemBuilder().withName("Jelly")
+                                                        .withExpiryDate(IN_A_MONTH)
+                                                        .withQuantity("4")
+                                                        .withTags("Fridge")
+                                                        .withReminderThreshold("3")
+                                                        .build();
+
+    // expiring soon
     public static final Item EXPIRING_FISH = new ItemBuilder().withName("Fish")
                                                                .withExpiryDate(IN_A_WEEK)
                                                                .withQuantity("1")
                                                                .withThreshold("8").build();
+    // already expired
     public static final Item EXPIRED_ORANGE = new ItemBuilder().withName("Orange")
                                                              .withExpiryDate(PASSED_A_DAY)
                                                              .withQuantity("1").build();
+
+    // expired for a longer time
+    public static final Item EXPIRED_MILK = new ItemBuilder().withName("Milk")
+                                                             .withExpiryDate(PASSED_A_WEEK)
+                                                             .withQuantity("2").build();
 
     private TypicalItems() {} // prevents instantiation
 
@@ -56,12 +73,15 @@ public class TypicalItems {
     public static Xpire getTypicalExpiryDateTracker() {
         Xpire edt = new Xpire();
         for (Item item : getTypicalItems()) {
-            edt.addItem(item);
+            Item copyItem = new Item(item);
+            edt.addItem(copyItem);
         }
         return edt;
     }
 
     public static List<Item> getTypicalItems() {
-        return new ArrayList<>(Arrays.asList(EXPIRED_MILK, BANANA, APPLE, EXPIRED_ORANGE, EXPIRING_FISH));
+        return new ArrayList<>(Arrays.asList(EXPIRED_MILK, BANANA, APPLE, EXPIRED_ORANGE, EXPIRING_FISH, DUCK,
+                JELLY));
+
     }
 }

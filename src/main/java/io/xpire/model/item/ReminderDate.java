@@ -1,5 +1,7 @@
 package io.xpire.model.item;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -21,6 +23,7 @@ public class ReminderDate {
      * @param date A valid ReminderDate.
      */
     public ReminderDate(LocalDate date) {
+        requireNonNull(date);
         this.date = date;
     }
 

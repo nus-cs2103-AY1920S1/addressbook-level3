@@ -24,6 +24,7 @@ import io.xpire.model.item.ReminderThresholdExceededPredicate;
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code CheckCommand}.
+<<<<<<< HEAD
  */
 public class CheckCommandTest {
 
@@ -71,5 +72,4 @@ public class CheckCommandTest {
         // different item -> returns false
         assertFalse(checkReminderCommand.equals(checkDaysCommand));
     }
-
 }

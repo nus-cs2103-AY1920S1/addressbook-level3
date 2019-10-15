@@ -2,11 +2,11 @@ package io.xpire.logic;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_KIWI;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_KIWI;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_KIWI;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_BANANA;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_BANANA;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_BANANA;
 import static io.xpire.testutil.Assert.assertThrows;
-import static io.xpire.testutil.TypicalItems.KIWI;
+import static io.xpire.testutil.TypicalItems.BANANA;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
@@ -79,9 +79,9 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + "|" + VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI
-                + "|" + VALID_QUANTITY_KIWI;
-        Item expectedItem = new ItemBuilder(KIWI).build();
+        String addCommand = AddCommand.COMMAND_WORD + "|" + VALID_NAME_BANANA + "|" + VALID_EXPIRY_DATE_BANANA
+                + "|" + VALID_QUANTITY_BANANA;
+        Item expectedItem = new ItemBuilder(BANANA).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addItem(expectedItem);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

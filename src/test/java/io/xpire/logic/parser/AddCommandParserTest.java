@@ -6,9 +6,14 @@ import static io.xpire.logic.commands.CommandTestUtil.INVALID_EXPIRY_DATE;
 import static io.xpire.logic.commands.CommandTestUtil.INVALID_NAME;
 import static io.xpire.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_APPLE;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_BANANA;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_KIWI;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_APPLE;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_APPLE;
-import static io.xpire.testutil.TypicalItems.APPLE;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_BANANA;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_KIWI;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_BANANA;
+import static io.xpire.testutil.TypicalItems.BANANA;
+import static io.xpire.testutil.TypicalItems.KIWI;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,19 +28,19 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Item expectedItem = new ItemBuilder(APPLE).build();
+        Item expectedItem = new ItemBuilder(BANANA).build();
 
         // whitespace only preamble
-        CommandParserTestUtil.assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_NAME_APPLE
-                + "|" + VALID_EXPIRY_DATE_APPLE + "|" + VALID_QUANTITY_APPLE,
+        CommandParserTestUtil.assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_NAME_BANANA
+                + "|" + VALID_EXPIRY_DATE_BANANA + "|" + VALID_QUANTITY_BANANA,
                 new AddCommand(expectedItem));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // no quantity specified
-        Item expectedItem = new ItemBuilder(APPLE).withQuantity("1").build();
-        String userInput = VALID_NAME_APPLE + "|" + VALID_EXPIRY_DATE_APPLE + "|";
+        Item expectedItem = new ItemBuilder(KIWI).withQuantity("1").withReminderThreshold("0").build();
+        String userInput = VALID_NAME_KIWI + "|" + VALID_EXPIRY_DATE_KIWI + "|";
         CommandParserTestUtil.assertParseSuccess(parser, userInput,
                 new AddCommand(expectedItem));
     }

@@ -1,86 +1,86 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.model.item.ExpiryDate.DATE_FORMAT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import io.xpire.commons.core.index.Index;
+import io.xpire.commons.util.DateUtil;
 import io.xpire.logic.commands.exceptions.CommandException;
-import io.xpire.logic.parser.CliSyntax;
 import io.xpire.model.Model;
 import io.xpire.model.Xpire;
 import io.xpire.model.item.ContainsKeywordsPredicate;
 import io.xpire.model.item.Item;
 import io.xpire.testutil.Assert;
-import io.xpire.testutil.EditItemDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_KIWI = "Kiwi";
     public static final String VALID_NAME_APPLE = "Apple";
     public static final String VALID_NAME_BANANA = "Banana";
     public static final String VALID_NAME_EXPIRED_MILK = "Milk";
+    public static final String VALID_NAME_DUCK = "Duck";
+    public static final String VALID_NAME_JELLY = "Jelly";
+    public static final String VALID_NAME_KIWI = "Kiwi";
+    public static final String VALID_NAME_EXPIRED_ORANGE = "Orange";
+    public static final String VALID_NAME_EXPIRING_FISH = "Fish";
 
-    public static final String VALID_EXPIRY_DATE_KIWI = "1/2/2020";
-    public static final String VALID_EXPIRY_DATE_APPLE = "1/2/2020";
-    public static final String VALID_EXPIRY_DATE_BANANA = "1/2/2020";
-    public static final String VALID_EXPIRY_DATE_EXPIRED_MILK = "1/2/2020";
+    public static final String TODAY = DateUtil.convertDateToString(LocalDate.now(), DATE_FORMAT);
+    public static final String IN_A_WEEK = DateUtil.convertDateToString(LocalDate.now().plusDays(7), DATE_FORMAT);
+    public static final String IN_TWO_WEEKS = DateUtil.convertDateToString(LocalDate.now().plusDays(14), DATE_FORMAT);
+    public static final String IN_A_MONTH = DateUtil.convertDateToString(LocalDate.now().plusDays(30), DATE_FORMAT);
+    public static final String PASSED_A_DAY = DateUtil.convertDateToString(LocalDate.now().minusDays(1), DATE_FORMAT);
+    public static final String PASSED_A_WEEK = DateUtil.convertDateToString(LocalDate.now().minusDays(7), DATE_FORMAT);
 
-    public static final String VALID_QUANTITY_KIWI = "2";
+    public static final String VALID_EXPIRY_DATE_APPLE = TODAY;
+    public static final String VALID_EXPIRY_DATE_BANANA = IN_TWO_WEEKS;
+    public static final String VALID_EXPIRY_DATE_EXPIRED_MILK = PASSED_A_WEEK;
+    public static final String VALID_EXPIRY_DATE_DUCK = IN_A_MONTH;
+    public static final String VALID_EXPIRY_DATE_JELLY = IN_A_MONTH;
+    public static final String VALID_EXPIRY_DATE_KIWI = IN_A_MONTH;
+    public static final String VALID_EXPIRY_DATE_ORANGE = PASSED_A_DAY;
+    public static final String VALID_EXPIRY_DATE_FISH = IN_A_WEEK;
+
     public static final String VALID_QUANTITY_APPLE = "1";
     public static final String VALID_QUANTITY_BANANA = "5";
+    public static final String VALID_QUANTITY_DUCK = "1";
+    public static final String VALID_QUANTITY_JELLY = "4";
+    public static final String VALID_QUANTITY_KIWI = "2";
     public static final String VALID_QUANTITY_EXPIRED_MILK = "2";
+    public static final String VALID_QUANTITY_EXPIRING_FISH = "1";
+    public static final String VALID_QUANTITY_EXPIRED_ORANGE = "1";
 
-    public static final String VALID_TAG_FRUIT = "fruit";
-    public static final String VALID_TAG_DRINK = "drinks";
-    public static final String VALID_TAG_GREEN = "green";
 
-    public static final String NAME_DESC_KIWI = " " + CliSyntax.PREFIX_NAME + VALID_NAME_KIWI;
-    public static final String NAME_DESC_APPLE = " " + CliSyntax.PREFIX_NAME + VALID_NAME_APPLE;
-    public static final String NAME_DESC_BANANA = " " + CliSyntax.PREFIX_NAME + VALID_NAME_BANANA;
-    public static final String NAME_DESC_EXPIRED_MILK = " " + CliSyntax.PREFIX_NAME + VALID_NAME_EXPIRED_MILK;
+    public static final String VALID_TAG_FRUIT = "Fruit";
+    public static final String VALID_TAG_DRINK = "Drink";
+    public static final String VALID_TAG_FRIDGE = "Fridge";
+    public static final String VALID_TAG_PROTEIN = "Protein";
 
-    public static final String EXPIRY_DATE_DESC_KIWI = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_KIWI;
-    public static final String EXPIRY_DATE_DESC_APPLE = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_APPLE;
-    public static final String EXPIRY_DATE_DESC_BANANA = " " + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_BANANA;
-    public static final String EXPIRY_DATE_DESC_EXPIRED_MILK = " "
-            + CliSyntax.PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_EXPIRED_MILK;
-    public static final String TAG_DESC_FRUIT = " " + CliSyntax.PREFIX_TAG + VALID_TAG_FRUIT;
-    public static final String TAG_DESC_DRINK = " " + CliSyntax.PREFIX_TAG + VALID_TAG_DRINK;
-    public static final String TAG_DESC_GREEN = " " + CliSyntax.PREFIX_TAG + VALID_TAG_GREEN;
+    public static final String VALID_REMINDER_THRESHOLD_APPLE = "0";
+    public static final String VALID_REMINDER_THRESHOLD_BANANA = "0";
+    public static final String VALID_REMINDER_THRESHOLD_DUCK = "0";
+    public static final String VALID_REMINDER_THRESHOLD_JELLY = "3";
+    public static final String VALID_REMINDER_THRESHOLD_KIWI = "20";
+    public static final String VALID_REMINDER_THRESHOLD_FISH = "8";
+    public static final String VALID_REMINDER_THRESHOLD_ORANGE = "0";
+    public static final String VALID_REMINDER_THRESHOLD_MILK = "0";
 
-    public static final String INVALID_NAME_DESC = " " + CliSyntax.PREFIX_NAME + "James&";
-    public static final String INVALID_PHONE_DESC = " " + CliSyntax.PREFIX_PHONE + "911a";
-    public static final String INVALID_EMAIL_DESC = " " + CliSyntax.PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + CliSyntax.PREFIX_ADDRESS;
-    public static final String INVALID_EXPIRY_DATE_DESC = " " + CliSyntax.PREFIX_EXPIRY_DATE + "";
-    public static final String INVALID_TAG_DESC = " " + CliSyntax.PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-
-    public static final String INVALID_NAME = "James&";
-    public static final String INVALID_EXPIRY_DATE = "";
-    public static final String INVALID_TAG = "hubby*";
+    public static final String INVALID_NAME = "@pple";
+    public static final String INVALID_EXPIRY_DATE = "50/50/5000";
+    public static final String INVALID_TAG = "$cold";
     public static final String INVALID_QUANTITY = "-2";
+    public static final String INVALID_REMINDER_THRESHOLD = "-5";
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
-
-    public static final EditCommand.EditItemDescriptor DESC_KIWI;
-    public static final EditCommand.EditItemDescriptor DESC_APPLE;
-
-    static {
-        DESC_KIWI = new EditItemDescriptorBuilder().withName(VALID_NAME_KIWI)
-                                                  .withExpiryDate(VALID_EXPIRY_DATE_KIWI)
-                                                  .withTags(VALID_TAG_FRUIT).build();
-        DESC_APPLE = new EditItemDescriptorBuilder().withName(VALID_NAME_BANANA)
-                                                    .withExpiryDate(VALID_EXPIRY_DATE_BANANA)
-                                                  .withTags(VALID_TAG_FRUIT).build();
-    }
 
     /**
      * Executes the given {@code command}, confirms that <br>

@@ -66,7 +66,7 @@ public class SearchCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 2);
-        ContainsKeywordsPredicate predicate = preparePredicate("Milk Banana");
+        ContainsKeywordsPredicate predicate = preparePredicate("Banana Milk");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
