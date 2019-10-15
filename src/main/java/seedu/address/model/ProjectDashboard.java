@@ -117,17 +117,17 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
             TaskStatus taskStatus = task.getTaskStatus();
 
             switch (taskStatus) {
-                case UNBEGUN:
-                    tasksNotStarted.add(task);
-                    break;
+            case UNBEGUN:
+                tasksNotStarted.add(task);
+                break;
 
-                case DOING:
-                    tasksDoing.add(task);
-                    break;
+            case DOING:
+                tasksDoing.add(task);
+                break;
 
-                case DONE:
-                    tasksDone.add(task);
-                    break;
+            case DONE:
+                tasksDone.add(task);
+                break;
 
             }
         }
