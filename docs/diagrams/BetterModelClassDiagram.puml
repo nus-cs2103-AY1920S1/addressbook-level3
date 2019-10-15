@@ -16,6 +16,6 @@ Person o-up-> "*" Tag
 
 Person *--> Name
 Person *--> Credits
-Person *--> Email
+Person *--> PrevMods
 Person *--> Address
 @enduml
