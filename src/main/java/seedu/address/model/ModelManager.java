@@ -150,6 +150,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Card> getFilteredCardList() {
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
         return filteredCards;
     }
 
