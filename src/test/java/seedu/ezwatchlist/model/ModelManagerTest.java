@@ -78,7 +78,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasShow_personNotInWatchList_returnsFalse() {
+    public void hasShow_showNotInWatchList_returnsFalse() {
         assertFalse(modelManager.hasShow(AVENGERSENDGAME));
     }
 
