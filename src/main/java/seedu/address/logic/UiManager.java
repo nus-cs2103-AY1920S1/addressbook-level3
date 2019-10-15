@@ -18,6 +18,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.listeners.CommandInputListener;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
+import seedu.address.ui.ColorTheme;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UserOutput;
@@ -131,7 +132,7 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
     }
 
     @Override
-    public void onUserOutput(UserOutput output) {
-        this.mainWindow.onUserOutput(output);
+    public void onUserOutput(UserOutput output, ColorTheme result) {
+        this.mainWindow.onUserOutput(output, result);
     }
 }

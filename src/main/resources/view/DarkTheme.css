@@ -20,8 +20,8 @@
     -surfaceColor: #1E1E1E;     /** Lighter Dark **/
     -topColor: #383838;         /** Lightest Dark **/
     -primaryColor: #262833;     /** Dark tinted blue **/
-    -errorColor: #CF6679;       /** Red Error **/
     -logBoxColor: #7E8CE0;      /** Light Purple Blue **/
+    -errorColor: #CF6679;       /** Red Error **/
     -lineColor: #FF7597;        /** Some Redish Pink **/
     -eventCardColor1: #FFAF5F;
     -eventCardColor2: #4ACFAC;
@@ -141,72 +141,6 @@
     -fx-font-family: "Roboto Regular";
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
-}
-
-.stack-pane {
-    -fx-background-color: derive(#1d1d1d, 20%);
-}
-
-.pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
-}
-
-.status-bar {
-    -fx-background-color: derive(#1d1d1d, 30%);
-}
-
-.status-bar .label {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Roboto Thin";
-    -fx-font-style: italic;
-    -fx-text-fill: white;
-    -fx-padding: 4px;
-    -fx-pref-height: 30px;
-}
-
-.status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
-    -fx-border-width: 1px;
-}
-
-.status-bar-with-border .label {
-    -fx-text-fill: white;
-}
-
-.grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
-    -fx-border-width: 1px;
-}
-
-.grid-pane .stack-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-}
-
-.context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
-}
-
-.context-menu .label {
-    -fx-text-fill: white;
-}
-
-.menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
-}
-
-.menu-bar .label {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Roboto Regular";
-    -fx-text-fill: white;
-    -fx-opacity: 0.9;
-}
-
-.menu .left-container {
-    -fx-background-color: black;
 }
 
 /*
@@ -334,6 +268,13 @@
     -fx-background-color: -surfaceColor;
 }
 
+#popUp {
+    -fx-font-family: "Roboto Regular";
+    -fx-font-size: 11pt;
+    -fx-text-fill: -primaryColor;
+    -fx-background-color: -logBoxColor;
+    -fx-background-radius: 8;
+}
 
 #gridManager {
     -fx-background-color: -backgroundColor;
@@ -423,6 +364,7 @@
 #eventCardBase {
     -fx-background-color: -eventCardColor1;
     -fx-background-radius: 8;
+    -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
 }
 
 #eventCardName {

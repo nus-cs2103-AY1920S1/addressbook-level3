@@ -5,20 +5,20 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.events.EventSource;
@@ -26,7 +26,10 @@ import seedu.address.model.listeners.EventListListener;
 import seedu.address.ui.listeners.UserOutputListener;
 import seedu.address.ui.panel.calendar.CalendarPanel;
 import seedu.address.ui.panel.list.ListPanel;
+import seedu.address.ui.panel.log.LogBox;
 import seedu.address.ui.panel.log.LogPanel;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -50,8 +53,10 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     private HelpWindow helpWindow;
 
     @FXML
-    private StackPane commandBoxPlaceholder;
+    private StackPane popUpPanel;
 
+    @FXML
+    private StackPane commandBoxPlaceholder;
 
     @FXML
     private StackPane viewPlaceholder;
@@ -61,9 +66,6 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
 
     @FXML
     private GridPane gridManager;
-
-    @FXML
-    private VBox vBoxPane;
 
     @FXML
     private Label viewTitle;
@@ -194,6 +196,40 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     }
 
     /**
+     * Creates a pop-up of the output using the same LogBox in the LogPanel
+     */
+    private void createOutputLogBox(String feedbackToUser, String color) {
+        requireNonNull(feedbackToUser);
+        PopUpBox popUpBox = new PopUpBox(feedbackToUser, color);
+        popUpPanel.getChildren().clear();
+        popUpPanel.getChildren().add(popUpBox.getRoot());
+
+        Timeline beat = new Timeline(
+                new KeyFrame(Duration.seconds(2.5), event -> popUpPanel.getChildren().clear())
+        );
+        beat.setCycleCount(Timeline.INDEFINITE);
+        beat.play();
+
+    }
+
+    /**
+     * Creates a color scheme from the a list of the constant color values in the CSS file.
+     * @param color The color of the object.
+     * @return The color in a String value that is used in the CSS file.
+     */
+    private String getColor(ColorTheme color) {
+        switch(color) {
+        case SUCCESS:
+            return "-logBoxColor";
+        case FAILURE:
+            return "-errorColor";
+        default:
+            // Not suppose to happen;
+            return "-logBoxColor";
+        }
+    }
+
+    /**
      * Changes of the timeline of the calendar
      */
     public void changeTimelineDate(Instant dateTime) {
@@ -214,7 +250,9 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     }
 
     @Override
-    public void onUserOutput(UserOutput output) {
-        this.logPanel.createLogBox(output.toString());
+    public void onUserOutput(UserOutput output, ColorTheme results) {
+        String color = getColor(results);
+        this.logPanel.createLogBox(output.toString(), color);
+        createOutputLogBox(output.toString(), color);
     }
 }

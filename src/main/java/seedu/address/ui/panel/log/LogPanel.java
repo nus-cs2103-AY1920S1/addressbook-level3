@@ -3,11 +3,11 @@ package seedu.address.ui.panel.log;
 import static java.util.Objects.requireNonNull;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.ui.ColorTheme;
 import seedu.address.ui.UiPart;
 
 /**
@@ -34,10 +34,11 @@ public class LogPanel extends UiPart<Region> {
      * Creates an instance of LogBox.
      * @param feedbackToUser To provide the Log Box the feedback to the user.
      */
-    public void createLogBox(String feedbackToUser) {
+    public void createLogBox(String feedbackToUser, String color) {
         requireNonNull(feedbackToUser);
-        LogBox logBox = new LogBox(feedbackToUser);
+        LogBox logBox = new LogBox(feedbackToUser, color);
         boxLog.getChildren().add(logBox.getRoot());
     }
+
 
 }
