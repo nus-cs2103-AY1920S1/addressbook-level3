@@ -74,15 +74,24 @@ public class ExportCommand extends Command {
     }
 
     private static ObservableList<FlashCard> getFlashCardsByCategory(Model model, Category category) {
+        model.updateFilteredFlashCardList(
+                categoryToPredicate(category)
+        );
+        return model.getFilteredFlashCardList();
+    }
+
+    private static CategoryContainsAnyKeywordsPredicate categoryToPredicate(Category category) {
+        return new CategoryContainsAnyKeywordsPredicate(
+                categoryToKeywordList(
+                        category
+                )
+        );
+    }
+
+    private static List<String> categoryToKeywordList(Category category) {
         String categoryKeywordArray[] = new String[1];
         categoryKeywordArray[0] = category.categoryName;
         List<String> categoryKeywordList = Arrays.asList(categoryKeywordArray);
-
-        CategoryContainsAnyKeywordsPredicate predicate = new CategoryContainsAnyKeywordsPredicate(
-                categoryKeywordList
-        );
-
-        model.updateFilteredFlashCardList(predicate);
-        return model.getFilteredFlashCardList();
+        return categoryKeywordList;
     }
 }
