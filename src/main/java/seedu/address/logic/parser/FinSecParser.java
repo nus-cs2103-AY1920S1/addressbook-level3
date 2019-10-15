@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.HelpCommand.MESSAGE_USAGE;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,6 +12,7 @@ import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.AddIncomeCommand;
 import seedu.address.logic.commands.ApproveClaimCommand;
 import seedu.address.logic.commands.BudgetCommand;
+import seedu.address.logic.commands.CheckCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -43,8 +45,9 @@ public class FinSecParser {
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -86,6 +89,9 @@ public class FinSecParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case CheckCommand.COMMAND_WORD:
+            return new CheckCommandParser().parse(arguments);
 
         case ApproveClaimCommand.COMMAND_WORD:
             return new ApproveClaimCommandParser().parse(arguments);

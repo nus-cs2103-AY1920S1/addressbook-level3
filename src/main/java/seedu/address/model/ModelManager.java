@@ -254,4 +254,5 @@ public class ModelManager implements Model {
         filteredIncomes.setPredicate(predicate);
         UiManager.startWithIncomes();
     }
+
 }

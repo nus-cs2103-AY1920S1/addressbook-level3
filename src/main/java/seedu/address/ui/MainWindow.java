@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.claim.Claim;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ClaimListPanel claimListPanel;
     private IncomeListPanel incomeListPanel;
+    private IndividualClaimWindow individualClaimWindow;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -155,6 +157,21 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the claim window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleClaim(Claim claim) {
+
+        individualClaimWindow = new IndividualClaimWindow(claim);
+
+        if (!individualClaimWindow.isShowing()) {
+            individualClaimWindow.show();
+        } else {
+            individualClaimWindow.focus();
+        }
+    }
+
+    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -215,6 +232,11 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isClaim()) {
+                Claim claim = commandResult.giveClaim();
+                handleClaim(claim);
             }
 
             return commandResult;

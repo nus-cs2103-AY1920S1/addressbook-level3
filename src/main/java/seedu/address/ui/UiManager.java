@@ -19,6 +19,8 @@ public class UiManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
+    private static String state;
+
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
@@ -40,10 +42,18 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillWithContacts();
+            state = "contacts";
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
+    }
+
+    /**
+     * Get state
+     */
+    public static String getState() {
+        return state;
     }
 
     /**
@@ -55,6 +65,7 @@ public class UiManager implements Ui {
         try {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillWithContacts();
+            state = "contacts";
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -70,6 +81,7 @@ public class UiManager implements Ui {
         try {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillWithClaims();
+            state = "claims";
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -85,6 +97,7 @@ public class UiManager implements Ui {
         try {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillWithIncomes();
+            state = "incomes";
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);

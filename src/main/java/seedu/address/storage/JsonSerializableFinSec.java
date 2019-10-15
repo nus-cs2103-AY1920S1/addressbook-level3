@@ -19,7 +19,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable FinSec that is serializable to JSON format.
  */
 @JsonRootName(value = "finsec")
 
@@ -87,5 +87,4 @@ class JsonSerializableFinSec {
         }
         return finSec;
     }
-
 }

@@ -404,7 +404,7 @@ Use case resumes at step 2.
 
 
 [discrete]
-=== Use case: Change View
+=== Use case: Goto view
 
 *MSS*
 
@@ -421,6 +421,32 @@ Use case ends.
 Use case resumes at step 1.
 
 
+[discrete]
+=== Use case: Check details of person (Only available within Claims/Contacts lists)
+
+*MSS*
+
+1. User requests to view list of people
+2. FinSec shows a list of people
+3. User requests which person to check by index
+4. FinSec displays person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The person list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The index entered is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++
+Use case resumes at step 2.
 
 [discrete]
 === Use case: Add Claim
@@ -518,6 +544,7 @@ Use case ends.
 ** 3a1. FinSec shows an error message.
 +
 Use case resumes at step 2.
+
 
 
 [discrete]
