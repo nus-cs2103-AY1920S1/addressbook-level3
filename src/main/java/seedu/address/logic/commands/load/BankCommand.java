@@ -17,23 +17,23 @@ public class BankCommand extends LoadCommand {
 
     public static final String MESSAGE_LIST_ACKNOWLEDGEMENT = "Displaying available wordbanks\n Choose one";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Loads the bank identified by the index number.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
+
     private final Index targetIndex;
 
     public BankCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Loads the bank identified by the index number.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
-
     @Override
     public CommandResult execute(Model model) {
         WordBankList temp = new WordBankList();
         model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
         model.setWordBank(temp.getWordBank(targetIndex));
-        return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT  , false, false);
+        return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT , false, false);
     }
 
 }
