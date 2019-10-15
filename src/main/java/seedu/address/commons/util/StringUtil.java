@@ -76,7 +76,7 @@ public class StringUtil {
 
         Integer longerStringLength = Math.max(string1.length(), string2.length());
 
-        Double similarityPercentage = ((double)longerStringLength / calculateLevenshteinDistance(string1, string2));
+        Double similarityPercentage = ((double) longerStringLength / calculateLevenshteinDistance(string1, string2));
         return similarityPercentage >= requiredSimilarityPercentage;
     }
     /**
@@ -94,7 +94,8 @@ public class StringUtil {
                 .min().orElse(Integer.MAX_VALUE);
     }
     /**
-     * Returns the Levenshtein Distance between {@code string1} and {@code string2}
+     * Returns the Levenshtein Distance (an algorithm to compare the difference between strings)
+     * of {@code string1} and {@code string2}
      */
     private static int calculateLevenshteinDistance(String string1, String string2) {
         int[][] dp = new int[string1.length() + 1][string2.length() + 1];
@@ -103,11 +104,9 @@ public class StringUtil {
             for (int j = 0; j <= string2.length(); j++) {
                 if (i == 0) {
                     dp[i][j] = j;
-                }
-                else if (j == 0) {
+                } else if (j == 0) {
                     dp[i][j] = i;
-                }
-                else {
+                } else {
                     dp[i][j] = min(dp[i - 1][j - 1] + costOfSubstitution(string1.charAt(i - 1), string2.charAt(j - 1)),
                             dp[i - 1][j] + 1, dp[i][j - 1] + 1);
                 }
