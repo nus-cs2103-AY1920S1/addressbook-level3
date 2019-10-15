@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
 import java.util.Collections;
@@ -20,7 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,7 +36,9 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DESC + "NAME] "
+            + PREFIX_TYPE
+            + "[" + PREFIX_DESC + "DESCRIPTION] "
+            + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -62,7 +66,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Expense> lastShownList = model.getFilteredEntryList();
+        List<Entry> lastShownList = model.getFilteredEntryList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -87,11 +91,11 @@ public class EditCommand extends Command {
     private static Entry createEditedEntry(Entry entryToEdit, EditEntryDescriptor editEntryDescriptor) {
         assert entryToEdit != null;
 
-        Description updatedName = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
+        Description updatedDesc = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(entryToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(entryToEdit.getTags());
 
-        return new Entry(updatedName, updatedAmount, updatedTags);
+        return new Entry(updatedDesc, updatedAmount, updatedTags);
     }
 
     @Override
@@ -118,6 +122,7 @@ public class EditCommand extends Command {
      */
     public static class EditEntryDescriptor {
         private Description desc;
+        private Time time;
         private Amount amt;
         private Set<Tag> tags;
 
@@ -146,6 +151,14 @@ public class EditCommand extends Command {
 
         public Optional<Description> getDesc() {
             return Optional.ofNullable(desc);
+        }
+
+        public void setTime(Time time) {
+            this.time = time;
+        }
+
+        public Optional<Time> getTime() {
+            return Optional.ofNullable(time);
         }
 
         public void setAmount(Amount amt) {
@@ -189,6 +202,7 @@ public class EditCommand extends Command {
             EditEntryDescriptor e = (EditEntryDescriptor) other;
 
             return getDesc().equals(e.getDesc())
+                    && getTime().equals(e.getTime())
                     && getAmount().equals(e.getAmount())
                     && getTags().equals(e.getTags());
         }

@@ -8,6 +8,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Entry;
+import seedu.address.model.person.Expense;
+import seedu.address.model.person.Income;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -44,7 +46,15 @@ public class EntryCard extends UiPart<Region> {
         this.entry = entry;
         id.setText(displayedIndex + ". ");
         desc.setText(entry.getDesc().fullDesc);
-        time.setText("16-09-2019");
+        String type = entry.getType().toLowerCase();
+        if (type.equals("expense")) {
+            entry = (Expense) entry;
+        } else if (type.equals("income")) {
+            entry = (Income) entry;
+        } else {
+
+        }
+        time.setText("13:00");
         amt.setText(Double.toString(entry.getAmount().value));
 
         entry.getTags().stream()
