@@ -11,6 +11,7 @@ public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Price should start off with \"$\" and contain only numbers. It should not be blank";
+    public static final String DATA_TYPE = "PRICE";
 
     /*
      * The first character of the address must not be a whitespace,
