@@ -2,10 +2,16 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -112,6 +118,15 @@ public class ParserUtil {
      */
     public static WasteMonth parseWasteMonth(String date) throws ParseException {
         requireNonNull(date);
-        return null;
+        try {
+            Parser dateParser = new Parser();
+            DateGroup dateGroup = dateParser.parse(date).get(0);
+            Date dateInDateFormat = dateGroup.getDates().get(0);
+            LocalDate dateInLocalDateFormat = dateInDateFormat.toInstant()
+                    .atZone(ZoneId.systemDefault()).toLocalDate();
+            return new WasteMonth(dateInLocalDateFormat.getMonthValue(), dateInLocalDateFormat.getYear());
+        } catch (Exception e) {
+            throw new ParseException(WasteMonth.MESSAGE_CONSTRAINTS);
+        }
     }
 }
