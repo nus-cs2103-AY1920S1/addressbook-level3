@@ -4,6 +4,7 @@ import javafx.scene.layout.StackPane;
 import seedu.address.gamemanager.GameManager;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.ui.modules.GameResultPanel;
+import seedu.address.ui.modules.LoadBankPanel;
 import seedu.address.ui.modules.PersonListPanel;
 import seedu.address.ui.modules.TitleScreenPanel;
 
@@ -14,6 +15,7 @@ public class ModularDisplay {
 
     //private final LoadBankPanel loadBankPanel;
     private final PersonListPanel personListPanel;
+    private final LoadBankPanel loadBankPanel;
     private final TitleScreenPanel titleScreenPanel;
 
     /**
@@ -22,7 +24,7 @@ public class ModularDisplay {
      * @param gameManager GameManager who will render lists.
      */
     public ModularDisplay(GameManager gameManager) {
-        //loadBankPanel = new LoadBankPanel(logic.getFilteredPersonList());
+        loadBankPanel = new LoadBankPanel(gameManager.logic.getFilteredPersonList());
         personListPanel = new PersonListPanel(gameManager.getFilteredPersonList());
         titleScreenPanel = new TitleScreenPanel();
     }
@@ -72,9 +74,9 @@ public class ModularDisplay {
      *
      * @param paneToDisplay The view to change.
      */
-    //public void swapToBanks(StackPane paneToDisplay) {
-    //    paneToDisplay.getChildren().clear();
-    //    paneToDisplay.getChildren().add(loadBankPanel.getRoot());
-    //}
+    public void swapToBanks(StackPane paneToDisplay) {
+        paneToDisplay.getChildren().clear();
+        paneToDisplay.getChildren().add(loadBankPanel.getRoot());
+    }
 
 }

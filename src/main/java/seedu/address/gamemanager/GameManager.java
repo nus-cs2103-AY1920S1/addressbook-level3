@@ -25,7 +25,7 @@ public class GameManager {
 
     public static final long TIMER_MILLIS = 3000;
 
-    private Logic logic;
+    public Logic logic;
     private GameTimer gameTimer = null;
     private TimerDisplayCallBack timerDisplayCallBack = null;
     // Call-back method to update ResultDisplay in MainWindow

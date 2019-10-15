@@ -14,6 +14,6 @@ public abstract class LoadCommand extends Command {
         if (mode != ModeEnum.LOAD) {
             throw new CommandException("Load word bank first!");
         }
-        return ModeEnum.GAME;
+        return ModeEnum.LOAD;
     }
 }
