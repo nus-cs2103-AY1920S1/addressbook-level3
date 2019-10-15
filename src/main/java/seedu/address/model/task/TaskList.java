@@ -128,4 +128,8 @@ public class TaskList implements Iterable<Task> {
 
         internalList.get(index).markAsDone();
     }
+
+    public void clear() {
+        internalList.clear();
+    }
 }

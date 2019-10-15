@@ -179,4 +179,6 @@ public interface Model {
     void clearQuizQuestionList();
 
     void markTaskAsDone(Task taskDone);
+
+    void clearTaskList();
 }

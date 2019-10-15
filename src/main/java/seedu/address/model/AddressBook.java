@@ -269,4 +269,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void markTaskAsDone(Task taskDone) {
         tasks.markTaskAsDone(taskDone);
     }
+
+    public void clearTaskList() {
+        tasks.clear();
+    }
 }

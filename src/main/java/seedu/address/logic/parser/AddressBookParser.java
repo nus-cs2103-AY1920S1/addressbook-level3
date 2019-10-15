@@ -21,6 +21,7 @@ import seedu.address.logic.commands.statistics.GetQnsCommand;
 import seedu.address.logic.commands.statistics.GetReportCommand;
 import seedu.address.logic.commands.statistics.GetStatisticsCommand;
 import seedu.address.logic.commands.task.AddTaskForNoteCommand;
+import seedu.address.logic.commands.task.ClearTaskCommand;
 import seedu.address.logic.commands.task.DeleteTaskCommand;
 import seedu.address.logic.commands.task.DoneTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -107,6 +108,9 @@ public class AddressBookParser {
 
         case DeleteTaskCommand.COMMAND_WORD:
             return new DeleteTaskCommandParser().parse(arguments);
+
+        case ClearTaskCommand.COMMAND_WORD:
+            return new ClearTaskCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
