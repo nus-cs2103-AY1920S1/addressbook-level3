@@ -33,4 +33,11 @@ public class ReminderCommand extends Command {
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredGroceryItemList().size()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReminderCommand // instanceof handles nulls
+                && predicate.equals(((ReminderCommand) other).predicate)); // state check
+    }
 }

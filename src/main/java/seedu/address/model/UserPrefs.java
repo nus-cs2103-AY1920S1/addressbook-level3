@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.IFridgeSettings;
 
 /**
  * Represents User's preferences.
@@ -14,6 +15,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
+    private IFridgeSettings iFridgeSettings = new IFridgeSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
 
     /**
@@ -45,6 +47,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
+    }
+
+    public IFridgeSettings getIFridgeSettings() {
+        return iFridgeSettings;
+    }
+
+    public void setIFridgeSettings(IFridgeSettings iFridgeSettings) {
+        requireNonNull(iFridgeSettings);
+        this.iFridgeSettings = iFridgeSettings;
     }
 
     public Path getAddressBookFilePath() {

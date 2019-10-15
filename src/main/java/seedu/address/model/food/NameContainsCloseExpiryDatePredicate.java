@@ -31,8 +31,13 @@ public class NameContainsCloseExpiryDatePredicate implements Predicate<GroceryIt
     public int getDiffDays(Date date) {
         Calendar cal = Calendar.getInstance();
         Date current = cal.getTime();
-        long diff = date.getTime() - current.getTime();
-        int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
+        int diffDays = (int) ((current.getTime() - date.getTime()) / (24 * 60 * 60 * 1000));
         return diffDays;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof NameContainsKeywordsPredicate); // instanceof handles nulls
     }
 }
