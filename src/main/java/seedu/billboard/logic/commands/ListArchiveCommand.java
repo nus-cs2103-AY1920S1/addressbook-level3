@@ -23,6 +23,7 @@ public class ListArchiveCommand extends Command {
     private final String archiveName;
 
     public ListArchiveCommand(String archiveName) {
+        requireNonNull(archiveName);
         this.archiveName = archiveName;
         this.MESSAGE_SUCCESS = "Listed all expenses from the [" + archiveName + "] archive" ;
     }
@@ -41,5 +42,17 @@ public class ListArchiveCommand extends Command {
 
         model.updateFilteredArchiveExpenses(archiveName, Model.PREDICATE_SHOW_ALL_EXPENSES);
         return new CommandResult(MESSAGE_SUCCESS, false, false, archiveName);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        } else if (other instanceof ListArchiveCommand) {
+            ListArchiveCommand command = (ListArchiveCommand) other;
+            return archiveName.equals(command.archiveName);
+        } else {
+            return false;
+        }
     }
 }

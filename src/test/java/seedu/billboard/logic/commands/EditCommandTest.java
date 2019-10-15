@@ -32,7 +32,7 @@ import seedu.billboard.testutil.ExpenseBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalBillboard(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalBillboard(), new UserPrefs());;
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {

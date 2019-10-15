@@ -9,8 +9,7 @@ import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboardWithArchiveExpenses;
 import static seedu.billboard.testutil.TypicalExpenses.BILLS;
 
-import java.util.*;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
@@ -19,9 +18,21 @@ import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.exceptions.DuplicateExpenseException;
 import seedu.billboard.testutil.ExpenseBuilder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+
 public class BillboardTest {
 
-    private final Billboard billboard = new Billboard();
+    private Billboard billboard;
+
+    @BeforeEach
+    public void setUp() {
+        billboard = new Billboard();
+    }
 
     @Test
     public void constructor() {

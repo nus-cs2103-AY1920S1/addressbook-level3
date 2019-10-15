@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Adds an expense to an existing archive.
@@ -25,8 +26,8 @@ public class AddArchiveCommand extends Command {
             + "Adds the expense identified by the index number used in the displayed expense list to the archive\n"
             + "Example: " + COMMAND_WORD + " 2 arc/Groceries";
 
-    public static final String MESSAGE_SUCCESS = "[%1$s] added to [%2$s] archive";
-    public static final String MESSAGE_CREATE_ARCHIVE = "[%s] archive created: ";
+    public static final String MESSAGE_SUCCESS_EXISTING_ARCHIVE = "[%1$s] added to [%2$s] archive";
+    public static final String MESSAGE_SUCCESS_CREATE_ARCHIVE = "[%1$s] archive created: [%2$s] added to [%3$s] archive";
 
     private final String archiveName;
     private final Index targetIndex;
@@ -36,6 +37,8 @@ public class AddArchiveCommand extends Command {
      * to the specified {@code archiveName}
      */
     public AddArchiveCommand(String archiveName, Index targetIndex) {
+        requireAllNonNull(archiveName, targetIndex);
+
         this.archiveName = archiveName;
         this.targetIndex = targetIndex;
     }
@@ -53,14 +56,23 @@ public class AddArchiveCommand extends Command {
         model.deleteExpense(expenseToArchive);
         expenseToArchive.archiveTo(archiveName);
 
-        String feedback = String.format(MESSAGE_SUCCESS, expenseToArchive.getName(), archiveName);
         if(!model.hasArchive(archiveName)) {
             model.addArchive(new Archive(archiveName, new ArrayList<>()));
-            feedback = String.format(MESSAGE_CREATE_ARCHIVE, archiveName) + feedback;
+            model.addArchiveExpense(archiveName, expenseToArchive);
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS_CREATE_ARCHIVE,
+                    archiveName, expenseToArchive.getName(), archiveName));
         }
 
         model.addArchiveExpense(archiveName, expenseToArchive);
+        return new CommandResult(String.format(MESSAGE_SUCCESS_EXISTING_ARCHIVE, expenseToArchive.getName(), archiveName));
+    }
 
-        return new CommandResult(feedback);
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddArchiveCommand // instanceof handles nulls
+                && targetIndex.equals(((AddArchiveCommand) other).targetIndex)
+                && archiveName.equals(((AddArchiveCommand) other).archiveName)); // state check
     }
 }
