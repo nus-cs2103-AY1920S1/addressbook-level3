@@ -16,9 +16,10 @@ import seedu.address.logic.commands.DoneTaskCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+//Remove these lines once stubbing not required
+import seedu.address.logic.parser.stub.DoneTaskCommandParserStub;
+import seedu.address.logic.parser.stub.SetDeadlineCommandParserStub;
 
-//Remove this line once stubbing not required
-import seedu.address.logic.parser.stub.*;
 
 /**
  * Parses user input.

@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
-import static seedu.address.testutil.TypicalTasks.getTypicalProjectDashboard;
+import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
 
 import org.junit.jupiter.api.Test;
 

@@ -26,7 +26,7 @@ class JsonAdaptedTask {
     private final String name;
     private final TaskStatus taskStatus;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
-    private final LocalDateTime deadline;
+    private LocalDateTime deadline = null;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
@@ -38,6 +38,15 @@ class JsonAdaptedTask {
         this.name = name;
         this.taskStatus = taskStatus;
         this.deadline = deadline;
+        if (tagged != null) {
+            this.tagged.addAll(tagged);
+        }
+    }
+
+    public JsonAdaptedTask(@JsonProperty("name") String name, @JsonProperty("status") TaskStatus taskStatus,
+                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.name = name;
+        this.taskStatus = taskStatus;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }

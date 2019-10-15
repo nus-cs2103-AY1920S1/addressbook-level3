@@ -3,10 +3,10 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.FAREWELL_PARTY;
-import static seedu.address.testutil.TypicalTasks.FIND_VP;
-import static seedu.address.testutil.TypicalTasks.ORDER_SHIRTS;
-import static seedu.address.testutil.TypicalTasks.getTypicalProjectDashboard;
+import static seedu.address.testutil.TypicalTasksMembers.FAREWELL_PARTY;
+import static seedu.address.testutil.TypicalTasksMembers.FIND_VP;
+import static seedu.address.testutil.TypicalTasksMembers.ORDER_SHIRTS;
+import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
 
 import java.io.IOException;
 import java.nio.file.Path;
