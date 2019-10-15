@@ -1,0 +1,24 @@
+{
+    "courseCode": "CS3237",
+    "courseCredit": "4",
+    "description": "The Internet of Things (IoT), where a large number of physical objects embedded with computing power and sensors connect to the network for seamless cooperation between the cyber domain and the physical world, is revolutionizing our lives. This module will serve as an introduction to the IoT and provide a holistic view of the entire spectrum of the IoT system architecture from the devices to the fog and the cloud computing. The focus will be on designing IoT systems that balance both the functional and non-functional (communication bandwidth, security, safety, power) requirements. The module will have a significant project component.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5476",
+        "CS4276"
+    ],
+    "prereqTree": {
+        "and": [
+            "CS1010",
+            {
+                "or": [
+                    "CG2028",
+                    "CS2100",
+                    "EE2024",
+                    "EE2028"
+                ]
+            }
+        ]
+    },
+    "title": "Introduction to Internet of Things"
+}

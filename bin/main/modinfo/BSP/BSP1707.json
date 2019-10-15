@@ -1,0 +1,26 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BSP1707",
+    "courseCredit": "2",
+    "description": "This module aims to provide exposure to how microeconomic analytical tools can be applied to business practices. The module will focus on selected topics that are motivated by real-world observations of business operations.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BSP2701",
+        "BSE3702",
+        "BSE3703",
+        "BSE4712",
+        "BSE3701",
+        "BSE4711",
+        "BSN4811",
+        "BSP2011",
+        "BSP3012",
+        "BSP4011",
+        "BSN3714",
+        "BSN3715",
+        "MKT4714"
+    ],
+    "preclusion": "BSP1005, BSP1703",
+    "title": "Managerial Economics: Exposure"
+}

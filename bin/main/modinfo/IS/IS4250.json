@@ -1,0 +1,8 @@
+{
+    "courseCode": "IS4250",
+    "courseCredit": "4",
+    "description": "This module to provide students with hands-on, problem-based experience in Information Technology (IT) design to tackle real-world healthcare challenges. Healthcare systems worldwide are in the midst of changing their core strategies, financing and operational care processes. For instance, reactive sick care is replaced by proactive efforts to keep people healthy and out of the hospital. Large-scale healthcare systems are also being redesigned to promote continuity of care. In this module, students can learn how to provide workable IT solutions to address contemporary healthcare issues and challenges.",
+    "faculty": "Computing",
+    "prereqTree": "IS1103",
+    "title": "IT-enabled Healthcare Solutioning"
+}

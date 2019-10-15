@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "TMA1001",
+    "courseCredit": "4",
+    "description": "This module aims to equip students without 'A'-level mathematics with appropriate mathematical knowledge and skill, to prepare them for further study of mathematics related disciplines. Major topics: Sets, functions and graphs, polynomials and rational functions, inequalities in one variable, logarithmic and exponential functions, trigonometric functions, sequences and series, techniques of differentiation, applications of differentiation, maxima and minima, increasing and decreasing functions, curve sketching, techniques of integration, applications of integration, areas, volumes of solids of revolution, solution of first order ordinary differential equations by separation of variables and by integrating factor, complex numbers, vectors.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIC1201",
+        "TMA2101",
+        "TMA2102"
+    ],
+    "title": "Introductory Mathematics"
+}

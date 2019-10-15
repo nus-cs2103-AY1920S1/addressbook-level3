@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3319",
+    "courseCredit": "5",
+    "description": "The objective of this course is to provide an introduction to disability studies via the arts. To that end, we will focus on works by disabled artists, particularly representations of illness and disability in life writing, sign language poetry, visual art, music and drama. These artists will include Georgina Kleege, Jorge Luis Borges, Jean-Dominique Bauby, Lucy Grealy, William Styron, Frida Kahlo, Gerardo Nigenda, Peter Cook, and Christophe Pillault, among others. We will supplement this material by reading theoretical texts emerging from disability, cultural and literary studies, as well as narrative medicine and expressive therapy.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Disability and the Arts"
+}

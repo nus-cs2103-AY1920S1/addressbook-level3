@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS3221",
+    "courseCredit": "4",
+    "description": "This module builds upon the conceptual foundation formed in CS2106 and extends it to the study of real-life operating systems. The focus is to understand how actual operating systems work including the pragmatics, system architecture and design and implementation. Details will be drawn from contemporary operating systems such as Unix/Linux and Windows. Topics include kernel architecture and interfaces, computer architecture issues, process APIs and implementation, threads, scheduling, physical and kernel memory management, virtual memory, synchronisation and interprocess communication mechanisms, multi-processor issues, device characteristics and management, file system implementation, memory mapped files, special purpose file systems.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS1020",
+            "CS2106"
+        ]
+    },
+    "title": "Operating Systems Design and Pragmatics"
+}

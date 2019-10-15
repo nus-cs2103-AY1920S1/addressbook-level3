@@ -1,0 +1,13 @@
+{
+    "courseCode": "IL5107",
+    "courseCredit": "8",
+    "description": "The IT Leadership project will provide students with the opportunity to practice their newly acquired IT leadership knowledge for a real company or organization. The project will bring together the disciplines that the students have learnt, and require them to reflect, synthesize and apply what they have learnt in the core modules in the real world context. In small teams, the students will be required to progressively compile their portfolio of observations, findings and recommendations on the target company during the course and finally demonstrate their ability to present and communicate their final recommendations at the executive level.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": {
+        "or": [
+            "IL5105",
+            "IL5101"
+        ]
+    },
+    "title": "IT Leadership Capstone Project"
+}

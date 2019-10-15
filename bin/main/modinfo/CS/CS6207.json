@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS6207",
+    "courseCredit": "4",
+    "description": "The module aims to prepare students to embark on research in natural language processing (NLP). At the end of the course, the students will have experience in reading and critiquing research papers, and will have undertaken a substantial project on some aspects of NLP research. Topics covered include: Statistical parsing, Word sense disambiguation, SENSEVAL, co-reference resolution, machine translation, question answering.",
+    "faculty": "Computing",
+    "prereqTree": "CS4248",
+    "title": "Advanced Natural Language Processing"
+}

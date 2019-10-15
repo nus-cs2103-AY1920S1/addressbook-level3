@@ -1,0 +1,17 @@
+{
+    "courseCode": "BSE4711",
+    "courseCredit": "4",
+    "description": "This module builds on BSE3703 Econometrics for Business I to present more advanced econometric techniques for business and economic analysis. The module covers: (i) Methods for estimating non-linear econometric models; (ii) Microeconometric workhorse models; and (iii) Time series and forecasting methods. The module emphasizes hands-on learning of these models and methods, and application to business and economic data analysis.",
+    "faculty": "NUS Business School",
+    "preclusion": "EC2303; EC3303; EC3304; EC4305; BSP4513.",
+    "prereqTree": {
+        "or": [
+            "BSP1703",
+            "BSP1707",
+            "EC1101E",
+            "EC1301",
+            "IS3240"
+        ]
+    },
+    "title": "Econometrics for Business II"
+}

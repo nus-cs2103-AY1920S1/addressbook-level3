@@ -1,0 +1,13 @@
+{
+    "courseCode": "ME4256",
+    "courseCredit": "4",
+    "description": "Functional materials belong to a special category that is different from traditional structural materials. This category of materials provides special functionalities and is able to convert energy from one from to another. They can be found naturally and can also be engineered based on different requirements. This course covers principles of functional materials in inorganic and organic materials, and metals. The course will also provide applications of some functional materials in devices.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "ME2151",
+            "ME2143"
+        ]
+    },
+    "title": "Functional Materials and Devices"
+}

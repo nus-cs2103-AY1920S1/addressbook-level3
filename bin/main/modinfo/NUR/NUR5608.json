@@ -1,0 +1,13 @@
+{
+    "courseCode": "NUR5608",
+    "courseCredit": "4",
+    "description": "This module aims to provide the Advanced Practice Nurse with exposure to the integrated care of critically ill pediatric and neonatal patients. The Advanced Practice Nurse can utilise the knowledge and skills learnt to identify and assist with the initial stabilisation of the critically ill child and neonate as well as continued management of the child in Critical Care setting.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "prereqTree": {
+        "or": [
+            "NUR5601",
+            "NUR5602"
+        ]
+    },
+    "title": "Management of the Acute Paediatric Patients"
+}

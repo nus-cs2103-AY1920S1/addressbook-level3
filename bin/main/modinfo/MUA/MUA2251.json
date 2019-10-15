@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUA2251",
+    "courseCredit": "4",
+    "description": "This module develops skills for creating interactive artistic computer systems. In an interactive system, sensors are used by the artist to incorporate touch, gesture, motion, sound, and light to influence the work, common in live interactive music and installation art. The module will introduce simple sensors and systems for beginners, but allow for more advanced students to work with other tools - Arduino, Max, Processing, etc. It is, therefore, appropriate for students of different experiences and backgrounds with programming. Students will create an artistic work that involves live interactivity. Students may work with image/video, audio, or both.",
+    "faculty": "YST Conservatory of Music",
+    "title": "Live Interactivity"
+}

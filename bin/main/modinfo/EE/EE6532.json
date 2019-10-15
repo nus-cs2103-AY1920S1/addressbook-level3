@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6532",
+    "courseCredit": "4",
+    "description": "This module covers the application of reliability theory in modelling techniques and evaluation methodologies to power systems. The course content offers essential mathematical as well as simulation tools to conduct reliability analysis of interconnected power systems and estimate various probabilistic measures. The levels of analysis include single area power system reliability, composite system reliability, and multi-area power system reliability. Advanced knowledge of power systems analysis is required.",
+    "faculty": "Engineering",
+    "preclusion": "EE5712 Power System Reliability",
+    "prereqTree": {
+        "or": [
+            "EE5702",
+            "EE5702R"
+        ]
+    },
+    "title": "Power System Reliability"
+}

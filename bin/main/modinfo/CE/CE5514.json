@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5514",
+    "courseCredit": "4",
+    "description": "In this specialized module, students are taught fundamentals in plate bending and shell membrane theories including axisymmetric bending of shells of revolution. Topics covered include a brief introduction to the theory of elasticity; fundamentals of plate structures, plate bending theories and plate equations, energy principles, analytical and numerical analyses of plates, axisymmetric plates, orthotropic and laminated plates, vibration of plates, membrane theory for shells of revolution, membrane theory for shells of translations, energy method, axisymmetric bending of shells of revolution and design of reinforced concrete plate and shell structures. The module is intended for undergraduate and graduate students who wish to enhance their understanding in terms of analysis and design of plates and shells used in civil and infrastructure works.",
+    "faculty": "Engineering",
+    "preclusion": "ME5103",
+    "prereqTree": "CE2155",
+    "title": "Plate & Shell Structures"
+}

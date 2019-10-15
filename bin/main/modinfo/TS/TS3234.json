@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS3234",
+    "courseCredit": "4",
+    "description": "This module provides an introduction to the basic tenets of performance studies (i.e. performance and performativity) and applies them to a study of popular culture in a global arena. Through a variety of texts including films, video games, public speeches, and social media posts, the module teaches how the production and circulation of popular forms can be read as performance: how they are produced or packaged for consumption, how the consumer relates to them and how their success or failure is measured. It will show the pervasiveness and relevance of performativity in everyday physical and online interactions.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Performance and Popular Culture"
+}

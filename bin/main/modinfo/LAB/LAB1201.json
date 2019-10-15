@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAB1201",
+    "courseCredit": "4",
+    "description": "This module aims to develop language proficiency in an integrated approach. Students will acquire language skills through participation in various communicative tasks. Through the exposure to the language, students will develop a general understanding of the cultures, the sociolinguistic and pragmatic aspects of the language. By the end of the module, students will acquire basic skills of speaking, listening, reading, and writing to maintain communication on common topics.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAB2201"
+    ],
+    "preclusion": "LAM1201 Malay 1",
+    "title": "Bahasa Indonesia 1"
+}

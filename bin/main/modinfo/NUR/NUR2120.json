@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NUR2120",
+    "courseCredit": "4",
+    "description": "This module will introduce students to the foundations of the profession and discipline of nursing including the principles of ethics and legal accountability. It will equip students with knowledge of the evolution of nursing in the historical and social context, nursing epistemology and theoretical frameworks of nursing practice. It will provide opportunities to examine ethical and legal factors influencing the performance of nurses in the healthcare setting within a multi-professional team in a collaborative inquiry process.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "prereqTree": "NUR1110",
+    "title": "Professional Nursing Practice, Ethics and Law"
+}

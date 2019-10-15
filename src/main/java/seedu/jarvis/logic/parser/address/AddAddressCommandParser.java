@@ -1,11 +1,11 @@
 package seedu.jarvis.logic.parser.address;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_ADDRESS;
+import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_EMAIL;
+import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_NAME;
+import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_PHONE;
+import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;

@@ -1,0 +1,28 @@
+{
+    "courseCode": "CS4226",
+    "courseCredit": "4",
+    "description": "This module aims to focus on advanced networking concepts pertaining to the modern Internet architecture and applications. It covers a range of topics including network performance (throughput, delay, Little\u2019s Law and M/M/1 queuing formula), and resource allocation and buffer management (max-min fair, round-robin and RED), intra- and inter-domain routing (RIP, OSPF and BGP), congestion control and modern variations of TCP (AIMD and Cubic TCP), peer-to-peer applications and content delivery networks (BitTorrent, Skype, Akamai), and data center networking and management (SDN and OpenFlow).",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS5229",
+        "CS5248"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "CS2105",
+                    "EE3204",
+                    "EE4204"
+                ]
+            },
+            {
+                "or": [
+                    "ST2334",
+                    "ST2131"
+                ]
+            }
+        ]
+    },
+    "title": "Internet Architecture"
+}

@@ -1,0 +1,17 @@
+{
+    "courseCode": "DBA3702",
+    "courseCredit": "4",
+    "description": "In the era of big data, competitive advantage for enterprises is derived from data analytics and timely sharing of insights derived from data. The ability to understand data, derive valuable insights from data, and thus make objective managerial decisions has become an essential skill that graduates must master in order to excel in their career. This course introduces the basics of R, a powerful analytics environment, to organize, visualize, and analyse data, and uses case studies to teach students on how to analyse and summarise data and present findings in a structured, meaningful, and convincing way.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "DBA4761",
+        "DBA4711"
+    ],
+    "prereqTree": {
+        "or": [
+            "DAO1704",
+            "DSC1007"
+        ]
+    },
+    "title": "Descriptive Analytics with R"
+}

@@ -1,0 +1,12 @@
+{
+    "courseCode": "TCN3124",
+    "courseCredit": "4",
+    "description": "This module provides students with the basic concepts for physical processes such as filtration, sedimentation, centrifugation, fluidization, gas cleaning and other topics on flow and dynamics of particulate systems. Particulate solids are characterized in terms of size, size distribution, measurement and analysis and processing such as comminution and mixing. The concept of fluid flow and particle settling are used for design and operation of some important fluid-particle separation methods. The principle of fluidization and its applications as pneumatic transport of solids are also included. This is a core module targeted at the students with background in fluid mechanics in BTech Chemical Engineering program.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TCN4122"
+    ],
+    "preclusion": "TC3114, CN3124E",
+    "prereqTree": "TCN2122",
+    "title": "Particle Technology"
+}

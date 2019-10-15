@@ -1,0 +1,8 @@
+{
+    "courseCode": "YSS3235",
+    "courseCredit": "5",
+    "description": "This course offers students an introduction to geovisualization tools suitable for application to in urban studies. Students will learn about: the history of tools for the spatial analysis of urban environments, as well as current tools used in research and applied settings. Students in this course will be learn about figure-ground representations, land-use and systems mapping, GIS, and participatory mapping. They will be given the opportunity to acquire, interrogate and manipulate digital data relevant for urban spatial analysis. They will learn about how to visualise data such that it effectively communicates what it represents.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "GIS and Geovisualization (2MC)\nGE2215 Introduction to GIS and Remote Sensing",
+    "title": "Urban Spatial Reasoning and Representation"
+}

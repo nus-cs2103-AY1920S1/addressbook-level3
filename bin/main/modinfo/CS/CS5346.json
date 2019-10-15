@@ -1,0 +1,21 @@
+{
+    "courseCode": "CS5346",
+    "courseCredit": "4",
+    "description": "This module aims to bring together individual pedagogies of design, information, and computation, for teaching the analysis and representation of data for visualisation. Students will learn the methodology of developing and evaluating an information visualisation solution, common information visualisation techniques (such as those for topical, spatial, hierarchical, temporal, and relational data), and methods for scaling up interactive visualisation with big data. After the module, students should be able to use the existing visualisation tools for building useful, interactive, information visualisation to facilitate complex data analytics, exploration, understanding, and pattern discovery.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS2040",
+            "CS2102",
+            "CS3240",
+            {
+                "or": [
+                    "ST1232",
+                    "ST2132",
+                    "ST2334"
+                ]
+            }
+        ]
+    },
+    "title": "Information Visualisation"
+}

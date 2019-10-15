@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GET1015",
+    "courseCredit": "4",
+    "description": "Human perception, both introspective and regarding the external world, often seems to offer a most fundamental contrast, that between chaos and order. Some new insight has been achieved regarding the boundary between these two realms over the last 50 years. The objective of this module is to show how this came about, and that many natural phenomena, such as the great variety of snowflakes, the red spot on Jupiter or the shape of broccoli, can be understood by investigating simple repetitive elements that obey certain often very simple rules.",
+    "faculty": "Science",
+    "preclusion": "GEM2505.",
+    "title": "Taming Chaos"
+}

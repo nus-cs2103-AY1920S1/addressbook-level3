@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "ESE5401",
+    "courseCredit": "4",
+    "description": "This module introduces students to the fundamental principles of environmental modeling, i.e. mass balance, reaction kinetics and transfer mechanisms. Mathematical models are used to deal with water quality problems in natural and man-made systems. These include eutrophication, dissolved oxygen imbalance, the fate and transport of contaminants, and treatment system capacity planning. The module will enable students to appreciate the problems associated with water quality and provide them with the basic skills to predict impacts associated with the pollution of the environment. In this way, students can assess the feasibility of projects which are potential sources of contaminants to the environment.",
+    "faculty": "Engineering",
+    "title": "Water Quality Management"
+}

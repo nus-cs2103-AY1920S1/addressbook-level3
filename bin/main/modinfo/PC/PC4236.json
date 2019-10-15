@@ -1,0 +1,8 @@
+{
+    "courseCode": "PC4236",
+    "courseCredit": "4",
+    "description": "Computation is playing an increasingly important role in materials discovery. This module introduces the basic concepts and provides an overview of methods in modern computational condensed matter physics. Major topics to be covered include a brief review on empirical and semi-empirical approaches in electronic structure calculation, density functional theory, methods for solving the Kohn-Sham equation, applications to different types of materials, modelling effects of external fields and transport property. The module is suitable for upper level undergraduate and graduate students who are interested in computer modelling and simulation in condensed matter physics and materials science.",
+    "faculty": "Science",
+    "prereqTree": "PC3235",
+    "title": "Computational Condensed Matter Physics"
+}

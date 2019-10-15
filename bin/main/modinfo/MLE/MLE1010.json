@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MLE1010",
+    "courseCredit": "4",
+    "description": "Students will be introduced to the mechanical and electrical properties of the main classes of materials, metals, polymers, ceramics, composites and semiconductors followed by techniques used to select suitable materials for future design projects. The module will cover the correlation between these fundamental materials properties and both chemical composition and microstructure, including the impact of the fabrication process.",
+    "faculty": "Engineering",
+    "title": "Materials Engineering Principles & Practices"
+}

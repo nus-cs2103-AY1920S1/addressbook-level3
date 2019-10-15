@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PHS1120",
+    "courseCredit": "4",
+    "description": "This module adopts a biological approach to explain and illustrate foundational pharmaceutical chemical principles that are essential for the understanding of pharmaceutical science related to drug synthesis, drug properties, drug action and preparation of biomaterials. Three broad topics will be covered, including bio-organic chemistry, radical chemistry and enzymatic catalysis.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PHS2191"
+    ],
+    "preclusion": "Pharmacy Major",
+    "prereqTree": "PR1110A",
+    "title": "Essential Topics in Pharmaceutical Chemistry"
+}

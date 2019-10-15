@@ -1,0 +1,12 @@
+{
+    "courseCode": "LSM3252",
+    "courseCredit": "4",
+    "description": "The objectives are to build on the students' foundation in evolutionary concepts and to advance their knowledge and skills related to comparative biology. The lectures present the theory of evolution as the unifying discipline in biology, and enhance the integrated understanding of four main themes: natural selection, palaeobiology, the tree of life and comparative genomics. Overall the module emphasises the importance and application of evolutionary biology for explaining a wide variety of phenomena in biology, from the history of life to genes, genomes and cellular processes.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4254",
+        "LSM4256"
+    ],
+    "prereqTree": "LSM1105",
+    "title": "Evolution and Comparative Genomics"
+}

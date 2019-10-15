@@ -1,0 +1,16 @@
+{
+    "courseCode": "PC3233",
+    "courseCredit": "4",
+    "description": "This module presents the basic concepts and principles of atomic and molecular physics. In particular, the module revolves around the energy level schemes of atoms and molecules which are essential to the interpretation of atomic and molecular spectra. Topics covered include the hydrogen and helium atoms, spin-orbit coupling schemes, hyperfine interaction, Lamb shift, atoms in magnetic fields, multi-electron atoms, Pauli exclusion principle, Hund's rules, diatomic molecules, Born-Oppenheimer approximation, electronic, vibrational, rotational and rotational-vibrational spectra; The module is targeted at students who have background in quantum mechanics and want to build the foundations for studying the interactions of matter and light in modern atomic physics contexts.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC4243"
+    ],
+    "prereqTree": {
+        "or": [
+            "PC2130",
+            "PC2130B"
+        ]
+    },
+    "title": "Atomic & Molecular Physics I"
+}

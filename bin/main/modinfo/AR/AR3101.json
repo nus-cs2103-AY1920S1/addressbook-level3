@@ -1,0 +1,14 @@
+{
+    "courseCode": "AR3101",
+    "courseCredit": "8",
+    "description": "This module will emphasize the integrative nature of architectural design. It will enable students to understand how technology should be applied to building design and construction. Topics: The module will focus on projects that require consideration for realism imposed by functional, technical and statutory constraints. Buildings will be of medium complexity set within less intensively developed urban sites. Design projects will demand a holistic awareness of the issues related to the environment, climate, context, technology and building regulations",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "LA4701",
+        "LA4702",
+        "AR3411",
+        "AR4421"
+    ],
+    "preclusion": "All non-architecture students",
+    "title": "Design 5"
+}

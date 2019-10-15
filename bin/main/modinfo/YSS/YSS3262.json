@@ -1,0 +1,14 @@
+{
+    "courseCode": "YSS3262",
+    "courseCredit": "5",
+    "description": "This course offers students an understanding of global cities. The course looks at key thinkers to have described and theorized global cities. We look at a number of global cities up close, including New York, Singapore and London.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "or": [
+            "YSS2220",
+            "YSS2224",
+            "YSS2218"
+        ]
+    },
+    "title": "Global Cities"
+}

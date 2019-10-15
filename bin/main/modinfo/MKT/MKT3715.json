@@ -1,0 +1,14 @@
+{
+    "courseCode": "MKT3715",
+    "courseCredit": "4",
+    "description": "This course seeks to acquaint participants with the basic concepts, tools and frameworks in business-to-business marketing. Participants are exposed to the unique challenges in operating in the business market and provided with opportunities to carry out marketing analyses and to make marketing decisions in the business marketing context. The topics to be covered are: (a) importance and unique aspects of business marketing, (b) business buying behaviour, (c) business market analysis and competitor analysis, (d) business market strategy formulation, (e) business product management, (f) business pricing strategies and decisions, (g) management of distribution channels in the business market, (h) management of salesforce in the business market, (i) development and maintenance of customer relationships in the business market, (j) customer negotiations in the business market, and (k) marketing communications in the business market. This course will be taught in an application-oriented fashion. The various business marketing management concepts and principles will be taught through brief lectures, class discussions, class exercises and videos. The participants will learn how to make business marketing decisions, solve business marketing problems and develop business marketing plans through individual analysis and class discussion of marketing cases as well as group involvement in a business marketing project or simulation.",
+    "faculty": "NUS Business School",
+    "preclusion": "MKT3416",
+    "prereqTree": {
+        "or": [
+            "MKT1705",
+            "MKT1705X"
+        ]
+    },
+    "title": "Business-to-Business Marketing"
+}

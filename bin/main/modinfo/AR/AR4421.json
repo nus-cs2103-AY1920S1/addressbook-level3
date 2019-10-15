@@ -1,0 +1,13 @@
+{
+    "courseCode": "AR4421",
+    "courseCredit": "8",
+    "description": "The internship programme aims to provide opportunities for fourth year undergraduates to work in architectural or allied firms or organisations with design centric focus to gain the exposure and experience and apply the knowledge learnt in school in the professional setting. Students are required to perform a structured and supervised internship in a company/organization for a minimum of 6 months. Weekly logbook as well as internship reports will be used a part of the evaluation of their internship experience.",
+    "faculty": "Design and Environment",
+    "prereqTree": {
+        "and": [
+            "AR3101",
+            "AR3102"
+        ]
+    },
+    "title": "Architecture Internship Programme"
+}

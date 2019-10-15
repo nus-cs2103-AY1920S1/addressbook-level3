@@ -1,0 +1,29 @@
+{
+    "courseCode": "LSM3241",
+    "courseCredit": "4",
+    "description": "This module introduces practical, real-world genomic data analysis: when a genomic experiment is performed, and bioinformatics analysis is required, how is it done? In 'Data Access and Integration', students will learn how to distinguish databases and integrate data. In 'Genomics and NGS', students will learn practical analysis of microarray and next-generation sequencing (NGS) data. Students will learn how to map sequencing data to genomes in a variety of problem settings and interpret results. In 'Integrative Analysis', students will learn how approaches including pathway analysis and analysis of gene regulatory networks can add power to interpretation of genomic experiments.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4241",
+        "LSM4254",
+        "ZB4171"
+    ],
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    "LSM2232",
+                    {
+                        "or": [
+                            "CS1010S",
+                            "LSM2253"
+                        ]
+                    }
+                ]
+            },
+            "LSM2241",
+            "CS2220"
+        ]
+    },
+    "title": "Genomic Data Analysis"
+}

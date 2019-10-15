@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TIE4230",
+    "courseCredit": "4",
+    "description": "Design-in quality versus process control. Quality function deployment. Failure mode and effects analysis. Fractional factorial designs. Confounding. Robust design. Reliability analysis and testing.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "IE4230E",
+    "title": "Quality Engineering II"
+}

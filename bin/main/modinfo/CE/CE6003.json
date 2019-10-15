@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE6003",
+    "courseCredit": "4",
+    "description": "The course introduces the basic principles of engineering mechanics modeling problems and the required numerical tools for analysis and design of engineering problems. Students will learn to understand the fundamental finite element methods, finite difference methods, and boundary element methods. The related topics of numerical methods, such as equation solvers, eigenvalue/vector, numerical integration, solution of nonlinear problem and the convergence and stability problems of different numerical algorithms will be discussed. The course enables students to acquire the knowledge and computational skills through projects and homework assignment.",
+    "faculty": "Engineering",
+    "title": "Numerical Methods in Engineering Mechanics"
+}

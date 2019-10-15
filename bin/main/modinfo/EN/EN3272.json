@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3272",
+    "courseCredit": "4",
+    "description": "This module, devoted to poetry, combines theory and practice. Theory will cover the elements of poetry, its craft, function and relationship with other genres. The linguistic and literary implications of writing in a Singapore context will be among the subjects discussed. Practice will consist mainly of analysing poems (taken through various drafts) by members of the class. The link and interaction between theory and practice will be the major guiding principle.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Creative Writing"
+}

@@ -1,0 +1,18 @@
+{
+    "courseCode": "CS5232",
+    "courseCredit": "4",
+    "description": "The primary role of the formal specification is to provide a precise and unambiguous description of a computer system. A formal specification allows the system designer to verify important properties and detect design error before system development begins. The objective of this course is to study various formal specification and design techniques for modelling (1) object-oriented systems, (2) real-time distributed systems, and (3) concurrent reactive systems. The course will focus on the state-based notations Z/Object-Z, event-based notation CSP/Timed-CSP. Graphical modelling notations, such as StateChart and UML (Unified Modelling Language) will also be addressed.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1100",
+                    "CS1231"
+                ]
+            },
+            "CS2103"
+        ]
+    },
+    "title": "Formal Specification and Design Techniques"
+}

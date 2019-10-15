@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YLS3201",
+    "courseCredit": "5",
+    "description": "Students taking this module will build upon the material and topics covered in the introductory and intermediate sequences to expand their command of written and spoken Spanish while honing their literary analysis skills. The course will focus on a representative selection of texts (e.g., short stories, novellas) and films from various regions of the Iberian Peninsula. Students will analyze and contextualize these works via in-class discussions and presentations on the history, traditions, and ideas embedded within them. This module will emphasize students\u2019 engagement with the ideas in the texts paying attention to stylistics, genre, and voice in their work.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "LAS4202"
+    ],
+    "prereqTree": {
+        "and": [
+            "YLS2201",
+            "YLS2202"
+        ]
+    },
+    "title": "Advanced Spanish: Spain, a Mosaic of Cultures"
+}

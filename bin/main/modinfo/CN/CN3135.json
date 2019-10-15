@@ -1,0 +1,19 @@
+{
+    "courseCode": "CN3135",
+    "courseCredit": "3",
+    "description": "This module aims to provide fundamental concepts and methods for the design and operation of safe plants. The students will gain a thorough understanding of chemical process hazards, their identification, their potential effects on safety, health, and the environment, and methods of assessment and control. Emphasis is placed on the integrated management of safety, health, and environmental sustainability.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CN4291",
+        "CN4123R",
+        "CN4123",
+        "CN4250"
+    ],
+    "prereqTree": {
+        "or": [
+            "CN2121",
+            "CN2122"
+        ]
+    },
+    "title": "Process Safety, Health and Environment"
+}

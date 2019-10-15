@@ -1,0 +1,14 @@
+{
+    "courseCode": "ACC4714",
+    "courseCredit": "4",
+    "description": "To equip students with a good understanding of the theoretical and practical knowledge/techniques for a variety of assurance and attestation work other than the statutory audit. Such work is often more complex and requires advanced methodologies.",
+    "faculty": "NUS Business School",
+    "preclusion": "ACC3613; ACC4615.",
+    "prereqTree": {
+        "or": [
+            "ACC3701",
+            "ACC3704"
+        ]
+    },
+    "title": "Advanced Assurance and Attestation"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "YSC4209",
+    "courseCredit": "4",
+    "description": "This course (that counts towards the Physical Science major) is meant to expose students to current research areas in physical science and can be used to prepare for capstone projects though targeted readings and group presentations in specific areas of physical science. Critical assessment of scientific papers could lead to the generation of new research directions based on those papers. This will be a year-long 4MC course (i.e. 2 MC each semester).",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YSC4101",
+    "title": "Physical Sciences Research Seminar"
+}

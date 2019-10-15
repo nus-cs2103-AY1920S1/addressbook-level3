@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3211",
+    "courseCredit": "4",
+    "description": "This module introduces students to the phenomenon of language contact. We will explore sociolinguistic conditions of language contact, and how these conditions lead to contact-induced linguistic change. The study of contact languages is a study of how new forms of language emerge from contact ecologies. The main focus of the module is on the linguistic properties of contact languages, such as Chinese Pidgin English and Singapore Colloquial English, and on the theoretical issues of language emergence.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Language in Contact"
+}

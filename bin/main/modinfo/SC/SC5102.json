@@ -1,0 +1,11 @@
+{
+    "courseCode": "SC5102",
+    "courseCredit": "4",
+    "description": "This module provides a systematic exposition of general linear models in social science research.Topics include relative frequencies, probability distribution, model specification, estimation, hypothesis testing, and remedies for violations of statistical assumptions. The main emphasis is on the hands-on application of statistical techniques to social research. Research articles in sociology are used to illustrate the application of these models and techniques. Extensions to nonlinear models and panel data analysis are introduced in the latter part of the module. The course aims to help students to strengthen their understanding of statistical concepts and modelling techniques, and enrich their capacity to interpret statistical findings.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "SC6780"
+    ],
+    "preclusion": "SC6101 (obsolete)",
+    "title": "Quantitative Data Analysis"
+}

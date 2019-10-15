@@ -1,0 +1,49 @@
+{
+    "courseCode": "EN2201",
+    "courseCredit": "4",
+    "description": "The Greek and Roman classics and the Bible are recognized as having exerted profound influence on the development of Western literature, art and culture. Familiarity with the classical and Judeo\u2010Christian traditions helps tremendously in enabling appreciation of this literature, art and culture. This module introduces students to important works from these two traditions such as Homer\u2019s Odyssey, Plato\u2019s Republic, Aristotle\u2019s Poetics, Virgil\u2019s Aeneid and the Bible. Through close readings, students become acquainted with the worldview, ideas and key motifs in these works. Attention will also be on how these texts have influenced the development of the Western literary tradition.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EN3221",
+        "EN3222",
+        "EN3223",
+        "EN3224",
+        "EN3226",
+        "EN3227",
+        "EN3228",
+        "EN3241",
+        "EN3243",
+        "EN3244",
+        "EN3246",
+        "GEM3003",
+        "EN3247",
+        "EN3249",
+        "EN3262",
+        "EN3266",
+        "EN3267",
+        "EN3268",
+        "EN3269",
+        "EN3272",
+        "EN3232",
+        "AS3232",
+        "EN3234",
+        "AS3234",
+        "EN3261",
+        "EU3217",
+        "EN3263",
+        "EN3264",
+        "EN3231",
+        "AS3231",
+        "EN3229",
+        "EN3880B",
+        "EN3251",
+        "EN3252"
+    ],
+    "prereqTree": {
+        "or": [
+            "EN1101E",
+            "GEK1000"
+        ]
+    },
+    "title": "Backgrounds to Western Literature and Culture"
+}

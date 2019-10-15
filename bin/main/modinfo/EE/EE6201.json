@@ -1,0 +1,21 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6201",
+    "courseCredit": "4",
+    "description": "The course gives an overview of data storage systems and trends in advanced data recording technology. The following areas will be covered: basic principles of recording and reproducing process in magnetic storage and optical storage; essential components of a data storage system; role of mechantronics and control in data storage systems; role of channel components in improving the reliability of readback data; basics of partial response channel and Viterbi detection; basics of error correction and modulation coding; types of interface.",
+    "faculty": "Engineering",
+    "preclusion": "EE5201 Magnetic Recording Technology\nEE5206 Recording Electronics",
+    "prereqTree": {
+        "or": [
+            "EE5101",
+            "EE5101R",
+            "ME5401",
+            "EE5103",
+            "EE5103R",
+            "ME5403"
+        ]
+    },
+    "title": "Control in Data Storage Systems (Advanced)"
+}

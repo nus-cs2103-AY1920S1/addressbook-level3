@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS4213",
+    "courseCredit": "5",
+    "description": "This course explores contested strategies for advancing community development from around the world. These strategies respond to diverse social, cultural, and institutional contexts, revealing varied interpretations of what communities are and what resources and capacities are necessary for their development. In particular, we will explore the hypothesis that community development can be understood as the villagization of the urban. We will use this investigation to inform a semester-long engagement with a community in Singapore to understand the challenges and opportunities that community members face. This engagement will be aimed at the collaborative formulation of proposals aimed at strengthening the community.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YSS3245",
+            "YSS3222"
+        ]
+    },
+    "title": "Community Development: In Search of the Kampung Spirit"
+}

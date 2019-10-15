@@ -1,0 +1,9 @@
+{
+    "courseCode": "EE3032",
+    "courseCredit": "6",
+    "description": "In this module, students will work in a team project to design and build an electronic system which includes both digital and analog circuits and therefore requires both hardware and software design. The functionalities of the electronic system are determined by the students themselves. They will go through the steps of conceptual system design, detailed technical design, bread-board prototyping, printed circuit board implementation, system integration, testing & debugging and demonstration of the final working model. The project work will be continuously documented by each student in an individual project design portfolio.",
+    "faculty": "Engineering",
+    "preclusion": "EE2001 Project\nCG3002 Embedded Systems Design Project",
+    "prereqTree": "EE2024",
+    "title": "Innovation & Enterprise II"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4407",
+    "courseCredit": "4",
+    "description": "This module builds on the basic concepts in electronics which students learnt in EE2021. This will enable students to design complex electronic circuits and systems for processing analog signals. Topics covered: Passive filters, poles and zeros; Transistor amplifiers, Negative feedback amplifiers; Oscillators; Mixers, modulators and demodulators for communication systems; Instrumentation amplifiers, CMRR; DC power supply design: Linear and switching regulators, current limiting; Power amplifiers: Output stage, efficiency and distortion; Active filters; Interconnections: propagation of signal and energy in transmission lines; and introduction of design techniques for integrated circuits (IC).",
+    "faculty": "Engineering",
+    "preclusion": "EE3407, EE3407E, TEE3407, TEE4407",
+    "title": "Analog Electronics"
+}

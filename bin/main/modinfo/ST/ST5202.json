@@ -1,0 +1,11 @@
+{
+    "courseCode": "ST5202",
+    "courseCredit": "4",
+    "description": "Multiple regression, model diagnostics, remedial measures, variable selection techniques, non-leastsquares estimation, nonlinear models, one and two factor analysis of variance, analysis of covariance, linear model as special case of generalized linear model. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ST5227"
+    ],
+    "preclusion": "ST5318",
+    "title": "Applied Regression Analysis"
+}

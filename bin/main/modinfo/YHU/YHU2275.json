@@ -1,0 +1,11 @@
+{
+    "courseCode": "YHU2275",
+    "courseCredit": "5",
+    "description": "This course aims to develop in students a physical vocabulary for creating and performing a character. Students will be introduced to the physical process for the creation of a persona, a character, and a character in interaction with other characters. In the first part of the course, students will work individually on creating a character. In the second part of the course, students will work in groups of two or more to develop and write a short performance involving the characters they have individually created.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YHU4232",
+        "YHU4248"
+    ],
+    "title": "Creating and Performing a Character"
+}

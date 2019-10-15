@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YLS2201",
+    "courseCredit": "5",
+    "description": "This module targets students who have completed the Beginning Spanish sequence or have had significant experience with the language (e.g., Study Abroad during their first summer at Yale-NUS or studied Spanish in high school). It offers a combination of listening and speaking practice with a review of key concepts of Spanish grammar via targeted reading and writing activities. This module continues to incorporate Hispanic cultural elements through representative texts and audiovisual materials from the Spanish-speaking world.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "LAS3202",
+        "YLS2202",
+        "YLS3201"
+    ],
+    "prereqTree": "YLS1202",
+    "title": "Intermediate Spanish 1"
+}

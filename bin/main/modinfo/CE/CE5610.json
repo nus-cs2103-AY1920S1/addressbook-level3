@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5610",
+    "courseCredit": "4",
+    "description": "The primary objective of this module is to equip civil engineering students with sufficient knowledge and skills on the durability of concrete structures and the basic principles and concepts of repair and retrofitting. Various factors affecting durability of concrete will be dealt with including non-destructive tests to assess durability. The module also emphasizes the technological and application aspects in the assessment and retrofit of concrete structures including causes of deterioration and various in-situ and non-destructive tests. The module is targeted at MSc civil engineering students and those with a keen interest in durability of concrete, assessment of concrete and retrofitting of concrete structures.",
+    "faculty": "Engineering",
+    "prereqTree": "CE3165",
+    "title": "Assessment and Retrofit of Concrete Structures"
+}

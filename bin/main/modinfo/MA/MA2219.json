@@ -1,0 +1,22 @@
+{
+    "courseCode": "MA2219",
+    "courseCredit": "4",
+    "description": "This module gives a first introduction to various kinds of geometries ranging from elementary Euclidean geometry on the plane, inversive geometry on the sphere, as well as projective geometry and Non-Euclidean geometry. Topics covered include: Conics, Quadric surfaces, Affine geometry, Affine transformations, Ceva's theorem, Menelaus' theorem, Projective geometry, projective transformations, homogeneous coordinates, cross-ratio, Pappus' theorem, Desargues' theorem, duality and projective conics, Pascal's theorem, Brianchon's theorem, Inversions, coaxal family of circles, Non-Euclidean geometry, Mobius transformations, distance and area in Non-Euclidean geometry.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "MA1100",
+            "MA1101R",
+            "MA1506",
+            "MA1508",
+            "MA1508E",
+            "MA1513",
+            "MA1102R",
+            "MA1505",
+            "MA1507",
+            "MA1511",
+            "CS1231"
+        ]
+    },
+    "title": "Introduction to Geometry"
+}

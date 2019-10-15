@@ -1,0 +1,7 @@
+{
+    "courseCode": "CZ5102",
+    "courseCredit": "5",
+    "description": "Covers the translation of a mathematical model to computer software in all aspects, including architecture, data structures, language, documentation, optimization, validation, and verification. Class projects involve teams developing software that implement these mathematical models, addressing important scientific questions, and conducting computational experiments. A knowledge of a programming language and familiarity with UNIX are assumed. The course will include extensive review of programming highlighting the use of UNIX file systems, the language Perl, and the use of libraries that are used in scientific computation (e.g. MPI, AVS, Lapack, NAG). The course will also serve as an introduction to techniques for large-scale computations, vector and parallel computation algorithms.",
+    "faculty": "Science",
+    "title": "Computational Tools"
+}

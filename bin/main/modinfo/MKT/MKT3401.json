@@ -1,0 +1,13 @@
+{
+    "courseCode": "MKT3401",
+    "courseCredit": "4",
+    "description": "The primary objective of this module is to acquaint students with the marketing planning and marketing management process; with a focus on Asian markets. Students are encouraged to apply marketing concepts, tools and techniques in the analysis of marketing situations and problems that are commonly faced in Asian markets and in the development of marketing strategies and programmes that are appropriate for Asian markets. Topics include the roles of planning in marketing, the reasons for planning, the pitfalls in planning, environmental analysis, market analysis, customer analysis, competitive analysis, company analysis, SWOT analysis, issue analysis, objective setting, strategy development, assembling of marketing mix, marketing implementation and control, and marketing evaluation and audit. The module is taught with a practical and applied orientation. Asian cases are used to a large extent for class discussion, supplemented by computer simulated marketing games, projects, exercises and lectures.",
+    "faculty": "NUS Business School",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "MKT1003X"
+        ]
+    },
+    "title": "Marketing Strategy: Analysis and Practice"
+}

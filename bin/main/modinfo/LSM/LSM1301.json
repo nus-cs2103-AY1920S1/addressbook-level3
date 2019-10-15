@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LSM1301",
+    "courseCredit": "4",
+    "description": "This is an introductory module that explores what a living thing is, the basics of life, and the science behind it. The course will introduce the chemistry of life and the unit of life. The question of how traits are inherited will be discussed and the field of biotechnology, including its applications and the ethical issues involved be will introduced. The diversity of life on earth will be explored, with discussions how life on earth possibly came about and how biologists try to classify and make sense of the diversity. The course will also introduce the concept of life functions from cells to tissues and from organs to systems. The concept of how organisms maintain their internal constancy and organisation of major organ systems will be discussed. The focus will be to introduce the unifying concepts in biology and how they play a role in everyday life.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR2105"
+    ],
+    "preclusion": "GCE `A\u2019 Level or H2 Biology or equivalent, or LSM1301X",
+    "title": "General Biology"
+}

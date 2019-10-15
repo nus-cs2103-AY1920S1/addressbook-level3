@@ -1,0 +1,13 @@
+{
+    "courseCode": "PL3257",
+    "courseCredit": "4",
+    "description": "This module will introduce students to the history, evolution, and contemporary practices of clinical psychology. Students will use the scientist practitioner model to study underlying theoretical frameworks and the skills and practices of clinical psychologists. Ethical and professional issues covered include classification and diagnosis, clinical research, assessment, case formulation and treatment planning, interventions, and prevention. The materials will be discussed in the context of typical work settings of clinical psychologists (e.g. mental health, forensic or neuropsychological) and across varied client populations (e.g. children, adults, couples).",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL3236"
+        ]
+    },
+    "title": "Introduction to Clinical Psychology"
+}

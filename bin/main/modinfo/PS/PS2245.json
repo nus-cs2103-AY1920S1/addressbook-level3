@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "PS2245",
+    "courseCredit": "4",
+    "description": "This module will serve an introduction to the nature and dynamics of government and politics in Southeast Asia, especially state-society relations. Hence, the module will look at government and politics in countries like Indonesia, Malaysia, the Philippines, Thailand, Vietnam, and Burma. This module is aimed at students across all faculties and at all levels interested in learning about political dynamics in Southeast Asia. Its primary objective is to expose students to the region, and provide a basic foundation in government and politics of Southeast Asia from which students can further acquire/develop specialised knowledge.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PS2215B, SE2213",
+    "title": "Southeast Asian Politics"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST4231",
+    "courseCredit": "4",
+    "description": "The availability of high-speed computation has led to the development of 'modern' statistical methods which are implemented in the form of well-understood computer algorithms. This module introduces students to several computer intensive statistical methods and the topics include: empirical distribution and plug-in principle, general algorithm of bootstrap method, bootstrap estimates of standard deviation and bias, jack-knife method, bootstrap confidence intervals, the empirical likelihood for the mean and parameters defined by simple estimating function, Wilks theorem, and EL confidence intervals, missing data, EM algorithm, Markov Chain Monte Carlo methods. This module is targeted at students who are interested in Statistics and are able to meet the prerequisite.",
+    "faculty": "Science",
+    "prereqTree": "ST2132",
+    "title": "Computer Intensive Statistical Methods"
+}

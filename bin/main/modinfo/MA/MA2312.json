@@ -1,0 +1,27 @@
+{
+    "courseCode": "MA2312",
+    "courseCredit": "4",
+    "description": "This module introduces the basic concepts and techniques of differential equations. The objective is to develop a competent working knowledge of the main concepts and methods introduced. It is designed for students who read a minor in mathematics or for those who are keen to pick up some mathematical skills that might be useful in their own areas of studies. Major topics: First-order differential equations. Linear differential equations of second order or higher. System of linear differential equations. Power series solutions and Laplace transforms.",
+    "faculty": "Science",
+    "preclusion": "MA3220, MA1506, MA2501, Mathematics majors, Applied Mathematics majors, Quantitative Finance majors, second major in Mathematics, second major in Financial Mathematics",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1311"
+                ]
+            },
+            {
+                "or": [
+                    "MA1102R",
+                    "MA1312",
+                    "MA1421",
+                    "MA1505",
+                    "MA1521"
+                ]
+            }
+        ]
+    },
+    "title": "Introduction to Differential Equations"
+}

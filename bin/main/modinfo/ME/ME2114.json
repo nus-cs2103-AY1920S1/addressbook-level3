@@ -1,0 +1,12 @@
+{
+    "courseCode": "ME2114",
+    "courseCredit": "4",
+    "description": "ME2114 is an intermediate mechanics module on the failure and deformation of elastic structures. Common criteria for determining failure of brittle and ductile materials will be introduced and applied for the failure analyses of thin-walled pressure vessels and slender structures. Failure of slender structures due to buckling is included. The module will also present several energy based methods for determing the deformation of slender structures and show how energy methods lead to the Finite Element Method \u2013 a common tool for computational stress analysis.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME5305",
+        "ME3211"
+    ],
+    "prereqTree": "ME2112",
+    "title": "Mechanics of Materials"
+}

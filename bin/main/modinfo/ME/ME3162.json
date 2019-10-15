@@ -1,0 +1,10 @@
+{
+    "courseCode": "ME3162",
+    "courseCredit": "4",
+    "description": "Manufacturing processes: cold and hot working, rolling, extrusion, forgoing, sheet and metal blanking and forming, cold forming, welding, brazing, soldering, casting, powder metallurgy, plastics technology. Machine tools: RP, 3-D printing, Lathes, Milling, Drill press, Grinding and laser machining, etc.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME4102"
+    ],
+    "title": "Manufacturing Processes"
+}

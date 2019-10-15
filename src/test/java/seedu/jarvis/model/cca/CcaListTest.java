@@ -13,4 +13,5 @@ public class CcaListTest {
     public void contains_ccaNotInList_returnsFalse() {
         assertFalse(ccaList.contains(CANOEING));
     }
+
 }

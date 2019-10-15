@@ -1,0 +1,14 @@
+{
+    "courseCode": "MKT4413A",
+    "courseCredit": "4",
+    "description": "Pricing is one of the important decisions that a marketing manager must make. In fact a firm's profitability critically depends on how its products or services are priced. Pricing decisions however are difficult to make and can be quite complex. Effective pricing decisions draw upon a variety of disciplines such as economics, marketing, psychology and law. The purpose of the course will be to introduce students to some of the key concepts and practical issues involved in making effective pricing decisions.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH4413 or BZ4611",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "MKT1003X"
+        ]
+    },
+    "title": "Pricing Models And Strategy"
+}

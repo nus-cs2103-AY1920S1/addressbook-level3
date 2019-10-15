@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BN2301",
+    "courseCredit": "4",
+    "description": "This module introduces biomedical engineering students to fundamentals of biomolecules, interactions and reactions important to biology, and biomaterials. These molecules, processes, and biomaterials have important implications in health and disease, and biomedicine. The module covers key concepts of biological molecules, enzymatic catalysis, their roles and functions in health and disease, analytical methods, engineered biomaterials, as well as relevant new developments of biotechnology and biomaterials, and their applications.",
+    "faculty": "Engineering",
+    "preclusion": "LSM1401 Fundamentals of Biochemistry",
+    "title": "Biochemistry and Biomaterials for Bioengineers"
+}

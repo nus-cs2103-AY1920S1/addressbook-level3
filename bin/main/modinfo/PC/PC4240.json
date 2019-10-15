@@ -1,0 +1,14 @@
+{
+    "courseCode": "PC4240",
+    "courseCredit": "4",
+    "description": "This module introduces students to elements of the physics of crystalline solids. Topics covered include: energy bands of the nearly free electron model, tight binding method, Fermi surfaces and their experimental determination, plasmons, polaritons and polarons, optical processes and excitons. We will also cover superconductivity, dielectrics and ferroelectrics, diamagnetism, paramagnetism, ferromagnetism and antiferromagnetism, and magnetic resonance. This module is targeted at physics majors, and is useful for science and engineering students who already have background knowledge of solid state physics on par with PC3235 Solid State Physics I.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC5212",
+        "PC5208",
+        "PC5204",
+        "PC5203"
+    ],
+    "prereqTree": "PC3235",
+    "title": "Solid State Physics II"
+}

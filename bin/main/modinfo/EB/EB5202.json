@@ -1,0 +1,8 @@
+{
+    "courseCode": "EB5202",
+    "courseCredit": "3",
+    "description": "This course introduces Web analytics techniques that are suitable for developing Web-based intelligent systems, optimizing website design and improving customer experience. In this course, participants will be exposed to the key concepts, techniques and practices of Web analytics. It provides an overview of three major types of Web analytics/mining tasks, i.e., usage mining, content mining and structure mining. It also illustrates various ecommerce and business intelligence applications using techniques such as user preference tracking, user profiling and personalization.",
+    "faculty": "Institute of Systems Science",
+    "prereqTree": "EB5001",
+    "title": "Web Analytics"
+}

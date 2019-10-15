@@ -1,0 +1,8 @@
+{
+    "courseCode": "PC5202",
+    "courseCredit": "4",
+    "description": "This module presents an introduction to phase transitions and fluctuations. For phase transitions, the course starts with the treatment of Landau and mean field. Exact Ising model results are then discussed. Critical exponents are introduced and their relations obtained using the scaling hypothesis and Kadanoff's scheme. Real space renormalization is then used to show how the critical exponents can be calculated. For fluctuations, Langevin, Fokker-Planck equations will be used. Time dependence and fluctuation dissipation theorem then follow. Brownian motion will be used as an example. This module is targeted at physics graduate students with at least one year of statistical mechanics.",
+    "faculty": "Science",
+    "prereqTree": "PC4241",
+    "title": "Advanced Statistical Mechanics"
+}

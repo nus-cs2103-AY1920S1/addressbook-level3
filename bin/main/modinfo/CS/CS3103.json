@@ -1,0 +1,19 @@
+{
+    "courseCode": "CS3103",
+    "courseCredit": "4",
+    "description": "This module aims to provide an opportunity for the students to learn commonly-used network protocols in greater technical depth with their implementation details than a basic networking course. Students will perform hands-on experiments in configuring and interconnecting LANs using networking devices/technologies (e.g., routers, switches, SDN switches, and hubs), networking protocols (e.g., DHCP, DNS, RIP, OSPF, ICMP, TCP, UDP, wireless LAN, VLAN protocols, SIP, SSL, IPSec-VPN) and networking tools (e.g, tcpdump, netstat, ping, traceroute). Students will learn higher-layer network protocols and develop network applications (client/server, P2P) via socket programming.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6282",
+        "CS4344"
+    ],
+    "prereqTree": {
+        "or": [
+            "CS2105",
+            "EE3204",
+            "EE3204E",
+            "EE4204"
+        ]
+    },
+    "title": "Computer Networks Practice"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG5005",
+    "courseCredit": "4",
+    "description": "This course will focus on software process improvement and software measurements. In particular, it will describe how to assess development and maintenance processes within an organisation, how to identify Key Process Areas (KPA) that need improvement, and how to design and implement these improvements. The CMM/CMMI representations will be used here as models. The course will discuss the use of software measurement. It will look at what software metrics are, how to design a metrics collection programme, how to collect and analyse metrics, and how to make decisions based on metrics. In particular, it will discuss how software measurement can be used to support and assess process improvement.",
+    "faculty": "Institute of Systems Science",
+    "title": "Software Metrics & Process Improvement"
+}

@@ -1,0 +1,18 @@
+{
+    "courseCode": "CM3267",
+    "courseCredit": "4",
+    "description": "This module introduces the elements of computational thinking and its application in chemistry, energy and the environment and food science. These elements include problem formulation/abstraction, pattern recognition, decomposition, and finally algorithm design. Direct application of these elements will occur through programming specifically using Python on a Raspberry Pi computer. The Raspberry Pi will be programmed to make real-time observations of phenomena relevant to the environment and/or food science.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            "CM2191",
+            {
+                "or": [
+                    "CM2192",
+                    "FST2102B"
+                ]
+            }
+        ]
+    },
+    "title": "Computational Thinking and Programming in Chemistry"
+}

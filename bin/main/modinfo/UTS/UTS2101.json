@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTS2101",
+    "courseCredit": "4",
+    "description": "This \u2018Senior Seminar\u2019 is required of students in their second year of residence in Tembusu College. The module will consider social and public health issues raised by modern advances in biomedicine, particularly as they affect Singapore and the surrounding region. Merging insights from medicine, social sciences, and the humanities, students will be introduced to problems, conflicts, and debates, and asked to form their own reasoned opinions. The seminar will meet weekly in small groups of 15\u201020, with periodic full\u2010class meetings to hear guest speakers.",
+    "faculty": "Residential College",
+    "preclusion": "SSU2000% or SSU2004% or SSU2006% or UTS21%",
+    "prereqTree": {
+        "or": [
+            "GEM1902",
+            "GEM1912"
+        ]
+    },
+    "title": "Biomedicine and Singapore Society"
+}

@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "OT5202",
+    "courseCredit": "4",
+    "description": "This module provides students with design knowledge on steel offshore structures. The major topics covered include planning considerations; design criteria and procedures; methods for determining loads; structural analysis methods; member and joint designs; material selection and welding requirements; and design for fabrication, transportation and installation phases. The module will be valuable to students interested in offshore engineering.",
+    "faculty": "Engineering",
+    "preclusion": "TCE5202",
+    "prereqTree": "CE2155",
+    "title": "Analysis & Design of Fixed Offshore Structures"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "EE5040",
+    "courseCredit": "2",
+    "description": "This module provides the necessary fundamentals in power systems modelling and analysis. Power system simulation involves modeling power generation equipment, planning the integration of power plants and renewable generation sources onto the electric grid, and performing power flow optimization. Students will learn how mathematical approaches and simulation tools are used for the design, modeling, planning, and analysis of power distribution grids. Students will gain hands-on experience on simulation and analysis of power systems with embedded generation, and visualisation of large power distribution systems.",
+    "faculty": "Engineering",
+    "title": "Power Flow Modelling and Optimization"
+}

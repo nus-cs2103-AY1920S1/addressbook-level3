@@ -1,0 +1,7 @@
+{
+    "courseCode": "KE4001",
+    "courseCredit": "4",
+    "description": "KE4001-1 Introduction to Knowledge Engineering This course introduces students to the KE programme. It gives a course overview, and course describes course rules and regulations; and student administration; It then gives an introduction to KE: and describes history and relevance, broad application areas; Knowledge representation: rules, frames & logic, basics of logical inference, and basics of search. This module is compulsory for all KE students. KE4001-2 Knowledge-Based Systems (KBS) This module is intended to act as an introduction to KBS. Major topics in this course include Principles of rule-based reasoning; forward and backward chaining; Introduction to CLIPS or ECLIPSE or equivalent rule-based tools; Hybrid KBS. There is an in-course assignment using the ECLIPSE tool. This module is compulsory for all KE students. KE4001-3 Introduction to Advanced KE Technologies The objectives of this module is to give an overview of umbrella KE technologies. Major topics in this course include neural nets, fuzzy logic, case-based reasoning, machine learning, genetic algorithms, constraint propagation, intelligent agents, and other relevant KE Technologies. This module is compulsory for all KE students.",
+    "faculty": "Institute of Systems Science",
+    "title": "Fundamentals of Knowledge Engineering"
+}

@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3221",
+    "courseCredit": "4",
+    "description": "This module offers an introductory survey of the period referred to as 'the English Renaissance' (in traditional usage) and as 'early modern England' (in more recent usage). It considers the distinctive features of this period by looking at the different genres and literary forms in currency at the time: tragedy, comedy, love lyric, devotional lyric, epic, etc. These genres and forms are then read in relation to their significance for Renaissance/early modern England\u2019s original readership and audience. This is a period of intense conflict, and that conflict is far from over, being still reassessed and played out between differing critical positions.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "The English Renaissance"
+}

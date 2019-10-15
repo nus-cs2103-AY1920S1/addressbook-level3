@@ -1,0 +1,12 @@
+{
+    "courseCode": "YSS3254",
+    "courseCredit": "5",
+    "description": "This course takes an ethnographic approach to the study of globalization, focusing on the impact it has on the daily lives of individuals, families, and communities around the world, and how they have responded in turn. Introducing students to how interpretative social science disciplines have approached the study of globalization, students will be assigned readings on different manifestations of globalization, including but not limited to the McDonaldization of society, the materials that enable globalization to take place, the international labor migration industry, the structure and composition of global cities, global crime, and the rise of anti-globalization social movements.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSS4238"
+    ],
+    "preclusion": "YSS2222 (previous module code)",
+    "prereqTree": "YCC1121",
+    "title": "Globalization on the Ground"
+}

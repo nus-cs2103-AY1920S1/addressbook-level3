@@ -1,0 +1,15 @@
+{
+    "courseCode": "ME4245",
+    "courseCredit": "4",
+    "description": "The module facilitates the learning of the fundamentals of robotic manipulators for students to appreciate and understand their design and applications. Successful completion allows student to formulate the kinematics and dynamics of robotic manipulators consisting of a serial chain of rigid bodies and implement control algorithms with sensory feedback. The module is targeted at upper level undergraduates who have completed fundamental mathematics, mechanics, and control modules. Students will also gain a basic appreciation of the complexity in the control architecture and manipulator structure typical to new-generation robots.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "MA1506",
+            "ME2142",
+            "EE2010",
+            "EE3331C"
+        ]
+    },
+    "title": "Robot Mechanics and Control"
+}

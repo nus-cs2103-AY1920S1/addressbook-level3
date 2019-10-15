@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TCN4227",
+    "courseCredit": "4",
+    "description": "The module provides a structured introduction to advanced process control concepts with emphasis on methods and techniques that are relevant for industrial practice. Advanced control strategies including feedforward control, ratio control, cascade control, inferential control, decentralized control systems and model predictive control techniques, as well as the representation of process in discrete-time control system and design of controllers, which will be covered. The learning experience of the students will be enhanced through projects that will require them to design advanced controllers for process systems.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TC4227, CN4227E",
+    "prereqTree": "TCN3121",
+    "title": "Advanced Process Control"
+}

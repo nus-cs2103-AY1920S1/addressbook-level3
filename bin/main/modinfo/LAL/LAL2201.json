@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAL2201",
+    "courseCredit": "4",
+    "description": "This module is a follow up to and continuation of the module Tamil 1. By the end of the module, students are expected to have a good grammatical understanding of the Tamil language and to have a vocabulary which makes it possible for them to handle all four aspects in Tamil language learning (speaking, listening, reading and writing) with ease and effectiveness. There will be an introduction to features of idiomatic Tamil and to everyday usages. Students will be able to write short compositions and letters and to read newspaper articles, stories and short poems.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": "LAL1201",
+    "title": "Tamil 2"
+}

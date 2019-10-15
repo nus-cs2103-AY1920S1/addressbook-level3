@@ -1,0 +1,39 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MA1511",
+    "courseCredit": "2",
+    "description": "This is a seven-week module specially designed for students majoring in Engineering. It introduces the basic concepts in one variable and several variable calculus with applications in engineering. Main topics: One variable calculus. Power series. Partial differentiation. Multiple integrals. Vector Calculus.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CS5240",
+        "CS3244",
+        "CS4243",
+        "CS3242",
+        "CS4347",
+        "CS3218",
+        "IS4242",
+        "EE2012",
+        "MA2104",
+        "MA4269",
+        "MA2216",
+        "MA3264",
+        "MA3236",
+        "MA3229",
+        "MA3227",
+        "MA3220",
+        "MA2219",
+        "MA2213",
+        "MA2108S",
+        "MA2108",
+        "PC2020",
+        "PC2132",
+        "PC2131",
+        "PC2130",
+        "IT3011",
+        "EE2211"
+    ],
+    "preclusion": "MA1102R, MA1312, MA1505, MA1506, MA1507, MA1521, MA2311, MA2501, EE1461, PC2134, PC2174 (2-way preclusion)",
+    "title": "Engineering Calculus"
+}

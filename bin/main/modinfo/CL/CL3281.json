@@ -1,0 +1,13 @@
+{
+    "courseCode": "CL3281",
+    "courseCredit": "4",
+    "description": "This module, designed for Level 2nd-4th year students (not necessarily majoring in Chinese Studies), deals with some problems not specified for attention under CL2280 or CL2281, requiring students to translate some literary works into Chinese and English respectively. Topics will include the relationship between contemporary translation theory and practice, the use of more specific semantic and cultural understanding of the text, as well as more complex formation of textual structures in the process of translation. Special attention will be paid to online resources for translators.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "CL2280",
+            "CL2281"
+        ]
+    },
+    "title": "Advanced Translation"
+}

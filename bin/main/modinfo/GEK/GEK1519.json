@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1519",
+    "courseCredit": "4",
+    "description": "This module aims to establish clear relationships between the basic elements of music found in virtually all musical cultures and their underlying scientific and mathematical principles. Musical scales which are the foundation of western musical culture as well as many other musical cultures will be discussed, with their evolution viewed from both western and non-western perspectives. The scientific and technical basis for the development of musical instruments of different musical cultures such as the piano, as well as their acoustical characteristics, will be examined. The module also looks at contemporary technologies in music such as digitization which has profoundly affected how the music of virtually all musical cultures is propagated.",
+    "faculty": "Science",
+    "preclusion": "PC1327, GEH1030",
+    "title": "Science of Music"
+}

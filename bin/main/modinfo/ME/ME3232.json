@@ -1,0 +1,9 @@
+{
+    "courseCode": "ME3232",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Engineering",
+    "preclusion": "ME3231",
+    "prereqTree": "ME2134",
+    "title": "Compressible Flow"
+}

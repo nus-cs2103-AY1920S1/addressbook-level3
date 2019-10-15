@@ -1,0 +1,26 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CS5228",
+    "courseCredit": "4",
+    "description": "This course introduces fundamental principles behind data mining and efficient techniques for mining large databases. It provides an overview of the algorithmic aspect of data mining: its efficiency (high-dimensional database indexing, OLAP, data reduction, compression techniques) and effectiveness (machine learning involving greedy search, branch and bound, stochastic search, parameter optimisation). Efficient techniques covered include association rules mining (Apriori algorithm, correlation search, constrained association rule discovery), classifier induction (decision trees, RainForest, SLIQ; Support vector machine; Naive Bayesian; classification based on association / visualisation), cluster analysis (k-means, k-mediods, DBSCAN, OPTICS, DENCLUE, STING, CLUSEQ, ROCK etc), and outliers/deviants detection (LOF, Distance-based outlier etc).",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS6220"
+    ],
+    "prereqTree": {
+        "and": [
+            "CS2102",
+            {
+                "or": [
+                    "ST1232",
+                    "ST2131",
+                    "ST2334"
+                ]
+            },
+            "CS3243"
+        ]
+    },
+    "title": "Knowledge Discovery and Data Mining"
+}

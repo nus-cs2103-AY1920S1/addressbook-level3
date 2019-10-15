@@ -1,0 +1,18 @@
+{
+    "courseCode": "PL3234",
+    "courseCredit": "4",
+    "description": "This module is primarily for psychology major students, for whom it is a core area. It aims to provide an overview of the major issues in developmental psychology, with a main focus on infancy and childhood. The development of individual differences is reviewed. Stage and process theories of cognitive, social and linguistic development are evaluated. The extent to which research findings have pan-cultural and local application is considered throughout the course. The importance of empirical research is stressed, and students are recommended to take PL2131 before reading this module.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PL3244",
+        "PL3251",
+        "PL3255",
+        "PL3283",
+        "PL3283A",
+        "PL3283B",
+        "PL3256",
+        "PL3259"
+    ],
+    "prereqTree": "PL1101E",
+    "title": "Developmental Psychology"
+}

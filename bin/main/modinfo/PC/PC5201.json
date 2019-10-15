@@ -1,0 +1,11 @@
+{
+    "courseCode": "PC5201",
+    "courseCredit": "4",
+    "description": "This module is an introduction to advanced topics in quantum theory. Topics include applications in many-body systems; Scattering theory; Approximation methods and their applications. General description of relativistic equations and their solutions; Interaction with electromagnetic fields; Path integral formulation of quantum mechanics. This module is targeted at all students undertaking graduate studies.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC5206"
+    ],
+    "prereqTree": "PC3130",
+    "title": "Advanced Quantum Mechanics"
+}

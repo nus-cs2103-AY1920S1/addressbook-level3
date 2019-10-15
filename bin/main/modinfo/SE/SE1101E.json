@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "SE1101E",
+    "courseCredit": "4",
+    "description": "Description Southeast Asia has been described as one of the 'crossroads of the world' - a place where people from many cultural, ethnic and religious backgrounds meet. The intermingling of people, the exchange of ideas and international commerce have been part of Southeast Asian life for centuries. This module surveys the broad currents of conflict, change and continuity across the region from a multidisciplinary perspective. It looks at how Southeast Asian societies and political systems have changed over time in response to the pressures of ecology, colonialism, nationalism, urbanization and globalization. The module also looks at the way ethnic, religious, national and regional identities have been constructed, used and altered over time. The overall objective is to provide students with an introduction to different ways of exploring Southeast Asia and different experiences of living in the region.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "SE2229"
+    ],
+    "preclusion": "GEK1008, GEM1008K, SSA1202, SS1203SE",
+    "title": "Southeast Asia: A Changing Region"
+}

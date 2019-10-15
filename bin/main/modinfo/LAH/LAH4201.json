@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAH4201",
+    "courseCredit": "5",
+    "description": "This module builds on the skills attained through studying Hindi 4. The aim is to introduce students to a range of typical forms of Hindi language likely to be encountered in authentic texts such as fiction, news media, broadcast media and cinema. Issues addressed in the module will include: strategies for the development of higher level vocabulary and the study of advanced Hindi grammar and usage.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAH4202"
+    ],
+    "prereqTree": "LAH3202",
+    "title": "Hindi 5"
+}

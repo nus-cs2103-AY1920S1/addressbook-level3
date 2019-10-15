@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6704",
+    "courseCredit": "4",
+    "description": "This module deals extensively with the design of high frequency (switching frequency >200 kHz) high efficiency power electronic converters for AC-DC, DC-DC and DCAC using PWM and resonant energy conversion techniques. This module will make the student aware of the fundamental considerations needed to design power electronic converters in an industrial environment and conforming to different industrial standards especially in terms of EMI/Efficiency/Line harmonics (AC-DC).",
+    "faculty": "Engineering",
+    "preclusion": "EE5704",
+    "prereqTree": {
+        "or": [
+            "EE5711",
+            "EE5711R"
+        ]
+    },
+    "title": "High-Frequency Power Converters (Advanced)"
+}

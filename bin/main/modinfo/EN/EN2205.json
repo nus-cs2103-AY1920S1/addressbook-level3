@@ -1,0 +1,50 @@
+{
+    "courseCode": "EN2205",
+    "courseCredit": "4",
+    "description": "This module will introduce students to the literature and culture of late medieval England, with particular attention to Chaucer, the Gawain Poet, Kempe, Langland and Malory. Major topics include: the emergence of 'modern' individualism; the imagining of history and the nation; the construction of gender; and the relation of religious and secular cultures. The module is intended for advanced undergraduate English majors.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "EN3221",
+        "EN3222",
+        "EN3223",
+        "EN3224",
+        "EN3226",
+        "EN3227",
+        "EN3228",
+        "EN3241",
+        "EN3243",
+        "EN3244",
+        "EN3246",
+        "GEM3003",
+        "EN3247",
+        "EN3249",
+        "EN3262",
+        "EN3266",
+        "EN3267",
+        "EN3268",
+        "EN3269",
+        "EN3272",
+        "EN3232",
+        "AS3232",
+        "EN3234",
+        "AS3234",
+        "EN3261",
+        "EU3217",
+        "EN3263",
+        "EN3264",
+        "EN3231",
+        "AS3231",
+        "EN3229",
+        "EN3880B",
+        "EN3251",
+        "EN3252"
+    ],
+    "preclusion": "EN3225",
+    "prereqTree": {
+        "or": [
+            "EN1101E",
+            "GEK1000"
+        ]
+    },
+    "title": "Late Medieval Literature and Culture"
+}

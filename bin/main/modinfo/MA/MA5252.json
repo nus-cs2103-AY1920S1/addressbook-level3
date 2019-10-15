@@ -1,0 +1,13 @@
+{
+    "courseCode": "MA5252",
+    "courseCredit": "4",
+    "description": "This module is intended for graduate students interested in pursuing research in applied and computational mathematics. It provides a concise and self-contained introduction to important methods used in applied mathematics, especially in the asymptotic analysis of differential equations involving multiple scales. Major topics include scaling analysis, perturbation methods, the WKB method, the averaging method, multi-scale expansion and the method of homogenization.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "MA4221",
+            "MA4252"
+        ]
+    },
+    "title": "Methods of Applied Mathematics"
+}

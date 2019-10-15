@@ -1,0 +1,8 @@
+{
+    "courseCode": "LSM3247",
+    "courseCredit": "4",
+    "description": "Synthetic biology is the science of engineering biology, and is very much an experimental science. Building on the basic principles of synthetic biology introduced in the theoretical module LSM3246, this module aims to emphasize on the experimental techniques required for the design and construction of synthetic metabolic pathways and genetic circuits in living cells. The module also introduces advanced experimental protocols including CRISPR-Cas genome editing tools that are revolutionising fields in life and biomedical sciences.",
+    "faculty": "Science",
+    "prereqTree": "LSM2191",
+    "title": "Practical Synthetic Biology"
+}

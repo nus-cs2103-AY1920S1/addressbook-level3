@@ -1,0 +1,21 @@
+{
+    "courseCode": "PC3242",
+    "courseCredit": "4",
+    "description": "The ability to create and characterize nanomaterials and nanostructures is important for many emerging advanced materials industries, from silicon electronics to intelligent nanosystems. Two general approaches to create nanostructures are bottom-up (colloidal-based chemistry) and top-down (nanofabrication and nanopatterning) methods. The course covers the essential physical chemistry principles and synthesis of bottom-up nanomaterials. Principles and practical aspects of top-down nanostructuring using nanolithography (optical, electron beam, ion beam) and pattern replication methods, including 3D-printing are discussed. Finally, nanocharacterisation using electrons, ions and scanning probe techniques are covered. Knowledge gained will be invaluable to design current and future nanosystems for diverse industries.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC4259",
+        "PC4253"
+    ],
+    "preclusion": "EE4411",
+    "prereqTree": {
+        "or": [
+            "PC2131",
+            "PC3235",
+            "MLE2104",
+            "PC2133",
+            "EE2005"
+        ]
+    },
+    "title": "Nanofabrication and Nanocharacterization"
+}

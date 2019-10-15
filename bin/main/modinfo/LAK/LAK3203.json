@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAK3203",
+    "courseCredit": "4",
+    "description": "The module Korean for Academic Purposes is specially designed for students who are interested in studying in Korea. Its primary focus will be on the preparation of students for essential communicative situations and interactions in a Korean university environment. Students will be taught to comprehend longer listening and reading texts on more complex topics of academic interest.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAK4201"
+    ],
+    "preclusion": "LAK3202 Korean 4",
+    "prereqTree": "LAK3201",
+    "title": "Korean for Academic Purposes"
+}

@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MDG5221",
+    "courseCredit": "2",
+    "description": "The ability to manipulate gene expression in a cell, an organ or a whole organism is an important aspect in the delineation of the molecular mechanisms in health and disease. Hence, many conventional as well as newly developed techniques for gene expression manipulation are being used in biomedical research. One of the most used strategies involves the use of genetically engineered viruses to infect mammalian cells. This module will cover the use of viral gene delivery vectors for (i) Exogenous expression of genes (ii) Knockdown of genes by RNA interference",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "title": "Viral vectors for manipulating gene expression"
+}

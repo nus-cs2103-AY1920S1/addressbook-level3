@@ -1,0 +1,17 @@
+{
+    "courseCode": "LSM2101",
+    "courseCredit": "4",
+    "description": "Overview of the biosynthesis and catabolism of carbohydrates, proteins, lipids and nucleic acids in the context of human health and disease. Emphasis on the integration and regulation of metabolic pathways in different tissues and organs. Principles of bioenergetics and mitochondrial energy metabolism, free radicals, enzyme deficiencies in metabolic disorders will also be covered.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST4202"
+    ],
+    "preclusion": "LSM2211",
+    "prereqTree": {
+        "or": [
+            "LSM1101",
+            "LSM1401"
+        ]
+    },
+    "title": "Metabolism and Regulation"
+}

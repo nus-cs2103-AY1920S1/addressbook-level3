@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "lab": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "PR1110",
+    "courseCredit": "4",
+    "description": "This module studies the fundamental physical & chemical principles that are important to the design and development of drugs. The major topics to be covered include: molecular properties, intermolecular forces, acidity & basicity, stereochemistry, tautomerism, mechanisms of action, biotransformation and some basics on UV-vis and IR.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PR2288",
+        "PR2289",
+        "PR2115",
+        "PR2143",
+        "PR3204",
+        "PHS2143"
+    ],
+    "title": "Foundations for Medicinal Chemistry"
+}

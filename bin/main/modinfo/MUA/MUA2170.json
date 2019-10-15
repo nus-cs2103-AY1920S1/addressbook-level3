@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA2170",
+    "courseCredit": "4",
+    "description": "This course will introduce the theory and practice of studio near-distance microphone techniques for a variety of acoustic and electric/electronic instruments. More in-depth coverage of mixing consoles for multitrack recording and basic mixing will also be covered, as will analysis of recording work and basic concepts of musical acoustics and digital audio. Students will be required to finish at least 2 multi-track projects independently during the course of the semester.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA4176",
+        "MUA3188"
+    ],
+    "title": "Multitrack Recording 1"
+}

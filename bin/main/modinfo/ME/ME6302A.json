@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME6302A",
+    "courseCredit": "4",
+    "description": "In this module, students will learn advanced-level materials through topics reflecting the special interests and research of faculty members in Fluid Dynamics. Lectures will be given by both department faculty members and visiting specialists. Practical examples and case studies will be presented and discussed. Module marks are based on 100% Continued Assessments. This module is intended for graduate students and engineers interested in learning more on the current state-of-the-art in advanced material topics in Fluid Dynamics.",
+    "faculty": "Engineering",
+    "prereqTree": "ME4233",
+    "title": "Topics in Fluid Dynamics: Theory of Hydrodynamic Stability"
+}

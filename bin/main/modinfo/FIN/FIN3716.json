@@ -1,0 +1,20 @@
+{
+    "courseCode": "FIN3716",
+    "courseCredit": "4",
+    "description": "The objective of this course is to provide students with an understanding of the theories and methodologies of financial modelling. It trains students to apply finance theories to solve various problems in financial management, investments, portfolio management, and risk management. This objective is achieved by teaching students how to design and implement financial models in the computer, with Excel as the main tool. It covers four classes of models: Corporate Finance models, Portfolio Models, Option-Pricing Models and Bond Models. It also covers simulation, some numerical methods, and VBA programming as well.",
+    "faculty": "NUS Business School",
+    "preclusion": "FIN3130",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "ACC1701",
+                    "ACC1701X",
+                    "EC2204"
+                ]
+            },
+            "FIN3702"
+        ]
+    },
+    "title": "Financial Modelling"
+}

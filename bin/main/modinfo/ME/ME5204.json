@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "ME5204",
+    "courseCredit": "4",
+    "description": "The purpose of this module is to introduce the various design aspects of generic air conditioning systems. Students will develop the competence to size and select the sub-components of a typical air conditioning plant to meet prescribed conditions. The topics of the course include: psychrometrics, heat load calculation, energy analysis of buildings, air conditioning systems for commercial and industrial applications, performance of refrigeration systems, cooling and dehumidifying coils, air and water distribution, sub-component selection and specification, building automation systems, energy management strategies.",
+    "faculty": "Engineering",
+    "title": "Air Conditioning and Building Automation"
+}

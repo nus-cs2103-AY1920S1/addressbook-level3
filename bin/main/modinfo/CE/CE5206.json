@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5206",
+    "courseCredit": "4",
+    "description": "Public transportation, including public bus and massive rapid transit (MRT), plays a critical role for people\u2019s daily life in the large cities such as Singapore, Hong Kong and London. This module introduces fundamental concepts, tangible operational strategies and planning as well as deign principles for urban public transportation systems. The major topics include urban public transportation organizational models and contract structures, performance assessment and data collection methods, ridership forecasting, public transportation assignment models, vehicle and crew scheduling, high ridership corridor operational strategies, network design principles, introduction to MRT service operations and planning.",
+    "faculty": "Engineering",
+    "prereqTree": "CE3121",
+    "title": "Urban Public Transportation Systems"
+}

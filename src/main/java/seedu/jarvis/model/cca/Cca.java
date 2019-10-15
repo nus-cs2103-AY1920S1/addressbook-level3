@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Cca {
 
     // Identity fields
-    private final Name name;
+    private final CcaName name;
     private final CcaType ccaType;
 
     // Data fields
@@ -20,14 +20,14 @@ public class Cca {
     /**
      * Every field must be present and not null.
      */
-    public Cca(Name name, CcaType ccaType, EquipmentList equipmentList) {
+    public Cca(CcaName name, CcaType ccaType, EquipmentList equipmentList) {
         requireAllNonNull(name, ccaType, equipmentList);
         this.name = name;
         this.ccaType = ccaType;
         this.equipmentList = equipmentList;
     }
 
-    public Name getName() {
+    public CcaName getName() {
         return name;
     }
 
@@ -40,8 +40,8 @@ public class Cca {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both ccas of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two ccas.
      */
     public boolean isSameCca(Cca otherCca) {
         if (otherCca == this) {
@@ -50,13 +50,12 @@ public class Cca {
 
         return otherCca != null
                 && otherCca.getName().equals(getName())
-                && (otherCca.getCcaType().equals(getCcaType())
-                || otherCca.getEquipmentList().equals(getEquipmentList()));
+                && otherCca.getCcaType().equals(getCcaType());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both ccas have the same identity and data fields.
+     * This defines a stronger notion of equality between two ccas.
      */
     @Override
     public boolean equals(Object other) {

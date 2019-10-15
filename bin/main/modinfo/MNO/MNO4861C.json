@@ -1,0 +1,15 @@
+{
+    "courseCode": "MNO4861C",
+    "courseCredit": "4",
+    "description": "This class emphasizes the cultivation of each student's ability to evaluate business models and their appropriateness for development in a corporate setting. As an advanced course the content is designed to improve students analytical, creative and communication skills. In a competitive environment, entrepreneurship is an essential and indispensable element in the success of every business organisation - whether small or large, new or long-established. This course focuses on corporate entrepreneurship with a special emphasis on the role of venture capital and spin-offs. Although corporate entrepreneurship encompasses a wide range of organisational activities, this course focuses primarily on managerial efforts aimed at the identification, development and exploitation of technical and organisational innovations and on effective new venture management in the context of large corporations.",
+    "faculty": "NUS Business School",
+    "preclusion": "MNO4313D",
+    "prereqTree": {
+        "or": [
+            "MNO1706",
+            "MNO1706X",
+            "PL3239"
+        ]
+    },
+    "title": "SILHCM: Corp Entrepreneurship & Busi Model Evaluation"
+}

@@ -47,7 +47,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code CcaName} of the {@code Person} that we are building.
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);

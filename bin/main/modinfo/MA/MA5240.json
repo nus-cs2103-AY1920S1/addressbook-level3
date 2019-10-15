@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA5240",
+    "courseCredit": "4",
+    "description": "This module studies the finite element method. It covers the following topics: variational principles, weak solutions of differential equations, Galerkin/Ritz method, Lax-Milgram theorem, finite element spaces, stiffness matrices. Shape functions, Barycentric coordinates, numerical integration in Rn, calculation of stiffness matrices, constraints and boundary conditions, iterative methods and approximate solutions, error estimates. The course is for mathematics graduate students with interest in finite element method and its applications.",
+    "faculty": "Science",
+    "prereqTree": "MA5233",
+    "title": "Finite Element Method"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE6511",
+    "courseCredit": "4",
+    "description": "This module describes sophisticated surrogate global optimization algorithms (for continuous and/or integer variables) for computationally expensive functions (including objective functions that are computed from a multimodal complex computer code.) with optional parallel algorithms. Metaheuristic search methods including simulated annealing, tabu search, genetic algorithms, dynamically dimensioned search, and particle swarm. Both single objective and multi-objective methods are discussed. A theory section covers convergence of surrogate global optimization, simulated annealing, genetic algorithms, and the proof of the No Free Lunch Theorem. Statistical analysis for comparing algorithm performance is presented. Students will utilize existing software packages in Matlab or Python for surrogate optimization and for some metaheuristics.",
+    "faculty": "Engineering",
+    "preclusion": "IE6499A Adv Topics in SE: Metaheuristic & Surrogate Optimization",
+    "title": "Surrogate and Metaheuristic Global Optimization"
+}

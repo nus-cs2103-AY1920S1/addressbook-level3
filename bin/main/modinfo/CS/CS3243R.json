@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS3243R",
+    "courseCredit": "1",
+    "description": "This 1-MC module adds a research component to the host module, enabling students to acquire more in-depth understanding of the research issues pertaining to the subject matter.",
+    "faculty": "Computing",
+    "preclusion": "EEE and CPE students can only take this module as a technical elective to satisfy the program requirements or UEM but not CFM/ULR-Breadth.",
+    "title": "Introduction to Artificial Intelligence"
+}

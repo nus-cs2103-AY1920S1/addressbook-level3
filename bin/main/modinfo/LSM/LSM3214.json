@@ -1,0 +1,16 @@
+{
+    "courseCode": "LSM3214",
+    "courseCredit": "4",
+    "description": "This module covers several human physiological systems using hormonal control of homeostasis as a basis for understanding normal function and health. The student will be able to appreciate the interactions occurring amongst the endocrine, digestive, renal, and reproductive systems, and be able to relate them to the body's biological rhythms (or clocks), growth, responses to stress, and reproductive processes. Major Topics Covered: endocrine system, central endocrine glands, peripheral endocrine glands, digestive system, digestive processes, energy balance, urinary system, fluid processing, fluid balance, reproductive system, male reproductive physiology, female reproductive physiology.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4215"
+    ],
+    "prereqTree": {
+        "and": [
+            "LSM2211",
+            "LSM3212"
+        ]
+    },
+    "title": "Human Physiology - Hormones and Health"
+}

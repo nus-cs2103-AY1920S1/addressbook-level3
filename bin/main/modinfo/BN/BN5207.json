@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "BN5207",
+    "courseCredit": "4",
+    "description": "This module covers the physics and technology of the major branches of medical imaging, which include X-ray, computed tomography, magnetic resonance imaging, ultrasound, and single-photon and positron emission tomography. Topics that are important to developing a sound understanding of medical imaging technology, such as detectors, image forming processes, tomographic reconstruction methods, and clinical applications, comprise an important portion of the module. This module is suitable for students who may wish to undertake advanced studies and research or work in the area of biomedical imaging.",
+    "faculty": "Engineering",
+    "preclusion": "MDG5225 Fundamentals of Molecular Imaging",
+    "title": "Medical Imaging Systems"
+}

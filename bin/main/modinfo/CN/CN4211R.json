@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CN4211R",
+    "courseCredit": "4",
+    "description": "The course provides an overview of the petrochemical industry, with a focus on the Singapore industry. The following processes are discussed: Refining, Steam Reforming, Steam Cracking, Ammonia and Methanol production, Polymerisation processes, Important heterogeneous and homogeneous catalytic processes. To provide an in-dept understanding, fundamental aspects of the processes, i.e. catalysis, kinetics, thermodynamics and reactor design will be highlighted.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "CN2121",
+            "CN2116"
+        ]
+    },
+    "title": "Petrochemicals and Processing Technology"
+}

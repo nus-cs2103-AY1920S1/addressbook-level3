@@ -1,0 +1,13 @@
+{
+    "courseCode": "PH3246",
+    "courseCredit": "4",
+    "description": "This module is a survey of classic paradoxes, ancient and modern. No mere brain\u2010teasers, these riddles have exercised some of history\u2019s best minds, often with startling results. How is motion possible? What is a gamble at given odds worth? Is time travel possible? Why do nations honor their treaty obligations? What are numbers? The contemplation of paradoxes drives the search for answers to these questions and more, and by grappling with the paradoxes, students gain familiarity with key techniques and concepts of decision theory and logical analysis which are useful both in philosophy and other fields of inquiry.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "PH2110",
+            "GEM2006"
+        ]
+    },
+    "title": "Paradoxes"
+}

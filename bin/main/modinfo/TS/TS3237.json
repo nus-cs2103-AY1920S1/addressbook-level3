@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS3237",
+    "courseCredit": "4",
+    "description": "Asian performance has had a huge impact on the 20th century world theatre. Prominent figures, such as Stanislavski, Artaud, Brecht, Brook, Grotowski, Suzuki and Schechner, were influenced by Asian acting. This module teaches the Asian performance traditions of the golden age: the Sanskrit theatre of India, zaju opera of China, and kabuki of Japan. The principles and philosophies of these traditions are compared as an organic whole that differs significantly from Western traditions. Students are guided to explore masterpieces in a Renaissance manner, imitating and reviving both their style and spirit. The module also serves as a reference for intercultural performances",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Acting and Directing in Asian Theatre"
+}

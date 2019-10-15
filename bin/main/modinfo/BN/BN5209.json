@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "BN5209",
+    "courseCredit": "4",
+    "description": "This module teaches students the electrical and magnetic field of the human brain in relation to the brain activities and methods for sensing the electrical and magnetic field of human brain in relation to brain activities. Major topics include: the electric and magnetic field of the brain in relation to brain activities, sensors for measuring the electric field and magnetic field of the brain in relation to brain activities, digitization of brain activities - neural waves, characterization of neural waves ? neural power map and neural matrix brain activity pattern recognition using neural power map and neural matrix, and applications of brain activity monitoring. The module is designed for students at Master and PhD levels in Engineering, Science and Medicine.",
+    "faculty": "Engineering",
+    "title": "Neurosensors and Signal Processing"
+}

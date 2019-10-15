@@ -1,0 +1,7 @@
+{
+    "courseCode": "CS5216",
+    "courseCredit": "4",
+    "description": "This course aims to discuss the basic aspects of constraint and logic programming. It will focus on constraint logic programming and its realisation in Eclipse, a system that extends Prolog language by means of constraints. The course will focus on problem modelling by means of constraints, and on logic programming techniques concerned with constraints. Students will learn in detail a number of modules of the Eclipse system that aims to increase the versatility of programming by means of constraints. These include: fd (programming over finite domains), clp(R) (solving equations over reals), CHR (constraint handling rules).",
+    "faculty": "Computing",
+    "title": "Logic Programming and Constraints"
+}

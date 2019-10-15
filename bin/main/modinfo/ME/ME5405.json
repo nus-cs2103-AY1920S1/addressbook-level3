@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "ME5405",
+    "courseCredit": "4",
+    "description": "This module introduces machine vision devices and techniques in image processing and pattern recognition. It also discusses the integration of the above to form a cohesive machine vision system. Students will learn how machine vision systems in robotics and medical applications are designed and implementation. This course is based on a basic knowledge of geometry and linear algebra, and does not require previous knowledge in machine vision. The accent is more on global understanding than on mathematical derivations. The main topics that will be treated are: vision hardware, visual perception, optical properties, image transforms, image enhancement, segmentation, encoding, representations, and applications.",
+    "faculty": "Engineering",
+    "title": "Machine Vision"
+}

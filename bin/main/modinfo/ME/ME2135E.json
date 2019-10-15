@@ -1,0 +1,12 @@
+{
+    "courseCode": "ME2135E",
+    "courseCredit": "4",
+    "description": "This module introduces the students to the operating principles of hydraulic pumps and turbines, their applications and methods of selecting pumps to match system requirements and how to avoid cavitation damage. We also focus on the mathematical theory of potential (non-viscous) fluid flow as well as the structure of basic vortices. This is followed by treatment of the fundamentals of viscous fluid flow and boundary layers. The major topics covered therein are the Navier-Stokes equations and some of their exact solutions, boundary layer flow theory, estimation of drag force on a flat plate, boundary layer separation and control, equations of motion for turbulent flow and turbulent boundary layers, turbulent models and velocity profiles in turbulent boundary layers. Boundary layer with transition. Flow around bluff and streamlined bodies: their flow patterns, drag and lift.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "ME3233E"
+    ],
+    "preclusion": "TM2131, TME2135, ME2135",
+    "prereqTree": "ME2134E",
+    "title": "Fluid Mechanics II"
+}

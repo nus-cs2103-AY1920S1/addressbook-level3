@@ -1,0 +1,14 @@
+{
+    "courseCode": "CN4223R",
+    "courseCredit": "4",
+    "description": "This module provides students with a working knowledge of thin film technology as this is applicable in the microelectronics industry. The emphasis is on the role of chemical and engineering science in materials processing. The module commences with an introduction to basic concepts in the kinetic theory of gases, thin film formation, vacuum technology and surface preparation. The next section covers a variety of thin film deposition techniques \u2013 physical as well as chemical. Thin film processing and patterning is the next subject of discussion. In particular, process operations relevant to semi-conductor device manufacture are covered. Diagnostics and characterisation of thin films is also presented with a view to familiarise students in state-of-the-art methodologies. The last part is devoted to an intensive study of thin film phenomena from a materials perspective. This module is targeted at level 4 chemical engineering students.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "MLE1101",
+            "EE2004",
+            "EE3431C"
+        ]
+    },
+    "title": "Microelectronic Thin Films"
+}

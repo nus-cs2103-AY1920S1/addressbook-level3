@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAT3201",
+    "courseCredit": "4",
+    "description": "This module will build on the skills developed in Thai 2. In this module, students will read, analyse, and discuss texts from literature, non-fiction, and academic sources covering a wide range of subjects related to the culture and society of the target language. Selection will include text and passage from short stories, journals, magazines, and newspapers, as well as audio-visual materials such as TV programs, feature films, etc. The range of readings is intended, firstly, to broaden students' vocabulary and familiarize them with terms relating to many fields of endeavor. Secondly, the objective is to introduce students to various aspects of the society and culture as expressed by Thai writers. Through exposure to the language as it appears in books and in the media, students will be able to hone their own language skills to be more applicable and practical in a workplace, academic, or business setting.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAT3202"
+    ],
+    "prereqTree": "LAT2201",
+    "title": "Thai 3"
+}

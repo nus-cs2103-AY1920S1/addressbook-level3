@@ -1,0 +1,11 @@
+{
+    "courseCode": "UD5622",
+    "courseCredit": "4",
+    "description": "This course is taken in conjunction with urban design studios. Methods of urban analysis and urban design will be taught to enable the students to tackle urban design projects of varying scales introduced in UD5601 and UD5602. The various aspects of urban growth, city limits/boundaries, urban structure, urban architecture, typologies as well as infrastructural planning, parcellation, public space and design guidelines will be introduced. The critical role that transportation plays in structuring the city will also be examined. This course will be conducted intensively on a daily basis over a period of three weeks (usually beginning on the third week of Semester 1).",
+    "faculty": "Design and Environment",
+    "fulfillRequirements": [
+        "DEP5103",
+        "DEP5106"
+    ],
+    "title": "Methods Of Urban Design & Urban Analysis"
+}

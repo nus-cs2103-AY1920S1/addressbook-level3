@@ -1,0 +1,13 @@
+{
+    "courseCode": "LSM3242",
+    "courseCredit": "4",
+    "description": "This module covers the underlying principles and wide-ranging industrial, environmental, pharmaceutical, and biomedical applications of microbiology. The objectives are (a) to gain an understanding of the role of microorganisms for biotechnology applications in the fields of medicine, agriculture, organic chemistry, synthetic biology, public health, biomass conversion, and biomining; and (b) to review advances in genetics and molecular biology of industrial microorganisms, enzyme engineering, environmental microbiology, food microbiology, and molecular biotechnology. A particular focus will be on the meaning and impact of microbiology on human health and the development of new therapeutic approaches.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "LSM1102",
+            "LSM1106"
+        ]
+    },
+    "title": "Translational Microbiology"
+}

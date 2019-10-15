@@ -1,0 +1,20 @@
+{
+    "courseCode": "MNO3313F",
+    "courseCredit": "4",
+    "description": "Organisations have increasingly relied on teams to accomplish a wide variety of objectives, from day-to-day shop floor operation to new product development to long term strategic planning. It is critical for anyone who wants to achieve career success to understand the characteristics of effective teams and how to lead high performance teams in an organisational context. This course will examine the dynamics of teams from the individual, group, and organisational perspectives. After taking this course, students will (1) gain a better understanding about external and internal factors determining team success, (2) develop insights on strengths, weaknesses, opportunities and challenges facing teams, (3) learn methods and develop skills to lead and facilitate high performance teams, and (4) gain teamwork experience by participating in group exercises and team project.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3313F or BZ3503 or BK3305 or SWD5290",
+    "prereqTree": {
+        "or": [
+            "MNO1001",
+            "BH1001",
+            "BZ1001",
+            "BK2002",
+            "HR2001",
+            "HR2101",
+            "HR3111",
+            "HR3308"
+        ]
+    },
+    "title": "TIMHC:Managing High Performance Teams"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "CS4214",
+    "courseCredit": "4",
+    "description": "The objective of this course is to provide the basic mathematical techniques to study the semantics and logical reasoning of programs and programming languages. This enables the students the ability to understand semantics specifications and to develop new ones for new languages. The course also describes and compares various advanced programming language features. The course combines theory and practice. Topics covered include axiomatic, denotational and operational semantics, type systems, template meta-programming, staged/generic programming, XML and XML processing.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS2104",
+            "CS3212",
+            "CS3234"
+        ]
+    },
+    "title": "Formal Semantics"
+}

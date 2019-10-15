@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST5226",
+    "courseCredit": "4",
+    "description": "At present, almost all data that is collected is stamped with a location. This spatial information can help us in our understanding of the patterns in the data. The course is designed to introduce students to methods for handling and analysing such data. Topics covered include basic concepts of spatial data, prediction (kriging) for stationary data, and modeling the three main types of spatial data \u2013 geostatisical, areal and point pattern. R will be extensively used to demonstrate and implement the techniques.",
+    "faculty": "Science",
+    "prereqTree": "ST5201",
+    "title": "Spatial Statistics"
+}

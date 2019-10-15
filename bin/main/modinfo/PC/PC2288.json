@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "urop": true
+    },
+    "courseCode": "PC2288",
+    "courseCredit": "4",
+    "description": "Please note that only 4MCs can be accredited towards major requirements in case that a student undertakes 8MCs for both PC2288 and PC2289.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PC1141",
+            "PC1142"
+        ]
+    },
+    "title": "Basic UROPS in Physics I"
+}

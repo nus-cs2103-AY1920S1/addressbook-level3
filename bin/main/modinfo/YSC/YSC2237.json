@@ -1,0 +1,7 @@
+{
+    "courseCode": "YSC2237",
+    "courseCredit": "5",
+    "description": "This module introduces students to computational thinking as applied to problems in physical science. A selection of real-world problems will be chosen to illustrate problem formulation, solution development and interpretation as well as analysis of the solutions and data visualization. The selection of problems will tackle different types of approaches typically used in scientific computational thinking including probabilistic methods, deterministic methods, machine learning, and approximation methods. Emphasis will be given to analysing the accuracy and convergence of the computational technique, and also to the interpretation of numerical results and their limitation by understanding the level of approximation.",
+    "faculty": "Yale-NUS College",
+    "title": "Computational Methods in Physical Sciences"
+}

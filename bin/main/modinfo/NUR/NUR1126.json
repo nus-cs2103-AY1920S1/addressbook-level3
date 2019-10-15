@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "NUR1126",
+    "courseCredit": "6",
+    "description": "This module allows students to integrate knowledge of pathophysiology, health assessment, principles of medical and nursing management and pharmacology related to the common gastrointestinal, renal, urinary, integumentary and ear, nose & throat (ENT) conditions. Students will also develop critical thinking skills through conducting health assessment, interpreting results of diagnostic investigations and problem solving.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "preclusion": "NUR2202C Pathophysiology, Pharmacology and Nursing\nPractice II",
+    "title": "Pathophysiology, Pharmacology and Nursing Practice II"
+}

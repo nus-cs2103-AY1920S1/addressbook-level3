@@ -1,0 +1,13 @@
+{
+    "courseCode": "PL3254",
+    "courseCredit": "4",
+    "description": "This module provides an overview of current psychological theories and research in the understanding of abnormal and maladaptive human responses to psychological trauma and life adversities. Topics include self-mutilation, suicide, pathological grief, acute stress reactions, and post-traumatic stress disorders resulting from interpersonal and family violence, sexual victimization, traumatic loss and death, disaster, and other critical life events. Resilience and post-traumatic growth in the face of life challenges will also be discussed. This module has a special focus on cultural and gender issues in relation to human traumatic stress reactions and resilient functioning.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL3236"
+        ]
+    },
+    "title": "Introduction to Trauma Psychology"
+}

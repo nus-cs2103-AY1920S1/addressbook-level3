@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CE5808A",
+    "courseCredit": "2",
+    "description": "Building Information Models are central repositories of data and information about the building over its lifecycle. The objective of this module is to enable participants to understand the technology underpinning building information models, and the different data standards involved. This will allow students to create, manipulate and update building information models at the data level. The specific topics will include Algorithmic Thinking, object-oriented modelling, digital design ('Computational BIM') and understanding of current data standards used in information modelling within the industry.",
+    "faculty": "Engineering",
+    "title": "Digital Design Using BIM Technologies"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "ESE4405",
+    "courseCredit": "4",
+    "description": "Topics covered in this module include urban water supply and demand, urban water management, identification of urban water quality systems, management strategies, environmental economics, technological and social considerations, capacity planning and management, modeling of water quality enhancement systems, impacts of design and operating protocols, and retrofitting and upgrading considerations. Application of fundamental principles for planning, analysis and design of various types of urban water quality enhancement systems will be addressed.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "ESE3401",
+            "ESE3001"
+        ]
+    },
+    "title": "Urban Water Engineering & Management"
+}

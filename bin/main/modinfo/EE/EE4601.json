@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4601",
+    "courseCredit": "4",
+    "description": "The main objective of this module is to introduce physics, principles, and operating mechanisms of various kinds of sensors. This module will provide electrical engineering students with central core knowledge about sensors in designing and developing for bio-medical applications. The major topics in this module cover; Brief Summary of Sensor Technology, Basic Sensor Structures, Sensing Effects, Physical Sensors and Their Applications in Bio-Medical Engineering, Sensors for Measuring Chemical Quantities in Bio-Medical Engineering, Miscellaneous Bio-Sensors and technologies, Biocompatibility of sensors, and Future trends in Bio-Sensor Technology.",
+    "faculty": "Engineering",
+    "prereqTree": "EE3431C",
+    "title": "Sensors For Biomedical Applications"
+}

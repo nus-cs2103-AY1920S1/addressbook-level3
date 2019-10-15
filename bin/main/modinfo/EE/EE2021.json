@@ -1,0 +1,23 @@
+{
+    "courseCode": "EE2021",
+    "courseCredit": "4",
+    "description": "This module builds on the students\u2019 knowledge on electronic devices and their use in the design of circuits. The physical principles behind the operation of these devices, their operation and usage in electronic circuits to achieve important functions will be the back bone of this module. The topics covered include basic semiconductor physics, drift and diffusion of carriers, pn diode, diode circuits, Bipolar Junction Transistor (BJT), and Metal Oxide Semiconductor (MOSFET), design of single stage amplifiers using BJTs and MOSFETs, CMOS inverter, multistage amplifiers, current source and sink. Students will be assessed through assignments, test and a final examination.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE4408",
+        "EE4411",
+        "EE4412",
+        "EE2031",
+        "EE3431C",
+        "EE4432"
+    ],
+    "preclusion": "EE2004 and EE2005",
+    "prereqTree": {
+        "or": [
+            "EE1002",
+            "EG1108",
+            "CG1108"
+        ]
+    },
+    "title": "Devices and Circuits"
+}

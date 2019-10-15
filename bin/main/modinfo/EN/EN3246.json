@@ -1,0 +1,28 @@
+{
+    "courseCode": "EN3246",
+    "courseCredit": "4",
+    "description": "The module will focus specifically on the relation between contemporary poetry and painting. It will provide students an opportunity to develop a systematic understanding of the relation between poetic language and the visual medium of painting. The general component will provide a methodology for the analysis of the relation between the two arts, and the practical component will entail a detailed study of representative poems directly inspired by specific paintings. Examples of poetry will be confined to the contemporary period and the English language. The module will provide opportunity for students to undertake a small research project which will explore the relation between poetry and painting in non-Anglophone cultures, using translated texts.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GEM3003",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Literature and the other Arts"
+}

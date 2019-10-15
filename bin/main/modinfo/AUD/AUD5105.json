@@ -1,0 +1,23 @@
+{
+    "courseCode": "AUD5105",
+    "courseCredit": "3",
+    "description": "This module provides the basic understanding of how hearing aid operates and describes the different style of ear moulds and hearing aids (custom aid, behind-the-ear), as well as the electroacoustic features of hearing aids (such as gain, maximum power output). This module also describes the various outcome measures used for verifying amplification and identify potential sources of error in amplification. Student will have hands-on sessions to practice hearing aids programming, fitting, and verification following the lectures.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "AUD5111",
+        "AUD5112",
+        "AUD5217",
+        "AUD5218",
+        "AUD5219",
+        "AUD5221",
+        "AUD5222",
+        "AUD5223"
+    ],
+    "prereqTree": {
+        "or": [
+            "AUD5101",
+            "AUD5104"
+        ]
+    },
+    "title": "Hearing Devices and Rehabilitation A - Part 1"
+}

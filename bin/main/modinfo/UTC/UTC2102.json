@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2102",
+    "courseCredit": "4",
+    "description": "This \u2018Senior Seminar\u2019 is required of students in their second year of residence in Tembusu College. The module will consider one of the most pressing problems of our time from multiple viewpoints. Merging insights from the sciences and humanities, students will be introduced to problems, conflicts, and debates over the causes of, and solutions to, the phenomenon of global warming and its implications for humanity. The seminar will meet weekly in small groups of 15\u201020, with periodic full\u2010class meetings to hear guest speakers.",
+    "faculty": "Residential College",
+    "preclusion": "GEM2902% or GEM2905% or GEM2907% or GEM2908% or GEM2909% or GEM2910% or UTC21%",
+    "prereqTree": {
+        "or": [
+            "GEM1902",
+            "GEM1912"
+        ]
+    },
+    "title": "Climate Change"
+}

@@ -1,0 +1,15 @@
+{
+    "courseCode": "ST5318",
+    "courseCredit": "4",
+    "description": "The module aims to equip the students with a repertoire of statistical methods that they will find useful in their research. Major topics include multiple regression, experimental designs, categorical data analysis, analysis of repeated measures, logistic regression, discriminant and classification analysis, unified approach for correlated data analysis, survival data analysis.",
+    "faculty": "Science",
+    "preclusion": "ST5202, ST5203",
+    "prereqTree": {
+        "or": [
+            "MDG5108",
+            "ST2238",
+            "PR2103"
+        ]
+    },
+    "title": "Statistical Methods For Health Science"
+}

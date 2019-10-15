@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "MLE5302",
+    "courseCredit": "2",
+    "description": "The objective is to expose students to different polymer materials used in additive manufacturing (AM) and their applications. Major topics include: a brief overview of thermoplastics, thermoset and composites materials, their applications & market and conventional fabrication techniques; AM techniques used for thermoplastic, thermoset and composites materials such as extrusion deposit 3D printing and vat photopolymerisation 3-D printing. The advantage and challenges of AM.",
+    "faculty": "Engineering",
+    "title": "Polymer Materials in Additive Manufacturing"
+}

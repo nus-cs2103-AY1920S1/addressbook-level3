@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "DSA1361",
+    "courseCredit": "2",
+    "description": "This course will provide participants with a foundation on what data science is. There will be a focus on linking business questions to statistical techniques, and linking analytical results to business value. By the end of the course, participants will know how to make sense of data using simple statistical techniques and how best to visualize data. Two software that are very widely used in the data science industry will be introduced in this class: Tableau for data visualisation and presentation, and Python for data analysis.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "DSA2361"
+    ],
+    "title": "Introductory Data Science with Python and Tableau"
+}

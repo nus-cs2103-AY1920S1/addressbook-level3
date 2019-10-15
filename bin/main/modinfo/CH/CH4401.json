@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "fyp": true
+    },
+    "courseCode": "CH4401",
+    "courseCredit": "15",
+    "description": "This is an optional module designed for students of the Department. It presents the methodology of writing an academic thesis of a stipulated length. Students are expected to work independently and meet their supervisors on an agreed schedule, during the semester, to discuss their progress. Upon completion of the thesis, it is submitted for evaluation by the Department.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "CH4660",
+    "title": "Honours Thesis"
+}

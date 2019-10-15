@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3269",
+    "courseCredit": "4",
+    "description": "This module introduces student to the contextual study of texts from Singapore, Malaysia and the Philippines and other parts of Southeast Asia. Topics discussed include the possibilities and problematics of a regional literary canon, and the manner in which literary texts from the region negotiate with the societies in which they are written and read. We will study these texts representations of and responses to processes such as colonialism, cosmopolitanism, nationalism, diaspora and uneven global modernities, as well as the manner in which they deal with cultural identity, gender, and sexuality within the context of social imaginaries in the region.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Southeast Asian Literatures in English"
+}

@@ -1,0 +1,11 @@
+{
+    "courseCode": "ST5201",
+    "courseCredit": "4",
+    "description": "The module introduces basic theories and methods in Statistics that are relevant for understanding data science. Exploratory data analysis including heat map and concentration map. Random variables. Joint distributions. Expected values. Limit theorems. Estimation of parameters including maximum likelihood estimation, Bayesian approach to parameter estimation. Testing hypotheses and confidence intervals, bootstrap method of finding confidence interval, generalized likelihood ratio statistics. Summarizing data: measures of location and dispersion, estimating variability using Bootstrap method, empirical cumulative distribution function, survival function, kernel probability density estimate. Basic ideas of predictive analytics using multiple linear and logistic regressions.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ST5226",
+        "ST5227"
+    ],
+    "title": "Statistical Foundations of Data Science"
+}

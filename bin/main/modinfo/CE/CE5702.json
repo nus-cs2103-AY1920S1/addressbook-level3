@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5702",
+    "courseCredit": "4",
+    "description": "This module exposes students to how uncertainties present in civil engineering problems can be modeled and be used to assess the reliability of a component or system. The techniques for computing low failure probabilities will be taught. The basis of codified design will be illustrated. Students will also be exposed to advanced topics related to applications of reliability theory. Topics covered include basic probability concepts; uncertainty modeling and analysis; reliability analysis and design; system reliability; advanced topics.",
+    "faculty": "Engineering",
+    "prereqTree": "CE2407",
+    "title": "Reliability Analysis And Design"
+}

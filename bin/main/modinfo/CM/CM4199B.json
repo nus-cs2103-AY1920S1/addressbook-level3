@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "fyp": true,
+        "year": true
+    },
+    "courseCode": "CM4199B",
+    "courseCredit": "16",
+    "description": "The module will immerse students in research methodology. Students will be trained on elaborating a research idea into a sound proposal, and are required to plan and execute the research vigorously. Skills training are emphasized. In scientific/technical writing, developed by writing a formal research proposal, mid-project report and final report. In communications, public speaking at a seminar, group discussion and poster presentation are the focus",
+    "faculty": "Science",
+    "preclusion": "CM4299",
+    "title": "Honours Project in Applied Chemistry"
+}

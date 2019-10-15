@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EG1111",
+    "courseCredit": "6",
+    "description": "This is part 1 of a 2-module package that introduces Year 1engineering students to what engineers do and to the engineer's thought process. These modules are Engineering Principles and Practice (EPP) I and II. EPP I will focus on the engineering principle of how systems work and fail and the engineering practice of how they are designed, built and valued. Students will be presented a practical engineering system, e.g., a drone or an underwater autonomous vehicle, or an engineering event, e.g., the Challenger space shuttle disaster. They are then guided to deconstruct the system into interconnected sub-systems. Through group discussions, they will be guided to explain using engineering principles how the system works and could fail through the interactions of its various component sub-systems. These interactions in the form of forces, energy flow or mass flow will then be analysed and the impact of their variation will be evaluated. Through these students will learn that practical engineering systems are not silos of specific engineering disciplines and that engineers use scaling techniques to analyse, model, design and build systems.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE2026",
+        "ME2112"
+    ],
+    "title": "Engineering Principles and Practice I"
+}

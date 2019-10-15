@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3880F",
+    "courseCredit": "4",
+    "description": "This module introduces students to some key topics in the field of applied linguistics (Second Language Learning and Teaching). Topics covered may include description of language and language use, the four language skills (reading, writing, speaking, and listening), and individual differences in language learning (age, noticing, language learning strategies, language learning styles, motivation, and self\u2010efficacy) and how such differences influence language performance and learning. Students will reflect on implications of selected theories and research findings for second language learning and teaching.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Foundations in Applied Linguistics"
+}

@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "TBA3204",
+    "courseCredit": "4",
+    "description": "Web analytics is the practice of collecting website traffic data to understand visitor activity and interactions. The insights gained through web analytics allow website developers to make informed decisions about how to improve site efficacy (e.g., landing page optimisation) and user experience (flow). Tools such as Google! Analytics could be used for exercises.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TBA4212"
+    ],
+    "prereqTree": "TBA2102",
+    "title": "Web Analytics"
+}

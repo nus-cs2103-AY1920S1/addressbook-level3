@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true,
+        "year": true
+    },
+    "courseCode": "OL1000",
+    "courseCredit": "1",
+    "description": "",
+    "faculty": "Dentistry",
+    "fulfillRequirements": [
+        "OMS2100",
+        "OMS3100"
+    ],
+    "title": "Oral Biology"
+}

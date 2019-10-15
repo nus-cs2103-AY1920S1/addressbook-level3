@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS4345",
+    "courseCredit": "4",
+    "description": "With the advancements in the technology of graphics processing units (GPUs), many computations can be performed faster on the GPUs than the CPUs. They are also programmable, making them useful for not just computer graphics processing but also general-purpose computations. Therefore, they are a natural choice as high-speed coprocessors to the CPUs in various applications. This module introduces the architecture of GPU, program writing on GPU using high-level language such as Cg, and the use of GPU in applications including computer graphics, games, scientific computation, and image processing.",
+    "faculty": "Computing",
+    "prereqTree": "CS3241",
+    "title": "General-Purpose Computation on GPU"
+}

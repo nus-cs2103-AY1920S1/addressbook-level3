@@ -1,0 +1,13 @@
+{
+    "courseCode": "PS3880F",
+    "courseCredit": "4",
+    "description": "This module introduces students to quantitative approaches to the scientific study of international political and economic relations. It focuses on current quantitative research on such diverse topics as conflict and peace, international trade, investment, and monetary relations, and the design and effectiveness of international institutions in protecting human rights and the environment. In addition to studying and evaluating the contemporary academic literature, this modules requires students to actively contribute to and improve on existing international relations research using advanced quantitative methods. The module provides students with the necessary statistical tools and skills to do so.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PS2237",
+            "PS3257"
+        ]
+    },
+    "title": "Topics in PS: Quantitative Approaches to Intl Relations"
+}

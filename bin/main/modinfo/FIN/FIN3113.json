@@ -1,0 +1,21 @@
+{
+    "courseCode": "FIN3113",
+    "courseCredit": "4",
+    "description": "This course deals with the process of financial reporting and the analysis of financial statements, and addresses the question of whether the accounting process yields numbers that accurately reflect the economics of the transaction, and if not, what can analyst/user do to overcome this limitation. It aims to create an understanding of the environment in which financial reporting choices are made, what the options are and how to use these data in making decisions. Course materials are built around the accounting and reporting issues faced by real companies today, to give students a real business context for understanding the many forces that can affect a company's accounting choices.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3113 or BZ3105 or BK3105 or FNA3113",
+    "prereqTree": {
+        "or": [
+            "FNA1002",
+            "FNA1002X",
+            "ACC1002",
+            "ACC1002X",
+            "BH1002",
+            "BZ1002",
+            "BK1003",
+            "FNA1002E",
+            "BH1002E"
+        ]
+    },
+    "title": "Financial Statement Analysis"
+}

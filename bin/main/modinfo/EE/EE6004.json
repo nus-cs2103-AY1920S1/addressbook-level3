@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6004",
+    "courseCredit": "4",
+    "description": "This module caters for the needs of research students working in the field of Microwave & RF circuit and system analysis and design, and electromagnetics. The student will gain an understanding of the following topics: the foundation theory of dyadic Green's functions, followed by detailed formulation and computer implementation with real-world case studies of any two of the following computational methods - Moment and Boundary Element, Finite Element, Finite Difference, Transmission Line and Fast method for Large Systems.",
+    "faculty": "Engineering",
+    "prereqTree": {
+        "or": [
+            "EE5302",
+            "EE5308"
+        ]
+    },
+    "title": "Selected Advanced Topics In EM Modelling"
+}

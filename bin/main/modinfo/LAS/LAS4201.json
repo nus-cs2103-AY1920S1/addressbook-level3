@@ -1,0 +1,20 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAS4201",
+    "courseCredit": "5",
+    "description": "Students taking this module will build upon what was covered at the Elementary and Intermediate levels to expand their command of written and spoken Spanish. Advanced Spanish will focus on readings and discussions of Spanish and Spanish American culture to continue developing students\u2019 vocabulary while reinforcing complex grammar and syntax. This module will also focus on accurate written production with attention paid to stylistics, genre, voice, while reviewing more advanced and nuance grammatical points.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAS4202"
+    ],
+    "preclusion": "YLS3201 Advanced Spanish I",
+    "prereqTree": {
+        "or": [
+            "LAS3202",
+            "YLS2202"
+        ]
+    },
+    "title": "Spanish 5"
+}

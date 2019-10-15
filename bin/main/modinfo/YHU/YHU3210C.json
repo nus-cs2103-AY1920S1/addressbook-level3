@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3210C",
+    "courseCredit": "5",
+    "description": "The proseminar in literary studies introduces students to the comparative study of literary form. This year, we will focus on Shakespeare\u2019s plays and poetry as a springboard to explore the theoretical and literary critical approaches from around the world.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Proseminar in Literary Studies"
+}

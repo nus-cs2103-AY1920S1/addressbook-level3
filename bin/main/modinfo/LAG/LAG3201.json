@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAG3201",
+    "courseCredit": "4",
+    "description": "Building upon the foundation of the German 2 module, this module focuses on the development of students' ability to communicate on fairly complex topics of general interests. It will continue to adopt an integrated approach and cultivate students' proficiency in all areas of language learning, including their learning competence. Strategies to be developed focus on writing and speaking.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAG3202",
+        "LAG3203"
+    ],
+    "prereqTree": "LAG2201",
+    "title": "German 3"
+}

@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3311",
+    "courseCredit": "5",
+    "description": "Why does tragedy exist as a dramatic form and what does it say about gender and mortality? How did audiences and authors participate in this form of performance in ancient Athens? How did philosophers and literary theorists understand the genre in antiquity, and what theoretical approaches are relevant today? What was the social and political context of tragedy, and how did the plays comment on contemporary and transcendent concerns? Students will read tragedies and para-tragic works such as comedy from 5th C Athens, as well as Roman tragedies and contemporary literature that responds to the Greek tradition.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Ancient Tragedy: Gender, Politics, and Poetry"
+}

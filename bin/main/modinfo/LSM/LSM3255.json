@@ -1,0 +1,12 @@
+{
+    "courseCode": "LSM3255",
+    "courseCredit": "4",
+    "description": "This module will introduce students to principles of terrestrial ecology. Major topics will include diversity and distributions of terrestrial environments, soils and nutrient cycling, animal-plant interactions [pollination, seed dispersal, herbivory], disturbance ecology and succession, energy flow and food webs, population biology, and fragmentation. The course will have a strong quantitative focus. The module will also cover ecological processes in rural (agricultural) and urban terrestrial environments.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "LSM4265"
+    ],
+    "preclusion": "LSM3271",
+    "prereqTree": "LSM2251",
+    "title": "Ecology of Terrestrial Environments"
+}

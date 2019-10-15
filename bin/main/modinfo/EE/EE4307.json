@@ -1,0 +1,8 @@
+{
+    "courseCode": "EE4307",
+    "courseCredit": "4",
+    "description": "This 100% CA module introduces students to the various stages in the design cycle of a closed-loop control system, namely modeling, identification, simulation, controller design and implementation. Students will appreciate the concepts of models and model structures, the ways to obtain them and their applications. Two modeling approaches will be covered; physical modeling which includes the principles and phases ofmodeling using basic physical relationships, and identification approaches covering both non-parametric and parametric identification. Practical issues in modeling, including instrument calibration, model structure selection, data collection configuration, selection of test signals and model validation will also be duly covered. Via project work, students will consolidate the topics covered in class with hands-on experience in modeling, simulating and controlling real systems. They will be equipped with useful practical skills at the end of this course.",
+    "faculty": "Engineering",
+    "prereqTree": "EE3331C",
+    "title": "Control Systems Design And Simulation"
+}

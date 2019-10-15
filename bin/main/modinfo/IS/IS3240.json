@@ -1,0 +1,27 @@
+{
+    "courseCode": "IS3240",
+    "courseCredit": "4",
+    "description": "Digital business platforms are a successful foundation on which organisations are reinventing their businesses. In this module, students will learn both theoretical and practical insights into the dynamics of creating, implementing and competing with digital platforms, focused on three pillars. The course will first examine the strategic and economic foundations of digital platforms (Pillar 1), and their prominent rise in the digital transformation of industries, business models, products and services. The course will then explore the business architecture and strategy (Pillar 2) and IT/data architecture and strategies (Pillar 3) that enable platforms and their successful evolution. Topics include platform principles and value propositions, platform business design and ecosystem architecture, platform evolution, the design of digital platform components (APIs, interfaces and protocols), data strategies for digital platforms, and platform roadmaps and innovation.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "BSP4513",
+        "BSE4711"
+    ],
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "IS1103",
+                    "IS1103X"
+                ]
+            },
+            {
+                "or": [
+                    "IS2102",
+                    "BT2102"
+                ]
+            }
+        ]
+    },
+    "title": "Digital Platform Strategy and Architecture"
+}

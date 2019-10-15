@@ -1,0 +1,17 @@
+{
+    "courseCode": "PC2020",
+    "courseCredit": "4",
+    "description": "This module is an introduction to electromagnetics (EM) for electrical engineers. Electromagnetics is essential in all disciplines of electrical engineering. At the end of this module, students will be able to explain many physical phenomena in everyday life, such as electricity energy transmission, wave reflection/transmission, and the impact of skin depth on wave propagation. Topics covered include: static electric fields, static magnetic fields, timevarying fields, electromagnetic waves, transmission lines and antennas.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC3232B"
+    ],
+    "preclusion": "PC2131, PC2232",
+    "prereqTree": {
+        "and": [
+            "MA1511",
+            "MA1512"
+        ]
+    },
+    "title": "Electromagnetics for Electrical Engineers"
+}

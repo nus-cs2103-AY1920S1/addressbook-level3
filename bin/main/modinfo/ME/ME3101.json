@@ -1,0 +1,11 @@
+{
+    "courseCode": "ME3101",
+    "courseCredit": "4",
+    "description": "This is a group-based project that focuses on the design of a complete mechanical design product, emphasizing the design process, analysis and drawings. The major project may be preceded by smaller projects to instill familiarity and experience. Elements of commercialisation (e.g. market survey) and form-giving (aesthetics) may be incorporated. Students are required to submit a report, drawings, do a presentation, and take oral examinations. This is a core module.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME3102"
+    ],
+    "prereqTree": "ME2101",
+    "title": "Mechanical Systems Design I"
+}

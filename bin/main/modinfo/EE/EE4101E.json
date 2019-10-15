@@ -1,0 +1,9 @@
+{
+    "courseCode": "EE4101E",
+    "courseCredit": "4",
+    "description": "Radio and microwave systems are used for information transmission. This module therefore introduces the student to a broad range of enabling knowledge and skills commonly employed by RF and microwave engineers to specify, analyse and design radio and microwave transmission systems. Topics covered: Time-varying EM fields: guided waves, evanescent modes and plane-wave propagation. Radiation: radiation mechanism, magnetic vector potential, current distribution on a thin wire, Hertzian dipole, Half-wave dipole & monopole. RF Antennas: parameters, aperture antennas and arrays. RF Amplification: stability, gain and small-signal narrowband design. RF Generation: conditions for oscillation, oscillator design and dielectric resonators. RF Receivers: receiver and mixer parameters. RF Systems: system gain and noise figure, satellite and terrestrial systems.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TEE4101",
+    "prereqTree": "EE2011E",
+    "title": "Radio-Frequency (RF) Communications"
+}

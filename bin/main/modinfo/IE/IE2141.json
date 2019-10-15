@@ -1,0 +1,8 @@
+{
+    "courseCode": "IE2141",
+    "courseCredit": "4",
+    "description": "The module aims to introduce students to the fundamental concepts and underlying principles of system thinking, design and dynamics. It will provide students with an understanding of systems thinking and applying systems dynamics modelling to describe and simulate real world problems. At the end of the course, students should have the necessary knowledge and abilities to define, analyse, design, and develop a system dynamics model that simulates a specific problem and recommend solutions for different scenarios.",
+    "faculty": "Engineering",
+    "preclusion": "IE2101, Junior Seminar modules in RC4, GEM1915/GET1011",
+    "title": "Systems Thinking and Dynamics"
+}

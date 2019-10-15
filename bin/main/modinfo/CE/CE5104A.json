@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "CE5104A",
+    "courseCredit": "2",
+    "description": "This is an advanced module on analysis and design of tunnels in soils. The topics covered include bored tunnelling methods, stability of underground openings, ground movement prediction due to tunnels, effects of ground movements on buildings and structures, instrumentation and monitoring, and stresses on lining. The creation of underground structures to form subways, underpasses, metro stations and other uses is an increasing requirement in major urban areas worldwide. Students are taught the various methods of construction for creating underground space.",
+    "faculty": "Engineering",
+    "title": "Tunnelling in Soils"
+}

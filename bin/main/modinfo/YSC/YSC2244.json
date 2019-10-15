@@ -1,0 +1,8 @@
+{
+    "courseCode": "YSC2244",
+    "courseCredit": "5",
+    "description": "With the growing influence of Data Science, the Statistics and Mathematics domains now require specific skills in programming, using domain-specific systems and libraries. This course introduces common tools for Data Science programming. This includes a high-level language (i.e. Python), several Statistics/AI libraries (i.e. numpy, sklearn), and database systems (i.e. SQL). In addition we will create awareness of best practices in programming such as control versioning, testing, and continuous integration.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YSC1212",
+    "title": "Programming for Data Science"
+}

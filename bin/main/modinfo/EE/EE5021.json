@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "EE5021",
+    "courseCredit": "2",
+    "description": "Cloud computing is an attractive paradigm for cost efficiency and management flexibility which brings in several benefits for Internet of Things (IoT). This module provides a comprehensive treatment of the concept and techniques related to cloud-based services for IoT applications. It first briefly reviews IoT basics and then discusses cloud computing and request models that can be used for IoT. It also introduces network function virtualization (NFV), orchestration, and IoT Gateway. Tutorial and hands-on will be provided to the students to acquire practical experience in working with cloud platforms and use/test the cloud-based services for IoT applications.",
+    "faculty": "Engineering",
+    "title": "Cloud based Services for Internet of Things"
+}

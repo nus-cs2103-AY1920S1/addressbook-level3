@@ -1,0 +1,14 @@
+{
+    "courseCode": "PH3244",
+    "courseCredit": "4",
+    "description": "Plato holds that the world of sensible objects is a mere shadow of an ideal realm that transcends experience. Locke maintains that sensible objects have intrinsic natures that are exhausted by a small number of basic spatial and temporal properties. Kant argues that we can never know the natures of things in themselves, beyond the fact that they give us certain senseimpressions. Mill construes a physical object as a bare propensity for sensations to occur in certain patterns. In this module, students engage with the major metaphysical systems of Western philosophy, examining how each coordinates subjective experience with objective reality.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "PH2213",
+            "PH2241",
+            "PH2242"
+        ]
+    },
+    "title": "Appearance and Reality"
+}

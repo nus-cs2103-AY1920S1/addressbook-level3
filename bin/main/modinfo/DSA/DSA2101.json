@@ -1,0 +1,22 @@
+{
+    "courseCode": "DSA2101",
+    "courseCredit": "4",
+    "description": "Data visualisation is an essential tool for data analytics. This module is an introduction to data cleaning, exploration, analysis and visualisation. Students will learn how to take raw data, extract meaningful information, use statistical tools, and make visualisations. Topics include: programming in R, introduction to data storage systems, data manipulation, exploratory data analysis, dimension reduction, statistical graphics for univariate, multivariate (high-dimensional), temporal and spatial data, basic design principles and critical evaluation of visual displays of data.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "DSA3101"
+    ],
+    "prereqTree": {
+        "and": [
+            "DSA1101",
+            "MA1101R",
+            {
+                "or": [
+                    "ST2131",
+                    "MA2216"
+                ]
+            }
+        ]
+    },
+    "title": "Essential Data Analytics Tools: Data Visualisation"
+}

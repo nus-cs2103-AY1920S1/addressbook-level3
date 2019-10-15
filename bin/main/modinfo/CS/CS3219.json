@@ -1,0 +1,12 @@
+{
+    "courseCode": "CS3219",
+    "courseCredit": "4",
+    "description": "This module provides an in-depth, hands-on experience in key aspects of software engineering that accompany the development of software. Based on proven principles and best practices, this module focuses on software architectural design from the perspective of the software process. It covers techniques for requirement elicitation and specification that provide sound base for architectural design. The module covers design decision exploration as well as patterns that explicate principles and best practices in replicable form.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CS4218"
+    ],
+    "preclusion": "CS3213 Software Systems Design",
+    "prereqTree": "CS2103",
+    "title": "Software Engineering Principles and Patterns"
+}

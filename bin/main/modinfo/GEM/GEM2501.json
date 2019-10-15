@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEM2501",
+    "courseCredit": "4",
+    "description": "This module aims to present an overview of the role of 'electrical energy' in modern society in improving of the standard of living and quality of physical comfort. It deals with how the electric energy supply industry has evolved over the last two centuries, the conventional forms of generation, the factors that influence the price the consumer pays for this commodity and the impact of present electric energy production techniques on environmental degradation. It will also cover recent developments in alternative \"greener\" energy resources, and the factors affecting the market penetration of such resources. Both the supplier side and consumer side management strategies for achieving \"sustainable energy growth\" will be reviewed. This module is suited for students majoring in Social Sciences, School of design and environment, and the Faculty of Science.",
+    "faculty": "Engineering",
+    "preclusion": "All FoE & CEG students are not allowed to read this module.",
+    "title": "Electric Energy - Powering The New Millenium"
+}

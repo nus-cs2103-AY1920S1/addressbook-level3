@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ST5208",
+    "courseCredit": "4",
+    "description": "This module covers modern procedures for quality monitoring and productivity improvements. Quality control charting procedures: Shewhart, cumulative sum, straight moving average and exponentially weighted moving average charts. Run length distributions. Optimal charting procedures. Risk-adjusted charting procedures. Multivariate charting procedures. Process capability analysis. Design of experiments and process optimization. Predictive analytics of processes. Acceptance sampling procedures. This module is targeted at students who are interested in quality control and productivity improvements, and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": "ST3235",
+    "title": "Analytics for Quality Control and Productivity Improvements"
+}

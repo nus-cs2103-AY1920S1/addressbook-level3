@@ -1,0 +1,16 @@
+{
+    "courseCode": "MUA3240",
+    "courseCredit": "2",
+    "description": "A continuation from MUA2240, students will continue to further study and perform works for piano ensemble - either piano duos or duets. Students must participate in a public, assessed performance as the final examination of the prepared work(s).",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA4240"
+    ],
+    "prereqTree": {
+        "or": [
+            "MUA2240",
+            "MUA2155"
+        ]
+    },
+    "title": "Collaborative Piano - Piano Ensemble"
+}

@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CM1502X",
+    "courseCredit": "4",
+    "description": "This module introduces some basic principles of general and physical chemistry to engineering students. Topics covered include atomic and molecular structures, spectroscopies and their applications, bonding and interactions in interfaces and materials, chemical equilibrium, chemical kinetics, common molecules and their transformations especially in chemical and pharmaceutical industries. The purpose is to provide engineering students the foundations in important concepts and principles of chemistry, with an emphasis on practical applications in engineering and technology.",
+    "faculty": "Science",
+    "preclusion": "CM1502, CM1502FC, Chemistry majors",
+    "title": "General and Physical Chemistry for Engineers"
+}

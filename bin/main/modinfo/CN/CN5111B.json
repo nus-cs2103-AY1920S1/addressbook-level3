@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "lab": true
+    },
+    "courseCode": "CN5111B",
+    "courseCredit": "4",
+    "description": "Students will learn fundamentals, methods, and software for formulating and solving optimization problems related to chemical engineering. They will study various methods of linear/nonlinear and unconstrained/constrained programming, which would enable them to select and use appropriate solution algorithms and/or software for solving a given problem. Guest lecturer with extensive industrial experience in the optimization area will discuss many case studies in reality, to demonstrate how these theoretical tools can be used.",
+    "faculty": "Engineering",
+    "title": "Process Optimization with Industrial Applications"
+}

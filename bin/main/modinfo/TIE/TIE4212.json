@@ -1,0 +1,13 @@
+{
+    "courseCode": "TIE4212",
+    "courseCredit": "4",
+    "description": "This module introduces students to advanced modeling concepts and methods in industrial and operations management. With systems becoming more complex, this module will impart students with the skills to conduct appropriate optimization modeling of the problems encountered in these systems. Students will learn how to solve these models computationally using exact and heuristic methods to make optimal or near-optimal decisions for these systems. Selected problems in logistics systems will be used to illustrate the real-world modeling applications.",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": {
+        "or": [
+            "IE2110E",
+            "TIE2110"
+        ]
+    },
+    "title": "Advanced Modeling in Operations Management"
+}

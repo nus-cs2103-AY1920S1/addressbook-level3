@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CE2183",
+    "courseCredit": "4",
+    "description": "A project has to be managed effectively so that it can be delivered on time, within budget, safely and meeting quality specifications. This course is a first course on project management. It introduces the student to construction planning, contract administration and managing the site. Through a project and employing a project planning software commonly used in the industry, the students will also learn how to plan and schedule a project for construction.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CE5804",
+        "CE5805",
+        "CE5806"
+    ],
+    "preclusion": "TCE2183",
+    "title": "Construction Project Management"
+}

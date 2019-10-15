@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1012",
+    "courseCredit": "4",
+    "description": "The module challenges students to examine current and emerging social issues in Singapore that affect family and community well-being. Due to complex social and technological changes that societies are experiencing, people are forced to adapt rapidly, often with negative consequences in many instances. The social issues that arise as a result need to be understood and addressed by individuals, families, communities and society at large. Students will learn to appreciate the implications of these issues for individual and collective action.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "GES1016",
+    "title": "Contemporary Social Issues in Singapore"
+}

@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3282C",
+    "courseCredit": "4",
+    "description": "This first half of the module will explicate different methods and paradigms in social psychology with attitudes and persuasion studies. The course aims to provide students with a broad overview of methodologies as well as a deeper understanding of the important issues in attitudes research at the same time. For the second half of the module, students will carry out group projects, applying their knowledge to conducting research. They will have hands-on experiences at different research stages, from how a research question is formulated, operationalized and investigated, to data analysis, result presentation and writing-up.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3235"
+        ]
+    },
+    "title": "Lab in Attitudes"
+}

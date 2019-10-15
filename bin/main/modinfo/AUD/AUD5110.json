@@ -1,0 +1,16 @@
+{
+    "courseCode": "AUD5110",
+    "courseCredit": "3",
+    "description": "This module provides an understanding of the background, techniques, interpretation and the usefulness of caloric test, ocular motility, positional and positioning testing on patients with balance disorder. The module involves lecture and clinical practicum with guided and structured observation, whereby students will get an opportunity to observe experienced Audiologist performing caloric and ocular motor tests on patients with balance disorder.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "fulfillRequirements": [
+        "AUD5216"
+    ],
+    "prereqTree": {
+        "or": [
+            "AUD5102",
+            "AUD5103"
+        ]
+    },
+    "title": "Vestibular Assessment and Management A"
+}

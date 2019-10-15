@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ESE2001",
+    "courseCredit": "4",
+    "description": "The Anthropocene is a proposed new geological era based on the scientific evidence that human impacts on natural environmental processes now rival geological forces in influencing the trajectory of the planetary system. This module provides an insight into contaminant transport and new complex physical interactions between human activities and natural processes. Major topics include energy fundamentals and need for new energy resources, depletion and contamination of natural resources (including minerals, groundwater, air), transport processes in the multimedia environment (advection, diffusion, dispersion, interphase mass transfer, reaction kinetics), as well as introduction to man-made climate change and its ecological and societal implications.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ESE2401"
+    ],
+    "prereqTree": "ESE2102",
+    "title": "Environmental Challenges in the Anthropocene"
+}

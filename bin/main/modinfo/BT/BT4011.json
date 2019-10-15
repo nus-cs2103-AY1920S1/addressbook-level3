@@ -1,0 +1,9 @@
+{
+    "courseCode": "BT4011",
+    "courseCredit": "14",
+    "description": "This module aims to equip students with a final exposure to working in industry with theories, methods and applications of business analytics learnt before eventual graduation. In this module, students are expected to significantly contribute to the company\u2019s project that they are doing the internship. Students put their knowledge into practice and solving business problems relating to a specific, sizable industry project. Students will also sharpen communication skills through close team interactions, consultations, and formal presentations. Students in this capstone industry project will be jointly guided by supervisors from both the companies/organisations and the school. Their progress on the projects will be monitored during the internship period, and their performance will be assessed through letter grades at the end of internship. The internship duration is expected to be approximately 28 weeks (full-time).",
+    "faculty": "Computing",
+    "preclusion": "BT3101",
+    "prereqTree": "BT4010",
+    "title": "Business Analytics Capstone Industry Project"
+}

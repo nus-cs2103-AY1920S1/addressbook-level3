@@ -1,0 +1,13 @@
+{
+    "courseCode": "EL3210",
+    "courseCredit": "4",
+    "description": "This module explores the processes underlying language comprehension, language production, and language acquisition in children and adults. The topics include language and brain, the role of learners\u2019 attention, short-term memory, and long-term memory in language production, lexical storage and access, discourse comprehension and memory, language acquisition, and production of speech and writing.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "EL1101E",
+            "GEK1011"
+        ]
+    },
+    "title": "Topics in the Psychology of Language"
+}

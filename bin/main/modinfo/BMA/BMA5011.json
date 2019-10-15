@@ -1,0 +1,10 @@
+{
+    "courseCode": "BMA5011",
+    "courseCredit": "4",
+    "description": "This module provides the tools and techniques of macro- and international economic thinking as applied to business. It provides a foundation for international management, particularly country risk analysis, finance, and other business disciplines. Specific learning outcomes are understanding of (i) Tracking the macro-economy; (ii) Sources of growth; (iii) Short-term fluctuations -- business cycle; (iv) Government policy; and (v) International trade and finance.'",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "BMA5122A"
+    ],
+    "title": "Macroeconomics in the Global Economy"
+}

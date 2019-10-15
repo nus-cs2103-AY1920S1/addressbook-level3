@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "TIC1001",
+    "courseCredit": "4",
+    "description": "This module aims to (i) expose students to computing principles (including abstraction and composition), (ii) provide a broad introduction to key computing concepts (including computer organisation, operating systems, data management, distributed applications), and (iii) introduce students to basic programming methodologies and problem solving techniques through a simple structured programming language.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIC1002"
+    ],
+    "preclusion": "TE2101, TEE2101",
+    "title": "Introduction to Computing and Programming I"
+}

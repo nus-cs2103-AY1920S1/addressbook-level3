@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GET1021",
+    "courseCredit": "4",
+    "description": "The challenges of a global engineer increasingly call upon engineers to think critically and communicate effectively to undertake developmental leadership. This course aims to develop and practise students\u2019 critical thinking and writing skills through analysing case studies in engineering leadership, constructing complex engineering-related problems and solutions, presenting arguments effectively and reflecting on personal leadership development. Relevance to engineering practice is emphasized with references to grounded theories of engineering leadership and the seven missing basics of engineering education.",
+    "faculty": "NUS",
+    "preclusion": "1. IEM1201%, UTW1001%, ES1531, GEK1549 and GET1021. \n2. U-town students cannot select ES2531.\n3. ES1601 and ES1601A Professional and Academic Communication.",
+    "title": "Critical Thinking And Writing"
+}

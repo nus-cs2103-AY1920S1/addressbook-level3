@@ -1,0 +1,15 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CM1401",
+    "courseCredit": "4",
+    "description": "This is a chemistry module catered for Life Sciences students and deals primarily with the basic principles to understand the structure and reactivity of organic molecules, towards the syntheses of functional molecules and basic analytical techniques.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "CM2142",
+        "CM4227"
+    ],
+    "preclusion": "CM1121 or CM1402 or CM1501",
+    "title": "Chemistry for Life Sciences"
+}

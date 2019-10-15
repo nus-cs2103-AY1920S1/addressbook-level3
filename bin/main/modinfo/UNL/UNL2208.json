@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UNL2208",
+    "courseCredit": "4",
+    "description": "How is it possible that only a small number of genes can code for the shape of a tree? Or more generally, where does the complex behaviour so common in the natural world come from? Indeed, how is it conceivable that trillions of neurons create intelligent behaviour? A key to answer these questions lies in interaction and recursion. In this module, the world of complex systems and their fundamental mechanisms are explored through lectures, seminars and hands-on programming. It will be shown how in many cases complex systems can be modelled with recursive processes leading to emergent phenomena that defy an atomic explanation.",
+    "faculty": "University Scholars Programme",
+    "title": "Complexity and Recursion"
+}

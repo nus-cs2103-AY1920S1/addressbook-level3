@@ -1,0 +1,17 @@
+{
+    "courseCode": "TEE2003",
+    "courseCredit": "4",
+    "description": "This is a follow up module for TE2002. The topics include the following: complex functions, complex differentiation, Cauchy-Riemann equations, singularities and zeros, contour integration, conformal mapping; probability, random variables, probability density function, distributions, applied statistics, random process, responses of linear systems to random inputs.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TEE3731",
+        "TEE3801",
+        "TEE4113",
+        "TEE4210",
+        "TEE4204",
+        "TEE4211"
+    ],
+    "preclusion": "TE2401, TE2003",
+    "prereqTree": "TEE2002",
+    "title": "Advanced Mathematics for Engineers"
+}

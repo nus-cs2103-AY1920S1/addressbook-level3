@@ -1,0 +1,27 @@
+{
+    "courseCode": "ST3247",
+    "courseCredit": "4",
+    "description": "The advent of fast and inexpensive computational power has facilitated the description of real phenomenon using realistic stochastic models which can be analysed using simulation studies. This module teaches students how to analyse a model by use of a simulation study and the topics include: pseudorandom number generation, generating discrete and continuous random variables, simulating discrete events, statistical analysis of simulated data, variance reduction, Markov Chain Monte Carlo methods. It also covers topics in stochastic optimisation such as simulated annealing. This module is targeted at students who are interested in Statistics and are able to meet the prerequisites.",
+    "faculty": "Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "ST2131",
+                    "ST2334",
+                    "MA2216"
+                ]
+            },
+            {
+                "or": [
+                    "CS1010",
+                    "CS1010E",
+                    "CS1010S",
+                    "CS1010FC",
+                    "IT1006"
+                ]
+            }
+        ]
+    },
+    "title": "Simulation"
+}

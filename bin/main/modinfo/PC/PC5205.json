@@ -1,0 +1,13 @@
+{
+    "courseCode": "PC5205",
+    "courseCredit": "4",
+    "description": "Selected topics from the following will be covered: introduction to surfaces in ultrahigh vacuum; thermodynamic and statistical properties of clean surfaces; interactions between light/ion/electron beams with surface and the surface analysis techniques derived from (including XPS, UPS, IR/Raman, RBS, SIMS, Auger, STM/AFM etc.); electronic, magnetic and optical properties at the surface; surface science in thin films, nanostructures and biomaterials; adsorption phenomena at surfaces; surface processes on nucleation and epitaxial growth; catalysis etc. There are laboratory sessions in this module which contains practice on XPS, SIMS, STM/AFM and IR. This module is targeted at physics, chemistry, materials science and engineering students who already have a basic knowledge of solid-state physics.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "PC4223",
+            "PC4259"
+        ]
+    },
+    "title": "Topics in Surface Physics"
+}

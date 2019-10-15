@@ -1,0 +1,10 @@
+{
+    "courseCode": "ME6105",
+    "courseCredit": "4",
+    "description": "",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME6107"
+    ],
+    "title": "Continuum Mechanics"
+}

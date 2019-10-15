@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BH2003",
+    "courseCredit": "4",
+    "description": "Management science makes use of analytical methods to distil intelligence for leaders' decision-making. Thus, this module is concerned with modelling and problem solving, and shall find applications in fields like finance, economics, operations management, logistics, and engineering. As an introductory module, we strive for breadth, giving an overview of several practical approaches, as well as sufficient depth, so as to provide a substantial feel for the discipline and a good foundation for further reading. Topics will include linear programming (including spreadsheet solution & sensitivity analysis), integer programming, network flow models, project management, decision analysis, and queuing models.",
+    "faculty": "NUS Business School",
+    "title": "Management Science"
+}

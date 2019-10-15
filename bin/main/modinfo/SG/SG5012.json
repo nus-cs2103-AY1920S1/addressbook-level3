@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG5012",
+    "courseCredit": "4",
+    "description": "The objective of this course is for the students to learn how to architect systems that are reliable. Topics that will be covered are Safety, Reliability, Availability, Resilience, Security, Performance and Maintainability issues in building software systems. The benefits of using Formal methods to ensure these parameters in a software will be discussed. This course is appropriate for all software engineers who are developing highly reliable software systems and who wish to apply Formal Methods. The course combines theory, simple practice exercises, and real-world applications or case studies. The main themes will be covered by an inverse pedagogy, viz., case study first, then class discussion, then the relevant theory, and finally a workshop, takeaway, or both. Main areas of application of the principles and concepts will be aligned to the needs of the nation, e.g. transport, health, defence and embedded systems.",
+    "faculty": "Institute of Systems Science",
+    "title": "Architecting Reliable Systems"
+}

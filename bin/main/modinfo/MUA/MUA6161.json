@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA6161",
+    "courseCredit": "10",
+    "description": "This module revolves around individual instrumental / composition lessons specially designed for performance / composition majors. It continues to consolidate and hone technical and musical skills appropriate to a varied range of musical styles and professional performance contexts. It develops confidence, independence, self-reliance and selfreflection in preparation for advanced study and a life of changing professional expectations and demands.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA6162"
+    ],
+    "prereqTree": "MUA5162",
+    "title": "Major Study 6A"
+}

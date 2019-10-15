@@ -1,0 +1,20 @@
+{
+    "courseCode": "PL3233",
+    "courseCredit": "4",
+    "description": "This module deals with the psychological study of human information processing; learning and memory; acquisition, retrieval, and forgetting; and general knowledge, concepts, reasoning, and related issues in cognition. The impact of computational approaches on cognition is considered.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PL5303",
+        "PL5303R",
+        "PL3243",
+        "PL3248",
+        "PL3249",
+        "PL3250",
+        "PL3281B",
+        "PL3281C",
+        "PL3281",
+        "PL3281A"
+    ],
+    "prereqTree": "PL1101E",
+    "title": "Cognitive Psychology"
+}

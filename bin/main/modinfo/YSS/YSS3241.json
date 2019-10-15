@@ -1,0 +1,13 @@
+{
+    "courseCode": "YSS3241",
+    "courseCredit": "5",
+    "description": "This is an advanced course for students who have an interest in political philosophy. It aims to introduce the Chinese traditional political thoughts that date back to the period before Qin Dynasty, i.e. up to 221 B.C. In particular, it aims to demonstrate what and how the major ancient Chinese political thinkers understand and discuss the important philosophical questions in the field of politics that are (more than often) still relevant nowadays. To this end, this course takes a thematic rather than a chronological approach.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1113",
+            "YCC1114"
+        ]
+    },
+    "title": "Chinese Political Philosophy: Confucianism & its Rivals"
+}

@@ -1,0 +1,23 @@
+{
+    "courseCode": "FIN3102B",
+    "courseCredit": "4",
+    "description": "This is an introductory course in investments. It provides a comprehensive coverage of basic concepts, theories, applications and decision-making rules in financial investment. Topics to be covered include fundamental security analysis on stocks, bonds, options and futures as well as modern portfolio management. On completion, candidates should be conversant in investment management in preparation for careers in financial analysis and financial planning, investment banking, and corporate finance. Candidates should also be equipped to write the Chartered Financial Analysts (CFA) Level 1 examinations in quantitative analysis, equity securities analysis and portfolio management.",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "FIN3115",
+        "FIN3116",
+        "FIN3131",
+        "FIN4111"
+    ],
+    "preclusion": "BH3102 or BZ3302 or BK3101 or FNA3102 or FNA3102A/C or FIN3102 or FIN3102A/C or FE5108 or EC3333 or CF3101/QF3101",
+    "prereqTree": {
+        "or": [
+            "FNA2004",
+            "FIN2004",
+            "BH2004",
+            "BZ2004",
+            "BK2004"
+        ]
+    },
+    "title": "Investment Analysis and Portfolio Management"
+}

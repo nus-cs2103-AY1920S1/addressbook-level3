@@ -1,0 +1,22 @@
+{
+    "courseCode": "EE2024",
+    "courseCredit": "5",
+    "description": "This course provides students with the experience of programming devices and computer interfaces. The course builds upon the C language programming skills the students have learnt in the previous semester and teaches them how to utilize programming to build simple digital systems. The course culminates in an open-ended project in which students will have the opportunity to design and build a digital system of their choice.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CS2106",
+        "CS3210",
+        "CS3237",
+        "EE3208",
+        "EE4214",
+        "EE3032",
+        "CG3002"
+    ],
+    "prereqTree": {
+        "and": [
+            "EE2020",
+            "CS1010E"
+        ]
+    },
+    "title": "Programming for Computer Interfaces"
+}

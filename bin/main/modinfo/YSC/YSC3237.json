@@ -1,0 +1,12 @@
+{
+    "courseCode": "YSC3237",
+    "courseCredit": "5",
+    "description": "Algebra is the study of mathematical symbols and the rules used to manipulate them. Throughout the history of mathematics, algebraic methods have been developed to solve equations using simple, but important, properties of numbers that make meaningful calculations possible. Those properties arise in a variety of other settings, however, allowing us to make algebraic arguments in a significantly broader context. This course introduces modern algebra \u2014 specifically the mathematical objects called groups and rings \u2014 through a rigorous exploration of familiar notions, including permutations, symmetries, polynomials, and matrices, resulting in a cohesive, unifying theory with far-reaching applications throughout the natural sciences.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC4202"
+    ],
+    "preclusion": "Precludes previous module codes of YSC3220 Rings and Fields & YSC3204 Group Theory, which have been consolidated into a single course YSC3237 Introduction to Modern Algebra.",
+    "prereqTree": "YSC2209",
+    "title": "Introduction to Modern Algebra"
+}

@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "ssgf": true,
+        "su": true
+    },
+    "courseCode": "FST1103",
+    "courseCredit": "4",
+    "description": "This module introduces students to the fundamental engineering principles of food processing systems, including process classification, mass and energy balances, fluid mechanics and transport, steady-state and unsteady-state heat transfer, steam generation and utilisation. It further covers the applications of the engineering principles to several common processes found in the handling, processing, storage, packaging and distribution of food products, e.g. heat exchange, and refrigeration. Industrial examples related to the principles will be provided throughout the module.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST3103"
+    ],
+    "preclusion": "CM1161, CM2161",
+    "prereqTree": "FST1101",
+    "title": "Fundamentals of Food Engineering"
+}

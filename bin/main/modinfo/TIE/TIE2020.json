@@ -1,0 +1,14 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "TIE2020",
+    "courseCredit": "4",
+    "description": "This module introduces students to the basic concepts and the methods of probability and statistics. Topics include the basic concepts of probability, conditional probability, independence, random variables, discrete and continuous distributions, joint and marginal distributions, mean and variance, some common probability distributions, sampling distributions, estimation and hypothesis testing.",
+    "faculty": "Cont and Lifelong Education",
+    "fulfillRequirements": [
+        "TIE4203"
+    ],
+    "preclusion": "IE2120E, TMA2103, TIE2120, IE2020E",
+    "title": "Probability and Statistics"
+}

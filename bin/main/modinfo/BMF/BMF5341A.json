@@ -1,0 +1,8 @@
+{
+    "courseCode": "BMF5341A",
+    "courseCredit": "2",
+    "description": "This module develops a conceptual framework for evaluating various active investment strategies. Topics include factor models, comovement in returns, market anomalies, and liquidity considerations. We will also discuss behavioral patterns in trading by investors and its implications for asset prices.",
+    "faculty": "NUS Business School",
+    "prereqTree": "BMF5332",
+    "title": "Advanced Investment Strategies"
+}

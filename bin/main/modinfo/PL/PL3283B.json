@@ -1,0 +1,15 @@
+{
+    "courseCode": "PL3283B",
+    "courseCredit": "4",
+    "description": "This lab module will introduce to students linguistic and non-linguistic ways of human communication from psycholinguistic perspectives. It addresses the following issues: 1) How do speakers communicate? 2) How do they modify the ways of communication to accommodate different circumstances? 3) When and how do children develop different ways of communication? 4) Are there cross-linguistic differences in ways of communication? 5) How do communication-impaired adults and children incorporate other modalities to communicate? Theoretical and empirical issues will be discussed. Students will also conduct scientific studies to examine the latest issues of human communication.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            "PL1101E",
+            "PL2131",
+            "PL2132",
+            "PL3234"
+        ]
+    },
+    "title": "Lab in Development of Communication"
+}

@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE6002",
+    "courseCredit": "4",
+    "description": "This module is an advanced version of IE5002 ? Applied Engineering Statistics. This module aims to provide statistical analysis and experimentation techniques for engineers. Topics include analysis of variance, regression analysis, factorial and fractional factorial designs, response surface methodology and non-parametric methods. The module is application oriented and examples drawn from industrial applications rather than mathematical development will be used wherever possible to introduce a topic. Besides evening lectures on the above topic, seminars on fundamental aspects of the subject matters will be conducted. Research papers will be reviewed during the seminars.",
+    "faculty": "Engineering",
+    "title": "Advanced Engineering Statistics"
+}

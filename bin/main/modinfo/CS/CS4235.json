@@ -1,0 +1,18 @@
+{
+    "courseCode": "CS4235",
+    "courseCredit": "4",
+    "description": "Computational geometry is the study of algorithms for solving geometric problems. This course introduces the main topics and techniques in this field. They will be presented in connection with applications in CAD, databases, geographic information systems, graphics and robotics. Students will learn the main algorithmic techniques for solving geometric problems and the related discrete geometric structures. At the end of this module, students will be able to design and analyse geometric algorithms and data structures, and to apply these techniques to solve problems arising in applications.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "and": [
+            "CS3230",
+            {
+                "or": [
+                    "MA1101R",
+                    "MA1506"
+                ]
+            }
+        ]
+    },
+    "title": "Computational Geometry"
+}

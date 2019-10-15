@@ -1,0 +1,14 @@
+{
+    "courseCode": "TME4213",
+    "courseCredit": "4",
+    "description": "This module develops students\u2019 understanding of various methods used to determine the shock and vibration characteristics of mechanical systems and instills an appreciation of the importance of these characteristics in the design of systems and their applications in vibration isolation, transmission, and absorption problems; Natural frequencies and normal modes; Dynamic response and stability. Single and multiple-degree-of-freedom systems will be treated using continuous and discrete system concepts, including Lagrange\u2019s equations. Approximation methods for solution as well as instrumentation for vibration measurement will be discussed. Examples will be drawn mainly from mechanical disciplines.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TM3213, ME4213E",
+    "prereqTree": {
+        "or": [
+            "TME3112",
+            "ME3112E"
+        ]
+    },
+    "title": "Vibration Theory & Applications"
+}

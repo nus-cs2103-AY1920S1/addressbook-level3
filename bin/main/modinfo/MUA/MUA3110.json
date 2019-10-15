@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA3110",
+    "courseCredit": "2",
+    "description": "A continuation of MUA2110, students will further study and perform works of chamber music for mixed ensembles, as specified in the description of module MUA2110. Students should participate in at least one public performance as well as in a final examination of the prepared work(s).",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA4110"
+    ],
+    "prereqTree": "MUA2110",
+    "title": "Chamber Music in Mixed Ensemble"
+}

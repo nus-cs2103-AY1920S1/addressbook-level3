@@ -1,0 +1,14 @@
+{
+    "courseCode": "FE5112",
+    "courseCredit": "4",
+    "description": "This module will cover the fundamental concepts of stochastic calculus as well as quantitative methods that are relevant to financial engineering. The topics include Wiener processes, stochastic integrals, stochastic differential equations, Ito\u2019s lemma, the martingale principle and risk neutral pricing. It will also cover important topics in linear algebra and optimization.",
+    "faculty": "Risk Management Institute",
+    "fulfillRequirements": [
+        "FE5222",
+        "FE5219",
+        "FE5208",
+        "FE5116D",
+        "FE5116"
+    ],
+    "title": "Stochastic Calculus and Quantitative Methods"
+}

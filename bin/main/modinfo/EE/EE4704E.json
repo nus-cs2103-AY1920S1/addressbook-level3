@@ -1,0 +1,14 @@
+{
+    "courseCode": "EE4704E",
+    "courseCredit": "4",
+    "description": "This module covers the basic concepts and techniques in computer vision and digital image processing. The following topics are taught: elements of a vision system, image acquisition, 2-D discrete Fourier transform, image enhancement techniques, error-free and lossy compression, segmentation methods, and representation and description methods.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CS4243, TEE3206, EE3206E, TEE4704",
+    "prereqTree": {
+        "or": [
+            "EE2009E",
+            "EE2023E"
+        ]
+    },
+    "title": "Introduction to Computer Vision and Image Processing"
+}

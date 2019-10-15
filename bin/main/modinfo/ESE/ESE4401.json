@@ -1,0 +1,14 @@
+{
+    "courseCode": "ESE4401",
+    "courseCredit": "4",
+    "description": "This module provides the information regarding application of advanced unit operations and processes for enhancing the quality of treated effluent and rendering the product water suitable for reuse applications. The module will enable students to understand the fundamental principles of advanced wastewater treatment. Students are taught to identify and design the appropriate advanced treatment system to enhance the quality of the treated effluent and exploit the option of reuse application.",
+    "faculty": "Engineering",
+    "preclusion": "TCE4401",
+    "prereqTree": {
+        "and": [
+            "ESE2401",
+            "ESE3401"
+        ]
+    },
+    "title": "Water & Wastewater Engineering 2"
+}

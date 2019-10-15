@@ -1,0 +1,21 @@
+{
+    "courseCode": "PC3243",
+    "courseCredit": "4",
+    "description": "This module is a first course on photonics that combines fundamentals with important applications, and is targeted at students interested in modern optical technology. The course covers planar dielectric waveguides, basics of optical fibre communication, optical properties of crystals and semiconductors, interband transitions and radiative recombination, semiconductor detectors, stimulated emission and population inversion, diode laser threshold and output power, argon and YAG lasers, Q-switching and mode-locking, electro-optics modulators and flat panel displays. The course strives to maintain succinctness in physical meaning and simplicity in approach with generous allotment of numerical examples to help in understanding the equations.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC4246"
+    ],
+    "prereqTree": {
+        "or": [
+            "PC2131",
+            "PC2231",
+            "PC3130",
+            "PC3241",
+            "PC3235",
+            "PC2133",
+            "EE2005"
+        ]
+    },
+    "title": "Photonics"
+}

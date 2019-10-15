@@ -1,0 +1,13 @@
+{
+    "courseCode": "DEP5106",
+    "courseCredit": "8",
+    "description": "",
+    "faculty": "Design and Environment",
+    "prereqTree": {
+        "or": [
+            "UP5101",
+            "UD5622"
+        ]
+    },
+    "title": "Integrated Urban Planning Studio"
+}

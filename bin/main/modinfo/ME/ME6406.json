@@ -1,0 +1,7 @@
+{
+    "courseCode": "ME6406",
+    "courseCredit": "4",
+    "description": "Optimization technique has become a fundamental tool for many applications in science and engineering. Optimization for dynamic system is of particular interest in today\u2019s system design and integration. This course will cover both optimization in the static case, as well as modelling dynamic system as Markov system and optimize its performance via dynamic programming.",
+    "faculty": "Engineering",
+    "title": "Optimization Techniques for Dynamical Systems"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "EC5314R",
+    "courseCredit": "5",
+    "description": "The main objective of this course is to provide a rigorous training in univariate and multivariate time series analysis. Univariate techniques are mainly used for forecasting and multivariate techniques are used for both forecasting and policy analyses. Starting with simple ARMA and GARCH models the course moves on to more advanced topics involving non-stationary multivariate processes. Students will learn to use Monte Carlo techniques as well as a lot of practical applications.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC5214",
+    "prereqTree": {
+        "or": [
+            "EC5154",
+            "EC5103"
+        ]
+    },
+    "title": "Time Series Analysis"
+}

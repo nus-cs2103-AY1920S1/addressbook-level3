@@ -1,0 +1,9 @@
+{
+    "courseCode": "TCE5106",
+    "courseCredit": "4",
+    "description": "This is an advanced module on ground improvement techniques as well as its design, construction and monitoring in geotechnical engineering. Topics covered include ground improvement principles and design considerations, techniques of improving granular soils, techniques of improving cohesive soils and peaty soils, field controls and monitoring, field evaluation \u2013 specification, performance evaluation and acceptance criteria, and case study. Student are taught the basic principles of various ground improvement techniques, and how to select the most appropriate ground improvement techniques to be used in specific circumstances. Specific learning objectives include understanding the principles and design of vibroflotation method, dynamic compaction, dynamic replacement with mixing, vertical drains with preloading, chemical stabilization and grouting, etc. Field construction control and instrumentation as well as monitoring techniques will be discussed",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "CE5106",
+    "prereqTree": "TCE2112",
+    "title": "Ground Improvement"
+}

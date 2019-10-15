@@ -1,0 +1,15 @@
+{
+    "courseCode": "MNO3761A",
+    "courseCredit": "4",
+    "description": "This module examines deviant behaviors at the workplace, corporate misconduct and organizational ethics. Both the employee and organization will be the focus of our analysis. Topics examined include the role of personality and situation in explaining employee and organizational deviance, employee theft, deceit, lying and whistle-blowing among others.",
+    "faculty": "NUS Business School",
+    "preclusion": "MNO3313J",
+    "prereqTree": {
+        "or": [
+            "MNO1706",
+            "MNO1706X",
+            "PL3239"
+        ]
+    },
+    "title": "TILHCM: Employee and Organizational Misbehaviours"
+}

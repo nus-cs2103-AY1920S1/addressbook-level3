@@ -1,0 +1,11 @@
+{
+    "courseCode": "LC1005",
+    "courseCredit": "4",
+    "description": "This course will provide students with a broad overview of Singapore's legal system, including its historical origins and its relationship with the international legal system. Topics examined will include: Singapore legal history; the principal sources of law; the major legal institutions in Singapore; structure and functions of the courts, alternative dispute resolution; and legal education and practice in Singapore. The course will also focus on the relationship between Singapore's legal system and the international legal system, including how the sovereignty and jurisdiction of Singapore is defined, limited and restricted by rules of international law.",
+    "faculty": "Law",
+    "fulfillRequirements": [
+        "LL5190",
+        "LL6190"
+    ],
+    "title": "Singapore Legal System"
+}

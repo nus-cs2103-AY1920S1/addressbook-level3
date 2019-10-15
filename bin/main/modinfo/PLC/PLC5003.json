@@ -1,0 +1,10 @@
+{
+    "courseCode": "PLC5003",
+    "courseCredit": "4",
+    "description": "This module is intended to facilitate acquisition of knowledge and expertise on: 1) normal and abnormal developmental issues affecting health and mental health across one\u2019s lifespan with specific focus on early childhood and adolescent stages, midlife crisis, aging and gero\u2010psychological issues; 2) basic concepts of mind\u2010body interactions and psychoneuroimmunology; 3) role of clinical psychologists in the identification, assessment, and treatment of mental health and health problems across lifespan; 4) psychological management of chronic health and mental health conditions.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "PLC5012"
+    ],
+    "title": "Health across the lifespan"
+}

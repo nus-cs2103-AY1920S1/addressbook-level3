@@ -1,0 +1,11 @@
+{
+    "courseCode": "FDP2021",
+    "courseCredit": "8",
+    "description": "Topics covered include vectorial calculus, electrostatics, magnetostatics and electromagnetism.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FDP2022"
+    ],
+    "preclusion": "FDP2002 Special Physics Class 1, 2 & 3",
+    "title": "Special Physics Class 1, 2"
+}

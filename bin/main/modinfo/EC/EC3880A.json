@@ -1,0 +1,16 @@
+{
+    "courseCode": "EC3880A",
+    "courseCredit": "4",
+    "description": "This course takes a multi\u2010disciplinary, practitionerdriven perspective to analysing government policies and actions. It does this by applying three conceptual paradigms to studying government, namely standard economics, behavioural economics and organisational psychology. The course will first examine governments through the lens of market failures and how economists have viewed the role of government. It will then examine the cognitive limits of economic agents and explore how behavioural economics offers the prospect of better policy design. In the third segment, the course explores government actions through the lens of organisational psychology, and examines how bureaucratic inertia impedes reform and innovation.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PP5141",
+    "prereqTree": {
+        "and": [
+            "EC2101",
+            "EC2102",
+            "EC3101",
+            "EC3102"
+        ]
+    },
+    "title": "Topics in Economics: Understanding Government"
+}

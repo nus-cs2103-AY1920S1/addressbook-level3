@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE6405",
+    "courseCredit": "4",
+    "description": "This module is an advanced version of IE5405 ? Inventory Systems. This module introduces inventory theory and its application to the management of inventory systems. Many of the models developed will be for the single item, single stage inventory system, considering both stationary and time-varying conditions. There will be some coverage of multistage inventory systems and multiple-item problems under constraints. Besides evening lectures on the above topic, seminars on fundamental aspects of the subject matters will be conducted. Research papers will be reviewed during the seminars.",
+    "faculty": "Engineering",
+    "title": "Advanced Inventory Systems"
+}

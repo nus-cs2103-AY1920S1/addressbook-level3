@@ -1,0 +1,9 @@
+{
+    "courseCode": "YSC4220",
+    "courseCredit": "5",
+    "description": "Much of modern science and mathematics is expressed in the language of differential equations. Population models in ecology, financial growth, heat conduction, and water waves are a few examples. In this course, you will solve the classical linear ordinary and partial differential equations. Students will assemble a toolbox of mathematical techniques to solve initial and boundary value problems, including integrating factors, separation of variables, and Fourier series.",
+    "faculty": "Yale-NUS College",
+    "preclusion": "Previous code YSC3230 Ordinary and Partial Differential Equations",
+    "prereqTree": "YSC2232",
+    "title": "Ordinary and Partial Differential Equations"
+}

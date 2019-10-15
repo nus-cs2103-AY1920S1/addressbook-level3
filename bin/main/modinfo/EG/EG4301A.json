@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "year": true
+    },
+    "courseCode": "EG4301A",
+    "courseCredit": "12",
+    "description": "This module is an opportunity for aspiring entrepreneurial students to launch their product/solution. It brings in the principles of the Lean Launchpad and the Disciplined Entrepreneurship framework to accelerate students\u2019 understanding of the entrepreneurial process and enables further development of their ideas/projects into viable and sustainable ventures. In the process, students will learn to identify the customer and market, determine the business model, and develop a minimum viable product (MVP) using design and engineering skills that they have garnered throughout their undergraduate study. Students will also learn the mechanics of venture creation, for example company formation, fund raising and more.",
+    "faculty": "Engineering",
+    "preclusion": "EG4301 DCP B.Eng. Dissertation (12 MC)\nBN4101 B.Eng. Dissertation (8 MCs)\nBN4101R B.Eng. Dissertation (12 MCs)\nCE4104 B.Eng. Dissertation (8 MCs)\nCG4001 B.Eng. Dissertation (12 MCs)\nCG4003 B.Eng. Dissertation (12 MCs)\nCN4118 B.Eng. Dissertation (8 MCs)\nCN4118R B.Eng. Dissertation (10 MCs)\nEE4001 B.Eng. Dissertation (12 MCs)\nEE4002R Research Capstone (8 MCs)\nESP4901 Research Project (12 MCs)\nESE4502 B.Eng. Dissertation (12 MCs)\nESE4502R B.Eng. Dissertation (8 MCs)\nIE4100 B.Eng. Dissertation (12 MCs)\nIE4100R B.Eng. Dissertation (8 MCs)\nME4101 B.Eng. Dissertation (12 MCs)\nME4101A B.Eng. Dissertation (8 MCs)\nMLE4101 B.Eng. Dissertation (12 MCs)\nMLE4101A B.Eng. Dissertation (6 MCs)",
+    "prereqTree": "EG3301R",
+    "title": "Ideas to Start-up"
+}

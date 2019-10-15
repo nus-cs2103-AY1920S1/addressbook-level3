@@ -15,6 +15,8 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.cca.Cca;
+import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
@@ -32,29 +34,36 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     //private final FinanceTracker financeTracker;
     private final UserPrefs userPrefs;
+
+    private final CcaTracker ccaTracker;
     private final FilteredList<Person> filteredPersons;
     private final Planner planner;
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(HistoryManager historyManager, ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
-                        Planner planner) {
+
+    public ModelManager(CcaTracker ccaTracker, HistoryManager historyManager, ReadOnlyAddressBook addressBook,
+                        ReadOnlyUserPrefs userPrefs, Planner planner) {
         super();
-        requireAllNonNull(historyManager, addressBook, userPrefs);
+        requireAllNonNull(ccaTracker, historyManager, addressBook, userPrefs, planner);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
+        this.ccaTracker = new CcaTracker(ccaTracker);
         this.historyManager = new HistoryManager(historyManager);
         this.addressBook = new AddressBook(addressBook);
-        this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.userPrefs = new UserPrefs(userPrefs);
         this.planner = new Planner(planner);
     }
 
     public ModelManager() {
-        this(new HistoryManager(), new AddressBook(), new UserPrefs(), new Planner());
+        this(new CcaTracker(), new HistoryManager(), new AddressBook(), new UserPrefs(), new Planner());
+
     }
+
 
     //=========== UserPrefs ==================================================================================
 
@@ -263,6 +272,42 @@ public class ModelManager implements Model {
                 && addressBook.equals(other.addressBook)
                 && addressBook.getFilteredPersonList().equals(other.addressBook.getFilteredPersonList())
                 && userPrefs.equals(other.userPrefs);
+    }
+
+
+    //=========== Cca Tracker ================================================================================
+
+    @Override
+    public void contains(Cca cca) {
+
+    }
+
+    @Override
+    public void addCca(Cca cca) {
+        requireNonNull(cca);
+        ccaTracker.addCca(cca);
+    }
+
+    @Override
+    public void removeCca(Cca cca) {
+
+    }
+
+    @Override
+    public void updateCca(Cca toBeUpdatedCca, Cca updatedCca) {
+
+    }
+
+    @Override
+    public boolean hasCca(Cca cca) {
+        requireNonNull(cca);
+
+        return ccaTracker.contains(cca);
+    }
+
+    @Override
+    public CcaTracker getCcaTracker() {
+        return ccaTracker;
     }
 
     //=========== Planner =============================================================

@@ -1,0 +1,10 @@
+{
+    "courseCode": "MB5101",
+    "courseCredit": "4",
+    "description": "To provide a working understanding of the basic cell functions and processes with the physical and chemical principles underlying them. In practical terms, we will attempt to solve a number of important problems relevant to replication, transcription, translation, translocation, motility, and other important functions. The assignments will primarily involve the solution of practical cellular problems using quantitative measurements and parameters given in class and original literature will be critically discussed.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MB5102"
+    ],
+    "title": "The Cell as a Machine"
+}

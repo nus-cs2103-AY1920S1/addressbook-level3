@@ -1,0 +1,11 @@
+{
+    "courseCode": "PC4268",
+    "courseCredit": "4",
+    "description": "This module introduces the techniques applied in biophysics and biomolecular electronics. It covers absorption and emission spectroscopy associated with biomolecules; infrared and Raman spectroscopy; magnetic resonance; symmetry of crystal, x-ray crystal structure analysis for macromolecular-structures; principles of light scattering, Rayleigh scattering, scattering from particles comparable to wavelength of radiation, static light scattering, dynamic light scattering, low angle X ray/neutron scattering, scanning probing microscopy; chemical, somatic, and visceral receptors, elements of integrated technologies and applications for biosensors; bio-molecular devices, protein computer. There is a lab component included in this module. This module is targeted at both physics and non-physics students who already have basic knowledge in physics, electronics and molecular biology.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "PC5213"
+    ],
+    "prereqTree": "PC3267",
+    "title": "Biophysical Instrumentation & Biomolecular Electronics"
+}

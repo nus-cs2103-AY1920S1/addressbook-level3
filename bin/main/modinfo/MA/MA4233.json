@@ -1,0 +1,11 @@
+{
+    "courseCode": "MA4233",
+    "courseCredit": "4",
+    "description": "The theory of dynamical systems studies the long-term behaviour of evolving systems. The aim of the module is to introduce fundamental elements of the mathematical theory of dynamical systems, understand nonlinear phenomena including chaos and bifurcation, and illustrate some of the most important ideas and methods to analyze nonlinear systems. Major topics: dynamics of circle maps, structural stability; dynamics of interval maps, symbolic dynamics and chaos, kneading sequence; bifurcation theory for one-dimensional maps; examples of higher dimensional dynamics.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA6216"
+    ],
+    "prereqTree": "MA3220",
+    "title": "Dynamical Systems"
+}

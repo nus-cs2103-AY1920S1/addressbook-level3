@@ -1,0 +1,13 @@
+{
+    "courseCode": "TIE4252",
+    "courseCredit": "4",
+    "description": "This module is an introductory module on systems engineering. It explains systems, systems engineering, system development lifecycles and processes, applications and methods to integrate systems and mitigate risks. In particular, system development will be learned in details through a project.",
+    "faculty": "Cont and Lifelong Education",
+    "prereqTree": {
+        "or": [
+            "IE3010E",
+            "TIE3010"
+        ]
+    },
+    "title": "Introduction to Systems Engineering"
+}

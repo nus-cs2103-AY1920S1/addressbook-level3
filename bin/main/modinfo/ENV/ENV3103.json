@@ -1,0 +1,13 @@
+{
+    "courseCode": "ENV3103",
+    "courseCredit": "4",
+    "description": "This module provides a comprehensive coverage of environmental economics and has been structured on the premise that course participants have little background in economics. The main objective of the module is to illustrate the following premises: the natural environment is the core of any economy and economic sustainability cannot be attained without environmental sustainability. The module consists of three parts, namely microeconomics of the environment, macroeconomics of the environment and environmental policy.",
+    "faculty": "Science",
+    "prereqTree": {
+        "or": [
+            "EC1101E",
+            "EC1301"
+        ]
+    },
+    "title": "Environmental Economics"
+}

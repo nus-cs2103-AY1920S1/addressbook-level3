@@ -1,0 +1,11 @@
+{
+    "courseCode": "MUA5116",
+    "courseCredit": "4",
+    "description": "This module continues to consoldate and hone experience around chamber / orchestral and related ensemble study specially designed for performance / composition majors. Students gain greater responsibility in their roles within the ensembles, including assuming leadership and organizational roles where applicable.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA6115"
+    ],
+    "prereqTree": "MUA5115",
+    "title": "Ensemble Study 5B"
+}

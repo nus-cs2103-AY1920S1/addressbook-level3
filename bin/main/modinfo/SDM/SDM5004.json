@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "SDM5004",
+    "courseCredit": "4",
+    "description": "Systems engineering project management shows how generic project management concepts and methods are used in the context of the systems engineering process to realize techno-centric systems. The module also develops the need for plans to manage change in systems development projects.",
+    "faculty": "Engineering",
+    "preclusion": "IE5208 Systems Approach to Project Management\nDTS5720 Systems Engineering Project Management",
+    "title": "Systems Engineering Project Management"
+}

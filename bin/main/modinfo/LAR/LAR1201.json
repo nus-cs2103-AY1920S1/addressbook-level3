@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAR1201",
+    "courseCredit": "4",
+    "description": "Arabic 1 is a beginners\u2019 module. This is an integrated course which will help students gain basic proficiency in the four skills (listening, speaking, reading, and writing), grammar, vocabulary (including the Arabic alphabet), for personal interaction and communication in authentic situations.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAR2201"
+    ],
+    "title": "Arabic 1"
+}

@@ -1,0 +1,7 @@
+{
+    "courseCode": "CS5207",
+    "courseCredit": "4",
+    "description": "This module is an introductory course to fundamental and advanced operating systems techniques aimed for computer science graduate students. The topics covered include threads, scheduling, concurrency, memory management, and storage systems, software management, and security. After taking the module, students are expected to understand common design principles used, understand the common issues and problems in computer systems, and be able to design and evaluate a system.",
+    "faculty": "Computing",
+    "title": "Foundation in Operating Systems"
+}

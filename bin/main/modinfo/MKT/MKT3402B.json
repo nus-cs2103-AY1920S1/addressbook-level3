@@ -1,0 +1,16 @@
+{
+    "courseCode": "MKT3402B",
+    "courseCredit": "4",
+    "description": "This course provides an overview of consumer behavior concepts, theories, research, and applications. It is designed to develop knowledge and skills that will facilitate an understanding of buyer behavior which can be integrated into the formulation of marketing strategies. This will be accomplished by surveying the social science foundations of consumer behavior, in particular, the contributions from psychology and sociology. During the course, various types of consumer research will be introduced. While students should learn to recognize what types of consumer research are valuable for specific marketing decisions, the course does not focus on the technical aspects of research design. Rather, its emphasis is on the content and logical application of concepts and theories in the analysis of consumer behavior for solving marketing management problems.",
+    "faculty": "NUS Business School",
+    "preclusion": "BH3402 or BZ3602 or BK3201 or MKT3402A or MKT3402B",
+    "prereqTree": {
+        "or": [
+            "MKT1003",
+            "BH1003",
+            "BZ1003",
+            "BK2003"
+        ]
+    },
+    "title": "Consumer Behaviour"
+}

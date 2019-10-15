@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "ME5408",
+    "courseCredit": "2",
+    "description": "This module aim to develop basic understanding of fundamental mathematics and terms used to describe the geometry of robot manipulators. In particular, the students will learn to model the kinematics of a manipulator which maps from joint displacement vector to end-effector position and orientation. The students will also learn to model the differential kinematics of a manipulator and derive its Jacobian matrix. The relationship between the joint torques and the endpoint contact force and moment under static condition will be studied. Trajectory planning in joint space will be explored for robot motion generation.",
+    "faculty": "Engineering",
+    "preclusion": "ME5402/EE5106",
+    "title": "Kinematics of Robot Manipulators"
+}

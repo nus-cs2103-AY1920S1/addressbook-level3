@@ -1,0 +1,9 @@
+{
+    "courseCode": "RE3806",
+    "courseCredit": "4",
+    "description": "This module presents theoretical and practical issues relating to the role of valuation in real estate investment and development decisions, especially in investment valuation and market valuation. It aims to help students understand how the various methods of valuation are applied to different types of properties taking into consideration the purposes of valuation such as investment, divestiture, mortgage and insurance. Advanced topics include valuation of air and subterranean rights; specialised premises such as hospitals; recreational premises and hotels; and asset valuation for incorporation in financial statements. This module will be supported by relevant case studies and sharing sessions by practitioners.",
+    "faculty": "Design and Environment",
+    "preclusion": "RE3101 Advanced Real Estate Valuation",
+    "prereqTree": "RE3702",
+    "title": "Advanced Real Estate Valuation"
+}

@@ -1,0 +1,14 @@
+{
+    "courseCode": "MKT3713",
+    "courseCredit": "4",
+    "description": "The objective of the module is to provide students with an understanding of the environment, issues and decision-making tools associated with the distribution of goods and services in marketing. Topics include distribution of goods through appropriate use of channels: types of distribution channels and salespeople; organising and developing the selling and distribution effort; inter-organisational exchange behaviour; dimensions of conflict and cooperation among channel members; ways of rationalising relationships between channel members; development of effective marketing programmes by retailing and wholesaling members; management of marketing channels by manufacturing firms. This course integrates the basic marketing principles, logistics issues, behavioural concepts, and analytical tools into the decision process underlying distribution through marketing channels. The marketing organisations involved in distribution are identified, and their roles and functions analysed. Product flows through the various kinds of channels and channel members are studied, the nature of channel planning and control is discussed, and characteristic channel problems are analysed. The course adopts a holistic, systems approach in discussing the various issues pertaining to distribution and channels.",
+    "faculty": "NUS Business School",
+    "preclusion": "MKT3414",
+    "prereqTree": {
+        "or": [
+            "MKT1705",
+            "MKT1705X"
+        ]
+    },
+    "title": "Marketing Channels"
+}

@@ -1,0 +1,27 @@
+{
+    "courseCode": "MA2108",
+    "courseCredit": "4",
+    "description": "This module is a continuation of MA1100. The main objective is to further develop the student's mastery of the mathematical language, concepts, and methods. The focus here is more on the analytic and topological notions such as convergence and continuity, which are essential for a rigorous treatment of mathematical analysis. The student's ability to read and write mathematical proofs is also further developed in this module. Main topics: real numbers, sequences and series of real numbers, metrics in Euclidean spaces, open and closed sets, continuous functions, compact sets, connected sets, sequences of functions. Major applications include: intermediate value theorem, extreme value theorem.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA3291",
+        "MA4248",
+        "MA3265",
+        "MA3264",
+        "MA3220",
+        "MA3110S",
+        "MA3110"
+    ],
+    "preclusion": "MA2108S, MA2311",
+    "prereqTree": {
+        "or": [
+            "MA1102R",
+            "MA1505",
+            "MA1511",
+            "MA1505C",
+            "MA1507",
+            "MA1521"
+        ]
+    },
+    "title": "Mathematical Analysis I"
+}

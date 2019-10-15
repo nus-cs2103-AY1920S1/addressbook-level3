@@ -1,0 +1,8 @@
+{
+    "courseCode": "YSC4222",
+    "courseCredit": "5",
+    "description": "This advanced undergraduate course will introduce students to the occurrence of chaos in physical systems. Topics to be covered include typical chaotic models such as the kicked rotator, Poincare surface of section, Action-angle variables, Kolmogorov-Arnold-Moser Torii, Lyapunov exponents, fractal dimensions, and quantum chaos.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YSC2203",
+    "title": "Chaos Theory"
+}

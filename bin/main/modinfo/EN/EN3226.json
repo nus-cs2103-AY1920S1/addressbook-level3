@@ -1,0 +1,27 @@
+{
+    "courseCode": "EN3226",
+    "courseCredit": "4",
+    "description": "Students examine the production of Shakespeare as a cultural phenomenon in three ways: editorial practice; the motives and values at stake in the criticism of Shakespeare; and the reproduction of Shakespeare in contemporary cinematic and electronic media. The course will use different editions of the same text, specific examples of critical texts, film productions and internet web material. The course will focus on the question of evidence in relation to the establishment of the text; textual apparatuses; text vs. performance; constructing meanings; popular circulation and consumption. The module is targeted at students interested in Shakespeare and cultural production.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EN1101E",
+                    "GEK1000"
+                ]
+            },
+            {
+                "or": [
+                    "EN2201",
+                    "EN2202",
+                    "EN2203",
+                    "EN2204",
+                    "EN2205",
+                    "EN2207"
+                ]
+            }
+        ]
+    },
+    "title": "Shakespeare"
+}

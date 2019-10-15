@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS3281",
+    "courseCredit": "4",
+    "description": "This module is the first part of a two-part series on the development of large-scaled computer systems to solve real-world problems under specific themes such as healthcare, security and surveillance, tourism, etc. Students with complementary technical expertise will form project teams to work on real-world projects under the supervision of CS professors and industrial partners. This first part focuses on the analysis of the real-world problems, formulation of the computing requirements of the desired solution that meets the user\u2019s needs, design of the computer systems according to the requirements, and evaluation of the design.",
+    "faculty": "Computing",
+    "fulfillRequirements": [
+        "CP3106",
+        "UIS3953R",
+        "CS3282"
+    ],
+    "prereqTree": "CS2103",
+    "title": "Thematic Systems Project I"
+}

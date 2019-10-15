@@ -1,0 +1,11 @@
+{
+    "courseCode": "SW2101",
+    "courseCredit": "4",
+    "description": "This module presents the generalist model of social work intervention with individuals, families, groups and communities. Basic knowledge and skills of the problem-solving process, including engagement, assessment, formulation of objectives, intervention, evaluation of outcome, and termination are examined. Using an ecological-systems perspective, the module will emphasize the integration of social science knowledge and social work practice theory in facilitating the bio-psychosocial development of people. The module is for students who major in Social Work.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "SW3211"
+    ],
+    "prereqTree": "SW1101E",
+    "title": "Working with Individuals and Families"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "EG2620",
+    "courseCredit": "4",
+    "description": "This module is for students admitted into the Co-operative (Co-Op) education programme requiring a compulsory 10-week industry immersion during their second year of study. The module integrates knowledge and theory learned in the classroom with practical application and skill development in a professional setting. Students will have to leverage on their learnings from the first immersion (EG1611) to participate in projects or tasks that help to develop or enhance their skills whilst contributing to their Co-Op companies.",
+    "faculty": "Engineering",
+    "prereqTree": "EG1611",
+    "title": "Engineering Co-Op Immersion Programme II"
+}

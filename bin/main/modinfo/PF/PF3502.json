@@ -1,0 +1,8 @@
+{
+    "courseCode": "PF3502",
+    "courseCredit": "4",
+    "description": "Smart Facilities ensure that the various 'intelligent' aspects of buildings such as building management systems, automated building systems ( ACMV, Water, Fire, Lighting etc ) all work in sync to optimize the overall functionality of a building. Major topics include Internet of Things (IoT), design and use of sensors to collect data, data analysis and visualization, and building control and automation.",
+    "faculty": "Design and Environment",
+    "preclusion": "PF3501",
+    "title": "Smart Facilities"
+}

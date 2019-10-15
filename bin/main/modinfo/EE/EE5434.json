@@ -1,0 +1,16 @@
+{
+    "attributes": {
+        "grsu": true,
+        "lab": true
+    },
+    "courseCode": "EE5434",
+    "courseCredit": "4",
+    "description": "The aim of this module is to provide the crucial understanding of semiconductor processes and integration technologies that are extensively used to fabricate modern electronic devices. This module covers important aspects of microelectronic processes and integration. The students will develop in-depth understanding of various unit process and of integrating the unit processes to design a device that meets electrical performance specification. The topics covered include oxidation, diffusion, ion implantation Isolation, plasma etching process, thin film deposition, metal interconnects, lithography and pattern transfer technique, gate module technology, shallow junction technology, and CMOS Integration.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "EE6436"
+    ],
+    "preclusion": "EE5515, EE5516, EE5432R",
+    "prereqTree": "EE3431C",
+    "title": "Microelectronic Processes and Integration"
+}

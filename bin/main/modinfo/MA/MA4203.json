@@ -1,0 +1,11 @@
+{
+    "courseCode": "MA4203",
+    "courseCredit": "4",
+    "description": "The objective of this course is to study field theory and its application to classical problems such as squaring a circle, trisecting an angle and solving the quintic polynomial equation by radicals. Major topics: Field extensions, finite and algebraic extensions, automorphisms of fields, splitting fields and normal extensions, separable extensions, primitive elements, finite fields, Galois extensions, roots of unity, norm and trace, cyclic extensions, solvable and radical extensions.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5202"
+    ],
+    "prereqTree": "MA3201",
+    "title": "Galois Theory"
+}

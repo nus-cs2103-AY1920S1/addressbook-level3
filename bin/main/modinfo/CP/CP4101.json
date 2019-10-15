@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "fyp": true,
+        "year": true
+    },
+    "courseCode": "CP4101",
+    "courseCredit": "12",
+    "description": "",
+    "faculty": "Computing",
+    "preclusion": "CS4101",
+    "title": "B.Comp. Dissertation"
+}

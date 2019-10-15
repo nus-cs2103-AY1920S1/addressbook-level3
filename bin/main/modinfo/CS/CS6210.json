@@ -1,0 +1,8 @@
+{
+    "courseCode": "CS6210",
+    "courseCredit": "4",
+    "description": "This module aims to provide the meta-skills for research in computer science. How does one discover great research problems? What are the good strategies for solving research problems? How does one write papers or give presentations with great impact? Students will seek answers to these questions by critically examining and assessing successful and less successful examples of research.",
+    "faculty": "Computing",
+    "prereqTree": "CS3230",
+    "title": "The Art of Computer Science Research"
+}

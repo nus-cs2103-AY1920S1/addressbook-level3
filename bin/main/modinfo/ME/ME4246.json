@@ -1,0 +1,11 @@
+{
+    "courseCode": "ME4246",
+    "courseCredit": "4",
+    "description": "This is a second module on control of linear dynamical systems. It focuses on analysis and synthesis of controllers in the time domain. The module introduces students to the techniques and analysis of dynamical systems using state-space models. The major topics covered are: Introduction to State-Space Model; Solution of State-Space Model; Canonical Forms of State-Space Model; Controllability and Observability; State Feedback and State Estimation; Linear Quadratic Optimal Control, Stability; Discrete Time Systems; Controller Design of Discrete-Time Systems. Students are required to have knowledge of basic classical control theory and linear algebra.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "ME5401"
+    ],
+    "prereqTree": "ME2142",
+    "title": "Modern Control System"
+}

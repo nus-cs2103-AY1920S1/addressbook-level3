@@ -1,0 +1,9 @@
+{
+    "courseCode": "NUR4101B",
+    "courseCredit": "6",
+    "description": "This module provides students with the knowledge and skills on how to change their practice based on up-to-date evidence-based practice. It will also challenge students to critically appraise the literature to provide the information needed to answer specific clinical questions. Major topics covered include qualitative and quantitative systematic review processes, models of evidence-based implementation, barriers to implementation and strategies to overcome these barriers.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "preclusion": "NUR4101",
+    "prereqTree": "NUR3109",
+    "title": "Evidence-based Health Care Practice"
+}

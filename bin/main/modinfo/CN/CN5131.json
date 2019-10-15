@@ -1,0 +1,10 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CN5131",
+    "courseCredit": "4",
+    "description": "The objective of the course is to introduce fundamental concepts of describing and interpreting interfacial phenomena and to discuss important applications in selected technological areas. The course commences with key theories such as surface tension, contact angle, Young-Laplace equation, and Kelvin equation, followed by the thermodynamics of surfaces, forces that govern interfacial interactions, adsorption at various interfaces, colloidal systems, self assembly system, and surfactants. Investigative techniques for analyses of interfacial and colloidal systems are presented to demonstrate the application of the concepts. Students who are interested in physicochemical events at interface and in colloidal systems are strongly encouraged to study this module. Background in physical chemistry, thermodynamics, transport phenomena, engineering mathematics, and materials science and engineering will be beneficial.",
+    "faculty": "Engineering",
+    "title": "Colloids & Surfaces"
+}

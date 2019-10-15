@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTC2113",
+    "courseCredit": "4",
+    "description": "Games permeate disparate fields of knowledge and involve cultural practices that are part of everyday life. This module investigates the idea of \u2018the game\u2019 to develop an appreciation of gaming life. Games are explored in theoretical and practical ways to develop questions interrelating technology, culture, and human community. Further investigation explores gaming culture, i.e.:strategy, tactics, entanglement, addiction, pleasure, play; and domains such as \u2018political\u2019 and \u2018academic\u2019 games. Play and practice are central features. Students will engage in the construction, critique, and development of games, applying concepts to broader issues of public concern related to the production of social form.",
+    "faculty": "Residential College",
+    "preclusion": "GEM2902% or GEM2905% or GEM2907% or GEM2908% or GEM2909% or GEM2910% or UTC21%",
+    "prereqTree": {
+        "or": [
+            "GEM1902",
+            "GEM1912"
+        ]
+    },
+    "title": "Gaming Life"
+}

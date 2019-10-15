@@ -1,0 +1,14 @@
+{
+    "courseCode": "ESE4409",
+    "courseCredit": "4",
+    "description": "Adsorption is one of the most fundamental processes in many environmental, chemical and biological processes. It can be used for purification of water and gases. This module begins with an overview of historical and natural/industrialized cases. Various theories on adsorption will be presented in detail. Mathematical modeling tools will be taught. A series of case studies will be presented. Students after learning this module will be able to design various adsorption treatment systems and understand adsorption processes in natural/engineered systems.",
+    "faculty": "Engineering",
+    "preclusion": "CN3132",
+    "prereqTree": {
+        "and": [
+            "ESE3201",
+            "ESE3401"
+        ]
+    },
+    "title": "Environmental Applications of Adsorption"
+}

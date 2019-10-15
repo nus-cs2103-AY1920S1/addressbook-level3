@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "MDG5220",
+    "courseCredit": "2",
+    "description": "The dawn of the human genome project in the 1990s has fuelled advances in 2 key technologies. They are the microarray technology for genomics and mass spectrometry for proteomics. From these platforms, many other specialty fields have emerged including array comparative genomic hybridization, microRNA array, phosphoproteomics, protein arrays and metabolomics, etc. These tools have propelled discoveries in basic and translational research. The module will educate students on these tools and their diverse applications of 'array and omics' in this era of functional genomics.",
+    "faculty": "Yong Loo Lin School (Medicine)",
+    "preclusion": "MDG5214",
+    "title": "Array and Omics"
+}

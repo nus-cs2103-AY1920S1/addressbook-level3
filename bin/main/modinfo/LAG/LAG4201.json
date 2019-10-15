@@ -1,0 +1,19 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "LAG4201",
+    "courseCredit": "5",
+    "description": "This module aims to equip students with adequate skills and strategies to engage in serious discourse with native or other foreign speakers or write argumentative pieces on complex social, political, cultural and environmental topics. Such skills will encompass learning how to summarise long and difficult texts, structuring essays, collating linguistic means of expressions for language production and improving text cohesion.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "LAG4202"
+    ],
+    "prereqTree": {
+        "or": [
+            "LAG3202",
+            "LAG3203"
+        ]
+    },
+    "title": "German 5"
+}

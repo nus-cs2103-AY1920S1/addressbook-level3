@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "BN2403",
+    "courseCredit": "4",
+    "description": "The module introduces students to the basics of bioinstrumentation with a focus on acquiring biopotentials from the body, amplifying and processing them. The module covers the topics on fundamentals of biomedical instrumentation design, biopotentials, biosensors, bioamplifiers and signal filtering. This module also equips students in microcontroller programming for biomedical device design and prototyping to solve a medical problem through a hands-on design project performed in teams.",
+    "faculty": "Engineering",
+    "preclusion": "EG1108 Electrical Engineering",
+    "title": "Fundamentals of Biosignals and Bioinstrumentation"
+}

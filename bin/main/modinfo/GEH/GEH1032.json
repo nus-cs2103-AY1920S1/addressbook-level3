@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEH1032",
+    "courseCredit": "4",
+    "description": "The human race has entered an epoch where life span has increased significantly. During the twentieth century, life span has increased from around 50 to over 75 years mainly due to antibiotics, vaccinations, and improved nutrition. However this increase in lifespan has brought to the forefront a rise in many age-related diseases. These diseases, which include cancer, heart disease, Alzheimer\u2019s disease, Parkinson\u2019s disease, are now a focus of health care in the 21st century. This course describes many of these diseases, and their diagnosis and treatment using advanced technology found in modern hospitals. The course also provides an insight into the scientific principles underlying these new and powerful technologies.",
+    "faculty": "Science",
+    "preclusion": "GEK1540",
+    "title": "Modern Technology in Medicine and Health"
+}

@@ -1,0 +1,8 @@
+{
+    "courseCode": "ST4242",
+    "courseCredit": "4",
+    "description": "This course covers modern methods for the analysis of repeated measures, clustered data, correlated outcomes and longitudinal data, with a strong emphasis on applications in the biological and health sciences. Both continuous and discrete response variables will be considered. The use of generalized estimating equations (GEE) will be emphasized. Topics include introduction to longitudinal studies, exploring longitudinal data, analysis of variance for repeated measures, general linear models for longitudinal data, growth curves, models for covariance structure, estimation of individual trajectories, generalized linear models for longitudinal discrete data, marginal models, generalized estimating equations, random effects models and transition models. This module is targeted at students who are interested in Statistics and are able to meet the pre-requisites.",
+    "faculty": "Science",
+    "prereqTree": "ST3131",
+    "title": "Analysis of Longitudinal Data"
+}

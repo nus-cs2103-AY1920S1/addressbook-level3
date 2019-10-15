@@ -1,0 +1,13 @@
+{
+    "courseCode": "CS6202",
+    "courseCredit": "4",
+    "description": "This module discusses the contemporary concepts in the design and implementation of major programming languages and systems. It aims to provide students with advanced technical knowledge in evaluating, designing, and implementing an efficient and expressive programming language/system. Topics are selected from a group of contemporary issues that has substantial impact in the development of programming languages/systems, either in terms of performance efficiency or programming expressivity. These include, but not restricted to, computational models, program semantics, concurrency theory, garbage collection techniques, program analysis, type inference, program calculation and transformation, run-time profiling, implementation models, meta-programming.",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            "CS3212",
+            "CS4212"
+        ]
+    },
+    "title": "Advanced Topics in Programming Languages"
+}

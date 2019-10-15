@@ -1,0 +1,8 @@
+{
+    "courseCode": "ESP2106",
+    "courseCredit": "4",
+    "description": "The primary objective of the module is to develop a fundamental understanding of how to formulate the governing equations of continua with the aid of basic conservation laws of physics that govern the behaviour of a continuum. An allied objective is to apply the governing equations to simplified as well as industrially-relevant problems in solid mechanics and fluid mechanics. Overall, this course provides a foundation for the role of continuum mechanics in engineering and science.",
+    "faculty": "Engineering",
+    "prereqTree": "PC1433",
+    "title": "Principles of Continua"
+}

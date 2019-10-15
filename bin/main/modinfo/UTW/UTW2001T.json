@@ -1,0 +1,17 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "UTW2001T",
+    "courseCredit": "4",
+    "description": "The sense of having a self pervades everyday experience as well as the stories we encounter in fiction, film, television, and video games. On the other hand, the self has been called into question from various scientific, religious, and philosophical perspectives. This module examines the concept of selfhood, considering the possibility that it may be a fabrication, and examines the positive and negative aspects of positing the existence of selfhood. The module culminates in student research projects that apply critiques of the self from cognitive psychology, Eastern religion, and/or continental and analytic philosophy to a text of their choosing.",
+    "faculty": "NUS",
+    "preclusion": "IEM2201%,\nUTW2001%",
+    "prereqTree": {
+        "or": [
+            "IEM1201",
+            "UTW1001"
+        ]
+    },
+    "title": "Nobodiness: The Self as Story"
+}

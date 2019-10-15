@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "EU2203",
+    "courseCredit": "4",
+    "description": "This module explores basic political ideas from the ancient Greeks and Romans from the emergence of the polis to the collapse of the empire, including the ideas of justice, law, democracy, and politics itself, through the study of original works by Thucydides, Plato, Aristotle, St. Augustine, and others. It also considers how these ideas shaped medieval and early modern political thought.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "PS2203, PS2231, EU2218, PS2201B, PS2218",
+    "title": "Ancient Western Political Thought"
+}

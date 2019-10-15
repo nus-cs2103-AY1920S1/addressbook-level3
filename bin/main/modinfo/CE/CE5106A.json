@@ -1,0 +1,12 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "CE5106A",
+    "courseCredit": "2",
+    "description": "This is a module on the principle of ground improvement techniques, as well as its design, construction and monitoring in geotechnical engineering works. Topics covered include general ground improvement principles and design considerations, techniques of improving granular soils, techniques of improving cohesive soils. Field operation requirement and construction field controls, monitoring, and performance evaluation, specification and acceptance criteria. Case studies on various techniques will be presented and discussed. This module will focus on hydraulic method for soft clay (PVD with preloading, PVD with vacuum etc), Vibratory method for Sandy soils, and cement treatment method (Grouting and Deep cement mixing etc). Participants are taught the basic principles of various ground improvement techniques, and how to select the most appropriate ground improvement techniques to be used in specific circumstances.",
+    "faculty": "Engineering",
+    "title": "Ground Improvement for Soft Soils"
+}

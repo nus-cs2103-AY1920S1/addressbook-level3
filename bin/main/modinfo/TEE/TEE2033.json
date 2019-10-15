@@ -1,0 +1,31 @@
+{
+    "courseCode": "TEE2033",
+    "courseCredit": "4",
+    "description": "This module serves as the hands-on counterpart for TEE2027 and EE2023E/TEE2023. Students will practise and strengthen the knowledge learnt in electromagnetics, devices and circuits, and signals and systems through a series of experiments with the aim of integrating these knowledge to build an integrated digital communication system. The experiment will touch on important concepts, such as opamp characterization, circuit design specifications and component choice, frequency domain signal analysis, OOK modulation, frequency spectrum, and wireless communication system. Towards the end, the students will form an integrated view on these topics through a mini-project that encompass all these fields.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "(EE2031E and EE2032E) or (TEE2031 and TEE2032)",
+    "prereqTree": {
+        "and": [
+            {
+                "or": [
+                    "EE2023E",
+                    "TEE2023"
+                ]
+            },
+            {
+                "or": [
+                    "EE2011E",
+                    "TEE2011"
+                ]
+            },
+            {
+                "or": [
+                    "EE2021E",
+                    "TEE2021",
+                    "TEE2027"
+                ]
+            }
+        ]
+    },
+    "title": "Integrated System Lab"
+}

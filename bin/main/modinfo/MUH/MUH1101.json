@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "MUH1101",
+    "courseCredit": "4",
+    "description": "An introduction to the study of music, necessary for success as a music student and professional musician in the 21st century. Focusing on research, communication and critical thinking, students will acquire a shared vocabulary to talk and write about music, and an understanding of musical concepts and genres. Students will also study music as a cultural and social phenomenon and contrast historical and present performance practice, with emphasis on works currently being performed in the Conservatory. Students will develop confidence in expressing their own artistic perspectives and evaluate what it means to be part of an evolving musical ecosystem.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUH3205"
+    ],
+    "title": "Foundations for Musical Discovery"
+}

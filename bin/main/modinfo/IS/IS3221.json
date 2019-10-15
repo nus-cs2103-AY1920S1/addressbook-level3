@@ -1,0 +1,35 @@
+{
+    "courseCode": "IS3221",
+    "courseCredit": "4",
+    "description": "Business resources include employees, business processes, procedures, organisational structure, and computer systems. The efficiency and effectiveness of an organisation in carrying out its business can be enhanced if managers and employees are given the support to plan, monitor and control the business. Enterprise Resource Planning (ERP) supports the use of all resources in an organisation. In this course, students will learn the rationale for having ERP, ERP functionality (such as manufacturing, finance, distribution and human resource management), ERP and information technology, ERP systems and ERP implementation (planning, product selection, implementation and optimisation).",
+    "faculty": "Computing",
+    "prereqTree": {
+        "or": [
+            {
+                "and": [
+                    "CS1010",
+                    {
+                        "or": [
+                            "IS1103",
+                            "IS1103FC",
+                            "IS1103X"
+                        ]
+                    }
+                ]
+            },
+            {
+                "and": [
+                    "CS1010",
+                    "BT1101"
+                ]
+            },
+            {
+                "and": [
+                    "DAO2702",
+                    "IT3010"
+                ]
+            }
+        ]
+    },
+    "title": "Enterprise Resource Planning Systems"
+}

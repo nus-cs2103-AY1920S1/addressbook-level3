@@ -1,0 +1,7 @@
+{
+    "courseCode": "SG4003",
+    "courseCredit": "4",
+    "description": "The objective of this course is to teach students to deploy efficient and effective enterprise applications using Java technology. It begins with a Java Client/Server Technology Review and communication abstractions starting from networking protocols, to distributed objects via Java RMI. It also describes Database Integration using JDBC and JDO, Web-based applications and Web front-end using Servlets and JSP respectively. The issues of Java security in the context of distributed and foreign code are also covered. Students are assessed partially by a major programming project. This course is appropriate for all software developers who wish to develop advanced Java software applications.",
+    "faculty": "Institute of Systems Science",
+    "title": "Advanced Java Programming"
+}

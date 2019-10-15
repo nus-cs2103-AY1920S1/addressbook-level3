@@ -1,0 +1,11 @@
+{
+    "courseCode": "YSC3236",
+    "courseCredit": "5",
+    "description": "Using the Coq Proof Assistant, we propose an integrated account of specifications, unit tests, implementations, and properties of functional programs, through a variety of examples.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YSC4217"
+    ],
+    "prereqTree": "YSC1212",
+    "title": "Functional Programming and Proving"
+}

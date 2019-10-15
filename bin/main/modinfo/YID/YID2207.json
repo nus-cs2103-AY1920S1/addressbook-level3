@@ -1,0 +1,16 @@
+{
+    "courseCode": "YID2207",
+    "courseCredit": "5",
+    "description": "This foundational module in environmental studies introduces students to social theories applicable to socio-ecological problems. It equips students with the theoretical knowledge for social scientific analysis expected in upper-level environmental studies courses and the capstone project. As an interdisciplinary module, students will be introduced to concepts and theories in environmental sociology, environmental anthropology, political ecology, and science and technology studies, among others.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YID3206"
+    ],
+    "prereqTree": {
+        "and": [
+            "YCC2121",
+            "YID1201"
+        ]
+    },
+    "title": "Social Theory and the Environment"
+}

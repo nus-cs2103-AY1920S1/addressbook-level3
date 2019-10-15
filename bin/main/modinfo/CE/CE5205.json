@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "CE5205",
+    "courseCredit": "4",
+    "description": "This module will provide the student with an intermediate course in the theory and practice of urban transportation planning, programming, and modeling of supply and demand components of transportation systems; to acquaint the student with the state of transportation planning practice as contrasted with analytical models, and familiarize the student with the history and status of transportation planning activities. At the end of this course, the student is expected to understand the \"4-step\" process, harness methodologies and tools used for transportation planning, and be capable of observing, analyzing, modeling, and inferring real-world transportation planning problems through tools learned.",
+    "faculty": "Engineering",
+    "prereqTree": "CE3121",
+    "title": "Transportation Planning"
+}

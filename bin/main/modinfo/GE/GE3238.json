@@ -1,0 +1,11 @@
+{
+    "courseCode": "GE3238",
+    "courseCredit": "4",
+    "description": "This module examines the range of considerations necessary to develop GIS, and is intended for geographers, planners, IT managers and computer scientists who have already acquired an introductory knowledge of the field. The module begins with a formal understanding of data and information and compares spatial data to traditional data processing. Topics covered are representation and storage of spatial data, database design, Internet GIS, and/or basic GIS programming. Students will obtain substantial hands-on GIS skills in support of geographic and environmental analyses.",
+    "faculty": "Arts and Social Science",
+    "fulfillRequirements": [
+        "GE3550A"
+    ],
+    "prereqTree": "GE2215",
+    "title": "GIS Design and Practices"
+}

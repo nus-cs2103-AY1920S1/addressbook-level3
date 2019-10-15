@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "IE5407",
+    "courseCredit": "4",
+    "description": "The lifecycle performance of complex systems is affected by uncertainty in environments, markets, regulations, and technology. Designing for flexibility has potentials to improve lifecycle performance and value compared to standard design approaches. It enables systems to change and adapt pro-actively in the face of uncertainty. This course covers cutting-edge techniques and recent research to model uncertainty (decision trees, binomial lattice, simulations), identify/generate valuable flexibility in design (design structure matrix, prompting), and explore the design space efficiently for the best flexible designs (dynamic programming, real options and financial analyses, screening models). Possible case studies involve aerospace, defence, energy, mining, oil, real estate, transportation, and water systems.",
+    "faculty": "Engineering",
+    "prereqTree": "IE5004",
+    "title": "Flexibility in Engineering Systems Design"
+}

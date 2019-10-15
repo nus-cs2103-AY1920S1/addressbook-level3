@@ -1,0 +1,7 @@
+{
+    "courseCode": "BMA5002",
+    "courseCredit": "4",
+    "description": "The course demonstrates how Analytics based on the scientific paradigm of data, models and assumptions produce Business Intelligence that can be used to support managerial decisions. Focus is on the appreciation of a battery of quantitative tools: their scientific concepts, their applications straddling Finance, Marketing, SCM, HR etc. as well as their limitations. Topics include Decision and Risk analyses, Linear and Nonlinear optimization models, Exploratory CRM (i.e. effective extraction and communication of information from data), Statistical Thinking (data variability, margins of error and hypothesis testing), ANOVA (comparison of group averages), Forecasting using Regression and Time Series models. The utility of MS Excel and dedicated add-ins will be demonstrated throughout the course.",
+    "faculty": "NUS Business School",
+    "title": "Analytics For Managers"
+}

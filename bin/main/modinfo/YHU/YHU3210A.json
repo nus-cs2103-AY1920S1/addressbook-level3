@@ -1,0 +1,13 @@
+{
+    "courseCode": "YHU3210A",
+    "courseCredit": "5",
+    "description": "The proseminar in literary studies introduces students to the comparative study of literary form. Students will be introduced to a range of theoretical and literary critical approaches from around the world.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": {
+        "and": [
+            "YCC1111",
+            "YCC1112"
+        ]
+    },
+    "title": "Proseminar in Literary Studies"
+}

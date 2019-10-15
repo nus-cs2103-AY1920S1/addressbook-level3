@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "GEK1536",
+    "courseCredit": "4",
+    "description": "Why computers are so ubiquitous nowadays? What rule the computer is playing in scientific query and discovery? What was it like before the age of digital electronic computer? This module brings us back to antiquity from ruler and compass, abacus, mechanical calculator and all the way to modern electronic digital computer. It is intriguing to see the methods of computations in ancient Babylonian, Greek and Roman times, and in Chinese and Arabic cultures. For the modern digital era, we discuss how computer does calculations, how the instructions or algorithm are given to computer, and why the binary number system is used. Finally, we speculate the role quantum computer will play in the future.",
+    "faculty": "Science",
+    "preclusion": "GEH1017",
+    "title": "Computation & Machine: Ancient to Modern"
+}

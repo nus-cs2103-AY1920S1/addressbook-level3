@@ -1,0 +1,18 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "CN1111X",
+    "courseCredit": "4",
+    "description": "This module provides students with a basic concept of chemical engineering processes and related problem-solving methods. It provides a comprehensive introduction to the principles of chemical engineering process analysis. The module begins with an overview of the chemical process industry and a discussion of several significant examples. Details of steady state material and energy balance, including recycles, phase change and reaction, form the core substance of the course. Other topics include simultaneous mass and energy balances and unsteady state balances. All concepts and principles are amply illustrated with relevant process examples. This module is targeted at level one engineering or science students.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CN2116",
+        "CN2121",
+        "CN3132",
+        "CN3421",
+        "CN4238R"
+    ],
+    "preclusion": "CN1111, CN1111FC",
+    "title": "Chemical Engineering Principles"
+}

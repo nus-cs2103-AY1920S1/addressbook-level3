@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "lab": true,
+        "sfs": true,
+        "ssgf": true
+    },
+    "courseCode": "MT5008B",
+    "courseCredit": "2",
+    "description": "Companies need to be agile and to continually innovate. In the quest for sustainable competitive advantage, companies are finding that lower costs, higher quality and better customer service are not enough - they must be faster, more flexible, more aggressive and more innovative. But companies do not need to do it alone. They can collaborate with other firms and organizations to develop its corporate entrepreneurship capabilities. The focus of this course is on will be on understanding the firm and how it can build entrepreneurial capabilities through collaboration.",
+    "faculty": "Engineering",
+    "preclusion": "MT5008 Corporate Entrepreneurship",
+    "title": "Collaborative Corporate Entrepreneurship"
+}

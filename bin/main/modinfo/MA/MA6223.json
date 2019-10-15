@@ -1,0 +1,8 @@
+{
+    "courseCode": "MA6223",
+    "courseCredit": "4",
+    "description": "This module is designed for graduate students in mathematics, who are interested in set theory. It focuses mainly on inner models, their covering properties, and their applications to give lower bounds of the negation of SCH.",
+    "faculty": "Science",
+    "prereqTree": "MA6222",
+    "title": "Set Theory Ii"
+}

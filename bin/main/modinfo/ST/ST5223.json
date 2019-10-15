@@ -1,0 +1,7 @@
+{
+    "courseCode": "ST5223",
+    "courseCredit": "4",
+    "description": "Univariate and multivariate regression, graphical displays, normal equations, Gramm-Schmidt orthogonalization and singular value decomposition, model selection and prediction, collinearity and variable selection, diagnostics: residuals, influence, symptoms and remedies, ANOVA, fixed and random effects, nonlinear models including logistic regression, loglinear models and generalized linear models, computations with datasets using statistical computer package.",
+    "faculty": "Science",
+    "title": "Statistical Models:Theory/Applications"
+}

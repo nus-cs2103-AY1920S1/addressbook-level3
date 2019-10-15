@@ -1,0 +1,8 @@
+{
+    "courseCode": "ME3261E",
+    "courseCredit": "4",
+    "description": "This course covers the principles of computer-aided tools: CAD and CAM, which are widely used in modern design and manufacturing industry. By introducing the mathematical background and fundamental part programming of CAD/CAM, this course provides the basics for students to understand the techniques and their industrial applications. The topics are: CAD: geometric modelling methods for curves, surfaces, and solids; CAM: part fabrication by CNC machining based on given geometric model; Basics of CNC machining; Tool path generation in CAD/CAM (Option to introduce a CAM software to generate a CNC program for the machining of a part); Verification of fabricated part by CNC measurement based on given geometric model. The module is targeted at students specializing in manufacturing engineering.",
+    "faculty": "Cont and Lifelong Education",
+    "preclusion": "TM3261, TME3261",
+    "title": "Computer-Aided Design and Manufacturing"
+}

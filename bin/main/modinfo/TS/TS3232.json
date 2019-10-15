@@ -1,0 +1,13 @@
+{
+    "courseCode": "TS3232",
+    "courseCredit": "4",
+    "description": "This module recognises performance as a major component of our everyday lives: how we observe, enact and embody the myriad performances in our environments, both `mediated\u2019 and `live\u2019. Through discussions, presentations and workshops, this module explores notions of authenticity and transformation through performances in social and public spaces. Various theoretical models will be considered, including those that relate to the avant-garde and the experimental. A final project will be developed over several weeks, where the students work in groups to create a short video that integrates these approaches with their ideas about performance.",
+    "faculty": "Arts and Social Science",
+    "prereqTree": {
+        "or": [
+            "TS1101E",
+            "GEM1003"
+        ]
+    },
+    "title": "Performance & Social Space"
+}

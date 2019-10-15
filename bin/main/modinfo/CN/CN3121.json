@@ -1,0 +1,20 @@
+{
+    "courseCode": "CN3121",
+    "courseCredit": "4",
+    "description": "This module presents the full complement of fundamental principles with clear application to heat exchangers, reactors, separation processes and storage systems. It incorporates introductory concepts, dynamic modeling, feedback control concepts and design methods, control hardware, and advanced control strategies including feed-forward, cascade and model-based control. SIMULINK will be introduced and used to simulate and examine the effectiveness of various control strategies. The module also incorporates case studies that prepare the students to design control systems for a realistic sized plant. This module is targeted at chemical engineering students who already have a basic knowledge of chemical engineering processes.",
+    "faculty": "Engineering",
+    "fulfillRequirements": [
+        "CN3109",
+        "CN4227R",
+        "CN4245R",
+        "CN3102",
+        "CN4221R"
+    ],
+    "prereqTree": {
+        "or": [
+            "MA1505",
+            "MA1506"
+        ]
+    },
+    "title": "Process Dynamics & Control"
+}

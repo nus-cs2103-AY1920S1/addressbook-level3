@@ -1,0 +1,15 @@
+{
+    "courseCode": "MA5203",
+    "courseCredit": "5",
+    "description": "This module is designed for graduate students in both pure and applied mathematics. It covers topics from the five basic areas of groups, rings, modules, fields and multi-linear algebra, including group actions, Sylow theorems, Jordan-Holder theorem, semisimple modules, chain conditions, bimodules, tensor products and localizations, algebraic, separable and normal field extensions, algebraic closures, multilinear forms, quadratic forms, symmetric and exterior algebras.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "MA5218",
+        "MA5202",
+        "MA5208",
+        "MA5211",
+        "MA5204"
+    ],
+    "prereqTree": "MA3201",
+    "title": "Graduate Algebra I"
+}

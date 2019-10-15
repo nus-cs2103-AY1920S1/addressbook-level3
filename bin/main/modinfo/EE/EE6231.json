@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "grsu": true
+    },
+    "courseCode": "EE6231",
+    "courseCredit": "4",
+    "description": "The goal of this module is to understand, analyze and research on the architectures, algorithms and applications in the reconfigurable computing. We will introduce the background and recent developments in the field of reconfigurable computing by discussing representative papers from leading journal and conference proceedings. We will introduce the various types of reconfigurable architectures and focus on the most popular fine-grained field programmable gate array (FPGA) architectures from the leading FPGA companies Xilinx and Altera. We will also introduce the electronic design automation algorithms and tools to enable applications to be mapped to FPGAs, and discuss creative applications of FPGAs in different domains.",
+    "faculty": "Engineering",
+    "prereqTree": "EE4218",
+    "title": "Reconfigurable Computing"
+}

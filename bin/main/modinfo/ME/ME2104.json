@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "ME2104",
+    "courseCredit": "4",
+    "description": "Part II of Engineering Principles and Practice will focus on the engineering principle of how systems are energized and controlled and the engineering practice of how they are designed, built and valued. Most modern engineering systems are powered electrically. They convert some raw form of energy such as fuel (petrol, diesel) or battery (electrochemically stored energy), into electrical energy. Hence energy sources and energy conversion, electrical energy utilization through conversion into various functions, measurement of functions through their performance parameters will form the backbone of this module",
+    "faculty": "Engineering",
+    "preclusion": "EG1112",
+    "title": "Engineering Principles and Practice II"
+}

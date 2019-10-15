@@ -1,0 +1,14 @@
+{
+    "courseCode": "MUA2242",
+    "courseCredit": "4",
+    "description": "Continuing and building on module MUA1116, piano students will work closely with selected instrumental students on repertoire for instrumental/piano duos. Students will receive individual coaching on the piano part specifically, as well as lessons together with their instrumentalist; and also participate actively in studio classes. Students should participate in at least one public performance as well as in a final examination of the prepared work(s); and to reflect upon their learning process in the context of this module by updating their e-portfolios.",
+    "faculty": "YST Conservatory of Music",
+    "fulfillRequirements": [
+        "MUA3241",
+        "MUA3242",
+        "MUA3243"
+    ],
+    "preclusion": "MUA2155; or\n[MUA2241 and MUA2243]",
+    "prereqTree": "MUA1116",
+    "title": "Collaborative Piano - Instrumental Accompaniment"
+}

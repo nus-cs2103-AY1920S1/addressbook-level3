@@ -1,0 +1,13 @@
+{
+    "attributes": {
+        "urop": true
+    },
+    "courseCode": "FST3288",
+    "courseCredit": "4",
+    "description": "This module allows students to develop their research skills by working on a supervised project which will be laboratory based. It is a similar module to FST2288 but the topic will require a deeper understanding of food sciences. Students will work independently under close supervision of the supervisor.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "FST3289"
+    ],
+    "title": "Advanced UROPS in Food Science & Technology I"
+}

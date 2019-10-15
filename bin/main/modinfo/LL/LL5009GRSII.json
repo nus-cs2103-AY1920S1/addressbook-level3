@@ -1,0 +1,14 @@
+{
+    "courseCode": "LL5009GRSII",
+    "courseCredit": "4",
+    "description": "This course, compulsory for PhD students, will encourage students to reflect on the nature of supervised research. It will then examine in depth issues concerning legal research and methodology; and consider how their research might be approached from a variety of perspectives (e.g. international, comparative, theoretical, empirical). This seminar will help students to understand the process of conceiving, structuring, and refining their argument and the sorts of challenges and difficulties involved in this process. The internal structure of the thesis as well as the structure of individual chapters will be considered in depth.",
+    "faculty": "Law",
+    "preclusion": "LC5009 / LC6009 Graduate Research Seminar",
+    "prereqTree": {
+        "or": [
+            "LL5009GRS",
+            "LL6009GRS"
+        ]
+    },
+    "title": "Graduate Research Seminar II (Research Methods)"
+}

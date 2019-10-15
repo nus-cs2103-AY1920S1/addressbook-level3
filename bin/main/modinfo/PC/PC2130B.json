@@ -1,0 +1,24 @@
+{
+    "courseCode": "PC2130B",
+    "courseCredit": "4",
+    "description": "Introductory aspects of quantum physics. Two state quantum systems. The wave function and Schrodinger equation. Quantum harmonic oscillator; hydrogen atom; spherical harmonics. Atomic spectra. Scattering theory. Applications such as semiconductors, lasers, quantum dots and wires.",
+    "faculty": "Science",
+    "fulfillRequirements": [
+        "ESP3102",
+        "PC3232B",
+        "PC3235",
+        "PC3233",
+        "PC3232",
+        "PC3130"
+    ],
+    "preclusion": "Students who passed PC2130 cannot take this module.",
+    "prereqTree": {
+        "or": [
+            "PC1144",
+            "PC1432",
+            "PC1432X",
+            "PC1433"
+        ]
+    },
+    "title": "Applied Quantum Physics"
+}

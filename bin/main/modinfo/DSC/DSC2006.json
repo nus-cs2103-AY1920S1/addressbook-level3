@@ -1,0 +1,22 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "DSC2006",
+    "courseCredit": "4",
+    "description": "All manufacturing and service organisations have an operations function that is primarily responsible for the production and delivery of their products and services. The operations function therefore not only affects final product quality but also impacts customer service and the overall competitiveness of the organisation. The objective of this course is to introduce and highlight the strategic importance of operations, and the fundamental principles and concepts of effective operations management. Students will examine how operations decisions in areas such as quality, process design, capacity and inventory can be managed, controlled and improved. Operations in both manufacturing and service organisations will be addressed.(Although no prerequisite is stated, this module assumes prior knowledge of basic probability concepts like expected value, variance, normal distribution, and Poisson distribution. Students should ensure that they are adequately prepared for this module.)",
+    "faculty": "NUS Business School",
+    "fulfillRequirements": [
+        "DSC3201",
+        "DSC3202",
+        "DSC3203",
+        "DSC3218",
+        "DSC3219",
+        "DSC3222",
+        "DSC3222K",
+        "DSC3226",
+        "DSC4211G"
+    ],
+    "preclusion": "BH2006 or BZ2003 or BK2006 or IE3120. All Industrial &amp; Systems (ISE) students",
+    "title": "Operations Management"
+}

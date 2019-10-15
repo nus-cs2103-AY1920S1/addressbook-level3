@@ -1,0 +1,11 @@
+{
+    "courseCode": "YHU4230",
+    "courseCredit": "5",
+    "description": "This module focuses on refashioning identity by the usage of clothes. It also focuses on the history of dress across Southeast Asia during the colonial, post-colonial and early modern periods (late eighteenth to early twentieth centuries). We will explore the way in which the dress of various Asian elites expressed notions, traditions, ethnic differences, identity, and political power during these historical periods. Hybridized dress styles between 'traditional' and 'modern' were used as political tools in reaction to the intense cultural interactions and colonial expansion, as well as the global cosmopolitan influence of the Victorian way of life. Students will study history, political and sociology theories. There will be field trips to examine textiles and clothes in private collections and major museums in Singapore.",
+    "faculty": "Yale-NUS College",
+    "fulfillRequirements": [
+        "YHU4207"
+    ],
+    "prereqTree": "YHU2291",
+    "title": "The Politics of Dress in Pre-Modern Southeast Asia"
+}

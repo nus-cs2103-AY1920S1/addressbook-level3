@@ -1,0 +1,9 @@
+{
+    "courseCode": "EC3373",
+    "courseCredit": "4",
+    "description": "This module analyses the economic development experiences of the ASEAN economies in post-war years with emphasis on the role of ASEAN economic cooperation. Major topics covered include agricultural and rural development, industrialisation, international trade, resource transfers, development of local capital, ASEAN's international economic relations and future prospects for ASEAN growth and economic cooperation.",
+    "faculty": "Arts and Social Science",
+    "preclusion": "EC3375, EC3376, EU3214",
+    "prereqTree": "EC2101",
+    "title": "Asean Economies"
+}

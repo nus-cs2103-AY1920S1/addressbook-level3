@@ -1,0 +1,11 @@
+{
+    "attributes": {
+        "su": true
+    },
+    "courseCode": "YSC1211",
+    "courseCredit": "2",
+    "description": "An introduction to multivariable calculus and its applications. Major topics include linear approximation, parametric curves and surfaces, directional derivatives, (constrained) optimisation, and iterated integrals. Examples from the social and physical sciences will abound.",
+    "faculty": "Yale-NUS College",
+    "prereqTree": "YSC1206",
+    "title": "Applied Calculus"
+}
