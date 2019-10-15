@@ -14,6 +14,8 @@ import seedu.address.model.note.Note;
 import seedu.address.model.note.UniqueNoteList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Wraps all data at the address-book level
@@ -28,6 +30,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueFlashcardList flashcards;
 
     private final UniqueNoteList notes;
+
+    private final UniqueTagList tags;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -44,6 +48,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         notes = new UniqueNoteList();
 
         cheatSheets = new UniqueCheatSheetList();
+
+        tags = new UniqueTagList();
     }
 
     public AddressBook() {}
@@ -82,6 +88,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    //=============================Tag tools====================================================
+    @Override
+    public ObservableList<Tag> getTagList() {
+        return tags.asUnmodifiableObservableList();
     }
 
     //=============================Person tools====================================================

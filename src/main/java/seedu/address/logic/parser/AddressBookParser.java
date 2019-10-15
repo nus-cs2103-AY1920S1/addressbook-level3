@@ -30,6 +30,7 @@ import seedu.address.logic.commands.ListCheatSheetCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListFlashcardCommand;
 import seedu.address.logic.commands.ListNoteCommand;
+import seedu.address.logic.commands.ListTagCommand;
 import seedu.address.logic.commands.SwitchModeCommand;
 import seedu.address.logic.commands.ViewCheatSheetCommand;
 import seedu.address.logic.commands.ViewFlashcardCommand;
@@ -102,6 +103,9 @@ public class AddressBookParser {
 
         case ListNoteCommand.COMMAND_WORD:
             return new ListNoteCommand();
+
+        case ListTagCommand.COMMAND_WORD:
+            return new ListTagCommand();
 
         case ListCheatSheetCommand.COMMAND_WORD:
             return new ListCheatSheetCommand();

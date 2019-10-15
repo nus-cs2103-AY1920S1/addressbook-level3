@@ -17,6 +17,7 @@ import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -30,6 +31,7 @@ public class ModelManager implements Model {
     private final FilteredList<Flashcard> filteredFlashcards;
     private final FilteredList<Note> filteredNotes;
     private final FilteredList<CheatSheet> filteredCheatSheets;
+    private final FilteredList<Tag> filteredTags;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -46,6 +48,7 @@ public class ModelManager implements Model {
         filteredFlashcards = new FilteredList<>(this.addressBook.getFlashcardList());
         filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
         filteredCheatSheets = new FilteredList<>(this.addressBook.getCheatSheetList());
+        filteredTags = new FilteredList<>(this.addressBook.getTagList());
     }
 
     public ModelManager() {
@@ -98,6 +101,7 @@ public class ModelManager implements Model {
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
+
 
     @Override
     public boolean hasPerson(Person person) {
@@ -157,6 +161,19 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedNote);
 
         addressBook.setNote(target, editedNote);
+    }
+
+    //=========== Filtered Tag List Accessors =============================================================
+
+    @Override
+    public ObservableList<Tag> getFilteredTagList() {
+        return filteredTags;
+    }
+
+    @Override
+    public void updateFilteredTagList(Predicate<Tag> predicate) {
+        requireNonNull(predicate);
+        filteredTags.setPredicate(predicate);
     }
 
     //=========== Filtered Person List Accessors =============================================================
