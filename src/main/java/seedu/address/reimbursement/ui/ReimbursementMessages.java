@@ -34,6 +34,7 @@ public class ReimbursementMessages {
             + "sortamount";
     public static final String MESSAGE_INVALID_SORTDEADLINECOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
             + "sortdeadline";
+    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
 
     private static final Logger logger = LogsCenter.getLogger(ReimbursementMessages.class);
 
