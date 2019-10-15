@@ -60,9 +60,9 @@ class JsonSerializableAlgoBase {
             }
             algoBase.addProblem(problem);
         }
-        for(JsonAdaptedTag jsonAdaptedTag : tags) {
+        for (JsonAdaptedTag jsonAdaptedTag : tags) {
             Tag tag = jsonAdaptedTag.toModelType();
-            if(algoBase.hasTag(tag)) {
+            if (algoBase.hasTag(tag)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TAG);
             }
             algoBase.addTag(tag);
