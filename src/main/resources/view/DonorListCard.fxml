@@ -39,6 +39,10 @@
             </HBox>
             <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
             <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
+            <Label fx:id="bloodType" styleClass="cell_small_label" text="\$bloodType" />
+            <Label fx:id="tissueType" styleClass="cell_small_label" text="\$tissueType" />
+            <Label fx:id="organ" styleClass="cell_small_label" text="\$organ" />
+            <Label fx:id="organExpiryDate" styleClass="cell_small_label" text="\$organExpiryDate" />
         </VBox>
         <rowConstraints>
             <RowConstraints />

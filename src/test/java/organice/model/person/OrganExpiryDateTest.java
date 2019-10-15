@@ -53,9 +53,9 @@ public class OrganExpiryDateTest {
 
     @Test
     public void toStringTest() {
-        assertEquals(new OrganExpiryDate("23-Jan-2020").toString(), "23 Jan 2020");
-        assertEquals(new OrganExpiryDate("29-JAN-2020").toString(), "29 Jan 2020"); //full month name accepted
-        assertEquals(new OrganExpiryDate("29-JANuArY-2020").toString(), "29 Jan 2020"); //case insensitive
+        assertEquals(new OrganExpiryDate("23-Jan-2020").toString(), "23-Jan-2020");
+        assertEquals(new OrganExpiryDate("29-JAN-2020").toString(), "29-Jan-2020"); //full month name accepted
+        assertEquals(new OrganExpiryDate("29-JANuArY-2020").toString(), "29-Jan-2020"); //case insensitive
     }
 
     @Test

@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import organice.commons.core.GuiSettings;
 import organice.commons.core.LogsCenter;
+import organice.model.person.Nric;
 import organice.model.person.Person;
 
 /**
@@ -92,6 +93,12 @@ public class ModelManager implements Model {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasDoctor(Nric doctor) {
+        requireNonNull(doctor);
+        return addressBook.hasDoctor(doctor);
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import organice.commons.core.GuiSettings;
+import organice.model.person.Nric;
 import organice.model.person.Person;
 
 /**
@@ -56,6 +57,11 @@ public interface Model {
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
+
+    /**
+     * Returns true if a doctor in charge with the same nric as {@code doctorInCharge} exists in the address book.
+     */
+    boolean hasDoctor(Nric doctor);
 
     /**
      * Deletes the given person.

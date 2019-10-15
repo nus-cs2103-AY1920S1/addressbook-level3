@@ -6,10 +6,15 @@ import organice.commons.core.index.Index;
 import organice.commons.util.StringUtil;
 import organice.logic.parser.exceptions.ParseException;
 import organice.model.person.Age;
+import organice.model.person.BloodType;
+import organice.model.person.DoctorInCharge;
 import organice.model.person.Name;
 import organice.model.person.Nric;
+import organice.model.person.Organ;
+import organice.model.person.OrganExpiryDate;
 import organice.model.person.Phone;
 import organice.model.person.Priority;
+import organice.model.person.TissueType;
 import organice.model.person.Type;
 
 /**
@@ -122,5 +127,80 @@ public class ParserUtil {
             throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
         }
         return new Priority(trimmedPriority);
+    }
+
+    /**
+     * Parses a {@code String bloodType} into a {@code BloodType}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code bloodType} is invalid.
+     */
+    public static BloodType parseBloodType(String bloodType) throws ParseException {
+        requireNonNull(bloodType);
+        String trimmedBloodType = bloodType.trim();
+        if (!BloodType.isValidBloodType(trimmedBloodType)) {
+            throw new ParseException(BloodType.MESSAGE_CONSTRAINTS);
+        }
+        return new BloodType(trimmedBloodType);
+    }
+
+    /**
+     * Parses a {@code String tissueType} into a {@code TissueType}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code tissueType} is invalid.
+     */
+    public static TissueType parseTissueType(String tissueType) throws ParseException {
+        requireNonNull(tissueType);
+        String trimmedTissueType = tissueType.trim();
+        if (!TissueType.isValidTissueType(trimmedTissueType)) {
+            throw new ParseException(TissueType.MESSAGE_CONSTRAINTS);
+        }
+        return new TissueType(trimmedTissueType);
+    }
+
+    /**
+     * Parses a {@code String organ} into a {@code Organ}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code organ} is invalid.
+     */
+    public static Organ parseOrgan(String organ) throws ParseException {
+        requireNonNull(organ);
+        String trimmedOrgan = organ.trim();
+        if (!Organ.isValidOrgan(trimmedOrgan)) {
+            throw new ParseException(Organ.MESSAGE_CONSTRAINTS);
+        }
+        return new Organ(trimmedOrgan);
+    }
+
+    /**
+     * Parses a {@code String doctorInCharge} into a {@code DoctorInCharge}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code doctorInCharge} is invalid.
+     */
+    public static DoctorInCharge parseDoctorInCharge(String doctorInCharge) throws ParseException {
+        requireNonNull(doctorInCharge);
+        String trimmedDoctorInCharge = doctorInCharge.trim();
+        if (!DoctorInCharge.isValidDoctorInCharge(trimmedDoctorInCharge)) {
+            throw new ParseException(DoctorInCharge.MESSAGE_CONSTRAINTS);
+        }
+        return new DoctorInCharge(trimmedDoctorInCharge);
+    }
+
+    /**
+     * Parses a {@code String organExpiryDate} into a {@code OrganExpiryDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code organExpiryDate} is invalid.
+     */
+    public static OrganExpiryDate parseOrganExpiryDate(String organExpiryDate) throws ParseException {
+        requireNonNull(organExpiryDate);
+        String trimmedOrganExpiryDate = organExpiryDate.trim();
+        if (!OrganExpiryDate.isValidExpiryDate(trimmedOrganExpiryDate)) {
+            throw new ParseException(OrganExpiryDate.MESSAGE_CONSTRAINTS);
+        }
+        return new OrganExpiryDate(trimmedOrganExpiryDate);
     }
 }

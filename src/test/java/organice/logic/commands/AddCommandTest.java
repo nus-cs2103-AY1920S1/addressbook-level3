@@ -22,6 +22,7 @@ import organice.model.ReadOnlyAddressBook;
 import organice.model.ReadOnlyUserPrefs;
 import organice.model.person.Doctor;
 import organice.model.person.Donor;
+import organice.model.person.Nric;
 import organice.model.person.Patient;
 import organice.model.person.Person;
 import organice.testutil.DoctorBuilder;
@@ -192,6 +193,11 @@ public class AddCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDoctor(Nric doctor) {
+            return true;
         }
 
         @Override

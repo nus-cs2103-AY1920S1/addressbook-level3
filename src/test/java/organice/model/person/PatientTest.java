@@ -4,10 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static organice.logic.commands.CommandTestUtil.VALID_AGE_PATIENT_BOB;
+import static organice.logic.commands.CommandTestUtil.VALID_BLOOD_TYPE_PATIENT_BOB;
+import static organice.logic.commands.CommandTestUtil.VALID_DOCTOR_IN_CHARGE_PATIENT_BOB;
 import static organice.logic.commands.CommandTestUtil.VALID_NAME_PATIENT_BOB;
 import static organice.logic.commands.CommandTestUtil.VALID_NRIC_PATIENT_BOB;
+import static organice.logic.commands.CommandTestUtil.VALID_ORGAN_PATIENT_BOB;
 import static organice.logic.commands.CommandTestUtil.VALID_PHONE_PATIENT_BOB;
 import static organice.logic.commands.CommandTestUtil.VALID_PRIORITY_PATIENT_BOB;
+import static organice.logic.commands.CommandTestUtil.VALID_TISSUE_TYPE_PATIENT_BOB;
 import static organice.testutil.TypicalPersons.DOCTOR_ALICE;
 import static organice.testutil.TypicalPersons.PATIENT_BOB;
 import static organice.testutil.TypicalPersons.PATIENT_IRENE;
@@ -41,13 +46,33 @@ public class PatientTest {
         editedIrene = new PatientBuilder(PATIENT_IRENE).withName(VALID_NAME_PATIENT_BOB).build();
         assertTrue(PATIENT_IRENE.isSamePerson(editedIrene));
 
-        // different nric, same attributes -> returns false
-        editedIrene = new PatientBuilder(PATIENT_IRENE).withNric(VALID_NRIC_PATIENT_BOB).build();
-        assertFalse(PATIENT_IRENE.isSamePerson(editedIrene));
+        // different age -> returns true
+        editedIrene = new PatientBuilder(PATIENT_IRENE).withAge(VALID_AGE_PATIENT_BOB).build();
+        assertTrue(PATIENT_IRENE.isSamePerson(editedIrene));
 
         // different priority -> returns true
         editedIrene = new PatientBuilder(PATIENT_IRENE).withPriority(VALID_PRIORITY_PATIENT_BOB).build();
         assertTrue(PATIENT_IRENE.isSamePerson(editedIrene));
+
+        // different blood type -> returns true
+        editedIrene = new PatientBuilder(PATIENT_IRENE).withBloodType(VALID_BLOOD_TYPE_PATIENT_BOB).build();
+        assertTrue(PATIENT_IRENE.isSamePerson(editedIrene));
+
+        // different tissue type -> returns true
+        editedIrene = new PatientBuilder(PATIENT_IRENE).withTissueType(VALID_TISSUE_TYPE_PATIENT_BOB).build();
+        assertTrue(PATIENT_IRENE.isSamePerson(editedIrene));
+
+        // different organ -> returns true
+        editedIrene = new PatientBuilder(PATIENT_IRENE).withOrgan(VALID_ORGAN_PATIENT_BOB).build();
+        assertTrue(PATIENT_IRENE.isSamePerson(editedIrene));
+
+        // different doctor in charge -> returns true
+        editedIrene = new PatientBuilder(PATIENT_IRENE).withDoctorInCharge(VALID_DOCTOR_IN_CHARGE_PATIENT_BOB).build();
+        assertTrue(PATIENT_IRENE.isSamePerson(editedIrene));
+
+        // different nric, same attributes -> returns false
+        editedIrene = new PatientBuilder(PATIENT_IRENE).withNric(VALID_NRIC_PATIENT_BOB).build();
+        assertFalse(PATIENT_IRENE.isSamePerson(editedIrene));
 
         // different nric, same attributes -> returns false
         editedIrene = new PatientBuilder(PATIENT_IRENE).withNric(VALID_NRIC_PATIENT_BOB).build();
@@ -92,13 +117,34 @@ public class PatientTest {
         // different person type -> returns false
         Person editedAlice = new PersonBuilder(DOCTOR_ALICE).withType("doctor").build();
         assertFalse(editedAlice.equals(editedIrene));
+
+        // different age -> returns false
+        editedIrene = new PatientBuilder(PATIENT_IRENE).withAge(VALID_AGE_PATIENT_BOB).build();
+        assertFalse(PATIENT_IRENE.equals(editedIrene));
+
+        // different priority -> returns false
+        editedIrene = new PatientBuilder(PATIENT_IRENE).withPriority(VALID_PRIORITY_PATIENT_BOB).build();
+        assertFalse(PATIENT_IRENE.equals(editedIrene));
+
+        // different blood type -> returns false
+        editedIrene = new PatientBuilder(PATIENT_IRENE).withBloodType(VALID_BLOOD_TYPE_PATIENT_BOB).build();
+        assertFalse(PATIENT_IRENE.equals(editedIrene));
+
+        // different tissue type -> returns false
+        editedIrene = new PatientBuilder(PATIENT_IRENE).withTissueType(VALID_TISSUE_TYPE_PATIENT_BOB).build();
+        assertFalse(PATIENT_IRENE.equals(editedIrene));
+
+        // different doctor in charge -> returns false
+        editedIrene = new PatientBuilder(PATIENT_IRENE).withDoctorInCharge(VALID_DOCTOR_IN_CHARGE_PATIENT_BOB).build();
+        assertFalse(PATIENT_IRENE.equals(editedIrene));
     }
 
     @Test
     public void toStringTest() {
         Patient irene = new PatientBuilder(PATIENT_IRENE).build();
-        assertEquals(irene.toString().trim() , "Irene Person Type: patient Nric: S1111111A"
-                + " Phone: 85355255 Age: 21 Priority: high");
+        assertEquals("Irene Person Type: patient Nric: S1111112A Phone: 85355255 "
+                + "Age: 21 Priority: high Blood Type: O Tissue Type: 1,4,7,10,11,12 "
+                        + "Organ: kidney Doctor In Charge: S1231231B" , irene.toString());
     }
 
     @Test

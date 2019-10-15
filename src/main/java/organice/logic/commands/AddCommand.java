@@ -3,14 +3,20 @@ package organice.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import static organice.logic.parser.CliSyntax.PREFIX_AGE;
+import static organice.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
+import static organice.logic.parser.CliSyntax.PREFIX_DOCTOR_IN_CHARGE;
 import static organice.logic.parser.CliSyntax.PREFIX_NAME;
 import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
+import static organice.logic.parser.CliSyntax.PREFIX_ORGAN;
 import static organice.logic.parser.CliSyntax.PREFIX_PHONE;
 import static organice.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static organice.logic.parser.CliSyntax.PREFIX_TISSUE_TYPE;
 import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import organice.logic.commands.exceptions.CommandException;
 import organice.model.Model;
+import organice.model.person.Nric;
+import organice.model.person.Patient;
 import organice.model.person.Person;
 
 /**
@@ -28,16 +34,25 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_AGE + "AGE "
             + PREFIX_PRIORITY + "PRIORITY "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TYPE + "doctor "
+            + PREFIX_BLOOD_TYPE + "BLOOD TYPE "
+            + PREFIX_TISSUE_TYPE + "TISSUE TYPE "
+            + PREFIX_ORGAN + "ORGAN "
+            + PREFIX_DOCTOR_IN_CHARGE + "DOCTOR IN CHARGE "
+        + "Example: " + COMMAND_WORD + " "
+            + PREFIX_TYPE + "patient "
             + PREFIX_NRIC + "S1234568R "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_AGE + "21 "
-            + PREFIX_PRIORITY + "high ";
+            + PREFIX_PRIORITY + "high "
+            + PREFIX_BLOOD_TYPE + "A+ "
+            + PREFIX_TISSUE_TYPE + "1,2,3,4,5,6 "
+            + PREFIX_ORGAN + "kidney "
+            + PREFIX_DOCTOR_IN_CHARGE + "S1111111A ";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in ORGANice";
+    public static final String MESSAGE_DOCTOR_NOT_FOUND = "The doctor in charge specified is not found in ORGANice";
 
     private final Person toAdd;
 
@@ -55,6 +70,12 @@ public class AddCommand extends Command {
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+        if (toAdd.getType().toString().equals("patient")) {
+            Nric doctorInCharge = new Nric(((Patient) toAdd).getDoctorInCharge().toString());
+            if (!model.hasDoctor(doctorInCharge)) {
+                throw new CommandException(MESSAGE_DOCTOR_NOT_FOUND);
+            }
         }
 
         model.addPerson(toAdd);

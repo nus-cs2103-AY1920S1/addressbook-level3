@@ -3,10 +3,15 @@ package organice.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static organice.logic.parser.CliSyntax.PREFIX_AGE;
+import static organice.logic.parser.CliSyntax.PREFIX_BLOOD_TYPE;
+import static organice.logic.parser.CliSyntax.PREFIX_DOCTOR_IN_CHARGE;
 import static organice.logic.parser.CliSyntax.PREFIX_NAME;
 import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
+import static organice.logic.parser.CliSyntax.PREFIX_ORGAN;
+import static organice.logic.parser.CliSyntax.PREFIX_ORGAN_EXPIRY_DATE;
 import static organice.logic.parser.CliSyntax.PREFIX_PHONE;
 import static organice.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static organice.logic.parser.CliSyntax.PREFIX_TISSUE_TYPE;
 import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 import static organice.testutil.Assert.assertThrows;
 
@@ -40,7 +45,7 @@ public class CommandTestUtil {
     public static final String VALID_NRIC_DOCTOR_AMY = "S1111111A";
     public static final String VALID_NRIC_DONOR_JOHN = "T1312123P";
     public static final String VALID_NRIC_PATIENT_BOB = "G2222222B";
-    public static final String VALID_NRIC_PATIENT_IRENE = "S1111111A";
+    public static final String VALID_NRIC_PATIENT_IRENE = "S1111112A";
 
     public static final String VALID_TYPE_DOCTOR_AMY = "doctor";
     public static final String VALID_TYPE_DONOR_JOHN = "donor";
@@ -48,11 +53,29 @@ public class CommandTestUtil {
     public static final String VALID_TYPE_PATIENT_IRENE = "patient";
 
     public static final String VALID_AGE_DONOR_JOHN = "60";
-    public static final String VALID_AGE_PATIENT_BOB = "21";
+    public static final String VALID_AGE_PATIENT_BOB = "20";
     public static final String VALID_AGE_PATIENT_IRENE = "21";
 
     public static final String VALID_PRIORITY_PATIENT_IRENE = "high";
     public static final String VALID_PRIORITY_PATIENT_BOB = "medium";
+
+    public static final String VALID_BLOOD_TYPE_DONOR_JOHN = "A";
+    public static final String VALID_BLOOD_TYPE_PATIENT_BOB = "B+";
+    public static final String VALID_BLOOD_TYPE_PATIENT_IRENE = "O";
+
+    public static final String VALID_TISSUE_TYPE_DONOR_JOHN = "1,2,3,4,5,6";
+    public static final String VALID_TISSUE_TYPE_PATIENT_BOB = "7,8,9,10,11,12";
+    public static final String VALID_TISSUE_TYPE_PATIENT_IRENE = "1,4,7,10,11,12";
+
+    public static final String VALID_ORGAN_DONOR_JOHN = "kidney";
+    public static final String VALID_ORGAN_PATIENT_BOB = "kidney";
+    public static final String VALID_ORGAN_PATIENT_IRENE = "kidney";
+
+    public static final String VALID_ORGAN_EXPIRY_DATE_DONOR_JOHN = "20-Jan-2020";
+    public static final String VALID_ORGAN_EXPIRY_DATE_DONOR_JOHNY = "21-Jan-2020";
+
+    public static final String VALID_DOCTOR_IN_CHARGE_PATIENT_BOB = "S1111111A";
+    public static final String VALID_DOCTOR_IN_CHARGE_PATIENT_IRENE = "S1231231B";
 
     public static final String NAME_DESC_DOCTOR_AMY = " " + PREFIX_NAME + VALID_NAME_DOCTOR_AMY;
     public static final String NAME_DESC_DONOR_JOHN = " " + PREFIX_NAME + VALID_NAME_DONOR_JOHN;
@@ -82,6 +105,30 @@ public class CommandTestUtil {
     public static final String PRIORITY_DESC_PATIENT_IRENE = " " + PREFIX_PRIORITY + VALID_PRIORITY_PATIENT_IRENE;
     public static final String PRIORITY_DESC_PATIENT_BOB = " " + PREFIX_PRIORITY + VALID_PRIORITY_PATIENT_BOB;
 
+    public static final String BLOOD_TYPE_DESC_DONOR_JOHN = " " + PREFIX_BLOOD_TYPE + VALID_BLOOD_TYPE_DONOR_JOHN;
+    public static final String BLOOD_TYPE_DESC_PATIENT_BOB = " " + PREFIX_BLOOD_TYPE + VALID_BLOOD_TYPE_PATIENT_BOB;
+    public static final String BLOOD_TYPE_DESC_PATIENT_IRENE = " " + PREFIX_BLOOD_TYPE + VALID_BLOOD_TYPE_PATIENT_IRENE;
+
+    public static final String TISSUE_TYPE_DESC_DONOR_JOHN = " " + PREFIX_TISSUE_TYPE + VALID_TISSUE_TYPE_DONOR_JOHN;
+    public static final String TISSUE_TYPE_DESC_PATIENT_BOB = " " + PREFIX_TISSUE_TYPE
+            + VALID_TISSUE_TYPE_PATIENT_BOB;
+    public static final String TISSUE_TYPE_DESC_PATIENT_IRENE = " " + PREFIX_TISSUE_TYPE
+            + VALID_TISSUE_TYPE_PATIENT_IRENE;
+
+    public static final String ORGAN_DESC_DONOR_JOHN = " " + PREFIX_ORGAN + VALID_ORGAN_DONOR_JOHN;
+    public static final String ORGAN_DESC_PATIENT_BOB = " " + PREFIX_ORGAN + VALID_ORGAN_PATIENT_BOB;
+    public static final String ORGAN_DESC_PATIENT_IRENE = " " + PREFIX_ORGAN + VALID_ORGAN_PATIENT_IRENE;
+
+    public static final String ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN = " " + PREFIX_ORGAN_EXPIRY_DATE
+            + VALID_ORGAN_EXPIRY_DATE_DONOR_JOHN;
+    public static final String ORGAN_EXPIRY_DATE_DESC_DONOR_JOHNY = " " + PREFIX_ORGAN_EXPIRY_DATE
+            + VALID_ORGAN_EXPIRY_DATE_DONOR_JOHNY;
+
+    public static final String DOCTOR_IN_CHARGE_DESC_PATIENT_BOB = " " + PREFIX_DOCTOR_IN_CHARGE
+            + VALID_DOCTOR_IN_CHARGE_PATIENT_BOB;
+    public static final String DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE = " " + PREFIX_DOCTOR_IN_CHARGE
+            + VALID_DOCTOR_IN_CHARGE_PATIENT_IRENE;
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_NRIC_DESC = " " + PREFIX_NRIC + "G123A"; // need exactly 7 numbers in nrics
@@ -89,6 +136,11 @@ public class CommandTestUtil {
     // 'doctor'
     public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "-9";
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "med";
+    public static final String INVALID_BLOOD_TYPE_DESC = " " + PREFIX_BLOOD_TYPE + "ABC";
+    public static final String INVALID_TISSUE_TYPE_DESC = " " + PREFIX_TISSUE_TYPE + "1,2,12,13,14,4";
+    public static final String INVALID_ORGAN_DESC = " " + PREFIX_ORGAN + "heart";
+    public static final String INVALID_DOCTOR_IN_CHARGE_DESC = " " + PREFIX_DOCTOR_IN_CHARGE + "S123B";
+    public static final String INVALID_ORGAN_EXPIRY_DATE_DESC = " " + PREFIX_ORGAN_EXPIRY_DATE + "20.01.2020";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

@@ -12,4 +12,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_TYPE = new Prefix("t/");
     public static final Prefix PREFIX_AGE = new Prefix("a/");
     public static final Prefix PREFIX_PRIORITY = new Prefix("pr/");
+    public static final Prefix PREFIX_BLOOD_TYPE = new Prefix("b/");
+    public static final Prefix PREFIX_DOCTOR_IN_CHARGE = new Prefix("d/");
+    public static final Prefix PREFIX_TISSUE_TYPE = new Prefix("tt/");
+    public static final Prefix PREFIX_ORGAN_EXPIRY_DATE = new Prefix("exp/");
+    public static final Prefix PREFIX_ORGAN = new Prefix("o/");
 }

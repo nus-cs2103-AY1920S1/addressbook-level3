@@ -5,14 +5,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import organice.commons.exceptions.IllegalValueException;
 import organice.model.person.Age;
+import organice.model.person.BloodType;
 import organice.model.person.Doctor;
+import organice.model.person.DoctorInCharge;
 import organice.model.person.Donor;
 import organice.model.person.Name;
 import organice.model.person.Nric;
+import organice.model.person.Organ;
+import organice.model.person.OrganExpiryDate;
 import organice.model.person.Patient;
 import organice.model.person.Person;
 import organice.model.person.Phone;
 import organice.model.person.Priority;
+import organice.model.person.TissueType;
 import organice.model.person.Type;
 
 /**
@@ -27,9 +32,13 @@ class JsonAdaptedPerson {
     protected final String nric;
     protected final String type;
 
-    //Data fields of Patient
     protected final String age;
     protected final String priority;
+    protected final String bloodType;
+    protected final String tissueType;
+    protected final String organ;
+    protected final String doctorInCharge;
+    protected final String organExpiryDate;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -37,13 +46,21 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("type") String type, @JsonProperty("nric") String nric,
             @JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("age") String age, @JsonProperty("priority") String priority) {
+            @JsonProperty("age") String age, @JsonProperty("priority") String priority,
+            @JsonProperty("bloodType") String bloodType, @JsonProperty("tissueType") String tissueType,
+            @JsonProperty("organ") String organ, @JsonProperty("doctorInCharge") String doctorInCharge,
+            @JsonProperty("organExpiryDate") String organExpiryDate) {
         this.type = type;
         this.nric = nric;
         this.name = name;
         this.phone = phone;
         this.age = age;
         this.priority = priority;
+        this.bloodType = bloodType;
+        this.tissueType = tissueType;
+        this.organ = organ;
+        this.doctorInCharge = doctorInCharge;
+        this.organExpiryDate = organExpiryDate;
     }
 
     /**
@@ -58,15 +75,35 @@ class JsonAdaptedPerson {
         if (source instanceof Patient) {
             age = ((Patient) source).getAge().value;
             priority = ((Patient) source).getPriority().value;
+            bloodType = ((Patient) source).getBloodType().value;
+            tissueType = ((Patient) source).getTissueType().value;
+            organ = ((Patient) source).getOrgan().value;
+            doctorInCharge = ((Patient) source).getDoctorInCharge().value;
+            organExpiryDate = "";
         } else if (source instanceof Donor) {
             age = ((Donor) source).getAge().value;
             priority = "";
+            bloodType = ((Donor) source).getBloodType().value;
+            tissueType = ((Donor) source).getTissueType().value;
+            organ = ((Donor) source).getOrgan().value;
+            doctorInCharge = "";
+            organExpiryDate = ((Donor) source).getOrganExpiryDate().value;
         } else if (source instanceof Doctor) {
             age = "";
             priority = "";
+            bloodType = "";
+            tissueType = "";
+            organ = "";
+            doctorInCharge = "";
+            organExpiryDate = "";
         } else {
             age = "";
             priority = "";
+            bloodType = "";
+            tissueType = "";
+            organ = "";
+            doctorInCharge = "";
+            organExpiryDate = "";
         }
     }
 
@@ -122,10 +159,52 @@ class JsonAdaptedPerson {
             }
             final Age modelAge = new Age(age);
 
-            return new Donor(modelType, modelNric, modelName, modelPhone, modelAge);
+            if (bloodType == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        BloodType.class.getSimpleName()));
+            }
+
+            if (!BloodType.isValidBloodType(bloodType)) {
+                throw new IllegalValueException(BloodType.MESSAGE_CONSTRAINTS);
+            }
+            final BloodType modelBloodType = new BloodType(bloodType);
+
+            if (tissueType == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        TissueType.class.getSimpleName()));
+            }
+
+            if (!TissueType.isValidTissueType(tissueType)) {
+                throw new IllegalValueException(TissueType.MESSAGE_CONSTRAINTS);
+            }
+            final TissueType modelTissueType = new TissueType(tissueType);
+
+            if (organ == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        Organ.class.getSimpleName()));
+            }
+
+            if (!Organ.isValidOrgan(organ)) {
+                throw new IllegalValueException(Organ.MESSAGE_CONSTRAINTS);
+            }
+            final Organ modelOrgan = new Organ(organ);
+
+            if (organExpiryDate == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        OrganExpiryDate.class.getSimpleName()));
+            }
+
+            if (!OrganExpiryDate.isValidExpiryDate(organExpiryDate)) {
+                throw new IllegalValueException(OrganExpiryDate.MESSAGE_CONSTRAINTS);
+            }
+            final OrganExpiryDate modelOrganExpiryDate = new OrganExpiryDate(organExpiryDate);
+
+            return new Donor(modelType, modelNric, modelName, modelPhone, modelAge, modelBloodType, modelTissueType,
+                    modelOrgan, modelOrganExpiryDate);
         } else if (modelType.isPatient()) {
             if (age == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName()));
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        Age.class.getSimpleName()));
             }
 
             if (!Age.isValidAge(age)) {
@@ -143,7 +222,48 @@ class JsonAdaptedPerson {
             }
             final Priority modelPriority = new Priority(priority);
 
-            return new Patient(modelType, modelNric, modelName, modelPhone, modelAge, modelPriority);
+            if (bloodType == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        BloodType.class.getSimpleName()));
+            }
+
+            if (!BloodType.isValidBloodType(bloodType)) {
+                throw new IllegalValueException(BloodType.MESSAGE_CONSTRAINTS);
+            }
+            final BloodType modelBloodType = new BloodType(bloodType);
+
+            if (tissueType == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        TissueType.class.getSimpleName()));
+            }
+
+            if (!TissueType.isValidTissueType(tissueType)) {
+                throw new IllegalValueException(TissueType.MESSAGE_CONSTRAINTS);
+            }
+            final TissueType modelTissueType = new TissueType(tissueType);
+
+            if (organ == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        Organ.class.getSimpleName()));
+            }
+
+            if (!Organ.isValidOrgan(organ)) {
+                throw new IllegalValueException(Organ.MESSAGE_CONSTRAINTS);
+            }
+            final Organ modelOrgan = new Organ(organ);
+
+            if (doctorInCharge == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        DoctorInCharge.class.getSimpleName()));
+            }
+
+            if (!DoctorInCharge.isValidDoctorInCharge(doctorInCharge)) {
+                throw new IllegalValueException(DoctorInCharge.MESSAGE_CONSTRAINTS);
+            }
+            final DoctorInCharge modelDoctorInCharge = new DoctorInCharge(doctorInCharge);
+
+            return new Patient(modelType, modelNric, modelName, modelPhone, modelAge, modelPriority,
+                    modelBloodType, modelTissueType, modelOrgan, modelDoctorInCharge);
         } else {
             return new Person(modelType, modelNric, modelName, modelPhone);
         }

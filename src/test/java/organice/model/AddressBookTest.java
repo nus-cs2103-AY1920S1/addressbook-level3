@@ -18,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import organice.model.person.Person;
 import organice.model.person.exceptions.DuplicatePersonException;
+import organice.testutil.DoctorBuilder;
 import organice.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -72,6 +73,29 @@ public class AddressBookTest {
         addressBook.addPerson(DOCTOR_ALICE);
         Person editedAlice = new PersonBuilder(DOCTOR_ALICE).withNric("S1532142A").build();
         assertTrue(addressBook.hasPerson(editedAlice));
+    }
+
+    @Test
+    public void hasDoctor_nullDoctor_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasDoctor(null));
+    }
+
+    @Test
+    public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasDoctor(DOCTOR_ALICE.getNric()));
+    }
+
+    @Test
+    public void hasDoctor_doctorInAddressBook_returnsTrue() {
+        addressBook.addPerson(DOCTOR_ALICE);
+        assertTrue(addressBook.hasDoctor(DOCTOR_ALICE.getNric()));
+    }
+
+    @Test
+    public void hasDoctor_doctorWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addPerson(DOCTOR_ALICE);
+        Person editedAlice = new DoctorBuilder(DOCTOR_ALICE).withNric(DOCTOR_ALICE.getNric().toString()).build();
+        assertTrue(addressBook.hasDoctor(editedAlice.getNric()));
     }
 
     @Test

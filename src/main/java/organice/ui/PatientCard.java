@@ -39,6 +39,14 @@ public class PatientCard extends UiPart<Region> {
     private Label age;
     @FXML
     private Label priority;
+    @FXML
+    private Label bloodType;
+    @FXML
+    private Label tissueType;
+    @FXML
+    private Label organ;
+    @FXML
+    private Label doctorInCharge;
 
     public PatientCard(Patient patient, int displayedIndex) {
         super(FXML);
@@ -50,6 +58,10 @@ public class PatientCard extends UiPart<Region> {
         type.setText(patient.getType().value);
         age.setText("Age: " + patient.getAge().value);
         priority.setText("Priority: " + patient.getPriority().value);
+        bloodType.setText("Blood type: " + patient.getBloodType().value);
+        tissueType.setText("Tissue type: " + patient.getTissueType().value);
+        organ.setText("Organ: " + patient.getOrgan().value);
+        doctorInCharge.setText("Doctor in Charge: " + patient.getDoctorInCharge().value);
     }
 
     @Override

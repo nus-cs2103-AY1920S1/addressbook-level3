@@ -89,6 +89,22 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasDoctor_nullDoctor_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasDoctor(null));
+    }
+
+    @Test
+    public void hasDoctor_doctorNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasDoctor(DOCTOR_ALICE.getNric()));
+    }
+
+    @Test
+    public void hasDoctor_doctorInAddressBook_returnsTrue() {
+        modelManager.addPerson(DOCTOR_ALICE);
+        assertTrue(modelManager.hasDoctor(DOCTOR_ALICE.getNric()));
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }

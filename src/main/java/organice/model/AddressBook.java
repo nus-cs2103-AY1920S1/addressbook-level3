@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import organice.model.person.Nric;
 import organice.model.person.Person;
 import organice.model.person.UniquePersonList;
 
@@ -64,6 +65,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
+    }
+
+    /**
+     * Returns true if a doctor with the same nric as {@code doctorInCharge} exists in the address book.
+     */
+    public boolean hasDoctor(Nric doctor) {
+        requireNonNull(doctor);
+        return persons.containsDoctor(doctor);
     }
 
     /**

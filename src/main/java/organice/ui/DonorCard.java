@@ -37,6 +37,14 @@ public class DonorCard extends UiPart<Region> {
     private Label type;
     @FXML
     private Label age;
+    @FXML
+    private Label bloodType;
+    @FXML
+    private Label tissueType;
+    @FXML
+    private Label organ;
+    @FXML
+    private Label organExpiryDate;
 
     public DonorCard(Donor donor, int displayedIndex) {
         super(FXML);
@@ -47,6 +55,10 @@ public class DonorCard extends UiPart<Region> {
         nric.setText(donor.getNric().value);
         type.setText(donor.getType().value);
         age.setText("Age: " + donor.getAge().value);
+        bloodType.setText("Blood type: " + donor.getBloodType().value);
+        tissueType.setText("Tissue type: " + donor.getTissueType().value);
+        organ.setText("Organ: " + donor.getOrgan().value);
+        organExpiryDate.setText("Organ Expiry Date: " + donor.getOrganExpiryDate().value);
     }
 
     @Override

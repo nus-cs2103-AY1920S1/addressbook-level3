@@ -16,31 +16,51 @@
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "age" : "22",
-    "priority": "high"
+    "priority": "high",
+    "bloodType": "A",
+    "tissueType": "1,2,3,4,5,6",
+    "organ": "kidney",
+    "doctorInCharge": "S1532142A"
   }, {
     "type": "patient",
     "nric": "F6423467F",
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "age" : "34",
-    "priority": "low"
+    "priority": "low",
+    "bloodType": "O+",
+    "tissueType": "10,5,3,1,6,8",
+    "organ": "kidney",
+    "doctorInCharge": "T5231426Q"
   }, {
     "type": "donor",
     "nric": "S9374923S",
     "name" : "Elle Meyer",
     "phone" : "9482224",
-    "age" : "13"
+    "age" : "13",
+    "bloodType": "O+",
+    "tissueType": "10,5,3,1,6,8",
+    "organ": "kidney",
+    "organExpiryDate": "10-May-2020"
   }, {
     "type": "donor",
     "nric": "F9183156L",
     "name" : "Fiona Kunz",
     "phone" : "9482427",
-    "age" : "25"
+    "age" : "25",
+    "bloodType": "AB+",
+    "tissueType": "7,2,3,9,6,8",
+    "organ": "kidney",
+    "organExpiryDate": "10-Jun-2020"
   }, {
     "type": "donor",
     "nric": "S1234567A",
     "name" : "George Best",
     "phone" : "9482442",
-    "age" : "44"
+    "age" : "44",
+    "bloodType": "B",
+    "tissueType": "9,4,1,6,8,2",
+    "organ": "kidney",
+    "organExpiryDate": "10-Dec-2030"
   } ]
 }

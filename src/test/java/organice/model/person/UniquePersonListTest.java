@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import organice.model.person.exceptions.DuplicatePersonException;
 import organice.model.person.exceptions.PersonNotFoundException;
+import organice.testutil.DoctorBuilder;
 import organice.testutil.PersonBuilder;
 
 public class UniquePersonListTest {
@@ -42,6 +43,29 @@ public class UniquePersonListTest {
         uniquePersonList.add(DOCTOR_ALICE);
         Person editedAlice = new PersonBuilder(DOCTOR_ALICE).build();
         assertTrue(uniquePersonList.contains(editedAlice));
+    }
+
+    @Test
+    public void contains_nullDoctor_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniquePersonList.containsDoctor(null));
+    }
+
+    @Test
+    public void contains_doctorNotInList_returnsFalse() {
+        assertFalse(uniquePersonList.containsDoctor(DOCTOR_ALICE.getNric()));
+    }
+
+    @Test
+    public void contains_doctorInList_returnsTrue() {
+        uniquePersonList.add(DOCTOR_ALICE);
+        assertTrue(uniquePersonList.containsDoctor(DOCTOR_ALICE.getNric()));
+    }
+
+    @Test
+    public void contains_doctorWithSameIdentityFieldsInList_returnsTrue() {
+        uniquePersonList.add(DOCTOR_ALICE);
+        Person editedAlice = new DoctorBuilder(DOCTOR_ALICE).build();
+        assertTrue(uniquePersonList.containsDoctor(editedAlice.getNric()));
     }
 
     @Test

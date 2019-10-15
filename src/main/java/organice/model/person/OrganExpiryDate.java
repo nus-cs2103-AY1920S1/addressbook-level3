@@ -16,7 +16,7 @@ public class OrganExpiryDate {
     public static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy");
 
     public static final String MESSAGE_CONSTRAINTS = "Organ's expiry date must be in the format DD-MMM-YYYY"
-            + " and is after current date. An example will be 27-Jan-2020";
+            + " An example will be 27-Jan-2020";
 
     public final String value;
 
@@ -30,7 +30,7 @@ public class OrganExpiryDate {
         try {
             DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
             checkArgument(isValidExpiryDate(expiryDate), MESSAGE_CONSTRAINTS);
-            value = dateFormat.format(DATE_FORMAT.parse(expiryDate)); //make the data value uniform
+            value = dateFormat.format(DATE_FORMAT.parse(expiryDate)).replace(" ", "-"); //make the data value uniform
         } catch (ParseException e) {
             throw new IllegalArgumentException();
         }
