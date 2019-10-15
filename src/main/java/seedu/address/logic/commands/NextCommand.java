@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Serves the next patient in queue.
  */
-public class NextCommand extends ReversibleCommand {
+public class NextCommand {
     public static final String COMMAND_WORD = "next";
     public static final String MESSAGE_SUCCESS = "Next patient has been allocated to room ";
     public static final String MESSAGE_UNDO_NEXT_SUCCESS = "Allocation has been undone";
@@ -44,17 +44,4 @@ public class NextCommand extends ReversibleCommand {
         return new CommandResult(MESSAGE_SUCCESS + targetIndex);
     }
 
-    @Override
-    public CommandResult undo(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Room> lastShownList = model.getFilteredRoomList();
-        ReferenceId referenceId = lastShownList.get(targetIndex.getZeroBased()).getCurrentPatient().get();
-
-        if (referenceId == null || !model.hasPerson(referenceId) || model.isPatientInQueue(referenceId)) {
-            throw new CommandException(MESSAGE_UNDO_NEXT_ERROR);
-        }
-        model.enqueuePatientToFront(referenceId);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_UNDO_NEXT_SUCCESS);
-    }
 }

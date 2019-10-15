@@ -12,6 +12,8 @@ import seedu.address.logic.autocomplete.AutoCompleter;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.common.CommandResult;
+import seedu.address.logic.commands.common.NonActionableCommand;
+import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
@@ -56,16 +58,21 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
-
+        Command command = addressBookParser.parseCommand(commandText, model);
         if (command instanceof ReversibleCommand) {
-            commandHistory.addToCommandHistory((ReversibleCommand) command);
+            throw new CommandException("Reversible Commands should be contained in a ReversibleActionPairCommand");
+        }
+
+        commandResult = command.execute(model);
+        if (command instanceof ReversibleActionPairCommand) {
+            commandHistory.addToCommandHistory((ReversibleActionPairCommand) command);
         }
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
-            storage.saveAppointmentBook(model.getAppointmentBook());
+            if (!(command instanceof NonActionableCommand)) {
+                storage.saveAddressBook(model.getAddressBook());
+                storage.saveAppointmentBook(model.getAppointmentBook());
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -84,8 +91,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReferenceId> getFilteredReferencedIdList() {
-        return model.getFilteredReferenceIdList();
+    public ObservableList<ReferenceId> getQueueList() {
+        return model.getQueueList();
     }
 
     @Override
@@ -94,8 +101,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Room> getFilteredRoomList() {
-        return model.getFilteredRoomList();
+    public ObservableList<Room> getConsultationRoomList() {
+        return model.getConsultationRoomList();
     }
 
     @Override
