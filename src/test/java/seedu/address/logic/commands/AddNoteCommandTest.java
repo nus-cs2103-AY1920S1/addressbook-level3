@@ -166,6 +166,11 @@ public class AddNoteCommandTest {
         public void clearQuizQuestionList() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Answer showQuizAnswer(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
