@@ -27,8 +27,8 @@ public class CommitList {
      * Adds a study plan to this commit list.
      * @param studyPlan study plan to be committed.
      */
-    public void commitStudyPlan(StudyPlan studyPlan) {
-        Commit commit = new Commit(studyPlan);
+    public void commitStudyPlan(StudyPlan studyPlan, String commitMessage) {
+        Commit commit = new Commit(studyPlan, commitMessage);
         commits.add(commit);
     }
 }

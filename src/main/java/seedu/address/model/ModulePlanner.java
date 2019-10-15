@@ -16,6 +16,7 @@ import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.versiontracking.StudyPlanCommitManager;
 import seedu.address.model.versiontracking.VersionTrackingManager;
 
 /**
@@ -212,6 +213,15 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     public String getModuleInformation(String moduleCode) {
         ModuleInfo moduleInfo = modulesInfo.find(moduleCode);
         return moduleInfo == null ? null : moduleInfo.getInformation();
+    }
+
+    //// commit methods
+
+    /**
+     * Commits the current active study plan.
+     */
+    public void commitActiveStudyPlan(String commitMessage) {
+        StudyPlanCommitManager manager = versionTrackingManager.commitStudyPlan(activeStudyPlan, commitMessage);
     }
 
     //// util methods

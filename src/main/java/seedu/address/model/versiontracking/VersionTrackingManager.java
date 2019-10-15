@@ -1,5 +1,7 @@
 package seedu.address.model.versiontracking;
 
+import java.util.List;
+
 import seedu.address.model.studyplan.StudyPlan;
 
 /**
@@ -20,8 +22,8 @@ public class VersionTrackingManager {
         studyPlanCommitManagers = managers;
     }
 
-    public StudyPlanCommitManager getStudyPlanCommitManagerByIndex(int index) {
-        return studyPlanCommitManagers.get(index);
+    public StudyPlanCommitManager getStudyPlanCommitManagerByStudyPlan(StudyPlan studyPlan) {
+        return studyPlanCommitManagers.getManagerByStudyPlan(studyPlan);
     }
 
     public StudyPlanCommitManagerList getStudyPlanCommitManagerList() {
@@ -29,11 +31,17 @@ public class VersionTrackingManager {
     }
 
     /**
-     * Initializes the commit manager for a study plan, so that the user can start making commits.
+     * Creates the commit manager for a study plan if it does not exist, so that the user can start making commits.
      * @param studyPlan
      */
-    public void initializeStudyPlan(StudyPlan studyPlan) {
-        StudyPlanCommitManager manager = new StudyPlanCommitManager(studyPlan);
-        studyPlanCommitManagers.add(manager);
+    public StudyPlanCommitManager commitStudyPlan(StudyPlan studyPlan, String commitMessage) {
+        boolean managerAlreadyExists = getStudyPlanCommitManagerList().managerAlreadyExists(studyPlan);
+        if (managerAlreadyExists) {
+            return studyPlanCommitManagers.getManagerByStudyPlan(studyPlan);
+        } else {
+            StudyPlanCommitManager manager = new StudyPlanCommitManager(studyPlan, commitMessage);
+            studyPlanCommitManagers.add(manager);
+            return manager;
+        }
     }
 }

@@ -23,7 +23,7 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class StudyPlan implements Cloneable {
 
-    private static int totalNumberOfStudyPlans = 0; // TODO: will this reset to zero every time application restarts?
+    private static int totalNumberOfStudyPlans = 0;
 
     private UniqueSemesterList semesters;
     private Title title;

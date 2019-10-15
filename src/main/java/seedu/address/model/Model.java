@@ -106,6 +106,13 @@ public interface Model {
     void updateFilteredStudyPlanList(Predicate<StudyPlan> predicate);
 
     // ===================== MODULE INFORMATION ==========================
+    /**
+     * Commits the current active study plan with a commit message.
+     */
+    void commitActiveStudyPlan(String commitMessage);
+
+
+    // ===================== MODULE INFORMATION ==========================
 
     /**
      * Returns true if the module code is a valid, false otherwise.

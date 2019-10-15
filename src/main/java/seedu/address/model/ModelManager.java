@@ -124,6 +124,12 @@ public class ModelManager implements Model {
 
         modulePlanner.setStudyPlan(target, editedStudyPlan);
     }
+    //=========== Version Tracking ============================================================================
+
+    @Override
+    public void commitActiveStudyPlan(String commitMessage) {
+        modulePlanner.commitActiveStudyPlan(commitMessage);
+    }
 
     //=========== Module Information ============================================================================
 
