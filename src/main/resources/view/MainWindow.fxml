@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="SplitWiser" minWidth="384" maxWidth="384" minHeight="700" maxHeight="700" onCloseRequest="#handleExit">
+         title="SplitWiser" minWidth="512" maxWidth="512" minHeight="700" maxHeight="700" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -23,7 +23,7 @@
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxContainer" styleClass="command-input-root" />
 
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayContainer" styleClass="result-display-root"
-            minHeight="116" prefHeight="116" maxHeight="116" />
+            minHeight="120" maxHeight="120" />
 
         <VBox fx:id="contentRoot" styleClass="content-root" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
           <StackPane fx:id="contentContainer" VBox.vgrow="ALWAYS" styleClass="content-display" />

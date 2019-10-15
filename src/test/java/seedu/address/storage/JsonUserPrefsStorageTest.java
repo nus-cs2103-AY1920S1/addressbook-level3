@@ -73,7 +73,7 @@ public class JsonUserPrefsStorageTest {
     @Test
     public void readUserPrefs_guiResizedInFile_windowDimensionsReset() throws DataConversionException {
         UserPrefs expected = getTypicalUserPrefs();
-        expected.setGuiSettings(new GuiSettings(384.0, 700.0, 400, 200));
+        expected.setGuiSettings(new GuiSettings(512.0, 700.0, 400, 200));
 
         UserPrefs actual = readUserPrefs("GuiResizeUserPref.json").get();
 
@@ -82,7 +82,7 @@ public class JsonUserPrefsStorageTest {
 
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setGuiSettings(new GuiSettings(384.0, 700.0, 300, 100));
+        userPrefs.setGuiSettings(new GuiSettings(512.0, 700.0, 300, 100));
         userPrefs.setActivityBookFilePath(Paths.get("activitybook.json"));
         userPrefs.setAddressBookFilePath(Paths.get("addressbook.json"));
         userPrefs.setInternalStateFilePath(Paths.get("internalstate.json"));
@@ -115,7 +115,7 @@ public class JsonUserPrefsStorageTest {
     public void saveUserPrefs_allInOrder_success() throws DataConversionException, IOException {
 
         UserPrefs original = new UserPrefs();
-        original.setGuiSettings(new GuiSettings(384.0, 700.0, 42, 69));
+        original.setGuiSettings(new GuiSettings(512.0, 700.0, 42, 69));
 
         Path pefsFilePath = testFolder.resolve("TempPrefs.json");
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(pefsFilePath);
@@ -129,7 +129,7 @@ public class JsonUserPrefsStorageTest {
         original.setGuiSettings(new GuiSettings(110.1, 204.0, 20, 30));
         jsonUserPrefsStorage.saveUserPrefs(original);
         // GUI window size will be force-reset
-        original.setGuiSettings(new GuiSettings(384.0, 700.0, 20, 30));
+        original.setGuiSettings(new GuiSettings(512.0, 700.0, 20, 30));
         readBack = jsonUserPrefsStorage.readUserPrefs().get();
         assertEquals(original, readBack);
     }

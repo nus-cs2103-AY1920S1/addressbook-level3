@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +17,6 @@ import seedu.address.model.activity.Title;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 
-
 /**
  * Command to create a new Activity.
  */
@@ -23,9 +24,10 @@ import seedu.address.model.person.Person;
 public class ActivityCommand extends Command {
     public static final String COMMAND_WORD = "activity";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new Activity.\n"
-            + "Compulsory Parameters: t/\n"
-            + "Optional Parameters: p/\n"
-            + "Example: Activity";
+            + "Parameters: "
+            + PREFIX_TITLE + "TITLE "
+            + "[" + PREFIX_PARTICIPANT + "PARTICIPANT]...\n"
+            + "Example: activity t/Mala dinner p/Kaedoon p/Giak Lhee p/Veken";
     public static final String MESSAGE_SUCCESS =
         "%s successfully created with following participants:\n%s\nWarnings:\n%s";
     public static final String WARNING_SEARCH_RESULTS =
