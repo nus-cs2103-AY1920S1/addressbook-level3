@@ -5,16 +5,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.deliverymans.model.addressbook.person.Person;
+import seedu.deliverymans.model.restaurant.Restaurant;
 
 import java.util.Comparator;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Restaurant}.
  */
-public class PersonCard extends UiPart<Region> {
-
-    private static final String FXML = "PersonListCard.fxml";
+public class RestaurantCard extends UiPart<Region> {
+    
+    private static final String FXML = "RestaurantListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,32 +24,29 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Restaurant restaurant;
 
-    @FXML
+    @javafx.fxml.FXML
     private HBox cardPane;
     @FXML
     private Label name;
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label loc;
     @FXML
-    private Label email;
+    private Label rating;
     @FXML
     private FlowPane tags;
-    @FXML
-    private Label remark;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public RestaurantCard(Restaurant restaurant, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.restaurant = restaurant;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        email.setText(person.getEmail().value);
-        remark.setText(person.getRemark().value);
-        person.getTags().stream()
+        name.setText(restaurant.getName().fullName);
+        loc.setText(restaurant.getLocation().name);
+        rating.setText("Rating: " + restaurant.getRating().rating);
+        restaurant.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -62,13 +59,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof RestaurantCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        RestaurantCard card = (RestaurantCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && restaurant.equals(card.restaurant);
     }
 }

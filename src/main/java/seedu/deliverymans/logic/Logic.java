@@ -12,7 +12,9 @@ import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.order.Order;
+import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
  * API of the Logic component
@@ -27,6 +29,7 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
+    //=========== AddressBook =============================================================
     /**
      * Returns the AddressBook.
      *
@@ -37,14 +40,33 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered list of customers */
-    ObservableList<Customer> getFilteredCustomerList();
-
     /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
 
+    //=========== Customer =============================================================
+
+    /** Returns an unmodifiable view of the filtered list of customers */
+    ObservableList<Customer> getFilteredCustomerList();
+
+    //=========== Restaurant =============================================================
+    /**
+     * Returns the RestaurantDatabase.
+     *
+     * @see seedu.deliverymans.model.Model#getRestaurantDatabase()
+     */
+    ReadOnlyRestaurantDatabase getRestaurantDatabase();
+
+    /** Returns an unmodifiable view of the filtered list of restaurants */
+    ObservableList<Restaurant> getFilteredRestaurantList();
+
+    /**
+     * Returns the user prefs' restaurant database file path.
+     */
+    Path getRestaurantDatabaseFilePath();
+
+    //=========== Order =============================================================
     /**
      * Returns the AddressBook.
      *
