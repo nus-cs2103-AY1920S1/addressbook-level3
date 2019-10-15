@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.address.commons.util.UidGenerator;
 import seedu.address.logic.commands.app.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
@@ -39,7 +40,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Meaning meaning = ParserUtil.parseMeaning(argMultimap.getValue(PREFIX_MEANING).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Card card = new Card(word, meaning, tagList);
+        Card card = Card.createNewCard(word, meaning, tagList);
 
         return new AddCommand(card);
     }

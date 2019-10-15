@@ -80,7 +80,8 @@ public class LogicManager implements Logic {
         try {
             if (commandResult instanceof FinishGameResult) {
                 FinishGameResult finishGameResult = (FinishGameResult) commandResult;
-                storage.saveAddressBookStatistics(model.getWordBank(), finishGameResult.getStatistics());
+                //todo update word bank statistics with finishGameResult.getStatistics()
+                //todo storage.saveWordBankStatistics([STATS])
             } else {
                 storage.saveAddressBook(model.getWordBank());
             }

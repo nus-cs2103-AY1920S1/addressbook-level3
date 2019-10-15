@@ -23,15 +23,12 @@ class JsonSerializableAddressBook {
 
     private final List<JsonAdaptedCard> wordBank = new ArrayList<>();
 
-    private final String id;
-
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("wordBank") List<JsonAdaptedCard> card, @JsonProperty("id") String id) {
+    public JsonSerializableAddressBook(@JsonProperty("wordBank") List<JsonAdaptedCard> card) {
         this.wordBank.addAll(card);
-        this.id = id;
     }
 
     /**
@@ -39,9 +36,8 @@ class JsonSerializableAddressBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyWordBank source, String id) {
+    public JsonSerializableAddressBook(ReadOnlyWordBank source) {
         wordBank.addAll(source.getCardList().stream().map(JsonAdaptedCard::new).collect(Collectors.toList()));
-        this.id = id;
     }
 
     /**
@@ -50,7 +46,7 @@ class JsonSerializableAddressBook {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public WordBank toModelType(String name) throws IllegalValueException {
-        WordBank wordBank = new WordBank(name, id);
+        WordBank wordBank = new WordBank(name);
         for (JsonAdaptedCard jsonAdaptedCard : this.wordBank) {
             Card card = jsonAdaptedCard.toModelType();
             if (wordBank.hasCard(card)) {

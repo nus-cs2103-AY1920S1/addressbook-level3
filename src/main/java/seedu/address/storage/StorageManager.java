@@ -11,6 +11,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.statistics.GameStatistics;
+import seedu.address.statistics.WordBankStatistics;
+import seedu.address.storage.statistics.WordBankStatisticsStorage;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -20,12 +22,14 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private WordBankStatisticsStorage wbStatsStorage;
 
-
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          WordBankStatisticsStorage wbStatsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.wbStatsStorage = wbStatsStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -75,17 +79,42 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ WordBankStatistics methods ==============================
+
     @Override
-    public void saveAddressBookStatistics(ReadOnlyWordBank addressBook, GameStatistics statistics) throws IOException {
-        saveAddressBookStatistics(addressBook, statistics, addressBookStorage.getAddressBookFilePath());
+    public Optional<WordBankStatistics> readWordBankStatistics() throws DataConversionException, IOException {
+        return readWordBankStatistics(wbStatsStorage.getWordBankStatisticsFilePath());
     }
 
     @Override
-    public void saveAddressBookStatistics(ReadOnlyWordBank addressBook, GameStatistics statistics, Path filePath)
-            throws IOException {
+    public Optional<WordBankStatistics> readWordBankStatistics(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return wbStatsStorage.readWordBankStatistics(filePath);
+    }
+
+    @Override
+    public void saveWordBankStatistics(WordBankStatistics wbStats) throws IOException {
+        saveWordBankStatistics(wbStats, wbStatsStorage.getWordBankStatisticsFilePath());
+    }
+
+    @Override
+    public void saveWordBankStatistics(WordBankStatistics wbStats, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBookStatistics(addressBook, statistics, filePath);
+        wbStatsStorage.saveWordBankStatistics(wbStats, filePath);
     }
 
+    @Override
+    public Path getWordBankStatisticsFilePath() {
+        return wbStatsStorage.getWordBankStatisticsFilePath();
+    }
 
+    // ================ static methods ==============================
+    /**
+     * Get the path to the wordbank statistics given the path to wordbank
+     * e.g. getWbStatsStoragePath("data/pokemon.json") == "data/wbstats/pokemon.json"
+     * @param wbPath The path of the wordbank
+     */
+    public static Path getWbStatsStoragePath(Path wbPath) {
+        return Path.of(wbPath.getParent().toString(),"wbstats", wbPath.getFileName().toString());
+    }
 }

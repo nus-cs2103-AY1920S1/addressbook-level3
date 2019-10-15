@@ -14,8 +14,6 @@ public interface ReadOnlyWordBank {
      * This list will not contain any duplicate cards.
      */
 
-    String getId();
-
     ObservableList<Card> getCardList();
 
     Card getCard(Index index);

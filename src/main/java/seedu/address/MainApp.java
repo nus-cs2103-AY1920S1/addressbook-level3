@@ -29,6 +29,8 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.statistics.JsonWordBankStatisticsStorage;
+import seedu.address.storage.statistics.WordBankStatisticsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -70,7 +72,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        Path wbStatsPath = StorageManager.getWbStatsStoragePath(userPrefs.getAddressBookFilePath());
+        WordBankStatisticsStorage wbStatsStorage = new JsonWordBankStatisticsStorage(wbStatsPath);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, wbStatsStorage);
 
         initLogging(config);
 
@@ -120,10 +124,10 @@ public class MainApp extends Application {
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleWordBank);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty WordBank");
-            initialData = new WordBank("Empty WordBank", "sample-id"); //todo this should not start any word bank
+            initialData = new WordBank("Empty WordBank");
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty WordBank");
-            initialData = new WordBank("Empty WordBank", "sample-id");
+            initialData = new WordBank("Empty WordBank");
         }
 
         return new ModelManager(initialData, userPrefs);

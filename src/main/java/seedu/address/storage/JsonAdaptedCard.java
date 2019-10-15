@@ -22,6 +22,7 @@ class JsonAdaptedCard {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Card's %s field is missing!";
 
+    private final String id;
     private final String name;
     private final String description;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -30,9 +31,11 @@ class JsonAdaptedCard {
      * Constructs a {@code JsonAdaptedCard} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedCard(@JsonProperty("name") String name,
+    public JsonAdaptedCard(@JsonProperty("id") String id,
+                           @JsonProperty("name") String name,
                            @JsonProperty("description") String description,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.id = id;
         this.name = name;
         this.description = description;
         if (tagged != null) {
@@ -49,6 +52,7 @@ class JsonAdaptedCard {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        id = source.getId();
     }
 
     /**
@@ -80,7 +84,7 @@ class JsonAdaptedCard {
         final Meaning modelMeaning = new Meaning(description);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Card(modelWord, modelMeaning, modelTags);
+        return new Card(modelWord, modelMeaning, modelTags, id);
     }
 
 }

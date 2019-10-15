@@ -82,29 +82,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook, addressBook.getId()), filePath);
-    }
-
-    @Override
-    public void saveAddressBookStatistics(ReadOnlyWordBank addressBook, GameStatistics statistics) throws IOException {
-        saveAddressBookStatistics(addressBook, statistics, filePath);
-    }
-
-    /**
-     * Similar to {@link #saveAddressBookStatistics(ReadOnlyWordBank, GameStatistics)}.
-     *
-     * @param statistics statistics to be saved, cannot be null.
-     * @param filePath location of the data. Cannot be null.
-     */
-    @Override
-    public void saveAddressBookStatistics(ReadOnlyWordBank addressBook, GameStatistics statistics, Path filePath) throws IOException {
-        requireAllNonNull(addressBook, statistics, filePath);
-
-        if (!FileUtil.isFileExists(filePath)) {
-            throw new IOException("Cannot save statistics to a word bank that does not exist.");
-        }
-
-        // todo SAVE ADDRESS BOOK STATISTICS
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
 
     public Optional<List<WordBank>> getWordBankList() {

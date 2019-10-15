@@ -17,7 +17,6 @@ public class WordBank implements ReadOnlyWordBank {
 
     private final UniqueCardList cards;
     private String name;
-    private final String id;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -30,16 +29,15 @@ public class WordBank implements ReadOnlyWordBank {
         cards = new UniqueCardList();
     }
 
-    public WordBank(String name, String id) {
+    public WordBank(String name) {
         this.name = name;
-        this.id = id;
     }
 
     /**
      * Creates a WordBank using the Cards in the {@code toBeCopied}
      */
     public WordBank(ReadOnlyWordBank toBeCopied, String name) {
-        this(name, toBeCopied.getId());
+        this(name);
         resetData(toBeCopied);
     }
 
@@ -108,11 +106,6 @@ public class WordBank implements ReadOnlyWordBank {
     }
 
     @Override
-    public String getId() {
-        return id;
-    }
-
-    @Override
     public int size() {
         return cards.size();
     }
@@ -132,12 +125,12 @@ public class WordBank implements ReadOnlyWordBank {
         return other == this // short circuit if same object
                 || (other instanceof WordBank // instanceof handles nulls
                 && cards.equals(((WordBank) other).cards))
-                && id.equals(((WordBank) other).id);
+                && name.equals(((WordBank) other).name);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return name.hashCode();
     }
     /**
      * Returns true if both cards have the same meaning.

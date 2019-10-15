@@ -40,22 +40,7 @@ public interface AddressBookStorage {
     void saveAddressBook(ReadOnlyWordBank addressBook) throws IOException;
 
     /**
-     * Saves the given {@link seedu.address.statistics.GameStatistics} to the storage.
-     * @param addressBook The corresponding addressBook, cannot be null.
-     * @param statistics cannot be null.
-     * @throws IOException if there was any problem writing to the file.
-     */
-    void saveAddressBookStatistics(ReadOnlyWordBank addressBook, GameStatistics statistics) throws IOException;
-
-    /**
      * @see #saveAddressBook(ReadOnlyWordBank)
      */
     void saveAddressBook(ReadOnlyWordBank addressBook, Path filePath) throws IOException;
-
-    /**
-     * @see #saveAddressBookStatistics(ReadOnlyWordBank, seedu.address.statistics.GameStatistics)
-     */
-    void saveAddressBookStatistics(ReadOnlyWordBank addressBook, GameStatistics statistics,
-                                   Path filePath) throws IOException;
-
 }

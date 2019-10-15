@@ -14,31 +14,29 @@ import seedu.address.model.wordbank.WordBank;
  * Contains utility methods for populating {@code WordBank} with sample data.
  */
 public class SampleDataUtil {
-    public static final String SAMPLE_ID = "sample-id";
-
     public static Card[] getSampleCards() {
         return new Card[] {
             new Card(new Word("Abra"), new Meaning("It sleeps eighteen hours a day, but employs telekinesis even "
                     + "while sleeping."),
-                    getTagSet("psychic")),
+                    getTagSet("psychic"), "abrajfbeoudnjcp"),
             new Card(new Word("Butterfree"), new Meaning("Its wings are covered with poisonous dust. If you see "
                     + "one flapping its wings, be careful not to inhale any of the dust."),
-                    getTagSet("bug", "flying")),
+                    getTagSet("bug", "flying"), "butterfreejdfbo"),
             new Card(new Word("Charizard"), new Meaning("It flies around the sky in search of powerful "
                     + "opponents. It breathes fire of such great heat that it melts anything. However, it never turns "
                     + "its fiery breath on any opponent weaker than itself."),
-                    getTagSet("fire", "flying")),
+                    getTagSet("fire", "flying"), "charizardaiudan"),
             new Card(new Word("Ditto"), new Meaning("Its transformation ability is perfect. However, if it "
                     + "is made to laugh, it can't maintain its disguise."),
-                    getTagSet("normal")),
+                    getTagSet("normal"), "dittonfjsdodc"),
             new Card(new Word("Eevee"), new Meaning("Possessing an unbalanced and unstable genetic makeup, it "
                     + "conceals many possible evolutions."),
-                    getTagSet("normal"))
+                    getTagSet("normal"), "eeveeouhvdsn")
         };
     }
 
     public static WordBank getSampleWordBank() {
-        WordBank sampleWb = new WordBank("Sample WordBank", SAMPLE_ID);
+        WordBank sampleWb = new WordBank("Sample WordBank");
         for (Card sampleCard : getSampleCards()) {
             sampleWb.addCard(sampleCard);
         }
