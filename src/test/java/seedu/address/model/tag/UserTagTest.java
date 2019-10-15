@@ -42,17 +42,17 @@ public class UserTagTest {
 
     @Test
     public void isDefault() {
-        assertFalse(TagBuilder.buildUserTag().isDefault());
+        assertFalse(TagBuilder.buildTestUserTag().isDefault());
     }
 
     @Test
     public void getTagName() {
-        assertEquals("testTag", TagBuilder.buildUserTag().getTagName());
+        assertEquals("testUserTag", TagBuilder.buildTestUserTag().getTagName());
     }
 
     @Test
     public void rename() {
-        UserTag tag = TagBuilder.buildUserTag();
+        UserTag tag = TagBuilder.buildTestUserTag();
         String newName = "newName";
         tag.rename(newName);
         assertEquals("newName", tag.getTagName());
@@ -60,32 +60,35 @@ public class UserTagTest {
 
     @Test
     public void isSameTag_returnsTrue() {
-        assertTrue(TagBuilder.buildUserTag().isSameTag(TagBuilder.buildUserTag()));
+        assertTrue(TagBuilder.buildTestUserTag().isSameTag(TagBuilder.buildTestUserTag()));
         assertTrue(TagBuilder.buildUserTag("userTag").isSameTag(TagBuilder.buildUserTag("userTag")));
     }
 
     @Test
     public void isSameTag_returnsFalse() {
-        assertFalse(TagBuilder.buildUserTag().isSameTag(TagBuilder.buildUserTag("differentName")));
+        assertFalse(TagBuilder.buildTestUserTag().isSameTag(TagBuilder.buildUserTag("differentName")));
     }
 
     @Test
     public void equals() {
-        UserTag tag = TagBuilder.buildUserTag();
+        UserTag tag = TagBuilder.buildTestUserTag();
 
         // same object
         assertTrue(tag.equals(tag));
 
         // same name
-        assertTrue(tag.equals(TagBuilder.buildUserTag()));
+        assertTrue(tag.equals(TagBuilder.buildTestUserTag()));
 
         // different name
         assertFalse(tag.equals(TagBuilder.buildUserTag("differentName")));
+
+        // different type of tag
+        assertFalse(tag.equals(TagBuilder.buildDefaultCoreTag()));
     }
 
     @Test
     public void toString_stringReturned() {
-        assertEquals("[testTag]", TagBuilder.buildUserTag().toString());
+        assertEquals("[testUserTag]", TagBuilder.buildTestUserTag().toString());
     }
 
 }

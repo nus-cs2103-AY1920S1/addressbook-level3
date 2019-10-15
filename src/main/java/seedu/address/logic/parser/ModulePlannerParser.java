@@ -13,8 +13,11 @@ import seedu.address.logic.commands.cli.DeleteModuleCommand;
 import seedu.address.logic.commands.cli.NameUeFromSemesterCommand;
 import seedu.address.logic.commands.cli.SetCurrentSemesterCommand;
 import seedu.address.logic.commands.datamanagement.CreateTagCommand;
+import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
 import seedu.address.logic.commands.datamanagement.FindCommand;
+import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
 import seedu.address.logic.commands.datamanagement.TagModuleCommand;
+import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.commands.storage.CommitStudyPlanEditCommand;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
@@ -27,8 +30,11 @@ import seedu.address.logic.parser.cli.DeleteModuleFromSemesterParser;
 import seedu.address.logic.parser.cli.NameUeFromSemesterParser;
 import seedu.address.logic.parser.cli.SetCurrentSemesterParser;
 import seedu.address.logic.parser.datamanagement.CreateTagCommandParser;
+import seedu.address.logic.parser.datamanagement.DeleteTagCommandParser;
 import seedu.address.logic.parser.datamanagement.FindCommandParser;
+import seedu.address.logic.parser.datamanagement.RemoveTagFromModuleCommandParser;
 import seedu.address.logic.parser.datamanagement.TagModuleCommandParser;
+import seedu.address.logic.parser.datamanagement.ViewModuleTagsCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.storage.CommitStudyPlanEditsParser;
 import seedu.address.logic.parser.storage.CreateStudyPlanCommandParser;
@@ -101,6 +107,15 @@ public class ModulePlannerParser {
 
         case ViewCommitHistoryCommand.COMMAND_WORD:
             return new ViewCommitHistoryParser().parse(arguments);
+
+        case RemoveTagFromModuleCommand.COMMAND_WORD:
+            return new RemoveTagFromModuleCommandParser().parse(arguments);
+
+        case ViewModuleTagsCommand.COMMAND_WORD:
+            return new ViewModuleTagsCommandParser().parse(arguments);
+
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

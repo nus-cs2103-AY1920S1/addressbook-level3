@@ -3,7 +3,6 @@ package seedu.address.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +11,7 @@ import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
+import seedu.address.model.tag.exceptions.InvalidTagModificationException;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 
@@ -48,6 +48,14 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
     }
 
     /**
+     * Checks if the list contains a tag with the given tag name.
+     */
+    public boolean containsTagWithName(String tagName) {
+        requireNonNull(tagName);
+        return mapTags.containsKey(tagName);
+    }
+
+    /**
      * Adds a {@code Tag} to the list.
      * The tag must not already exist in the list.
      *
@@ -61,10 +69,6 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         }
         internalList.add(toAdd);
         mapTags.put(toAdd.getTagName(), toAdd);
-    }
-
-    public ObservableList<Tag> getTags() {
-        return internalUnmodifiableList;
     }
 
     /**
@@ -92,18 +96,33 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
 
     public DefaultTag getDefaultTag(String defaultTagName) throws TagNotFoundException {
         Tag correspondingTag = mapTags.get(defaultTagName);
-        if (!correspondingTag.isDefault()) {
+        if (correspondingTag == null || !correspondingTag.isDefault()) {
             throw new TagNotFoundException();
         }
         return (DefaultTag) correspondingTag;
     }
 
     /**
+     * Gets a specific tag that has the given tag name.
+     * @param tagName Name of the tag
+     * @return Tag
+     */
+    public Tag getTag(String tagName) throws TagNotFoundException {
+        if (!mapTags.containsKey(tagName)) {
+            throw new TagNotFoundException();
+        }
+        return mapTags.get(tagName);
+    }
+
+    /**
      * Removes the equivalent UserTag from the list.
      * The UserTag must exist in the list.
      */
-    public void remove(UserTag toRemove) throws TagNotFoundException {
+    public void remove(Tag toRemove) throws TagNotFoundException, InvalidTagModificationException {
         requireNonNull(toRemove);
+        if (toRemove.isDefault()) {
+            throw new InvalidTagModificationException();
+        }
         if (!internalList.remove(toRemove)) {
             throw new TagNotFoundException();
         }
@@ -121,23 +140,6 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         }
     }
 
-    //    /**
-    //     * Replaces the contents of this list with {@code UserTags}.
-    //     * {@code UserTags} must not contain duplicate UserTags.
-    //     */
-    //    public void setTags(List<UserTag> userTags) throws DuplicateTagException {
-    //        requireAllNonNull(userTags);
-    //        if (!userTagsAreUnique(userTags)) {
-    //            throw new DuplicateTagException();
-    //        }
-    //        internalList.setAll(userTags);
-    //        mapTags.clear();
-    //        initDefaultTags();
-    //        for (UserTag newUserTag: userTags) {
-    //            mapTags.put(newUserTag.getTagName(), newUserTag);
-    //        }
-    //    }
-
     /**
      * Replaces the contents of this list with {@code Tags}.
      * {@code Tags} must not contain duplicate Tags.
@@ -145,20 +147,13 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
     public void setTags(List<Tag> tags) throws DuplicateTagException {
         requireAllNonNull(tags);
 
-        List<UserTag> userTags = new ArrayList<>();
-        for (Tag tag : tags) {
-            if (tag instanceof UserTag) {
-                userTags.add((UserTag) tag);
-            }
-        }
-
-        if (!userTagsAreUnique(userTags)) {
+        if (!userTagsAreUnique(tags)) {
             throw new DuplicateTagException();
         }
+
         internalList.setAll(tags);
         mapTags.clear();
-        initDefaultTags();
-        for (Tag newTag : tags) {
+        for (Tag newTag: tags) {
             mapTags.put(newTag.getTagName(), newTag);
         }
     }
@@ -168,16 +163,6 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
      */
     public ObservableList<Tag> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
-    }
-
-    /**
-     * Finds a specific tag that has the given tag name.
-     *
-     * @param tagName Name of the tag
-     * @return Tag
-     */
-    public Tag find(String tagName) {
-        return mapTags.get(tagName);
     }
 
     @Override
@@ -202,17 +187,23 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         return super.clone();
     }
 
-    public HashMap<String, Tag> getMapTags() {
+    private HashMap<String, Tag> getMapTags() {
         return mapTags;
     }
 
     /**
      * Returns true if {@code Tags} contains only unique UserTags.
      */
-    private boolean userTagsAreUnique(List<UserTag> userTags) {
-        for (int i = 0; i < userTags.size() - 1; i++) {
-            for (int j = i + 1; j < userTags.size(); j++) {
-                if (userTags.get(i).isSameTag(userTags.get(j))) {
+    private boolean userTagsAreUnique(List<Tag> tags) {
+        for (int i = 0; i < tags.size() - 1; i++) {
+            if (tags.get(i).isDefault()) {
+                continue;
+            }
+            for (int j = i + 1; j < tags.size(); j++) {
+                if (tags.get(i).isDefault()) {
+                    continue;
+                }
+                if (tags.get(i).isSameTag(tags.get(j))) {
                     return false;
                 }
             }
@@ -228,4 +219,5 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
             addTag(new DefaultTag(defaultTagType));
         }
     }
+
 }

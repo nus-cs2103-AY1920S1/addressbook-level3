@@ -27,7 +27,7 @@ public class CreateTagCommandParser implements Parser<CreateTagCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the CreateTagCommand and returns an
+     * Parses the given {@code String} of arguments in the context of the CreateTagCommand and returns a
      * CreateTagCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
