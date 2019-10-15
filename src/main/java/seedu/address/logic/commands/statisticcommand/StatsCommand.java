@@ -18,8 +18,8 @@ public class StatsCommand extends Command {
     public static final String COMMAND_WORD = "generate-s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": generates statistic for PROFIT/COST/REVENUE"
-            + " Parameters: s/{Type of stat} d1/{starting date (YYYY.MM.DD)} "
+            + ": generates statistic for PROFIT/COST/REVENUE\n"
+            + "Parameters: s/{Type of stat} d1/{starting date (YYYY.MM.DD)} "
             + "d2/{ending date}\n"
             + "Example (Date input mode) : generate-s s/REVENUE d1/2018.12.13 d2/2019.11.13\n"
             + "Example (No Date input mode) : generate-s s/REVENUE";

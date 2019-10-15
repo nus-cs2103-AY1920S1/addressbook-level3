@@ -26,14 +26,6 @@ public class StatsPayload {
         this.statisticType = statisticType;
     }
 
-    public StatsPayload(StatisticType statisticType) {
-        this.startingDate = null;
-        this.endingDate = null;
-        this.statisticType = statisticType;
-    }
-
-
-
     public Calendar getStartingDate() {
         return this.startingDate;
     }
