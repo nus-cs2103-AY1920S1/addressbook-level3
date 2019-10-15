@@ -33,8 +33,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        expenses = new ExpenseList();
         entries = new UniqueEntryList();
+        expenses = new ExpenseList();
         incomes = new IncomeList();
         wishes = new WishList();
     }
@@ -52,30 +52,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of expenses with {@code expenses}.
-     * {@code expenses} must not contain duplicate expenses.
+     * Replaces the contents of entries with {@code entry}.
+     * {@code entry} must not contain duplicate entries.
      */
-    public void setExpenses(List<Expense> expenses) {
-        this.expenses.setEntries(expenses);
+    public void setEntries(List<Entry> entries) {
+        this.entries.setEntries(entries);
     }
 
-    public void setIncomes(List<Income> incomes) {
-        this.incomes.setEntries(incomes);
-    }
+    public void setExpenses(List<Expense> expenses) { this.expenses.setEntries(expenses); }
 
-    public void setWishes(List<Wish> wishes) {
-        this.wishes.setEntries(wishes);
-    }
+    public void setIncomes(List<Income> incomes) { this.incomes.setEntries(incomes); }
 
-
+    public void setWishes(List<Wish> wishes) { this.wishes.setEntries(wishes); }
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
+        setEntries(newData.getEntryList());
         setExpenses(newData.getExpenseList());
-        setExpenses(newData.getExpenseList());
+        setIncomes(newData.getIncomeList());
         setWishes(newData.getWishList());
     }
 

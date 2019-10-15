@@ -20,7 +20,6 @@ import seedu.address.model.person.exceptions.EntryNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#isSamePerson(Person)
  */
 public class UniqueEntryList implements Iterable<Entry> {
 

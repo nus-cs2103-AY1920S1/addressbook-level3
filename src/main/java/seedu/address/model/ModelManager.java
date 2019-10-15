@@ -16,6 +16,7 @@ import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
 
+
 /**
  * Represents the in-memory model of the address book data.
  */
@@ -153,8 +154,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addIncome(Income income) {
+        addressBook.addIncome(income);
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+    }
+
+    @Override
+    public void addWish(Wish wish) {
+        addressBook.addWish(wish);
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+    }
+
+    @Override
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
+        addressBook.setEntry(target, editedEntry);
         if (target instanceof Expense) {
             addressBook.setExpense((Expense) target, (Expense) editedEntry);
         } else if (target instanceof Income) {
@@ -162,27 +176,6 @@ public class ModelManager implements Model {
         } else if (target instanceof Wish) {
             addressBook.setWish((Wish) target, (Wish) editedEntry);
         }
-        addressBook.setEntry(target, editedEntry);
-    }
-
-    @Override
-    public void setExpense(Expense target, Expense editedEntry) {
-        requireAllNonNull(target, editedEntry);
-        addressBook.setExpense(target, editedEntry);
-    }
-
-    @Override
-    public void setIncome(Income target, Income editedEntry) {
-        requireAllNonNull(target, editedEntry);
-
-        addressBook.setIncome(target, editedEntry);
-    }
-
-    @Override
-    public void setWish(Wish target, Wish editedEntry) {
-        requireAllNonNull(target, editedEntry);
-
-        addressBook.setWish(target, editedEntry);
     }
 
     //=========== Filtered Person List Accessors =============================================================

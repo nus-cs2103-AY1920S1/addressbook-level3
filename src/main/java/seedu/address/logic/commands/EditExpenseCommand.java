@@ -78,7 +78,7 @@ public class EditExpenseCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setExpense(entryToEdit, editedEntry);
+        model.setEntry(entryToEdit, editedEntry);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
@@ -204,7 +204,6 @@ public class EditExpenseCommand extends Command {
 
             return getDesc().equals(e.getDesc())
                     && getAmount().equals(e.getAmount())
-                    && getTime().equals(e.getTime())
                     && getTime().equals(e.getTime())
                     && getTags().equals(e.getTags());
         }

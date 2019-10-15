@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Wish;
+import seedu.address.model.person.Entry;
 
 /**
  * Panel containing the list of entries.
@@ -18,9 +18,9 @@ public class EntryListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(EntryListPanel.class);
 
     @FXML
-    private ListView<Wish> entryListView;
+    private ListView<Entry> entryListView;
 
-    public EntryListPanel(ObservableList<Wish> entryList) {
+    public EntryListPanel(ObservableList<Entry> entryList) {
         super(FXML);
         entryListView.setItems(entryList);
         entryListView.setCellFactory(listView -> new EntryListViewCell());
@@ -29,12 +29,13 @@ public class EntryListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class EntryListViewCell extends ListCell<Wish> {
+    class EntryListViewCell extends ListCell<Entry> {
         @Override
-        protected void updateItem(Wish entry, boolean empty) {
+        protected void updateItem(Entry entry, boolean empty) {
             super.updateItem(entry, empty);
 
             if (empty || entry == null) {
+
                 setGraphic(null);
                 setText(null);
             } else {

@@ -96,38 +96,18 @@ public interface Model {
      */
     void addEntry(Entry entry);
 
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addExpense(Expense entry);
+    public void addExpense(Expense expense);
+
+    public void addIncome(Income income);
+
+    public void addWish(Wish wish);
+
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
      * {@code target} must exist in the address book.
      * The entry identity of {@code editedEntry} must not be the same as another existing entry in the address book.
      */
     void setEntry(Entry target, Entry editedEntry);
-
-    /**
-     * Replaces the given expense {@code target} with {@code editedEntry}.
-     * {@code target} must exist in the address book.
-     * The entry identity of {@code editedEntry} must not be the same as another existing expense in the address book.
-     */
-    void setExpense(Expense target, Expense editedEntry);
-
-    /**
-     * Replaces the given income {@code target} with {@code editedEntry}.
-     * {@code target} must exist in the address book.
-     * The entry identity of {@code editedEntry} must not be the same as another existing income in the address book.
-     */
-    void setIncome(Income target, Income editedEntry);
-
-    /**
-     * Replaces the given wish {@code target} with {@code editedEntry}.
-     * {@code target} must exist in the address book.
-     * The entry identity of {@code editedEntry} must not be the same as another existing wish in the address book.
-     */
-    void setWish(Wish target, Wish editedEntry);
 
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Entry> getFilteredEntryList();

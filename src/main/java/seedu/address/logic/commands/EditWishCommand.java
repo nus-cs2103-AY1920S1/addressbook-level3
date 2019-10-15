@@ -79,7 +79,7 @@ public class EditWishCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setWish(entryToEdit, editedEntry);
+        model.setEntry(entryToEdit, editedEntry);
         model.updateFilteredWishes(PREDICATE_SHOW_ALL_WISHES);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));

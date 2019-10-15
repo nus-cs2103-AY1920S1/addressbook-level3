@@ -20,9 +20,9 @@ public class Time {
     public final String fullTime;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Time}.
      *
-     * @param desc A valid name.
+     * @param time A valid time.
      */
     public Time(String time) {
         requireNonNull(time);
@@ -33,9 +33,10 @@ public class Time {
     /**
      * Returns true if a given string is a valid name.
      */
-    //public static boolean isValidDescription(String test) {
-    //    return test.matches(VALIDATION_REGEX);
-    //}
+    public static boolean isValidDescription(String test) {
+        return test == null; // put this for now
+        //return test.matches(VALIDATION_REGEX);
+    }
 
 
     @Override

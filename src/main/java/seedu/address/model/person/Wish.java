@@ -37,6 +37,8 @@ public class Wish extends Entry {
 
         if (!(other instanceof Expense)) {
             return false;
+        } else if (!(other instanceof Income)) {
+            return false;
         }
 
         Wish otherWish = (Wish) other;
