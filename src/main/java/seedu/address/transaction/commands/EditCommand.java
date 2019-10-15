@@ -29,7 +29,6 @@ public class EditCommand extends Command {
      * Creates an EditCommand to edit the specified {@code Transaction}
      */
     public EditCommand(int index, EditTransactionDescriptor editTransactionDescriptor) {
-        System.out.println("returned command");
         this.index = index;
         this.id = index;
         this.editTransactionDescriptor = new EditTransactionDescriptor(editTransactionDescriptor);
