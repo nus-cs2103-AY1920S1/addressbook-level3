@@ -31,4 +31,18 @@ public class CommitList {
         Commit commit = new Commit(studyPlan, commitMessage);
         commits.add(commit);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder toReturn = new StringBuilder();
+        if (commits.size() == 0) {
+            toReturn.append("There are zero commits in this study plan!");
+        } else {
+            for (Commit commit : commits) {
+                toReturn.append(commit.toString() + "\n");
+            }
+        }
+
+        return toReturn.toString();
+    }
 }

@@ -15,6 +15,7 @@ import seedu.address.model.module.ModuleCode;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.versiontracking.CommitList;
 
 /**
  * Represents the in-memory model of the module planner data.
@@ -134,6 +135,11 @@ public class ModelManager implements Model {
     @Override
     public void commitActiveStudyPlan(String commitMessage) {
         modulePlanner.commitActiveStudyPlan(commitMessage);
+    }
+
+    @Override
+    public CommitList getCommitListByStudyPlanIndex(int index) {
+        return modulePlanner.getCommitListByStudyPlanIndex(index);
     }
 
     //=========== Module Information ============================================================================

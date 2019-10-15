@@ -16,8 +16,11 @@ import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.versiontracking.CommitList;
 import seedu.address.model.versiontracking.StudyPlanCommitManager;
+import seedu.address.model.versiontracking.StudyPlanCommitManagerList;
 import seedu.address.model.versiontracking.VersionTrackingManager;
+import seedu.address.model.versiontracking.exception.StudyPlanCommitManagerNotFoundException;
 
 /**
  * Wraps all data at the module planner level
@@ -247,6 +250,18 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
      */
     public void commitActiveStudyPlan(String commitMessage) {
         StudyPlanCommitManager manager = versionTrackingManager.commitStudyPlan(activeStudyPlan, commitMessage);
+    }
+
+    /**
+     * Returns the commit history of a study plan with the given index.
+     */
+    public CommitList getCommitListByStudyPlanIndex(int index) {
+        StudyPlanCommitManagerList managerList = versionTrackingManager.getStudyPlanCommitManagerList();
+        StudyPlanCommitManager manager = managerList.getManagerByStudyPlanIndex(index);
+        if (manager == null) {
+            throw new StudyPlanCommitManagerNotFoundException();
+        }
+        return manager.getCommitList();
     }
 
     //// util methods

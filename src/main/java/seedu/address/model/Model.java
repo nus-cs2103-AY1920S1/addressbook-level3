@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.versiontracking.CommitList;
 
 /**
  * The API of the Model component.
@@ -117,6 +118,10 @@ public interface Model {
      */
     void commitActiveStudyPlan(String commitMessage);
 
+    /**
+     * Returns all the commits of the study plan with a given index.
+     */
+    CommitList getCommitListByStudyPlanIndex(int index);
 
     // ===================== MODULE INFORMATION ==========================
 

@@ -41,4 +41,10 @@ public class Commit {
     public String getCommitMessage() {
         return commitMessage;
     }
+
+    @Override
+    public String toString() {
+        return "Commit no. " + String.valueOf(studyPlan.getIndex()) + "." + String.valueOf(index)
+                + " " + commitMessage;
+    }
 }

@@ -31,20 +31,31 @@ public class StudyPlanCommitManagerList {
     }
 
     /**
-     * Gets the StudyPlanCommitManager according to the index of the study plan
+     * Gets the StudyPlanCommitManager according to the index of the study plan.
      */
     public StudyPlanCommitManager getManagerByStudyPlan(StudyPlan studyPlan) {
-        StudyPlanCommitManager managerToReturn = null;
-        for (StudyPlanCommitManager manager : studyPlanCommitManagers) {
-            if (manager.getStudyPlanIndex() == studyPlan.getIndex()) {
-                managerToReturn = manager;
-            }
-        }
+        int studyPlanIndex = studyPlan.getIndex();
+
+        StudyPlanCommitManager managerToReturn = getManagerByStudyPlanIndex(studyPlanIndex);
+
         if (managerToReturn == null) {
             // TODO: change the commit message.
             managerToReturn = new StudyPlanCommitManager(studyPlan, "empty commit");
         }
 
+        return managerToReturn;
+    }
+
+    /**
+     * Gets the StudyPlanCommitManager according to the given index. The result can be null.
+     */
+    public StudyPlanCommitManager getManagerByStudyPlanIndex(int index) {
+        StudyPlanCommitManager managerToReturn = null;
+        for (StudyPlanCommitManager manager : studyPlanCommitManagers) {
+            if (manager.getStudyPlanIndex() == index) {
+                managerToReturn = manager;
+            }
+        }
         return managerToReturn;
     }
 
