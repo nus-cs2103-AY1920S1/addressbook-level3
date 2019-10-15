@@ -4,9 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_FIRE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FIRE_INSURANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -17,66 +16,70 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.util.PersonBuilder;
+import seedu.address.logic.commands.merge.MergePolicyCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.policy.Description;
 import seedu.address.model.policy.Policy;
+import seedu.address.testutil.PolicyBuilder;
 
-public class MergeCommandTest {
+public class MergePolicyCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new MergeCommand(null));
+    public void constructor_nullPolicy_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new MergePolicyCommand(null));
     }
 
     @Test
     public void execute_mergeConfirmedWithOneDifference_mergeSuccessful() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_AMY).build();
-        ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
-        CommandResult commandResult = new MergeCommand(inputPerson).execute(modelStub);
-        assertEquals(String.format(MergeCommand.MERGE_COMMAND_PROMPT, Phone.DATA_TYPE)
-                + "\n" + MergeCommand.ORIGINAL_HEADER + validPerson.getPhone().value + "\n" + MergeCommand.INPUT_HEADER
-                + VALID_PHONE_AMY, commandResult.getFeedbackToUser());
+        Policy validPolicy = new PolicyBuilder().build();
+        Policy inputPolicy = new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE).build();
+        ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
+        CommandResult commandResult = new MergePolicyCommand(inputPolicy).execute(modelStub);
+        assertEquals(String.format(MergePolicyCommand.MERGE_COMMAND_PROMPT, Description.DATA_TYPE)
+                + "\n" + MergePolicyCommand.ORIGINAL_HEADER + validPolicy.getDescription().description + "\n"
+                + MergePolicyCommand.INPUT_HEADER + VALID_DESCRIPTION_FIRE_INSURANCE,
+                commandResult.getFeedbackToUser());
     }
 
     @Test
     public void execute_mergeConfirmedWithMoreThanOneDifference_mergeSuccessful() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB).build();
-        ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
-        CommandResult commandResult = new MergeCommand(inputPerson).execute(modelStub);
-        assertEquals(String.format(MergeCommand.MERGE_COMMAND_PROMPT, Phone.DATA_TYPE)
-                + "\n" + MergeCommand.ORIGINAL_HEADER + validPerson.getPhone().value + "\n" + MergeCommand.INPUT_HEADER
-                + VALID_PHONE_BOB, commandResult.getFeedbackToUser());
+        Policy validPolicy = new PolicyBuilder().build();
+        Policy inputPolicy = new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
+                .withCoverage(VALID_COVERAGE_FIRE_INSURANCE).build();
+        ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
+        CommandResult commandResult = new MergePolicyCommand(inputPolicy).execute(modelStub);
+        assertEquals(String.format(MergePolicyCommand.MERGE_COMMAND_PROMPT, Description.DATA_TYPE)
+                + "\n" + MergePolicyCommand.ORIGINAL_HEADER + validPolicy.getDescription().description + "\n"
+                + MergePolicyCommand.INPUT_HEADER + VALID_DESCRIPTION_FIRE_INSURANCE,
+                commandResult.getFeedbackToUser());
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        MergeCommand commandWithAlice = new MergeCommand(alice);
-        MergeCommand commandWithBob = new MergeCommand(bob);
+        Policy health = new PolicyBuilder().withName("Health Insurance").build();
+        Policy fire = new PolicyBuilder().withName("Fire Insurance").build();
+        MergePolicyCommand commandWithHealth = new MergePolicyCommand(health);
+        MergePolicyCommand commandWithFire = new MergePolicyCommand(fire);
 
         // same object -> returns true
-        assertTrue(commandWithAlice.equals(commandWithAlice));
+        assertTrue(commandWithHealth.equals(commandWithHealth));
 
         // same values -> returns true
-        MergeCommand commandWithAliceCopy = new MergeCommand(alice);
-        assertTrue(commandWithAlice.equals(commandWithAliceCopy));
+        MergePolicyCommand commandWithHealthCopy = new MergePolicyCommand(health);
+        assertTrue(commandWithHealth.equals(commandWithHealthCopy));
 
         // different types -> returns false
-        assertFalse(commandWithAlice.equals(1));
+        assertFalse(commandWithHealth.equals(1));
 
         // null -> returns false
-        assertFalse(commandWithAlice.equals(null));
+        assertFalse(commandWithHealth.equals(null));
 
-        // different person -> returns false
-        assertFalse(commandWithAlice.equals(commandWithBob));
+        // different Policy -> returns false
+        assertFalse(commandWithHealth.equals(commandWithFire));
     }
 
 
@@ -115,16 +118,6 @@ public class MergeCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Person getPerson(Person person) {
-            return person;
-        }
-
-        @Override
         public void addPolicy(Policy policy) {
             throw new AssertionError("This method should not be called.");
         }
@@ -150,7 +143,7 @@ public class MergeCommandTest {
         }
 
         @Override
-        public boolean hasPolicy(Policy policy) {
+        public Person getPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -160,7 +153,7 @@ public class MergeCommandTest {
         }
 
         @Override
-        public void deletePolicy(Policy target) {
+        public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -170,22 +163,33 @@ public class MergeCommandTest {
         }
 
         @Override
-        public void setPolicy(Policy target, Policy editedPolicy) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Policy> getFilteredPolicyList() {
-            throw new AssertionError("This method should not be called.");
+            return null;
         }
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+
+        }
+
+        @Override
+        public boolean hasPolicy(Policy policy) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePolicy(Policy target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPolicy(Policy target, Policy editedPolicy) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public ObservableList<Policy> getFilteredPolicyList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -196,55 +200,53 @@ public class MergeCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single Policy.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private Person person;
+    private class ModelStubWithPolicy extends ModelStub {
+        private Policy policy;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithPolicy(Policy policy) {
+            requireNonNull(policy);
+            this.policy = policy;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasPolicy(Policy policy) {
+            requireNonNull(policy);
+            return this.policy.isSamePolicy(policy);
         }
 
-        public Person getPerson(Person input) {
-            return this.person;
+        public Policy getPolicy(Policy input) {
+            return this.policy;
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
-            this.person = editedPerson;
+        public void setPolicy(Policy target, Policy editedPolicy) {
+            this.policy = editedPolicy;
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the Policy being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingPolicyAdded extends ModelStub {
         final ArrayList<Policy> policiesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public boolean hasPolicy(Policy policy) {
+            requireNonNull(policy);
+            return policiesAdded.stream().anyMatch(policy::isSamePolicy);
         }
 
         @Override
         public void addPolicy(Policy policy) {
             requireNonNull(policy);
             policiesAdded.add(policy);
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
