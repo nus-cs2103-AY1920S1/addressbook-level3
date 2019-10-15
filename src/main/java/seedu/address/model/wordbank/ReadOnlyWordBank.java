@@ -19,4 +19,5 @@ public interface ReadOnlyWordBank {
 
     int size();
 
+    String getName();
 }

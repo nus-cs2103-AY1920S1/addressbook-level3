@@ -38,13 +38,13 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with word bank: " + wordBank + " and user prefs " + userPrefs);
 
-        this.wordBank = new WordBank(wordBank);
+        this.wordBank = new WordBank(wordBank, wordBank.getName());
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
     }
 
     public ModelManager() {
-        this(new WordBank(), new UserPrefs());
+        this(new WordBank("Empty WordBank"), new UserPrefs());
     }
 
     // Placeholder setGame method

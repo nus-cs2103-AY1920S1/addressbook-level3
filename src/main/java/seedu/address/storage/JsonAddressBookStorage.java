@@ -57,7 +57,8 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            String wordBankName = filePath.toString();
+            return Optional.of(jsonAddressBook.get().toModelType(wordBankName));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -89,7 +90,6 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         String[] pathArray = dataDirectory.list();
 
         for (int i = 0; i < pathArray.length; i++) {
-            System.out.println(pathArray[i]);
             String wordBankPathString = "data/" + pathArray[i];
             Path wordBankPath = Paths.get(wordBankPathString);
             try {

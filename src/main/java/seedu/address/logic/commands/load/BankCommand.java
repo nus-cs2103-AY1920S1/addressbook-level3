@@ -22,15 +22,21 @@ public class BankCommand extends LoadCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
+    private static String name;
     private final Index targetIndex;
 
     public BankCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
+//    public BankCommand(String name) {
+//        this.name = name;
+//    }
+
     @Override
     public CommandResult execute(Model model) {
         WordBankList temp = new WordBankList();
+        // Get word bank from storage
         model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
         model.setWordBank(temp.getWordBank(targetIndex));
         return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT , false, false);
