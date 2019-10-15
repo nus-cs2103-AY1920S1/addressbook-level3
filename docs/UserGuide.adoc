@@ -144,29 +144,21 @@ Generates a shopping list for the specified meal plan. If `<shoplist name>` is n
 Format: `mealplan <name> shoplist <shoplist name>`
 
 == Dashboard (Analytics + Suggestions)
-=== Get suggestions: `suggest`
+=== Get suggestions: `suggest` `[coming in v2.0]`
 Provides an overview analysis based on past records. Gives suggestions on things the user should do more or less on. +
 Format: `suggest`
 
-=== Get random food suggestions: `suggest food`
+=== Get random food suggestions: `suggest food` `[coming in v2.0]`
 Gives a random food suggestion for the user. +
 Format: `suggest food`
 
-=== Get new food suggestions: `suggest new food`
+=== Get new food suggestions: `suggest new food` `[coming in v2.0]`
 Gives a recommendation of a food item that is not logged by the user. +
 Format: `suggest new food`
 
-=== Get Statistics: `stats`
+=== Get Statistics: `stats` `[coming in v1.3]`
 Gives all the statistics available. +
 Format: `stats`
-
-=== Get food statistics: `stats food`
-Gives the statistics of food recorded. +
-Format: `stats food`
-
-=== Get exercise statistics: `stats exercise`
-Gives the statistics of exercise recorded. +
-Format: `stats exercise`
 
 == Health Records
 === View User Profile:  `view profile`
