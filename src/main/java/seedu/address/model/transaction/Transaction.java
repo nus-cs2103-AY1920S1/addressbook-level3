@@ -63,6 +63,21 @@ public abstract class Transaction {
 
     public abstract Amount handleBalance(Amount balance);
 
+    /**
+     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two persons.
+     */
+    public boolean isSameTransaction(Transaction otherTransaction) {
+        if (otherTransaction == this) {
+            return true;
+        }
+
+        return otherTransaction != null
+                && otherTransaction.getAmount().equals(getAmount())
+                && otherTransaction.getDate().equals(getDate())
+                && otherTransaction.getPeopleInvolved().equals(getPeopleInvolved());
+    }
+
     @Override
     public abstract boolean equals(Object obj);
 }

@@ -21,7 +21,7 @@ public class BankAccount implements ReadOnlyBankAccount{
         transactions = new UniqueTransactionList();
     }
 
-    BankAccount(ReadOnlyBankAccount bankAccount) {
+    public BankAccount(ReadOnlyBankAccount bankAccount) {
         this();
         resetData(bankAccount);
     }
