@@ -16,8 +16,6 @@ import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 
-
-
 /**
  * The API of the Model component.
  */
@@ -128,25 +126,25 @@ public interface Model extends ReferenceIdResolver {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    public QueueManager getQueueManager();
+    //=========== Queue Manager ==================================================================================
 
-    public void removeFromQueue(ReferenceId target);
+    QueueManager getQueueManager();
 
-    public void removeFromQueue(int index);
+    void removeFromQueue(ReferenceId target);
 
-    public void enqueuePatient(ReferenceId id);
+    void enqueuePatient(ReferenceId id);
 
-    public boolean isPatientInQueue(ReferenceId id);
+    boolean isPatientInQueue(ReferenceId id);
 
-    public ObservableList<Room> getFilteredRoomList();
+    ObservableList<ReferenceId> getQueueList();
 
-    public void updateFilteredRoomList(Predicate<Room> predicate);
+    void serveNextPatient(int index);
 
-    public void serveNextPatient(int index);
+    void addRoom(ReferenceId id);
 
-    public void addRoom(ReferenceId id);
+    void removeRoom(int index);
 
-    public void removeRoom(int index);
+    ObservableList<Room> getConsultationRoomList();
 
     //=========== Scheduler ==================================================================================
 
@@ -201,21 +199,10 @@ public interface Model extends ReferenceIdResolver {
      */
     void updateFilteredEventList(Predicate<Event> predicate);
 
+    void updateToMissedEventList();
+    void updateFilteredEventList();
     void updateFilteredEventList(ReferenceId referenceId);
 
-
-    void updateFilteredEventList();
-
-//    void updateFilteredEventList(Predicate<ReferenceId> predicate, Status.AppointmentStatuses appointmentStatuses);
-
-
-    void updateToMissedEventList();
-
-    public ObservableList<ReferenceId> getFilteredReferenceIdList();
-
-    public void updateFilteredReferenceIdList(Predicate<ReferenceId> predicate);
-
     public Boolean isPatientList();
-
     public Boolean isMissedList();
 }

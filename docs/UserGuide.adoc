@@ -97,6 +97,11 @@ Registers a new patient +
 Format:  `register  i/<PATIENT_REFERENCE_ID> n/<PATIENT_NAME> [p/<PHONE_NUM>]
  [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
 
+==== Unregisters an existing patient: `unregister` ====
+
+If user is in the patients listing screen,
+Unregisters an existing patient +
+Format:  `unregister <ENTRY_ID>`
 
 ==== Updates patients’ profiles: `update` ====
 
