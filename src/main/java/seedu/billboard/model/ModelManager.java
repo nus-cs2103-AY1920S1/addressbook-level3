@@ -38,9 +38,10 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(initialBillboard, userPrefs);
 
-        List<Expense> archiveExpenses = initialBillboard.filterAndRemoveArchiveExpenses();
+        List<Expense> archiveExpenses = initialBillboard.filterArchiveExpenses();
+        ReadOnlyBillboard noArchiveExpensesBillboard = initialBillboard.removeArchiveExpenses();
         this.archives = new ArchiveWrapper(archiveExpenses);
-        this.billboard = new Billboard(initialBillboard);
+        this.billboard = new Billboard(noArchiveExpensesBillboard);
         this.userPrefs = new UserPrefs(userPrefs);
 
         logger.fine("Initializing with billboard: " + billboard
@@ -191,12 +192,6 @@ public class ModelManager implements Model {
         String archiveName = archive.getArchiveName();
         filteredArchives.put(archiveName,
                 new FilteredList<>(this.archives.getArchiveExpenses(archiveName)));
-    }
-
-    @Override
-    public void setArchiveExpense(String archiveName, Expense target, Expense editedExpense) {
-        requireAllNonNull(archiveName, target, editedExpense);
-        archives.setArchiveExpense(archiveName, target, editedExpense);
     }
 
 

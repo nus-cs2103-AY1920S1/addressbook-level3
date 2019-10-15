@@ -15,6 +15,8 @@ public interface ReadOnlyBillboard {
      */
     ObservableList<Expense> getExpenses();
 
-    List<Expense> filterAndRemoveArchiveExpenses();
+    List<Expense> filterArchiveExpenses();
+
+    ReadOnlyBillboard removeArchiveExpenses();
 
 }

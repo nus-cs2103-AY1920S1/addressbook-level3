@@ -192,11 +192,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setArchiveExpense(String archiveName, Expense target, Expense editedExpense) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Expense> getFilteredArchiveExpenses(String archiveName) {
             throw new AssertionError("This method should not be called.");
         }

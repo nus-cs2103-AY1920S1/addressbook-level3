@@ -18,17 +18,20 @@ public class ExpenseBuilder {
     public static final String DEFAULT_NAME = "pay school fees";
     public static final String DEFAULT_DESCRIPTION = "this is a description.";
     public static final String DEFAULT_AMOUNT = "4.20";
+    public static final String DEFAULT_ARCHIVE_NAME ="";
 
     private Name name;
     private Description description;
     private Amount amount;
     private Set<Tag> tags;
+    private String archiveName;
 
     public ExpenseBuilder() {
         name = new Name(DEFAULT_NAME);
         description = new Description(DEFAULT_DESCRIPTION);
         amount = new Amount(DEFAULT_AMOUNT);
         tags = new HashSet<>();
+        archiveName = DEFAULT_ARCHIVE_NAME;
     }
 
     /**
@@ -39,6 +42,7 @@ public class ExpenseBuilder {
         description = expenseToCopy.getDescription();
         amount = expenseToCopy.getAmount();
         tags = new HashSet<>(expenseToCopy.getTags());
+        archiveName = expenseToCopy.getArchiveName();
     }
 
     /**
@@ -73,8 +77,16 @@ public class ExpenseBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Archive} of the {@code Expense} that we are building.
+     */
+    public ExpenseBuilder withArchiveName(String archiveName) {
+        this.archiveName = archiveName;
+        return this;
+    }
+
     public Expense build() {
-        return new Expense(name, description, amount, tags);
+        return new Expense(name, description, amount, tags, archiveName);
     }
 
 }

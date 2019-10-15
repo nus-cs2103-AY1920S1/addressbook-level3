@@ -20,4 +20,9 @@ public interface ReadOnlyArchiveWrapper {
      * Returns a list containing all archives.
      */
     List<Archive> getArchiveList();
+
+    /**
+     * Returns a list containing all archived expenses.
+     */
+    List<Expense> getExpenseList();
 }

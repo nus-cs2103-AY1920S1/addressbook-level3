@@ -4,13 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalExpenses.BILLS;
+import static seedu.billboard.testutil.TypicalExpenses.getTypicalArchiveExpenses;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
+import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboardWithArchiveExpenses;
+import static seedu.billboard.testutil.TypicalExpenses.BILLS;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -51,6 +50,39 @@ public class BillboardTest {
         assertThrows(DuplicateExpenseException.class, () -> billboard.resetData(newData));
     }
 
+
+    @Test
+    public void filterArchiveExpenses_ArchiveExpenses_success() {
+        Billboard newData = getTypicalBillboardWithArchiveExpenses();
+        billboard.resetData(newData);
+        List<Expense> archivesExpenses = billboard.filterArchiveExpenses();
+        assertEquals(getTypicalArchiveExpenses(), archivesExpenses);
+    }
+
+    @Test
+    public void filterArchiveExpenses_nonArchiveExpenses_success() {
+        Billboard newData = getTypicalBillboard();
+        billboard.resetData(newData);
+        List<Expense> archivesExpenses = billboard.filterArchiveExpenses();
+        assertEquals(new ArrayList<>(), archivesExpenses);
+    }
+
+    @Test
+    public void removeArchiveExpenses_ArchiveExpensesRemoved_success() {
+        Billboard newData = getTypicalBillboardWithArchiveExpenses();
+        billboard.resetData(newData);
+        ReadOnlyBillboard noArchiveExpensesBillboard = billboard.removeArchiveExpenses();
+        assertEquals(getTypicalBillboard(), new Billboard(noArchiveExpensesBillboard));
+    }
+
+    @Test
+    public void removeArchiveExpenses_noArchiveExpensesRemoved_success() {
+        Billboard newData = getTypicalBillboard();
+        billboard.resetData(newData);
+        ReadOnlyBillboard noArchiveExpensesBillboard = billboard.removeArchiveExpenses();
+        assertEquals(getTypicalBillboard(), new Billboard(noArchiveExpensesBillboard));
+    }
+
     @Test
     public void hasExpense_nullExpense_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> billboard.hasExpense(null));
@@ -88,9 +120,15 @@ public class BillboardTest {
         }
 
         @Override
-        public List<Expense> filterAndRemoveArchiveExpenses() {
-            return getExpenses();
+        public List<Expense> filterArchiveExpenses() {
+            return null;
         }
+
+        @Override
+        public ReadOnlyBillboard removeArchiveExpenses() {
+            return null;
+        }
+
     }
 
 }

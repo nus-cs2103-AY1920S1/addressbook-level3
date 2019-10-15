@@ -57,22 +57,19 @@ public class Billboard implements ReadOnlyBillboard {
         setExpenses(newData.getExpenses());
     }
 
-    private List<Expense> filterArchiveExpenses() {
+    @Override
+    public List<Expense> filterArchiveExpenses() {
         return expenses.asUnmodifiableObservableList()
                 .stream().filter(Expense::isArchived).collect(Collectors.toList());
     }
 
-    private void removeArchiveExpenses() {
+    @Override
+    public ReadOnlyBillboard removeArchiveExpenses() {
         List<Expense> nonArchiveExpenses = expenses.asUnmodifiableObservableList()
                 .stream().filter(x -> !x.isArchived()).collect(Collectors.toList());
-        setExpenses(nonArchiveExpenses);
-    }
-
-    @Override
-    public List<Expense> filterAndRemoveArchiveExpenses() {
-        List<Expense> archiveExpenses = filterArchiveExpenses();
-        removeArchiveExpenses();
-        return archiveExpenses;
+        Billboard billboard = new Billboard();
+        billboard.setExpenses(nonArchiveExpenses);
+        return billboard;
     }
 
     //// expense-level operations

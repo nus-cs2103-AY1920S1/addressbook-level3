@@ -134,13 +134,6 @@ public interface Model {
      */
     void addArchive(Archive archive);
 
-    /**
-     * Replaces the given expense {@code target} with {@code editedExpense} in the given archive.
-     * The given {@code archiveName} must exist.
-     * {@code target} must exist in the archive.
-     */
-    void setArchiveExpense(String archiveName, Expense target, Expense editedExpense);
-
     /** Returns an unmodifiable view of the filtered archive expense list */
     ObservableList<Expense> getFilteredArchiveExpenses(String archiveName);
 

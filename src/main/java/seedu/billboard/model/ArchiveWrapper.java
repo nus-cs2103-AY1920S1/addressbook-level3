@@ -23,14 +23,9 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
         archiveList = new HashMap<>();
     }
 
-    public ArchiveWrapper(){}
-
-    public ArchiveWrapper(ReadOnlyArchiveWrapper toBeCopied) {
-        this();
-        resetData(toBeCopied);
-    }
-
     public ArchiveWrapper(List<Expense> unfilteredExpenses) {
+        requireNonNull(unfilteredExpenses);
+
         HashMap<String, List<Expense>> filterArchives = new HashMap<>();
         for(Expense archivedExpense : unfilteredExpenses) {
             String archiveName = archivedExpense.getArchiveName();
@@ -76,6 +71,7 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
     }
 
     public boolean hasArchive(String archiveName) {
+        requireNonNull(archiveName);
         Set<String> archiveNames = getArchiveNames();
         return archiveNames.contains(archiveName);
     }
@@ -145,6 +141,7 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
         return archives;
     }
 
+    @Override
     public List<Expense> getExpenseList() {
         List<Expense> expenses = new ArrayList<>();
         List<Archive> archives = getArchiveList();
