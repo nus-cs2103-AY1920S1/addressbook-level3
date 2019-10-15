@@ -10,9 +10,20 @@ public class EventList {
     private Random rand = new Random();
 
     void addEventPrompt() {
-        String[] adj = {"Cool", "Awesome", "Amazing", "Brilliant", "Awesome Possum"};
-        System.out.println(printLine() + "\n     " + adj[rand.nextInt(3)] +
-                "! I have added this event! Here are your events currently:");
+        String[] adj = { "Cool", "Awesome", "Amazing", "Brilliant", "Awesome Possum" };
+        System.out.println(printLine() + "\n     " + adj[rand.nextInt(4)]
+                + "! I have added this event! Here are your events currently:");
+
+        printEventListBullet();
+
+        System.out.println(printLine());
+    }
+
+    void remove(int index) {
+        eventList.remove(index - 1);
+        String[] adj = {"Yes sir", "Affirmative", "Roger", "Got it", "Cool"};
+        System.out.println(printLine() + "\n     " + adj[rand.nextInt(4)] 
+                + "! I have deleted the task! Here are your events currently:");
 
         printEventListBullet();
 
@@ -28,7 +39,7 @@ public class EventList {
     }
 
     void showEvent(int index) {
-        System.out.println(printLine() + "\n     Roger that! Here is the detail of the event:\n");
+        System.out.println(printLine() + "\n     Roger that! Here are the details of the event:\n");
 
         System.out.println(eventList.get(index - 1));
 
@@ -39,6 +50,11 @@ public class EventList {
         for (int i = 0; i < eventList.size(); i++) {
             System.out.println("        " + (i + 1) + ". " + eventList.get(i).getTitle());
         }
+    }
+
+    public void markAsDone(int index) {
+        Event event = eventList.get(index - 1);
+        event.markAsDone();
     }
 
     public void add(Event event) {
