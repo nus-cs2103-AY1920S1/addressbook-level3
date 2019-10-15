@@ -2,6 +2,8 @@ package seedu.address.cashier.util;
 
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;
@@ -13,21 +15,24 @@ import seedu.address.inventory.model.Item;
  */
 public class InventoryList {
 
-    private static ArrayList<Item> iList;
+    private static ArrayList<Item> iArrayList;
+    private static ObservableList<Item> iList;
 
     /**
      * Initialises the inventory list when there are no prior items inputted.
      */
     public InventoryList() {
-        iList = new ArrayList<>();
+        iArrayList = new ArrayList<>();
+        this.iList = FXCollections.observableList(iArrayList);
     }
 
     /**
      * Initialises the inventory list when there are prior inputted items.
-     * @param iList Array list of the items saved.
+     * @param iArrayList Array list of the items saved.
      */
-    public InventoryList(ArrayList<Item> iList) {
-        this.iList = iList;
+    public InventoryList(ArrayList<Item> iArrayList) {
+        this.iArrayList = iArrayList;
+        this.iList = FXCollections.observableList(iArrayList);
     }
 
     /**
