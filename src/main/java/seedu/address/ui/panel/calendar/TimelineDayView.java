@@ -1,21 +1,20 @@
 package seedu.address.ui.panel.calendar;
 
-import javafx.application.Platform;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+
 import seedu.address.model.events.EventSource;
 import seedu.address.ui.EventCard;
 import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * An UI component that displays the feedback to the user.
@@ -26,7 +25,7 @@ public class TimelineDayView extends UiPart<Region> {
     private static final Integer SPACING = 62;
 
     private UiParser uiParser;
-    private HashMap<Integer, EventSource> eventMap;    // The Key is the Hour of the day
+    private HashMap<Integer, EventSource> eventMap; // The Key is the Hour of the day
     private Integer day;
     private Integer month;
     private Integer year;
@@ -88,6 +87,14 @@ public class TimelineDayView extends UiPart<Region> {
     @FXML
     private VBox timeBox23;
 
+    /**
+     * Constructor for TimelineDayView for a particular day.
+     *
+     * @param day Represents the day of the timeline.
+     * @param month Represents the month of the timeline.
+     * @param year Represents the year of the timeline.
+     * @param uiParser Represents a parser to convert certain types of objects into other types of objects.
+     */
     public TimelineDayView(Integer day, Integer month, Integer year, UiParser uiParser) {
         super(FXML);
         this.uiParser = uiParser;
@@ -101,19 +108,32 @@ public class TimelineDayView extends UiPart<Region> {
         addTimeBoxes();
     }
 
+    /**
+     * Changes the event in the timeline.
+     * @param eventList Represents the list of events.
+     */
     public void eventChange(List<EventSource> eventList) {
         resetTimeline();
         for (EventSource event : eventList) {
-            if(sameDay(event)) {
+            if (sameDay(event)) {
                 addEventCard(event);
             }
         }
     }
 
+    /**
+     * Returns true if the event is the same day as the current timeline.
+     * @param event The given event.
+     * @return True if the event is the same day as the current timeline.
+     */
     private boolean sameDay(EventSource event) {
         return uiParser.getDay(event.getStartDateTime().getDateTime()).equals(this.day);
     }
 
+    /**
+     * Adds an event to the timeline.
+     * @param event Represents the given event.
+     */
     private void addEventCard(EventSource event) {
         // Gets the event Hour
         Integer eventHour = uiParser.getHour(event.getStartDateTime().getDateTime());
@@ -128,15 +148,18 @@ public class TimelineDayView extends UiPart<Region> {
         RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(eventHour);
         rowConstraints.setPrefHeight(timeBox.getHeight() + SPACING);
         // For the last row
-        if(eventHour.equals(23)) {
+        if (eventHour.equals(23)) {
             rowConstraints.setPrefHeight(rowConstraints.getPrefHeight() + SPACING);
         }
 
     }
 
+    /**
+     * Resets the timeline by removing all of the eventCards and reset the size.
+     */
     private void resetTimeline() {
         eventMap.clear();
-        for(int eventHour = 0; eventHour < 24; eventHour++) {
+        for (int eventHour = 0; eventHour < 24; eventHour++) {
             // Reset RowConstraints
             RowConstraints rowConstraints = timelineGrid.getRowConstraints().get(eventHour);
             rowConstraints.setPrefHeight(0);

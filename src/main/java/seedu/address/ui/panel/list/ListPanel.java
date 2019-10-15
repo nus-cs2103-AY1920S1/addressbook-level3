@@ -1,15 +1,17 @@
 package seedu.address.ui.panel.list;
 
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
 import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
 
-import java.util.List;
 
 /**
  * An Ui that stores the logged feedback from the program to the user.

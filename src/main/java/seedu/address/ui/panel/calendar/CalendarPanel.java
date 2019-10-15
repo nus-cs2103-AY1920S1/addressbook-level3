@@ -4,7 +4,9 @@ import java.time.Instant;
 import java.util.List;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
@@ -12,7 +14,8 @@ import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
 
 /**
- * An Ui that stores the logged feedback from the program to the user.
+ * An Ui that represents a Panel that contains all the components to make a calendar view. This includes
+ * a Timeline, Calendar, and the Details of an event.
  */
 public class CalendarPanel extends UiPart<Region> implements EventListListener {
 
@@ -36,6 +39,8 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
     /**
      * Constructor for CalendarPanel. Contains the 3 main viewing points for the calendar panel.
      * The points are calendar screen view, timeline view and details view.
+     *
+     * @param uiParser Represents a parser to convert certain types of objects into other types of objects.
      */
     public CalendarPanel(UiParser uiParser) {
         super(FXML);
@@ -53,6 +58,12 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
 
     }
 
+    /**
+     * Changes the timeline of the timeline to the given date. This will automatically change the Calendar Screen
+     * as well to fit the given date.
+     *
+     * @param dateTime The given date by the user.
+     */
     public void changeTimelineDate(Instant dateTime) {
         Integer[] dayMonthYear = uiParser.getDateToNumbers(dateTime);
         // Change Timeline Date
@@ -66,6 +77,11 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
         calendarPlaceholder.getChildren().add(calendarScreen.getRoot());
     }
 
+    /**
+     * Changes the Calendar Screen only to the given date.
+     *
+     * @param dateTime The given date by the user.
+     */
     public void changeCalendarScreenDate(Instant dateTime) {
         Integer[] dayMonthYear = uiParser.getDateToNumbers(dateTime);
         // Change CalendarScreen Date

@@ -17,8 +17,12 @@ public class CalendarGridDay extends UiPart<Region> {
     @FXML
     private Label calendarDay;
 
-    // TODO: Add total events to make the color changeable for each day.
+    /**
+     * Constructor for CalendarGridDay. Displays a number in the grid representing a day.
+     * @param dayIndex The number given.
+     */
     public CalendarGridDay(Integer dayIndex) {
+        // TODO: Add total events to make the color changeable for each day.
         super(FXML);
         this.dayIndex = dayIndex;
         calendarDay.setText(dayIndex.toString());

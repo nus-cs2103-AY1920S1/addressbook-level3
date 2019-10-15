@@ -14,7 +14,7 @@ import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
 
 /**
- * An Ui that stores the logged feedback from the program to the user.
+ * An Ui that represents an actual calendar of a month.
  */
 public class CalendarScreen extends UiPart<Region> {
 
@@ -38,7 +38,12 @@ public class CalendarScreen extends UiPart<Region> {
     private StackPane details;
 
     /**
-     * Constructor for ListPanel. Stores the event list, and task list[in v2.0].
+     * Constructor for CalendarScreen that adds a month and year to form the calendar.
+     *
+     * @param month Represents the month of the calendar.
+     * @param year Represents the year of the calendar.
+     * @param uiParser Represents a parser to convert certain types of objects into other types of objects.
+     *
      */
     public CalendarScreen(Integer month, Integer year, UiParser uiParser) {
         super(FXML);
@@ -54,7 +59,7 @@ public class CalendarScreen extends UiPart<Region> {
     }
 
     /**
-     * Fills the index of the calendar.
+     * Fills the index of the calendar and resets when needed to.
      */
     private void resetCalendar() {
         int index = 1;

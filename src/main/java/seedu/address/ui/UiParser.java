@@ -57,13 +57,13 @@ public class UiParser {
     }
 
     public String getEnglishDate(Integer day, Integer month, Integer year) {
-        String monthStr = new DateFormatSymbols().getMonths()[month-1].toLowerCase();
+        String monthStr = new DateFormatSymbols().getMonths()[month - 1].toLowerCase();
         monthStr = monthStr.substring(0, 1).toUpperCase() + monthStr.substring(1);
         return day + " " + monthStr + " " + year;
     }
 
     public String getEnglishDate(Integer month, Integer year) {
-        String monthStr = new DateFormatSymbols().getMonths()[month-1].toLowerCase();
+        String monthStr = new DateFormatSymbols().getMonths()[month - 1].toLowerCase();
         monthStr = monthStr.substring(0, 1).toUpperCase() + monthStr.substring(1);
         return monthStr + " " + year;
     }

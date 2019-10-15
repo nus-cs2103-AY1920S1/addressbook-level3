@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.Instant;
 import java.util.List;
 import java.util.function.Consumer;
@@ -7,14 +9,11 @@ import java.util.logging.Logger;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -26,10 +25,7 @@ import seedu.address.model.listeners.EventListListener;
 import seedu.address.ui.listeners.UserOutputListener;
 import seedu.address.ui.panel.calendar.CalendarPanel;
 import seedu.address.ui.panel.list.ListPanel;
-import seedu.address.ui.panel.log.LogBox;
 import seedu.address.ui.panel.log.LogPanel;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * The Main Window. Provides the basic application layout containing

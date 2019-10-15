@@ -27,6 +27,13 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private Label eventCardDate;
 
+    /**
+     * Constructor for the EventCard, which displays the information of a particular event.
+     *
+     * @param event The given event.
+     * @param uiParser Represents a parser to convert certain types of objects into other types of objects.
+     */
+
     public EventCard(EventSource event, UiParser uiParser) {
         super(FXML);
         this.uiParser = uiParser;

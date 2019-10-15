@@ -6,8 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.ui.ColorTheme;
 import seedu.address.ui.UiPart;
 
 /**
