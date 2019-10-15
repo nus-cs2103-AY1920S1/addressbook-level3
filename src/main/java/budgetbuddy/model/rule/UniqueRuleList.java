@@ -65,7 +65,7 @@ public class UniqueRuleList implements Iterable<Rule> {
 
         Rule targetRule = null;
         for (Rule rule : internalUnmodifiableList) {
-            if (rule.equals(targetRule)) {
+            if (rule.equals(toGet)) {
                 targetRule = rule;
             }
         }
