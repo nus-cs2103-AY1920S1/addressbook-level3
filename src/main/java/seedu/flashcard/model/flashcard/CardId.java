@@ -14,8 +14,16 @@ public class CardId {
      * Constructor of the class, automatically generate a unique identity number.
      */
     public CardId() {
-        identityNumber = frontier;
+        this.identityNumber = frontier;
         frontier++;
+    }
+
+    /**
+     * A variant of the constructor that takes in a fixed ID and constructs a CardId object.
+     * @param identityNumber the ID to be constructed
+     */
+    public CardId(int identityNumber) {
+        this.identityNumber = identityNumber;
     }
 
     public int getIdentityNumber() {
@@ -31,6 +39,8 @@ public class CardId {
         String idAsString = Integer.toString(identityNumber);
         return idAsString.contains(s);
     }
+
+
 
     @Override
     public String toString() {

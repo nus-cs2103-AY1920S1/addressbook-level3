@@ -21,6 +21,7 @@ public abstract class Flashcard {
     private Score score;
     private CardId id;
     private ArrayList<Tag> tags;
+    private String type; // new instance field to flashcard
 
     /**
      * Question and Answer must be specified.
@@ -31,6 +32,7 @@ public abstract class Flashcard {
         this.score = new Score();
         this.id = new CardId();
         this.tags = new ArrayList<>();
+        this.type = "Haven't assigned type";
     }
 
     public Flashcard(CardId id, Question question, Answer answer) {
@@ -66,6 +68,14 @@ public abstract class Flashcard {
 
     public void setAnswer(String newAnswer) {
         answer.setAnswer(newAnswer);
+    }
+
+    public String getType() {
+        return type;
+    };
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
@@ -106,6 +116,20 @@ public abstract class Flashcard {
     };
 
     /**
+     * Checks if flashcard has a specific tag
+     * @param tagName
+     * @return
+     */
+    public boolean hasTag (String tagName) {
+        for (Tag tag : tags) {
+            if (tag.getName().equals(tagName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * While searching for a model, decide that whether this model contains the keyword or not.
      * @param s the keyword we are looking for
      * @return true if question, answer or the id contains the keyword, false otherwise
@@ -127,7 +151,9 @@ public abstract class Flashcard {
             return false;
         }
         Flashcard otherFlashcard = (Flashcard) other;
-        return otherFlashcard.getId() == this.getId();
+        return otherFlashcard.getId() == this.getId() && otherFlashcard.getQuestion() == this.getQuestion()
+                                                      && otherFlashcard.getAnswer() == this.getAnswer()
+                                                      && otherFlashcard.getType().equals(this.getType());
     }
 
     /**

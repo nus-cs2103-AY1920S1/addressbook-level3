@@ -9,6 +9,7 @@ public class McqFlashcard extends Flashcard {
 
     public McqFlashcard(Question question, Answer answer) {
         super(question, answer);
+        this.setType("MCQ");
     }
     public McqFlashcard(CardId id, Question question, Answer answer) {
         super(id, question, answer);
