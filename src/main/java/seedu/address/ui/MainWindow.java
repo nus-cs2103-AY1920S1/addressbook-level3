@@ -22,6 +22,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.note.Note;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -41,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private Flashcard flashcard;
+    private NoteCardListPanel noteCardListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -56,6 +58,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane noteCardListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -80,6 +85,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Label ansLabel;
+
+    @FXML
+    private Label noteCardTitleLabel;
+
+    @FXML
+    private Label noteCardContentLabel;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -221,6 +232,10 @@ public class MainWindow extends UiPart<Stage> {
                 displayFlashcard(commandResult.getFlashcard().get());
             }
 
+            if (commandResult.getNote().isPresent()) {
+                displayNoteCard(commandResult.getNote().get());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -265,5 +280,10 @@ public class MainWindow extends UiPart<Stage> {
     private void displayFlashcard(Flashcard flashcard) {
         qnLabel.setText(flashcard.getQuestion().toString());
         ansLabel.setText(flashcard.getAnswer().toString());
+    }
+
+    private void displayNoteCard(Note note) {
+        noteCardTitleLabel.setText(note.getTitle().toString());
+        noteCardContentLabel.setText(note.getContent().toString());
     }
 }
