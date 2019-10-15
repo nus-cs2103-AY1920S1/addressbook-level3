@@ -35,7 +35,6 @@ import io.xpire.testutil.ItemBuilder;
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code TagCommand}.
- * TODO: Implement Tests
  */
 public class TagCommandTest {
 
@@ -96,6 +95,7 @@ public class TagCommandTest {
         assertCommandFailure(tagCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
 
+    //add tags to an already tagged item should add on more tags
     @Test
     public void execute_addMoreTags_success() {
         Item itemToTag = model.getFilteredItemList().get(INDEX_SEVENTH_ITEM.getZeroBased());
@@ -108,6 +108,24 @@ public class TagCommandTest {
                                              .withTags(VALID_TAG_FRIDGE, VALID_TAG_FRUIT)
                                              .withReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY)
                                              .build();
+        String expectedMessage = String.format(TagCommand.MESSAGE_TAG_ITEM_SUCCESS, expectedItem);
+        expectedModel.setItem(itemToTag, expectedItem);
+        assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
+    }
+
+    //adding tags that already exist should not add duplicates or edit the existing tags
+    @Test
+    public void execute_addDuplicateTags_success() {
+        Item itemToTag = model.getFilteredItemList().get(INDEX_SEVENTH_ITEM.getZeroBased());
+        TagCommand tagCommand = new TagCommand(INDEX_SEVENTH_ITEM, new String[]{VALID_TAG_FRIDGE});
+
+        ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
+        Item expectedItem = new ItemBuilder().withName(VALID_NAME_JELLY)
+                .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
+                .withQuantity(VALID_QUANTITY_JELLY)
+                .withTags(VALID_TAG_FRIDGE)
+                .withReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY)
+                .build();
         String expectedMessage = String.format(TagCommand.MESSAGE_TAG_ITEM_SUCCESS, expectedItem);
         expectedModel.setItem(itemToTag, expectedItem);
         assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
