@@ -31,6 +31,8 @@ public class AnswerableCard extends UiPart<Region> {
     @FXML
     private Label question;
     @FXML
+    private Label answer;
+    @FXML
     private Label id;
     @FXML
     private Label difficulty;
@@ -44,6 +46,7 @@ public class AnswerableCard extends UiPart<Region> {
         this.answerable = answerable;
         id.setText(displayedIndex + ". ");
         question.setText(answerable.getQuestion().fullQuestion);
+        answer.setText("ANSWERS");
         difficulty.setText(answerable.getDifficulty().value);
         category.setText(answerable.getCategory().value);
         answerable.getTags().stream()
