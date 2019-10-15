@@ -25,8 +25,8 @@
                 <TableColumn fx:id="idCol" prefWidth="60.0" text="No." />
                 <TableColumn fx:id="descriptionCol" prefWidth="330.0" text="Item Description" />
                   <TableColumn fx:id="priceCol" text="Price" />
-                  <TableColumn fx:id="quantityCol" text="Quantity" />
-                  <TableColumn fx:id="subtotalCol" prefWidth="120.0" text="Subtotal" />
+                  <TableColumn fx:id="quantityCol" prefWidth="90.0" text="Quantity" />
+                  <TableColumn fx:id="subtotalCol" prefWidth="110.0" text="Subtotal" />
               </columns>
                <GridPane.margin>
                   <Insets />
