@@ -31,10 +31,6 @@ public class ModelManager implements Model {
 
     // ModelContext determines which parser to use at any point of time.
     private ModelContext context = ModelContext.CONTEXT_MEMES;
-    private final LikeData likeData;
-
-    // ModelContext determines which parser to use at any point of time.
-    private ModelContext context = ModelContext.CONTEXT_MEMES;
 
     /**
      * Initializes a ModelManager with the given memeBook and userPrefs.

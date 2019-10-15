@@ -1,12 +1,12 @@
 package seedu.weme.storage;
 
-import seedu.weme.commons.exceptions.DataConversionException;
-import seedu.weme.statistics.LikeData;
-import seedu.weme.statistics.LikeDataImpl;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import seedu.weme.commons.exceptions.DataConversionException;
+import seedu.weme.statistics.LikeData;
+import seedu.weme.statistics.LikeDataImpl;
 
 /**
  * Represents a storage for {@link LikeDataImpl}.

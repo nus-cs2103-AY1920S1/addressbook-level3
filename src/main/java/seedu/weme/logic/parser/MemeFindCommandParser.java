@@ -27,7 +27,7 @@ public class MemeFindCommandParser implements Parser<MemeFindCommand> {
 
         String[] tagKeywords = trimmedArgs.split("\\s+");
 
-        return new MemeFindCommand(new TagContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new MemeFindCommand(new TagContainsKeywordsPredicate(Arrays.asList(tagKeywords)));
     }
 
 }
