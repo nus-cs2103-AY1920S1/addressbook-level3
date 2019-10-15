@@ -29,13 +29,8 @@ public class RunCodeResult extends UiPart<Region> {
     @FXML
     private TitledPane testCasePane;
 
-    private TestCase testCase;
-    private TestCaseResult testCaseResult;
-
     public RunCodeResult(TestCase testCase, TestCaseResult testCaseResult) {
         super(FXML);
-        this.testCase = testCase;
-        this.testCaseResult = testCaseResult;
 
         String inputString = testCase.getInput();
         input.setText(inputString);
