@@ -1,104 +1,78 @@
 package seedu.address.model.note;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalNotes.PIPELINE;
+import static seedu.address.testutil.TypicalNotes.SAMPLE;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.tag.Tag;
+import seedu.address.testutil.NoteBuilder;
+
 public class NoteTest {
     @Test
-    public void toString_exists_success() {
-        Note note = new Note();
-        assertEquals(note.toString(), "Title: sample title\nContent: sample content");
-    }
-
-    @Test
     public void toString_format_success() {
-        Note note = new Note(new Title("this is a title"), new Content("this is a content"));
-        assertEquals(note.toString(), "Title: this is a title\nContent: this is a content");
+        Set<Tag> tags = new HashSet<>();
+        tags.add(new Tag("sampleTag"));
+        Note note = new Note(new Title("this is a title"), new Content("this is a content"), tags);
+        assertEquals(note.toString(), "\nTitle: this is a title\nContent: this is a content\nTags: [sampleTag]");
     }
 
     @Test
     public void requireNonNull_noTitleProvided_throwsIllegalArgumentException() {
         assertThrows(java.lang.IllegalArgumentException.class, () -> new Note(new Title("title"),
-                new Content("")));
+                new Content(""), null));
     }
 
-    /*
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Person person = new PersonBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
+        Note note = new NoteBuilder().build();
+        assertThrows(UnsupportedOperationException.class, () -> note.getTags().remove(0));
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameNote() {
         // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
+        assertTrue(SAMPLE.isSameNote(SAMPLE));
 
         // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        assertFalse(SAMPLE.isSameNote(null));
 
-        // different phone and email -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        // different title -> returns false
+        Note differentTitle = new NoteBuilder(SAMPLE).withTitle("Different Sample Title").build();
+        assertFalse(SAMPLE.isSameNote(differentTitle));
 
-        // different name -> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
-
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
-
-        // same name, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
-
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        // same title -> returns true
+        Note sameTitle = new NoteBuilder(SAMPLE).withTitle("Sample Title").build();
+        assertTrue(SAMPLE.isSameNote(sameTitle));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Person aliceCopy = new PersonBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Note sampleCopy = new NoteBuilder(SAMPLE).build();
+        assertTrue(SAMPLE.equals(sampleCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(SAMPLE.equals(SAMPLE));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(SAMPLE.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(SAMPLE.equals(5));
 
-        // different person -> returns false
-        assertFalse(ALICE.equals(BOB));
+        // different note -> returns false
+        assertFalse(SAMPLE.equals(PIPELINE));
 
         // different name -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different email -> returns false
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different address -> returns false
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different tags -> returns false
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Note editedAlice = new NoteBuilder(SAMPLE).withTitle("Different Sample Title").build();
+        assertFalse(SAMPLE.equals(editedAlice));
     }
-    */
 }

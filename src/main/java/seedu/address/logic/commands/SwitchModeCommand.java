@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import java.util.Optional;
 
 import seedu.address.logic.FunctionMode;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 
 /**
@@ -31,20 +32,24 @@ public class SwitchModeCommand extends Command {
     public CommandResult execute(Model model) {
         String feedBackString;
         switch (targetMode) {
-        case NOTES:
+        case NOTE:
             feedBackString = SWITCH_TO_NOTES_FUNCTION_FEEDBACK;
+            LogicManager.setMode(FunctionMode.NOTE);
             break;
         case FLASHCARD:
             feedBackString = SWITCH_TO_FLASHCARD_FUNCTION_FEEDBACK;
+            LogicManager.setMode(FunctionMode.FLASHCARD);
             break;
         case CHEATSHEET:
             feedBackString = SWITCH_TO_CHEATSHEET_FUNCTION_FEEDBACK;
+            LogicManager.setMode(FunctionMode.CHEATSHEET);
             break;
         default:
             feedBackString = null; // To be re-implemented
+            LogicManager.setMode(FunctionMode.UNDEFINED);
         }
         return new CommandResult(feedBackString, false, false, true,
-                Optional.of(targetMode), Optional.empty());
+                Optional.of(targetMode), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     public FunctionMode getTargetMode() {

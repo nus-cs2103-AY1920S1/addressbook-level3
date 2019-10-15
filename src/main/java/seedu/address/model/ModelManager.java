@@ -9,11 +9,15 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,6 +30,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Flashcard> filteredFlashcards;
     private final FilteredList<Note> filteredNotes;
+    private final FilteredList<CheatSheet> filteredCheatSheets;
+    private final FilteredList<Tag> filteredTags;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -41,6 +47,8 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredFlashcards = new FilteredList<>(this.addressBook.getFlashcardList());
         filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
+        filteredCheatSheets = new FilteredList<>(this.addressBook.getCheatSheetList());
+        filteredTags = new FilteredList<>(this.addressBook.getTagList());
     }
 
     public ModelManager() {
@@ -93,6 +101,7 @@ public class ModelManager implements Model {
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
+
 
     @Override
     public boolean hasPerson(Person person) {
@@ -152,6 +161,19 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedNote);
 
         addressBook.setNote(target, editedNote);
+    }
+
+    //=========== Filtered Tag List Accessors =============================================================
+
+    @Override
+    public ObservableList<Tag> getFilteredTagList() {
+        return filteredTags;
+    }
+
+    @Override
+    public void updateFilteredTagList(Predicate<Tag> predicate) {
+        requireNonNull(predicate);
+        filteredTags.setPredicate(predicate);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -226,5 +248,50 @@ public class ModelManager implements Model {
     @Override
     public void deleteFlashcard(Flashcard target) {
         addressBook.removeFlashcard(target);
+    }
+
+    //===================CheatSheetBook============================================================
+
+    @Override
+    public void addCheatSheet(CheatSheet cheatSheet) {
+        addressBook.addCheatSheet(cheatSheet);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public boolean hasCheatSheet(CheatSheet cheatSheet) {
+        requireNonNull(cheatSheet);
+        return addressBook.hasCheatSheet(cheatSheet);
+    }
+
+    @Override
+    public void setCheatSheet(CheatSheet target, CheatSheet editedCheatSheet) {
+        requireAllNonNull(target, editedCheatSheet);
+
+        addressBook.setCheatSheet(target, editedCheatSheet);
+    }
+
+    @Override
+    public void deleteCheatSheet(CheatSheet cheatSheet) {
+        addressBook.deleteCheatSheet(cheatSheet);
+    }
+
+
+
+    //=========== Filtered CheatSheet List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<CheatSheet> getFilteredCheatSheetList() {
+        return filteredCheatSheets;
+    }
+
+    @Override
+    public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate) {
+        requireNonNull(predicate);
+        filteredCheatSheets.setPredicate(predicate);
     }
 }

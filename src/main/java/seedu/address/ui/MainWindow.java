@@ -29,6 +29,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindowCopy.fxml";
+    private static final int FLASHCARD_TAB_INDEX = 0;
+    private static final int CHEATSHEET_TAB_INDEX = 1;
+    private static final int NOTES_TAB_INDEX = 2;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -40,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private FlashcardTabController flashcardTabController;
+    private NotesTabController notesTabController;
 
     @FXML
     private TabPane activityWindow;
@@ -52,6 +56,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane noteCardListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -214,6 +221,10 @@ public class MainWindow extends UiPart<Stage> {
                 flashcardTabController.loadFlashcard(commandResult.getFlashcard().get());
             }
 
+            if (commandResult.getNote().isPresent()) {
+                notesTabController.displayNoteCard(commandResult.getNote().get());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -231,12 +242,15 @@ public class MainWindow extends UiPart<Stage> {
         switch (targetMode) {
         case FLASHCARD:
             currentHighlightedCircle = fcHighlightCircle;
+            activityWindow.getSelectionModel().select(FLASHCARD_TAB_INDEX);
             break;
         case CHEATSHEET:
             currentHighlightedCircle = csHighlightCircle;
+            activityWindow.getSelectionModel().select(CHEATSHEET_TAB_INDEX);
             break;
-        case NOTES:
+        case NOTE:
             currentHighlightedCircle = notesHighlightCircle;
+            activityWindow.getSelectionModel().select(NOTES_TAB_INDEX);
             break;
         default:
         }

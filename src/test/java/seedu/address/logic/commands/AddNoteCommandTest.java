@@ -20,9 +20,11 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.NoteBuilder;
 public class AddNoteCommandTest {
 
@@ -145,6 +147,16 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public ObservableList<Tag> getFilteredTagList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredTagList(Predicate<Tag> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -215,6 +227,36 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public void addCheatSheet(CheatSheet cheatSheet) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCheatSheet(CheatSheet cheatSheet) {
+            return false;
+        }
+
+        @Override
+        public void setCheatSheet(CheatSheet target, CheatSheet editedCheatSheet) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<CheatSheet> getFilteredCheatSheetList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCheatSheet(CheatSheet cheatSheet) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Flashcard> getFilteredFlashcardList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -263,3 +305,5 @@ public class AddNoteCommandTest {
     }
 
 }
+
+

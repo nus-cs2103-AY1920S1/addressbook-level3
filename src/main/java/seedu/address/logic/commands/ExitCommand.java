@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.util.Optional;
-
 import seedu.address.model.Model;
 
 /**
@@ -15,8 +13,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true,
-                false, Optional.empty(), Optional.empty());
+        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
 
 }

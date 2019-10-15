@@ -1,27 +1,27 @@
 package seedu.address.ui;
 
-import java.awt.TextField;
+import java.awt.TextArea;
 
 import javafx.fxml.FXML;
 import seedu.address.model.flashcard.Flashcard;
 
 public class FlashcardTabController {
     @FXML
-    private TextField qnsTextField;
+    private TextArea qnsTextArea;
 
     @FXML
-    private TextField ansTextField;
+    private TextArea ansTextArea;
 
     public FlashcardTabController() {
     }
 
     public void loadFlashcard(Flashcard flashcard) {
-        qnsTextField.setText(flashcard.getQuestion().toString());
-        ansTextField.setVisible(false);
-        ansTextField.setText(flashcard.getAnswer().toString());
+        qnsTextArea.setText(flashcard.getQuestion().toString());
+        ansTextArea.setVisible(false);
+        ansTextArea.setText(flashcard.getAnswer().toString());
     }
 
     public void showFlashcardAns() {
-        ansTextField.setVisible(true);
+        ansTextArea.setVisible(true);
     }
 }

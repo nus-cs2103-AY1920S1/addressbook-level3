@@ -81,6 +81,22 @@
                         <Insets left="20.0" top="20.0" />
                      </GridPane.margin>
                   </ImageView>
+                  <TabPane fx:id="activityWindow" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <tabs>
+                        <Tab text="FlashcardTab">
+                            <fx:include fx:id="FlashcardTab" source="FlashcardTab.fxml" />
+                        </Tab>
+                        <Tab text="NotesTab">
+                            <fx:include fx:id="NotesTab" source="NotesTab.fxml" />
+                        </Tab>
+                        <Tab text="CheatsheetTab">
+                            <fx:include fx:id="CheatsheetTab" source="CheatsheetTab.fxml" />
+                        </Tab>
+                    </tabs>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="50.0" right="25.0" top="10.0" />
+                     </GridPane.margin>
+                  </TabPane>
                   <VBox alignment="CENTER" GridPane.rowIndex="1">
                      <children>
                         <StackPane>
@@ -130,22 +146,6 @@
                         <Insets bottom="5.0" left="25.0" right="5.0" top="5.0" />
                      </padding>
                   </VBox>
-                  <TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <tabs>
-                        <Tab text="FlashcardTab">
-                            <fx:include fx:id="FlashcardTab" source="FlashcardTab.fxml" />
-                        </Tab>
-                        <Tab text="NotesTab">
-                            <fx:include fx:id="NotesTab" source="NotesTab.fxml" />
-                        </Tab>
-                        <Tab text="CheatsheetTab">
-                            <fx:include fx:id="CheatsheetTab" source="CheatsheetTab.fxml" />
-                        </Tab>
-                    </tabs>
-                     <GridPane.margin>
-                        <Insets bottom="10.0" left="50.0" right="25.0" top="10.0" />
-                     </GridPane.margin>
-                  </TabPane>
                </children>
                <VBox.margin>
                   <Insets />
