@@ -41,7 +41,7 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonDukeCooksStorage dukeCooksStorage =
-                new JsonDukeCooksStorage(temporaryFolder.resolve("dukecooks.json"));
+                new JsonDukeCooksStorage(temporaryFolder.resolve("recipes.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);

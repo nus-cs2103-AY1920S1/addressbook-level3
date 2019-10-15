@@ -11,6 +11,6 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
-    Path getDukeCooksFilePath();
+    Path getRecipesFilePath();
 
 }

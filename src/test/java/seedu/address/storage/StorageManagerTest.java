@@ -61,8 +61,8 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getDukeCooksFilePath() {
-        assertNotNull(storageManager.getDukeCooksFilePath());
+    public void getRecipesFilePath() {
+        assertNotNull(storageManager.getRecipesFilePath());
     }
 
 }

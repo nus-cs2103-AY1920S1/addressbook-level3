@@ -48,13 +48,13 @@ public class StorageManager implements Storage {
     // ================ DukeCooks methods ==============================
 
     @Override
-    public Path getDukeCooksFilePath() {
-        return dukeCooksStorage.getDukeCooksFilePath();
+    public Path getRecipesFilePath() {
+        return dukeCooksStorage.getRecipesFilePath();
     }
 
     @Override
     public Optional<ReadOnlyDukeCooks> readDukeCooks() throws DataConversionException, IOException {
-        return readDukeCooks(dukeCooksStorage.getDukeCooksFilePath());
+        return readDukeCooks(dukeCooksStorage.getRecipesFilePath());
     }
 
     @Override
@@ -65,7 +65,7 @@ public class StorageManager implements Storage {
 
     @Override
     public void saveDukeCooks(ReadOnlyDukeCooks dukeCooks) throws IOException {
-        saveDukeCooks(dukeCooks, dukeCooksStorage.getDukeCooksFilePath());
+        saveDukeCooks(dukeCooks, dukeCooksStorage.getRecipesFilePath());
     }
 
     @Override

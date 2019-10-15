@@ -62,8 +62,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getDukeCooksFilePath() {
-        return model.getDukeCooksFilePath();
+    public Path getRecipesFilePath() {
+        return model.getRecipesFilePath();
     }
 
     @Override

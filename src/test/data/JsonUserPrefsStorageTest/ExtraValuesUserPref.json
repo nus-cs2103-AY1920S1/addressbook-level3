@@ -9,5 +9,5 @@
       "z" : 99
     }
   },
-  "dukeCooksFilePath" : "dukecooks.json"
+  "recipesFilePath" : "recipes.json"
 }

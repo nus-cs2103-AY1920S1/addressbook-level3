@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setDukeCooksFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setRecipesFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setDukeCooksFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setRecipesFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,15 +61,15 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setDukeCooksFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setDukeCooksFilePath(null));
+    public void setRecipesFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setRecipesFilePath(null));
     }
 
     @Test
-    public void setDukeCooksFilePath_validPath_setsDukeCooksFilePath() {
+    public void setRecipesFilePath_validPath_setsRecipesFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setDukeCooksFilePath(path);
-        assertEquals(path, modelManager.getDukeCooksFilePath());
+        modelManager.setRecipesFilePath(path);
+        assertEquals(path, modelManager.getRecipesFilePath());
     }
 
     @Test
@@ -126,7 +126,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setDukeCooksFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setRecipesFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(dukeCooks, differentUserPrefs)));
     }
 }

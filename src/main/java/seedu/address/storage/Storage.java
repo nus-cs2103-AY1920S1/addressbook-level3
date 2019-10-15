@@ -21,7 +21,7 @@ public interface Storage extends DukeCooksStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getDukeCooksFilePath();
+    Path getRecipesFilePath();
 
     @Override
     Optional<ReadOnlyDukeCooks> readDukeCooks() throws DataConversionException, IOException;

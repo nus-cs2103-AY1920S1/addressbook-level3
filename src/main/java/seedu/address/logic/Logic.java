@@ -34,9 +34,9 @@ public interface Logic {
     ObservableList<Recipe> getFilteredRecipeList();
 
     /**
-     * Returns the user prefs' Duke Cooks file path.
+     * Returns the user prefs' Duke Cooks Recipe file path.
      */
-    Path getDukeCooksFilePath();
+    Path getRecipesFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

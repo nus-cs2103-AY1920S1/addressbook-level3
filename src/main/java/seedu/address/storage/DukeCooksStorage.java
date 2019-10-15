@@ -16,7 +16,7 @@ public interface DukeCooksStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getDukeCooksFilePath();
+    Path getRecipesFilePath();
 
     /**
      * Returns DukeCooks data as a {@link ReadOnlyDukeCooks}.
@@ -27,7 +27,7 @@ public interface DukeCooksStorage {
     Optional<ReadOnlyDukeCooks> readDukeCooks() throws DataConversionException, IOException;
 
     /**
-     * @see #getDukeCooksFilePath()
+     * @see #getRecipesFilePath()
      */
     Optional<ReadOnlyDukeCooks> readDukeCooks(Path filePath) throws DataConversionException, IOException;
 

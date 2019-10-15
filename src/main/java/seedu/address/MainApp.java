@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        DukeCooksStorage dukeCooksStorage = new JsonDukeCooksStorage(userPrefs.getDukeCooksFilePath());
+        DukeCooksStorage dukeCooksStorage = new JsonDukeCooksStorage(userPrefs.getRecipesFilePath());
         storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
 
         initLogging(config);

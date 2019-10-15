@@ -100,12 +100,12 @@ public class AddRecipeCommandTest {
         }
 
         @Override
-        public Path getDukeCooksFilePath() {
+        public Path getRecipesFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setDukeCooksFilePath(Path dukeCooksFilePath) {
+        public void setRecipesFilePath(Path recipesFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 

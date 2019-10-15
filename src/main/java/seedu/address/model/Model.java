@@ -37,12 +37,12 @@ public interface Model {
     /**
      * Returns the user prefs' DukeCooks file path.
      */
-    Path getDukeCooksFilePath();
+    Path getRecipesFilePath();
 
     /**
-     * Sets the user prefs' Duke Cooks file path.
+     * Sets the user prefs' Duke Cooks Recipe file path.
      */
-    void setDukeCooksFilePath(Path dukeCooksFilePath);
+    void setRecipesFilePath(Path recipesFilePath);
 
     /**
      * Replaces Duke Cooks data with the data in {@code dukeCooks}.

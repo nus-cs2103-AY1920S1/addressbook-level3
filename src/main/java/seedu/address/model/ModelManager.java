@@ -66,14 +66,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getDukeCooksFilePath() {
-        return userPrefs.getDukeCooksFilePath();
+    public Path getRecipesFilePath() {
+        return userPrefs.getRecipesFilePath();
     }
 
     @Override
-    public void setDukeCooksFilePath(Path dukeCooksFilePath) {
-        requireNonNull(dukeCooksFilePath);
-        userPrefs.setDukeCooksFilePath(dukeCooksFilePath);
+    public void setRecipesFilePath(Path recipesFilePath) {
+        requireNonNull(recipesFilePath);
+        userPrefs.setRecipesFilePath(recipesFilePath);
     }
 
     //=========== DukeBooks ================================================================================

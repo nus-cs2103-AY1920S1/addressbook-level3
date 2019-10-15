@@ -27,7 +27,7 @@ public class JsonDukeCooksStorage implements DukeCooksStorage {
         this.filePath = filePath;
     }
 
-    public Path getDukeCooksFilePath() {
+    public Path getRecipesFilePath() {
         return filePath;
     }
 
