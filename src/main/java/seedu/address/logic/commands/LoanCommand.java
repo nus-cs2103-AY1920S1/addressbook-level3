@@ -76,4 +76,18 @@ public class LoanCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, loanedOutBook, servingBorrower));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof LoanCommand)) {
+            return false;
+        }
+
+        LoanCommand otherLoanCommand = (LoanCommand) o;
+        return this.toLoan.equals(otherLoanCommand.toLoan);
+    }
 }

@@ -25,10 +25,10 @@ public class LoanList implements Iterable<Loan> {
     }
 
     /**
-     * Returns true if the list is empty.
+     * Returns the number of {@code Loan} objects in the {@code LoanList}.
      */
-    public boolean isEmpty() {
-        return loanList.isEmpty();
+    public int size() {
+        return loanList.size();
     }
 
     @Override
