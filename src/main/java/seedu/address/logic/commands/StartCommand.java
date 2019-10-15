@@ -24,9 +24,9 @@ public class StartCommand extends Command {
             + "Parameters: DECK NAME. If no argument is supplied, a random deck will be chosen.\n"
             + "Example: " + COMMAND_WORD + " physics";
 
-    public static final String MESSAGE_START_TEST_SUCCESS = "Starting test...";
-
     public static final String MESSAGE_NO_FLASHCARDS = "No flashcards to test!";
+
+    private static final String MESSAGE_START_TEST_SUCCESS = "Starting test...";
 
     private final AddressBookParser addressBookParser;
 
@@ -46,26 +46,11 @@ public class StartCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-
-
-        // start stub TODO: delete this
-        /*
-        ArrayList<FlashCard> testList = new ArrayList<>();
-        testList.add(new FlashCard(new Question("1+1"), new Answer("2"), new Rating("good"),
-                SampleDataUtil.getTagSet("test")));
-        testList.add(new FlashCard(new Question("1+2"), new Answer("3"), new Rating("good"),
-                SampleDataUtil.getTagSet("test")));
-        testList.add(new FlashCard(new Question("1+3"), new Answer("4"), new Rating("good"),
-                SampleDataUtil.getTagSet("test")));
-         */
-        // end stub
-
         ArrayList<FlashCard> testList = searchTag(model);
         model.initializeTestModel(testList);
         if (!model.hasTestFlashCard()) {
             return new CommandResult(MESSAGE_NO_FLASHCARDS);
         }
-
         addressBookParser.startTest();
         String question = model.getTestQuestion();
         addressBookParser.setAwaitingAnswer(true);
@@ -84,9 +69,14 @@ public class StartCommand extends Command {
         if (tagName.isEmpty()) {
             return new ArrayList<>(model.getFlashCardList());
         }
-        CategoryContainsAnyKeywordsPredicate getPredicate =
-                new CategoryContainsAnyKeywordsPredicate(Arrays.asList(tagName));
-        model.updateFilteredFlashCardList(getPredicate);
+        CategoryContainsAnyKeywordsPredicate predicate = processSearchTerm();
+        model.updateFilteredFlashCardList(predicate);
         return new ArrayList<>(model.getFilteredFlashCardList());
+    }
+
+    /** Converts tagName to a CategoryContainsAnyKeywordsPredicate for searchTag(). */
+    private CategoryContainsAnyKeywordsPredicate processSearchTerm() {
+        String[] tagList = tagName.split(" ");
+        return new CategoryContainsAnyKeywordsPredicate(Arrays.asList(tagList));
     }
 }
