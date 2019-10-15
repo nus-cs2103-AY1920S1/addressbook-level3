@@ -61,6 +61,7 @@ public class AddExpenseCommand extends Command implements Undoable {
     @Override
     public void redo(Model model) {
         requireNonNull(model);
+        requireNonNull(toAdd);
         model.addExpense(toAdd);
     }
 }

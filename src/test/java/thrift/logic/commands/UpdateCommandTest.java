@@ -3,12 +3,15 @@ package thrift.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static thrift.logic.commands.CommandTestUtil.assertRedoCommandSuccess;
+import static thrift.logic.commands.CommandTestUtil.assertUndoCommandSuccess;
 
 import org.junit.jupiter.api.Test;
 
 import thrift.commons.core.Messages;
 import thrift.commons.core.index.Index;
 import thrift.logic.commands.UpdateCommand.UpdateTransactionDescriptor;
+import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.Model;
 import thrift.model.ModelManager;
 import thrift.model.PastUndoableCommands;
@@ -139,6 +142,62 @@ public class UpdateCommandTest {
         CommandTestUtil.assertCommandFailure(updateCommand, model,
                 Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }
+
+    @Test
+    public void undo_undoUpdateExpense_success() throws CommandException {
+        Index indexLastTransaction = Index.fromOneBased(model.getFilteredTransactionList().size());
+        Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastTransaction.getZeroBased());
+        String expectedMessageOriginal = String.format(UpdateCommand.MESSAGE_ORIGINAL_TRANSACTION, lastTransaction);
+
+        UpdateTransactionDescriptor updateTransactionDescriptor = new UpdateTransactionDescriptorBuilder()
+                .withDescription("Chicken")
+                .build();
+        Transaction updatedTransaction = new Expense(updateTransactionDescriptor.getDescription().get(),
+                lastTransaction.getValue(), lastTransaction.getRemark(), lastTransaction.getDate(),
+                lastTransaction.getTags());
+        String expectedMessageUpdated = String.format(UpdateCommand.MESSAGE_UPDATE_TRANSACTION_SUCCESS,
+                updatedTransaction);
+        UpdateCommand updateCommand = new UpdateCommand(indexLastTransaction, updateTransactionDescriptor);
+
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
+                new PastUndoableCommands());
+        expectedModel.setTransaction(lastTransaction, updatedTransaction);
+
+        assertCommandSuccess(updateCommand, model, expectedMessageUpdated + expectedMessageOriginal, expectedModel);
+        expectedModel.setTransaction(updatedTransaction, lastTransaction);
+        assertUndoCommandSuccess(updateCommand, model, expectedModel);
+    }
+
+    @Test
+    public void redo_redoUpdateExpense_success() throws CommandException {
+        Index indexLastTransaction = Index.fromOneBased(model.getFilteredTransactionList().size());
+        Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastTransaction.getZeroBased());
+        String expectedMessageOriginal = String.format(UpdateCommand.MESSAGE_ORIGINAL_TRANSACTION, lastTransaction);
+
+        UpdateTransactionDescriptor updateTransactionDescriptor = new UpdateTransactionDescriptorBuilder()
+                .withDescription("Chicken")
+                .build();
+        Transaction updatedTransaction = new Expense(updateTransactionDescriptor.getDescription().get(),
+                lastTransaction.getValue(), lastTransaction.getRemark(), lastTransaction.getDate(),
+                lastTransaction.getTags());
+        String expectedMessageUpdated = String.format(UpdateCommand.MESSAGE_UPDATE_TRANSACTION_SUCCESS,
+                updatedTransaction);
+        UpdateCommand updateCommand = new UpdateCommand(indexLastTransaction, updateTransactionDescriptor);
+
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
+                new PastUndoableCommands());
+        expectedModel.setTransaction(lastTransaction, updatedTransaction);
+        assertCommandSuccess(updateCommand, model, expectedMessageUpdated + expectedMessageOriginal, expectedModel);
+
+        //test undo
+        expectedModel.setTransaction(updatedTransaction, lastTransaction);
+        assertUndoCommandSuccess(updateCommand, model, expectedModel);
+
+        //test redo
+        expectedModel.setTransaction(lastTransaction, updatedTransaction);
+        assertRedoCommandSuccess(updateCommand, model, expectedModel);
+    }
+
 
     @Test
     public void equals() {

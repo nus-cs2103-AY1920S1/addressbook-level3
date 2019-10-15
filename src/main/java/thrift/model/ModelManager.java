@@ -152,6 +152,7 @@ public class ModelManager implements Model {
     public void setTransaction(Transaction target, Transaction updatedTransaction) {
         CollectionUtil.requireAllNonNull(target, updatedTransaction);
         thrift.setTransaction(target, updatedTransaction);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
