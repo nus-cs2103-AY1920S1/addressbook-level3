@@ -10,7 +10,7 @@ import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 public class Description {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Description should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
      * The first character of the description must not be a whitespace,

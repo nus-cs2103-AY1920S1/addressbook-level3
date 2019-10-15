@@ -55,7 +55,7 @@ public class AddTransactionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // To implement: model.addTransaction(toAdd)
+        model.addTransaction(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

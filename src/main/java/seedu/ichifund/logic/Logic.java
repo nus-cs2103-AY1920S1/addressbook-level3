@@ -10,6 +10,7 @@ import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.person.Person;
+import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * API of the Logic component
@@ -33,6 +34,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of transactions */
+    ObservableList<Transaction> getFilteredTransactionList();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Budget> getFilteredBudgetList();
