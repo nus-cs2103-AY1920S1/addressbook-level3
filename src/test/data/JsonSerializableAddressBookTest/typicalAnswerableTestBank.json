@@ -1,0 +1,64 @@
+{
+  "_comment": "Revision Tool save file which contains the same Answerable values as in TypicalAnswerables#getTypicalAddressBook()",
+  "answerables" : [ {
+    "question" : "A Question?",
+    "answerSet": {
+      "correctAnswerSet": [
+        { "answer": "CORRECT" }
+      ],
+      "wrongAnswerSet": [
+        { "answer": "WRONG" }
+      ] },
+    "difficulty" : "1",
+    "category" : "Category A",
+    "tagged" : [ "easy" ]
+  }, {
+    "question" : "Brownfield or Greenfield?",
+    "answerSet": {
+      "correctAnswerSet": [
+        { "answer": "CORRECT" }
+      ],
+      "wrongAnswerSet": [
+        { "answer": "WRONG" }
+      ] },
+    "difficulty" : "2",
+    "category" : "Requirements",
+    "tagged" : [ "field", "introduction" ]
+  }, {
+    "question" : "Carl Kurz",
+    "answerSet": {
+      "correctAnswerSet": [
+        { "answer": "CORRECT" }
+      ],
+      "wrongAnswerSet": [
+        { "answer": "WRONG" }
+      ] },
+    "difficulty" : "1",
+    "category" : "wall street",
+    "tagged" : [ ]
+  }, {
+    "question" : "Elle Meyer",
+    "answerSet": {
+      "correctAnswerSet": [
+        { "answer": "CORRECT" }
+      ],
+      "wrongAnswerSet": [
+        { "answer": "WRONG" }
+      ] },
+    "difficulty" : "1",
+    "category" : "michegan ave",
+    "tagged" : [ ]
+  }, {
+    "question" : "Fiona Kunz",
+    "answerSet": {
+      "correctAnswerSet": [
+        { "answer": "CORRECT" }
+      ],
+      "wrongAnswerSet": [
+        { "answer": "WRONG" }
+      ] },
+    "difficulty" : "1",
+    "category" : "little tokyo",
+    "tagged" : [ ]
+  } ]
+}
