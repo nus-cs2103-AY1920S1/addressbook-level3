@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.ichifund.commons.exceptions.IllegalValueException;
-import seedu.ichifund.model.Amount;
 import seedu.ichifund.model.Description;
+import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.Transaction;
@@ -43,7 +43,7 @@ public class JsonAdaptedTransaction {
      */
     public JsonAdaptedTransaction(Transaction source) {
         this.description = source.getDescription().toString();
-        this.amount = source.getAmount().toString().substring(1);
+        this.amount = source.getAmount().toString();
         this.category = source.getCategory().toString();
         this.date = new JsonAdaptedDate(source.getDate());
         this.transactionType = source.getTransactionType().toString();
@@ -71,6 +71,8 @@ public class JsonAdaptedTransaction {
         }
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
+        } else if (Amount.isNegative(amount)) {
+            throw new IllegalValueException(Amount.NEGATIVE_AMOUNT_CONSTRAINT);
         }
         final Amount modelAmount = new Amount(amount);
 
