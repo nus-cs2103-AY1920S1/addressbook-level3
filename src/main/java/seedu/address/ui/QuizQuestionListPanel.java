@@ -23,13 +23,13 @@ public class QuizQuestionListPanel extends UiPart<Region> {
     public QuizQuestionListPanel(ObservableList<Question> quizQuestionList) {
         super(FXML);
         quizQuestionListView.setItems(quizQuestionList);
-        quizQuestionListView.setCellFactory(listView -> new quizQuestionListViewCell());
+        quizQuestionListView.setCellFactory(listView -> new QuizQuestionListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Question} using a {@code QuizQuestionListCard}.
      */
-    class quizQuestionListViewCell extends ListCell<Question> {
+    class QuizQuestionListViewCell extends ListCell<Question> {
         @Override
         protected void updateItem(Question question, boolean empty) {
             super.updateItem(question, empty);

@@ -6,8 +6,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.question.Question;
 
+/**
+ * An UI component that displays information of a {@code Question} in quiz.
+ */
 public class QuizQuestionListCard extends UiPart<Region> {
-    private final static String FXML = "QuizQuestionListCard";
+    private static final String FXML = "QuizQuestionListCard";
 
     public final Question question;
 
