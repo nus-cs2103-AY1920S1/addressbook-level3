@@ -35,6 +35,9 @@ public class SetDeadlineCommandParserStub implements Parser<SetDeadlineCommand> 
         case 2:
             stubDateTime = stubDateTime2;
             break;
+            
+        default:
+            stubDateTime = null;
         }
         count++;
         return new SetDeadlineCommand(stubIndex1, stubDateTime);

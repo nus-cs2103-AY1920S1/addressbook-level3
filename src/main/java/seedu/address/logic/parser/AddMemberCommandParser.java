@@ -15,6 +15,9 @@ import seedu.address.model.member.MemberId;
 import seedu.address.model.member.MemberName;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new AddMemberCommand object
+ */
 public class AddMemberCommandParser implements Parser<AddMemberCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand

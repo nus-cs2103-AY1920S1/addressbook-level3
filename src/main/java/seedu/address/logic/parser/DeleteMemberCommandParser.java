@@ -6,6 +6,9 @@ import seedu.address.logic.commands.DeleteMemberCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.member.MemberId;
 
+/**
+ * Parses input arguments and creates a new DeleteMemberCommand object
+ */
 public class DeleteMemberCommandParser implements Parser<DeleteMemberCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteMemberCommand

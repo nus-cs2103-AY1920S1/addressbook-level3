@@ -8,6 +8,9 @@ import seedu.address.logic.commands.FindMemberCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.member.MemberNameContainsKeywordsPredicate;
 
+/**
+ * Parses input arguments and creates a new FindMemberCommand object
+ */
 public class FindMemberCommandParser implements Parser<FindMemberCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand

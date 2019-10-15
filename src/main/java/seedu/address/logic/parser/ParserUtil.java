@@ -10,11 +10,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.member.MemberId;
-import seedu.address.model.member.MemberName;
-
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Price;
+import seedu.address.model.member.MemberId;
+import seedu.address.model.member.MemberName;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.TaskStatus;
