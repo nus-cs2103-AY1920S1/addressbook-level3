@@ -66,8 +66,8 @@ class JsonAdaptedPolicy {
         description = source.getDescription().description;
         coverage = source.getCoverage().toString();
         price = source.getPrice().price;
-        startAge = source.getStartAge().getAge();
-        endAge = source.getEndAge().getAge();
+        startAge = source.getStartAge().age;
+        endAge = source.getEndAge().age;
         criteria.addAll(source.getCriteria().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
