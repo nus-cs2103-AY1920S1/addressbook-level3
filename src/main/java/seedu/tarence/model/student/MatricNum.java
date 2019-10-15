@@ -15,7 +15,7 @@ public class MatricNum {
             + "1. The matriculation number should start with an `A` or `U` and should end with a letter [A-Z].\n"
             + "2. There should be 7 numbers [0-9] between the first and last characters";
     // alphanumeric and special characters
-    public static final String VALIDATION_REGEX = "^[AU][0-9]{7}[A-Z]$";
+    public static final String VALIDATION_REGEX = "^[auAU][0-9]{7}[a-zA-Z]$";
 
     public final String value;
 

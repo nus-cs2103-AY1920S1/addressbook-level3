@@ -1,7 +1,6 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
@@ -9,8 +8,10 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_WEEKS;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.tarence.commons.core.Messages;
+import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.module.ModCode;
@@ -19,7 +20,6 @@ import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.Week;
-import seedu.tarence.model.tutorial.exceptions.WeekNotFoundException;
 
 /**
  * Marks attendance of student in a specified tutorial.
@@ -31,10 +31,12 @@ public class MarkAttendanceCommand extends Command {
     public static final String MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT = "Do you want to mark "
             + "%1$s's attendance?\n"
             + "(y/n)";
+    public static final String MESSAGE_MARK_ATTENDANCE_TUTORIAL = "Marking attendance of %1$s";
 
     public static final String COMMAND_WORD = "mark";
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
 
+    // TODO: Update message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks the attendance of a student in a tutorial.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
@@ -47,15 +49,16 @@ public class MarkAttendanceCommand extends Command {
             + PREFIX_MODULE + "CS1010 "
             + PREFIX_TUTORIAL_WEEKS + "5\n";
 
-    private final ModCode targetModCode;
-    private final TutName targetTutName;
+    private final Optional<ModCode> targetModCode;
+    private final Optional<TutName> targetTutName;
+    private final Optional<Index> targetIndex;
     private final Week week;
     private final Optional<Name> targetStudName;
 
-    public MarkAttendanceCommand(ModCode modCode, TutName tutName, Week week, Name studName) {
-        requireAllNonNull(modCode, tutName, week);
-        this.targetModCode = modCode;
-        this.targetTutName = tutName;
+    public MarkAttendanceCommand(ModCode modCode, TutName tutName, Index index, Week week, Name studName) {
+        this.targetModCode = Optional.ofNullable(modCode);
+        this.targetTutName = Optional.ofNullable(tutName);
+        this.targetIndex = Optional.ofNullable(index);
         this.targetStudName = Optional.ofNullable(studName);
         this.week = week;
     }
@@ -65,25 +68,50 @@ public class MarkAttendanceCommand extends Command {
         requireNonNull(model);
         List<Tutorial> lastShownList = model.getFilteredTutorialList();
 
-        // TODO: Multiple tutorials, students error?
-        Tutorial targetTutorial = lastShownList.stream()
-                .filter(tut -> tut.getTutName().equals(targetTutName) && tut.getModCode().equals(targetModCode))
-                .findFirst()
-                .orElse(null);
-        if (targetTutorial == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE);
+        // TODO: Consider cases with multiple matching tutorials, students?
+        Tutorial targetTutorial = null;
+        if (targetModCode.isPresent() && targetTutName.isPresent()) {
+            // format with modcode and tutname
+            targetTutorial = lastShownList.stream()
+                    .filter(tut -> tut.getTutName().equals(targetTutName.get())
+                    && tut.getModCode().equals(targetModCode.get()))
+                    .findFirst()
+                    .orElse(null);
+            if (targetTutorial == null) {
+                throw new CommandException(Messages.MESSAGE_INVALID_TUTORIAL_IN_MODULE);
+            }
+        } else if (targetIndex.isPresent()) {
+            // format with tutorial index
+            try {
+                targetTutorial = lastShownList.get(targetIndex.get().getZeroBased());
+            } catch (IndexOutOfBoundsException e) {
+                throw new CommandException(
+                    String.format(Messages.MESSAGE_INVALID_TUTORIAL_DISPLAYED_INDEX));
+            }
         }
 
-        Student targetStudent;
-        // starts the chain of commands to mark attendance of a class if targetStudName is not specified
+        Set<Week> weeks = targetTutorial.getTimeTable().getWeeks();
+        if (!weeks.contains(week)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_WEEK_IN_TUTORIAL);
+        }
+
         if (targetStudName.isEmpty()) {
-            targetStudent = targetTutorial.getStudents().get(0);
-            model.storePendingCommand(new MarkAttendanceVerifiedCommand(targetTutorial, week, targetStudent));
+            // stores the chain of commands to mark attendance of a class if targetStudName is not specified
+            List<Student> students = targetTutorial.getStudents();
+            for (int i = students.size() - 1; i >= 0; i--) {
+                model.storePendingCommand(
+                        new MarkAttendanceVerifiedCommand(targetTutorial, week, students.get(i)));
+                model.storePendingCommand(
+                        new DisplayCommand(
+                        String.format(MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT, students.get(i).getName())));
+            }
+
             return new CommandResult(
-                    String.format(MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT, targetStudent.getName()));
+                    String.format(MESSAGE_MARK_ATTENDANCE_TUTORIAL, targetTutorial.getTutName()));
         }
 
-        targetStudent = targetTutorial.getStudents().stream()
+        // otherwise marks attendance of individual student
+        Student targetStudent = targetTutorial.getStudents().stream()
             .filter(student -> student.getName().equals(targetStudName.get()))
             .findFirst()
             .orElse(null);
@@ -92,11 +120,7 @@ public class MarkAttendanceCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_IN_TUTORIAL);
         }
 
-        try {
-            model.setAttendance(targetTutorial, week, targetStudent);
-        } catch (WeekNotFoundException e) {
-            throw new CommandException(Messages.MESSAGE_INVALID_WEEK_IN_TUTORIAL);
-        }
+        model.setAttendance(targetTutorial, week, targetStudent);
 
         String isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent) ? "present" : "absent";
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,

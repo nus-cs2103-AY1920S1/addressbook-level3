@@ -46,7 +46,7 @@ public class LogicManager implements Logic {
 
         // processes multiple commands in user input if they exit
         String[] commandStrings = commandText.split("&");
-        // TODO: add model.appendPendingCommand()
+        // pushes commands from back to front on top of the pending commands stack
         for (int i = commandStrings.length - 1; i >= 0; i--) {
             Command tempCommand = applicationParser.parseCommand(commandStrings[i]);
             model.storePendingCommand(tempCommand);
@@ -56,6 +56,7 @@ public class LogicManager implements Logic {
         // clears log of pending commands until it meets a command that requires further user input
         while (model.hasPendingCommand() && !model.peekPendingCommand().needsInput()) {
             command = model.getPendingCommand(); // first user-inputted command
+            System.out.println(model.peekPendingCommand());
 
             // if next command requires user input, checks if current command is relevant
             if (model.hasPendingCommand()

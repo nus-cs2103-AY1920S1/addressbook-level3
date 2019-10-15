@@ -3,6 +3,7 @@ package seedu.tarence.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_DAY;
@@ -11,6 +12,7 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_START_TIME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_WEEKS;
+
 import static seedu.tarence.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -84,6 +86,9 @@ public class CommandTestUtil {
 
     public static final String INVALID_WEEKS_RANGE = "1-14";
 
+    public static final String VALID_TUTORIAL_IDX = "1";
+    public static final String VALID_FILENAME = "fileName";
+
     public static final String VALID_MODCODE_DESC = " " + PREFIX_MODULE + VALID_MODCODE;
     public static final String VALID_TUTORIAL_NAME_DESC = " " + PREFIX_TUTORIAL_NAME + VALID_TUTORIAL_NAME;
     public static final String VALID_TUTORIAL_DAY_DESC = " " + PREFIX_TUTORIAL_DAY + VALID_TUTORIAL_DAY;
@@ -93,6 +98,9 @@ public class CommandTestUtil {
     public static final String VALID_WEEKS_ODD_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEKS_ODD;
     public static final String VALID_WEEKS_RANGE_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEKS_RANGE;
     public static final String VALID_WEEK_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEK;
+    public static final String VALID_TUTORIAL_IDX_DESC = " " + PREFIX_TUTORIAL_INDEX + VALID_TUTORIAL_IDX;
+    public static final String VALID_FILENAME_DESC = " " + PREFIX_FILE + VALID_FILENAME;
+
     public static final String INVALID_WEEKS_RANGE_DESC = " " + PREFIX_TUTORIAL_WEEKS + INVALID_WEEKS_RANGE;
 
     public static final String INVALID_MODCODE_DESC = " " + PREFIX_MODULE + INVALID_MODCODE;

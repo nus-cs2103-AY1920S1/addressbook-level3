@@ -1,7 +1,5 @@
 package seedu.tarence.logic.commands;
 
-import java.util.List;
-
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.student.Student;
@@ -14,9 +12,9 @@ import seedu.tarence.model.tutorial.Week;
  */
 public class MarkAttendanceVerifiedCommand extends Command {
 
-    private Tutorial targetTutorial;
-    private Week week;
-    private Student targetStudent;
+    private final Tutorial targetTutorial;
+    private final Week week;
+    private final Student targetStudent;
 
     MarkAttendanceVerifiedCommand(Tutorial targetTutorial, Week week, Student targetStudent) {
         this.targetTutorial = targetTutorial;
@@ -26,28 +24,14 @@ public class MarkAttendanceVerifiedCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        boolean isPresent;
         targetTutorial.setAttendance(week, targetStudent);
+        isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent);
 
-        boolean isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent);
-        List<Student> students = targetTutorial.getStudents();
-        int nextStudentIndex = students.indexOf(targetStudent) + 1;
-        if (nextStudentIndex >= students.size()) {
-            return new CommandResult(
-                String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS,
-                targetStudent.getName(),
-                isPresent));
-        }
-
-        Student nextStudent = targetTutorial.getStudents().get(nextStudentIndex);
-        model.storePendingCommand(
-                new MarkAttendanceVerifiedCommand(targetTutorial, week, nextStudent));
         return new CommandResult(
                 String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS,
                 targetStudent.getName(),
-                isPresent)
-                + "\n"
-                + String.format(MarkAttendanceCommand.MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT,
-                nextStudent.getName()));
+                isPresent ? "present" : "absent"));
     }
 
     @Override
@@ -57,6 +41,8 @@ public class MarkAttendanceVerifiedCommand extends Command {
 
     @Override
     public boolean needsCommand(Command command) {
-        return command instanceof ConfirmYesCommand || command instanceof ConfirmNoCommand;
+        return command instanceof ConfirmYesCommand
+                || command instanceof ConfirmNoCommand
+                || command instanceof DisplayCommand;
     }
 }
