@@ -48,7 +48,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_AUTHOR + "AUTHOR] "
             + "[" + PREFIX_WEBLINK + "WEBLINK] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
-            + "[" + PREFIX_DIFFICULTY  + "DIFFICULTY] "
+            + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
             + "[" + PREFIX_SOURCE + "SOURCE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example:\n"
