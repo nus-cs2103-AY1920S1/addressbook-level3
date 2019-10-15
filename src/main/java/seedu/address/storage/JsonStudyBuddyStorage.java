@@ -170,7 +170,7 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        //JsonUtil.saveJsonFile(new JsonSerializableCheatSheetBook(cheatSheetBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableCheatSheetBook(cheatSheetBook), cheatSheetFilePath);
     }
 
     @Override
