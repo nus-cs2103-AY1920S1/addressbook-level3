@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.book.Author;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
+import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.borrower.Email;
 import seedu.address.model.borrower.Name;
 import seedu.address.model.borrower.Phone;
@@ -149,5 +150,20 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String Borrower ID} into an {@code Borrower ID}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code borrower ID} is invalid.
+     */
+    public static BorrowerId parseBorrowerId(String id) throws ParseException {
+        requireNonNull(id);
+        String trimmedId = id.trim();
+        if (!BorrowerId.isValidBorrowerId(trimmedId)) {
+            throw new ParseException(BorrowerId.MESSAGE_CONSTRAINTS);
+        }
+        return new BorrowerId(trimmedId);
     }
 }
