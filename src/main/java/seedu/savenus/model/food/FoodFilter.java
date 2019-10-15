@@ -40,7 +40,7 @@ public class FoodFilter implements Predicate<Food> {
      * @param food the food to be tested.
      * @return true if the food passes the tests. False if otherwise.
      */
-    private boolean doesFoodPassTest(Food food) {
+    public boolean doesFoodPassTest(Food food) {
         for (int i = 0; i < fieldList.size(); i = i + 3) {
             String field = fieldList.get(i);
             String quantifier = fieldList.get(i + 1);
@@ -61,7 +61,7 @@ public class FoodFilter implements Predicate<Food> {
      * @param comparisonFactor the comparison factor, represented by an Integer.
      * @return true if the comparison matches the quantifier. False if otherwise.
      */
-    private boolean quantifierMatches(String quantifier, int comparisonFactor) {
+    public boolean quantifierMatches(String quantifier, int comparisonFactor) {
         if (quantifier.equals(QUANTIFY_EQUALS_TO)) {
             return comparisonFactor == 0;
         } else if (quantifier.equals(QUANTIFY_LESS_THAN)) {
@@ -77,7 +77,7 @@ public class FoodFilter implements Predicate<Food> {
      * @param value the value of the dummy field.
      * @return a simple dummy field.
      */
-    private Field createDummyField(String field, String value) {
+    public Field createDummyField(String field, String value) {
         switch (field) {
         case FIELD_NAME_CATEGORY:
             return new Category(value);

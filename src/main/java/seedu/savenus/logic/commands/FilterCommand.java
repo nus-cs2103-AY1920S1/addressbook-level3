@@ -54,7 +54,7 @@ public class FilterCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SortCommand // instanceof handles nulls
-                && getFields().equals(((SortCommand) other).getFields()));
+                || (other instanceof FilterCommand // instanceof handles nulls
+                && getFields().equals(((FilterCommand) other).getFields()));
     }
 }
