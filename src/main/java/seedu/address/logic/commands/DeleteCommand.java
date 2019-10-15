@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.storage.SuggestionsStorage;
 
 /**
  * Deletes a contact identified using it's displayed index from the address book.
@@ -41,6 +42,8 @@ public class DeleteCommand extends Command {
 
         Contact contactToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteContact(contactToDelete);
+        //delete the contact details off the suggestions list
+        SuggestionsStorage.deleteContactDetailsFromSuggestionList(contactToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete));
     }
 
