@@ -1,22 +1,22 @@
 package seedu.address.logic.calendar.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDESCRIPTION;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKPLACE;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTAG;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTIME;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTITLE;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.calendar.commands.AddCommand;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
-import seedu.address.model.calendar.person.TaskPlace;
-import seedu.address.model.calendar.person.TaskDescription;
-import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.person.Task;
+import seedu.address.model.calendar.person.TaskDescription;
+import seedu.address.model.calendar.person.TaskPlace;
 import seedu.address.model.calendar.person.TaskTime;
+import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.tag.TaskTag;
 
 
@@ -36,18 +36,19 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TASKTITLE, PREFIX_TASKTIME, PREFIX_TASKDESCRIPTION,
+                        PREFIX_TASKPLACE, PREFIX_TASKTAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_TASKTITLE, PREFIX_TASKPLACE, PREFIX_TASKTIME,
+                PREFIX_TASKDESCRIPTION) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        TaskTitle taskTitle = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        TaskTime taskTime = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        TaskDescription taskDescription = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        TaskPlace taskPlace = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<TaskTag> taskTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        TaskTitle taskTitle = ParserUtil.parseName(argMultimap.getValue(PREFIX_TASKTITLE).get());
+        TaskTime taskTime = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_TASKTIME).get());
+        TaskDescription taskDescription = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_TASKDESCRIPTION).get());
+        TaskPlace taskPlace = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_TASKPLACE).get());
+        Set<TaskTag> taskTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TASKTAG));
 
         Task task = new Task(taskTitle, taskTime, taskDescription, taskPlace, taskTagList);
 

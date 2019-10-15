@@ -193,7 +193,8 @@
 //    @Test
 //    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
 //        Set<TaskTag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-//        Set<TaskTag> expectedTagSet = new HashSet<TaskTag>(Arrays.asList(new TaskTag(VALID_TAG_1), new TaskTag(VALID_TAG_2)));
+//        Set<TaskTag> expectedTagSet
+//                = new HashSet<TaskTag>(Arrays.asList(new TaskTag(VALID_TAG_1), new TaskTag(VALID_TAG_2)));
 //
 //        assertEquals(expectedTagSet, actualTagSet);
 //    }

@@ -33,7 +33,7 @@
 // */
 //public class EditCommandTest {
 //
-//    private CalendarModel calendarModel = new CalendarCalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
+//    private CalendarModel calendarModel = new CalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
 //
 //    @Test
 //    public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -43,7 +43,9 @@
 //
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 //
-//        CalendarModel expectedModel = new CalendarCalendarModelManager(new CalendarCalendarAddressBook(calendarModel.getCalendarAddressBook()), new CalendarUserPrefs());
+//        CalendarModel expectedModel = new CalendarModelManager(
+//                new CalendarCalendarAddressBook(calendarModel.getCalendarAddressBook()),
+//                new CalendarUserPrefs());
 //        expectedModel.setPerson(calendarModel.getFilteredPersonList().get(0), editedPerson);
 //
 //        assertCommandSuccess(editCommand, calendarModel, expectedMessage, expectedModel);
@@ -64,7 +66,9 @@
 //
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 //
-//        CalendarModel expectedModel = new CalendarCalendarModelManager(new CalendarCalendarAddressBook(calendarModel.getCalendarAddressBook()), new CalendarUserPrefs());
+//        CalendarModel expectedModel = new CalendarModelManager(
+//                new CalendarCalendarAddressBook(calendarModel.getCalendarAddressBook()),
+//                new CalendarUserPrefs());
 //        expectedModel.setPerson(lastPerson, editedPerson);
 //
 //        assertCommandSuccess(editCommand, calendarModel, expectedMessage, expectedModel);
@@ -77,7 +81,9 @@
 //
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 //
-//        CalendarModel expectedModel = new CalendarCalendarModelManager(new CalendarCalendarAddressBook(calendarModel.getCalendarAddressBook()), new CalendarUserPrefs());
+//        CalendarModel expectedModel = new CalendarModelManager(
+//                new CalendarCalendarAddressBook(calendarModel.getCalendarAddressBook()),
+//                new CalendarUserPrefs());
 //
 //        assertCommandSuccess(editCommand, calendarModel, expectedMessage, expectedModel);
 //    }
@@ -93,7 +99,9 @@
 //
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 //
-//        CalendarModel expectedModel = new CalendarCalendarModelManager(new CalendarCalendarAddressBook(calendarModel.getCalendarAddressBook()), new CalendarUserPrefs());
+//        CalendarModel expectedModel = new CalendarModelManager(
+//                new CalendarCalendarAddressBook(calendarModel.getCalendarAddressBook()),
+//                new CalendarUserPrefs());
 //        expectedModel.setPerson(calendarModel.getFilteredPersonList().get(0), editedPerson);
 //
 //        assertCommandSuccess(editCommand, calendarModel, expectedMessage, expectedModel);
@@ -113,7 +121,8 @@
 //        showPersonAtIndex(calendarModel, INDEX_FIRST_PERSON);
 //
 //        // edit task in filtered list into a duplicate in address book
-//        Task personInList = calendarModel.getCalendarAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+//        Task personInList = calendarModel.getCalendarAddressBook()
+//                .getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
 //        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
 //                new EditPersonDescriptorBuilder(personInList).build());
 //
@@ -138,7 +147,8 @@
 //        showPersonAtIndex(calendarModel, INDEX_FIRST_PERSON);
 //        Index outOfBoundIndex = INDEX_SECOND_PERSON;
 //        // ensures that outOfBoundIndex is still in bounds of address book list
-//        assertTrue(outOfBoundIndex.getZeroBased() < calendarModel.getCalendarAddressBook().getPersonList().size());
+//        assertTrue(outOfBoundIndex.getZeroBased()
+//                < calendarModel.getCalendarAddressBook().getPersonList().size());
 //
 //        EditCommand editCommand = new EditCommand(outOfBoundIndex,
 //                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());

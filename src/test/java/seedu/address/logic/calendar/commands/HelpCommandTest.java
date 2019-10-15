@@ -10,8 +10,8 @@
 //
 //
 //public class HelpCommandTest {
-//    private CalendarModel calendarModel = new CalendarCalendarModelManager();
-//    private CalendarModel expectedModel = new CalendarCalendarModelManager();
+//    private CalendarModel calendarModel = new CalendarModelManager();
+//    private CalendarModel expectedModel = new CalendarModelManager();
 //
 //    @Test
 //    public void execute_help_success() {

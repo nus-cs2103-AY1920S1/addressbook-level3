@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.calendar.CalendarUserPrefs;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
-import seedu.address.model.calendar.CalendarUserPrefs;
 
 
 
@@ -61,7 +61,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyCalendarAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCalendarAddressBook> readAddressBook(Path filePath)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return addressBookStorage.readAddressBook(filePath);
     }

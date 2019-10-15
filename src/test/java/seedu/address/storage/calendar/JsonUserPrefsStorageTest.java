@@ -27,7 +27,8 @@
 //        assertThrows(NullPointerException.class, () -> readUserPrefs(null));
 //    }
 //
-//    private Optional<CalendarUserPrefs> readUserPrefs(String userPrefsFileInTestDataFolder) throws DataConversionException {
+//    private Optional<CalendarUserPrefs> readUserPrefs(String userPrefsFileInTestDataFolder)
+//            throws DataConversionException {
 //        Path prefsFilePath = addToTestDataPathIfNotNull(userPrefsFileInTestDataFolder);
 //        return new JsonUserPrefsStorage(prefsFilePath).readUserPrefs(prefsFilePath);
 //    }
@@ -39,7 +40,8 @@
 //
 //    @Test
 //    public void readUserPrefs_notJsonFormat_exceptionThrown() {
-//        assertThrows(DataConversionException.class, () -> readUserPrefs("NotJsonFormatUserPrefs.json"));
+//        assertThrows(DataConversionException.class,
+//                () -> readUserPrefs("NotJsonFormatUserPrefs.json"));
 //    }
 //
 //    private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {
@@ -83,7 +85,8 @@
 //
 //    @Test
 //    public void saveUserPrefs_nullFilePath_throwsNullPointerException() {
-//        assertThrows(NullPointerException.class, () -> saveUserPrefs(new CalendarUserPrefs(), null));
+//        assertThrows(NullPointerException.class,
+//                () -> saveUserPrefs(new CalendarUserPrefs(), null));
 //    }
 //
 //    /**

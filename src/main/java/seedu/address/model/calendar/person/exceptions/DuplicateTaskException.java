@@ -1,7 +1,7 @@
 package seedu.address.model.calendar.person.exceptions;
 
 /**
- * Signals that the operation will result in duplicate Persons (Persons are considered duplicates if they have the same
+ * Signals that the operation will result in duplicate Tasks (Tasks are considered duplicates if they have the same
  * identity).
  */
 public class DuplicateTaskException extends RuntimeException {

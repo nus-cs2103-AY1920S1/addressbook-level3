@@ -22,8 +22,10 @@
 //        List<String> firstPredicateKeywordList = Collections.singletonList("first");
 //        List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 //
-//        TaskTitleContainsKeywordsPredicate firstPredicate = new TaskTitleContainsKeywordsPredicate(firstPredicateKeywordList);
-//        TaskTitleContainsKeywordsPredicate secondPredicate = new TaskTitleContainsKeywordsPredicate(secondPredicateKeywordList);
+//        TaskTitleContainsKeywordsPredicate firstPredicate
+//                = new TaskTitleContainsKeywordsPredicate(firstPredicateKeywordList);
+//        TaskTitleContainsKeywordsPredicate secondPredicate
+//                = new TaskTitleContainsKeywordsPredicate(secondPredicateKeywordList);
 //
 //        // same object -> returns true
 //        assertTrue(firstPredicate.equals(firstPredicate));
@@ -66,7 +68,8 @@
 //    @Test
 //    public void test_nameDoesNotContainKeywords_returnsFalse() {
 //        // Zero keywords
-//        TaskTitleContainsKeywordsPredicate predicate = new TaskTitleContainsKeywordsPredicate(Collections.emptyList());
+//        TaskTitleContainsKeywordsPredicate predicate
+//                = new TaskTitleContainsKeywordsPredicate(Collections.emptyList());
 //        assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
 //
 //        // Non-matching keyword
@@ -74,7 +77,8 @@
 //        assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 //
 //        // Keywords match phone, email and address, but does not match name
-//        predicate = new TaskTitleContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
+//        predicate = new TaskTitleContainsKeywordsPredicate(
+//                Arrays.asList("12345", "alice@email.com", "Main", "Street"));
 //        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
 //                .withEmail("alice@email.com").withAddress("Main Street").build()));
 //    }

@@ -1,11 +1,11 @@
 package seedu.address.logic.calendar.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDESCRIPTION;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKPLACE;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTAG;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTIME;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTITLE;
 import static seedu.address.model.calendar.CalendarModel.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -19,11 +19,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
 import seedu.address.model.calendar.CalendarModel;
+import seedu.address.model.calendar.person.Task;
 import seedu.address.model.calendar.person.TaskDescription;
 import seedu.address.model.calendar.person.TaskPlace;
 import seedu.address.model.calendar.person.TaskTime;
 import seedu.address.model.calendar.person.TaskTitle;
-import seedu.address.model.calendar.person.Task;
 import seedu.address.model.calendar.tag.TaskTag;
 
 
@@ -38,14 +38,14 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed task list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TASKTITLE + "NAME] "
+            + "[" + PREFIX_TASKTIME + "PHONE] "
+            + "[" + PREFIX_TASKDESCRIPTION + "EMAIL] "
+            + "[" + PREFIX_TASKPLACE + "ADDRESS] "
+            + "[" + PREFIX_TASKTAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_TASKTIME + "91234567 "
+            + PREFIX_TASKDESCRIPTION + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -96,7 +96,8 @@ public class EditCommand extends Command {
 
         TaskTitle updatedTaskTitle = editPersonDescriptor.getTaskTitle().orElse(taskToEdit.getTaskTitle());
         TaskTime updatedTaskTime = editPersonDescriptor.getTaskTime().orElse(taskToEdit.getTaskTime());
-        TaskDescription updatedTaskDescription = editPersonDescriptor.getTaskDescription().orElse(taskToEdit.getTaskDescription());
+        TaskDescription updatedTaskDescription = editPersonDescriptor.getTaskDescription()
+                .orElse(taskToEdit.getTaskDescription());
         TaskPlace updatedTaskPlace = editPersonDescriptor.getTaskPlace().orElse(taskToEdit.getTaskPlace());
         Set<TaskTag> updatedTaskTags = editPersonDescriptor.getTaskTags().orElse(taskToEdit.getTaskTags());
 

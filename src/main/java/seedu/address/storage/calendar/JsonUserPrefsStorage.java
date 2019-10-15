@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
 import seedu.address.model.calendar.CalendarUserPrefs;
+import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
 
 
 

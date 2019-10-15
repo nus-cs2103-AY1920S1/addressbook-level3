@@ -2,11 +2,11 @@ package seedu.address.logic.calendar.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKDESCRIPTION;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKPLACE;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTAG;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTIME;
+import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTITLE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -37,7 +37,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TASKTITLE, PREFIX_TASKTIME, PREFIX_TASKDESCRIPTION,
+                        PREFIX_TASKPLACE, PREFIX_TASKTAG);
 
         Index index;
 
@@ -48,19 +49,20 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setTaskTitle(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        if (argMultimap.getValue(PREFIX_TASKTITLE).isPresent()) {
+            editPersonDescriptor.setTaskTitle(ParserUtil.parseName(argMultimap.getValue(PREFIX_TASKTITLE).get()));
         }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editPersonDescriptor.setTaskTime(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        if (argMultimap.getValue(PREFIX_TASKTIME).isPresent()) {
+            editPersonDescriptor.setTaskTime(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_TASKTIME).get()));
         }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editPersonDescriptor.setTaskDescription(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        if (argMultimap.getValue(PREFIX_TASKDESCRIPTION).isPresent()) {
+            editPersonDescriptor.setTaskDescription(ParserUtil.parseEmail(argMultimap
+                    .getValue(PREFIX_TASKDESCRIPTION).get()));
         }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setTaskPlace(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        if (argMultimap.getValue(PREFIX_TASKPLACE).isPresent()) {
+            editPersonDescriptor.setTaskPlace(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_TASKPLACE).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTaskTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TASKTAG)).ifPresent(editPersonDescriptor::setTaskTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

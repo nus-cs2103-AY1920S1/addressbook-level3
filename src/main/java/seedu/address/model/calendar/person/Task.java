@@ -28,7 +28,8 @@ public class Task {
     /**
      * Every field must be present and not null.
      */
-    public Task(TaskTitle taskTitle, TaskTime taskTime, TaskDescription taskDescription, TaskPlace taskPlace, Set<TaskTag> taskTags) {
+    public Task(TaskTitle taskTitle, TaskTime taskTime, TaskDescription taskDescription, TaskPlace taskPlace,
+                Set<TaskTag> taskTags) {
         requireAllNonNull(taskTitle, taskTime, taskDescription, taskPlace, taskTags);
         this.taskTitle = taskTitle;
         this.taskTime = taskTime;
@@ -72,7 +73,8 @@ public class Task {
 
         return otherTask != null
                 && otherTask.getTaskTitle().equals(getTaskTitle())
-                && (otherTask.getTaskTime().equals(getTaskTime()) || otherTask.getTaskDescription().equals(getTaskDescription()));
+                && (otherTask.getTaskTime().equals(getTaskTime())
+                || otherTask.getTaskDescription().equals(getTaskDescription()));
     }
 
     /**

@@ -10,11 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.calendar.person.Task;
 import seedu.address.model.calendar.person.TaskDescription;
 import seedu.address.model.calendar.person.TaskPlace;
-import seedu.address.model.calendar.person.TaskTitle;
-import seedu.address.model.calendar.person.Task;
 import seedu.address.model.calendar.person.TaskTime;
+import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.tag.TaskTag;
 
 
@@ -74,7 +74,8 @@ class JsonAdaptedPerson {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskTitle.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskTitle.class.getSimpleName()));
         }
         if (!TaskTitle.isValidName(name)) {
             throw new IllegalValueException(TaskTitle.MESSAGE_CONSTRAINTS);
@@ -82,7 +83,8 @@ class JsonAdaptedPerson {
         final TaskTitle modelTaskTitle = new TaskTitle(name);
 
         if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskTime.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskTime.class.getSimpleName()));
         }
         if (!TaskTime.isValidPhone(phone)) {
             throw new IllegalValueException(TaskTime.MESSAGE_CONSTRAINTS);
@@ -90,7 +92,8 @@ class JsonAdaptedPerson {
         final TaskTime modelTaskTime = new TaskTime(phone);
 
         if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskDescription.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskDescription.class.getSimpleName()));
         }
         if (!TaskDescription.isValidEmail(email)) {
             throw new IllegalValueException(TaskDescription.MESSAGE_CONSTRAINTS);
@@ -98,7 +101,8 @@ class JsonAdaptedPerson {
         final TaskDescription modelTaskDescription = new TaskDescription(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskPlace.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskPlace.class.getSimpleName()));
         }
         if (!TaskPlace.isValidAddress(address)) {
             throw new IllegalValueException(TaskPlace.MESSAGE_CONSTRAINTS);

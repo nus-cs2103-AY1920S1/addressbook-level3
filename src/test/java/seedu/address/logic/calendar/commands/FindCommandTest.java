@@ -25,8 +25,8 @@
 // * Contains integration tests (interaction with the CalendarModel) for {@code FindCommand}.
 // */
 //public class FindCommandTest {
-//    private CalendarModel calendarModel = new CalendarCalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
-//    private CalendarModel expectedModel = new CalendarCalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
+//    private CalendarModel calendarModel = new CalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
+//    private CalendarModel expectedModel = new CalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
 //
 //    @Test
 //    public void equals() {

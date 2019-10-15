@@ -78,8 +78,8 @@
 //     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
 //     * - the {@code actualModel} matches {@code expectedModel}
 //     */
-//    public static void assertCommandSuccess(Command command, CalendarModel actualModel, CommandResult expectedCommandResult,
-//            CalendarModel expectedModel) {
+//    public static void assertCommandSuccess(Command command, CalendarModel actualModel,
+//                                            CommandResult expectedCommandResult, CalendarModel expectedModel) {
 //        try {
 //            CommandResult result = command.execute(actualModel);
 //            assertEquals(expectedCommandResult, result);
@@ -108,7 +108,8 @@
 //    public static void assertCommandFailure(Command command, CalendarModel actualModel, String expectedMessage) {
 //        // we are unable to defensively copy the calendarModel for comparison later, so we can
 //        // only do so by copying its components.
-//        CalendarCalendarAddressBook expectedAddressBook = new CalendarCalendarAddressBook(actualModel.getCalendarAddressBook());
+//        CalendarCalendarAddressBook expectedAddressBook
+//                = new CalendarCalendarAddressBook(actualModel.getCalendarAddressBook());
 //        List<Task> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 //
 //        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));

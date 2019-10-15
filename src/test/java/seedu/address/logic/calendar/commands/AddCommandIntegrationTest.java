@@ -22,14 +22,15 @@
 //
 //    @BeforeEach
 //    public void setUp() {
-//        calendarModel = new CalendarCalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
+//        calendarModel = new CalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
 //    }
 //
 //    @Test
 //    public void execute_newPerson_success() {
 //        Task validPerson = new PersonBuilder().build();
 //
-//        CalendarModel expectedModel = new CalendarCalendarModelManager(calendarModel.getCalendarAddressBook(), new CalendarUserPrefs());
+//        CalendarModel expectedModel = new CalendarModelManager(calendarModel.getCalendarAddressBook(),
+//                new CalendarUserPrefs());
 //        expectedModel.addPerson(validPerson);
 //
 //        assertCommandSuccess(new AddCommand(validPerson), calendarModel,

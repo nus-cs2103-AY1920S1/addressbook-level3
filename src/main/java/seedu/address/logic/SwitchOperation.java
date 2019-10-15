@@ -14,7 +14,7 @@ import seedu.address.logic.finance.LogicFinanceManager;
 import seedu.address.logic.quiz.LogicQuizManager;
 import seedu.address.model.calendar.CalendarCalendarAddressBook;
 import seedu.address.model.calendar.CalendarModel;
-import seedu.address.model.calendar.CalendarCalendarModelManager;
+import seedu.address.model.calendar.CalendarModelManager;
 import seedu.address.model.calendar.CalendarUserPrefs;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
@@ -257,7 +257,7 @@ public class SwitchOperation {
             initialData = new CalendarCalendarAddressBook();
         }
 
-        return new CalendarCalendarModelManager(initialData, userPrefs);
+        return new CalendarModelManager(initialData, userPrefs);
     }
 
     /**

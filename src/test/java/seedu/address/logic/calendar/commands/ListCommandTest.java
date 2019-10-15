@@ -21,8 +21,8 @@
 //
 //    @BeforeEach
 //    public void setUp() {
-//        calendarModel = new CalendarCalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
-//        expectedModel = new CalendarCalendarModelManager(calendarModel.getCalendarAddressBook(), new CalendarUserPrefs());
+//        calendarModel = new CalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
+//        expectedModel = new CalendarModelManager(calendarModel.getCalendarAddressBook(), new CalendarUserPrefs());
 //    }
 //
 //    @Test

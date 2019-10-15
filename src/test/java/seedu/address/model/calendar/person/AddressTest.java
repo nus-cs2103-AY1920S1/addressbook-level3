@@ -35,6 +35,7 @@
 //        // valid addresses
 //        assertTrue(TaskPlace.isValidAddress("Blk 456, Den Road, #01-355"));
 //        assertTrue(TaskPlace.isValidAddress("-")); // one character
-//        assertTrue(TaskPlace.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+//        assertTrue(TaskPlace.isValidAddress(
+//                "Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
 //    }
 //}

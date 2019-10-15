@@ -23,7 +23,7 @@
 // */
 //public class DeleteCommandTest {
 //
-//    private CalendarModel calendarModel = new CalendarCalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
+//    private CalendarModel calendarModel = new CalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
 //
 //    @Test
 //    public void execute_validIndexUnfilteredList_success() {
@@ -32,7 +32,8 @@
 //
 //        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 //
-//        CalendarCalendarModelManager expectedModel = new CalendarCalendarModelManager(calendarModel.getCalendarAddressBook(), new CalendarUserPrefs());
+//        CalendarModelManager expectedModel
+//                = new CalendarModelManager(calendarModel.getCalendarAddressBook(), new CalendarUserPrefs());
 //        expectedModel.deletePerson(personToDelete);
 //
 //        assertCommandSuccess(deleteCommand, calendarModel, expectedMessage, expectedModel);
@@ -55,7 +56,8 @@
 //
 //        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 //
-//        CalendarModel expectedModel = new CalendarCalendarModelManager(calendarModel.getCalendarAddressBook(), new CalendarUserPrefs());
+//        CalendarModel expectedModel
+//                = new CalendarModelManager(calendarModel.getCalendarAddressBook(), new CalendarUserPrefs());
 //        expectedModel.deletePerson(personToDelete);
 //        showNoPerson(expectedModel);
 //

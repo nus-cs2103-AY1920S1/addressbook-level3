@@ -21,17 +21,17 @@ import seedu.address.model.calendar.person.Task;
 /**
  * Represents the in-memory calendarModel of the address book data.
  */
-public class CalendarCalendarModelManager implements CalendarModel {
-    private static final Logger logger = LogsCenter.getLogger(CalendarCalendarModelManager.class);
+public class CalendarModelManager implements CalendarModel {
+    private static final Logger logger = LogsCenter.getLogger(CalendarModelManager.class);
 
     private final CalendarCalendarAddressBook calendarAddressBook;
     private final CalendarUserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a CalendarCalendarModelManager with the given calendarAddressBook and userPrefs.
+     * Initializes a CalendarModelManager with the given calendarAddressBook and userPrefs.
      */
-    public CalendarCalendarModelManager(ReadOnlyCalendarAddressBook addressBook, ReadOnlyCalendarUserPrefs userPrefs) {
+    public CalendarModelManager(ReadOnlyCalendarAddressBook addressBook, ReadOnlyCalendarUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -42,7 +42,7 @@ public class CalendarCalendarModelManager implements CalendarModel {
         filteredTasks = new FilteredList<>(this.calendarAddressBook.getPersonList());
     }
 
-    public CalendarCalendarModelManager() {
+    public CalendarModelManager() {
         this(new CalendarCalendarAddressBook(), new CalendarUserPrefs());
     }
 
@@ -81,7 +81,7 @@ public class CalendarCalendarModelManager implements CalendarModel {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== CalendarCalendarAddressBook ================================================================================
+    //=========== CalendarAddressBook =========================================================================
 
     @Override
     public void setCalendarAddressBook(ReadOnlyCalendarAddressBook calendarAddressBook) {
@@ -142,12 +142,12 @@ public class CalendarCalendarModelManager implements CalendarModel {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof CalendarCalendarModelManager)) {
+        if (!(obj instanceof CalendarModelManager)) {
             return false;
         }
 
         // state check
-        CalendarCalendarModelManager other = (CalendarCalendarModelManager) obj;
+        CalendarModelManager other = (CalendarModelManager) obj;
         return calendarAddressBook.equals(other.calendarAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredTasks.equals(other.filteredTasks);
