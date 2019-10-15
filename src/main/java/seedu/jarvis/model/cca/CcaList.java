@@ -47,7 +47,7 @@ public class CcaList {
      */
     public void addCca(Cca cca) {
         requireNonNull(cca);
-        if (!internalCcaList.contains(cca)) {
+        if (internalCcaList.contains(cca)) {
             throw new DuplicateCcaException();
         }
 

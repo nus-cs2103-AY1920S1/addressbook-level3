@@ -1,10 +1,9 @@
-package seedu.jarvis.logic.commands.address;
+package seedu.jarvis.logic.commands.finance;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -19,7 +18,6 @@ import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
-import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.AddressBook;
@@ -30,73 +28,65 @@ import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
-import seedu.jarvis.testutil.address.PersonBuilder;
+import seedu.jarvis.testutil.InstallmentBuilder;
 
-public class AddAddressCommandTest {
+public class SetInstallmentCommandTest {
 
     /**
-     * Verifies that checking {@code AddAddressCommand} for the availability of inverse execution returns true.
+     * Verifies that checking {@code SetInstallmentCommand} for the availability of inverse execution returns true.
      */
     @BeforeEach
     public void hasInverseExecution() {
-        Person validPerson = new PersonBuilder().build();
-        AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
-        assertTrue(addAddressCommand.hasInverseExecution());
+        Installment validInstallment = new InstallmentBuilder().build();
+        SetInstallmentCommand setInstallmentCommand = new SetInstallmentCommand(validInstallment);
+        assertTrue(setInstallmentCommand.hasInverseExecution());
     }
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddAddressCommand(null));
+    public void constructor_nullInstallment_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new SetInstallmentCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_installmentAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingInstallmentAdded modelStub = new ModelStubAcceptingInstallmentAdded();
+        Installment validInstallment = new InstallmentBuilder().build();
 
-        CommandResult commandResult = new AddAddressCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new SetInstallmentCommand(validInstallment).execute(modelStub);
 
-        assertEquals(String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-    }
-
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
-
-        assertThrows(CommandException.class,
-                AddAddressCommand.MESSAGE_DUPLICATE_PERSON, () -> addAddressCommand.execute(modelStub));
+        assertEquals(String.format(SetInstallmentCommand.MESSAGE_SUCCESS, validInstallment),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validInstallment), modelStub.installmentsAdded);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddAddressCommand addAliceCommand = new AddAddressCommand(alice);
-        AddAddressCommand addBobCommand = new AddAddressCommand(bob);
+        Installment spotify = new InstallmentBuilder().withDescription(new InstallmentDescription("spotify")).build();
+        Installment netflix = new InstallmentBuilder().withDescription(new InstallmentDescription("netflix")).build();
+        SetInstallmentCommand addSpotifyCommand = new SetInstallmentCommand(spotify);
+        SetInstallmentCommand addNetflixCommand = new SetInstallmentCommand(netflix);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addSpotifyCommand.equals(addSpotifyCommand));
 
         // same values -> returns true
-        AddAddressCommand addAliceCommandCopy = new AddAddressCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        SetInstallmentCommand addSpotifyCommandCopy = new SetInstallmentCommand(spotify);
+        assertTrue(addSpotifyCommand.equals(addSpotifyCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addSpotifyCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addSpotifyCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different purchase -> returns false
+        assertFalse(addSpotifyCommand.equals(addNetflixCommand));
     }
 
     /**
@@ -248,7 +238,6 @@ public class AddAddressCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-
         @Override
         public void deletePurchase(int itemNumber) {
             throw new AssertionError("This method should not be called.");
@@ -295,6 +284,11 @@ public class AddAddressCommandTest {
         }
 
         @Override
+        public ObservableList<Purchase> getFilteredPurchaseList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Purchase> getPurchasesList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -305,17 +299,7 @@ public class AddAddressCommandTest {
         }
 
         @Override
-        public ObservableList<Purchase> getFilteredPurchaseList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void contains(Cca cca) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public TaskList getTasks() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -325,17 +309,7 @@ public class AddAddressCommandTest {
         }
 
         @Override
-        public void addTask(Task t) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void removeCca(Cca cca) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasTask(Task t) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -355,8 +329,23 @@ public class AddAddressCommandTest {
         }
 
         @Override
-        public Planner getPlanner() {
+        public TaskList getTasks() {
+            return null;
+        }
+
+        @Override
+        public void addTask(Task t) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTask(Task t) {
+            return false;
+        }
+
+        @Override
+        public Planner getPlanner() {
+            return null;
         }
 
         @Override
@@ -368,37 +357,37 @@ public class AddAddressCommandTest {
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithInstallment extends SetInstallmentCommandTest.ModelStub {
+        private final Installment installment;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithInstallment(Installment installment) {
+            requireNonNull(installment);
+            this.installment = installment;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasInstallment(Installment installment) {
+            requireNonNull(installment);
+            return this.installment.isSameInstallment(installment);
         }
     }
 
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingInstallmentAdded extends SetInstallmentCommandTest.ModelStub {
+        final ArrayList<Installment> installmentsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasInstallment(Installment installment) {
+            requireNonNull(installment);
+            return installmentsAdded.stream().anyMatch(installment::isSameInstallment);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addInstallment(Installment installment) {
+            requireNonNull(installment);
+            installmentsAdded.add(installment);
         }
 
         @Override
@@ -406,5 +395,4 @@ public class AddAddressCommandTest {
             return new AddressBook();
         }
     }
-
 }

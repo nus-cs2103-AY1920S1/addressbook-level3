@@ -26,6 +26,7 @@ import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.person.Person;
 
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
@@ -58,12 +59,10 @@ public class ClearAddressCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(), new UserPrefs(),
-                new Planner());
-        Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
                 new UserPrefs(), new Planner());
-
+        Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
+                getTypicalAddressBook(), new UserPrefs(), new Planner());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearAddressCommand(), model,
@@ -77,12 +76,12 @@ public class ClearAddressCommandTest {
     @Test
     public void executeInverse_success() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
-                                 new UserPrefs(), new Planner());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
+                new UserPrefs(), new Planner());
+        Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
+                getTypicalAddressBook(), new UserPrefs(), new Planner());
         Person validPerson = new PersonBuilder().build();
         model.addPerson(validPerson);
-        Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner());
         expectedModel.setAddressBook(new AddressBook());
         assertCommandSuccess(clearAddressCommand, model, ClearAddressCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -97,12 +96,11 @@ public class ClearAddressCommandTest {
     @Test
     public void repeatedExecutionAndInverseExecution() {
         ClearAddressCommand clearAddressCommand = new ClearAddressCommand();
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
-                                 new UserPrefs(), new Planner());
-        Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), getTypicalAddressBook(),
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
                 new UserPrefs(), new Planner());
+        Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
+                getTypicalAddressBook(), new UserPrefs(), new Planner());
         Person validPerson = new PersonBuilder().build();
-
         int cycles = 1000;
         IntStream.range(0, cycles)
                 .forEach(index -> {

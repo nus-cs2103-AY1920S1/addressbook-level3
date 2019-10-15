@@ -1,18 +1,15 @@
-package seedu.jarvis.logic.commands.address;
+package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
@@ -22,10 +19,10 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
+import seedu.jarvis.model.cca.CcaList;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.Purchase;
@@ -35,68 +32,62 @@ import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
-import seedu.jarvis.testutil.address.PersonBuilder;
+import seedu.jarvis.testutil.cca.CcaBuilder;
 
-public class AddAddressCommandTest {
+/**
+ * AddCcaCommandTest basically checks just 3 scenarios - adding null, adding a new {@code Cca} and adding
+ * a duplicate {@code Cca}.
+ * Since this test is not an integration test, we can just use a model stub.
+ */
+public class AddCcaCommandTest {
 
-    /**
-     * Verifies that checking {@code AddAddressCommand} for the availability of inverse execution returns true.
-     */
-    @BeforeEach
-    public void hasInverseExecution() {
-        Person validPerson = new PersonBuilder().build();
-        AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
-        assertTrue(addAddressCommand.hasInverseExecution());
+    @Test
+    public void constructor_nullCca_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddCcaCommand(null));
     }
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddAddressCommand(null));
+    public void execute_ccaAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingCcaAdded modelStub = new ModelStubAcceptingCcaAdded();
+        Cca validCca = new CcaBuilder().build();
+
+        CommandResult commandResult = new AddCcaCommand(validCca).execute(modelStub);
+
+        assertEquals(String.format(AddCcaCommand.MESSAGE_SUCCESS, validCca), commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
-
-        CommandResult commandResult = new AddAddressCommand(validPerson).execute(modelStub);
-
-        assertEquals(String.format(AddAddressCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-    }
-
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddAddressCommand addAddressCommand = new AddAddressCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateCca_throwsCommandException() {
+        Cca validCca = new CcaBuilder().build();
+        AddCcaCommand addCcaCommand = new AddCcaCommand(validCca);
+        ModelStub modelStub = new ModelStubWithCca(validCca);
 
         assertThrows(CommandException.class,
-                AddAddressCommand.MESSAGE_DUPLICATE_PERSON, () -> addAddressCommand.execute(modelStub));
+                AddCcaCommand.MESSAGE_DUPLICATE_CCA, () -> addCcaCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddAddressCommand addAliceCommand = new AddAddressCommand(alice);
-        AddAddressCommand addBobCommand = new AddAddressCommand(bob);
+        Cca canoeing = new CcaBuilder().withName("Canoeing").build();
+        Cca guitarEnsemble = new CcaBuilder().withName("Guitar ensemble").build();
+        AddCcaCommand addCanoeingCommand = new AddCcaCommand((canoeing));
+        AddCcaCommand addGuitarCommand = new AddCcaCommand((guitarEnsemble));
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addCanoeingCommand.equals(addCanoeingCommand));
 
         // same values -> returns true
-        AddAddressCommand addAliceCommandCopy = new AddAddressCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCcaCommand addCanoeingCommandCopy = new AddCcaCommand(canoeing);
+        assertTrue(addCanoeingCommand.equals(addCanoeingCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addCanoeingCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addCanoeingCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addCanoeingCommand.equals(addGuitarCommand));
     }
 
     /**
@@ -127,6 +118,7 @@ public class AddAddressCommandTest {
         public Path getAddressBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
+
 
         @Override
         public void setAddressBookFilePath(Path addressBookFilePath) {
@@ -310,12 +302,18 @@ public class AddAddressCommandTest {
         }
 
         @Override
-        public void contains(Cca cca) {
+        public TaskList getTasks() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public void addTask(Task t) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public TaskList getTasks() {
+        public boolean hasTask(Task t) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -325,17 +323,7 @@ public class AddAddressCommandTest {
         }
 
         @Override
-        public void addTask(Task t) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void removeCca(Cca cca) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasTask(Task t) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -346,12 +334,17 @@ public class AddAddressCommandTest {
 
         @Override
         public boolean hasCca(Cca cca) {
-            return false;
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void contains(Cca cca) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public CcaTracker getCcaTracker() {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -368,43 +361,37 @@ public class AddAddressCommandTest {
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithCca extends ModelStub {
+        private final Cca cca;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithCca(Cca cca) {
+            requireNonNull(cca);
+            this.cca = cca;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasCca(Cca cca) {
+            requireNonNull(cca);
+            return this.cca.isSameCca(cca);
         }
     }
 
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingCcaAdded extends ModelStub {
+        private final CcaList ccaList = new CcaList();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasCca(Cca cca) {
+            requireNonNull(cca);
+            return ccaList.contains(cca);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public void addCca(Cca cca) {
+            requireNonNull(cca);
+            ccaList.addCca(cca);
         }
     }
-
 }
