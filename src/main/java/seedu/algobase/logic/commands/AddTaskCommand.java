@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PROBLEM;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -63,7 +64,7 @@ public class AddTaskCommand extends Command {
         Plan plan = lastShownPlanList.get(addTaskDescriptor.planIndex.getZeroBased());
         Problem problem = lastShownProblemList.get(addTaskDescriptor.problemIndex.getZeroBased());
         Task task = new Task(problem);
-        Set<Task> taskSet = plan.getTasks();
+        Set<Task> taskSet = new HashSet<>(plan.getTasks());
         taskSet.add(task);
         Plan updatedPlan = Plan.createUpdatedPlan(plan, taskSet);
         model.setPlan(plan, updatedPlan);
