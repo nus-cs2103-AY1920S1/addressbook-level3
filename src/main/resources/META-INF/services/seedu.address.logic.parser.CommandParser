@@ -9,3 +9,4 @@ seedu.address.logic.parser.commandparsers.HelpCommandParser
 seedu.address.logic.parser.commandparsers.ListCommandParser
 seedu.address.logic.parser.commandparsers.loancommandparsers.AddLoanCommandParser
 seedu.address.logic.parser.commandparsers.loancommandparsers.ListLoansCommandParser
+seedu.address.logic.parser.commandparsers.RuleAddCommandParser

@@ -3,14 +3,14 @@ package seedu.address.model.rule.expression;
 import java.util.Arrays;
 import java.util.Optional;
 
-import seedu.address.logic.parser.RuleParserUtil;
+import seedu.address.logic.rules.RuleProcessingUtil;
 
 /**
  * Represents an Operator in an ExpressionPredicate.
  * Guarantees: immutable; is valid as declared in {@link #isValidOperator(String)}
  */
 public enum Operator {
-    LESS_THAN("<", RuleParserUtil.TYPE_LONG);
+    LESS_THAN("<", RuleProcessingUtil.TYPE_AMOUNT);
 
     public static final String MESSAGE_CONSTRAINTS =
             "Operators are restricted to only the ones already pre-defined "

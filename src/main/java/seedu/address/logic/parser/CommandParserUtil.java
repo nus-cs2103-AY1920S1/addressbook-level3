@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.rules.RuleProcessingUtil;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.loan.Description;
 import seedu.address.model.person.loan.stub.Date;
@@ -199,7 +200,7 @@ public class CommandParserUtil {
         Value value = parseValue(matcher.group("exprValue"));
 
 
-        if (!RuleParserUtil.isValidExpression(attribute, operator, value)) {
+        if (!RuleProcessingUtil.isValidExpression(attribute, operator, value)) {
             throw new ParseException(ExpressionPredicate.MESSAGE_TYPE_REQUIREMENTS);
         }
         return new ExpressionPredicate(attribute, operator, value);

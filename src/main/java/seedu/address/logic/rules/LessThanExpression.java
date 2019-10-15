@@ -1,26 +1,27 @@
 package seedu.address.logic.rules;
 
-import java.util.List;
-
-import seedu.address.model.rule.Parameter;
+import seedu.address.model.rule.expression.Attribute;
+import seedu.address.model.rule.expression.Value;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * Represents a less-than expression.
  */
 public class LessThanExpression extends TestableExpression {
     /**
-     * Constructs a LessThanExpression with the given parameters.
+     * Constructs a LessThanExpression with the given attribute and value.
      *
-     * @param params the parameters of the expression.
+     * @param attribute the attribute to be tested with.
+     * @param value the value to be tested against.
      */
-    public LessThanExpression(List<Parameter> params) {
-        super(params);
+    public LessThanExpression(Attribute attribute, Value value) {
+        super(attribute, value);
     }
 
     @Override
-    public boolean test(Object o) {
-        Parameter leftParam = params.get(0);
-        Parameter rightParam = params.get(1);
-        return false;
+    public boolean test(Transaction txn) {
+        long left = (long) RuleProcessingUtil.extractAttribute(attribute, txn);
+        long right = Long.parseLong(value.toString());
+        return left < right;
     }
 }

@@ -1,26 +1,26 @@
 package seedu.address.model.rule.expression;
 
-import java.lang.reflect.Type;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Optional;
+
+import seedu.address.logic.rules.RuleProcessingUtil;
 
 /**
  * Represents a Attribute in an ExpressionPredicate
  * Guarantees: immutable; is valid as declared in {@link #isValidAttribute(String)}
  */
 public enum Attribute {
-    DESCRIPTION("description", String.class),
-    AMOUNT("amount", Long.TYPE),
-    DATE("date", Date.class);
+    DESCRIPTION("description", RuleProcessingUtil.TYPE_DESC),
+    AMOUNT("amount", RuleProcessingUtil.TYPE_AMOUNT),
+    DATE("date", RuleProcessingUtil.TYPE_DATE);
 
     public static final String MESSAGE_CONSTRAINTS =
             "Attributes should be alphabetical and should not be blank";
 
     private final String representation;
-    private final Type evaluatedType;
+    private final String evaluatedType;
 
-    Attribute(String representation, Type evaluatedType) {
+    Attribute(String representation, String evaluatedType) {
         this.representation = representation;
         this.evaluatedType = evaluatedType;
     }
@@ -47,7 +47,7 @@ public enum Attribute {
     /**
      * Returns the type that this attribute will be evaluated to.
      */
-    public Type getEvaluatedType() {
+    public String getEvaluatedType() {
         return evaluatedType;
     }
 
