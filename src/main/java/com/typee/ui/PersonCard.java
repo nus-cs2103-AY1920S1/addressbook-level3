@@ -27,7 +27,19 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label type;
+    @FXML
+    private Label startTime;
+    @FXML
+    private Label endTime;
+    @FXML
+    private Label description;
+    @FXML
+    private Label location;
+    @FXML
+    private Label priority;
+    @FXML
+    private Label attendees;
     @FXML
     private Label id;
 
@@ -35,7 +47,13 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.engagement = engagement;
         id.setText(displayedIndex + ". ");
-        name.setText(engagement.getDescription());
+        //type.setText(engagement.getClass().getName());
+        //startTime.setText(engagement.getStart().toString());
+        //endTime.setText(engagement.getEnd().toString());
+        //location.setText(engagement.getLocation().toString());
+        //priority.setText(engagement.getPriority().name());
+        //attendees.setText(engagement.getAttendees().toString());
+        description.setText(engagement.getDescription());
     }
 
     @Override

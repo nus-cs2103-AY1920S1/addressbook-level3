@@ -21,4 +21,9 @@ public class Location {
         Location.location = location;
     }
 
+    @Override
+    public String toString() {
+        return location;
+    }
+
 }
