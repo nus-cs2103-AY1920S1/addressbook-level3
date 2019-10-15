@@ -75,7 +75,7 @@ public class TransactionBuilder {
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
     public TransactionBuilder withDate(String date) {
-        this.date = new Date(date);
+        this.date = new Date();
         return this;
     }
 
