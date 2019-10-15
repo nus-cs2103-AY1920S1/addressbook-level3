@@ -52,7 +52,11 @@ public class DateTest {
         assertTrue(Date.isValidDate("1/1/2019 1845"));
         assertTrue(Date.isValidDate("01/2/2019 1213"));
         assertTrue(Date.isValidDate("02/02/2019 1522"));
+        assertTrue(Date.isValidDate("1/02/2019 1423"));
         assertTrue(Date.isValidDate("1/02/2019 355"));
+        assertTrue(Date.isValidDate("01/02/2019 845"));
+        assertTrue(Date.isValidDate("01/2/2019 130"));
+        assertTrue(Date.isValidDate("1/2/2019 000"));
         assertTrue(Date.isValidDate("1155"));
         assertTrue(Date.isValidDate("155"));
         assertTrue(Date.isValidDate("1455"));
