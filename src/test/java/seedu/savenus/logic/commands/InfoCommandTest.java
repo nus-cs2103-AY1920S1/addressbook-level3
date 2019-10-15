@@ -53,9 +53,9 @@ public class InfoCommandTest {
     @Test
     public void input_validUserInput_parseSuccess() throws ParseException {
         InfoCommand validEditInfo = (InfoCommand) menuParser.parseCommand(VALID_USER_INPUT);
-        CommandResult expectedCommandresult =
+        CommandResult expectedCommandResult =
                 new CommandResult(InfoCommand.EDIT_INFO, false, false, false);
-        assertCommandSuccess(validEditInfo, model, expectedCommandresult, expectedModel);
+        assertCommandSuccess(validEditInfo, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -76,11 +76,78 @@ public class InfoCommandTest {
 
     @Test
     public void input_validCommandSuccess() {
+
+        // Add command
         InfoCommand modelInfoAdd = new InfoCommand(VALID_COMMAND);
         assertEquals(modelInfoAdd.getInput(), VALID_COMMAND);
         CommandResult expectedCommandResult =
                 new CommandResult(InfoCommand.ADD_INFO, false, false, false);
         assertCommandSuccess(modelInfoAdd, model, expectedCommandResult, expectedModel);
+
+        // Budget command
+        expectedCommandResult =
+                new CommandResult(InfoCommand.BUDGET_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("budget"), model, expectedCommandResult, expectedModel);
+
+        // Buy command
+        expectedCommandResult =
+                new CommandResult(InfoCommand.BUY_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("buy"), model, expectedCommandResult, expectedModel);
+
+        // Clear command
+        expectedCommandResult =
+                new CommandResult(InfoCommand.CLEAR_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("clear"), model, expectedCommandResult, expectedModel);
+
+        // Default command
+        expectedCommandResult =
+                new CommandResult(InfoCommand.DEFAULT_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("default"), model, expectedCommandResult, expectedModel);
+
+        // Delete command
+        expectedCommandResult =
+                new CommandResult(InfoCommand.DELETE_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("delete"), model, expectedCommandResult, expectedModel);
+
+        // Edit command
+        expectedCommandResult =
+                new CommandResult(InfoCommand.EDIT_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("edit"), model, expectedCommandResult, expectedModel);
+
+        // Exit command
+        expectedCommandResult =
+                new CommandResult(InfoCommand.EXIT_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("exit"), model, expectedCommandResult, expectedModel);
+
+        // Find command
+        expectedCommandResult =
+                new CommandResult(InfoCommand.FIND_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("find"), model, expectedCommandResult, expectedModel);
+
+        // Help command
+        expectedCommandResult =
+                new CommandResult(InfoCommand.HELP_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("help"), model, expectedCommandResult, expectedModel);
+
+        // Info command
+        expectedCommandResult =
+                new CommandResult(InfoCommand.INFO_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("info"), model, expectedCommandResult, expectedModel);
+
+        // List command
+        expectedCommandResult =
+                new CommandResult(InfoCommand.LIST_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("list"), model, expectedCommandResult, expectedModel);
+
+        // Recommend command
+        expectedCommandResult =
+                new CommandResult(InfoCommand.RECOMMEND_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("recommend"), model, expectedCommandResult, expectedModel);
+
+        // Sort command
+        expectedCommandResult =
+                new CommandResult(InfoCommand.SORT_INFO, false, false, false);
+        assertCommandSuccess(new InfoCommand("sort"), model, expectedCommandResult, expectedModel);
     }
 
     @Test
