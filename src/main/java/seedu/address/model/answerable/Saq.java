@@ -1,6 +1,6 @@
 package seedu.address.model.answerable;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 
 import java.util.Set;
 
@@ -13,7 +13,7 @@ public class Saq extends Answerable {
     /**
      * Every field must be present and not null.
      */
-    public Saq(Question question, AnswerSet answers, Difficulty difficulty, Category category, Set<Tag> tags) {
-        super(question, answers, difficulty, category, tags);
+    public Saq(Question question, AnswerSet answers, Difficulty difficulty, Set<Category> categories) {
+        super(question, answers, difficulty, categories);
     }
 }

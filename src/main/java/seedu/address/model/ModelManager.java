@@ -147,5 +147,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredAnswerables.equals(other.filteredAnswerables);
     }
-
 }

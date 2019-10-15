@@ -1,7 +1,7 @@
 {
   "_comment": "Revision Tool save file which contains the same Answerable values as in TypicalAnswerables#getTypicalAddressBook()",
   "answerables" : [ {
-    "question" : "A Question?",
+    "question" : "Is this a Question?",
     "answerSet": {
       "correctAnswerSet": [
         { "answer": "CORRECT" }
@@ -11,7 +11,7 @@
       ] },
     "difficulty" : "1",
     "category" : "Category A",
-    "tagged" : [ "easy" ]
+    "tagged" : [ "important" ]
   }, {
     "question" : "Brownfield or Greenfield?",
     "answerSet": {

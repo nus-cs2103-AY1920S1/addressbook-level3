@@ -7,8 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
-
+import seedu.address.model.category.Category;
 /**
  * Represents a Answerable in the Test Bank.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -21,19 +20,17 @@ public abstract class Answerable {
 
     // Data fields
     private final AnswerSet answerSet;
-    private final Category category;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Category> categories = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Answerable(Question question, AnswerSet answerSet, Difficulty difficulty, Category category, Set<Tag> tags) {
-        requireAllNonNull(question, difficulty, category, tags);
+    public Answerable(Question question, AnswerSet answerSet, Difficulty difficulty, Set<Category> categories) {
+        requireAllNonNull(question, difficulty, categories);
         this.question = question;
         this.answerSet = answerSet;
         this.difficulty = difficulty;
-        this.category = category;
-        this.tags.addAll(tags);
+        this.categories.addAll(categories);
     }
 
     public Question getQuestion() {
@@ -48,18 +45,11 @@ public abstract class Answerable {
         return difficulty;
     }
 
-    public Category getCategory() {
-        return category;
+    public Set<Category> getCategories() {
+        return Collections.unmodifiableSet(categories);
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
+  
     /**
      * Returns true if both answerables with the same question have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two answerables.
@@ -93,14 +83,13 @@ public abstract class Answerable {
         return otherAnswerable.getQuestion().equals(getQuestion())
                 && otherAnswerable.getAnswerSet().equals(getAnswerSet())
                 && otherAnswerable.getDifficulty().equals(getDifficulty())
-                && otherAnswerable.getCategory().equals(getCategory())
-                && otherAnswerable.getTags().equals(getTags());
+                && otherAnswerable.getCategories().equals(getCategories());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(question, answerSet, difficulty, category, tags);
+        return Objects.hash(question, answerSet, difficulty, categories);
     }
 
     @Override
@@ -112,10 +101,8 @@ public abstract class Answerable {
                 .append(getAnswerSet())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
-                .append(" Category: ")
-                .append(getCategory())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Categories: ");
+        getCategories().forEach(builder::append);
         return builder.toString();
     }
 

@@ -23,7 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.answerable.Answer;
 import seedu.address.model.answerable.AnswerSet;
-import seedu.address.model.answerable.QuestionContainsKeywordsPredicate;
+import seedu.address.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.address.model.answerable.Answerable;
 import seedu.address.testutil.EditAnswerableDescriptorBuilder;
 

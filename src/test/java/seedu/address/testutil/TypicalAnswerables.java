@@ -30,7 +30,7 @@ public class TypicalAnswerables {
     private static final Set<Answer> wrongAnswerSet = new HashSet<>(Arrays.asList(wrongAnswer));
     private static final AnswerSet defaultAnswerSet = new AnswerSet(correctAnswerSet, wrongAnswerSet);
 
-    public static final Answerable A_ANSWERABLE = new AnswerableBuilder().withQuestion("A Question?")
+    public static final Answerable A_ANSWERABLE = new AnswerableBuilder().withQuestion("Is this a Question?")
             .withAnswerSet(defaultAnswerSet).withCategory("Category A").withDifficulty("1")
             .withTags("easy").build();
     public static final Answerable B_ANSWERABLE = new AnswerableBuilder().withQuestion("Brownfield or Greenfield?")

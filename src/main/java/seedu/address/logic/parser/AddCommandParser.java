@@ -16,12 +16,11 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.answerable.Answer;
 import seedu.address.model.answerable.Answerable;
-import seedu.address.model.answerable.Category;
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.answerable.Mcq;
 import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Question;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -48,15 +47,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Answer> correctAnswerSet = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT));
         Set<Answer> wrongAnswerSetSet = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG));
         Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
-        Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
         Answerable answerable;
 
         switch (questionType.getType()) {
         case "mcq":
             AnswerSet mcqAnswers = new AnswerSet(correctAnswerSet, wrongAnswerSetSet);
-            answerable = new Mcq(question, mcqAnswers, difficulty, category, tagList);
+            answerable = new Mcq(question, mcqAnswers, difficulty, categoryList);
             return new AddCommand(answerable);
 //        case "saq":
 //            //TODO: Implement Saq

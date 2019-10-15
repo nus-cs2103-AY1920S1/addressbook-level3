@@ -44,11 +44,10 @@ public class AnswerableCard extends UiPart<Region> {
         this.answerable = answerable;
         id.setText(displayedIndex + ". ");
         question.setText(answerable.getQuestion().fullQuestion);
-        difficulty.setText(answerable.getDifficulty().value);
-        category.setText(answerable.getCategory().value);
-        answerable.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        difficulty.setText("Difficulty: " + answerable.getDifficulty().value);
+        answerable.getCategories().stream()
+                .sorted(Comparator.comparing(category -> category.categoryName))
+                .forEach(category -> tags.getChildren().add(new Label(category.categoryName)));
     }
 
     @Override

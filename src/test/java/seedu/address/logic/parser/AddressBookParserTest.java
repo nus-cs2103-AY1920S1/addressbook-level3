@@ -23,7 +23,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.answerable.Answerable;
-import seedu.address.model.answerable.QuestionContainsKeywordsPredicate;
+import seedu.address.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.address.testutil.EditAnswerableDescriptorBuilder;
 import seedu.address.testutil.AnswerableBuilder;
 import seedu.address.testutil.AnswerableUtil;
