@@ -365,7 +365,226 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `StudyBuddy` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== *User story 1:*
+As a student who is busy with revision and has no time to create a cheatsheet, the cheatsheet
+generation feature will help me save time on creating cheatsheets and let me spend more time on revision.
+
+[discrete]
+=== Use case: UC01 – Create a cheatsheet
+
+Preconditions: StuddyBuddy application is opened
+
+*MSS*
+
+1.	User navigates to cheetsheat section.
+
+2.	User chooses to create new cheatsheet.
+
+3.	StuddyBuddy asks user for new cheatsheet’s title.
+
+4.	User inputs new cheatsheet’s title.
+
+5.	StuddyBuddy asks user for new cheatsheet’s module.
+
+6.	User inputs new cheatsheet’s module.
+
+7.	StuddyBuddy asks for new cheatsheet’s tags.
+
+8.	User inputs new cheatsheet’s tags.
++
+Use case ends
+
+[discrete]
+=== Use case: UC02 – List cheatsheets
+
+Preconditions: StuddyBuddy application is opened
+
+*MSS*
+
+1.	User navigates to cheetsheat section.
+
+2.	User chooses to list all cheatsheet.
+
+3.	StudyBuddy displays all cheatsheets.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC03 – Edit a cheatsheet
+
+Preconditions: StudyBuddy application is opened, User knows cheatsheet ID
+
+*MSS*
+
+1.	User navigates to cheetsheat section.
+
+2.	User chooses to edit cheatsheet.
+
+3.	StudyBuddy asks for cheatsheet ID for cheatsheet to be edited.
+
+4.	User inputs cheatsheet ID.
+
+5.	StudyBuddy asks for parameters to be edited.
+
+6.	User inputs perimeters to be edited.
+
+7.	StudyBuddy displays edited cheatsheet.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC04 – View a cheatsheet
+
+Preconditions: StudyBuddy application is opened, User knows cheatsheet ID
+
+*MSS*
+
+1.	User navigates to cheetsheat section.
+
+2.	User chooses to view cheatsheet.
+
+3.	StudyBuddy asks for cheatsheet ID for cheatsheet to be viewed.
+
+4.	User inputs cheatsheet ID.
+
+5.	StudyBuddy displays cheatsheet.
++
+Use case ends.
+
+=== Use case: User story 1
+
+*MSS*
+
+1.	User _creates cheatsheet (UC01)_.
+
+2.	User _views cheatsheet (UC04)_.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. User chooses to edit cheatsheet.
++
+2a1. User _edits cheatsheet (UC03)_.
+
+{Fix indent}
+
++
+Use case ends.
+
+[discrete]
+=== User story 2:
+As a student who finds it very cumbersome to store tutorial questions that I would like to revise, I can make use of the flashcard function to just store a screenshot of the question for future reference.
+
+[discrete]
+=== Use case: UC05 – Create a flashcard from image
+Software system: StudyBuddy, OS
+
+Preconditions: StudyBuddy application is opened
+
+*MSS*
+
+1.	User finds a tutorial question he/she would like to revise.
+
+2.	User takes screenshot of tutorial question.
+
+3.	OS asks user where screenshot should be saved.
+
+4.	User saves screenshot in designated StudyBuddy image folder with custom name.
+
+5.	User opens StudyBuddy application.
+
+6.	User navigates to flashcard section.
+
+7.	User chooses to create new flashcard from image source.
+
+8.	StudyBuddy asks user for file name.
+
+9.	User inputs file name.
+
+10.	StudyBuddy asks user for flashcard’s answer.
+
+11.	User inputs flashcard’s answer.
+
+12.	StudyBuddy asks user for flashcard’s title.
+
+13.	User inputs flashcard’s title.
+
+14.	StudyBuddy asks user for flashcard’s module.
+
+15.	User inputs flashcard’s module.
+
+16.	StudyBuddy displays created flashcard.
++
+Use case ends.
+
+*Extensions*
+
+* 15a. User wants to input additional flashcard hint.
+
+15a1. User inputs flashcard’s hint.
+
+{Todo markup indent}
+
++
+Use case resumes from step 16.
+
+* 15b. User wants to input additional flashcard tags.
+
+15a2. User inputs flashcard’s tags.
+
+{Todo markup indent}
+
++
+Use case resumes from step 16.
+
+* 15c. User wants to input additional hint and tags.
+
+15c1. User inputs flashcard’s hint.
+
+15c2. User inputs flashcard’s tags.
+
+{Todo markup indent}
+
++
+Use case resumes from step 16.
+
+[discrete]
+=== Use case: UC06 – Start <<time-trial,time trial>>
+
+*MSS*
+
+1.	User navigates to flashcard section.
+
+2.	User chooses to start time trial.
+
+3.	StudyBuddy asks user for time per flashcard.
+
+4.	User inputs time per flashcard.
+
+5.	StudyBuddy asks user for tags to select flashcards for inclusion.
+
+6.	User inputs tags.
+
+7.	StudyBuddy starts time trial with specified parameters.
++
+Use case ends.
+
+[discrete]
+=== Use case: User story 2
+
+*MSS*
+
+1.	User _creates flashcards from image (UC05)_ with tag “tutorial questions”.
+
+2.	User _starts time trial (UC06)_ with tag “tutorial questions”.
++
+Use case ends.
+
+{Todo delete later}
 
 [discrete]
 === Use case: Delete person
@@ -399,8 +618,10 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  A flashcard cannot have more than 10 tags.
+.  The product is not required to confirm if the user has answered the flashcard correctly. Instead, the product lets the user checks the answer and determine himself/herself if he/she has answered it correctly.
+.  The in-built flashcard library is expected to be updated annually, to follow the curriculum of NUS computing modules.
+.  The command-line syntax should prioritise user-friendliness.
 
 _{More to be added}_
 
@@ -410,8 +631,15 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[flash-card]] FlashCard::
+A titled digital 'card' that contains a question (image or text), answer, as well as it's relevant tags.
+
+[[cheat-sheet]] Cheatsheet::
+A document that contains the notes the user has specified during creation
+
+[[time-trial]] Time-Trial::
+A mode of answering flashcards in which you must provide the answer within a deisgnated time period.
+
 
 [appendix]
 == Product Survey

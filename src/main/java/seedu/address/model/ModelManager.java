@@ -9,8 +9,13 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+
+import seedu.address.model.cheatsheet.CheatSheet;
+import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +27,9 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Flashcard> filteredFlashcards;
+    private final FilteredList<Note> filteredNotes;
+    private final FilteredList<CheatSheet> filteredCheatSheets;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +43,9 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredFlashcards = new FilteredList<>(this.addressBook.getFlashcardList());
+        filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
+        filteredCheatSheets = new FilteredList<>(this.addressBook.getCheatSheetList());
     }
 
     public ModelManager() {
@@ -112,6 +123,42 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public boolean hasFlashcard(Flashcard flashcard) {
+        requireNonNull(flashcard);
+        return addressBook.hasFlashcard(flashcard);
+    }
+
+    @Override
+    public void addFlashcard(Flashcard flashcard) {
+        addressBook.addFlashcard(flashcard);
+        updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
+    }
+
+    @Override
+    public boolean hasNote(Note note) {
+        requireNonNull(note);
+        return addressBook.hasNote(note);
+    }
+
+    @Override
+    public void deleteNote(Note target) {
+        addressBook.removeNote(target);
+    }
+
+    @Override
+    public void addNote(Note note) {
+        addressBook.addNote(note);
+        updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+    }
+
+    @Override
+    public void setNote(Note target, Note editedNote) {
+        requireAllNonNull(target, editedNote);
+
+        addressBook.setNote(target, editedNote);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -127,6 +174,38 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Flashcard List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Flashcard} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Flashcard> getFilteredFlashcardList() {
+        return filteredFlashcards;
+    }
+
+    @Override
+    public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
+        requireNonNull(predicate);
+        filteredFlashcards.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Note} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Note> getFilteredNoteList() {
+        return filteredNotes;
+    }
+
+    @Override
+    public void updateFilteredNoteList(Predicate<Note> predicate) {
+        requireNonNull(predicate);
+        filteredNotes.setPredicate(predicate);
     }
 
     @Override
@@ -145,7 +224,47 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredNotes.equals(other.filteredNotes);
     }
 
+    @Override
+    public void deleteFlashcard(Flashcard target) {
+        addressBook.removeFlashcard(target);
+    }
+
+    //===================CheatSheetBook============================================================
+
+    @Override
+    public void addCheatSheet(CheatSheet cheatSheet) {
+        addressBook.addCheatSheet(cheatSheet);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public boolean hasCheatSheet(CheatSheet cheatSheet) {
+        requireNonNull(cheatSheet);
+        return addressBook.hasCheatSheet(cheatSheet);
+    }
+
+    @Override
+    public void deleteCheatSheet(CheatSheet cheatSheet) {
+        addressBook.deleteCheatSheet(cheatSheet);
+    }
+    //=========== Filtered CheatSheet List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<CheatSheet> getFilteredCheatSheetList() {
+        return filteredCheatSheets;
+    }
+
+    @Override
+    public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate) {
+        requireNonNull(predicate);
+        filteredCheatSheets.setPredicate(predicate);
+    }
 }

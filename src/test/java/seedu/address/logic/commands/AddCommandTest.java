@@ -20,6 +20,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.cheatsheet.CheatSheet;
+import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -114,6 +117,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addNote(Note note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -122,6 +130,8 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        //=============Flashcard stuff===============================================
 
         @Override
         public boolean hasPerson(Person person) {
@@ -147,42 +157,116 @@ public class AddCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        //=============Flashcard stuff===============================================
+
+        @Override
+        public void addFlashcard(Flashcard flashcard) {
+            // To be implemented
+        }
+
+        @Override
+        public ObservableList<Flashcard> getFilteredFlashcardList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
+
+        }
+
+        @Override
+        public void deleteFlashcard(Flashcard flashcard) {
+            // To be implemented
+        }
+
+        @Override
+        public boolean hasFlashcard(Flashcard flashcard) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //=============Note stuff===============================================
+
+        @Override
+        public boolean hasNote(Note note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteNote(Note target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setNote(Note target, Note editedNote) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public ObservableList<Note> getFilteredNoteList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void updateFilteredNoteList(Predicate<Note> predicate) {
+
+        }
+
+        //=============CheatSheet stuff===============================================
+        @Override
+        public boolean hasCheatSheet(CheatSheet cheatSheet) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void addCheatSheet(CheatSheet cheatSheet) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public ObservableList<CheatSheet> getFilteredCheatSheetList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void deleteCheatSheet(CheatSheet cheatSheet) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
      * A Model stub that contains a single person.
      */
     private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+        private final Person note;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithPerson(Person note) {
+            requireNonNull(note);
+            this.note = note;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasPerson(Person note) {
+            requireNonNull(note);
+            return this.note.isSamePerson(note);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the note being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasPerson(Person note) {
+            requireNonNull(note);
+            return personsAdded.stream().anyMatch(note::isSamePerson);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addPerson(Person note) {
+            requireNonNull(note);
+            personsAdded.add(note);
         }
 
         @Override
@@ -190,5 +274,4 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
 }
