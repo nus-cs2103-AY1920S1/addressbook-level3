@@ -10,14 +10,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-<fx:root onCloseRequest="#handleExit" title="ELISA" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600.0" minWidth="314.0" onCloseRequest="#handleExit" title="ELISA" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
-    <Image url="@/images/ElisaImage.PNG" />
+    <Image url="@/images/ElisaImageWithoutWords.png" />
   </icons>
   <scene>
     <Scene>
@@ -27,11 +26,11 @@
       </stylesheets>
 
       <AnchorPane prefHeight="600.0" prefWidth="900.0">
-            <VBox prefHeight="600.0" prefWidth="300.0">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Pane prefHeight="110.0" prefWidth="300.0" styleClass="pane-with-border">
+                  <Pane maxHeight="110.0" maxWidth="300.0" minHeight="110.0" minWidth="300.0" prefHeight="110.0" prefWidth="300.0" styleClass="pane-with-border" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets left="10.0" right="10.0" />
                      </padding>
                      <children>
                         <ImageView fitHeight="80.0" fitWidth="90.0" layoutX="12.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
@@ -56,64 +55,73 @@
                         </Text>
                      </children>
                   </Pane>
-                <StackPane fx:id="resultDisplayPlaceholder" prefHeight="440.0" prefWidth="300.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                <StackPane fx:id="resultDisplayPlaceholder" layoutY="110.0" maxWidth="300.0" minHeight="440.0" minWidth="300.0" prefWidth="300.0" styleClass="pane-with-border" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
                   <padding>
-                    <Insets bottom="10" left="10" right="10" top="10" />
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                   </padding>
                 </StackPane>
-                 <StackPane fx:id="commandBoxPlaceholder" prefHeight="50.0" prefWidth="300.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
-                <padding>
-                  <Insets bottom="10" left="10" right="10" top="10" />
-                </padding>
+                 <StackPane fx:id="commandBoxPlaceholder" layoutY="550.0" maxHeight="50.0" maxWidth="300.0" minHeight="50.0" minWidth="300.0" prefHeight="50.0" prefWidth="300.0" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
                 </StackPane>
                </children>
-            </VBox>
-
-            <VBox layoutX="300.0" prefHeight="600.0" prefWidth="600.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
-              <padding>
-                <Insets bottom="10" left="10" right="10" top="10" />
-              </padding>
-               <TabPane fx:id="viewsPlaceholder" prefHeight="576.0" prefWidth="578.0" stylesheets="@tabpane.css" tabClosingPolicy="UNAVAILABLE">
-                 <tabs>
-                   <Tab text="(T)ask">
-                     <content>
-                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
-                              <children>
-                                <StackPane fx:id="taskListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" />
-                              </children>
-                           </AnchorPane>
-                     </content>
-                   </Tab>
-                     <Tab text="(E)vent">
-                        <content>
-                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
-                              <children>
-                                 <StackPane fx:id="eventListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" />
-                              </children>
-                           </AnchorPane>
-                        </content>
-                     </Tab>
-                     <Tab text="(R)eminder">
-                        <content>
-                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
-                              <children>
-                                 <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" />
-                              </children>
-                           </AnchorPane>
-                        </content>
-                     </Tab>
-                     <Tab text="(C)alendar">
-                        <content>
-                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
-                              <children>
-                                 <StackPane fx:id="calendarPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" />
-                              </children>
-                           </AnchorPane>
-                        </content>
-                     </Tab>
-                 </tabs>
-               </TabPane>
-            </VBox>
+            </AnchorPane>
+            <AnchorPane layoutX="300.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <StackPane styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TabPane fx:id="viewsPlaceholder" style="-fx-background-color: #383838;" stylesheets="@tabpane.css" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="(T)ask">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
+                                       <children>
+                                         <StackPane fx:id="taskListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" AnchorPane.bottomAnchor="0.8000000000000682" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.6000000000000227" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab text="(E)vent">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
+                                       <children>
+                                          <StackPane fx:id="eventListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab text="(R)eminder">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
+                                       <children>
+                                          <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab text="(C)alendar">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
+                                       <children>
+                                          <StackPane fx:id="calendarPanelPlaceholder" prefHeight="550.0" prefWidth="578.0">
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </StackPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                          </tabs>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </TabPane>
+                     </children>
+                  </StackPane>
+               </children>
+            </AnchorPane>
       </AnchorPane>
     </Scene>
   </scene>
