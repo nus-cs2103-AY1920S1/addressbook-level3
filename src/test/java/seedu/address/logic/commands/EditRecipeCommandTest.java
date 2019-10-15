@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_BURGER;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_BURGER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BURGER;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertRecipeCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showRecipeAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
@@ -104,7 +104,7 @@ public class EditRecipeCommandTest {
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(firstRecipe).build();
         EditRecipeCommand editRecipeCommand = new EditRecipeCommand(INDEX_SECOND_RECIPE, descriptor);
 
-        assertCommandFailure(editRecipeCommand, model, EditRecipeCommand.MESSAGE_DUPLICATE_RECIPE);
+        assertRecipeCommandFailure(editRecipeCommand, model, EditRecipeCommand.MESSAGE_DUPLICATE_RECIPE);
     }
 
     @Test
@@ -116,7 +116,7 @@ public class EditRecipeCommandTest {
         EditRecipeCommand editRecipeCommand = new EditRecipeCommand(INDEX_FIRST_RECIPE,
                 new EditRecipeDescriptorBuilder(recipeInList).build());
 
-        assertCommandFailure(editRecipeCommand, model, EditRecipeCommand.MESSAGE_DUPLICATE_RECIPE);
+        assertRecipeCommandFailure(editRecipeCommand, model, EditRecipeCommand.MESSAGE_DUPLICATE_RECIPE);
     }
 
     @Test
@@ -125,7 +125,7 @@ public class EditRecipeCommandTest {
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BURGER).build();
         EditRecipeCommand editRecipeCommand = new EditRecipeCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editRecipeCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+        assertRecipeCommandFailure(editRecipeCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
 
     /**
@@ -142,7 +142,7 @@ public class EditRecipeCommandTest {
         EditRecipeCommand editRecipeCommand = new EditRecipeCommand(outOfBoundIndex,
                 new EditRecipeDescriptorBuilder().withName(VALID_NAME_BURGER).build());
 
-        assertCommandFailure(editRecipeCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+        assertRecipeCommandFailure(editRecipeCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
 
     @Test

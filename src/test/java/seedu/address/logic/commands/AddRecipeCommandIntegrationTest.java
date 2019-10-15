@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertRecipeCommandFailure;
 import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ public class AddRecipeCommandIntegrationTest {
     @Test
     public void execute_duplicateRecipe_throwsCommandException() {
         Recipe recipeInList = model.getRecipeBook().getRecipeList().get(0);
-        assertCommandFailure(new AddRecipeCommand(recipeInList), model, AddRecipeCommand.MESSAGE_DUPLICATE_RECIPE);
+        assertRecipeCommandFailure(new AddRecipeCommand(recipeInList), model, AddRecipeCommand.MESSAGE_DUPLICATE_RECIPE);
     }
 
 }
