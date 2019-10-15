@@ -1,5 +1,6 @@
 
-.error {
+.error.error.error {
+    /* Chain class to sufficiently high specificity to avoid using !important */
     /* The error class should always override the default text-fill style */
-    -fx-text-fill: #ff2222 !important;
+    -fx-text-fill: #ff2222;
 }
