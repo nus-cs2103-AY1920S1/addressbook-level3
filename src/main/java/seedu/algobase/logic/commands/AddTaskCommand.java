@@ -3,6 +3,7 @@ package seedu.algobase.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PROBLEM;
+import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.util.HashSet;
 import java.util.List;
@@ -62,14 +63,14 @@ public class AddTaskCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PROBLEM_DISPLAYED_INDEX);
         }
 
-        Plan plan = lastShownPlanList.get(addTaskDescriptor.planIndex.getZeroBased());
+        Plan planToUpdate = lastShownPlanList.get(addTaskDescriptor.planIndex.getZeroBased());
         Problem problem = lastShownProblemList.get(addTaskDescriptor.problemIndex.getZeroBased());
         Task task = new Task(problem);
-        Set<Task> taskSet = new HashSet<>(plan.getTasks());
+        Set<Task> taskSet = new HashSet<>(planToUpdate.getTasks());
         taskSet.add(task);
-        Plan updatedPlan = Plan.createUpdatedPlan(plan, taskSet);
-        model.setPlan(plan, updatedPlan);
-
+        Plan updatedPlan = Plan.createUpdatedPlan(planToUpdate, taskSet);
+        model.setPlan(planToUpdate, updatedPlan);
+        model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, task, updatedPlan));
     }
 

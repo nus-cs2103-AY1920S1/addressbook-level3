@@ -3,6 +3,7 @@ package seedu.algobase.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
+import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -63,6 +64,7 @@ public class UndoneTaskCommand extends Command {
         taskSet.add(new Task(task.getProblem(), false));
         Plan updatedPlan = Plan.createUpdatedPlan(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
+        model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
         return new CommandResult(String.format(MESSAGE_UNDONE_TASK_SUCCESS, task));
     }
 
