@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertDeleteCommandFailure;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_UNDO_SUCCESS;
+import static seedu.address.logic.commands.UndoableCommand.MESSAGE_NOT_EXECUTED_BEFORE;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalBodies.BOB;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_BODY_ID_NUM;
@@ -11,12 +14,15 @@ import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_WORKER_I
 import static seedu.address.testutil.TypicalIdentificationNumbers.SECOND_BODY_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.SECOND_WORKER_ID_NUM;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_BODY;
+import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_DELETE_COMMAND;
 import static seedu.address.testutil.TypicalWorkers.BENSON;
 import static seedu.address.testutil.TypicalWorkers.CLARA;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -113,6 +119,35 @@ public class DeleteCommandTest {
     }
 
      */
+
+    //@@author ambervoong
+    @Test
+    public void undo_previouslyExecuted_success() throws CommandException {
+        UndoableCommand deleteCommand = TYPICAL_DELETE_COMMAND;
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model.addEntity(TYPICAL_BODY);
+        deleteCommand.execute(model);
+
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.addEntity(TYPICAL_BODY);
+        expectedModel.addExecutedCommand(deleteCommand);
+
+        UndoCommand undoCommand = new UndoCommand();
+
+        String expectedMessage = String.format(MESSAGE_UNDO_SUCCESS, TYPICAL_BODY);
+        assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void undo_notExecutedBefore_undoFailureException() {
+        UndoableCommand deleteCommand = TYPICAL_DELETE_COMMAND;
+
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertThrows(CommandException.class, MESSAGE_NOT_EXECUTED_BEFORE, () -> deleteCommand.undo(model));
+    }
+
+
+    //@@author
 
     @Test
     public void equals() {
