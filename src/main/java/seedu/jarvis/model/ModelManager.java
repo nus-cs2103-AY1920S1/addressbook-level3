@@ -251,7 +251,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Adds instalment.
+     * Adds installment.
      *
      * @param installment
      */
@@ -261,7 +261,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Deletes instalment.
+     * Deletes installment.
      *
      * @param instalNumber
      */
@@ -276,7 +276,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Edits an existing instalment by its value.
+     * Edits an existing installment by its value.
      *
      * @param installmentNumber
      * @param description
