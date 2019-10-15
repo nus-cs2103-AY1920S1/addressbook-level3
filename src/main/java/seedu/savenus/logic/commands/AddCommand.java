@@ -68,7 +68,11 @@ public class AddCommand extends Command {
         // Clear the recommendation system (if it was used)
         model.setRecommendationSystemInUse(false);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+
+        commandResult.justAdded(true);
+
+        return commandResult;
     }
 
     @Override
