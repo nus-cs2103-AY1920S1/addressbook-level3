@@ -9,9 +9,6 @@ import javafx.scene.layout.GridPane;
 import java.util.stream.IntStream;
 
 class WeekHeader {
-    private WeekHeader() {
-
-    }
 
     static GridPane generateWeekHeader() {
         GridPane weekHeader = new GridPane();
