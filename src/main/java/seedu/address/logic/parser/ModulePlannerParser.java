@@ -12,6 +12,7 @@ import seedu.address.logic.commands.cli.BlockCurrentSemesterCommand;
 import seedu.address.logic.commands.cli.DeleteModuleCommand;
 import seedu.address.logic.commands.cli.NameUEFromSemesterCommand;
 import seedu.address.logic.commands.cli.SetCurrentSemesterCommand;
+import seedu.address.logic.commands.datamanagement.DeleteTagCommand;
 import seedu.address.logic.commands.datamanagement.FindCommand;
 import seedu.address.logic.commands.datamanagement.CreateTagCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
@@ -25,6 +26,7 @@ import seedu.address.logic.parser.cli.DeleteModuleFromSemesterParser;
 import seedu.address.logic.parser.cli.NameUEFromSemesterParser;
 import seedu.address.logic.parser.cli.SetCurrentSemesterParser;
 import seedu.address.logic.parser.datamanagement.CreateTagCommandParser;
+import seedu.address.logic.parser.datamanagement.DeleteTagCommandParser;
 import seedu.address.logic.parser.datamanagement.FindCommandParser;
 import seedu.address.logic.parser.datamanagement.RemoveTagFromModuleCommandParser;
 import seedu.address.logic.parser.datamanagement.TagModuleCommandParser;
@@ -91,6 +93,9 @@ public class ModulePlannerParser {
 
         case ViewModuleTagsCommand.COMMAND_WORD:
             return new ViewModuleTagsCommandParser().parse(arguments);
+
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

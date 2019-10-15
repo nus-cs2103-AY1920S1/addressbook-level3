@@ -21,6 +21,8 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class ViewTaggedCommand extends Command {
 
+    // not in parser yet
+
     public static final String COMMAND_WORD = "viewtagged";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all modules attached to specific tags. "

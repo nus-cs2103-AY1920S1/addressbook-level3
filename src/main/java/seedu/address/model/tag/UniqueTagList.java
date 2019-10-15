@@ -98,6 +98,17 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
     }
 
     /**
+     * Checks if the list contains a tag with the given tag name.
+     */
+    public boolean contains(String tagName) {
+        return mapTags.containsKey(tagName);
+    }
+
+    public Tag getTag(String tagName) {
+        return mapTags.get(tagName);
+    }
+
+    /**
      * Removes the equivalent UserTag from the list.
      * The UserTag must exist in the list.
      */

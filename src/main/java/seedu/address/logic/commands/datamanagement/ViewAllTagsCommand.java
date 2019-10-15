@@ -14,6 +14,8 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class ViewAllTagsCommand extends Command {
 
+    // not in parser yet
+
     public static final String COMMAND_WORD = "viewalltags";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all tags in the study plan. "

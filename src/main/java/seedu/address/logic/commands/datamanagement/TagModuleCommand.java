@@ -75,12 +75,12 @@ public class TagModuleCommand extends Command {
     }
 
     private Tag getTagToAdd(UniqueTagList uniqueTagList) {
-        boolean tagExists = uniqueTagList.getMapTags().containsKey(tagName);
+        boolean tagExists = uniqueTagList.contains(tagName);
         Tag toAdd;
         if (!tagExists) {
             toAdd = createNewTag(tagName, uniqueTagList);
         } else {
-            Tag existingTag = uniqueTagList.getMapTags().get(tagName);
+            Tag existingTag = uniqueTagList.getTag(tagName);
             toAdd = existingTag;
         }
         return toAdd;

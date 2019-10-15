@@ -20,6 +20,8 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class ViewDefaultTagsCommand extends Command {
 
+    // not in parser yet
+
     public static final String COMMAND_WORD = "viewdefaulttags";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all default tags. "
