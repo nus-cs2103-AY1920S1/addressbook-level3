@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `EateryListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -123,11 +123,11 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Eatery>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Eatery` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Eatery` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -304,11 +304,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |person with many food allergies |keep track of dishes I have ordered before |avoid ordering hazardous food
 
+<<<<<<< HEAD
+|`* * *` |user |find a person by name |locate details of eateries without having to go through the entire list
+=======
 |`* * *` |foodie |remember places |share this experience with my family and friends
+>>>>>>> upstream/master
 
 |`* *` |digital nomad |tag places with free power + wifi |sit there for extended periods of time
 
+<<<<<<< HEAD
+|`*` |user with many eateries in the address book |sort eateries by name |locate a person easily
+=======
 |`*` |working adult |view the menu beforehand |save time from thinking what to eat
+>>>>>>> upstream/master
 |=======================================================================
 
 _{More to be added}_
@@ -323,12 +331,19 @@ _{More to be added}_
 
 *MSS*
 
+<<<<<<< HEAD
+1.  User requests to list eateries
+2.  AddressBook shows a list of eateries
+3.  User requests to delete a specific person in the list
+4.  AddressBook deletes the person
+=======
 1.  User requests to view his todo list
 2.  EatMe toggles to the todo mode
 3.  User requests to mark an eatery as visited in the list
 4.  EatMe shifts the data over
 5.  EatMe toggles to the main mode
 6.  EatMe requests user for whatever information left that is required before saving in the main mode
+>>>>>>> upstream/master
 +
 Use case ends.
 
@@ -469,9 +484,9 @@ _{ more test cases ... }_
 
 === Deleting a person
 
-. Deleting a person while all persons are listed
+. Deleting a person while all eateries are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all eateries using the `list` command. Multiple eateries in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +

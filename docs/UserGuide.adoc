@@ -131,9 +131,16 @@ Format: `view \n [name of eatery]`
 
 Examples:
 
+<<<<<<< HEAD
+=== Listing all eateries : `list`
+
+Shows a list of all eateries in the address book. +
+Format: `list`
+=======
 * `view \n Two Chefs Eating Place`
 
 ==== Getting a random eatery : `random`
+>>>>>>> upstream/master
 
 Shows a completely random restaurant, useful in case you cannot decide what to eat. +
 Format: `random`
@@ -150,6 +157,20 @@ Examples:
 === Import/Export
 ==== Importing eateries : `import`
 
+<<<<<<< HEAD
+=== Locating eateries by name: `find`
+
+Finds eateries whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Eaterys matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+=======
 Imports eateries from a text file. +
 Format: `import \f [filename]`
 
@@ -161,6 +182,7 @@ Examples:
 
 Exports eateries to a text file. +
 Format: `export \f [filename]`
+>>>>>>> upstream/master
 
 Examples:
 
