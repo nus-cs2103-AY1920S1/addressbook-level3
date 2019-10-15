@@ -21,6 +21,8 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
+    // private int primaryKey; this is unnecessary until the behavior of
+    // Person.equals is changed.
     private Name name;
     private Phone phone;
     private Email email;

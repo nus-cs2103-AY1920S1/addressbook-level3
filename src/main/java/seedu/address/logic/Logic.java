@@ -39,6 +39,12 @@ public interface Logic {
     Path getAddressBookFilePath();
 
     /**
+     * Returns the user prefs' activity book file path.
+     */
+    Path getActivityBookFilePath();
+
+
+    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();

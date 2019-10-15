@@ -9,5 +9,6 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "addressBookFilePath" : "addressbook.json",
+  "internalStateFilePath" : "internalstate.json"
 }
