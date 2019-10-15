@@ -22,6 +22,7 @@ public class ModelManager implements Model {
     private final AddressBook groceryList;
     private final UserPrefs userPrefs;
     private final FilteredList<GroceryItem> filteredGroceryItems;
+    private final WasteList wasteList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +36,7 @@ public class ModelManager implements Model {
         this.groceryList = new AddressBook(groceryList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredGroceryItems = new FilteredList<GroceryItem>(this.groceryList.getPersonList());
+        this.wasteList = new WasteList();
     }
 
     public ModelManager() {
@@ -149,7 +151,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return groceryList.equals(other.groceryList)
                 && userPrefs.equals(other.userPrefs)
-                && filteredGroceryItems.equals(other.filteredGroceryItems);
+                && filteredGroceryItems.equals(other.filteredGroceryItems)
+                && wasteList.equals(other.wasteList);
     }
 
 }
