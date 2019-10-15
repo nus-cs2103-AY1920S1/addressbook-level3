@@ -101,7 +101,7 @@ public class CommandBox extends UiPart<Region> {
                 break;
             case SHIFT:
                 try {
-                    commandTextField.setText(autoCompletePanel.getSelected().getSuggestedWord());
+                    commandTextField.setText(commandTextField.getText() + autoCompletePanel.getSelected().getSuggestedWord());
                     commandTextField.positionCaret(commandTextField.getText().length());
                 } catch (NullPointerException e) {
                     logger.info("Nothing is selected thus shift key does not work");
