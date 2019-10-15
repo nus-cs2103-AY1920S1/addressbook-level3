@@ -12,10 +12,12 @@ import seedu.address.model.note.Note;
  */
 public class TypicalNotes {
 
-    public static final Note SAMPLE = new NoteBuilder().withTitle("Sample Title").withContent("Sample Content").build();
+    public static final Note SAMPLE =
+            new NoteBuilder().withTitle("Sample Title").withContent("Sample Content").withTags("SampleTag1",
+                    "SampleTag2").build();
     public static final Note PIPELINE = new NoteBuilder().withTitle("Pipelining Definition")
             .withContent("Pipelining is the process of making a single processor run multiple instructions "
-                    + "simultaneously.").build();
+                    + "simultaneously.").withTags("CS2100", "Midterms").build();
     public static final Note POTATO =
             new NoteBuilder().withTitle("Potatoes").withContent("I really like potatoes.").build();
 
