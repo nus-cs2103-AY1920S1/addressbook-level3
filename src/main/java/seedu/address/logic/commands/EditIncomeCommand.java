@@ -1,19 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CASH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCOMES;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -21,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Description;
+import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.income.Income;
@@ -39,6 +34,7 @@ public class EditIncomeCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_CASH + "CASH AMOUNT] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
@@ -97,11 +93,12 @@ public class EditIncomeCommand extends Command {
 
         Description updatedDescription = editIncomeDescriptor.getDescription().orElse(incomeToEdit.getDescription());
         Amount updatedAmount = editIncomeDescriptor.getAmount().orElse(incomeToEdit.getAmount());
+        Date updatedDate = editIncomeDescriptor.getDate().orElse(incomeToEdit.getDate());
         Name updatedName = editIncomeDescriptor.getName().orElse(incomeToEdit.getName());
         Phone updatedPhone = editIncomeDescriptor.getPhone().orElse(incomeToEdit.getPhone());
         Set<Tag> updatedTags = editIncomeDescriptor.getTags().orElse(incomeToEdit.getTags());
 
-        return new Income(updatedDescription, updatedAmount, updatedName, updatedPhone, updatedTags);
+        return new Income(updatedDescription, updatedAmount, updatedDate, updatedName, updatedPhone, updatedTags);
     }
 
     @Override
@@ -129,6 +126,7 @@ public class EditIncomeCommand extends Command {
     public static class EditIncomeDescriptor {
         private Description description;
         private Amount amount;
+        private Date date;
         private Name name;
         private Phone phone;
         private Set<Tag> tags;
@@ -142,6 +140,7 @@ public class EditIncomeCommand extends Command {
         public EditIncomeDescriptor(EditIncomeDescriptor toCopy) {
             setDescription(toCopy.description);
             setAmount(toCopy.amount);
+            setDate(toCopy.date);
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setTags(toCopy.tags);
@@ -166,25 +165,19 @@ public class EditIncomeCommand extends Command {
             this.amount = amount;
         }
 
-        public Optional<Amount> getAmount() {
-            return Optional.ofNullable(amount);
-        }
+        public Optional<Amount> getAmount() { return Optional.ofNullable(amount); }
 
-        public void setName(Name name) {
-            this.name = name;
-        }
+        public void setDate(Date date) { this.date = date; }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
+        public Optional<Date> getDate() { return Optional.ofNullable(date); }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
+        public void setName(Name name) { this.name = name; }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
+        public Optional<Name> getName() { return Optional.ofNullable(name); }
+
+        public void setPhone(Phone phone) { this.phone = phone; }
+
+        public Optional<Phone> getPhone() { return Optional.ofNullable(phone); }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.

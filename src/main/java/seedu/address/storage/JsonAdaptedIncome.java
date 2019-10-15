@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Description;
 import seedu.address.model.commonvariables.Name;
+import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.income.Income;
 import seedu.address.model.tag.Tag;
@@ -26,6 +27,7 @@ class JsonAdaptedIncome {
 
     private final String description;
     private final String amount;
+    private final String date;
     private final String name;
     private final String phone;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -35,11 +37,13 @@ class JsonAdaptedIncome {
      */
     @JsonCreator
     public JsonAdaptedIncome(@JsonProperty("description") String description,
-                             @JsonProperty("amount") String amount, @JsonProperty("name") String name,
+                             @JsonProperty("amount") String amount, @JsonProperty String date,
+                             @JsonProperty("name") String name,
                              @JsonProperty("phone") String phone,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.description = description;
         this.amount = amount;
+        this.date = date;
         this.name = name;
         this.phone = phone;
         if (tagged != null) {
@@ -54,6 +58,7 @@ class JsonAdaptedIncome {
 
         description = source.getDescription().text;
         amount = source.getAmount().value;
+        date = source.getDate().text;
         name = source.getName().fullName;
         phone = source.getPhone().value;
         tagged.addAll(source.getTags().stream()
@@ -90,6 +95,15 @@ class JsonAdaptedIncome {
         }
         final Amount modelAmount = new Amount(amount);
 
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Date.class.getSimpleName()));
+        }
+        if (!Date.isValidDate(date)) {
+            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+        }
+        final Date modalDate = new Date(date);
+
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -107,7 +121,7 @@ class JsonAdaptedIncome {
         final Phone modelPhone = new Phone(phone);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Income(modelDescription, modelAmount, modelName, modelPhone, modelTags);
+        return new Income(modelDescription, modelAmount, modalDate, modelName, modelPhone, modelTags);
     }
 
 }
