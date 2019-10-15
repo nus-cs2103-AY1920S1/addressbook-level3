@@ -14,6 +14,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCheatSheetBook;
+import seedu.address.model.ReadOnlyFlashcardBook;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -24,6 +25,7 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
 
     private Path filePath;
     private Path cheatSheetFilePath;
+    private Path flashcardFilePath;
 
     public JsonStudyBuddyStorage(Path filePath) {
         this.filePath = filePath;
@@ -39,11 +41,27 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
         this.cheatSheetFilePath = cheatSheetFilePath;
     }
 
+    /**
+     * New constructor to now take in 3 filepaths, one for each mode
+     * @param filePath
+     * @param cheatSheetFilePath
+     * @param flashcardFilePath
+     */
+    public JsonStudyBuddyStorage(Path filePath, Path cheatSheetFilePath, Path flashcardFilePath) {
+        this.filePath = filePath;
+        this.cheatSheetFilePath = cheatSheetFilePath;
+        this.flashcardFilePath = flashcardFilePath;
+    }
+
     public Path getAddressBookFilePath() {
         return filePath;
     }
 
     public Path getCheatSheetFilePath() {
+        return cheatSheetFilePath;
+    }
+
+    public Path getFlashcardFilePath() {
         return cheatSheetFilePath;
     }
 
@@ -110,6 +128,26 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), cheatSheetFilePath);
     }
 
+    /**
+     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     */
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath, Path cheatSheetFilePath,
+                                Path flashcardFilePath) throws IOException {
+        requireNonNull(addressBook);
+        requireNonNull(filePath);
+        requireNonNull(cheatSheetFilePath);
+        requireNonNull(flashcardFilePath);
+
+        FileUtil.createIfMissing(filePath);
+        FileUtil.createIfMissing(cheatSheetFilePath);
+        FileUtil.createIfMissing(flashcardFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), cheatSheetFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), flashcardFilePath);
+    }
+
     @Override
     public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook() throws DataConversionException, IOException {
         return Optional.empty();
@@ -133,5 +171,30 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
 
         FileUtil.createIfMissing(filePath);
         //JsonUtil.saveJsonFile(new JsonSerializableCheatSheetBook(cheatSheetBook), filePath);
+    }
+
+    @Override
+    public Optional<ReadOnlyFlashcardBook> readFlashcardBook() throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ReadOnlyFlashcardBook> readFlashcardBook(Path filePath)
+            throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveFlashcardBook(ReadOnlyFlashcardBook flashcardBook) throws IOException {
+        saveFlashcardBook(flashcardBook, flashcardFilePath);
+    }
+
+    @Override
+    public void saveFlashcardBook(ReadOnlyFlashcardBook flashcardBook, Path filePath) throws IOException {
+        requireNonNull(flashcardBook);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        //JsonUtil.saveJsonFile(new JsonSerializableFlashcardBook(flashcardBook), filePath);
     }
 }

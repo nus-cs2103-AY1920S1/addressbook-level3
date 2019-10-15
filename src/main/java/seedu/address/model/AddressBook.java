@@ -245,6 +245,26 @@ public class AddressBook implements ReadOnlyAddressBook {
         return cheatSheets.contains(cheatSheet);
     }
 
+    /**
+     * Replaces the contents of the cheatsheet list with {@code cheatsheets}.
+     * {@code cheatsheets} must not contain duplicate cheatsheets.
+     */
+    public void setCheatSheets(List<CheatSheet> cheatsheets) {
+        this.cheatSheets.setCheatSheets(cheatsheets);
+    }
+
+    /**
+     * Replaces the given cheatsheet {@code target} in the list with {@code editedCheatSheet}.
+     * {@code target} must exist in the StudyBuddy application.
+     * The cheatsheet identity of {@code editedCheatSheet}
+     * must not be the same as another existing cheatsheet in the StudyBuddy application.
+     */
+    public void setCheatSheet(CheatSheet target, CheatSheet editedCheatSheet) {
+        requireNonNull(editedCheatSheet);
+
+        cheatSheets.setCheatSheet(target, editedCheatSheet);
+    }
+
     @Override
     public ObservableList<CheatSheet> getCheatSheetList() {
         return cheatSheets.asUnmodifiableObservableList();

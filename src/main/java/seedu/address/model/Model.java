@@ -167,6 +167,14 @@ public interface Model {
      */
     boolean hasCheatSheet(CheatSheet cheatSheet);
 
+    /**
+     * Replaces the given cheatSheet {@code target} with {@code editedCheatSheet}.
+     * {@code target} must exist in the cheatSheet book.
+     * The cheatSheet identity of {@code editedCheatSheet} must not be the same as
+     * another existing editedCheatSheet in Cheatsheet.
+     */
+    void setCheatSheet(CheatSheet target, CheatSheet editedCheatSheet);
+
     public ObservableList<CheatSheet> getFilteredCheatSheetList();
 
     public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate);

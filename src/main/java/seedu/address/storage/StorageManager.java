@@ -9,6 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCheatSheetBook;
+import seedu.address.model.ReadOnlyFlashcardBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -104,4 +105,33 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveCheatSheetBook(cheatSheetBook, filePath);
     }
+
+    // ================ Flashcard methods ==============================
+    @Override
+    public Path getFlashcardFilePath() {
+        return addressBookStorage.getFlashcardFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyFlashcardBook> readFlashcardBook() throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ReadOnlyFlashcardBook> readFlashcardBook(Path filePath)
+            throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveFlashcardBook(ReadOnlyFlashcardBook flashcardBook) throws IOException {
+        saveFlashcardBook(flashcardBook, addressBookStorage.getFlashcardFilePath());
+    }
+
+    @Override
+    public void saveFlashcardBook(ReadOnlyFlashcardBook flashcardBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        addressBookStorage.saveFlashcardBook(flashcardBook, filePath);
+    }
+
 }

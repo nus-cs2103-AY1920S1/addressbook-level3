@@ -248,6 +248,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setCheatSheet(CheatSheet target, CheatSheet editedCheatSheet) {
+        requireAllNonNull(target, editedCheatSheet);
+
+        addressBook.setCheatSheet(target, editedCheatSheet);
+    }
+
+    @Override
     public void deleteCheatSheet(CheatSheet cheatSheet) {
         addressBook.deleteCheatSheet(cheatSheet);
     }
