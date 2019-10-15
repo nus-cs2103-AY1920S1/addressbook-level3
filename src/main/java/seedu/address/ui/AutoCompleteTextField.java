@@ -16,8 +16,7 @@ import javafx.scene.control.TextField;
 import seedu.address.storage.SuggestionsStorage;
 
 /**
- * This class is a TextField which implements an "autocomplete" functionality, based on a supplied list of entries.
- * @author Caleb Brinkman
+ * Represents a TextField which implements an "autocomplete" functionality, based on a supplied list of suggestions.
  */
 public class AutoCompleteTextField extends TextField {
 

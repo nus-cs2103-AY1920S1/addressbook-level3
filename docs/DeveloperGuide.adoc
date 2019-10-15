@@ -326,12 +326,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is `FinSec` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Adding a person
+=== Use case: Adding a contact
 
 *MSS*
 
-1. User requests to add a person
-2. FinSec adds a person
+1. User requests to add a contact
+2. FinSec adds a contact
 
 +
 Use case ends.
@@ -339,45 +339,36 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The name is invalid.
+* 1a. The contact details are existing.
 
 [none]
-** 2a1. FinSec shows an error message.
+** 1a1. FinSec shows an error message.
 +
 Use case resumes at step 1
 
-[none]
-* 3a. The given name is existing.
-+
-[none]
-** 3a1. FinSec shows an error message.
-+
-** 3a2. FinSec confirms the addition.
-
-Use case resumes at step 2.
 
 
 [discrete]
-=== Use case: Editing a person
+=== Use case: Editing a contact
 
 *MSS*
 
-1. User requests to view list of people
-2. FinSec shows a list of people
-3. User requests which person to edit and the details to change
-4. FinSec edits the person
+1. User requests to view list of contacts
+2. FinSec shows a list of contacts
+3. User requests which contact to edit and the details to change
+4. FinSec edits the contact
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list of people is empty.
+* 2a. The list of contacts is empty.
 
 User case ends
 
 [none]
-* 3a. The name is invalid.
+* 3a. The contact is not on the list.
 +
 [none]
 ** 3a1. FinSec shows an error message.
@@ -386,14 +377,14 @@ Use case resumes at step 2.
 
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete contact
 
 *MSS*
 
-1.  User requests to list persons
-2.  FinSec shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  FinSec deletes the person
+1.  User requests to list contacts
+2.  FinSec shows a list of contacts
+3.  User requests to delete a specific contact in the list
+4.  FinSec deletes the contact
 +
 Use case ends.
 
@@ -411,34 +402,24 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
 
 [discrete]
 === Use case: Change View
 
 *MSS*
 
-1. User requests to change view (People, Claims, Income)
-2. FinSec shows a list of views available
-3. User requests which view to go to
-4. FinSec brings user to that view
+1. User requests to change view (Contacts, Claims, Income)
+2. FinSec brings user to that view
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The view is empty.
+* 1a. The view is invalid.
 +
-Use case ends.
+Use case resumes at step 1.
 
-[none]
-* 3a. The given view is invalid.
-+
-[none]
-** 3a1. FinSec shows an error message.
-+
-Use case resumes at step 2.
 
 
 [discrete]
@@ -540,21 +521,21 @@ Use case resumes at step 2.
 
 
 [discrete]
-=== Use case: Check details of person
+=== Use case: Check details of contact
 
 *MSS*
 
-1. User requests to view list of people
-2. FinSec shows a list of people
-3. User requests which person to check by index
-4. FinSec displays person
+1. User requests to view list of contacts
+2. FinSec shows a list of contacts
+3. User requests which contact to check by index
+4. FinSec displays contact and details
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The person list is empty.
+* 2a. The contacts list is empty.
 +
 Use case ends.
 
@@ -567,25 +548,19 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Check existing claims of person
+=== Use case: Check status of claims of person
 
 *MSS*
 
 1. User requests to change view to Claims
-2. FinSec changes view to Claims
-3. User requests to view list of people in claims
-4. FinSec shows a list of people in claims
-5. User requests which person to check by index
-6. FinSec displays person with their claims
+2. FinSec changes view to claims
+3. FinSec shows a list of claims
+4. User requests which claim to check by index
+5. FinSec displays details of particular claim
 +
 Use case ends.
 
 *Extensions*
-
-[none]
-* 2a. The person list is empty.
-+
-Use case ends.
 
 [none]
 * 3a. The claims list is empty.
@@ -601,12 +576,12 @@ Use case ends.
 Use case resumes at step 4.
 
 [discrete]
-=== Use case: Filter using keywords from list
+=== Use case: Filter using keyword
 
 *MSS*
 
-1. User requests to view list of income or people
-2. FinSec shows a list of income or people
+1. User requests to view list of income, claims or contacts
+2. FinSec shows the list
 3. User requests to filter the list based on keyword
 4. FinSec returns a list of filtered results
 +
@@ -615,7 +590,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The income or people list is empty.
+* 2a. The incomes, claims or contacts list is empty.
 +
 Use case ends.
 
@@ -684,52 +659,32 @@ Use case ends.
 ** 3a1. FinSec shows an error message.
 + Use case resumes at step 2.
 
-[discrete]
-=== Use case: Adding pictures to claims
-
-*MSS*
-
-1. User requests to change view to claims
-2. FinSec shows the claim view
-3. User requests to add picture to claim by index
-4. FinSec adds a picture to that claim
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The claims list is empty.
-+
-Use case ends.
-
-[none]
-* 3a. The index entered is invalid.
-+
-[none]
-** 3a1. FinSec shows an error message.
-+ Use case resumes at step 2.
-
 
 [discrete]
 === Use case: Adding tags
 
 *MSS*
 
-1. User requests to view list of people
-2. FinSec shows a list of people
-3. User requests to add tags to people
-4. FinSec adds tags to the person
+1. User requests to view list of contacts
+2. FinSec shows a list of contacts
+3. User requests to add tags to contact
+4. FinSec adds tags to the contact
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The people list is empty.
+* 2a. The contact list is empty.
 +
 Use case ends.
 
+[none]
+* 3a. The contact index is invalid.
++
+[none]
+** 3a1. FinSec shows an error message.
++ Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
