@@ -69,4 +69,23 @@ public class ExpenseCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, persons.size(), successMessage.toString()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof ExpenseCommand)) {
+            return false;
+        }
+
+        // state check
+        ExpenseCommand e = (ExpenseCommand) other;
+        return persons.equals(e.persons)
+            && amounts.equals(e.amounts)
+            && description.equals(e.description);
+    }
 }
