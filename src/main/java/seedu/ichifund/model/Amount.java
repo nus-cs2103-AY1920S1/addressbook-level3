@@ -49,14 +49,10 @@ public class Amount implements Comparable<Amount> {
 
     @Override
     public String toString() {
-        if (valueInCents < 0) {
-            return "-" + (new Amount(-valueInCents)).toString();
-        } else {
-            int dollars = valueInCents / 100;
-            int cents = valueInCents % 100;
-            String centsString = convertCentsToString(cents);
-            return "$" + dollars + "." + centsString;
-        }
+        int dollars = valueInCents / 100;
+        int cents = java.lang.Math.abs(valueInCents) % 100;
+        String centsString = convertCentsToString(cents);
+        return dollars + "." + centsString;
     }
 
     /**
