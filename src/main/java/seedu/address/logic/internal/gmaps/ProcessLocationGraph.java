@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 
+import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.model.gmaps.LocationGraph;
 import seedu.address.websocket.GmapsApi;
 
@@ -23,9 +24,11 @@ public class ProcessLocationGraph {
         this.locationGraph = locationGraph;
     }
 
-    private void setMatrixRows(ArrayList<ArrayList<Long>> distanceMatrix, int start, int end) throws ConnectException {
+    private void setMatrixRows(ArrayList<ArrayList<Long>> distanceMatrix, int start, int end)
+            throws ConnectException, TimeBookInvalidState {
         if (distanceMatrix.size() != end - start + 1) {
             System.out.println((distanceMatrix.size() + "|" + start + "|" + end));
+            System.out.println(distanceMatrix);
             throw new InvalidParameterException("distanceMatrix size must equal to start - end + 1");
         } else {
             for (int i = 0; i < distanceMatrix.size(); i++) {
@@ -40,20 +43,21 @@ public class ProcessLocationGraph {
      * #TODO Handle the locationList%10 cases
      * @throws ConnectException
      */
-    public void populateMatrix() throws ConnectException {
+    public void populateMatrix() throws ConnectException, TimeBookInvalidState {
+        ProcessLocationGraph processLocationGraph = this;
         System.out.println("Start populating");
         ArrayList<String> gmapsRecognisedLocationList = locationGraph.getGmapsRecognisedLocationList();
-        for (int i = 0; i < gmapsRecognisedLocationList.size() / 10; i++) {
-            ArrayList<String> locationRowString = new ArrayList<String>(gmapsRecognisedLocationList.subList(i * 10 ,
-                    Math.min((i + 1) * 10, gmapsRecognisedLocationList.size() - 1)));
+        for (int i = 0; i <= gmapsRecognisedLocationList.size() / 10; i++) {
+            ArrayList<String> locationRowString = new ArrayList<String>(gmapsRecognisedLocationList
+                    .subList(i * 10 , Math.min((i + 1) * 10, gmapsRecognisedLocationList.size())));
             for (int j = 0; j < gmapsRecognisedLocationList.size() / 10; j++) {
-                System.out.println("Processing row" + i + "/" + gmapsRecognisedLocationList.size() / 10);
-                System.out.println("Processing cloumn" + j + "/" + gmapsRecognisedLocationList.size() / 10);
+                System.out.println("Processing row" + i + "/" + ((gmapsRecognisedLocationList.size() / 10) + 1));
+                System.out.println("Processing cloumn" + j + "/" + ((gmapsRecognisedLocationList.size() / 10) + 1));
                 ArrayList<String> locationColumnString = new ArrayList<String>(gmapsRecognisedLocationList
-                        .subList(i * 10 , Math.min((i + 1) * 10, gmapsRecognisedLocationList.size() - 1)));
+                        .subList(j * 10 , Math.min((j + 1) * 10, gmapsRecognisedLocationList.size())));
                 JSONObject apiResponse = gmapsApi.getDistanceMatrix(locationRowString, locationColumnString);
                 ArrayList<ArrayList<Long>> currMatrix = GmapsJsonUtils.getArrayListMatrix(apiResponse);
-                setMatrixRows(currMatrix, i * 10, (i) * 10 + 9);
+                setMatrixRows(currMatrix, i * 10, Math.min(i * 10 + 9, gmapsRecognisedLocationList.size() - 1));
             }
         }
         System.out.println("Finish populating");

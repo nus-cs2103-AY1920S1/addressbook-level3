@@ -3,6 +3,8 @@ package seedu.address.model.gmaps;
 import java.net.ConnectException;
 import java.util.ArrayList;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.logic.internal.gmaps.LocationArrayListUtils;
 import seedu.address.logic.internal.gmaps.ProcessVenues;
 
@@ -11,7 +13,7 @@ import seedu.address.logic.internal.gmaps.ProcessVenues;
  * This is the graph object that contains the information for location vertex
  */
 public class LocationGraph implements java.io.Serializable {
-
+    private static final long serialVersionUID = 6529685098267757690L;
     private ArrayList<Location> locations;
 
     private ArrayList<String> gmapsRecognisedLocationList;
@@ -20,7 +22,7 @@ public class LocationGraph implements java.io.Serializable {
 
     private ProcessVenues processVenues;
 
-    public LocationGraph(ProcessVenues processVenues) throws ConnectException {
+    public LocationGraph(ProcessVenues processVenues) throws ConnectException, TimeBookInvalidState {
         this.processVenues = processVenues;
         this.locations = processVenues.getLocations();
         this.gmapsRecognisedLocationList = processVenues.getGmapsRecognisedLocationList();
@@ -31,7 +33,7 @@ public class LocationGraph implements java.io.Serializable {
     }
 
     private LocationGraph(ProcessVenues processVenues, ArrayList<ArrayList<Long>> distanceMatrix)
-            throws ConnectException {
+            throws ConnectException, TimeBookInvalidState {
         this.locations = processVenues.getLocations();
         this.gmapsRecognisedLocationList = processVenues.getGmapsRecognisedLocationList();
         this.distanceMatrix = distanceMatrix;
@@ -49,15 +51,20 @@ public class LocationGraph implements java.io.Serializable {
         return LocationArrayListUtils.getIndex(locations, locationName);
     }
 
-    public ArrayList<Long> getLocationRow(int index) {
-        return distanceMatrix.get(index);
+    public ArrayList<Long> getLocationRow(int index) throws IllegalValueException {
+        if (distanceMatrix.size() <= index) {
+            throw new IllegalValueException("Index " + index + "exceeds the size of the matix");
+        } else {
+            System.out.println(distanceMatrix.size());
+            return distanceMatrix.get(index);
+        }
     }
 
     public ArrayList<ArrayList<Long>> getDistanceMatrix() {
         return distanceMatrix;
     }
-
-    public LocationGraph setMatrixRow(int rowNum, ArrayList<Long> row) throws ConnectException {
+    //TODO refactor out the return statement
+    public LocationGraph setMatrixRow(int rowNum, ArrayList<Long> row) throws ConnectException, TimeBookInvalidState {
         distanceMatrix.get(rowNum).addAll(row);
         return new LocationGraph(processVenues, distanceMatrix);
     }
