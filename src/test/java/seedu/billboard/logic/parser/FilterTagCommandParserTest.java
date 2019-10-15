@@ -23,7 +23,7 @@ public class FilterTagCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ",
+        assertParseFailure(parser, "    ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterTagCommand.MESSAGE_USAGE));
     }
 
