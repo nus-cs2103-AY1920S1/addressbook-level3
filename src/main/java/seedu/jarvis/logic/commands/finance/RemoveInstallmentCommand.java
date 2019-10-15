@@ -16,7 +16,7 @@ import seedu.jarvis.model.financetracker.installment.Installment;
  */
 public class RemoveInstallmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "instal delete";
+    public static final String COMMAND_WORD = "install-delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes the installment identified by the index number used in the displayed list of purchases.\n"
