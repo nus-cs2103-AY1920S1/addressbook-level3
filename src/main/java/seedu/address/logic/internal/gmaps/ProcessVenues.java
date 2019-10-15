@@ -117,8 +117,8 @@ public class ProcessVenues implements Serializable {
     }
 
     private ProcessVenues getVenuesJsonArray() {
-        NusModsApi nusmodApi = new NusModsApi();
-        JSONArray currVenuesNusMod = nusmodApi.getVenues("/1").orElse(new JSONArray());
+        NusModsApi nusModApi = new NusModsApi();
+        JSONArray currVenuesNusMod = nusModApi.getVenues("/1").orElse(new JSONArray());
         return new ProcessVenues(currVenuesNusMod, gmapsRecognisedLocationList, venues);
     }
 

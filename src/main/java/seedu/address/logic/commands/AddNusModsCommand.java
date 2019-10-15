@@ -137,7 +137,7 @@ public class AddNusModsCommand extends Command {
      */
     public static List<Timeslot> generateTimeslots(Lesson lesson, String startAcadSemDateString,
                                             List<String> holidayDateStrings) {
-        // TODO: SLAP
+        // TODO: do week type parsing in NusModsParser.parseWeeks
         List<Timeslot> timeslots = new ArrayList<>();
 
         Venue venue = new Venue(lesson.getVenue().toString());
