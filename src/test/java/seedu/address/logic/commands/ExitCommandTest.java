@@ -10,7 +10,7 @@ import seedu.address.model.ModelManager;
 
 public class ExitCommandTest {
     private Model model = new ModelManager();
-    private Model expectedModel = model;
+    private Model expectedModel = new ModelManager();
 
     @Test
     public void execute_exit_success() {
