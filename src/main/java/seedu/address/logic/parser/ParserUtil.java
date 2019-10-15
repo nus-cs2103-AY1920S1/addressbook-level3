@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -14,6 +15,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visittodo.VisitTodo;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -111,6 +113,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String visitTodo} into a {@code VisitTodo}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code visitTodo} is invalid.
+     */
+    public static VisitTodo parseVisitTodo(String visitTodo) throws ParseException {
+        requireNonNull(visitTodo);
+        String trimmedVisitTodo = visitTodo.trim();
+        if (!VisitTodo.isValidVisitTodoDescription(trimmedVisitTodo)) {
+            throw new ParseException(VisitTodo.MESSAGE_CONSTRAINTS);
+        }
+        return new VisitTodo(trimmedVisitTodo);
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
@@ -120,5 +137,17 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> visitTodos} into a {@code Collection<VisitTodo>}.
+     */
+    public static Collection<VisitTodo> parseVisitTodos(Collection<String> visitTodos) throws ParseException {
+        requireNonNull(visitTodos);
+        final Collection<VisitTodo> visitTodoCollection = new LinkedHashSet<>();
+        for (String visitTodoName : visitTodos) {
+            visitTodoCollection.add(parseVisitTodo(visitTodoName));
+        }
+        return visitTodoCollection;
     }
 }

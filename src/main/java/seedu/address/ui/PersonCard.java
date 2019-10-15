@@ -7,7 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
+import seedu.address.model.visittodo.VisitTodo;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -40,6 +42,8 @@ public class PersonCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private VBox visitTodos;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -52,6 +56,14 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        // TODO: Make this more beautiful or extend list/find with a prefix
+        // that optionally shows these fields
+        int visitTodoIndex = 1;
+        for (VisitTodo visitTodo : person.getVisitTodos()) {
+            visitTodos.getChildren().add(
+                    new Label(visitTodoIndex + ". " + visitTodo.getDescription()));
+            visitTodoIndex++;
+        }
     }
 
     @Override
