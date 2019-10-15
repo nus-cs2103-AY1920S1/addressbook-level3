@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
+import seedu.address.model.person.Wish;
 
 /**
  * The API of the Model component.
@@ -15,6 +16,12 @@ import seedu.address.model.person.Income;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Entry> PREDICATE_SHOW_ALL_ENTRIES = unused -> true;
+
+    Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
+
+    Predicate<Income> PREDICATE_SHOW_ALL_INCOMES = unused -> true;
+
+    Predicate<Wish> PREDICATE_SHOW_ALL_WISHES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -60,10 +67,28 @@ public interface Model {
     boolean hasEntry(Entry entry);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given entry.
+     * The entry must exist in the address book.
      */
     void deleteEntry(Entry target);
+
+    /**
+     * Deletes the given expense.
+     * The entry must exist in the address book.
+     */
+    void deleteExpense(Expense target);
+
+    /**
+     * Deletes the given income.
+     * The income must exist in the address book.
+     */
+    void deleteIncome(Income target);
+
+    /**
+     * Deletes the given wish.
+     * The wish must exist in the address book.
+     */
+    void deleteWish(Wish target);
 
     /**
      * Adds the given person.
@@ -71,31 +96,40 @@ public interface Model {
      */
     void addEntry(Entry entry);
 
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addExpense(Expense entry);
+    public void addExpense(Expense expense);
+
+    public void addIncome(Income income);
+
+    public void addWish(Wish wish);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addIncome(Income income);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given entry {@code target} with {@code editedEntry}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The entry identity of {@code editedEntry} must not be the same as another existing entry in the address book.
      */
     void setEntry(Entry target, Entry editedEntry);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Entry> getFilteredEntryList();
 
+    /** Returns an unmodifiable view of the filtered expenditure list */
+    ObservableList<Expense> getFilteredExpenses();
+
+    /** Returns an unmodifiable view of the filtered entry list */
+    ObservableList<Income> getFilteredIncomes();
+
+    /** Returns an unmodifiable view of the filtered entry list */
+    ObservableList<Wish> getFilteredWishes();
+
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEntryList(Predicate<Entry> predicate);
+
+    void updateFilteredExpenses(Predicate<Expense> predicate);
+
+    void updateFilteredIncomes(Predicate<Income> predicate);
+
+    void updateFilteredWishes(Predicate<Wish> predicate);
 }

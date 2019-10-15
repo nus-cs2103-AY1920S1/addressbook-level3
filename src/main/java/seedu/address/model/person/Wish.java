@@ -7,12 +7,12 @@ import seedu.address.model.tag.Tag;
 /**
  * Represents an Expense.
  */
-public class Expense extends Entry {
+public class Wish extends Entry {
 
-    private static final String ENTRY_TYPE = "Expense";
+    private static final String ENTRY_TYPE = "Wish";
     private final Time time;
 
-    public Expense(Description desc, Time time, Amount amount, Set<Tag> tags) {
+    public Wish(Description desc, Time time, Amount amount, Set<Tag> tags) {
         super(desc, amount, tags);
         this.time = time;
     }
@@ -37,15 +37,15 @@ public class Expense extends Entry {
 
         if (!(other instanceof Expense)) {
             return false;
-        } else if (!(other instanceof Wish)) {
+        } else if (!(other instanceof Income)) {
             return false;
         }
 
-        Expense otherExpense = (Expense) other;
-        return otherExpense.getDesc().equals(getDesc())
-                && otherExpense.getAmount().equals(getAmount())
-                && otherExpense.getTags().equals(getTags())
-                && otherExpense.getTime().equals(getTime());
+        Wish otherWish = (Wish) other;
+        return otherWish.getDesc().equals(getDesc())
+                && otherWish.getAmount().equals(getAmount())
+                && otherWish.getTags().equals(getTags())
+                && otherWish.getTime().equals(getTime());
     }
 
     @Override

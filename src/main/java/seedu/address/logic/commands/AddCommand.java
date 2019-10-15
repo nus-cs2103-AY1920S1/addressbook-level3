@@ -12,6 +12,8 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
+import seedu.address.model.person.Wish;
+
 
 /**
  * Adds a person to the address book.
@@ -50,7 +52,6 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         String type = toAdd.getType().toLowerCase();
         switch (type) {
         case "expense":
@@ -58,6 +59,9 @@ public class AddCommand extends Command {
             break;
         case "income":
             model.addIncome((Income) toAdd);
+            break;
+        case "wish":
+            model.addWish((Wish) toAdd);
             break;
         default:
             throw new CommandException("command not found");
