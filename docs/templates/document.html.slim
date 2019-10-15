@@ -4,9 +4,9 @@ html lang=(attr :lang, 'en' unless attr? :nolang)
   head
     meta charset=(attr :encoding, 'UTF-8')
     /[if IE]
-      meta http-equiv="X-UA-Compatible" questionBody="IE=edge"
-    meta name='viewport' questionBody='width=device-width, initial-scale=1.0'
-    meta name='generator' questionBody="Asciidoctor #{attr 'asciidoctor-version'}"
+      meta http-equiv="X-UA-Compatible" content="IE=edge"
+    meta name='viewport' content='width=device-width, initial-scale=1.0'
+    meta name='generator' content="Asciidoctor #{attr 'asciidoctor-version'}"
     = html_meta_if 'application-name', (attr 'app-name')
     = html_meta_if 'author', (attr :authors)
     = html_meta_if 'copyright', (attr :copyright)
@@ -22,7 +22,7 @@ html lang=(attr :lang, 'en' unless attr? :nolang)
     style=style_value(max_width: (attr 'max-width')))
     - unless noheader
       include _header.html
-    #questionBody =questionBody
+    #content =content
     - unless !footnotes? || (attr? :nofootnotes)
       include _footnotes.html
     - unless nofooter
