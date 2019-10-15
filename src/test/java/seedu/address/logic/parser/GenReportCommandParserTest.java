@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_BODY_ID_
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.GenReportCommand;
 
 public class GenReportCommandParserTest {
@@ -13,7 +14,8 @@ public class GenReportCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsGenReportCommand() {
-        assertParseSuccess(parser, "B00000000", new GenReportCommand(FIRST_BODY_ID_NUM));
+        assertParseSuccess(parser, "B0",
+                new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum())));
     }
 
 }

@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -20,6 +21,6 @@ public class GenReportCommandTest {
     public void execute_validBodyId_success() {
         CommandResult expectedCommandResult =
                 new CommandResult(String.format(MESSAGE_GENREPORT_SUCCESS, FIRST_BODY_ID_NUM));
-        assertCommandSuccess(new GenReportCommand(FIRST_BODY_ID_NUM), model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum())), model, expectedCommandResult, expectedModel);
     }
 }

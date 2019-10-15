@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.IdentificationNumber;
@@ -22,17 +23,19 @@ public class GenReportCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a PDF report for the specific body ID.\n"
             + "Parameters: BODY_ID\n"
-            + "Example: " + COMMAND_WORD + " ";
+            + "Example: " + COMMAND_WORD + " B1";
 
-    private final IdentificationNumber targetIdNum;
+    private final Index targetIndexNum;
 
-    public GenReportCommand(IdentificationNumber targetIdNum) {
-        this.targetIdNum = targetIdNum;
+    public GenReportCommand(Index targetIndexNum) {
+        this.targetIndexNum = targetIndexNum;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        IdentificationNumber targetIdNum = IdentificationNumber.customGenerateId("B",
+                targetIndexNum.getZeroBased());
         Body bodyToGenReport = null;
         List<Body> lastShownList = model.getFilteredBodyList();
 
@@ -50,6 +53,6 @@ public class GenReportCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof GenReportCommand // instanceof handles nulls
-                && targetIdNum.equals(((GenReportCommand) other).targetIdNum)); // state check
+                && targetIndexNum.equals(((GenReportCommand) other).targetIndexNum)); // state check
     }
 }

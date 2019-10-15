@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.GenReportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
@@ -18,13 +20,20 @@ public class GenReportCommandParser implements Parser<GenReportCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public GenReportCommand parse(String args) throws ParseException {
-        if (args.trim().isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
+        requireNonNull(args);
+        try {
+            if (args.trim().length() < 2) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
+            }
+            String index = args.trim().substring(1);
+            if (index.matches("[0-9]+")) {
+                Index genReportBodyId = Index.fromZeroBased(Integer.parseInt(index));
+                return new GenReportCommand(genReportBodyId);
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
+            }
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
         }
-
-        IdentificationNumber idNum = ParserUtil.parseIdentificationNumber(args);
-
-        return new GenReportCommand(idNum);
     }
 }
