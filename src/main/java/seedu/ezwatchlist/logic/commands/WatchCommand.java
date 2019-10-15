@@ -1,23 +1,13 @@
 package seedu.ezwatchlist.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DATE_OF_RELEASE;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
 import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
-import seedu.ezwatchlist.commons.util.CollectionUtil;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.show.Description;
@@ -42,6 +32,7 @@ public class WatchCommand extends Command {
 
     public static final String MESSAGE_WATCH_SHOW_SUCCESS = "Marked show as watched: %1$s";
     public static final String MESSAGE_UNWATCH_SHOW_SUCCESS = "Unmarked show as watched: %1$s";
+    public static final String MESSAGE_DUPLICATE_SHOW = "This show already exists in the watchlist.";
 
     private final Index index;
 
@@ -62,16 +53,23 @@ public class WatchCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
         }
 
-        Show showToChange = lastShownList.get(index.getZeroBased());
-        Show editedShow = createEditedShow(showtoChange);
+        Show showToEdit = lastShownList.get(index.getZeroBased());
+        Show editedShow = createEditedShow(showToEdit);
 
-        if (!showToChange.isSameShow(editedShow) && model.hasShow(editedShow)) {
+        if (!showToEdit.isSameShow(editedShow) && model.hasShow(editedShow)) {
             throw new CommandException(MESSAGE_DUPLICATE_SHOW);
         }
 
         model.setShow(showToEdit, editedShow);
         model.updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
-        return new CommandResult(String.format(MESSAGE_EDIT_SHOW_SUCCESS, editedShow));
+
+        boolean isWatched = editedShow.isWatched().value;
+
+        if (isWatched) {
+            return new CommandResult(String.format(MESSAGE_WATCH_SHOW_SUCCESS, editedShow));
+        } else {
+            return new CommandResult(String.format(MESSAGE_UNWATCH_SHOW_SUCCESS, editedShow));
+        }
     }
 
     /**
@@ -81,149 +79,15 @@ public class WatchCommand extends Command {
     private static Show createEditedShow(Show showToEdit) {
         assert showToEdit != null;
 
-        Name updatedName = editShowDescriptor.getName().orElse(showToEdit.getName());
-        Date updatedDateOfRelease = editShowDescriptor.getDateOfRelease().orElse(showToEdit.getDateOfRelease());
-        IsWatched updatedIsWatched = editShowDescriptor.getIsWatched().orElse(showToEdit.isWatched());
-        Description updatedDescription = editShowDescriptor.getDescription().orElse(showToEdit.getDescription());
-        RunningTime updatedRunningTime = editShowDescriptor.getRunningTime().orElse(showToEdit.getRunningTime());
-        Set<Actor> updatedActors = editShowDescriptor.getActors().orElse(showToEdit.getActors());
+        Name name = showToEdit.getName();
+        Date dateOfRelease = showToEdit.getDateOfRelease();
+        IsWatched updatedIsWatched = new IsWatched(!showToEdit.isWatched().value);
+        Description description = showToEdit.getDescription();
+        RunningTime runningTime = showToEdit.getRunningTime();
+        Set<Actor> actors = showToEdit.getActors();
 
-        return new Show(updatedName, updatedDescription, updatedIsWatched,
-                updatedDateOfRelease, updatedRunningTime, updatedActors);
+        return new Show(name, description, updatedIsWatched,
+                dateOfRelease, runningTime, actors);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
-            return false;
-        }
-
-        // state check
-        EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
-                && editShowDescriptor.equals(e.editShowDescriptor);
-    }
-
-    /**
-     * Stores the details to edit the show with. Each non-empty field value will replace the
-     * corresponding field value of the show.
-     */
-    public static class EditShowDescriptor {
-        private Name name;
-        private String Type;
-        private Date dateOfRelease;
-        private IsWatched isWatched;
-        private Description description;
-        private RunningTime runningTime;
-        private Set<Actor> actors = new HashSet<>();
-
-        public EditShowDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code actors} is used internally.
-         */
-        public EditShowDescriptor(EditShowDescriptor toCopy) {
-            setName(toCopy.name);
-            setDateOfRelease(toCopy.dateOfRelease);
-            setIsWatched(toCopy.isWatched);
-            setDescription(toCopy.description);
-            setRunningTime(toCopy.runningTime);
-            setActors(toCopy.actors);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, dateOfRelease, isWatched, description, runningTime, actors);
-        }
-
-        public void setName(Name name) {
-            this.name = name;
-        }
-
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
-        public void setDateOfRelease(Date dateOfRelease) {
-            this.dateOfRelease = dateOfRelease;
-        }
-
-        public Optional<Date> getDateOfRelease() {
-            return Optional.ofNullable(dateOfRelease);
-        }
-
-        public void setIsWatched(IsWatched isWatched) {
-            this.isWatched = isWatched;
-        }
-
-        public Optional<IsWatched> getIsWatched() {
-            return Optional.ofNullable(isWatched);
-        }
-
-        public void setDescription(Description description) {
-            this.description = description;
-        }
-
-        public Optional<Description> getDescription() {
-            return Optional.ofNullable(description);
-        }
-
-        public void setRunningTime(RunningTime runningTime) {
-            this.runningTime = runningTime;
-        }
-
-        public Optional<RunningTime> getRunningTime() {
-            return Optional.ofNullable(runningTime);
-        }
-
-        /**
-         * Sets {@code actors} to this object's {@code actors}.
-         * A defensive copy of {@code actors} is used internally.
-         */
-        public void setActors(Set<Actor> actors) {
-            this.actors = (actors != null) ? new HashSet<>(actors) : null;
-        }
-
-        /**
-         * Returns an unmodifiable actor set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code actor} is null.
-         */
-        public Optional<Set<Actor>> getActors() {
-            return (actors != null) ? Optional.of(Collections.unmodifiableSet(actors)) : Optional.empty();
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditShowDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditShowDescriptor e = (EditShowDescriptor) other;
-
-            return getName().equals(e.getName())
-                    && getDateOfRelease().equals(e.getDateOfRelease())
-                    && getIsWatched().equals(e.getIsWatched())
-                    && getDescription().equals(e.getDescription())
-                    && getRunningTime().equals(e.getRunningTime())
-                    && getActors().equals(e.getActors());
-
-        }
-    }
 }
