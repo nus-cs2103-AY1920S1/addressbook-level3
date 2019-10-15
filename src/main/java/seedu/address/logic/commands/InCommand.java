@@ -9,16 +9,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 
 /**
- * Adds a person to the address book.
+ * Adds an income to the bank account.
  */
-public class AddCommand extends Command {
+public class InCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "in";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the bank account. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -33,30 +33,20 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
 
-    private final Person toAdd;
+    private final Transaction transaction;
 
-    /**
-     * Creates an AddCommand to add the specified {@code Person}
-     */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public InCommand(Transaction transaction) {
+        this.transaction = transaction;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-    }
+        model.addTransaction(transaction);
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
     }
 }
