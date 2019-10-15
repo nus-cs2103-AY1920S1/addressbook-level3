@@ -86,14 +86,18 @@ public class TransactionList {
      * @param transaction Transaction to replace current transaction at specified index.
      */
     public void set(int index, Transaction transaction) {
+        Transaction trans = tList.get(index);
         tList.set(index, transaction);
+        int id = original.indexOf(trans);
+        original.set(id, transaction);
     }
 
     /**
      * Resets the order of the transactions in the transaction list to the original order of input when file was read.
      */
     public void unSort() {
-        tList = FXCollections.observableList(original);
+        tArrList = new ArrayList<>(original);
+        tList = FXCollections.observableList(tArrList);
     }
 
     /**

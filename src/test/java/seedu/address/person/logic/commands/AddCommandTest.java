@@ -39,7 +39,50 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
         TransactionList transactionList = new TransactionList();
-        seedu.address.transaction.model.Model model = new ModelManager(transactionList);
+        transactionStorage =
+                new seedu.address.transaction.storage.StorageManager(FILE_PATH_TRANSACTION, model);
+        transactionModel =
+                new seedu.address.transaction.model.ModelManager(transactionStorage.readTransactionList());
+
+        //For Reimbursement Storage and Manager
+        reimbursementStorage =
+                new seedu.address.reimbursement.storage.StorageManager(FILE_PATH_REIMBURSEMENT, transactionModel);
+        reimbursementModel =
+                new seedu.address.reimbursement.model.ModelManager(reimbursementStorage.readReimbursementList());
+
+        //For Inventory Storage and Manager
+        inventoryStorage =
+                new seedu.address.inventory.storage.StorageManager("data/inventoryInformation.txt");
+        inventoryModel =
+                new seedu.address.inventory.model.ModelManager(inventoryStorage);
+
+        //For Cashier Storage and Manager
+        cashierStorage = new seedu.address.cashier.storage.StorageManager("data"
+                + "/inventoryInformation.txt", "data/transactionHistory.txt", model);
+        cashierModel = new seedu.address.cashier.model.ModelManager(cashierStorage);
+
+        //For Overview Storage and Manager
+        overviewStorage = new seedu.address.overview.storage.StorageManager("data/overviewInformation.txt");
+        overviewModel = new seedu.address.overview.model.ModelManager(overviewStorage);
+
+        //All logic
+        transactionLogic = new
+                seedu.address.transaction.logic.LogicManager(transactionModel, transactionStorage, model, storage,
+                reimbursementModel, reimbursementStorage);
+        reimbursementLogic = new
+                seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementStorage,
+                transactionModel, transactionStorage, model);
+
+        inventoryLogic = new
+                seedu.address.inventory.logic.LogicManager(cashierModel, cashierStorage,
+                inventoryModel, inventoryStorage);
+
+        cashierLogic = new seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model, storage,
+                reimbursementModel, reimbursementStorage, transactionModel, transactionStorage, inventoryModel,
+                inventoryStorage);
+
+        overviewLogic = new seedu.address.overview.logic.LogicManager(overviewModel, overviewStorage, transactionLogic,
+                inventoryLogic);
 
         Logic logic = new LogicManager();
         CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, );

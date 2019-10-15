@@ -8,7 +8,9 @@ import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.logging.Logger;
 
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.transaction.commands.EditCommand;
 import seedu.address.transaction.logic.exception.ParseException;
 import seedu.address.transaction.ui.TransactionMessages;
@@ -19,6 +21,8 @@ import seedu.address.util.ArgumentTokenizer;
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser {
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy", Locale.ENGLISH);
 
     /**
@@ -32,7 +36,6 @@ public class EditCommandParser {
                         PREFIX_CATEGORY, PREFIX_AMOUNT, PREFIX_PERSON);
 
         int index;
-
         try {
             index = Integer.parseInt(argMultimap.getPreamble());
         } catch (Exception e) {
@@ -55,10 +58,9 @@ public class EditCommandParser {
         if (argMultimap.getValue(PREFIX_PERSON).isPresent()) {
             editPersonDescriptor.setName(argMultimap.getValue(PREFIX_PERSON).get());
         }
-
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        /*if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(TransactionMessages.MESSAGE_NOT_EDITED);
-        }
+        }*/
         return new EditCommand(index, editPersonDescriptor);
     }
 }

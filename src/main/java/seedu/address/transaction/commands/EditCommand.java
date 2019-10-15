@@ -1,10 +1,14 @@
 package seedu.address.transaction.commands;
 
+import java.time.LocalDate;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.commons.util.CollectionUtil;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.person.Person;
+import seedu.address.transaction.logic.exception.ParseException;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
@@ -17,6 +21,7 @@ import seedu.address.transaction.ui.TransactionMessages;
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
     private static int id;
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private int index;
     private EditTransactionDescriptor editTransactionDescriptor;
 
@@ -24,18 +29,17 @@ public class EditCommand extends Command {
      * Creates an EditCommand to edit the specified {@code Transaction}
      */
     public EditCommand(int index, EditTransactionDescriptor editTransactionDescriptor) {
+        System.out.println("returned command");
         this.index = index;
-
-
         this.id = index;
         this.editTransactionDescriptor = new EditTransactionDescriptor(editTransactionDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel)
-            throws NoSuchIndexException, CommandException, NoSuchPersonException {
+            throws NoSuchIndexException, CommandException, NoSuchPersonException, ParseException {
         Transaction transactionToEdit = model.findTransactionInFilteredListByIndex(index);
-
+        logger.info("trans to edit: " + transactionToEdit.toString());
         Transaction editedTransaction = createdEditedTransaction(transactionToEdit,
                 editTransactionDescriptor, personModel);
 
@@ -44,6 +48,11 @@ public class EditCommand extends Command {
         }
         if (!personModel.hasPerson(editedTransaction.getPerson())) {
             throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
+        }
+        try {
+            LocalDate.parse(editedTransaction.getDate(), Transaction.DATE_TIME_FORMATTER);
+        } catch (Exception e) {
+            throw new ParseException("Please input the correct date format. DD-MMM-YYYY (eg. 02-Sep-2019).");
         }
         model.setTransaction(transactionToEdit, editedTransaction);
         return new CommandResult(TransactionMessages.editedTransaction(editedTransaction));
@@ -81,12 +90,13 @@ public class EditCommand extends Command {
         private String date;
         private String description;
         private String category;
-        private double amount;
+        private Double amount;
         private String name;
         private boolean isReimbursed;
 
 
-        public EditTransactionDescriptor() {}
+        public EditTransactionDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -131,7 +141,7 @@ public class EditCommand extends Command {
             return Optional.ofNullable(category);
         }
 
-        public void setAmount(double amount) {
+        public void setAmount(Double amount) {
             this.amount = amount;
         }
 
@@ -150,9 +160,11 @@ public class EditCommand extends Command {
         public void setIsReimbursed(boolean isReimbursed) {
             this.isReimbursed = isReimbursed;
         }
+
         public Optional<Boolean> getIsReimbursed() {
             return Optional.ofNullable(isReimbursed);
         }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -175,6 +187,6 @@ public class EditCommand extends Command {
                     && getName().equals(e.getName())
                     && getIsReimbursed().equals(e.getIsReimbursed());
         }
-    }
 
+    }
 }

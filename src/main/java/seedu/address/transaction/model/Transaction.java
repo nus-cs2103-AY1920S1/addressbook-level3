@@ -107,7 +107,6 @@ public class Transaction {
     public String toWriteIntoFile() {
         String msg = this.date.format(DATE_TIME_FORMATTER) + " | " + this.description + " | " + this.category
                 + " | " + this.amount + " | " + this.person.getName() + " | " + isOne(this.isReimbursed);
-        logger.info("wrote into file: " + msg);
         return msg;
     }
 
