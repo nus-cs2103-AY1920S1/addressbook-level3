@@ -2,6 +2,8 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-F14-3/main[image:https://travis-ci.org/AY1920S1-CS2103T-F14-3/main.svg?branch=master[Build Status]]
+https://coveralls.io/github/AY1920S1-CS2103T-F14-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F14-3/main/badge.svg?branch=master[Coverage Status]]
+https://ci.appveyor.com/project/lyskevin/main/branch/master[image:https://ci.appveyor.com/api/projects/status/jnpgt16m0c8ob36q/branch/master?svg=true[Build status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
