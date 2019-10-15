@@ -68,7 +68,7 @@ public class DeleteRecipeCommandTest {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
 
         Index outOfBoundIndex = INDEX_SECOND_RECIPE;
-        // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
+        // ensures that outOfBoundIndex is still in bounds of RecipeBook list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getRecipeBook().getRecipeList().size());
 
         DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand(outOfBoundIndex);

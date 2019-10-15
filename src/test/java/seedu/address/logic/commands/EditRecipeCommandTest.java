@@ -111,7 +111,7 @@ public class EditRecipeCommandTest {
     public void execute_duplicateRecipeFilteredList_failure() {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
 
-        // edit recipe in filtered list into a duplicate in Duke Cooks
+        // edit recipe in filtered list into a duplicate in RecipeBook
         Recipe recipeInList = model.getRecipeBook().getRecipeList().get(INDEX_SECOND_RECIPE.getZeroBased());
         EditRecipeCommand editRecipeCommand = new EditRecipeCommand(INDEX_FIRST_RECIPE,
                 new EditRecipeDescriptorBuilder(recipeInList).build());
@@ -130,13 +130,13 @@ public class EditRecipeCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of Duke Cooks
+     * but smaller than size of RecipeBook
      */
     @Test
     public void execute_invalidRecipeIndexFilteredList_failure() {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
         Index outOfBoundIndex = INDEX_SECOND_RECIPE;
-        // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
+        // ensures that outOfBoundIndex is still in bounds of RecipeBook list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getRecipeBook().getRecipeList().size());
 
         EditRecipeCommand editRecipeCommand = new EditRecipeCommand(outOfBoundIndex,
