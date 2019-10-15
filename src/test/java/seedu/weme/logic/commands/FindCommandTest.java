@@ -16,6 +16,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.meme.TagContainsKeywordsPredicate;
+import seedu.weme.statistics.LikeManager;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code MemeFindCommand}.

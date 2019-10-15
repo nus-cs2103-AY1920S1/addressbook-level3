@@ -2,17 +2,17 @@ package seedu.weme.storage;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.commons.exceptions.DataConversionException;
 import seedu.weme.commons.util.FileUtil;
 import seedu.weme.commons.util.JsonUtil;
 import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.LikeDataImpl;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * A class to access MemeBook data stored as a json file on the hard disk.

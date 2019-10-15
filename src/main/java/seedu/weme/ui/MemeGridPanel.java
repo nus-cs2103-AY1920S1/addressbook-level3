@@ -13,8 +13,6 @@ import javafx.scene.layout.Region;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
 
-import seedu.weme.statistics.LikeData;
-
 /**
  * Panel containing the list of memes.
  */
