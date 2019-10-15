@@ -24,28 +24,35 @@ public class TypicalExpenses {
     public static final Expense BILLS = new ExpenseBuilder().withName("monthly bills")
             .withDescription("pay phone company")
             .withAmount("350.25")
+            .withCreatedDateTime("09/9/2018 2152")
             .withTags("bills").build();
     public static final Expense FOOD = new ExpenseBuilder().withName("monday breakfast food")
             .withDescription("toast with frens")
             .withAmount("4.20")
+            .withCreatedDateTime("12/01/2019")
             .withTags("monday", "friends").build();
     public static final Expense GROCERIES = new ExpenseBuilder().withName("groceries")
             .withDescription("bought from fairprice")
             .withAmount("23.50")
+            .withCreatedDateTime("12/01/2019 1200")
             .build();
     public static final Expense MOVIE = new ExpenseBuilder().withName("movie tickets")
             .withDescription("tickets to joker")
-            .withAmount("10.00").withTags("leisure").build();
+            .withAmount("10.00")
+            .withCreatedDateTime("01/01/2019 0530")
+            .withTags("leisure").build();
 
 
     // Manually added
     public static final Expense CLOTHES = new ExpenseBuilder().withName("clothes")
             .withDescription("bought new yeezys")
             .withAmount("1000")
+            .withCreatedDateTime("1/1/2019 0000")
             .build();
     public static final Expense NEW_LAPTOP = new ExpenseBuilder().withName("new laptop")
             .withDescription("new macbook pro")
             .withAmount("2999.99")
+            .withCreatedDateTime("31/12/2019 2359")
             .build();
 
     // Manually added - Expense's details found in {@code CommandTestUtil}

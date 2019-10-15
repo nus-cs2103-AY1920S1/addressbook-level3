@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.CreatedDateTime;
 import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
@@ -25,12 +26,14 @@ public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_AMOUNT = "test";
+    private static final String INVALID_DATE = "9/12/15/12 3529am";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_DESC = "eating at macs";
     private static final String VALID_AMOUNT = "2";
+    private static final String VALID_DATETIME = "05/03/2019 1234";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -69,7 +72,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseAmt_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAmount((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAmount(null));
     }
 
     @Test
@@ -79,7 +82,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseName(null));
     }
 
     @Test
@@ -122,7 +125,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseDesc_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription(null));
     }
 
     @Test
@@ -216,4 +219,28 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagNamesList, actualTagNamesList);
     }
+
+    @Test
+    public void parseCreatedDateTime_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCreatedDateTime(null));
+    }
+
+    @Test
+    public void parseCreatedDateTime_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCreatedDateTime(INVALID_DATE));
+    }
+
+    @Test
+    public void parseCreatedDateTime_validValueWithoutWhitespace_returnsCreatedDateTime() throws Exception {
+        CreatedDateTime expectedCreatedDateTime = new CreatedDateTime(VALID_DATETIME);
+        assertEquals(expectedCreatedDateTime, ParserUtil.parseCreatedDateTime(VALID_DATETIME));
+    }
+
+    @Test
+    public void parseCreatedDateTime_validValueWithWhitespace_returnsTrimmedCreatedDateTime() throws Exception {
+        String dateTimeWithWhitespace = WHITESPACE + VALID_DATETIME + WHITESPACE;
+        CreatedDateTime expected = new CreatedDateTime(VALID_DATETIME);
+        assertEquals(expected, ParserUtil.parseCreatedDateTime(dateTimeWithWhitespace));
+    }
+
 }

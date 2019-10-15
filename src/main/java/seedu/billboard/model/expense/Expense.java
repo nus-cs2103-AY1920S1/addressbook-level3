@@ -2,6 +2,7 @@ package seedu.billboard.model.expense;
 
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -19,17 +20,19 @@ public class Expense {
     private Name name;
     private Description description;
     private Amount amount;
+    private CreatedDateTime created;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Every field must be present and not null.
      */
-    public Expense(Name name, Description description, Amount amount, Set<Tag> tags) {
-        requireAllNonNull(name, description, amount);
+    public Expense(Name name, Description description, Amount amount, CreatedDateTime created, Set<Tag> tags) {
+        requireAllNonNull(name, description, created, amount, tags);
         this.name = name;
         this.description = description;
         this.amount = amount;
+        this.created = created;
         this.tags.addAll(tags);
     }
 
@@ -43,6 +46,10 @@ public class Expense {
 
     public Amount getAmount() {
         return amount;
+    }
+
+    public CreatedDateTime getCreated() {
+        return created;
     }
 
     /**

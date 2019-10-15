@@ -19,6 +19,7 @@ import seedu.billboard.commons.util.CollectionUtil;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.CreatedDateTime;
 import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.Name;
@@ -91,11 +92,12 @@ public class EditCommand extends Command {
      */
     private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editExpenseDescriptor) {
         assert expenseToEdit != null;
-        Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
         Name updatedName = editExpenseDescriptor.getName().orElse(expenseToEdit.getName());
         Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
         Amount updatedAmount = editExpenseDescriptor.getAmount().orElse(expenseToEdit.getAmount());
-        return new Expense(updatedName, updatedDescription, updatedAmount, updatedTags);
+        CreatedDateTime updatedCreated = editExpenseDescriptor.getCreated().orElse(expenseToEdit.getCreated());
+        Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
+        return new Expense(updatedName, updatedDescription, updatedAmount, updatedCreated, updatedTags);
     }
 
     @Override
@@ -123,9 +125,10 @@ public class EditCommand extends Command {
     public static class EditExpenseDescriptor {
 
         private Name name;
-        private Set<Tag> tags;
         private Description description;
         private Amount amount;
+        private CreatedDateTime created;
+        private Set<Tag> tags;
 
         public EditExpenseDescriptor() {
         }
@@ -136,9 +139,10 @@ public class EditCommand extends Command {
          */
         public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
             setName(toCopy.name);
-            setTags(toCopy.tags);
             setDescription(toCopy.description);
+            setCreated(toCopy.created);
             setAmount(toCopy.amount);
+            setTags(toCopy.tags);
         }
 
         /**
@@ -171,6 +175,14 @@ public class EditCommand extends Command {
 
         public Optional<Amount> getAmount() {
             return Optional.ofNullable(amount);
+        }
+
+        public void setCreated(CreatedDateTime created) {
+            this.created = created;
+        }
+
+        public Optional<CreatedDateTime> getCreated() {
+            return Optional.ofNullable(created);
         }
 
         /**
