@@ -1,18 +1,19 @@
 package seedu.address.storage;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.cheatsheet.CheatSheet;
-import seedu.address.model.cheatsheet.Content;
-import seedu.address.model.cheatsheet.Title;
-import seedu.address.model.tag.Tag;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.cheatsheet.CheatSheet;
+import seedu.address.model.cheatsheet.Content;
+import seedu.address.model.cheatsheet.Title;
+import seedu.address.model.tag.Tag;
 
 /**
  * Todo.
@@ -31,7 +32,8 @@ public class JsonAdaptedCheatSheet {
      * Constructs a {@code JsonAdaptedCheatSheet} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedCheatSheet(@JsonProperty("title") String title, @JsonProperty("contents") List<JsonAdaptedContent> contents,
+    public JsonAdaptedCheatSheet(@JsonProperty("title") String title,
+                                @JsonProperty("contents") List<JsonAdaptedContent> contents,
                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.title = title;
         if (contents != null) {
