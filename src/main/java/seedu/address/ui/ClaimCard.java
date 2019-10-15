@@ -35,6 +35,8 @@ public class ClaimCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
+    private Label status;
+    @FXML
     private Label description;
     @FXML
     private Label amount;
@@ -50,6 +52,7 @@ public class ClaimCard extends UiPart<Region> {
         this.claim = claim;
         id.setText(displayedIndex + ". ");
         date.setText(claim.getDate().text);
+        status.setText(claim.getStatus().toString());
         description.setText(claim.getDescription().text);
         amount.setText(claim.getAmount().value);
         name.setText(claim.getName().fullName);

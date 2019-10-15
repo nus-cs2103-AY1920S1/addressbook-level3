@@ -38,4 +38,5 @@
          <RowConstraints />
       </rowConstraints>
   </GridPane>
+   <Label fx:id="status" text="\$status" />
 </HBox>
