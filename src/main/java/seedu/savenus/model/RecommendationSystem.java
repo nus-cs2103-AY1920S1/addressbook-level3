@@ -28,43 +28,34 @@ public class RecommendationSystem {
     private static final int DISLIKED_LOCATION_WEIGHT = 4;
     private static final int DISLIKED_CATEGORY_WEIGHT = 5;
 
+    // TODO
+    private static final Set<Tag> likedTags = new HashSet<>();
+    private static final Set<Location> likedLocations = new HashSet<>();
+    private static final Set<Category> likedCategories = new HashSet<>();
+
+    private static final Set<Tag> dislikedTags = new HashSet<>();
+    private static final Set<Location> dislikedLocations = new HashSet<>();
+    private static final Set<Category> dislikedCategories = new HashSet<>();
 
     private Comparator<Food> recommendationComparator;
     private Predicate<Food> recommendationPredicate;
     private boolean inUse;
 
-    // TODO
-    private final Set<Tag> likedTags;
-    private final Set<Location> likedLocations;
-    private final Set<Category> likedCategories;
-
-    private final Set<Tag> dislikedTags;
-    private final Set<Location> dislikedLocations;
-    private final Set<Category> dislikedCategories;
-
     public RecommendationSystem() {
         this.inUse = false;
 
         // Calculate by recommendation value, using price to break ties
-        recommendationComparator = Comparator.comparingInt(this::calculateRecommendation).reversed()
+        recommendationComparator = Comparator.comparingInt(RecommendationSystem::calculateRecommendation).reversed()
                 .thenComparingDouble(x -> Double.parseDouble(x.getPrice().value));
 
         // TODO: Dummy predicate
         recommendationPredicate = f -> Double.parseDouble(f.getPrice().value) < 50;
-
-        likedTags = new HashSet<>();
-        likedLocations = new HashSet<>();
-        likedCategories = new HashSet<>();
-
-        dislikedTags = new HashSet<>();
-        dislikedLocations = new HashSet<>();
-        dislikedCategories = new HashSet<>();
     }
 
     /**
      * Calculates the recommendation value for each Food provided
      */
-    public int calculateRecommendation(Food food) {
+    public static int calculateRecommendation(Food food) {
         int weight = 0;
 
         weight += LIKED_TAG_WEIGHT * likedTags.stream()
@@ -84,10 +75,10 @@ public class RecommendationSystem {
                 .count();
 
         weight += LIKED_LOCATION_WEIGHT * likedLocations.stream()
-                .filter(new Location(food.getLocation().location)::equals)
+                .filter(new Location(food.getLocation().location.toLowerCase())::equals)
                 .count();
         weight -= DISLIKED_LOCATION_WEIGHT * dislikedLocations.stream()
-                .filter(new Location(food.getLocation().location)::equals)
+                .filter(new Location(food.getLocation().location.toLowerCase())::equals)
                 .count();
 
         return weight;
@@ -173,5 +164,23 @@ public class RecommendationSystem {
 
     public Set<Category> getDislikedCategories() {
         return dislikedCategories;
+    }
+
+    /**
+     * Clear the recommendation system's likes.
+     */
+    public void clearLikes() {
+        likedTags.clear();
+        likedLocations.clear();
+        likedCategories.clear();
+    }
+
+    /**
+     * Clear the recommendation system's dislikes.
+     */
+    public void clearDislikes() {
+        dislikedTags.clear();
+        dislikedLocations.clear();
+        dislikedCategories.clear();
     }
 }

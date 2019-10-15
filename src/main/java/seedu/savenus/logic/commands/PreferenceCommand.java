@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.RecommendationSystem;
 import seedu.savenus.model.food.Category;
@@ -26,6 +27,9 @@ public class PreferenceCommand extends Command {
             + PREFIX_LOCATION + "...]\n" + "Example: " + COMMAND_WORD + " " + PREFIX_CATEGORY + "Chinese "
             + PREFIX_CATEGORY + "Western " + PREFIX_LOCATION + "University Town " + PREFIX_LOCATION + "The Deck "
             + PREFIX_TAG + "Spicy " + PREFIX_TAG + "Healthy";
+
+    public static final String DUPLICATE_FOUND_IN_OPPOSITE_LIST = "Duplicate entry found in opposing list!\n"
+            + "Entries cannot exist in both liked and disliked sets at the same time!";
 
     private final Set<Category> categoryList;
     private final Set<Tag> tagList;
@@ -47,7 +51,7 @@ public class PreferenceCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -58,13 +62,29 @@ public class PreferenceCommand extends Command {
      * @param isLike True if adding likes or false if adding dislikes
      * @return A success message including the list of likes and dislikes
      */
-    public CommandResult execute(Model model, boolean isLike) {
+    public CommandResult execute(Model model, boolean isLike) throws CommandException {
         StringBuilder result = new StringBuilder();
 
+        RecommendationSystem recommendationSystem = model.getRecommendationSystem();
+
         if (isLike) {
+            // Throws a command exception if any of the likes are in dislikes or vice versa
+            if (recommendationSystem.getDislikedCategories().stream().anyMatch(categoryList::contains)
+                    || recommendationSystem.getDislikedLocations().stream().anyMatch(locationList::contains)
+                    || recommendationSystem.getDislikedTags().stream().anyMatch(tagList::contains)) {
+                throw new CommandException(DUPLICATE_FOUND_IN_OPPOSITE_LIST);
+            }
+
             model.addLikes(categoryList, tagList, locationList);
             result.append(" Liked: ");
         } else {
+            // Throws a command exception if any of the likes are in dislikes or vice versa
+            if (recommendationSystem.getLikedCategories().stream().anyMatch(categoryList::contains)
+                    || recommendationSystem.getLikedLocations().stream().anyMatch(locationList::contains)
+                    || recommendationSystem.getLikedTags().stream().anyMatch(tagList::contains)) {
+                throw new CommandException(DUPLICATE_FOUND_IN_OPPOSITE_LIST);
+            }
+
             model.addDislikes(categoryList, tagList, locationList);
             result.append(" Disliked: ");
         }
@@ -72,15 +92,18 @@ public class PreferenceCommand extends Command {
         String addedItems = "Categories: " + Arrays.toString(categoryList.toArray())
                 + " Tags: " + Arrays.toString(tagList.toArray())
                 + " Locations: " + Arrays.toString(locationList.toArray()) + "\n";
+
         result.append(addedItems);
 
-        RecommendationSystem newSystem = model.getRecommendationSystem();
-        String currentItems = "Current likes: Categories: " + Arrays.toString(newSystem.getLikedCategories().toArray())
-                + " Tags: " + Arrays.toString(newSystem.getLikedTags().toArray())
-                + " Locations: " + Arrays.toString(newSystem.getLikedLocations().toArray())
-                + "\nCurrent dislikes: Categories: " + Arrays.toString(newSystem.getDislikedCategories().toArray())
-                + " Tags: " + Arrays.toString(newSystem.getDislikedTags().toArray())
-                + " Locations: " + Arrays.toString(newSystem.getDislikedLocations().toArray());
+        String currentItems = "Current likes:"
+                + " Categories: " + Arrays.toString(recommendationSystem.getLikedCategories().toArray())
+                + " Tags: " + Arrays.toString(recommendationSystem.getLikedTags().toArray())
+                + " Locations: " + Arrays.toString(recommendationSystem.getLikedLocations().toArray())
+                + "\nCurrent dislikes:"
+                + " Categories: " + Arrays.toString(recommendationSystem.getDislikedCategories().toArray())
+                + " Tags: " + Arrays.toString(recommendationSystem.getDislikedTags().toArray())
+                + " Locations: " + Arrays.toString(recommendationSystem.getDislikedLocations().toArray());
+
         result.append(currentItems);
 
         return new CommandResult(MESSAGE_SUCCESS + result);

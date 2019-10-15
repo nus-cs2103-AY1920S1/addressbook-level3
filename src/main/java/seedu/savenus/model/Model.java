@@ -176,4 +176,14 @@ public interface Model {
      * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
      */
     void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);
+
+    /**
+     * Clears the user's liked categories, tags and locations.
+     */
+    void clearLikes();
+
+    /**
+     * Clears the user's liked categories, tags and locations.
+     */
+    void clearDislikes();
 }

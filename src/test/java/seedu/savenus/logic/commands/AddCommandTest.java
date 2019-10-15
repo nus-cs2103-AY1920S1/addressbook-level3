@@ -234,6 +234,16 @@ public class AddCommandTest {
         public void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void clearLikes() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearDislikes() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

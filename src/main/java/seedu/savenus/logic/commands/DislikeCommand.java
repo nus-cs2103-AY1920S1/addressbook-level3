@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Set;
 
+import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
@@ -33,7 +34,7 @@ public class DislikeCommand extends PreferenceCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         return this.execute(model, false);

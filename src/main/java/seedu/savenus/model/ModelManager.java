@@ -255,6 +255,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void clearLikes() {
+        recommendationSystem.clearLikes();
+    }
+
+    @Override
+    public void clearDislikes() {
+        recommendationSystem.clearDislikes();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
