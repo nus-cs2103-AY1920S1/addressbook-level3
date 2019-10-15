@@ -1,6 +1,7 @@
 package thrift.logic.parser;
 
 import static thrift.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static thrift.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT_WITH_PE;
 import static thrift.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static thrift.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -33,15 +34,21 @@ class UntagCommandParserTest {
         String input = "untag i/1 t/!@#$%^&*()";
         String input2 = "untag i/1 t/REALTAG t/WRONGTAG!!!";
 
-        assertParseFailure(parser, input, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, input2, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, input,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT_WITH_PE,
+                        UntagCommand.MESSAGE_USAGE, Tag.MESSAGE_CONSTRAINTS));
+        assertParseFailure(parser, input2,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT_WITH_PE,
+                        UntagCommand.MESSAGE_USAGE, Tag.MESSAGE_CONSTRAINTS));
     }
 
     @Test
     void parse_withBlankTags() {
         String input = "tag i/1 t/";
 
-        assertParseFailure(parser, input, UntagCommand.MESSAGE_NOT_UNTAGGED);
+        assertParseFailure(parser, input,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT_WITH_PE,
+                        UntagCommand.MESSAGE_USAGE, Tag.MESSAGE_CONSTRAINTS));
     }
 
     @Test

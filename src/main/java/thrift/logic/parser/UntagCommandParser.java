@@ -1,9 +1,8 @@
 package thrift.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static thrift.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static thrift.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT_WITH_PE;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import thrift.commons.core.index.Index;
@@ -28,21 +27,20 @@ public class UntagCommandParser implements Parser<UntagCommand> {
                 ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_INDEX, CliSyntax.PREFIX_TAG);
 
         Index index;
-        Set<Tag> tagSet = new HashSet<Tag>();
+        Set<Tag> tagSet;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreambleIncludeIndex());
-            for (String tagName : argMultimap.getAllValues(CliSyntax.PREFIX_TAG)) {
-                if (!tagName.isEmpty()) {
-                    Tag tag = new Tag(tagName);
-                    tagSet.add(tag);
-                }
+            String indexStr = argMultimap.getSingleValue(CliSyntax.PREFIX_INDEX)
+                    .orElseThrow(() -> new ParseException(""));
+            index = ParserUtil.parseIndex(indexStr);
+            tagSet = ParserUtil.parseTags(argMultimap.getAllValues(CliSyntax.PREFIX_TAG));
+            if (tagSet.isEmpty()) {
+                throw new ParseException(UntagCommand.MESSAGE_NOT_UNTAGGED);
             }
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UntagCommand.MESSAGE_USAGE), pe);
-        } catch (IllegalArgumentException iae) {
-            throw new ParseException(iae.getMessage(), iae);
-
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT_WITH_PE, UntagCommand.MESSAGE_USAGE, pe.getMessage()),
+                    pe);
         }
 
         if (tagSet.isEmpty()) {

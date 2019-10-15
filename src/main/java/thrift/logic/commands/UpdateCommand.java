@@ -27,7 +27,7 @@ import thrift.ui.TransactionListPanel;
 /**
  * Updates the details of an existing transaction in THRIFT.
  */
-public class UpdateCommand extends Command {
+public class UpdateCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "update";
 
@@ -49,6 +49,9 @@ public class UpdateCommand extends Command {
 
     private final Index index;
     private final UpdateTransactionDescriptor updateTransactionDescriptor;
+    private Index actualIndex;
+    private Transaction transactionToUpdate;
+    private Transaction updatedTransaction;
 
     /**
      * @param index of the transaction in the filtered transaction list to update
@@ -60,6 +63,9 @@ public class UpdateCommand extends Command {
 
         this.index = index;
         this.updateTransactionDescriptor = new UpdateTransactionDescriptor(updateTransactionDescriptor);
+        this.actualIndex = null;
+        this.transactionToUpdate = null;
+        this.updatedTransaction = null;
     }
 
     /**
@@ -79,13 +85,13 @@ public class UpdateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
         }
 
-        Transaction transactionToUpdate = lastShownList.get(index.getZeroBased());
+        transactionToUpdate = lastShownList.get(index.getZeroBased());
         String originalTransactionNotification = String.format(MESSAGE_ORIGINAL_TRANSACTION, transactionToUpdate);
-        Transaction updatedTransaction = createUpdatedTransaction(transactionToUpdate, updateTransactionDescriptor);
+        updatedTransaction = createUpdatedTransaction(transactionToUpdate, updateTransactionDescriptor);
         String updatedTransactionNotification = String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction);
 
+        actualIndex = model.getIndexInFullTransactionList(transactionToUpdate).get();
         model.setTransaction(transactionToUpdate, updatedTransaction);
-        model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
 
         // Use null comparison instead of requireNonNull(transactionListPanel) as current JUnit tests are unable to
         // handle JavaFX initialization
@@ -139,6 +145,22 @@ public class UpdateCommand extends Command {
         UpdateCommand e = (UpdateCommand) other;
         return index.equals(e.index)
                 && updateTransactionDescriptor.equals(e.updateTransactionDescriptor);
+    }
+
+    @Override
+    public void undo(Model model) {
+        requireNonNull(model);
+        requireNonNull(transactionToUpdate);
+        requireNonNull(updatedTransaction);
+        model.setTransaction(updatedTransaction, transactionToUpdate);
+    }
+
+    @Override
+    public void redo(Model model) {
+        requireNonNull(model);
+        requireNonNull(transactionToUpdate);
+        requireNonNull(updatedTransaction);
+        model.setTransaction(transactionToUpdate, updatedTransaction);
     }
 
     /**

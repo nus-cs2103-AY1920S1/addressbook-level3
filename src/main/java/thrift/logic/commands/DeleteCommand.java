@@ -62,6 +62,7 @@ public class DeleteCommand extends Command implements Undoable {
     @Override
     public void undo(Model model) {
         requireNonNull(model);
+        requireNonNull(transactionToDelete);
         if (transactionToDelete instanceof Expense) {
             model.addExpense((Expense) transactionToDelete, actualIndex);
         } else if (transactionToDelete instanceof Income) {
@@ -72,6 +73,7 @@ public class DeleteCommand extends Command implements Undoable {
     @Override
     public void redo(Model model) {
         requireNonNull(model);
+        requireNonNull(actualIndex);
         model.deleteTransaction(actualIndex);
     }
 }
