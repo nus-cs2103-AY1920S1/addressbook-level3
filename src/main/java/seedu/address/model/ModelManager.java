@@ -186,6 +186,11 @@ public class ModelManager implements Model {
         addressBook.setTask(target, editedTask);
     }
 
+    @Override
+    public void markTaskAsDone(Task taskDone) {
+        addressBook.markTaskAsDone(taskDone);
+    }
+
     /**
      * Returns an unmodifiable view of the list of {@code Task}s backed by the internal list of
      * {@code versionedAddressBook}

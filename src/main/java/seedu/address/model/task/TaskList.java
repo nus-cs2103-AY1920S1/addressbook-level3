@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.note.exceptions.DuplicateTitleException;
 import seedu.address.model.note.exceptions.NoteNotFoundException;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
@@ -111,5 +112,16 @@ public class TaskList implements Iterable<Task> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    public void markTaskAsDone(Task taskDone) {
+        requireNonNull(taskDone);
+
+        int index = internalList.indexOf(taskDone);
+        if (index == -1) {
+            throw new TaskNotFoundException();
+        }
+
+        internalList.get(index).markAsDone();
     }
 }

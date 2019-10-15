@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import seedu.address.model.note.Note;
+import seedu.address.model.task.exceptions.RedundantOperationException;
 
 /**
  * Represents a NUStudy revision task. Its
@@ -70,4 +71,11 @@ public abstract class Task {
     public abstract Note getNote();
 
     public abstract void setNote(Note note);
+
+    public void markAsDone() {
+        if (this.isDone) {
+            throw new RedundantOperationException("The task has already been marked done");
+        }
+        this.isDone = true;
+    }
 }
