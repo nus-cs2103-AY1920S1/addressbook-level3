@@ -49,7 +49,7 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
             throw new TripNotFoundException();
         }
 
-        if (!targetTrip.isSameTrip(editedTrip) && contains(editedTrip)) {
+        if (targetTrip.isSameTrip(editedTrip) && contains(editedTrip)) {
             throw new DuplicateTripException();
         }
 

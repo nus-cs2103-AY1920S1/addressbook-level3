@@ -5,6 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.ParserDateUtil.DATE_FORMATTER;
+import static seedu.address.logic.parser.ParserDateUtil.TIME_FORMATTER;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,19 +22,23 @@ import seedu.address.ui.MainWindow;
 import seedu.address.ui.components.form.DateFormItem;
 import seedu.address.ui.components.form.DoubleFormItem;
 import seedu.address.ui.components.form.TextFormItem;
+import seedu.address.ui.components.form.TimeFormItem;
 import seedu.address.ui.template.Page;
+
+import java.time.format.DateTimeFormatter;
 
 /**
  * WARNING INCOMEPLETE: TODO: FIELDS FOR INVENTORY AND BOOKING.
  */
 public class EditEventPage extends Page<AnchorPane> {
-
     private static final String FXML = "itinerary/events/EditEventPage.fxml";
 
     private TextFormItem eventNameFormItem;
     private TextFormItem eventDestinationFormItem;
     private DateFormItem eventStartDateFormItem;
     private DateFormItem eventEndDateFormItem;
+    private TimeFormItem eventStartTimeFormItem;
+    private TimeFormItem eventEndTimeFormItem;
     private DoubleFormItem eventTotalBudgetFormItem;
     //private TextFormItem eventInventoryFormItem;
     //private TextFormItem eventBookingFormItem;
@@ -63,12 +69,13 @@ public class EditEventPage extends Page<AnchorPane> {
                 eventNameFormItem.setValue(name.toString()));
         currentEditDescriptor.getDestination().ifPresent(destination ->
                 eventDestinationFormItem.setValue(destination.toString()));
-        currentEditDescriptor.getStartDate().ifPresent(startDate ->
-                eventStartDateFormItem.setValue(startDate.toLocalDate()));
-        currentEditDescriptor.getEndDate().ifPresent(endDate ->
-                eventEndDateFormItem.setValue(endDate.toLocalDate()));
         currentEditDescriptor.getBudget().ifPresent(budget ->
                 eventTotalBudgetFormItem.setValue(budget.value));
+
+        currentEditDescriptor.getStartDate().ifPresent(startDate ->
+                eventStartTimeFormItem.setValue(startDate.toLocalTime()));
+        currentEditDescriptor.getEndDate().ifPresent(endDate ->
+                eventEndTimeFormItem.setValue(endDate.toLocalTime()));
     }
 
     /**
@@ -81,16 +88,20 @@ public class EditEventPage extends Page<AnchorPane> {
                     EditEventFieldCommand.COMMAND_WORD
                             + " " + PREFIX_NAME + nameFormValue);
         });
-        eventStartDateFormItem = new DateFormItem("Start date : ", startDate -> {
+
+        eventStartTimeFormItem = new TimeFormItem("Start time : ", startTime ->{
             mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
                     + " " + PREFIX_DATE_START
-                    + ParserDateUtil.getStringFromDate(startDate.atStartOfDay()));
+                    + model.getPageStatus().getDay().getStartDate().format(DATE_FORMATTER)
+                    + " " + startTime.format(TIME_FORMATTER));
         });
-        eventEndDateFormItem = new DateFormItem("End date : ", endDate -> {
+        eventEndTimeFormItem = new TimeFormItem("End time : ", endTime ->{
             mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
                     + " " + PREFIX_DATE_END
-                    + ParserDateUtil.getStringFromDate(endDate.atStartOfDay()));
+                    + model.getPageStatus().getDay().getEndDate().format(DATE_FORMATTER)
+                    + " " + endTime.format(TIME_FORMATTER));
         });
+
         eventTotalBudgetFormItem = new DoubleFormItem("Total budget : ", totalBudget -> {
             mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
                     + " " + PREFIX_BUDGET + totalBudget);
@@ -104,8 +115,8 @@ public class EditEventPage extends Page<AnchorPane> {
 
         formItemsPlaceholder.getChildren().addAll(
                 eventNameFormItem.getRoot(),
-                eventStartDateFormItem.getRoot(),
-                eventEndDateFormItem.getRoot(),
+                eventStartTimeFormItem.getRoot(),
+                eventEndTimeFormItem.getRoot(),
                 eventTotalBudgetFormItem.getRoot(),
                 eventDestinationFormItem.getRoot());
     }

@@ -45,7 +45,7 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
             throw new EventNotFoundException();
         }
 
-        if (!target.isClashingWith(edited) && contains(edited)) {
+        if (target.isClashingWith(edited) && contains(edited)) {
             throw new ClashingEventException();
         }
 
