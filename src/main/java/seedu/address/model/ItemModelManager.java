@@ -242,6 +242,7 @@ public class ItemModelManager implements ItemModel {
         this.reminderList = new ReminderList();
     }
 
+    /**
      * Sort the current visual list.
      */
     public void sort() {

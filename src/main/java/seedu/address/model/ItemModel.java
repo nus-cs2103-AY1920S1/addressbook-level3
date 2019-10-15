@@ -72,4 +72,6 @@ public interface ItemModel {
   
     public void sort();
 
+    public void addToSeparateList(Item item);
+
 }

@@ -15,7 +15,6 @@ import seedu.address.model.ElisaState;
 import seedu.address.model.ElisaStateHistory;
 import seedu.address.model.ElisaStateManager;
 import seedu.address.model.ItemModel;
-import seedu.address.model.ItemModelManager;
 import seedu.address.model.ItemStorage;
 import seedu.address.model.item.VisualizeList;
 import seedu.address.storage.Storage;
@@ -35,9 +34,9 @@ public class LogicManager implements Logic {
     public LogicManager(ItemModel model, Storage storage, ElisaStateHistory elisaStateHistory) {
         this.storage = storage;
         this.model = model;
-        addressBookParser = new AddressBookParser();
         this.elisaStateHistory = elisaStateHistory;
         elisaStateHistory.pushCommand(new ElisaStateManager(model.getItemStorage(), model.getVisualList()).deepCopy());
+        addressBookParser = new AddressBookParser(elisaStateHistory);
     }
 
     @Override
@@ -92,7 +91,7 @@ public class LogicManager implements Logic {
     @Override
     public void updateModelLists() {
         ItemStorage itemStorage = this.model.getItemStorage().deepCopy();
-        ItemModelManager tempModel = ((ItemModelManager) this.model);
+        ItemModel tempModel = this.model;
         this.model.emptyLists();
         for (int i = 0; i < itemStorage.size(); i++) {
             tempModel.addToSeparateList(itemStorage.get(i));
