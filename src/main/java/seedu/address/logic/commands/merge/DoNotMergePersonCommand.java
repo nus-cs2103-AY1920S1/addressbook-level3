@@ -1,17 +1,19 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.merge;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Adds a person to the address book.
+ * Rejects merging a duplicate profile.
  */
-public class DoNotMergeCommand extends Command {
+public class DoNotMergePersonCommand extends Command {
 
     public static final String COMMAND_WORD = "nmerge";
 
@@ -23,9 +25,9 @@ public class DoNotMergeCommand extends Command {
 
 
     /**
-     * Creates an Merge Command to update the original {@code Person} to the new {@code Person}
+     * Creates an DoNotMergePersonCommand to skip the merging of a field in a merging process.
      */
-    public DoNotMergeCommand(Person inputPerson) {
+    public DoNotMergePersonCommand(Person inputPerson) {
         requireNonNull(inputPerson);
         this.inputPerson = inputPerson;
     }
@@ -33,7 +35,6 @@ public class DoNotMergeCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws DuplicatePersonWithMergeException {
         requireNonNull(model);
-        StringBuilder prompt = new StringBuilder();
         this.originalPerson = model.getPerson(inputPerson);
         return new CommandResult(String.format(MESSAGE_SUCCESS, originalPerson));
     }
@@ -41,7 +42,7 @@ public class DoNotMergeCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DoNotMergeCommand // instanceof handles nulls
-                && inputPerson.equals(((DoNotMergeCommand) other).inputPerson));
+                || (other instanceof DoNotMergePersonCommand // instanceof handles nulls
+                && inputPerson.equals(((DoNotMergePersonCommand) other).inputPerson));
     }
 }

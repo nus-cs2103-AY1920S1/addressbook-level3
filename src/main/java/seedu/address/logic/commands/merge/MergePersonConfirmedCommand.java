@@ -1,7 +1,9 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.merge;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
@@ -11,22 +13,19 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
 /**
- * Adds a person to the address book.
+ * Updates a data field of a duplicate {@code Person} in the Addressbook.
  */
-public class MergeConfirmedCommand extends Command {
-
-    public static final String COMMAND_WORD = "yes";
-    public static final String DEFAULT_COMMAND_WORD = "";
+public class MergePersonConfirmedCommand extends MergeConfirmedCommand {
 
     public static final String MESSAGE_MERGE_FIELD_SUCCESS = "Successfully updated %1$s";
 
-    private MergeCommand previousMergeCommand;
+    private MergePersonCommand previousMergeCommand;
 
 
     /**
-     * Creates an Merge Command to update the original {@code Person} to the new {@code Person}
+     * Creates an {@code MergePersonConfirmedCommand} to update the original {@code Person}.
      */
-    public MergeConfirmedCommand(MergeCommand previousMergeCommand) {
+    public MergePersonConfirmedCommand(MergePersonCommand previousMergeCommand) {
         requireNonNull(previousMergeCommand);
         this.previousMergeCommand = previousMergeCommand;
     }
@@ -57,19 +56,19 @@ public class MergeConfirmedCommand extends Command {
         EditCommand edit = new EditCommand();
         Person editedPerson = edit.executeForMerge(originalPerson, editPersonDescriptor, model);
         previousMergeCommand.updateOriginalPerson(editedPerson);
+        previousMergeCommand.removeFirstDifferentField();
         if (isLastMerge()) {
-            previousMergeCommand.removeFirstDifferentField();
             return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
                     + "\n" + String.format(previousMergeCommand.MESSAGE_SUCCESS,
                     previousMergeCommand.getOriginalPerson()));
         } else {
-            previousMergeCommand.removeFirstDifferentField();
             String nextMerge = previousMergeCommand.getNextMergePrompt();
             return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
                     + "\n" + nextMerge);
         }
     }
 
+    @Override
     public boolean isLastMerge() {
         return previousMergeCommand.onlyOneMergeLeft();
     }
@@ -77,7 +76,7 @@ public class MergeConfirmedCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof MergeConfirmedCommand // instanceof handles nulls
-                && previousMergeCommand.equals(((MergeConfirmedCommand) other).previousMergeCommand));
+                || (other instanceof MergePersonConfirmedCommand // instanceof handles nulls
+                && previousMergeCommand.equals(((MergePersonConfirmedCommand) other).previousMergeCommand));
     }
 }

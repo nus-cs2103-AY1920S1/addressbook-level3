@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.DoNotMergeCommand;
+import seedu.address.logic.commands.merge.MergePersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
@@ -30,15 +30,15 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new FindCommand object
  */
-public class DoNotMergeCommandParser implements Parser<DoNotMergeCommand> {
+public class MergePersonCommandParser implements Parser<MergePersonCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns a FindCommand object for execution.
-     * @throws seedu.address.logic.parser.exceptions.ParseException if the user input does not
-     * conform the expected format
+     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * and returns a MergePersonCommand object for execution.
+     * @throws seedu.address.logic.parser.exceptions.ParseException if the user input does
+     * not conform the expected format
      */
-    public DoNotMergeCommand parse(String args) throws ParseException {
+    public MergePersonCommand parse(String args) throws ParseException {
         String trimmedArgs = removeAddCommandWord(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(trimmedArgs, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL,
@@ -60,7 +60,7 @@ public class DoNotMergeCommandParser implements Parser<DoNotMergeCommand> {
 
         Person person = new Person(name, nric, phone, email, address, dateOfBirth, policyList, tagList);
 
-        return new DoNotMergeCommand(person);
+        return new MergePersonCommand(person);
     }
 
     private String removeAddCommandWord(String args) {

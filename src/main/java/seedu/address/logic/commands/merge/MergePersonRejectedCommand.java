@@ -1,26 +1,28 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.merge;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
 import seedu.address.model.Model;
 
 /**
- * Adds a person to the address book.
+ * Rejects an update of a data field of a duplicate {@code Person} in the Addressbook.
  */
-public class MergeRejectedCommand extends Command {
+public class MergePersonRejectedCommand extends Command {
 
     public static final String COMMAND_WORD = "no";
 
     public static final String MESSAGE_MERGE_FIELD_NOT_EXECUTED = "%1$s not updated.";
 
-    private MergeCommand previousMergeCommand;
+    private MergePersonCommand previousMergeCommand;
 
 
     /**
-     * Creates an Merge Command to update the original {@code Person} to the new {@code Person}
+     * Creates an {@code MergePersonRejectedCommand}.
      */
-    public MergeRejectedCommand(MergeCommand previousMergeCommand) {
+    public MergePersonRejectedCommand(MergePersonCommand previousMergeCommand) {
         requireNonNull(previousMergeCommand);
         this.previousMergeCommand = previousMergeCommand;
     }
@@ -48,7 +50,7 @@ public class MergeRejectedCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof MergeRejectedCommand // instanceof handles nulls
-                && previousMergeCommand.equals(((MergeRejectedCommand) other).previousMergeCommand));
+                || (other instanceof MergePersonRejectedCommand // instanceof handles nulls
+                && previousMergeCommand.equals(((MergePersonRejectedCommand) other).previousMergeCommand));
     }
 }
