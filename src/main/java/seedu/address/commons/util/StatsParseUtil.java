@@ -16,8 +16,7 @@ public class StatsParseUtil {
     /**
      * list of valid stat types
      */
-    private static final List<String> typeList = Arrays.asList("PROFIT", "COST", "REVENUE",
-            "DEFAULT_PROFIT", "DEFAULT_COST", "DEFAULT_REVENUE");
+    private static final List<String> typeList = Arrays.asList("PROFIT", "COST", "REVENUE");
 
     /**
      * Returns true if a given string is a valid Stat Type.

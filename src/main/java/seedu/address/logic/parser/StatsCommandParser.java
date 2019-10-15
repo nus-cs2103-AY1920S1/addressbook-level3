@@ -70,16 +70,16 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             }
         } else {
             switch (type) {
-            case DEFAULT_COST:
+            case COST:
                 return new StatsCommand(StatisticType.DEFAULT_COST);
-            case DEFAULT_PROFIT:
+            case PROFIT:
                 return new StatsCommand(StatisticType.DEFAULT_PROFIT);
-            case DEFAULT_REVENUE:
+            case REVENUE:
                 return new StatsCommand(StatisticType.DEFAULT_REVENUE);
             default:
-                throw new ParseException("Wrong Statistic type for default calculation mode, "
+                throw new ParseException("Wrong Statistic type for no date calculation mode, "
                         + "default types here only include:\n"
-                        + "DEFAULT_PROFIT, DEFAULT_COST, DEFAULT_REVENUE");
+                        + "PROFIT, COST, REVENUE");
             }
         }
     }

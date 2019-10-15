@@ -21,8 +21,8 @@ public class StatsCommand extends Command {
             + ": generates statistic for PROFIT/COST/REVENUE"
             + " Parameters: s/{Type of stat} d1/{starting date (YYYY.MM.DD)} "
             + "d2/{ending date}\n"
-            + "Example (Non-Default mode) : generate-s s/REVENUE d1/2018.12.13 d2/2019.11.13\n"
-            + "Example (Default mode) : generate-s s/DEFAULT_REVENUE";
+            + "Example (Date input mode) : generate-s s/REVENUE d1/2018.12.13 d2/2019.11.13\n"
+            + "Example (No Date input mode) : generate-s s/REVENUE";
 
 
     public static final String NON_DEFAULT_MESSAGE_USAGE =
