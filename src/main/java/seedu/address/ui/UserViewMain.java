@@ -9,8 +9,7 @@ import java.io.IOException;
 
 /**
  * Sets up the controller to dynamically change user views.
- * Does not inherit from UiPart as it defines its own controller.
- *
+ * Defines it's own controller {@code UserViewController}.
  */
 public class UserViewMain {
    private static final String FXML = "UserViewMain.fxml";
@@ -29,11 +28,19 @@ public class UserViewMain {
 
    }
 
+   /**
+    * Shows the viewer the dashboard.
+    * @return the dashboard layout
+    */
    public Pane loadDashboard() {
       userViewNavigator.loadDashboard(logic);
       return userViewController.getCurrentView();
    }
 
+   /**
+    * Shows the user the list of tasks.
+    * @return the task list pane
+    */
    public Pane loadTasks() {
       userViewNavigator.loadTaskListView(logic);
       return userViewController.getCurrentView();

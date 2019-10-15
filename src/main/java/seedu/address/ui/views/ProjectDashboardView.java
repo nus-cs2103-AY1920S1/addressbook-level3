@@ -12,7 +12,8 @@ import seedu.address.model.task.Task;
 import seedu.address.ui.UiPart;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the dashboard, with tasks separated by status.
+ * Is the default view called by {@code UserViewUpdate}.
  */
 public class ProjectDashboardView extends UiPart<Region> {
     private static final String FXML = "ProjectDashboard.fxml";

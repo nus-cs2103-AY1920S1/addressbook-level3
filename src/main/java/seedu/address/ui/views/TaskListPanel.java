@@ -13,7 +13,7 @@ import seedu.address.ui.UiPart;
 
 /**
  * Panel containing the list of tasks.
- * Showed by main controller when user wants to view list of tasks.
+ * Called by {@code UserViewUpdate} when user executes {@code LisTaskCommand}.
  */
 public class TaskListPanel extends UiPart<Region> {
     private static final String FXML = "TaskListPanel.fxml";

@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
  *
  */
 public class UserViewController {
+
     /** Holder of a switchable user view. */
     @FXML
     private StackPane userViewHolder;

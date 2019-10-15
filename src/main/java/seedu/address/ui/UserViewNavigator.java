@@ -13,6 +13,7 @@ import seedu.address.ui.views.TaskListPanel;
 public class UserViewNavigator {
 
 
+    /** The views to switch between **/
     private ProjectDashboardView projectDashboardView;
     private TaskListPanel taskListPanel;
 
@@ -29,12 +30,20 @@ public class UserViewNavigator {
     }
 
 
+    /**
+     * Relays to the controller to swap current user view with dashboard.
+     * @param logic to access the task data
+     */
     public void loadDashboard(Logic logic) {
         projectDashboardView = new ProjectDashboardView(logic.getFilteredTaskListNotStarted(), logic.getFilteredTaskListDoing(),
                 logic.getFilteredTaskListDone());
         userViewController.setUserView(projectDashboardView);
     }
 
+    /**
+     * Relays to controller to swap current user view with task list.
+     * @param logic to access task data
+     */
     public void loadTaskListView(Logic logic) {
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         userViewController.setUserView(taskListPanel);

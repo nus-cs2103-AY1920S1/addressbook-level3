@@ -1,10 +1,10 @@
 package seedu.address.ui;
 
 import javafx.scene.layout.Pane;
-import seedu.address.logic.parser.ParserUtil;
 
 /**
- * Communicates with the UserViewManager to update the view based on user commands.
+ * Communicates with {@code UserViewManager} to update the view based on user's command.
+ * Updates each time a command is executed to refresh data.
  *
  */
 public class UserViewUpdate {
@@ -18,22 +18,23 @@ public class UserViewUpdate {
     }
 
     /**
-     * Parses command and calls UserViewMain to retrieve the child component of the placeholder pane
-     * Clears the current view, before setting the new one.
+     * Retrieves user command's preamble and calls UserViewMain to retrieve the child component of the placeholder pane.
+     * Clears the current view first and switches to the desired view.
      *
      * @param commandText the placeholder pane in the view
      */
     public void parseUserCommand(String commandText) {
         String preamble = commandText.split(" ")[0];
+
         paneToRender.getChildren().clear();
 
         switch(preamble) {
-            case "list":
-                paneToRender.getChildren().add(userViewMain.loadTasks());
-                break;
+        case "list":
+            paneToRender.getChildren().add(userViewMain.loadTasks());
+            break;
 
-            default:
-                paneToRender.getChildren().add(userViewMain.loadDashboard());
+        default:
+            paneToRender.getChildren().add(userViewMain.loadDashboard());
         }
     }
 }

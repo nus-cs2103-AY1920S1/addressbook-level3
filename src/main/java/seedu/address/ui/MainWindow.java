@@ -177,6 +177,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Executes the command and returns the result.
+     * Updates user view upon execution of command.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
