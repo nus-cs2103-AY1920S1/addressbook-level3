@@ -7,7 +7,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-
+/**
+ * Provides feedback to the user about user's current food waste
+ */
 public class FeedbackWasteCommand extends Command {
 
     public static final String COMMAND_WORD = "feedback";

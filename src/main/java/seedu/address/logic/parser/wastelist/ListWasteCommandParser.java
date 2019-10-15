@@ -1,6 +1,5 @@
 package seedu.address.logic.parser.wastelist;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
 
 import java.time.LocalDate;
@@ -13,6 +12,9 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.waste.WasteMonth;
 
+/**
+ * List command parser to parse the months specified by the user.
+ */
 public class ListWasteCommandParser implements Parser<ListWasteCommand> {
     /**
      * Parses {@code userInput} into a command and returns it.

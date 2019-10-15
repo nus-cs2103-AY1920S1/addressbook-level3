@@ -7,11 +7,11 @@ import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;

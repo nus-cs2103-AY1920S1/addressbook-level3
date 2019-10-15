@@ -5,6 +5,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Displays which food items the user most commonly wastes.
+ */
 public class FoodWasteCommand extends Command {
 
     public static final String COMMAND_WORD = "food";

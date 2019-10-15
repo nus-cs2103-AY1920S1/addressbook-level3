@@ -4,6 +4,9 @@ import seedu.address.logic.commands.wastelist.ReportWasteCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parser to parse the start and end dates of a report command
+ */
 public class ReportWasteCommandParser implements Parser<ReportWasteCommand> {
 
     /**

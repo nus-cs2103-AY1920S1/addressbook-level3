@@ -2,6 +2,9 @@ package seedu.address.model.waste;
 
 import java.time.LocalDate;
 
+/**
+ * The Waste Month to index the list of waste lists.
+ */
 public class WasteMonth implements Comparable<WasteMonth> {
 
     public static final String MESSAGE_CONSTRAINTS =

@@ -13,20 +13,13 @@ import seedu.address.model.waste.WasteMonth;
 /**
  * Wraps all data at the Waste List level
  */
-public class WasteList implements ReadOnlyAddressBook{
+public class WasteList implements ReadOnlyAddressBook {
 
-    public static TreeMap<WasteMonth, UniqueFoodList> wasteArchive;
+    private static TreeMap<WasteMonth, UniqueFoodList> wasteArchive;
     private final UniqueFoodList wasteList;
 
     {
         wasteList = new UniqueFoodList();
-    }
-
-    /**
-     * To initialize a waste list archive.
-     */
-    public static void initialiseWasteArchive() {
-        wasteArchive = new TreeMap<>();
     }
 
     public WasteList() {}
@@ -38,6 +31,22 @@ public class WasteList implements ReadOnlyAddressBook{
         this();
         resetData(toBeCopied);
     }
+
+    /**
+     * To initialize a waste list archive.
+     */
+    public static void initialiseWasteArchive() {
+        wasteArchive = new TreeMap<>();
+    }
+
+    /**
+     * Getter method for waste archive
+     * @return
+     */
+    public static TreeMap<WasteMonth, UniqueFoodList> getWasteArchive() {
+        return wasteArchive;
+    }
+
 
     //// Waste List overwrite options
 

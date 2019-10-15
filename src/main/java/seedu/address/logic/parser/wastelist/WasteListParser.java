@@ -14,6 +14,9 @@ import seedu.address.logic.commands.wastelist.ListWasteCommand;
 import seedu.address.logic.commands.wastelist.ReportWasteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Waste List Parser to parse the commands that pertains to the waste list.
+ */
 public class WasteListParser {
 
     /**

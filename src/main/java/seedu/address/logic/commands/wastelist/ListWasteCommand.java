@@ -11,6 +11,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.waste.WasteMonth;
 
+/**
+ * Lists Waste Command to list out all food waste in a given month.
+ */
 public class ListWasteCommand extends Command {
 
     public static final String COMMAND_WORD = "show";

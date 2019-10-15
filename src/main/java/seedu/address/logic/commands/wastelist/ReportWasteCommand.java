@@ -5,6 +5,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Generates a report of user's food waste for a specified time frame.
+ */
 public class ReportWasteCommand extends Command {
 
     public static final String COMMAND_WORD = "report";

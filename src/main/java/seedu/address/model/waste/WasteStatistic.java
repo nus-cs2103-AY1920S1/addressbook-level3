@@ -1,12 +1,14 @@
 package seedu.address.model.waste;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import seedu.address.model.food.Amount;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.model.food.UniqueFoodList;
 
+/**
+ * The WasteStatistic for given waste list.
+ */
 public class WasteStatistic {
 
     public static final float WEIGHTS_CURRENT_MONTH = 0.4f;
@@ -18,7 +20,7 @@ public class WasteStatistic {
     private float totalVolume;
     private float totalQuantity;
 
-    public WasteStatistic(float totalWeight, float totalVolume, float totalQuantity){
+    public WasteStatistic(float totalWeight, float totalVolume, float totalQuantity) {
         this.totalWeight = totalWeight;
         this.totalVolume = totalVolume;
         this.totalQuantity = totalQuantity;
@@ -60,7 +62,7 @@ public class WasteStatistic {
         LocalDate today = LocalDate.now();
         int daysPassed = today.getDayOfMonth();
         int daysInMonth = today.lengthOfMonth();
-        float scalingFactor = daysInMonth/daysPassed;
+        float scalingFactor = daysInMonth / daysPassed;
 
         WasteStatistic currentMonth = new WasteStatistic(weight * scalingFactor,
                 volume * scalingFactor, quantity * scalingFactor);
@@ -70,20 +72,17 @@ public class WasteStatistic {
 
     private WasteStatistic getWeightedStatistics(WasteStatistic currentMonth, WasteStatistic previousOneMonth,
                                                  WasteStatistic previousTwoMonth, WasteStatistic previousThreeMonth) {
-        float weightedWeight
-                = WEIGHTS_CURRENT_MONTH * currentMonth.getTotalWeight()
+        float weightedWeight = WEIGHTS_CURRENT_MONTH * currentMonth.getTotalWeight()
                 + WEIGHTS_PREVIOUS_ONE_MONTH * previousOneMonth.getTotalWeight()
                 + WEIGHTS_PREVIOUS_TWO_MONTH * previousTwoMonth.getTotalWeight()
                 + WEIGHTS_PREVIOUS_THREE_MONTH * previousThreeMonth.getTotalWeight();
 
-        float weightedVolume
-                = WEIGHTS_CURRENT_MONTH * currentMonth.getTotalVolume()
+        float weightedVolume = WEIGHTS_CURRENT_MONTH * currentMonth.getTotalVolume()
                 + WEIGHTS_PREVIOUS_ONE_MONTH * previousOneMonth.getTotalVolume()
                 + WEIGHTS_PREVIOUS_TWO_MONTH * previousTwoMonth.getTotalVolume()
                 + WEIGHTS_PREVIOUS_THREE_MONTH * previousThreeMonth.getTotalVolume();
 
-        float weightedUnit
-                = WEIGHTS_CURRENT_MONTH * currentMonth.getTotalQuantity()
+        float weightedUnit = WEIGHTS_CURRENT_MONTH * currentMonth.getTotalQuantity()
                 + WEIGHTS_PREVIOUS_ONE_MONTH * previousOneMonth.getTotalQuantity()
                 + WEIGHTS_PREVIOUS_TWO_MONTH * previousTwoMonth.getTotalQuantity()
                 + WEIGHTS_PREVIOUS_THREE_MONTH * previousThreeMonth.getTotalQuantity();
