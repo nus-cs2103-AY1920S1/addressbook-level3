@@ -29,10 +29,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.answerable.Answerable;
-import seedu.address.model.answerable.Category;
+import seedu.address.model.category.Category;
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.answerable.Question;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.AnswerableBuilder;
 
 public class AddCommandParserTest {
@@ -110,7 +109,7 @@ public class AddCommandParserTest {
 
         // invalid tag
         assertParseFailure(parser, QUESTION_DESC_BOB + DIFFICULTY_DESC_BOB + ADDRESS_DESC_BOB
-                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Category.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_QUESTION_DESC + DIFFICULTY_DESC_BOB + INVALID_ADDRESS_DESC,

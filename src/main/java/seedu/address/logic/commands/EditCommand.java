@@ -20,12 +20,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.answerable.Answer;
 import seedu.address.model.answerable.Answerable;
-import seedu.address.model.answerable.Category;
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.answerable.Mcq;
 import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Question;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 
 /**
  * Edits the details of an existing answerable in the test bank.
@@ -41,7 +40,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_QUESTION + "QUESTION] "
             + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
             + "[" + PREFIX_CATEGORY + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "category]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DIFFICULTY + "91234567 ";
 
@@ -95,12 +94,12 @@ public class EditCommand extends Command {
         Question updatedQuestion = editAnswerableDescriptor.getQuestion().orElse(answerableToEdit.getQuestion());
         AnswerSet updatedAnswerSet = editAnswerableDescriptor.getAnswerSet().orElse(answerableToEdit.getAnswerSet());
         Difficulty updatedDifficulty = editAnswerableDescriptor.getDifficulty().orElse(answerableToEdit.getDifficulty());
-        Category updatedCategory = editAnswerableDescriptor.getCategory().orElse(answerableToEdit.getCategory());
-        Set<Tag> updatedTags = editAnswerableDescriptor.getTags().orElse(answerableToEdit.getTags());
+        Set<Category> updatedCategories = editAnswerableDescriptor.getCategories().orElse(answerableToEdit.getCategories());
+
 
         AnswerSet mcqAnswer = (AnswerSet) updatedAnswerSet;
 
-        return new Mcq(updatedQuestion, mcqAnswer, updatedDifficulty, updatedCategory, updatedTags);
+        return new Mcq(updatedQuestion, mcqAnswer, updatedDifficulty, updatedCategories);
     }
 
     @Override
@@ -129,8 +128,7 @@ public class EditCommand extends Command {
         private Question question;
         private AnswerSet answerSet;
         private Difficulty difficulty;
-        private Category category;
-        private Set<Tag> tags;
+        private Set<Category> categories;
 
         public EditAnswerableDescriptor() {
             answerSet = new AnswerSet();
@@ -138,21 +136,20 @@ public class EditCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code cateogries} is used internally.
          */
         public EditAnswerableDescriptor(EditAnswerableDescriptor toCopy) {
             setQuestion(toCopy.question);
             setAnswerSet(toCopy.answerSet);
             setDifficulty(toCopy.difficulty);
-            setCategory(toCopy.category);
-            setTags(toCopy.tags);
+            setCategories(toCopy.categories);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(question, answerSet, difficulty, category, tags);
+            return CollectionUtil.isAnyNonNull(question, answerSet, difficulty, categories);
         }
 
         public void setQuestion(Question question) {
@@ -188,29 +185,18 @@ public class EditCommand extends Command {
             return Optional.ofNullable(difficulty);
         }
 
-        public void setCategory(Category category) {
-            this.category = category;
+        public void setCategories(Set<Category> categories) {
+            this.categories = (categories != null) ? new HashSet<>(categories) : null;
         }
 
-        public Optional<Category> getCategory() {
-            return Optional.ofNullable(category);
-        }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable category set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<Category>> getCategories() {
+            return (categories != null) ? Optional.of(Collections.unmodifiableSet(categories)) : Optional.empty();
         }
 
         @Override
@@ -231,8 +217,7 @@ public class EditCommand extends Command {
             return getQuestion().equals(e.getQuestion())
                     && getAnswerSet().equals(e.getAnswerSet())
                     && getDifficulty().equals(e.getDifficulty())
-                    && getCategory().equals(e.getCategory())
-                    && getTags().equals(e.getTags());
+                    && getCategories().equals(e.getCategories());
         }
     }
 }

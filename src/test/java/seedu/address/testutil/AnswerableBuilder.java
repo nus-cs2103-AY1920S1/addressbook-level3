@@ -6,12 +6,11 @@ import java.util.Set;
 
 import seedu.address.model.answerable.Answer;
 import seedu.address.model.answerable.Answerable;
-import seedu.address.model.answerable.Category;
+import seedu.address.model.category.Category;
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.answerable.Mcq;
 import seedu.address.model.answerable.AnswerSet;
 import seedu.address.model.answerable.Question;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -19,9 +18,9 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class AnswerableBuilder {
 
-    public static final String DEFAULT_QUESTION = "Is this a question?";
+    public static final String DEFAULT_QUESTION = "Greenfield projects are easier than greenfield projects";
     public static final String DEFAULT_DIFFICULTY = "1";
-    public static final String DEFAULT_CATEGORY = "UML";
+    public static final String DEFAULT_CATEGORY = "brownfield";
     private static final Answer correctAnswer = new Answer("CORRECT");
     private static final Set<Answer> correctAnswerSet = new HashSet<>(Arrays.asList(correctAnswer));
     private static final Answer wrongAnswer = new Answer("WRONG");
@@ -32,16 +31,14 @@ public class AnswerableBuilder {
     //TODO: Implement Answerable
     private AnswerSet answer;
     private Difficulty difficulty;
-    private Category category;
-    private Set<Tag> tags;
+    private Set<Category> categories;
 
     public AnswerableBuilder() {
         question = new Question(DEFAULT_QUESTION);
         //TODO: Implement Answerable
         answer = defaultAnswerSet;
         difficulty = new Difficulty(DEFAULT_DIFFICULTY);
-        category = new Category(DEFAULT_CATEGORY);
-        tags = new HashSet<>();
+        categories = new HashSet<>();
     }
 
     /**
@@ -50,10 +47,9 @@ public class AnswerableBuilder {
     public AnswerableBuilder(Answerable answerableToCopy) {
         question = answerableToCopy.getQuestion();
         //TODO: Implement Answerable
-        answer = (AnswerSet) answerableToCopy.getAnswerSet();
+        answer = answerableToCopy.getAnswerSet();
         difficulty = answerableToCopy.getDifficulty();
-        category = answerableToCopy.getCategory();
-        tags = new HashSet<>(answerableToCopy.getTags());
+        categories = new HashSet<>(answerableToCopy.getCategories());
     }
 
     /**
@@ -77,7 +73,7 @@ public class AnswerableBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Answerable} that we are building.
      */
     public AnswerableBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.categories = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -99,7 +95,7 @@ public class AnswerableBuilder {
 
     public Answerable build() {
         //TODO: Implement Answerable
-        return new Mcq(question, answer, difficulty, category, tags);
+        return new Mcq(question, answer, difficulty, categories);
     }
 
 }

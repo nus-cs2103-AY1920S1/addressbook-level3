@@ -1,9 +1,10 @@
-package seedu.address.model.answerable;
+package seedu.address.model.answerable.predicates;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.answerable.Answerable;
 
 /**
  * Tests that a {@code Answerable}'s {@code Question} matches any of the keywords given.

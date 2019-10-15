@@ -34,10 +34,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditAnswerableDescriptor;
-import seedu.address.model.answerable.Category;
 import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.answerable.Question;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 import seedu.address.testutil.EditAnswerableDescriptorBuilder;
 
 public class EditCommandParserTest {
