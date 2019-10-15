@@ -5,14 +5,14 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Transaction> PREDICATE_SHOW_ALL_TRANSACTIONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -35,53 +35,54 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' bank account file path.
      */
-    Path getAddressBookFilePath();
+    Path getBankAccountFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' bank account file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setBankAccountFilePath(Path bankAccountFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces bank account data with the data in {@code bankAccount}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setBankAccount(ReadOnlyBankAccount bankAccount);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the BankAccount*/
+    ReadOnlyBankAccount getBankAccount();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a transaction with the same identity as {@code transaction} exists in the bank account.
      */
-    boolean hasPerson(Person person);
+    boolean hasTransaction(Transaction transaction);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given transaction.
+     * The transaction must exist in the bank account.
      */
-    void deletePerson(Person target);
+    void deleteTransaction(Transaction transaction);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Replaces the given transaction {@code target} with {@code editedTransaction}.
+     * {@code target} must exist in the bank account.
+     * The transaction identity of {@code editedTransaction} must not be
+     * the same as another existing transaction in the bank account.
      */
-    void addPerson(Person person);
+    void setTransaction(Transaction target, Transaction editedTransaction);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Adds the given transaction.
+     * {@code transaction} must not already exist in the bank account.
      */
-    void setPerson(Person target, Person editedPerson);
+    void addTransaction(Transaction transaction);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered transaction list */
+    ObservableList<Transaction> getFilteredTransactionList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredTransactionList(Predicate<Transaction> predicate);
 }

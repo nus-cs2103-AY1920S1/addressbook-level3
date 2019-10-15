@@ -1,32 +1,26 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
-
-import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+
+import seedu.address.model.BankAccount;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.transaction.Transaction;
 
 public class AddCommandTest {
 
+    // TODO: Refactor into InCommandTest
+    /*
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullTransaction_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
@@ -73,6 +67,7 @@ public class AddCommandTest {
         // different person -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
+     */
 
     /**
      * A default model stub that have all of the methods failing.
@@ -99,95 +94,95 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getBankAccountFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setBankAccountFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addTransaction(Transaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setBankAccount(ReadOnlyBankAccount newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyBankAccount getBankAccount() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasTransaction(Transaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteTransaction(Transaction target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setTransaction(Transaction target, Transaction editedTransaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Transaction> getFilteredTransactionList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single transaction.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithTransaction extends ModelStub {
+        private final Transaction transaction;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithTransaction(Transaction transaction) {
+            requireNonNull(transaction);
+            this.transaction = transaction;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasTransaction(Transaction transaction) {
+            requireNonNull(transaction);
+            return this.transaction.isSameTransaction(transaction);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the transaction being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingTransactionAdded extends ModelStub {
+        final ArrayList<Transaction> transactionsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasTransaction(Transaction transaction) {
+            requireNonNull(transaction);
+            return transactionsAdded.stream().anyMatch(transaction::isSameTransaction);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addTransaction(Transaction transaction) {
+            requireNonNull(transaction);
+            transactionsAdded.add(transaction);
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyBankAccount getBankAccount() {
+            return new BankAccount();
         }
     }
 
