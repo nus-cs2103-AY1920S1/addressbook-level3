@@ -52,7 +52,7 @@ public class UniqueMemberList implements Iterable<Member> {
      * {@code target} must exist in the list.
      * The task identity of {@code editedTask} must not be the same as another existing task in the list.
      */
-    public void setTask(Member target, Member editedMember) {
+    public void setMember(Member target, Member editedMember) {
         requireAllNonNull(target, editedMember);
 
         int index = internalList.indexOf(target);
@@ -78,7 +78,7 @@ public class UniqueMemberList implements Iterable<Member> {
         }
     }
 
-    public void setTasks(UniqueMemberList replacement) {
+    public void setMembers(UniqueMemberList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -87,7 +87,7 @@ public class UniqueMemberList implements Iterable<Member> {
      * Replaces the contents of this list with {@code tasks}.
      * {@code tasks} must not contain duplicate tasks.
      */
-    public void setTasks(List<Member> members) {
+    public void setMembers(List<Member> members) {
         requireAllNonNull(members);
         if (!tasksAreUnique(members)) {
             throw new DuplicateMemberException();
