@@ -36,6 +36,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditContactCommand.EditContactDescriptor;
+import seedu.address.model.contact.Email;
+import seedu.address.model.contact.Phone;
+import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditContactDescriptorBuilder;
@@ -162,19 +165,19 @@ public class EditContactCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
+        userInput = EditContactCommand.SECOND_COMMAND_WORD + " " + targetIndex.getOneBased() + EMAIL_DESC_AMY;
         descriptor = new EditContactDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
         expectedCommand = new EditContactCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // address
-        userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
+        userInput = EditContactCommand.SECOND_COMMAND_WORD + " " + targetIndex.getOneBased() + ADDRESS_DESC_AMY;
         descriptor = new EditContactDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
         expectedCommand = new EditContactCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
-        userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
+        userInput = EditContactCommand.SECOND_COMMAND_WORD + " " + targetIndex.getOneBased() + TAG_DESC_FRIEND;
         descriptor = new EditContactDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
         expectedCommand = new EditContactCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand.EditContactDescriptor;
+import seedu.address.logic.commands.EditContactCommand.EditContactDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Planner;
@@ -37,8 +37,8 @@ public class EditContactCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Contact editedPerson = new ContactBuilder().build();
-        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedPerson).build();
+        Contact editedContact = new ContactBuilder().build();
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
         EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST_CONTACT, descriptor);
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
@@ -72,7 +72,8 @@ public class EditContactCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditContactCommand editContactCommand = new EditCommand(INDEX_FIRST_CONTACT, new EditContactDescriptor());
+        EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST_CONTACT,
+                new EditContactDescriptor());
         Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS, editedContact);
@@ -123,7 +124,8 @@ public class EditContactCommandTest {
     @Test
     public void execute_invalidContactIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
-        EditContactCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditContactCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder()
+                .withName(VALID_NAME_BOB)
                 .build();
         EditContactCommand editContactCommand = new EditContactCommand(outOfBoundIndex, descriptor);
 
@@ -141,7 +143,7 @@ public class EditContactCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getPlanner().getContactList().size());
 
-        EditContactCommand editContactCommand = new EditCommand(outOfBoundIndex,
+        EditContactCommand editContactCommand = new EditContactCommand(outOfBoundIndex,
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editContactCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
@@ -153,7 +155,7 @@ public class EditContactCommandTest {
 
         // same values -> returns true
         EditContactDescriptor copyDescriptor = new EditContactDescriptor(DESC_AMY);
-        EditContactCommand commandWithSameValues = new EditCommand(INDEX_FIRST_CONTACT, copyDescriptor);
+        EditContactCommand commandWithSameValues = new EditContactCommand(INDEX_FIRST_CONTACT, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true

@@ -116,7 +116,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                     pe);
         }
 
-        return new EditActivityCommand(index, editContactDescriptor);
+        return new EditActivityCommand(index);
     }
 
     /**
