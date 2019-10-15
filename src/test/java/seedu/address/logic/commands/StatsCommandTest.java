@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalSpendings.DANIEL;
 import static seedu.address.testutil.TypicalSpendings.ELLE;
 import static seedu.address.testutil.TypicalSpendings.FIONA;
 import static seedu.address.testutil.TypicalSpendings.GEORGE;
+import static seedu.address.testutil.TypicalSpendings.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,10 +28,10 @@ class StatsCommandTest {
     public void execute_displayStatsForAll_success() {
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-        double totalCost = Double.parseDouble(ALICE.getPhone().toString()) + Double.parseDouble(BENSON.getPhone().toString())
-            + Double.parseDouble(CARL.getPhone().toString()) + Double.parseDouble(DANIEL.getPhone().toString())
-            + Double.parseDouble(ELLE.getPhone().toString()) + Double.parseDouble(FIONA.getPhone().toString())
-            + Double.parseDouble(GEORGE.getPhone().toString());
+        double totalCost = Double.parseDouble(ALICE.getPhone().toString())
+            + Double.parseDouble(BENSON.getPhone().toString()) + Double.parseDouble(CARL.getPhone().toString())
+            + Double.parseDouble(DANIEL.getPhone().toString()) + Double.parseDouble(ELLE.getPhone().toString())
+            + Double.parseDouble(FIONA.getPhone().toString()) + Double.parseDouble(GEORGE.getPhone().toString());
 
         String expectedMessage = StatsCommand.MESSAGE_SUCCESS + "\nTotal Cost: $" + String.format("%.2f", totalCost);
         System.out.println(expectedMessage);

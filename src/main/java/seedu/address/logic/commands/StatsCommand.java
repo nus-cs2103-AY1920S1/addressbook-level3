@@ -22,7 +22,7 @@ public class StatsCommand extends Command {
         List<Spending> lastShownList = model.getFilteredSpendingList();
 
         double totalCost = 0;
-        for (Spending i: lastShownList){
+        for (Spending i: lastShownList) {
             totalCost += Double.parseDouble(i.getPhone().toString());
         }
 
