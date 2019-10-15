@@ -15,6 +15,7 @@ import seedu.savenus.logic.parser.MenuParser;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
+import seedu.savenus.model.info.AddInfo;
 
 /**
  * Contains tests for {@code InfoCommand}
@@ -109,5 +110,17 @@ public class InfoCommandTest {
     @Test
     public void constructor_invalidCommand_throwsCommandException() {
         assertThrows(CommandException.class, () -> new InfoCommand(INVALID_COMMAND).execute(model));
+    }
+
+    @Test
+    public void getInput_success() {
+        InfoCommand infoCommand = new InfoCommand("Input");
+        assertTrue(infoCommand.getInput().equals("Input"));
+    }
+
+    @Test
+    public void execute_correctReturn() throws CommandException {
+        InfoCommand addInfoCommand = new InfoCommand(VALID_COMMAND);
+        assertEquals(new CommandResult(InfoCommand.ADD_INFO), addInfoCommand.execute(model));
     }
 }
