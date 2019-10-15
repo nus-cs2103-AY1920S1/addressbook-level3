@@ -382,7 +382,7 @@ User Stories up to v2.0 (coming soon!)
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a/an … |I want to … |So that I can…
-|`* *` |admin |send an automated email to the involved student once I
+|`* *` |admin |send an automated prevMods to the involved student once I
 resolve an appeal |alert them to the appeal outcomne easily and quickly
 
 |`* *` |admin |encrypt all data when writing them back to disk |ensure
@@ -391,7 +391,7 @@ security in handling sensitive student information under privacy laws
 |`* *` |admin |mass approve and reject |Approve and reject multiple
 appeals with one command
 
-|`* *` |admin |send short messages/emails to lecturers/other admin staff
+|`* *` |admin |send short messages/prevModss to lecturers/other admin staff
 |consult them for further information that may be needed for appeal
 resolution
 

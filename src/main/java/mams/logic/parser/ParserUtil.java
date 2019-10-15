@@ -10,9 +10,9 @@ import mams.commons.core.index.Index;
 import mams.commons.util.StringUtil;
 import mams.logic.parser.exceptions.ParseException;
 import mams.model.student.Credits;
-import mams.model.student.Email;
 import mams.model.student.MatricId;
 import mams.model.student.Name;
+import mams.model.student.PrevMods;
 import mams.model.tag.Tag;
 
 /**
@@ -81,18 +81,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String prevMods} into an {@code PrevMods}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code prevMods} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static PrevMods parsePrevMods(String prevMods) throws ParseException {
+        requireNonNull(prevMods);
+        String trimmedPrevMods = prevMods.trim();
+        if (!PrevMods.isValidPrevMods(trimmedPrevMods)) {
+            throw new ParseException(PrevMods.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new PrevMods(trimmedPrevMods);
     }
 
     /**
