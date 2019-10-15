@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the status (PAID/UNPAID) of a Loan.
- * Guarantees: immutable; valid as declared in {@link #isValidStatus(String)}
+ * Guarantees: immutable
  */
 public enum Status {
     PAID("PAID"),
@@ -22,18 +22,7 @@ public enum Status {
      */
     Status(String status) {
         requireNonNull(status);
-        checkArgument(isValidStatus(status), MESSAGE_CONSTRAINTS);
         this.status = status;
-    }
-
-    /**
-     * Returns true if the given string is a valid status.
-     * @param testStatus The string to test for validity.
-     * @return True if valid (string is "PAID" or "UNPAID"), false otherwise.
-     */
-    public static boolean isValidStatus(String testStatus) {
-        return testStatus.equals(PAID.toString())
-                || testStatus.equals(UNPAID.toString());
     }
 
     /**
@@ -42,7 +31,7 @@ public enum Status {
      */
     public String getStatusIcon() {
         // PAID: tick icon; UNPAID: blank space
-        return status.equals(PAID.toString()) ? "\u2713" : " ";
+        return status.equals(PAID.toString()) ? "\u2713" : "\u2718";
     }
 
     @Override

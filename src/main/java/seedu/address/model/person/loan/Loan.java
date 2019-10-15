@@ -107,8 +107,10 @@ public class Loan {
                 .append(getAmount()).append(" ")
                 .append(directionWithFunctionWord)
                 .append(getPerson().getName()).append(divider)
-                .append(getDate()).append(divider)
-                .append(getDescription()).append(divider);
+                .append(getDate());
+        if (!description.description.isBlank()) {
+            builder.append(divider).append(getDescription());
+        }
         return builder.toString();
     }
 }

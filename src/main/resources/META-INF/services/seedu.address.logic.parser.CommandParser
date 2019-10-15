@@ -6,3 +6,4 @@ seedu.address.logic.parser.commandparsers.ExitCommandParser
 seedu.address.logic.parser.commandparsers.FindCommandParser
 seedu.address.logic.parser.commandparsers.HelpCommandParser
 seedu.address.logic.parser.commandparsers.ListCommandParser
+seedu.address.logic.parser.commandparsers.loancommandparsers.AddLoanCommandParser

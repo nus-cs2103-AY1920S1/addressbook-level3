@@ -22,14 +22,14 @@ public class AddLoanCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a loan.\n"
             + "Parameters: "
             + "out|in "
-            + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_PERSON + "PERSON "
-            + PREFIX_DESCRIPTION + "DESCRIPTION "
+            + PREFIX_AMOUNT + "AMOUNT "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_DATE + "DATE] \n"
             + "Example: " + COMMAND_WORD + " "
             + "out "
-            + PREFIX_AMOUNT + "4.20 "
             + PREFIX_PERSON + "John Doe "
+            + PREFIX_AMOUNT + "4.20 "
             + PREFIX_DESCRIPTION + "Weed money. "
             + PREFIX_DATE + "4/12/2020";
 

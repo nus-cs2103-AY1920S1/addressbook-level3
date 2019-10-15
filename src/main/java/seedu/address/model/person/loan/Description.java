@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Description {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Description cannot be only whitespaces or over 140 characters long.";
+            "Description cannot be over 140 characters long.";
     public static final long MAX_DESCRIPTION_LENGTH = 140;
 
     public final String description;
@@ -28,11 +28,10 @@ public class Description {
     /**
      * Returns true if the given string is a valid description.
      * @param testDescription The string to test for validity.
-     * @return True if valid (not whitespace and <= 140 characters), false otherwise.
+     * @return True if valid (at most 140 characters), false otherwise.
      */
     public static boolean isValidDescription(String testDescription) {
-        return testDescription.trim().length() > 0
-                && testDescription.length() <= MAX_DESCRIPTION_LENGTH;
+        return testDescription.length() <= MAX_DESCRIPTION_LENGTH;
     }
 
     @Override

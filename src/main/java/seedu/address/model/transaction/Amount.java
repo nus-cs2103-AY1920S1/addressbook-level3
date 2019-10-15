@@ -34,7 +34,10 @@ public class Amount {
 
     @Override
     public String toString() {
-        return Long.toString(amount);
+        String dollars = Long.toString(amount / 100);
+        String cents = Long.toString(amount % 100);
+
+        return String.format("%s.%s", dollars, cents);
     }
 
     @Override

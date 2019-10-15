@@ -13,6 +13,11 @@ public class Date {
     }
 
     @Override
+    public String toString() {
+        return date;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
