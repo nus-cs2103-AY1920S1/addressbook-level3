@@ -1,5 +1,7 @@
 package seedu.address.reimbursement.ui;
 
+import static seedu.address.reimbursement.model.Reimbursement.DATE_TIME_FORMATTER;
+
 import java.util.logging.Logger;
 
 import seedu.address.person.commons.core.LogsCenter;
@@ -15,11 +17,11 @@ public class ReimbursementMessages {
     public static final String SORT_BY_DEADLINE = "The reimbursement list has been sorted by deadline of the "
             + "reimbursement.";
     public static final String NO_SUCH_COMMAND = "Sorry! Please type with these commands:\n"
-            + "deadline done find sortname sortamount sortdeadline";
+            + "deadline done find list sortname sortamount sortdeadline";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Sorry! Please type with these parameters:\n"
-            + "p/PERSON\n dt/DATE (yyyymmdd. eg.20191007, 20200501 etc)";
+            + "p/PERSON\n dt/DATE (eg.02-Sep-2019)";
     public static final String MESSAGE_INVALID_DEADLINECOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
-            + "deadline p/PERSON\n dt/DATE (yyyymmdd. eg.20191007, 20200501 etc)";
+            + "deadline p/PERSON\n dt/DATE (eg.02-Sep-2019)";
     public static final String MESSAGE_INVALID_DONECOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
             + "done p/PERSON";
     public static final String MESSAGE_INVALID_LISTCOMMAND_FORMAT = "Sorry! Please type with parameters:\n"
@@ -48,7 +50,7 @@ public class ReimbursementMessages {
      * @return a message describing the new deadline and reimbursement to the user.
      */
     public static String addDeadline(Reimbursement rmb) {
-        String msg = "Added " + rmb.getDeadline().toString() + " to" + System.lineSeparator();
+        String msg = "Added deadline " + rmb.getDeadline().format(DATE_TIME_FORMATTER) + " to" + System.lineSeparator();
         msg = msg + rmb.toStringNoDeadline();
         return msg;
     }

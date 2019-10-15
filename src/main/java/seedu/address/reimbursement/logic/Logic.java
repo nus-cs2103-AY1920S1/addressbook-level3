@@ -11,8 +11,6 @@ public interface Logic {
     CommandResult execute(String commandText) throws Exception;
 
     //get list
-    ReimbursementList getReimbursementList();
-
     ReimbursementList getFilteredList();
 
 }

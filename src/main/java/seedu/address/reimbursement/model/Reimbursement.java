@@ -1,12 +1,13 @@
 package seedu.address.reimbursement.model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import java.util.logging.Logger;
 
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
-import seedu.address.reimbursement.model.util.Deadline;
 import seedu.address.reimbursement.model.util.Description;
 import seedu.address.transaction.model.Transaction;
 
@@ -14,13 +15,15 @@ import seedu.address.transaction.model.Transaction;
  * Reimbursement class. Stores data of the reimbursement to be made.
  */
 public class Reimbursement {
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
     private static final String VB = " | ";
     private final Logger logger = LogsCenter.getLogger(getClass());
     private ArrayList<Transaction> list;
     private Person person;
     private double amount;
     private Description description;
-    private Deadline deadline;
+    private LocalDate deadline;
+    //private Deadline deadline;
     //for UI display
     private String idCol;
     private String personCol;
@@ -40,7 +43,7 @@ public class Reimbursement {
         amount = trans.getAmount();
         person = trans.getPerson();
         description = new Description(list);
-        deadline = new Deadline();
+        deadline = null;
     }
 
     //get functions
@@ -56,10 +59,9 @@ public class Reimbursement {
         return amount;
     }
 
-    public Deadline getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
-
 
     /**
      * Calculates the total amount to reimburse based off the transaction list.
@@ -91,24 +93,8 @@ public class Reimbursement {
      *
      * @param date
      */
-    public void addDeadline(String date) {
-        int year = Integer.parseInt(date.substring(0, 4));
-        int month = Integer.parseInt(date.substring(4, 6));
-        int day = Integer.parseInt(date.substring(6, 8));
-        deadline = new Deadline(year, month, day);
-    }
-
-    /**
-     * Used for loading off the file. If no date is specified, create an empty deadline (no deadline).
-     *
-     * @param date The date of the deadline.
-     */
-    public void matchDeadline(String date) {
-        if (date.length() == 8) {
-            this.addDeadline(date);
-        } else {
-            deadline = new Deadline();
-        }
+    public void addDeadline(LocalDate date) {
+        this.deadline = date;
     }
 
     /**
@@ -165,23 +151,32 @@ public class Reimbursement {
     }
 
     public void setDeadlineCol() {
-        this.deadlineCol = deadline.toString();
+        if (deadline == null) {
+            this.deadlineCol = "";
+        } else {
+            this.deadlineCol = deadline.format(DATE_TIME_FORMATTER);
+        }
     }
 
     //For Storage and display
     public String toString() {
-        return person.getName() + " " + amount + deadline.toString() + System.lineSeparator() + description.toString();
+        return person.getName() + " $" + amount + deadline.format(DATE_TIME_FORMATTER) + System.lineSeparator() + description.toString();
     }
 
     public String toStringNoDeadline() {
-        return person.getName() + " " + amount + System.lineSeparator() + description.toString();
+        return person.getName() + " $" + amount + System.lineSeparator() + description.toString();
     }
 
     /**
      * @return a string for use when saving to file.
      */
     public String writeIntoFile() {
-        String msg = this.person.getName() + VB + this.amount + VB + this.deadline.toString();
+        String msg = "";
+        if (deadline == null) {
+            msg = this.person.getName() + VB + this.amount + VB + "";
+        } else {
+            msg = this.person.getName() + VB + this.amount + VB + this.deadline.format(DATE_TIME_FORMATTER);
+        }
         return msg;
     }
 

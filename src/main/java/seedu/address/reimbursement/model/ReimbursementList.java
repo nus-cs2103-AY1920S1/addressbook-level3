@@ -1,5 +1,6 @@
 package seedu.address.reimbursement.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,6 +17,7 @@ import seedu.address.transaction.util.TransactionList;
  * functionality to sort them.
  */
 public class ReimbursementList {
+
     private ArrayList<Reimbursement> list;
 
     public ReimbursementList() {
@@ -116,16 +118,9 @@ public class ReimbursementList {
         return rmb;
     }
 
-    /**
-     * adds deadline to the reimbursement for the person in the list.
-     *
-     * @param person
-     * @param date
-     * @throws NoSuchPersonReimbursementException
-     */
-    public void addDeadline(Person person, String date) throws NoSuchPersonReimbursementException {
+    public void addDeadline(Person person, LocalDate deadline) throws NoSuchPersonReimbursementException {
         Reimbursement rmb = findReimbursement(person);
-        rmb.addDeadline(date);
+        rmb.addDeadline(deadline);
     }
 
 

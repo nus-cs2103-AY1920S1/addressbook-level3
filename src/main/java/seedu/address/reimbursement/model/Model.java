@@ -1,5 +1,7 @@
 package seedu.address.reimbursement.model;
 
+import java.time.LocalDate;
+
 import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.transaction.util.TransactionList;
@@ -15,14 +17,14 @@ public interface Model {
 
     void listReimbursement();
 
-    void updateReimbursementList(TransactionList transList);
+    void updateReimbursementList(ReimbursementList reimbursementList);
 
     //single reimbursement operation
     Reimbursement findReimbursement(Person person) throws NoSuchPersonReimbursementException;
 
     Reimbursement doneReimbursement(Person person) throws NoSuchPersonReimbursementException;
 
-    Reimbursement addDeadline(Person person, String date) throws Exception;
+    Reimbursement addDeadline(Person person, LocalDate deadline) throws Exception;
 
     //sort operation
     void sortListByName();

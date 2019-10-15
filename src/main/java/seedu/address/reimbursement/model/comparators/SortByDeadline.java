@@ -9,6 +9,12 @@ import seedu.address.reimbursement.model.Reimbursement;
  */
 public class SortByDeadline implements Comparator<Reimbursement> {
     public int compare(Reimbursement a, Reimbursement b) {
+        if(a.getDeadline() == null) {
+            return 1;
+        }
+        if(b.getDeadline() == null) {
+            return -1;
+        }
         return a.getDeadline().compareTo(b.getDeadline());
     }
 }
