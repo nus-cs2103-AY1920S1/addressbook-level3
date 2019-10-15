@@ -10,10 +10,10 @@ import seedu.address.model.tag.UserTag;
 public class TagBuilder {
 
     /**
-     * Builds a UserTag with the name "testTag".
+     * Builds a UserTag with the name "testUserTag".
      */
-    public static UserTag buildUserTag() {
-        return new UserTag("testTag");
+    public static UserTag buildTestUserTag() {
+        return new UserTag("testUserTag");
     }
 
     /**
@@ -26,8 +26,15 @@ public class TagBuilder {
     /**
      * Builds a DefaultTag of type CORE.
      */
-    public static DefaultTag buildDefaultTag() {
+    public static DefaultTag buildDefaultCoreTag() {
         return new DefaultTag(DefaultTagType.CORE);
+    }
+
+    /**
+     * Builds a DefaultTag of the given DefaultTagType
+     */
+    public static DefaultTag buildDefaultTag(DefaultTagType defaultTagType) {
+        return new DefaultTag(defaultTagType);
     }
 
 }

@@ -5,15 +5,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.HashMap;
-import java.util.Set;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -36,7 +32,6 @@ public class TagModuleCommand extends Command {
     public static final String MESSAGE_SUCCESS_TAG_ADDED = "New tag created: %1$s \n" + "Tag added to module \n%2$s";
     public static final String MESSAGE_SUCCESS = "Tag added to module \n%1$s";
     public static final String MESSAGE_EXISTING_TAG = "This tag is already attached to this module";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "The provided module code is invalid";
 
     private final String tagName;
     private final String moduleCode;
@@ -61,12 +56,7 @@ public class TagModuleCommand extends Command {
         UniqueTagList uniqueTagList = activeStudyPlan.getTags();
 
         Tag toAdd = getTagToAdd(uniqueTagList);
-        Module module;
-        try {
-            module = getTargetModule(activeStudyPlan);
-        } catch (ModuleNotFoundException exception) {
-            throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
-        }
+        Module module = activeStudyPlan.getModules().get(moduleCode);
 
         if (moduleContainsTag(module, toAdd)) {
             throw new CommandException(MESSAGE_EXISTING_TAG);
@@ -85,25 +75,13 @@ public class TagModuleCommand extends Command {
         return module.getTags().contains(tag);
     }
 
-    private Module getTargetModule(StudyPlan activeStudyPlan) throws ModuleNotFoundException {
-        HashMap<String, Module> moduleHashMap = activeStudyPlan.getModules();
-        Set<String> moduleNames = moduleHashMap.keySet();
-        for (String moduleName : moduleNames) {
-            Module currentModule = moduleHashMap.get(moduleName);
-            if (currentModule.getModuleCode().toString().equals(moduleCode)) {
-                return currentModule;
-            }
-        }
-        throw new ModuleNotFoundException();
-    }
-
     private Tag getTagToAdd(UniqueTagList uniqueTagList) {
-        boolean tagExists = uniqueTagList.getMapTags().containsKey(tagName);
+        boolean tagExists = uniqueTagList.containsTagWithName(tagName);
         Tag toAdd;
         if (!tagExists) {
             toAdd = createNewTag(tagName, uniqueTagList);
         } else {
-            Tag existingTag = uniqueTagList.getMapTags().get(tagName);
+            Tag existingTag = uniqueTagList.getTag(tagName);
             toAdd = existingTag;
         }
         return toAdd;

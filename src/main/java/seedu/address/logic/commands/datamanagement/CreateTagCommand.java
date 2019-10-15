@@ -51,7 +51,7 @@ public class CreateTagCommand extends Command {
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
         UniqueTagList uniqueTagList = activeStudyPlan.getTags();
 
-        if (uniqueTagList.getMapTags().containsKey(tagName)) {
+        if (uniqueTagList.containsTagWithName(tagName)) {
             throw new CommandException(MESSAGE_DUPLICATE_TAG);
         }
 
