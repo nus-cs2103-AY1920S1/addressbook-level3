@@ -46,6 +46,9 @@ public class PlanCard extends UiPart<Region> {
         formatTasks(plan);
     }
 
+    /**
+     * Constructs labels from tasks in {@code plan}.
+     */
     private void formatTasks(Plan plan) {
         plan.getTasks().stream()
                 .sorted(Comparator.comparing(Task::getDateTime))
