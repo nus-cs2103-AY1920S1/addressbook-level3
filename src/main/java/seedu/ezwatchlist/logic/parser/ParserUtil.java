@@ -137,4 +137,10 @@ public class ParserUtil {
         }
         return actorSet;
     }
+
+    public static String parseType(String type) {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        return type;
+    }
 }
