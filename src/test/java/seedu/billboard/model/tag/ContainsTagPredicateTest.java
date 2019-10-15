@@ -54,7 +54,7 @@ public class ContainsTagPredicateTest {
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
+    public void test_tagDoesNotContainTagNames_returnsFalse() {
         //empty tag name
         ContainsTagPredicate predicate = new ContainsTagPredicate(Collections.emptyList());
         assertFalse(predicate.test(new ExpenseBuilder().withTags("school").build()));
