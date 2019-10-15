@@ -18,6 +18,7 @@ public class AddMemberCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a member to the address book. "
             + "Parameters: "
             + PREFIX_MEMBER_NAME + "NAME "
+            + "[" + PREFIX_MEMBER_ID + "ID"
             + "[" + PREFIX_MEMBER_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MEMBER_NAME + "John Doe "
