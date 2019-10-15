@@ -125,7 +125,7 @@ public class Mark implements ReadOnlyMark {
     }
 
     public void applyAllTaggers() {
-        autotagController.applyTaggersToList(getBookmarkList());
+        setBookmarks(autotagController.applyTaggersToList(getBookmarkList()));
     }
 
     //// util methods

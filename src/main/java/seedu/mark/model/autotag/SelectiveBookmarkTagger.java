@@ -40,4 +40,10 @@ public class SelectiveBookmarkTagger extends BookmarkTagger {
                 && getTagToApply().equals(((SelectiveBookmarkTagger) other).getTagToApply())
                 && predicate.equals(((SelectiveBookmarkTagger) other).getPredicate())); // state check
     }
+
+    @Override
+    public String toString() {
+        return "Tagger: Applies the tag " + getTagToApply().toString() + " to bookmarks";
+        // TODO: Make a better toString()
+    }
 }
