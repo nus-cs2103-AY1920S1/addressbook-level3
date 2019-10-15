@@ -14,7 +14,7 @@ public class CommandHistory {
     private Deque<UndoableCommand> history;
 
     public CommandHistory() {
-        history = new LinkedList<UndoableCommand>();
+        history = new LinkedList<>();
     }
 
     /**
@@ -24,9 +24,8 @@ public class CommandHistory {
     public void addExecutedCommand(UndoableCommand command) {
         if (history.size() >= MAX_SIZE) {
             history.pollLast();
-        } else {
-            history.push(command);
         }
+        history.push(command);
     }
 
     /**

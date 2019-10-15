@@ -45,7 +45,6 @@ import seedu.address.model.entity.worker.Worker;
 public class UpdateCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "update";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Updates the details of a body, worker, or fridge, identified "
             + "by the identification number that was automatically assigned to the entity. "
@@ -83,11 +82,8 @@ public class UpdateCommand extends UndoableCommand {
             + PREFIX_NAME + " Jane Cthulhu";
 
     public static final String MESSAGE_UPDATE_ENTITY_SUCCESS = "Edited Entity: %1$s";
-    public static final String MESSAGE_UNDO_SUCCESS = "Undid updates to entity: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_ENTITY_NOT_FOUND = "The entity with the specified identification number"
-            + "was not found.";
-
+    public static final String MESSAGE_UNDO_SUCCESS = "Undid updates to entity: %1$s";
 
     private final IdentificationNumber id;
     private final UpdateEntityDescriptor updateEntityDescriptor;
@@ -157,7 +153,7 @@ public class UpdateCommand extends UndoableCommand {
     }
 
     /**
-     * Undoes the effects of this command. Only can be executed if this command was previously executed before.
+     * Undoes the effects of the UpdateCommand. Only can be executed if this command was previously executed before.
      * @return result of undoing the command.
      */
     @Override

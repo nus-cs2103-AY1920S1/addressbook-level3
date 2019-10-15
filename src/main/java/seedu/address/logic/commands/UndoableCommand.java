@@ -17,9 +17,12 @@ public abstract class UndoableCommand extends Command {
         UNDOABLE, REDOABLE, PRE_EXECUTION
     }
 
+    public static final String MESSAGE_ENTITY_NOT_FOUND = "The entity with the specified identification number"
+            + "was not found.";
     public static final String MESSAGE_NOT_EXECUTED_BEFORE = "Command cannot be undone before it is "
             + "successfully executed.";
     public static final String MESSAGE_NOT_UNDONE_BEFORE = "Command cannot be redone before it is successfully undone!";
+
 
     private UndoableCommandState commandState = UndoableCommandState.PRE_EXECUTION;
 
