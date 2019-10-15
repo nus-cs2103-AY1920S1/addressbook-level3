@@ -17,6 +17,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
  */
 
+import seedu.address.logic.commands.datamanagement.FindCommand;
 import seedu.address.model.studyplan.NameContainsKeywordsPredicate;
 
 /**

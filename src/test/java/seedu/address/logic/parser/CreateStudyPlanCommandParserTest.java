@@ -40,7 +40,7 @@ public class CreateStudyPlanCommandParserTest {
 
     // TODO modify tests
 
-    private CreateStudyPlanCommandParser parser = new CreateStudyPlanCommandParser();
+    //private CreateStudyPlanCommandParser parser = new CreateStudyPlanCommandParser();
 
     /*
     @Test

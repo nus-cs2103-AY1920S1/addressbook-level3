@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 */
 //import seedu.address.commons.core.index.Index;
 
-import seedu.address.logic.commands.EditTitleCommand;
+//import seedu.address.logic.commands.EditTitleCommand;
 //import seedu.address.logic.commands.EditTitleCommand.EditTitleStudyPlanDescriptor;
 //import seedu.address.model.tag.UserTag;
 //import seedu.address.testutil.EditTitleStudyPlanDescriptorBuilder;
@@ -47,11 +47,12 @@ public class EditTitleCommandParserTest {
 
     //private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
+    /*
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTitleCommand.MESSAGE_USAGE);
 
     private EditTitleCommandParser parser = new EditTitleCommandParser();
-
+    */
     /*
     @Test
     public void parse_missingParts_failure() {
