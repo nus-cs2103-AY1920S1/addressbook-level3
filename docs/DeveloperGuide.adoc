@@ -525,6 +525,29 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+=== Use case: Merging a duplicate person with different fields
+
+*MSS*
+
+1.  User requests to add a person.
+2.  AddressBook indicates that this person already exists and prompts a merge.
+3.  User indicates whether or not to edit this profile.
+4.  A different field is displayed and asks the user whether or not to update this field.
+5.  Steps 3 and 4 repeat until decisions whether or not to merge different fields have been completed.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* *a. User indicates to stop the merging process.
++
+[none]
+** 3a1. The user inputs an invalid command.
+** 3a2. The AddressBook indicates an error and prompts the merge again.
++
+Use case resumes at 4.
+
 _{More to be added}_
 
 [appendix]

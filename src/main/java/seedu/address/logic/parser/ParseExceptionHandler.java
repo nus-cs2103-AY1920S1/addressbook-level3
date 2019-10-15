@@ -31,6 +31,9 @@ public class ParseExceptionHandler {
             suggestionMessage.append("Phone Number: " + phone.toString());
         }
         if (isValidEmail) {
+            if (isValidPhone) {
+                suggestionMessage.append("\n");
+            }
             suggestionMessage.append("Email: " + email.toString());
         }
         boolean hasNoValidContact = suggestionMessage.length() == 0;

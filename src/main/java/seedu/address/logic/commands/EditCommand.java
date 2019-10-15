@@ -68,6 +68,11 @@ public class EditCommand extends Command {
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
+    protected EditCommand() {
+        this.index = null;
+        this.editPersonDescriptor = null;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -87,6 +92,20 @@ public class EditCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+    }
+
+    /**
+     * Performs an edit of one field of a {@code Person} in the addressbook. This method should only be called by a
+     * {@code MergeConfirmedCommand}/
+     * @param person Person in the addressbook.
+     * @param editPersonDescriptor {@code EditPersonDescriptor} for person with updated field.
+     * @param model Model that is used for the address book.
+     * @return The updated {@code Person}.
+     */
+    protected Person executeForMerge(Person person, EditPersonDescriptor editPersonDescriptor, Model model) {
+        Person editedPerson = createEditedPerson(person, editPersonDescriptor);
+        model.setPerson(person, editedPerson);
+        return editedPerson;
     }
 
     /**

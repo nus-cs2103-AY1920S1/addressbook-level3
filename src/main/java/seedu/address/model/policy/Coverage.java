@@ -64,7 +64,10 @@ public class Coverage {
         String days = coverageBreakDown.get(dayIndex);
         String months = coverageBreakDown.get(monthIndex);
         String years = coverageBreakDown.get(yearIndex);
-        return days.matches(VALIDATION_REGEX) && months.matches(VALIDATION_REGEX) && years.matches(VALIDATION_REGEX);
+        boolean emptyOrMissingAllPrefixes = days.equals("0") && months.equals("0") && years.equals("0");
+        return !emptyOrMissingAllPrefixes
+                && days.matches(VALIDATION_REGEX) && months.matches(VALIDATION_REGEX)
+                && years.matches(VALIDATION_REGEX);
     }
 
     private static ArrayList<String> getCoverageBreakDown(String coverage) {
@@ -85,32 +88,7 @@ public class Coverage {
 
     @Override
     public String toString() {
-        /*
-        StringBuilder coverageString = new StringBuilder();
-        boolean hasDaysSpecified = period.getDays() != 0;
-        if (hasDaysSpecified) {
-            coverageString.append(period.getDays() + " days");
-        }
-
-        boolean hasMonthsSpecified = period.getMonths() != 0;
-        if (hasMonthsSpecified) {
-            boolean isNotEmpty = coverageString.length() != 0;
-            if (isNotEmpty) {
-                coverageString.append(" ");
-            }
-            coverageString.append(period.getMonths() + " months");
-        }
-
-        boolean hasYearsSpecified = period.getYears() != 0;
-        if (hasYearsSpecified) {
-            boolean isNotEmpty = coverageString.length() != 0;
-            if (isNotEmpty) {
-                coverageString.append(" ");
-            }
-            coverageString.append(period.getYears() + " years");
-        }
-        */
-        return coverage.toString();
+        return coverage;
     }
 
     @Override

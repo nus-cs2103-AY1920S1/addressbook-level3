@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.policy.EndAge;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.StartAge;
 
 /**
  * An UI component that displays information of a {@code Policy}.
@@ -48,6 +49,7 @@ public class PolicyCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    // todo: remove end age and start age if criteria was not set.
     public PolicyCard(Policy policy, int displayedIndex) {
         super(FXML);
         this.policy = policy;
@@ -58,9 +60,13 @@ public class PolicyCard extends UiPart<Region> {
         price.setText(policy.getPrice().toString());
         if (!policy.getStartAge().getAge().equals("0")) {
             startAge.setText(policy.getStartAge().getAge());
+        } else {
+            startAge.setText(StartAge.AGE_ZERO);
         }
-        if (!policy.getEndAge().getAge().equals(EndAge.INFINITY)) {
+        if (!policy.getEndAge().getAge().equals(EndAge.AGE_INFINITY)) {
             endAge.setText(policy.getEndAge().getAge());
+        } else {
+            endAge.setText(EndAge.AGE_INFINITY);
         }
         policy.getCriteria().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

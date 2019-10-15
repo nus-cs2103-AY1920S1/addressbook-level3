@@ -31,34 +31,34 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-        .withNric("S000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+        .withNric("S0000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
         .withPhone("94351253").withDateOfBirth("12.12.1992").withTypicalPolicies(HEALTH_INSURANCE, FIRE_INSURANCE)
         .withTags("diabetic").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
-        .withNric("S000002J").withAddress("311, Clementi Ave 2, #02-25")
+        .withNric("S0000002J").withAddress("311, Clementi Ave 2, #02-25")
         .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1922")
         .withTypicalPolicies(LIFE_INSURANCE).withTags("smoker", "disabled").build();
-    public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withNric("S000003J")
+    public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withNric("S0000003J")
         .withPhone("95352563").withEmail("heinz@example.com").withAddress("wall street")
         .withDateOfBirth("6.6.1996").build();
-    public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withNric("S000004J")
+    public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withNric("S0000004J")
         .withPhone("87652533").withEmail("cornelia@example.com").withAddress("10th street")
         .withDateOfBirth("14.2.2019").build();
-    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withNric("S000005J")
+    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withNric("S0000005J")
         .withPhone("94822247").withEmail("werner@example.com").withAddress("michegan ave")
         .withDateOfBirth("17.5.2000").build();
-    public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withNric("S000006J")
+    public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withNric("S0000006J")
         .withPhone("94824279").withEmail("lydia@example.com").withAddress("little tokyo")
         .withDateOfBirth("15.8.2008").build();
-    public static final Person GEORGE = new PersonBuilder().withName("George Best").withNric("S000007J")
+    public static final Person GEORGE = new PersonBuilder().withName("George Best").withNric("S0000007J")
         .withPhone("94824425").withEmail("anna@example.com").withAddress("4th street")
         .withDateOfBirth("5.5.2015").build();
 
     // Manually added
-    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withNric("S012345H")
+    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withNric("S0123456H")
         .withPhone("84824248").withEmail("stefan@example.com").withAddress("little india")
         .withDateOfBirth("22.4.1988").build();
-    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withNric("T098765H")
+    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withNric("T0987656H")
         .withPhone("84821318").withEmail("hans@example.com").withAddress("chicago ave")
         .withDateOfBirth("16.7.2017").build();
 
