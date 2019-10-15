@@ -64,13 +64,6 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case CalendarCommand.COMMAND_WORD:
-            return new CalendarCommand();
-
-        // todo: remove this when everyone has implemented the UI of their page
-        case SampleCommand.COMMAND_WORD:
-            return new SampleCommand();
-
         case GoToCommand.COMMAND_WORD:
             return new GoToParser().parse(arguments);
 
