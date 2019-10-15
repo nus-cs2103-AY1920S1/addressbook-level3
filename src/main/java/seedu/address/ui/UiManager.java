@@ -58,6 +58,9 @@ public class UiManager implements Ui {
         }
     }
 
+    /**
+     * Changes the current window to be filled with the claims list
+     */
     public static void startWithClaims() {
         logger.info("Changing UI...");
 
@@ -70,6 +73,9 @@ public class UiManager implements Ui {
         }
     }
 
+    /**
+     * Changes the current window to be filled with the incomes list
+     */
     public static void startWithIncomes() {
         logger.info("Changing UI...");
 
