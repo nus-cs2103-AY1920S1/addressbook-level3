@@ -22,7 +22,7 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate questions.
      */
     ObservableList<Question> getQuestionList();
-  
+
     /**
      * Returns an unmodifiable view of the task list.
      */

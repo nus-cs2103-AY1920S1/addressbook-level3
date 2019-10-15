@@ -173,17 +173,17 @@ public class AddNoteCommandTest {
         public void updateFilteredNoteList(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public void updateFilteredTaskList(Predicate<Task> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-       
+
         @Override
         public boolean hasQuestion(Question question) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public Note getNote(Note note) {
             throw new AssertionError("This method should not be called.");
@@ -198,7 +198,7 @@ public class AddNoteCommandTest {
         public void addQuestion(Question question) {
             throw new AssertionError("This method should not be called.");
         }
- 
+
         @Override
         public void setTask(Task target, Task editedTask) {
             throw new AssertionError("This method should not be called.");

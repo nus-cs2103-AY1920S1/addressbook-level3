@@ -206,7 +206,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredQuestions.setPredicate(predicate);
     }
-  
+
     //=========== Filtered Task List accessors =============================================================
 
     @Override
