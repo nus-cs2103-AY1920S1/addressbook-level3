@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.script.exceptions.ScriptException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 
@@ -23,6 +24,14 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Evaluates the script and returns the result.
+     * @param script the script to evaluate
+     * @return the result
+     * @throws ScriptException if an exception occurs during script execution
+     */
+    Object evaluateScript(String script) throws ScriptException;
 
     /**
      * Returns the AddressBook.

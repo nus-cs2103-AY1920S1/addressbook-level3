@@ -13,6 +13,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CommandLineParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.script.ScriptManager;
+import seedu.address.logic.script.exceptions.ScriptException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
@@ -50,6 +52,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public Object evaluateScript(String script) throws ScriptException {
+        return ScriptManager.evaluateScript(script, model);
     }
 
     @Override
