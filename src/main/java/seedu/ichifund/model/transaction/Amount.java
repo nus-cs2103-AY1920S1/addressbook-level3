@@ -64,6 +64,14 @@ public class Amount implements Comparable<Amount> {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns true if a given string is a negative amount.
+     * String must first correspond to a valid amount.
+     */
+    public static boolean isNegative(String test) {
+        return test.substring(0, 1).equals("-");
+    }
+
     @Override
     public String toString() {
         int dollars = valueInCents / 100;
