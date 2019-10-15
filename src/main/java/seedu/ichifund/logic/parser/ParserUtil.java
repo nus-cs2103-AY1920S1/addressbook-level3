@@ -18,6 +18,7 @@ import seedu.ichifund.model.person.Address;
 import seedu.ichifund.model.person.Email;
 import seedu.ichifund.model.person.Name;
 import seedu.ichifund.model.person.Phone;
+import seedu.ichifund.model.repeater.MonthOffset;
 import seedu.ichifund.model.tag.Tag;
 import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.TransactionType;
@@ -250,5 +251,20 @@ public class ParserUtil {
             throw new ParseException(TransactionType.MESSAGE_CONSTRAINTS);
         }
         return new TransactionType(trimmedTransactionType);
+    }
+
+    /**
+     * Parses a {@code String monthOffset} into a {@code MonthOffset}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code transactionType} is invalid.
+     */
+    public static MonthOffset parseMonthOffset(String monthOffset) throws ParseException {
+        requireNonNull(monthOffset);
+        String trimmedMonthOffset = monthOffset.trim();
+        if (!MonthOffset.isValidOffset(trimmedMonthOffset)) {
+            throw new ParseException(MonthOffset.MESSAGE_CONSTRAINTS);
+        }
+        return new MonthOffset(trimmedMonthOffset);
     }
 }
