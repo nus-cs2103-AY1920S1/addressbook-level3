@@ -1,9 +1,9 @@
 package com.typee.storage;
 
+import javafx.collections.ObservableList;
+
 import com.typee.commons.exceptions.DataConversionException;
 import com.typee.ui.Tab;
-
-import javafx.collections.ObservableList;
 
 /**
  * Represents Storage for Typee Application

@@ -1,11 +1,10 @@
 package com.typee.logic.commands;
 
-import java.util.logging.Logger;
-
 import com.typee.commons.core.LogsCenter;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.Model;
 import com.typee.ui.Tab;
+import java.util.logging.Logger;
 
 /**
  * Changes the tab/menu of the application window.

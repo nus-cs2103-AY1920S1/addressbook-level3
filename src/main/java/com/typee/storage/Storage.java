@@ -1,16 +1,15 @@
 package com.typee.storage;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
+import javafx.collections.ObservableList;
 
 import com.typee.commons.exceptions.DataConversionException;
 import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.ReadOnlyUserPrefs;
 import com.typee.model.UserPrefs;
 import com.typee.ui.Tab;
-
-import javafx.collections.ObservableList;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
 
 /**
  * API of the Storage component

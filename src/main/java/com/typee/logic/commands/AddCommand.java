@@ -6,7 +6,6 @@ import static java.util.Objects.requireNonNull;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.Model;
 import com.typee.model.engagement.Engagement;
-import com.typee.model.person.Person;
 
 /**
  * Adds a person to the address book.

@@ -1,13 +1,11 @@
 package com.typee.model;
 
-import java.nio.file.Path;
-import java.util.function.Predicate;
+import javafx.collections.ObservableList;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.model.engagement.Engagement;
-import com.typee.model.person.Person;
-
-import javafx.collections.ObservableList;
+import java.nio.file.Path;
+import java.util.function.Predicate;
 
 /**
  * The API of the Model component.

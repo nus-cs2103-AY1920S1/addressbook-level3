@@ -1,16 +1,5 @@
 package com.typee.ui;
 
-import java.io.IOException;
-import java.util.logging.Logger;
-
-import com.typee.commons.core.GuiSettings;
-import com.typee.commons.core.LogsCenter;
-import com.typee.commons.exceptions.DataConversionException;
-import com.typee.logic.Logic;
-import com.typee.logic.commands.CommandResult;
-import com.typee.logic.commands.exceptions.CommandException;
-import com.typee.logic.parser.exceptions.ParseException;
-
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +12,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import com.typee.commons.core.GuiSettings;
+import com.typee.commons.core.LogsCenter;
+import com.typee.commons.exceptions.DataConversionException;
+import com.typee.logic.Logic;
+import com.typee.logic.commands.CommandResult;
+import com.typee.logic.commands.exceptions.CommandException;
+import com.typee.logic.parser.exceptions.ParseException;
+import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  * The Main Window. Provides the basic application layout containing

@@ -2,18 +2,16 @@ package com.typee.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.nio.file.Path;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.util.CollectionUtil;
 import com.typee.model.engagement.Engagement;
-import com.typee.model.person.Person;
-
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
+import java.nio.file.Path;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
 
 /**
  * Represents the in-memory model of the address book data.

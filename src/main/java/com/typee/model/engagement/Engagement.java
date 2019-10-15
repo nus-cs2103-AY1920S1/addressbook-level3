@@ -1,9 +1,6 @@
 package com.typee.model.engagement;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
-import com.typee.model.person.Person;
 
 /**
  * Represents a generalization of meetings, interviews and appointments.

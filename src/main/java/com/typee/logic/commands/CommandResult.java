@@ -2,9 +2,8 @@ package com.typee.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Objects;
-
 import com.typee.ui.Tab;
+import java.util.Objects;
 
 /**
  * Represents the result of a command execution.

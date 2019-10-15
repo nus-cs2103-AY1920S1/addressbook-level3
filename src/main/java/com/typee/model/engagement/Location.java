@@ -1,7 +1,5 @@
 package com.typee.model.engagement;
 
-import java.time.LocalDateTime;
-
 /**
  * Location class for Engagement
  */

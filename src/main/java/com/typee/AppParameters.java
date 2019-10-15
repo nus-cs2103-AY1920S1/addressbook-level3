@@ -1,15 +1,14 @@
 package com.typee;
 
+import javafx.application.Application;
+
+import com.typee.commons.core.LogsCenter;
+import com.typee.commons.util.FileUtil;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
-
-import com.typee.commons.core.LogsCenter;
-import com.typee.commons.util.FileUtil;
-
-import javafx.application.Application;
 
 /**
  * Represents the parsed command-line parameters given to the application.

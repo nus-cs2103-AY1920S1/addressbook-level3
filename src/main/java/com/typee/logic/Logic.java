@@ -1,6 +1,6 @@
 package com.typee.logic;
 
-import java.nio.file.Path;
+import javafx.collections.ObservableList;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.exceptions.DataConversionException;
@@ -10,10 +10,8 @@ import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.Model;
 import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.engagement.Engagement;
-import com.typee.model.person.Person;
 import com.typee.ui.Tab;
-
-import javafx.collections.ObservableList;
+import java.nio.file.Path;
 
 /**
  * API of the Logic component

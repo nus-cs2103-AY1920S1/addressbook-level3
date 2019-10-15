@@ -2,11 +2,10 @@ package com.typee.model;
 
 import static java.util.Objects.requireNonNull;
 
+import com.typee.commons.core.GuiSettings;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-
-import com.typee.commons.core.GuiSettings;
 
 /**
  * Represents User's preferences.

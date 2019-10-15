@@ -2,16 +2,15 @@ package com.typee.model.person;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Iterator;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import com.typee.commons.util.CollectionUtil;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.person.exceptions.DuplicatePersonException;
 import com.typee.model.person.exceptions.PersonNotFoundException;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.

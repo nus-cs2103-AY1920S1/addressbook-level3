@@ -2,9 +2,9 @@ package com.typee.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
-import com.typee.MainApp;
-
 import javafx.scene.image.Image;
+
+import com.typee.MainApp;
 
 /**
  * A container for App specific utility functions

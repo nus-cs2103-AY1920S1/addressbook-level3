@@ -1,8 +1,7 @@
 package com.typee.model.person;
 
-import java.util.Objects;
-
 import com.typee.commons.util.CollectionUtil;
+import java.util.Objects;
 
 /**
  * Represents a Person in the address book.

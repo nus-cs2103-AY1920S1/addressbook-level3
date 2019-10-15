@@ -10,8 +10,6 @@ import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
 import com.typee.model.person.Person;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -83,7 +81,8 @@ class JsonAdaptedPerson {
 
     private Priority validateAndGetPriority() throws IllegalValueException {
         if (priority == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Priority.class.getSimpleName()));
         }
         if (!Priority.isValid(priority)) {
             throw new IllegalValueException(Priority.getMessageConstraints());

@@ -1,8 +1,6 @@
 package com.typee.model.engagement;
 
-import com.typee.model.person.Person;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class Meeting extends Engagement {
 

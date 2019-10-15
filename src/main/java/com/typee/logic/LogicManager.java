@@ -1,8 +1,6 @@
 package com.typee.logic;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
@@ -15,11 +13,11 @@ import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.Model;
 import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.engagement.Engagement;
-import com.typee.model.person.Person;
 import com.typee.storage.Storage;
 import com.typee.ui.Tab;
-
-import javafx.collections.ObservableList;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.

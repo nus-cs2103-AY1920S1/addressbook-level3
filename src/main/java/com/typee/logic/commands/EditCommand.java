@@ -3,9 +3,6 @@ package com.typee.logic.commands;
 import static com.typee.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.typee.commons.core.Messages;
 import com.typee.commons.core.index.Index;
 import com.typee.commons.util.CollectionUtil;
@@ -13,7 +10,8 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.Model;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.person.Name;
-import com.typee.model.person.Person;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Edits the details of an existing person in the address book.

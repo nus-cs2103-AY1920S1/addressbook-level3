@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import com.typee.commons.core.index.Index;
 import com.typee.commons.util.StringUtil;
 import com.typee.logic.parser.exceptions.ParseException;
-import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.EngagementType;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
