@@ -22,3 +22,11 @@ src/test/data/sandbox/
 
 # Temporary files
 *.swp
+
+# IntelliJ build folders
+/bin
+
+# VSCode local config files
+.classpath
+.project
+.settings

@@ -70,9 +70,20 @@ public class JsonUserPrefsStorageTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void readUserPrefs_guiResizedInFile_windowDimensionsReset() throws DataConversionException {
+        UserPrefs expected = getTypicalUserPrefs();
+        expected.setGuiSettings(new GuiSettings(512.0, 700.0, 400, 200));
+
+        UserPrefs actual = readUserPrefs("GuiResizeUserPref.json").get();
+
+        assertEquals(expected, actual);
+    }
+
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
+        userPrefs.setGuiSettings(new GuiSettings(512.0, 700.0, 300, 100));
+        userPrefs.setActivityBookFilePath(Paths.get("activitybook.json"));
         userPrefs.setAddressBookFilePath(Paths.get("addressbook.json"));
         userPrefs.setInternalStateFilePath(Paths.get("internalstate.json"));
         return userPrefs;
@@ -104,19 +115,21 @@ public class JsonUserPrefsStorageTest {
     public void saveUserPrefs_allInOrder_success() throws DataConversionException, IOException {
 
         UserPrefs original = new UserPrefs();
-        original.setGuiSettings(new GuiSettings(1200, 200, 0, 2));
+        original.setGuiSettings(new GuiSettings(512.0, 700.0, 42, 69));
 
         Path pefsFilePath = testFolder.resolve("TempPrefs.json");
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(pefsFilePath);
 
-        //Try writing when the file doesn't exist
+        // Try writing when the file doesn't exist
         jsonUserPrefsStorage.saveUserPrefs(original);
         UserPrefs readBack = jsonUserPrefsStorage.readUserPrefs().get();
         assertEquals(original, readBack);
 
-        //Try saving when the file exists
-        original.setGuiSettings(new GuiSettings(5, 5, 5, 5));
+        // Try saving when the file exists
+        original.setGuiSettings(new GuiSettings(110.1, 204.0, 20, 30));
         jsonUserPrefsStorage.saveUserPrefs(original);
+        // GUI window size will be force-reset
+        original.setGuiSettings(new GuiSettings(512.0, 700.0, 20, 30));
         readBack = jsonUserPrefsStorage.readUserPrefs().get();
         assertEquals(original, readBack);
     }
