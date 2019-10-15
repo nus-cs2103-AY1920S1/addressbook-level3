@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 public class ListInfoTest {
 
     @Test
+    public void listInfo_differentClass() {
+        ListInfo listInfo = new ListInfo();
+        assertFalse(listInfo.equals(new ListInfo()));
+    }
+
+    @Test
     public void list_correctCommandWord() {
         assertTrue(ListInfo.COMMAND_WORD.equals("list"));
     }

@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 public class HelpInfoTest {
 
     @Test
+    public void helpInfo_differentClass() {
+        HelpInfo helpInfo = new HelpInfo();
+        assertFalse(helpInfo.equals(new HelpInfo()));
+    }
+
+    @Test
     public void help_correctCommandWord() {
         assertTrue(HelpInfo.COMMAND_WORD.equals("help"));
     }

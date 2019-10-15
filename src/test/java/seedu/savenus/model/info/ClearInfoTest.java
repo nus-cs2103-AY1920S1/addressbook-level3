@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 public class ClearInfoTest {
 
     @Test
+    public void clearInfo_differentClass() {
+        ClearInfo clearInfo = new ClearInfo();
+        assertFalse(clearInfo.equals(new ClearInfo()));
+    }
+
+    @Test
     public void clear_correctCommandWord() {
         assertTrue(ClearInfo.COMMAND_WORD.equals("clear"));
     }

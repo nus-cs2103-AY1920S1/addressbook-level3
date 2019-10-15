@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 public class AddInfoTest {
 
     @Test
+    public void addInfo_differentClass() {
+        AddInfo addInfo = new AddInfo();
+        assertFalse(addInfo.equals(new AddInfo()));
+    }
+
+    @Test
     public void add_correctCommandWord() {
         assertTrue(AddInfo.COMMAND_WORD.equals("add"));
     }

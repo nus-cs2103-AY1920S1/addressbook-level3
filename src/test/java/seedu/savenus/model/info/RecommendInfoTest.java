@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 public class RecommendInfoTest {
 
     @Test
+    public void recommendInfo_differentClass() {
+        RecommendInfo recommendInfo = new RecommendInfo();
+        assertFalse(recommendInfo.equals(new RecommendInfo()));
+    }
+
+    @Test
     public void recommend_correctCommandWord() {
         assertTrue(RecommendInfo.COMMAND_WORD.equals("recommend"));
     }

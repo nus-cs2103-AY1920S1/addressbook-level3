@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 public class BuyInfoTest {
 
     @Test
+    public void buyInfo_differentClass() {
+        BuyInfo buyInfo = new BuyInfo();
+        assertFalse(buyInfo.equals(new BuyInfo()));
+    }
+
+    @Test
     public void buy_correctCommandWord() {
         assertTrue(BuyInfo.COMMAND_WORD.equals("buy"));
     }

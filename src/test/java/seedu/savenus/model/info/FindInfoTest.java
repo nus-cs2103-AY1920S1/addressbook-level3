@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 public class FindInfoTest {
 
     @Test
+    public void findInfo_differentClass() {
+        FindInfo findInfo = new FindInfo();
+        assertFalse(findInfo.equals(new FindInfo()));
+    }
+
+    @Test
     public void find_correctCommandWord() {
         assertTrue(FindInfo.COMMAND_WORD.equals("find"));
     }

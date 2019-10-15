@@ -10,6 +10,12 @@ import seedu.savenus.logic.commands.DefaultCommand;
 public class DefaultInfoTest {
 
     @Test
+    public void defaultInfo_differentClass() {
+        DefaultInfo defaultInfo = new DefaultInfo();
+        assertFalse(defaultInfo.equals(new DefaultInfo()));
+    }
+
+    @Test
     public void default_correctCommandWord() {
         assertTrue(DefaultInfo.COMMAND_WORD.equals(DefaultCommand.COMMAND_WORD));
     }

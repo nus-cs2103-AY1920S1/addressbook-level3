@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 public class BudgetInfoTest {
 
     @Test
+    public void budgetInfo_differentClass() {
+        BudgetInfo budgetInfo = new BudgetInfo();
+        assertFalse(budgetInfo.equals(new BudgetInfo()));
+    }
+
+    @Test
     public void budget_correctCommandWord() {
         assertTrue(BudgetInfo.COMMAND_WORD.equals("budget"));
     }

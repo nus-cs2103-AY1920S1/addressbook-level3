@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 public class EditInfoTest {
 
     @Test
+    public void editInfo_differentClass() {
+        EditInfo editInfo = new EditInfo();
+        assertFalse(editInfo.equals(new EditInfo()));
+    }
+
+    @Test
     public void edit_correctCommandWord() {
         assertTrue(EditInfo.COMMAND_WORD.equals("edit"));
     }

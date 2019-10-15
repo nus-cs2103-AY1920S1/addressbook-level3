@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 public class SortInfoTest {
 
     @Test
+    public void sortInfo_differentClass() {
+        SortInfo sortInfo = new SortInfo();
+        assertFalse(sortInfo.equals(new SortInfo()));
+    }
+
+    @Test
     public void sort_correctCommandWord() {
         assertTrue(SortInfo.COMMAND_WORD.equals("sort"));
     }

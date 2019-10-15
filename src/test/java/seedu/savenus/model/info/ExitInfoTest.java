@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 public class ExitInfoTest {
 
     @Test
+    public void exitInfo_differentClass() {
+        ExitInfo exitInfo = new ExitInfo();
+        assertFalse(exitInfo.equals(new ExitInfo()));
+    }
+
+    @Test
     public void exit_correctCommandWord() {
         assertTrue(ExitInfo.COMMAND_WORD.equals("exit"));
     }
