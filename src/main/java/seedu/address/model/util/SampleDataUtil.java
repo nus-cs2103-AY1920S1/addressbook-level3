@@ -6,12 +6,20 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.DukeCooks;
-import seedu.address.model.ReadOnlyDukeCooks;
-import seedu.address.model.details.*;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
+import seedu.address.model.WorkoutPlanner;
+import seedu.address.model.details.Distance;
+import seedu.address.model.details.ExerciseDetail;
+import seedu.address.model.details.Repetitions;
+import seedu.address.model.details.Sets;
+import seedu.address.model.details.Weight;
 import seedu.address.model.details.unit.DistanceUnit;
 import seedu.address.model.details.unit.WeightUnit;
-import seedu.address.model.exercise.*;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.Intensity;
+import seedu.address.model.exercise.MuscleType;
+import seedu.address.model.exercise.MusclesTrained;
+import seedu.address.model.exercise.Name;
 
 /**
  * Contains utility methods for populating {@code DukeCooks} with sample data.
@@ -22,7 +30,7 @@ public class SampleDataUtil {
             new Exercise(new Name("Pushups"),
                 getMuscleTrained("Chest", "Biceps", "Back", "Shoulders"),
                 Intensity.HIGH,
-                getDetails(null, null, null, null, 30, 3)  ),
+                getDetails(null, null, null, null, 30, 3)),
             new Exercise(new Name("Sprint Sets"),
                 getMuscleTrained("Cardiovascular", "Thighs", "Calves"),
                 Intensity.HIGH,
@@ -42,8 +50,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyDukeCooks getSampleDukeCooks() {
-        DukeCooks sampleDc = new DukeCooks();
+    public static ReadOnlyWorkoutPlanner getSampleDukeCooks() {
+        WorkoutPlanner sampleDc = new WorkoutPlanner();
         for (Exercise sampleExercise : getSamplePersons()) {
             sampleDc.addExercise(sampleExercise);
         }
@@ -75,7 +83,15 @@ public class SampleDataUtil {
         return details;
     }
 
-    public static void addIfNotNull(Set<ExerciseDetail> details, ExerciseDetail detail){
+    /**
+     * Checks if {@code detail} is null and adds to {@code details}
+     * if it isn't.
+     *
+     * @param details A set containing all the ExerciseDetails of an exercise
+     * @param detail A detail that is possibly null value
+     */
+
+    public static void addIfNotNull(Set<ExerciseDetail> details, ExerciseDetail detail) {
         if (detail != null) {
             details.add(detail);
         }

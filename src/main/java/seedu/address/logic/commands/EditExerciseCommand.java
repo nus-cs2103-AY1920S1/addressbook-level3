@@ -21,8 +21,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.exercise.*;
 import seedu.address.model.details.ExerciseDetail;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.Intensity;
+import seedu.address.model.exercise.MuscleType;
+import seedu.address.model.exercise.MusclesTrained;
+import seedu.address.model.exercise.Name;
 
 /**
  * Edits the details of an existing exercise in Duke Cooks.
@@ -89,7 +93,8 @@ public class EditExerciseCommand extends Command {
      * Creates and returns a {@code Exercise} with the details of {@code exerciseToEdit}
      * edited with {@code editExerciseDescriptor}.
      */
-    private static Exercise createEditedExercise(Exercise exerciseToEdit, EditExerciseDescriptor editExerciseDescriptor) {
+    private static Exercise createEditedExercise(Exercise exerciseToEdit,
+                                                 EditExerciseDescriptor editExerciseDescriptor) {
         assert exerciseToEdit != null;
 
         Name updatedName = editExerciseDescriptor.getName().orElse(exerciseToEdit.getName());
@@ -98,7 +103,8 @@ public class EditExerciseCommand extends Command {
         MusclesTrained updatedMusclesTrained = new MusclesTrained(updatedPrimaryMuscle,
                 exerciseToEdit.getMusclesTrained().getSecondaryMuscles());
         Intensity updatedIntensity = editExerciseDescriptor.getIntensity().orElse(exerciseToEdit.getIntensity());
-        Set<ExerciseDetail> updatedExerciseDetails = editExerciseDescriptor.getExerciseDetails().orElse(exerciseToEdit.getExerciseDetails());
+        Set<ExerciseDetail> updatedExerciseDetails = editExerciseDescriptor
+                .getExerciseDetails().orElse(exerciseToEdit.getExerciseDetails());
 
         return new Exercise(updatedName, updatedMusclesTrained, updatedIntensity, updatedExerciseDetails);
     }
@@ -189,7 +195,8 @@ public class EditExerciseCommand extends Command {
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
         public Optional<Set<ExerciseDetail>> getExerciseDetails() {
-            return (exerciseDetails != null) ? Optional.of(Collections.unmodifiableSet(exerciseDetails)) : Optional.empty();
+            return (exerciseDetails != null)
+                    ? Optional.of(Collections.unmodifiableSet(exerciseDetails)) : Optional.empty();
         }
 
         @Override

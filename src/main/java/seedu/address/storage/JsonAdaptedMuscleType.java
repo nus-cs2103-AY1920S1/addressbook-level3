@@ -2,9 +2,13 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.exercise.MuscleType;
 
+/**
+ * Jackson-friendly version of {@link MuscleType}.
+ */
 public class JsonAdaptedMuscleType {
 
     private final String muscleType;
@@ -34,7 +38,7 @@ public class JsonAdaptedMuscleType {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted MuscleType.
      */
-    public MuscleType toModelType() throws IllegalValueException{
+    public MuscleType toModelType() throws IllegalValueException {
         if (!MuscleType.isValidMuscleType(muscleType)) {
             throw new IllegalValueException(MuscleType.MESSAGE_CONSTRAINTS);
         }

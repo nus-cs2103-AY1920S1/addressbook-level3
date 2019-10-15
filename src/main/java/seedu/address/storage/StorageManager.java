@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyDukeCooks;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -53,23 +53,23 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyDukeCooks> readDukeCooks() throws DataConversionException, IOException {
+    public Optional<ReadOnlyWorkoutPlanner> readDukeCooks() throws DataConversionException, IOException {
         return readDukeCooks(dukeCooksStorage.getDukeCooksFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyDukeCooks> readDukeCooks(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyWorkoutPlanner> readDukeCooks(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return dukeCooksStorage.readDukeCooks(filePath);
     }
 
     @Override
-    public void saveDukeCooks(ReadOnlyDukeCooks dukeCooks) throws IOException {
+    public void saveDukeCooks(ReadOnlyWorkoutPlanner dukeCooks) throws IOException {
         saveDukeCooks(dukeCooks, dukeCooksStorage.getDukeCooksFilePath());
     }
 
     @Override
-    public void saveDukeCooks(ReadOnlyDukeCooks dukeCooks, Path filePath) throws IOException {
+    public void saveDukeCooks(ReadOnlyWorkoutPlanner dukeCooks, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         dukeCooksStorage.saveDukeCooks(dukeCooks, filePath);
     }

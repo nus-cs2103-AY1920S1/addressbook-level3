@@ -1,14 +1,12 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
-import java.util.Set;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.details.ExerciseDetail;
 import seedu.address.model.exercise.Exercise;
 
 /**
@@ -47,7 +45,7 @@ public class ExerciseCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(exercise.getName().fullName);
         primaryMuscle.setText("Primary Muscle: " + exercise.getMusclesTrained().getPrimaryMuscle());
-        intensity.setText("Intensity: "+ exercise.getIntensity().toString());
+        intensity.setText("Intensity: " + exercise.getIntensity().toString());
         exercise.getExerciseDetails().stream()
                 .sorted(Comparator.comparing(detail -> detail.toString()))
                 .forEach(detail -> details.getChildren().add(new Label(detail.toString())));

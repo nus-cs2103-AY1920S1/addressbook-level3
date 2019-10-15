@@ -12,7 +12,7 @@ import seedu.address.model.exercise.UniqueExerciseList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class DukeCooks implements ReadOnlyDukeCooks {
+public class WorkoutPlanner implements ReadOnlyWorkoutPlanner {
 
     private final UniqueExerciseList exercises;
 
@@ -27,12 +27,12 @@ public class DukeCooks implements ReadOnlyDukeCooks {
         exercises = new UniqueExerciseList();
     }
 
-    public DukeCooks() {}
+    public WorkoutPlanner() {}
 
     /**
-     * Creates a DukeCooks using the Persons in the {@code toBeCopied}
+     * Creates a Workout Planner using the Exercises in the {@code toBeCopied}
      */
-    public DukeCooks(ReadOnlyDukeCooks toBeCopied) {
+    public WorkoutPlanner(ReadOnlyWorkoutPlanner toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,36 +48,10 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     }
 
     /**
-     * Resets the existing data of this {@code DukeCooks} with {@code newData}.
-     */
-    public void resetData(ReadOnlyDukeCooks newData) {
-        requireNonNull(newData);
-
-        setExercise(newData.getExerciseList());
-    }
-
-    //// person-level operations
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in Duke Cooks.
-     */
-    public boolean hasExercise(Exercise exercise) {
-        requireNonNull(exercise);
-        return exercises.contains(exercise);
-    }
-
-    /**
-     * Adds a person to Duke Cooks.
-     * The person must not already exist in Duke Cooks.
-     */
-    public void addExercise(Exercise p) {
-        exercises.add(p);
-    }
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in Duke Cooks.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in Duke Cooks.
+     * Replaces the given exercise {@code target} in the list with {@code editedExercise}.
+     * {@code target} must exist in the WorkoutPlanner.
+     * The exercise identity of {@code editedExercise}
+     * must not be the same as another existing person in Workout Planner.
      */
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireNonNull(editedExercise);
@@ -86,8 +60,36 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     }
 
     /**
-     * Removes {@code key} from this {@code DukeCooks}.
-     * {@code key} must exist in Duke Cooks.
+     * Resets the existing data of this {@code WorkoutPLanner} with {@code newData}.
+     */
+    public void resetData(ReadOnlyWorkoutPlanner newData) {
+        requireNonNull(newData);
+
+        setExercise(newData.getExerciseList());
+    }
+
+    //// person-level operations
+
+    /**
+     * Returns true if an Exercise with the same identity as {@code exercise}
+     * exists in the Workout Planner.
+     */
+    public boolean hasExercise(Exercise exercise) {
+        requireNonNull(exercise);
+        return exercises.contains(exercise);
+    }
+
+    /**
+     * Adds an exercise to Workout Planner.
+     * The exercise must not already exist in the Workout Planner.
+     */
+    public void addExercise(Exercise p) {
+        exercises.add(p);
+    }
+
+    /**
+     * Removes {@code key} from this {@code WorkoutPLanner}.
+     * {@code key} must exist in the Workout Planner.
      */
     public void removePerson(Exercise key) {
         exercises.remove(key);
@@ -109,8 +111,8 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DukeCooks // instanceof handles nulls
-                && exercises.equals(((DukeCooks) other).exercises));
+                || (other instanceof WorkoutPlanner // instanceof handles nulls
+                && exercises.equals(((WorkoutPlanner) other).exercises));
     }
 
     @Override

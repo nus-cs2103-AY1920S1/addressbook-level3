@@ -1,7 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTANCE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTENSITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REPETITIONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SETS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;

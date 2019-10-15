@@ -23,7 +23,7 @@ import seedu.address.testutil.PersonBuilder;
 
 public class DukeCooksTest {
 
-    private final DukeCooks dukeCooks = new DukeCooks();
+    private final WorkoutPlanner dukeCooks = new WorkoutPlanner();
 
     @Test
     public void constructor() {
@@ -37,7 +37,7 @@ public class DukeCooksTest {
 
     @Test
     public void resetData_withValidReadOnlyDukeCooks_replacesData() {
-        DukeCooks newData = getTypicalDukeCooks();
+        WorkoutPlanner newData = getTypicalDukeCooks();
         dukeCooks.resetData(newData);
         assertEquals(newData, dukeCooks);
     }
@@ -48,7 +48,7 @@ public class DukeCooksTest {
         Exercise editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Exercise> newExercises = Arrays.asList(ALICE, editedAlice);
-        DukeCooksStub newData = new DukeCooksStub(newExercises);
+        WorkoutPlannerStub newData = new WorkoutPlannerStub(newExercises);
 
         assertThrows(DuplicateExerciseException.class, () -> dukeCooks.resetData(newData));
     }
@@ -85,10 +85,10 @@ public class DukeCooksTest {
     /**
      * A stub ReadOnlyDukeCooks whose persons list can violate interface constraints.
      */
-    private static class DukeCooksStub implements ReadOnlyDukeCooks {
+    private static class WorkoutPlannerStub implements ReadOnlyWorkoutPlanner {
         private final ObservableList<Exercise> exercises = FXCollections.observableArrayList();
 
-        DukeCooksStub(Collection<Exercise> exercises) {
+        WorkoutPlannerStub(Collection<Exercise> exercises) {
             this.exercises.setAll(exercises);
         }
 

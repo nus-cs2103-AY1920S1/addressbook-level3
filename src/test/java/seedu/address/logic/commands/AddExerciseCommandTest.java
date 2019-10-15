@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.DukeCooks;
+import seedu.address.model.WorkoutPlanner;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.testutil.PersonBuilder;
@@ -114,12 +114,12 @@ public class AddExerciseCommandTest {
         }
 
         @Override
-        public void setDukeCooks(ReadOnlyDukeCooks dukeCooks) {
+        public void setDukeCooks(ReadOnlyWorkoutPlanner dukeCooks) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyDukeCooks getDukeCooks() {
+        public ReadOnlyWorkoutPlanner getDukeCooks() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -186,8 +186,8 @@ public class AddExerciseCommandTest {
         }
 
         @Override
-        public ReadOnlyDukeCooks getDukeCooks() {
-            return new DukeCooks();
+        public ReadOnlyWorkoutPlanner getDukeCooks() {
+            return new WorkoutPlanner();
         }
     }
 

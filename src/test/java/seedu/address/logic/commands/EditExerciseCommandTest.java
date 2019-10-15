@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditExerciseCommand.EditExerciseDescriptor;
-import seedu.address.model.DukeCooks;
+import seedu.address.model.WorkoutPlanner;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -41,7 +41,7 @@ public class EditExerciseCommandTest {
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getDukeCooks()), new UserPrefs());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editExerciseCommand, model, expectedMessage, expectedModel);
@@ -62,7 +62,7 @@ public class EditExerciseCommandTest {
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getDukeCooks()), new UserPrefs());
         expectedModel.setExercise(lastExercise, editedExercise);
 
         assertCommandSuccess(editExerciseCommand, model, expectedMessage, expectedModel);
@@ -75,7 +75,7 @@ public class EditExerciseCommandTest {
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getDukeCooks()), new UserPrefs());
 
         assertCommandSuccess(editExerciseCommand, model, expectedMessage, expectedModel);
     }
@@ -91,7 +91,7 @@ public class EditExerciseCommandTest {
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getDukeCooks()), new UserPrefs());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editExerciseCommand, model, expectedMessage, expectedModel);

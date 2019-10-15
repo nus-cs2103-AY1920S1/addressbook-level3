@@ -2,9 +2,14 @@ package seedu.address.model.details;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents the number of reps of an exercise in the Workout planner.
+ * Guarantees: immutable;
+ */
+
 public class Repetitions<Integer> extends ExerciseDetail {
 
-    public Repetitions(int repetitions){
+    public Repetitions(int repetitions) {
         requireNonNull(repetitions);
         super.magnitude = repetitions;
     }

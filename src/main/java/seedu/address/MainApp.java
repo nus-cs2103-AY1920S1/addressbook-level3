@@ -15,12 +15,12 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.DukeCooks;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyDukeCooks;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.WorkoutPlanner;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.DukeCooksStorage;
 import seedu.address.storage.JsonDukeCooksStorage;
@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        DukeCooksStorage dukeCooksStorage = new JsonDukeCooksStorage(userPrefs.getDukeCooksFilePath());
+        DukeCooksStorage dukeCooksStorage = new JsonDukeCooksStorage(userPrefs.getExercisesFilePath());
         storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
 
         initLogging(config);
@@ -74,8 +74,8 @@ public class MainApp extends Application {
      * or an empty dukeCooks will be used instead if errors occur when reading {@code storage}'s Duke Cooks.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyDukeCooks> dukeCooksOptional;
-        ReadOnlyDukeCooks initialData;
+        Optional<ReadOnlyWorkoutPlanner> dukeCooksOptional;
+        ReadOnlyWorkoutPlanner initialData;
         try {
             dukeCooksOptional = storage.readDukeCooks();
             if (!dukeCooksOptional.isPresent()) {
@@ -84,10 +84,10 @@ public class MainApp extends Application {
             initialData = dukeCooksOptional.orElseGet(SampleDataUtil::getSampleDukeCooks);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
-            initialData = new DukeCooks();
+            initialData = new WorkoutPlanner();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
-            initialData = new DukeCooks();
+            initialData = new WorkoutPlanner();
         }
 
         return new ModelManager(initialData, userPrefs);

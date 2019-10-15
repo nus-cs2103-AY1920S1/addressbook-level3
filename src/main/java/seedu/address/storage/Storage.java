@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyDukeCooks;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -24,9 +24,9 @@ public interface Storage extends DukeCooksStorage, UserPrefsStorage {
     Path getDukeCooksFilePath();
 
     @Override
-    Optional<ReadOnlyDukeCooks> readDukeCooks() throws DataConversionException, IOException;
+    Optional<ReadOnlyWorkoutPlanner> readDukeCooks() throws DataConversionException, IOException;
 
     @Override
-    void saveDukeCooks(ReadOnlyDukeCooks dukeCooks) throws IOException;
+    void saveDukeCooks(ReadOnlyWorkoutPlanner dukeCooks) throws IOException;
 
 }

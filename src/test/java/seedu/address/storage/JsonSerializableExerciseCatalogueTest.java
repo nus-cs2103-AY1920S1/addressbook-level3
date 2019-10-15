@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.DukeCooks;
+import seedu.address.model.WorkoutPlanner;
 import seedu.address.testutil.TypicalPersons;
 
 public class JsonSerializableExerciseCatalogueTest {
@@ -20,8 +20,8 @@ public class JsonSerializableExerciseCatalogueTest {
     public void toModelType_typicalPersonsFile_success() throws Exception {
         JsonSerializableExerciseCatalogue dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableExerciseCatalogue.class).get();
-        DukeCooks dukeCooksFromFile = dataFromFile.toModelType();
-        DukeCooks typicalPersonsDukeCooks = TypicalPersons.getTypicalDukeCooks();
+        WorkoutPlanner dukeCooksFromFile = dataFromFile.toModelType();
+        WorkoutPlanner typicalPersonsDukeCooks = TypicalPersons.getTypicalDukeCooks();
         assertEquals(dukeCooksFromFile, typicalPersonsDukeCooks);
     }
 }

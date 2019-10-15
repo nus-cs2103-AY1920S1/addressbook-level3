@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.DukeCooks;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.WorkoutPlanner;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 
 public class JsonDukeCooksStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonDukeCooksStorageTest");
@@ -30,7 +30,7 @@ public class JsonDukeCooksStorageTest {
         assertThrows(NullPointerException.class, () -> readDukeCooks(null));
     }
 
-    private java.util.Optional<ReadOnlyDukeCooks> readDukeCooks(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyWorkoutPlanner> readDukeCooks(String filePath) throws Exception {
         return new JsonDukeCooksStorage(Paths.get(filePath)).readDukeCooks(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -63,26 +63,26 @@ public class JsonDukeCooksStorageTest {
     @Test
     public void readAndSaveDukeCooks_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempDukeCooks.json");
-        DukeCooks original = getTypicalDukeCooks();
+        WorkoutPlanner original = getTypicalDukeCooks();
         JsonDukeCooksStorage jsonDukeCooksStorage = new JsonDukeCooksStorage(filePath);
 
         // Save in new file and read back
         jsonDukeCooksStorage.saveDukeCooks(original, filePath);
-        ReadOnlyDukeCooks readBack = jsonDukeCooksStorage.readDukeCooks(filePath).get();
-        assertEquals(original, new DukeCooks(readBack));
+        ReadOnlyWorkoutPlanner readBack = jsonDukeCooksStorage.readDukeCooks(filePath).get();
+        assertEquals(original, new WorkoutPlanner(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addExercise(HOON);
         original.removePerson(ALICE);
         jsonDukeCooksStorage.saveDukeCooks(original, filePath);
         readBack = jsonDukeCooksStorage.readDukeCooks(filePath).get();
-        assertEquals(original, new DukeCooks(readBack));
+        assertEquals(original, new WorkoutPlanner(readBack));
 
         // Save and read without specifying file path
         original.addExercise(IDA);
         jsonDukeCooksStorage.saveDukeCooks(original); // file path not specified
         readBack = jsonDukeCooksStorage.readDukeCooks().get(); // file path not specified
-        assertEquals(original, new DukeCooks(readBack));
+        assertEquals(original, new WorkoutPlanner(readBack));
 
     }
 
@@ -94,7 +94,7 @@ public class JsonDukeCooksStorageTest {
     /**
      * Saves {@code dukeCooks} at the specified {@code filePath}.
      */
-    private void saveDukeCooks(ReadOnlyDukeCooks dukeCooks, String filePath) {
+    private void saveDukeCooks(ReadOnlyWorkoutPlanner dukeCooks, String filePath) {
         try {
             new JsonDukeCooksStorage(Paths.get(filePath))
                     .saveDukeCooks(dukeCooks, addToTestDataPathIfNotNull(filePath));
@@ -105,6 +105,6 @@ public class JsonDukeCooksStorageTest {
 
     @Test
     public void saveDukeCooks_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveDukeCooks(new DukeCooks(), null));
+        assertThrows(NullPointerException.class, () -> saveDukeCooks(new WorkoutPlanner(), null));
     }
 }

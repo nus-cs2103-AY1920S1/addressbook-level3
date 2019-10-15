@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.DukeCooks;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.WorkoutPlanner;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -54,10 +54,10 @@ public class StorageManagerTest {
          * {@link JsonDukeCooksStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonDukeCooksStorageTest} class.
          */
-        DukeCooks original = getTypicalDukeCooks();
+        WorkoutPlanner original = getTypicalDukeCooks();
         storageManager.saveDukeCooks(original);
-        ReadOnlyDukeCooks retrieved = storageManager.readDukeCooks().get();
-        assertEquals(original, new DukeCooks(retrieved));
+        ReadOnlyWorkoutPlanner retrieved = storageManager.readDukeCooks().get();
+        assertEquals(original, new WorkoutPlanner(retrieved));
     }
 
     @Test

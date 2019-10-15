@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.DukeCooks;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
+import seedu.address.model.WorkoutPlanner;
 import seedu.address.model.exercise.Exercise;
 
 /**
@@ -36,7 +36,7 @@ class JsonSerializableExerciseCatalogue {
     *
     * @param source future changes to this will not affect the created {@code JsonSerializableExerciseCatalogue}.
     */
-    public JsonSerializableExerciseCatalogue(ReadOnlyDukeCooks source) {
+    public JsonSerializableExerciseCatalogue(ReadOnlyWorkoutPlanner source) {
         exercises.addAll(source.getExerciseList().stream().map(JsonAdaptedExercise::new).collect(Collectors.toList()));
     }
 
@@ -45,8 +45,8 @@ class JsonSerializableExerciseCatalogue {
     *
     * @throws IllegalValueException if there were any data constraints violated.
     */
-    public DukeCooks toModelType() throws IllegalValueException {
-        DukeCooks dukeCooks = new DukeCooks();
+    public WorkoutPlanner toModelType() throws IllegalValueException {
+        WorkoutPlanner dukeCooks = new WorkoutPlanner();
         for (JsonAdaptedExercise jsonAdaptedExercise : exercises) {
             Exercise exercise = jsonAdaptedExercise.toModelType();
             if (dukeCooks.hasExercise(exercise)) {

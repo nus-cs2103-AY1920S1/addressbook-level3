@@ -1,14 +1,20 @@
 package seedu.address.model.details;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.address.model.details.unit.WeightUnit;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+/**
+ * Represents the Weight used in an exercise in the Workout Planner.
+ * Guarantees: immutable;
+ */
 
 public class Weight<Float> extends ExerciseDetail {
 
     private WeightUnit unit;
 
-    public Weight(float weight, WeightUnit unit){
+    public Weight(float weight, WeightUnit unit) {
         requireAllNonNull(weight, unit);
         super.magnitude = weight;
         this.unit = unit;

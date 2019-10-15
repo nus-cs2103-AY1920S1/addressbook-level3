@@ -1,5 +1,11 @@
 package seedu.address.model.exercise;
 
+
+/**
+ * Represents Intensity of an Exercise in the workout planner.
+ * Guarantees: immutable.
+ */
+
 public enum Intensity {
     HIGH,
     MEDIUM,

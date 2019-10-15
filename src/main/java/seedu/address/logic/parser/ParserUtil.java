@@ -2,14 +2,14 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.details.*;
+import seedu.address.model.details.Distance;
+import seedu.address.model.details.ExerciseDetail;
+import seedu.address.model.details.Repetitions;
+import seedu.address.model.details.Sets;
+import seedu.address.model.details.Weight;
 import seedu.address.model.details.unit.DistanceUnit;
 import seedu.address.model.details.unit.WeightUnit;
 import seedu.address.model.exercise.Intensity;
@@ -79,7 +79,7 @@ public class ParserUtil {
         if (!Intensity.isValidIntensity(trimmedIntensity)) {
             throw new ParseException(Intensity.MESSAGE_CONSTRAINTS);
         }
-        switch(intensity){
+        switch(intensity) {
 
         case "1":
         case "low":
@@ -119,8 +119,14 @@ public class ParserUtil {
         return new Weight(magnitude, unit);
     }
 
+
+    /**
+     * Parses a {@code String weightUnit} into a {@code WeightUnit}.
+     *
+     * @throws ParseException if the given {@code weightUnit} is invalid.
+     */
     public static WeightUnit parseWeightUnit(String weightUnit) throws ParseException {
-        switch (weightUnit){
+        switch (weightUnit) {
         case "GRAM":
         case "g":
             return WeightUnit.GRAM;
@@ -158,18 +164,24 @@ public class ParserUtil {
         return new Distance(magnitude, unit);
     }
 
+    /**
+     * Parses a {@code String distanceUnit} into a {@code DistanceUnit}.
+     *
+     * @throws ParseException if the given {@code weight} is invalid.
+     */
+
     public static DistanceUnit parseDistanceUnit(String distanceUnit) throws ParseException {
-        switch (distanceUnit){
-            case "METER":
-            case "m":
-                return DistanceUnit.METER;
+        switch (distanceUnit) {
+        case "METER":
+        case "m":
+            return DistanceUnit.METER;
 
-            case "KILOMETER":
-            case "km":
-                return DistanceUnit.KILOMETER;
+        case "KILOMETER":
+        case "km":
+            return DistanceUnit.KILOMETER;
 
-            default:
-                throw new ParseException(ExerciseDetail.MESSAGE_CONSTRAINTS);
+        default:
+            throw new ParseException(ExerciseDetail.MESSAGE_CONSTRAINTS);
         }
     }
 

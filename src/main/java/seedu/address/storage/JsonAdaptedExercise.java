@@ -11,8 +11,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.model.details.*;
-import seedu.address.model.exercise.*;
+import seedu.address.model.details.Distance;
+import seedu.address.model.details.ExerciseDetail;
+import seedu.address.model.details.Repetitions;
+import seedu.address.model.details.Sets;
+import seedu.address.model.details.Weight;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.Intensity;
+import seedu.address.model.exercise.MuscleType;
+import seedu.address.model.exercise.MusclesTrained;
+import seedu.address.model.exercise.Name;
 
 /**
  * Jackson-friendly version of {@link Exercise}.
@@ -38,7 +46,7 @@ class JsonAdaptedExercise {
                                @JsonProperty("details") List<JsonAdaptedExerciseDetail> details) {
         this.name = name;
         this.primaryMuscle = primaryMuscle;
-        if (secondaryMuscles != null){
+        if (secondaryMuscles != null) {
             this.secondaryMuscles.addAll(secondaryMuscles);
         }
         this.intensity = intensity;
@@ -64,7 +72,13 @@ class JsonAdaptedExercise {
                 .collect(Collectors.toList()));
     }
 
-    private JsonAdaptedExerciseDetail toAdaptedJson (ExerciseDetail detail){
+    /**
+     * Converts an Exercise Detail into its corresponding Json-Adapted class
+     * @param detail The exercise detail to be converted
+     * @return returns an JsonAdaptedExerciseDetail that is of the correct class
+     */
+
+    private JsonAdaptedExerciseDetail toAdaptedJson (ExerciseDetail detail) {
         if (detail instanceof Weight) {
             return new JsonAdaptedWeight((Weight) detail);
         } else if (detail instanceof Distance) {
@@ -88,7 +102,7 @@ class JsonAdaptedExercise {
         }
 
         final ArrayList<MuscleType> secondaryMuscles = new ArrayList<>();
-        for (JsonAdaptedMuscleType muscleType : this.secondaryMuscles){
+        for (JsonAdaptedMuscleType muscleType : this.secondaryMuscles) {
             secondaryMuscles.add(muscleType.toModelType());
         }
 
@@ -101,7 +115,8 @@ class JsonAdaptedExercise {
         final Name modelName = new Name(name);
 
         if (primaryMuscle == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, MuscleType.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    MuscleType.class.getSimpleName()));
         }
         if (!MuscleType.isValidMuscleType(primaryMuscle)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -109,7 +124,8 @@ class JsonAdaptedExercise {
         final MuscleType modelPrimaryMuscle = new MuscleType(primaryMuscle);
 
         if (intensity == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Intensity.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Intensity.class.getSimpleName()));
         }
         if (!Intensity.isValidIntensity(intensity)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);

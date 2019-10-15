@@ -1,11 +1,15 @@
 package seedu.address.model.details.unit;
 
+/**
+ * Represents the unit used for a Weight object.
+ *
+ */
 public enum WeightUnit {
     GRAM,
     KILOGRAM,
     POUND;
 
-    public String toJson(){
+    public String toJson() {
         return name();
     }
 
@@ -13,7 +17,7 @@ public enum WeightUnit {
     public String toString() {
         if (this == WeightUnit.GRAM) {
             return "g";
-        } else if (this == WeightUnit.KILOGRAM){
+        } else if (this == WeightUnit.KILOGRAM) {
             return "kg";
         } else {
             return "lbs";

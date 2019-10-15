@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.DukeCooks;
+import seedu.address.model.WorkoutPlanner;
 import seedu.address.model.exercise.Exercise;
 
 /**
@@ -52,8 +52,8 @@ public class TypicalPersons {
     /**
      * Returns an {@code DukeCooks} with all the typical persons.
      */
-    public static DukeCooks getTypicalDukeCooks() {
-        DukeCooks ab = new DukeCooks();
+    public static WorkoutPlanner getTypicalDukeCooks() {
+        WorkoutPlanner ab = new WorkoutPlanner();
         for (Exercise exercise : getTypicalPersons()) {
             ab.addExercise(exercise);
         }

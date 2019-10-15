@@ -26,7 +26,8 @@ public class Exercise {
     /**
      * Every field must be present and not null.
      */
-    public Exercise(Name name, MusclesTrained musclesTrained, Intensity intensity, Set<ExerciseDetail> exerciseDetails) {
+    public Exercise(Name name, MusclesTrained musclesTrained,
+                    Intensity intensity, Set<ExerciseDetail> exerciseDetails) {
         requireAllNonNull(name, musclesTrained, intensity, exerciseDetails);
         this.name = name;
         this.musclesTrained = musclesTrained;

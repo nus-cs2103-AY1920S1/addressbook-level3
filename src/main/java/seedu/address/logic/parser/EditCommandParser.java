@@ -10,7 +10,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REPETITIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SETS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditExerciseCommand;
@@ -45,7 +46,8 @@ public class EditCommandParser implements Parser<EditExerciseCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditExerciseCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditExerciseCommand.MESSAGE_USAGE), pe);
         }
 
         EditExerciseCommand.EditExerciseDescriptor editExerciseDescriptor = new EditExerciseDescriptor();

@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.DukeCooks;
+import seedu.address.model.WorkoutPlanner;
 import seedu.address.model.exercise.Exercise;
 
 /**
@@ -10,13 +10,13 @@ import seedu.address.model.exercise.Exercise;
  */
 public class DukeCooksBuilder {
 
-    private DukeCooks dukeCooks;
+    private WorkoutPlanner dukeCooks;
 
     public DukeCooksBuilder() {
-        dukeCooks = new DukeCooks();
+        dukeCooks = new WorkoutPlanner();
     }
 
-    public DukeCooksBuilder(DukeCooks dukeCooks) {
+    public DukeCooksBuilder(WorkoutPlanner dukeCooks) {
         this.dukeCooks = dukeCooks;
     }
 
@@ -28,7 +28,7 @@ public class DukeCooksBuilder {
         return this;
     }
 
-    public DukeCooks build() {
+    public WorkoutPlanner build() {
         return dukeCooks;
     }
 }

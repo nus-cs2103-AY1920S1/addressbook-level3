@@ -19,26 +19,26 @@ import seedu.address.model.exercise.Exercise;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final DukeCooks dukeCooks;
+    private final WorkoutPlanner dukeCooks;
     private final UserPrefs userPrefs;
     private final FilteredList<Exercise> filteredExercises;
 
     /**
      * Initializes a ModelManager with the given dukeCooks and userPrefs.
      */
-    public ModelManager(ReadOnlyDukeCooks dukeCooks, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyWorkoutPlanner dukeCooks, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(dukeCooks, userPrefs);
 
         logger.fine("Initializing with Duke Cooks: " + dukeCooks + " and user prefs " + userPrefs);
 
-        this.dukeCooks = new DukeCooks(dukeCooks);
+        this.dukeCooks = new WorkoutPlanner(dukeCooks);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExercises = new FilteredList<>(this.dukeCooks.getExerciseList());
     }
 
     public ModelManager() {
-        this(new DukeCooks(), new UserPrefs());
+        this(new WorkoutPlanner(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -67,24 +67,24 @@ public class ModelManager implements Model {
 
     @Override
     public Path getDukeCooksFilePath() {
-        return userPrefs.getDukeCooksFilePath();
+        return userPrefs.getExercisesFilePath();
     }
 
     @Override
     public void setDukeCooksFilePath(Path dukeCooksFilePath) {
         requireNonNull(dukeCooksFilePath);
-        userPrefs.setDukeCooksFilePath(dukeCooksFilePath);
+        userPrefs.setExercisesFilePath(dukeCooksFilePath);
     }
 
     //=========== DukeBooks ================================================================================
 
     @Override
-    public void setDukeCooks(ReadOnlyDukeCooks dukeCooks) {
+    public void setDukeCooks(ReadOnlyWorkoutPlanner dukeCooks) {
         this.dukeCooks.resetData(dukeCooks);
     }
 
     @Override
-    public ReadOnlyDukeCooks getDukeCooks() {
+    public ReadOnlyWorkoutPlanner getDukeCooks() {
         return dukeCooks;
     }
 

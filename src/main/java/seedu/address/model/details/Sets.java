@@ -2,9 +2,14 @@ package seedu.address.model.details;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents the number of Sets of an exercise in Workout Planner.
+ * Guarantees: immutable;
+ */
+
 public class Sets<Integer> extends ExerciseDetail {
 
-    public Sets(int sets){
+    public Sets(int sets) {
         requireNonNull(sets);
         super.magnitude = sets;
     }

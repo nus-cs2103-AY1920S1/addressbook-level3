@@ -21,7 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.storage.JsonDukeCooksStorage;
@@ -41,7 +41,7 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonDukeCooksStorage dukeCooksStorage =
-                new JsonDukeCooksStorage(temporaryFolder.resolve("dukecooks.json"));
+                new JsonDukeCooksStorage(temporaryFolder.resolve("exercises.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -151,7 +151,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveDukeCooks(ReadOnlyDukeCooks dukeCooks, Path filePath) throws IOException {
+        public void saveDukeCooks(ReadOnlyWorkoutPlanner dukeCooks, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

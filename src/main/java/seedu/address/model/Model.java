@@ -47,10 +47,10 @@ public interface Model {
     /**
      * Replaces Duke Cooks data with the data in {@code dukeCooks}.
      */
-    void setDukeCooks(ReadOnlyDukeCooks dukeCooks);
+    void setDukeCooks(ReadOnlyWorkoutPlanner dukeCooks);
 
     /** Returns DukeCooks */
-    ReadOnlyDukeCooks getDukeCooks();
+    ReadOnlyWorkoutPlanner getDukeCooks();
 
     /**
      * Returns true if an exercise with the same identity as {@code exercise} exists in Duke Cooks.
@@ -72,7 +72,8 @@ public interface Model {
     /**
      * Replaces the given exercise {@code target} with {@code editedExercise}.
      * {@code target} must exist in Duke Cooks.
-     * The exercise identity of {@code editedExercise} must not be the same as another existing exercise in the Duke Cooks.
+     * The exercise identity of {@code editedExercise} must not be the
+     * same as another existing exercise in the Duke Cooks.
      */
     void setExercise(Exercise target, Exercise editedExercise);
 

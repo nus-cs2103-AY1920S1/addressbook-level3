@@ -13,7 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.DukeCooksParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.storage.Storage;
 
@@ -52,7 +52,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyDukeCooks getDukeCooks() {
+    public ReadOnlyWorkoutPlanner getDukeCooks() {
         return model.getDukeCooks();
     }
 

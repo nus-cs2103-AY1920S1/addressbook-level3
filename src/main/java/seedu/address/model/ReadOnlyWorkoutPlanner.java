@@ -4,9 +4,9 @@ import javafx.collections.ObservableList;
 import seedu.address.model.exercise.Exercise;
 
 /**
- * Unmodifiable view of Duke Cooks
+ * Unmodifiable view of Workout Planner
  */
-public interface ReadOnlyDukeCooks {
+public interface ReadOnlyWorkoutPlanner {
 
     /**
      * Returns an unmodifiable view of the persons list.

@@ -1,10 +1,15 @@
 package seedu.address.model.details.unit;
 
+/**
+ * Represents the unit used for the Distance object.
+ *
+ */
+
 public enum DistanceUnit {
     METER,
     KILOMETER;
 
-    public String toJson(){
+    public String toJson() {
         return name();
     }
 

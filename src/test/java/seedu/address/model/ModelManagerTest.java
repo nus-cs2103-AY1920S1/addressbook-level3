@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new DukeCooks(), new DukeCooks(modelManager.getDukeCooks()));
+        assertEquals(new WorkoutPlanner(), new WorkoutPlanner(modelManager.getDukeCooks()));
     }
 
     @Test
@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setDukeCooksFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setExercisesFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setDukeCooksFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setExercisesFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -95,8 +95,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        DukeCooks dukeCooks = new DukeCooksBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        DukeCooks differentDukeCooks = new DukeCooks();
+        WorkoutPlanner dukeCooks = new DukeCooksBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        WorkoutPlanner differentDukeCooks = new WorkoutPlanner();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
@@ -126,7 +126,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setDukeCooksFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setExercisesFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(dukeCooks, differentUserPrefs)));
     }
 }
