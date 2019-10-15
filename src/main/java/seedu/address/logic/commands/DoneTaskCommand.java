@@ -1,17 +1,21 @@
 package seedu.address.logic.commands;
 
-<<<<<<< HEAD
-=======
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
->>>>>>> d2e10e7a9051df4792c19bd6fab68b1beb71392e
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
@@ -19,20 +23,13 @@ import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 
-import java.util.List;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
-
 /**
  * Edits the details of an existing task in the address book.
  */
-public class DoingTaskCommand extends Command {
+public class DoneTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "doing-task";
-    public static final String UPDATED_STATUS = TaskStatus.DOING.getDisplayName();
+    public static final String COMMAND_WORD = "done-task";
+    public static final String UPDATED_STATUS = TaskStatus.DONE.getDisplayName();
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks a task as <" + UPDATED_STATUS + "> "
@@ -41,9 +38,9 @@ public class DoingTaskCommand extends Command {
             + PREFIX_TASK_INDEX + "TASK_INDEX\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_DOING_TASK_SUCCESS = "Updated Task to <"
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Updated Task to <"
             + UPDATED_STATUS + ">: %1$s";
-    public static final String MESSAGE_TASK_ALREADY_IN_PROGRESS = "This task is already <"
+    public static final String MESSAGE_TASK_ALREADY_COMPLETED = "This task is already <"
             + UPDATED_STATUS + ">: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book.";
 
@@ -51,8 +48,9 @@ public class DoingTaskCommand extends Command {
 
     /**
      * @param index of the task in the filtered task list to edit
+     * @param editTaskDescriptor details to edit the task with
      */
-    public DoingTaskCommand(Index index) {
+    public DoneTaskCommand(Index index) {
         requireNonNull(index);
 
         this.index = index;
@@ -76,12 +74,12 @@ public class DoingTaskCommand extends Command {
 
         model.setTask(taskToUpdate, updatedTask);
         model.updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
-        return new CommandResult(String.format(MESSAGE_DOING_TASK_SUCCESS, updatedTask));
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, updatedTask));
     }
 
     /**
      * Creates and returns a {@code Task} with the details of {@code taskToUpdate}
-     * where TaskStatus is updated to 'In Progress".
+     * where TaskStatus is updated to DONE.
      */
     private static Task createUpdatedTask(Task taskToUpdate) throws CommandException {
         assert taskToUpdate != null;
@@ -89,10 +87,10 @@ public class DoingTaskCommand extends Command {
         Name name = taskToUpdate.getName();
         TaskStatus taskStatus = taskToUpdate.getTaskStatus();
         Set<Tag> tags = taskToUpdate.getTags();
-        if (taskStatus == TaskStatus.DOING) {
-            throw new CommandException(String.format(MESSAGE_TASK_ALREADY_IN_PROGRESS, taskToUpdate));
+        if (taskStatus == TaskStatus.DONE) {
+            throw new CommandException(String.format(MESSAGE_TASK_ALREADY_COMPLETED, taskToUpdate));
         }
-        return new Task(name, TaskStatus.DOING, tags);
+        return new Task(name, TaskStatus.DONE, tags);
     }
 
     @Override
@@ -103,12 +101,12 @@ public class DoingTaskCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DoingTaskCommand)) {
+        if (!(other instanceof DoneTaskCommand)) {
             return false;
         }
 
         // state check
-        DoingTaskCommand e = (DoingTaskCommand) other;
+        DoneTaskCommand e = (DoneTaskCommand) other;
         return index.equals(e.index);
     }
 }

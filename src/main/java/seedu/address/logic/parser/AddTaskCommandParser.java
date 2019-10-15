@@ -56,5 +56,8 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+<<<<<<< HEAD
+=======
 
+>>>>>>> d2e10e7a9051df4792c19bd6fab68b1beb71392e
 }
