@@ -8,6 +8,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyPlanner;
+import seedu.address.model.accommodation.Accommodation;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -30,7 +32,13 @@ public interface Logic {
      */
     ReadOnlyPlanner getPlanner();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of accommodations */
+    ObservableList<Accommodation> getFilteredAccommodationList();
+
+    /** Returns an unmodifiable view of the filtered list of activities */
+    ObservableList<Activity> getFilteredActivityList();
+
+    /** Returns an unmodifiable view of the filtered list of contacts */
     ObservableList<Contact> getFilteredContactList();
 
     /**

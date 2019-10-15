@@ -14,6 +14,8 @@ import seedu.address.logic.parser.PlannerParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyPlanner;
+import seedu.address.model.accommodation.Accommodation;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 import seedu.address.storage.Storage;
 
@@ -54,6 +56,16 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyPlanner getPlanner() {
         return model.getPlanner();
+    }
+
+    @Override
+    public ObservableList<Accommodation> getFilteredAccommodationList() {
+        return model.getFilteredAccommodationList();
+    }
+
+    @Override
+    public ObservableList<Activity> getFilteredActivityList() {
+        return model.getFilteredActivityList();
     }
 
     @Override

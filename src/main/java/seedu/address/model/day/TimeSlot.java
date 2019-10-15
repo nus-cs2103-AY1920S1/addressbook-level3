@@ -27,4 +27,19 @@ public class TimeSlot {
         requireNonNull(activityAtThisTime);
         return activityAtThisTime;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof TimeSlot)) {
+            return false;
+        }
+
+        TimeSlot otherTimeSlot = (TimeSlot) other;
+
+        return otherTimeSlot.getActivity().equals(getActivity());
+    }
 }

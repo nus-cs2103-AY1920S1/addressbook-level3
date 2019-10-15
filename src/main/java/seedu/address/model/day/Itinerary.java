@@ -63,8 +63,26 @@ public class Itinerary {
     }
 
     @Override
-    public boolean equals(Object object) {
-        return days.equals(((Itinerary) object).getDays());
-    }
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
 
+        if (!(other instanceof Itinerary)) {
+            return false;
+        }
+
+        //subjected to changes
+        Itinerary otherItinerary = (Itinerary) other;
+        List<Day> listCurrentDay = this.getDays();
+        List<Day> listOtherDay = otherItinerary.getDays();
+
+        boolean result = true;
+
+        for (int i = 0; i < listCurrentDay.size(); i++) {
+            result = result && (listCurrentDay.get(i).equals(listOtherDay.get(i)));
+        }
+
+        return result;
+    }
 }

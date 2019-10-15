@@ -27,4 +27,17 @@ public class Day {
         return test.matches(VALIDATION_REGEX);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Day)) {
+            return false;
+        }
+
+        Day otherDay = (Day) other;
+        return otherDay.timetable.equals(this.timetable);
+    }
 }
