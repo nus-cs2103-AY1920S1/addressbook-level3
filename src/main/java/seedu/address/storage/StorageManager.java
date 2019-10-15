@@ -7,26 +7,26 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.profile.ReadOnlyDukeCooks;
 import seedu.address.profile.ReadOnlyHealthRecords;
 import seedu.address.profile.ReadOnlyUserPrefs;
+import seedu.address.profile.ReadOnlyUserProfile;
 import seedu.address.profile.UserPrefs;
 
 /**
- * Manages storage of DukeCooks data in local storage.
+ * Manages storage of UserProfile data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private DukeCooksStorage dukeCooksStorage;
+    private UserProfileStorage userProfileStorage;
     private HealthRecordsStorage healthRecordsStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(DukeCooksStorage dukeCooksStorage, HealthRecordsStorage healthRecordsStorage,
+    public StorageManager(UserProfileStorage userProfileStorage, HealthRecordsStorage healthRecordsStorage,
                           UserPrefsStorage userPrefsStorage) {
         super();
-        this.dukeCooksStorage = dukeCooksStorage;
+        this.userProfileStorage = userProfileStorage;
         this.healthRecordsStorage = healthRecordsStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
@@ -49,33 +49,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ DukeCooks methods ==============================
+    // ================ UserProfile methods ==============================
 
     @Override
-    public Path getDukeCooksFilePath() {
-        return dukeCooksStorage.getDukeCooksFilePath();
+    public Path getUserProfileFilePath() {
+        return userProfileStorage.getUserProfileFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyDukeCooks> readDukeCooks() throws DataConversionException, IOException {
-        return readDukeCooks(dukeCooksStorage.getDukeCooksFilePath());
+    public Optional<ReadOnlyUserProfile> readUserProfile() throws DataConversionException, IOException {
+        return readUserProfile(userProfileStorage.getUserProfileFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyDukeCooks> readDukeCooks(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyUserProfile> readUserProfile(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return dukeCooksStorage.readDukeCooks(filePath);
+        return userProfileStorage.readUserProfile(filePath);
     }
 
     @Override
-    public void saveDukeCooks(ReadOnlyDukeCooks dukeCooks) throws IOException {
-        saveDukeCooks(dukeCooks, dukeCooksStorage.getDukeCooksFilePath());
+    public void saveUserProfile(ReadOnlyUserProfile dukeCooks) throws IOException {
+        saveUserProfile(dukeCooks, userProfileStorage.getUserProfileFilePath());
     }
 
     @Override
-    public void saveDukeCooks(ReadOnlyDukeCooks dukeCooks, Path filePath) throws IOException {
+    public void saveUserProfile(ReadOnlyUserProfile dukeCooks, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        dukeCooksStorage.saveDukeCooks(dukeCooks, filePath);
+        userProfileStorage.saveUserProfile(dukeCooks, filePath);
     }
 
     // ================ Health Records methods ==============================

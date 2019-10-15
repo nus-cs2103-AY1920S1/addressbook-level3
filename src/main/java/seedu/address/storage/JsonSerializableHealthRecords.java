@@ -32,7 +32,7 @@ class JsonSerializableHealthRecords {
     }
 
     /**
-    * Converts a given {@code ReadOnlyDukeCooks} into this class for Jackson use.
+    * Converts a given {@code ReadOnlyUserProfile} into this class for Jackson use.
     *
     * @param source future changes to this will not affect the created {@code JsonSerializableUserProfile}.
     */

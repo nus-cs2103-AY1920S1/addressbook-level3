@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalProfiles.getTypicalProfiles;
 
 import java.nio.file.Path;
 
@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.profile.DukeCooks;
-import seedu.address.profile.ReadOnlyDukeCooks;
+import seedu.address.profile.ReadOnlyUserProfile;
 import seedu.address.profile.UserPrefs;
+import seedu.address.profile.UserProfile;
 
 public class StorageManagerTest {
 
@@ -24,7 +24,7 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonDukeCooksStorage dukeCooksStorage = new JsonDukeCooksStorage(getTempFilePath("ab"));
+        JsonUserProfileStorage dukeCooksStorage = new JsonUserProfileStorage(getTempFilePath("ab"));
         JsonHealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(getTempFilePath("hr"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(dukeCooksStorage, healthRecordsStorage, userPrefsStorage);
@@ -52,18 +52,18 @@ public class StorageManagerTest {
     public void dukeCooksReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonDukeCooksStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonDukeCooksStorageTest} class.
+         * {@link JsonUserProfileStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonUserProfileStorageTest} class.
          */
-        DukeCooks original = getTypicalDukeCooks();
-        storageManager.saveDukeCooks(original);
-        ReadOnlyDukeCooks retrieved = storageManager.readDukeCooks().get();
-        assertEquals(original, new DukeCooks(retrieved));
+        UserProfile original = getTypicalProfiles();
+        storageManager.saveUserProfile(original);
+        ReadOnlyUserProfile retrieved = storageManager.readUserProfile().get();
+        assertEquals(original, new UserProfile(retrieved));
     }
 
     @Test
     public void getDukeCooksFilePath() {
-        assertNotNull(storageManager.getDukeCooksFilePath());
+        assertNotNull(storageManager.getUserProfileFilePath());
     }
 
 }

@@ -4,9 +4,9 @@ import javafx.collections.ObservableList;
 import seedu.address.profile.person.Person;
 
 /**
- * Unmodifiable view of Duke Cooks
+ * Unmodifiable view of the User Profile
  */
-public interface ReadOnlyDukeCooks {
+public interface ReadOnlyUserProfile {
 
     /**
      * Returns an unmodifiable view of the user profile in the list.

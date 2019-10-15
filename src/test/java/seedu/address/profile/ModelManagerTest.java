@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.profile.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalProfiles.ALICE;
+import static seedu.address.testutil.TypicalProfiles.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,7 +24,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new DukeCooks(), new DukeCooks(modelManager.getDukeCooks()));
+        assertEquals(new UserProfile(), new UserProfile(modelManager.getUserProfile()));
     }
 
     @Test
@@ -35,14 +35,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setDukeCooksFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setUserProfileFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setDukeCooksFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setUserProfileFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -60,14 +60,14 @@ public class ModelManagerTest {
 
     @Test
     public void setDukeCooksFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setDukeCooksFilePath(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setUserProfileFilePath(null));
     }
 
     @Test
     public void setDukeCooksFilePath_validPath_setsDukeCooksFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setDukeCooksFilePath(path);
-        assertEquals(path, modelManager.getDukeCooksFilePath());
+        modelManager.setUserProfileFilePath(path);
+        assertEquals(path, modelManager.getUserProfileFilePath());
     }
 
     @Test
@@ -77,13 +77,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        DukeCooks dukeCooks = new DukeCooksBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        DukeCooks differentDukeCooks = new DukeCooks();
+        UserProfile userProfile = new DukeCooksBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        UserProfile differentUserProfile = new UserProfile();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        //        modelManager = new ModelManager(dukeCooks, userPrefs);
-        //        ModelManager modelManagerCopy = new ModelManager(dukeCooks, userPrefs);
+        //        modelManager = new ModelManager(userProfile, userPrefs);
+        //        ModelManager modelManagerCopy = new ModelManager(userProfile, userPrefs);
         //        assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -95,20 +95,20 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different dukeCooks -> returns false
-        //        assertFalse(modelManager.equals(new ModelManager(differentDukeCooks, userPrefs)));
+        // different userProfile -> returns false
+        //        assertFalse(modelManager.equals(new ModelManager(differentUserProfile, userPrefs)));
 
         // different filteredList -> returns false
         //        String[] keywords = ALICE.getName().fullName.split("\\s+");
         //        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        //        assertFalse(modelManager.equals(new ModelManager(dukeCooks, userPrefs)));
+        //        assertFalse(modelManager.equals(new ModelManager(userProfile, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns false
         //        UserPrefs differentUserPrefs = new UserPrefs();
-        //        differentUserPrefs.setDukeCooksFilePath(Paths.get("differentFilePath"));
-        //        assertFalse(modelManager.equals(new ModelManager(dukeCooks, differentUserPrefs)));
+        //        differentUserPrefs.setUserProfileFilePath(Paths.get("differentFilePath"));
+        //        assertFalse(modelManager.equals(new ModelManager(userProfile, differentUserPrefs)));
     }
 }

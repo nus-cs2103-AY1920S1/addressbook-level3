@@ -8,13 +8,13 @@ package seedu.address.logic.commands;
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 //import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalProfiles.getTypicalProfiles;
 
 //import org.junit.jupiter.api.Test;
 
 //import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.EditProfileCommand.EditPersonDescriptor;
-//import seedu.address.profile.DukeCooks;
+//import seedu.address.profile.UserProfile;
 
 import seedu.address.profile.Model;
 import seedu.address.profile.ModelManager;
@@ -30,7 +30,7 @@ import seedu.address.profile.UserPrefs;
  */
 public class EditProfileCommandTest {
 
-    private Model model = new ModelManager(getTypicalDukeCooks(), null, new UserPrefs());
+    private Model model = new ModelManager(getTypicalProfiles(), null, new UserPrefs());
 
     //    @Test
     //    public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -40,7 +40,7 @@ public class EditProfileCommandTest {
     //
     //        String expectedMessage = String.format(EditProfileCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
     //
-    //        Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), null, new UserPrefs());
+    //        Model expectedModel = new ModelManager(new UserProfile(model.getUserProfile()), null, new UserPrefs());
     //        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
     //
     //        assertCommandSuccess(editProfileCommand, model, expectedMessage, expectedModel);
@@ -61,7 +61,7 @@ public class EditProfileCommandTest {
     //
     //        String expectedMessage = String.format(EditProfileCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
     //
-    //        Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), null, new UserPrefs());
+    //        Model expectedModel = new ModelManager(new UserProfile(model.getUserProfile()), null, new UserPrefs());
     //        expectedModel.setPerson(lastPerson, editedPerson);
     //
     //        assertCommandSuccess(editProfileCommand, model, expectedMessage, expectedModel);
@@ -74,7 +74,7 @@ public class EditProfileCommandTest {
     //
     //        String expectedMessage = String.format(EditProfileCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
     //
-    //        Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), null, new UserPrefs());
+    //        Model expectedModel = new ModelManager(new UserProfile(model.getUserProfile()), null, new UserPrefs());
     //
     //        assertCommandSuccess(editProfileCommand, model, expectedMessage, expectedModel);
     //    }
@@ -90,7 +90,7 @@ public class EditProfileCommandTest {
     //
     //        String expectedMessage = String.format(EditProfileCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
     //
-    //        Model expectedModel = new ModelManager(new DukeCooks(model.getDukeCooks()), null, new UserPrefs());
+    //        Model expectedModel = new ModelManager(new UserProfile(model.getUserProfile()), null, new UserPrefs());
     //        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
     //
     //        assertCommandSuccess(editProfileCommand, model, expectedMessage, expectedModel);

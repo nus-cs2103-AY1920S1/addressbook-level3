@@ -8,8 +8,8 @@ import java.nio.file.Paths;
 //import org.junit.jupiter.api.Test;
 //
 //import seedu.address.commons.util.JsonUtil;
-//import seedu.address.profile.DukeCooks;
-//import seedu.address.testutil.TypicalPersons;
+//import seedu.address.profile.UserProfile;
+//import seedu.address.testutil.TypicalProfiles;
 
 public class JsonSerializableUserProfileTest {
 

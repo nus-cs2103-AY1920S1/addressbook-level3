@@ -20,16 +20,16 @@ import seedu.address.profile.records.Record;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final DukeCooks dukeCooks;
+    private final UserProfile userProfile;
     private final HealthRecords healthRecords;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Record> filteredRecords;
 
     /**
-     * Initializes a ModelManager with the given dukeCooks and userPrefs.
+     * Initializes a ModelManager with the given userProfile and userPrefs.
      */
-    public ModelManager(ReadOnlyDukeCooks dukeCooks, ReadOnlyHealthRecords healthRecords,
+    public ModelManager(ReadOnlyUserProfile dukeCooks, ReadOnlyHealthRecords healthRecords,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(dukeCooks, healthRecords, userPrefs);
@@ -38,15 +38,15 @@ public class ModelManager implements Model {
                 + "with Health Records: " + healthRecords
                 + "and user prefs " + userPrefs);
 
-        this.dukeCooks = new DukeCooks(dukeCooks);
+        this.userProfile = new UserProfile(dukeCooks);
         this.healthRecords = new HealthRecords(healthRecords);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.dukeCooks.getUserProfileList());
+        filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
     }
 
     public ModelManager() {
-        this(new DukeCooks(), new HealthRecords(), new UserPrefs());
+        this(new UserProfile(), new HealthRecords(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -74,14 +74,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getDukeCooksFilePath() {
-        return userPrefs.getDukeCooksFilePath();
+    public Path getUserProfileFilePath() {
+        return userPrefs.getUserProfileFilePath();
     }
 
     @Override
-    public void setDukeCooksFilePath(Path dukeCooksFilePath) {
-        requireNonNull(dukeCooksFilePath);
-        userPrefs.setDukeCooksFilePath(dukeCooksFilePath);
+    public void setUserProfileFilePath(Path userProfileFilePath) {
+        requireNonNull(userProfileFilePath);
+        userPrefs.setUserProfileFilePath(userProfileFilePath);
     }
 
     @Override
@@ -95,21 +95,21 @@ public class ModelManager implements Model {
         userPrefs.setHealthRecordsFilePath(healthRecordsFilePath);
     }
 
-    //=========== DukeBooks ================================================================================
+    //=========== User Profile ================================================================================
 
     @Override
-    public void setDukeCooks(ReadOnlyDukeCooks dukeCooks) {
-        this.dukeCooks.resetData(dukeCooks);
+    public void setUserProfile(ReadOnlyUserProfile userProfile) {
+        this.userProfile.resetData(userProfile);
     }
 
     @Override
-    public ReadOnlyDukeCooks getDukeCooks() {
-        return dukeCooks;
+    public ReadOnlyUserProfile getUserProfile() {
+        return userProfile;
     }
 
     @Override
     public void addPerson(Person person) {
-        dukeCooks.addPerson(person);
+        userProfile.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -117,7 +117,7 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        dukeCooks.setPerson(target, editedPerson);
+        userProfile.setPerson(target, editedPerson);
     }
 
     //=========== Health Records ============================================================================
@@ -193,7 +193,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return dukeCooks.equals(other.dukeCooks)
+        return userProfile.equals(other.userProfile)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }

@@ -12,7 +12,7 @@ import seedu.address.profile.person.UniqueUserProfile;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameRecord comparison)
  */
-public class DukeCooks implements ReadOnlyDukeCooks {
+public class UserProfile implements ReadOnlyUserProfile {
 
     private final UniqueUserProfile userprofile;
 
@@ -27,12 +27,12 @@ public class DukeCooks implements ReadOnlyDukeCooks {
         userprofile = new UniqueUserProfile();
     }
 
-    public DukeCooks() {}
+    public UserProfile() {}
 
     /**
-     * Creates a DukeCooks using the Persons in the {@code toBeCopied}
+     * Creates a UserProfile using the Persons in the {@code toBeCopied}
      */
-    public DukeCooks(ReadOnlyDukeCooks dukeCooks) {
+    public UserProfile(ReadOnlyUserProfile dukeCooks) {
         this();
         resetData(dukeCooks);
     }
@@ -48,9 +48,9 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     }
 
     /**
-     * Resets the existing data of this {@code DukeCooks} with {@code newData}.
+     * Resets the existing data of this {@code UserProfile} with {@code newData}.
      */
-    public void resetData(ReadOnlyDukeCooks newData) {
+    public void resetData(ReadOnlyUserProfile newData) {
         requireNonNull(newData);
 
         setUserprofile(newData.getUserProfileList());
@@ -92,8 +92,8 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DukeCooks // instanceof handles nulls
-                && userprofile.equals(((DukeCooks) other).userprofile));
+                || (other instanceof UserProfile // instanceof handles nulls
+                && userprofile.equals(((UserProfile) other).userprofile));
     }
 
     @Override

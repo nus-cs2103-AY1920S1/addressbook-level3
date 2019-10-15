@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path dukeCooksFilePath = Paths.get("data" , "dukecooks.json");
+    private Path userProfileFilePath = Paths.get("data" , "userprofile.json");
     private Path healthRecordsFilePath = Paths.get("data", "healthrecords.json");
 
     /**
@@ -36,7 +36,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setDukeCooksFilePath(newUserPrefs.getDukeCooksFilePath());
+        setUserProfileFilePath(newUserPrefs.getUserProfileFilePath());
         setHealthRecordsFilePath(newUserPrefs.getHealthRecordsFilePath());
     }
 
@@ -49,13 +49,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getDukeCooksFilePath() {
-        return dukeCooksFilePath;
+    public Path getUserProfileFilePath() {
+        return userProfileFilePath;
     }
 
-    public void setDukeCooksFilePath(Path dukeCooksFilePath) {
-        requireNonNull(dukeCooksFilePath);
-        this.dukeCooksFilePath = dukeCooksFilePath;
+    public void setUserProfileFilePath(Path userProfileFilePath) {
+        requireNonNull(userProfileFilePath);
+        this.userProfileFilePath = userProfileFilePath;
     }
 
     public Path getHealthRecordsFilePath() {
@@ -79,19 +79,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && dukeCooksFilePath.equals(o.dukeCooksFilePath);
+                && userProfileFilePath.equals(o.userProfileFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, dukeCooksFilePath);
+        return Objects.hash(guiSettings, userProfileFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + dukeCooksFilePath);
+        sb.append("\nLocal data file location : " + userProfileFilePath);
         return sb.toString();
     }
 

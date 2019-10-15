@@ -41,45 +41,45 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' DukeCooks file path.
+     * Returns the user prefs' UserProfile file path.
      */
-    Path getDukeCooksFilePath();
+    Path getUserProfileFilePath();
 
     /**
      * Sets the user prefs' Duke Cooks file path.
      */
-    void setDukeCooksFilePath(Path dukeCooksFilePath);
+    void setUserProfileFilePath(Path userProfileFilePath);
 
     /**
-     * Returns the user prefs' DukeCooks file path.
+     * Returns the user prefs' Health Records file path.
      */
     Path getHealthRecordsFilePath();
 
     /**
-     * Sets the user prefs' Duke Cooks file path.
+     * Sets the user prefs' Health Records file path.
      */
     void setHealthRecordsFilePath(Path healthRecordsFilePath);
 
-    //=========== DukeBooks ================================================================================
+    //=========== User Profile ================================================================================
 
     /**
-     * Replaces Duke Cooks data with the data in {@code dukeCooks}.
+     * Replaces Duke Cooks data with the data in {@code userProfile}.
      */
-    void setDukeCooks(ReadOnlyDukeCooks dukeCooks);
+    void setUserProfile(ReadOnlyUserProfile userProfile);
 
-    /** Returns DukeCooks */
-    ReadOnlyDukeCooks getDukeCooks();
+    /** Returns UserProfile */
+    ReadOnlyUserProfile getUserProfile();
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in Duke Cooks.
+     * {@code person} must not already exist in User Profile.
      */
     void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in Duke Cooks.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the Duke Cooks.
+     * {@code target} must exist in User Profile.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the User Profile.
      */
     void setPerson(Person target, Person editedPerson);
 

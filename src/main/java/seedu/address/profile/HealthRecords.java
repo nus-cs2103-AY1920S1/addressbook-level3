@@ -31,7 +31,7 @@ public class HealthRecords implements ReadOnlyHealthRecords {
     public HealthRecords() {}
 
     /**
-     * Creates a DukeCooks using the Persons in the {@code toBeCopied}
+     * Creates a UserProfile using the Persons in the {@code toBeCopied}
      */
     public HealthRecords(ReadOnlyHealthRecords healthRecords) {
         this();
@@ -49,7 +49,7 @@ public class HealthRecords implements ReadOnlyHealthRecords {
     }
 
     /**
-     * Resets the existing data of this {@code DukeCooks} with {@code newData}.
+     * Resets the existing data of this {@code UserProfile} with {@code newData}.
      */
     public void resetData(ReadOnlyHealthRecords newData) {
         requireNonNull(newData);

@@ -8,7 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.profile.Model;
-import seedu.address.profile.ReadOnlyDukeCooks;
+import seedu.address.profile.ReadOnlyUserProfile;
 import seedu.address.profile.person.Person;
 import seedu.address.profile.records.Record;
 
@@ -26,11 +26,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns DukeCooks.
+     * Returns UserProfile.
      *
-     * @see Model#getDukeCooks()
+     * @see Model#getUserProfile()
      */
-    ReadOnlyDukeCooks getDukeCooks();
+    ReadOnlyUserProfile getDukeCooks();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();

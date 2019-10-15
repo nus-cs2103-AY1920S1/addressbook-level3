@@ -15,11 +15,11 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.profile.DukeCooks;
 import seedu.address.profile.Model;
-import seedu.address.profile.ReadOnlyDukeCooks;
 import seedu.address.profile.ReadOnlyHealthRecords;
 import seedu.address.profile.ReadOnlyUserPrefs;
+import seedu.address.profile.ReadOnlyUserProfile;
+import seedu.address.profile.UserProfile;
 import seedu.address.profile.person.Person;
 import seedu.address.profile.records.Record;
 import seedu.address.testutil.PersonBuilder;
@@ -93,7 +93,7 @@ public class AddProfileCommandTest {
         }
 
         @Override
-        public Path getDukeCooksFilePath() {
+        public Path getUserProfileFilePath() {
             throw new AssertionError(
                     "This method should not be called.");
         }
@@ -105,7 +105,7 @@ public class AddProfileCommandTest {
         }
 
         @Override
-        public void setDukeCooksFilePath(Path dukeCooksFilePath) {
+        public void setUserProfileFilePath(Path userProfileFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -127,7 +127,7 @@ public class AddProfileCommandTest {
         }
 
         @Override
-        public void setDukeCooks(ReadOnlyDukeCooks dukeCooks) {
+        public void setUserProfile(ReadOnlyUserProfile userProfile) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -137,7 +137,7 @@ public class AddProfileCommandTest {
         }
 
         @Override
-        public ReadOnlyDukeCooks getDukeCooks() {
+        public ReadOnlyUserProfile getUserProfile() {
             throw new AssertionError(
                     "This method should not be called.");
         }
@@ -204,8 +204,8 @@ public class AddProfileCommandTest {
         }
 
         @Override
-        public ReadOnlyDukeCooks getDukeCooks() {
-            return new DukeCooks();
+        public ReadOnlyUserProfile getUserProfile() {
+            return new UserProfile();
         }
     }
 

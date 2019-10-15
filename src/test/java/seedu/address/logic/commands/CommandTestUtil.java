@@ -17,8 +17,8 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.profile.DukeCooks;
 import seedu.address.profile.Model;
+import seedu.address.profile.UserProfile;
 import seedu.address.profile.person.NameContainsKeywordsPredicate;
 import seedu.address.profile.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -99,11 +99,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        DukeCooks expectedDukeCooks = new DukeCooks(actualModel.getDukeCooks());
+        UserProfile expectedUserProfile = new UserProfile(actualModel.getUserProfile());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedDukeCooks, actualModel.getDukeCooks());
+        assertEquals(expectedUserProfile, actualModel.getUserProfile());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
     /**

@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.HEIGHT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.WEIGHT_DESC;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalProfiles.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -25,12 +25,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.profile.Model;
 import seedu.address.profile.ModelManager;
-import seedu.address.profile.ReadOnlyDukeCooks;
+import seedu.address.profile.ReadOnlyUserProfile;
 import seedu.address.profile.UserPrefs;
 import seedu.address.profile.person.Person;
-import seedu.address.storage.JsonDukeCooksStorage;
 import seedu.address.storage.JsonHealthRecordsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserProfileStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
 
@@ -45,8 +45,8 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonDukeCooksStorage dukeCooksStorage =
-                new JsonDukeCooksStorage(temporaryFolder.resolve("dukecooks.json"));
+        JsonUserProfileStorage dukeCooksStorage =
+                new JsonUserProfileStorage(temporaryFolder.resolve("dukecooks.json"));
         JsonHealthRecordsStorage healthRecordsStorage =
                 new JsonHealthRecordsStorage(temporaryFolder.resolve("healthrecords.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
@@ -68,9 +68,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonDukeCooksIoExceptionThrowingStub
-        JsonDukeCooksStorage dukeCooksStorage =
-                new JsonDukeCooksIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
+        // Setup LogicManager with JsonUserProfileIoExceptionThrowingStub
+        JsonUserProfileStorage dukeCooksStorage =
+                new JsonUserProfileIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(dukeCooksStorage, null, userPrefsStorage);
@@ -127,7 +127,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getDukeCooks(), model.getHealthRecords(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getUserProfile(), model.getHealthRecords(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -147,13 +147,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonDukeCooksIoExceptionThrowingStub extends JsonDukeCooksStorage {
-        private JsonDukeCooksIoExceptionThrowingStub(Path filePath) {
+    private static class JsonUserProfileIoExceptionThrowingStub extends JsonUserProfileStorage {
+        private JsonUserProfileIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveDukeCooks(ReadOnlyDukeCooks dukeCooks, Path filePath) throws IOException {
+        public void saveUserProfile(ReadOnlyUserProfile dukeCooks, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

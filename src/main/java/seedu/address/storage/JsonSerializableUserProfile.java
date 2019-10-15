@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.profile.DukeCooks;
-import seedu.address.profile.ReadOnlyDukeCooks;
+import seedu.address.profile.ReadOnlyUserProfile;
+import seedu.address.profile.UserProfile;
 import seedu.address.profile.person.Person;
 
 /**
@@ -32,26 +32,26 @@ class JsonSerializableUserProfile {
     }
 
     /**
-    * Converts a given {@code ReadOnlyDukeCooks} into this class for Jackson use.
+    * Converts a given {@code ReadOnlyUserProfile} into this class for Jackson use.
     *
     * @param source future changes to this will not affect the created {@code JsonSerializableUserProfile}.
     */
-    public JsonSerializableUserProfile(ReadOnlyDukeCooks source) {
+    public JsonSerializableUserProfile(ReadOnlyUserProfile source) {
         userprofile.addAll(source.getUserProfileList().stream().map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList()));
     }
 
     /**
-    *  Converts this User Profile into the model's {@code DukeCooks} object.
+    *  Converts this User Profile into the model's {@code UserProfile} object.
     *
     * @throws IllegalValueException if there were any data constraints violated.
     */
-    public DukeCooks toModelType() throws IllegalValueException {
-        DukeCooks dukeCooks = new DukeCooks();
+    public UserProfile toModelType() throws IllegalValueException {
+        UserProfile userProfile = new UserProfile();
         for (JsonAdaptedPerson jsonAdaptedPerson : userprofile) {
             Person person = jsonAdaptedPerson.toModelType();
-            dukeCooks.addPerson(person);
+            userProfile.addPerson(person);
         }
-        return dukeCooks;
+        return userProfile;
     }
 }

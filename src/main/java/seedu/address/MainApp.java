@@ -15,23 +15,23 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.profile.DukeCooks;
 import seedu.address.profile.HealthRecords;
 import seedu.address.profile.Model;
 import seedu.address.profile.ModelManager;
-import seedu.address.profile.ReadOnlyDukeCooks;
 import seedu.address.profile.ReadOnlyHealthRecords;
 import seedu.address.profile.ReadOnlyUserPrefs;
+import seedu.address.profile.ReadOnlyUserProfile;
 import seedu.address.profile.UserPrefs;
+import seedu.address.profile.UserProfile;
 import seedu.address.profile.util.SampleDataUtil;
-import seedu.address.storage.DukeCooksStorage;
 import seedu.address.storage.HealthRecordsStorage;
-import seedu.address.storage.JsonDukeCooksStorage;
 import seedu.address.storage.JsonHealthRecordsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserProfileStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.UserProfileStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -52,7 +52,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing DukeCooks ]===========================");
+        logger.info("=============================[ Initializing UserProfile ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -60,9 +60,9 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        DukeCooksStorage dukeCooksStorage = new JsonDukeCooksStorage(userPrefs.getDukeCooksFilePath());
+        UserProfileStorage userProfileStorage = new JsonUserProfileStorage(userPrefs.getUserProfileFilePath());
         HealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(userPrefs.getHealthRecordsFilePath());
-        storage = new StorageManager(dukeCooksStorage, healthRecordsStorage, userPrefsStorage);
+        storage = new StorageManager(userProfileStorage, healthRecordsStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -79,7 +79,7 @@ public class MainApp extends Application {
      * or an empty dukeCooks will be used instead if errors occur when reading {@code storage}'s Duke Cooks.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        ReadOnlyDukeCooks initialDukeCooks;
+        ReadOnlyUserProfile initialDukeCooks;
         initialDukeCooks = initDukeCooks(storage);
 
         ReadOnlyHealthRecords initialHealthRecords;
@@ -89,26 +89,26 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ReadOnlyDukeCooks} with the data from {@code storage}'s DukeCooks. <br>
-     * The data from the sample DukeCooks will be used instead if {@code storage}'s persons is not found,
-     * or an empty DukeCook will be used instead if errors occur when reading {@code storage}'s DukeCooks.
+     * Returns a {@code ReadOnlyUserProfile} with the data from {@code storage}'s UserProfile. <br>
+     * The data from the sample UserProfile will be used instead if {@code storage}'s persons is not found,
+     * or an empty DukeCook will be used instead if errors occur when reading {@code storage}'s UserProfile.
      */
-    private ReadOnlyDukeCooks initDukeCooks(Storage storage) {
-        Optional<ReadOnlyDukeCooks> dukeCooksOptional;
-        ReadOnlyDukeCooks initialData;
+    private ReadOnlyUserProfile initDukeCooks(Storage storage) {
+        Optional<ReadOnlyUserProfile> dukeCooksOptional;
+        ReadOnlyUserProfile initialData;
 
         try {
-            dukeCooksOptional = storage.readDukeCooks();
+            dukeCooksOptional = storage.readUserProfile();
             if (!dukeCooksOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with sample DukeCooks");
+                logger.info("Data file not found. Will be starting with sample UserProfile");
             }
             initialData = dukeCooksOptional.orElseGet(SampleDataUtil::getSampleDukeCooks);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
-            initialData = new DukeCooks();
+            logger.warning("Data file not in the correct format. Will be starting with an empty UserProfile");
+            initialData = new UserProfile();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
-            initialData = new DukeCooks();
+            logger.warning("Problem while reading from the file. Will be starting with an empty UserProfile");
+            initialData = new UserProfile();
         }
 
         return initialData;
@@ -198,7 +198,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
+            logger.warning("Problem while reading from the file. Will be starting with an empty UserProfile");
             initializedPrefs = new UserPrefs();
         }
 
@@ -214,7 +214,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting DukeCooks " + MainApp.VERSION);
+        logger.info("Starting UserProfile " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

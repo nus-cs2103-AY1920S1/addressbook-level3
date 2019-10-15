@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.profile.DukeCooks;
 import seedu.address.profile.HealthRecords;
-import seedu.address.profile.ReadOnlyDukeCooks;
 import seedu.address.profile.ReadOnlyHealthRecords;
+import seedu.address.profile.ReadOnlyUserProfile;
+import seedu.address.profile.UserProfile;
 import seedu.address.profile.medical.MedicalHistory;
 import seedu.address.profile.person.BloodType;
 import seedu.address.profile.person.DoB;
@@ -22,7 +22,7 @@ import seedu.address.profile.records.Type;
 import seedu.address.profile.records.Value;
 
 /**
- * Contains utility methods for populating {@code DukeCooks} with sample data.
+ * Contains utility methods for populating {@code UserProfile} with sample data.
  */
 public class SampleDataUtil {
 
@@ -40,8 +40,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyDukeCooks getSampleDukeCooks() {
-        DukeCooks sampleDc = new DukeCooks();
+    public static ReadOnlyUserProfile getSampleDukeCooks() {
+        UserProfile sampleDc = new UserProfile();
         for (Person samplePerson : getSamplePersons()) {
             sampleDc.addPerson(samplePerson);
         }

@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.profile.DukeCooks;
+import seedu.address.profile.UserProfile;
 import seedu.address.profile.person.Person;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalProfiles {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withGender("female")
@@ -54,13 +54,13 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalProfiles() {} // prevents instantiation
 
     /**
-     * Returns an {@code DukeCooks} with all the typical persons.
+     * Returns an {@code UserProfile} with all the typical persons.
      */
-    public static DukeCooks getTypicalDukeCooks() {
-        DukeCooks ab = new DukeCooks();
+    public static UserProfile getTypicalProfiles() {
+        UserProfile ab = new UserProfile();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.testutil.TypicalPersons.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalProfiles.getTypicalProfiles;
 
 import org.junit.jupiter.api.BeforeEach;
 
@@ -17,7 +17,7 @@ public class AddProfileCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalDukeCooks(), null, new UserPrefs());
+        model = new ModelManager(getTypicalProfiles(), null, new UserPrefs());
     }
 
 }

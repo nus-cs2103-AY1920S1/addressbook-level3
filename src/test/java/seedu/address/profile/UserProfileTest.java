@@ -3,8 +3,8 @@ package seedu.address.profile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HISTORY_DENGUE;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalProfiles.ALICE;
+import static seedu.address.testutil.TypicalProfiles.getTypicalProfiles;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,25 +19,25 @@ import seedu.address.profile.person.Person;
 import seedu.address.profile.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
 
-public class DukeCooksTest {
+public class UserProfileTest {
 
-    private final DukeCooks dukeCooks = new DukeCooks();
+    private final UserProfile userProfile = new UserProfile();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), dukeCooks.getUserProfileList());
+        assertEquals(Collections.emptyList(), userProfile.getUserProfileList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> dukeCooks.resetData(null));
+        assertThrows(NullPointerException.class, () -> userProfile.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyDukeCooks_replacesData() {
-        DukeCooks newData = getTypicalDukeCooks();
-        dukeCooks.resetData(newData);
-        assertEquals(newData, dukeCooks);
+        UserProfile newData = getTypicalProfiles();
+        userProfile.resetData(newData);
+        assertEquals(newData, userProfile);
     }
 
     @Test
@@ -46,23 +46,23 @@ public class DukeCooksTest {
         Person editedAlice = new PersonBuilder(ALICE).withMedicalHistories(VALID_HISTORY_DENGUE)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        DukeCooksStub newData = new DukeCooksStub(newPersons);
+        UserProfileStub newData = new UserProfileStub(newPersons);
 
-        assertThrows(DuplicatePersonException.class, () -> dukeCooks.resetData(newData));
+        assertThrows(DuplicatePersonException.class, () -> userProfile.resetData(newData));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> dukeCooks.getUserProfileList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> userProfile.getUserProfileList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyDukeCooks whose persons list can violate interface constraints.
+     * A stub ReadOnlyUserProfile whose persons list can violate interface constraints.
      */
-    private static class DukeCooksStub implements ReadOnlyDukeCooks {
+    private static class UserProfileStub implements ReadOnlyUserProfile {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
-        DukeCooksStub(Collection<Person> persons) {
+        UserProfileStub(Collection<Person> persons) {
             this.persons.setAll(persons);
         }
 

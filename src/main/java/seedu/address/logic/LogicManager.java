@@ -13,7 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.DukeCooksParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.profile.Model;
-import seedu.address.profile.ReadOnlyDukeCooks;
+import seedu.address.profile.ReadOnlyUserProfile;
 import seedu.address.profile.person.Person;
 import seedu.address.profile.records.Record;
 import seedu.address.storage.Storage;
@@ -44,7 +44,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveDukeCooks(model.getDukeCooks());
+            storage.saveUserProfile(model.getUserProfile());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -59,8 +59,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyDukeCooks getDukeCooks() {
-        return model.getDukeCooks();
+    public ReadOnlyUserProfile getDukeCooks() {
+        return model.getUserProfile();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class LogicManager implements Logic {
 
     @Override
     public Path getDukeCooksFilePath() {
-        return model.getDukeCooksFilePath();
+        return model.getUserProfileFilePath();
     }
 
     @Override
