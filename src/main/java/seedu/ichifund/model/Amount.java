@@ -32,7 +32,24 @@ public class Amount implements Comparable<Amount> {
         if (amounts.length == 1) { // String contains only dollar and no cents
             valueInCents = Integer.parseInt(amount) * 100;
         } else { // String contains only cents
-            valueInCents = Integer.parseInt(amounts[0]) * 100 + Integer.parseInt(amounts[1]);
+            valueInCents = getValueFromDollarAndCents(amounts[0], amounts[1]);
+        }
+    }
+
+    /**
+     * Returns integer representing value from a {@code String dollar} and a {@code String cents}
+     *
+     * @param dollar String representing value in dollars, can have negative sign.
+     * @param cents String representing value in cents.
+     * @return Combined value in cents
+     */
+    private int getValueFromDollarAndCents(String dollar, String cents) {
+        int dollarValue = Integer.parseInt(dollar);
+        int centsValue = Integer.parseInt(cents);
+        if (dollarValue < 0) {
+            return dollarValue * 100 - centsValue;
+        } else {
+            return dollarValue * 100 + centsValue;
         }
     }
 
@@ -50,7 +67,7 @@ public class Amount implements Comparable<Amount> {
     @Override
     public String toString() {
         int dollars = valueInCents / 100;
-        int cents = java.lang.Math.abs(valueInCents) % 100;
+        int cents = java.lang.Math.abs(valueInCents) % 100;  // Absolute value required due to behaviour of %
         String centsString = convertCentsToString(cents);
         return dollars + "." + centsString;
     }
