@@ -7,23 +7,26 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyData;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.competition.Competition;
+import seedu.address.model.participation.Participation;
+import seedu.address.model.person.Person;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Data data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private SystemStorage systemStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(SystemStorage systemStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.systemStorage = systemStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +48,92 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ Person Data methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getPersonDataFilePath() {
+        return systemStorage.getPersonDataFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyData<Person>> readPersonData() throws DataConversionException, IOException {
+        return readPersonData(systemStorage.getPersonDataFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyData<Person>> readPersonData(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return systemStorage.readPersonData(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void savePersonData(ReadOnlyData<Person> readOnlyData) throws IOException {
+        systemStorage.savePersonData(readOnlyData, systemStorage.getPersonDataFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+    public void savePersonData(ReadOnlyData<Person> readOnlyData, Path filePath) throws IOException {
+        systemStorage.savePersonData(readOnlyData, filePath);
+    }
+
+    // ================ Competition Data methods ==============================
+
+    @Override
+    public Path getCompetitionDataFilePath() {
+        return systemStorage.getCompetitionDataFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyData<Competition>> readCompetitionData() throws DataConversionException, IOException {
+        return readCompetitionData(systemStorage.getCompetitionDataFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyData<Competition>> readCompetitionData(
+        Path filePath
+    ) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return systemStorage.readCompetitionData(filePath);
+    }
+
+    @Override
+    public void saveCompetitionData(ReadOnlyData<Competition> readOnlyData) throws IOException {
+        systemStorage.saveCompetitionData(readOnlyData, systemStorage.getCompetitionDataFilePath());
+    }
+
+    @Override
+    public void saveCompetitionData(ReadOnlyData<Competition> readOnlyData, Path filePath) throws IOException {
+        systemStorage.saveCompetitionData(readOnlyData, filePath);
+    }
+
+    // ================ Participation Data methods ==============================
+
+    @Override
+    public Path getParticipationDataFilePath() {
+        return systemStorage.getParticipationDataFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyData<Participation>> readParticipationData() throws DataConversionException, IOException {
+        return readParticipationData(systemStorage.getParticipationDataFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyData<Participation>> readParticipationData(
+        Path filePath
+    ) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return systemStorage.readParticipationData(filePath);
+    }
+
+    @Override
+    public void saveParticipationData(ReadOnlyData<Participation> readOnlyData) throws IOException {
+        systemStorage.saveParticipationData(readOnlyData, systemStorage.getParticipationDataFilePath());
+    }
+
+    @Override
+    public void saveParticipationData(ReadOnlyData<Participation> readOnlyData, Path filePath) throws IOException {
+        systemStorage.saveParticipationData(readOnlyData, filePath);
     }
 
 }

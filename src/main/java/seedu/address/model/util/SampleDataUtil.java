@@ -1,11 +1,14 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Data;
+import seedu.address.model.ReadOnlyData;
+import seedu.address.model.competition.Competition;
+import seedu.address.model.participation.Participation;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -14,11 +17,11 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code Data} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
-        return new Person[] {
+        return new Person[]{
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("friends")),
@@ -40,12 +43,29 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyData<Person> getSamplePersonData() {
+        Data<Person> persons = new Data<>();
         for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+            persons.addUniqueElement(samplePerson);
         }
-        return sampleAb;
+        return persons;
+    }
+
+    public static Competition[] getSampleCompetitions() {
+        return new Competition[]{
+            new Competition(
+                new Name("NUS Powerlifting Open 2019"),
+                new Date("8/5/2019"),
+                new Date("8/9/2019"))
+        };
+    }
+
+    public static ReadOnlyData<Competition> getSampleCompetitionData() {
+        Data<Competition> competitions = new Data<>();
+        for (Competition sampleCompetition : getSampleCompetitions()) {
+            competitions.addUniqueElement(sampleCompetition);
+        }
+        return competitions;
     }
 
     /**
@@ -53,8 +73,24 @@ public class SampleDataUtil {
      */
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toSet());
+            .map(Tag::new)
+            .collect(Collectors.toSet());
+    }
+
+    /**
+     * Creates sample participations by make every person  a participant to every competition
+     */
+    public static ReadOnlyData<Participation> getSampleParticipationData(
+        ReadOnlyData<Person> persons,
+        ReadOnlyData<Competition> competitions
+    ) {
+        Data<Participation> participations = new Data<>();
+        for (Person person : persons.getListOfElements()) {
+            for (Competition competition : competitions.getListOfElements()) {
+                participations.addUniqueElement(new Participation(person, competition));
+            }
+        }
+        return participations;
     }
 
 }

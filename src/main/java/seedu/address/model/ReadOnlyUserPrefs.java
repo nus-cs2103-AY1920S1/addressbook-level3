@@ -11,6 +11,10 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
-    Path getAddressBookFilePath();
+    Path getPersonDataFilePath();
+
+    Path getCompetitionDataFilePath();
+
+    Path getParticipationDataFilePath();
 
 }

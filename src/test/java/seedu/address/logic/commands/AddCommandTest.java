@@ -16,10 +16,12 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Data;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyData;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.competition.Competition;
+import seedu.address.model.participation.Participation;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -99,14 +101,16 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getUserPrefsFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setUserPrefsFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
+
+        // ===== Person =====
 
         @Override
         public void addPerson(Person person) {
@@ -114,12 +118,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setPersons(ReadOnlyData<Person> newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyData<Person> getPersons() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -145,6 +149,90 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // ===== Competition =====
+
+        @Override
+        public void addCompetition(Competition competition) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCompetitions(ReadOnlyData<Competition> newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyData<Competition> getCompetitions() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCompetition(Competition competition) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCompetition(Competition target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCompetition(Competition target, Competition editedCompetition) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Competition> getFilteredCompetitionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredCompetitionList(Predicate<Competition> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // ===== Participation =====
+
+        @Override
+        public void addParticipation(Participation person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setParticipations(ReadOnlyData<Participation> newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyData<Participation> getParticipations() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasParticipation(Participation person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteParticipation(Participation target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setParticipation(Participation target, Participation editedParticipation) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Participation> getFilteredParticipationList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredParticipationList(Predicate<Participation> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -186,9 +274,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyData<Person> getPersons() {
+            return new Data();
         }
+
     }
+
+    // TODO: private class ModelStubWithCompetition extends ModelStub
+    // TODO: private class ModelStubWithParticipation extends ModelStub
 
 }
