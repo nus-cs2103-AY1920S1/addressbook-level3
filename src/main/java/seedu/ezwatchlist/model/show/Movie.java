@@ -13,5 +13,6 @@ public class Movie extends Show {
     public Movie(Name name, Description description, IsWatched isWatched,
                  Date dateOfRelease, RunningTime runningTime, Set<Actor> actors) {
         super(name, description, isWatched, dateOfRelease, runningTime, actors);
+        super.TYPE = "Movie";
     }
 }

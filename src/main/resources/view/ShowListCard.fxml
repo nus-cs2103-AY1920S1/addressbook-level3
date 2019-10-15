@@ -28,6 +28,7 @@
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <FlowPane fx:id="actors" />
+            <Label fx:id="type" styleClass="cell_small_label" text="\$type" />
             <Label fx:id="dateOfRelease" styleClass="cell_small_label" text="\$date of release" />
             <Label fx:id="isWatched" styleClass="cell_small_label" text="\$Watched" />
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />

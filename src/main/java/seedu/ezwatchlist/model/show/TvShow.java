@@ -24,6 +24,7 @@ public class TvShow extends Show {
         this.numOfEpisodesWatched = numOfEpisodesWatched;
         this.totalNumOfEpisodes = totalNumOfEpisodes;
         this.tvSeasons = tvSeasons;
+        super.TYPE = "TvShow";
     }
 
     public int getNumOfEpisodesWatched() {

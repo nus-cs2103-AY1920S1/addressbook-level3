@@ -26,6 +26,7 @@ class JsonAdaptedShow {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Show's %s field is missing!";
 
     private final String name;
+    private final String type;
     private final String dateOfRelease;
     private final boolean isWatched;
     private final String description;
@@ -37,12 +38,14 @@ class JsonAdaptedShow {
      */
     @JsonCreator
     public JsonAdaptedShow(@JsonProperty("name") String name,
+                           @JsonProperty("type") String type,
                            @JsonProperty("dateOfRelease") String dateOfRelease,
                            @JsonProperty("watched") boolean isWatched,
                            @JsonProperty("description") String description,
                            @JsonProperty("runningTime") int runningTime,
                            @JsonProperty("actors") List<JsonAdaptedActor> actors) {
         this.name = name;
+        this.type = type;
         this.dateOfRelease = dateOfRelease;
         this.isWatched = isWatched;
         this.description = description;
@@ -57,6 +60,7 @@ class JsonAdaptedShow {
      */
     public JsonAdaptedShow(Show source) {
         name = source.getName().showName;
+        type = source.TYPE;
         dateOfRelease = source.getDateOfRelease().value;
         isWatched = source.isWatched().value;
         description = source.getDescription().fullDescription;
@@ -115,7 +119,9 @@ class JsonAdaptedShow {
         final RunningTime modelRunningTime = new RunningTime(runningTime);
 
         final Set<Actor> modelActors = new HashSet<>(showActors);
-        return new Show(modelName, modelDescription, modelIsWatched, modelDateOfRelease, modelRunningTime, modelActors);
+        Show show = new Show(modelName, modelDescription, modelIsWatched, modelDateOfRelease, modelRunningTime, modelActors);
+        show.TYPE = type;
+        return show;
     }
 
 }

@@ -16,6 +16,8 @@ import seedu.ezwatchlist.commons.util.CollectionUtil;
  */
 public class Show {
 
+    public String TYPE = "";
+
     //identity fields
     private final Name name;
     private final Date dateOfRelease;

@@ -7,6 +7,7 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
@@ -22,6 +23,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a show to the watchlist. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
+            + PREFIX_TYPE + "TYPE "
             + PREFIX_DATE_OF_RELEASE + "DATE OF RELEASE "
             + PREFIX_IS_WATCHED + "WATCHED? "
             + PREFIX_RUNNING_TIME + "RUNNING TIME "
@@ -29,6 +31,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_ACTOR + "ACTOR]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Joker "
+            + PREFIX_TYPE + "movie "
             + PREFIX_DATE_OF_RELEASE + "4 October 2019 "
             + PREFIX_IS_WATCHED + "true "
             + PREFIX_RUNNING_TIME + "122 "
