@@ -2,8 +2,8 @@ package seedu.address.logic.parser.stub;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DoneTaskCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 //import seedu.address.model.tag.Tag;
 

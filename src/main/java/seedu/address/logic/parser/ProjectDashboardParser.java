@@ -8,18 +8,12 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddInventoryCommand;
 import seedu.address.logic.commands.AddTaskCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteInventoryCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.commands.DoingTaskCommand;
 import seedu.address.logic.commands.DoneTaskCommand;
-import seedu.address.logic.commands.SetDeadlineCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -68,23 +62,23 @@ public class ProjectDashboardParser {
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParserStub().parse(arguments);
 
-//        case ClearCommand.COMMAND_WORD:
-//            return new ClearCommand();
-//
-//        case FindCommand.COMMAND_WORD:
-//            return new FindCommandParser().parse(arguments);
-//
-//        case ListCommand.COMMAND_WORD:
-//            return new ListCommand();
-//
-//        case ExitCommand.COMMAND_WORD:
-//            return new ExitCommand();
-//
-//        case HelpCommand.COMMAND_WORD:
-//            return new HelpCommand();
-//
-//        case EditCommand.COMMAND_WORD:
-//            return new EditCommandParser().parse(arguments);
+        //        case ClearCommand.COMMAND_WORD:
+        //            return new ClearCommand();
+        //
+        //        case FindCommand.COMMAND_WORD:
+        //            return new FindCommandParser().parse(arguments);
+        //
+        //        case ListCommand.COMMAND_WORD:
+        //            return new ListCommand();
+        //
+        //        case ExitCommand.COMMAND_WORD:
+        //            return new ExitCommand();
+        //
+        //        case HelpCommand.COMMAND_WORD:
+        //            return new HelpCommand();
+        //
+        //        case EditCommand.COMMAND_WORD:
+        //            return new EditCommandParser().parse(arguments);
 
         case AddInventoryCommand.COMMAND_WORD:
             return new AddInventoryCommandParser().parse(arguments);
