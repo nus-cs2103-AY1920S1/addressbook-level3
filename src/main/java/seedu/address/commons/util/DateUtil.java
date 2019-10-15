@@ -18,10 +18,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Contains utility methods used for parsing dates with natural language processing.
  */
 public class DateUtil {
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("E dd MMM yyyy HH:mm:ss z");
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
     /* Date pattern which allows leading zeroes to be omitted. */
     private static final Pattern DATE_PATTERN = Pattern.compile("([0-9]{1,2})([/\\-])([0-9]{1,2})([/\\-])([0-9]{4})");
+
+    /** Parser for natural language processing. **/
+    private static final Parser PARSER = new Parser();
 
     /**
      * Parses a given date in natural language, processes it and returns a formatted date.
@@ -33,11 +36,10 @@ public class DateUtil {
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
 
-        // Apply a correction to this date input.
-        String correctedDate = standardiseDate(date);
+        // Normalises this date input.
+        String normalisedDate = normaliseDate(date);
 
-        Parser parser = new Parser();
-        List<DateGroup> dateGroups = parser.parse(correctedDate);
+        List<DateGroup> dateGroups = PARSER.parse(normalisedDate);
 
         if (dateGroups.isEmpty()) {
             throw new ParseException("Invalid input date");
@@ -53,12 +55,34 @@ public class DateUtil {
     }
 
     /**
-     * Standardises a given date format, from dd/mm/yyyy to yyyy/mm/dd.
+     * Checks if an input date is valid.
+     *
+     * @param date Input date
+     * @return True if the input date was valid.
+     */
+    public static boolean isValidDate(String date) {
+        requireNonNull(date);
+
+        // Normalises this date input.
+        String normalisedDate = normaliseDate(date);
+
+        List<DateGroup> dateGroups = PARSER.parse(normalisedDate);
+
+        if (dateGroups.isEmpty()) {
+            return false;
+        }
+
+        List<Date> possibleDates = dateGroups.get(0).getDates();
+        return !possibleDates.isEmpty();
+    }
+
+    /**
+     * Normalises a given date format, from dd/mm/yyyy to yyyy/mm/dd.
      *
      * @param date Date
      * @return A standardised format date
      */
-    private static String standardiseDate(String date) {
+    private static String normaliseDate(String date) {
         StringBuilder builder = new StringBuilder();
         String[] tokens = date.split("\\s+");
 
@@ -73,7 +97,11 @@ public class DateUtil {
 
                 builder = new StringBuilder(String.format("%d/%d/%d", year, month, day));
             } else {
-                builder.append(" ").append(token);
+                if (tokens.length == 1) {
+                    builder.append(token);
+                } else {
+                    builder.append(" ").append(token);
+                }
             }
         }
 
@@ -82,7 +110,7 @@ public class DateUtil {
 
     /**
      * Formats a date to a string.
-     * Example: Wed 25 Dec 2019 00:00:00 SGT
+     * Example output: 25/12/2019
      *
      * @param date Input date
      * @return A formatted date string
