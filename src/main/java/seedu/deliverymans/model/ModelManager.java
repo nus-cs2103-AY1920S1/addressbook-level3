@@ -12,10 +12,15 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
+import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
+import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.database.CustomerDatabase;
+import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.order.Order;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,27 +29,41 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final OrderBook orderBook;
+    private final CustomerDatabase customerDatabase;
+
     private final UserPrefs userPrefs;
+
     private final FilteredList<Person> filteredPersons;
-    //private final FilteredList<Customer> filteredCustomers;
+    private final FilteredList<Order> filteredOrders;
+    private final FilteredList<Customer> filteredCustomers;
+
+    private Context context;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook,
+                        ReadOnlyCustomerDatabase customerDatabase,
+                        ReadOnlyOrderBook orderBook,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, customerDatabase, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.customerDatabase = new CustomerDatabase(customerDatabase);
+        this.orderBook = new OrderBook(orderBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        //filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
+        filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
+        filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
+        context = Context.GLOBAL;
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new CustomerDatabase(), new OrderBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -82,6 +101,16 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
+    @Override
+    public Path getOrderBookFilePath() {
+        return userPrefs.getOrderBookFilePath();
+    }
+
+    @Override
+    public void setOrderBookFilePath(Path orderBookFilePath) {
+        requireNonNull(orderBookFilePath);
+        userPrefs.setOrderBookFilePath(orderBookFilePath);
+    }
     //=========== AddressBook ================================================================================
 
     @Override
@@ -118,32 +147,49 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    //=========== Universal Methods =============================================================
+
+    /**
+     * Sets current context of the system.
+     *
+     * @param context current context
+     */
+    @Override
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public Context getContext() {
+        return context;
+    }
+
     //=========== Customer Methods =============================================================
-    /*
+
     @Override
     public boolean hasCustomer(Customer customer) {
         requireNonNull(customer);
-        return addressBook.hasCustomer(customer);
+        return customerDatabase.hasCustomer(customer);
     }
 
     @Override
     public void deleteCustomer(Customer target) {
-        addressBook.removeCustomer(target);
+        customerDatabase.removeCustomer(target);
     }
 
     @Override
     public void addCustomer(Customer customer) {
-        addressBook.addCustomer(customer);
-        //updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS); - to add.
+        customerDatabase.addCustomer(customer);
+        updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
     }
 
     @Override
     public void setCustomer(Customer target, Customer editedCustomer) {
         requireAllNonNull(target, editedCustomer);
 
-        addressBook.setCustomer(target, editedCustomer);
+        customerDatabase.setCustomer(target, editedCustomer);
     }
-    */
+
     //=========== Deliveryman Methods =============================================================
 
     @Override
@@ -156,6 +202,42 @@ public class ModelManager implements Model {
     public void addDeliveryman(Deliveryman deliveryman) {
         requireNonNull(deliveryman);
     }
+
+    //=========== Order Methods =============================================================
+    @Override
+    public void setOrderBook(ReadOnlyOrderBook orderBook) {
+        this.orderBook.resetData(orderBook);
+    }
+
+    @Override
+    public ReadOnlyOrderBook getOrderBook() {
+        return orderBook;
+    }
+
+    @Override
+    public boolean hasOrder(Order order) {
+        requireNonNull(order);
+        return orderBook.hasOrder(order);
+    }
+
+    @Override
+    public void deleteOrder(Order order) {
+        orderBook.removeOrder(order);
+    }
+
+    @Override
+    public void addOrder(Order order) {
+        orderBook.addOrder(order);
+        updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
+    }
+
+    @Override
+    public void setOrder(Order target, Order editedOrder) {
+        requireAllNonNull(target, editedOrder);
+
+        orderBook.setOrder(target, editedOrder);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -167,10 +249,36 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Customer} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Customer> getFilteredCustomerList() {
+        return filteredCustomers;
+    }
+
+    @Override
+    public ObservableList<Order> getFilteredOrderList() {
+        return filteredOrders;
+    }
+
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredOrderList(Predicate<Order> predicate) {
+        requireNonNull(predicate);
+        filteredOrders.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+        requireNonNull(predicate);
+        filteredCustomers.setPredicate(predicate);
     }
 
     @Override

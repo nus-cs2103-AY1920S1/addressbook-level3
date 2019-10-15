@@ -17,14 +17,20 @@ import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.LogicManager;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.ModelManager;
+import seedu.deliverymans.model.OrderBook;
+import seedu.deliverymans.model.ReadOnlyOrderBook;
 import seedu.deliverymans.model.ReadOnlyUserPrefs;
 import seedu.deliverymans.model.UserPrefs;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.util.SampleDataUtil;
+import seedu.deliverymans.model.database.CustomerDatabase;
+import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.storage.AddressBookStorage;
 import seedu.deliverymans.storage.JsonAddressBookStorage;
+import seedu.deliverymans.storage.JsonOrderBookStorage;
 import seedu.deliverymans.storage.JsonUserPrefsStorage;
+import seedu.deliverymans.storage.OrderBookStorage;
 import seedu.deliverymans.storage.Storage;
 import seedu.deliverymans.storage.StorageManager;
 import seedu.deliverymans.storage.UserPrefsStorage;
@@ -57,7 +63,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
+        storage = new StorageManager(addressBookStorage, orderBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -75,22 +82,44 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyOrderBook> orderBookOptional;
+
+        ReadOnlyAddressBook initialAddressData;
+        ReadOnlyOrderBook initialOrderData;
+        ReadOnlyCustomerDatabase initialCustomerData;
+
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialCustomerData = new CustomerDatabase(); // to change when storage is settled
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialAddressData = new AddressBook();
+            initialCustomerData = new CustomerDatabase();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialAddressData = new AddressBook();
+            initialCustomerData = new CustomerDatabase();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            orderBookOptional = storage.readOrderBook();
+            if (!orderBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample OrderBook");
+            }
+            initialOrderData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty OrderBook");
+            initialOrderData = new OrderBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty OrderBook");
+            initialOrderData = new OrderBook();
+        }
+
+        return new ModelManager(initialAddressData, initialCustomerData, initialOrderData, userPrefs);
     }
 
     private void initLogging(Config config) {

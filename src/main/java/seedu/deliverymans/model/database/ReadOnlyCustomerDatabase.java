@@ -1,4 +1,4 @@
-package seedu.deliverymans.model;
+package seedu.deliverymans.model.database;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.customer.Customer;
@@ -7,7 +7,7 @@ import seedu.deliverymans.model.customer.Customer;
  * Unmodifiable view of an address book
  */
 
-public interface ReadOnlyCustomerBook {
+public interface ReadOnlyCustomerDatabase {
 
     /**
      * Returns an unmodifiable view of the customers list.
