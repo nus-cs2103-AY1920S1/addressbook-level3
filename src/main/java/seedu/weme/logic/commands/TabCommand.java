@@ -30,4 +30,17 @@ public class TabCommand extends Command {
         model.getContext().setValue(context);
         return new CommandResult(String.format(MESSAGE_SUCCESS, context.getContextName()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof TabCommand)) {
+            return false;
+        }
+
+        return context.equals(((TabCommand) other).context);
+    }
 }

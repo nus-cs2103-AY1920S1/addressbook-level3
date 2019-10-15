@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.HelpCommand;
 import seedu.weme.logic.commands.MemeAddCommand;
 import seedu.weme.logic.commands.MemeClearCommand;
@@ -21,7 +22,9 @@ import seedu.weme.logic.commands.MemeEditCommand;
 import seedu.weme.logic.commands.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.logic.commands.MemeFindCommand;
 import seedu.weme.logic.commands.MemeListCommand;
+import seedu.weme.logic.commands.TabCommand;
 import seedu.weme.logic.parser.exceptions.ParseException;
+import seedu.weme.model.ModelContext;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.TagContainsKeywordsPredicate;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
@@ -73,6 +76,14 @@ public class MemeParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(MemeListCommand.COMMAND_WORD) instanceof MemeListCommand);
         assertTrue(parser.parseCommand(MemeListCommand.COMMAND_WORD + " 3") instanceof MemeListCommand);
+    }
+
+    @Test
+    public void parseCommand_tab() throws Exception {
+        Command command = parser.parseCommand(
+            TabCommand.COMMAND_WORD + " " + ModelContext.CONTEXT_MEMES.getContextName());
+        assertTrue(command instanceof TabCommand);
+        assertEquals(new TabCommand(ModelContext.CONTEXT_MEMES), command);
     }
 
     @Test
