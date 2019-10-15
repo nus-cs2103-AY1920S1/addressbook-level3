@@ -48,10 +48,8 @@ public class Category {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Category // instanceof handles nulls
-                && category.toLowerCase()
-                .equals(
-                        ((Category) other).category.toLowerCase() // case-insensitive check
-                ));
+                && category.toLowerCase() // case-insensitive check
+                .equals(((Category) other).category.toLowerCase()));
     }
 
     @Override

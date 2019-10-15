@@ -1,6 +1,14 @@
 package seedu.ichifund.logic.parser.transaction;
 
-import seedu.ichifund.logic.commands.transaction.AddTransactionCommand;
+import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
+
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
 import seedu.ichifund.logic.commands.transaction.FilterTransactionCommand;
 import seedu.ichifund.logic.parser.ArgumentMultimap;
 import seedu.ichifund.logic.parser.ArgumentTokenizer;
@@ -14,15 +22,6 @@ import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.transaction.TransactionCategoryPredicate;
 import seedu.ichifund.model.transaction.TransactionDatePredicate;
-
-import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
-
-import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
 /**
  * Parses input arguments and creates a new FilterTransactionCommand object.

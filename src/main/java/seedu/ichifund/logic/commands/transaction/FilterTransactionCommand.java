@@ -1,5 +1,12 @@
 package seedu.ichifund.logic.commands.transaction;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
+
+import java.util.function.Predicate;
+
 import seedu.ichifund.commons.core.Messages;
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.CommandResult;
@@ -7,13 +14,9 @@ import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.transaction.Transaction;
 
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
-
+/**
+ * Filters the list of transaction in IchiFund by Year, Month, and optionally Category.
+ */
 public class FilterTransactionCommand extends Command {
 
     public static final String COMMAND_WORD = "filtertx";

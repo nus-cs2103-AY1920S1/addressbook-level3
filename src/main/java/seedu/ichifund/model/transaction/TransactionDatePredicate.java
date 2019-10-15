@@ -1,10 +1,13 @@
 package seedu.ichifund.model.transaction;
 
+import java.util.function.Predicate;
+
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 
-import java.util.function.Predicate;
-
+/**
+ * Tests that a {@code Transaction}'s {@code Date} matches the given month and year.
+ */
 public class TransactionDatePredicate implements Predicate<Transaction> {
     private final Month month;
     private final Year year;
