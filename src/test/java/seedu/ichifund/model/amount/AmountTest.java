@@ -1,4 +1,4 @@
-package seedu.ichifund.model;
+package seedu.ichifund.model.amount;
 
 import org.junit.jupiter.api.Test;
 import seedu.ichifund.model.amount.Amount;
