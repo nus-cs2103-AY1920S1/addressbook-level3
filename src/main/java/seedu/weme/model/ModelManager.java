@@ -155,7 +155,7 @@ public class ModelManager implements Model {
         return memeBook.equals(other.memeBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredMemes.equals(other.filteredMemes)
-                && context.equals(other.context);
+                && context.getValue().equals(other.context.getValue());
     }
 
 }

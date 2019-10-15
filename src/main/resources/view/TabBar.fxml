@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+  <children>
+    <VBox fx:id="memesTab" alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
+      <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+      </padding>
+      <children>
+        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/doge_tab.png"/>
+          </image>
+        </ImageView>
+        <Label text="Memes"/>
+      </children>
+    </VBox>
+    <Region VBox.vgrow="ALWAYS"/>
+    <VBox fx:id="templatesTab" alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
+      <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+      </padding>
+      <children>
+        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/template_tab.png"/>
+          </image>
+        </ImageView>
+        <Label text="Templates"/>
+      </children>
+    </VBox>
+    <Region VBox.vgrow="ALWAYS"/>
+    <VBox fx:id="archiveTab" alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
+      <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+      </padding>
+      <children>
+        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/archive_tab.png"/>
+          </image>
+        </ImageView>
+        <Label text="Archive"/>
+      </children>
+    </VBox>
+    <Region VBox.vgrow="ALWAYS"/>
+    <VBox fx:id="statisticsTab" alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
+      <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+      </padding>
+      <children>
+        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/statistics_tab.png"/>
+          </image>
+        </ImageView>
+        <Label text="Statistics"/>
+      </children>
+    </VBox>
+    <Region VBox.vgrow="ALWAYS"/>
+    <VBox fx:id="storageTab" alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
+      <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+      </padding>
+      <children>
+        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/storage_tab.png"/>
+          </image>
+        </ImageView>
+        <Label text="Storage"/>
+      </children>
+    </VBox>
+  </children>
+</VBox>
