@@ -35,7 +35,8 @@ public class StudentUtil {
         descriptor.getName().ifPresent(name -> sb.append(CliSyntax.PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getCredits().ifPresent(credits -> sb.append(CliSyntax.PREFIX_CREDITS)
                 .append(credits.value).append(" "));
-        descriptor.getPrevMods().ifPresent(prevMods -> sb.append(CliSyntax.PREFIX_PREVMODS).append(prevMods.value).append(" "));
+        descriptor.getPrevMods().ifPresent(prevMods -> sb.append(CliSyntax.PREFIX_PREVMODS)
+                .append(prevMods.value).append(" "));
         descriptor.getMatricId().ifPresent(address -> sb.append(CliSyntax.PREFIX_MATRICID)
                 .append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {

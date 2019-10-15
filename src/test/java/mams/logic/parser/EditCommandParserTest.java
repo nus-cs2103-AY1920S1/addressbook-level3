@@ -72,7 +72,8 @@ public class EditCommandParserTest {
 
         // invalid credits followed by valid prevMods
         CommandParserTestUtil.assertParseFailure(parser, "1"
-                + CommandTestUtil.INVALID_CREDITS_DESC + CommandTestUtil.PREVMODS_DESC_AMY, Credits.MESSAGE_CONSTRAINTS);
+                + CommandTestUtil.INVALID_CREDITS_DESC
+                + CommandTestUtil.PREVMODS_DESC_AMY, Credits.MESSAGE_CONSTRAINTS);
 
         // valid credits followed by invalid credits. The test case for invalid credits followed by valid credits
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
@@ -167,7 +168,8 @@ public class EditCommandParserTest {
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_STUDENT;
         String userInput = targetIndex.getOneBased()
-                + CommandTestUtil.CREDITS_DESC_AMY + CommandTestUtil.MATRICID_DESC_AMY + CommandTestUtil.PREVMODS_DESC_AMY
+                + CommandTestUtil.CREDITS_DESC_AMY + CommandTestUtil.MATRICID_DESC_AMY
+                + CommandTestUtil.PREVMODS_DESC_AMY
                 + CommandTestUtil.TAG_DESC_FRIEND + CommandTestUtil.CREDITS_DESC_AMY + CommandTestUtil.MATRICID_DESC_AMY
                 + CommandTestUtil.PREVMODS_DESC_AMY + CommandTestUtil.TAG_DESC_FRIEND
                 + CommandTestUtil.CREDITS_DESC_BOB + CommandTestUtil.MATRICID_DESC_BOB

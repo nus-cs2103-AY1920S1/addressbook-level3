@@ -2,9 +2,9 @@ package mams.logic.commands;
 
 import static mams.logic.commands.CommandTestUtil.DESC_AMY;
 import static mams.logic.commands.CommandTestUtil.DESC_BOB;
-import static mams.logic.commands.CommandTestUtil.VALID_PREVMODS_BOB;
 import static mams.logic.commands.CommandTestUtil.VALID_MATRICID_BOB;
 import static mams.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static mams.logic.commands.CommandTestUtil.VALID_PREVMODS_BOB;
 import static mams.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
