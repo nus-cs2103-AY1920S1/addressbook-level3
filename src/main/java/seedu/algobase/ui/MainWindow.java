@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private DisplayTabPane displayTabPane;
     private ProblemListPanel problemListPanel;
     private PlanListPanel planListPanel;
+    private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -112,12 +113,15 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
         planListPanel = new PlanListPanel(logic.getProcessedPlanList());
+        taskListPanel = new TaskListPanel(logic.getProcessedTaskList());
         DisplayTab problemListPanelTab = new DisplayTab(ModelEnum.PROBLEM.getTabName(), problemListPanel);
         DisplayTab tagListPanelTab = new DisplayTab(ModelEnum.TAG.getTabName());
         DisplayTab planListPanelTab = new DisplayTab(ModelEnum.PLAN.getTabName(), planListPanel);
+        DisplayTab taskListPanelTab = new DisplayTab(ModelEnum.TASK.getTabName(), taskListPanel);
 
         displayTabPane =
-            new DisplayTabPane(logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab);
+            new DisplayTabPane(
+                logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab, taskListPanelTab);
         displayTabPanePlaceholder.getChildren().add(displayTabPane.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -176,6 +180,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public PlanListPanel getPlanListPanel() {
         return planListPanel;
+    }
+
+    public TaskListPanel getTaskListPanel() {
+        return taskListPanel;
     }
 
     /**

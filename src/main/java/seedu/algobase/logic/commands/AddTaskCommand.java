@@ -70,7 +70,7 @@ public class AddTaskCommand extends Command {
         Plan updatedPlan = Plan.createUpdatedPlan(plan, taskSet);
         model.setPlan(plan, updatedPlan);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, task, plan));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, task, updatedPlan));
     }
 
     @Override

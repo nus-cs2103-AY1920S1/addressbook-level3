@@ -15,6 +15,7 @@ import seedu.algobase.model.ReadOnlyUserPrefs;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
+import seedu.algobase.model.task.Task;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -176,4 +177,8 @@ public class DefaultModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public ObservableList<Task> getCurrentTaskList() {
+        throw new AssertionError("This method should not be called.");
+    }
 }

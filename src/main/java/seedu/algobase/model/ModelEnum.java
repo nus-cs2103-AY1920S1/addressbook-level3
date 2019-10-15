@@ -6,7 +6,8 @@ package seedu.algobase.model;
 public enum ModelEnum {
     PROBLEM (0, "problem", "Problems"),
     TAG (1, "tag", "Tags"),
-    PLAN (2, "plan", "Training Plans");
+    PLAN (2, "plan", "Training Plans"),
+    TASK (3, "task", "Tasks");
 
     private final int displayTabPaneIndex;
     private final String commandArgumentValue;

@@ -11,6 +11,7 @@ import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
+import seedu.algobase.model.task.Task;
 
 /**
  * The API of the Model component.
@@ -18,8 +19,6 @@ import seedu.algobase.model.tag.Tag;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Problem> PREDICATE_SHOW_ALL_PROBLEMS = unused -> true;
-
-    /** {@code Predicate} that always evaluate to true */
     Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
     Predicate<Plan> PREDICATE_SHOW_ALL_PLANS = unused -> true;
 
@@ -70,7 +69,6 @@ public interface Model {
 
     /** Returns the AlgoBase */
     ReadOnlyAlgoBase getAlgoBase();
-    /////
 
     //=========== Problem ===============================================================
 
@@ -106,7 +104,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredProblemList(Predicate<Problem> predicate);
-    /////
+
+    /**
+     * Updates the Problem list according to the given {@code problemComparator}.
+     * @param problemComparator
+     * @throws NullPointerException if {@code problemComparator} is null;
+     */
+    void updateSortedProblemList(Comparator<Problem> problemComparator);
+
+    //=========== Tag ===================================================================
 
     /**
      * Returns true if a Tag with the same identity as {@code Tag} exists in the algobase.
@@ -160,13 +166,6 @@ public interface Model {
      */
     void updateFilteredTagList(Predicate<Tag> predicate);
 
-    /**
-     * Updates the Problem list according to the given {@code problemComparator}.
-     * @param problemComparator
-     * @throws NullPointerException if {@code problemComparator} is null;
-     */
-    void updateSortedProblemList(Comparator<Problem> problemComparator);
-
     //=========== Plan ==================================================================
 
     /**
@@ -202,4 +201,8 @@ public interface Model {
      */
     void updateFilteredPlanList(Predicate<Plan> predicate);
 
+    //=========== Task ==================================================================
+
+    /** Returns an unmodifiable view of the filtered Plan list */
+    ObservableList<Task> getCurrentTaskList();
 }
