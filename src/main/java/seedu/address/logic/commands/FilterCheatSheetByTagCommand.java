@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.FILTER;
 
 import seedu.address.model.Model;
 import seedu.address.model.cheatsheet.CheatSheetContainsTagPredicate;
@@ -9,9 +10,9 @@ import seedu.address.model.cheatsheet.CheatSheetContainsTagPredicate;
  * Command to filter cheatsheets(s) with the related tag(s).
  */
 
-public class FilterCheatSheetByTagCommand extends Command {
+public class FilterCheatSheetByTagCommand extends Command implements FilterByTagCommand  {
 
-    public static final String COMMAND_WORD = "filtercs";
+    public static final String COMMAND_WORD = FILTER;
 
     public static final String MESSAGE_USAGE = "filter by tags. Find all related cheatsheets with the specified \n"
             + "tags. Example : filter [cheatsheet] [cs2103t]";
@@ -32,26 +33,10 @@ public class FilterCheatSheetByTagCommand extends Command {
         this.tagKeywords = tagKeywords;
     }
 
-    /**
-     * Displays the tags entered in the display
-     * @return string of the tags keyed in
-     */
-    public String displayTagKeywords() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tagKeywords.length; i++) {
-            if (i != tagKeywords.length - 1) {
-                sb.append(tagKeywords[i] + ", ");
-            } else {
-                sb.append(tagKeywords[i]);
-            }
-        }
-        return sb.toString();
-    }
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredCheatSheetList(tagPredicate);
-        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS + displayTagKeywords());
+        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS + FilterByTagCommand.displayTagKeywords(tagKeywords));
     }
 }

@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.logic.commands.FilterByTagCommand;
+import seedu.address.logic.commands.FilterPersonByTagCommand;
 import seedu.address.logic.commands.FilterCheatSheetByTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cheatsheet.CheatSheetContainsTagPredicate;
@@ -25,7 +25,7 @@ public class FilterCheatSheetByTagCommandParser implements Parser<FilterCheatShe
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByTagCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCheatSheetByTagCommand.MESSAGE_USAGE));
         }
 
         String[] tagKeywords = trimmedArgs.split("\\s+");

@@ -29,6 +29,8 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 
+    private static FunctionMode MODE = FunctionMode.UNDEFINED;
+
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
@@ -80,5 +82,13 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    public static FunctionMode getMode() {
+        return MODE;
+    }
+
+    public static void setMode(FunctionMode mode) {
+        MODE = mode;
     }
 }

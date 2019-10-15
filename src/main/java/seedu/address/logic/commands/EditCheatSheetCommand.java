@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.EDIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -27,7 +28,7 @@ import seedu.address.model.tag.Tag;
  */
 public class EditCheatSheetCommand extends Command {
 
-    public static final String COMMAND_WORD = "editcs";
+    public static final String COMMAND_WORD = EDIT;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the cheatsheet identified "
             + "by the index number used in the displayed person list. "
