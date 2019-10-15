@@ -31,16 +31,16 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
 
     @FXML
-    private StackPane commandBoxPlaceholder;
+    private StackPane commandBoxContainer;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane contentContainer;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private StackPane resultDisplayContainer;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private StackPane statusBarContainer;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -64,16 +64,16 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        contentContainer.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        resultDisplayContainer.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        statusBarContainer.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        commandBoxContainer.getChildren().add(commandBox.getRoot());
     }
 
     /**
