@@ -19,10 +19,14 @@ public class Expenditure {
     // Optional fields
     private final DayNumber dayNumber;
 
+    // Indicate whether the expenditure can be deleted manually
+    private final boolean isRemovable;
+
     /**
      * Constructs an {@code Expenditure}.
      */
-    public Expenditure(Name name, Budget budget, DayNumber dayNumber) {
+    public Expenditure(Name name, Budget budget, DayNumber dayNumber, boolean isRemovable) {
+        this.isRemovable = isRemovable;
         requireAllNonNull(name, budget, dayNumber);
         this.name = name;
         this.budget = budget;
@@ -32,7 +36,8 @@ public class Expenditure {
     /**
      * Constructs an expenditure with optional dayNumber field.
      */
-    public Expenditure(Name name, Budget budget, Optional<DayNumber> dayNumber) {
+    public Expenditure(Name name, Budget budget, Optional<DayNumber> dayNumber, boolean isRemovable) {
+        this.isRemovable = isRemovable;
         requireAllNonNull(name, budget, dayNumber);
         this.name = name;
         this.budget = budget;
@@ -52,6 +57,9 @@ public class Expenditure {
     }
     public Optional<DayNumber> getDayNumber() {
         return Optional.ofNullable(dayNumber);
+    }
+    public boolean getRemovability() {
+        return isRemovable;
     }
 
 }

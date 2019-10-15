@@ -19,6 +19,7 @@ public class JsonAdaptedExpenditure {
     private final String name;
     private final Double budget;
     private final Optional<String> dayNumber;
+    private final boolean isRemovable;
 
     /**
      * Constructs a {@code JsonAdaptedExpenditure} with the given Expenditure details.
@@ -26,10 +27,12 @@ public class JsonAdaptedExpenditure {
     @JsonCreator
     public JsonAdaptedExpenditure(@JsonProperty("name") String name,
                                   @JsonProperty("budget") Double budget,
-                                  @JsonProperty("dayNumber") Optional<String> dayNumber) {
+                                  @JsonProperty("dayNumber") Optional<String> dayNumber,
+                                  @JsonProperty("removable") boolean isRemovable) {
         this.name = name;
         this.budget = budget;
         this.dayNumber = dayNumber;
+        this.isRemovable = isRemovable;
 
     }
 
@@ -44,6 +47,7 @@ public class JsonAdaptedExpenditure {
         } else {
             this.dayNumber = Optional.empty();
         }
+        this.isRemovable = source.getRemovability();
     }
 
     /**
@@ -81,6 +85,6 @@ public class JsonAdaptedExpenditure {
         final Name modelName = new Name(name);
         final Budget modelTotalBudget = new Budget(budget);
 
-        return new Expenditure(modelName, modelTotalBudget, modelDayNumber);
+        return new Expenditure(modelName, modelTotalBudget, modelDayNumber, isRemovable);
     }
 }

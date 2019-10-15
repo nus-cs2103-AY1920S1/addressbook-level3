@@ -145,7 +145,7 @@ public class EditExpenditureFieldCommand extends Command  {
          */
         public Expenditure buildExpenditure() {
             if (isAllPresent(name, budget)) {
-                return new Expenditure(name.get(), budget.get(), dayNumber);
+                return new Expenditure(name.get(), budget.get(), dayNumber, true);
             } else {
                 throw new NullPointerException();
             }
@@ -174,7 +174,7 @@ public class EditExpenditureFieldCommand extends Command  {
                 dayNumber = this.dayNumber;
             }
 
-            return new Expenditure(expenditureName, budget, dayNumber);
+            return new Expenditure(expenditureName, budget, dayNumber, true);
         }
 
         /**
