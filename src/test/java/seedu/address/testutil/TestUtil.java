@@ -49,7 +49,7 @@ public class TestUtil {
     /**
      * Returns the recipe in the {@code model}'s recipe list at {@code index}.
      */
-    public static Recipe getPerson(Model model, Index index) {
+    public static Recipe getRecipe(Model model, Index index) {
         return model.getFilteredRecipeList().get(index.getZeroBased());
     }
 }

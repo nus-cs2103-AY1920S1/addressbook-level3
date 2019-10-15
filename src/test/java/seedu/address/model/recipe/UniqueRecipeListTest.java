@@ -23,23 +23,23 @@ public class UniqueRecipeListTest {
     private final UniqueRecipeList uniqueRecipeList = new UniqueRecipeList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullRecipe_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueRecipeList.contains(null));
     }
 
     @Test
-    public void contains_personNotInList_returnsFalse() {
+    public void contains_recipeNotInList_returnsFalse() {
         assertFalse(uniqueRecipeList.contains(MILO));
     }
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_recipeInList_returnsTrue() {
         uniqueRecipeList.add(MILO);
         assertTrue(uniqueRecipeList.contains(MILO));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_recipeWithSameIdentityFieldsInList_returnsTrue() {
         uniqueRecipeList.add(MILO);
         Recipe editedAlice = new RecipeBuilder(MILO).withIngredients(VALID_INGREDIENT_BURGER)
                 .build();
@@ -47,33 +47,33 @@ public class UniqueRecipeListTest {
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void add_nullRecipe_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueRecipeList.add(null));
     }
 
     @Test
-    public void add_duplicatePerson_throwsDuplicatePersonException() {
+    public void add_duplicateRecipe_throwsDuplicateRecipeException() {
         uniqueRecipeList.add(MILO);
         assertThrows(DuplicateRecipeException.class, () -> uniqueRecipeList.add(MILO));
     }
 
     @Test
-    public void setPerson_nullTargetPerson_throwsNullPointerException() {
+    public void setRecipe_nullTargetRecipe_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueRecipeList.setRecipe(null, MILO));
     }
 
     @Test
-    public void setPerson_nullEditedPerson_throwsNullPointerException() {
+    public void setRecipe_nullEditedRecipe_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueRecipeList.setRecipe(MILO, null));
     }
 
     @Test
-    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
+    public void setRecipe_targetRecipeNotInList_throwsRecipeNotFoundException() {
         assertThrows(RecipeNotFoundException.class, () -> uniqueRecipeList.setRecipe(MILO, MILO));
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setRecipe_editedRecipeIsSameRecipe_success() {
         uniqueRecipeList.add(MILO);
         uniqueRecipeList.setRecipe(MILO, MILO);
         UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
@@ -82,7 +82,7 @@ public class UniqueRecipeListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasSameIdentity_success() {
+    public void setRecipe_editedRecipeHasSameIdentity_success() {
         uniqueRecipeList.add(MILO);
         Recipe editedAlice = new RecipeBuilder(MILO).withIngredients(VALID_INGREDIENT_BURGER)
                 .build();
@@ -93,7 +93,7 @@ public class UniqueRecipeListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasDifferentIdentity_success() {
+    public void setRecipe_editedRecipeHasDifferentIdentity_success() {
         uniqueRecipeList.add(MILO);
         uniqueRecipeList.setRecipe(MILO, BURGER);
         UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
@@ -102,14 +102,14 @@ public class UniqueRecipeListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
+    public void setRecipe_editedRecipeHasNonUniqueIdentity_throwsDuplicateRecipeException() {
         uniqueRecipeList.add(MILO);
         uniqueRecipeList.add(BURGER);
         assertThrows(DuplicateRecipeException.class, () -> uniqueRecipeList.setRecipe(MILO, BURGER));
     }
 
     @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullRecipe_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueRecipeList.remove(null));
     }
 

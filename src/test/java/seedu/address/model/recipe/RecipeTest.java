@@ -21,7 +21,7 @@ public class RecipeTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameRecipe() {
         // same object -> returns true
         assertTrue(MILO.isSameRecipe(MILO));
 

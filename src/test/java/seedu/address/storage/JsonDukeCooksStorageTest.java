@@ -51,13 +51,13 @@ public class JsonDukeCooksStorageTest {
     }
 
     @Test
-    public void readDukeCooks_invalidPersonDukeCooks_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidPersonDukeCooks.json"));
+    public void readDukeCooks_invalidRecipeDukeCooks_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidRecipeDukeCooks.json"));
     }
 
     @Test
-    public void readDukeCooks_invalidAndValidPersonDukeCooks_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidAndValidPersonDukeCooks.json"));
+    public void readDukeCooks_invalidAndValidRecipeDukeCooks_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readDukeCooks("invalidAndValidRecipeDukeCooks.json"));
     }
 
     @Test

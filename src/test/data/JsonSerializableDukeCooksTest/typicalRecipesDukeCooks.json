@@ -1,0 +1,53 @@
+{
+  "_comment": "DukeCooks save file which contains the same Recipe values as in TypicalRecipes#getTypicalDukeCooks()",
+  "recipes" : [ {
+    "name" : "Milo",
+    "ingredients" : [ "Milo Powder" ],
+    "calories" : "180",
+    "carbs" : "0",
+    "fats" : "0",
+    "protein" : "0"
+  }, {
+    "name" : "Cheese Omelette",
+    "ingredients" : [ "Eggs", "Cheese" ],
+    "calories" : "358",
+    "carbs" : "1",
+    "fats" : "28",
+    "protein" : "21"
+  }, {
+    "name" : "Tuna Sandwich",
+    "ingredients" : [ "Tuna", "Bread" ],
+    "calories" : "290",
+    "carbs" : "29",
+    "fats" : "10",
+    "protein" : "24"
+  }, {
+    "name" : "Chicken Maggi",
+    "ingredients" : [ "Chicken Maggi" ],
+    "calories" : "402",
+    "carbs" : "59",
+    "fats" : "15",
+    "protein" : "10"
+  }, {
+    "name" : "Fried Chicken",
+    "ingredients" : [ "Chicken Wings", "Flour", "Oil" ],
+    "calories" : "410",
+    "carbs" : "3",
+    "fats" : "29",
+    "protein" : "34"
+  }, {
+    "name" : "Tea",
+    "ingredients" : [ "Tea Leaves" ],
+    "calories" : "0",
+    "carbs" : "0",
+    "fats" : "0",
+    "protein" : "0"
+  }, {
+    "name" : "French Fries",
+    "ingredients" : [ "Potatoes", "Salt", "Oil" ],
+    "calories" : "312",
+    "carbs" : "41",
+    "fats" : "15",
+    "protein" : "3"
+  } ]
+}

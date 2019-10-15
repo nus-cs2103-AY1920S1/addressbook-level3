@@ -43,42 +43,42 @@ public class DukeCooksTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateRecipes_throwsDuplicateRecipeException() {
         // Two recipes with the same identity fields
-        Recipe editedAlice = new RecipeBuilder(MILO).withIngredients(VALID_INGREDIENT_BURGER)
+        Recipe editedMilo = new RecipeBuilder(MILO).withIngredients(VALID_INGREDIENT_BURGER)
                 .build();
-        List<Recipe> newRecipes = Arrays.asList(MILO, editedAlice);
+        List<Recipe> newRecipes = Arrays.asList(MILO, editedMilo);
         DukeCooksStub newData = new DukeCooksStub(newRecipes);
 
         assertThrows(DuplicateRecipeException.class, () -> dukeCooks.resetData(newData));
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasRecipe_nullRecipe_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> dukeCooks.hasRecipe(null));
     }
 
     @Test
-    public void hasPerson_personNotInDukeCooks_returnsFalse() {
+    public void hasRecipe_recipeNotInDukeCooks_returnsFalse() {
         assertFalse(dukeCooks.hasRecipe(MILO));
     }
 
     @Test
-    public void hasPerson_personInDukeCooks_returnsTrue() {
+    public void hasRecipe_recipeInDukeCooks_returnsTrue() {
         dukeCooks.addRecipe(MILO);
         assertTrue(dukeCooks.hasRecipe(MILO));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInDukeCooks_returnsTrue() {
+    public void hasRecipe_recipeWithSameIdentityFieldsInDukeCooks_returnsTrue() {
         dukeCooks.addRecipe(MILO);
-        Recipe editedAlice = new RecipeBuilder(MILO).withIngredients(VALID_INGREDIENT_BURGER)
+        Recipe editedMilo = new RecipeBuilder(MILO).withIngredients(VALID_INGREDIENT_BURGER)
                 .build();
-        assertTrue(dukeCooks.hasRecipe(editedAlice));
+        assertTrue(dukeCooks.hasRecipe(editedMilo));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getRecipeList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> dukeCooks.getRecipeList().remove(0));
     }
 

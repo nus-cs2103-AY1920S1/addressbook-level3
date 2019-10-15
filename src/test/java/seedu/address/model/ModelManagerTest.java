@@ -73,29 +73,29 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasRecipe_nullRecipe_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasRecipe(null));
     }
 
     @Test
-    public void hasPerson_personNotInDukeCooks_returnsFalse() {
+    public void hasRecipe_recipeNotInDukeCooks_returnsFalse() {
         assertFalse(modelManager.hasRecipe(MILO));
     }
 
     @Test
-    public void hasPerson_personInDukeCooks_returnsTrue() {
+    public void hasRecipe_recipeInDukeCooks_returnsTrue() {
         modelManager.addRecipe(MILO);
         assertTrue(modelManager.hasRecipe(MILO));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredRecipeList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredRecipeList().remove(0));
     }
 
     @Test
     public void equals() {
-        DukeCooks dukeCooks = new DukeCooksBuilder().withPerson(MILO).withPerson(OMELETTE).build();
+        DukeCooks dukeCooks = new DukeCooksBuilder().withRecipe(MILO).withRecipe(OMELETTE).build();
         DukeCooks differentDukeCooks = new DukeCooks();
         UserPrefs userPrefs = new UserPrefs();
 

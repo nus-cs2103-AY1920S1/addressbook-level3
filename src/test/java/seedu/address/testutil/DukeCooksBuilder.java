@@ -6,7 +6,7 @@ import seedu.address.model.recipe.Recipe;
 /**
  * A utility class to help with building DukeCooks objects.
  * Example usage: <br>
- *     {@code DukeCooks dc = new DukeCooksBuilder().withPerson("John", "Doe").build();}
+ *     {@code DukeCooks dc = new DukeCooksBuilder().withRecipe("Fried", "Chicken").build();}
  */
 public class DukeCooksBuilder {
 
@@ -23,7 +23,7 @@ public class DukeCooksBuilder {
     /**
      * Adds a new {@code Recipe} to the {@code DukeCooks} that we are building.
      */
-    public DukeCooksBuilder withPerson(Recipe recipe) {
+    public DukeCooksBuilder withRecipe(Recipe recipe) {
         dukeCooks.addRecipe(recipe);
         return this;
     }
