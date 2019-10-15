@@ -6,7 +6,9 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.claim.ApprovedClaim;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.claim.RejectedClaim;
 import seedu.address.model.claim.UniqueClaimsList;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
@@ -154,6 +156,26 @@ public class FinSec implements ReadOnlyFinSec {
      */
     public void removeClaim(Claim key) {
         claims.remove(key);
+    }
+
+    /**
+     * Approves the given claim {@code target} in the list.
+     * {@code target} must exist in the finSec.
+     */
+    public void approveClaim(Claim target) {
+        requireNonNull(target);
+
+        claims.setClaim(target, new ApprovedClaim(target));
+    }
+
+    /**
+     * Rejects the given claim {@code target} in the list.
+     * {@code target} must exist in the finSec.
+     */
+    public void rejectClaim(Claim target) {
+        requireNonNull(target);
+
+        claims.setClaim(target, new RejectedClaim(target));
     }
 
     /**

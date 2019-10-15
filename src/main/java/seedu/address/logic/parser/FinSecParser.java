@@ -72,6 +72,12 @@ public class FinSecParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case ApproveClaimCommand.COMMAND_WORD:
+            return new ApproveClaimCommandParser().parse(arguments);
+
+        case RejectClaimCommand.COMMAND_WORD:
+            return new RejectClaimCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
