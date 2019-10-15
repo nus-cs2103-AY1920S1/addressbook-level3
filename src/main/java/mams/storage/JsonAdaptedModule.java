@@ -94,17 +94,17 @@ class JsonAdaptedModule {
         if (moduleDescription == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Module Description"));
         }
-        /*if (!Module.isValidModuleDescription(moduleDescription)) {
+        if (!Module.isValidModuleDescription(moduleDescription)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_DESCRIPTION);
-        }*/
+        }
         final String modelModuleDescription = moduleDescription;
 
         if (lecturerName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Lecturer Name"));
         }
-        /*if (!Module.isValidLecturerName(lecturerName)) {
+        if (!Module.isValidLecturerName(lecturerName)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_LECTURER_NAME);
-        }*/
+        }
         final String modelLecturerName = lecturerName;
 
         if (quota == null) {

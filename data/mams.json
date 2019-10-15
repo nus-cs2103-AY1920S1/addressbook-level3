@@ -46,8 +46,8 @@
   }, {
     "code" : "CS2309",
     "modulename": "CS Research Methodology",
-    "moduledescription": "1This module is for research students.",
-    "lecturername": "Hsu, Wynne",
+    "moduledescription": "This module is for research students.",
+    "lecturername": "Wynne Hsu",
     "timeslot" : "1,2,45,46,47",
     "quota" : "420",
     "tagged": [
