@@ -4,8 +4,10 @@ package seedu.jarvis.commons.exceptions;
  * Signals that a course could not be found.
  */
 public class CourseNotFoundException extends Exception {
+    public static final String DEFAULT_COURSE_NOT_FOUND_MESSAGE = "The course could not be found!";
+
     public CourseNotFoundException() {
-        super("course could not be found!");
+        super(DEFAULT_COURSE_NOT_FOUND_MESSAGE);
     }
 
     public CourseNotFoundException(String message) {
