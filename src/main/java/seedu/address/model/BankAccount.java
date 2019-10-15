@@ -12,7 +12,7 @@ import seedu.address.model.transaction.UniqueTransactionList;
 /**
  * Bank account of the user.
  */
-public class BankAccount implements ReadOnlyBankAccount{
+public class BankAccount implements ReadOnlyBankAccount {
     private Amount balance;
     private UniqueTransactionList transactions;
 
@@ -46,6 +46,11 @@ public class BankAccount implements ReadOnlyBankAccount{
         this.balance = newBalance;
     }
 
+    /**
+     * Checks if transaction exists in bank account.
+     * @param transaction Transaction to be checked.
+     * @return true if transaction is in bank account, else otherwise.
+     */
     public boolean hasTransaction(Transaction transaction) {
         requireNonNull(transaction);
         return transactions.contains(transaction);
