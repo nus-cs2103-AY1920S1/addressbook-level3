@@ -57,7 +57,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonStudyBuddyStorage(
-                userPrefs.getAddressBookFilePath(), userPrefs.getCheatSheetFilePath());
+                userPrefs.getAddressBookFilePath(), userPrefs.getCheatSheetFilePath(),
+                userPrefs.getFlashcardFilePath());
 
         //storage = new StorageManager(cheatSheetStorage, userPrefsStorage);
         storage = new StorageManager(addressBookStorage, userPrefsStorage);

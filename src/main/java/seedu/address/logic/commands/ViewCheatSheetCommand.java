@@ -43,7 +43,7 @@ public class ViewCheatSheetCommand extends Command {
         CheatSheet cheatSheet = lastShownList.get(targetIndex.getZeroBased());
 
         return new CommandResult(String.format(VIEW_CHEATSHEET_SUCCESS, cheatSheet), false, false,
-                false, Optional.empty(), Optional.empty(), Optional.of(cheatSheet));
+                false, Optional.empty(), Optional.empty(), Optional.of(cheatSheet), Optional.empty());
     }
 
     @Override

@@ -275,6 +275,9 @@ public class ModelManager implements Model {
     public void deleteCheatSheet(CheatSheet cheatSheet) {
         addressBook.deleteCheatSheet(cheatSheet);
     }
+
+
+
     //=========== Filtered CheatSheet List Accessors =============================================================
 
     /**

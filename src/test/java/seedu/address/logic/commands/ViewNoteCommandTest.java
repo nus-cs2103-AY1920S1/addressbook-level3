@@ -5,8 +5,13 @@
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static seedu.address.commons.core.Messages.MESSAGE_MATCHING_NOTE_FOUND;
 //import static seedu.address.commons.core.Messages.MESSAGE_NO_MATCHING_NOTE_FOUND;
+//import static seedu.address.logic.commands.CommandTestUtil.EXPECTED_VIEW_SAMPLE;
+//import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+//import static seedu.address.logic.commands.CommandTestUtil.showNoteAtIndex;
 //import static seedu.address.testutil.Assert.assertThrows;
+//import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_NOTE;
+//import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_NOTE;
 //import static seedu.address.testutil.TypicalNotes.POTATO;
 //import static seedu.address.testutil.TypicalNotes.getTypicalNoteList;
 //
@@ -14,9 +19,12 @@
 //
 //import org.junit.jupiter.api.Test;
 //
+//import seedu.address.commons.core.Messages;
+//import seedu.address.commons.core.index.Index;
 //import seedu.address.model.Model;
 //import seedu.address.model.ModelManager;
 //import seedu.address.model.UserPrefs;
+//import seedu.address.model.note.Note;
 //import seedu.address.model.note.TitleMatchesKeywordsPredicate;
 //
 ///**
@@ -27,64 +35,79 @@
 //    private Model expectedModel = new ModelManager(getTypicalNoteList(), new UserPrefs());
 //
 //    @Test
-//    public void equals() {
-//        TitleMatchesKeywordsPredicate firstPredicate = new TitleMatchesKeywordsPredicate("first");
-//        TitleMatchesKeywordsPredicate secondPredicate = new TitleMatchesKeywordsPredicate("second");
+//    public void execute_validIndexUnfilteredList_success() {
+//        Note noteToView = model.getFilteredNoteList().get(INDEX_FIRST_NOTE.getZeroBased());
+//        ViewNoteCommand viewNoteCommand = new ViewNoteCommand(INDEX_FIRST_NOTE);
 //
-//        ViewNoteCommand viewNoteFirstCommand = new ViewNoteCommand(firstPredicate);
-//        ViewNoteCommand viewNoteSecondCommand = new ViewNoteCommand(secondPredicate);
+//        String expectedMessage = String.format(EXPECTED_VIEW_SAMPLE, noteToView);
+//
+//        assertCommandSuccess(viewNoteCommand, model, expectedMessage, expectedModel);
+//    }
+//
+//    @Test
+//    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+//        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredNoteList().size() + 1);
+//        ViewNoteCommand viewNoteCommand = new ViewNoteCommand(outOfBoundIndex);
+//
+//        assertCommandFailure(viewNoteCommand, model, Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
+//    }
+//
+//    @Test
+//    public void execute_validIndexFilteredList_success() {
+//        showNoteAtIndex(model, INDEX_FIRST_NOTE);
+//
+//        Note noteToView = model.getFilteredNoteList().get(INDEX_FIRST_NOTE.getZeroBased());
+//        ViewNoteCommand viewNoteCommand = new ViewNoteCommand(INDEX_FIRST_NOTE);
+//
+//        String expectedMessage = String.format(EXPECTED_VIEW_SAMPLE, noteToView);
+//
+//        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+//
+//        assertCommandSuccess(viewNoteCommand, model, expectedMessage, expectedModel);
+//    }
+//
+//    @Test
+//    public void execute_invalidIndexFilteredList_throwsCommandException() {
+//        showNoteAtIndex(model, INDEX_FIRST_NOTE);
+//
+//        Index outOfBoundIndex = INDEX_SECOND_NOTE;
+//        // ensures that outOfBoundIndex is still in bounds of address book list
+//        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getNoteList().size());
+//
+//        ViewNoteCommand viewNoteCommand = new ViewNoteCommand(outOfBoundIndex);
+//
+//        assertCommandFailure(viewNoteCommand, model, Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
+//    }
+//
+//    @Test
+//    public void equals() {
+//        ViewNoteCommand viewFirstNoteCommand = new ViewNoteCommand(INDEX_FIRST_NOTE);
+//        ViewNoteCommand viewSecondNoteCommand = new ViewNoteCommand(INDEX_SECOND_NOTE);
 //
 //        // same object -> returns true
-//        assertTrue(viewNoteFirstCommand.equals(viewNoteFirstCommand));
+//        assertTrue(viewFirstNoteCommand.equals(viewFirstNoteCommand));
 //
 //        // same values -> returns true
-//        ViewNoteCommand viewNoteFirstCommandCopy = new ViewNoteCommand(firstPredicate);
-//        assertTrue(viewNoteFirstCommand.equals(viewNoteFirstCommandCopy));
+//        ViewNoteCommand viewFirstNoteCommandCopy = new ViewNoteCommand(INDEX_FIRST_NOTE);
+//        assertTrue(viewFirstNoteCommand.equals(viewFirstNoteCommandCopy));
 //
 //        // different types -> returns false
-//        assertFalse(viewNoteFirstCommand.equals(1));
+//        assertFalse(viewFirstNoteCommand.equals(1));
 //
 //        // null -> returns false
-//        assertFalse(viewNoteFirstCommand.equals(null));
+//        assertFalse(viewFirstNoteCommand.equals(null));
 //
 //        // different note -> returns false
-//        assertFalse(viewNoteFirstCommand.equals(viewNoteSecondCommand));
+//        assertFalse(viewFirstNoteCommand.equals(viewSecondNoteCommand));
 //    }
 //
-//    @Test
-//    public void execute_emptyKeywords_throwsIllegalArgumentException() {
-//        TitleMatchesKeywordsPredicate predicate = preparePredicate(" ");
-//        assertThrows(IllegalArgumentException.class, () -> model.updateFilteredNoteList(predicate));
-//    }
+//    /**
+//     * Updates {@code model}'s filtered list to show no one.
+//     */
+//    private void showNoNote(Model model) {
+//        model.updateFilteredNoteList(p -> false);
 //
-//    @Test
-//    public void execute_partialKeywordsMatch_noNoteFound() {
-//        String expectedMessage = MESSAGE_NO_MATCHING_NOTE_FOUND;
-//        TitleMatchesKeywordsPredicate predicate = preparePredicate("pipe");
-//        ViewNoteCommand command = new ViewNoteCommand(predicate);
-//        expectedModel.updateFilteredNoteList(predicate);
-//        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-//        assertEquals(Collections.emptyList(), model.getFilteredNoteList());
-//    }
-//
-//    @Test
-//    public void execute_excessKeywordsMatch_noNoteFound() {
-//        String expectedMessage = MESSAGE_NO_MATCHING_NOTE_FOUND;
-//        TitleMatchesKeywordsPredicate predicate = preparePredicate("sample title pipelining definition");
-//        ViewNoteCommand command = new ViewNoteCommand(predicate);
-//        expectedModel.updateFilteredNoteList(predicate);
-//        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-//        assertEquals(Collections.emptyList(), model.getFilteredNoteList());
-//    }
-//
-//    @Test
-//    public void execute_exactKeywordsMatchWrongLetterCase_oneNoteFound() {
-//        String expectedMessage = MESSAGE_MATCHING_NOTE_FOUND;
-//        TitleMatchesKeywordsPredicate predicate = preparePredicate("potatoes");
-//        ViewNoteCommand command = new ViewNoteCommand(predicate);
-//        expectedModel.updateFilteredNoteList(predicate);
-//        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-//        assertEquals(Collections.singletonList(POTATO), model.getFilteredNoteList());
+//        assertTrue(model.getFilteredNoteList().isEmpty());
 //    }
 //
 //    /**

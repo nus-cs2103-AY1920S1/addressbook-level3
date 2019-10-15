@@ -7,6 +7,7 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCheatSheetBook;
+import seedu.address.model.ReadOnlyFlashcardBook;
 
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.
@@ -19,6 +20,7 @@ public interface AddressBookStorage {
      */
     Path getAddressBookFilePath();
     Path getCheatSheetFilePath();
+    Path getFlashcardFilePath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
@@ -71,4 +73,32 @@ public interface AddressBookStorage {
      * @see #saveAddressBook(ReadOnlyAddressBook)
      */
     void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException;
+
+    //============================Flashcard Methods =====================
+
+    /**
+     * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
+     *   Returns {@code Optional.empty()} if storage file is not found.
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException if there was any problem when reading from the storage.
+     */
+    Optional<ReadOnlyFlashcardBook> readFlashcardBook() throws DataConversionException, IOException;
+
+    /**
+     * @see #getAddressBookFilePath()
+     */
+    Optional<ReadOnlyFlashcardBook> readFlashcardBook(Path filePath) throws DataConversionException, IOException;
+
+    /**
+     * Saves the given {@link ReadOnlyAddressBook} to the storage.
+     * @param flashcardBook cannot be null.
+     * @throws IOException if there was any problem writing to the file.
+     */
+    void saveFlashcardBook(ReadOnlyFlashcardBook flashcardBook) throws IOException;
+
+    /**
+     * @see #saveAddressBook(ReadOnlyAddressBook)
+     */
+    void saveFlashcardBook(ReadOnlyFlashcardBook flashcardBook, Path filePath) throws IOException;
 }
+
