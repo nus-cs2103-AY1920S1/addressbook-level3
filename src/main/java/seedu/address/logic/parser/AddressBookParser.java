@@ -109,7 +109,6 @@ public class AddressBookParser {
             case AssignPolicyCommand.COMMAND_WORD:
                 return new AssignPolicyCommandParser().parse(arguments);
 
-
             case UnassignPolicyCommand.COMMAND_WORD:
                 return new UnassignPolicyCommandParser().parse(arguments);
 
