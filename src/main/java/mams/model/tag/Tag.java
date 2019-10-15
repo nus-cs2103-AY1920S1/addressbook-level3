@@ -3,6 +3,7 @@ package mams.model.tag;
 import static java.util.Objects.requireNonNull;
 
 import mams.commons.util.AppUtil;
+import mams.model.appeal.Appeal;
 
 /**
  * Represents a Tag in the address book.
@@ -14,6 +15,7 @@ public class Tag {
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String tagName;
+    public final String type;
 
     /**
      * Constructs a {@code Tag}.
@@ -23,6 +25,11 @@ public class Tag {
     public Tag(String tagName) {
         requireNonNull(tagName);
         AppUtil.checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        if (Appeal.isValidAppealId(tagName)) {
+            this.type = "appeal";
+        } else {
+            this.type = "module";
+        }
         this.tagName = tagName;
     }
 
