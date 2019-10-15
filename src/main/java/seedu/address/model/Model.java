@@ -84,4 +84,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredGroceryItemList(Predicate<GroceryItem> predicate);
+
+    /**
+     * Returns true if a TemplateItem with the same identity as {@code TemplateItem} exists in the template list.
+     */
+    //boolean hasTemplateItem(TemplateItem toAdd);
+
+    /**
+     * Adds the given food item into template.
+     * {@code TemplateItem} must not already exist in the template list.
+     */
+    //void addTemplateItem(TemplateItem toAdd);
 }
