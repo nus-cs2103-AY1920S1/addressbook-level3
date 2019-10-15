@@ -1,14 +1,13 @@
 package seedu.address.model;
 
-import java.util.ArrayList;
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.UniqueTransactionList;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Bank account of the user.
