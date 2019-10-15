@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.model.show.exceptions.DuplicateShowException;
 import seedu.ezwatchlist.model.show.exceptions.ShowNotFoundException;
+import seedu.ezwatchlist.commons.util.CollectionUtil;
 
 /**
  * A list of shows that enforces uniqueness between its elements and does not allow nulls.
@@ -54,7 +55,7 @@ public class UniqueShowList implements Iterable<Show> {
      * The show identity of {@code editedShow} must not be the same as another existing show in the list.
      */
     public void setShow(Show target, Show editedShow) {
-        requireAllNonNull(target, editedShow);
+        CollectionUtil.requireAllNonNull(target, editedShow);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
@@ -89,7 +90,7 @@ public class UniqueShowList implements Iterable<Show> {
      * {@code shows} must not contain duplicate shows.
      */
     public void setShows(List<Show> shows) {
-        requireAllNonNull(shows);
+        CollectionUtil.requireAllNonNull(shows);
         if (!showsAreUnique(shows)) {
             throw new DuplicateShowException();
         }

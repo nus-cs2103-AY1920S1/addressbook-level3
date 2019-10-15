@@ -1,10 +1,12 @@
 package seedu.ezwatchlist.model.show;
 
+import seedu.ezwatchlist.commons.util.AppUtil;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Show's name in the address book.
+ * Represents a Show's name in the watchlist.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
@@ -16,7 +18,7 @@ public class Name {
      * The first character of the show must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String showName;
 
@@ -27,7 +29,7 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         showName = name;
     }
 

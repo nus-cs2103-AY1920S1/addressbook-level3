@@ -1,5 +1,7 @@
 package seedu.ezwatchlist.model.actor;
 
+import seedu.ezwatchlist.commons.util.AppUtil;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
@@ -15,7 +17,7 @@ public class Actor {
      * The first character of the actor name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String actorName;
     //Maybe add a character name for actors?
@@ -28,7 +30,7 @@ public class Actor {
      */
     public Actor(String name) {
         requireNonNull(name);
-        checkArgument(isValidActorName(name), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidActorName(name), MESSAGE_CONSTRAINTS);
         actorName = name;
     }
 
