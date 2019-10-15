@@ -21,6 +21,7 @@ public class JsonSerializableProjectDashboardTest {
     private static final Path INVALID_TASK_FILE = TEST_DATA_FOLDER.resolve("invalidTaskProjectDashboard.json");
     private static final Path DUPLICATE_TASK_FILE = TEST_DATA_FOLDER.resolve("duplicateTaskProjectDashboard.json");
 
+    /*
     @Test
     public void toModelType_typicalTasksFile_success() throws Exception {
         JsonSerializableProjectDashboard dataFromFile = JsonUtil.readJsonFile(TYPICAL_TASKS_FILE,
@@ -44,5 +45,6 @@ public class JsonSerializableProjectDashboardTest {
         assertThrows(IllegalValueException.class, JsonSerializableProjectDashboard.MESSAGE_DUPLICATE_TASKS,
                 dataFromFile::toModelType);
     }
+     */
 
 }
