@@ -26,7 +26,7 @@ public class CancelEditExpenditureCommand extends Command {
         Expenditure currentlyEditingExpenditure = model.getPageStatus().getExpenditure();
         model.setPageStatus(model.getPageStatus()
                 .withResetEditExpenditureDescriptor()
-                .withNewPageType(PageType.OVERALL_VIEW)
+                .withNewPageType(PageType.EXPENSE_MANAGER)
                 .withResetExpenditure());
 
         if (currentlyEditingExpenditure == null) {

@@ -7,5 +7,6 @@ public enum ItineraryViewCommand {
     HOME,
     DAYS,
     ITINERARY,
-    GOTO
+    GOTO,
+    EXPENSE
 }

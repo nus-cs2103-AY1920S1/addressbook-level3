@@ -19,6 +19,8 @@ public class ExpenditureCard extends UiPart<HBox> {
     @FXML
     private Label nameLabel;
     @FXML
+    private Label budgetLabel;
+    @FXML
     private VBox propertiesContainer;
 
     private Expenditure expenditure;
@@ -36,7 +38,8 @@ public class ExpenditureCard extends UiPart<HBox> {
      */
     private void fillExpenditureCardLabels() {
         idLabel.setText(displayedIndex.getOneBased() + ".");
-        nameLabel.setText("Name: " + expenditure.getName().toString());
+        nameLabel.setText(expenditure.getName().toString());
+        budgetLabel.setText(" $" + expenditure.getBudget().toString());
     }
     @Override
     public boolean equals(Object other) {
