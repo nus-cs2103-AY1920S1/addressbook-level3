@@ -35,8 +35,8 @@ import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Address;
-import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Email;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ContactBuilder;
 

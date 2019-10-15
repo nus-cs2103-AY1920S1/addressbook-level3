@@ -44,8 +44,8 @@ class JsonAdaptedClaim {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedClaim(@JsonProperty("description") String description, @JsonProperty("date") String date,
-                            @JsonProperty("amount") String amount, @JsonProperty("name") String name,
+    public JsonAdaptedClaim(@JsonProperty("description") String description, @JsonProperty("amount") String amount,
+                            @JsonProperty("date") String date, @JsonProperty("name") String name,
                             @JsonProperty("phone") String phone, @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                             @JsonProperty("status") String status) {
         this.description = description;
