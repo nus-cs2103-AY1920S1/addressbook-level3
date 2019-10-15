@@ -1,6 +1,7 @@
 package io.xpire.model.item;
 
 import static io.xpire.model.item.Quantity.DEFAULT_QUANTITY;
+import static io.xpire.model.item.ReminderThreshold.DEFAULT_THRESHOLD;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -24,7 +25,7 @@ public class Item {
     // Data fields
     private Quantity quantity = new Quantity(DEFAULT_QUANTITY);
     private Set<Tag> tags = new TreeSet<>(new TagComparator());
-    private ReminderThreshold reminderThreshold = new ReminderThreshold("0");
+    private ReminderThreshold reminderThreshold = new ReminderThreshold(DEFAULT_THRESHOLD);
 
     /**
      * Every field must be present and not null.

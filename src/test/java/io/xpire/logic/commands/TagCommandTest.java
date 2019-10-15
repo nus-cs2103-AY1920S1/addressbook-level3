@@ -1,11 +1,11 @@
 package io.xpire.logic.commands;
 
 import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_APPLE;
-//import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_JELLY;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_JELLY;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_APPLE;
-//import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_JELLY;
-//import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_JELLY;
-//import static io.xpire.logic.commands.CommandTestUtil.VALID_REMINDER_THRESHOLD_JELLY;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_JELLY;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_JELLY;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_REMINDER_THRESHOLD_JELLY;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_FRIDGE;
 import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_FRUIT;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -13,7 +13,7 @@ import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
-//import static io.xpire.testutil.TypicalIndexes.INDEX_SEVENTH_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_SEVENTH_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -95,12 +95,11 @@ public class TagCommandTest {
         TagCommand tagCommand = new TagCommand(outOfBoundIndex, new String[]{VALID_TAG_FRIDGE, VALID_TAG_FRUIT});
         assertCommandFailure(tagCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
-    //TODO: Don't know why this fails :(
-    /*
+
     @Test
     public void execute_addMoreTags_success() {
         Item itemToTag = model.getFilteredItemList().get(INDEX_SEVENTH_ITEM.getZeroBased());
-        TagCommand tagCommand = new TagCommand(INDEX_SEVENTH_ITEM, new String[]{VALID_TAG_FRIDGE, VALID_TAG_FRUIT});
+        TagCommand tagCommand = new TagCommand(INDEX_SEVENTH_ITEM, new String[]{VALID_TAG_FRUIT});
 
         ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
         Item expectedItem = new ItemBuilder().withName(VALID_NAME_JELLY)
@@ -113,7 +112,7 @@ public class TagCommandTest {
         expectedModel.setItem(itemToTag, expectedItem);
         assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
     }
-    */
+
     /**
      * Updates {@code model}'s filtered list to show items.
      */

@@ -58,7 +58,6 @@ public class TagCommand extends Command {
 
         Item itemToTag = lastShownList.get(this.index.getZeroBased());
         Item taggedItem = createTaggedItem(itemToTag, this.tagItemDescriptor);
-
         model.setItem(itemToTag, taggedItem);
         return new CommandResult(String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedItem));
 
@@ -70,7 +69,8 @@ public class TagCommand extends Command {
     private static Item createTaggedItem(Item itemToTag, TagItemDescriptor tagItemDescriptor) {
         assert itemToTag != null;
         Set<Tag> updatedTags = updateTags(itemToTag, tagItemDescriptor);
-        return new Item(itemToTag.getName(), itemToTag.getExpiryDate(), itemToTag.getQuantity(), updatedTags);
+        return new Item(itemToTag.getName(), itemToTag.getExpiryDate(), itemToTag.getQuantity(),
+                updatedTags, itemToTag.getReminderThreshold());
     }
 
     /**

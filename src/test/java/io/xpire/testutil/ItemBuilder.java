@@ -20,6 +20,7 @@ public class ItemBuilder {
     public static final String DEFAULT_NAME = "Kiwi";
     public static final String DEFAULT_QUANTITY = "1";
     public static final String DEFAULT_EXPIRY_DATE = "1/2/2020";
+    public static final String DEFAULT_THRESHOLD = "0";
 
     private Name name;
     private ExpiryDate expiryDate;
@@ -32,7 +33,7 @@ public class ItemBuilder {
         expiryDate = new ExpiryDate(DEFAULT_EXPIRY_DATE);
         quantity = new Quantity(DEFAULT_QUANTITY);
         tags = new TreeSet<>(new TagComparator());
-        reminderThreshold = new ReminderThreshold("0");
+        reminderThreshold = new ReminderThreshold(DEFAULT_THRESHOLD);
     }
 
     /**
