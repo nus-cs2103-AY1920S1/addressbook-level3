@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -12,20 +13,28 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.loan.Description;
 import seedu.address.model.person.loan.stub.Date;
+import seedu.address.model.rule.expression.Attribute;
+import seedu.address.model.rule.expression.ExpressionPredicate;
+import seedu.address.model.rule.expression.Operator;
+import seedu.address.model.rule.RuleAction;
+import seedu.address.model.rule.RulePredicate;
+import seedu.address.model.rule.expression.Value;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various *CommandParser classes.
  */
-public class ParserUtil {
+public class CommandParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String TYPE_EXPRESSION = "EXPRESSION";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
@@ -123,5 +132,98 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String attribute} into a {@code Attribute}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code attribute} is invalid.
+     */
+    public static Attribute parseAttribute(String attribute) throws ParseException {
+        requireNonNull(attribute);
+        String trimmedAttr = attribute.trim();
+        if (!Attribute.isValidAttribute(trimmedAttr)) {
+            throw new ParseException(Attribute.MESSAGE_CONSTRAINTS);
+        }
+        return Attribute.of(trimmedAttr).get();
+    }
+
+    /**
+     * Parses a {@code String operator} into an {@code Operator}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code operator} is invalid.
+     */
+    public static Operator parseOperator(String operator) throws ParseException {
+        requireNonNull(operator);
+        String trimmedOp = operator.trim();
+        if (!Operator.isValidOperator(trimmedOp)) {
+            throw new ParseException(Operator.MESSAGE_CONSTRAINTS);
+        }
+        return Operator.of(trimmedOp).get();
+    }
+
+    /**
+     * Parses a {@code String value} into a {@code Value}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code value} is invalid.
+     */
+    public static Value parseValue(String value) throws ParseException {
+        requireNonNull(value);
+        String trimmedValue = value.trim();
+        if (!Value.isValidValue(trimmedValue)) {
+            throw new ParseException(Value.MESSAGE_CONSTRAINTS);
+        }
+        return new Value(trimmedValue);
+    }
+
+    /**
+     * Parses a {@code String expr} into an {@code ExpressionPredicate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code expr} is invalid.
+     */
+    public static ExpressionPredicate parseExprPredicate(String expr) throws ParseException {
+        requireNonNull(expr);
+        String trimmedExpr = expr.trim();
+
+        Matcher matcher = ExpressionPredicate.FORMAT_REGEX.matcher(trimmedExpr);
+        if (!matcher.matches()) {
+            throw new ParseException(ExpressionPredicate.MESSAGE_CONSTRAINTS);
+        }
+
+        Attribute attribute = parseAttribute(matcher.group("exprAttribute"));
+        Operator operator = parseOperator(matcher.group("exprOperator"));
+        Value value = parseValue(matcher.group("exprValue"));
+
+
+        if (!RuleParserUtil.isValidExpression(attribute, operator, value)) {
+            throw new ParseException(ExpressionPredicate.MESSAGE_TYPE_REQUIREMENTS);
+        }
+        return new ExpressionPredicate(attribute, operator, value);
+    }
+
+    /**
+     * Parses a {@code String predicate} into a {@code RulePredicate}.
+     */
+    public static RulePredicate parsePredicate(String predicate, String type) throws ParseException {
+        requireNonNull(predicate);
+        if (type.equals(TYPE_EXPRESSION)) {
+            return parseExprPredicate(predicate);
+        } else {
+            throw new ParseException(RulePredicate.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String action} into a {@code RuleAction}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code action} is invalid.
+     */
+    public static RuleAction parseAction(String action) {
+        return null;
     }
 }
