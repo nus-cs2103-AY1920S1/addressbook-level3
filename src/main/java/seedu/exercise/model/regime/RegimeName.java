@@ -3,6 +3,8 @@ package seedu.exercise.model.regime;
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.AppUtil.checkArgument;
 
+import seedu.exercise.commons.core.ValidationRegex;
+
 /**
  * Represents a Regime's name.
  */
@@ -10,12 +12,6 @@ public class RegimeName {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Regime names should only contain alphabets, numbers and spaces, and it should not be blank";
-
-    /*
-     * The first character of the exercise must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "^[ A-Za-z0-9]+$";
 
     public final String name;
 
@@ -29,7 +25,7 @@ public class RegimeName {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidRegimeName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(ValidationRegex.ONLY_ALPHABETS_AND_NUMBERS);
     }
 
     @Override

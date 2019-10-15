@@ -13,6 +13,7 @@ import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.RegimeBook;
+import seedu.exercise.model.ScheduleBook;
 import seedu.exercise.model.UserPrefs;
 
 /**
@@ -26,9 +27,9 @@ public class ListCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(),
-                new ExerciseBook(), new UserPrefs(), getDefaultPropertyManager());
+            new ExerciseBook(), new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
         expectedModel = new ModelManager(model.getExerciseBookData(), new RegimeBook(),
-                new ExerciseBook(), new UserPrefs(), getDefaultPropertyManager());
+            new ExerciseBook(), new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
     }
 
     @Test

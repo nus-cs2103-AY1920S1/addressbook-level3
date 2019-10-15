@@ -12,6 +12,7 @@ import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.RegimeBook;
+import seedu.exercise.model.ScheduleBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.testutil.ExerciseBuilder;
@@ -26,7 +27,7 @@ public class AddExerciseCommandIntegrationTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(), new ExerciseBook(),
-                new UserPrefs(), getDefaultPropertyManager());
+                new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
     }
 
     @Test
@@ -34,7 +35,7 @@ public class AddExerciseCommandIntegrationTest {
         Exercise validExercise = new ExerciseBuilder().build();
 
         Model expectedModel = new ModelManager(model.getExerciseBookData(), new RegimeBook(), new ExerciseBook(),
-            new UserPrefs(), getDefaultPropertyManager());
+                new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
         expectedModel.addExercise(validExercise);
 
         assertCommandSuccess(new AddExerciseCommand(validExercise), model,

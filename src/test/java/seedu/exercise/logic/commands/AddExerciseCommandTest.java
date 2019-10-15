@@ -21,11 +21,13 @@ import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyExerciseBook;
 import seedu.exercise.model.ReadOnlyRegimeBook;
+import seedu.exercise.model.ReadOnlyScheduleBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
 import seedu.exercise.model.exercise.CustomProperty;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.exercise.PropertyManager;
 import seedu.exercise.model.regime.Regime;
+import seedu.exercise.model.schedule.Schedule;
 import seedu.exercise.testutil.ExerciseBuilder;
 
 public class AddExerciseCommandTest {
@@ -201,6 +203,11 @@ public class AddExerciseCommandTest {
         }
 
         @Override
+        public ObservableList<Schedule> getFilteredScheduleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -227,6 +234,26 @@ public class AddExerciseCommandTest {
 
         @Override
         public void updateFilteredRegimeList(Predicate<Regime> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasSchedule(Schedule schedule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addSchedule(Schedule schedule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyScheduleBook getAllScheduleData() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void completeSchedule(Schedule schedule) {
             throw new AssertionError("This method should not be called.");
         }
 

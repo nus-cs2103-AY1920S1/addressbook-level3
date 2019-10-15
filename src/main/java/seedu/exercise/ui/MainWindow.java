@@ -31,7 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private ExerciseListPanel filteredListPanel;
+    private ScheduleListPanel scheduleListPanel;
     private RegimeListPanel regimeListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -49,7 +49,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem resolveWindowMenuItem;
 
     @FXML
-    private StackPane exerciseListPanelPlaceholder;
+    private StackPane scheduleListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -133,18 +133,17 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        regimeListPanel = new RegimeListPanel(logic.getFilteredRegimeList());
-        regimeListPanelPlaceholder.getChildren().add(regimeListPanel.getRoot());
-
-        filteredListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
-        exerciseListPanelPlaceholder.getChildren().add(filteredListPanel.getRoot());
-
-        suggestionPanel = new SuggestionListPanel(logic.getSuggestedExerciseList());
-        suggestionPanelPlaceholder.getChildren().add(suggestionPanel.getRoot());
+        scheduleListPanel = new ScheduleListPanel(logic.getFilteredScheduleList());
+        scheduleListPanelPlaceholder.getChildren().add(scheduleListPanel.getRoot());
 
         resultPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
         resultPanelPlaceholder.getChildren().add(resultPanel.getRoot());
 
+        regimeListPanel = new RegimeListPanel(logic.getFilteredRegimeList());
+        regimeListPanelPlaceholder.getChildren().add(regimeListPanel.getRoot());
+
+        suggestionPanel = new SuggestionListPanel(logic.getSuggestedExerciseList());
+        suggestionPanelPlaceholder.getChildren().add(suggestionPanel.getRoot());
     }
 
     /**
@@ -202,8 +201,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public ExerciseListPanel getExerciseListPanel() {
-        return filteredListPanel;
+    public ScheduleListPanel getScheduleListPanel() {
+        return scheduleListPanel;
     }
 
     public RegimeListPanel getRegimeListPanel() {

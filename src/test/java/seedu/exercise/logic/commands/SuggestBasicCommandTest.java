@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.RegimeBook;
+import seedu.exercise.model.ScheduleBook;
 import seedu.exercise.model.UserPrefs;
 
 public class SuggestBasicCommandTest {
@@ -20,9 +21,9 @@ public class SuggestBasicCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(),
-                getTypicalExerciseBook(), new UserPrefs(), getDefaultPropertyManager());
+                getTypicalExerciseBook(), new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
         expectedModel = new ModelManager(model.getExerciseBookData(), new RegimeBook(),
-                model.getDatabaseBook(), new UserPrefs(), getDefaultPropertyManager());
+                model.getDatabaseBook(), new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
     }
 
     @Test

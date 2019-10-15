@@ -10,6 +10,7 @@ import seedu.exercise.model.exercise.CustomProperty;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.exercise.PropertyManager;
 import seedu.exercise.model.regime.Regime;
+import seedu.exercise.model.schedule.Schedule;
 
 /**
  * The API of the Model component.
@@ -98,6 +99,9 @@ public interface Model {
      */
     ObservableList<Regime> getFilteredRegimeList();
 
+    /** Returns an unmodifiable view of the filtered schedule list */
+    ObservableList<Schedule> getFilteredScheduleList();
+
     /**
      * Updates the filter of the filtered exercise list to filter by the given {@code predicate}.
      *
@@ -159,6 +163,34 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRegimeList(Predicate<Regime> predicate);
+
+    /**
+     * Returns true if another schedule has been scheduled on the same date as {@code schedule}.
+     */
+    boolean hasSchedule(Schedule schedule);
+
+    /**
+     * Schedules a {@code schedule} for the user.
+     * It must be guranteed that there is no existing schedule in the {@code ScheduleBook}
+     */
+    void addSchedule(Schedule schedule);
+
+    /** Returns the data in the regime book */
+    ReadOnlyScheduleBook getAllScheduleData();
+
+    /**
+     * Deletes a Schedule and adds it to {@code ExerciseBook} for tracking.
+     *
+     * If the schedule has some exercises that are duplicates exercises as
+     * specified by {@link Exercise#isSameExercise}, that exercise will
+     * be ignored and not be added into the exercise tracker.
+     *
+     * All exercises added will have their dates changed to be the date
+     * of the schedule itself.
+     *
+     * @param schedule to complete
+     */
+    void completeSchedule(Schedule schedule);
 
     /**
      * Returns the {@code PropertyManager} object that is contained in {@code Model}.

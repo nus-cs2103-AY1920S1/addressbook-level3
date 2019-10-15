@@ -17,5 +17,7 @@ public interface ReadOnlyUserPrefs {
 
     Path getRegimeBookFilePath();
 
+    Path getScheduleBookFilePath();
+
     Path getAllExerciseBookFilePath();
 }

@@ -90,6 +90,7 @@ public class PropertyManager {
         addPrefix(newPrefix);
         addFullName(newFullName);
         CUSTOM_PROPERTIES.add(customProperty);
+        updatePropertyPrefixes();
     }
 
     /**

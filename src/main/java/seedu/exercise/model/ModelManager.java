@@ -5,6 +5,7 @@ import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.model.util.DefaultPropertyManagerUtil.getDefaultPropertyManager;
 
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,6 +18,8 @@ import seedu.exercise.model.exercise.CustomProperty;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.exercise.PropertyManager;
 import seedu.exercise.model.regime.Regime;
+import seedu.exercise.model.schedule.Schedule;
+import seedu.exercise.model.util.DateChangerUtil;
 
 /**
  * Represents the in-memory model of the exercise book data.
@@ -27,37 +30,42 @@ public class ModelManager implements Model {
     private final ExerciseBook exerciseBook;
     private final RegimeBook regimeBook;
     private final ExerciseBook databaseBook;
+    private final ScheduleBook scheduleBook;
     private final UserPrefs userPrefs;
     private final PropertyManager propertyManager;
     private final FilteredList<Exercise> filteredExercises;
     private final FilteredList<Exercise> suggestedExercises;
     private final FilteredList<Regime> filteredRegimes;
+    private final FilteredList<Schedule> filteredSchedules;
 
     /**
      * Initializes a ModelManager with the given exerciseBook and userPrefs.
      */
     public ModelManager(ReadOnlyExerciseBook exerciseBook, ReadOnlyRegimeBook regimeBook,
-                        ReadOnlyExerciseBook databaseBook, ReadOnlyUserPrefs userPrefs,
-                        PropertyManager propertyManager) {
+                        ReadOnlyExerciseBook databaseBook, ReadOnlyScheduleBook scheduleBook,
+                        ReadOnlyUserPrefs userPrefs, PropertyManager propertyManager) {
         super();
-        requireAllNonNull(exerciseBook, userPrefs);
+        requireAllNonNull(exerciseBook, regimeBook, databaseBook, scheduleBook, userPrefs, propertyManager);
 
         logger.fine("Initializing with exercise book: " + exerciseBook + " and user prefs " + userPrefs);
 
         this.exerciseBook = new ExerciseBook(exerciseBook);
         this.databaseBook = new ExerciseBook(databaseBook);
         this.regimeBook = new RegimeBook(regimeBook);
+        this.scheduleBook = new ScheduleBook(scheduleBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExercises = new FilteredList<>(this.exerciseBook.getExerciseList());
         suggestedExercises = new FilteredList<>(this.databaseBook.getExerciseList());
         filteredRegimes = new FilteredList<>(this.regimeBook.getRegimeList());
+        filteredSchedules = new FilteredList<>(this.scheduleBook.getScheduleList());
 
         this.propertyManager = propertyManager;
         this.propertyManager.updatePropertyPrefixes();
     }
 
     public ModelManager() {
-        this(new ExerciseBook(), new RegimeBook(), new ExerciseBook(), new UserPrefs(), getDefaultPropertyManager());
+        this(new ExerciseBook(), new RegimeBook(), new ExerciseBook(),
+                new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -184,6 +192,39 @@ public class ModelManager implements Model {
         return regimeBook.getRegimeIndex(regime);
     }
 
+    //===================ScheduleBook==============================================================================
+    @Override
+    public boolean hasSchedule(Schedule schedule) {
+        requireNonNull(schedule);
+        return scheduleBook.hasSchedule(schedule);
+    }
+
+    @Override
+    public void addSchedule(Schedule schedule) {
+        requireNonNull(schedule);
+        scheduleBook.addSchedule(schedule);
+    }
+
+    @Override
+    public void completeSchedule(Schedule schedule) {
+        requireNonNull(schedule);
+
+        scheduleBook.removeSchedule(schedule);
+        Collection<Exercise> scheduledExercises = DateChangerUtil
+                .changeAllDate(schedule.getExercises(), schedule.getDate());
+        for (Exercise exercise : scheduledExercises) {
+            if (!exerciseBook.hasExercise(exercise)) {
+                exerciseBook.addExercise(exercise);
+            }
+        }
+    }
+
+    @Override
+    public ReadOnlyScheduleBook getAllScheduleData() {
+        return scheduleBook;
+    }
+
+
     //=========== Filtered Exercise List Accessors =============================================================
 
     /**
@@ -215,6 +256,15 @@ public class ModelManager implements Model {
     public void updateFilteredRegimeList(Predicate<Regime> predicate) {
         requireNonNull(predicate);
         filteredRegimes.setPredicate(predicate);
+    }
+
+    //=========== Filtered Schedule List Accessors ===============================================================
+    /**
+     * Returns an unmodifiable view of the list of {@code Schedule} backed by the internal list of
+     * {@code scheduleBook}
+     */
+    public ObservableList<Schedule> getFilteredScheduleList() {
+        return filteredSchedules;
     }
 
     //=========== Property Manager Accessors =============================================================
@@ -270,9 +320,11 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return exerciseBook.equals(other.exerciseBook)
                 && regimeBook.equals(other.regimeBook)
+                && scheduleBook.equals(other.scheduleBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExercises.equals(other.filteredExercises)
                 && filteredRegimes.equals(other.filteredRegimes)
+                && filteredSchedules.equals(other.filteredSchedules)
                 && databaseBook.equals(other.databaseBook)
                 && suggestedExercises.equals(other.suggestedExercises)
                 && propertyManager.equals(other.propertyManager);

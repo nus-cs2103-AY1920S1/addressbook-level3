@@ -22,8 +22,10 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyExerciseBook;
 import seedu.exercise.model.ReadOnlyRegimeBook;
+import seedu.exercise.model.ReadOnlyScheduleBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
 import seedu.exercise.model.RegimeBook;
+import seedu.exercise.model.ScheduleBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.exercise.PropertyManager;
 import seedu.exercise.model.util.DefaultPropertyManagerUtil;
@@ -32,9 +34,11 @@ import seedu.exercise.storage.ExerciseBookStorage;
 import seedu.exercise.storage.JsonExerciseBookStorage;
 import seedu.exercise.storage.JsonPropertyManagerStorage;
 import seedu.exercise.storage.JsonRegimeBookStorage;
+import seedu.exercise.storage.JsonScheduleBookStorage;
 import seedu.exercise.storage.JsonUserPrefsStorage;
 import seedu.exercise.storage.PropertyManagerStorage;
 import seedu.exercise.storage.RegimeBookStorage;
+import seedu.exercise.storage.ScheduleBookStorage;
 import seedu.exercise.storage.Storage;
 import seedu.exercise.storage.StorageManager;
 import seedu.exercise.storage.UserPrefsStorage;
@@ -70,11 +74,12 @@ public class MainApp extends Application {
         ExerciseBookStorage exerciseDatabaseStorage =
                 new JsonExerciseBookStorage(userPrefs.getAllExerciseBookFilePath());
         RegimeBookStorage regimeBookStorage = new JsonRegimeBookStorage(userPrefs.getRegimeBookFilePath());
+        ScheduleBookStorage scheduleBookStorage = new JsonScheduleBookStorage(userPrefs.getScheduleBookFilePath());
         PropertyManagerStorage propertyManagerStorage =
             new JsonPropertyManagerStorage(userPrefs.getPropertyManagerFilePath());
-
         storage = new StorageManager(exerciseBookStorage, regimeBookStorage,
-                exerciseDatabaseStorage, userPrefsStorage, propertyManagerStorage);
+                exerciseDatabaseStorage, scheduleBookStorage, userPrefsStorage, propertyManagerStorage);
+
 
         initLogging(config);
 
@@ -93,10 +98,11 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         ReadOnlyExerciseBook initialData = readExerciseData(storage, storage.getExerciseBookFilePath());
         ReadOnlyRegimeBook initialRegimeData = readRegimeData(storage, storage.getRegimeBookFilePath());
-        ReadOnlyExerciseBook exerciseDatabase = readExerciseData(storage, storage.getAllExerciseBookFilePath());
+        ReadOnlyExerciseBook initialDatabase = readExerciseData(storage, storage.getAllExerciseBookFilePath());
+        ReadOnlyScheduleBook initialScheduleData = readScheduleData(storage);
         PropertyManager initialPropertyManager = getInitialPropertyManager(storage);
-
-        return new ModelManager(initialData, initialRegimeData, exerciseDatabase, userPrefs, initialPropertyManager);
+        return new ModelManager(initialData, initialRegimeData,
+                initialDatabase, initialScheduleData, userPrefs, initialPropertyManager);
     }
 
     /**
@@ -149,6 +155,27 @@ public class MainApp extends Application {
     /**
      * Returns a {@code PropertyManager} from {@code storage}.
      */
+    private ReadOnlyScheduleBook readScheduleData(Storage storage) {
+        Optional<ReadOnlyScheduleBook> scheduleBookOptional;
+        ReadOnlyScheduleBook initialScheduleData;
+
+        try {
+            scheduleBookOptional = storage.readScheduleBook();
+            if (!scheduleBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample ScheduleBook");
+            }
+            initialScheduleData = scheduleBookOptional.orElseGet(SampleDataUtil::getSampleScheduleBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ScheduleBook");
+            initialScheduleData = new ScheduleBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ScheduleBook");
+            initialScheduleData = new ScheduleBook();
+        }
+
+        return initialScheduleData;
+    }
+
     private PropertyManager getInitialPropertyManager(Storage storage) {
         Optional<PropertyManager> propertyManagerOptional;
         PropertyManager initialPropertyManager;

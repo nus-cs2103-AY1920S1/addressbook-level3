@@ -17,6 +17,7 @@ import seedu.exercise.model.ReadOnlyExerciseBook;
 import seedu.exercise.model.ReadOnlyRegimeBook;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.regime.Regime;
+import seedu.exercise.model.schedule.Schedule;
 import seedu.exercise.storage.Storage;
 
 /**
@@ -45,15 +46,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveExerciseBook(model.getExerciseBookData());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-
-        try {
-            storage.saveRegimeBook(model.getAllRegimeData());
-            storage.saveExerciseBook(model.getExerciseBookData());
-            storage.savePropertyManager(model.getPropertyManager());
+            saveAllData();
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -81,6 +74,10 @@ public class LogicManager implements Logic {
         return model.getFilteredRegimeList();
     }
 
+    public ObservableList<Schedule> getFilteredScheduleList() {
+        return model.getFilteredScheduleList();
+    }
+
     @Override
     public Path getExerciseBookFilePath() {
         return model.getExerciseBookFilePath();
@@ -106,4 +103,15 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    /**
+     * Saves all book data from ExerHealth to disk
+     *
+     * @throws IOException if saving fails
+     */
+    private void saveAllData() throws IOException {
+        storage.saveExerciseBook(model.getExerciseBookData());
+        storage.saveScheduleBook(model.getAllScheduleData());
+        storage.saveRegimeBook(model.getAllRegimeData());
+        storage.savePropertyManager(model.getPropertyManager());
+    }
 }

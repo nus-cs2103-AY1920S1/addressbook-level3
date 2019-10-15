@@ -11,6 +11,7 @@ import seedu.exercise.model.ReadOnlyExerciseBook;
 import seedu.exercise.model.ReadOnlyRegimeBook;
 import seedu.exercise.model.exercise.Exercise;
 import seedu.exercise.model.regime.Regime;
+import seedu.exercise.model.schedule.Schedule;
 
 /**
  * API of the Logic component
@@ -46,6 +47,11 @@ public interface Logic {
     ReadOnlyRegimeBook getRegimeBook();
 
     ObservableList<Regime> getFilteredRegimeList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of schedules
+     */
+    ObservableList<Schedule> getFilteredScheduleList();
 
     /**
      * Returns the user prefs' exercise book file path.

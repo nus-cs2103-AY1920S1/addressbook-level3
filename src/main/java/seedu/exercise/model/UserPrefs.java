@@ -18,6 +18,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path propertyManagerFilePath = Paths.get("data", "propertymanager.json");
     private Path exerciseDatabaseFilePath = Paths.get("data", "exercisedatabase.json");
     private Path regimeBookFilePath = Paths.get("data", "regimebook.json");
+    private Path scheduleBookFilePath = Paths.get("data", "schedulebook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -69,6 +70,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setRegimeBookFilePath(Path regimeBookFilePath) {
         requireNonNull(regimeBookFilePath);
         this.regimeBookFilePath = regimeBookFilePath;
+    }
+
+    public Path getScheduleBookFilePath() {
+        return scheduleBookFilePath;
     }
 
     public Path getPropertyManagerFilePath() {

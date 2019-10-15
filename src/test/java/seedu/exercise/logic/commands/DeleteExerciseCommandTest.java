@@ -18,6 +18,7 @@ import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.RegimeBook;
+import seedu.exercise.model.ScheduleBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.exercise.Exercise;
 
@@ -28,7 +29,8 @@ import seedu.exercise.model.exercise.Exercise;
 public class DeleteExerciseCommandTest {
 
     private Model model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(),
-            new ExerciseBook(), new UserPrefs(), getDefaultPropertyManager());
+        new ExerciseBook(), new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
+
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -38,7 +40,7 @@ public class DeleteExerciseCommandTest {
         String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getExerciseBookData(), new RegimeBook(),
-                new ExerciseBook(), new UserPrefs(), getDefaultPropertyManager());
+                new ExerciseBook(), new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
         expectedModel.deleteExercise(exerciseToDelete);
 
         assertCommandSuccess(deleteExerciseCommand, model, expectedMessage, expectedModel);
@@ -62,7 +64,7 @@ public class DeleteExerciseCommandTest {
         String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
 
         Model expectedModel = new ModelManager(model.getExerciseBookData(), new RegimeBook(),
-                new ExerciseBook(), new UserPrefs(), getDefaultPropertyManager());
+                new ExerciseBook(), new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
         expectedModel.deleteExercise(exerciseToDelete);
         showNoExercise(expectedModel);
 

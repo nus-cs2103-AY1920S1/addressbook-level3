@@ -10,6 +10,7 @@ import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.RegimeBook;
+import seedu.exercise.model.ScheduleBook;
 import seedu.exercise.model.UserPrefs;
 
 public class ClearCommandTest {
@@ -25,9 +26,9 @@ public class ClearCommandTest {
     @Test
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalExerciseBook(), new RegimeBook(), new ExerciseBook(),
-            new UserPrefs(), getDefaultPropertyManager());
+                new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
         Model expectedModel = new ModelManager(getTypicalExerciseBook(), new RegimeBook(), new ExerciseBook(),
-            new UserPrefs(), getDefaultPropertyManager());
+                new ScheduleBook(), new UserPrefs(), getDefaultPropertyManager());
         expectedModel.setExerciseBook(new ExerciseBook());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

@@ -63,7 +63,7 @@ public class RegimeBook implements ReadOnlyRegimeBook {
 
     /**
      * Adds a regime to the regime book.
-     * THe regime must not already exist in the regime book.
+     * The regime must not already exist in the regime book.
      */
     public void addRegime(Regime r) {
         regimes.add(r);

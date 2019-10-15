@@ -7,13 +7,15 @@ import java.util.Optional;
 import seedu.exercise.commons.exceptions.DataConversionException;
 import seedu.exercise.model.ReadOnlyExerciseBook;
 import seedu.exercise.model.ReadOnlyRegimeBook;
+import seedu.exercise.model.ReadOnlyScheduleBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
 import seedu.exercise.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends ExerciseBookStorage, RegimeBookStorage, UserPrefsStorage, PropertyManagerStorage {
+public interface Storage extends ExerciseBookStorage, RegimeBookStorage,
+        ScheduleBookStorage, UserPrefsStorage, PropertyManagerStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -38,6 +40,15 @@ public interface Storage extends ExerciseBookStorage, RegimeBookStorage, UserPre
 
     @Override
     void saveRegimeBook(ReadOnlyRegimeBook regimeBook) throws IOException;
+
+    @Override
+    Path getScheduleBookFilePath();
+
+    @Override
+    Optional<ReadOnlyScheduleBook> readScheduleBook() throws DataConversionException, IOException;
+
+    @Override
+    void saveScheduleBook(ReadOnlyScheduleBook scheduleBook) throws IOException;
 
     /**
      * Returns the file path of the data file.

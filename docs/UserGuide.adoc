@@ -340,13 +340,13 @@ Example:
 
 ==== Completes a schedule regime
 
-Once a scheduled regime is completed, users can add that regime to the exercise tracker.
+Once a scheduled regime is completed, users can add that regime to the exercise tracker. The schedule is then deleted from the scheduling list.
 
-Format: `schedule f/INDEX_OF_REGIME_IN_SCHEDULE`
+Format: `schedule i/INDEX_OF_REGIME_IN_SCHEDULE`
 
 Example:
 
-* `schedule f/2`
+* `schedule i/2`
 
 [[resolve]]
 === Resolving scheduling conflicts: `resolve`
