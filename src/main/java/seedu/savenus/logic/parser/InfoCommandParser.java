@@ -1,6 +1,7 @@
 package seedu.savenus.logic.parser;
 
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.savenus.logic.commands.InfoCommand.MULTIPLE_COMMAND_ENTERED_MESSAGE;
 
 import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
@@ -11,6 +12,15 @@ import seedu.savenus.logic.parser.exceptions.ParseException;
 public class InfoCommandParser {
 
     public InfoCommand parse(String args) throws ParseException {
+
+        // To prevent user from writing multiple commands
+        String[] argsArray = args.split(" ");
+        if (argsArray.length > 2) {
+            throw new ParseException(
+                    String.format(MULTIPLE_COMMAND_ENTERED_MESSAGE, InfoCommand.MESSAGE_USAGE)
+            );
+        }
+
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(

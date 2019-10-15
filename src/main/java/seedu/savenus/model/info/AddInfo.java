@@ -7,12 +7,12 @@ public class AddInfo {
     public static final String COMMAND_WORD = AddCommand.COMMAND_WORD;
 
     public static final String INFORMATION =
-            "Add command allows you to add a new Food item on the list.\n"
-            + "The added food item information will depend on the following factors: \n"
+            "Add command allows you to add a new Food item on the list.\n\n"
+            + "The added Food item information will depend on the following factors: \n"
             + "Name (Compulsory)\n"
             + "Price (Compulsory)\n"
             + "Category (Compulsory)\n"
-            + "Location with\n"
+            + "Location\n"
             + "Multiple tags\n"
             + "Opening hours\n"
             + "Restrictions\n\n";

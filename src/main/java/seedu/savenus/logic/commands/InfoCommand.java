@@ -17,7 +17,11 @@ public class InfoCommand extends Command {
 
     public static final String BUDGET_INFO = COMMAND_INDICATOR + BudgetCommand.COMMAND_WORD;
 
+    public static final String BUY_INFO = COMMAND_INDICATOR + BuyCommand.COMMAND_WORD;
+
     public static final String CLEAR_INFO = COMMAND_INDICATOR + ClearCommand.COMMAND_WORD;
+
+    public static final String DEFAULT_INFO = COMMAND_INDICATOR + DefaultCommand.COMMAND_WORD;
 
     public static final String DELETE_INFO = COMMAND_INDICATOR + DeleteCommand.COMMAND_WORD;
 
@@ -29,6 +33,8 @@ public class InfoCommand extends Command {
 
     public static final String HELP_INFO = COMMAND_INDICATOR + HelpCommand.COMMAND_WORD;
 
+    public static final String INFO_INFO = COMMAND_INDICATOR + InfoCommand.COMMAND_WORD;
+
     public static final String LIST_INFO = COMMAND_INDICATOR + ListCommand.COMMAND_WORD;
 
     public static final String RECOMMEND_INFO = COMMAND_INDICATOR + RecommendCommand.COMMAND_WORD;
@@ -36,6 +42,9 @@ public class InfoCommand extends Command {
     public static final String SORT_INFO = COMMAND_INDICATOR + SortCommand.COMMAND_WORD;
 
     public static final String INVALID_COMMAND_ENTERED_MESSAGE = "Sorry, no information for such command exists!";
+
+    public static final String MULTIPLE_COMMAND_ENTERED_MESSAGE =
+            "This app can only display the information of one command!";
 
     private String input;
 
@@ -49,31 +58,38 @@ public class InfoCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        input = input.toLowerCase();
         switch(input) {
-            case AddCommand.COMMAND_WORD :
-                return new CommandResult(ADD_INFO);
-            case BudgetCommand.COMMAND_WORD :
-                return new CommandResult(BUDGET_INFO);
-            case ClearCommand.COMMAND_WORD :
-                return new CommandResult(CLEAR_INFO);
-            case DeleteCommand.COMMAND_WORD :
-                return new CommandResult(DELETE_INFO);
-            case EditCommand.COMMAND_WORD :
-                return new CommandResult(EDIT_INFO);
-            case ExitCommand.COMMAND_WORD :
-                return new CommandResult(EXIT_INFO);
-            case FindCommand.COMMAND_WORD :
-                return new CommandResult(FIND_INFO);
-            case HelpCommand.COMMAND_WORD :
-                return new CommandResult(HELP_INFO);
-            case ListCommand.COMMAND_WORD :
-                return new CommandResult(LIST_INFO);
-            case RecommendCommand.COMMAND_WORD :
-                return new CommandResult(RECOMMEND_INFO);
-            case SortCommand.COMMAND_WORD :
-                return new CommandResult(SORT_INFO);
-            default :
-                throw new CommandException(INVALID_COMMAND_ENTERED_MESSAGE);
+        case AddCommand.COMMAND_WORD :
+            return new CommandResult(ADD_INFO);
+        case BudgetCommand.COMMAND_WORD :
+            return new CommandResult(BUDGET_INFO);
+        case BuyCommand.COMMAND_WORD :
+            return new CommandResult(BUY_INFO);
+        case ClearCommand.COMMAND_WORD :
+            return new CommandResult(CLEAR_INFO);
+        case DefaultCommand.COMMAND_WORD :
+            return new CommandResult(DEFAULT_INFO);
+        case DeleteCommand.COMMAND_WORD :
+            return new CommandResult(DELETE_INFO);
+        case EditCommand.COMMAND_WORD :
+            return new CommandResult(EDIT_INFO);
+        case ExitCommand.COMMAND_WORD :
+            return new CommandResult(EXIT_INFO);
+        case FindCommand.COMMAND_WORD :
+            return new CommandResult(FIND_INFO);
+        case HelpCommand.COMMAND_WORD :
+            return new CommandResult(HELP_INFO);
+        case InfoCommand.COMMAND_WORD :
+            return new CommandResult(INFO_INFO);
+        case ListCommand.COMMAND_WORD :
+            return new CommandResult(LIST_INFO);
+        case RecommendCommand.COMMAND_WORD :
+            return new CommandResult(RECOMMEND_INFO);
+        case SortCommand.COMMAND_WORD :
+            return new CommandResult(SORT_INFO);
+        default :
+            throw new CommandException(INVALID_COMMAND_ENTERED_MESSAGE);
         }
     }
 

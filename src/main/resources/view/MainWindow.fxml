@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-<fx:root height="1080.0" maximized="true" minHeight="800.0" minWidth="1100.0" onCloseRequest="#handleExit" resizable="false" title="\$aveNUS" type="javafx.stage.Stage" width="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fullScreen="true" height="1080.0" maximized="true" minHeight="800.0" minWidth="1100.0" onCloseRequest="#handleExit" resizable="false" title="\$aveNUS" type="javafx.stage.Stage" width="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/savenus_logo.png" />
     </icons>
@@ -88,13 +88,13 @@
                                                 </font>
                                             </Text>
                                             <HBox layoutX="175.0" layoutY="280.0">
-                                                <Text text="Purchase History" textAlignment="CENTER" fill="white">
+                                                <Text fill="white" text="Purchase History" textAlignment="CENTER">
                                                     <font>
                                                         <Font name="System Bold" size="40.0" />
                                                     </font>
                                                 </Text>
                                             </HBox>
-                                            <VBox layoutX="20" layoutY="355.0" prefHeight="340" prefWidth="670" alignment="BOTTOM_CENTER" HBox.hgrow="ALWAYS">
+                                            <VBox alignment="BOTTOM_CENTER" layoutX="20" layoutY="355.0" prefHeight="340" prefWidth="670" HBox.hgrow="ALWAYS">
                                                 <VBox fx:id="purchaseList" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                                                     <padding>
                                                         <Insets bottom="10" left="10" right="10" top="10" />
