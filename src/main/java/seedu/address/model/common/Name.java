@@ -1,10 +1,10 @@
-package seedu.address.model.recipe;
+package seedu.address.model.common;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Recipe's name in Duke Cooks.
+ * Represents a Person's name in Duke Cooks.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

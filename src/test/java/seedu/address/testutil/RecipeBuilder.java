@@ -3,14 +3,14 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.common.Name;
 import seedu.address.model.recipe.Calories;
 import seedu.address.model.recipe.Carbs;
 import seedu.address.model.recipe.Fats;
 import seedu.address.model.recipe.Ingredient;
-import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Protein;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.util.SampleRecipeDataUtil;
 
 /**
  * A utility class to help with building Recipe objects.
@@ -66,7 +66,7 @@ public class RecipeBuilder {
      * to the {@code Recipe} that we are building.
      */
     public RecipeBuilder withIngredients(String ... ingredients) {
-        this.ingredients = SampleDataUtil.getIngredientSet(ingredients);
+        this.ingredients = SampleRecipeDataUtil.getIngredientSet(ingredients);
         return this;
     }
 

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.recipe.NameContainsKeywordsPredicate;
+import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindRecipeCommand}.
@@ -29,10 +29,10 @@ public class FindRecipeCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        RecipeNameContainsKeywordsPredicate firstPredicate =
+                new RecipeNameContainsKeywordsPredicate(Collections.singletonList("first"));
+        RecipeNameContainsKeywordsPredicate secondPredicate =
+                new RecipeNameContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindRecipeCommand findFirstCommand = new FindRecipeCommand(firstPredicate);
         FindRecipeCommand findSecondCommand = new FindRecipeCommand(secondPredicate);
@@ -57,7 +57,7 @@ public class FindRecipeCommandTest {
     @Test
     public void execute_zeroKeywords_noRecipeFound() {
         String expectedMessage = String.format(MESSAGE_RECIPE_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        RecipeNameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindRecipeCommand command = new FindRecipeCommand(predicate);
         expectedModel.updateFilteredRecipeList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -67,7 +67,7 @@ public class FindRecipeCommandTest {
     @Test
     public void execute_multipleKeywords_multipleRecipesFound() {
         String expectedMessage = String.format(MESSAGE_RECIPE_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Sandwich Fried Tea");
+        RecipeNameContainsKeywordsPredicate predicate = preparePredicate("Sandwich Fried Tea");
         FindRecipeCommand command = new FindRecipeCommand(predicate);
         expectedModel.updateFilteredRecipeList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -75,9 +75,9 @@ public class FindRecipeCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code RecipeNameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private RecipeNameContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new RecipeNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

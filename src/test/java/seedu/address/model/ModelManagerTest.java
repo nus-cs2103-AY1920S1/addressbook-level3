@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalProfiles.ALICE;
+import static seedu.address.testutil.TypicalProfiles.BENSON;
 import static seedu.address.testutil.TypicalRecipes.MILO;
 import static seedu.address.testutil.TypicalRecipes.OMELETTE;
 
@@ -15,7 +17,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.recipe.NameContainsKeywordsPredicate;
+import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
+import seedu.address.testutil.DukeCooksBuilder;
 import seedu.address.testutil.RecipeBookBuilder;
 
 public class ModelManagerTest {
@@ -27,6 +30,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new RecipeBook(), new RecipeBook(modelManager.getRecipeBook()));
+        assertEquals(new UserProfile(), new UserProfile(modelManager.getUserProfile()));
     }
 
     @Test
@@ -38,6 +42,7 @@ public class ModelManagerTest {
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setRecipesFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setUserProfileFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
@@ -45,6 +50,7 @@ public class ModelManagerTest {
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
         userPrefs.setRecipesFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setUserProfileFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,8 +67,20 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setDukeCooksFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setUserProfileFilePath(null));
+    }
+
+    @Test
     public void setRecipesFilePath_nullPath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setRecipesFilePath(null));
+    }
+
+    @Test
+    public void setDukeCooksFilePath_validPath_setsDukeCooksFilePath() {
+        Path path = Paths.get("address/book/file/path");
+        modelManager.setUserProfileFilePath(path);
+        assertEquals(path, modelManager.getUserProfileFilePath());
     }
 
     @Test
@@ -73,19 +91,8 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasRecipe_nullRecipe_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasRecipe(null));
-    }
-
-    @Test
-    public void hasRecipe_recipeNotInRecipeBook_returnsFalse() {
-        assertFalse(modelManager.hasRecipe(MILO));
-    }
-
-    @Test
-    public void hasRecipe_recipeInRecipeBook_returnsTrue() {
-        modelManager.addRecipe(MILO);
-        assertTrue(modelManager.hasRecipe(MILO));
+    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
 
     @Test
@@ -95,6 +102,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
+        UserProfile userProfile = new DukeCooksBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        UserProfile differentUserProfile = new UserProfile();
         RecipeBook recipeBook = new RecipeBookBuilder().withRecipe(MILO).withRecipe(OMELETTE).build();
         RecipeBook differentRecipeBook = new RecipeBook();
         UserPrefs userPrefs = new UserPrefs();
@@ -118,7 +127,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = MILO.getName().fullName.split("\\s+");
-        modelManager.updateFilteredRecipeList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredRecipeList(new RecipeNameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(recipeBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

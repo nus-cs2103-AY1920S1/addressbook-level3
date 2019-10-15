@@ -3,14 +3,14 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.CALORIES_DESC_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.CARBS_DESC_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.FATS_DESC_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_DESC_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.PROTEIN_DESC_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.BLOODTYPE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.DOB_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.HEIGHT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.WEIGHT_DESC;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalRecipes.FISH;
+import static seedu.address.testutil.TypicalProfiles.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,7 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.AddRecipeCommand;
+import seedu.address.logic.commands.AddProfileCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,12 +27,15 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyRecipeBook;
+import seedu.address.model.ReadOnlyUserProfile;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.recipe.Recipe;
+import seedu.address.model.person.Person;
+import seedu.address.storage.JsonHealthRecordsStorage;
 import seedu.address.storage.JsonRecipeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserProfileStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.RecipeBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -47,8 +50,14 @@ public class LogicManagerTest {
     public void setUp() {
         JsonRecipeBookStorage recipeBookStorage =
                 new JsonRecipeBookStorage(temporaryFolder.resolve("recipes.json"));
+        JsonUserProfileStorage dukeCooksStorage =
+                new JsonUserProfileStorage(temporaryFolder.resolve("dukecooks.json"));
+        JsonHealthRecordsStorage healthRecordsStorage =
+                new JsonHealthRecordsStorage(temporaryFolder.resolve("healthrecords.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
+        //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(dukeCooksStorage, healthRecordsStorage,
+                recipeBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -75,19 +84,33 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonRecipeBookIoExceptionThrowingStub
         JsonRecipeBookStorage recipeBookStorage =
                 new JsonRecipeBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionRecipeBook.json"));
+        // Setup LogicManager with JsonUserProfileIoExceptionThrowingStub
+        JsonUserProfileStorage dukeCooksStorage =
+                new JsonUserProfileIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
+        //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(dukeCooksStorage, null,
+                recipeBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddRecipeCommand.COMMAND_WORD + " " + AddRecipeCommand.VARIANT_WORD + " " + NAME_DESC_FISH
-                + INGREDIENT_DESC_FISH + CALORIES_DESC_FISH + CARBS_DESC_FISH + FATS_DESC_FISH + PROTEIN_DESC_FISH;
-        Recipe expectedRecipe = new RecipeBuilder(FISH).build();
+        //String addCommand = AddRecipeCommand.COMMAND_WORD + " " + AddRecipeCommand.VARIANT_WORD + " " + NAME_DESC_FISH
+        //        + INGREDIENT_DESC_FISH + CALORIES_DESC_FISH + CARBS_DESC_FISH + FATS_DESC_FISH + PROTEIN_DESC_FISH;
+        //Recipe expectedRecipe = new RecipeBuilder(FISH).build();
+        String addCommand = AddProfileCommand.COMMAND_WORD + NAME_DESC_AMY + DOB_DESC + GENDER_DESC
+                + BLOODTYPE_DESC + HEIGHT_DESC + WEIGHT_DESC;
+        Person expectedPerson = new PersonBuilder(AMY).withMedicalHistories().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addRecipe(expectedRecipe);
+        expectedModel.addPerson(expectedPerson);
+        //expectedModel.addRecipe(expectedRecipe);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
 
     @Test
@@ -131,7 +154,9 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getUserProfile(), model.getHealthRecords(),
+                model.getRecipeBook(), new UserPrefs());
+        //Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -146,6 +171,20 @@ public class LogicManagerTest {
             String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonUserProfileIoExceptionThrowingStub extends JsonUserProfileStorage {
+        private JsonUserProfileIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveUserProfile(ReadOnlyUserProfile dukeCooks, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
     }
 
     /**

@@ -16,22 +16,27 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddRecipeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteRecipeCommand;
-import seedu.address.logic.commands.EditRecipeCommand;
+import seedu.address.logic.commands.EditProfileCommand;
 import seedu.address.logic.commands.EditRecipeCommand.EditRecipeDescriptor;
+import seedu.address.logic.commands.EditRecipeCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindRecipeCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.recipe.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
+import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditRecipeDescriptorBuilder;
+import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.RecipeBuilder;
 import seedu.address.testutil.RecipeUtil;
 
-public class RecipeBookParserTest {
+public class DukeCooksParserTest {
 
-    private final RecipeBookParser parser = new RecipeBookParser();
+    private final DukeCooksParser parser = new DukeCooksParser();
 
     @Test
     public void parseCommand_addRecipe() throws Exception {
@@ -52,6 +57,15 @@ public class RecipeBookParserTest {
                 DeleteRecipeCommand.COMMAND_WORD + " " + DeleteRecipeCommand.VARIANT_WORD
                         + " " + INDEX_FIRST_RECIPE.getOneBased());
         assertEquals(new DeleteRecipeCommand(INDEX_FIRST_RECIPE), command);
+    }
+
+    @Test
+    public void parseCommand_edit() throws Exception {
+        Person person = new PersonBuilder().build();
+        EditProfileCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        EditProfileCommand command = (EditProfileCommand) parser.parseCommand(EditProfileCommand.COMMAND_WORD
+                + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        assertEquals(new EditProfileCommand(descriptor), command);
     }
 
     @Test
@@ -76,13 +90,19 @@ public class RecipeBookParserTest {
         FindRecipeCommand command = (FindRecipeCommand) parser.parseCommand(
                 FindRecipeCommand.COMMAND_WORD + " " + DeleteRecipeCommand.VARIANT_WORD
                         + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindRecipeCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindRecipeCommand(new RecipeNameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+    }
+
+    @Test
+    public void parseCommand_list() throws Exception {
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
     }
 
     @Test

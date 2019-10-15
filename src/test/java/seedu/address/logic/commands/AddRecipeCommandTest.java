@@ -6,20 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.RecipeBook;
-import seedu.address.model.Model;
+import seedu.address.model.ModelStub;
 import seedu.address.model.ReadOnlyRecipeBook;
-import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.RecipeBook;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.RecipeBuilder;
 
@@ -73,81 +68,6 @@ public class AddRecipeCommandTest {
 
         // different recipe -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getRecipesFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setRecipesFilePath(Path recipesFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addRecipe(Recipe recipe) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setRecipeBook(ReadOnlyRecipeBook recipeBook) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyRecipeBook getRecipeBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasRecipe(Recipe recipe) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteRecipe(Recipe target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setRecipe(Recipe target, Recipe editedRecipe) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Recipe> getFilteredRecipeList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**

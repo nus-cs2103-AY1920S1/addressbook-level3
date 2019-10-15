@@ -10,11 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.common.Name;
 import seedu.address.model.recipe.Calories;
 import seedu.address.model.recipe.Carbs;
 import seedu.address.model.recipe.Fats;
 import seedu.address.model.recipe.Ingredient;
-import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Protein;
 import seedu.address.model.recipe.Recipe;
 

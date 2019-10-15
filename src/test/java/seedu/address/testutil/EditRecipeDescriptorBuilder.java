@@ -6,11 +6,11 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditRecipeCommand;
 import seedu.address.logic.commands.EditRecipeCommand.EditRecipeDescriptor;
+import seedu.address.model.common.Name;
 import seedu.address.model.recipe.Calories;
 import seedu.address.model.recipe.Carbs;
 import seedu.address.model.recipe.Fats;
 import seedu.address.model.recipe.Ingredient;
-import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Protein;
 import seedu.address.model.recipe.Recipe;
 

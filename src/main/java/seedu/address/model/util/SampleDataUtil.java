@@ -4,58 +4,76 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.ReadOnlyRecipeBook;
-import seedu.address.model.RecipeBook;
-import seedu.address.model.recipe.Calories;
-import seedu.address.model.recipe.Carbs;
-import seedu.address.model.recipe.Fats;
-import seedu.address.model.recipe.Ingredient;
-import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Protein;
-import seedu.address.model.recipe.Recipe;
+import seedu.address.model.HealthRecords;
+import seedu.address.model.ReadOnlyHealthRecords;
+import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.UserProfile;
+import seedu.address.model.common.Name;
+import seedu.address.model.medical.MedicalHistory;
+import seedu.address.model.person.BloodType;
+import seedu.address.model.person.DoB;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Height;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Weight;
+import seedu.address.model.records.Record;
+import seedu.address.model.records.Timestamp;
+import seedu.address.model.records.Type;
+import seedu.address.model.records.Value;
 
 /**
- * Contains utility methods for populating {@code RecipeBook} with sample data.
+ * Contains utility methods for populating {@code UserProfile} with sample data.
  */
 public class SampleDataUtil {
-    public static Recipe[] getSampleRecipes() {
-        return new Recipe[] {
-            new Recipe(new Name("Tea"),
-                getIngredientSet("Tea Leaves"),
-                    new Calories("0"), new Carbs("0"), new Fats("0"), new Protein("0")),
-            new Recipe(new Name("Milo"),
-                getIngredientSet("Milo Powder"),
-                new Calories("180"), new Carbs("29"), new Fats("5"), new Protein("5")),
-            new Recipe(new Name("Cheese Omelette"),
-                getIngredientSet("Eggs", "Cheese"),
-                    new Calories("358"), new Carbs("1"), new Fats("28"), new Protein("21")),
-            new Recipe(new Name("Tuna Sandwich"),
-                getIngredientSet("Tuna", "Bread", "Mayonnaise"),
-                    new Calories("290"), new Carbs("29"), new Fats("10"), new Protein("24")),
-            new Recipe(new Name("Chicken Maggi"),
-                getIngredientSet("Chicken Maggi"),
-                    new Calories("402"), new Carbs("59"), new Fats("15"), new Protein("10")),
-            new Recipe(new Name("Fried Chicken"),
-                getIngredientSet("Chicken Wings", "Flour", "Oil"),
-                    new Calories("410"), new Carbs("3"), new Fats("29"), new Protein("34"))
+
+    //=========== Sample Person ==================================================================================
+
+    public static Person[] getSamplePersons() {
+        return new Person[] {
+            new Person(new Name("Alex Yeoh"),
+                new DoB("25/03/1997"),
+                new Gender("male"),
+                new BloodType("A+"),
+                new Weight("70", "13/10/2019 1230"),
+                new Height("180", "13/10/2019 1230"),
+                getMedicalHistorySet("friends"))
         };
     }
 
-    public static ReadOnlyRecipeBook getSampleRecipeBook() {
-        RecipeBook sampleDc = new RecipeBook();
-        for (Recipe sampleRecipe : getSampleRecipes()) {
-            sampleDc.addRecipe(sampleRecipe);
+    public static ReadOnlyUserProfile getSampleDukeCooks() {
+        UserProfile sampleDc = new UserProfile();
+        for (Person samplePerson : getSamplePersons()) {
+            sampleDc.addPerson(samplePerson);
         }
         return sampleDc;
     }
 
     /**
-     * Returns a ingredient set containing the list of strings given.
+     * Returns a Medical History set containing the list of strings given.
      */
-    public static Set<Ingredient> getIngredientSet(String... strings) {
+    public static Set<MedicalHistory> getMedicalHistorySet(String... strings) {
         return Arrays.stream(strings)
-                .map(Ingredient::new)
+                .map(MedicalHistory::new)
                 .collect(Collectors.toSet());
+    }
+
+    //=========== Sample Record ==================================================================================
+
+    public static Record[] getSampleRecords() {
+        return new Record[] {
+            new Record(
+                new Type("bloodpressure"),
+                new Value("90"),
+                new Timestamp("14/10/2019 01:10"))
+        };
+    }
+
+    public static ReadOnlyHealthRecords getSampleHealthRecords() {
+        HealthRecords sampleDc = new HealthRecords();
+        for (Record sampleRecord : getSampleRecords()) {
+            sampleDc.addRecord(sampleRecord);
+        }
+        return sampleDc;
     }
 
 }

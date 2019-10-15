@@ -26,7 +26,8 @@ public class AddRecipeCommandIntegrationTest {
     @Test
     public void execute_duplicateRecipe_throwsCommandException() {
         Recipe recipeInList = model.getRecipeBook().getRecipeList().get(0);
-        assertRecipeCommandFailure(new AddRecipeCommand(recipeInList), model, AddRecipeCommand.MESSAGE_DUPLICATE_RECIPE);
+        assertRecipeCommandFailure(new AddRecipeCommand(recipeInList), model,
+                AddRecipeCommand.MESSAGE_DUPLICATE_RECIPE);
     }
 
 }

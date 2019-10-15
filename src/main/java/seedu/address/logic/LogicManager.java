@@ -10,11 +10,14 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.RecipeBookParser;
+import seedu.address.logic.parser.DukeCooksParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRecipeBook;
+import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.records.Record;
 import seedu.address.storage.Storage;
 
 /**
@@ -26,12 +29,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final RecipeBookParser recipeBookParser;
+    private final DukeCooksParser dukeCooksParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        recipeBookParser = new RecipeBookParser();
+        dukeCooksParser = new DukeCooksParser();
     }
 
     @Override
@@ -39,11 +42,18 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = recipeBookParser.parseCommand(commandText);
+        Command command = dukeCooksParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
+            storage.saveUserProfile(model.getUserProfile());
             storage.saveRecipeBook(model.getRecipeBook());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
+        try {
+            storage.saveHealthRecords(model.getHealthRecords());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -57,11 +67,35 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyUserProfile getUserProfile() {
+        return model.getUserProfile();
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return model.getFilteredPersonList();
+    }
+
+    @Override
     public ObservableList<Recipe> getFilteredRecipeList() {
         return model.getFilteredRecipeList();
     }
 
     @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        return model.getFilteredRecordList();
+    }
+
+    @Override
+    public Path getUserProfileFilePath() {
+        return model.getUserProfileFilePath();
+    }
+
+    @Override
+    public Path getHealthRecordsFilePath() {
+        return model.getHealthRecordsFilePath();
+    }
+
     public Path getRecipesFilePath() {
         return model.getRecipesFilePath();
     }

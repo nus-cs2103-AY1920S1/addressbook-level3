@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -49,6 +50,24 @@ public class RecipeBookWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private Button home;
+
+    @FXML
+    private Button profile;
+
+    @FXML
+    private Button recipe;
+
+    @FXML
+    private Button exercise;
+
+    @FXML
+    private Button health;
+
+    @FXML
+    private Button diary;
 
     public RecipeBookWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -158,6 +177,62 @@ public class RecipeBookWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Switch to home page.
+     */
+    @FXML
+    private void switchHome() {
+        primaryStage.hide();
+        TempWindow tempWindow = new TempWindow(getPrimaryStage(), logic);
+        tempWindow.show();
+    }
+
+    /**
+     * Switch to profile page.
+     */
+    @FXML
+    private void switchProfile() {
+        primaryStage.hide();
+        UserProfileWindow userProfileWindow = new UserProfileWindow(getPrimaryStage(), logic);
+        userProfileWindow.show();
+        userProfileWindow.fillInnerParts();
+    }
+
+    /**
+     * Switch to recipe page.
+     */
+    @FXML
+    private void switchRecipe() {
+        // do nothing
+    }
+
+    /**
+     * Switch to exercise page.
+     */
+    @FXML
+    private void switchExercise() {
+        // switch to exercise
+    }
+
+    /**
+     * Switch to health page.
+     */
+    @FXML
+    private void switchHealth() {
+        primaryStage.hide();
+        HealthRecordsWindow healthWindow = new HealthRecordsWindow(getPrimaryStage(), logic);
+        healthWindow.show();
+        healthWindow.fillInnerParts();
+    }
+
+    /**
+     * Switch to diary page.
+     */
+    @FXML
+    private void switchDiary() {
+        // switch to diary
     }
 
     public RecipeListPanel getRecipeListPanel() {

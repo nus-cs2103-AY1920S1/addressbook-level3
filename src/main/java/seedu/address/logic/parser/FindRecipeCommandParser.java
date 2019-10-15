@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.address.logic.commands.FindRecipeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.recipe.NameContainsKeywordsPredicate;
+import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindRecipeCommand object
@@ -27,7 +27,7 @@ public class FindRecipeCommandParser implements Parser<FindRecipeCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindRecipeCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindRecipeCommand(new RecipeNameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.recipe.NameContainsKeywordsPredicate;
+import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all recipes in Duke Cooks whose name contains any of the argument keywords.
@@ -19,9 +19,9 @@ public class FindRecipeCommand extends FindCommand {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " chicken noodle";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final RecipeNameContainsKeywordsPredicate predicate;
 
-    public FindRecipeCommand(NameContainsKeywordsPredicate predicate) {
+    public FindRecipeCommand(RecipeNameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.common.Name;
 import seedu.address.model.recipe.Calories;
 import seedu.address.model.recipe.Carbs;
 import seedu.address.model.recipe.Fats;
-import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Protein;
 
 public class JsonAdaptedRecipeTest {

@@ -15,19 +15,28 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.RecipeBook;
+import seedu.address.model.HealthRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyHealthRecords;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.RecipeBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.UserProfile;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.RecipeBookStorage;
+import seedu.address.model.util.SampleRecipeDataUtil;
+import seedu.address.storage.HealthRecordsStorage;
+import seedu.address.storage.JsonHealthRecordsStorage;
 import seedu.address.storage.JsonRecipeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserProfileStorage;
+import seedu.address.storage.RecipeBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.UserProfileStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -48,7 +57,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing RecipeBook ]===========================");
+        logger.info("=============================[ Initializing DukeCooks ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -57,7 +66,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         RecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(userPrefs.getRecipesFilePath());
-        storage = new StorageManager(recipeBookStorage, userPrefsStorage);
+        UserProfileStorage userProfileStorage = new JsonUserProfileStorage(userPrefs.getUserProfileFilePath());
+        HealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(userPrefs.getHealthRecordsFilePath());
+        storage = new StorageManager(userProfileStorage, healthRecordsStorage, recipeBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -69,28 +80,100 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s duke cooks and {@code userPrefs}. <br>
+     * Returns a {@code RecipeModelManager} with the data from {@code storage}'s duke cooks and {@code userPrefs}. <br>
      * The data from the sample duke cooks will be used instead if {@code storage}'s Duke Cooks is not found,
-     * or an empty recipeBook will be used instead if errors occur when reading {@code storage}'s Duke Cooks.
+     * or an empty dukeCooks will be used instead if errors occur when reading {@code storage}'s Duke Cooks.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        ReadOnlyUserProfile initialDukeCooks;
+        initialDukeCooks = initDukeCooks(storage);
+
+        ReadOnlyRecipeBook initialRecipeBook;
+        initialRecipeBook = initRecipeBook(storage);
+
+        ReadOnlyHealthRecords initialHealthRecords;
+        initialHealthRecords = initHealthRecords(storage);
+
+        return new ModelManager(initialDukeCooks, initialHealthRecords, initialRecipeBook, userPrefs);
+    }
+
+    /**
+     * Returns a {@code ReadOnlyUserProfile} with the data from {@code storage}'s UserProfile. <br>
+     * The data from the sample UserProfile will be used instead if {@code storage}'s persons is not found,
+     * or an empty DukeCook will be used instead if errors occur when reading {@code storage}'s UserProfile.
+     */
+    private ReadOnlyUserProfile initDukeCooks(Storage storage) {
+        Optional<ReadOnlyUserProfile> dukeCooksOptional;
+        ReadOnlyUserProfile initialData;
+
+        try {
+            dukeCooksOptional = storage.readUserProfile();
+            if (!dukeCooksOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with sample UserProfile");
+            }
+            initialData = dukeCooksOptional.orElseGet(SampleDataUtil::getSampleDukeCooks);
+            //initialData = recipeBookOptional.orElseGet(SampleRecipeDataUtil::getSampleRecipeBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
+            initialData = new UserProfile();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
+            initialData = new UserProfile();
+        }
+
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code ReadOnlyUserProfile} with the data from {@code storage}'s UserProfile. <br>
+     * The data from the sample UserProfile will be used instead if {@code storage}'s persons is not found,
+     * or an empty RecipeBook will be used instead if errors occur when reading {@code storage}'s RecipeBook.
+     */
+    private ReadOnlyRecipeBook initRecipeBook(Storage storage) {
         Optional<ReadOnlyRecipeBook> recipeBookOptional;
         ReadOnlyRecipeBook initialData;
+
         try {
             recipeBookOptional = storage.readRecipeBook();
             if (!recipeBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with sample RecipeBook");
             }
-            initialData = recipeBookOptional.orElseGet(SampleDataUtil::getSampleRecipeBook);
+            initialData = recipeBookOptional.orElseGet(SampleRecipeDataUtil::getSampleRecipeBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty RecipeBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
             initialData = new RecipeBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty RecipeBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
             initialData = new RecipeBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code ReadOnlyHealthRecords} with the data from {@code storage}'s health records. <br>
+     * The data from the sample health records will be used instead if {@code storage}'s Health records is not found,
+     * or an empty healthRecords will be used instead if errors occur when reading {@code storage}'s Health Records.
+     */
+    private ReadOnlyHealthRecords initHealthRecords(Storage storage) {
+        Optional<ReadOnlyHealthRecords> healthRecordsOptional;
+        ReadOnlyHealthRecords initialData;
+
+        try {
+            healthRecordsOptional = storage.readHealthRecords();
+            if (!healthRecordsOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with sample Health Records");
+            }
+            initialData = healthRecordsOptional.orElseGet(SampleDataUtil::getSampleHealthRecords);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Health Records");
+            initialData = new HealthRecords();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty Health Records");
+            initialData = new HealthRecords();
+        }
+
+        return initialData;
     }
 
     private void initLogging(Config config) {
@@ -151,7 +234,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty RecipeBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,7 +250,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting RecipeBook " + MainApp.VERSION);
+        logger.info("Starting DukeCooks " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
