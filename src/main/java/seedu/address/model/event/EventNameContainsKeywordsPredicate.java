@@ -24,8 +24,8 @@ public class EventNameContainsKeywordsPredicate implements Predicate<Event> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.event.EventNameContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((seedu.address.model.event.EventNameContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof seedu.address.model.event.EventNameContainsKeywordsPredicate
+                && keywords.equals(((seedu.address.model.event.EventNameContainsKeywordsPredicate) other).keywords));
     }
 
 }
