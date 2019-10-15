@@ -7,7 +7,8 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import seedu.address.model.person.Person;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -16,22 +17,22 @@ import seedu.address.model.tag.Tag;
 @JsonPropertyOrder({"name", "phone", "email", "address", "tagged"})
 public class CsvAdaptedPerson {
 
-    @JsonProperty("name")
-    private final String name;
-    @JsonProperty("phone")
-    private final String phone;
-    @JsonProperty("email")
-    private final String email;
-    @JsonProperty("address")
-    private final String address;
+    @JsonUnwrapped
+    private final Name name;
+    @JsonUnwrapped
+    private final Phone phone;
+    @JsonUnwrapped
+    private final Email email;
+    @JsonUnwrapped
+    private final Address address;
     @JsonProperty("tagged")
     private final Set<Tag> tagged;
 
     public CsvAdaptedPerson(Person source) {
-        this.name = source.getName().fullName;
-        this.phone = source.getPhone().value;
-        this.email = source.getEmail().value;
-        this.address = source.getAddress().value;
+        this.name = source.getName();
+        this.phone = source.getPhone();
+        this.email = source.getEmail();
+        this.address = source.getAddress();
         this.tagged = source.getTags();
     }
 
