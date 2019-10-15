@@ -3,6 +3,7 @@
 package seedu.address.commons.util;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -22,24 +23,34 @@ public class ExportUtil {
         for (FlashCard card : cards) {
             Question question = card.getQuestion();
             Answer answer = card.getAnswer();
-
             XWPFParagraph paragraph = doc.createParagraph();
 
-            XWPFRun questionRun = paragraph.createRun();
-            questionRun.setText(question.toString());
-            questionRun.setBold(true);
-
-            XWPFRun answerRun = paragraph.createRun();
-            answerRun.setText(answer.toString());
+            addRun(paragraph, question.toString(), true);
+            addLineBreak(paragraph);
+            addRun(paragraph, answer.toString(), false);
         }
 
+        writeDocumentToFile(doc, filePath);
+    }
+
+    private static void addRun(XWPFParagraph paragraph, String text, boolean isBold) {
+        XWPFRun run = paragraph.createRun();
+        run.setText(text);
+        run.setBold(isBold);
+    }
+
+    private static void addLineBreak(XWPFParagraph paragraph) {
+        XWPFRun run = paragraph.createRun();
+        run.addCarriageReturn();
+    }
+
+    private static void writeDocumentToFile(XWPFDocument doc, FilePath filePath) {
         try {
             FileOutputStream out = new FileOutputStream(filePath.toString());
             doc.write(out);
             out.close();
             doc.close();
-        }
-        catch (Exception e) {
+        } catch (IOException e) {
 
         }
     }
