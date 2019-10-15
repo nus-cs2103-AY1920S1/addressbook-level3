@@ -1,13 +1,8 @@
 package seedu.address.ui;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
-import seedu.address.ui.window.ProjectDashboardView;
-import seedu.address.ui.window.TaskListPanel;
-
-import java.io.IOException;
+import seedu.address.ui.views.ProjectDashboardView;
+import seedu.address.ui.views.TaskListPanel;
 
 /**
  * Utility class for controlling navigation between user views.

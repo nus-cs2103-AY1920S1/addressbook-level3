@@ -1,4 +1,4 @@
-package seedu.address.ui.window;
+package seedu.address.ui.views;
 
 import java.util.Comparator;
 
