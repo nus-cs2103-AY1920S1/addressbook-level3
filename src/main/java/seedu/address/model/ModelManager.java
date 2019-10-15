@@ -309,6 +309,14 @@ public class ModelManager implements Model {
         filteredEvents.setPredicate(predicate);
     }
 
+
+    @Override
+    public void updateFilteredEventList(ReferenceId referenceId) {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        Predicate<Event> byApproved = Event -> (Event.getStatus().isApproved() && Event.getPersonId().equals(referenceId));
+        filteredEvents.setPredicate(byApproved);
+    }
+
     @Override
     public void updateFilteredEventList() {
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);

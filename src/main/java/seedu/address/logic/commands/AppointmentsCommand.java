@@ -3,12 +3,14 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Date;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.events.*;
 
 
@@ -25,21 +27,31 @@ public class AppointmentsCommand extends Command {
             + "Parameters: KEYWORD \n"
             + "Example: " + COMMAND_WORD + " 001A";
 
-    private final ContainsKeywordsPredicate predicate;
+//    private final ContainsKeywordsPredicate predicate;
+    private final ReferenceId referenceId;
 
-    public AppointmentsCommand(ContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
+//    public AppointmentsCommand(ContainsKeywordsPredicate predicate) {
+//        this.predicate = predicate;
+//    }
+
+    public AppointmentsCommand(ReferenceId referenceId) {
+        this.referenceId = referenceId;
+    }
+
+    public AppointmentsCommand() {
+        this.referenceId = null;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         autoMissEvent(model.getFilteredEventList(), model);
-        if(predicate.hasNoPredicate()){
+        if(referenceId==null){
             model.updateFilteredEventList();
         }else{
-            model.updateFilteredEventList(predicate.addStatus(Status.AppointmentStatuses.APPROVED));
-//            model.updateFilteredEventList();
+            //todo on tuesday
+            //extra condition to make sure all event is also be APPROVED
+            model.updateFilteredEventList(referenceId);
         }
 
         return new CommandResult(
@@ -62,11 +74,11 @@ public class AppointmentsCommand extends Command {
             }
         }
     }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AppointmentsCommand // instanceof handles nulls
-                && predicate.equals(((AppointmentsCommand) other).predicate)); // state check
-    }
+//
+//    @Override
+//    public boolean equals(Object other) {
+//        return other == this // short circuit if same object
+//                || (other instanceof AppointmentsCommand // instanceof handles nulls
+//                && predicate.equals(((AppointmentsCommand) other).predicate)); // state check
+//    }
 }

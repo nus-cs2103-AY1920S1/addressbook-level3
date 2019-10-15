@@ -1,11 +1,15 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
+import seedu.address.logic.commands.AckAppCommand;
 import seedu.address.logic.commands.AppointmentsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.events.ContainsKeywordsPredicate;
 
 /**
@@ -20,16 +24,18 @@ public class AppointmentsCommandParser implements Parser<AppointmentsCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AppointmentsCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-//
-//        if (trimmedArgs.isEmpty()) {
-//            throw new ParseException(
-//                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AppointmentsCommand.MESSAGE_USAGE));
-//        }
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        if (args.trim().isEmpty()) {
+            return new AppointmentsCommand();
+        } else {
+            ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getPreamble());
+            return new AppointmentsCommand(referenceId);
+        }
+    }
 
-        return new AppointmentsCommand(new ContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
