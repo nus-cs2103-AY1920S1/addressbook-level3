@@ -30,6 +30,12 @@ public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand {
         this.deletedPerson = deletedPerson;
     }
 
+    @JsonCreator
+    public JsonAdaptedDeleteAddressCommand(@JsonProperty("targetIndex") JsonAdaptedIndex targetIndex) {
+        this.targetIndex = targetIndex;
+        deletedPerson = null;
+    }
+
     /**
      * Converts a given {@code Command} into this class for Jackson use.
      * {@code Command} should be a {@code DeleteAddressCommand}.
@@ -43,7 +49,9 @@ public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand {
         }
         DeleteAddressCommand deleteAddressCommand = (DeleteAddressCommand) command;
         targetIndex = new JsonAdaptedIndex(deleteAddressCommand.getTargetIndex());
-        deletedPerson = new JsonAdaptedPerson(deleteAddressCommand.getDeletedPerson());
+        deletedPerson = deleteAddressCommand.getDeletedPerson() != null
+                ? new JsonAdaptedPerson(deleteAddressCommand.getDeletedPerson())
+                : null;
     }
 
     /**
@@ -55,6 +63,8 @@ public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand {
      */
     @Override
     public Command toModelType() throws IllegalValueException {
-        return new DeleteAddressCommand(targetIndex.toModelType(), deletedPerson.toModelType());
+        return deletedPerson != null
+                ? new DeleteAddressCommand(targetIndex.toModelType(), deletedPerson.toModelType())
+                : new DeleteAddressCommand(targetIndex.toModelType());
     }
 }
