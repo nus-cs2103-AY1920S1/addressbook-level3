@@ -52,6 +52,10 @@ public class Overview extends UiPart<Region> {
 
     }
 
+    /**
+     * Initialises the Labels in the Overview tab.
+     * @param overviewLogic the logic for the overview tab.
+     */
     void initialiseLabels(Logic overviewLogic) {
         totalExpenseValue.setText(String.format(EXPENSE_SUMMARY_TEXT, overviewLogic.getTotalExpenses(),
                 overviewLogic.getExpenseTarget()));
@@ -62,6 +66,10 @@ public class Overview extends UiPart<Region> {
                 overviewLogic.getBudgetTarget()));
     }
 
+    /**
+     * Initialises the Pie Chart for expenses in the Overview tab.
+     * @param overviewLogic the logic for the overview tab.
+     */
     void initialiseExpensePieChart(Logic overviewLogic) {
         List<PieChart.Data> pieChartData = new ArrayList<>();
         List<String> categoryList = overviewLogic.getTransactionCategories();
@@ -82,6 +90,10 @@ public class Overview extends UiPart<Region> {
 
     }
 
+    /**
+     * Initialises the Pie Chart for inventory in the Overview tab.
+     * @param overviewLogic the logic for the overview tab.
+     */
     void initialiseInventoryPieChart(Logic overviewLogic) {
         List<PieChart.Data> pieChartData = new ArrayList<>();
         List<String> categoryList = overviewLogic.getInventoryCategories();

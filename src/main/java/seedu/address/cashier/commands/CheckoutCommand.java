@@ -1,5 +1,7 @@
 package seedu.address.cashier.commands;
 
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_CHECKOUT_SUCCESS;
+
 import java.util.logging.Logger;
 
 import seedu.address.cashier.model.ModelManager;
@@ -41,7 +43,6 @@ public class CheckoutCommand extends Command {
         inventoryModel.readInUpdatedList();
         ClearCommand clearCommand = new ClearCommand();
         clearCommand.execute(modelManager, personModel, transactionModel, inventoryModel);
-        return new CommandResult(cashierMessages.checkoutSuccessful(String.valueOf(totalAmount),
-                String.valueOf(change)));
+        return new CommandResult(String.format(MESSAGE_CHECKOUT_SUCCESS, totalAmount, change));
     }
 }

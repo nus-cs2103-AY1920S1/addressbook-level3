@@ -1,25 +1,25 @@
 package seedu.address.transaction.logic;
 
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_INVALID_EDIT_COMMAND_FORMAT;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NOT_EDITED;
 import static seedu.address.util.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.util.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+import java.util.stream.Stream;
 
 import seedu.address.transaction.commands.EditCommand;
 import seedu.address.transaction.logic.exception.ParseException;
-import seedu.address.transaction.ui.TransactionMessages;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
+import seedu.address.util.Prefix;
 
 /**
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser {
-    private final DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy", Locale.ENGLISH);
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -36,7 +36,12 @@ public class EditCommandParser {
         try {
             index = Integer.parseInt(argMultimap.getPreamble());
         } catch (Exception e) {
-            throw new ParseException(TransactionMessages.MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
+            throw new ParseException(MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_DATETIME, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_AMOUNT,
+                PREFIX_PERSON)) {
+            throw new ParseException(MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
         }
 
         EditCommand.EditTransactionDescriptor editPersonDescriptor = new EditCommand.EditTransactionDescriptor();
@@ -57,8 +62,16 @@ public class EditCommandParser {
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(TransactionMessages.MESSAGE_NOT_EDITED);
+            throw new ParseException(MESSAGE_NOT_EDITED);
         }
         return new EditCommand(index, editPersonDescriptor);
+    }
+
+    /**
+     * Returns false if all of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }
 }

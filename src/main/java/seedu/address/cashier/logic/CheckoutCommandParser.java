@@ -1,10 +1,12 @@
 package seedu.address.cashier.logic;
 
+import static seedu.address.cashier.ui.CashierMessages.AMOUNT_NOT_A_NUMBER;
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_AMOUNT;
+
 import seedu.address.cashier.commands.CheckoutCommand;
 import seedu.address.cashier.logic.exception.InsufficientAmountException;
 import seedu.address.cashier.logic.exception.NotANumberException;
 import seedu.address.cashier.model.ModelManager;
-import seedu.address.cashier.ui.CashierMessages;
 
 /**
  * Parses input arguments and creates a new CheckoutCommand object.
@@ -27,7 +29,7 @@ public class CheckoutCommandParser {
         try {
             amount = Double.parseDouble(userInput.substring(1));
         } catch (Exception e) {
-            throw new NotANumberException(CashierMessages.AMOUNT_NOT_A_NUMBER);
+            throw new NotANumberException(AMOUNT_NOT_A_NUMBER);
         }
 
         if (amount == totalAmount) {
@@ -35,7 +37,7 @@ public class CheckoutCommandParser {
         } else if (amount > totalAmount) {
             change = amount - totalAmount;
         } else {
-            throw new InsufficientAmountException(CashierMessages.insufficientAmount(totalAmount));
+            throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount));
         }
 
         CheckoutCommand checkoutCommand = new CheckoutCommand(totalAmount, change);

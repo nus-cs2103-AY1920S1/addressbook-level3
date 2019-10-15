@@ -246,6 +246,7 @@ public class MainWindow extends UiPart<Stage> {
             if (ifIsNavigationCommand(commandText)) {
                 navigateToAnotherTab(commandText);
             }
+
             if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Home")) {
                 commandResult = transactionLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Members")) {
@@ -349,6 +350,6 @@ public class MainWindow extends UiPart<Stage> {
      * @return If it is a tab navigation command.
      */
     private boolean ifIsNavigationCommand(String userInput) {
-        return userInput.contains("go");
+        return userInput.split(" ")[0].equals("go");
     }
 }

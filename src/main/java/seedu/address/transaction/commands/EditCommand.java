@@ -1,5 +1,9 @@
 package seedu.address.transaction.commands;
 
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DUPLICATE_TRANSACTION;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_PERSON;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_TRANSACTION_EDITED;
+
 import java.util.Optional;
 
 import seedu.address.person.commons.util.CollectionUtil;
@@ -9,7 +13,6 @@ import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
-import seedu.address.transaction.ui.TransactionMessages;
 
 /**
  * Edits a transaction in the transaction list.
@@ -40,13 +43,13 @@ public class EditCommand extends Command {
                 editTransactionDescriptor, personModel);
 
         if (!transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
-            throw new CommandException(TransactionMessages.MESSAGE_DUPLICATE_TRANSACTION);
+            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
         if (!personModel.hasPerson(editedTransaction.getPerson())) {
-            throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
+            throw new NoSuchPersonException(MESSAGE_NO_SUCH_PERSON);
         }
         model.setTransaction(transactionToEdit, editedTransaction);
-        return new CommandResult(TransactionMessages.editedTransaction(editedTransaction));
+        return new CommandResult(String.format(MESSAGE_TRANSACTION_EDITED, editedTransaction));
     }
 
     /**
