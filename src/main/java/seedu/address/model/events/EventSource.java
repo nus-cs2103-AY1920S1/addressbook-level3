@@ -31,6 +31,17 @@ public class EventSource {
         this.start = start;
     }
 
+    /**
+     * Returns a deep-copy of an EventSource.
+     *
+     * @param oldEventSource the eventSource to deep-copy.
+     */
+    public EventSource(EventSource oldEventSource) {
+        this.description = oldEventSource.description;
+        this.start = oldEventSource.start;
+        this.end = oldEventSource.end;
+    }
+
     public String getDescription() {
         return description;
     }

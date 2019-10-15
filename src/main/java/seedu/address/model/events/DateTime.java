@@ -14,6 +14,10 @@ public class DateTime {
         this.dateTime = dateTime;
     }
 
+    public Instant getDateTime() {
+        return this.dateTime;
+    }
+
     /**
      * Creates a new instance of DateTime according to the clock.
      *

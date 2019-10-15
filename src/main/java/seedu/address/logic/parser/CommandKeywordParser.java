@@ -5,8 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
-import seedu.address.logic.commands.builders.AddEventCommandBuilder;
-import seedu.address.logic.commands.builders.CommandBuilder;
+import seedu.address.logic.commands.CommandBuilder;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -14,20 +13,21 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class CommandKeywordParser implements Parser<CommandBuilder> {
 
-    private static final String COMMAND_ADD_EVENT = "add_event";
+    private final HashMap<String, Supplier<CommandBuilder>> commandKeywordMap;
 
-    private static final HashMap<String, Supplier<CommandBuilder>> BUILDERS;
+    public CommandKeywordParser() {
+        this.commandKeywordMap = new HashMap<>();
+    }
 
-    static {
-        BUILDERS = new HashMap<>();
-        BUILDERS.put(COMMAND_ADD_EVENT, AddEventCommandBuilder::new);
+    public void addCommand(String keyword, Supplier<CommandBuilder> command) {
+        this.commandKeywordMap.put(keyword, command);
     }
 
     @Override
     public CommandBuilder parse(String userInput) throws ParseException {
-        if (!BUILDERS.containsKey(userInput)) {
+        if (!commandKeywordMap.containsKey(userInput)) {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
-        return BUILDERS.get(userInput).get();
+        return commandKeywordMap.get(userInput).get();
     }
 }
