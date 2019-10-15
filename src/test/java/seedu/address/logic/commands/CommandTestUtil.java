@@ -31,12 +31,25 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_CONTACTNUMBER_AMY = "11111111";
+    public static final String VALID_CONTACTNUMBER_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+
+    public static final String VALID_PHONENAME_IPHONE = "iPhone Pro 11";
+    public static final String VALID_PHONENAME_SAMSUNG = "Galaxy S10";
+    public static final String VALID_COLOUR_IPHONE = "Purple";
+    public static final String VALID_COLOUR_SAMSUNG = "Black";
+    public static final String VALID_BRAND_IPHONE = "Apple";
+    public static final String VALID_BRAND_SAMSUNG = "Samsung";
+    public static final String VALID_COST_IPHONE = "$1649";
+    public static final String VALID_COST_SAMSUNG = "$1298";
+    public static final String VALID_PRICE_IPHONE = "$2000";
+    public static final String VALID_PRICE_SAMSUNG = "$1500";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
