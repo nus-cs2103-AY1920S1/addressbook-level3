@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.model.policy.Policy;
 
 /**

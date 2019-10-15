@@ -46,22 +46,6 @@ public class Policy {
         this.tags.addAll(tags);
     }
 
-    /**
-     * Creates a copy of the policy {@code toCopy}.
-     */
-    public static Policy createCopy(Policy toCopy) {
-        return new Policy(
-            toCopy.getName(),
-            toCopy.getDescription(),
-            toCopy.getCoverage(),
-            toCopy.getPrice(),
-            toCopy.getStartAge(),
-            toCopy.getEndAge(),
-            new HashSet<>(toCopy.getCriteria()),
-            new HashSet<>(toCopy.getTags())
-        );
-    }
-
     public PolicyName getName() {
         return name;
     }

@@ -9,6 +9,8 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.PersonBuilder;
+import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -70,7 +72,8 @@ public class AssignPolicyCommand extends Command {
                     person.getName(), policy.getName()));
         }
 
-        Person assignedPerson = Person.createPersonWithPolicy(person, Policy.createCopy(policy));
+        Policy copyPolicy = new PolicyBuilder(policy).build();
+        Person assignedPerson = new PersonBuilder(person).addPolicies(copyPolicy).build();
 
         model.setPerson(person, assignedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

@@ -44,48 +44,6 @@ public class Person {
         this.tags.addAll(tags);
     }
 
-    /**
-     * Creates a new copy of the person {@code toCopy} with the policy {@code toAdd}.
-     * @param toCopy Person to be copied
-     * @param toAdd Policy to be added to the copied person
-     * @return Copy of the person with the added policy
-     */
-    public static Person createPersonWithPolicy(Person toCopy, Policy toAdd) {
-        Set<Policy> updatedPolicies = new HashSet<>(toCopy.getPolicies());
-        updatedPolicies.add(toAdd);
-        return new Person(
-            toCopy.getName(),
-            toCopy.getNric(),
-            toCopy.getPhone(),
-            toCopy.getEmail(),
-            toCopy.getAddress(),
-            toCopy.getDateOfBirth(),
-            updatedPolicies,
-            new HashSet<>(toCopy.getTags())
-        );
-    }
-
-    /**
-     * Creates a new copy of the person {@code toCopy} without the policy {@code toAdd}.
-     * @param toCopy Person to be copied
-     * @param toRemove Policy to be removed from the copied person
-     * @return Copy of the person with policy removed
-     */
-    public static Person createPersonWithoutPolicy(Person toCopy, Policy toRemove) {
-        Set<Policy> updatedPolicies = new HashSet<>(toCopy.getPolicies());
-        updatedPolicies.remove(toRemove);
-        return new Person(
-            toCopy.getName(),
-            toCopy.getNric(),
-            toCopy.getPhone(),
-            toCopy.getEmail(),
-            toCopy.getAddress(),
-            toCopy.getDateOfBirth(),
-            updatedPolicies,
-            new HashSet<>(toCopy.getTags())
-        );
-    }
-
     public Name getName() {
         return name;
     }

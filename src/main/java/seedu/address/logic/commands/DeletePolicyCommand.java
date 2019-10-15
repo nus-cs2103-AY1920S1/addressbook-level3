@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -46,7 +47,7 @@ public class DeletePolicyCommand extends Command {
         // Update persons with the edited policy
         for (Person p : model.getAddressBook().getPersonList()) {
             if (p.hasPolicy(policyToDelete)) {
-                Person editedPerson = Person.createPersonWithoutPolicy(p, policyToDelete);
+                Person editedPerson = new PersonBuilder(p).removePolicies(policyToDelete).build();
                 model.setPerson(p, editedPerson);
             }
         }

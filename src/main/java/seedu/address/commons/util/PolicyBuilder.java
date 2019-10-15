@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.commons.util;
 
 import static seedu.address.model.util.SampleDataUtil.getCriteriaSet;
 import static seedu.address.model.util.SampleDataUtil.getTagSet;
