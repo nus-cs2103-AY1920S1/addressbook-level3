@@ -35,11 +35,11 @@ public class AverageCommandTest {
 //        expectedMessage.add("average for BLOODSUGAR 2019-10-01 is 1.0");
 //        expectedMessage.add("average for BLOODSUGAR 2019-09-15 is 5.0");
 
-        String expectedMessage = "average for BLOODSUGAR 2019-10-09 is 4.0\r\n"
-                + "average for BLOODSUGAR 2019-10-08 is 3.0\r\n"
-                + "average for BLOODSUGAR 2019-10-02 is 2.0\r\n"
-                + "average for BLOODSUGAR 2019-10-01 is 1.0\r\n"
-                + "average for BLOODSUGAR 2019-09-15 is 5.0";
+        String expectedMessage = "average for BLOODSUGAR 2019-10-09 is 4.0\n"
+                + "average for BLOODSUGAR 2019-10-08 is 3.0\n"
+                + "average for BLOODSUGAR 2019-10-02 is 2.0\n"
+                + "average for BLOODSUGAR 2019-10-01 is 1.0\n"
+                + "average for BLOODSUGAR 2019-09-15 is 5.0\n";
 
         AverageCommand command = new AverageCommand(AverageType.DAILY, RecordType.BLOODSUGAR, 5);
         assertCommandSuccess(command, model, expectedMessage.toString(), expectedModel);

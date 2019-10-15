@@ -107,18 +107,18 @@ public class AverageCommand extends Command {
         Map<LocalDate, Double> averagesTreeMap = new TreeMap<>(Collections.reverseOrder());
         averagesTreeMap.putAll(averages);
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         averagesTreeMap.entrySet().stream()
                 .limit(count)
-                .forEach(ele -> result.concat("average for " + this.recordType + " "
+                .forEach(ele -> result.append("average for " + this.recordType + " "
                 + ele.getKey() + " is " + ele.getValue() + "\n"));
 
-        if (result.isEmpty()) {
+        if (result.toString().isEmpty()) {
             throw new CommandException(String.format(MESSAGE_NO_RECORD, this.recordType));
         }
 
-        return new CommandResult(String.format(result));
+        return new CommandResult(String.format(result.toString()));
     }
 
     @Override
