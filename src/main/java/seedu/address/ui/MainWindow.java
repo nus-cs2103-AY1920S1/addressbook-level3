@@ -236,7 +236,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isClaim()) {
                 Claim claim = commandResult.giveClaim();
-                System.out.println(claim);
                 handleClaim(claim);
             }
 

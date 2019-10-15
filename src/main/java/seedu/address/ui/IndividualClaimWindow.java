@@ -41,21 +41,20 @@ public class IndividualClaimWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the IndividualClaimWindow.
      */
-    public IndividualClaimWindow(Stage root) {
+    public IndividualClaimWindow(Stage root, Claim claim) {
         super(FXML, root);
-        name.setText(claim.getName().toString());
-        contact.setText(claim.getPhone().toString());
-        date.setText(claim.getDescription().toString());
-        amount.setText(claim.getAmount().toString());
-        description.setText(claim.getDescription().toString());
+        name.setText("Name: " + claim.getName().toString());
+        contact.setText("Contact: " + claim.getPhone().toString());
+        date.setText("Date: " + claim.getDescription().toString());
+        amount.setText("Amount: " + claim.getAmount().toString());
+        description.setText("Description: " + claim.getDescription().toString());
     }
 
     /**
      * Creates a new IndividualClaimWindow.
      */
     public IndividualClaimWindow(Claim claim) {
-        this(new Stage());
-        this.claim = claim;
+        this(new Stage(), claim);
     }
 
     /**
