@@ -11,13 +11,12 @@ import java.util.List;
 
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
-import seedu.ezwatchlist.model.AddressBook;
+
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.WatchList;
-import seedu.ezwatchlist.model.person.Person;
 import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
 import seedu.ezwatchlist.model.show.Show;
-import seedu.ezwatchlist.testutil.EditPersonDescriptorBuilder;
+import seedu.ezwatchlist.testutil.EditShowDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

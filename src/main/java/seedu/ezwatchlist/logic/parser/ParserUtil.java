@@ -126,7 +126,7 @@ public class ParserUtil {
         }
         return new RunningTime(Integer.parseInt(trimmedRunningTime));
     }
-    
+
     /**
      * Parses a {@code String actor} into a {@code Actor}.
      * Leading and trailing whitespaces will be trimmed.
