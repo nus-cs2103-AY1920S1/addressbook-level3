@@ -21,11 +21,12 @@ import seedu.billboard.model.tag.Tag;
 public class AddTagCommand extends TagCommand {
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tags to the expense identified "
+    public static final String MESSAGE_USAGE = TagCommand.COMMAND_WORD + " " + COMMAND_WORD
+            + ": Adds tags to the expense identified "
             + "by the index number used in the last expense listing. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TAG + "[TAG]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + TagCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + "SCHOOL";
 
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag(s) to Expense: %1$s";
