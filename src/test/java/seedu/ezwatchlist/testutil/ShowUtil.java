@@ -40,7 +40,7 @@ public class ShowUtil {
     /**
      * Returns the part of command string for the given {@code EditShowDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditShowDescriptor descriptor) {
+    public static String getEditShowDescriptorDetails(EditShowDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.showName).append(" "));
         descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_DESCRIPTION).append(description).append(" "));

@@ -1,8 +1,6 @@
 package seedu.ezwatchlist.testutil;
 
-import seedu.ezwatchlist.model.AddressBook;
 import seedu.ezwatchlist.model.WatchList;
-import seedu.ezwatchlist.model.person.Person;
 import seedu.ezwatchlist.model.show.Show;
 
 /**
