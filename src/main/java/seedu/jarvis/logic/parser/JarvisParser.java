@@ -18,7 +18,6 @@ import seedu.jarvis.logic.commands.address.FindAddressCommand;
 import seedu.jarvis.logic.commands.address.ListAddressCommand;
 import seedu.jarvis.logic.commands.cca.AddCcaCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
-import seedu.jarvis.logic.commands.finance.PaidCommand;
 import seedu.jarvis.logic.commands.finance.RemoveInstallmentCommand;
 import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
