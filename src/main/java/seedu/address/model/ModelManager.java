@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -18,6 +17,7 @@ import seedu.address.model.note.Note;
 import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Subject;
+import seedu.address.model.statistics.StatisticsStub;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -28,7 +28,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Note> filteredNotes;
-    private List<Double> statistics;
+    private final StatisticsStub statisticsStub;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -42,6 +42,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
+        this.statisticsStub = new StatisticsStub();
     }
 
     public ModelManager() {
@@ -176,15 +177,15 @@ public class ModelManager implements Model {
 
     //=========== Statistics ===============================================================================
     @Override
-    public void setStatistics() {
-        statistics = new Statistics(14.0, 16.0).getStatistics();
+    public void getStatistics() {
+        // read from storage
     }
 
     @Override
     public ObservableList<PieChart.Data> getStatsChartData() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        pieChartData.add(new PieChart.Data("Correct", statistics.get(0)));
-        pieChartData.add(new PieChart.Data("Incorrect", statistics.get(1)));
+        pieChartData.add(new PieChart.Data("Correct", statisticsStub.getStatistics().get(0)));
+        pieChartData.add(new PieChart.Data("Incorrect", statisticsStub.getStatistics().get(1)));
         return pieChartData;
     }
 }

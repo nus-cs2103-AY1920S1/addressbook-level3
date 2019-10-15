@@ -96,7 +96,7 @@ public interface Model {
      */
     void updateFilteredNoteList(Predicate<Note> predicate);
 
-    void setStatistics();
+    void getStatistics();
 
     ObservableList<PieChart.Data> getStatsChartData();
 

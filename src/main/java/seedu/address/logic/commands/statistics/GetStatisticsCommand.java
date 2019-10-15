@@ -41,8 +41,7 @@ public class GetStatisticsCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredNoteList(PREDICATE_SHOW_NO_NOTES);
-        // need to think of how to extract data from storage
-        model.setStatistics();
+        model.getStatistics();
         return new CommandResult(MESSAGE_SUCCESS, false, false, true);
     }
 }
