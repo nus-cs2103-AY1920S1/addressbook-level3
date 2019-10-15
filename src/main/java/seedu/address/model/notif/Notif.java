@@ -34,6 +34,7 @@ public class Notif {
         this.alert = alert;
     }
 
+
     /**
      * Returns whether an object is equal to this notif. The definition of equality is relaxed here to only include
      * body.

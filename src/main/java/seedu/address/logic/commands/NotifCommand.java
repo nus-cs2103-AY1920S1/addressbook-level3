@@ -1,11 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BODIES;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javafx.application.Platform;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.notif.Notif;
@@ -20,9 +22,13 @@ public class NotifCommand extends Command {
     private static ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
 
     private Notif toAdd;
+    private long period;
+    private TimeUnit timeUnit;
 
-    public NotifCommand(Notif notif) {
+    public NotifCommand(Notif notif, long period, TimeUnit timeUnit) {
         this.toAdd = notif;
+        this.period = period;
+        this.timeUnit = timeUnit;
     }
 
     @Override
@@ -35,9 +41,22 @@ public class NotifCommand extends Command {
 
         model.addNotif(toAdd);
 
-        ses.schedule(toAdd.getAlert(), 5, TimeUnit.SECONDS);
+        start();
+        Runnable changeUi = () -> Platform.runLater(() ->
+                model.updateFilteredBodyList(PREDICATE_SHOW_ALL_BODIES));
+
+        ses.schedule(changeUi, period, TimeUnit.SECONDS);
+        stop();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    public void start() {
+        ses.schedule(toAdd.getAlert(), period, timeUnit);
+    }
+
+    public void stop() {
+        ses.shutdown();
     }
 
     @Override

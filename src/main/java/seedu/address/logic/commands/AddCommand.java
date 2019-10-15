@@ -12,6 +12,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MIDDLE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 
+import java.util.concurrent.TimeUnit;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
@@ -71,8 +73,11 @@ public class AddCommand extends Command {
 
         model.addEntity(toAdd);
         if (toAdd instanceof Body) {
-            NotifCommand notifCommand = new NotifCommand(new Notif((Body) toAdd));
+            NotifCommand notifCommand = new NotifCommand(new Notif((Body) toAdd), 5, TimeUnit.SECONDS);
             notifCommand.execute(model);
+
+
+
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
