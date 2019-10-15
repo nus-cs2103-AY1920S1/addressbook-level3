@@ -3,8 +3,10 @@ package seedu.savenus.model.wallet;
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.AppUtil.checkArgument;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import java.math.BigDecimal;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * Represents a {@code Wallet}'s {@code RemainingBudget} amount in the application.
@@ -18,7 +20,7 @@ public class RemainingBudget {
             + "this application will not accept Budget Amounts higher than 1 million dollars";
     public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
 
-    private final DoubleProperty remainingBudgetProperty;
+    private final StringProperty remainingBudgetProperty;
 
     /**
      * Constructs a {@code RemainingBudget}.
@@ -28,7 +30,7 @@ public class RemainingBudget {
     public RemainingBudget(String newRemainingBudgetString) {
         requireNonNull(newRemainingBudgetString);
         checkArgument(isValidRemainingBudget(newRemainingBudgetString), MESSAGE_CONSTRAINTS);
-        remainingBudgetProperty = new SimpleDoubleProperty(Double.parseDouble(newRemainingBudgetString));
+        remainingBudgetProperty = new SimpleStringProperty("$" + newRemainingBudgetString);
     }
 
     /**
@@ -46,28 +48,28 @@ public class RemainingBudget {
      * Returns true if this instance of {@code RemainingBudget} is out of bounds.
      */
     public boolean isOutOfBounds() {
-        return (getRemainingBudget() >= 1000000);
+        return getRemainingBudget().compareTo(new BigDecimal(1000000.00)) == 1;
     }
 
     /**
-     * Returns the {@code DoubleProperty} of this instance.
+     * Returns the {@code StringProperty} of this instance.
      */
-    public DoubleProperty getRemainingBudgetProperty() {
+    public StringProperty getRemainingBudgetProperty() {
         return remainingBudgetProperty;
     }
 
     /**
      * Returns the {@code double} value of this instance.
      */
-    public double getRemainingBudget() {
-        return remainingBudgetProperty.get();
+    public BigDecimal getRemainingBudget() {
+        return new BigDecimal(remainingBudgetProperty.get().substring(1));
     }
 
     /**
      * Set new user's {@code RemainingBudget}.
      */
     public void setRemainingBudget(RemainingBudget newRemainingBudget) {
-        remainingBudgetProperty.setValue(newRemainingBudget.getRemainingBudget());
+        remainingBudgetProperty.setValue("$" + newRemainingBudget.getRemainingBudget().toString());
     }
 
     @Override
@@ -86,6 +88,6 @@ public class RemainingBudget {
         }
 
         RemainingBudget otherRemainingBudget = (RemainingBudget) other;
-        return otherRemainingBudget.getRemainingBudget() == this.getRemainingBudget();
+        return otherRemainingBudget.getRemainingBudget().compareTo(this.getRemainingBudget()) == 0;
     }
 }

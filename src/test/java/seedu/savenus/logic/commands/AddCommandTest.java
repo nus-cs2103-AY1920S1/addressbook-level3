@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.testutil.Assert.assertThrows;
 
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +26,6 @@ import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.RecommendationSystem;
 import seedu.savenus.model.food.Food;
-import seedu.savenus.model.food.Price;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
@@ -162,12 +162,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void pay(Price price) {
+        public void buyFood(Food foodToBuy) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public double getRemainingBudget() {
+        public BigDecimal getRemainingBudget() {
             throw new AssertionError("This method should not be called.");
         }
 
