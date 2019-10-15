@@ -49,11 +49,11 @@ module Slim::Helpers
   #
   # @param name [#to_s] the name of the tag.
   # @param attributes [Hash]
-  # @param content [#to_s] the content; +nil+ to call the block.
+  # @param questionBody [#to_s] the questionBody; +nil+ to call the block.
   # @yield The block of Slim/HTML code within the tag (optional).
   # @return [String] a rendered HTML element.
   #
-  def html_tag(name, attributes = {}, content = nil)
+  def html_tag(name, attributes = {}, questionBody = nil)
     attrs = attributes.reject { |_, v|
       v.nil? || (v.respond_to?(:empty?) && v.empty?)
     }.map do |k, v|
@@ -67,8 +67,8 @@ module Slim::Helpers
     if VOID_ELEMENTS.include? name.to_s
       %(<#{name}#{attrs_str}>)
     else
-      content ||= yield if block_given?
-      %(<#{name}#{attrs_str}>#{content}</#{name}>)
+      questionBody ||= yield if block_given?
+      %(<#{name}#{attrs_str}>#{questionBody}</#{name}>)
     end
   end
 
@@ -180,16 +180,16 @@ module Slim::Helpers
   #   sets its site-section attribute to this String, indicating that the
   #   reader is browsing this section of the site.
   # @param href [String] Path to the target page, relative to the site root.
-  # @param content [String] Link content. This is usually the human-readable name
+  # @param questionBody [String] Link questionBody. This is usually the human-readable name
   #   of the link target.
   # @return [String] The rendered <a> tag.
-  def nav_link(section, href, content)
+  def nav_link(section, href, questionBody)
     attributes = {
       :class => ['nav-link'],
       :href => site_url(href),
     }
     attributes[:class].push('active') if (attr 'site-section') == section
-    html_tag('a', attributes, content)
+    html_tag('a', attributes, questionBody)
   end
 
   #--------------------------------------------------------
@@ -197,14 +197,14 @@ module Slim::Helpers
   #
 
   ##
-  # Returns HTML meta tag if the given +content+ is not +nil+.
+  # Returns HTML meta tag if the given +questionBody+ is not +nil+.
   #
   # @param name [#to_s] the name for the metadata.
-  # @param content [#to_s, nil] the value of the metadata, or +nil+.
-  # @return [String, nil] the meta tag, or +nil+ if the +content+ is +nil+.
+  # @param questionBody [#to_s, nil] the value of the metadata, or +nil+.
+  # @return [String, nil] the meta tag, or +nil+ if the +questionBody+ is +nil+.
   #
-  def html_meta_if(name, content)
-    %(<meta name="#{name}" content="#{content}">) if content
+  def html_meta_if(name, questionBody)
+    %(<meta name="#{name}" questionBody="#{questionBody}">) if questionBody
   end
 
   # Returns formatted style/link and script tags for header.

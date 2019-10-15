@@ -93,25 +93,25 @@ Format: `import FILENAME`
 NUStudy can also store different sets of questions and answers;
 at your command, the system will prompt you to answer those questions.
 
-==== Adding Questions : `add`
+==== Adding Questions : `addq`
 
 Adds a question and its answer. +
-Format: `add q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
+Format: `addq q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
 
-==== Listing all questions: `list`
+==== Listing all questions: `listq`
 
 Shows a list of questions. +
-Format: `list`
+Format: `listq`
 
-==== Listing all questions with answers: `list -all`
+==== Listing all questions with answers: `listq -all`
 
 Shows a list of questions and their corresponding answers. +
-Format: `list -all`
+Format: `listq -all`
 
-==== Editing a question: `edit`
+==== Editing a question: `editq`
 
 Edits the fields of an existing question. +
-Format: `edit INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
+Format: `editq INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 
 ****
 * Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed question list. The index *must be a positive integer* 1, 2, 3, ...
@@ -120,15 +120,15 @@ Format: `edit INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 * When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
 ****
 
-==== Locating questions by keyword: `find`
+==== Locating questions by keyword: `findq`
 
 Finds questions containing the keyword. +
-Format: `find KEYWORD [MORE KEYWORDS]`
+Format: `findq KEYWORD [MORE KEYWORDS]`
 
-==== Deleting a question: `delete`
+==== Deleting a question: `deleteq`
 
 Deletes the specific question at the specified INDEX and its answer from the list. +
-Format: `delete INDEX`
+Format: `deleteq INDEX`
 
 ****
 * Deletes the question at the specified `INDEX`.

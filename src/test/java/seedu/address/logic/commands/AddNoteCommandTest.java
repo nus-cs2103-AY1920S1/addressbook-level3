@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.note.Note;
+import seedu.address.model.question.Question;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddNoteCommandTest {
@@ -146,6 +147,36 @@ public class AddNoteCommandTest {
 
         @Override
         public void updateFilteredNoteList(Predicate<Note> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasQuestion(Question question) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addQuestion(Question question) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteQuestion(Question target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setQuestion(Question target, Question editedQuestion) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Question> getFilteredQuestionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredQuestionList(Predicate<Question> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
