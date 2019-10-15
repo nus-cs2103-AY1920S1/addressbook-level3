@@ -3,10 +3,13 @@ package seedu.billboard.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.ExpenseList;
+import seedu.billboard.model.tag.Tag;
+import seedu.billboard.model.tag.UniqueTagList;
 
 /**
  * Wraps all data at the address-book level
@@ -15,6 +18,7 @@ import seedu.billboard.model.expense.ExpenseList;
 public class Billboard implements ReadOnlyBillboard {
 
     private final ExpenseList expenses;
+    private final UniqueTagList tags;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +29,7 @@ public class Billboard implements ReadOnlyBillboard {
      */
     {
         expenses = new ExpenseList();
+        tags = new UniqueTagList();
     }
 
     public Billboard() {}
@@ -92,6 +97,11 @@ public class Billboard implements ReadOnlyBillboard {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
+    }
+
+    //// Tag methods
+    public Set<Tag> retrieveTags(List<String> toRetrieve) {
+        return tags.retrieveTags(toRetrieve);
     }
 
     //// util methods

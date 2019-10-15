@@ -8,6 +8,8 @@ import static seedu.billboard.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -20,6 +22,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.ReadOnlyUserPrefs;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.tag.Tag;
 import seedu.billboard.testutil.ExpenseBuilder;
 
 public class AddCommandTest {
@@ -135,6 +138,11 @@ public class AddCommandTest {
         @Override
         public void setExpense(Expense target, Expense editedExpense) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Set<Tag> retrieveTags(List<String> tagNames) {
+            throw new AssertionError("This method should not be called. ");
         }
 
         @Override
