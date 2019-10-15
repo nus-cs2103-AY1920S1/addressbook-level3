@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_WATCHED_BOB;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_TAG_HORROR;
 
 import org.junit.jupiter.api.Test;
 
@@ -44,15 +44,15 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withEmail(VALID_WATCHED_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAddress(VALID_DESCRIPTION_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HORROR).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }
