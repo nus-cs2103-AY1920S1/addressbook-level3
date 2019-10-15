@@ -97,11 +97,11 @@ public class EditCommand extends Command {
         Description updatedName = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
 //        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
 //        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-//        Time updatedTime = editEntryDescriptor.getTime().orElse(entryToEdit.getTime());
+        Time updatedTime = editEntryDescriptor.getTime().orElse(entryToEdit.getTime());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(entryToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(entryToEdit.getTags());
 
-        return new Entry(updatedName, updatedAmount, updatedTags);
+        return new Entry(updatedName,updatedTime, updatedAmount, updatedTags);
     }
 
     @Override

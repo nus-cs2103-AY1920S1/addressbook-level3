@@ -9,19 +9,24 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
+import seedu.address.model.person.SortType;
+import seedu.address.model.util.ComparatorType;
+import seedu.address.model.util.EntryComparator;
 
 /**
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
+    private final SortType sortByDescription = new SortType("description");
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
+    private final SortedList<Expense> sortedExpenseList;
     private final FilteredList<Expense> filteredExpenseList;
 
     /**
@@ -35,7 +40,9 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredExpenseList = new FilteredList<>(this.addressBook.getExpenseList());
+        sortedExpenseList = new SortedList<>(this.addressBook.getExpenseList());
+        sortedExpenseList.setComparator(new EntryComparator(sortByDescription));
+        filteredExpenseList = new FilteredList<>(sortedExpenseList);
     }
 
     public ModelManager() {
@@ -103,19 +110,20 @@ public class ModelManager implements Model {
     @Override
     public void addEntry(Entry entry) {
         addressBook.addEntry(entry);
+        sortFilteredExpenseList(sortByDescription);
         updateFilteredExpenseList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
     public void addExpense(Expense expense) {
         addressBook.addExpense(expense);
+        sortFilteredExpenseList(sortByDescription);
         updateFilteredExpenseList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
-
         addressBook.setEntry(target, editedEntry);
     }
 
@@ -134,6 +142,11 @@ public class ModelManager implements Model {
     public void updateFilteredExpenseList(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredExpenseList.setPredicate(predicate);
+    }
+
+    @Override
+    public void sortFilteredExpenseList(SortType c) {
+        sortedExpenseList.setComparator(new EntryComparator(c));
     }
 
     @Override

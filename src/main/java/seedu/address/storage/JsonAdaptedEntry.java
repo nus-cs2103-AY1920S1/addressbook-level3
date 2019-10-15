@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,7 +24,7 @@ class JsonAdaptedEntry {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Entry's %s field is missing!";
 
     private final String desc;
-//    private final String phone;
+    private final String time;
 //    private final String email;
 //    private final String address;
     private final double amt;
@@ -33,11 +34,12 @@ class JsonAdaptedEntry {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedEntry(@JsonProperty("desc") String desc, @JsonProperty("amt") double amt,
+    public JsonAdaptedEntry(@JsonProperty("desc") String desc, @JsonProperty("amt") String time,
+                            @JsonProperty("amt") double amt,
                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.desc = desc;
         this.amt = amt;
-//        this.phone = phone;
+        this.time = time;
 //        this.email = email;
 //        this.address = address;
         if (tagged != null) {
@@ -52,7 +54,7 @@ class JsonAdaptedEntry {
         desc = source.getDesc().fullDesc;
 //        phone = source.getPhone().value;
 //        email = source.getEmail().value;
-//        address = source.getAddress().value;
+        time = source.getTime().fullTime;
         amt = source.getAmount().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -77,7 +79,7 @@ class JsonAdaptedEntry {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
         final Description modelDesc = new Description(desc);
-
+        final Time modelTime = new Time(time);
         final Amount modelAmt = new Amount(amt);
 //        if (phone == null) {
 //            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
@@ -104,7 +106,7 @@ class JsonAdaptedEntry {
 //        final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Entry(modelDesc, modelAmt, modelTags);
+        return new Entry(modelDesc, modelTime, modelAmt, modelTags);
     }
 
 }

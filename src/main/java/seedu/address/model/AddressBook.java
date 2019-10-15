@@ -9,6 +9,7 @@ import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseList;
 import seedu.address.model.person.UniqueEntryList;
+import seedu.address.model.util.EntryComparator;
 
 /**
  * Wraps all data at the address-book level

@@ -9,6 +9,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -17,8 +18,8 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Entry[] getSampleEntries() {
         return new Entry[] {
-                new Entry(new Description("mala @ deck"), new Amount(5.40), getTagSet("mala")),
-                new Entry(new Description("chicken rice"), new Amount(3.50), getTagSet("mala"))
+                new Entry(new Description("mala @ deck"), new Time("2019-09-09"), new Amount(5.40), getTagSet("mala")),
+                new Entry(new Description("chicken rice"),  new Time("2019-09-09"), new Amount(3.50), getTagSet("mala"))
 //            new Entry(new Description("Alex Yeoh"), new Amount("5.60"),
 //                getTagSet("friends")),
 //            new Entry(new Description("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
