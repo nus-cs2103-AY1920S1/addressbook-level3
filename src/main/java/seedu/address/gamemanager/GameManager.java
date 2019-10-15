@@ -15,6 +15,7 @@ import seedu.address.logic.commands.switches.StartCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.statistics.GameStatistics;
 
 /**
@@ -104,6 +105,10 @@ public class GameManager {
 
     public ObservableList<Card> getFilteredPersonList() {
         return logic.getFilteredPersonList();
+    }
+
+    public ObservableList<WordBank> getFilteredWordBankList() {
+        return logic.getFilteredWordBankList();
     }
 
     public GuiSettings getGuiSettings() {
