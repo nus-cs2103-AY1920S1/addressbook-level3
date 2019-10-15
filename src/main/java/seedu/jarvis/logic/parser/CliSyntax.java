@@ -41,9 +41,17 @@ public class CliSyntax {
     }
 
     /**
+     * CLI syntax for Course commands.
+     */
+    public static class CourseSyntax {
+        public static final Prefix PREFIX_COURSE = new Prefix("c/");
+    }
+
+    /**
      * CLI syntax for Undo/Redo commands.
      */
     public static class UndoRedoSyntax {
         public static final Prefix PREFIX_UNDO_REDO = new Prefix("r/");
     }
+
 }
