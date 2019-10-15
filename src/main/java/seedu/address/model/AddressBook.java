@@ -7,8 +7,12 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.UniqueNoteList;
+import seedu.address.model.question.Answer;
+import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
+import seedu.address.model.question.Subject;
 import seedu.address.model.question.UniqueQuestionList;
+import seedu.address.model.quiz.QuizQuestionList;
 
 /**
  * Wraps all data at the address-book level
@@ -17,18 +21,25 @@ import seedu.address.model.question.UniqueQuestionList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueNoteList notes;
+
     private final UniqueQuestionList questions;
+
+    private final QuizQuestionList quiz;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
+     * among constructors.
      */
+
     {
         notes = new UniqueNoteList();
+
         questions = new UniqueQuestionList();
+
+        quiz = new QuizQuestionList();
     }
 
     public AddressBook() {}
@@ -103,7 +114,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         notes.remove(title);
     }
 
-    //// person-level operations
+    //// question operations
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -137,6 +148,29 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeQuestion(Question key) {
         questions.remove(key);
+    }
+
+    // quiz operations
+
+    /**
+     * Sets the question list in quiz with specific {@code subject} and {@code difficulty}.
+     */
+    public void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty) {
+        quiz.setQuizQuestionList(numOfQuestions, subject, difficulty);
+    }
+
+    /**
+     * Checks the answer input by user and return a boolean value as the result.
+     */
+    public boolean checkQuizAnswer(int index, Answer answer) {
+        return quiz.checkQuizAnswer(index, answer);
+    }
+
+    /**
+     * Clears the quiz question list.
+     */
+    public void clearQuizQuestionList() {
+        quiz.clearQuizQuestionList();
     }
 
     // util methods

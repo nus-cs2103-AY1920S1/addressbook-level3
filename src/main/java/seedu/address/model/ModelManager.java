@@ -12,7 +12,10 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.note.Note;
+import seedu.address.model.question.Answer;
+import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
+import seedu.address.model.question.Subject;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -116,6 +119,7 @@ public class ModelManager implements Model {
         addressBook.setNote(target, editedNote);
     }
 
+
     // question
     @Override
     public boolean hasQuestion(Question question) {
@@ -139,6 +143,25 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedQuestion);
 
         addressBook.setQuestion(target, editedQuestion);
+    }
+
+    @Override
+    public void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty) {
+        requireAllNonNull(subject, difficulty);
+
+        addressBook.setQuizQuestionList(numOfQuestions, subject, difficulty);
+    }
+
+    @Override
+    public boolean checkQuizAnswer(int index, Answer answer) {
+        requireNonNull(answer);
+
+        return addressBook.checkQuizAnswer(index, answer);
+    }
+
+    @Override
+    public void clearQuizQuestionList() {
+        addressBook.clearQuizQuestionList();
     }
 
     //=========== Filtered Note List Accessors =============================================================

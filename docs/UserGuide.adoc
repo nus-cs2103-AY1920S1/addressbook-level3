@@ -57,6 +57,7 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+// tag::lecnote[]
 === Lecture notes
 
 ==== Adding lecture notes: `addnote`
@@ -87,6 +88,7 @@ Format: `export FILENAME`
 ==== Importing all entries: `import`
 Import all items in the given file into NUStudy. This overwrites any items already in the app. +
 Format: `import FILENAME`
+// end::lecnote[]
 
 === Questions
 

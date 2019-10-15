@@ -21,7 +21,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.note.Note;
+import seedu.address.model.question.Answer;
+import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
+import seedu.address.model.question.Subject;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddNoteCommandTest {
@@ -156,7 +159,17 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addQuestion(Question question) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean checkQuizAnswer(int index, Answer answer) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -177,6 +190,11 @@ public class AddNoteCommandTest {
 
         @Override
         public void updateFilteredQuestionList(Predicate<Question> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearQuizQuestionList() {
             throw new AssertionError("This method should not be called.");
         }
     }
