@@ -28,7 +28,7 @@ class JsonSerializableProjectDashboard {
 
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
     private final List<JsonAdaptedMember> members = new ArrayList<>();
-    private final List<JsonAdaptedInventory> inventories = new ArrayList<>();
+    private final List<JsonAdaptedInventory> inventory = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableProjectDashboard} with the given task.
@@ -36,9 +36,9 @@ class JsonSerializableProjectDashboard {
     @JsonCreator
     public JsonSerializableProjectDashboard(@JsonProperty("tasks") List<JsonAdaptedTask> tasks,
                                             @JsonProperty("members") List<JsonAdaptedMember> members,
-                                            @JsonProperty("inventories") List<JsonAdaptedInventory> inventories) {
+                                            @JsonProperty("inventories") List<JsonAdaptedInventory> inventory) {
         this.tasks.addAll(tasks);
-        this.inventories.addAll(inventories);
+        this.inventory.addAll(inventory);
         this.members.addAll(members);
     }
 
@@ -52,7 +52,7 @@ class JsonSerializableProjectDashboard {
                 .collect(Collectors.toList()));
         members.addAll(source.getMemberList().stream().map(JsonAdaptedMember::new)
                 .collect(Collectors.toList()));
-        inventories.addAll(source.getInventoryList().stream().map(JsonAdaptedInventory::new)
+        inventory.addAll(source.getInventoryList().stream().map(JsonAdaptedInventory::new)
                 .collect(Collectors.toList()));
     }
 
@@ -72,7 +72,7 @@ class JsonSerializableProjectDashboard {
             projectDashboard.addTask(task);
         }
 
-        for (JsonAdaptedInventory jsonAdaptedInv : inventories) {
+        for (JsonAdaptedInventory jsonAdaptedInv : inventory) {
             Inventory inventory = jsonAdaptedInv.toModelType();
             if (projectDashboard.hasInventory(inventory)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_INVENTORIES);

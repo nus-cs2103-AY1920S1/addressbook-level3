@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.core.index.InvIndex;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.inventory.InvName;
@@ -64,19 +63,6 @@ public class ParserUtil {
             throw new ParseException(InvName.MESSAGE_CONSTRAINTS);
         }
         return new InvName(trimmedName);
-    }
-
-    /**
-     * Parses {@code oneBasedIndex} into an {@code InvIndex} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
-     */
-    public static InvIndex parseInvIndex(String oneBasedIndex) throws ParseException {
-        String trimmedIndex = oneBasedIndex.trim();
-        if (!StringUtil.isPositiveDouble(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
-        }
-        return InvIndex.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
     /**

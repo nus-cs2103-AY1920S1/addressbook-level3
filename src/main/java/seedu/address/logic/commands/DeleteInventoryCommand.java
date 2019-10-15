@@ -5,7 +5,8 @@ import static java.util.Objects.requireNonNull;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.InvIndex;
+import seedu.address.commons.core.index.Index;
+//import seedu.address.commons.core.index.InvIndex;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.inventory.Inventory;
@@ -23,9 +24,9 @@ public class DeleteInventoryCommand extends Command {
 
     public static final String MESSAGE_DELETE_INVENTORY_SUCCESS = "Deleted Inventory: %1$s";
 
-    private final InvIndex targetIndex;
+    private final Index targetIndex;
 
-    public DeleteInventoryCommand(InvIndex targetIndex) {
+    public DeleteInventoryCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 

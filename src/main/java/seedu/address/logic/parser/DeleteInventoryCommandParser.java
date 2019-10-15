@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.commons.core.index.InvIndex;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteInventoryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -17,7 +17,7 @@ public class DeleteInventoryCommandParser implements Parser<DeleteInventoryComma
      */
     public DeleteInventoryCommand parse(String args) throws ParseException {
         try {
-            InvIndex index = ParserUtil.parseInvIndex(args);
+            Index index = ParserUtil.parseIndex(args);
             return new DeleteInventoryCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
