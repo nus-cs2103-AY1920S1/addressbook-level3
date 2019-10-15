@@ -18,8 +18,6 @@ public class Entry {
     // Identity fields
     private final Description desc;
     private final Amount amt;
-//    private final Phone phone;
-//    private final Email email;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();

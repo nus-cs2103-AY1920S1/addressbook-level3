@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -17,16 +19,20 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry to guiltTrip(). \n"
             + "Parameters: "
-            + PREFIX_DESC + "NAME "
+            + PREFIX_TYPE + "TYPE "
+            + PREFIX_DESC + "DESCRIPTION "
             + PREFIX_AMOUNT + "AMOUNT "
+            + PREFIX_TIME + "TIME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DESC + "John Doe "
+            + PREFIX_TYPE + "Expense "
+            + PREFIX_DESC + "Mala "
             + PREFIX_AMOUNT + "5.50 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TIME + "2019-09-09 "
+            + PREFIX_TAG + "food "
+            + PREFIX_TAG + "indulgence";
 
     public static final String MESSAGE_SUCCESS = "New entry added: %1$s";
 

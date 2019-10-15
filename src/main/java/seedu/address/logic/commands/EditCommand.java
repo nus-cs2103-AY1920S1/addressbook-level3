@@ -27,6 +27,7 @@ import seedu.address.model.person.Description;
 //import seedu.address.model.person.Phone;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -36,7 +37,7 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the entry identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -68,7 +69,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Expense> lastShownList = model.getFilteredEntryList();
+        List<Expense> lastShownList = model.getFilteredExpenseList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -82,7 +83,7 @@ public class EditCommand extends Command {
         }
 
         model.setEntry(entryToEdit, editedEntry);
-        model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_ENTRIES);
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 
@@ -96,7 +97,7 @@ public class EditCommand extends Command {
         Description updatedName = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
 //        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
 //        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-//        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+//        Time updatedTime = editEntryDescriptor.getTime().orElse(entryToEdit.getTime());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(entryToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(entryToEdit.getTags());
 
@@ -127,9 +128,7 @@ public class EditCommand extends Command {
      */
     public static class EditEntryDescriptor {
         private Description desc;
-//        private Phone phone;
-//        private Email email;
-//        private Address address;
+        private Time time;
         private Amount amt;
         private Set<Tag> tags;
 
@@ -141,10 +140,8 @@ public class EditCommand extends Command {
          */
         public EditEntryDescriptor(EditEntryDescriptor toCopy) {
             setDesc(toCopy.desc);
-//            setPhone(toCopy.phone);
-//            setEmail(toCopy.email);
-//            setAddress(toCopy.address);
             setAmount(toCopy.amt);
+            setTime(toCopy.time);
             setTags(toCopy.tags);
         }
 
@@ -163,13 +160,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(desc);
         }
 
-//        public void setPhone(Phone phone) {
-//            this.phone = phone;
-//        }
+        public void setTime(Time time) {
+            this.time = time;
+        }
 //
-//        public Optional<Phone> getPhone() {
-//            return Optional.ofNullable(phone);
-//        }
+        public Optional<Time> getTime() {
+            return Optional.ofNullable(time);
+        }
 //
 //        public void setEmail(Email email) {
 //            this.email = email;
@@ -222,7 +219,7 @@ public class EditCommand extends Command {
             return getDesc().equals(e.getDesc())
 //                    && getPhone().equals(e.getPhone())
 //                    && getEmail().equals(e.getEmail())
-//                    && getAddress().equals(e.getAddress())
+                    && getTime().equals(e.getTime())
                     && getAmount().equals(e.getAmount())
                     && getTags().equals(e.getTags());
         }
