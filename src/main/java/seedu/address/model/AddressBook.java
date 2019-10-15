@@ -211,7 +211,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && notes.equals(((AddressBook) other).notes)
-                && questions.equals(((AddressBook) other).questions))
+                && questions.equals(((AddressBook) other).questions)
                 && tasks.equals(((AddressBook) other).tasks));
     }
 
