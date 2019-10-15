@@ -1,9 +1,10 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.merge;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
@@ -13,9 +14,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
 /**
- * Adds a person to the address book.
+ * Merges the user input and the duplicate {@code Person}.
  */
-public class MergeCommand extends Command {
+public class MergePersonCommand extends MergeCommand {
 
     public static final String COMMAND_WORD = "merge";
 
@@ -30,9 +31,9 @@ public class MergeCommand extends Command {
 
 
     /**
-     * Creates an Merge Command to update the original {@code Person} to the new {@code Person}
+     * Creates an {@code MergePersonCommand} to update the original {@code Person} to the new {@code Person}.
      */
-    public MergeCommand(Person inputPerson) {
+    public MergePersonCommand(Person inputPerson) {
         requireNonNull(inputPerson);
         this.inputPerson = inputPerson;
     }
@@ -112,7 +113,7 @@ public class MergeCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof MergeCommand // instanceof handles nulls
-                && inputPerson.equals(((MergeCommand) other).inputPerson));
+                || (other instanceof MergePersonCommand // instanceof handles nulls
+                && inputPerson.equals(((MergePersonCommand) other).inputPerson));
     }
 }
