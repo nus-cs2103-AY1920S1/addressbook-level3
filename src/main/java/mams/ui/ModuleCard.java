@@ -20,6 +20,10 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label moduleCode;
     @FXML
+    private Label moduleName;
+    @FXML
+    private Label lecturerName;
+    @FXML
     private Label id;
     @FXML
     private Label timeSlot;
@@ -36,6 +40,8 @@ public class ModuleCard extends UiPart<Region> {
         this.module = module;
         id.setText(displayedIndex + ". ");
         moduleCode.setText(module.getModuleCode());
+        moduleName.setText(module.getModuleName());
+        lecturerName.setText(module.getLecturerName());
         timeSlot.setText(module.timeSlotsToString());
         quota.setText(module.quotaToString());
     }

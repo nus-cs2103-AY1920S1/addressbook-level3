@@ -21,9 +21,18 @@ public class Module {
             "Module Names should only contain alphanumeric "
                     + "characters and spaces, and it should not be blank";
 
+    public static final String MESSAGE_CONSTRAINTS_MODULE_DESCRIPTION =
+            "Module Description should only contain alphanumeric "
+                    + "characters and spaces, and it should not be blank";
+
+    public static final String MESSAGE_CONSTRAINTS_LECTURER_NAME =
+            "Lecturer Name should only contain alphanumeric "
+                    + "characters and spaces, and it should not be blank";
+
     public static final String MESSAGE_CONSTRAINTS_TIME_SLOT =
             "Time slots can only range from 1 to 69, and must be in "
                     + "ascending order";
+
     public static final String MESSAGE_CONSTRAINTS_QUOTA =
             "Quota must be more than 0";
 
@@ -34,10 +43,21 @@ public class Module {
     public static final String VALIDATION_REGEX_MODULE_CODE = "CS\\d{4}$";
 
     /*
-     * The first character of the MatricId must not be a whitespace,
+     * The first character of the module name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX_MODULE_NAME = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+    /*
+     * Module Description has the same requirements as module name.
+     */
+    public static final String VALIDATION_REGEX_MODULE_DESCRIPTION = "[ ]*";
+
+
+    /*
+     * Lecturer name has the same requirements as module name.
+     */
+    public static final String VALIDATION_REGEX_LECTURER_NAME = VALIDATION_REGEX_MODULE_NAME;
 
 
     // Identity fields
@@ -45,6 +65,8 @@ public class Module {
     private final String moduleName;
 
     // Data fields
+    private final String moduleDescription;
+    private final String lecturerName;
     private final String timeSlot;
     private final String quota;
     private final Set<Tag> students = new HashSet<>(); // to be added
@@ -52,11 +74,14 @@ public class Module {
     /**
      * Every field must be present and not null.
      */
-    public Module(String moduleCode, String moduleName, String timeSlot, String quota,
+    public Module(String moduleCode, String moduleName, String moduleDescription,
+                  String lecturerName, String timeSlot, String quota,
                   Set<Tag> students) {
         CollectionUtil.requireAllNonNull(moduleCode, moduleName, timeSlot, students);
         this.moduleCode = moduleCode;
         this.moduleName = moduleName;
+        this.moduleDescription = moduleDescription;
+        this.lecturerName = lecturerName;
         this.timeSlot = timeSlot;
         this.quota = quota;
         this.students.addAll(students);
@@ -74,6 +99,20 @@ public class Module {
      */
     public static boolean isValidModuleName(String test) {
         return test.matches(VALIDATION_REGEX_MODULE_NAME);
+    }
+
+    /**
+     * Returns true if a given string is a valid module description.
+     */
+    public static boolean isValidModuleDescription(String test) {
+        return test.matches(VALIDATION_REGEX_MODULE_DESCRIPTION);
+    }
+
+    /**
+     * Returns true if a given string is a valid module description.
+     */
+    public static boolean isValidLecturerName(String test) {
+        return test.matches(VALIDATION_REGEX_LECTURER_NAME);
     }
 
     /**
@@ -120,6 +159,14 @@ public class Module {
         return moduleName;
     }
 
+    public String getModuleDescription() {
+        return moduleDescription;
+    }
+
+    public String getLecturerName() {
+        return lecturerName;
+    }
+
     public String getTimeSlot() {
         return timeSlot;
     }
@@ -160,9 +207,7 @@ public class Module {
         }
 
         return otherModule != null
-                && otherModule.getModuleCode().equals(getModuleCode())
-                && otherModule.getModuleName().equals(getModuleName())
-                && otherModule.getTimeSlot().equals(getTimeSlot());
+                && otherModule.getModuleCode().equals(getModuleCode());
     }
 
     /**
@@ -180,16 +225,13 @@ public class Module {
         }
 
         Module otherModule = (Module) other;
-        return otherModule.getModuleCode().equals(getModuleCode())
-                && otherModule.getModuleName().equals(getModuleName())
-                && otherModule.getTimeSlot().equals((getTimeSlot()))
-                && otherModule.getStudents().equals(getStudents());
+        return otherModule.getModuleCode().equals(getModuleCode());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moduleCode, moduleName, timeSlot, students);
+        return Objects.hash(moduleCode);
     }
 
     @Override
@@ -198,6 +240,10 @@ public class Module {
         builder.append(getModuleCode())
                 .append(" Module Name: ")
                 .append(getModuleName())
+                .append(" Module Description: ")
+                .append(getModuleDescription())
+                .append(" Lecturer Name: ")
+                .append(getLecturerName())
                 .append(" TimeSlots: ")
                 .append(timeSlotsToString())
                 .append(" Quota: ")

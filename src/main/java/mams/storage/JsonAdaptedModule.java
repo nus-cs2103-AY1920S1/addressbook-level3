@@ -22,6 +22,8 @@ class JsonAdaptedModule {
 
     private final String moduleCode;
     private final String moduleName;
+    private final String moduleDescription;
+    private final String lecturerName;
     private final String timeSlot;
     private final String quota;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>(); //students
@@ -32,10 +34,14 @@ class JsonAdaptedModule {
     @JsonCreator
     //todo
     public JsonAdaptedModule(@JsonProperty("code") String moduleCode, @JsonProperty("modulename") String moduleName,
+                             @JsonProperty("moduledescription") String moduleDescription,
+                             @JsonProperty("lecturername") String lecturerName,
                              @JsonProperty("timeslot") String timeSlot, @JsonProperty("quota") String quota,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.moduleCode = moduleCode;
         this.moduleName = moduleName;
+        this.moduleDescription = moduleDescription;
+        this.lecturerName = lecturerName;
         this.timeSlot = timeSlot;
         this.quota = quota;
         if (tagged != null) {
@@ -49,6 +55,8 @@ class JsonAdaptedModule {
     public JsonAdaptedModule(Module source) {
         moduleCode = source.getModuleCode();
         moduleName = source.getModuleName();
+        moduleDescription = source.getModuleDescription();
+        lecturerName = source.getLecturerName();
         timeSlot = source.getTimeSlot();
         quota = source.getQuota();
         tagged.addAll(source.getStudents().stream()
@@ -83,6 +91,22 @@ class JsonAdaptedModule {
         }
         final String modelModuleName = moduleName;
 
+        if (moduleDescription == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Module Description"));
+        }
+        /*if (!Module.isValidModuleDescription(moduleDescription)) {
+            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_DESCRIPTION);
+        }*/
+        final String modelModuleDescription = moduleDescription;
+
+        if (lecturerName == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Lecturer Name"));
+        }
+        /*if (!Module.isValidLecturerName(lecturerName)) {
+            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_LECTURER_NAME);
+        }*/
+        final String modelLecturerName = lecturerName;
+
         if (quota == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Quota"));
         }
@@ -100,6 +124,7 @@ class JsonAdaptedModule {
         final String modelTimeSlot = timeSlot;
 
         final Set<Tag> modelTags = new HashSet<>(moduleTags); //students
-        return new Module(modelModuleCode, modelModuleName, modelTimeSlot, modelQuota, modelTags);
+        return new Module(modelModuleCode, modelModuleName, modelModuleDescription,
+                modelLecturerName, modelTimeSlot, modelQuota, modelTags);
     }
 }
