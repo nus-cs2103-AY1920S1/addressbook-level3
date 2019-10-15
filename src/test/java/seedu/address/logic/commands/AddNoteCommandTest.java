@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -172,6 +173,16 @@ public class AddNoteCommandTest {
         @Override
         public void updateFilteredNoteList(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void getStatistics() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<PieChart.Data> getStatsChartData() {
+            throw new AssertionError("This method should not be called");
         }
 
         @Override

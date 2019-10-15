@@ -7,8 +7,10 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.note.Note;
@@ -16,6 +18,7 @@ import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
+import seedu.address.model.statistics.StatisticsStub;
 import seedu.address.model.task.Task;
 
 /**
@@ -29,6 +32,7 @@ public class ModelManager implements Model {
     private final FilteredList<Note> filteredNotes;
     private final FilteredList<Question> filteredQuestions;
     private final FilteredList<Task> filteredTasks;
+    private final StatisticsStub statisticsStub;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -44,6 +48,7 @@ public class ModelManager implements Model {
         filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
         filteredQuestions = new FilteredList<>(this.addressBook.getQuestionList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        this.statisticsStub = new StatisticsStub();
     }
 
     public ModelManager() {
@@ -266,5 +271,19 @@ public class ModelManager implements Model {
                 && filteredNotes.equals(other.filteredNotes)
                 && filteredQuestions.equals(other.filteredQuestions)
                 && filteredTasks.equals(other.filteredTasks);
+    }
+
+    //=========== Statistics ===============================================================================
+    @Override
+    public void getStatistics() {
+        // read from storage
+    }
+
+    @Override
+    public ObservableList<PieChart.Data> getStatsChartData() {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        pieChartData.add(new PieChart.Data("Correct", statisticsStub.getStatistics().get(0)));
+        pieChartData.add(new PieChart.Data("Incorrect", statisticsStub.getStatistics().get(1)));
+        return pieChartData;
     }
 }

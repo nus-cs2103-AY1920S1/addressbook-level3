@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Answer;
@@ -20,6 +21,10 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
+
+    /** {@code Predicate} that always evaluate to false */
+    Predicate<Note> PREDICATE_SHOW_NO_NOTES = unused -> false;
+
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
@@ -106,6 +111,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredNoteList(Predicate<Note> predicate);
+
+    void getStatistics();
+
+    ObservableList<PieChart.Data> getStatsChartData();
 
     void updateFilteredTaskList(Predicate<Task> predicate);
 

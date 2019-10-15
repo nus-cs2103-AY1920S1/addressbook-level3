@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -75,6 +76,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Note> getFilteredNoteList() {
         return model.getFilteredNoteList();
+    }
+
+    @Override
+    public ObservableList<PieChart.Data> getStatsChartData() {
+        return model.getStatsChartData();
     }
 
     @Override
