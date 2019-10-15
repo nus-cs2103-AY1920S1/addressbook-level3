@@ -137,11 +137,15 @@ public class ModelManager implements Model {
 
     @Override
     public void addEvent(EventSource event) {
+
+        // Clears all future states from UndoRedoManager as they are no longer needed
+        clearFutureHistory();
+
         EventList eventList = undoRedoManager.getCurrentState();
 
         eventList.add(event);
 
-        // Save the modified EventList state to the UndoableHistory
+        // Save the modified EventList state to the UndoRedoManager
         commitToHistory(eventList);
 
         eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
@@ -149,11 +153,15 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteEvent(EventSource target) {
+
+        // Clears all future states from UndoRedoManager as they are no longer needed
+        clearFutureHistory();
+
         EventList eventList = undoRedoManager.getCurrentState();
 
         eventList.remove(target);
 
-        // Save the modified EventList state to the UndoableHistory
+        // Save the modified EventList state to the UndoRedoManager
         commitToHistory(eventList);
 
         eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
@@ -171,11 +179,15 @@ public class ModelManager implements Model {
 
     @Override
     public void setEvent(EventSource target, EventSource editedEvent) {
+
+        // Clears all future states from UndoRedoManager as they are no longer needed
+        clearFutureHistory();
+
         EventList eventList = undoRedoManager.getCurrentState();
 
         eventList.replace(target, editedEvent);
 
-        // Save the modified EventList state to the UndoableHistory
+        // Save the modified EventList state to the UndoRedoManager
         commitToHistory(eventList);
 
         eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));
@@ -183,11 +195,15 @@ public class ModelManager implements Model {
 
     @Override
     public void setEventList(ReadOnlyEventList readOnlyEventList) {
+
+        // Clears all future states from UndoRedoManager as they are no longer needed
+        clearFutureHistory();
+
         EventList eventList = undoRedoManager.getCurrentState();
 
         eventList.resetData(readOnlyEventList);
 
-        // Save the modified EventList state to the UndoableHistory
+        // Save the modified EventList state to the UndoRedoManager
         commitToHistory(eventList);
 
         eventListListeners.forEach(l -> l.onEventListChange(eventList.getReadOnlyList()));

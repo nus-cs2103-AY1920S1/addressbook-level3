@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import seedu.address.model.events.EventList;
 
 /**
- * UndoableHistory contains all EventList states
+ * UndoRedoManager contains all EventList states
  * at different points of time in its eventListStateList
  * as well as a currentStateIndex that stores the index of the
  * current EventList state in the list.
@@ -52,7 +52,25 @@ public class UndoRedoManager {
     }
 
     /**
-     * Creates a deep-copy of the current event list state and saves that copy to the UndoableHistory.
+     * Restores the previous event list state from UndoRedoManager.
+     */
+    void undo() {
+        currentStateIndex--;
+        // Retrieve data from duplicate of its past state
+        mainEventList.resetData(eventListStateList.get(currentStateIndex));
+    }
+
+    /**
+     * Restores the previously undone event list state from UndoRedoManager.
+     */
+    void redo() {
+        currentStateIndex++;
+        // Retrieve data from duplicate of its future state
+        mainEventList.resetData(eventListStateList.get(currentStateIndex));
+    }
+
+    /**
+     * Creates a deep-copy of the current event list state and saves that copy to the UndoRedoManager.
      */
     void commit(EventList eventList) {
         // Store a deep-copy of the mainEventList to the list
@@ -64,19 +82,11 @@ public class UndoRedoManager {
     }
 
     /**
-     * Restores the previous event list state from UndoableHistory.
+     * Clears all future event list states in eventListStateList beyond the index given by currentStateIndex
      */
-    void undo() {
-        currentStateIndex--;
-        // Retrieve data from duplicate of its past state
-        mainEventList.resetData(eventListStateList.get(currentStateIndex));
-    }
-
-    /**
-     * Restores the previously undone event list state from UndoableHistory.
-     */
-    void redo() {
-        currentStateIndex++;
+    void clearFutureHistory() {
+        eventListStateList =
+                new ArrayList<>(eventListStateList.subList(0, currentStateIndex + 1));
     }
 
     /**
@@ -86,14 +96,6 @@ public class UndoRedoManager {
      */
     boolean canUndo() {
         return currentStateIndex > 0;
-    }
-
-    /**
-     * Clears all future event list states in eventListStateList beyond the index given by currentStateIndex
-     */
-    void clearFutureHistory() {
-        eventListStateList =
-                new ArrayList<>(eventListStateList.subList(0, currentStateIndex + 1));
     }
 
     @Override
