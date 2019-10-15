@@ -1,4 +1,5 @@
 package io.xpire.model;
+
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
@@ -21,7 +22,7 @@ public class ModelManager implements Model {
 
     private final Xpire xpire;
     private final UserPrefs userPrefs;
-    private final FilteredList<Item> filteredItems;
+    private FilteredList<Item> filteredItems;
 
     /**
      * Initializes a ModelManager with the given xpire and userPrefs.
@@ -133,7 +134,14 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredItemList(Predicate<Item> predicate) {
         requireNonNull(predicate);
-        this.filteredItems.setPredicate(predicate);
+        Predicate p = this.filteredItems.getPredicate();
+        if (predicate == PREDICATE_SHOW_ALL_ITEMS || p == null) {
+            // a view command or first ever search command
+            this.filteredItems.setPredicate(predicate);
+        } else {
+            // search commands have been executed before
+            this.filteredItems.setPredicate(p.and(predicate));
+        }
     }
 
     @Override
