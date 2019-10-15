@@ -27,4 +27,9 @@ public class CliSyntax {
     /* Direction Definitions */
     public static final String ASCENDING_DIRECTION = "ASC";
     public static final String DESCENDING_DIRECTION = "DESC";
+
+    /* Quantifier Definitions */
+    public static final String QUANTIFY_LESS_THAN = "LESS_THAN";
+    public static final String QUANTIFY_EQUALS_TO = "EQUALS_TO";
+    public static final String QUANTIFY_MORE_THAN = "MORE_THAN";
 }
