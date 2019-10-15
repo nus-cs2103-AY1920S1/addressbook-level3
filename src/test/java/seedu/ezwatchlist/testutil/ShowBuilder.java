@@ -60,8 +60,8 @@ public class ShowBuilder {
     /**
      * Parses the {@code Actors} into a {@code Set<Actors>} and set it to the {@code Actors} that we are building.
      */
-    public ShowBuilder withActors(String ... tags) {
-        this.actors = SampleDataUtil.getActorSet(tags);
+    public ShowBuilder withActors(String ... Actors) {
+        this.actors = SampleDataUtil.getActorSet(Actors);
         return this;
     }
 
