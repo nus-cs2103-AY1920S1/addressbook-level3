@@ -29,6 +29,12 @@ public class GuiSettings implements Serializable {
         windowCoordinates = new Point(xPosition, yPosition);
     }
 
+    /**
+     * Returns a new {@code GuiSettings} with the dimensions of the app window reset to their
+     * default values, and the coordinates of the input {@code GuiSettings}.
+     *
+     * @param settings An instance of {@code GuiSettings} to reset.
+     */
     public static GuiSettings resetWindow(GuiSettings settings) {
         if (settings.getWindowCoordinates() == null) {
             return new GuiSettings();
