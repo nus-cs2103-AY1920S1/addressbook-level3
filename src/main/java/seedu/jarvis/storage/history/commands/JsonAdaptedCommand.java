@@ -13,8 +13,8 @@ import seedu.jarvis.storage.history.commands.address.JsonAdaptedClearAddressComm
         property = "type"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = JsonAdaptedAddAddressCommand.class, name = "JsonAdaptedAddAddressCommand"),
-        @JsonSubTypes.Type(value = JsonAdaptedClearAddressCommand.class, name = "JsonAdaptedClearAddressCommand")
+        @JsonSubTypes.Type(value = JsonAdaptedClearAddressCommand.class, name = "JsonAdaptedClearAddressCommand"),
+        @JsonSubTypes.Type(value = JsonAdaptedAddAddressCommand.class, name = "JsonAdaptedAddAddressCommand")
 })
 public abstract class JsonAdaptedCommand {
     /**

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.ClearAddressCommand;
@@ -26,7 +27,7 @@ public class JsonAdaptedClearAddressCommand extends JsonAdaptedCommand {
      * @param persons {@code List} of {@code Person} in Json format.
      */
     @JsonCreator
-    public JsonAdaptedClearAddressCommand(List<JsonAdaptedPerson> persons) {
+    public JsonAdaptedClearAddressCommand(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
         this.persons.addAll(persons);
     }
 
