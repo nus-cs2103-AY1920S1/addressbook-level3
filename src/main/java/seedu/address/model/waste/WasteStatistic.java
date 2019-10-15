@@ -9,6 +9,11 @@ import seedu.address.model.food.UniqueFoodList;
 
 public class WasteStatistic {
 
+    public static final float WEIGHTS_CURRENT_MONTH = 0.4f;
+    public static final float WEIGHTS_PREVIOUS_ONE_MONTH = 0.3f;
+    public static final float WEIGHTS_PREVIOUS_TWO_MONTH = 0.2f;
+    public static final float WEIGHTS_PREVIOUS_THREE_MONTH = 0.1f;
+
     private float totalWeight;
     private float totalVolume;
     private float totalQuantity;
@@ -34,7 +39,19 @@ public class WasteStatistic {
         return new WasteStatistic(weight, volume, quantity);
     }
 
-    public WasteStatistic getPredictedWasteStatistic(UniqueFoodList wasteList) {
+    /**
+     * Predicts this month's current wastage statistic and returns a WasteStatistic object
+     *
+     * @param wasteList Current month's waste list
+     * @param previousOneMonth WasteStatistic for the previous month
+     * @param previousTwoMonth WasteStatistic for the month which was two months before now
+     * @param previousThreeMonth WasteStatistic for the month which was three months before now
+     * @return The weighted waste statistics
+     */
+    public WasteStatistic getPredictedWasteStatistic(UniqueFoodList wasteList,
+                                                     WasteStatistic previousOneMonth,
+                                                     WasteStatistic previousTwoMonth,
+                                                     WasteStatistic previousThreeMonth) {
         WasteStatistic currentWasteStatistic = getWasteStatistic(wasteList);
         float weight = currentWasteStatistic.getTotalWeight();
         float volume = currentWasteStatistic.getTotalVolume();
@@ -45,7 +62,33 @@ public class WasteStatistic {
         int daysInMonth = today.lengthOfMonth();
         float scalingFactor = daysInMonth/daysPassed;
 
-        return new WasteStatistic(weight * scalingFactor, volume * scalingFactor, quantity * scalingFactor);
+        WasteStatistic currentMonth = new WasteStatistic(weight * scalingFactor,
+                volume * scalingFactor, quantity * scalingFactor);
+        return getWeightedStatistics(currentMonth, previousOneMonth,
+                previousTwoMonth, previousThreeMonth);
+    }
+
+    private WasteStatistic getWeightedStatistics(WasteStatistic currentMonth, WasteStatistic previousOneMonth,
+                                                 WasteStatistic previousTwoMonth, WasteStatistic previousThreeMonth) {
+        float weightedWeight
+                = WEIGHTS_CURRENT_MONTH * currentMonth.getTotalWeight()
+                + WEIGHTS_PREVIOUS_ONE_MONTH * previousOneMonth.getTotalWeight()
+                + WEIGHTS_PREVIOUS_TWO_MONTH * previousTwoMonth.getTotalWeight()
+                + WEIGHTS_PREVIOUS_THREE_MONTH * previousThreeMonth.getTotalWeight();
+
+        float weightedVolume
+                = WEIGHTS_CURRENT_MONTH * currentMonth.getTotalVolume()
+                + WEIGHTS_PREVIOUS_ONE_MONTH * previousOneMonth.getTotalVolume()
+                + WEIGHTS_PREVIOUS_TWO_MONTH * previousTwoMonth.getTotalVolume()
+                + WEIGHTS_PREVIOUS_THREE_MONTH * previousThreeMonth.getTotalVolume();
+
+        float weightedUnit
+                = WEIGHTS_CURRENT_MONTH * currentMonth.getTotalQuantity()
+                + WEIGHTS_PREVIOUS_ONE_MONTH * previousOneMonth.getTotalQuantity()
+                + WEIGHTS_PREVIOUS_TWO_MONTH * previousTwoMonth.getTotalQuantity()
+                + WEIGHTS_PREVIOUS_THREE_MONTH * previousThreeMonth.getTotalQuantity();
+
+        return new WasteStatistic(weightedWeight, weightedVolume, weightedUnit);
     }
 
     public float getTotalWeight() {

@@ -23,6 +23,15 @@ public class ReportWasteCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        /*
+        When TreeMap is initialized, iterate through the TreeMap:
+            For each month (WasteMonth):
+                Get the wasteList (in format UniqueFoodList)
+                Compute waste statistics for the month
+                "print" the month statistics (you'll need to implement something
+                similar to a personcard to display to the Ui)
+                Use JfreeChart to plot the graphs in a later implementation
+         */
         return null;
     }
 

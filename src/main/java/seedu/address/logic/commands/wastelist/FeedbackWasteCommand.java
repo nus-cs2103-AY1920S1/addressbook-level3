@@ -31,7 +31,9 @@ public class FeedbackWasteCommand extends Command {
         /*
         //Give feedback based on current month's waste
         model.
-
+        1. Get the current waste list
+        2. Compute current food waste, predicted food waste
+        3. Compare with last month's statistics, remark if there is an increase or decrease in food waste.
          */
         return new CommandResult(MESSAGE_SUCCESS);
     }
