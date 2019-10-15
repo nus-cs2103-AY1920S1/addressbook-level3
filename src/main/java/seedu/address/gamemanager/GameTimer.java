@@ -39,11 +39,6 @@ public class GameTimer implements Runnable {
         this.timer = new Timer(true);
     }
 
-
-    public double getTimeLeft() {
-        return currentMilliSeconds;
-    }
-
     /**
      * Aborts the current timer even if it has not finished running.
      */
@@ -59,7 +54,6 @@ public class GameTimer implements Runnable {
      */
     public void run() {
         timer.schedule(new TimerTask() {
-            private long timeLeft = currentMilliSeconds;
             public void run() {
                 Platform.runLater(() -> {
                     /* Guard block to prevent concurrency issues. Timer.cancel() has no
