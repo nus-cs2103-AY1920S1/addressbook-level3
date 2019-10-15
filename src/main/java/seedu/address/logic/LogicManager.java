@@ -44,12 +44,6 @@ public class LogicManager implements Logic {
         AllCommands command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-        /*if (command instanceof EventRelatedCommand) {
-            //logger.info("----------------[TEST]");
-        } else { //Non-Event Command
-            commandResult = command.execute(model);
-        }*/
-
         try {
             storage.saveAddressBook(model.getAddressBook());
             storage.saveEventBook(model.getEventBook());
