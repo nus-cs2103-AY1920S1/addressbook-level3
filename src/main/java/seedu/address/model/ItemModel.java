@@ -69,4 +69,7 @@ public interface ItemModel {
     public VisualizeList findItem(String[] searchStrings);
 
     public void setVisualizeList(VisualizeList list);
+  
+    public void sort();
+
 }
