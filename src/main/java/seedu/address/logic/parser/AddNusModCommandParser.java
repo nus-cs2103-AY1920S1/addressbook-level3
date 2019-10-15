@@ -1,7 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ACAD_YEAR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSON_NOS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -9,10 +13,8 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddNusModCommand;
 import seedu.address.logic.commands.AddNusModCommand.AddNusModCommandOptions;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.LessonNo;
 import seedu.address.model.module.ModuleCode;
-import seedu.address.model.module.NusModsShareLink;
 import seedu.address.model.person.Name;
 
 /**

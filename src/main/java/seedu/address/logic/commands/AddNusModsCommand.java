@@ -114,7 +114,7 @@ public class AddNusModsCommand extends Command {
      * @return an Event based on an NUS module
      */
     public static Event createEvent(Module module, String startAcadSemDateString, SemesterNo semesterNo,
-                     List<LessonNo> lessonNos, List<String> holidayDateStrings) throws ModuleToEventMappingException{
+                     List<LessonNo> lessonNos, List<String> holidayDateStrings) throws ModuleToEventMappingException {
         ArrayList<Lesson> lessons = new ArrayList<>();
         for (LessonNo lessonNo : lessonNos) {
             List<Lesson> lessonsFound = module.getSemester(semesterNo).findLessons(lessonNo);

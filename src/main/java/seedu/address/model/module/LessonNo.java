@@ -4,9 +4,10 @@ package seedu.address.model.module;
  * Lesson number of the Lesson.
  */
 public class LessonNo {
+    private static final String VALIDATION_REGEX = "[a-zA-Z0-9]*"; // alphanumeric
+
     private String lessonNo;
 
-    private static final String VALIDATION_REGEX = "[a-zA-Z0-9]*"; // alphanumeric
 
     public LessonNo(String lessonNo) {
         this.lessonNo = lessonNo;
