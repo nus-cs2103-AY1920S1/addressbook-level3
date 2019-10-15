@@ -9,8 +9,11 @@ import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.order.Order;
+import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
  * The API of the Model component.
@@ -24,6 +27,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -45,6 +51,8 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    //=========== AddressBook Database / Filepath methods =============================================================
+
     /**
      * Returns the user prefs' address book file path.
      */
@@ -63,6 +71,28 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
+    //=========== Restaurant Database / Filepath methods =============================================================
+
+    /**
+     * Returns the user prefs' restaurant database file path.
+     */
+    Path getRestaurantDatabaseFilePath();
+
+    /**
+     * Sets the user prefs' restaurant database file path.
+     */
+    void setRestaurantDatabaseFilePath(Path restaurantDatabaseFilePath);
+
+    /**
+     * Replaces restaurant database data with the data in {@code restaurantDatabase}.
+     */
+    void setRestaurantDatabase(ReadOnlyRestaurantDatabase restaurantDatabase);
+
+    /** Returns the RestaurantDatabase */
+    ReadOnlyRestaurantDatabase getRestaurantDatabase();
+
+    //=========== Order Database / Filepath methods =============================================================
+
     /**
      * Returns the user prefs' order book file path.
      */
@@ -80,6 +110,8 @@ public interface Model {
 
     /** Returns the OrderBook */
     ReadOnlyOrderBook getOrderBook();
+
+    //=========== Person methods =============================================================
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -160,6 +192,42 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCustomerList(Predicate<Customer> predicate);
+
+    //=========== Restaurant methods =============================================================
+
+    /**
+     * Returns true if a restaurant with the same identity as {@code restaurant} exists in the address book.
+     */
+    boolean hasRestaurant(Restaurant restaurant);
+
+    /**
+     * Deletes the given restaurant.
+     * The restaurant must exist in the address book.
+     */
+    void deleteRestaurant(Restaurant target);
+
+    /**
+     * Adds the given restaurant.
+     * {@code restaurant} must not already exist in the address book.
+     */
+    void addRestaurant(Restaurant restaurant);
+
+    /**
+     * Replaces the given restaurant {@code target} with {@code editedRestaurant}.
+     * {@code target} must exist in the address book.
+     * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant in the address
+     * book.
+     */
+    void setRestaurant(Restaurant target, Restaurant editedRestaurant);
+
+    /** Returns an unmodifiable view of the filtered restaurant list */
+    ObservableList<Restaurant> getFilteredRestaurantList();
+
+    /**
+     * Updates the filter of the filtered restaurant list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
 
     //=========== Deliveryman Methods =============================================================
 

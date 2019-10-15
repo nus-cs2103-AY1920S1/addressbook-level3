@@ -5,10 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.deliverymans.commons.exceptions.DataConversionException;
-import seedu.deliverymans.model.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.OrderBook;
 
 /**
- * Represents a storage for {@link seedu.deliverymans.model.OrderBook}.
+ * Represents a storage for {@link OrderBook}.
  */
 public interface OrderBookStorage {
     /**

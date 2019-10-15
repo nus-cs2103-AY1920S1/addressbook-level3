@@ -8,6 +8,7 @@ import java.util.Set;
 
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.food.Food;
+import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.order.Order;
 
 /**

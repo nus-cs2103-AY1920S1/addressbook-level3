@@ -8,7 +8,7 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Model;
-import seedu.deliverymans.model.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;

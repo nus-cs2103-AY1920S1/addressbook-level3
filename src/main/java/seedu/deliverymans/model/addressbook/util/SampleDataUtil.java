@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.deliverymans.model.OrderBook;
-import seedu.deliverymans.model.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.OrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Email;
