@@ -58,13 +58,13 @@ public class PolicyCard extends UiPart<Region> {
         description.setText(policy.getDescription().toString());
         coverage.setText(policy.getCoverage().toString());
         price.setText(policy.getPrice().toString());
-        if (!policy.getStartAge().getAge().equals("0")) {
-            startAge.setText(policy.getStartAge().getAge());
+        if (!policy.getStartAge().age.equals("0")) {
+            startAge.setText(policy.getStartAge().age);
         } else {
             startAge.setText(StartAge.AGE_ZERO);
         }
-        if (!policy.getEndAge().getAge().equals(EndAge.AGE_INFINITY)) {
-            endAge.setText(policy.getEndAge().getAge());
+        if (!policy.getEndAge().age.equals(EndAge.AGE_INFINITY)) {
+            endAge.setText(policy.getEndAge().age);
         } else {
             endAge.setText(EndAge.AGE_INFINITY);
         }
