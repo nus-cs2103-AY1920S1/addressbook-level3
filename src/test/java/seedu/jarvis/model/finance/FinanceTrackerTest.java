@@ -9,10 +9,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.Installment;
 import seedu.jarvis.model.financetracker.InstallmentList;
 import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.PurchaseList;
+import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
+import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
 
 /**
  * Tests logic of finance tracker class.
@@ -38,8 +40,8 @@ public class FinanceTrackerTest {
 
     @Test
     public void addPayment_normalInput_addedCorrectly() {
-        financeTracker.addSinglePayment(new PurchaseStub());
-        Purchase addedPurchase = financeTracker.getPayment(4);
+        financeTracker.addSinglePurchase(new PurchaseStub());
+        Purchase addedPurchase = financeTracker.getPurchase(4);
         assertEquals(new PurchaseStub().getDescription(), addedPurchase.getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), addedPurchase.getMoneySpent());
         assertEquals(4, financeTracker.getTotalPurchases());
@@ -47,7 +49,7 @@ public class FinanceTrackerTest {
 
     @Test
     public void deletePayment_normalInput_deletedCorrectly() {
-        Purchase deletedPurchase = financeTracker.deleteSinglePayment(2);
+        Purchase deletedPurchase = financeTracker.deleteSinglePurchase(2);
         assertEquals(new PurchaseStub().getDescription(), deletedPurchase.getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), deletedPurchase.getMoneySpent());
         assertEquals(2, financeTracker.getTotalPurchases());
@@ -55,7 +57,7 @@ public class FinanceTrackerTest {
 
     @Test
     public void deletePayment_indexNonexistent_throwsError() {
-        assertThrows(RuntimeException.class, () -> financeTracker.deleteSinglePayment(4));
+        assertThrows(RuntimeException.class, () -> financeTracker.deleteSinglePurchase(4));
         assertEquals(3, financeTracker.getTotalPurchases());
     }
 
@@ -88,8 +90,12 @@ public class FinanceTrackerTest {
         financeTracker.editInstallment(1,
                 "Student price Spotify subscription", 7.50);
         assertEquals("Student price Spotify subscription",
-                financeTracker.getInstallment(1).getDescription());
-        assertEquals(7.50, financeTracker.getInstallment(1).getMoneySpentOnInstallment());
+                financeTracker.getInstallment(1).getDescription().toString());
+        assertEquals(7.50,
+                financeTracker
+                        .getInstallment(1)
+                        .getMoneySpentOnInstallment()
+                        .getInstallmentMoneyPaid());
     }
 
     @Test
@@ -127,7 +133,7 @@ public class FinanceTrackerTest {
 
     private static class InstallmentStub extends Installment {
         public InstallmentStub() {
-            super("Spotify subscription", 9.5);
+            super(new InstallmentDescription("Spotify subscription"), new InstallmentMoneyPaid("9.5"));
         }
     }
 }

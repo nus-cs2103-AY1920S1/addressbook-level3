@@ -29,6 +29,9 @@ import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
@@ -490,6 +493,92 @@ public class HistoryManagerTest {
         }
 
         @Override
+        public FinanceTracker getFinanceTracker() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFinanceTracker(FinanceTracker financeTracker) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Purchase getPurchase(int paymentIndex) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Installment getInstallment(int instalIndex) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPurchase(Purchase purchase) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public void deletePurchase(int itemNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPurchase(Purchase purchase) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addInstallment(Installment installment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Installment deleteInstallment(int instalNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasInstallment(Installment installment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void editInstallmentByValue(int installmentNumber, String description, double value) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ArrayList<Installment> getInstallmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMonthlyLimit(double value) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void listSpending() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Purchase> getPurchasesList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Purchase> getFilteredPurchaseList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void contains(Cca cca) {
             throw new AssertionError("This method should not be called.");
         }
@@ -514,9 +603,7 @@ public class HistoryManagerTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
         public boolean hasTask(Task t) {
-
             throw new AssertionError("This method should not be called.");
         }
 

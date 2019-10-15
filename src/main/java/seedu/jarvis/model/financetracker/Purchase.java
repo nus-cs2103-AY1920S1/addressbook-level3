@@ -15,6 +15,23 @@ public class Purchase {
         this.moneySpent = moneySpent;
     }
 
+    //=========== Reset Methods ==================================================================================
+
+    public Purchase(Purchase purchase) {
+        resetData(purchase);
+    }
+
+    /**
+     * Resets all data from {@code description} and {@code moneySpent} from the given {@code purchase}.
+     *
+     * @param purchase
+     */
+    public void resetData(Purchase purchase) {
+        requireNonNull(purchase);
+        this.description = purchase.getDescription();
+        this.moneySpent = purchase.getMoneySpent();
+    }
+
     //=========== Getter Methods ==================================================================================
 
     public String getDescription() {
@@ -25,6 +42,8 @@ public class Purchase {
         return moneySpent;
     }
 
+    //=========== Common Methods ==================================================================================
+
     @Override
     public String toString() {
         return description + " (" + moneySpent + ")";
@@ -33,8 +52,12 @@ public class Purchase {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Installment // instanceof handles nulls
+                || (other instanceof Purchase // instanceof handles nulls
                 && description.equals(((Purchase) other).description)
                 && moneySpent == ((Purchase) other).moneySpent);
+    }
+
+    public boolean isSamePurchase(Purchase purchase) {
+        return this.equals(purchase);
     }
 }

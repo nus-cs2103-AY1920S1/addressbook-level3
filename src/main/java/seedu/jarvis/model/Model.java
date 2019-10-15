@@ -2,6 +2,7 @@ package seedu.jarvis.model;
 
 import seedu.jarvis.model.address.AddressModel;
 import seedu.jarvis.model.cca.CcaTrackerModel;
+import seedu.jarvis.model.financetracker.FinanceTrackerModel;
 import seedu.jarvis.model.history.HistoryModel;
 import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.userprefs.UserPrefsModel;
@@ -14,5 +15,6 @@ import seedu.jarvis.model.userprefs.UserPrefsModel;
  * {@code HistoryModel} is the API for undoing and redoing commands.
  */
 
-public interface Model extends AddressModel, UserPrefsModel, HistoryModel, CcaTrackerModel, PlannerModel {}
+public interface Model extends AddressModel, UserPrefsModel, HistoryModel, FinanceTrackerModel, CcaTrackerModel,
+        PlannerModel {}
 

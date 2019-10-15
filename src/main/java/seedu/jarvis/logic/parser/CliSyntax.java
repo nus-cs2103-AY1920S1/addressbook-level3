@@ -16,6 +16,14 @@ public class CliSyntax {
     }
 
     /**
+     * CLI syntax for FinanceTracker commands.
+     */
+    public static class FinanceSyntax {
+        public static final Prefix PREFIX_DESCRIPTION = new Prefix("d/");
+        public static final Prefix PREFIX_MONEY = new Prefix("a/");
+    }
+
+    /**
      * CLI syntax for Planner commands.
      */
     public static class PlannerSyntax {
