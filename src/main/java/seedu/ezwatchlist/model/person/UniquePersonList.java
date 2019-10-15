@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.model.person.exceptions.DuplicatePersonException;
 import seedu.ezwatchlist.model.person.exceptions.PersonNotFoundException;
+import seedu.ezwatchlist.commons.util.CollectionUtil;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -54,7 +55,7 @@ public class UniquePersonList implements Iterable<Person> {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
     public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+        CollectionUtil.requireAllNonNull(target, editedPerson);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
@@ -89,7 +90,7 @@ public class UniquePersonList implements Iterable<Person> {
      * {@code persons} must not contain duplicate persons.
      */
     public void setPersons(List<Person> persons) {
-        requireAllNonNull(persons);
+        CollectionUtil.requireAllNonNull(persons);
         if (!personsAreUnique(persons)) {
             throw new DuplicatePersonException();
         }

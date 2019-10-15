@@ -1,5 +1,7 @@
 package seedu.ezwatchlist.model.actor;
 
+import seedu.ezwatchlist.commons.util.AppUtil;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
@@ -28,7 +30,7 @@ public class Actor {
      */
     public Actor(String name) {
         requireNonNull(name);
-        checkArgument(isValidActorName(name), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidActorName(name), MESSAGE_CONSTRAINTS);
         actorName = name;
     }
 

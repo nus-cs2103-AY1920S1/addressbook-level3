@@ -1,5 +1,7 @@
 package seedu.ezwatchlist.model.tag;
 
+import seedu.ezwatchlist.commons.util.AppUtil;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
@@ -21,7 +23,7 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
     }
 

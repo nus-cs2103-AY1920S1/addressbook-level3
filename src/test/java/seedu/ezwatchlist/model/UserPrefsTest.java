@@ -3,6 +3,7 @@ package seedu.ezwatchlist.model;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
+import seedu.ezwatchlist.model.UserPrefs;
 
 public class UserPrefsTest {
 

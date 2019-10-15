@@ -7,8 +7,9 @@ import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.model.ReadOnlyAddressBook;
-import seedu.ezwatchlist.model.person.Person;
+import seedu.ezwatchlist.model.Model;
+import seedu.ezwatchlist.model.ReadOnlyWatchList;
+import seedu.ezwatchlist.model.show.Show;
 
 /**
  * API of the Logic component
@@ -24,19 +25,22 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the WatchList.
      *
-     * @see seedu.ezwatchlist.model.Model#getAddressBook()
+     * @see Model#getWatchList()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyWatchList getWatchList();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of shows */
+    ObservableList<Show> getFilteredShowList();
+
+    /** Returns an unmodifiable view of the search results of shows */
+    ObservableList<Show> getSearchResultList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' watchlist file path.
      */
-    Path getAddressBookFilePath();
+    Path getWatchListFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
