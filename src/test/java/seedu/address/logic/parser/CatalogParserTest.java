@@ -127,8 +127,8 @@ public class CatalogParserTest {
     public void parseCommand_register() throws Exception {
         BorrowerIdGenerator.setBorrowers(new BorrowerRecords());
         assertTrue(parser.parseCommand(
-                RegisterCommand.COMMAND_WORD + " " + PREFIX_NAME + VALID_NAME_AMY + " " +
-                        PREFIX_PHONE + VALID_PHONE_AMY + " " + PREFIX_EMAIL + VALID_EMAIL_AMY)
+                RegisterCommand.COMMAND_WORD + " " + PREFIX_NAME + VALID_NAME_AMY + " "
+                        + PREFIX_PHONE + VALID_PHONE_AMY + " " + PREFIX_EMAIL + VALID_EMAIL_AMY)
                 instanceof RegisterCommand);
     }
 
