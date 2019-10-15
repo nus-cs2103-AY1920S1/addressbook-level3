@@ -25,5 +25,7 @@ public interface Logic {
     double getSalesTarget();
     double getBudgetTarget();
     List<String> getTransactionCategories();
+    List<String> getInventoryCategories();
     double getTransactionTotalByCategory(String category);
+    double getInventoryTotalByCategory(String category);
 }

@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
+import seedu.address.inventory.model.Item;
+import seedu.address.inventory.util.InventoryList;
 import seedu.address.overview.commands.Command;
 import seedu.address.overview.commands.CommandResult;
 import seedu.address.overview.model.Model;
@@ -52,11 +54,10 @@ public class LogicManager implements Logic {
     }
 
     public double getTotalInventory() {
-        /*Stream<Item> itemStream = inventoryLogic.getInventoryList().stream();
+        Stream<Item> itemStream = inventoryLogic.getInventoryList().stream();
         return itemStream
                 .flatMapToDouble(item -> DoubleStream.of(item.getPrice() * item.getQuantity()))
-                .sum();*/
-        return 0;
+                .sum();
     }
 
     public double getTotalSales() {
@@ -94,11 +95,30 @@ public class LogicManager implements Logic {
         return categoryList.stream().distinct().collect(Collectors.toList());
     }
 
+    public List<String> getInventoryCategories() {
+        List<String> categoryList = new ArrayList<>();
+        InventoryList inventoryList = inventoryLogic.getInventoryList();
+
+        for (int i = 0; i < inventoryList.size(); i++) {
+            categoryList.add(inventoryList.get(i).getCategory());
+        }
+
+        return categoryList.stream().distinct().collect(Collectors.toList());
+    }
+
     public double getTransactionTotalByCategory(String category) {
         Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
         return transactionStream
                 .filter(transaction -> transaction.getCategory().equals(category))
                 .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
+                .sum();
+    }
+
+    public double getInventoryTotalByCategory(String category) {
+        Stream<Item> itemStream = inventoryLogic.getInventoryList().stream();
+        return itemStream
+                .filter(item -> item.getCategory().equals(category))
+                .flatMapToDouble(item -> DoubleStream.of(item.getTotalCost()))
                 .sum();
     }
 }
