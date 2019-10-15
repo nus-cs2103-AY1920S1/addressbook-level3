@@ -61,7 +61,7 @@ public class Person {
      */
     public Loan getLoan(Loan toGet) {
         requireNonNull(toGet);
-        return loans.get(toGet);
+        return loans.getLoan(toGet);
     }
 
     public ObservableList<Loan> getLoans() {
@@ -161,9 +161,7 @@ public class Person {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
-        return builder.toString();
+        return getName().fullName;
     }
 
 }

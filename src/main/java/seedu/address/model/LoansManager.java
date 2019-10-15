@@ -10,7 +10,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.loan.Loan;
-import seedu.address.model.person.loan.exceptions.LoanNotFoundException;
 
 /**
  * Manages the loans of each person in a list of persons.
@@ -60,13 +59,20 @@ public class LoansManager {
      * Edits a person's loan to match a given loan.
      * @param editedLoan The loan to base the target loan's updated attributes on.
      */
-    public void editLoan(Loan editedLoan) {
-        if (persons.contains(editedLoan.getPerson())) {
-            Person targetPerson = persons.get(editedLoan.getPerson());
-            targetPerson.setLoan(targetPerson.getLoan(editedLoan), editedLoan);
+    public void editLoan(Person targetPerson, Loan targetLoan, Loan editedLoan) {
+        if (persons.contains(targetPerson)) {
+            persons.get(targetPerson).setLoan(targetLoan, editedLoan);
         } else {
-            throw new LoanNotFoundException();
+            throw new PersonNotFoundException();
         }
+    }
+
+    /**
+     * Updates the status of a person's loan to that of the given loan.
+     * @param updatedLoan A loan identical to the target loan except for its updated status.
+     */
+    public void updateLoanStatus(Person targetPerson, Loan targetLoan, Loan updatedLoan) {
+        editLoan(targetPerson, targetLoan, updatedLoan);
     }
 
     /**
@@ -81,7 +87,7 @@ public class LoansManager {
                 persons.remove(targetPerson);
             }
         } else {
-            throw new LoanNotFoundException();
+            throw new PersonNotFoundException();
         }
     }
 

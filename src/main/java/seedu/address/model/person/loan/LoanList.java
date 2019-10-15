@@ -22,13 +22,6 @@ public class LoanList implements Iterable<Loan> {
     private final ObservableList<Loan> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    public LoanList() {}
-
-    public LoanList(ObservableList<Loan> toBeCopied) {
-        requireNonNull(toBeCopied);
-        internalList.setAll(toBeCopied);
-    }
-
     /**
      * Checks if the list contains a loan equivalent to the given loan.
      * @param toCheck The given loan to check the list for.
@@ -53,7 +46,7 @@ public class LoanList implements Iterable<Loan> {
      * @param toGet The equivalent loan (identical attributes to the target loan).
      * @return The retrieved loan.
      */
-    public Loan get(Loan toGet) {
+    public Loan getLoan(Loan toGet) {
         requireNonNull(toGet);
 
         Loan targetLoan = null;
