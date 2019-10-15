@@ -1,4 +1,4 @@
-//package seedu.address.model.calendar.person;
+//package seedu.address.model.calendar.task;
 //
 //import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,7 +13,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.model.person.Person;
+//import seedu.address.model.task.Task;
 //import seedu.address.testutil.PersonBuilder;
 //
 //
@@ -22,8 +22,8 @@
 //
 //    @Test
 //    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-//        Person person = new PersonBuilder().build();
-//        assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
+//        Task task = new PersonBuilder().build();
+//        assertThrows(UnsupportedOperationException.class, () -> task.getTags().remove(0));
 //    }
 //
 //    @Test
@@ -35,7 +35,7 @@
 //        assertFalse(ALICE.isSamePerson(null));
 //
 //        // different phone and email -> returns false
-//        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+//        Task editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
 //        assertFalse(ALICE.isSamePerson(editedAlice));
 //
 //        // different name -> returns false
@@ -60,7 +60,7 @@
 //    @Test
 //    public void equals() {
 //        // same values -> returns true
-//        Person aliceCopy = new PersonBuilder(ALICE).build();
+//        Task aliceCopy = new PersonBuilder(ALICE).build();
 //        assertTrue(ALICE.equals(aliceCopy));
 //
 //        // same object -> returns true
@@ -72,11 +72,11 @@
 //        // different type -> returns false
 //        assertFalse(ALICE.equals(5));
 //
-//        // different person -> returns false
+//        // different task -> returns false
 //        assertFalse(ALICE.equals(BOB));
 //
 //        // different name -> returns false
-//        Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+//        Task editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
 //        assertFalse(ALICE.equals(editedAlice));
 //
 //        // different phone -> returns false

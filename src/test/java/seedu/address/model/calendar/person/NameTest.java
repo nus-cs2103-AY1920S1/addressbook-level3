@@ -1,4 +1,4 @@
-//package seedu.address.model.calendar.person;
+//package seedu.address.model.calendar.task;
 //
 //import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,7 +6,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.model.person.Name;
+//import seedu.address.model.task.TaskTitle;
 //
 //
 //
@@ -14,31 +14,31 @@
 //
 //    @Test
 //    public void constructor_null_throwsNullPointerException() {
-//        assertThrows(NullPointerException.class, () -> new Name(null));
+//        assertThrows(NullPointerException.class, () -> new TaskTitle(null));
 //    }
 //
 //    @Test
 //    public void constructor_invalidName_throwsIllegalArgumentException() {
 //        String invalidName = "";
-//        assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
+//        assertThrows(IllegalArgumentException.class, () -> new TaskTitle(invalidName));
 //    }
 //
 //    @Test
 //    public void isValidName() {
 //        // null name
-//        assertThrows(NullPointerException.class, () -> Name.isValidName(null));
+//        assertThrows(NullPointerException.class, () -> TaskTitle.isValidName(null));
 //
 //        // invalid name
-//        assertFalse(Name.isValidName("")); // empty string
-//        assertFalse(Name.isValidName(" ")); // spaces only
-//        assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
-//        assertFalse(Name.isValidName("peter*")); // contains non-alphanumeric characters
+//        assertFalse(TaskTitle.isValidName("")); // empty string
+//        assertFalse(TaskTitle.isValidName(" ")); // spaces only
+//        assertFalse(TaskTitle.isValidName("^")); // only non-alphanumeric characters
+//        assertFalse(TaskTitle.isValidName("peter*")); // contains non-alphanumeric characters
 //
 //        // valid name
-//        assertTrue(Name.isValidName("peter jack")); // alphabets only
-//        assertTrue(Name.isValidName("12345")); // numbers only
-//        assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
-//        assertTrue(Name.isValidName("Capital Tan")); // with capital letters
-//        assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+//        assertTrue(TaskTitle.isValidName("peter jack")); // alphabets only
+//        assertTrue(TaskTitle.isValidName("12345")); // numbers only
+//        assertTrue(TaskTitle.isValidName("peter the 2nd")); // alphanumeric characters
+//        assertTrue(TaskTitle.isValidName("Capital Tan")); // with capital letters
+//        assertTrue(TaskTitle.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
 //    }
 //}

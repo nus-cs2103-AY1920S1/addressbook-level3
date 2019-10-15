@@ -10,7 +10,7 @@
 //
 //import seedu.address.logic.commands.FindCommand;
 //import seedu.address.logic.parser.FindCommandParser;
-//import seedu.address.model.person.NameContainsKeywordsPredicate;
+//import seedu.address.model.task.NameContainsKeywordsPredicate;
 //
 //
 //

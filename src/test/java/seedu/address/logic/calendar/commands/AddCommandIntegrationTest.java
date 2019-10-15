@@ -8,7 +8,7 @@
 //import org.junit.jupiter.api.Test;
 //
 //import seedu.address.logic.commands.AddCommand;
-//import seedu.address.model.person.Person;
+//import seedu.address.model.task.Task;
 //import seedu.address.testutil.PersonBuilder;
 //
 //
@@ -27,7 +27,7 @@
 //
 //    @Test
 //    public void execute_newPerson_success() {
-//        Person validPerson = new PersonBuilder().build();
+//        Task validPerson = new PersonBuilder().build();
 //
 //        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 //        expectedModel.addPerson(validPerson);
@@ -38,7 +38,7 @@
 //
 //    @Test
 //    public void execute_duplicatePerson_throwsCommandException() {
-//        Person personInList = model.getAddressBook().getPersonList().get(0);
+//        Task personInList = model.getAddressBook().getPersonList().get(0);
 //        assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
 //    }
 //

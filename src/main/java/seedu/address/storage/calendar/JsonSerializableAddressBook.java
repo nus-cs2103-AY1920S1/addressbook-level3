@@ -11,9 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.calendar.AddressBook;
 import seedu.address.model.calendar.ReadOnlyAddressBook;
-import seedu.address.model.calendar.person.Person;
-
-
+import seedu.address.model.calendar.person.Task;
 
 
 /**
@@ -22,7 +20,7 @@ import seedu.address.model.calendar.person.Person;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate task(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
@@ -52,11 +50,11 @@ class JsonSerializableAddressBook {
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
+            Task task = jsonAdaptedPerson.toModelType();
+            if (addressBook.hasPerson(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            addressBook.addPerson(task);
         }
         return addressBook;
     }

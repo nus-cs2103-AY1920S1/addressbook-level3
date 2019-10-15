@@ -1,4 +1,4 @@
-//package seedu.address.model.calendar.person;
+//package seedu.address.model.calendar.task;
 //
 //import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,7 +9,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.model.person.NameContainsKeywordsPredicate;
+//import seedu.address.model.task.NameContainsKeywordsPredicate;
 //import seedu.address.testutil.PersonBuilder;
 //
 //
@@ -39,7 +39,7 @@
 //        // null -> returns false
 //        assertFalse(firstPredicate.equals(null));
 //
-//        // different person -> returns false
+//        // different task -> returns false
 //        assertFalse(firstPredicate.equals(secondPredicate));
 //    }
 //

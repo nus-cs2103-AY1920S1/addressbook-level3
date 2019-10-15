@@ -7,12 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.calendar.person.Person;
+import seedu.address.model.calendar.person.Task;
 
 
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Task}.
  */
 public class PersonCard extends UiPart<Region> {
 
@@ -26,7 +26,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Task task;
 
     @FXML
     private HBox cardPane;
@@ -43,15 +43,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(Task task, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.task = task;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().stream()
+        name.setText(task.getTaskTitle().fullName);
+        phone.setText(task.getTaskTime().value);
+        address.setText(task.getTaskPlace().value);
+        email.setText(task.getTaskDescription().value);
+        task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -71,6 +71,6 @@ public class PersonCard extends UiPart<Region> {
         // state check
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && task.equals(card.task);
     }
 }

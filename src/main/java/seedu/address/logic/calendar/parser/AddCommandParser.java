@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.calendar.commands.AddCommand;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
-import seedu.address.model.calendar.person.Address;
-import seedu.address.model.calendar.person.Email;
-import seedu.address.model.calendar.person.Name;
-import seedu.address.model.calendar.person.Person;
-import seedu.address.model.calendar.person.Phone;
+import seedu.address.model.calendar.person.TaskPlace;
+import seedu.address.model.calendar.person.TaskDescription;
+import seedu.address.model.calendar.person.TaskTitle;
+import seedu.address.model.calendar.person.Task;
+import seedu.address.model.calendar.person.TaskTime;
 import seedu.address.model.calendar.tag.Tag;
 
 
@@ -43,15 +43,15 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        TaskTitle taskTitle = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        TaskTime taskTime = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        TaskDescription taskDescription = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        TaskPlace taskPlace = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Task task = new Task(taskTitle, taskTime, taskDescription, taskPlace, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(task);
     }
 
     /**

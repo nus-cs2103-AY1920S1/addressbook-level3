@@ -1,4 +1,4 @@
-//package seedu.address.model.calendar.person;
+//package seedu.address.model.calendar.task;
 //
 //import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,7 +6,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.model.person.Address;
+//import seedu.address.model.task.TaskPlace;
 //
 //
 //
@@ -14,27 +14,27 @@
 //
 //    @Test
 //    public void constructor_null_throwsNullPointerException() {
-//        assertThrows(NullPointerException.class, () -> new Address(null));
+//        assertThrows(NullPointerException.class, () -> new TaskPlace(null));
 //    }
 //
 //    @Test
 //    public void constructor_invalidAddress_throwsIllegalArgumentException() {
 //        String invalidAddress = "";
-//        assertThrows(IllegalArgumentException.class, () -> new Address(invalidAddress));
+//        assertThrows(IllegalArgumentException.class, () -> new TaskPlace(invalidAddress));
 //    }
 //
 //    @Test
 //    public void isValidAddress() {
 //        // null address
-//        assertThrows(NullPointerException.class, () -> Address.isValidAddress(null));
+//        assertThrows(NullPointerException.class, () -> TaskPlace.isValidAddress(null));
 //
 //        // invalid addresses
-//        assertFalse(Address.isValidAddress("")); // empty string
-//        assertFalse(Address.isValidAddress(" ")); // spaces only
+//        assertFalse(TaskPlace.isValidAddress("")); // empty string
+//        assertFalse(TaskPlace.isValidAddress(" ")); // spaces only
 //
 //        // valid addresses
-//        assertTrue(Address.isValidAddress("Blk 456, Den Road, #01-355"));
-//        assertTrue(Address.isValidAddress("-")); // one character
-//        assertTrue(Address.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+//        assertTrue(TaskPlace.isValidAddress("Blk 456, Den Road, #01-355"));
+//        assertTrue(TaskPlace.isValidAddress("-")); // one character
+//        assertTrue(TaskPlace.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
 //    }
 //}

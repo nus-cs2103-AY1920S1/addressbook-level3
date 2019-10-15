@@ -14,7 +14,7 @@ import seedu.address.logic.calendar.parser.AddressBookParser;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
 import seedu.address.model.calendar.Model;
 import seedu.address.model.calendar.ReadOnlyAddressBook;
-import seedu.address.model.calendar.person.Person;
+import seedu.address.model.calendar.person.Task;
 import seedu.address.storage.calendar.Storage;
 
 
@@ -62,7 +62,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
+    public ObservableList<Task> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }
 

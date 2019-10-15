@@ -14,7 +14,7 @@
 //import seedu.address.commons.core.Messages;
 //import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.DeleteCommand;
-//import seedu.address.model.person.Person;
+//import seedu.address.model.task.Task;
 //
 //
 ///**
@@ -27,7 +27,7 @@
 //
 //    @Test
 //    public void execute_validIndexUnfilteredList_success() {
-//        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+//        Task personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 //        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 //
 //        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
@@ -50,7 +50,7 @@
 //    public void execute_validIndexFilteredList_success() {
 //        showPersonAtIndex(model, INDEX_FIRST_PERSON);
 //
-//        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+//        Task personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 //        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 //
 //        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
@@ -93,7 +93,7 @@
 //        // null -> returns false
 //        assertFalse(deleteFirstCommand.equals(null));
 //
-//        // different person -> returns false
+//        // different task -> returns false
 //        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
 //    }
 //
