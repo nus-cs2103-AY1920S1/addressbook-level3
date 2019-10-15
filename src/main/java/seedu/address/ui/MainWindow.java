@@ -18,11 +18,9 @@ import javafx.stage.Stage;
 import seedu.address.person.commons.core.GuiSettings;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.transaction.logic.exception.ParseException;
+import seedu.address.ui.logic.Logic;
+import seedu.address.ui.logic.LogicManager;
 import seedu.address.util.OverallCommandResult;
-
-
-
-
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -50,8 +48,10 @@ public class MainWindow extends UiPart<Stage> {
     private Overview overview;
     private Lion lion;
 
-    private HelpWindow helpWindow;
+    private Logic uiLogic;
 
+    @FXML
+    private HelpWindow helpWindow;
 
     @FXML
     private AnchorPane homePlaceholder;
@@ -119,6 +119,7 @@ public class MainWindow extends UiPart<Stage> {
         this.personLogic = personLogic;
         this.cashierLogic = cashierLogic;
         this.overviewLogic = overviewLogic;
+        this.uiLogic = new LogicManager(tabPane);
 
         // Configure the UI
         //setWindowDefaultSize(logic.getGuiSettings());
