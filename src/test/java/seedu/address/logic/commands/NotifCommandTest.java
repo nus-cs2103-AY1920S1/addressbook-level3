@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.model.entity.body.BodyStatus.PENDING_POLICE_REPORT;
-import static seedu.address.testutil.TypicalBodies.ALICE;
+import static seedu.address.testutil.TypicalBodies.BOB;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.concurrent.TimeUnit;
@@ -21,7 +21,7 @@ public class NotifCommandTest {
 
     @Test
     public void execute_notifAcceptedByModel_addSuccessful() throws CommandException, InterruptedException {
-        Notif notif = new Notif(ALICE);
+        Notif notif = new Notif(BOB);
         NotifCommand notifCommand = new NotifCommand(notif, 500, TimeUnit.MILLISECONDS);
         notifCommand.execute(model);
 

@@ -41,21 +41,32 @@ public class NotifCommand extends Command {
 
         model.addNotif(toAdd);
 
-        start();
-        Runnable changeUi = () -> Platform.runLater(() ->
-                model.updateFilteredBodyList(PREDICATE_SHOW_ALL_BODIES));
-
-        ses.schedule(changeUi, period, TimeUnit.SECONDS);
-        stop();
+        startSesChangeBodyStatus();
+        startSesChangeBodyStatusUi(model);
+        stopSes();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
-    public void start() {
+    /**
+     * Updates the BodyStatus after a specified time.
+     */
+    public void startSesChangeBodyStatus() {
         ses.schedule(toAdd.getAlert(), period, timeUnit);
     }
 
-    public void stop() {
+    /**
+     * Updates the UI to reflect the chaneg in BodyStatus.
+     * @param model refers to the ModelManager
+     */
+    public void startSesChangeBodyStatusUi(Model model) {
+        Runnable changeUi = () -> Platform.runLater(() ->
+                model.updateFilteredBodyList(PREDICATE_SHOW_ALL_BODIES));
+
+        ses.schedule(changeUi, period, timeUnit);
+    }
+
+    public void stopSes() {
         ses.shutdown();
     }
 

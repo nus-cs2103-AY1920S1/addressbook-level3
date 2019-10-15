@@ -75,9 +75,6 @@ public class AddCommand extends Command {
         if (toAdd instanceof Body) {
             NotifCommand notifCommand = new NotifCommand(new Notif((Body) toAdd), 5, TimeUnit.SECONDS);
             notifCommand.execute(model);
-
-
-
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
