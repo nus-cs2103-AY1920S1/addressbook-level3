@@ -173,6 +173,11 @@ public interface Model {
     void setTask(Task target, Task editedTask);
 
     /**
+     * Returns an unmodifiable view of the filtered quiz question list.
+     */
+    ObservableList<Question> getFilteredQuizQuestionList();
+
+    /**
      * Checks the an answer input by user and return the boolean value as the result.
      */
     boolean checkQuizAnswer(int index, Answer answer);

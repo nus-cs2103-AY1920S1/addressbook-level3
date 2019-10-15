@@ -31,6 +31,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Note> filteredNotes;
     private final FilteredList<Question> filteredQuestions;
+    private final FilteredList<Question> filteredQuizQuestions;
     private final FilteredList<Task> filteredTasks;
     private final StatisticsStub statisticsStub;
 
@@ -47,6 +48,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
         filteredQuestions = new FilteredList<>(this.addressBook.getQuestionList());
+        filteredQuizQuestions = new FilteredList<>(this.addressBook.getQuizQuestionList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
         this.statisticsStub = new StatisticsStub();
     }
@@ -218,6 +220,13 @@ public class ModelManager implements Model {
     public void updateFilteredQuestionList(Predicate<Question> predicate) {
         requireNonNull(predicate);
         filteredQuestions.setPredicate(predicate);
+    }
+
+    //=========== Filtered Question List Accessors =========================================================
+
+    @Override
+    public ObservableList<Question> getFilteredQuizQuestionList() {
+        return filteredQuizQuestions;
     }
 
     //=========== Filtered Task List accessors =============================================================

@@ -39,14 +39,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     {
         notes = new UniqueNoteList();
-
         questions = new UniqueQuestionList();
-
         quiz = new QuizQuestionList();
         tasks = new TaskList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Notes in {@code toBeCopied}.
@@ -114,6 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Retrieves {@code title} from the note list. The note must exists.
+     *
      * @param title The note with the same tile to be retrieved.
      * @return The note with the same title as specified in input.
      */
@@ -129,6 +129,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// question operations
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -221,6 +222,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Question> getQuestionList() {
         return questions.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Question> getQuizQuestionList() {
+        return quiz.asUnmodifiableObservableList();
     }
 
     @Override

@@ -6,19 +6,16 @@ import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.AddressBook;
 import seedu.address.model.question.Answer;
-import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
-import seedu.address.model.question.Subject;
-import seedu.address.model.question.UniqueQuestionList;
 
 /**
  * A list of quiz questions.
  */
 public class QuizQuestionList implements Iterable<Question> {
     private final ObservableList<Question> internalList = FXCollections.observableArrayList();
-    private final UniqueQuestionList questions = new UniqueQuestionList();
+    private final ObservableList<Question> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Sets the question list in quiz as {@code quizQuestionList}.
@@ -43,6 +40,13 @@ public class QuizQuestionList implements Iterable<Question> {
      */
     public void clearQuizQuestionList() {
         internalList.clear();
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Question> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
     }
 
     @Override
