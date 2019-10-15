@@ -2,7 +2,7 @@ package seedu.jarvis.commons.util.andor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.jarvis.commons.util.andor.AndOrStubsUtil.CourseStub;
+import static seedu.jarvis.testutil.course.CourseTestUtil.CourseStub;
 
 import org.junit.jupiter.api.Test;
 

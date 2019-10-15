@@ -2,6 +2,8 @@ package seedu.jarvis.model.course;
 
 import java.util.Objects;
 
+import seedu.jarvis.commons.util.StringUtil;
+
 /**
  * Represents a Course in the course planner.
  */
@@ -86,6 +88,26 @@ public class Course {
         }
         Course course = (Course) o;
         return getCourseCode().equals(course.getCourseCode());
+    }
+
+    /**
+     * Returns a more readable {@code String} to be displayed to the user as opposed to
+     * this object's {@code toString} method.
+     *
+     * @return a displayable {@code String}
+     */
+    public String toDisplayableString() {
+        final int limit = 100;
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getCourseCode()).append(" ")
+                .append(getTitle()).append("\n")
+                .append(getCourseCredit()).append(" MCs\n")
+                .append("Offered by: ").append(getFaculty()).append("\n")
+                .append("Preclusion: ").append(getPreclusion()).append("\n")
+                .append("Required for: ").append(getFulfillRequirements()).append("\n")
+                .append("\n") // newline for better readability
+                .append(StringUtil.asLimitedCharactersPerLine(getDescription().toString(), limit));
+        return builder.toString();
     }
 
     @Override
