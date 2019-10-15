@@ -46,7 +46,7 @@ public class ViewModuleTagsCommand extends Command {
 
         UniqueTagList tags = module.getTags();
 
-        final String stringOfTags = tags.getTagsAsList().stream()
+        final String stringOfTags = tags.asUnmodifiableObservableList().stream()
             .map(item -> item.toString())
             .collect(joining("\n"));
 

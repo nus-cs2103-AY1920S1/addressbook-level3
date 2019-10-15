@@ -64,8 +64,7 @@ public class RemoveTagFromModuleCommand extends Command {
         }
 
         UniqueTagList uniqueTagList = activeStudyPlan.getTags();
-        HashMap<String, Tag> tagHashMap = uniqueTagList.getMapTags();
-        Tag toDelete = tagHashMap.get(tagName);
+        Tag toDelete = uniqueTagList.getTag(tagName);
         if (toDelete.isDefault()) {
             throw new CommandException(MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);
         }

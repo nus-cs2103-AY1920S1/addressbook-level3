@@ -56,7 +56,7 @@ public class DeleteTagCommand extends Command {
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
         UniqueTagList uniqueTagList = activeStudyPlan.getTags();
 
-        if (!uniqueTagList.contains(tagName)) {
+        if (!uniqueTagList.containsTagWithName(tagName)) {
             throw new CommandException(MESSAGE_TAG_CANNOT_BE_FOUND);
         }
 
@@ -70,7 +70,7 @@ public class DeleteTagCommand extends Command {
         for (String moduleCode: moduleCodes) {
             Module currentModule = moduleHashMap.get(moduleCode);
             UniqueTagList moduleTagList = currentModule.getTags();
-            if (moduleTagList.contains(tagName)) {
+            if (moduleTagList.containsTagWithName(tagName)) {
                 moduleTagList.remove((UserTag)moduleTagList.getTag(tagName));
             }
         }

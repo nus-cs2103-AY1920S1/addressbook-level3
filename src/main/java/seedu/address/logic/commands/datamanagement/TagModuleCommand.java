@@ -75,7 +75,7 @@ public class TagModuleCommand extends Command {
     }
 
     private Tag getTagToAdd(UniqueTagList uniqueTagList) {
-        boolean tagExists = uniqueTagList.contains(tagName);
+        boolean tagExists = uniqueTagList.containsTagWithName(tagName);
         Tag toAdd;
         if (!tagExists) {
             toAdd = createNewTag(tagName, uniqueTagList);

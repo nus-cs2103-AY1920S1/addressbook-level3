@@ -1,5 +1,7 @@
 package seedu.address.model.tag;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents a default Tag.
  */
@@ -12,14 +14,8 @@ public class DefaultTag implements Tag {
      * @param defaultTagType A default tag type in {@code DefaultTagType}.
      */
     public DefaultTag(DefaultTagType defaultTagType) {
+        requireNonNull(defaultTagType);
         this.defaultTagType = defaultTagType;
-    }
-
-    /**
-     * Returns true if a given string is a valid tag name.
-     */
-    public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX);
     }
 
     /**

@@ -69,7 +69,7 @@ public class RenameTagCommand extends Command {
 
     private Tag getTagToRename(UniqueTagList uniqueTagList) throws TagNotFoundException,
             InvalidTagModificationException {
-        boolean tagExists = uniqueTagList.contains(originalTagName);
+        boolean tagExists = uniqueTagList.containsTagWithName(originalTagName);
         if (!tagExists) {
             throw new TagNotFoundException();
         }
