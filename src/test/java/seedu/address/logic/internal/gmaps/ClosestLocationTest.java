@@ -15,7 +15,7 @@ import seedu.address.model.module.Venue;
 class ClosestLocationTest {
     private ClosestLocation closestLocation;
     @BeforeEach
-    void init() throws InterruptedException{
+    void init() throws InterruptedException {
         closestLocation = new ClosestLocation();
         TimeUnit.SECONDS.sleep(10);
     }
