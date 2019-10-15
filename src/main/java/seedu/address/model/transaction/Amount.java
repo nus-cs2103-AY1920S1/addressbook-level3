@@ -13,7 +13,7 @@ public class Amount {
 
     public static final String VALIDATION_REGEX = "^\\d+$";
 
-    public final long amount;
+    private final long amount;
 
     /**
      * Constructs an {@code Amount}
@@ -23,6 +23,10 @@ public class Amount {
     public Amount(long amount) {
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         this.amount = amount;
+    }
+
+    public long toLong() {
+        return amount;
     }
 
     /**
