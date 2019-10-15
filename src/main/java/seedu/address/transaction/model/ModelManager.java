@@ -34,7 +34,6 @@ public class ModelManager implements Model {
 
     @Override
     public TransactionList getTransactionList() {
-//        logger.info("first thing: " + transactionList.get(0));
         return this.transactionList;
     }
 

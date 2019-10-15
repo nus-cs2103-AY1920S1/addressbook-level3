@@ -18,10 +18,9 @@ import seedu.address.reimbursement.ui.ReimbursementMessages;
  */
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
-
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private Person person;
     private String date;
-    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public DeadlineCommand(Person person, String deadline) {
         this.person = person;
@@ -31,13 +30,13 @@ public class DeadlineCommand extends Command {
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws Exception {
         ReimbursementMessages reimbursementMessages = new ReimbursementMessages();
-        try{
+        try {
             LocalDate deadline = LocalDate.parse(date, DATE_TIME_FORMATTER);
             Reimbursement rmb = model.addDeadline(person, deadline);
             logger.info(rmb.toString());
             return new CommandResult(reimbursementMessages.addDeadline(rmb));
 
-        } catch(DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new InvalidDeadlineException();
         }
     }

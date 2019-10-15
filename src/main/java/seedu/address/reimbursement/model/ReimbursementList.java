@@ -118,6 +118,13 @@ public class ReimbursementList {
         return rmb;
     }
 
+    /**
+     * Adds deadline to the reimbursement with person's name in the reimbursement list.
+     *
+     * @param person   person object for reimbursement.
+     * @param deadline deadline date to be added to reimbursement.
+     * @throws NoSuchPersonReimbursementException reimbursement for the person cannot be found in the list.
+     */
     public void addDeadline(Person person, LocalDate deadline) throws NoSuchPersonReimbursementException {
         Reimbursement rmb = findReimbursement(person);
         rmb.addDeadline(deadline);

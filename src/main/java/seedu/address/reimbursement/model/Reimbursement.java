@@ -23,8 +23,7 @@ public class Reimbursement {
     private double amount;
     private Description description;
     private LocalDate deadline;
-    //private Deadline deadline;
-    //for UI display
+    //Store attributes to be displayed in UI
     private String idCol;
     private String personCol;
     private String descriptionCol;
@@ -46,7 +45,7 @@ public class Reimbursement {
         deadline = null;
     }
 
-    //get functions
+    //Get attributes from reimbursement
     public Person getPerson() {
         return person;
     }
@@ -158,11 +157,23 @@ public class Reimbursement {
         }
     }
 
-    //For Storage and display
+    //Convert reimbursement to string for saving and display
+
+    /**
+     * Converts a reimbursement to string.
+     *
+     * @return string
+     */
     public String toString() {
-        return person.getName() + " $" + amount + deadline.format(DATE_TIME_FORMATTER) + System.lineSeparator() + description.toString();
+        return person.getName() + " $" + amount + deadline.format(DATE_TIME_FORMATTER) + System.lineSeparator()
+                + description.toString();
     }
 
+    /**
+     * Converts a reimbursement to string but without deadline date
+     *
+     * @return string the reimbursement is converted to.
+     */
     public String toStringNoDeadline() {
         return person.getName() + " $" + amount + System.lineSeparator() + description.toString();
     }
