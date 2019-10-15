@@ -16,6 +16,7 @@ import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.ReadOnlyOrderBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
+import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.storage.Storage;
 
@@ -61,6 +62,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Customer> getFilteredCustomerList() {
+        return model.getFilteredCustomerList();
     }
 
     @Override

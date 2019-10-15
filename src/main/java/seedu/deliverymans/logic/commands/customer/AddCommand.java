@@ -2,6 +2,7 @@ package seedu.deliverymans.logic.commands.customer;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.deliverymans.logic.commands.Command;
@@ -17,9 +18,10 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a customer to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a customer to the customer database. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
+            + PREFIX_PHONE + "PHONE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
@@ -27,7 +29,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New customer added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the customer database";
 
     private final Customer toAdd;
 
@@ -42,13 +44,10 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        /*
         if (model.hasCustomer(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
         }
-
         model.addCustomer(toAdd);
-        */
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

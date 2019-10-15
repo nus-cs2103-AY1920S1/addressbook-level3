@@ -10,8 +10,8 @@ import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.commons.util.StringUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.addressbook.person.Email;
-import seedu.deliverymans.model.addressbook.person.Phone;
 import seedu.deliverymans.model.addressbook.tag.Tag;
 
 /**
