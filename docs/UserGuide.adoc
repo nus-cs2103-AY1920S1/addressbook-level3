@@ -205,22 +205,24 @@ List all goals.
 Deletes the goals with the specified goal IDs. Goal IDs can be retrieved from `goal list`.
 
 Format: `goal delete <id ...>`
+
 === Tracking loans : `loan`
 
 ==== Add a new loan : `loan out|in`
 
 Adds a new loan out/in entry.
-Each entry has a unique ID (across both out and in entries).
+Each person has a unique ID and each person's loans have unique IDs (across both out and in entries).
 If date is not given, it is set to the default date.
 
-Format: `loan out|in x/<amount> d/<description> [w/<date>]`
+Format: `loan out|in p/<person's name> x/<amount> d/<description> [w/<date>]`
 
 ==== List loans : `loan list`
 
 Displays a list of all loans, sorted by newest first.
 
-Format: `loan list [o|i] [s/a]`
+Format: `loan list [p/<person's name ...>] [o|i] [s/a]`
 ****
+* Adding a person's name filters the list to that/those person(s)'s loans.
 * Adding ‘o’ argument filters list to out loans only.
 * Adding ‘i’ argument filters list to in loans only.
 * Add `s/a` to sort the list by amount.
@@ -230,19 +232,19 @@ Format: `loan list [o|i] [s/a]`
 
 Edits the specified field of the loan entry with the specified ID.
 
-Format: `loan edit <id> [x/<amount>] [d/<description>] [w/<date>]`
+Format: `loan edit <person number>.<loan number> [x/<amount>] [d/<description>] [w/<date>]`
 
 ==== Mark loan(s) as paid : `loan paid`
 
 Marks the specified loan(s) as paid.
 
-Format: `loan paid <id ...>`
+Format: `loan paid <person number>[(<loan number ...>)] ...`
 
 ==== Delete loan(s) : `loan delete`
 
 Deletes the loan(s) with the specified loan ID(s).
 
-Format: `loan delete <id ...>`
+Format: `loan delete <person number>[(<id ...>)] ...`
 
 ==== Calculate loans : `loan split`
 
