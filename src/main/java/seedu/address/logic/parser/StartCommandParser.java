@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.StartCommand;
 
 //@@author keiteo
@@ -18,6 +20,7 @@ public class StartCommandParser implements Parser<StartCommand> {
      * and returns a StartCommand object for execution.
      */
     public StartCommand parse(String args) {
+        requireNonNull(addressBookParser);
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             return new StartCommand(addressBookParser);

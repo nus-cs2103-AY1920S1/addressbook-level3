@@ -38,6 +38,7 @@ public class StartCommand extends Command {
     }
 
     public StartCommand(AddressBookParser addressBookParser, String tagName) {
+        assert(!tagName.isEmpty());
         this.tagName = tagName;
         this.addressBookParser = addressBookParser;
     }

@@ -1,5 +1,7 @@
 package seedu.address.model.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 
 import seedu.address.model.flashcard.FlashCard;
@@ -28,6 +30,7 @@ public class FlashCardTestModel {
     }
 
     public String getAnswer() {
+        requireNonNull(currentFlashCard);
         return currentFlashCard.getAnswer().toString();
     }
 }
