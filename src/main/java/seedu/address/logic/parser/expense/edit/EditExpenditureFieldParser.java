@@ -2,9 +2,12 @@ package seedu.address.logic.parser.expense.edit;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.expenditure.edit.EditExpenditureFieldCommand;
-import seedu.address.logic.parser.*;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.itinerary.ItineraryParserUtil;
+import seedu.address.logic.parser.expense.ExpenditureParserUtil;
 
 import java.util.Optional;
 
@@ -28,7 +31,8 @@ public class EditExpenditureFieldParser implements Parser<EditExpenditureFieldCo
                 ArgumentTokenizer.tokenize(args,
                         PREFIX_NAME,
                         PREFIX_BUDGET,
-                        PREFIX_INDEX);
+                        PREFIX_INDEX,
+                        PREFIX_DAY_NUMBER);
 
         Optional<Index> index;
 
@@ -50,11 +54,14 @@ public class EditExpenditureFieldParser implements Parser<EditExpenditureFieldCo
                 new EditExpenditureFieldCommand.EditExpenditureDescriptor();
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editExpenditureDescriptor.setName(ItineraryParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editExpenditureDescriptor.setName(ExpenditureParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_BUDGET).isPresent()) {
             editExpenditureDescriptor.setBudget(
-                    ItineraryParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get()));
+                    ExpenditureParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DAY_NUMBER).isPresent()) {
+            editExpenditureDescriptor.setDayNumber(ExpenditureParserUtil.parseDayNumber(argMultimap.getValue(PREFIX_DAY_NUMBER).get()));
         }
         if (!editExpenditureDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditExpenditureFieldCommand.MESSAGE_NOT_EDITED);

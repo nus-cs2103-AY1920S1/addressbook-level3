@@ -5,6 +5,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.expenditure.DayNumber;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Name;
@@ -15,6 +16,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.isAllPresent;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY_NUMBER;
+
 
 public class EditExpenditureFieldCommand extends Command  {
     public static final String COMMAND_WORD = "edit";
@@ -25,7 +28,8 @@ public class EditExpenditureFieldCommand extends Command  {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_BUDGET + "TOTAL BUDGET] "
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_BUDGET + "10";
+            + "[" + PREFIX_DAY_NUMBER + "DAY NUMBER] "
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_BUDGET + "10" + PREFIX_DAY_NUMBER + "1";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!";
     public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
@@ -44,10 +48,10 @@ public class EditExpenditureFieldCommand extends Command  {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        EditExpenditureFieldCommand.EditExpenditureDescriptor currentDescriptor = model.getPageStatus().getEditExpenditureDescriptor();
-        EditExpenditureFieldCommand.EditExpenditureDescriptor newEditExpenditureDescriptor = currentDescriptor == null
-                ? new EditExpenditureFieldCommand.EditExpenditureDescriptor(editExpenditureDescriptor)
-                : new EditExpenditureFieldCommand.EditExpenditureDescriptor(currentDescriptor, editExpenditureDescriptor);
+        EditExpenditureDescriptor currentDescriptor = model.getPageStatus().getEditExpenditureDescriptor();
+        EditExpenditureDescriptor newEditExpenditureDescriptor = currentDescriptor == null
+                ? new EditExpenditureDescriptor(editExpenditureDescriptor)
+                : new EditExpenditureDescriptor(currentDescriptor, editExpenditureDescriptor);
 
         model.setPageStatus(
                 model.getPageStatus().withNewEditExpenditureDescriptor(newEditExpenditureDescriptor));
@@ -79,19 +83,22 @@ public class EditExpenditureFieldCommand extends Command  {
     public static class EditExpenditureDescriptor {
         private Optional<Name> name;
         private Optional<Budget> budget;
+        private Optional<DayNumber> dayNumber;
 
         public EditExpenditureDescriptor() {
             name = Optional.empty();
             budget = Optional.empty();
+            dayNumber = Optional.empty();
         }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditExpenditureDescriptor(EditExpenditureFieldCommand.EditExpenditureDescriptor toCopy) {
+        public EditExpenditureDescriptor(EditExpenditureDescriptor toCopy) {
             name = toCopy.getName();
             budget = toCopy.getBudget();
+            dayNumber = toCopy.getDayNumber();
         }
 
 
@@ -102,6 +109,7 @@ public class EditExpenditureFieldCommand extends Command  {
         public EditExpenditureDescriptor(Expenditure toCopy) {
             setName(toCopy.getName());
             setBudget(toCopy.getBudget());
+            setDayNumber(toCopy.getDayNumber());
         }
 
 
@@ -113,27 +121,31 @@ public class EditExpenditureFieldCommand extends Command  {
          * @param oldDescriptor Old {@code EditEventDescriptor} to use.
          * @param newDescriptor New {@code EditEventDescriptor} to use.
          */
-        public EditExpenditureDescriptor(EditExpenditureFieldCommand.EditExpenditureDescriptor oldDescriptor,
-                                 EditExpenditureFieldCommand.EditExpenditureDescriptor newDescriptor) {
+        public EditExpenditureDescriptor(EditExpenditureDescriptor oldDescriptor,
+                                 EditExpenditureDescriptor newDescriptor) {
             this();
             newDescriptor.name.ifPresentOrElse(this::setName, () ->
                     oldDescriptor.name.ifPresent(this::setName));
 
             newDescriptor.budget.ifPresentOrElse(this::setBudget, () ->
                     oldDescriptor.budget.ifPresent(this::setBudget));
+
+            newDescriptor.dayNumber.ifPresentOrElse(this::setDayNumber, () ->
+                    oldDescriptor.dayNumber.ifPresent(this::setDayNumber));
         }
 
 
         /**
          * Builds a new {@code Expenditure} instance.
          * Requires name and budget to have been set minimally.
+         * Uses the Optional constructor for event to accommodate missing optional fields.
          *
          * @return New {@code Expenditure} created.
          * @throws NullPointerException If any of the fields are empty.
          */
         public Expenditure buildExpenditure() {
             if (isAllPresent(name, budget)) {
-                return new Expenditure(name.get(), budget.get());
+                return new Expenditure(name.get(), budget.get(), dayNumber);
             } else {
                 throw new NullPointerException();
             }
@@ -145,11 +157,12 @@ public class EditExpenditureFieldCommand extends Command  {
          *
          * @param expenditure Source {@code Expenditure} instance.
          * @param expenditure
-         * @return Edited {@code Event} instance.
+         * @return Edited {@code Expenditure} instance.
          */
         public Expenditure buildExpenditure(Expenditure expenditure) {
             Name expenditureName = expenditure.getName();
             Budget budget = expenditure.getBudget();
+            Optional<DayNumber> dayNumber = expenditure.getDayNumber();
 
             if (this.name.isPresent()) {
                 expenditureName = this.name.get();
@@ -157,15 +170,18 @@ public class EditExpenditureFieldCommand extends Command  {
             if (this.budget.isPresent()) {
                 budget = this.budget.get();
             }
+            if (this.dayNumber.isPresent()) {
+                dayNumber = this.dayNumber;
+            }
 
-            return new Expenditure(expenditureName, budget);
+            return new Expenditure(expenditureName, budget, dayNumber);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(name, budget);
+            return CollectionUtil.isAnyPresent(name, budget, dayNumber);
         }
 
 
@@ -190,6 +206,18 @@ public class EditExpenditureFieldCommand extends Command  {
             return budget;
         }
 
+        public void setDayNumber(DayNumber dayNumber) {
+            this.dayNumber = Optional.of(dayNumber);
+        }
+
+        public void setDayNumber(Optional<DayNumber> dayNumber) {
+            this.dayNumber = dayNumber;
+        }
+
+        public Optional<DayNumber> getDayNumber() {
+            return dayNumber;
+        }
+
 
         @Override
         public boolean equals(Object other) {
@@ -207,7 +235,8 @@ public class EditExpenditureFieldCommand extends Command  {
             EditExpenditureFieldCommand.EditExpenditureDescriptor e = (EditExpenditureFieldCommand.EditExpenditureDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getBudget().equals(e.getBudget());
+                    && getBudget().equals(e.getBudget())
+                    && getDayNumber().equals(e.getDayNumber());
         }
 
         @Override
@@ -216,6 +245,7 @@ public class EditExpenditureFieldCommand extends Command  {
 
             this.name.ifPresent(name -> builder.append(" Name of expenditure: ").append(name));
             this.budget.ifPresent(budget -> builder.append(" Total Budget: ").append(budget));
+            this.dayNumber.ifPresent(dayNumber -> builder.append(" Day ").append(dayNumber));
 
             return builder.toString();
         }

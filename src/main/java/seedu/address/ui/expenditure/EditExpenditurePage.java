@@ -14,8 +14,7 @@ import seedu.address.ui.components.form.DoubleFormItem;
 import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.template.Page;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * WARNING INCOMEPLETE: TODO: FIELDS FOR INVENTORY AND BOOKING.
@@ -25,7 +24,8 @@ public class EditExpenditurePage extends Page<AnchorPane> {
     private static final String FXML = "expenses/EditExpenditurePage.fxml";
 
     private TextFormItem expenditureNameFormItem;
-    private DoubleFormItem expenditureAmountItem;
+    private DoubleFormItem expenditureAmountFormItem;
+    private TextFormItem expenditureDayFormItem;
 
     @javafx.fxml.FXML
     private VBox formItemsPlaceholder;
@@ -52,7 +52,9 @@ public class EditExpenditurePage extends Page<AnchorPane> {
         currentEditDescriptor.getName().ifPresent(name ->
                 expenditureNameFormItem.setValue(name.toString()));
         currentEditDescriptor.getBudget().ifPresent(budget ->
-                expenditureAmountItem.setValue(budget.value));
+                expenditureAmountFormItem.setValue(budget.value));
+        currentEditDescriptor.getDayNumber().ifPresent(dayNumber ->
+                expenditureDayFormItem.setValue(dayNumber.toString()));
     }
 
     /**
@@ -65,16 +67,21 @@ public class EditExpenditurePage extends Page<AnchorPane> {
                     EditExpenditureFieldCommand.COMMAND_WORD
                             + " " + PREFIX_NAME + nameFormValue);
         });
-        expenditureAmountItem = new DoubleFormItem("Total amount : ", totalBudget -> {
+        expenditureAmountFormItem = new DoubleFormItem("Total amount : ", totalBudget -> {
             mainWindow.executeGuiCommand(EditExpenditureFieldCommand.COMMAND_WORD
                     + " " + PREFIX_BUDGET + totalBudget);
+        });
+        expenditureDayFormItem = new TextFormItem("Day Number : ", dayNumber -> {
+            mainWindow.executeGuiCommand(EditExpenditureFieldCommand.COMMAND_WORD
+                    + " " + PREFIX_DAY_NUMBER + dayNumber);
         });
 
         fillPage(); //update and overwrite with existing edit descriptor
 
         formItemsPlaceholder.getChildren().addAll(
                 expenditureNameFormItem.getRoot(),
-                expenditureAmountItem.getRoot());
+                expenditureAmountFormItem.getRoot(),
+                expenditureDayFormItem.getRoot());
     }
 
     @FXML

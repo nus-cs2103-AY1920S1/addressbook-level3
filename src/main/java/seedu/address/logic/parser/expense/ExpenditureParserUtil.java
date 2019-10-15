@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.expense;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.expenditure.DayNumber;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Name;
 
@@ -39,6 +40,21 @@ public abstract class ExpenditureParserUtil {
             throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
         }
         return new Budget(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String dayNumber} into a {@code DayNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the {@code DayNumber} is invalid.
+     */
+    public static DayNumber parseDayNumber(String dayNumber) throws ParseException {
+        requireNonNull(dayNumber);
+        String trimmedDayNumber = dayNumber.trim();
+        if (!DayNumber.isValidDayNumber(trimmedDayNumber)) {
+            throw new ParseException(DayNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new DayNumber(trimmedDayNumber);
     }
 
 }

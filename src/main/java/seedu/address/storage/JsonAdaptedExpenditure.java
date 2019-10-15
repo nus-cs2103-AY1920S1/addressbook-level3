@@ -3,9 +3,12 @@ package seedu.address.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.expenditure.DayNumber;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Name;
+
+import java.util.Optional;
 
 /**
  * Jackson friendly version of {@code Expenditure}.
@@ -15,15 +18,19 @@ public class JsonAdaptedExpenditure {
 
     private final String name;
     private final Double budget;
+    private final Optional<String> dayNumber;
 
     /**
      * Constructs a {@code JsonAdaptedExpenditure} with the given Expenditure details.
      */
     @JsonCreator
     public JsonAdaptedExpenditure(@JsonProperty("name") String name,
-                                  @JsonProperty("budget") Double budget) {
+                                  @JsonProperty("budget") Double budget,
+                                  @JsonProperty("dayNumber") Optional<String> dayNumber) {
         this.name = name;
         this.budget = budget;
+        this.dayNumber = dayNumber;
+
     }
 
     /**
@@ -32,6 +39,11 @@ public class JsonAdaptedExpenditure {
     public JsonAdaptedExpenditure(Expenditure source) {
         this.name = source.getName().fullName;
         this.budget = source.getBudget().value;
+        if (source.getDayNumber().isPresent()) {
+            this.dayNumber = Optional.of(source.getDayNumber().get().value);
+        } else {
+            this.dayNumber = Optional.empty();
+        }
     }
 
     /**
@@ -58,9 +70,17 @@ public class JsonAdaptedExpenditure {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
 
+        final Optional<DayNumber> modelDayNumber;
+
+        if (dayNumber.isPresent()) {
+            modelDayNumber = Optional.of(new DayNumber(dayNumber.get()));
+        } else {
+            modelDayNumber = Optional.empty();
+        }
+
         final Name modelName = new Name(name);
         final Budget modelTotalBudget = new Budget(budget);
 
-        return new Expenditure(modelName, modelTotalBudget);
+        return new Expenditure(modelName, modelTotalBudget, modelDayNumber);
     }
 }

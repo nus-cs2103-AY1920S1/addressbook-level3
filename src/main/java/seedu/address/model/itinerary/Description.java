@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Generic abstraction of a description for various abstractions.
  */
-public class      Description {
+public class Description {
     public static final String MESSAGE_CONSTRAINTS = "Description can take any values, and it should not be blank";
 
     /*

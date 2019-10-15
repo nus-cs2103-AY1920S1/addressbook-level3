@@ -16,13 +16,31 @@ public class Expenditure {
     private final Name name;
     private final Budget budget;
 
+    // Optional fields
+    private final DayNumber dayNumber;
+
     /**
      * Constructs an {@code Expenditure}.
      */
-    public Expenditure(Name name, Budget budget) {
-        requireAllNonNull(name, budget);
+    public Expenditure(Name name, Budget budget, DayNumber dayNumber) {
+        requireAllNonNull(name, budget, dayNumber);
         this.name = name;
         this.budget = budget;
+        this.dayNumber = dayNumber;
+    }
+
+    /**
+     * Constructs an expenditure with optional dayNumber field.
+     */
+    public Expenditure(Name name, Budget budget, Optional<DayNumber> dayNumber) {
+        requireAllNonNull(name, budget, dayNumber);
+        this.name = name;
+        this.budget = budget;
+        if (dayNumber.isPresent()) {
+            this.dayNumber = dayNumber.get();
+        } else {
+            this.dayNumber = null;
+        }
     }
 
 
@@ -32,4 +50,8 @@ public class Expenditure {
     public Budget getBudget() {
         return budget;
     }
+    public Optional<DayNumber> getDayNumber() {
+        return Optional.ofNullable(dayNumber);
+    }
+
 }
