@@ -230,10 +230,12 @@ public class ModelManager implements Model {
         return true;
     }
 
+    @Override
     public void renameUeInSemester(SemesterName semesterName, String moduleCode) {
         // TODO: UE implementation
     }
 
+    @Override
     public void blockSemester(SemesterName sem, String reason) {
         // TODO: blockSemester in StudyPlan class
         // this.modulePlanner.getActiveStudyPlan().blockSemester(semester);

@@ -9,6 +9,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.semester.SemesterName;
 
+/**
+ * Names a UE from a given semester, e.g. UE -> GER1000
+ */
 public class NameUeFromSemesterCommand extends Command {
     public static final String COMMAND_WORD = "nameue";
     public static final String MESSAGE_USAGE = COMMAND_WORD

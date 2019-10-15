@@ -9,6 +9,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.semester.SemesterName;
 
+/**
+ * Sets a semester as the current semester
+ */
 public class SetCurrentSemesterCommand extends Command {
     public static final String COMMAND_WORD = "setcurrent";
     public static final String MESSAGE_USAGE = COMMAND_WORD

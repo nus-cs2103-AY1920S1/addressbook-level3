@@ -14,6 +14,9 @@ import seedu.address.model.tag.UserTag;
 import seedu.address.model.tag.exceptions.InvalidTagModificationException;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
+/**
+ * Renames a tag
+ */
 public class RenameTagCommand extends Command {
 
     public static final String COMMAND_WORD = "renametag";
@@ -52,15 +55,15 @@ public class RenameTagCommand extends Command {
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
         UniqueTagList uniqueTagList = activeStudyPlan.getTags();
 
-        Tag toRename;
+        UserTag toRename;
         try {
-            toRename = getTagToRename(uniqueTagList);
+            toRename = (UserTag) getTagToRename(uniqueTagList);
         } catch (TagNotFoundException e1) {
             throw new CommandException(MESSAGE_TAG_NOT_FOUND);
         } catch (InvalidTagModificationException e2) {
             throw new CommandException(MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);
         }
-        ((UserTag) toRename).rename(newTagName);
+        toRename.rename(newTagName);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toRename));
     }

@@ -52,6 +52,9 @@ public class StudyPlanCommitManagerList {
         studyPlanCommitManagers.add(manager);
     }
 
+    /**
+     * Method to check whether or not the manager already exists
+     */
     public boolean managerAlreadyExists(StudyPlan studyPlan) {
         for (StudyPlanCommitManager manager : studyPlanCommitManagers) {
             if (manager.getStudyPlanIndex() == studyPlan.getIndex()) {
