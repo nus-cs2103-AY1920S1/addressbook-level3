@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.game.Game;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 
@@ -80,6 +81,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCardList();
+
+    /** Returns an unmodifiable view of the filtered card list */
+    ObservableList<WordBank> getFilteredWordBankList();
 
     /**
      * Updates the filter of the filtered card list to filter by the given {@code predicate}.

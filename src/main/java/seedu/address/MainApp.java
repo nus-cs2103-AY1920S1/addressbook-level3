@@ -120,10 +120,10 @@ public class MainApp extends Application {
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleWordBank);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty WordBank");
-            initialData = new WordBank("SAMPLE_ID"); //todo this should not start any word bank
+            initialData = new WordBank("Empty WordBank", "sample-id"); //todo this should not start any word bank
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty WordBank");
-            initialData = new WordBank("SAMPLE_ID"); //todo this should not start any word bank
+            initialData = new WordBank("Empty WordBank", "sample-id");
         }
 
         return new ModelManager(initialData, userPrefs);

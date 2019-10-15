@@ -35,14 +35,7 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
-            CommandResult commandResult = commandExecutor.execute(commandTextField.getText());
-            commandTextField.setText("");
-
-            if (commandResult.isPromptingGuess()) {
-                commandTextField.setText("guess ");
-                commandTextField.positionCaret(6);
-            }
-
+            commandExecutor.execute(commandTextField.getText());
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
@@ -79,6 +72,15 @@ public class CommandBox extends UiPart<Region> {
          * @see seedu.address.logic.Logic#execute(String)
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
+    }
+
+    void clearCommandBox() {
+        commandTextField.setText("");
+    }
+
+    void setGuessTextAndCaret() {
+        commandTextField.setText("guess ");
+        commandTextField.positionCaret(6);
     }
 
 }

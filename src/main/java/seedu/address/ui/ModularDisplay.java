@@ -25,7 +25,7 @@ public class ModularDisplay {
      * @param gameManager GameManager who will render lists.
      */
     public ModularDisplay(GameManager gameManager) {
-        loadBankPanel = new LoadBankPanel(gameManager.getLogic().getFilteredPersonList());
+        loadBankPanel = new LoadBankPanel(gameManager.getFilteredWordBankList());
         cardListPanel = new CardListPanel(gameManager.getFilteredPersonList());
         titleScreenPanel = new TitleScreenPanel();
     }

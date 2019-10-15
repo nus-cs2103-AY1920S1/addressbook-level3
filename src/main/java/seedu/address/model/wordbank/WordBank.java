@@ -30,15 +30,16 @@ public class WordBank implements ReadOnlyWordBank {
         cards = new UniqueCardList();
     }
 
-    public WordBank(String id) {
+    public WordBank(String name, String id) {
+        this.name = name;
         this.id = id;
     }
 
     /**
      * Creates a WordBank using the Cards in the {@code toBeCopied}
      */
-    public WordBank(ReadOnlyWordBank toBeCopied) {
-        this(toBeCopied.getId());
+    public WordBank(ReadOnlyWordBank toBeCopied, String name) {
+        this(name, toBeCopied.getId());
         resetData(toBeCopied);
     }
 

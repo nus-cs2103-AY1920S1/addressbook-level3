@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
+import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 
@@ -23,8 +24,10 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final WordBank wordBank;
+    private final WordBankList wordBankList;
     private final UserPrefs userPrefs;
     private final FilteredList<Card> filteredCards;
+    private final FilteredList<WordBank> filteredWordBanks;
 
     //Placeholder game model
     private Game game = null;
@@ -38,13 +41,16 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with word bank: " + wordBank + " and user prefs " + userPrefs);
 
-        this.wordBank = new WordBank(wordBank);
+        this.wordBank = new WordBank(wordBank, wordBank.getName());
+        this.wordBankList = new WordBankList();
+
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        filteredWordBanks = new FilteredList<>(this.wordBankList.getWordBankList());
     }
 
     public ModelManager() {
-        this(new WordBank("sample-id"), new UserPrefs());
+        this(new WordBank("Empty WordBank", "sample-id"), new UserPrefs());
     }
 
     // Placeholder setGame method
@@ -136,6 +142,15 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Card> getFilteredCardList() {
         return filteredCards;
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
+     * {@code versionedAddressBook} // todo what is this versionedAddressBook?
+     */
+    @Override
+    public ObservableList<WordBank> getFilteredWordBankList() {
+        return filteredWordBanks;
     }
 
     @Override

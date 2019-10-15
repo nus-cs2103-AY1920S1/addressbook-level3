@@ -43,8 +43,8 @@ public class GameTimer implements Runnable {
      * Aborts the current timer even if it has not finished running.
      */
     public void abortTimer() {
-        this.timer.cancel();
         cancelled = true;
+        this.timer.cancel();
         timerDisplayCallBack.updateTimerDisplay("", 0);
     }
 

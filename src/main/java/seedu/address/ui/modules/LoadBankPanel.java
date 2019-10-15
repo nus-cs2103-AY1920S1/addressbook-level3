@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.ui.UiPart;
 
 /**
@@ -19,9 +20,9 @@ public class LoadBankPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(LoadBankPanel.class);
 
     @FXML
-    private ListView<Card> loadBankView;
+    private ListView<WordBank> loadBankView;
 
-    public LoadBankPanel(ObservableList<Card> wordBankList) {
+    public LoadBankPanel(ObservableList<WordBank> wordBankList) {
         super(FXML);
         loadBankView.setItems(wordBankList);
         loadBankView.setCellFactory(listView -> new LoadBankViewCell());
@@ -30,16 +31,16 @@ public class LoadBankPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Card} using a {@code CardCard}.
      */
-    class LoadBankViewCell extends ListCell<Card> {
+    class LoadBankViewCell extends ListCell<WordBank> {
         @Override
-        protected void updateItem(Card card, boolean empty) {
-            super.updateItem(card, empty);
+        protected void updateItem(WordBank wordBank, boolean empty) {
+            super.updateItem(wordBank, empty);
 
-            if (empty || card == null) {
+            if (empty || wordBank == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new WordBankCard(card, getIndex() + 1).getRoot());
+                setGraphic(new WordBankCard(wordBank, getIndex() + 1).getRoot());
             }
         }
     }

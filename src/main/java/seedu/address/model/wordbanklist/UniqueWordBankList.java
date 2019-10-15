@@ -38,7 +38,6 @@ public class UniqueWordBankList implements Iterable<WordBank> {
         return internalList.stream().anyMatch(toCheck::isSameMeaning);
     }
 
-
     /**
      * Adds a card to the list.
      * The card must not exist in the list.

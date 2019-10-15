@@ -123,6 +123,12 @@ public class WordBankList implements ReadOnlyWordBankList {
 
     @Override
     public WordBank getWordBank(Index index) {
+//        for (WordBank wb : wordBankList) {
+//            if (wb.getName() == name) {
+//                return wb;
+//            }
+//        }
+//        return null;
         return wordBankList.get(index);
     }
 
