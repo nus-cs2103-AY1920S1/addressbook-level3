@@ -18,7 +18,7 @@ public class JsonAdaptedWeight<Float> extends JsonAdaptedExerciseDetail {
      */
     @JsonCreator
     public JsonAdaptedWeight(float magnitude, WeightUnit unit){
-        super(magnitude);
+        this.magnitude = magnitude;
         this.unit = unit.toString();
     }
 
@@ -26,14 +26,14 @@ public class JsonAdaptedWeight<Float> extends JsonAdaptedExerciseDetail {
      * Converts a given {@code Weight} into this class for Jackson use.
      */
     public JsonAdaptedWeight(Weight source) {
-        super(source);
+        this.magnitude = source.getMagnitude();
         this.unit = source.getUnit().toString();
     }
 
-    @JsonValue
-    public String getUnit() {
-        return unit;
-    }
+//    @JsonValue
+//    public String getUnit() {
+//        return unit;
+//    }
 
     /**
      * Converts this Jackson-friendly adapted tag object into the model's {@code ExerciseDetail} object.
@@ -45,6 +45,6 @@ public class JsonAdaptedWeight<Float> extends JsonAdaptedExerciseDetail {
             throw new IllegalValueException(ExerciseDetail.MESSAGE_CONSTRAINTS);
         }
         WeightUnit modelUnit = ParserUtil.parseWeightUnit(unit);
-        return new Weight((java.lang.Float) super.getMagnitude(), modelUnit);
+        return new Weight((java.lang.Float) magnitude, modelUnit);
     }
 }

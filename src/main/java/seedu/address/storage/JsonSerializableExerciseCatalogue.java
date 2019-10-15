@@ -19,16 +19,16 @@ import seedu.address.model.exercise.Exercise;
 @JsonRootName(value = "exercisecatalogue")
 class JsonSerializableExerciseCatalogue {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Exercises list contains duplicate person(s).";
 
-    private final List<JsonAdaptedExercise> persons = new ArrayList<>();
+    private final List<JsonAdaptedExercise> exercises = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableExerciseCatalogue} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableExerciseCatalogue(@JsonProperty("persons") List<JsonAdaptedExercise> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableExerciseCatalogue(@JsonProperty("persons") List<JsonAdaptedExercise> exercises) {
+        this.exercises.addAll(exercises);
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonSerializableExerciseCatalogue {
     * @param source future changes to this will not affect the created {@code JsonSerializableExerciseCatalogue}.
     */
     public JsonSerializableExerciseCatalogue(ReadOnlyDukeCooks source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedExercise::new).collect(Collectors.toList()));
+        exercises.addAll(source.getPersonList().stream().map(JsonAdaptedExercise::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,7 +47,7 @@ class JsonSerializableExerciseCatalogue {
     */
     public DukeCooks toModelType() throws IllegalValueException {
         DukeCooks dukeCooks = new DukeCooks();
-        for (JsonAdaptedExercise jsonAdaptedExercise : persons) {
+        for (JsonAdaptedExercise jsonAdaptedExercise : exercises) {
             Exercise exercise = jsonAdaptedExercise.toModelType();
             if (dukeCooks.hasPerson(exercise)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);

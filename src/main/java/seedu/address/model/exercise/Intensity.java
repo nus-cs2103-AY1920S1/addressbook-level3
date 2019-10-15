@@ -9,7 +9,7 @@ public enum Intensity {
             "Intensity should only include the integers 1, 2, 3 or strings low, medium and high"
                     + " and should not be blank";
 
-    public static final String VALIDATION_REGEX = "\b(1|2|3|low|medium|high)\b";
+    public static final String VALIDATION_REGEX = "(1|2|3|low|medium|high)";
 
     public static boolean isValidIntensity(String test) {
         return test.matches(VALIDATION_REGEX);

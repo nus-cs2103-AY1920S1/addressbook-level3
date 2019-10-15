@@ -13,7 +13,7 @@ public class JsonAdaptedSets<Integer> extends JsonAdaptedExerciseDetail {
      */
     @JsonCreator
     public JsonAdaptedSets(int magnitude){
-        super(magnitude);
+        this.magnitude = magnitude;
     }
 
     /**
@@ -21,7 +21,7 @@ public class JsonAdaptedSets<Integer> extends JsonAdaptedExerciseDetail {
      * @param source
      */
     public JsonAdaptedSets(Sets source) {
-        super(source);
+        this.magnitude = source.getMagnitude();
     }
 
     /**
@@ -30,7 +30,7 @@ public class JsonAdaptedSets<Integer> extends JsonAdaptedExerciseDetail {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public ExerciseDetail toModelType() {
-        return new Sets((java.lang.Integer) super.getMagnitude());
+        return new Sets((java.lang.Integer) magnitude);
     }
 
 }

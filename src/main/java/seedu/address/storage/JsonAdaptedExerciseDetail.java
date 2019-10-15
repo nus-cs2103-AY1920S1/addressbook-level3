@@ -11,27 +11,7 @@ import seedu.address.model.details.ExerciseDetail;
  */
 abstract class JsonAdaptedExerciseDetail<T> {
 
-    private final T magnitude;
-
-    /**
-     * Constructs a {@code JsonAdaptedExerciseDetail} with the given {@code magnitude}.
-     */
-    @JsonCreator
-    public JsonAdaptedExerciseDetail(T magnitude) {
-        this.magnitude = magnitude;
-    }
-
-    /**
-     * Converts a given {@code ExerciseDetail} into this class for Jackson use.
-     */
-    public JsonAdaptedExerciseDetail(ExerciseDetail source) {
-        magnitude = (T) source.getMagnitude();
-    }
-
-    @JsonValue
-    public T getMagnitude() {
-        return magnitude;
-    }
+    protected T magnitude;
 
     /**
      * Converts this Jackson-friendly adapted tag object into the model's {@code ExerciseDetail} object.

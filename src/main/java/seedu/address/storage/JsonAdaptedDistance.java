@@ -18,7 +18,7 @@ public class JsonAdaptedDistance<Float> extends JsonAdaptedExerciseDetail {
      */
     @JsonCreator
     public JsonAdaptedDistance(float magnitude, DistanceUnit unit){
-        super(magnitude);
+        this.magnitude = magnitude;
         this.unit = unit.toString();
     }
 
@@ -26,14 +26,14 @@ public class JsonAdaptedDistance<Float> extends JsonAdaptedExerciseDetail {
      * Converts a given {@code Distance} into this class for Jackson use.
      */
     public JsonAdaptedDistance(Distance source) {
-        super(source);
+        this.magnitude = source.getMagnitude();
         this.unit = source.getUnit().toString();
     }
 
-    @JsonValue
-    public String getUnit() {
-        return unit;
-    }
+//    @JsonValue
+//    public String getUnit() {
+//        return unit;
+//    }
 
     /**
      * Converts this Jackson-friendly adapted tag object into the model's {@code ExerciseDetails} object.
@@ -45,6 +45,6 @@ public class JsonAdaptedDistance<Float> extends JsonAdaptedExerciseDetail {
             throw new IllegalValueException(ExerciseDetail.MESSAGE_CONSTRAINTS);
         }
         DistanceUnit modelUnit = ParserUtil.parseDistanceUnit(unit);
-        return new Distance((java.lang.Float) super.getMagnitude(), modelUnit);
+        return new Distance((java.lang.Float) magnitude, modelUnit);
     }
 }

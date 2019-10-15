@@ -27,10 +27,9 @@
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <FlowPane fx:id="exerciseDetails" />
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+      <FlowPane fx:id="details" />
+      <Label fx:id="primaryMuscle" styleClass="cell_small_label" text="\$primaryMuscle" />
+      <Label fx:id="intensity" styleClass="cell_small_label" text="\$intensity" />
     </VBox>
   </GridPane>
 </HBox>

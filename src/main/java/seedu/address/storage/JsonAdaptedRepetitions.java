@@ -13,7 +13,7 @@ public class JsonAdaptedRepetitions<Integer> extends JsonAdaptedExerciseDetail {
      */
     @JsonCreator
     public JsonAdaptedRepetitions(int magnitude){
-        super(magnitude);
+        this.magnitude = magnitude;
     }
 
     /**
@@ -21,7 +21,7 @@ public class JsonAdaptedRepetitions<Integer> extends JsonAdaptedExerciseDetail {
      * @param source
      */
     public JsonAdaptedRepetitions(Repetitions source) {
-        super(source);
+        this.magnitude = source.getMagnitude();
     }
 
     /**
@@ -30,7 +30,7 @@ public class JsonAdaptedRepetitions<Integer> extends JsonAdaptedExerciseDetail {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public ExerciseDetail toModelType() {
-        return new Repetitions((java.lang.Integer) super.getMagnitude());
+        return new Repetitions((java.lang.Integer) magnitude);
     }
 
 }

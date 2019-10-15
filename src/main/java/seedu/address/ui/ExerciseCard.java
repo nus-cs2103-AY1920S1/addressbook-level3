@@ -1,20 +1,22 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.Set;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.details.ExerciseDetail;
 import seedu.address.model.exercise.Exercise;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class PersonCard extends UiPart<Region> {
+public class ExerciseCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "ExerciseListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -31,18 +33,24 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label primaryMuscle;
+    @FXML
     private Label id;
     @FXML
-    private FlowPane tags;
+    private Label intensity;
+    @FXML
+    private FlowPane details;
 
-    public PersonCard(Exercise exercise, int displayedIndex) {
+    public ExerciseCard(Exercise exercise, int displayedIndex) {
         super(FXML);
         this.exercise = exercise;
         id.setText(displayedIndex + ". ");
         name.setText(exercise.getName().fullName);
+        primaryMuscle.setText("Primary Muscle: " + exercise.getMusclesTrained().getPrimaryMuscle());
+        intensity.setText("Intensity: "+ exercise.getIntensity().toString());
         exercise.getExerciseDetails().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .sorted(Comparator.comparing(detail -> detail.toString()))
+                .forEach(detail -> details.getChildren().add(new Label(detail.toString())));
     }
 
     @Override
@@ -53,12 +61,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof ExerciseCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        ExerciseCard card = (ExerciseCard) other;
         return id.getText().equals(card.id.getText())
                 && exercise.equals(card.exercise);
     }

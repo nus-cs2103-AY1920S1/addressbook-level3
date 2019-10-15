@@ -102,7 +102,7 @@ public class Exercise {
                 .append(getMusclesTrained())
                 .append(" Intensity: ")
                 .append(getIntensity())
-                .append(" Tags: ");
+                .append(" Details: ");
         getExerciseDetails().forEach(builder::append);
         return builder.toString();
     }

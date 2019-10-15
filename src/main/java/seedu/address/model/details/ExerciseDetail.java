@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public abstract class ExerciseDetail<T> {
 
-    public static final String MESSAGE_CONSTRAINTS = "Exercise detail should be alphanumeric and have only one magnitude";
-    private static final String VALIDATION_REGEX = "\\p{Alnum}+{ ?}";
+    public static final String MESSAGE_CONSTRAINTS = "Exercise detail should be alphanumeric and have at most one magnitude";
+    private static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     protected T magnitude;
 
