@@ -90,9 +90,19 @@ public class ReminderAssociation {
      */
     public ObservableList<Reminder> getReminderList() {
         ObservableList<Reminder> reminderList = FXCollections.observableArrayList();
-        reminderList.addAll(association.values()); 
+        reminderList.addAll(association.values());
         reminderList.sort(comparator);
         return reminderList;
+    }
+
+    /**
+     * Checks if the bookmark already has reminder.
+     *
+     * @param bookmark the bookmark to check.
+     * @return whether the bookmark already has a reminder.
+     */
+    public boolean isBookmarkHasReminder(Bookmark bookmark){
+        return association.containsKey(bookmark);
     }
 
     @Override

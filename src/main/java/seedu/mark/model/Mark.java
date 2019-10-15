@@ -206,6 +206,16 @@ public class Mark implements ReadOnlyMark {
                 && folderStructure.equals(((Mark) other).folderStructure));
     }
 
+    /**
+     * Checks if the bookmark already has reminder.
+     *
+     * @param bookmark the bookmark to check.
+     * @return whether the bookmark already has a reminder.
+     */
+    public boolean isBookmarkHasReminder(Bookmark bookmark){
+        return reminderAssociation.isBookmarkHasReminder(bookmark);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(bookmarks, folderStructure);

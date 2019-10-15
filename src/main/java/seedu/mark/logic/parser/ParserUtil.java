@@ -2,6 +2,8 @@ package seedu.mark.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +15,7 @@ import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
+import seedu.mark.model.reminder.Note;
 import seedu.mark.model.tag.Tag;
 
 /**
@@ -21,6 +24,9 @@ import seedu.mark.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -125,5 +131,53 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String note} into a {@code Note}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code note} is invalid.
+     */
+    public static Note parseNote(String note) throws ParseException {
+        requireNonNull(note);
+        String trimmedNote = note.trim();
+
+        if (!Note.isValidNote(note)) {
+            throw new ParseException(Note.MESSAGE_CONSTRAINTS);
+        }
+        return new Note(trimmedNote);
+    }
+
+    /**
+     * Parses a {@code String time} into a {@code LocalDateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static LocalDateTime parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        LocalDateTime getTime;
+
+        try {
+            getTime = LocalDateTime.parse(trimmedTime, formatter);
+        } catch (Exception e) {
+            throw new ParseException("Time formatting wrong.");
+        }
+
+        return getTime;
+    }
+
+    /**
+     * Parses to get the formatted time from {@code time}.
+     *
+     * @param time the time to parse.
+     * @return the formatted time.
+     */
+    public static String getFormattedTime(LocalDateTime time) {
+        requireNonNull(time);
+        String formatTime = time.format(formatter);
+        return formatTime;
     }
 }

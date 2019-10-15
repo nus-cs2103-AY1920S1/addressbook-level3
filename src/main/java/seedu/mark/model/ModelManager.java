@@ -279,6 +279,16 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Checks if the bookmark already has reminder.
+     *
+     * @param bookmark the bookmark to check.
+     * @return whether the bookmark already has a reminder.
+     */
+    public boolean isBookmarkHasReminder(Bookmark bookmark){
+        return versionedMark.isBookmarkHasReminder(bookmark);
+    }
+
+    /**
      * Gets all reminders in ascending time order.
      *
      * @return a list of all reminders in ascending time order.

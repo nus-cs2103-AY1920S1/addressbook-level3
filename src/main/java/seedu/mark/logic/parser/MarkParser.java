@@ -6,22 +6,7 @@ import static seedu.mark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.mark.logic.commands.AddCommand;
-import seedu.mark.logic.commands.AddFolderCommand;
-import seedu.mark.logic.commands.ClearCommand;
-import seedu.mark.logic.commands.Command;
-import seedu.mark.logic.commands.DeleteCommand;
-import seedu.mark.logic.commands.EditCommand;
-import seedu.mark.logic.commands.ExitCommand;
-import seedu.mark.logic.commands.ExportCommand;
-import seedu.mark.logic.commands.FindCommand;
-import seedu.mark.logic.commands.GotoCommand;
-import seedu.mark.logic.commands.HelpCommand;
-import seedu.mark.logic.commands.ImportCommand;
-import seedu.mark.logic.commands.ListCommand;
-import seedu.mark.logic.commands.RedoCommand;
-import seedu.mark.logic.commands.TabCommand;
-import seedu.mark.logic.commands.UndoCommand;
+import seedu.mark.logic.commands.*;
 import seedu.mark.logic.parser.exceptions.ParseException;
 
 /**
@@ -95,6 +80,9 @@ public class MarkParser {
 
         case AddFolderCommand.COMMAND_WORD:
             return new AddFolderCommandParser().parse(arguments);
+
+        case AddReminderCommand.COMMAND_WORD:
+            return new AddReminderParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
