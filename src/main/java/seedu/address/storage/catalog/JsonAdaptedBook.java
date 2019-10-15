@@ -1,6 +1,6 @@
 package seedu.address.storage.catalog;
 
-import static seedu.address.storage.loanrecords.JsonLoanRecordsStorage.LOAN_ID_DOES_NOT_EXISTS;
+import static seedu.address.commons.core.Messages.MESSAGE_LOAN_ID_DOES_NOT_EXISTS;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -127,7 +127,7 @@ public class JsonAdaptedBook {
             LoanId loanId = new LoanId(loan);
             modelLoan = initialLoanRecords.getLoansMap().get(loanId);
             if (modelLoan == null) {
-                throw new IllegalValueException(String.format(LOAN_ID_DOES_NOT_EXISTS, loanId));
+                throw new IllegalValueException(String.format(MESSAGE_LOAN_ID_DOES_NOT_EXISTS, loanId));
             }
         }
 

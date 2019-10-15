@@ -19,8 +19,6 @@ import seedu.address.model.ReadOnlyLoanRecords;
  */
 public class JsonLoanRecordsStorage implements LoanRecordsStorage {
 
-    public static final String LOAN_ID_DOES_NOT_EXISTS = "LoanId %s does not exists in LoanRecords!";
-
     private static final Logger logger = LogsCenter.getLogger(JsonLoanRecordsStorage.class);
 
     private Path filePath;

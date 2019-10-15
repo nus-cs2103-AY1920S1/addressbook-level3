@@ -18,5 +18,6 @@ public class Messages {
 
     public static final String MESSAGE_NOT_IN_SERVE_MODE = "Not in Serve mode! Enter Serve mode to use this command!";
     public static final String MESSAGE_BOOK_ON_LOAN = "%1$s is already on loan!";
+    public static final String MESSAGE_LOAN_ID_DOES_NOT_EXISTS = "LoanId %s does not exists in LoanRecords!";
 
 }
