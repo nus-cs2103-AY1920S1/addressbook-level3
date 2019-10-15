@@ -2,6 +2,7 @@ package thrift.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import thrift.logic.parser.CliSyntax;
 import thrift.model.Model;
 
 /**
@@ -13,6 +14,12 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all transactions";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": lists all transactions or list transactions filtered by month or tag.\n"
+            + "Parameters: "
+            + CliSyntax.PREFIX_MONTH + "MONTH (must be of format MMM)\n"
+            + CliSyntax.PREFIX_TAG + "TAG...\n"
+            + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_MONTH + "JAN";
 
     @Override
     public CommandResult execute(Model model) {
