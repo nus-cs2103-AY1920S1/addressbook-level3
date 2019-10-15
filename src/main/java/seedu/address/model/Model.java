@@ -5,7 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
+//import seedu.address.model.task.NameContainsKeywordsPredicate;
 
 /**
  * The API of the Model component.
@@ -13,6 +15,9 @@ import seedu.address.model.task.Task;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Member> PREDICATE_SHOW_ALL_MEMBERS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -35,22 +40,22 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' project dashboard file path.
      */
-    Path getAddressBookFilePath();
+    Path getProjectDashboardFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' project dashboard file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setProjectDashboardFilePath(Path projectDashboardFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code projectDashboard}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setProjectDashboard(ReadOnlyProjectDashboard projectDashboard);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the ProjectDashboard */
+    ReadOnlyProjectDashboard getProjectDashboard();
 
     /**
      * Returns true if a task with the same identity as {@code task} exists in the address book.
@@ -84,4 +89,38 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTasksList(Predicate<Task> predicate);
+
+    // MEMBER//
+    /**
+     * Returns true if a member with the same identity as {@code member} exists in the address book.
+     */
+    boolean hasMember(Member member);
+
+    /**
+     * Deletes the given member.
+     * The member must exist in the address book.
+     */
+    void deleteMember(Member member);
+
+    /**
+     * Adds the given member.
+     * {@code member} must not already exist in the address book.
+     */
+    void addMember(Member member);
+
+    /**
+     * Replaces the given task {@code target} with {@code editedMember}.
+     * {@code target} must exist in the address book.
+     * The member identity of {@code editedMember} must not be the same as another existing task in the address book.
+     */
+    void setMember(Member target, Member editedMember);
+
+    /** Returns an unmodifiable view of the filtered member list */
+    ObservableList<Member> getFilteredMembersList();
+
+    /**
+     * Updates the filter of the filtered task list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMembersList(Predicate<Member> predicate);
 }

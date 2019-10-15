@@ -11,7 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
+//import seedu.address.model.task.NameContainsKeywordsPredicate;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -19,27 +21,30 @@ import seedu.address.model.task.Task;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final ProjectDashboard projectDashboard;
     private final UserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Member> filteredMembers;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given projectDashboard and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyProjectDashboard projectDashboard, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(projectDashboard, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + projectDashboard + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.projectDashboard = new ProjectDashboard(projectDashboard);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        filteredTasks = new FilteredList<>(this.projectDashboard.getTaskList());
+        filteredMembers = new FilteredList<>(this.projectDashboard.getMemberList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ProjectDashboard(), new UserPrefs());
     }
+
 
     //=========== UserPrefs ==================================================================================
 
@@ -66,42 +71,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getProjectDashboardFilePath() {
+        return userPrefs.getProjectDashboardFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setProjectDashboardFilePath(Path projectDashboardFilePath) {
+        requireNonNull(projectDashboardFilePath);
+        userPrefs.setProjectDashboardFilePath(projectDashboardFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== ProjectDashboard ================================================================================
 
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+
+    public void setProjectDashboard(ReadOnlyProjectDashboard projectDashboard) {
+        this.projectDashboard.resetData(projectDashboard);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyProjectDashboard getProjectDashboard() {
+        return projectDashboard;
     }
 
     @Override
     public boolean hasTask(Task task) {
         requireNonNull(task);
-        return addressBook.hasTask(task);
+        return projectDashboard.hasTask(task);
     }
 
     @Override
     public void deleteTask(Task target) {
-        addressBook.removeTask(target);
+        projectDashboard.removeTask(target);
     }
 
     @Override
     public void addTask(Task task) {
-        addressBook.addTask(task);
+        projectDashboard.addTask(task);
         updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
     }
 
@@ -109,7 +114,7 @@ public class ModelManager implements Model {
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
-        addressBook.setTask(target, editedTask);
+        projectDashboard.setTask(target, editedTask);
     }
 
     //=========== Filtered Task List Accessors =============================================================
@@ -143,9 +148,52 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return projectDashboard.equals(other.projectDashboard)
                 && userPrefs.equals(other.userPrefs)
-                && filteredTasks.equals(other.filteredTasks);
+                && filteredTasks.equals(other.filteredTasks)
+                && filteredMembers.equals(other.filteredMembers);
+    }
+
+    //=========== ProjectDashboard (member) ===============================================
+
+    @Override
+    public boolean hasMember(Member member) {
+        requireNonNull(member);
+        return projectDashboard.hasMember(member);
+    }
+
+    @Override
+    public void deleteMember(Member target) {
+        projectDashboard.removeMember(target);
+    }
+
+    @Override
+    public void addMember(Member member) {
+        projectDashboard.addMember(member);
+        updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
+    }
+
+    @Override
+    public void setMember(Member target, Member editedMember) {
+        requireAllNonNull(target, editedMember);
+
+        projectDashboard.setMember(target, editedMember);
+    }
+
+    //=========== Filtered Task List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    public ObservableList<Member> getFilteredMembersList() {
+        return filteredMembers;
+    }
+
+    @Override
+    public void updateFilteredMembersList(Predicate<Member> predicate) {
+        requireNonNull(predicate);
+        filteredMembers.setPredicate(predicate);
     }
 
 }

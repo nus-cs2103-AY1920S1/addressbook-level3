@@ -29,6 +29,7 @@
       </HBox>
       <FlowPane fx:id="tags" />
       <Label fx:id="taskStatus" text="\$first" styleClass="label" />
+        <Label fx:id="deadline" text="\$first" styleClass="label" />
     </VBox>
   </GridPane>
 </HBox>
