@@ -1,6 +1,7 @@
 package seedu.ichifund.model;
 
 import org.junit.jupiter.api.Test;
+import seedu.ichifund.model.transaction.Amount;
 
 import static org.junit.jupiter.api.Assertions.*;
 

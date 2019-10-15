@@ -1,4 +1,4 @@
-package seedu.ichifund.model;
+package seedu.ichifund.model.transaction;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.AppUtil.checkArgument;

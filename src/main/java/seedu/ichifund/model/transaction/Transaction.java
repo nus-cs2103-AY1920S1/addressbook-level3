@@ -4,8 +4,6 @@ import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.ichifund.model.Amount;
-import seedu.ichifund.model.Description;
 import seedu.ichifund.model.date.Date;
 
 /**

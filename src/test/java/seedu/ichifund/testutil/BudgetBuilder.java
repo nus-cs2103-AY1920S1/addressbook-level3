@@ -1,7 +1,7 @@
 package seedu.ichifund.testutil;
 
-import seedu.ichifund.model.Amount;
-import seedu.ichifund.model.Description;
+import seedu.ichifund.model.transaction.Amount;
+import seedu.ichifund.model.transaction.Description;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;

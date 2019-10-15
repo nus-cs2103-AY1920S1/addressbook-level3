@@ -2,8 +2,8 @@ package seedu.ichifund.model.loans;
 
 import java.util.Date;
 
-import seedu.ichifund.model.Amount;
-import seedu.ichifund.model.Description;
+import seedu.ichifund.model.transaction.Amount;
+import seedu.ichifund.model.transaction.Description;
 import seedu.ichifund.model.person.Name;
 
 /**
