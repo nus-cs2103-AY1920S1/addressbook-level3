@@ -55,7 +55,7 @@ class JsonAdaptedRepeater {
      */
     public JsonAdaptedRepeater(Repeater source) {
         this.description = source.getDescription().toString();
-        this.amount = source.getAmount().toString().substring(1);
+        this.amount = source.getAmount().toString();
         this.category = source.getDescription().toString();
         this.transactionType = source.getTransactionType().toString();
         this.monthStartOffset = source.getMonthStartOffset().toString();
