@@ -23,18 +23,22 @@ public class ItemModelManager implements ItemModel {
     private VisualizeList visualList;
     private final UserPrefs userPrefs;
     private ItemStorage itemStorage;
+    private final ElisaStateHistory elisaStateHistory;
 
-    public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs) {
+    public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs, ElisaStateHistory elisaStateHistory) {
         this.taskList = new TaskList();
         this.eventList = new EventList();
         this.reminderList = new ReminderList();
         this.visualList = taskList;
         this.itemStorage = itemStorage;
         this.userPrefs = new UserPrefs(userPrefs);
+        this.elisaStateHistory = elisaStateHistory;
 
         for (int i = 0; i < itemStorage.size(); i++) {
             addToSeparateList(itemStorage.get(i));
         }
+
+        elisaStateHistory.pushCommand(new ElisaStateManager(getItemStorage(), getVisualList()).deepCopy());
     }
 
     @Override
@@ -116,6 +120,31 @@ public class ItemModelManager implements ItemModel {
 
         if (item.hasReminder()) {
             reminderList.add(item);
+        }
+    }
+
+    @Override
+    public void setState(ElisaStateManager state) {
+        setItemStorage(state.getStorage().deepCopy());
+        setVisualizeList(state.getVisualizeList().deepCopy());
+    }
+
+    @Override
+    public ElisaState getState() {
+        return new ElisaStateManager(getItemStorage().deepCopy(), getVisualList()).deepCopy();
+    }
+
+    @Override
+    public ElisaStateHistory getElisaStateHistory() {
+        return elisaStateHistory;
+    }
+
+    @Override
+    public void updateModelLists() {
+        ItemStorage itemStorage = getItemStorage().deepCopy();
+        emptyLists();
+        for (int i = 0; i < itemStorage.size(); i++) {
+            addToSeparateList(itemStorage.get(i));
         }
     }
 

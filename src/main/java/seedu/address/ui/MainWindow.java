@@ -177,13 +177,13 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isUndo()) {
-                logic.getElisaStateHistory().popCommand();
-                logic.setState((ElisaStateManager) logic.getElisaStateHistory().peekCommand().deepCopy());
+                logic.getModel().setState((ElisaStateManager)
+                        logic.getModel().getElisaStateHistory().peekCommand().deepCopy());
             } else {
-                logic.getElisaStateHistory().pushCommand(logic.getState().deepCopy());
+                logic.getModel().getElisaStateHistory().pushCommand(logic.getModel().getState().deepCopy());
             }
 
-            logic.updateModelLists();
+            logic.getModel().updateModelLists();
 
             taskListPanel = new TaskListPanel(logic.getVisualList());
             taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());

@@ -66,11 +66,11 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
-
         stateHistory = new ElisaStateHistoryManager();
 
-        logic = new LogicManager(model, storage, stateHistory);
+        model = initModelManager(storage, userPrefs, stateHistory);
+
+        logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
     }
@@ -80,7 +80,7 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private ItemModel initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private ItemModel initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, ElisaStateHistory stateHistory) {
         ItemStorage initialData;
         try {
             initialData = storage.toModelType();
@@ -92,7 +92,7 @@ public class MainApp extends Application {
             initialData = new ItemStorage();
         }
 
-        return new ItemModelManager(initialData, userPrefs);
+        return new ItemModelManager(initialData, userPrefs, stateHistory);
     }
 
     private void initLogging(Config config) {

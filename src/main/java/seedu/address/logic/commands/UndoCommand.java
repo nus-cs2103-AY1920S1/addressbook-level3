@@ -21,7 +21,9 @@ public class UndoCommand extends Command {
     public CommandResult execute(ItemModel model) throws CommandException {
         if (elisaStateHistory.size() <= 1) {
             throw new CommandException(Messages.MESSAGE_NOTHING_TO_UNDO);
+        } else {
+            elisaStateHistory.popCommand();
+            return new CommandResult("Undo successful!", true);
         }
-        return new CommandResult("Undo successful!", true);
     }
 }

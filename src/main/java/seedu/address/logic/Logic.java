@@ -6,9 +6,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ElisaState;
-import seedu.address.model.ElisaStateHistory;
-import seedu.address.model.ElisaStateManager;
+import seedu.address.model.ItemModel;
 import seedu.address.model.ItemStorage;
 import seedu.address.model.item.VisualizeList;
 
@@ -56,11 +54,5 @@ public interface Logic {
     //ObservableList<Person> getFilteredPersonList();
     VisualizeList getVisualList();
 
-    void setState(ElisaStateManager state);
-
-    ElisaState getState();
-
-    ElisaStateHistory getElisaStateHistory();
-
-    void updateModelLists();
+    ItemModel getModel();
 }

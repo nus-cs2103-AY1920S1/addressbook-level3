@@ -74,4 +74,12 @@ public interface ItemModel {
 
     public void addToSeparateList(Item item);
 
+    public void setState(ElisaStateManager state);
+
+    public ElisaState getState();
+
+    public ElisaStateHistory getElisaStateHistory();
+
+    public void updateModelLists();
+
 }

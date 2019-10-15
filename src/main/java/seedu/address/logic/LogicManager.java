@@ -11,9 +11,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ElisaState;
-import seedu.address.model.ElisaStateHistory;
-import seedu.address.model.ElisaStateManager;
 import seedu.address.model.ItemModel;
 import seedu.address.model.ItemStorage;
 import seedu.address.model.item.VisualizeList;
@@ -29,19 +26,11 @@ public class LogicManager implements Logic {
     private final ItemModel model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
-    private final ElisaStateHistory elisaStateHistory;
 
-    public LogicManager(ItemModel model, Storage storage, ElisaStateHistory elisaStateHistory) {
+    public LogicManager(ItemModel model, Storage storage) {
         this.storage = storage;
         this.model = model;
-        this.elisaStateHistory = elisaStateHistory;
-        elisaStateHistory.pushCommand(new ElisaStateManager(model.getItemStorage(), model.getVisualList()).deepCopy());
-        addressBookParser = new AddressBookParser(elisaStateHistory);
-    }
-
-    @Override
-    public ElisaStateHistory getElisaStateHistory() {
-        return elisaStateHistory;
+        addressBookParser = new AddressBookParser(model.getElisaStateHistory());
     }
 
     @Override
@@ -83,24 +72,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setState(ElisaStateManager state) {
-        this.model.setItemStorage(state.getStorage().deepCopy());
-        this.model.setVisualizeList(state.getVisualizeList().deepCopy());
-    }
-
-    @Override
-    public void updateModelLists() {
-        ItemStorage itemStorage = this.model.getItemStorage().deepCopy();
-        ItemModel tempModel = this.model;
-        this.model.emptyLists();
-        for (int i = 0; i < itemStorage.size(); i++) {
-            tempModel.addToSeparateList(itemStorage.get(i));
-        }
-    }
-
-    @Override
-    public ElisaState getState() {
-        return new ElisaStateManager(model.getItemStorage().deepCopy(), model.getVisualList()).deepCopy();
+    public ItemModel getModel() {
+        return model;
     }
 
     @Override

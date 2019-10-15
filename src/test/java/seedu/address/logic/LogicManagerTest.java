@@ -39,10 +39,10 @@ public class LogicManagerTest {
                 new JsonItemStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(jsonItemStorage, userPrefsStorage);
-        model = new ItemModelManager(storage.toModelType(), userPrefsStorage.readUserPrefs().get());
         ElisaStateHistory historyManager = new ElisaStateHistoryManager();
-        historyManager.pushCommand(logic.getState().deepCopy());
-        logic = new LogicManager(model, storage, historyManager);
+        model = new ItemModelManager(storage.toModelType(), userPrefsStorage.readUserPrefs().get(), historyManager);
+        historyManager.pushCommand(logic.getModel().getState().deepCopy());
+        logic = new LogicManager(model, storage);
     }
 
     /*
@@ -131,7 +131,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        ItemModel expectedModel = new ItemModelManager(model.getItemStorage(), new UserPrefs());
+        ItemModel expectedModel = new ItemModelManager(model.getItemStorage(),
+                new UserPrefs(), model.getElisaStateHistory());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
