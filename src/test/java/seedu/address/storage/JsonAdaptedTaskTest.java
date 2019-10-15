@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedTask.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.PRINT_POSTERS;
+import static seedu.address.testutil.TypicalTasksMembers.PRINT_POSTERS;
 
 import java.util.ArrayList;
 import java.util.List;

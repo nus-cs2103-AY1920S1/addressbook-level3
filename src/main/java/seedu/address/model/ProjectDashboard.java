@@ -59,6 +59,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         requireNonNull(newData);
 
         setTasks(newData.getTaskList());
+        setMembers(newData.getMemberList());
     }
 
     //// task-level operations

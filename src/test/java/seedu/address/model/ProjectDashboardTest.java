@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_URGENCY;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.ORDER_SHIRTS;
-import static seedu.address.testutil.TypicalTasks.getTypicalProjectDashboard;
+import static seedu.address.testutil.TypicalTasksMembers.ORDER_SHIRTS;
+import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -21,6 +21,7 @@ import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.util.SampleMemberDataUtil;
 import seedu.address.model.util.SampleTaskDataUtil;
 import seedu.address.storage.JsonProjectDashboardStorage;
 import seedu.address.storage.JsonUserPrefsStorage;

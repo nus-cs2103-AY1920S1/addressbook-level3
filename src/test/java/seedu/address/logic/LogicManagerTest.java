@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 //import static seedu.address.logic.commands.CommandTestUtil.TASK_NAME_DESC_FINANCE;
 import static seedu.address.testutil.Assert.assertThrows;
-//import static seedu.address.testutil.TypicalTasks.REVIEW_BUDGET;
+//import static seedu.address.testutil.TypicalTasksMembers.REVIEW_BUDGET;
 
 import java.io.IOException;
 import java.nio.file.Path;

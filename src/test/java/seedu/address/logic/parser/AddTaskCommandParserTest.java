@@ -19,8 +19,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_URGENCY;*/
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_FINANCE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-//import static seedu.address.testutil.TypicalTasks.BUILD_WEBSITE;
-import static seedu.address.testutil.TypicalTasks.REVIEW_BUDGET;
+//import static seedu.address.testutil.TypicalTasksMembers.BUILD_WEBSITE;
+import static seedu.address.testutil.TypicalTasksMembers.REVIEW_BUDGET;
 
 import org.junit.jupiter.api.Test;
 

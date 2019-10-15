@@ -89,7 +89,7 @@ public class UniqueMemberList implements Iterable<Member> {
      */
     public void setMembers(List<Member> members) {
         requireAllNonNull(members);
-        if (!tasksAreUnique(members)) {
+        if (!membersAreUnique(members)) {
             throw new DuplicateMemberException();
         }
 
@@ -123,10 +123,10 @@ public class UniqueMemberList implements Iterable<Member> {
     /**
      * Returns true if {@code tasks} contains only unique tasks.
      */
-    private boolean tasksAreUnique(List<Member> tasks) {
-        for (int i = 0; i < tasks.size() - 1; i++) {
-            for (int j = i + 1; j < tasks.size(); j++) {
-                if (tasks.get(i).isSameMember(tasks.get(j))) {
+    private boolean membersAreUnique(List<Member> members) {
+        for (int i = 0; i < members.size() - 1; i++) {
+            for (int j = i + 1; j < members.size(); j++) {
+                if (members.get(i).isSameMember(members.get(j))) {
                     return false;
                 }
             }
