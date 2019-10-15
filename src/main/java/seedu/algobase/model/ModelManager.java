@@ -4,14 +4,17 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.commons.core.LogsCenter;
+import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 
@@ -23,8 +26,11 @@ public class ModelManager implements Model {
 
     private final AlgoBase algoBase;
     private final UserPrefs userPrefs;
+    private final GuiState guiState;
     private final FilteredList<Problem> filteredProblems;
     private final FilteredList<Tag> filteredTags;
+    private final SortedList<Problem> sortedProblems;
+    private final FilteredList<Plan> filteredPlans;
 
     /**
      * Initializes a ModelManager with the given algoBase and userPrefs.
@@ -37,15 +43,18 @@ public class ModelManager implements Model {
 
         this.algoBase = new AlgoBase(algoBase);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.guiState = new GuiState();
         filteredProblems = new FilteredList<>(this.algoBase.getProblemList());
         filteredTags = new FilteredList<>(this.algoBase.getTagList());
+        sortedProblems = new SortedList<>(filteredProblems);
+        filteredPlans = new FilteredList<>(this.algoBase.getPlanList());
     }
 
     public ModelManager() {
         this(new AlgoBase(), new UserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
+    //========== UserPrefs ==============================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -80,7 +89,13 @@ public class ModelManager implements Model {
         userPrefs.setAlgoBaseFilePath(algoBaseFilePath);
     }
 
-    //=========== AlgoBase ================================================================================
+    //========== GUI State ==============================================================
+    @Override
+    public GuiState getGuiState() {
+        return guiState;
+    }
+
+    //========== AlgoBase ===============================================================
 
     @Override
     public void setAlgoBase(ReadOnlyAlgoBase algoBase) {
@@ -91,6 +106,8 @@ public class ModelManager implements Model {
     public ReadOnlyAlgoBase getAlgoBase() {
         return algoBase;
     }
+
+    //========== Problem ================================================================
 
     @Override
     public boolean hasProblem(Problem problem) {
@@ -112,7 +129,6 @@ public class ModelManager implements Model {
     @Override
     public void setProblem(Problem target, Problem editedProblem) {
         requireAllNonNull(target, editedProblem);
-
         algoBase.setProblem(target, editedProblem);
     }
 
@@ -183,7 +199,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Problem> getFilteredProblemList() {
-        return filteredProblems;
+        return sortedProblems;
     }
 
     @Override
@@ -191,6 +207,60 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredProblems.setPredicate(predicate);
     }
+
+    /**
+     * Updates the Problem list according to the given {@code problemComparator}.
+     *
+     * @param problemComparator a comparator of problems
+     * @throws NullPointerException if {@code problemComparator} is null;
+     */
+    @Override
+    public void updateSortedProblemList(Comparator<Problem> problemComparator) {
+        requireNonNull(problemComparator);
+        sortedProblems.setComparator(problemComparator);
+    }
+
+    //========== Plan ===================================================================
+
+    @Override
+    public boolean hasPlan(Plan plan) {
+        requireNonNull(plan);
+        return algoBase.hasPlan(plan);
+    }
+
+    @Override
+    public void deletePlan(Plan target) {
+        algoBase.removePlan(target);
+    }
+
+    @Override
+    public void addPlan(Plan plan) {
+        algoBase.addPlan(plan);
+        updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+    }
+
+    @Override
+    public void setPlan(Plan target, Plan editedPlan) {
+        requireAllNonNull(target, editedPlan);
+
+        algoBase.setPlan(target, editedPlan);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Plan} backed by the internal list of
+     */
+    @Override
+    public ObservableList<Plan> getFilteredPlanList() {
+        return filteredPlans;
+    }
+
+    @Override
+    public void updateFilteredPlanList(Predicate<Plan> predicate) {
+        requireNonNull(predicate);
+        filteredPlans.setPredicate(predicate);
+    }
+
+    //========== Util ===================================================================
 
     @Override
     public boolean equals(Object obj) {

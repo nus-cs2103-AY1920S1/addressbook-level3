@@ -16,8 +16,7 @@ import seedu.algobase.logic.Logic;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-
-
+import seedu.algobase.model.ModelEnum;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -33,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private DisplayTabPane displayTabPane;
     private ProblemListPanel problemListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -44,13 +44,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane problemListPanelPlaceholder;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane displayTabPanePlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -109,8 +109,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        problemListPanel = new ProblemListPanel(logic.getFilteredProblemList());
-        problemListPanelPlaceholder.getChildren().add(problemListPanel.getRoot());
+        problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
+        DisplayTab problemListPanelTab = new DisplayTab(ModelEnum.PROBLEM.getTabName(), problemListPanel);
+        DisplayTab tagListPanelTab = new DisplayTab(ModelEnum.TAG.getTabName());
+        DisplayTab planListPanelTab = new DisplayTab(ModelEnum.PLAN.getTabName());
+
+        displayTabPane =
+            new DisplayTabPane(logic.getGuiState(), problemListPanelTab, tagListPanelTab, planListPanelTab);
+        displayTabPanePlaceholder.getChildren().add(displayTabPane.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

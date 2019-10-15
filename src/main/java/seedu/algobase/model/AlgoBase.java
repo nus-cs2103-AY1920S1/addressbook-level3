@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.algobase.model.plan.Plan;
+import seedu.algobase.model.plan.PlanList;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.problem.UniqueProblemList;
 import seedu.algobase.model.tag.Tag;
@@ -18,6 +20,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     private final UniqueProblemList problems;
     private final UniqueTagList tags;
+    private final PlanList plans;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -28,6 +31,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      */
     {
         problems = new UniqueProblemList();
+        plans = new PlanList();
     }
 
     {
@@ -44,16 +48,6 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
-
-    /**
-     * Replaces the contents of the Problem list with {@code problems}.
-     * {@code problems} must not contain duplicate problems.
-     */
-    public void setProblems(List<Problem> problems) {
-        this.problems.setProblems(problems);
-    }
-
     /**
      * Resets the existing data of this {@code AlgoBase} with {@code newData}.
      */
@@ -64,7 +58,15 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         setTags(newData.getTagList());
     }
 
-    //// Problem-level operations
+    //========== Problem ================================================================
+
+    /**
+     * Replaces the contents of the Problem list with {@code problems}.
+     * {@code problems} must not contain duplicate problems.
+     */
+    public void setProblems(List<Problem> problems) {
+        this.problems.setProblems(problems);
+    }
 
     /**
      * Returns true if a Problem with the same identity as {@code Problem} exists in the algobase.
@@ -138,6 +140,40 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         requireNonNull(editedTag);
         tags.setTag(target, editedTag);
     }
+  
+    @Override
+    public ObservableList<Problem> getProblemList() {
+        return problems.asUnmodifiableObservableList();
+    }
+
+    //========== Plan ===================================================================
+
+    /**
+     * Returns true if a Plan with the same identity as {@code Plan} exists in the algobase.
+     */
+    public boolean hasPlan(Plan plan) {
+        requireNonNull(plan);
+        return plans.contains(plan);
+    }
+
+    /**
+     Adds a Plan to the algobase.
+     The Plan must not already exist in the algobase.
+     */
+    public void addPlan(Plan p) {
+        plans.add(p);
+    }
+
+    /**
+     * Replaces the given Plan {@code target} in the list with {@code editedPlan}.
+     * {@code target} must exist in the algobase.
+     * The Plan identity of {@code editedPlan} must not be the same as another existing Plan in the algobase.
+     */
+    public void setPlan(Plan target, Plan editedPlan) {
+        requireNonNull(editedPlan);
+
+        plans.setPlan(target, editedPlan);
+    }
 
     /**
      * Removes {@code key} from this {@code AlgoBase}.
@@ -149,15 +185,21 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     //// util methods
 
+    public void removePlan(Plan key) {
+        plans.remove(key);
+    }
+
+    @Override
+    public ObservableList<Plan> getPlanList() {
+        return plans.asUnmodifiableObservableList();
+    }
+
+    //========== Util ===================================================================
+
     @Override
     public String toString() {
         return tags.asUnmodifiableObservableList().size() + " tags";
         // TODO: refine later
-    }
-
-    @Override
-    public ObservableList<Problem> getProblemList() {
-        return problems.asUnmodifiableObservableList();
     }
 
     @Override
@@ -169,11 +211,13 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AlgoBase // instanceof handles nulls
-                && problems.equals(((AlgoBase) other).problems));
+                && problems.equals(((AlgoBase) other).problems))
+                && plans.equals(((AlgoBase) other).plans);
     }
 
     @Override
     public int hashCode() {
         return problems.hashCode();
     }
+
 }

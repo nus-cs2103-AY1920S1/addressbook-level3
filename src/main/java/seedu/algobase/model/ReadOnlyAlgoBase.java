@@ -1,6 +1,7 @@
 package seedu.algobase.model;
 
 import javafx.collections.ObservableList;
+import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 
@@ -15,4 +16,10 @@ public interface ReadOnlyAlgoBase {
      */
     ObservableList<Problem> getProblemList();
     ObservableList<Tag> getTagList();
+
+    /**
+     * Returns an unmodifiable view of the plans list.
+     */
+    ObservableList<Plan> getPlanList();
+
 }

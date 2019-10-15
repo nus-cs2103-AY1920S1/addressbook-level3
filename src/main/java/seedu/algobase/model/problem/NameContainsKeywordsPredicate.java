@@ -9,10 +9,21 @@ import seedu.algobase.commons.util.StringUtil;
  * Tests that a {@code Problem}'s {@code Name} matches any of the keywords given.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Problem> {
+    public static final NameContainsKeywordsPredicate DEFAULT_NAME_PREDICATE =
+        new NameContainsKeywordsPredicate() {
+            @Override
+            public boolean test(Problem problem) {
+                return true;
+            }
+        };
     private final List<String> keywords;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
+    }
+
+    private NameContainsKeywordsPredicate() {
+        this.keywords = null;
     }
 
     @Override
