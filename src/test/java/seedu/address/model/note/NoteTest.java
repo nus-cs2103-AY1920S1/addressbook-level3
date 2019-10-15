@@ -29,7 +29,7 @@ public class NoteTest {
         assertThrows(java.lang.IllegalArgumentException.class, () -> new Note(new Title("title"),
                 new Content(""), null));
     }
-    
+
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Note note = new NoteBuilder().build();
