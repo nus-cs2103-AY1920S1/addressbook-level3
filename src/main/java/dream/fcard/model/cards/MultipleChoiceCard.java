@@ -3,6 +3,7 @@ package dream.fcard.model.cards;
 import java.util.ArrayList;
 
 import dream.fcard.logic.storage.Schema;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
@@ -30,6 +31,32 @@ public class MultipleChoiceCard extends FrontBackCard {
         answerIndex = Integer.parseInt(back);
     }
 
+    public void editFront(String newText) {
+        front = newText;
+    }
+
+    public void editBack(String newText) {
+        back = newText;
+    }
+
+    /**
+     * Edits one of string in choices, given new text and index.
+     */
+    public void editChoice(int index, String newChoice) throws IndexNotFoundException {
+        if (index < 0 || index > choices.size()) {
+            throw new IndexNotFoundException(new Exception());
+        }
+        choices.add(index, newChoice);
+        choices.remove(index + 1);
+    }
+
+    public String getChoice(int index) throws IndexNotFoundException {
+        if (index < 0 || index > choices.size()) {
+            throw new IndexNotFoundException(new Exception());
+        }
+        return choices.get(index);
+    }
+
     @Override
     public JsonValue toJson() {
         try {
@@ -54,8 +81,17 @@ public class MultipleChoiceCard extends FrontBackCard {
         return super.renderFront();
     }
 
+
     @Override
     public Boolean evaluate(String in) {
         return Integer.parseInt(in) == answerIndex;
+    }
+  
+    public String getFront() {
+        return front;
+    }
+
+    public String getBack() {
+        return back;
     }
 }
