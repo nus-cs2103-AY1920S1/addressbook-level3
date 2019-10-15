@@ -13,7 +13,7 @@ import seedu.address.model.waste.WasteMonth;
 /**
  * Wraps all data at the Waste List level
  */
-public class WasteList implements ReadOnlyAddressBook {
+public class WasteList implements ReadOnlyWasteList {
 
     private static TreeMap<WasteMonth, UniqueFoodList> wasteArchive;
     private final UniqueFoodList wasteList;
@@ -27,7 +27,7 @@ public class WasteList implements ReadOnlyAddressBook {
     /**
      * Creates a WasteList using the Persons in the {@code toBeCopied}
      */
-    public WasteList(ReadOnlyAddressBook toBeCopied) {
+    public WasteList(ReadOnlyWasteList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -60,10 +60,10 @@ public class WasteList implements ReadOnlyAddressBook {
     /**
      * Resets the existing data of this {@code WasteList} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyWasteList newData) {
         requireNonNull(newData);
 
-        setWasteList(newData.getPersonList());
+        setWasteList(newData.getWasteList());
     }
 
     //// Food-level operations
@@ -80,7 +80,22 @@ public class WasteList implements ReadOnlyAddressBook {
      * This list will not contain any duplicate persons.
      */
     @Override
-    public ObservableList<GroceryItem> getPersonList() {
+    public ObservableList<GroceryItem> getWasteList() {
         return wasteList.asUnmodifiableObservableList();
+    }
+
+
+    //// Waste List Archive operations
+
+    public void addFoodItemToArchive(GroceryItem item, WasteMonth wm) {
+        if (!wasteArchive.containsKey(wm)) {
+            createNewWasteMonth(wm);
+        }
+        UniqueFoodList archivedWasteList = wasteArchive.get(wm);
+        archivedWasteList.add(item);
+    }
+
+    public void createNewWasteMonth(WasteMonth wm) {
+        wasteArchive.put(wm, new UniqueFoodList());
     }
 }
