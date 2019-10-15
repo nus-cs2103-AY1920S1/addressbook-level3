@@ -8,6 +8,8 @@ import java.util.Objects;
 
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.SemesterNo;
 
 /**
  * Represents User's preferences.
@@ -53,6 +55,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public void setAppSettings(AppSettings appSettings) {
         this.appSettings = appSettings;
+    }
+
+    public AcadYear getAcadYear() {
+        return appSettings.getAcadYear();
+    }
+
+    public SemesterNo getSemesterNo() {
+        return appSettings.getSemesterNo();
     }
 
     public GuiSettings getGuiSettings() {

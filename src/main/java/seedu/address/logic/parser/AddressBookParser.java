@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddGroupCommand;
+import seedu.address.logic.commands.AddNusModCommand;
+import seedu.address.logic.commands.AddNusModsCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddToGroupCommand;
 import seedu.address.logic.commands.ClosestLocationCommand;
@@ -25,6 +27,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.ShowNusModCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -72,6 +75,12 @@ public class AddressBookParser {
         case ShowNusModCommand.COMMAND_WORD:
             return new ShowNusModCommandParser().parse(arguments);
 
+        case AddNusModCommand.COMMAND_WORD:
+            return new AddNusModCommandParser().parse(arguments);
+
+        case AddNusModsCommand.COMMAND_WORD:
+            return new AddNusModsCommandParser().parse(arguments);
+
         case AddGroupCommand.COMMAND_WORD:
             return new AddGroupCommandParser().parse(arguments);
 
@@ -107,7 +116,6 @@ public class AddressBookParser {
 
         case ScheduleCommand.COMMAND_WORD:
             return new ScheduleCommandParser().parse(arguments);
-
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

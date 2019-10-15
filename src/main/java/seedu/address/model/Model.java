@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -20,8 +21,10 @@ import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.DetailedModuleList;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.SemesterNo;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
@@ -79,6 +82,16 @@ public interface Model {
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
+
+    /**
+     * Returns the App setting's acadYear.
+     */
+    public AcadYear getDefaultAcadYear();
+
+    /**
+     * Returns the App setting's semesterNo.
+     */
+    public SemesterNo getDefaultSemesterNo();
 
     //=========== AddressBook ================================================================================
 
@@ -283,11 +296,19 @@ public interface Model {
     /**
      * Returns a module for the academic year and module code.
      * Tries to find the module from 3 sources in the order:
-     *      1. Model.NusModsData.DetailedModuleList
-     *      2. ApiCache
+     *      1. Model.NusModsData.DetailedModuleList (in-memory)
+     *      2. Json Files
      *      3. NusModsApi
      */
     Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode);
+
+    String getAcadSemStartDateString(AcadYear acadYear, SemesterNo semesterNo);
+
+    List<String> getHolidayDateStrings();
+
+    DetailedModuleList getDetailedModuleList();
+
+    void addDetailedModule(Module module);
 
     //=========== Others =============================================================
 

@@ -122,7 +122,7 @@ public class ProcessVenues implements Serializable {
 
     private ProcessVenues getVenuesJsonArray() {
         NusModsApi nusModApi = new NusModsApi();
-        JSONArray currVenuesNusMod = nusModApi.getVenues("/1");
+        JSONArray currVenuesNusMod = nusModApi.getVenues("/1").orElse(new JSONArray());
         return new ProcessVenues(currVenuesNusMod, venues, sanitizeLocation);
     }
 
