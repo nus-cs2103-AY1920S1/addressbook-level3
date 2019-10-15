@@ -8,6 +8,8 @@ import com.dukeacademy.logic.Logic;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.parser.exceptions.ParseException;
+import com.dukeacademy.model.solution.TestCase;
+import com.dukeacademy.model.solution.TestCaseResult;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private Editor editorPanel;
+    private RunCodeResult runCodeResultPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -55,6 +58,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private AnchorPane editorPlaceholder;
+
+    @FXML
+    private AnchorPane runCodeResultPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -128,6 +134,13 @@ public class MainWindow extends UiPart<Stage> {
 
         editorPanel = new Editor();
         editorPlaceholder.getChildren().add(editorPanel.getRoot());
+
+        // Passing in sample test case and sample test case result into the constructor of RunCodeResult.
+        // The sample problem in this context is an adder function.
+        // Test case given is 1, 1. Expected result is 2, from 1 + 1.
+        runCodeResultPanel = new RunCodeResult(new TestCase("1, 1", "2"),
+                new TestCaseResult(false, "2", "3"));
+        runCodeResultPlaceholder.getChildren().add(runCodeResultPanel.getRoot());
     }
 
     /**
@@ -176,6 +189,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public Editor getEditorPanel() {
         return editorPanel;
+    }
+
+    public RunCodeResult getRunCodeResultPanel() {
+        return runCodeResultPanel;
     }
 
     /**

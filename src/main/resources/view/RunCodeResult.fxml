@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Accordion fx:id="runCodeResultAccordion" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <panes>
+    <TitledPane fx:id="testCasePane" animated="false" text="Test Case 1">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox layoutX="14.0" layoutY="12.0" prefHeight="224.0" prefWidth="408.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane fx:id="input1" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="6.0" text="Input" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="Consolas" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="input" layoutY="34.0" prefHeight="17.0" prefWidth="387.0" text="              " AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="34.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="164.0" text="Expected Output" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Label fx:id="expectedOutput" layoutX="-3.0" layoutY="29.0" prefHeight="17.0" prefWidth="389.0" text="              " AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="34.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="112.0" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="59.0" layoutY="5.0" prefHeight="17.0" prefWidth="143.0" text="Your Output" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="Consolas" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="userOutput" layoutX="-7.0" layoutY="29.0" prefHeight="17.0" prefWidth="387.0" text="              " AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="34.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
+      </content>
+    </TitledPane>
+      <TitledPane fx:id="testCasePane1" animated="false" layoutX="10.0" layoutY="10.0" text="Test Case 2">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox layoutX="14.0" layoutY="12.0" prefHeight="224.0" prefWidth="408.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane fx:id="input11" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="6.0" text="Input" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="Consolas" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="input1" layoutY="34.0" prefHeight="17.0" prefWidth="387.0" text="              " AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="34.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="164.0" text="Expected Output" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Label fx:id="expectedOutput1" layoutX="-3.0" layoutY="29.0" prefHeight="17.0" prefWidth="389.0" text="              " AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="34.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="112.0" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="59.0" layoutY="5.0" prefHeight="17.0" prefWidth="143.0" text="Your Output" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="Consolas" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="userOutput1" layoutX="-7.0" layoutY="29.0" prefHeight="17.0" prefWidth="387.0" text="              " AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="34.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+      <TitledPane fx:id="testCasePane11" animated="false" layoutX="10.0" layoutY="35.0" text="Test Case 3">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox layoutX="14.0" layoutY="12.0" prefHeight="224.0" prefWidth="408.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane fx:id="input111" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="6.0" text="Input" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="Consolas" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="input11" layoutY="34.0" prefHeight="17.0" prefWidth="387.0" text="              " AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="34.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="164.0" text="Expected Output" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Label fx:id="expectedOutput11" layoutX="-3.0" layoutY="29.0" prefHeight="17.0" prefWidth="389.0" text="              " AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="34.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="112.0" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="59.0" layoutY="5.0" prefHeight="17.0" prefWidth="143.0" text="Your Output" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="Consolas" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="userOutput11" layoutX="-7.0" layoutY="29.0" prefHeight="17.0" prefWidth="387.0" text="              " AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="34.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+  </panes>
+</Accordion>
