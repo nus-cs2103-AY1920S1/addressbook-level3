@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.flashcard.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
