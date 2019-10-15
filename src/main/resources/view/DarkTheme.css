@@ -24,6 +24,13 @@
     -fx-opacity: 1;
 }
 
+.label-header2 {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -99,11 +106,11 @@
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell:filled:even {
+.list-cell:filled:even, #cardPaneEven {
     -fx-background-color: #3c3e3f;
 }
 
-.list-cell:filled:odd {
+.list-cell:filled:odd, #cardPaneOddd {
     -fx-background-color: #515658;
 }
 
@@ -328,14 +335,6 @@
     -fx-border-width: 0;
 }
 
-#cardPaneOdd {
-    -fx-background-color: #515658;
-}
-
-#cardPaneEven {
-    -fx-background-color: #3c3e3f;
-}
-
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
@@ -350,10 +349,6 @@
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
-}
-
-#warningBorder {
-    -fx-border-color: black;
 }
 
 #filterField, #personListPanel, #personWebpage {
