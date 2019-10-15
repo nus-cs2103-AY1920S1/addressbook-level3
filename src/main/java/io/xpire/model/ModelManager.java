@@ -22,7 +22,7 @@ public class ModelManager implements Model {
 
     private final Xpire xpire;
     private final UserPrefs userPrefs;
-    private FilteredList<Item> filteredItems;
+    private final FilteredList<Item> filteredItems;
 
     /**
      * Initializes a ModelManager with the given xpire and userPrefs.
@@ -134,13 +134,13 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredItemList(Predicate<Item> predicate) {
         requireNonNull(predicate);
-        Predicate p = this.filteredItems.getPredicate();
+        Predicate<? super Item> p = this.filteredItems.getPredicate();
         if (predicate == PREDICATE_SHOW_ALL_ITEMS || p == null) {
             // a view command or first ever search command
             this.filteredItems.setPredicate(predicate);
         } else {
             // search commands have been executed before
-            this.filteredItems.setPredicate(p.and(predicate));
+            this.filteredItems.setPredicate(predicate.and(p));
         }
     }
 
