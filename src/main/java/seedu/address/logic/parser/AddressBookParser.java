@@ -21,6 +21,9 @@ import seedu.address.logic.commands.EditCheatSheetCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterByTagCommand;
+import seedu.address.logic.commands.FilterCheatSheetByTagCommand;
+import seedu.address.logic.commands.FilterFlashcardByTagCommand;
+import seedu.address.logic.commands.FilterNoteByTagCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCheatSheetCommand;
@@ -108,6 +111,15 @@ public class AddressBookParser {
 
         case FilterByTagCommand.COMMAND_WORD:
             return new FilterByTagCommandParser().parse(arguments);
+
+        case FilterCheatSheetByTagCommand.COMMAND_WORD:
+            return new FilterCheatSheetByTagCommandParser().parse(arguments);
+
+        case FilterFlashcardByTagCommand.COMMAND_WORD:
+            return new FilterFlashcardByTagCommandParser().parse(arguments);
+
+        case FilterNoteByTagCommand.COMMAND_WORD:
+            return new FilterNoteByTagCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

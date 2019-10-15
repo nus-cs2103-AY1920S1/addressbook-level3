@@ -38,7 +38,7 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
         Content content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Note note = new Note(title, content);
+        Note note = new Note(title, content, tagList);
 
         return new AddNoteCommand(note);
     }
