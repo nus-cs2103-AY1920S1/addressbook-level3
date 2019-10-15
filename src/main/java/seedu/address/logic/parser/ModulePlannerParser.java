@@ -13,9 +13,9 @@ import seedu.address.logic.commands.cli.DeleteModuleCommand;
 import seedu.address.logic.commands.cli.NameUEFromSemesterCommand;
 import seedu.address.logic.commands.cli.SetCurrentSemesterCommand;
 import seedu.address.logic.commands.datamanagement.FindCommand;
-import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.commands.datamanagement.CreateTagCommand;
 import seedu.address.logic.commands.datamanagement.TagModuleCommand;
+import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.commands.verification.CheckCommand;
 import seedu.address.logic.parser.cli.AddModuleParser;
 import seedu.address.logic.parser.cli.BlockCurrentSemesterParser;
@@ -55,35 +55,35 @@ public class ModulePlannerParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-            case AddModuleCommand.COMMAND_WORD:
-                return new AddModuleParser().parse(arguments);
+        case AddModuleCommand.COMMAND_WORD:
+            return new AddModuleParser().parse(arguments);
 
-            case BlockCurrentSemesterCommand.COMMAND_WORD:
-                return new BlockCurrentSemesterParser().parse(arguments);
+        case BlockCurrentSemesterCommand.COMMAND_WORD:
+            return new BlockCurrentSemesterParser().parse(arguments);
 
-            case DeleteModuleCommand.COMMAND_WORD:
-                return new DeleteModuleFromSemesterParser().parse(arguments);
+        case DeleteModuleCommand.COMMAND_WORD:
+            return new DeleteModuleFromSemesterParser().parse(arguments);
 
-            case NameUEFromSemesterCommand.COMMAND_WORD:
-                return new NameUEFromSemesterParser().parse(arguments);
+        case NameUEFromSemesterCommand.COMMAND_WORD:
+            return new NameUEFromSemesterParser().parse(arguments);
 
-            case SetCurrentSemesterCommand.COMMAND_WORD:
-                return new SetCurrentSemesterParser().parse(arguments);
+        case SetCurrentSemesterCommand.COMMAND_WORD:
+            return new SetCurrentSemesterParser().parse(arguments);
 
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
 
-            case CheckCommand.COMMAND_WORD:
-                return new CheckCommandParser().parse(arguments);
+        case CheckCommand.COMMAND_WORD:
+            return new CheckCommandParser().parse(arguments);
 
-            case CreateTagCommand.COMMAND_WORD:
-                return new CreateTagCommandParser().parse(arguments);
+        case CreateTagCommand.COMMAND_WORD:
+            return new CreateTagCommandParser().parse(arguments);
 
-            case TagModuleCommand.COMMAND_WORD:
-                return new TagModuleCommandParser().parse(arguments);
+        case TagModuleCommand.COMMAND_WORD:
+            return new TagModuleCommandParser().parse(arguments);
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

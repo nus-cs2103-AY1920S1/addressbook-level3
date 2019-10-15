@@ -14,8 +14,6 @@ import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
-import seedu.address.model.tag.exceptions.InvalidTagModificationException;
-import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Removes a {@code Tag} from a {@code Module}.
@@ -91,5 +89,4 @@ public class RemoveTagCommand extends Command {
         }
         return false;
     }
-
 }

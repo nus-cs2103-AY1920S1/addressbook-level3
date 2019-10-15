@@ -1,18 +1,11 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-import java.util.Iterator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.module.Module;
-import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.semester.Semester;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -48,17 +41,6 @@ public class SemesterCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(semester.getSemesterName().name());
         description.setText(semester.toString());
-        /*
-        UniqueModuleList moduleList = semester.getModules();
-        Iterator<Module> moduleIterator = moduleList.iterator();
-        while (moduleIterator.hasNext()) {
-            Module currentModule = moduleIterator.next();
-            UniqueTagList tagList = currentModule.getTags();
-            tagList.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.getTagName()))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
-        }
-         */
         /*
         address.setText(semester.getAddress().value);
         email.setText(semester.getEmail().value);
