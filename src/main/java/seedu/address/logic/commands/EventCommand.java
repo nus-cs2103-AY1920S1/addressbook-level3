@@ -41,12 +41,17 @@ public class EventCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    protected void validate(Model model) throws CommandException {
         requireNonNull(model);
 
         if (model.hasEvent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
+    }
+
+    @Override
+    protected CommandResult execute(Model model) {
+        requireNonNull(model);
 
         model.addEvent(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

@@ -41,12 +41,17 @@ public class AddCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    protected void validate(Model model) throws CommandException {
         requireNonNull(model);
 
         if (model.hasExpense(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
+    }
+
+    @Override
+    protected CommandResult execute(Model model) {
+        requireNonNull(model);
 
         model.addExpense(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

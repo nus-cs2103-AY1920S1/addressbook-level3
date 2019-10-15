@@ -26,7 +26,7 @@ public class AddCommandIntegrationTest {
     // No addCommand should not be the same as another addCommand, odds are unlikely because of use of UUID
 
     @Test
-    public void execute_duplicateExpense_throwsCommandException() {
+    public void run_duplicateExpense_throwsCommandException() {
         Expense expenseInList = model.getAddressBook().getExpenseList().get(0);
         assertCommandFailure(new AddCommand(expenseInList), model, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
     }

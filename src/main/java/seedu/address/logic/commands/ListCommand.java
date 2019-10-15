@@ -14,9 +14,13 @@ public class ListCommand extends UndoableCommand {
 
     public static final String MESSAGE_SUCCESS = "Listed all expenses";
 
+    @Override
+    protected void validate(Model model) {
+        // No validation necessary.
+    }
 
     @Override
-    public CommandResult execute(Model model) {
+    protected CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
         return new CommandResult(MESSAGE_SUCCESS);

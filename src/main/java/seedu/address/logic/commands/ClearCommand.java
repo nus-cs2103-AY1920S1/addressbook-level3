@@ -13,9 +13,13 @@ public class ClearCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
 
+    @Override
+    protected void validate(Model model) {
+        // No validation necessary.
+    }
 
     @Override
-    public CommandResult execute(Model model) {
+    protected CommandResult execute(Model model) {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
         return new CommandResult(MESSAGE_SUCCESS);

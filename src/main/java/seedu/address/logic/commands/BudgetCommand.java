@@ -39,12 +39,18 @@ public class BudgetCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    protected void validate(Model model) throws CommandException {
         requireNonNull(model);
 
         if (model.hasBudget(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_BUDGET);
         }
+    }
+
+    @Override
+    protected CommandResult execute(Model model) {
+        requireNonNull(model);
+
         model.addBudget(toAdd);
         model.setPrimary(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

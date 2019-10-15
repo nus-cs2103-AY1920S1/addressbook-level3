@@ -49,19 +49,19 @@ public class AliasCommandTest {
     }
 
     @Test
-    public void execute_aliasNameIsReservedCommandWord_throwsCommandException() {
+    public void run_aliasNameIsReservedCommandWord_throwsCommandException() {
         AliasCommand command = new AliasCommand(AliasTestUtil.ALIAS_NAME_ADD);
-        assertThrows(CommandException.class, () -> command.execute(model));
+        assertThrows(CommandException.class, () -> command.run(model));
     }
 
     @Test
-    public void execute_aliasCommandWordIsAlias_throwsCommandException() {
+    public void run_aliasCommandWordIsAlias_throwsCommandException() {
         AliasCommand command = new AliasCommand(AliasTestUtil.ALIAS_TO_ALIAS);
-        assertThrows(CommandException.class, () -> command.execute(model));
+        assertThrows(CommandException.class, () -> command.run(model));
     }
 
     @Test
-    public void execute_aliasCommandIsValid_success() {
+    public void run_aliasCommandIsValid_success() {
         expectedModel.addUserAlias(ALIAS_A_TO_B);
         assertCommandSuccess(
                 new AliasCommand(ALIAS_A_TO_B), model,
