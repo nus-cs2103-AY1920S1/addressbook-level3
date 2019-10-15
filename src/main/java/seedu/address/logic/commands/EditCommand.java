@@ -68,7 +68,7 @@ public class EditCommand extends Command {
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
-    protected EditCommand() {
+    public EditCommand() {
         this.index = null;
         this.editPersonDescriptor = null;
     }
@@ -102,7 +102,7 @@ public class EditCommand extends Command {
      * @param model Model that is used for the address book.
      * @return The updated {@code Person}.
      */
-    protected Person executeForMerge(Person person, EditPersonDescriptor editPersonDescriptor, Model model) {
+    public Person executeForMerge(Person person, EditPersonDescriptor editPersonDescriptor, Model model) {
         Person editedPerson = createEditedPerson(person, editPersonDescriptor);
         model.setPerson(person, editedPerson);
         return editedPerson;
