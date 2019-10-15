@@ -47,14 +47,14 @@ public class ModelManager implements Model {
         this.activityBook = new ActivityBook(activityBook);
         this.internalState = new InternalState(internalState);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        context = Context.MAIN;
+        context = new Context();
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
     }
 
-    //=========== UserPrefs ====================================================
+    //=========== Context ====================================================
     @Override
     public void setContext(Context context) {
         this.context = context;
