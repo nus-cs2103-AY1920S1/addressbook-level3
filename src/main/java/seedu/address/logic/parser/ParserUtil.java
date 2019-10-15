@@ -76,9 +76,9 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code questionBody} is invalid.
      */
-    public static QuestionBody parseQuestionBody(String questionbody) throws ParseException {
-        requireNonNull(questionbody);
-        String trimmedBody = questionbody.trim();
+    public static QuestionBody parseQuestionBody(String questionBody) throws ParseException {
+        requireNonNull(questionBody);
+        String trimmedBody = questionBody.trim();
         if (!QuestionBody.isValidQuestionBody(trimmedBody)) {
             throw new ParseException(QuestionBody.MESSAGE_CONSTRAINTS);
         }
@@ -86,10 +86,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String questionBody} into a {@code QuestionBody}.
+     * Parses a {@code String answer} into a {@code Answer}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code questionBody} is invalid.
+     * @throws ParseException if the given {@code answer} is invalid.
      */
     public static Answer parseAnswer(String answer) throws ParseException {
         requireNonNull(answer);
