@@ -15,12 +15,12 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.calendar.Logic;
 import seedu.address.logic.calendar.LogicManager;
-import seedu.address.model.calendar.AddressBook;
-import seedu.address.model.calendar.Model;
-import seedu.address.model.calendar.ModelManager;
-import seedu.address.model.calendar.ReadOnlyAddressBook;
-import seedu.address.model.calendar.ReadOnlyUserPrefs;
-import seedu.address.model.calendar.UserPrefs;
+import seedu.address.model.calendar.CalendarCalendarAddressBook;
+import seedu.address.model.calendar.CalendarCalendarModelManager;
+import seedu.address.model.calendar.CalendarModel;
+import seedu.address.model.calendar.CalendarUserPrefs;
+import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
+import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
 import seedu.address.model.calendar.util.SampleDataUtil;
 import seedu.address.storage.calendar.AddressBookStorage;
 import seedu.address.storage.calendar.JsonAddressBookStorage;
@@ -43,7 +43,7 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Storage storage;
-    protected Model model;
+    protected CalendarModel calendarModel;
     protected Logic logic;
     protected Ui ui;
 
@@ -57,15 +57,15 @@ public class MainApp extends Application {
         config = initConfig(appParameters.getConfigPath());
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-        UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        CalendarUserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        calendarModel = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(calendarModel, storage);
 
         ui = new UiManager(logic);
     }
@@ -75,9 +75,9 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+    private CalendarModel initModelManager(Storage storage, ReadOnlyCalendarUserPrefs userPrefs) {
+        Optional<ReadOnlyCalendarAddressBook> addressBookOptional;
+        ReadOnlyCalendarAddressBook initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -86,13 +86,13 @@ public class MainApp extends Application {
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new CalendarCalendarAddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new CalendarCalendarAddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new CalendarCalendarModelManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -140,21 +140,21 @@ public class MainApp extends Application {
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
      */
-    protected UserPrefs initPrefs(UserPrefsStorage storage) {
+    protected CalendarUserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
-        UserPrefs initializedPrefs;
+        CalendarUserPrefs initializedPrefs;
         try {
-            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new UserPrefs());
+            Optional<CalendarUserPrefs> prefsOptional = storage.readUserPrefs();
+            initializedPrefs = prefsOptional.orElse(new CalendarUserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
                     + "Using default user prefs");
-            initializedPrefs = new UserPrefs();
+            initializedPrefs = new CalendarUserPrefs();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initializedPrefs = new UserPrefs();
+            initializedPrefs = new CalendarUserPrefs();
         }
 
         // Update prefs file in case it was missing to begin with or there are new/unused fields
@@ -179,7 +179,7 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
         try {
-            storage.saveUserPrefs(model.getUserPrefs());
+            storage.saveUserPrefs(calendarModel.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

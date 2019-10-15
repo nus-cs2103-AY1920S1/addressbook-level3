@@ -6,14 +6,14 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.calendar.ReadOnlyUserPrefs;
-import seedu.address.model.calendar.UserPrefs;
+import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
+import seedu.address.model.calendar.CalendarUserPrefs;
 
 
 
 
 /**
- * A class to access UserPrefs stored in the hard disk as a json file
+ * A class to access CalendarUserPrefs stored in the hard disk as a json file
  */
 public class JsonUserPrefsStorage implements UserPrefsStorage {
 
@@ -29,7 +29,7 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
     }
 
     @Override
-    public Optional<UserPrefs> readUserPrefs() throws DataConversionException {
+    public Optional<CalendarUserPrefs> readUserPrefs() throws DataConversionException {
         return readUserPrefs(filePath);
     }
 
@@ -38,12 +38,12 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
      * @param prefsFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
-    public Optional<UserPrefs> readUserPrefs(Path prefsFilePath) throws DataConversionException {
-        return JsonUtil.readJsonFile(prefsFilePath, UserPrefs.class);
+    public Optional<CalendarUserPrefs> readUserPrefs(Path prefsFilePath) throws DataConversionException {
+        return JsonUtil.readJsonFile(prefsFilePath, CalendarUserPrefs.class);
     }
 
     @Override
-    public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
+    public void saveUserPrefs(ReadOnlyCalendarUserPrefs userPrefs) throws IOException {
         JsonUtil.saveJsonFile(userPrefs, filePath);
     }
 

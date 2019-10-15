@@ -17,7 +17,7 @@ import seedu.address.model.calendar.person.TaskDescription;
 import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.person.Task;
 import seedu.address.model.calendar.person.TaskTime;
-import seedu.address.model.calendar.tag.Tag;
+import seedu.address.model.calendar.tag.TaskTag;
 
 
 
@@ -47,9 +47,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         TaskTime taskTime = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         TaskDescription taskDescription = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         TaskPlace taskPlace = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<TaskTag> taskTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Task task = new Task(taskTitle, taskTime, taskDescription, taskPlace, tagList);
+        Task task = new Task(taskTitle, taskTime, taskDescription, taskPlace, taskTagList);
 
         return new AddCommand(task);
     }

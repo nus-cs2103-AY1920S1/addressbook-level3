@@ -12,19 +12,19 @@
 //
 //    @Test
 //    public void execute_emptyAddressBook_success() {
-//        Model model = new ModelManager();
-//        Model expectedModel = new ModelManager();
+//        CalendarModel calendarModel = new CalendarCalendarModelManager();
+//        CalendarModel expectedModel = new CalendarCalendarModelManager();
 //
-//        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+//        assertCommandSuccess(new ClearCommand(), calendarModel, ClearCommand.MESSAGE_SUCCESS, expectedModel);
 //    }
 //
 //    @Test
 //    public void execute_nonEmptyAddressBook_success() {
-//        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-//        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-//        expectedModel.setAddressBook(new AddressBook());
+//        CalendarModel calendarModel = new CalendarCalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
+//        CalendarModel expectedModel = new CalendarCalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
+//        expectedModel.setCalendarAddressBook(new CalendarCalendarAddressBook());
 //
-//        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+//        assertCommandSuccess(new ClearCommand(), calendarModel, ClearCommand.MESSAGE_SUCCESS, expectedModel);
 //    }
 //
 //}

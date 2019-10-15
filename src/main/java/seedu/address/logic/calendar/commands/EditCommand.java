@@ -6,7 +6,7 @@ import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.calendar.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.calendar.CalendarModel.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,17 +18,13 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
-import seedu.address.model.calendar.Model;
+import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.person.TaskDescription;
 import seedu.address.model.calendar.person.TaskPlace;
 import seedu.address.model.calendar.person.TaskTime;
 import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.person.Task;
-import seedu.address.model.calendar.tag.Tag;
-
-
-
-
+import seedu.address.model.calendar.tag.TaskTag;
 
 
 /**
@@ -71,9 +67,9 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Task> lastShownList = model.getFilteredPersonList();
+    public CommandResult execute(CalendarModel calendarModel) throws CommandException {
+        requireNonNull(calendarModel);
+        List<Task> lastShownList = calendarModel.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -82,12 +78,12 @@ public class EditCommand extends Command {
         Task taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedPerson(taskToEdit, editPersonDescriptor);
 
-        if (!taskToEdit.isSamePerson(editedTask) && model.hasPerson(editedTask)) {
+        if (!taskToEdit.isSamePerson(editedTask) && calendarModel.hasPerson(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(taskToEdit, editedTask);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        calendarModel.setPerson(taskToEdit, editedTask);
+        calendarModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedTask));
     }
 
@@ -102,9 +98,9 @@ public class EditCommand extends Command {
         TaskTime updatedTaskTime = editPersonDescriptor.getTaskTime().orElse(taskToEdit.getTaskTime());
         TaskDescription updatedTaskDescription = editPersonDescriptor.getTaskDescription().orElse(taskToEdit.getTaskDescription());
         TaskPlace updatedTaskPlace = editPersonDescriptor.getTaskPlace().orElse(taskToEdit.getTaskPlace());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(taskToEdit.getTags());
+        Set<TaskTag> updatedTaskTags = editPersonDescriptor.getTaskTags().orElse(taskToEdit.getTaskTags());
 
-        return new Task(updatedTaskTitle, updatedTaskTime, updatedTaskDescription, updatedTaskPlace, updatedTags);
+        return new Task(updatedTaskTitle, updatedTaskTime, updatedTaskDescription, updatedTaskPlace, updatedTaskTags);
     }
 
     @Override
@@ -134,27 +130,27 @@ public class EditCommand extends Command {
         private TaskTime taskTime;
         private TaskDescription taskDescription;
         private TaskPlace taskPlace;
-        private Set<Tag> tags;
+        private Set<TaskTag> taskTags;
 
         public EditPersonDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code taskTags} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setTaskTitle(toCopy.taskTitle);
             setTaskTime(toCopy.taskTime);
             setTaskDescription(toCopy.taskDescription);
             setTaskPlace(toCopy.taskPlace);
-            setTags(toCopy.tags);
+            setTaskTags(toCopy.taskTags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(taskTitle, taskTime, taskDescription, taskPlace, tags);
+            return CollectionUtil.isAnyNonNull(taskTitle, taskTime, taskDescription, taskPlace, taskTags);
         }
 
         public void setTaskTitle(TaskTitle taskTitle) {
@@ -190,20 +186,20 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
+         * Sets {@code taskTags} to this object's {@code taskTags}.
+         * A defensive copy of {@code taskTags} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setTaskTags(Set<TaskTag> taskTags) {
+            this.taskTags = (taskTags != null) ? new HashSet<>(taskTags) : null;
         }
 
         /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
+         * Returns {@code Optional#empty()} if {@code taskTags} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<TaskTag>> getTaskTags() {
+            return (taskTags != null) ? Optional.of(Collections.unmodifiableSet(taskTags)) : Optional.empty();
         }
 
         @Override
@@ -225,7 +221,7 @@ public class EditCommand extends Command {
                     && getTaskTime().equals(e.getTaskTime())
                     && getTaskDescription().equals(e.getTaskDescription())
                     && getTaskPlace().equals(e.getTaskPlace())
-                    && getTags().equals(e.getTags());
+                    && getTaskTags().equals(e.getTaskTags());
         }
     }
 }

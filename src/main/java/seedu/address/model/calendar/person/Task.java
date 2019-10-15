@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.calendar.tag.Tag;
+import seedu.address.model.calendar.tag.TaskTag;
 
 
 /**
@@ -23,18 +23,18 @@ public class Task {
 
     // Data fields
     private final TaskPlace taskPlace;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<TaskTag> taskTags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Task(TaskTitle taskTitle, TaskTime taskTime, TaskDescription taskDescription, TaskPlace taskPlace, Set<Tag> tags) {
-        requireAllNonNull(taskTitle, taskTime, taskDescription, taskPlace, tags);
+    public Task(TaskTitle taskTitle, TaskTime taskTime, TaskDescription taskDescription, TaskPlace taskPlace, Set<TaskTag> taskTags) {
+        requireAllNonNull(taskTitle, taskTime, taskDescription, taskPlace, taskTags);
         this.taskTitle = taskTitle;
         this.taskTime = taskTime;
         this.taskDescription = taskDescription;
         this.taskPlace = taskPlace;
-        this.tags.addAll(tags);
+        this.taskTags.addAll(taskTags);
     }
 
     public TaskTitle getTaskTitle() {
@@ -57,8 +57,8 @@ public class Task {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<TaskTag> getTaskTags() {
+        return Collections.unmodifiableSet(taskTags);
     }
 
     /**
@@ -94,13 +94,13 @@ public class Task {
                 && otherTask.getTaskTime().equals(getTaskTime())
                 && otherTask.getTaskDescription().equals(getTaskDescription())
                 && otherTask.getTaskPlace().equals(getTaskPlace())
-                && otherTask.getTags().equals(getTags());
+                && otherTask.getTaskTags().equals(getTaskTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskTitle, taskTime, taskDescription, taskPlace, tags);
+        return Objects.hash(taskTitle, taskTime, taskDescription, taskPlace, taskTags);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class Task {
                 .append(" Address: ")
                 .append(getTaskPlace())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
+        getTaskTags().forEach(builder::append);
         return builder.toString();
     }
 

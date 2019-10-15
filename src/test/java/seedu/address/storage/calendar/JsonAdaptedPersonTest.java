@@ -12,10 +12,10 @@
 //import org.junit.jupiter.api.Test;
 //
 //import seedu.address.commons.exceptions.IllegalValueException;
-//import seedu.address.model.task.TaskPlace;
-//import seedu.address.model.task.TaskDescription;
-//import seedu.address.model.task.TaskTitle;
-//import seedu.address.model.task.TaskTime;
+//import seedu.address.calendarModel.task.TaskPlace;
+//import seedu.address.calendarModel.task.TaskDescription;
+//import seedu.address.calendarModel.task.TaskTitle;
+//import seedu.address.calendarModel.task.TaskTime;
 //
 //public class JsonAdaptedPersonTest {
 //    private static final String INVALID_NAME = "R@chel";
@@ -28,7 +28,7 @@
 //    private static final String VALID_PHONE = BENSON.getTaskTime().toString();
 //    private static final String VALID_EMAIL = BENSON.getTaskDescription().toString();
 //    private static final String VALID_ADDRESS = BENSON.getTaskPlace().toString();
-//    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+//    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTaskTags().stream()
 //            .map(JsonAdaptedTag::new)
 //            .collect(Collectors.toList());
 //

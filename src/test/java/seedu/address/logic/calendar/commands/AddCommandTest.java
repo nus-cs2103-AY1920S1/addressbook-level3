@@ -18,7 +18,7 @@
 //import seedu.address.logic.commands.AddCommand;
 //import seedu.address.logic.commands.CommandResult;
 //import seedu.address.logic.commands.exceptions.CommandException;
-//import seedu.address.model.task.Task;
+//import seedu.address.calendarModel.task.Task;
 //import seedu.address.testutil.PersonBuilder;
 //
 //
@@ -76,16 +76,16 @@
 //    }
 //
 //    /**
-//     * A default model stub that have all of the methods failing.
+//     * A default calendarModel stub that have all of the methods failing.
 //     */
-//    private class ModelStub implements Model {
+//    private class ModelStub implements CalendarModel {
 //        @Override
-//        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+//        public void setUserPrefs(ReadOnlyCalendarUserPrefs userPrefs) {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
 //        @Override
-//        public ReadOnlyUserPrefs getUserPrefs() {
+//        public ReadOnlyCalendarUserPrefs getUserPrefs() {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
@@ -115,12 +115,12 @@
 //        }
 //
 //        @Override
-//        public void setAddressBook(ReadOnlyAddressBook newData) {
+//        public void setCalendarAddressBook(ReadOnlyCalendarAddressBook newData) {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
 //        @Override
-//        public ReadOnlyAddressBook getAddressBook() {
+//        public ReadOnlyCalendarAddressBook getCalendarAddressBook() {
 //            throw new AssertionError("This method should not be called.");
 //        }
 //
@@ -151,7 +151,7 @@
 //    }
 //
 //    /**
-//     * A Model stub that contains a single task.
+//     * A CalendarModel stub that contains a single task.
 //     */
 //    private class ModelStubWithPerson extends ModelStub {
 //        private final Task task;
@@ -169,7 +169,7 @@
 //    }
 //
 //    /**
-//     * A Model stub that always accept the task being added.
+//     * A CalendarModel stub that always accept the task being added.
 //     */
 //    private class ModelStubAcceptingPersonAdded extends ModelStub {
 //        final ArrayList<Task> personsAdded = new ArrayList<>();
@@ -187,8 +187,8 @@
 //        }
 //
 //        @Override
-//        public ReadOnlyAddressBook getAddressBook() {
-//            return new AddressBook();
+//        public ReadOnlyCalendarAddressBook getCalendarAddressBook() {
+//            return new CalendarCalendarAddressBook();
 //        }
 //    }
 //

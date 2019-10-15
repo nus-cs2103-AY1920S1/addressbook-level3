@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.SwitchOperation;
-import seedu.address.model.calendar.Model;
+import seedu.address.model.calendar.CalendarModel;
 
 
 
@@ -25,14 +25,14 @@ public class SwitchCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
+    public CommandResult execute(CalendarModel calendarModel) {
+        requireNonNull(calendarModel);
 
         SwitchOperation swOperation = new SwitchOperation(args);
         swOperation.execute();
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_STATE_CHANGE, model.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_STATE_CHANGE, calendarModel.getFilteredPersonList().size()));
     }
 
     @Override

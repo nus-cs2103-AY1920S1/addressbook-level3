@@ -9,21 +9,21 @@ import seedu.address.model.calendar.person.Task;
 
 
 /**
- * The API of the Model component.
+ * The API of the CalendarModel component.
  */
-public interface Model {
+public interface CalendarModel {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Task> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
-    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+    void setUserPrefs(ReadOnlyCalendarUserPrefs userPrefs);
 
     /**
      * Returns the user prefs.
      */
-    ReadOnlyUserPrefs getUserPrefs();
+    ReadOnlyCalendarUserPrefs getUserPrefs();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -46,12 +46,12 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code calendarAddressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setCalendarAddressBook(ReadOnlyCalendarAddressBook calendarAddressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the CalendarCalendarAddressBook */
+    ReadOnlyCalendarAddressBook getCalendarAddressBook();
 
     /**
      * Returns true if a task with the same identity as {@code task} exists in the address book.

@@ -4,17 +4,17 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.calendar.AddressBook;
-import seedu.address.model.calendar.ReadOnlyAddressBook;
+import seedu.address.model.calendar.CalendarCalendarAddressBook;
+import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.person.TaskDescription;
 import seedu.address.model.calendar.person.TaskPlace;
 import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.person.Task;
 import seedu.address.model.calendar.person.TaskTime;
-import seedu.address.model.calendar.tag.Tag;
+import seedu.address.model.calendar.tag.TaskTag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code CalendarCalendarAddressBook} with sample data.
  */
 public class SampleDataUtil {
     public static Task[] getSamplePersons() {
@@ -40,8 +40,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyCalendarAddressBook getSampleAddressBook() {
+        CalendarCalendarAddressBook sampleAb = new CalendarCalendarAddressBook();
         for (Task sampleTask : getSamplePersons()) {
             sampleAb.addPerson(sampleTask);
         }
@@ -51,9 +51,9 @@ public class SampleDataUtil {
     /**
      * Returns a tag set containing the list of strings given.
      */
-    public static Set<Tag> getTagSet(String... strings) {
+    public static Set<TaskTag> getTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
+                .map(TaskTag::new)
                 .collect(Collectors.toSet());
     }
 

@@ -24,8 +24,8 @@
 //import seedu.address.logic.commands.ListCommand;
 //import seedu.address.logic.parser.AddressBookParser;
 //import seedu.address.logic.parser.exceptions.ParseException;
-//import seedu.address.model.task.NameContainsKeywordsPredicate;
-//import seedu.address.model.task.Task;
+//import seedu.address.calendarModel.task.TaskTitleContainsKeywordsPredicate;
+//import seedu.address.calendarModel.task.Task;
 //import seedu.address.testutil.EditPersonDescriptorBuilder;
 //import seedu.address.testutil.PersonBuilder;
 //import seedu.address.testutil.PersonUtil;
@@ -77,7 +77,7 @@
 //        List<String> keywords = Arrays.asList("foo", "bar", "baz");
 //        FindCommand command = (FindCommand) parser.parseCommand(
 //                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-//        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+//        assertEquals(new FindCommand(new TaskTitleContainsKeywordsPredicate(keywords)), command);
 //    }
 //
 //    @Test

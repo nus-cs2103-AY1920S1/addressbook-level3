@@ -5,11 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.calendar.ReadOnlyAddressBook;
-import seedu.address.model.calendar.ReadOnlyUserPrefs;
-import seedu.address.model.calendar.UserPrefs;
-
-
+import seedu.address.model.calendar.CalendarUserPrefs;
+import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
+import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
 
 
 /**
@@ -18,18 +16,18 @@ import seedu.address.model.calendar.UserPrefs;
 public interface Storage extends AddressBookStorage, UserPrefsStorage {
 
     @Override
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
+    Optional<CalendarUserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     @Override
-    void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
+    void saveUserPrefs(ReadOnlyCalendarUserPrefs userPrefs) throws IOException;
 
     @Override
     Path getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyCalendarAddressBook> readAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyCalendarAddressBook addressBook) throws IOException;
 
 }

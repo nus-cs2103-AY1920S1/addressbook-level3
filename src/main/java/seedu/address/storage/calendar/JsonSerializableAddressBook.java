@@ -9,13 +9,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.calendar.AddressBook;
-import seedu.address.model.calendar.ReadOnlyAddressBook;
+import seedu.address.model.calendar.CalendarCalendarAddressBook;
+import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.person.Task;
 
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable CalendarCalendarAddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
@@ -33,30 +33,30 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyCalendarAddressBook} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableAddressBook(ReadOnlyCalendarAddressBook source) {
         persons.addAll(source.getPersonList()
                 .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the calendarModel's {@code CalendarCalendarAddressBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public CalendarCalendarAddressBook toModelType() throws IllegalValueException {
+        CalendarCalendarAddressBook calendarAddressBook = new CalendarCalendarAddressBook();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Task task = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(task)) {
+            if (calendarAddressBook.hasPerson(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(task);
+            calendarAddressBook.addPerson(task);
         }
-        return addressBook;
+        return calendarAddressBook;
     }
 
 }

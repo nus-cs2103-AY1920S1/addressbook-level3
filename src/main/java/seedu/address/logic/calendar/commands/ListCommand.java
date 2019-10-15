@@ -1,9 +1,9 @@
 package seedu.address.logic.calendar.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.calendar.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.calendar.CalendarModel.PREDICATE_SHOW_ALL_PERSONS;
 
-import seedu.address.model.calendar.Model;
+import seedu.address.model.calendar.CalendarModel;
 
 
 /**
@@ -17,9 +17,9 @@ public class ListCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public CommandResult execute(CalendarModel calendarModel) {
+        requireNonNull(calendarModel);
+        calendarModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

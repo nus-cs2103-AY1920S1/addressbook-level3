@@ -1,4 +1,4 @@
-//package seedu.address.model.calendar.task;
+//package seedu.address.calendarModel.calendar.task;
 //
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 //import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,17 +15,17 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.model.task.Task;
-//import seedu.address.model.task.UniquePersonList;
-//import seedu.address.model.task.exceptions.DuplicatePersonException;
-//import seedu.address.model.task.exceptions.PersonNotFoundException;
+//import seedu.address.calendarModel.task.Task;
+//import seedu.address.calendarModel.task.UniqueTaskList;
+//import seedu.address.calendarModel.task.exceptions.DuplicateTaskException;
+//import seedu.address.calendarModel.task.exceptions.TaskNotFoundException;
 //import seedu.address.testutil.PersonBuilder;
 //
 //
 //
 //public class UniquePersonListTest {
 //
-//    private final UniquePersonList uniquePersonList = new UniquePersonList();
+//    private final UniqueTaskList uniquePersonList = new UniqueTaskList();
 //
 //    @Test
 //    public void contains_nullPerson_throwsNullPointerException() {
@@ -59,7 +59,7 @@
 //    @Test
 //    public void add_duplicatePerson_throwsDuplicatePersonException() {
 //        uniquePersonList.add(ALICE);
-//        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.add(ALICE));
+//        assertThrows(DuplicateTaskException.class, () -> uniquePersonList.add(ALICE));
 //    }
 //
 //    @Test
@@ -74,14 +74,14 @@
 //
 //    @Test
 //    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-//        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.setPerson(ALICE, ALICE));
+//        assertThrows(TaskNotFoundException.class, () -> uniquePersonList.setPerson(ALICE, ALICE));
 //    }
 //
 //    @Test
 //    public void setPerson_editedPersonIsSamePerson_success() {
 //        uniquePersonList.add(ALICE);
 //        uniquePersonList.setPerson(ALICE, ALICE);
-//        UniquePersonList expectedUniquePersonList = new UniquePersonList();
+//        UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
 //        expectedUniquePersonList.add(ALICE);
 //        assertEquals(expectedUniquePersonList, uniquePersonList);
 //    }
@@ -92,7 +92,7 @@
 //        Task editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
 //                .build();
 //        uniquePersonList.setPerson(ALICE, editedAlice);
-//        UniquePersonList expectedUniquePersonList = new UniquePersonList();
+//        UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
 //        expectedUniquePersonList.add(editedAlice);
 //        assertEquals(expectedUniquePersonList, uniquePersonList);
 //    }
@@ -101,7 +101,7 @@
 //    public void setPerson_editedPersonHasDifferentIdentity_success() {
 //        uniquePersonList.add(ALICE);
 //        uniquePersonList.setPerson(ALICE, BOB);
-//        UniquePersonList expectedUniquePersonList = new UniquePersonList();
+//        UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
 //        expectedUniquePersonList.add(BOB);
 //        assertEquals(expectedUniquePersonList, uniquePersonList);
 //    }
@@ -110,7 +110,7 @@
 //    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
 //        uniquePersonList.add(ALICE);
 //        uniquePersonList.add(BOB);
-//        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPerson(ALICE, BOB));
+//        assertThrows(DuplicateTaskException.class, () -> uniquePersonList.setPerson(ALICE, BOB));
 //    }
 //
 //    @Test
@@ -120,26 +120,26 @@
 //
 //    @Test
 //    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-//        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.remove(ALICE));
+//        assertThrows(TaskNotFoundException.class, () -> uniquePersonList.remove(ALICE));
 //    }
 //
 //    @Test
 //    public void remove_existingPerson_removesPerson() {
 //        uniquePersonList.add(ALICE);
 //        uniquePersonList.remove(ALICE);
-//        UniquePersonList expectedUniquePersonList = new UniquePersonList();
+//        UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
 //        assertEquals(expectedUniquePersonList, uniquePersonList);
 //    }
 //
 //    @Test
 //    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-//        assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((UniquePersonList) null));
+//        assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((UniqueTaskList) null));
 //    }
 //
 //    @Test
 //    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
 //        uniquePersonList.add(ALICE);
-//        UniquePersonList expectedUniquePersonList = new UniquePersonList();
+//        UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
 //        expectedUniquePersonList.add(BOB);
 //        uniquePersonList.setPersons(expectedUniquePersonList);
 //        assertEquals(expectedUniquePersonList, uniquePersonList);
@@ -155,7 +155,7 @@
 //        uniquePersonList.add(ALICE);
 //        List<Task> personList = Collections.singletonList(BOB);
 //        uniquePersonList.setPersons(personList);
-//        UniquePersonList expectedUniquePersonList = new UniquePersonList();
+//        UniqueTaskList expectedUniquePersonList = new UniqueTaskList();
 //        expectedUniquePersonList.add(BOB);
 //        assertEquals(expectedUniquePersonList, uniquePersonList);
 //    }
@@ -163,7 +163,7 @@
 //    @Test
 //    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
 //        List<Task> listWithDuplicatePersons = Arrays.asList(ALICE, ALICE);
-//        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicatePersons));
+//        assertThrows(DuplicateTaskException.class, () -> uniquePersonList.setPersons(listWithDuplicatePersons));
 //    }
 //
 //    @Test

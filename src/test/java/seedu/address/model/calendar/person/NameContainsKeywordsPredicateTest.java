@@ -1,4 +1,4 @@
-//package seedu.address.model.calendar.task;
+//package seedu.address.calendarModel.calendar.task;
 //
 //import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,7 +9,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.model.task.NameContainsKeywordsPredicate;
+//import seedu.address.calendarModel.task.TaskTitleContainsKeywordsPredicate;
 //import seedu.address.testutil.PersonBuilder;
 //
 //
@@ -22,15 +22,15 @@
 //        List<String> firstPredicateKeywordList = Collections.singletonList("first");
 //        List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 //
-//        NameContainsKeywordsPredicate firstPredicate = new NameContainsKeywordsPredicate(firstPredicateKeywordList);
-//        NameContainsKeywordsPredicate secondPredicate = new NameContainsKeywordsPredicate(secondPredicateKeywordList);
+//        TaskTitleContainsKeywordsPredicate firstPredicate = new TaskTitleContainsKeywordsPredicate(firstPredicateKeywordList);
+//        TaskTitleContainsKeywordsPredicate secondPredicate = new TaskTitleContainsKeywordsPredicate(secondPredicateKeywordList);
 //
 //        // same object -> returns true
 //        assertTrue(firstPredicate.equals(firstPredicate));
 //
 //        // same values -> returns true
-//        NameContainsKeywordsPredicate firstPredicateCopy
-//                = new NameContainsKeywordsPredicate(firstPredicateKeywordList);
+//        TaskTitleContainsKeywordsPredicate firstPredicateCopy
+//                = new TaskTitleContainsKeywordsPredicate(firstPredicateKeywordList);
 //        assertTrue(firstPredicate.equals(firstPredicateCopy));
 //
 //        // different types -> returns false
@@ -46,35 +46,35 @@
 //    @Test
 //    public void test_nameContainsKeywords_returnsTrue() {
 //        // One keyword
-//        NameContainsKeywordsPredicate predicate
-//                = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+//        TaskTitleContainsKeywordsPredicate predicate
+//                = new TaskTitleContainsKeywordsPredicate(Collections.singletonList("Alice"));
 //        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 //
 //        // Multiple keywords
-//        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
+//        predicate = new TaskTitleContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
 //        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 //
 //        // Only one matching keyword
-//        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
+//        predicate = new TaskTitleContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
 //        assertTrue(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
 //
 //        // Mixed-case keywords
-//        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
+//        predicate = new TaskTitleContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
 //        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 //    }
 //
 //    @Test
 //    public void test_nameDoesNotContainKeywords_returnsFalse() {
 //        // Zero keywords
-//        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
+//        TaskTitleContainsKeywordsPredicate predicate = new TaskTitleContainsKeywordsPredicate(Collections.emptyList());
 //        assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
 //
 //        // Non-matching keyword
-//        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
+//        predicate = new TaskTitleContainsKeywordsPredicate(Arrays.asList("Carol"));
 //        assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 //
 //        // Keywords match phone, email and address, but does not match name
-//        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
+//        predicate = new TaskTitleContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
 //        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
 //                .withEmail("alice@email.com").withAddress("Main Street").build()));
 //    }

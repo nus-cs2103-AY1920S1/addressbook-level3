@@ -12,27 +12,27 @@
 //
 //
 ///**
-// * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+// * Contains integration tests (interaction with the CalendarModel) and unit tests for ListCommand.
 // */
 //public class ListCommandTest {
 //
-//    private Model model;
-//    private Model expectedModel;
+//    private CalendarModel calendarModel;
+//    private CalendarModel expectedModel;
 //
 //    @BeforeEach
 //    public void setUp() {
-//        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-//        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+//        calendarModel = new CalendarCalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
+//        expectedModel = new CalendarCalendarModelManager(calendarModel.getCalendarAddressBook(), new CalendarUserPrefs());
 //    }
 //
 //    @Test
 //    public void execute_listIsNotFiltered_showsSameList() {
-//        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+//        assertCommandSuccess(new ListCommand(), calendarModel, ListCommand.MESSAGE_SUCCESS, expectedModel);
 //    }
 //
 //    @Test
 //    public void execute_listIsFiltered_showsEverything() {
-//        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-//        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+//        showPersonAtIndex(calendarModel, INDEX_FIRST_PERSON);
+//        assertCommandSuccess(new ListCommand(), calendarModel, ListCommand.MESSAGE_SUCCESS, expectedModel);
 //    }
 //}

@@ -12,8 +12,12 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.calendar.LogicManager;
 import seedu.address.logic.finance.LogicFinanceManager;
 import seedu.address.logic.quiz.LogicQuizManager;
-import seedu.address.model.calendar.AddressBook;
-import seedu.address.model.calendar.ModelManager;
+import seedu.address.model.calendar.CalendarCalendarAddressBook;
+import seedu.address.model.calendar.CalendarModel;
+import seedu.address.model.calendar.CalendarCalendarModelManager;
+import seedu.address.model.calendar.CalendarUserPrefs;
+import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
+import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
 import seedu.address.model.finance.FinanceLog;
 import seedu.address.model.finance.ModelFinanceManager;
 import seedu.address.model.quiz.AddressQuizBook;
@@ -44,8 +48,8 @@ public class SwitchOperation {
     private seedu.address.logic.quiz.Logic quizLogic;
     private seedu.address.ui.quiz.Ui quizUi;
 
-    private seedu.address.model.calendar.UserPrefs userCalendarPrefs;
-    private seedu.address.model.calendar.Model calendarModel;
+    private CalendarUserPrefs userCalendarPrefs;
+    private CalendarModel calendarModel;
     private seedu.address.logic.calendar.Logic calendarLogic;
     private seedu.address.ui.calendar.Ui calendarUi;
 
@@ -144,22 +148,22 @@ public class SwitchOperation {
      * @param storage Quiz storage
      * @return UserPrefs
      */
-    protected seedu.address.model.calendar.UserPrefs initPrefs(
+    protected CalendarUserPrefs initPrefs(
             seedu.address.storage.calendar.UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
         System.out.println("Using prefs file : " + prefsFilePath);
 
-        seedu.address.model.calendar.UserPrefs initializedPrefs;
+        CalendarUserPrefs initializedPrefs;
         try {
-            Optional<seedu.address.model.calendar.UserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new seedu.address.model.calendar.UserPrefs());
+            Optional<CalendarUserPrefs> prefsOptional = storage.readUserPrefs();
+            initializedPrefs = prefsOptional.orElse(new CalendarUserPrefs());
         } catch (DataConversionException e) {
             System.out.println("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
                     + "Using default user prefs");
-            initializedPrefs = new seedu.address.model.calendar.UserPrefs();
+            initializedPrefs = new CalendarUserPrefs();
         } catch (IOException e) {
             System.out.println("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initializedPrefs = new seedu.address.model.calendar.UserPrefs();
+            initializedPrefs = new CalendarUserPrefs();
         }
 
         // Update prefs file in case it was missing to begin with or there are new/unused fields
@@ -233,11 +237,11 @@ public class SwitchOperation {
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s and {@code userPrefs}. <br>
      */
-    private seedu.address.model.calendar.Model initModelManager(
+    private CalendarModel initModelManager(
             seedu.address.storage.calendar.Storage storage,
-            seedu.address.model.calendar.ReadOnlyUserPrefs userPrefs) {
-        Optional<seedu.address.model.calendar.ReadOnlyAddressBook> addressBookOptional;
-        seedu.address.model.calendar.ReadOnlyAddressBook initialData;
+            ReadOnlyCalendarUserPrefs userPrefs) {
+        Optional<ReadOnlyCalendarAddressBook> addressBookOptional;
+        ReadOnlyCalendarAddressBook initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -247,13 +251,13 @@ public class SwitchOperation {
                     .orElseGet(seedu.address.model.calendar.util.SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             System.out.println("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new CalendarCalendarAddressBook();
         } catch (IOException e) {
             System.out.println("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new CalendarCalendarAddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new CalendarCalendarModelManager(initialData, userPrefs);
     }
 
     /**

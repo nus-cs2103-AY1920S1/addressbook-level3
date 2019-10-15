@@ -17,7 +17,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.calendar.commands.EditCommand;
 import seedu.address.logic.calendar.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
-import seedu.address.model.calendar.tag.Tag;
+import seedu.address.model.calendar.tag.TaskTag;
 
 
 
@@ -60,7 +60,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setTaskPlace(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTaskTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -70,11 +70,11 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
+     * Parses {@code Collection<String> tags} into a {@code Set<TaskTag>} if {@code tags} is non-empty.
      * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
+     * {@code Set<TaskTag>} containing zero tags.
      */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
+    private Optional<Set<TaskTag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
         assert tags != null;
 
         if (tags.isEmpty()) {

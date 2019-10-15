@@ -33,12 +33,12 @@
 //
 //import seedu.address.logic.commands.AddCommand;
 //import seedu.address.logic.parser.AddCommandParser;
-//import seedu.address.model.task.TaskPlace;
-//import seedu.address.model.task.TaskDescription;
-//import seedu.address.model.task.TaskTitle;
-//import seedu.address.model.task.Task;
-//import seedu.address.model.task.TaskTime;
-//import seedu.address.model.tag.Tag;
+//import seedu.address.calendarModel.task.TaskPlace;
+//import seedu.address.calendarModel.task.TaskDescription;
+//import seedu.address.calendarModel.task.TaskTitle;
+//import seedu.address.calendarModel.task.Task;
+//import seedu.address.calendarModel.task.TaskTime;
+//import seedu.address.calendarModel.tag.TaskTag;
 //import seedu.address.testutil.PersonBuilder;
 //
 //
@@ -130,7 +130,7 @@
 //
 //        // invalid tag
 //        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-//                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+//                + INVALID_TAG_DESC + VALID_TAG_FRIEND, TaskTag.MESSAGE_CONSTRAINTS);
 //
 //        // two invalid values, only first invalid value reported
 //        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC,

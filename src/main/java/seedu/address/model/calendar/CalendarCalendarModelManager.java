@@ -19,43 +19,43 @@ import seedu.address.model.calendar.person.Task;
 
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory calendarModel of the address book data.
  */
-public class ModelManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+public class CalendarCalendarModelManager implements CalendarModel {
+    private static final Logger logger = LogsCenter.getLogger(CalendarCalendarModelManager.class);
 
-    private final AddressBook addressBook;
-    private final UserPrefs userPrefs;
+    private final CalendarCalendarAddressBook calendarAddressBook;
+    private final CalendarUserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a CalendarCalendarModelManager with the given calendarAddressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public CalendarCalendarModelManager(ReadOnlyCalendarAddressBook addressBook, ReadOnlyCalendarUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredTasks = new FilteredList<>(this.addressBook.getPersonList());
+        this.calendarAddressBook = new CalendarCalendarAddressBook(addressBook);
+        this.userPrefs = new CalendarUserPrefs(userPrefs);
+        filteredTasks = new FilteredList<>(this.calendarAddressBook.getPersonList());
     }
 
-    public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+    public CalendarCalendarModelManager() {
+        this(new CalendarCalendarAddressBook(), new CalendarUserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
+    //=========== CalendarUserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+    public void setUserPrefs(ReadOnlyCalendarUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
+    public ReadOnlyCalendarUserPrefs getUserPrefs() {
         return userPrefs;
     }
 
@@ -81,32 +81,32 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== CalendarCalendarAddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setCalendarAddressBook(ReadOnlyCalendarAddressBook calendarAddressBook) {
+        this.calendarAddressBook.resetData(calendarAddressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyCalendarAddressBook getCalendarAddressBook() {
+        return calendarAddressBook;
     }
 
     @Override
     public boolean hasPerson(Task task) {
         requireNonNull(task);
-        return addressBook.hasPerson(task);
+        return calendarAddressBook.hasPerson(task);
     }
 
     @Override
     public void deletePerson(Task target) {
-        addressBook.removePerson(target);
+        calendarAddressBook.removePerson(target);
     }
 
     @Override
     public void addPerson(Task task) {
-        addressBook.addPerson(task);
+        calendarAddressBook.addPerson(task);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -114,7 +114,7 @@ public class ModelManager implements Model {
     public void setPerson(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
-        addressBook.setPerson(target, editedTask);
+        calendarAddressBook.setPerson(target, editedTask);
     }
 
     //=========== Filtered Task List Accessors =============================================================
@@ -142,13 +142,13 @@ public class ModelManager implements Model {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
+        if (!(obj instanceof CalendarCalendarModelManager)) {
             return false;
         }
 
         // state check
-        ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        CalendarCalendarModelManager other = (CalendarCalendarModelManager) obj;
+        return calendarAddressBook.equals(other.calendarAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredTasks.equals(other.filteredTasks);
     }

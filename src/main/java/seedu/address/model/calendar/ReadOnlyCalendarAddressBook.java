@@ -6,7 +6,7 @@ import seedu.address.model.calendar.person.Task;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyCalendarAddressBook {
 
     /**
      * Returns an unmodifiable view of the persons list.

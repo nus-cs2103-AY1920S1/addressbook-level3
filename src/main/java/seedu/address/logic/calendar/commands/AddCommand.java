@@ -8,7 +8,7 @@ import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
-import seedu.address.model.calendar.Model;
+import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.person.Task;
 
 
@@ -48,14 +48,14 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+    public CommandResult execute(CalendarModel calendarModel) throws CommandException {
+        requireNonNull(calendarModel);
 
-        if (model.hasPerson(toAdd)) {
+        if (calendarModel.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
+        calendarModel.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

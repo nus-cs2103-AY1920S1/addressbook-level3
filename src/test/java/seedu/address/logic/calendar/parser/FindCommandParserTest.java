@@ -10,7 +10,7 @@
 //
 //import seedu.address.logic.commands.FindCommand;
 //import seedu.address.logic.parser.FindCommandParser;
-//import seedu.address.model.task.NameContainsKeywordsPredicate;
+//import seedu.address.calendarModel.task.TaskTitleContainsKeywordsPredicate;
 //
 //
 //
@@ -28,7 +28,7 @@
 //    public void parse_validArgs_returnsFindCommand() {
 //        // no leading and trailing whitespaces
 //        FindCommand expectedFindCommand =
-//                new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+//                new FindCommand(new TaskTitleContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
 //        assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
 //
 //        // multiple whitespaces between keywords

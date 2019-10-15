@@ -15,7 +15,7 @@ import seedu.address.model.calendar.person.TaskPlace;
 import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.person.Task;
 import seedu.address.model.calendar.person.TaskTime;
-import seedu.address.model.calendar.tag.Tag;
+import seedu.address.model.calendar.tag.TaskTag;
 
 
 
@@ -57,20 +57,20 @@ class JsonAdaptedPerson {
         phone = source.getTaskTime().value;
         email = source.getTaskDescription().value;
         address = source.getTaskPlace().value;
-        tagged.addAll(source.getTags().stream()
+        tagged.addAll(source.getTaskTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
     }
 
     /**
-     * Converts this Jackson-friendly adapted task object into the model's {@code Task} object.
+     * Converts this Jackson-friendly adapted task object into the calendarModel's {@code Task} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task.
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<TaskTag> personTaskTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            personTaskTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -105,8 +105,8 @@ class JsonAdaptedPerson {
         }
         final TaskPlace modelTaskPlace = new TaskPlace(address);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Task(modelTaskTitle, modelTaskTime, modelTaskDescription, modelTaskPlace, modelTags);
+        final Set<TaskTag> modelTaskTags = new HashSet<>(personTaskTags);
+        return new Task(modelTaskTitle, modelTaskTime, modelTaskDescription, modelTaskPlace, modelTaskTags);
     }
 
 }

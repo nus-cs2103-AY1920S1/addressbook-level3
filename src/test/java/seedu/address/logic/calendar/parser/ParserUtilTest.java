@@ -15,11 +15,11 @@
 //
 //import seedu.address.logic.parser.ParserUtil;
 //import seedu.address.logic.parser.exceptions.ParseException;
-//import seedu.address.model.task.TaskPlace;
-//import seedu.address.model.task.TaskDescription;
-//import seedu.address.model.task.TaskTitle;
-//import seedu.address.model.task.TaskTime;
-//import seedu.address.model.tag.Tag;
+//import seedu.address.calendarModel.task.TaskPlace;
+//import seedu.address.calendarModel.task.TaskDescription;
+//import seedu.address.calendarModel.task.TaskTitle;
+//import seedu.address.calendarModel.task.TaskTime;
+//import seedu.address.calendarModel.tag.TaskTag;
 //
 //
 //
@@ -164,14 +164,14 @@
 //
 //    @Test
 //    public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-//        Tag expectedTag = new Tag(VALID_TAG_1);
+//        TaskTag expectedTag = new TaskTag(VALID_TAG_1);
 //        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
 //    }
 //
 //    @Test
 //    public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
 //        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-//        Tag expectedTag = new Tag(VALID_TAG_1);
+//        TaskTag expectedTag = new TaskTag(VALID_TAG_1);
 //        assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
 //    }
 //
@@ -192,8 +192,8 @@
 //
 //    @Test
 //    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-//        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-//        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+//        Set<TaskTag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
+//        Set<TaskTag> expectedTagSet = new HashSet<TaskTag>(Arrays.asList(new TaskTag(VALID_TAG_1), new TaskTag(VALID_TAG_2)));
 //
 //        assertEquals(expectedTagSet, actualTagSet);
 //    }

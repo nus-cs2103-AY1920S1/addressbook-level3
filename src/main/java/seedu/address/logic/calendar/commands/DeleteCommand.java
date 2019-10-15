@@ -7,7 +7,7 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
-import seedu.address.model.calendar.Model;
+import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.person.Task;
 
 
@@ -32,16 +32,16 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Task> lastShownList = model.getFilteredPersonList();
+    public CommandResult execute(CalendarModel calendarModel) throws CommandException {
+        requireNonNull(calendarModel);
+        List<Task> lastShownList = calendarModel.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Task taskToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(taskToDelete);
+        calendarModel.deletePerson(taskToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete));
     }
 

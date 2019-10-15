@@ -28,7 +28,7 @@
 //        assertThrows(NullPointerException.class, () -> readAddressBook(null));
 //    }
 //
-//    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
+//    private java.util.Optional<ReadOnlyCalendarAddressBook> readAddressBook(String filePath) throws Exception {
 //        return new JsonAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
 //    }
 //
@@ -61,26 +61,26 @@
 //    @Test
 //    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
 //        Path filePath = testFolder.resolve("TempAddressBook.json");
-//        AddressBook original = getTypicalAddressBook();
+//        CalendarCalendarAddressBook original = getTypicalAddressBook();
 //        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
 //
 //        // Save in new file and read back
 //        jsonAddressBookStorage.saveAddressBook(original, filePath);
-//        ReadOnlyAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
-//        assertEquals(original, new AddressBook(readBack));
+//        ReadOnlyCalendarAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+//        assertEquals(original, new CalendarCalendarAddressBook(readBack));
 //
 //        // Modify data, overwrite exiting file, and read back
 //        original.addPerson(HOON);
 //        original.removePerson(ALICE);
 //        jsonAddressBookStorage.saveAddressBook(original, filePath);
 //        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
-//        assertEquals(original, new AddressBook(readBack));
+//        assertEquals(original, new CalendarCalendarAddressBook(readBack));
 //
 //        // Save and read without specifying file path
 //        original.addPerson(IDA);
 //        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
 //        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
-//        assertEquals(original, new AddressBook(readBack));
+//        assertEquals(original, new CalendarCalendarAddressBook(readBack));
 //
 //    }
 //
@@ -92,7 +92,7 @@
 //    /**
 //     * Saves {@code addressBook} at the specified {@code filePath}.
 //     */
-//    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+//    private void saveAddressBook(ReadOnlyCalendarAddressBook addressBook, String filePath) {
 //        try {
 //            new JsonAddressBookStorage(Paths.get(filePath))
 //                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
@@ -103,6 +103,6 @@
 //
 //    @Test
 //    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-//        assertThrows(NullPointerException.class, () -> saveAddressBook(new AddressBook(), null));
+//        assertThrows(NullPointerException.class, () -> saveAddressBook(new CalendarCalendarAddressBook(), null));
 //    }
 //}

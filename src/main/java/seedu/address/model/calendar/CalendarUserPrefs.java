@@ -12,28 +12,28 @@ import seedu.address.commons.core.GuiSettings;
 /**
  * Represents User's preferences.
  */
-public class UserPrefs implements ReadOnlyUserPrefs {
+public class CalendarUserPrefs implements ReadOnlyCalendarUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
 
     /**
-     * Creates a {@code UserPrefs} with default values.
+     * Creates a {@code CalendarUserPrefs} with default values.
      */
-    public UserPrefs() {}
+    public CalendarUserPrefs() {}
 
     /**
-     * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
+     * Creates a {@code CalendarUserPrefs} with the prefs in {@code userPrefs}.
      */
-    public UserPrefs(ReadOnlyUserPrefs userPrefs) {
+    public CalendarUserPrefs(ReadOnlyCalendarUserPrefs userPrefs) {
         this();
         resetData(userPrefs);
     }
 
     /**
-     * Resets the existing data of this {@code UserPrefs} with {@code newUserPrefs}.
+     * Resets the existing data of this {@code CalendarUserPrefs} with {@code newUserPrefs}.
      */
-    public void resetData(ReadOnlyUserPrefs newUserPrefs) {
+    public void resetData(ReadOnlyCalendarUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
@@ -62,11 +62,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof UserPrefs)) { //this handles null as well.
+        if (!(other instanceof CalendarUserPrefs)) { //this handles null as well.
             return false;
         }
 
-        UserPrefs o = (UserPrefs) other;
+        CalendarUserPrefs o = (CalendarUserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath);

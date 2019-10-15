@@ -1,4 +1,4 @@
-//package seedu.address.model.calendar.task;
+//package seedu.address.calendarModel.calendar.task;
 //
 //import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,7 +13,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.model.task.Task;
+//import seedu.address.calendarModel.task.Task;
 //import seedu.address.testutil.PersonBuilder;
 //
 //
@@ -23,7 +23,7 @@
 //    @Test
 //    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
 //        Task task = new PersonBuilder().build();
-//        assertThrows(UnsupportedOperationException.class, () -> task.getTags().remove(0));
+//        assertThrows(UnsupportedOperationException.class, () -> task.getTaskTags().remove(0));
 //    }
 //
 //    @Test

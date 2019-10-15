@@ -1,4 +1,4 @@
-//package seedu.address.model.calendar.task;
+//package seedu.address.calendarModel.calendar.task;
 //
 //import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,7 +6,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.model.task.TaskPlace;
+//import seedu.address.calendarModel.task.TaskPlace;
 //
 //
 //
