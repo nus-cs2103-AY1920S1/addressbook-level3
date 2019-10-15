@@ -10,7 +10,7 @@ import java.util.List;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diary.Diary;
-import seedu.address.model.diary.Name;
+import seedu.address.model.diary.DiaryName;
 import seedu.address.model.diary.Page;
 
 
@@ -21,32 +21,32 @@ public class AddPageCommand extends Command {
 
     public static final String COMMAND_WORD = "addPage";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a page to a diary in DukeCooks. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a page to a diary in DiaryRecords. "
             + "Parameters: "
             + PREFIX_DIARY_NAME + "DIARY NAME"
             + PREFIX_PAGE_TITLE + "PAGE TITLE";
 
     public static final String MESSAGE_SUCCESS = "New page added to diary: %1$s";
-    public static final String MESSAGE_NON_EXISTENT_DIARY = "This diary does not exists in DukeCooks";
+    public static final String MESSAGE_NON_EXISTENT_DIARY = "This diary does not exists in DiaryRecords";
     public static final String MESSAGE_DUPLICATE_PAGE = "This page already exists in this diary";
 
     private final Page pageToAdd;
-    private final Name specifiedDiaryName;
+    private final DiaryName specifiedDiaryDiaryName;
 
     /**
      * Creates an AddPageCommand to add the specified {@code Page} to specified Diary
      */
-    public AddPageCommand(Page pageToAdd, Name specifiedDiaryName) {
-        requireAllNonNull(pageToAdd, specifiedDiaryName);
+    public AddPageCommand(Page pageToAdd, DiaryName specifiedDiaryDiaryName) {
+        requireAllNonNull(pageToAdd, specifiedDiaryDiaryName);
         this.pageToAdd = pageToAdd;
-        this.specifiedDiaryName = specifiedDiaryName;
+        this.specifiedDiaryDiaryName = specifiedDiaryDiaryName;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model);
         List<Diary> lastShownList = model.getFilteredDiaryList();
-        Diary wantedDiary = new Diary(specifiedDiaryName);
+        Diary wantedDiary = new Diary(specifiedDiaryDiaryName);
 
         // check if diary exists
         if (!lastShownList.contains(wantedDiary)) {
@@ -64,7 +64,7 @@ public class AddPageCommand extends Command {
         // add page to diary
         ArrayList<Page> newPageList = wantedDiary.getPages();
         newPageList.add(pageToAdd);
-        model.setDiary(wantedDiary, new Diary(wantedDiary.getName(), newPageList));
+        model.setDiary(wantedDiary, new Diary(wantedDiary.getDiaryName(), newPageList));
         return new CommandResult(String.format(MESSAGE_SUCCESS, pageToAdd));
     }
 

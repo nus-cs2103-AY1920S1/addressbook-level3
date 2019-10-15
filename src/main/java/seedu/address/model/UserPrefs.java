@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path dukeCooksFilePath = Paths.get("data" , "dukecooks.json");
+    private Path diaryFilePath = Paths.get("data" , "diary.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,7 +35,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setDukeCooksFilePath(newUserPrefs.getDukeCooksFilePath());
+        setDiaryFilePath(newUserPrefs.getDiaryFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +47,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getDukeCooksFilePath() {
-        return dukeCooksFilePath;
+    public Path getDiaryFilePath() {
+        return diaryFilePath;
     }
 
-    public void setDukeCooksFilePath(Path dukeCooksFilePath) {
-        requireNonNull(dukeCooksFilePath);
-        this.dukeCooksFilePath = dukeCooksFilePath;
+    public void setDiaryFilePath(Path diaryFilePath) {
+        requireNonNull(diaryFilePath);
+        this.diaryFilePath = diaryFilePath;
     }
 
     @Override
@@ -68,19 +68,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && dukeCooksFilePath.equals(o.dukeCooksFilePath);
+                && diaryFilePath.equals(o.diaryFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, dukeCooksFilePath);
+        return Objects.hash(guiSettings, diaryFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + dukeCooksFilePath);
+        sb.append("\nLocal data file location : " + diaryFilePath);
         return sb.toString();
     }
 

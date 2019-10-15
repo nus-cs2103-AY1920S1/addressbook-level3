@@ -15,15 +15,15 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.DukeCooks;
+import seedu.address.model.DiaryRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.DukeCooksStorage;
-import seedu.address.storage.JsonDukeCooksStorage;
+import seedu.address.model.util.DiarySampleDataUtil;
+import seedu.address.storage.DiaryStorage;
+import seedu.address.storage.JsonDiaryStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing DukeCooks ]===========================");
+        logger.info("=============================[ Initializing DiaryRecords ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        DukeCooksStorage dukeCooksStorage = new JsonDukeCooksStorage(userPrefs.getDukeCooksFilePath());
-        storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
+        DiaryStorage diaryStorage = new JsonDiaryStorage(userPrefs.getDiaryFilePath());
+        storage = new StorageManager(diaryStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -69,25 +69,25 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s duke cooks and {@code userPrefs}. <br>
-     * The data from the sample duke cooks will be used instead if {@code storage}'s Duke Cooks is not found,
-     * or an empty dukeCooks will be used instead if errors occur when reading {@code storage}'s Duke Cooks.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s diaries and {@code userPrefs}. <br>
+     * The data from the sample diary will be used instead if {@code storage}'s diary is not found,
+     * or an empty diaryStorage will be used instead if errors occur when reading {@code storage}'s diaries.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyDukeCooks> dukeCooksOptional;
-        ReadOnlyDukeCooks initialData;
+        Optional<ReadOnlyDiary> diaryOptional;
+        ReadOnlyDiary initialData;
         try {
-            dukeCooksOptional = storage.readDukeCooks();
-            if (!dukeCooksOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with sample DukeCooks");
+            diaryOptional = storage.readDiary();
+            if (!diaryOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with sample DiaryRecords");
             }
-            initialData = dukeCooksOptional.orElseGet(SampleDataUtil::getSampleDukeCooks);
+            initialData = diaryOptional.orElseGet(DiarySampleDataUtil::getSampleDiaryRecords);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
-            initialData = new DukeCooks();
+            logger.warning("Data file not in the correct format. Will be starting with an empty DiaryRecords");
+            initialData = new DiaryRecords();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
-            initialData = new DukeCooks();
+            logger.warning("Problem while reading from the file. Will be starting with an empty DiaryRecords");
+            initialData = new DiaryRecords();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -151,7 +151,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
+            logger.warning("Problem while reading from the file. Will be starting with an empty DiaryRecords");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,7 +167,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting DukeCooks " + MainApp.VERSION);
+        logger.info("Starting DiaryRecords " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

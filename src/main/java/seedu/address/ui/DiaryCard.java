@@ -10,9 +10,9 @@ import seedu.address.model.diary.Diary;
 /**
  * An UI component that displays information of a {@code Diary}.
  */
-public class PersonCard extends UiPart<Region> {
+public class DiaryCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "DiaryListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -27,17 +27,17 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label diaryName;
     @FXML
     private Label id;
     @FXML
     private FlowPane pages;
 
-    public PersonCard(Diary diary, int displayedIndex) {
+    public DiaryCard(Diary diary, int displayedIndex) {
         super(FXML);
         this.diary = diary;
         id.setText(displayedIndex + ". ");
-        name.setText(diary.getName().fullName);
+        diaryName.setText(diary.getDiaryName().fullName);
 
         diary.getPages().stream()
                 .forEach(page -> pages.getChildren().add(new Label(page.getTitle().toString())));
@@ -51,12 +51,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof DiaryCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        DiaryCard card = (DiaryCard) other;
         return id.getText().equals(card.id.getText())
                 && diary.equals(card.diary);
     }

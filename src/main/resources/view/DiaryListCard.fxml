@@ -25,7 +25,7 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="diaryName" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <FlowPane fx:id="pages" />
     </VBox>

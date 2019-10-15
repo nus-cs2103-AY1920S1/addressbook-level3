@@ -1,12 +1,7 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import seedu.address.model.diary.Name;
-import seedu.address.model.diary.Name;
 import seedu.address.model.diary.Diary;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.diary.DiaryName;
 
 /**
  * A utility class to help with building Person objects.
@@ -15,29 +10,29 @@ public class DiaryBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
 
-    private Name name;
+    private DiaryName diaryName;
 
     public DiaryBuilder() {
-        name = new Name(DEFAULT_NAME);
+        diaryName = new DiaryName(DEFAULT_NAME);
     }
 
     /**
      * Initializes the DiaryBuilder with the data of {@code diaryToCopy}.
      */
     public DiaryBuilder(Diary diaryToCopy) {
-        name = diaryToCopy.getName();
+        diaryName = diaryToCopy.getDiaryName();
     }
 
     /**
-     * Sets the {@code Name} of the {@code Diary} that we are building.
+     * Sets the {@code DiaryName} of the {@code Diary} that we are building.
      */
     public DiaryBuilder withName(String name) {
-        this.name = new Name(name);
+        this.diaryName = new DiaryName(name);
         return this;
     }
 
     public Diary build() {
-        return new Diary(name);
+        return new Diary(diaryName);
     }
 
 }

@@ -13,23 +13,23 @@ import seedu.address.model.diary.Diary;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class DiaryListPanel extends UiPart<Region> {
+    private static final String FXML = "DiaryListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(DiaryListPanel.class);
 
     @FXML
-    private ListView<Diary> personListView;
+    private ListView<Diary> diaryListView;
 
-    public PersonListPanel(ObservableList<Diary> diaryList) {
+    public DiaryListPanel(ObservableList<Diary> diaryList) {
         super(FXML);
-        personListView.setItems(diaryList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        diaryListView.setItems(diaryList);
+        diaryListView.setCellFactory(listView -> new DiaryListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Diary} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Diary} using a {@code DiaryCard}.
      */
-    class PersonListViewCell extends ListCell<Diary> {
+    class DiaryListViewCell extends ListCell<Diary> {
         @Override
         protected void updateItem(Diary diary, boolean empty) {
             super.updateItem(diary, empty);
@@ -38,7 +38,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(diary, getIndex() + 1).getRoot());
+                setGraphic(new DiaryCard(diary, getIndex() + 1).getRoot());
             }
         }
     }

@@ -9,10 +9,10 @@ import seedu.address.model.diary.Diary;
 import seedu.address.model.diary.UniqueDiaryList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the diary level
  * Duplicates are not allowed (by .isSameDiary comparison)
  */
-public class DukeCooks implements ReadOnlyDukeCooks {
+public class DiaryRecords implements ReadOnlyDiary {
 
     private final UniqueDiaryList diaries;
 
@@ -27,12 +27,12 @@ public class DukeCooks implements ReadOnlyDukeCooks {
         diaries = new UniqueDiaryList();
     }
 
-    public DukeCooks() {}
+    public DiaryRecords() {}
 
     /**
-     * Creates a DukeCooks using the Persons in the {@code toBeCopied}
+     * Creates a DiaryRecords using the Persons in the {@code toBeCopied}
      */
-    public DukeCooks(ReadOnlyDukeCooks toBeCopied) {
+    public DiaryRecords(ReadOnlyDiary toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,9 +48,9 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     }
 
     /**
-     * Resets the existing data of this {@code DukeCooks} with {@code newData}.
+     * Resets the existing data of this {@code DiaryRecords} with {@code newData}.
      */
-    public void resetData(ReadOnlyDukeCooks newData) {
+    public void resetData(ReadOnlyDiary newData) {
         requireNonNull(newData);
 
         setDiaries(newData.getDiaryList());
@@ -86,7 +86,7 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     }
 
     /**
-     * Removes {@code key} from this {@code DukeCooks}.
+     * Removes {@code key} from this {@code DiaryRecords}.
      * {@code key} must exist in Duke Cooks.
      */
     public void removeDiary(Diary key) {
@@ -109,8 +109,8 @@ public class DukeCooks implements ReadOnlyDukeCooks {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DukeCooks // instanceof handles nulls
-                && diaries.equals(((DukeCooks) other).diaries));
+                || (other instanceof DiaryRecords // instanceof handles nulls
+                && diaries.equals(((DiaryRecords) other).diaries));
     }
 
     @Override

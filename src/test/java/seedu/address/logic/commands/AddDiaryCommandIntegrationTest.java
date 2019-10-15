@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.testutil.TypicalDiaries.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalDiaries.getTypicalDiaryRecords;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,12 +20,12 @@ public class AddDiaryCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalDukeCooks(), new UserPrefs());
+        model = new ModelManager(getTypicalDiaryRecords(), new UserPrefs());
     }
 
     @Test
     public void execute_duplicateDiaries_throwsCommandException() {
-        Diary diaryInList = model.getDukeCooks().getDiaryList().get(0);
+        Diary diaryInList = model.getDiaryRecords().getDiaryList().get(0);
         assertCommandFailure(new AddDiaryCommand(diaryInList), model, AddDiaryCommand.MESSAGE_DUPLICATE_DIARY);
     }
 

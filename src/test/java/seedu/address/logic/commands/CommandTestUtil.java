@@ -11,10 +11,10 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.DukeCooks;
+import seedu.address.model.DiaryRecords;
 import seedu.address.model.Model;
-import seedu.address.model.diary.NameContainsKeywordsPredicate;
 import seedu.address.model.diary.Diary;
+import seedu.address.model.diary.DiaryNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditDiaryDescriptorBuilder;
 
 /**
@@ -76,11 +76,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        DukeCooks expectedDukeCooks = new DukeCooks(actualModel.getDukeCooks());
+        DiaryRecords expectedDiaryRecords = new DiaryRecords(actualModel.getDiaryRecords());
         List<Diary> expectedFilteredList = new ArrayList<>(actualModel.getFilteredDiaryList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedDukeCooks, actualModel.getDukeCooks());
+        assertEquals(expectedDiaryRecords, actualModel.getDiaryRecords());
         assertEquals(expectedFilteredList, actualModel.getFilteredDiaryList());
     }
     /**
@@ -91,8 +91,8 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredDiaryList().size());
 
         Diary diary = model.getFilteredDiaryList().get(targetIndex.getZeroBased());
-        final String[] splitName = diary.getName().fullName.split("\\s+");
-        model.updateFilteredDiaryList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        final String[] splitName = diary.getDiaryName().fullName.split("\\s+");
+        model.updateFilteredDiaryList(new DiaryNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredDiaryList().size());
     }

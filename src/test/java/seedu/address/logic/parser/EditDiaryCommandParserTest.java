@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DIARY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_DIARY;
 
@@ -15,8 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditDiaryCommand;
 import seedu.address.logic.commands.EditDiaryCommand.EditDiaryDescriptor;
-import seedu.address.model.diary.Diary;
-import seedu.address.model.diary.Name;
+import seedu.address.model.diary.DiaryName;
 import seedu.address.testutil.EditDiaryDescriptorBuilder;
 
 public class EditDiaryCommandParserTest {
@@ -24,7 +22,7 @@ public class EditDiaryCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDiaryCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private EditDiaryCommandParser parser = new EditDiaryCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -55,11 +53,11 @@ public class EditDiaryCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC, DiaryName.MESSAGE_CONSTRAINTS); // invalid name
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+                DiaryName.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -81,32 +79,6 @@ public class EditDiaryCommandParserTest {
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
         EditDiaryDescriptor descriptor = new EditDiaryDescriptorBuilder().withName(VALID_NAME_AMY).build();
         EditDiaryCommand expectedCommand = new EditDiaryCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
-    public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased()
-                + TAG_DESC_FRIEND + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND;
-
-        EditPersonDescriptor descriptor = new EditDiaryDescriptorBuilder()
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
-    public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
-
-        EditPersonDescriptor descriptor = new EditDiaryDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }

@@ -12,7 +12,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diary.Diary;
-import seedu.address.model.diary.Name;
+import seedu.address.model.diary.DiaryName;
 
 /**
  * Edits the details of an existing diary in Duke Cooks.
@@ -75,9 +75,9 @@ public class EditDiaryCommand extends Command {
     private static Diary createEditedDiary(Diary diaryToEdit, EditDiaryDescriptor editDiaryDescriptor) {
         assert diaryToEdit != null;
 
-        Name updatedName = editDiaryDescriptor.getName().orElse(diaryToEdit.getName());
+        DiaryName updatedDiaryName = editDiaryDescriptor.getDiaryName().orElse(diaryToEdit.getDiaryName());
 
-        return new Diary(updatedName);
+        return new Diary(updatedDiaryName);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class EditDiaryCommand extends Command {
      * corresponding field value of the diary.
      */
     public static class EditDiaryDescriptor {
-        private Name name;
+        private DiaryName diaryName;
 
         public EditDiaryDescriptor() {}
 
@@ -112,22 +112,22 @@ public class EditDiaryCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditDiaryDescriptor(EditDiaryDescriptor toCopy) {
-            setName(toCopy.name);
+            setDiaryName(toCopy.diaryName);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name);
+            return CollectionUtil.isAnyNonNull(diaryName);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setDiaryName(DiaryName diaryName) {
+            this.diaryName = diaryName;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<DiaryName> getDiaryName() {
+            return Optional.ofNullable(diaryName);
         }
 
         @Override
@@ -145,7 +145,7 @@ public class EditDiaryCommand extends Command {
             // state check
             EditDiaryDescriptor e = (EditDiaryDescriptor) other;
 
-            return getName().equals(e.getName());
+            return getDiaryName().equals(e.getDiaryName());
         }
     }
 }

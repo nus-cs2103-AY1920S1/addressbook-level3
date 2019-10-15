@@ -6,7 +6,7 @@ import seedu.address.model.diary.Diary;
 /**
  * Unmodifiable view of Duke Cooks
  */
-public interface ReadOnlyDukeCooks {
+public interface ReadOnlyDiary {
 
     /**
      * Returns an unmodifiable view of the persons list.

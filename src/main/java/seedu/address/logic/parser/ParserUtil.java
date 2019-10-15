@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.diary.Name;
+import seedu.address.model.diary.DiaryName;
 import seedu.address.model.diary.Title;
 
 /**
@@ -29,18 +29,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String name} into a {@code DiaryName}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
+    public static DiaryName parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        if (!DiaryName.isValidName(trimmedName)) {
+            throw new ParseException(DiaryName.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new DiaryName(trimmedName);
     }
 
     /**

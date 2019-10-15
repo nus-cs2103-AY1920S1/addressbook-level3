@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.DukeCooks;
+import seedu.address.model.DiaryRecords;
 import seedu.address.model.diary.Diary;
 
 /**
@@ -15,31 +15,31 @@ import seedu.address.model.diary.Diary;
  */
 public class TypicalDiaries {
 
-    public static final Diary ALICE = new DiaryBuilder().withName("Alice Pauline").build();
-    public static final Diary BENSON = new DiaryBuilder().withName("Benson Meier").build();
-    public static final Diary CARL = new DiaryBuilder().withName("Carl Kurz").build();
-    public static final Diary DANIEL = new DiaryBuilder().withName("Daniel Meier").build();
-    public static final Diary ELLE = new DiaryBuilder().withName("Elle Meyer").build();
-    public static final Diary FIONA = new DiaryBuilder().withName("Fiona Kunz").build();
-    public static final Diary GEORGE = new DiaryBuilder().withName("George Best").build();
+    public static final Diary ALL_MEAT = new DiaryBuilder().withName("Meat Lovers").build();
+    public static final Diary BRUNCH = new DiaryBuilder().withName("Brunches").build();
+    public static final Diary CARB_FOODS = new DiaryBuilder().withName("Carbs For Life").build();
+    public static final Diary DRINKS = new DiaryBuilder().withName("Drinks All Day").build();
+    public static final Diary ENERGY_FOODS = new DiaryBuilder().withName("High Energy Foods").build();
+    public static final Diary FUN_FOODS = new DiaryBuilder().withName("Fun Foods").build();
+    public static final Diary GREAT_GRAPES = new DiaryBuilder().withName("Great Grapes").build();
 
     // Manually added
-    public static final Diary HOON = new DiaryBuilder().withName("Hoon Meier").build();
-    public static final Diary IDA = new DiaryBuilder().withName("Ida Mueller").build();
+    public static final Diary HEALTHY_LIVING = new DiaryBuilder().withName("Healthy Living").build();
+    public static final Diary ICE_CREAM_GALORE = new DiaryBuilder().withName("Ice Cream Galore").build();
 
     // Manually added - Diary's details found in {@code CommandTestUtil}
-    public static final Diary AMY = new DiaryBuilder().withName(VALID_NAME_AMY).build();
-    public static final Diary BOB = new DiaryBuilder().withName(VALID_NAME_BOB).build();
+    public static final Diary AMY_DIARY = new DiaryBuilder().withName(VALID_NAME_AMY).build();
+    public static final Diary BOB_DIARY = new DiaryBuilder().withName(VALID_NAME_BOB).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalDiaries() {} // prevents instantiation
 
     /**
-     * Returns an {@code DukeCooks} with all the typical diaries.
+     * Returns an {@code DiaryRecords} with all the typical diaries.
      */
-    public static DukeCooks getTypicalDukeCooks() {
-        DukeCooks ab = new DukeCooks();
+    public static DiaryRecords getTypicalDiaryRecords() {
+        DiaryRecords ab = new DiaryRecords();
         for (Diary diary : getTypicalDiaries()) {
             ab.addDiary(diary);
         }
@@ -47,6 +47,7 @@ public class TypicalDiaries {
     }
 
     public static List<Diary> getTypicalDiaries() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ALL_MEAT, BRUNCH, CARB_FOODS,
+                DRINKS, ENERGY_FOODS, FUN_FOODS, GREAT_GRAPES));
     }
 }

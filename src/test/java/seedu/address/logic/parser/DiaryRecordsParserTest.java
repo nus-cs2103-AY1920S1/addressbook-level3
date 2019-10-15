@@ -7,10 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddDiaryCommand;
@@ -19,13 +15,13 @@ import seedu.address.logic.commands.EditDiaryCommand;
 import seedu.address.logic.commands.EditDiaryCommand.EditDiaryDescriptor;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.diary.NameContainsKeywordsPredicate;
 import seedu.address.model.diary.Diary;
 import seedu.address.testutil.DiaryBuilder;
-import seedu.address.testutil.EditDiaryDescriptorBuilder;
 import seedu.address.testutil.DiaryUtil;
+import seedu.address.testutil.EditDiaryDescriptorBuilder;
 
-public class DukeCooksParserTest {
+
+public class DiaryRecordsParserTest {
 
     private final DukeCooksParser parser = new DukeCooksParser();
 

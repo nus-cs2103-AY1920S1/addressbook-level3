@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DIARY_DISPLAYE
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalDiaries.AMY;
+import static seedu.address.testutil.TypicalDiaries.AMY_DIARY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -21,10 +21,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.diary.Diary;
-import seedu.address.storage.JsonDukeCooksStorage;
+import seedu.address.storage.JsonDiaryStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.DiaryBuilder;
@@ -40,8 +40,8 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonDukeCooksStorage dukeCooksStorage =
-                new JsonDukeCooksStorage(temporaryFolder.resolve("dukecooks.json"));
+        JsonDiaryStorage dukeCooksStorage =
+                new JsonDiaryStorage(temporaryFolder.resolve("dukecooks.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -67,9 +67,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonDukeCooksIoExceptionThrowingStub
-        JsonDukeCooksStorage dukeCooksStorage =
-                new JsonDukeCooksIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
+        // Setup LogicManager with JsonDiaryIoExceptionThrowingStub
+        JsonDiaryStorage dukeCooksStorage =
+                new JsonDiaryIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
@@ -77,7 +77,7 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand = AddDiaryCommand.COMMAND_WORD + NAME_DESC_AMY;
-        Diary expectedDiary = new DiaryBuilder(AMY).build();
+        Diary expectedDiary = new DiaryBuilder(AMY_DIARY).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addDiary(expectedDiary);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
@@ -125,7 +125,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getDiaryRecords(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -145,13 +145,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonDukeCooksIoExceptionThrowingStub extends JsonDukeCooksStorage {
-        private JsonDukeCooksIoExceptionThrowingStub(Path filePath) {
+    private static class JsonDiaryIoExceptionThrowingStub extends JsonDiaryStorage {
+        private JsonDiaryIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveDukeCooks(ReadOnlyDukeCooks dukeCooks, Path filePath) throws IOException {
+        public void saveDiary(ReadOnlyDiary diary, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

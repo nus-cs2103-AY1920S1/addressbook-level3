@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeletePageCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.diary.Name;
+import seedu.address.model.diary.DiaryName;
 
 /**
  * Parses input arguments and creates a new DeletePageCommand object
@@ -31,7 +31,7 @@ public class DeletePageCommandParser implements Parser<DeletePageCommand> {
         }
         try {
             Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PAGE_NUMBER).get());
-            Name diaryName = ParserUtil.parseName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
+            DiaryName diaryName = ParserUtil.parseName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
             return new DeletePageCommand(index, diaryName);
         } catch (ParseException pe) {
             throw new ParseException(

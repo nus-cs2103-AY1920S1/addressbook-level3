@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showDiaryAtIndex;
+import static seedu.address.testutil.TypicalDiaries.getTypicalDiaryRecords;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DIARY;
-import static seedu.address.testutil.TypicalDiaries.getTypicalDukeCooks;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ import seedu.address.model.diary.Diary;
  */
 public class DeleteDiaryCommandTest {
 
-    private Model model = new ModelManager(getTypicalDukeCooks(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalDiaryRecords(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +33,7 @@ public class DeleteDiaryCommandTest {
 
         String expectedMessage = String.format(DeleteDiaryCommand.MESSAGE_DELETE_DIARY_SUCCESS, diaryToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getDiaryRecords(), new UserPrefs());
         expectedModel.deleteDiary(diaryToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -56,20 +56,20 @@ public class DeleteDiaryCommandTest {
 
         String expectedMessage = String.format(DeleteDiaryCommand.MESSAGE_DELETE_DIARY_SUCCESS, diaryToDelete);
 
-        Model expectedModel = new ModelManager(model.getDukeCooks(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getDiaryRecords(), new UserPrefs());
         expectedModel.deleteDiary(diaryToDelete);
-        showNoPerson(expectedModel);
+        showNoDiary(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_DIARY);
+        showDiaryAtIndex(model, INDEX_FIRST_DIARY);
 
         Index outOfBoundIndex = INDEX_SECOND_DIARY;
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getDiaryList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getDiaryRecords().getDiaryList().size());
 
         DeleteDiaryCommand deleteCommand = new DeleteDiaryCommand(outOfBoundIndex);
 
@@ -99,7 +99,7 @@ public class DeleteDiaryCommandTest {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show no one.
+     * Updates {@code model}'s filtered list to show no diary.
      */
     private void showNoDiary(Model model) {
         model.updateFilteredDiaryList(p -> false);

@@ -19,26 +19,26 @@ import seedu.address.model.diary.Diary;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final DukeCooks dukeCooks;
+    private final DiaryRecords diaryRecords;
     private final UserPrefs userPrefs;
     private final FilteredList<Diary> filteredDiaries;
 
     /**
-     * Initializes a ModelManager with the given dukeCooks and userPrefs.
+     * Initializes a ModelManager with the given diaryRecords and userPrefs.
      */
-    public ModelManager(ReadOnlyDukeCooks dukeCooks, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyDiary diary, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(dukeCooks, userPrefs);
+        requireAllNonNull(diary, userPrefs);
 
-        logger.fine("Initializing with Duke Cooks: " + dukeCooks + " and user prefs " + userPrefs);
+        logger.fine("Initializing with Duke Cooks: " + diary + " and user prefs " + userPrefs);
 
-        this.dukeCooks = new DukeCooks(dukeCooks);
+        this.diaryRecords = new DiaryRecords(diary);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredDiaries = new FilteredList<>(this.dukeCooks.getDiaryList());
+        filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
     }
 
     public ModelManager() {
-        this(new DukeCooks(), new UserPrefs());
+        this(new DiaryRecords(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,42 +66,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getDukeCooksFilePath() {
-        return userPrefs.getDukeCooksFilePath();
+    public Path getDiaryFilePath() {
+        return userPrefs.getDiaryFilePath();
     }
 
     @Override
-    public void setDukeCooksFilePath(Path dukeCooksFilePath) {
-        requireNonNull(dukeCooksFilePath);
-        userPrefs.setDukeCooksFilePath(dukeCooksFilePath);
+    public void setDiaryFilePath(Path diaryFilePath) {
+        requireNonNull(diaryFilePath);
+        userPrefs.setDiaryFilePath(diaryFilePath);
     }
 
     //=========== DukeBooks ================================================================================
 
     @Override
-    public void setDukeCooks(ReadOnlyDukeCooks dukeCooks) {
-        this.dukeCooks.resetData(dukeCooks);
+    public void setDiaryRecords(ReadOnlyDiary diaryRecords) {
+        this.diaryRecords.resetData(diaryRecords);
     }
 
     @Override
-    public ReadOnlyDukeCooks getDukeCooks() {
-        return dukeCooks;
+    public ReadOnlyDiary getDiaryRecords() {
+        return diaryRecords;
     }
 
     @Override
     public boolean hasDiary(Diary diary) {
         requireNonNull(diary);
-        return dukeCooks.hasDiary(diary);
+        return diaryRecords.hasDiary(diary);
     }
 
     @Override
     public void deleteDiary(Diary target) {
-        dukeCooks.removeDiary(target);
+        diaryRecords.removeDiary(target);
     }
 
     @Override
     public void addDiary(Diary diary) {
-        dukeCooks.addDiary(diary);
+        diaryRecords.addDiary(diary);
         updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
     }
 
@@ -109,14 +109,14 @@ public class ModelManager implements Model {
     public void setDiary(Diary target, Diary editedDiary) {
         requireAllNonNull(target, editedDiary);
 
-        dukeCooks.setDiary(target, editedDiary);
+        diaryRecords.setDiary(target, editedDiary);
     }
 
     //=========== Filtered Diary List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Diary} backed by the internal list of
-     * {@code versionedDukeCooks}
+     * {@code versionedDiaries}
      */
     @Override
     public ObservableList<Diary> getFilteredDiaryList() {
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return dukeCooks.equals(other.dukeCooks)
+        return diaryRecords.equals(other.diaryRecords)
                 && userPrefs.equals(other.userPrefs)
                 && filteredDiaries.equals(other.filteredDiaries);
     }

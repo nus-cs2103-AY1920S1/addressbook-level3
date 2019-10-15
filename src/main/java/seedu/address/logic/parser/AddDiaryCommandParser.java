@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddDiaryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.diary.Diary;
-import seedu.address.model.diary.Name;
+import seedu.address.model.diary.DiaryName;
 
 /**
  * Parses input arguments and creates a new AddDiaryCommand object
@@ -29,9 +29,9 @@ public class AddDiaryCommandParser implements Parser<AddDiaryCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDiaryCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
+        DiaryName diaryName = ParserUtil.parseName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
 
-        Diary diary = new Diary(name);
+        Diary diary = new Diary(diaryName);
 
         return new AddDiaryCommand(diary);
     }

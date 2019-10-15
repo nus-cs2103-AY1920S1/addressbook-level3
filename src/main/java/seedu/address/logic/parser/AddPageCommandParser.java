@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PAGE_TITLE;
 
 import seedu.address.logic.commands.AddPageCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.diary.Name;
+import seedu.address.model.diary.DiaryName;
 import seedu.address.model.diary.Page;
 import seedu.address.model.diary.Title;
 
@@ -24,11 +24,11 @@ public class AddPageCommandParser implements Parser<AddPageCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DIARY_NAME, PREFIX_PAGE_TITLE);
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
+        DiaryName diaryName = ParserUtil.parseName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_PAGE_TITLE).get());
 
         Page pageToAdd = new Page(title);
-        return new AddPageCommand(pageToAdd, name);
+        return new AddPageCommand(pageToAdd, diaryName);
     }
 
 }

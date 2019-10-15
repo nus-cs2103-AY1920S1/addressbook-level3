@@ -6,12 +6,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditDiaryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.diary.Name;
+import seedu.address.model.diary.DiaryName;
 
 /**
  * Parses input arguments and creates a new EditDiaryCommand object
  */
-public class EditCommandParser implements Parser<EditDiaryCommand> {
+public class EditDiaryCommandParser implements Parser<EditDiaryCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditDiaryCommand
@@ -31,7 +31,7 @@ public class EditCommandParser implements Parser<EditDiaryCommand> {
         }
 
         EditDiaryCommand.EditDiaryDescriptor editDiaryDescriptor = new EditDiaryCommand.EditDiaryDescriptor();
-        editDiaryDescriptor.setName(new Name(argsArr[1]));
+        editDiaryDescriptor.setDiaryName(new DiaryName(argsArr[1]));
 
         if (!editDiaryDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditDiaryCommand.MESSAGE_NOT_EDITED);

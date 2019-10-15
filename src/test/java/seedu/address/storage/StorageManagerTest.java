@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalDiaries.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalDiaries.getTypicalDiaryRecords;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.DukeCooks;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.DiaryRecords;
+import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,7 +24,7 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonDukeCooksStorage dukeCooksStorage = new JsonDukeCooksStorage(getTempFilePath("ab"));
+        JsonDiaryStorage dukeCooksStorage = new JsonDiaryStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(dukeCooksStorage, userPrefsStorage);
     }
@@ -51,18 +51,18 @@ public class StorageManagerTest {
     public void dukeCooksReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonDukeCooksStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonDukeCooksStorageTest} class.
+         * {@link JsonDiaryStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonDiaryRecordsStorageTest} class.
          */
-        DukeCooks original = getTypicalDukeCooks();
-        storageManager.saveDukeCooks(original);
-        ReadOnlyDukeCooks retrieved = storageManager.readDukeCooks().get();
-        assertEquals(original, new DukeCooks(retrieved));
+        DiaryRecords original = getTypicalDiaryRecords();
+        storageManager.saveDiary(original);
+        ReadOnlyDiary retrieved = storageManager.readDiary().get();
+        assertEquals(original, new DiaryRecords(retrieved));
     }
 
     @Test
     public void getDukeCooksFilePath() {
-        assertNotNull(storageManager.getDukeCooksFilePath());
+        assertNotNull(storageManager.getDiaryFilePath());
     }
 
 }

@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.DukeCooks;
+import seedu.address.model.DiaryRecords;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.diary.Diary;
 import seedu.address.testutil.DiaryBuilder;
@@ -47,8 +47,8 @@ public class AddDiaryCommandTest {
         AddDiaryCommand addCommand = new AddDiaryCommand(validDiary);
         ModelStub modelStub = new ModelStubWithDiary(validDiary);
 
-        assertThrows(CommandException.class, AddDiaryCommand.MESSAGE_DUPLICATE_DIARY,
-                () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddDiaryCommand.MESSAGE_DUPLICATE_DIARY, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -100,12 +100,12 @@ public class AddDiaryCommandTest {
         }
 
         @Override
-        public Path getDukeCooksFilePath() {
+        public Path getDiaryFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setDukeCooksFilePath(Path dukeCooksFilePath) {
+        public void setDiaryFilePath(Path diaryFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -115,12 +115,12 @@ public class AddDiaryCommandTest {
         }
 
         @Override
-        public void setDukeCooks(ReadOnlyDukeCooks dukeCooks) {
+        public void setDiaryRecords(ReadOnlyDiary diaryRecords) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyDukeCooks getDukeCooks() {
+        public ReadOnlyDiary getDiaryRecords() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -187,8 +187,8 @@ public class AddDiaryCommandTest {
         }
 
         @Override
-        public ReadOnlyDukeCooks getDukeCooks() {
-            return new DukeCooks();
+        public ReadOnlyDiary getDiaryRecords() {
+            return new DiaryRecords();
         }
     }
 

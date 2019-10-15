@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.diary.Diary;
-import seedu.address.model.diary.Name;
+import seedu.address.model.diary.DiaryName;
 import seedu.address.model.diary.Page;
 
 /**
@@ -37,7 +37,7 @@ class JsonAdaptedDiary {
      * Converts a given {@code Diary} into this class for Jackson use.
      */
     public JsonAdaptedDiary(Diary source) {
-        name = source.getName().fullName;
+        name = source.getDiaryName().fullName;
         pages.addAll(source.getPages().stream()
                 .map(JsonAdaptedPage::new)
                 .collect(Collectors.toList()));
@@ -55,13 +55,14 @@ class JsonAdaptedDiary {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    DiaryName.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        if (!DiaryName.isValidName(name)) {
+            throw new IllegalValueException(DiaryName.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
-        return new Diary(modelName, modelPages);
+        final DiaryName modelDiaryName = new DiaryName(name);
+        return new Diary(modelDiaryName, modelPages);
     }
 
 }

@@ -3,10 +3,10 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalDiaries.ALICE;
-import static seedu.address.testutil.TypicalDiaries.BENSON;
+import static seedu.address.testutil.TypicalDiaries.ALL_MEAT;
+import static seedu.address.testutil.TypicalDiaries.BOB_DIARY;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,8 +15,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.DukeCooksBuilder;
+import seedu.address.model.diary.DiaryNameContainsKeywordsPredicate;
+import seedu.address.testutil.DiaryRecordBuilder;
 
 public class ModelManagerTest {
 
@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new DukeCooks(), new DukeCooks(modelManager.getDukeCooks()));
+        assertEquals(new DiaryRecords(), new DiaryRecords(modelManager.getDiaryRecords()));
     }
 
     @Test
@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setDukeCooksFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setDiaryFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setDukeCooksFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setDiaryFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,47 +61,47 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setDukeCooksFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setDukeCooksFilePath(null));
+    public void setDiaryFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setDiaryFilePath(null));
     }
 
     @Test
-    public void setDukeCooksFilePath_validPath_setsDukeCooksFilePath() {
+    public void setDiaryFilePath_validPath_setsDiaryFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setDukeCooksFilePath(path);
-        assertEquals(path, modelManager.getDukeCooksFilePath());
+        modelManager.setDiaryFilePath(path);
+        assertEquals(path, modelManager.getDiaryFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+    public void hasDiary_nullDiary_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasDiary(null));
     }
 
     @Test
-    public void hasPerson_personNotInDukeCooks_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+    public void hasDiary_diaryNotInDukeCooks_returnsFalse() {
+        assertFalse(modelManager.hasDiary(ALL_MEAT));
     }
 
     @Test
-    public void hasPerson_personInDukeCooks_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+    public void hasDiary_diaryInDukeCooks_returnsTrue() {
+        modelManager.addDiary(ALL_MEAT);
+        assertTrue(modelManager.hasDiary(ALL_MEAT));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    public void getFilteredDiaryList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredDiaryList().remove(0));
     }
 
     @Test
     public void equals() {
-        DukeCooks dukeCooks = new DukeCooksBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        DukeCooks differentDukeCooks = new DukeCooks();
+        DiaryRecords diaryRecords = new DiaryRecordBuilder().withDiary(BOB_DIARY).build();
+        DiaryRecords differentDiaryRecords = new DiaryRecords();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(dukeCooks, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(dukeCooks, userPrefs);
+        modelManager = new ModelManager(diaryRecords, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(diaryRecords, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,20 +113,20 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different dukeCooks -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentDukeCooks, userPrefs)));
+        // different diaryRecords -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentDiaryRecords, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(dukeCooks, userPrefs)));
+        String[] keywords = ALL_MEAT.getDiaryName().fullName.split("\\s+");
+        modelManager.updateFilteredDiaryList(new DiaryNameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(modelManager.equals(new ModelManager(diaryRecords, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setDukeCooksFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(dukeCooks, differentUserPrefs)));
+        differentUserPrefs.setDiaryFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(diaryRecords, differentUserPrefs)));
     }
 }

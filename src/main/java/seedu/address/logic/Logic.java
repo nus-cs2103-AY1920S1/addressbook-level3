@@ -7,7 +7,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.diary.Diary;
 
 /**
@@ -24,11 +24,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns DukeCooks.
+     * Returns DiaryRecords.
      *
-     * @see seedu.address.model.Model#getDukeCooks()
+     * @see seedu.address.model.Model#getDiaryRecords()
      */
-    ReadOnlyDukeCooks getDukeCooks();
+    ReadOnlyDiary getDiaryRecords();
 
     /** Returns an unmodifiable view of the filtered list of diaries */
     ObservableList<Diary> getFilteredDiaryList();
@@ -36,7 +36,7 @@ public interface Logic {
     /**
      * Returns the user prefs' Duke Cooks file path.
      */
-    Path getDukeCooksFilePath();
+    Path getDiaryFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

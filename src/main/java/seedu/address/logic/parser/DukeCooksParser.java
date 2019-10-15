@@ -49,7 +49,7 @@ public class DukeCooksParser {
             return new AddDiaryCommandParser().parse(arguments);
 
         case EditDiaryCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditDiaryCommandParser().parse(arguments);
 
         case DeleteDiaryCommand.COMMAND_WORD:
             return new DeleteDiaryCommandParser().parse(arguments);

@@ -35,22 +35,22 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' DukeCooks file path.
+     * Returns the user prefs' DiaryRecords file path.
      */
-    Path getDukeCooksFilePath();
+    Path getDiaryFilePath();
 
     /**
      * Sets the user prefs' Duke Cooks file path.
      */
-    void setDukeCooksFilePath(Path dukeCooksFilePath);
+    void setDiaryFilePath(Path diaryFilePath);
 
     /**
-     * Replaces Duke Cooks data with the data in {@code dukeCooks}.
+     * Replaces Duke Cooks data with the data in {@code diaryRecords}.
      */
-    void setDukeCooks(ReadOnlyDukeCooks dukeCooks);
+    void setDiaryRecords(ReadOnlyDiary diaryRecords);
 
-    /** Returns DukeCooks */
-    ReadOnlyDukeCooks getDukeCooks();
+    /** Returns DiaryRecords */
+    ReadOnlyDiary getDiaryRecords();
 
     /**
      * Returns true if a diary with the same identity as {@code diary} exists in Duke Cooks.

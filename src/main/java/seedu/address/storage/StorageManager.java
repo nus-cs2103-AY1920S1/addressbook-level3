@@ -7,23 +7,23 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyDukeCooks;
+import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of DukeCooks data in local storage.
+ * Manages storage of DiaryRecords data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private DukeCooksStorage dukeCooksStorage;
+    private DiaryStorage diaryStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(DukeCooksStorage dukeCooksStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(DiaryStorage diaryStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.dukeCooksStorage = dukeCooksStorage;
+        this.diaryStorage = diaryStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +45,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ DukeCooks methods ==============================
+    // ================ DiaryRecords methods ==============================
 
     @Override
-    public Path getDukeCooksFilePath() {
-        return dukeCooksStorage.getDukeCooksFilePath();
+    public Path getDiaryFilePath() {
+        return diaryStorage.getDiaryFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyDukeCooks> readDukeCooks() throws DataConversionException, IOException {
-        return readDukeCooks(dukeCooksStorage.getDukeCooksFilePath());
+    public Optional<ReadOnlyDiary> readDiary() throws DataConversionException, IOException {
+        return readDiary(diaryStorage.getDiaryFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyDukeCooks> readDukeCooks(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyDiary> readDiary(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return dukeCooksStorage.readDukeCooks(filePath);
+        return diaryStorage.readDiary(filePath);
     }
 
     @Override
-    public void saveDukeCooks(ReadOnlyDukeCooks dukeCooks) throws IOException {
-        saveDukeCooks(dukeCooks, dukeCooksStorage.getDukeCooksFilePath());
+    public void saveDiary(ReadOnlyDiary diary) throws IOException {
+        saveDiary(diary, diaryStorage.getDiaryFilePath());
     }
 
     @Override
-    public void saveDukeCooks(ReadOnlyDukeCooks dukeCooks, Path filePath) throws IOException {
+    public void saveDiary(ReadOnlyDiary diary, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        dukeCooksStorage.saveDukeCooks(dukeCooks, filePath);
+        diaryStorage.saveDiary(diary, filePath);
     }
 
 }
