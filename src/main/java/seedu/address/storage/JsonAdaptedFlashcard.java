@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.Title;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,6 +25,7 @@ class JsonAdaptedFlashcard {
 
     private final String question;
     private final String answer;
+    private final String title;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -31,9 +33,11 @@ class JsonAdaptedFlashcard {
      */
     @JsonCreator
     public JsonAdaptedFlashcard(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
+                                @JsonProperty("title") String title,
                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.question = question;
         this.answer = answer;
+        this.title = title;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -45,6 +49,7 @@ class JsonAdaptedFlashcard {
     public JsonAdaptedFlashcard(Flashcard source) {
         question = source.getQuestion().fullQuestion;
         answer = source.getAnswer().fullAnswer;
+        title = source.getTitle().fullTitle;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -78,8 +83,17 @@ class JsonAdaptedFlashcard {
         }
         final Answer modelAnswer = new Answer(answer);
 
+        if (title == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
+        }
+        if (!Title.isValidTitle(title)) {
+            throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
+        }
+        final Title modelTitle = new Title(title);
+
         final Set<Tag> modelTags = new HashSet<>(flashcardTags);
-        return new Flashcard(modelQuestion, modelAnswer, modelTags);
+        return new Flashcard(modelQuestion, modelAnswer, modelTitle, modelTags);
     }
 
 }

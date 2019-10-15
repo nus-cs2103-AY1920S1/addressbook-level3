@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FLASHCARD_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,12 +18,14 @@ public class AddFlashcardCommand extends Command {
 
     public static final String COMMAND_WORD = "add_flashcard";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new flashcard "
-            + "from the question and answer provided. "
+            + "from the question, answer and title provided. "
             + "Flashcard will be assigned a unique id when created.\n"
             + "Parameters: " + PREFIX_QUESTION + "[QUESTION] "
-            + PREFIX_ANSWER + "[ANSWER]\n"
-            + "Example: " + COMMAND_WORD + PREFIX_QUESTION + "What is 6 + 19? "
-            + PREFIX_ANSWER + "25";
+            + PREFIX_ANSWER + "[ANSWER] "
+            + PREFIX_FLASHCARD_TITLE + "[TITLE]\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_QUESTION + "What is 6 + 19? "
+            + PREFIX_ANSWER + "25 "
+            + PREFIX_FLASHCARD_TITLE + "Basic addition question 1";
 
     public static final String MESSAGE_SUCCESS = "New flashcard added: %1$s";
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashcard already exists in the application";

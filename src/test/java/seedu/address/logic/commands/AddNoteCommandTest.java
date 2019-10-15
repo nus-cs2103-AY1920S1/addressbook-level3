@@ -20,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
@@ -211,6 +212,31 @@ public class AddNoteCommandTest {
 
         @Override
         public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCheatSheet(CheatSheet cheatSheet) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCheatSheet(CheatSheet cheatSheet) {
+            return false;
+        }
+
+        @Override
+        public ObservableList<CheatSheet> getFilteredCheatSheetList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCheatSheet(CheatSheet cheatSheet) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
+import seedu.address.model.cheatsheet.CheatSheet;
+import seedu.address.model.cheatsheet.UniqueCheatSheetList;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.UniqueFlashcardList;
 import seedu.address.model.note.Note;
@@ -19,6 +22,8 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+
+    private final UniqueCheatSheetList cheatSheets;
 
     private final UniqueFlashcardList flashcards;
 
@@ -37,6 +42,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         flashcards = new UniqueFlashcardList();
 
         notes = new UniqueNoteList();
+
+        cheatSheets = new UniqueCheatSheetList();
     }
 
     public AddressBook() {}
@@ -49,24 +56,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
-
-    /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-    }
-
-    /**
-     * Replaces the contents of the note list with {@code notes}.
-     * {@code notes} must not contain duplicate notes.
-     */
-    public void setNotes(List<Note> notes) {
-        this.notes.setNotes(notes);
-    }
-
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -77,7 +66,34 @@ public class AddressBook implements ReadOnlyAddressBook {
         setNotes(newData.getNoteList());
     }
 
-    //// person-level operations
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddressBook // instanceof handles nulls
+                && persons.equals(((AddressBook) other).persons));
+    }
+
+    @Override
+    public String toString() {
+        return persons.asUnmodifiableObservableList().size() + " persons";
+        // TODO: refine later
+    }
+
+    @Override
+    public int hashCode() {
+        return persons.hashCode();
+    }
+
+    //=============================Person tools====================================================
+
+    /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setPersons(List<Person> persons) {
+        this.persons.setPersons(persons);
+    }
+
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -114,16 +130,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    @Override
+    public ObservableList<Person> getPersonList() {
+        return persons.asUnmodifiableObservableList();
+    }
+
+    //=============================Flashcard tools====================================================
+
     /**
-<<<<<<< HEAD
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removeFlashcard(Flashcard key) {
         flashcards.remove(key);
     }
-
-
 
     /**
      * Returns true if a flashcard with the same identity as {@code flashcard} exists in the application.
@@ -140,6 +160,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addFlashcard(Flashcard f) {
         flashcards.add(f);
     }
+
+    public ObservableList<Flashcard> getFlashcardList() {
+        return flashcards.asUnmodifiableObservableList();
+    }
+
+    //=============================Note tools====================================================
 
     /**
      * Returns true if a note with the same identity as {@code note} exists in the address book.
@@ -169,44 +195,58 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the note list with {@code notes}.
+     * {@code notes} must not contain duplicate notes.
+     */
+    public void setNotes(List<Note> notes) {
+        this.notes.setNotes(notes);
+    }
+
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removeNote(Note key) {
         notes.remove(key);
     }
-
     //// util methods
-
-    @Override
-    public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
-    }
-
-    @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
-    }
-
-    public ObservableList<Flashcard> getFlashcardList() {
-        return flashcards.asUnmodifiableObservableList();
-    }
 
     @Override
     public ObservableList<Note> getNoteList() {
         return notes.asUnmodifiableObservableList();
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+    //=============================CheatSheet tools====================================================
+
+    /**
+     * Adds a cheatSheet to the cheatSheet book.
+     * The cheatSheet must not already exist in the cheatSheet book.
+     */
+    public void addCheatSheet(CheatSheet cs) {
+        cheatSheets.add(cs);
+    }
+
+    /**
+     * Deletes a cheatSheet to the cheatSheet book.
+     * The cheatSheet must already exist in the cheatSheet book.
+     */
+    public void deleteCheatSheet(CheatSheet cs) {
+        cheatSheets.remove(cs);
+    }
+
+    /**
+     * Checks if the list of cheatsheets contains this cheatsheet
+     * @param cheatSheet
+     * @return
+     */
+    public boolean hasCheatSheet(CheatSheet cheatSheet) {
+        requireNonNull(cheatSheet);
+        return cheatSheets.contains(cheatSheet);
     }
 
     @Override
-    public int hashCode() {
-        return persons.hashCode();
+    public ObservableList<CheatSheet> getCheatSheetList() {
+        return cheatSheets.asUnmodifiableObservableList();
     }
 }

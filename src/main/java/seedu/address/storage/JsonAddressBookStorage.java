@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCheatSheetBook;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -77,4 +78,34 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
 
+    //==============cheatsheet tools
+    @Override
+    public Path getCheatSheetFilePath() {
+        return this.filePath;
+    }
+
+    @Override
+    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook() throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook(Path filePath)
+            throws DataConversionException, IOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException {
+        saveCheatSheetBook(cheatSheetBook, filePath);
+    }
+
+    @Override
+    public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException {
+        requireNonNull(cheatSheetBook);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        //JsonUtil.saveJsonFile(new JsonSerializableCheatSheetBook(cheatSheetBook), filePath);
+    }
 }

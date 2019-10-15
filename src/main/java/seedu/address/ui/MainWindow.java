@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.ImageView;
@@ -73,6 +74,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private ImageView currentHighlightedCircle;
+
+    @FXML
+    private Label qnLabel;
+
+    @FXML
+    private Label ansLabel;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -210,6 +217,10 @@ public class MainWindow extends UiPart<Stage> {
                 toggleModeTo(commandResult.getTargetMode().get());
             }
 
+            if (commandResult.getFlashcard().isPresent()) {
+                displayFlashcard(commandResult.getFlashcard().get());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -249,5 +260,10 @@ public class MainWindow extends UiPart<Stage> {
         FadeTransition ft = new FadeTransition(Duration.millis(400), targetCircle);
         ft.setToValue(1);
         ft.play();
+    }
+
+    private void displayFlashcard(Flashcard flashcard) {
+        qnLabel.setText(flashcard.getQuestion().toString());
+        ansLabel.setText(flashcard.getAnswer().toString());
     }
 }
