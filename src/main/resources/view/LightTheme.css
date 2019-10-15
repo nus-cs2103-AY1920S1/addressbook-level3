@@ -20,7 +20,7 @@
 .result-display-root {
     -fx-padding: 0 8 6 8;
     /* Add horizontal divider to visually separate I/O GUI elements from content */
-    -fx-border-color: linear-gradient(from 0% 0% to 100% 0%, #e8e8e8, #c0c0c0, #e8e8e8);
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 0%, #f0f0f0, #c0c0c0, #f0f0f0);
     -fx-border-width: 0 0 2px 0;
 }
 
@@ -104,7 +104,7 @@
 .status-bar-root {
     -fx-padding: 10 8 4 8;
     /* Add horizontal divider to visually separate content from status bar */
-    -fx-border-color: linear-gradient(from 0% 0% to 100% 0%, #d8d8d8, #b0b0b0, #d8d8d8);
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 0%, #dadada, #b0b0b0, #dadada);
     -fx-border-width: 2px 0 0 0;
     -fx-border-insets: 2px 0 0 0;
     -fx-background-insets: 10px 0 0 0;

@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -31,12 +32,16 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
     }
 
     /**
-     * Similar to {@link #readUserPrefs()}
+     * Similar to {@link #readUserPrefs()}, but resets the GUI window size settings if the file is
+     * successfully read.
      * @param prefsFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
     public Optional<UserPrefs> readUserPrefs(Path prefsFilePath) throws DataConversionException {
-        return JsonUtil.readJsonFile(prefsFilePath, UserPrefs.class);
+        return JsonUtil.readJsonFile(prefsFilePath, UserPrefs.class).map(prefs -> {
+            prefs.setGuiSettings(GuiSettings.resetWindow(prefs.getGuiSettings()));
+            return prefs;
+        });
     }
 
     @Override
