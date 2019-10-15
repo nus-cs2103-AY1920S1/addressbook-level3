@@ -104,7 +104,8 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         FinSec expectedFinSec = new FinSec(actualModel.getFinSec());
-        List<seedu.address.model.contact.Contact> expectedFilteredList = new ArrayList<>(actualModel.getFilteredContactList());
+        List<seedu.address.model.contact.Contact> expectedFilteredList = new ArrayList<>(
+                actualModel.getFilteredContactList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedFinSec, actualModel.getFinSec());

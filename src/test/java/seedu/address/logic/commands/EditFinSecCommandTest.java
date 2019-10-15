@@ -10,9 +10,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalContacts.getTypicalFinSec;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalContacts.getTypicalFinSec;
 
 import org.junit.jupiter.api.Test;
 
@@ -50,11 +50,12 @@ public class EditFinSecCommandTest {
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredContactList().size());
-        seedu.address.model.contact.Contact lastContact = model.getFilteredContactList().get(indexLastPerson.getZeroBased());
+        seedu.address.model.contact.Contact lastContact = model.getFilteredContactList()
+                .get(indexLastPerson.getZeroBased());
 
         ContactBuilder personInList = new ContactBuilder(lastContact);
-        seedu.address.model.contact.Contact editedContact = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        seedu.address.model.contact.Contact editedContact = personInList.withName(VALID_NAME_BOB)
+                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
@@ -71,7 +72,8 @@ public class EditFinSecCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        seedu.address.model.contact.Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        seedu.address.model.contact.Contact editedContact = model.getFilteredContactList()
+                .get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
 
@@ -84,8 +86,10 @@ public class EditFinSecCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        seedu.address.model.contact.Contact contactInFilteredList = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        seedu.address.model.contact.Contact editedContact = new ContactBuilder(contactInFilteredList).withName(VALID_NAME_BOB).build();
+        seedu.address.model.contact.Contact contactInFilteredList = model.getFilteredContactList()
+                .get(INDEX_FIRST_PERSON.getZeroBased());
+        seedu.address.model.contact.Contact editedContact = new ContactBuilder(contactInFilteredList)
+                .withName(VALID_NAME_BOB).build();
         EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
@@ -99,7 +103,8 @@ public class EditFinSecCommandTest {
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
-        seedu.address.model.contact.Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        seedu.address.model.contact.Contact firstContact = model.getFilteredContactList()
+                .get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstContact).build();
         EditContactCommand editContactCommand = new EditContactCommand(INDEX_SECOND_PERSON, descriptor);
 
@@ -111,7 +116,8 @@ public class EditFinSecCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit contact in filtered list into a duplicate in address book
-        seedu.address.model.contact.Contact contactInList = model.getFinSec().getContactList().get(INDEX_SECOND_PERSON.getZeroBased());
+        seedu.address.model.contact.Contact contactInList = model.getFinSec().getContactList()
+                .get(INDEX_SECOND_PERSON.getZeroBased());
         EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(contactInList).build());
 

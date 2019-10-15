@@ -112,7 +112,8 @@ public interface Model {
     /**
      * Replaces the given contact {@code target} with {@code editedContact}.
      * {@code target} must exist in the address book.
-     * The contact identity of {@code editedContact} must not be the same as another existing contact in the address book.
+     * The contact identity of {@code editedContact} must not be the same as another existing contact in the
+     * address book.
      */
     void setContact(Contact target, Contact editedContact);
 

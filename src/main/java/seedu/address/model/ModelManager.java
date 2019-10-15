@@ -97,24 +97,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasContact(seedu.address.model.contact.Contact contact) {
+    public boolean hasContact(Contact contact) {
         requireNonNull(contact);
         return finSec.hasContact(contact);
     }
 
     @Override
-    public void deleteContact(seedu.address.model.contact.Contact target) {
+    public void deleteContact(Contact target) {
         finSec.removeContact(target);
     }
 
     @Override
-    public void addContact(seedu.address.model.contact.Contact contact) {
+    public void addContact(Contact contact) {
         finSec.addContact(contact);
         updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setContact(seedu.address.model.contact.Contact target, seedu.address.model.contact.Contact editedContact) {
+    public void setContact(Contact target, Contact editedContact) {
         requireAllNonNull(target, editedContact);
 
         finSec.setContact(target, editedContact);
@@ -191,12 +191,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<seedu.address.model.contact.Contact> getFilteredContactList() {
+    public ObservableList<Contact> getFilteredContactList() {
         return filteredContacts;
     }
 
     @Override
-    public void updateFilteredContactList(Predicate<seedu.address.model.contact.Contact> predicate) {
+    public void updateFilteredContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
         UiManager.startWithContacts();

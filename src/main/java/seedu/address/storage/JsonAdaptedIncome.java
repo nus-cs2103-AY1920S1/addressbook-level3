@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Description;
-import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Date;
+import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.income.Income;
 import seedu.address.model.tag.Tag;
@@ -37,7 +37,8 @@ class JsonAdaptedIncome {
      */
     @JsonCreator
     public JsonAdaptedIncome(@JsonProperty("description") String description,
-                             @JsonProperty("amount") String amount, @JsonProperty String date,
+                             @JsonProperty("amount") String amount,
+                             @JsonProperty("date") String date,
                              @JsonProperty("name") String name,
                              @JsonProperty("phone") String phone,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {

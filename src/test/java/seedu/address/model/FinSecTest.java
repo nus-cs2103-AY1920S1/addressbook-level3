@@ -48,8 +48,8 @@ public class FinSecTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two contacts with the same identity fields
-        seedu.address.model.contact.Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        seedu.address.model.contact.Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
         List<seedu.address.model.contact.Contact> newContacts = Arrays.asList(ALICE, editedAlice);
         ContactStub newData = new ContactStub(newContacts);
 
@@ -75,8 +75,8 @@ public class FinSecTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         finSec.addContact(ALICE);
-        seedu.address.model.contact.Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        seedu.address.model.contact.Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(finSec.hasContact(editedAlice));
     }
 
@@ -109,7 +109,9 @@ public class FinSecTest {
         }
 
         @Override
-        public ObservableList<Claim> getClaimList() { return claims; }
+        public ObservableList<Claim> getClaimList() {
+            return claims;
+        }
     }
 
 }

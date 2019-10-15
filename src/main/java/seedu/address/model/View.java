@@ -5,9 +5,9 @@ package seedu.address.model;
  */
 public class View {
 
-    private final String togo;
+    private static int index;
 
-    public static int index;
+    private final String togo;
 
     /**
      * Constructs a view with the specific type and index

@@ -25,7 +25,7 @@ public class UiManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private static Logic logic;
-    public static MainWindow mainWindow;
+    private static MainWindow mainWindow;
 
     public UiManager(Logic logic) {
         super();
@@ -49,6 +49,9 @@ public class UiManager implements Ui {
         }
     }
 
+    /**
+     * Initialises the View to be displayed.
+     */
     public static void startWithContacts() {
         logger.info("Changing UI...");
 

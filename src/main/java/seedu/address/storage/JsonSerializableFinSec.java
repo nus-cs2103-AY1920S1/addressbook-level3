@@ -12,13 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.claim.Claim;
-import seedu.address.model.income.Income;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.FinSec;
 import seedu.address.model.ReadOnlyFinSec;
-
-
+import seedu.address.model.claim.Claim;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.income.Income;
 
 /**
  * An Immutable FinSec that is serializable to JSON format.

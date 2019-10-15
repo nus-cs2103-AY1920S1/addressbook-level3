@@ -2,8 +2,12 @@ package seedu.address.storage;
 
 import java.util.SortedSet;
 import java.util.TreeSet;
+
 import seedu.address.model.contact.Contact;
 
+/**
+ * Stores the list of suggestions to be displayed for command box.
+ */
 public class SuggestionsStorage {
     private static SortedSet<String> suggestions = new TreeSet<String>();
 

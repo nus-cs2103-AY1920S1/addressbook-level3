@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -35,8 +36,7 @@ public class AutoCompleteTextField extends TextField {
         suggestions.add("add_claim");
         suggestions.add("add_income");
         suggestionsPopup = new ContextMenu();
-        textProperty().addListener(new ChangeListener<String>()
-        {
+        textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
                 if (getText().length() == 0) {
@@ -46,9 +46,10 @@ public class AutoCompleteTextField extends TextField {
                     searchResult.addAll(suggestions.subSet(getText(), getText() + Character.MAX_VALUE));
                     if (suggestions.size() > 0) {
                         populatePopup(searchResult);
-                            if (!suggestionsPopup.isShowing()) {
-                                suggestionsPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
-                            }
+                        if (!suggestionsPopup.isShowing()) {
+                            suggestionsPopup.show(AutoCompleteTextField.this, Side.BOTTOM,
+                                    0, 0);
+                        }
                     } else {
                         suggestionsPopup.hide();
                     }
@@ -58,7 +59,8 @@ public class AutoCompleteTextField extends TextField {
 
         focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean aBoolean2) {
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean,
+                                Boolean aBoolean2) {
                 suggestionsPopup.hide();
             }
         });
@@ -78,8 +80,7 @@ public class AutoCompleteTextField extends TextField {
             final String result = searchResult.get(i);
             Label entryLabel = new Label(result);
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
-            item.setOnAction(new EventHandler<ActionEvent>()
-            {
+            item.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     setText(result);

@@ -1,15 +1,14 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.claim.Claim;
-import seedu.address.model.contact.Contact;
 
-import java.text.SimpleDateFormat;
-import java.util.Comparator;
 
 /**
  * An UI component that displays information of a {@code FinSec}.
