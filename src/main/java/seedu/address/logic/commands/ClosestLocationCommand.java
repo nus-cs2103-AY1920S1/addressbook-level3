@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.internal.gmaps.LocationArrayListUtils;
 import seedu.address.model.Model;
@@ -52,7 +53,7 @@ public class ClosestLocationCommand extends Command {
      * This method is used to find the closes location from the location graph
      * @return
      */
-    private String closestLocation() {
+    private String closestLocation() throws IllegalValueException {
         ArrayList<ArrayList<Long>> currMatrix = new ArrayList<ArrayList<Long>>();
         ArrayList<String> gmapsRecognisedLocationList = locationGraph.getGmapsRecognisedLocationList();
         ArrayList<Location> locations = locationGraph.getLocations();
@@ -61,7 +62,6 @@ public class ClosestLocationCommand extends Command {
             Location currLocation = locations.get(indexLocations);
             String gmapsRecognisedLocation = currLocation.getGoogleRecognisedLocation();
             if (gmapsRecognisedLocation != null) {
-                System.out.println(gmapsRecognisedLocationList);
                 int indexGmapsRecognisedLocation = gmapsRecognisedLocationList.indexOf(gmapsRecognisedLocation);
                 System.out.println("Index of " + gmapsRecognisedLocation + " is " + indexGmapsRecognisedLocation);
                 ArrayList<Long> currRow = locationGraph.getLocationRow(indexGmapsRecognisedLocation);
@@ -71,13 +71,24 @@ public class ClosestLocationCommand extends Command {
             }
         }
         ArrayList<Long> totalDistance = new ArrayList<>();
+        System.out.println("-" + currMatrix.get(0).size() + "|" + locationNameList.size());
         for (int j = 0; j < currMatrix.get(0).size(); j++) {
             totalDistance.add((long) 0);
+            boolean isAllNull = true;
             for (int i = 0; i < locationNameList.size(); i++) {
-                Long newDistance = totalDistance.get(j) + currMatrix.get(i).get(j);
+                Long currDistance = (long) 0;
+                if (currMatrix.get(i).get(j) != null) {
+                    isAllNull = false;
+                    currDistance = currMatrix.get(i).get(j);
+                }
+                Long newDistance = totalDistance.get(j) + currDistance;
                 totalDistance.set(j, newDistance);
             }
+            if (totalDistance.get(j) == 0 && isAllNull) {
+                totalDistance.set(j, Long.MAX_VALUE);
+            }
         }
+        System.out.println(totalDistance);
         int minIndex = 0;
         Long min = Long.MAX_VALUE;
         for (int i = 0; i < totalDistance.size(); i++) {
@@ -92,7 +103,15 @@ public class ClosestLocationCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        return new CommandResult(MESSAGE_SUCCESS + closestLocation());
+        String userInput = "";
+        for (int i = 0; i < locationNameList.size(); i++) {
+            userInput = userInput + locationNameList.get(i) + " ";
+        }
+        try {
+            return new CommandResult(MESSAGE_SUCCESS + closestLocation() + " for " + userInput);
+        } catch (IllegalValueException e) {
+            throw new CommandException(e.getMessage());
+        }
     }
 
     @Override

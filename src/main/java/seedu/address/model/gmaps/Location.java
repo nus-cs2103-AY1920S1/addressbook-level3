@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 
 public class Location implements Serializable {
-
+    private static final long serialVersionUID = 6529685098267757691L;
     private final String locationName;
     private String googleRecognisedLocation = null;
 
