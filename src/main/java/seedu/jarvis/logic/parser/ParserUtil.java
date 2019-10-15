@@ -4,10 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.jarvis.commons.core.index.Index;
@@ -169,14 +167,14 @@ public class ParserUtil {
         }
 
         switch (frequency) {
-            case "daily":
-                return Frequency.DAILY;
-            case "weekly":
-                return Frequency.WEEKLY;
-            case "monthly":
-                return Frequency.MONTHLY;
-            default:
-                return Frequency.YEARLY;
+        case "daily":
+            return Frequency.DAILY;
+        case "weekly":
+            return Frequency.WEEKLY;
+        case "monthly":
+            return Frequency.MONTHLY;
+        default:
+            return Frequency.YEARLY;
         }
     }
 
@@ -193,7 +191,7 @@ public class ParserUtil {
             String[] splitDate = trimmedDate.split("//");
             int count = 0;
             for (String d : splitDate) {
-                LocalDate formattedDate = LocalDate.parse(d, Event.dateFormat);
+                LocalDate formattedDate = LocalDate.parse(d, Task.getDateFormat());
                 res[count] = formattedDate;
                 count++;
             }
@@ -204,17 +202,25 @@ public class ParserUtil {
         return res;
     }
 
+    /**
+     * Builds a task for AddTaskCommandParser
+     * @param taskType the type of task
+     * @param taskDes description of the task
+     * @param dates dates of the task, if any
+     * @return returns a task
+     * @throws ParseException if task type input by the user is wrong
+     */
     public static Task buildTask(String taskType, String taskDes, LocalDate[] dates) throws ParseException {
         Task t;
-            if (taskType.equals("event")) {
-                t = new Event(taskDes, dates[0], dates[1]);
-            } else if (taskType.equals("deadline")) {
-                t = new Deadline(taskDes, dates[0]);
-            } else if (taskType.equals("todo")) {
-                t = new Todo(taskDes);
-            } else {
-                throw new ParseException(MESSAGE_INVALID_TASK_TYPE);
-            }
+        if (taskType.equals("event")) {
+            t = new Event(taskDes, dates[0], dates[1]);
+        } else if (taskType.equals("deadline")) {
+            t = new Deadline(taskDes, dates[0]);
+        } else if (taskType.equals("todo")) {
+            t = new Todo(taskDes);
+        } else {
+            throw new ParseException(MESSAGE_INVALID_TASK_TYPE);
+        }
         return t;
     }
 

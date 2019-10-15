@@ -8,8 +8,10 @@ import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TASK_DES;
 import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import static seedu.jarvis.logic.parser.CliSyntax.PREFIX_TASK_TYPE;
 
-import javafx.stage.StageStyle;
-import jdk.javadoc.doclet.Taglet;
+import java.time.LocalDate;
+import java.util.Set;
+import java.util.stream.Stream;
+
 import seedu.jarvis.logic.commands.planner.AddTaskCommand;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
@@ -21,13 +23,6 @@ import seedu.jarvis.model.address.tag.Tag;
 import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
 import seedu.jarvis.model.planner.tasks.Task;
-import seedu.jarvis.model.planner.tasks.Todo;
-
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new AddTaskCommand object

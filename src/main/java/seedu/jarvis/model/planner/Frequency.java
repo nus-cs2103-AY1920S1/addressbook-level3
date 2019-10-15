@@ -1,5 +1,8 @@
 package seedu.jarvis.model.planner;
 
+/**
+ * Represents the frequency of a task
+ */
 public enum Frequency {
     /**
      * Values that frequency can take
@@ -9,8 +12,8 @@ public enum Frequency {
     MONTHLY,
     YEARLY;
 
-    public static final String MESSAGE_CONSTRAINTS = "Frequency levels can only have the following values:\n" +
-                                                        "'daily', 'weekly', 'monthly' or 'yearly'";
+    public static final String MESSAGE_CONSTRAINTS = "Frequency levels can only have the following values:\n"
+                                                        + "'daily', 'weekly', 'monthly' or 'yearly'";
 
 
     public static boolean isValidFrequency(String test) {

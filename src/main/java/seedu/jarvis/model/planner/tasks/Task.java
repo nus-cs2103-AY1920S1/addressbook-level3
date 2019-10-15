@@ -1,5 +1,6 @@
 package seedu.jarvis.model.planner.tasks;
 
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,10 +14,12 @@ import seedu.jarvis.model.planner.Priority;
 public abstract class Task {
     //add t/TASK TYPE/TASK DES [d/DATE] [#TAG]... [p/PRIORITY LEVEL] [r/FREQ]
 
+
+    protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     protected String taskDes;
-    protected Set<Tag> tags = new HashSet<>();
     protected Priority priority = null;
     protected Frequency frequency = null;
+    protected Set<Tag> tags = new HashSet<>();
 
     public Task(String taskDes) {
         this.taskDes = taskDes;
@@ -44,9 +47,9 @@ public abstract class Task {
      * Sets the frequency level of a Task, i.e. how regularly a Task occurs.
      * @param freq Frequency level of a task
      */
-     public void addFrequency(Frequency freq) {
+    public void addFrequency(Frequency freq) {
         frequency = freq;
-     }
+    }
 
     /**
      * Adds a Tag to the set of Tags attached to each Task
@@ -64,4 +67,10 @@ public abstract class Task {
         return this.tags;
     }
 
+    /**
+     * Retrieves the DateTimeFormatter used for Event and Deadline tasks
+     */
+    public static DateTimeFormatter getDateFormat() {
+        return dateFormat;
+    }
 }

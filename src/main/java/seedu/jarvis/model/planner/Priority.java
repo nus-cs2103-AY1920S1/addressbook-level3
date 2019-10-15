@@ -1,16 +1,18 @@
 package seedu.jarvis.model.planner;
 
-
+/**
+ * Represents the priority of a task
+ */
 public enum Priority {
     /**
      * Values that a priority of a task can take
      */
-        HIGH,
-        MED,
-        LOW;
+    HIGH,
+    MED,
+    LOW;
 
-    public static final String MESSAGE_CONSTRAINTS = "Priority levels can only have the following values:\n" +
-                                                        "'high', 'med' or 'low'";
+    public static final String MESSAGE_CONSTRAINTS = "Priority levels can only have the following values:\n"
+                                                       + "'high', 'med' or 'low'";
 
     /**
      * Returns if a given test is a valid Priority level

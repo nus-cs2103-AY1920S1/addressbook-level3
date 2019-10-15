@@ -1,9 +1,5 @@
 package seedu.jarvis.model.planner;
 
-import seedu.jarvis.model.planner.tasks.Deadline;
-import seedu.jarvis.model.planner.tasks.Task;
-import seedu.jarvis.model.planner.tasks.Todo;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,9 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import org.junit.jupiter.api.Test;
+
+import seedu.jarvis.model.planner.tasks.Deadline;
+import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.planner.tasks.Todo;
+
 
 class TaskListTest {
 
@@ -48,7 +48,7 @@ class TaskListTest {
     @Test
     void hasTask_validInput_false() {
         Task todo = new Todo("borrow book");
-        LocalDate due = LocalDate.parse("10/10/2019", Deadline.dateFormat);
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Task deadline = new Deadline("borrow book", due);
         TaskList testList = new TaskList();
         testList.add(todo);

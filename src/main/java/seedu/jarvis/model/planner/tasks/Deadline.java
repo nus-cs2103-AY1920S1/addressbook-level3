@@ -1,7 +1,6 @@
 package seedu.jarvis.model.planner.tasks;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a Deadline task in JARVIS
@@ -9,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
     private LocalDate deadline;
-    public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Deadline(String taskDes, LocalDate deadline) {
         super(taskDes);

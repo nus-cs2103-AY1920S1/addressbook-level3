@@ -1,8 +1,8 @@
 package seedu.jarvis.model.planner;
 
-import seedu.jarvis.model.planner.tasks.Task;
-
 import java.util.ArrayList;
+
+import seedu.jarvis.model.planner.tasks.Task;
 
 /**
  * Represents a list of tasks in the planner

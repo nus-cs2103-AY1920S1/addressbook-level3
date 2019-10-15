@@ -1,7 +1,6 @@
 package seedu.jarvis.model.planner.tasks;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an Event task in JARVIS
@@ -10,7 +9,6 @@ public class Event extends Task {
 
     private LocalDate start;
     private LocalDate end;
-    public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Event(String taskDes, LocalDate start, LocalDate end) {
         super(taskDes);

@@ -3,13 +3,11 @@ package seedu.jarvis.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.jarvis.logic.parser.ParserUtil.parsePriority;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +22,6 @@ import seedu.jarvis.model.address.person.Phone;
 import seedu.jarvis.model.address.tag.Tag;
 import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
-import seedu.jarvis.model.planner.tasks.Event;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 
@@ -230,7 +227,7 @@ public class ParserUtilTest {
     @Test
     void parseDate_validInput_success() throws Exception {
         LocalDate[] actual = ParserUtil.parseDate("18/10/2019");
-        LocalDate expected = LocalDate.parse("18/10/2019", Event.dateFormat);
+        LocalDate expected = LocalDate.parse("18/10/2019", Task.getDateFormat());
         assertEquals(0, expected.compareTo(actual[0]));
     }
 

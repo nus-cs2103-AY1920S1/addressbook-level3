@@ -3,11 +3,9 @@ package seedu.jarvis.model.planner.tasks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +18,7 @@ class DeadlineTest {
 
     @Test
     void addPriority_validInput_success() {
-        LocalDate due = LocalDate.parse("10/10/2019", Event.dateFormat);
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);
         d.addPriority(Priority.HIGH);
         assertNotNull(d.priority);
@@ -28,7 +26,7 @@ class DeadlineTest {
 
     @Test
     void addFrequency_validInput_success() {
-        LocalDate due = LocalDate.parse("10/10/2019", Event.dateFormat);
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);
         d.addFrequency(Frequency.MONTHLY);
         assertNotNull(d.frequency);
@@ -36,7 +34,7 @@ class DeadlineTest {
 
     @Test
     void addTag_validInput_success() {
-        LocalDate due = LocalDate.parse("10/10/2019", Event.dateFormat);
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);
         Tag t = new Tag("school");
         d.addTag(t);
@@ -45,7 +43,7 @@ class DeadlineTest {
 
     @Test
     void getTags_validInput_success() {
-        LocalDate due = LocalDate.parse("10/10/2019", Event.dateFormat);
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);
         Tag t = new Tag("school");
         d.addTag(t);
@@ -54,8 +52,8 @@ class DeadlineTest {
 
     @Test
     void isEqual_validInput_true() {
-        LocalDate deadlineOneCal = LocalDate.parse("10/10/2019", Event.dateFormat);
-        LocalDate deadlineTwoCal = LocalDate.parse("10/10/2019", Event.dateFormat);
+        LocalDate deadlineOneCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        LocalDate deadlineTwoCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline deadlineOne = new Deadline("borrow book", deadlineOneCal);
         Deadline deadlineTwo = new Deadline("borrow book", deadlineTwoCal);
         assertTrue(deadlineOne.isEqual(deadlineTwo));
@@ -63,8 +61,8 @@ class DeadlineTest {
 
     @Test
     void isEqual_validInput_false() {
-        LocalDate deadlineOneCal = LocalDate.parse("10/10/2019", Event.dateFormat);
-        LocalDate deadlineTwoCal = LocalDate.parse("10/10/2019", Event.dateFormat);
+        LocalDate deadlineOneCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        LocalDate deadlineTwoCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline deadlineOne = new Deadline("borrow hello", deadlineOneCal);
         Deadline deadlineTwo = new Deadline("borrow book", deadlineTwoCal);
         assertFalse(deadlineOne.isEqual(deadlineTwo));
@@ -72,7 +70,7 @@ class DeadlineTest {
 
     @Test
     void getDueDate() {
-        LocalDate due = LocalDate.parse("10/10/2019", Event.dateFormat);
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);
         assertEquals(due, d.getDueDate());
     }
