@@ -1,6 +1,7 @@
 package io.xpire.model.item;
 
 import static io.xpire.model.item.Quantity.DEFAULT_QUANTITY;
+import static io.xpire.model.item.ReminderThreshold.DEFAULT_THRESHOLD;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -22,9 +23,9 @@ public class Item {
     private final ExpiryDate expiryDate;
 
     // Data fields
-    private final Quantity quantity;
+    private Quantity quantity = new Quantity(DEFAULT_QUANTITY);
     private Set<Tag> tags = new TreeSet<>(new TagComparator());
-    private ReminderThreshold reminderThreshold = new ReminderThreshold(("0"));
+    private ReminderThreshold reminderThreshold = new ReminderThreshold(DEFAULT_THRESHOLD);
 
     /**
      * Every field must be present and not null.
@@ -57,9 +58,28 @@ public class Item {
         CollectionUtil.requireAllNonNull(name, expiryDate);
         this.name = name;
         this.expiryDate = expiryDate;
-        this.quantity = new Quantity(DEFAULT_QUANTITY);
     }
 
+    /**
+     * Constructor with all parameters for ItemBuilder class. (Used in testing)
+     */
+    public Item(Name name, ExpiryDate expiryDate, Quantity quantity, Set<Tag> tags,
+                ReminderThreshold reminderThreshold) {
+        CollectionUtil.requireAllNonNull(name, expiryDate, tags);
+        this.name = name;
+        this.expiryDate = expiryDate;
+        this.quantity = quantity;
+        this.tags.addAll(tags);
+        this.reminderThreshold = reminderThreshold;
+    }
+
+    public Item(Item item) {
+        this.name = item.getName();
+        this.expiryDate = item.getExpiryDate();
+        this.quantity = item.getQuantity();
+        this.tags = item.getTags();
+        this.reminderThreshold = item.getReminderThreshold();
+    }
 
     public Name getName() {
         return this.name;
@@ -71,7 +91,7 @@ public class Item {
 
     public Quantity getQuantity() {
         return this.quantity;
-    };
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -93,7 +113,7 @@ public class Item {
     /**
      * Returns the reminder threshold.
      *
-     * @return {@Code ReminderThreshold} object.
+     * @return {@code ReminderThreshold} object.
      */
     public ReminderThreshold getReminderThreshold() {
         return this.reminderThreshold;
@@ -164,14 +184,4 @@ public class Item {
         this.getTags().forEach(builder::append);
         return builder.toString();
     }
-
-    /* TODO: Remove Tag for added items */
-
-    /*   public String getAddedItem() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.name + "\n")
-                .append(String.format("Expiry date: %s (%s)\n",
-                        this.expiryDate, this.expiryDate.getStatus(DateUtil.getCurrentDate())));
-        return builder.toString();
-    } */
 }
