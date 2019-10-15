@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
-import seedu.address.model.task.Task;
+//import seedu.address.model.task.Task;
 
 /**
  * Adds a task to the address book.
@@ -64,8 +64,8 @@ public class AddInventoryCommand extends Command {
             throw new CommandException(MESSAGE_INDEX_EXCEEDED);
         }
 
-        Task taskToAdd = model.getFilteredTasksList().get(taskId.getZeroBased());
-        Inventory toAdd = new Inventory(taskToAdd, name, price);
+        //Task taskToAdd = model.getFilteredTasksList().get(taskId.getZeroBased());
+        Inventory toAdd = new Inventory(/*taskToAdd,*/ name, price);
 
         if (model.hasInventory(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_INVENTORY);

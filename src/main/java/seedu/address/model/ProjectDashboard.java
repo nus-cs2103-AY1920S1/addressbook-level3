@@ -74,6 +74,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
         setTasks(newData.getTaskList());
         setInventories(newData.getInventoryList());
+        setMembers(newData.getMemberList());
     }
 
 

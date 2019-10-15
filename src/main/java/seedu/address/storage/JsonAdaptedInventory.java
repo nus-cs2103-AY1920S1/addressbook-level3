@@ -8,7 +8,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
-import seedu.address.model.task.Task;
+//import seedu.address.model.task.Task;
 
 /**
  * Jackson-friendly version of {@link Inventory}.
@@ -16,7 +16,7 @@ import seedu.address.model.task.Task;
 public class JsonAdaptedInventory {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Inventory's %s field is missing!";
 
-    private final Task task;
+    //private final Task task;
     private final InvName name;
     /*private final memIndex memID;*/
     private final Price price;
@@ -25,10 +25,10 @@ public class JsonAdaptedInventory {
      * Constructs a {@code JsonAdaptedTask} with the given task details.
      */
     @JsonCreator
-    public JsonAdaptedInventory(@JsonProperty("name") InvName name, @JsonProperty("task") Task task,
+    public JsonAdaptedInventory(@JsonProperty("name") InvName name/*, @JsonProperty("task") Task task*/,
                            @JsonProperty("price") Price price) {
         this.name = name;
-        this.task = task;
+        //this.task = task;
         this.price = price;
     }
 
@@ -37,7 +37,7 @@ public class JsonAdaptedInventory {
      */
     public JsonAdaptedInventory(Inventory source) {
         name = source.getName();
-        task = source.getTask();
+        //task = source.getTask();
         price = source.getPrice();
     }
 
@@ -54,10 +54,10 @@ public class JsonAdaptedInventory {
         if (!InvName.isValidName(name.toString())) {
             throw new IllegalValueException(InvName.MESSAGE_CONSTRAINTS);
         }
-        if (task == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    "task"));
-        }
+        //if (task == null) {
+        //    throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+        //            "task"));
+        //}
         if (price == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "price"));
@@ -67,8 +67,8 @@ public class JsonAdaptedInventory {
         }
 
         final InvName modelName = new InvName(name.toString());
-        final Task modelTask = new Task(task.getName(), task.getTaskStatus(), task.getTags());
+        //final Task modelTask = new Task(task.getName(), task.getTaskStatus(), task.getTags());
         final Price modelPrice = new Price(price.getPrice());
-        return new Inventory(modelTask, modelName, modelPrice);
+        return new Inventory(/*modelTask,*/ modelName, modelPrice);
     }
 }

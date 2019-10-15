@@ -4,7 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.task.Task;
+//import seedu.address.model.task.Task;
 
 /**
  * Represents a Inventory in ProjectDashBoard.
@@ -12,7 +12,7 @@ import seedu.address.model.task.Task;
  */
 public class Inventory {
     // Identity fields
-    private final Task task;
+    //private final Task task;
     private final InvName name;
     /*private final memIndex memID;*/
     private final Price price;
@@ -24,17 +24,17 @@ public class Inventory {
      */
 
 
-    public Inventory(Task task, InvName name, /*,memIndex memID, */Price price) {
-        requireAllNonNull(task, name, price);
-        this.task = task;
+    public Inventory(/*Task task,*/ InvName name, /*,memIndex memID, */Price price) {
+        requireAllNonNull(/*task,*/ name, price);
+        //this.task = task;
         this.name = name;
         /*this.memID = memID*/
         this.price = price;
     }
 
-    public Inventory(Task task, InvName name/*,memIndex memID, */) {
-        requireAllNonNull(task, name);
-        this.task = task;
+    public Inventory(/*Task task,*/ InvName name/*,memIndex memID, */) {
+        requireAllNonNull(/*task,*/ name);
+        //this.task = task;
         this.name = name;
         /*this.memID = memID*/
         this.price = new Price(0);
@@ -46,9 +46,9 @@ public class Inventory {
         return name;
     }
 
-    public Task getTask() {
-        return task;
-    }
+    //public Task getTask() {
+    //    return task;
+    //}
 
     public Price getPrice() {
         return price;
@@ -68,7 +68,7 @@ public class Inventory {
         return otherInv != null
                 && otherInv.getName().equals(getName())
                 && otherInv.getPrice().equals(getPrice())
-                && otherInv.getTask().equals(getTask());
+                /*&& otherInv.getTask().equals(getTask())*/;
     }
 
     /**
@@ -87,21 +87,21 @@ public class Inventory {
 
         Inventory otherInv = (Inventory) other;
         return otherInv.getName().equals(getName())
-                && otherInv.getTask().equals(getTask())
+                /*&& otherInv.getTask().equals(getTask())*/
                 && otherInv.getPrice().equals(getPrice());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(task, name, price);
+        return Objects.hash(/*task, */name, price);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Task: " + getTask().getName())
+                //.append(" Task: " + getTask().getName())
                 .append(" Price: " + getPrice());
         return builder.toString();
     }
