@@ -1,4 +1,4 @@
-package seedu.address.person.logic.parser;
+package seedu.address.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
