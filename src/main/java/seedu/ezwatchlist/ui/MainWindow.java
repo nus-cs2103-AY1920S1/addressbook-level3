@@ -113,6 +113,8 @@ public class MainWindow extends UiPart<Stage> {
         statisticsPanel = new StatisticsPanel(/*logic.getWatchedList()*/);
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
 
+        resultDisplay = new ResultDisplay();
+
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
