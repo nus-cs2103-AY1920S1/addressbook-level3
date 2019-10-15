@@ -11,11 +11,11 @@ import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.model.show.Show;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of shows.
  */
 public class ShowListPanel extends UiPart<Region> {
     private static final String FXML = "ShowListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class); //leave it first
+    private final Logger logger = LogsCenter.getLogger(ShowListPanel.class);
 
     @FXML
     private ListView<Show> showListView;
@@ -27,7 +27,7 @@ public class ShowListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Show} using a {@code ShowCard}.
      */
     class ShowListViewCell extends ListCell<Show> {
         @Override

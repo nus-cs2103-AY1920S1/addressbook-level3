@@ -1,5 +1,7 @@
 package seedu.ezwatchlist.model.person;
 
+import seedu.ezwatchlist.commons.util.AppUtil;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
@@ -27,7 +29,7 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
 

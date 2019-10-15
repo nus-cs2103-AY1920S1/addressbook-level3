@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+import seedu.ezwatchlist.logic.Logic;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -69,7 +70,7 @@ public class CommandBox extends UiPart<Region> {
         /**
          * Executes the command and returns the result.
          *
-         * @see seedu.ezwatchlist.logic.Logic#execute(String)
+         * @see Logic#execute(String)
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }

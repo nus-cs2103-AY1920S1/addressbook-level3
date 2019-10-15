@@ -12,20 +12,25 @@ import info.movito.themoviedbapi.model.tv.TvSeason;
 import info.movito.themoviedbapi.model.tv.TvSeries;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import seedu.ezwatchlist.api.model.ApiInterface;
+import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
 import seedu.ezwatchlist.model.show.Episode;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.show.TvShow;
 
 /**
  * Main class for the API to connect to the server
  */
-public class ApiMain {
+public class ApiMain implements ApiInterface {
     //API key is to connect with the tmdb server.
     private final static String API_KEY = "44ed1d7975d7c699743229199b1fc26e";
     private final TmdbApi ApiCall;
@@ -38,8 +43,8 @@ public class ApiMain {
         MovieResultsPage page = ApiCall.getSearch().searchMovie(name, null, null, true, null);
         ArrayList<Movie> movies = new ArrayList<>();
         for (MovieDb m : page.getResults()) {
-            movies.add(new Movie(new Name(m.getTitle()), new Description(m.getTagline()), false, new Date(m.getReleaseDate()),
-                    new RunningTime(m.getRuntime()), null));
+            movies.add(new Movie(new Name(m.getTitle()), new Description("placeholder")/*m.getTagline())*/, new IsWatched(false), new Date(m.getReleaseDate()),
+                    new RunningTime(m.getRuntime()), new HashSet<Actor>()));
         }
         return movies;
     }
@@ -67,7 +72,7 @@ public class ApiMain {
                 seasonsList.add(tvS);
             }
 
-            tvShows.add(new TvShow(new Name(tv.getName()), new Description(tv.getOverview()), false,
+            tvShows.add(new TvShow(new Name(tv.getName()), new Description(tv.getOverview()), new IsWatched(false),
                     new Date(tv.getFirstAirDate()),
                     new RunningTime(tv.getEpisodeRuntime().get(0)), null, 0,
                     tv.getNumberOfEpisodes(), seasonsList));

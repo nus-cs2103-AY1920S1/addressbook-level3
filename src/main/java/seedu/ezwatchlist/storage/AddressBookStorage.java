@@ -5,10 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.ezwatchlist.commons.exceptions.DataConversionException;
+import seedu.ezwatchlist.model.AddressBook;
 import seedu.ezwatchlist.model.ReadOnlyAddressBook;
 
 /**
- * Represents a storage for {@link seedu.ezwatchlist.model.AddressBook}.
+ * Represents a storage for {@link AddressBook}.
  */
 public interface AddressBookStorage {
 

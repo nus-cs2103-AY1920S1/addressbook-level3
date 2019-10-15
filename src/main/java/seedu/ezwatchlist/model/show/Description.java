@@ -1,5 +1,7 @@
 package seedu.ezwatchlist.model.show;
 
+import seedu.ezwatchlist.commons.util.AppUtil;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.commons.util.AppUtil.checkArgument;
 
@@ -15,7 +17,7 @@ public class Description {
      * The first character of the show's description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String fullDescription;
 
@@ -26,7 +28,7 @@ public class Description {
      */
     public Description(String description) {
         requireNonNull(description);
-        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         fullDescription = description;
     }
 
