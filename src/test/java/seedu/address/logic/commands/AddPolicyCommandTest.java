@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FIRE_INSURANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -44,13 +45,24 @@ public class AddPolicyCommandTest {
     }
 
     @Test
-    public void execute_duplicatePolicy_throwsCommandException() {
+    public void execute_duplicatePolicyWithSameFields_throwsCommandException() {
         Policy validPolicy = new PolicyBuilder().build();
         AddPolicyCommand addPolicyCommand = new AddPolicyCommand(validPolicy);
         ModelStub modelStub = new ModelStubWithPolicy(validPolicy);
 
-        assertThrows(CommandException.class, addPolicyCommand.MESSAGE_DUPLICATE_POLICY + "\n"
-                + validPolicy.toString() + "\n" + addPolicyCommand.DUPLICATE_POLICY_MERGE_PROMPT, ()
+        assertThrows(CommandException.class, addPolicyCommand.generateExceptionMessageWithoutMergePrompt(validPolicy), (
+            ) -> addPolicyCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_duplicatePolicyWithDifferentFields_throwsCommandException() {
+        Policy validPolicy = new PolicyBuilder().build();
+        Policy duplicatePolicyWithDifferentDescription = new PolicyBuilder()
+                .withDescription(VALID_DESCRIPTION_FIRE_INSURANCE).build();
+        AddPolicyCommand addPolicyCommand = new AddPolicyCommand(duplicatePolicyWithDifferentDescription);
+        ModelStub modelStub = new ModelStubWithPolicy(validPolicy);
+        assertThrows(CommandException.class,
+                addPolicyCommand.generateExceptionMessageWithMergePrompt(validPolicy), ()
                 -> addPolicyCommand.execute(modelStub));
     }
 
