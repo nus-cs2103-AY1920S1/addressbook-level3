@@ -10,7 +10,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import seedu.address.autocomplete.AutoCompleteWordHandler;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -24,8 +23,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
-
-    private int selectedIndex = 0;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -124,11 +121,11 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
-        autoCompletePanel = new AutoCompletePanel(new AutoCompleteWordHandler());
+        autoCompletePanel = new AutoCompletePanel();
         autoCompletePanelPlaceholder.getChildren().add(autoCompletePanel.getRoot());
+
+        commandBox = new CommandBox(this::executeCommand, autoCompletePanel);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     /**
@@ -202,39 +199,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    public void setOnButtonPressedListener() {
-        commandBox.getCommandTextField().setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-            case UP:
-                int newIndex = (selectedIndex - 1);
-                if (newIndex < 0) {
-                    newIndex = 0;
-                }
-                selectedIndex = newIndex;
-
-                autoCompletePanel.select(newIndex);
-                commandBox.getCommandTextField().positionCaret(commandBox.getCommandTextField().getText().length());
-                break;
-            case DOWN:
-                int newIndex2 = (selectedIndex + 1);
-                if (newIndex2 > autoCompletePanel.getTotalItems() - 1) {
-                    newIndex2 = autoCompletePanel.getTotalItems() - 1;
-                }
-                selectedIndex = newIndex2;
-
-                autoCompletePanel.select(newIndex2);
-                break;
-            case SHIFT:
-                try {
-                    commandBox.getCommandTextField().setText(autoCompletePanel.getSelected().getSuggestedWord());
-                    commandBox.getCommandTextField().positionCaret(commandBox.getCommandTextField().getText().length());
-                } catch (NullPointerException e) {
-                    logger.info("Nothing is selected thus shift key does not work");
-                }
-                break;
-            default:
-                autoCompletePanel.updateListView(commandBox.getCommandTextField().getText() + event.getText());
-            }
-        });
+    /**
+     * Set listeners for all individual components in main window
+     */
+    public void setAllListeners() {
+        commandBox.setOnButtonPressedListener();
     }
 }

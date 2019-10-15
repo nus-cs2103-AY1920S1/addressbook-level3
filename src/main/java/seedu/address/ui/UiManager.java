@@ -42,7 +42,7 @@ public class UiManager implements Ui {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
             // Main window listener
-            mainWindow.setOnButtonPressedListener();
+            mainWindow.setAllListeners();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

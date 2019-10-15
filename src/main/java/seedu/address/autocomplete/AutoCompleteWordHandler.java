@@ -1,10 +1,10 @@
 package seedu.address.autocomplete;
 
+import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 /**
  * A handler that initialises autocomplete word bank and updates list of autocomplete words to be shown
