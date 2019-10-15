@@ -35,10 +35,8 @@ public class Reimbursement {
      * @param trans Transaction that I want to create reimbursement for.
      */
     public Reimbursement(Transaction trans) {
-        logger.info("reimbursement only trans: " + trans);
         list = new ArrayList<>();
         list.add(trans);
-        logger.info("first in list in reimbursement:" + list.get(0));
         amount = trans.getAmount();
         person = trans.getPerson();
         description = new Description(list);
@@ -116,7 +114,6 @@ public class Reimbursement {
     public void done() {
         for (Transaction trans : list) {
             trans.updateStatus();
-            logger.info("trans updated: " + trans);
         }
     }
 
