@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.websocket.util.UrlUtil;
@@ -73,6 +74,9 @@ public class NusModsShareLink {
             Map<ModuleCode, List<LessonNo>> moduleLessonsMap = new LinkedHashMap<>();
             for (Map.Entry<String, String> entry : queryMap.entrySet()) {
                 ModuleCode moduleCode = ParserUtil.parseModuleCode(entry.getKey());
+                if (StringUtil.isNullOrEmpty(entry.getValue())) { //skip if no query value
+                    continue;
+                }
                 String[] lessons = entry.getValue().split(",");
                 List<LessonNo> lessonsNos = Arrays.stream(lessons)
                         .map(l -> l.split(":")[1])

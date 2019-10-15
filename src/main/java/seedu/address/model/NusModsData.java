@@ -3,6 +3,7 @@ package seedu.address.model;
 import seedu.address.model.module.AcadCalendar;
 import seedu.address.model.module.DetailedModuleList;
 import seedu.address.model.module.Holidays;
+import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCondensedList;
 
 /**
@@ -15,7 +16,6 @@ public class NusModsData {
     private AcadCalendar acadCalendar;
     private Holidays holidays;
 
-    //TODO: constructors, getters & settors
     public NusModsData() {
         this.detailedModuleList = new DetailedModuleList();
     }
@@ -42,6 +42,10 @@ public class NusModsData {
 
     public AcadCalendar getAcadCalendar() {
         return acadCalendar;
+    }
+
+    public void addDetailedModule(Module module) {
+        detailedModuleList.addModule(module);
     }
 
     public void setAcadCalendar(AcadCalendar acadCalendar) {

@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddGroupCommand;
+import seedu.address.logic.commands.AddNusModCommand;
+import seedu.address.logic.commands.AddNusModsCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddToGroupCommand;
 import seedu.address.logic.commands.ClosestLocationCommand;
@@ -44,6 +46,8 @@ public class SuggestingCommandUtil {
             FindPersonCommand.COMMAND_WORD,
             ScheduleCommand.COMMAND_WORD,
             ShowNusModCommand.COMMAND_WORD,
+            AddNusModCommand.COMMAND_WORD,
+            AddNusModsCommand.COMMAND_WORD,
             ShowCommand.COMMAND_WORD,
             ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
