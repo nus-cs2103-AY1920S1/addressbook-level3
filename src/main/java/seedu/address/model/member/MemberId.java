@@ -7,7 +7,7 @@ package seedu.address.model.member;
 public class MemberId {
     public static final String MESSAGE_CONSTRAINTS =
             "Invalid member ID, please enter a alphanumeric code";
-
+    public static final String VALIDATION_REGEX = "[\\p{Alpha}]*";
     private String displayId;
 
     /**
@@ -16,8 +16,15 @@ public class MemberId {
      *
      * @param displayId an alternate name for the member ID
      */
-    MemberId(String displayId) {
+    public MemberId(String displayId) {
         this.displayId = displayId;
+    }
+
+    /**
+     * Returns true if a given string is a valid name.
+     */
+    public static boolean isValidId(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     public String getDisplayName() {
