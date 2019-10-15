@@ -66,6 +66,14 @@ public class Date implements Comparable<Date> {
         return isValidDate(date.getDay(), date.getMonth(), date.getYear());
     }
 
+    public boolean isIn(Month month) {
+        return getMonth().equals(month);
+    }
+
+    public boolean isIn(Year year) {
+        return getYear().equals(year);
+    }
+
     @Override
     public int compareTo(Date other) {
         return this.date.compareTo(other.date);
