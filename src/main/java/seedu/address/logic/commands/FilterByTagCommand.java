@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.Model;
-
-
+/**
+ * Command to filter objects(s) with the related tag(s).
+ */
 public interface FilterByTagCommand {
     /**
      * Displays the tags entered in the display

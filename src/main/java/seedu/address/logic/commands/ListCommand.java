@@ -6,11 +6,9 @@ import static seedu.address.commons.core.Messages.SPECIFY_MODE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CHEATSHEETS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 
 /**
@@ -20,7 +18,7 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = LIST;
 
-    public static String MESSAGE_SUCCESS = "Listed all ";
+    public static final String MESSAGE_SUCCESS = "Listed all ";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

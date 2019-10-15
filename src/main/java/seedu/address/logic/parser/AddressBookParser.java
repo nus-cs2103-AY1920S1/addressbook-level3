@@ -94,6 +94,13 @@ public class AddressBookParser {
         }
     }
 
+    /**
+     * Parses user input into command for execution.
+     * @param commandWord the command to execute
+     * @param arguments the parameters supplied to command
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
     private Command parseCheatSheetCommands(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
         case AddCheatSheetCommand.COMMAND_WORD:
@@ -116,6 +123,13 @@ public class AddressBookParser {
         }
     }
 
+    /**
+     * Parses user input into command for execution.
+     * @param commandWord the command to execute
+     * @param arguments the parameters supplied to command
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
     private Command parseFlashcardCommands(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
         case AddFlashcardCommand.COMMAND_WORD:
@@ -135,6 +149,13 @@ public class AddressBookParser {
         }
     }
 
+    /**
+     * Parses user input into command for execution.
+     * @param commandWord the command to execute
+     * @param arguments the parameters supplied to command
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
     private Command parseNoteCommands(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
         case AddNoteCommand.COMMAND_WORD:
@@ -154,8 +175,6 @@ public class AddressBookParser {
         }
     }
 }
-
-
 
 /*
 switch (commandWord) {

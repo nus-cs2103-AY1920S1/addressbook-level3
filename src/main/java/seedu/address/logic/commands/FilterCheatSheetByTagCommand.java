@@ -9,8 +9,7 @@ import seedu.address.model.cheatsheet.CheatSheetContainsTagPredicate;
 /**
  * Command to filter cheatsheets(s) with the related tag(s).
  */
-
-public class FilterCheatSheetByTagCommand extends Command implements FilterByTagCommand  {
+public class FilterCheatSheetByTagCommand extends Command implements FilterByTagCommand {
 
     public static final String COMMAND_WORD = FILTER;
 
