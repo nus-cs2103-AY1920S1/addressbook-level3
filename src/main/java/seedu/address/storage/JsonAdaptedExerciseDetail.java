@@ -27,8 +27,9 @@ abstract class JsonAdaptedExerciseDetail<T> {
     public String type;
 
     public void Sets(){}
-
     public void Distance(){}
+    public void Repetitions(){}
+    public void Weight(){}
 
     /**
      * Converts this Jackson-friendly adapted tag object into the model's {@code ExerciseDetail} object.

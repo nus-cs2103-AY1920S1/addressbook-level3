@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.details.ExerciseDetail;
@@ -15,7 +16,7 @@ public class JsonAdaptedRepetitions<Integer> extends JsonAdaptedExerciseDetail {
      * and {@code unit}.
      */
     @JsonCreator
-    public JsonAdaptedRepetitions(int magnitude){
+    public JsonAdaptedRepetitions(@JsonProperty("magnitude") int magnitude){
         this.type = DETAILTYPE;
         this.magnitude = magnitude;
     }
