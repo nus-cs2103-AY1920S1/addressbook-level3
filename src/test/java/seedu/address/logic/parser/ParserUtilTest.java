@@ -19,13 +19,13 @@ import seedu.address.model.answerable.Difficulty;
 import seedu.address.model.answerable.Question;
 
 public class ParserUtilTest {
-    private static final String INVALID_QUESTION = "R@chel";
+    private static final String INVALID_QUESTION = "";
     private static final String INVALID_DIFFICULTY = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_CATEGORY = "   #UML";
 
     private static final String VALID_QUESTION = "Rachel Walker";
-    private static final String VALID_DIFFICULTY = "123456";
+    private static final String VALID_DIFFICULTY = "1";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_CATEGORY_1 = "OOP";
     private static final String VALID_CATEGORY_2 = "git";
