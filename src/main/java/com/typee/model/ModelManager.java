@@ -10,7 +10,6 @@ import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.util.CollectionUtil;
 import com.typee.model.engagement.Engagement;
-import com.typee.model.person.Name;
 import com.typee.model.person.Person;
 
 import javafx.collections.ObservableList;
@@ -24,7 +23,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Engagement> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,7 +36,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.addressBook.getEngagementList());
     }
 
     public ModelManager() {
@@ -92,43 +91,26 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public boolean hasEngagement(Engagement engagement) {
+        requireNonNull(engagement);
+        return addressBook.hasEngagement(engagement);
     }
 
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public void deleteEngagement(Engagement target) {
+        addressBook.removeEngagement(target);
     }
 
     //@Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
     public void addEngagement(Engagement engagement) {
-        //addressBook.addEngagement(engagement);
-        addressBook.addPerson(new Person(new Name(engagement.getDescription())));
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        addressBook.addEngagement(engagement);
+        updateFilteredEngagementList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public boolean hasEngagement (Engagement engagement) {
-        /*
-        requireNonNull(engagement);
-        return addressBook.hasEngagement(engagement);*
-         */
-        return false;
-    }
+    public void setEngagement(Engagement target, Engagement editedEngagement) {
+        CollectionUtil.requireAllNonNull(target, editedEngagement);
 
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        CollectionUtil.requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+        addressBook.setPerson(target, editedEngagement);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -138,12 +120,11 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
+    public ObservableList<Engagement> getFilteredEngagementList() {
         return filteredPersons;
     }
 
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredEngagementList(Predicate<Engagement> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }

@@ -84,4 +84,10 @@ public abstract class Engagement {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
+
+    public boolean isSameEngagement(Engagement engagement) {
+        return engagement.end.equals(end)
+                && engagement.start.equals(start)
+                && engagement.location.equals(location);
+    }
 }

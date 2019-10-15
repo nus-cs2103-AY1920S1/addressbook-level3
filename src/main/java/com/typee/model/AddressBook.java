@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.typee.model.engagement.Engagement;
 import com.typee.model.person.Person;
-import com.typee.model.person.UniquePersonList;
+import com.typee.model.person.UniqueEngagementList;
 
 import javafx.collections.ObservableList;
 
@@ -16,7 +16,7 @@ import javafx.collections.ObservableList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniqueEngagementList engagements;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,7 +26,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        engagements = new UniqueEngagementList();
     }
 
     public AddressBook() {}
@@ -45,8 +45,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setEngagements(List<Engagement> engagements) {
+        this.engagements.setEngagements(engagements);
     }
 
     /**
@@ -55,7 +55,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setEngagements(newData.getEngagementList());
     }
 
     //// person-level operations
@@ -63,26 +63,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
-
-    public boolean hasEngagement (Engagement engagement) {
+    public boolean hasEngagement(Engagement engagement) {
         requireNonNull(engagement);
-        return true;
-    }
-
-    public void addEngagement(Engagement engagement) {
-        //persons.add(engagement);
+        return engagements.contains(engagement);
     }
 
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addEngagement(Engagement engagement) {
+        engagements.add(engagement);
     }
 
     /**
@@ -90,42 +81,42 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setPerson(Engagement target, Engagement editedEngagement) {
+        requireNonNull(editedEngagement);
 
-        persons.setPerson(target, editedPerson);
+        engagements.setEngagement(target, editedEngagement);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeEngagement(Engagement key) {
+        engagements.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return engagements.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Engagement> getEngagementList() {
+        return engagements.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && engagements.equals(((AddressBook) other).engagements));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return engagements.hashCode();
     }
 }

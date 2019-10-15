@@ -16,7 +16,6 @@ import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.ClearCommand;
 import com.typee.logic.commands.DeleteCommand;
 import com.typee.logic.commands.EditCommand;
-import com.typee.logic.commands.EditCommand.EditPersonDescriptor;
 import com.typee.logic.commands.ExitCommand;
 import com.typee.logic.commands.FindCommand;
 import com.typee.logic.commands.HelpCommand;
@@ -55,7 +54,7 @@ public class TypeeParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        EditCommand.EditEngagementDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);

@@ -14,6 +14,7 @@ import com.typee.logic.parser.TypeeParser;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.Model;
 import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.engagement.Engagement;
 import com.typee.model.person.Person;
 import com.typee.storage.Storage;
 import com.typee.ui.Tab;
@@ -60,8 +61,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Engagement> getFilteredEngagementList() {
+        return model.getFilteredEngagementList();
     }
 
     @Override

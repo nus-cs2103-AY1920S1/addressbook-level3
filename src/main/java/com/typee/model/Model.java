@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Engagement> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -55,21 +55,16 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if an engagement with the same location and time-slot {@code engagement} exists in the address book.
-     */
-    boolean hasEngagement(Engagement engagement);
-
-    /**
      * REDUNDANT.
      * Returns true if the person is in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasEngagement(Engagement engagement);
 
     /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteEngagement(Engagement target);
 
     /**
      * Adds the given engagement.
@@ -82,14 +77,14 @@ public interface Model {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setEngagement(Engagement target, Engagement editedEngagement);
 
     /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Engagement> getFilteredEngagementList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredEngagementList(Predicate<Engagement> predicate);
 }

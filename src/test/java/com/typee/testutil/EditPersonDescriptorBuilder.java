@@ -5,37 +5,37 @@ import com.typee.model.person.Name;
 import com.typee.model.person.Person;
 
 /**
- * A utility class to help with building EditPersonDescriptor objects.
+ * A utility class to help with building EditEngagementDescriptor objects.
  */
 public class EditPersonDescriptorBuilder {
 
-    private EditCommand.EditPersonDescriptor descriptor;
+    private EditCommand.EditEngagementDescriptor descriptor;
 
     public EditPersonDescriptorBuilder() {
-        descriptor = new EditCommand.EditPersonDescriptor();
+        descriptor = new EditCommand.EditEngagementDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(EditCommand.EditPersonDescriptor descriptor) {
-        this.descriptor = new EditCommand.EditPersonDescriptor(descriptor);
+    public EditPersonDescriptorBuilder(EditCommand.EditEngagementDescriptor descriptor) {
+        this.descriptor = new EditCommand.EditEngagementDescriptor(descriptor);
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
+     * Returns an {@code EditEngagementDescriptor} with fields containing {@code person}'s details
      */
     public EditPersonDescriptorBuilder(Person person) {
-        descriptor = new EditCommand.EditPersonDescriptor();
+        descriptor = new EditCommand.EditEngagementDescriptor();
         descriptor.setName(person.getName());
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Name} of the {@code EditEngagementDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }
 
-    public EditCommand.EditPersonDescriptor build() {
+    public EditCommand.EditEngagementDescriptor build() {
         return descriptor;
     }
 }

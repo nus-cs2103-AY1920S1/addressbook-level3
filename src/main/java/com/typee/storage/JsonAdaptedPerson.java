@@ -3,8 +3,14 @@ package com.typee.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.typee.commons.exceptions.IllegalValueException;
+import com.typee.model.engagement.Engagement;
+import com.typee.model.engagement.EngagementType;
+import com.typee.model.engagement.Location;
+import com.typee.model.engagement.Priority;
 import com.typee.model.person.Name;
 import com.typee.model.person.Person;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -27,8 +33,8 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Person source) {
-        name = source.getName().fullName;
+    public JsonAdaptedPerson(Engagement source) {
+        name = source.getDescription();
     }
 
     /**
@@ -36,7 +42,7 @@ class JsonAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
-    public Person toModelType() throws IllegalValueException {
+    public Engagement toModelType() throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -44,6 +50,8 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
-        return new Person(modelName);
+        return Engagement.of(EngagementType.MEETING, LocalDateTime.now(), LocalDateTime.now(),
+                Arrays.asList(new Person[]{new Person(new Name("Uggi"))}),
+                new Location("SR-10"), name, Priority.HIGH);
     }
 }
