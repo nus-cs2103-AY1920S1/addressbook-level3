@@ -35,16 +35,18 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds a problem by name, author, and/or "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Finds a problem by name, author, and/or "
             + "description and displays them as a list with index numbers.\n"
-            + "Parameters: "
+            + "Parameters:\n"
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_AUTHOR + "AUTHOR] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_SOURCE + "SOURCE] "
             + "[" + PREFIX_DIFFICULTY + "LOWER_BOUND-UPPER_BOUND] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD
+            + "[" + PREFIX_TAG + "TAG]\n"
+            + "Example:\n"
+            + COMMAND_WORD
             + PREFIX_AUTHOR + "Tung Kam Chuen";
     public static final String MESSAGE_NO_CONSTRAINTS = "At least one search constraint should be provided.";
 

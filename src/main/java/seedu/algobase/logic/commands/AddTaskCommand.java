@@ -24,11 +24,12 @@ public class AddTaskCommand extends Command {
     public static final String COMMAND_WORD = "addtask";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a task to a training plan. "
-            + "Parameters: "
+            + ": Adds a task to a training plan.\n"
+            + "Parameters:\n"
             + PREFIX_PLAN + "PLAN "
             + PREFIX_PROBLEM + "PROBLEM\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_PLAN + "1 "
             + PREFIX_PROBLEM + "10";
 

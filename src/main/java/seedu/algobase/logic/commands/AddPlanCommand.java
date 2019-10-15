@@ -19,13 +19,15 @@ public class AddPlanCommand extends Command {
 
     public static final String COMMAND_WORD = "addplan";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Plan to the algobase. "
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a Plan to the algobase.\n"
+            + "Parameters:\n"
             + PREFIX_NAME + "NAME "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_START_DATE + "START_DATE "
-            + PREFIX_END_DATE + "END_DATE \n"
-            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_END_DATE + "END_DATE\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_NAME + "CS2040 "
             + PREFIX_DESCRIPTION + "past year questions of CS2040 "
             + PREFIX_START_DATE + "2019/01/01"

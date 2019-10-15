@@ -3,7 +3,9 @@ package seedu.algobase.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_WEBLINK;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PROBLEMS;
@@ -36,16 +38,21 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Problem identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Edits the details of the Problem identified "
             + "by the index number used in the displayed Problem list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters:\n"
+            + "INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_AUTHOR + "AUTHOR] "
             + "[" + PREFIX_WEBLINK + "WEBLINK] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "[" + PREFIX_DIFFICULTY  + "DIFFICULTY] "
+            + "[" + PREFIX_SOURCE + "SOURCE] "
+            + "[" + PREFIX_TAG + "TAG]\n"
+            + "Example:\n"
+            + COMMAND_WORD + " 1 "
             + PREFIX_AUTHOR + "Tung Kam Chuen "
             + PREFIX_WEBLINK + "https://open.kattis.com/problems/sequences";
 
