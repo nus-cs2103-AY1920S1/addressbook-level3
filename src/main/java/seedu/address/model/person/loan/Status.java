@@ -1,7 +1,6 @@
 package seedu.address.model.person.loan;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the status (PAID/UNPAID) of a Loan.
