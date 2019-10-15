@@ -125,12 +125,26 @@ public class RecommendationSystem {
         this.inUse = inUse;
     }
 
+    /**
+     * Add likes to the recommendation system.
+     *
+     * @param categoryList The list of categories
+     * @param tagList      The list of tags
+     * @param locationList The list of locations
+     */
     public void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         likedCategories.addAll(categoryList);
         likedTags.addAll(tagList);
         likedLocations.addAll(locationList);
     }
 
+    /**
+     * Add dislikes to the recommendation system.
+     *
+     * @param categoryList The list of categories
+     * @param tagList      The list of tags
+     * @param locationList The list of locations
+     */
     public void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         dislikedCategories.addAll(categoryList);
         dislikedTags.addAll(tagList);
