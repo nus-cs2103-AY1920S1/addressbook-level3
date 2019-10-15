@@ -1,22 +1,22 @@
 package seedu.ezwatchlist.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.ezwatchlist.testutil.Assert.assertThrows;
-import static seedu.ezwatchlist.testutil.TypicalPersons.ALICE;
-import static seedu.ezwatchlist.testutil.TypicalPersons.BENSON;
+import org.junit.jupiter.api.Test;
+import seedu.ezwatchlist.commons.core.GuiSettings;
+import seedu.ezwatchlist.model.WatchList;
+import seedu.ezwatchlist.model.ModelManager;
+import seedu.ezwatchlist.model.UserPrefs;
+import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
+import seedu.ezwatchlist.testutil.WatchListBuilder;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import org.junit.jupiter.api.Test;
-
-import seedu.ezwatchlist.commons.core.GuiSettings;
-import seedu.ezwatchlist.model.person.NameContainsKeywordsPredicate;
-import seedu.ezwatchlist.testutil.AddressBookBuilder;
+import static org.junit.jupiter.api.Assertions.*;
+import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
+import static seedu.ezwatchlist.testutil.Assert.assertThrows;
+import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
+import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
 
 public class ModelManagerTest {
 
@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new WatchList(), new WatchList(modelManager.getWatchList()));
     }
 
     @Test
@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setWatchListFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setWatchListFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,47 +61,47 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+    public void setWatchListFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setWatchListFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setWatchListFilePath_validPath_setsWatchListFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+        modelManager.setWatchListFilePath(path);
+        assertEquals(path, modelManager.getWatchListFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+    public void hasShow_nullShow_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasShow(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+    public void hasShow_personNotInWatchList_returnsFalse() {
+        assertFalse(modelManager.hasShow(AVENGERSENDGAME));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+    public void hasShow_showInWatchList_returnsTrue() {
+        modelManager.addShow(AVENGERSENDGAME);
+        assertTrue(modelManager.hasShow(AVENGERSENDGAME));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    public void getFilteredShowList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredShowList().remove(0));
     }
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        WatchList watchList = new WatchListBuilder().withShow(AVENGERSENDGAME).withShow(FIGHTCLUB).build();
+        WatchList differentWatchList = new WatchList();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(watchList, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(watchList, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,20 +113,20 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different watchlist -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentWatchList, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        String[] keywords = AVENGERSENDGAME.getName().showName.split("\\s+");
+        modelManager.updateFilteredShowList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(modelManager.equals(new ModelManager(watchList, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setWatchListFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(watchList, differentUserPrefs)));
     }
 }

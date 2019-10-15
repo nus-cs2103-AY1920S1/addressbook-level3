@@ -1,11 +1,11 @@
-package seedu.ezwatchlist.model.person;
+package seedu.ezwatchlist.model.show;
+
+import org.junit.jupiter.api.Test;
+import seedu.ezwatchlist.model.show.Name;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
-
-import org.junit.jupiter.api.Test;
-import seedu.ezwatchlist.model.person.Name;
 
 public class NameTest {
 
