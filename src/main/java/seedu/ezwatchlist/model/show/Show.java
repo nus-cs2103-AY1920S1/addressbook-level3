@@ -17,6 +17,8 @@ import seedu.ezwatchlist.commons.util.CollectionUtil;
 public class Show {
 
     public String Type;
+    private static final String placeholderImageLocation = "/images/poster-placeholder.png";
+
     //identity fields
     private final Name name;
     private final Date dateOfRelease;
@@ -27,7 +29,7 @@ public class Show {
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
     private final String imageOfShow;
-    private static final String placeholderImageLocation = "/images/poster-placeholder.png";
+
 
     public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
