@@ -191,6 +191,10 @@ public class MainWindow extends UiPart<Stage> {
         return editorPanel;
     }
 
+    public RunCodeResult getRunCodeResultPanel() {
+        return runCodeResultPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *
