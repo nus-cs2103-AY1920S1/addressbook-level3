@@ -8,10 +8,10 @@ import seedu.mark.model.bookmark.Bookmark;
 /**
  * Manages {@code SelectiveBookmarkTagger}s in Mark.
  */
-public class TaggerController {
+public class AutotagController {
     private final List<SelectiveBookmarkTagger> taggers;
 
-    TaggerController(List<SelectiveBookmarkTagger> taggers) {
+    public AutotagController(List<SelectiveBookmarkTagger> taggers) {
         this.taggers = taggers;
     }
 
@@ -48,7 +48,7 @@ public class TaggerController {
      * @param bookmarks List of Bookmarks that each tagger should be applied to.
      * @return List of Bookmarks containing the tagged bookmarks.
      */
-    public List<Bookmark> getTaggedBookmarks(List<Bookmark> bookmarks) {
+    public List<Bookmark> applyTaggersToList(List<Bookmark> bookmarks) {
         return bookmarks.stream().map(this::applyTaggers).collect(Collectors.toList());
     }
 }

@@ -1,6 +1,7 @@
 package seedu.mark.model;
 
 import javafx.collections.ObservableList;
+import seedu.mark.model.autotag.AutotagController;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.folderstructure.FolderStructure;
 
@@ -16,4 +17,6 @@ public interface ReadOnlyMark {
     ObservableList<Bookmark> getBookmarkList();
 
     FolderStructure getFolderStructure();
+
+    AutotagController getAutotagController();
 }

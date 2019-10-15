@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
@@ -161,6 +162,18 @@ public class ModelManager implements Model {
         // import each folder into import-folder
         // check for duplicate folders and rename if necessary (e.g. folder-1)
         // for each Bookmark in list, if name = renamed-folder, change name to new-name
+    }
+
+    @Override
+    public void addTagger(SelectiveBookmarkTagger tagger) {
+        requireNonNull(tagger);
+
+        versionedMark.addTagger(tagger);
+    }
+
+    @Override
+    public void applyAllTaggers() {
+        versionedMark.applyAllTaggers();
     }
 
     //=========== Filtered Bookmark List Accessors =============================================================

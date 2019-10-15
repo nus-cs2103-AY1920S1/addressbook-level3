@@ -7,16 +7,16 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.tag.Tag;
 
 /**
- * Contains a specific {@code Tag} which can be applied to given {@code Bookmark}s.
+ * Defines a class that applies {@code Tag}s to {@code Bookmark}s.
  */
 public class BookmarkTagger {
     private final Tag tagToApply;
 
-    BookmarkTagger(Tag tag) {
+    public BookmarkTagger(Tag tag) {
         this.tagToApply = tag;
     }
 
-    private Tag getTagToApply() {
+    public Tag getTagToApply() {
         return this.tagToApply;
     }
 

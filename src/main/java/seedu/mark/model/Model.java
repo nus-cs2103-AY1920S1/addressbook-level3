@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
@@ -105,6 +106,17 @@ public interface Model {
      * Implementation to be decided.
      */
     void addFolders(FolderStructure foldersToAdd);
+
+    /**
+     * Adds a {@code tagger} to Mark.
+     */
+    void addTagger(SelectiveBookmarkTagger tagger);
+
+    /**
+     * Activates all taggers in Mark to apply tags to Mark's bookmarks based
+     * on their respective conditions.
+     */
+    void applyAllTaggers();
 
     /*
      * Wrapper for current url.

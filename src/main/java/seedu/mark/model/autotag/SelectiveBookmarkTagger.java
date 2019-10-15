@@ -6,15 +6,19 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.tag.Tag;
 
 /**
- * A type of BookmarkTagger that can also tag specific Bookmarks only, based on
+ * A type of BookmarkTagger that tags specific Bookmarks only, based on
  * whether they match a given {@code Predicate}.
  */
 public class SelectiveBookmarkTagger extends BookmarkTagger {
     private final Predicate<Bookmark> predicate;
 
-    SelectiveBookmarkTagger(Tag tag, Predicate<Bookmark> predicate) {
+    public SelectiveBookmarkTagger(Tag tag, Predicate<Bookmark> predicate) {
         super(tag);
         this.predicate = predicate;
+    }
+
+    private Predicate<Bookmark> getPredicate() {
+        return this.predicate;
     }
 
     /**
@@ -27,5 +31,13 @@ public class SelectiveBookmarkTagger extends BookmarkTagger {
      */
     public Bookmark applyTagSelectively(Bookmark bookmark) {
         return predicate.test(bookmark) ? super.applyTag(bookmark) : bookmark;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SelectiveBookmarkTagger // instanceof handles nulls
+                && getTagToApply().equals(((SelectiveBookmarkTagger) other).getTagToApply())
+                && predicate.equals(((SelectiveBookmarkTagger) other).getPredicate())); // state check
     }
 }

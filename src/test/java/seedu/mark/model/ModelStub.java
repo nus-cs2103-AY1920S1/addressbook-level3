@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 
 import seedu.mark.commons.core.GuiSettings;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
@@ -104,6 +105,16 @@ public class ModelStub implements Model {
 
     @Override
     public void addFolders(FolderStructure foldersToAdd) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addTagger(SelectiveBookmarkTagger tagger) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void applyAllTaggers() {
         throw new AssertionError("This method should not be called.");
     }
 

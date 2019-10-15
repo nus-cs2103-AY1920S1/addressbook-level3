@@ -8,6 +8,8 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 
+import seedu.mark.model.autotag.AutotagController;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.UniqueBookmarkList;
@@ -23,9 +25,12 @@ public class Mark implements ReadOnlyMark {
 
     private final FolderStructure folderStructure;
 
+    private final AutotagController autotagController;
+
     public Mark() {
         bookmarks = new UniqueBookmarkList();
         folderStructure = new FolderStructure(Folder.ROOT_FOLDER, new ArrayList<>());
+        autotagController = new AutotagController(new ArrayList<>());
     }
 
     /**
@@ -104,7 +109,6 @@ public class Mark implements ReadOnlyMark {
         this.folderStructure.getSubfolders().addAll(folderStructure.getSubfolders());
     }
 
-
     /**
      * Creates a new folder with name {@code folder} under {@code parentFolder}.
      * {@code folder} must not exist.
@@ -112,6 +116,16 @@ public class Mark implements ReadOnlyMark {
      */
     public void addFolder(Folder folder, Folder parentFolder) {
         this.folderStructure.addFolder(folder, parentFolder);
+    }
+
+    //// autotag controller operations
+
+    public void addTagger(SelectiveBookmarkTagger tagger) {
+        autotagController.addTagger(tagger);
+    }
+
+    public void applyAllTaggers() {
+        autotagController.applyTaggersToList(getBookmarkList());
     }
 
     //// util methods
@@ -132,6 +146,10 @@ public class Mark implements ReadOnlyMark {
         return folderStructure;
     }
 
+    @Override
+    public AutotagController getAutotagController() {
+        return autotagController;
+    }
 
     public boolean hasFolder(Folder folder) {
         return getFolderStructure().hasFolder(folder);
