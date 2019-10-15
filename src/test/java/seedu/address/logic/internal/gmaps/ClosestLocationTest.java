@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.Callable;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,9 +38,5 @@ class ClosestLocationTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private Callable<Boolean> isLoaded() {
-        return () -> closestLocation != null; // The condition that must be fulfilled
     }
 }
