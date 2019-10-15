@@ -2,7 +2,7 @@ package seedu.jarvis.storage.history.commands.address;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import seedu.jarvis.commons.core.index.Index;
+
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
@@ -65,6 +65,6 @@ public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand {
     public Command toModelType() throws IllegalValueException {
         return deletedPerson != null
                 ? new DeleteAddressCommand(targetIndex.toModelType(), deletedPerson.toModelType())
-                : new DeleteAddressCommand(targetIndex.toModelType());
+                : new DeleteAddressCommand(targetIndex.toModelType(), null);
     }
 }

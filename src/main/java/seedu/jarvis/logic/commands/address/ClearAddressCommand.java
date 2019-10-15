@@ -111,8 +111,7 @@ public class ClearAddressCommand extends Command {
         return obj == this // short circuit if it is the same object.
                 || (obj instanceof ClearAddressCommand // instanceof handles nulls.
                 && clearedPersons.size() == ((ClearAddressCommand) obj).clearedPersons.size()
-                && IntStream.range(0, clearedPersons.size())
-                .allMatch(index -> clearedPersons.get(index).equals(
-                        ((ClearAddressCommand) obj).clearedPersons.get(index))));
+                && IntStream.range(0, clearedPersons.size()).allMatch(index ->
+                clearedPersons.get(index).equals(((ClearAddressCommand) obj).clearedPersons.get(index))));
     }
 }

@@ -2,11 +2,15 @@ package seedu.jarvis.storage.history.commands;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.storage.history.commands.address.JsonAdaptedAddAddressCommand;
 import seedu.jarvis.storage.history.commands.address.JsonAdaptedClearAddressCommand;
 
+/**
+ * Abstract class that represents a Jackson-Friendly command.
+ */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,

@@ -8,7 +8,6 @@ import static seedu.jarvis.testutil.address.TypicalPersons.ELLE;
 import static seedu.jarvis.testutil.address.TypicalPersons.FIONA;
 import static seedu.jarvis.testutil.address.TypicalPersons.GEORGE;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

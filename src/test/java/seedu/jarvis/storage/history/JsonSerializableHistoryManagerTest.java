@@ -11,6 +11,9 @@ import seedu.jarvis.commons.util.JsonUtil;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.testutil.history.TypicalCommands;
 
+/**
+ * Tests the behaviour of {@code JsonSerializableHistoryManager}.
+ */
 public class JsonSerializableHistoryManagerTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
             "JsonSerializableHistoryManagerStorageTest");

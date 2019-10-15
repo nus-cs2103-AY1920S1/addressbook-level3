@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.AddAddressCommand;
@@ -27,6 +28,12 @@ public class JsonSerializableHistoryManager {
     private final List<JsonAdaptedCommand> executedCommands = new ArrayList<>();
     private final List<JsonAdaptedCommand> inverselyExecutedCommands = new ArrayList<>();
 
+    /**
+     * Constructs a {@code JsonSerializableHistoryManager} with the given executed and inversely executed commands.
+     *
+     * @param executedCommands {@code List} of executed Jackson-Friendly commands.
+     * @param inverselyExecutedCommands {@code List} of inversely executed Jackson-Friendly commands
+     */
     @JsonCreator
     public JsonSerializableHistoryManager(@JsonProperty("executedCommands") List<JsonAdaptedCommand> executedCommands,
                                           @JsonProperty("inverselyExecutedCommands")
@@ -35,6 +42,13 @@ public class JsonSerializableHistoryManager {
         this.inverselyExecutedCommands.addAll(inverselyExecutedCommands);
     }
 
+    /**
+     * Converts a given {@code HistoryManager} into this class for Jackson use.
+     *
+     * @param historyManager {@code HistoryManager} to be converted for Jackson-Friendly use.
+     * @throws InvalidCommandToJsonException If there was an error in converting any commands into Jackson-Friendly
+     * objects.
+     */
     public JsonSerializableHistoryManager(HistoryManager historyManager) throws InvalidCommandToJsonException {
         List<Command> executedCommands = historyManager.getExecutedCommands().getCommands();
         List<Command> inverselyExecutedCommands = historyManager.getInverselyExecutedCommands().getCommands();
@@ -46,6 +60,14 @@ public class JsonSerializableHistoryManager {
         }
     }
 
+    /**
+     * Converts a given {@code Command} into a Jackson-Friendly object.
+     *
+     * @param command {@code Command} to be converted to Jackson-Friendly object.
+     * @return {@code JsonAdaptedCommand} Jackson-Friendly command object.
+     * @throws InvalidCommandToJsonException If there was an error in converting any commands into Jackson-Friendly
+     * objects.
+     */
     private JsonAdaptedCommand convertToJsonAdaptedCommand(Command command) throws InvalidCommandToJsonException {
         switch (command.getCommandWord()) {
         case AddAddressCommand.COMMAND_WORD:
