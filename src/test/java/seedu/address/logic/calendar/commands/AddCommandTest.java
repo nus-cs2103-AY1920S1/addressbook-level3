@@ -188,7 +188,7 @@
 //
 //        @Override
 //        public ReadOnlyCalendarAddressBook getCalendarAddressBook() {
-//            return new CalendarCalendarAddressBook();
+//            return new CalendarAddressBook();
 //        }
 //    }
 //

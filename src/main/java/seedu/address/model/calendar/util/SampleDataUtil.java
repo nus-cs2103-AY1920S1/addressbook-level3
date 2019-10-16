@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.calendar.CalendarCalendarAddressBook;
+import seedu.address.model.calendar.CalendarAddressBook;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.person.Task;
 import seedu.address.model.calendar.person.TaskDescription;
@@ -14,7 +14,7 @@ import seedu.address.model.calendar.person.TaskTitle;
 import seedu.address.model.calendar.tag.TaskTag;
 
 /**
- * Contains utility methods for populating {@code CalendarCalendarAddressBook} with sample data.
+ * Contains utility methods for populating {@code CalendarAddressBook} with sample data.
  */
 public class SampleDataUtil {
     public static Task[] getSamplePersons() {
@@ -26,7 +26,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyCalendarAddressBook getSampleAddressBook() {
-        CalendarCalendarAddressBook sampleAb = new CalendarCalendarAddressBook();
+        CalendarAddressBook sampleAb = new CalendarAddressBook();
         for (Task sampleTask : getSamplePersons()) {
             sampleAb.addPerson(sampleTask);
         }

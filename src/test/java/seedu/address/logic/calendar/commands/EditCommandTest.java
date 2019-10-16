@@ -44,7 +44,7 @@
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 //
 //        CalendarModel expectedModel = new CalendarModelManager(
-//                new CalendarCalendarAddressBook(calendarModel.getCalendarAddressBook()),
+//                new CalendarAddressBook(calendarModel.getCalendarAddressBook()),
 //                new CalendarUserPrefs());
 //        expectedModel.setPerson(calendarModel.getFilteredPersonList().get(0), editedPerson);
 //
@@ -67,7 +67,7 @@
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 //
 //        CalendarModel expectedModel = new CalendarModelManager(
-//                new CalendarCalendarAddressBook(calendarModel.getCalendarAddressBook()),
+//                new CalendarAddressBook(calendarModel.getCalendarAddressBook()),
 //                new CalendarUserPrefs());
 //        expectedModel.setPerson(lastPerson, editedPerson);
 //
@@ -82,7 +82,7 @@
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 //
 //        CalendarModel expectedModel = new CalendarModelManager(
-//                new CalendarCalendarAddressBook(calendarModel.getCalendarAddressBook()),
+//                new CalendarAddressBook(calendarModel.getCalendarAddressBook()),
 //                new CalendarUserPrefs());
 //
 //        assertCommandSuccess(editCommand, calendarModel, expectedMessage, expectedModel);
@@ -100,7 +100,7 @@
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 //
 //        CalendarModel expectedModel = new CalendarModelManager(
-//                new CalendarCalendarAddressBook(calendarModel.getCalendarAddressBook()),
+//                new CalendarAddressBook(calendarModel.getCalendarAddressBook()),
 //                new CalendarUserPrefs());
 //        expectedModel.setPerson(calendarModel.getFilteredPersonList().get(0), editedPerson);
 //

@@ -19,7 +19,7 @@ import seedu.address.model.calendar.person.Task;
 public class CalendarModelManager implements CalendarModel {
     private static final Logger logger = LogsCenter.getLogger(CalendarModelManager.class);
 
-    private final CalendarCalendarAddressBook calendarAddressBook;
+    private final CalendarAddressBook calendarAddressBook;
     private final CalendarUserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
 
@@ -32,13 +32,13 @@ public class CalendarModelManager implements CalendarModel {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.calendarAddressBook = new CalendarCalendarAddressBook(addressBook);
+        this.calendarAddressBook = new CalendarAddressBook(addressBook);
         this.userPrefs = new CalendarUserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.calendarAddressBook.getPersonList());
     }
 
     public CalendarModelManager() {
-        this(new CalendarCalendarAddressBook(), new CalendarUserPrefs());
+        this(new CalendarAddressBook(), new CalendarUserPrefs());
     }
 
     //=========== CalendarUserPrefs ==================================================================================

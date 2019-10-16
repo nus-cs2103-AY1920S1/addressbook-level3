@@ -13,7 +13,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.calendar.LogicManager;
 import seedu.address.logic.finance.LogicFinanceManager;
 import seedu.address.logic.quiz.LogicQuizManager;
-import seedu.address.model.calendar.CalendarCalendarAddressBook;
+import seedu.address.model.calendar.CalendarAddressBook;
 import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.CalendarModelManager;
 import seedu.address.model.calendar.CalendarUserPrefs;
@@ -252,10 +252,10 @@ public class SwitchOperation {
                     .orElseGet(seedu.address.model.calendar.util.SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             System.out.println("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new CalendarCalendarAddressBook();
+            initialData = new CalendarAddressBook();
         } catch (IOException e) {
             System.out.println("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new CalendarCalendarAddressBook();
+            initialData = new CalendarAddressBook();
         }
 
         return new CalendarModelManager(initialData, userPrefs);

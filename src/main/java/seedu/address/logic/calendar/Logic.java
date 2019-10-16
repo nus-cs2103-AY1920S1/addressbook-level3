@@ -24,7 +24,7 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the CalendarCalendarAddressBook.
+     * Returns the CalendarAddressBook.
      *
      * @see seedu.address.model.Model#getAddressBook()
      */

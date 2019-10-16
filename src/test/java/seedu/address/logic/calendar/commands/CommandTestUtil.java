@@ -108,8 +108,8 @@
 //    public static void assertCommandFailure(Command command, CalendarModel actualModel, String expectedMessage) {
 //        // we are unable to defensively copy the calendarModel for comparison later, so we can
 //        // only do so by copying its components.
-//        CalendarCalendarAddressBook expectedAddressBook
-//                = new CalendarCalendarAddressBook(actualModel.getCalendarAddressBook());
+//        CalendarAddressBook expectedAddressBook
+//                = new CalendarAddressBook(actualModel.getCalendarAddressBook());
 //        List<Task> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 //
 //        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));

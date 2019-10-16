@@ -9,12 +9,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.calendar.CalendarCalendarAddressBook;
+import seedu.address.model.calendar.CalendarAddressBook;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.person.Task;
 
 /**
- * An Immutable CalendarCalendarAddressBook that is serializable to JSON format.
+ * An Immutable CalendarAddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
@@ -42,12 +42,12 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Converts this address book into the calendarModel's {@code CalendarCalendarAddressBook} object.
+     * Converts this address book into the calendarModel's {@code CalendarAddressBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public CalendarCalendarAddressBook toModelType() throws IllegalValueException {
-        CalendarCalendarAddressBook calendarAddressBook = new CalendarCalendarAddressBook();
+    public CalendarAddressBook toModelType() throws IllegalValueException {
+        CalendarAddressBook calendarAddressBook = new CalendarAddressBook();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Task task = jsonAdaptedPerson.toModelType();
             if (calendarAddressBook.hasPerson(task)) {

@@ -22,7 +22,7 @@
 //    public void execute_nonEmptyAddressBook_success() {
 //        CalendarModel calendarModel = new CalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
 //        CalendarModel expectedModel = new CalendarModelManager(getTypicalAddressBook(), new CalendarUserPrefs());
-//        expectedModel.setCalendarAddressBook(new CalendarCalendarAddressBook());
+//        expectedModel.setCalendarAddressBook(new CalendarAddressBook());
 //
 //        assertCommandSuccess(new ClearCommand(), calendarModel, ClearCommand.MESSAGE_SUCCESS, expectedModel);
 //    }

@@ -51,10 +51,10 @@
 //         * {@link JsonAddressBookStorage} class.
 //         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
 //         */
-//        CalendarCalendarAddressBook original = getTypicalAddressBook();
+//        CalendarAddressBook original = getTypicalAddressBook();
 //        storageManager.saveAddressBook(original);
 //        ReadOnlyCalendarAddressBook retrieved = storageManager.readAddressBook().get();
-//        assertEquals(original, new CalendarCalendarAddressBook(retrieved));
+//        assertEquals(original, new CalendarAddressBook(retrieved));
 //    }
 //
 //    @Test

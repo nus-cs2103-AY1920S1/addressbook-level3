@@ -12,7 +12,7 @@ import seedu.address.model.calendar.person.UniqueTaskList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class CalendarCalendarAddressBook implements ReadOnlyCalendarAddressBook {
+public class CalendarAddressBook implements ReadOnlyCalendarAddressBook {
 
     private final UniqueTaskList persons;
 
@@ -27,12 +27,12 @@ public class CalendarCalendarAddressBook implements ReadOnlyCalendarAddressBook 
         persons = new UniqueTaskList();
     }
 
-    public CalendarCalendarAddressBook() {}
+    public CalendarAddressBook() {}
 
     /**
-     * Creates an CalendarCalendarAddressBook using the Persons in the {@code toBeCopied}
+     * Creates an CalendarAddressBook using the Persons in the {@code toBeCopied}
      */
-    public CalendarCalendarAddressBook(ReadOnlyCalendarAddressBook toBeCopied) {
+    public CalendarAddressBook(ReadOnlyCalendarAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,7 +48,7 @@ public class CalendarCalendarAddressBook implements ReadOnlyCalendarAddressBook 
     }
 
     /**
-     * Resets the existing data of this {@code CalendarCalendarAddressBook} with {@code newData}.
+     * Resets the existing data of this {@code CalendarAddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyCalendarAddressBook newData) {
         requireNonNull(newData);
@@ -86,7 +86,7 @@ public class CalendarCalendarAddressBook implements ReadOnlyCalendarAddressBook 
     }
 
     /**
-     * Removes {@code key} from this {@code CalendarCalendarAddressBook}.
+     * Removes {@code key} from this {@code CalendarAddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Task key) {
@@ -109,8 +109,8 @@ public class CalendarCalendarAddressBook implements ReadOnlyCalendarAddressBook 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CalendarCalendarAddressBook // instanceof handles nulls
-                && persons.equals(((CalendarCalendarAddressBook) other).persons));
+                || (other instanceof CalendarAddressBook // instanceof handles nulls
+                && persons.equals(((CalendarAddressBook) other).persons));
     }
 
     @Override

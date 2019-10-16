@@ -12,7 +12,7 @@ import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.ReadOnlyCalendarUserPrefs;
 
 /**
- * Manages storage of CalendarCalendarAddressBook data in local storage.
+ * Manages storage of CalendarAddressBook data in local storage.
  */
 public class StorageManager implements Storage {
 
@@ -45,7 +45,7 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ CalendarCalendarAddressBook methods ==============================
+    // ================ CalendarAddressBook methods ==============================
 
     @Override
     public Path getAddressBookFilePath() {

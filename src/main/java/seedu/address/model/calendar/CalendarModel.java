@@ -49,7 +49,7 @@ public interface CalendarModel {
      */
     void setCalendarAddressBook(ReadOnlyCalendarAddressBook calendarAddressBook);
 
-    /** Returns the CalendarCalendarAddressBook */
+    /** Returns the CalendarAddressBook */
     ReadOnlyCalendarAddressBook getCalendarAddressBook();
 
     /**
