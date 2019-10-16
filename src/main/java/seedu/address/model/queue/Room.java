@@ -22,7 +22,7 @@ public class Room {
 
     public Room(ReferenceId doctor) {
         this.doctor = doctor;
-        this.patientCurrentlyBeingServed = null;
+        this.patientCurrentlyBeingServed = Optional.empty();
     }
 
     public boolean isReadyToServe() {
@@ -35,6 +35,10 @@ public class Room {
 
     public Optional<ReferenceId> getCurrentPatient() {
         return patientCurrentlyBeingServed;
+    }
+
+    public void removeCurrentPatient() {
+        patientCurrentlyBeingServed = Optional.empty();
     }
 
     /**
@@ -66,7 +70,8 @@ public class Room {
         }
 
         Room o = (Room) other;
-        return getCurrentPatient().isPresent() == o.getCurrentPatient().isPresent()
+        return getDoctor().equals(o.getDoctor())
+                && getCurrentPatient().isPresent() == o.getCurrentPatient().isPresent()
                 && (getCurrentPatient().isEmpty()
                     || getCurrentPatient().get().equals(o.getCurrentPatient().get()));
     }

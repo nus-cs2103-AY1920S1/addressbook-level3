@@ -75,14 +75,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void enqueuePatientToFront(ReferenceId id) {
-        queueManager.addPatient(0, id);
-        updateFilteredReferenceIdList(PREDICATE_SHOW_ALL_ID);
+    public void enqueuePatientToIndex(ReferenceId id, int index) {
+        queueManager.addPatient(index, id);
     }
 
     @Override
     public void serveNextPatient(int index) {
         queueManager.serveNext(index);
+    }
+
+    @Override
+    public void undoServeNextPatient(int index) {
+        queueManager.undoServeNext(index);
     }
 
     @Override
@@ -97,8 +101,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void removeRoom(int index) {
-        queueManager.removeRoom(index);
+    public void addRoomToIndex(ReferenceId doctorReferenceId, int indexOfRoom) {
+        queueManager.addRoomToIndex(doctorReferenceId, indexOfRoom);
+    }
+
+    @Override
+    public void removeRoom(ReferenceId target) {
+        queueManager.removeRoom(target);
+    }
+
+    @Override
+    public boolean hasRoom(ReferenceId doctorReferenceId) {
+        return queueManager.hasRoom(doctorReferenceId);
     }
 
     //=========== UserPrefs ==================================================================================

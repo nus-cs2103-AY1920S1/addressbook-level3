@@ -1,6 +1,7 @@
 package seedu.address.model.queue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -94,5 +95,16 @@ class QueueManagerTest {
         Person patient = new PersonBuilder(AMY).build();
         queueManager.addPatient(patient.getReferenceId());
         assertEquals(true, queueManager.hasId(patient.getReferenceId()));
+    }
+
+    @Test
+    void equals() {
+        queueManager = new QueueManager();
+
+        assertTrue(queueManager.equals(queueManager));
+
+        QueueManager queueManagerCopy = new QueueManager();
+
+        assertTrue(queueManager.equals(queueManagerCopy));
     }
 }

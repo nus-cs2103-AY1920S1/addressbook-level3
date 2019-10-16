@@ -133,7 +133,7 @@ public interface Model extends ReferenceIdResolver {
 
     void enqueuePatient(ReferenceId id);
 
-    public void enqueuePatientToFront(ReferenceId id);
+    void enqueuePatientToIndex(ReferenceId id, int index);
 
     public boolean isPatientInQueue(ReferenceId id);
 
@@ -141,9 +141,15 @@ public interface Model extends ReferenceIdResolver {
 
     void serveNextPatient(int index);
 
+    void undoServeNextPatient(int index);
+
     void addRoom(ReferenceId id);
 
-    void removeRoom(int index);
+    void addRoomToIndex(ReferenceId doctorReferenceId, int indexOfRoom);
+
+    void removeRoom(ReferenceId target);
+
+    public boolean hasRoom(ReferenceId doctorReferenceId);
 
     ObservableList<Room> getConsultationRoomList();
 
@@ -199,6 +205,4 @@ public interface Model extends ReferenceIdResolver {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
-
-
 }

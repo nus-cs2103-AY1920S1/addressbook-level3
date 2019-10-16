@@ -12,9 +12,9 @@ import seedu.address.model.common.ReferenceId;
 /**
  * Lists all persons in the address book to the user.
  */
-public class EnqueueCommand extends ReversibleCommand {
+public class UndoDequeueCommand extends ReversibleCommand {
 
-    public static final String MESSAGE_SUCCESS = "New person added to the queue: %1$s";
+    public static final String MESSAGE_SUCCESS = "Person added back to the queue: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the queue";
 
     public static final String COMMAND_WORD = "enqueue";
@@ -24,13 +24,15 @@ public class EnqueueCommand extends ReversibleCommand {
             + "REFERENCE_ID ";
 
     private final ReferenceId patientReferenceId;
+    private final int indexOfPatientInQueue;
 
     /**
      * Creates an EnqueueCommand to add the specified {@code PatientReferenceId}
      */
-    public EnqueueCommand(ReferenceId patientReferenceId) {
+    public UndoDequeueCommand(ReferenceId patientReferenceId, int index) {
         requireNonNull(patientReferenceId);
         this.patientReferenceId = patientReferenceId;
+        this.indexOfPatientInQueue = index;
     }
 
     @Override
@@ -43,14 +45,14 @@ public class EnqueueCommand extends ReversibleCommand {
             throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, patientReferenceId));
         }
 
-        model.enqueuePatient(patientReferenceId);
+        model.enqueuePatientToIndex(patientReferenceId, indexOfPatientInQueue);
         return new CommandResult(String.format(MESSAGE_SUCCESS, patientReferenceId));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EnqueueCommand // instanceof handles nulls
-                && patientReferenceId.equals(((EnqueueCommand) other).patientReferenceId));
+                || (other instanceof UndoDequeueCommand // instanceof handles nulls
+                && patientReferenceId.equals(((UndoDequeueCommand) other).patientReferenceId));
     }
 }
