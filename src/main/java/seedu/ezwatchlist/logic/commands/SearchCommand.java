@@ -3,6 +3,7 @@ package seedu.ezwatchlist.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.ezwatchlist.api.ApiMain;
+import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.WatchList;
@@ -35,8 +36,10 @@ public class SearchCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        List<Movie> movies = new ApiMain().getMovieByName(searchString);
-        //List<TvShow> tvShows = new ApiMain().getTvShowByName(searchString);
+        try {
+            List<Movie> movies = new ApiMain().getMovieByName(searchString);
+            //List<TvShow> tvShows = new ApiMain().getTvShowByName(searchString);
+
         List<Show> searchResult = new ArrayList<>();
 
         for (Movie movie : movies) {
@@ -50,6 +53,10 @@ public class SearchCommand extends Command {
         model.updateSearchResultList(searchResult);
         return new CommandResult(
                 String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW, model.getFilteredShowList().size()));
+        } catch (OnlineConnectionException e) {
+            return null;
+            //to be added
+        }
     }
 
     @Override
