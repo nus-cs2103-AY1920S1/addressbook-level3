@@ -17,6 +17,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.statistics.GameStatistics;
+import seedu.address.statistics.GameStatisticsBuilder;
+import seedu.address.statistics.WordBankStatistics;
 
 /**
  * Class that wraps around the entire apps logic and the GameTimer. This is done to separate all logic
@@ -32,7 +34,7 @@ public class GameManager {
     // Call-back method to update ResultDisplay in MainWindow
     private ResultDisplayCallBack resultDisplayCallBack = null; // not used for now.
     private MainWindowExecuteCallBack mainWindowExecuteCallBack = null;
-    private GameStatistics gameStatistics = null;
+    private GameStatisticsBuilder gameStatisticsBuilder = null;
 
     public GameManager(Logic logic) {
         this.logic = logic;
@@ -74,11 +76,20 @@ public class GameManager {
             initGameStatistics(startCommandResult.getTitle());
         }
 
+        // handles game related actions
         if (commandResult instanceof GameCommandResult) {
-            // update statistics upon receiving a GameCommandResult
             GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
-            gameStatistics.addDataPoint(gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
-                    gameCommandResult.getCard());
+
+            // update statistics upon receiving a GameCommandResult with a Card
+            if (gameCommandResult.getCard().isPresent()) {
+                gameStatisticsBuilder.addDataPoint(gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
+                        gameCommandResult.getCard().get());
+            }
+            // should make logic save the updated game statistics
+            if (gameCommandResult.isFinishedGame()) {
+                abortAnyExistingGameTimer();
+                logic.saveUpdatedWbStatistics(gameStatisticsBuilder.build());
+            }
         }
 
         // GameTimer is always abort when a new command is entered while Game is running.
@@ -96,11 +107,15 @@ public class GameManager {
     }
 
     public GameStatistics getGameStatistics() {
-        return gameStatistics;
+        return gameStatisticsBuilder.build();
     }
 
     public void initGameStatistics(String title) {
-        gameStatistics = new GameStatistics(title);
+        gameStatisticsBuilder = new GameStatisticsBuilder(title);
+    }
+
+    public WordBankStatistics getWordBankStatistics() {
+        return logic.getWordBankStatistics();
     }
 
     public ObservableList<Card> getFilteredPersonList() {

@@ -23,6 +23,6 @@ public class StartCommandParser implements Parser<StartCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, GuessCommand.MESSAGE_USAGE));
         }
-        return new StartCommand(trimmedArgs);
+        return new StartCommand();
     }
 }

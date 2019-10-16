@@ -27,7 +27,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new WordBank(), new WordBank(modelManager.getWordBank()));
+        assertEquals(new WordBank(modelManager.getWordBank().getId()), new WordBank(modelManager.getWordBank()));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         WordBank wordBank = new WordBankBuilder().withCard(ABRA).withCard(BUTTERFREE).build();
-        WordBank differentWordBank = new WordBank();
+        WordBank differentWordBank = new WordBank("abc");
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true

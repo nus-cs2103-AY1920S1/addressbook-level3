@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" stylesheets="@DarkTheme.css">
@@ -38,22 +37,73 @@
                <padding>
                   <Insets top="10.0" />
                </padding>
+               <VBox.margin>
+                  <Insets bottom="8.0" />
+               </VBox.margin>
             </HBox>
-            <Region prefHeight="25.0" />
+            <HBox minWidth="0.0" prefHeight="30.0" prefWidth="0.0">
+               <children>
+                  <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="title111" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="High Score: " textAlignment="CENTER" />
+                  <Label fx:id="highScoreText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="XX" textAlignment="CENTER" />
+                  <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+            <HBox minWidth="0.0" prefHeight="30.0" prefWidth="0.0">
+               <children>
+                  <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="title1111" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="Fastest Clear: " textAlignment="CENTER" />
+                  <Label fx:id="fastestClearText" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-bright" text="XXs" textAlignment="CENTER" />
+                  <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets top="3.0" />
+               </padding>
+            </HBox>
             <Separator opacity="0.6" prefWidth="200.0" stylesheets="@DarkTheme.css">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
+               <VBox.margin>
+                  <Insets bottom="8.0" top="25.0" />
+               </VBox.margin>
             </Separator>
-            <Region prefHeight="8.0" />
-            <VBox fx:id="wrongAnswersBox" prefHeight="200.0" prefWidth="100.0">
+            <VBox fx:id="wrongAnswersBox" prefHeight="0.0" prefWidth="100.0">
                <children>
-                  <Label fx:id="title12" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header2" text="Remember these!" textAlignment="CENTER">
+                  <Label fx:id="gameFeedbackHeader" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header2" text="Remember these!" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets bottom="6.0" left="16.0" top="8.0" />
                      </VBox.margin>
                   </Label>
-                  <StackPane fx:id="wrongAnswersList" prefHeight="150.0" prefWidth="200.0">
+                  <StackPane fx:id="wrongAnswersList" prefHeight="0.0" prefWidth="200.0">
+                     <padding>
+                        <Insets bottom="4.0" top="4.0" />
+                     </padding>
+                  </StackPane>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
+               </VBox.margin>
+            </VBox>
+            <Separator opacity="0.6" prefWidth="200.0" stylesheets="@DarkTheme.css">
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="8.0" top="25.0" />
+               </VBox.margin>
+            </Separator>
+            <VBox fx:id="mostMissedBox" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="title121" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="label-header2" text="Most missed" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets bottom="6.0" left="16.0" top="8.0" />
+                     </VBox.margin>
+                  </Label>
+                  <StackPane fx:id="mostMissedList" prefHeight="150.0" prefWidth="200.0">
                      <padding>
                         <Insets bottom="4.0" top="4.0" />
                      </padding>

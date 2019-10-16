@@ -92,7 +92,7 @@ public class EditCommand extends AppCommand {
         Meaning updatedMeaning = editCardDescriptor.getMeaning().orElse(cardToEdit.getMeaning());
         Set<Tag> updatedTags = editCardDescriptor.getTags().orElse(cardToEdit.getTags());
 
-        return new Card(updatedWord, updatedMeaning, updatedTags);
+        return new Card(updatedWord, updatedMeaning, updatedTags, cardToEdit.getId());
     }
 
     @Override

@@ -4,13 +4,14 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.game.Game;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbanklist.WordBankList;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
+import seedu.address.statistics.WordBankStatistics;
 
 /**
  * The API of the Model component.
@@ -55,6 +56,21 @@ public interface Model {
     void setWordBank(ReadOnlyWordBank wordBank);
 
     /**
+     * Returns the active word bank statistics. Null if no active.
+     */
+    WordBankStatistics getWordBankStatistics();
+
+    /**
+     * Replaces word bank stats data with the data in {@code wordBankStats}.
+     */
+    void setWordBankStatistics(WordBankStatistics wordBankStats);
+
+    /**
+     * Resets the word bank statistics data
+     */
+    void clearWordBankStatistics();
+
+    /**
      * Resets the word bank data to be empty.
      */
     void clearWordBank();
@@ -93,6 +109,8 @@ public interface Model {
     ObservableList<WordBank> getFilteredWordBankList();
 
     WordBankList getWordBankList();
+
+    WordBankStatisticsList getWordBankStatisticsList();
 
     /**
      * Updates the filter of the filtered card list to filter by the given {@code predicate}.

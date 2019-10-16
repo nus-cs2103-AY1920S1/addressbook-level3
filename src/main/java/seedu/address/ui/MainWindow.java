@@ -199,7 +199,8 @@ public class MainWindow extends UiPart<Stage> {
             throw new IllegalStateException("gameStatistics in gameManager should not be null when game"
                     + "is finished");
         }
-        modularDisplay.swapToGameResult(modularDisplayPlaceholder, gameManager.getGameStatistics());
+        modularDisplay.swapToGameResult(modularDisplayPlaceholder, gameManager.getGameStatistics(),
+                gameManager.getWordBankStatistics());
     }
 
     /**
@@ -223,8 +224,10 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             //So is this. Todo: Compile both the above and below into a new "UpdateUI" class.
-            if (commandText.matches("bank [1-9]")) {
+            if (commandText.equals("load")) {
                 modularDisplay.swapToBanks(modularDisplayPlaceholder);
+            } else if (commandText.matches("bank [a-zA-Z0-9_]")) {
+                modularDisplay.swapToList(modularDisplayPlaceholder);
             } else if (commandText.equals("list")) {
                 modularDisplay.swapToList(modularDisplayPlaceholder);
             } else if (commandText.equals("help")) {
@@ -268,7 +271,7 @@ public class MainWindow extends UiPart<Stage> {
      * @param timeLeft Time in milliseconds that is left in the current timer.
      */
     private void updateTimerDisplay(String timerMessage, long timeLeft) {
-        if (timeLeft <= 200) {
+        if (timeLeft <= 200) { // todo dont hardcode!
             this.timerDisplay.setAlertTextColour();
         } else {
             this.timerDisplay.setNormalTextColour();

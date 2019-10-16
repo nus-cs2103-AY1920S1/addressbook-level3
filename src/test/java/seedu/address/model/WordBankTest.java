@@ -27,7 +27,7 @@ import seedu.address.testutil.CardBuilder;
 
 public class WordBankTest {
 
-    private final WordBank wordBank = new WordBank();
+    private final WordBank wordBank = new WordBank("sample-id");
 
     @Test
     public void constructor() {
@@ -109,6 +109,11 @@ public class WordBankTest {
         @Override
         public int size() {
             return cards.size();
+        }
+
+        @Override
+        public String getId() {
+            return "sample-id";
         }
     }
 

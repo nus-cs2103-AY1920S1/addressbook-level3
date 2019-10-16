@@ -19,6 +19,7 @@ public class ClearCommand extends AppCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.clearWordBank();
+        model.clearWordBankStatistics();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

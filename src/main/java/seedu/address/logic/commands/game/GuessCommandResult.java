@@ -20,8 +20,7 @@ public class GuessCommandResult extends GameCommandResult {
                         guess.matches(card.getWord()) ? MESSAGE_CORRECT_GUESS : MESSAGE_WRONG_GUESS)
                 + "\n"
                 + additionalMsg,
-                isFinishedGame,
-                false);
+                isFinishedGame);
         this.guess = guess;
     }
 

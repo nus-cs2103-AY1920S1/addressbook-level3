@@ -18,13 +18,17 @@ import seedu.address.model.Model;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.statistics.GameStatistics;
+import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
-    public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    public static final String FILE_OPS_ERROR_MESSAGE = "File operation failed";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -119,5 +123,23 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public void saveUpdatedWbStatistics(GameStatistics gameStatistics) throws CommandException {
+        try {
+            requireNonNull(model.getWordBankStatistics());
+            WordBankStatistics currWbStats = model.getWordBankStatistics();
+            currWbStats.update(gameStatistics);
+            storage.saveWordBankStatistics(currWbStats,
+                    Path.of("data/wbstats/" + currWbStats.getWordBankName() + ".json"));
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+    }
+
+    @Override
+    public WordBankStatistics getWordBankStatistics() {
+        return model.getWordBankStatistics();
     }
 }

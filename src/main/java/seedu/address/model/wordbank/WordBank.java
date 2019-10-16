@@ -3,6 +3,7 @@ package seedu.address.model.wordbank;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
@@ -123,12 +124,13 @@ public class WordBank implements ReadOnlyWordBank {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof WordBank // instanceof handles nulls
-                && cards.equals(((WordBank) other).cards));
+                && cards.equals(((WordBank) other).cards))
+                && name.equals(((WordBank) other).name);
     }
 
     @Override
     public int hashCode() {
-        return cards.hashCode();
+        return name.hashCode();
     }
     /**
      * Returns true if both cards have the same meaning.
