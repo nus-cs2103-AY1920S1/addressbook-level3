@@ -15,11 +15,6 @@ import seedu.address.ui.panels.PhoneListPanel;
 public class TabPanel extends UiPart<Region> {
     private static final String FXML = "TabPanel.fxml";
 
-    private CustomerListPanel customerListPanel;
-    private PhoneListPanel phoneListPanel;
-    private OrderListPanel orderlistPanel;
-    private CalendarPanel calendarPanel;
-
     @FXML
     private StackPane phoneListPanelPlaceholder;
 
@@ -40,16 +35,12 @@ public class TabPanel extends UiPart<Region> {
                     OrderListPanel orderlistPanel,
                     CalendarPanel calendarPanel) {
         super(FXML);
-        this.customerListPanel = customerListPanel;
         customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
 
-        this.phoneListPanel = phoneListPanel;
         phoneListPanelPlaceholder.getChildren().add(phoneListPanel.getRoot());
 
-        this.orderlistPanel = orderlistPanel;
         orderListPanelPlaceholder.getChildren().add(orderlistPanel.getRoot());
 
-        this.calendarPanel = calendarPanel;
         calendarPanelPlaceHolder.getChildren().add(calendarPanel.getAgenda());
 
         tabPanel.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);

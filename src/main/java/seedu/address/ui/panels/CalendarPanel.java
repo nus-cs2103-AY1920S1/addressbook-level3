@@ -3,7 +3,6 @@ package seedu.address.ui.panels;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -11,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import jfxtras.scene.control.agenda.Agenda;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.Order;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.ui.UiPart;
@@ -21,7 +19,6 @@ import seedu.address.ui.UiPart;
  */
 public class CalendarPanel extends UiPart<Region> {
     private static final String FXML = "CalendarPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
     private Agenda agenda;
     private ObservableList<Schedule> scheduleList;
     private ObservableList<Order> orderList;
