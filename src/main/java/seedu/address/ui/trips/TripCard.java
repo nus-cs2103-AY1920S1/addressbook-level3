@@ -3,6 +3,7 @@ package seedu.address.ui.trips;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.trip.Trip;

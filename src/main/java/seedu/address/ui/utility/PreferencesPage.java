@@ -2,7 +2,7 @@ package seedu.address.ui.utility;
 
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_DATA_FILE_PATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_GUI_LOCK;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_HEIGHT;
 import static seedu.address.logic.parser.preferences.PrefsCliSyntax.PREFIX_WINDOW_WIDTH;
@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.preferences.CancelEditPrefsCommand;
 import seedu.address.logic.commands.preferences.DoneEditPrefsCommand;

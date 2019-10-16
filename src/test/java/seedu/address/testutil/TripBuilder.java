@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 
+import seedu.address.model.diary.Diary;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
@@ -21,6 +22,7 @@ public class TripBuilder {
     private Location destination;
     private Expenditure totalBudget;
     private DayList dayList;
+    private Diary diary;
 
     private TripBuilder() {
         dayList = new DayList();
@@ -81,7 +83,7 @@ public class TripBuilder {
      * Terminal method to construct new {@link Trip}.
      */
     public Trip build() {
-        return new Trip(name, startDate, endDate, destination, totalBudget, dayList);
+        return new Trip(name, startDate, endDate, destination, totalBudget, dayList, diary);
     }
 
 }
