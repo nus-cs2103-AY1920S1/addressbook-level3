@@ -87,7 +87,7 @@ public class DateUtil {
     private static String normaliseDate(String date) {
         try {
             // The input shouldn't only contain numbers.
-            int testString = Integer.parseInt(date);
+            int testedDate = Integer.parseInt(date);
 
             // This isn't a date.
             return "";
