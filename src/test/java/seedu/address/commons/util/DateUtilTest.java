@@ -1,7 +1,9 @@
 package seedu.address.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -34,5 +36,12 @@ class DateUtilTest {
         assertEquals(DateUtil.formatDate(date), DateUtil.formatDate(parsedDate3));
 
         assertThrows(ParseException.class, () -> DateUtil.parseDate("does not work"));
+    }
+
+    @Test
+    public void parseDate_isValidDate_correctResult() {
+        assertFalse(DateUtil.isValidDate("1"));
+        assertFalse(DateUtil.isValidDate("2"));
+        assertTrue(DateUtil.isValidDate("2/2"));
     }
 }
