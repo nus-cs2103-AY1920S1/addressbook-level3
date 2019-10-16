@@ -1,4 +1,4 @@
-package com.typee.model.person;
+package com.typee.model.engagement;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.typee.commons.util.CollectionUtil;
-import com.typee.model.engagement.Engagement;
+import com.typee.model.person.Person;
 import com.typee.model.person.exceptions.DuplicatePersonException;
 import com.typee.model.person.exceptions.PersonNotFoundException;
 

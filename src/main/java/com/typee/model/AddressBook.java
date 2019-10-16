@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import com.typee.model.engagement.Engagement;
-import com.typee.model.person.UniqueEngagementList;
+import com.typee.model.engagement.UniqueEngagementList;
 
 import javafx.collections.ObservableList;
 

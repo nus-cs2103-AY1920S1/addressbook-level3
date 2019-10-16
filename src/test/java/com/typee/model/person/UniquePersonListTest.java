@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.typee.model.engagement.UniqueEngagementList;
 import com.typee.model.person.exceptions.DuplicatePersonException;
 import com.typee.model.person.exceptions.PersonNotFoundException;
 import com.typee.testutil.PersonBuilder;
