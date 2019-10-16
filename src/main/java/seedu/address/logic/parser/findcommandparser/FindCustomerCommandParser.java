@@ -10,7 +10,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.predicates.ContactNumberContainsKeywordsPredicate;
 import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
 import seedu.address.model.customer.predicates.EmailContainsKeywordsPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCustomerCommand object
