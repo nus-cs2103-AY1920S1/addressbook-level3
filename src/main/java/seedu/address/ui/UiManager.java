@@ -23,6 +23,7 @@ public class UiManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic logic;
+    private WorkoutPlannerWindow workoutPlannerWindow;
     private TempWindow tempWindow;
     private RecipeBookWindow recipeBookWindow;
 

@@ -6,8 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.CARBS_DESC_BURGER;
 import static seedu.address.logic.commands.CommandTestUtil.FATS_DESC_BURGER;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_DESC_BURGER;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_DESC_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FOOD_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_INGREDIENT_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BURGER;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
@@ -79,7 +79,7 @@ public class AddRecipeCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + INGREDIENT_DESC_BURGER
+        assertParseFailure(parser, INVALID_FOOD_NAME_DESC + INGREDIENT_DESC_BURGER
                 + CALORIES_DESC_BURGER + CARBS_DESC_BURGER + FATS_DESC_BURGER
                 + PROTEIN_DESC_BURGER, Name.MESSAGE_CONSTRAINTS);
 
@@ -89,7 +89,7 @@ public class AddRecipeCommandParserTest {
                 + PROTEIN_DESC_BURGER, Ingredient.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + INVALID_INGREDIENT_DESC
+        assertParseFailure(parser, INVALID_FOOD_NAME_DESC + INVALID_INGREDIENT_DESC
                         + CALORIES_DESC_BURGER + CARBS_DESC_BURGER + FATS_DESC_BURGER
                         + PROTEIN_DESC_BURGER, Name.MESSAGE_CONSTRAINTS);
 

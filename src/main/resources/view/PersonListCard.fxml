@@ -31,7 +31,7 @@
       <Label fx:id="dateOfBirth" styleClass="cell_small_label" text="\$dob" />
       <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />
       <Label fx:id="bloodGroup" styleClass="cell_small_label" text="\$bloodGroup" />
-      <Label fx:id="weight" styleClass="cell_small_label" text="\$weight" />
+      <Label fx:id="weight" styleClass="cell_small_label" text="\$exerciseWeight" />
       <Label fx:id="height" styleClass="cell_small_label" text="\$height" />
     </VBox>
   </GridPane>

@@ -22,9 +22,11 @@ import seedu.address.model.ReadOnlyHealthRecords;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.RecipeBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.UserProfile;
+import seedu.address.model.WorkoutPlanner;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.util.SampleRecipeDataUtil;
 import seedu.address.storage.HealthRecordsStorage;
@@ -32,11 +34,13 @@ import seedu.address.storage.JsonHealthRecordsStorage;
 import seedu.address.storage.JsonRecipeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.JsonUserProfileStorage;
+import seedu.address.storage.JsonWorkoutPlannerStorage;
 import seedu.address.storage.RecipeBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.UserProfileStorage;
+import seedu.address.storage.WorkoutPlannerStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -68,7 +72,9 @@ public class MainApp extends Application {
         RecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(userPrefs.getRecipesFilePath());
         UserProfileStorage userProfileStorage = new JsonUserProfileStorage(userPrefs.getUserProfileFilePath());
         HealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(userPrefs.getHealthRecordsFilePath());
-        storage = new StorageManager(userProfileStorage, healthRecordsStorage, recipeBookStorage, userPrefsStorage);
+        WorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(userPrefs.getExercisesFilePath());
+        storage = new StorageManager(userProfileStorage, healthRecordsStorage, recipeBookStorage,
+                workoutPlannerStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -80,13 +86,13 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code RecipeModelManager} with the data from {@code storage}'s duke cooks and {@code userPrefs}. <br>
+     * Returns a {@code ModelManager} with the data from {@code storage}'s duke cooks and {@code userPrefs}. <br>
      * The data from the sample duke cooks will be used instead if {@code storage}'s Duke Cooks is not found,
      * or an empty dukeCooks will be used instead if errors occur when reading {@code storage}'s Duke Cooks.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         ReadOnlyUserProfile initialDukeCooks;
-        initialDukeCooks = initDukeCooks(storage);
+        initialDukeCooks = initUserProfile(storage);
 
         ReadOnlyRecipeBook initialRecipeBook;
         initialRecipeBook = initRecipeBook(storage);
@@ -94,7 +100,11 @@ public class MainApp extends Application {
         ReadOnlyHealthRecords initialHealthRecords;
         initialHealthRecords = initHealthRecords(storage);
 
-        return new ModelManager(initialDukeCooks, initialHealthRecords, initialRecipeBook, userPrefs);
+        ReadOnlyWorkoutPlanner initialWorkoutPlanner;
+        initialWorkoutPlanner = initWorkoutPlanner(storage);
+
+        return new ModelManager(initialDukeCooks, initialHealthRecords, initialRecipeBook, initialWorkoutPlanner,
+                userPrefs);
     }
 
     /**
@@ -102,7 +112,7 @@ public class MainApp extends Application {
      * The data from the sample UserProfile will be used instead if {@code storage}'s persons is not found,
      * or an empty DukeCook will be used instead if errors occur when reading {@code storage}'s UserProfile.
      */
-    private ReadOnlyUserProfile initDukeCooks(Storage storage) {
+    private ReadOnlyUserProfile initUserProfile(Storage storage) {
         Optional<ReadOnlyUserProfile> dukeCooksOptional;
         ReadOnlyUserProfile initialData;
 
@@ -111,7 +121,7 @@ public class MainApp extends Application {
             if (!dukeCooksOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with sample UserProfile");
             }
-            initialData = dukeCooksOptional.orElseGet(SampleDataUtil::getSampleDukeCooks);
+            initialData = dukeCooksOptional.orElseGet(SampleDataUtil::getSampleUserProfile);
             //initialData = recipeBookOptional.orElseGet(SampleRecipeDataUtil::getSampleRecipeBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
@@ -119,6 +129,32 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
             initialData = new UserProfile();
+        }
+
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code ModelManager} with the data from {@code storage}'s duke cooks and {@code userPrefs}. <br>
+     * The data from the sample duke cooks will be used instead if {@code storage}'s Duke Cooks is not found,
+     * or an empty dukeCooks will be used instead if errors occur when reading {@code storage}'s Duke Cooks.
+     */
+    private ReadOnlyWorkoutPlanner initWorkoutPlanner(Storage storage) {
+        Optional<ReadOnlyWorkoutPlanner> workoutPlannerOptional;
+        ReadOnlyWorkoutPlanner initialData;
+
+        try {
+            workoutPlannerOptional = storage.readWorkoutPlanner();
+            if (!workoutPlannerOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with sample DukeCooks");
+            }
+            initialData = workoutPlannerOptional.orElseGet(SampleDataUtil::getSampleWorkoutPlanner);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
+            initialData = new WorkoutPlanner();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
+            initialData = new WorkoutPlanner();
         }
 
         return initialData;

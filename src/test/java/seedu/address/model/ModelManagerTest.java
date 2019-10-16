@@ -3,8 +3,11 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXERCISE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalExercises.ABS_ROLLOUT;
+import static seedu.address.testutil.TypicalExercises.BURPEES;
 import static seedu.address.testutil.TypicalProfiles.ALICE;
 import static seedu.address.testutil.TypicalProfiles.BENSON;
 import static seedu.address.testutil.TypicalRecipes.MILO;
@@ -20,6 +23,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
 import seedu.address.testutil.DukeCooksBuilder;
 import seedu.address.testutil.RecipeBookBuilder;
+import seedu.address.testutil.WorkoutPlannerBuilder;
 
 public class ModelManagerTest {
 
@@ -31,6 +35,7 @@ public class ModelManagerTest {
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new RecipeBook(), new RecipeBook(modelManager.getRecipeBook()));
         assertEquals(new UserProfile(), new UserProfile(modelManager.getUserProfile()));
+        assertEquals(new WorkoutPlanner(), new WorkoutPlanner(modelManager.getWorkoutPlanner()));
     }
 
     @Test
@@ -51,6 +56,7 @@ public class ModelManagerTest {
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
         userPrefs.setRecipesFilePath(Paths.get("new/address/book/file/path"));
         userPrefs.setUserProfileFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setExercisesFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -90,6 +96,21 @@ public class ModelManagerTest {
         assertEquals(path, modelManager.getRecipesFilePath());
     }
 
+    public void hasPerson_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasExercise(null));
+    }
+
+    @Test
+    public void hasPerson_personNotInDukeCooks_returnsFalse() {
+        assertFalse(modelManager.hasExercise(ABS_ROLLOUT));
+    }
+
+    @Test
+    public void hasPerson_personInDukeCooks_returnsTrue() {
+        modelManager.addExercise(ABS_ROLLOUT);
+        assertTrue(modelManager.hasExercise(ABS_ROLLOUT));
+    }
+
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
@@ -107,6 +128,9 @@ public class ModelManagerTest {
         RecipeBook recipeBook = new RecipeBookBuilder().withRecipe(MILO).withRecipe(OMELETTE).build();
         RecipeBook differentRecipeBook = new RecipeBook();
         UserPrefs userPrefs = new UserPrefs();
+        WorkoutPlanner workoutPlanner = new WorkoutPlannerBuilder()
+                .withExercise(ABS_ROLLOUT).withExercise(BURPEES).build();
+        WorkoutPlanner differentPlanner = new WorkoutPlanner();
 
         // same values -> returns true
         modelManager = new ModelManager(recipeBook, userPrefs);
@@ -131,11 +155,16 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(recipeBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISE);
         modelManager.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setRecipesFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(recipeBook, differentUserPrefs)));
+
+        UserPrefs differentWorkoutPlannerUserPrefs = new UserPrefs();
+        differentWorkoutPlannerUserPrefs.setExercisesFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(workoutPlanner, differentWorkoutPlannerUserPrefs)));
     }
 }

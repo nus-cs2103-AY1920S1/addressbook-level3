@@ -9,12 +9,14 @@ import seedu.address.model.ReadOnlyHealthRecords;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends RecipeBookStorage, UserPrefsStorage, UserProfileStorage, HealthRecordsStorage {
+public interface Storage extends RecipeBookStorage, UserPrefsStorage,
+        UserProfileStorage, WorkoutPlannerStorage, HealthRecordsStorage {
 
     // ================ UserPrefs methods ==============================
 
@@ -32,8 +34,11 @@ public interface Storage extends RecipeBookStorage, UserPrefsStorage, UserProfil
     Path getRecipesFilePath();
 
     @Override
+    Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner() throws DataConversionException, IOException;
+
     Optional<ReadOnlyUserProfile> readUserProfile() throws DataConversionException, IOException;
     @Override
+    void saveWorkoutPlanner(ReadOnlyWorkoutPlanner dukeCooks) throws IOException;
     Optional<ReadOnlyRecipeBook> readRecipeBook() throws DataConversionException, IOException;
 
     @Override

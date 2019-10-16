@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.exercise.Exercise;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.records.Record;
@@ -21,19 +22,22 @@ import seedu.address.model.records.Record;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private final UserPrefs userPrefs;
     private final UserProfile userProfile;
     private final HealthRecords healthRecords;
-    private final UserPrefs userPrefs;
+    private final RecipeBook recipeBook;
+    private final WorkoutPlanner workoutPlanner;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Record> filteredRecords;
-    private final RecipeBook recipeBook;
     private final FilteredList<Recipe> filteredRecipes;
+    private final FilteredList<Exercise> filteredExercises;
 
     /**
-     * Initializes a RecipeModelManager with the given userProfile and userPrefs.
+     * Initializes a ModelManager with the given dukeCooks and userPrefs.
      */
     public ModelManager(ReadOnlyUserProfile dukeCooks, ReadOnlyHealthRecords healthRecords,
-                        ReadOnlyRecipeBook recipeBook, ReadOnlyUserPrefs userPrefs) {
+                        ReadOnlyRecipeBook recipeBook, ReadOnlyWorkoutPlanner workoutPlanner,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(dukeCooks, healthRecords, userPrefs, recipeBook);
 
@@ -46,32 +50,55 @@ public class ModelManager implements Model {
         this.healthRecords = new HealthRecords(healthRecords);
         this.recipeBook = new RecipeBook(recipeBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.workoutPlanner = new WorkoutPlanner(workoutPlanner);
         filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
     }
 
     /**
      * Initializes a RecipeModelManager with the given userProfile and userPrefs.
      */
+    public ModelManager(ReadOnlyWorkoutPlanner workoutPlanner, ReadOnlyUserPrefs userPrefs) {
+        super();
+        requireAllNonNull(workoutPlanner, userPrefs);
+
+        logger.fine("Initializing with Workout Planner: " + workoutPlanner
+                + "and user prefs " + userPrefs);
+
+        this.userProfile = null;
+        this.healthRecords = null;
+        this.recipeBook = null;
+        this.userPrefs = new UserPrefs(userPrefs);
+        this.workoutPlanner = new WorkoutPlanner(workoutPlanner);
+        filteredPersons = null;
+        filteredRecords = null;
+        filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredExercises = null;
+    }
+
+    public ModelManager() {
+        this(new UserProfile(), new HealthRecords(), new RecipeBook(),
+                new WorkoutPlanner(), new UserPrefs());
+    }
+
     public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(recipeBook, userPrefs);
 
-        logger.fine("Initializing with Recipe Book: " + recipeBook
+        logger.fine("Initializing with Workout Planner: " + recipeBook
                 + "and user prefs " + userPrefs);
 
         this.userProfile = null;
         this.healthRecords = null;
         this.recipeBook = new RecipeBook(recipeBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.workoutPlanner = null;
         filteredPersons = null;
         filteredRecords = null;
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
-    }
-
-    public ModelManager() {
-        this(new UserProfile(), new HealthRecords(), new RecipeBook(), new UserPrefs());
+        filteredExercises = null;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -120,6 +147,28 @@ public class ModelManager implements Model {
         userPrefs.setHealthRecordsFilePath(healthRecordsFilePath);
     }
 
+    @Override
+    public Path getRecipesFilePath() {
+        return userPrefs.getRecipesFilePath();
+    }
+
+    @Override
+    public void setRecipesFilePath(Path recipesFilePath) {
+        requireNonNull(recipesFilePath);
+        userPrefs.setRecipesFilePath(recipesFilePath);
+    }
+
+    @Override
+    public Path getWorkoutPlannerFilePath() {
+        return userPrefs.getExercisesFilePath();
+    }
+
+    @Override
+    public void setWorkoutPlannerFilePath(Path dukeCooksFilePath) {
+        requireNonNull(dukeCooksFilePath);
+        userPrefs.setExercisesFilePath(dukeCooksFilePath);
+    }
+
     //=========== User Profile ================================================================================
 
     @Override
@@ -141,9 +190,9 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         userProfile.setPerson(target, editedPerson);
     }
+
 
     //=========== Health Records ============================================================================
 
@@ -166,8 +215,78 @@ public class ModelManager implements Model {
     @Override
     public void setRecord(Record target, Record editedRecord) {
         requireAllNonNull(target, editedRecord);
-
         healthRecords.setRecord(target, editedRecord);
+    }
+
+    //=========== Recipe Book ================================================================================
+
+    @Override
+    public void setRecipeBook(ReadOnlyRecipeBook recipeBook) {
+        this.recipeBook.resetData(recipeBook);
+    }
+
+    @Override
+    public ReadOnlyRecipeBook getRecipeBook() {
+        return recipeBook;
+    }
+
+    @Override
+    public boolean hasRecipe(Recipe recipe) {
+        requireNonNull(recipe);
+        return recipeBook.hasRecipe(recipe);
+    }
+
+    @Override
+    public void deleteRecipe(Recipe target) {
+        recipeBook.removeRecipe(target);
+    }
+
+    @Override
+    public void addRecipe(Recipe recipe) {
+        recipeBook.addRecipe(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+    }
+
+    @Override
+    public void setRecipe(Recipe target, Recipe editedRecipe) {
+        requireAllNonNull(target, editedRecipe);
+
+        recipeBook.setRecipe(target, editedRecipe);
+    }
+
+    //=========== Workout Planner ================================================================================
+
+    @Override
+    public void setWorkoutPlanner(ReadOnlyWorkoutPlanner workoutPlanner) {
+        this.workoutPlanner.resetData(workoutPlanner);
+    }
+
+    @Override
+    public ReadOnlyWorkoutPlanner getWorkoutPlanner() {
+        return workoutPlanner;
+    }
+
+    @Override
+    public boolean hasExercise(Exercise exercise) {
+        requireNonNull(exercise);
+        return workoutPlanner.hasExercise(exercise);
+    }
+
+    @Override
+    public void addExercise(Exercise exercise) {
+        workoutPlanner.addExercise(exercise);
+        updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISE);
+    }
+
+    @Override
+    public void deleteExercise(Exercise target) {
+        workoutPlanner.removePerson(target);
+    }
+
+    @Override
+    public void setExercise(Exercise target, Exercise editedExercise) {
+        requireAllNonNull(target, editedExercise);
+        workoutPlanner.setExercise(target, editedExercise);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -204,53 +323,6 @@ public class ModelManager implements Model {
         filteredRecords.setPredicate(predicate);
     }
 
-    @Override
-    public Path getRecipesFilePath() {
-        return userPrefs.getRecipesFilePath();
-    }
-
-    @Override
-    public void setRecipesFilePath(Path recipesFilePath) {
-        requireNonNull(recipesFilePath);
-        userPrefs.setRecipesFilePath(recipesFilePath);
-    }
-
-    //=========== DukeBooks ================================================================================
-
-    @Override
-    public void setRecipeBook(ReadOnlyRecipeBook recipeBook) {
-        this.recipeBook.resetData(recipeBook);
-    }
-
-    @Override
-    public ReadOnlyRecipeBook getRecipeBook() {
-        return recipeBook;
-    }
-
-    @Override
-    public boolean hasRecipe(Recipe recipe) {
-        requireNonNull(recipe);
-        return recipeBook.hasRecipe(recipe);
-    }
-
-    @Override
-    public void deleteRecipe(Recipe target) {
-        recipeBook.removeRecipe(target);
-    }
-
-    @Override
-    public void addRecipe(Recipe recipe) {
-        recipeBook.addRecipe(recipe);
-        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
-    }
-
-    @Override
-    public void setRecipe(Recipe target, Recipe editedRecipe) {
-        requireAllNonNull(target, editedRecipe);
-
-        recipeBook.setRecipe(target, editedRecipe);
-    }
-
     //=========== Filtered Recipe List Accessors =============================================================
 
     /**
@@ -266,6 +338,23 @@ public class ModelManager implements Model {
     public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
         requireNonNull(predicate);
         filteredRecipes.setPredicate(predicate);
+    }
+
+    //=========== Filtered Exercise List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedDukeCooks}
+     */
+    @Override
+    public ObservableList<Exercise> getFilteredExerciseList() {
+        return filteredExercises;
+    }
+
+    @Override
+    public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
+        requireNonNull(predicate);
+        filteredExercises.setPredicate(predicate);
     }
 
     @Override
@@ -284,7 +373,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return userProfile.equals(other.userProfile)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredExercises.equals(other.filteredExercises);
     }
+
 
 }

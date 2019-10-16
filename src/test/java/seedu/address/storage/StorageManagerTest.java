@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static seedu.address.testutil.TypicalExercises.getTypicalWorkoutPlanner;
 import static seedu.address.testutil.TypicalProfiles.getTypicalProfiles;
 import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
 
@@ -14,9 +15,11 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.RecipeBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.UserProfile;
+import seedu.address.model.WorkoutPlanner;
 
 public class StorageManagerTest {
 
@@ -27,12 +30,13 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonUserProfileStorage dukeCooksStorage = new JsonUserProfileStorage(getTempFilePath("ab"));
+        JsonUserProfileStorage userProfileStorage = new JsonUserProfileStorage(getTempFilePath("ab"));
         JsonHealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(getTempFilePath("hr"));
         JsonRecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(getTempFilePath("ab"));
+        JsonWorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(dukeCooksStorage, healthRecordsStorage,
-                recipeBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(userProfileStorage, healthRecordsStorage,
+                recipeBookStorage, workoutPlannerStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -68,6 +72,11 @@ public class StorageManagerTest {
         storageManager.saveRecipeBook(originalRecipeBook);
         ReadOnlyRecipeBook retrievedRecipeBook = storageManager.readRecipeBook().get();
         assertEquals(original, new RecipeBook(retrievedRecipeBook));
+        WorkoutPlanner originalWorkoutPlanner = getTypicalWorkoutPlanner();
+        storageManager.saveWorkoutPlanner(originalWorkoutPlanner);
+        ReadOnlyWorkoutPlanner retrievedWorkoutPlanner = storageManager
+                .readWorkoutPlanner().get();
+        assertEquals(original, new WorkoutPlanner(retrievedWorkoutPlanner));
     }
 
     @Test

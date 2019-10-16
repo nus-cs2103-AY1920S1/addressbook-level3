@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.exercise.Exercise;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.records.Record;
@@ -35,6 +36,28 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public Path getUserProfileFilePath() {
+        throw new AssertionError(
+                "This method should not be called.");
+    }
+
+    @Override
+    public void setUserProfileFilePath(Path userProfileFilePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Path getHealthRecordsFilePath() {
+        throw new AssertionError(
+                "This method should not be called.");
+    }
+
+    @Override
+    public void setHealthRecordsFilePath(Path healthRecordsFilePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public Path getRecipesFilePath() {
         throw new AssertionError("This method should not be called.");
     }
@@ -51,6 +74,16 @@ public class ModelStub implements Model {
 
     @Override
     public void setRecipeBook(ReadOnlyRecipeBook recipeBook) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Path getWorkoutPlannerFilePath() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setWorkoutPlannerFilePath(Path workoutPlannerFilePath) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -81,28 +114,6 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public Path getUserProfileFilePath() {
-        throw new AssertionError(
-                "This method should not be called.");
-    }
-
-    @Override
-    public Path getHealthRecordsFilePath() {
-        throw new AssertionError(
-                "This method should not be called.");
-    }
-
-    @Override
-    public void setUserProfileFilePath(Path userProfileFilePath) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setHealthRecordsFilePath(Path healthRecordsFilePath) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -167,6 +178,46 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredRecordList(Predicate<Record> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setWorkoutPlanner(ReadOnlyWorkoutPlanner workoutPlanner) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyWorkoutPlanner getWorkoutPlanner() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasExercise(Exercise exercise) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addExercise(Exercise exercise) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteExercise(Exercise exercise) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setExercise(Exercise target, Exercise editedExercise) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Exercise> getFilteredExerciseList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 }

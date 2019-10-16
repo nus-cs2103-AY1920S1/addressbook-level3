@@ -15,6 +15,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
+import seedu.address.model.exercise.Exercise;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.records.Record;
@@ -46,19 +48,20 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
+            storage.saveWorkoutPlanner(model.getWorkoutPlanner());
             storage.saveUserProfile(model.getUserProfile());
             storage.saveRecipeBook(model.getRecipeBook());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-
-        try {
             storage.saveHealthRecords(model.getHealthRecords());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
         return commandResult;
+    }
+
+    @Override
+    public ReadOnlyWorkoutPlanner getDukeCooks() {
+        return model.getWorkoutPlanner();
     }
 
     @Override
@@ -71,9 +74,10 @@ public class LogicManager implements Logic {
         return model.getUserProfile();
     }
 
+
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Exercise> getFilteredExerciseList() {
+        return model.getFilteredExerciseList();
     }
 
     @Override
@@ -89,6 +93,11 @@ public class LogicManager implements Logic {
     @Override
     public Path getUserProfileFilePath() {
         return model.getUserProfileFilePath();
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return model.getFilteredPersonList();
     }
 
     @Override
@@ -108,5 +117,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public Path getDukeCooksFilePath() {
+        return model.getUserProfileFilePath();
     }
 }

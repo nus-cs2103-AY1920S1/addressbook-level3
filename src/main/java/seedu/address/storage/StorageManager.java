@@ -11,6 +11,7 @@ import seedu.address.model.ReadOnlyHealthRecords;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -22,15 +23,18 @@ public class StorageManager implements Storage {
     private UserProfileStorage userProfileStorage;
     private HealthRecordsStorage healthRecordsStorage;
     private RecipeBookStorage recipeBookStorage;
+    private WorkoutPlannerStorage workoutPlannerStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(UserProfileStorage userProfileStorage, HealthRecordsStorage healthRecordsStorage,
-                          RecipeBookStorage recipeBookStorage, UserPrefsStorage userPrefsStorage) {
+                          RecipeBookStorage recipeBookStorage, WorkoutPlannerStorage workoutPlannerStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.userProfileStorage = userProfileStorage;
         this.healthRecordsStorage = healthRecordsStorage;
         this.recipeBookStorage = recipeBookStorage;
+        this.workoutPlannerStorage = workoutPlannerStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -139,4 +143,35 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         recipeBookStorage.saveRecipeBook(recipeBook, filePath);
     }
+
+    // ================ Workout Planner methods ==============================
+
+    @Override
+    public Path getWorkoutPlannerFilePath() {
+        return workoutPlannerStorage.getWorkoutPlannerFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner() throws DataConversionException, IOException {
+        return readWorkoutPlanner(workoutPlannerStorage.getWorkoutPlannerFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return workoutPlannerStorage.readWorkoutPlanner(filePath);
+    }
+
+    @Override
+    public void saveWorkoutPlanner(ReadOnlyWorkoutPlanner workoutPlanner) throws IOException {
+        saveWorkoutPlanner(workoutPlanner, workoutPlannerStorage.getWorkoutPlannerFilePath());
+    }
+
+    @Override
+    public void saveWorkoutPlanner(ReadOnlyWorkoutPlanner workoutPlanner, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        workoutPlannerStorage.saveWorkoutPlanner(workoutPlanner, filePath);
+    }
+
 }

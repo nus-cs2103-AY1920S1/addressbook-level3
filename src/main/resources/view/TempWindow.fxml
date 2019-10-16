@@ -31,7 +31,7 @@
             <menus>
               <Menu mnemonicParsing="false" text="File">
                 <items>
-                  <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                 </items>
               </Menu>
               <Menu mnemonicParsing="false" text="Edit">
@@ -41,7 +41,7 @@
               </Menu>
               <Menu mnemonicParsing="false" text="Help">
                 <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                 </items>
               </Menu>
             </menus>

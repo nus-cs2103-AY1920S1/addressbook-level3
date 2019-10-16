@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.HEIGHT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.HISTORY_DESC_DENGUE;
 import static seedu.address.logic.commands.CommandTestUtil.HISTORY_DESC_STROKE;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FOOD_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -80,7 +80,7 @@ public class AddProfileCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + BLOODTYPE_DESC + GENDER_DESC
+        assertParseFailure(parser, INVALID_FOOD_NAME_DESC + BLOODTYPE_DESC + GENDER_DESC
                 + DOB_DESC + WEIGHT_DESC + HEIGHT_DESC
                 + HISTORY_DESC_DENGUE + HISTORY_DESC_STROKE, Name.MESSAGE_CONSTRAINTS);
 
@@ -90,7 +90,7 @@ public class AddProfileCommandParserTest {
                 + INVALID_TAG_DESC + VALID_HISTORY_STROKE, MedicalHistory.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + BLOODTYPE_DESC + GENDER_DESC
+        assertParseFailure(parser, INVALID_FOOD_NAME_DESC + BLOODTYPE_DESC + GENDER_DESC
                         + DOB_DESC + WEIGHT_DESC + HEIGHT_DESC + INVALID_TAG_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 

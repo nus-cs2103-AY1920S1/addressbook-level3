@@ -15,7 +15,6 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.UserPrefs;
-//import seedu.address.profile.UserPrefs;
 
 public class JsonUserPrefsStorageTest {
 
@@ -70,7 +69,6 @@ public class JsonUserPrefsStorageTest {
 
         assertEquals(expected, actual);
     }
-
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));

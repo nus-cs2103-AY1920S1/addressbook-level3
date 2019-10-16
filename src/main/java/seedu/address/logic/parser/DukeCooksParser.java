@@ -6,13 +6,19 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddExerciseCommand;
 import seedu.address.logic.commands.AddHealthCommand;
 import seedu.address.logic.commands.AddProfileCommand;
+import seedu.address.logic.commands.ClearExerciseCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteExerciseCommand;
+import seedu.address.logic.commands.EditExerciseCommand;
 import seedu.address.logic.commands.EditProfileCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindExerciseCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListExerciseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -42,14 +48,32 @@ public class DukeCooksParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
+        case AddExerciseCommand.COMMAND_WORD:
+            return new AddExerciseCommandParser().parse(arguments);
+
+        case EditExerciseCommand.COMMAND_WORD:
+            return new EditExerciseCommandParser().parse(arguments);
+
         case AddProfileCommand.COMMAND_WORD:
             return new AddProfileCommandParser().parse(arguments);
+
+        case DeleteExerciseCommand.COMMAND_WORD:
+            return new DeleteExerciseCommandParser().parse(arguments);
 
         case EditProfileCommand.COMMAND_WORD:
             return new EditProfileCommandParser().parse(arguments);
 
+        case ClearExerciseCommand.COMMAND_WORD:
+            return new ClearExerciseCommand();
+
+        case FindExerciseCommand.COMMAND_WORD:
+            return new FindExerciseCommandParser().parse(arguments);
+
         case AddHealthCommand.COMMAND_WORD:
             return new AddHealthCommandParser().parse(arguments);
+
+        case ListExerciseCommand.COMMAND_WORD:
+            return new ListExerciseCommand();
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

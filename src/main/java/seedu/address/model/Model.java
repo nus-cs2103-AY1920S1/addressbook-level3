@@ -5,12 +5,13 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.exercise.Exercise;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.records.Record;
 
 /**
- * The API of the RecipeModel component.
+ * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
@@ -21,6 +22,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Exercise> PREDICATE_SHOW_ALL_EXERCISE = unused -> true;
 
     //=========== UserPrefs ==================================================================================
 
@@ -50,7 +54,7 @@ public interface Model {
     Path getUserProfileFilePath();
 
     /**
-     * Sets the user prefs' Duke Cooks file path.
+     * Sets the user prefs' UserProfile file path.
      */
     void setUserProfileFilePath(Path userProfileFilePath);
 
@@ -63,6 +67,28 @@ public interface Model {
      * Sets the user prefs' Health Records file path.
      */
     void setHealthRecordsFilePath(Path healthRecordsFilePath);
+
+    //Recipe Book
+    /**
+     * Returns the user prefs' RecipeBook file path.
+     */
+    Path getRecipesFilePath();
+
+    /**
+     * Sets the user prefs' Duke Cooks Recipe file path.
+     */
+    void setRecipesFilePath(Path recipesFilePath);
+
+
+    /**
+     * Returns the user prefs' Workout Planner file path.
+     */
+    Path getWorkoutPlannerFilePath();
+
+    /**
+     * Sets the user prefs' Workout Planner file path.
+     */
+    void setWorkoutPlannerFilePath(Path workoutPlannerFilePath);
 
     //=========== User Profile ================================================================================
 
@@ -110,39 +136,7 @@ public interface Model {
      */
     void setRecord(Record target, Record editedRecord);
 
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
-    //=========== Filtered Record List Accessors =============================================================
-
-    /** Returns an unmodifiable view of the filtered record list */
-    ObservableList<Record> getFilteredRecordList();
-
-    /**
-     * Updates the filter of the filtered record list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredRecordList(Predicate<Record> predicate);
-
-    //Recipe Book
-    /**
-     * Returns the user prefs' RecipeBook file path.
-     */
-    Path getRecipesFilePath();
-
-    /**
-     * Sets the user prefs' Duke Cooks Recipe file path.
-     */
-    void setRecipesFilePath(Path recipesFilePath);
+    //=========== Recipe Book  ================================================================================
 
     /**
      * Replaces Duke Cooks data with the data in {@code recipeBook}.
@@ -176,6 +170,67 @@ public interface Model {
      */
     void setRecipe(Recipe target, Recipe editedRecipe);
 
+    //=========== Workout Planner ================================================================================
+
+    /**
+     * Replaces Workout Planner Data with {@code workoutPlanner}
+     */
+    void setWorkoutPlanner(ReadOnlyWorkoutPlanner workoutPlanner);
+
+    /** Returns WorkoutPlanner */
+    ReadOnlyWorkoutPlanner getWorkoutPlanner();
+
+
+    /**
+     * Returns true if an exercise with the same identity as {@code exercise}
+     * exists in Workout Planner.
+     */
+    boolean hasExercise(Exercise exercise);
+
+    /**
+     * Adds the given exercise.
+     * {@code exercise} must not already exist in Duke Cooks.
+     */
+    void addExercise(Exercise exercise);
+
+    /**
+     * Deletes the given exercise.
+     * The exercise must exist in Duke Cooks.
+     */
+    void deleteExercise(Exercise target);
+
+    /**
+     * Replaces the given exercise {@code target} with {@code editedExercise}.
+     * {@code target} must exist in Duke Cooks.
+     * The exercise identity of {@code editedExercise} must not be the
+     * same as another existing exercise in the Duke Cooks.
+     */
+    void setExercise(Exercise target, Exercise editedExercise);
+
+    //=========== Filtered Person List Accessors =============================================================
+
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<Person> getFilteredPersonList();
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPersonList(Predicate<Person> predicate);
+
+    //=========== Filtered Record List Accessors =============================================================
+
+    /** Returns an unmodifiable view of the filtered record list */
+    ObservableList<Record> getFilteredRecordList();
+
+    /**
+     * Updates the filter of the filtered record list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredRecordList(Predicate<Record> predicate);
+
+    //=========== Filtered Recipe List Accessors =============================================================
+
     /** Returns an unmodifiable view of the filtered recipe list */
     ObservableList<Recipe> getFilteredRecipeList();
 
@@ -184,4 +239,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRecipeList(Predicate<Recipe> predicate);
+
+    //=========== Filtered Exercise List Accessors =============================================================
+
+    /** Returns an unmodifiable view of the filtered exercise list */
+    ObservableList<Exercise> getFilteredExerciseList();
+
+    /**
+    * Updates the filter of the filtered exercise list to filter by the given {@code predicate}.
+    * @throws NullPointerException if {@code predicate} is null.
+    */
+    void updateFilteredExerciseList(Predicate<Exercise> predicate);
 }

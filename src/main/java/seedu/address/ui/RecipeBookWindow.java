@@ -213,7 +213,10 @@ public class RecipeBookWindow extends UiPart<Stage> {
      */
     @FXML
     private void switchExercise() {
-        // switch to exercise
+        primaryStage.hide();
+        WorkoutPlannerWindow workoutPlannerWindow = new WorkoutPlannerWindow(getPrimaryStage(), logic);
+        workoutPlannerWindow.show();
+        workoutPlannerWindow.fillInnerParts();
     }
 
     /**

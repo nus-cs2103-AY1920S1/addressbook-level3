@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.RecipeBuilder;
 
-public class RecipeNameContainsKeywordsPredicateTest {
+public class RecipeExerciseNameContainsKeywordsPredicateTest {
 
     @Test
     public void equals() {

@@ -11,6 +11,8 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
+    Path getExercisesFilePath();
+
     Path getRecipesFilePath();
 
     Path getUserProfileFilePath();

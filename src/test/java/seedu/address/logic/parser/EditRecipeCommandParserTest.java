@@ -6,8 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.CARBS_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.FATS_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_DESC_BURGER;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_DESC_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FOOD_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_INGREDIENT_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.PROTEIN_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CALORIES_FISH;
@@ -72,7 +72,7 @@ public class EditRecipeCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1" + INVALID_FOOD_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_INGREDIENT_DESC, Ingredient.MESSAGE_CONSTRAINTS); // invalid ingredient
 
         // while parsing {@code PREFIX_INGREDIENT} alone will reset the ingredients of the {@code Recipe} being edited,
@@ -85,7 +85,7 @@ public class EditRecipeCommandParserTest {
                 Ingredient.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC,
+        assertParseFailure(parser, "1" + INVALID_FOOD_NAME_DESC,
                 Name.MESSAGE_CONSTRAINTS);
     }
 

@@ -10,6 +10,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
+import seedu.address.model.exercise.Exercise;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.records.Record;
@@ -44,8 +46,18 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of recipes */
     ObservableList<Recipe> getFilteredRecipeList();
 
+    /**
+     * Returns DukeCooks.
+     *
+     * @see seedu.address.model.Model#getWorkoutPlanner()
+     */
+    ReadOnlyWorkoutPlanner getDukeCooks();
+
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<Exercise> getFilteredExerciseList();
 
     /** Returns an unmodifiable view of the filtered list of records */
     ObservableList<Record> getFilteredRecordList();
@@ -59,6 +71,11 @@ public interface Logic {
      * Returns the user prefs' User Profile file path.
      */
     Path getUserProfileFilePath();
+
+    /**
+     * Returns the user prefs' Duke Cooks file path.
+     */
+    Path getDukeCooksFilePath();
 
     /**
      * Returns the user prefs' Health Records file path.
