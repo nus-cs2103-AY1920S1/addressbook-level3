@@ -125,7 +125,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     public boolean areFieldsDuplicate(String[] keywords) {
         Set<String> noDuplicateFields = new HashSet<String>();
-        for (int i = 0; i < keywords.length; i += 2) {
+        for (int i = 0; i < keywords.length; i += 3) {
             String field = keywords[i];
             if (!noDuplicateFields.add(field)) {
                 return true;
