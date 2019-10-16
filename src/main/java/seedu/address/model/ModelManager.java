@@ -14,8 +14,9 @@ import seedu.address.commons.core.LogsCenter;
 
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
-
 import seedu.address.model.task.Task;
+import seedu.address.model.mapping.Mapping;
+
 //import seedu.address.model.task.NameContainsKeywordsPredicate;
 
 /**
@@ -27,9 +28,8 @@ public class ModelManager implements Model {
     private final ProjectDashboard projectDashboard;
     private final UserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
-
     private final FilteredList<Member> filteredMembers;
-
+    private final FilteredList<Mapping> filteredMappings;
     private final FilteredList<Inventory> filteredInventories;
 
 
@@ -48,7 +48,7 @@ public class ModelManager implements Model {
         filteredTasks = new FilteredList<>(this.projectDashboard.getTaskList());
         filteredMembers = new FilteredList<>(this.projectDashboard.getMemberList());
         filteredInventories = new FilteredList<>(this.projectDashboard.getInventoryList());
-
+        filteredMappings = new FilteredList<>(this.projectDashboard.getMappingList());
     }
 
     public ModelManager() {
@@ -225,7 +225,7 @@ public class ModelManager implements Model {
         projectDashboard.setMember(target, editedMember);
     }
 
-    //=========== Filtered Task List Accessors =============================================================
+    //=========== Filtered Member List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
@@ -241,4 +241,34 @@ public class ModelManager implements Model {
         filteredMembers.setPredicate(predicate);
     }
 
+    //=========== ProjectDashboard (mapping) ===============================================
+
+    @Override
+    public void addMapping(Mapping mapping) {
+        projectDashboard.addMapping(mapping);
+    }
+
+    @Override
+    public void deleteMapping(Mapping mapping) {
+        projectDashboard.removeMapping(mapping);
+    }
+
+    @Override
+    public boolean hasMapping(Mapping mapping) {
+        requireNonNull(mapping);
+        return projectDashboard.hasMapping(mapping);
+    }
+
+    //=========== Filtered Mapping List Accessors =============================================================
+
+    @Override
+    public ObservableList<Mapping> getFilteredMappingsList() {
+        return filteredMappings;
+    }
+
+    @Override
+    public void updateFilteredMappingsList(Predicate<Mapping> predicate) {
+        requireNonNull(predicate);
+        filteredMappings.setPredicate(predicate);
+    }
 }
