@@ -1,5 +1,8 @@
 package seedu.address.model.common;
 
+/**
+ * A weaker notion of equality between two instances.
+ */
 public interface Identical<T> extends Comparable<T> {
 
     /**

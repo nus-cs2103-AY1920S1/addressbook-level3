@@ -1,5 +1,9 @@
 package seedu.address.model.common;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,16 +12,13 @@ import javafx.collections.ObservableList;
 import seedu.address.model.exceptions.DuplicateEntryException;
 import seedu.address.model.exceptions.EntryNotFoundException;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 
 /**
  * A list of elements that enforces uniqueness between its elements and does not allow nulls.
- * A element is considered unique by comparing using {@code Element#isSameElement(Element)}. As such, adding and updating of
+ * A element is considered unique by comparing using {@code Element#isSameAs(Element)}. As such, adding and updating of
  * elements uses Element#isSameElement(Element) for equality so as to ensure that the element being added or updated is
- * unique in terms of identity in the UniqueElementList. However, the removal of a element uses Element#equals(Object) so
- * as to ensure that the element with exactly the same fields will be removed.
+ * unique in terms of identity in the UniqueElementList. However, the removal of a element uses Element#equals(Object)
+ * so as to ensure that the element with exactly the same fields will be removed.
  * <p>
  * Supports a minimal set of list operations.
  */
@@ -66,15 +67,15 @@ public class UniqueElementList<T extends Identical> implements Iterable<T> {
      */
     public void set(T target, T editedElement) {
         requireAllNonNull(target, editedElement);
-        
+
         if (target.compareTo(editedElement) != 0 && contains(editedElement)) {
             throw new DuplicateEntryException();
         }
-        
+
         if (!internalList.remove(target)) {
             throw new EntryNotFoundException();
         }
-        
+
         internalList.add(editedElement);
     }
 
@@ -137,9 +138,9 @@ public class UniqueElementList<T extends Identical> implements Iterable<T> {
      * Returns true if {@code elements} contains only unique elements.
      */
     private boolean elementsAreUnique(List<T> elements) {
-        UniqueTreeList<T> TreeSet = new UniqueTreeList<>();
+        UniqueTreeList<T> treeList = new UniqueTreeList<>();
         for (T element : elements) {
-            if (!TreeSet.add(element)) {
+            if (!treeList.add(element)) {
                 return false;
             }
         }

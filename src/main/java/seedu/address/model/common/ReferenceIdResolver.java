@@ -1,7 +1,7 @@
 package seedu.address.model.common;
 
-import seedu.address.model.person.Person;
 import seedu.address.model.exceptions.EntryNotFoundException;
+import seedu.address.model.person.Person;
 
 /**
  * API of the Reference Id Resolver component.
