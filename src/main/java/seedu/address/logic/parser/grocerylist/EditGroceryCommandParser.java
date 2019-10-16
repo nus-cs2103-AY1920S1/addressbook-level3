@@ -12,8 +12,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditGroceryCommand;
-import seedu.address.logic.commands.EditGroceryCommand.EditGroceryItemDescriptor;
+import seedu.address.logic.commands.grocerylist.EditGroceryCommand;
+import seedu.address.logic.commands.grocerylist.EditGroceryCommand.EditGroceryItemDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;

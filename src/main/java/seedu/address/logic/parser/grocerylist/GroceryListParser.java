@@ -6,13 +6,17 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddGroceryCommand;
+import seedu.address.logic.commands.grocerylist.AddGroceryCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteGroceryCommand;
-import seedu.address.logic.commands.EditGroceryCommand;
+import seedu.address.logic.commands.grocerylist.DeleteGroceryCommand;
+import seedu.address.logic.commands.grocerylist.EditGroceryCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListGroceryCommand;
+import seedu.address.logic.commands.grocerylist.ListGroceryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.grocerylist.AddGroceryCommandParser;
+import seedu.address.logic.parser.grocerylist.DeleteGroceryCommandParser;
+import seedu.address.logic.parser.grocerylist.EditGroceryCommandParser;
+import seedu.address.logic.parser.grocerylist.UseGroceryCommandParser;
 
 /**
  * Parses user input.
@@ -52,6 +56,9 @@ public class GroceryListParser {
 
         case DeleteGroceryCommand.COMMAND_WORD:
             return new DeleteGroceryCommandParser().parse(arguments);
+
+        case "use":
+            return new UseGroceryCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
