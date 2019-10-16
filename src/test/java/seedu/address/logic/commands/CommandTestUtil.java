@@ -63,10 +63,10 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditSpendingDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withDate(VALID_DATE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_COST_AMY)
+                .withDate(VALID_DATE_AMY).withEmail(VALID_EMAIL_AMY).withCost(VALID_COST_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditSpendingDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withDate(VALID_DATE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_COST_BOB)
+                .withDate(VALID_DATE_BOB).withEmail(VALID_EMAIL_BOB).withCost(VALID_COST_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 

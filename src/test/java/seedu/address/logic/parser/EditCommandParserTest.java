@@ -112,7 +112,7 @@ public class EditCommandParserTest {
                 + EMAIL_DESC_AMY + COST_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
         EditSpendingDescriptor descriptor = new EditSpendingDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withDate(VALID_DATE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_COST_AMY)
+                .withDate(VALID_DATE_BOB).withEmail(VALID_EMAIL_AMY).withCost(VALID_COST_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -154,7 +154,7 @@ public class EditCommandParserTest {
 
         // address
         userInput = targetIndex.getOneBased() + COST_DESC_AMY;
-        descriptor = new EditSpendingDescriptorBuilder().withAddress(VALID_COST_AMY).build();
+        descriptor = new EditSpendingDescriptorBuilder().withCost(VALID_COST_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -173,7 +173,7 @@ public class EditCommandParserTest {
                 + DATE_DESC_BOB + COST_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditSpendingDescriptor descriptor = new EditSpendingDescriptorBuilder().withDate(VALID_DATE_BOB)
-                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_COST_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withEmail(VALID_EMAIL_BOB).withCost(VALID_COST_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -193,7 +193,7 @@ public class EditCommandParserTest {
         userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_DATE_DESC + COST_DESC_BOB
                 + DATE_DESC_BOB;
         descriptor = new EditSpendingDescriptorBuilder().withDate(VALID_DATE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_COST_BOB).build();
+                .withCost(VALID_COST_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
