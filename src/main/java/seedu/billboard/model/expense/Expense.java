@@ -28,7 +28,10 @@ public class Expense {
     /**
      * Every field must be present and not null.
      */
-    public Expense(Name name, Description description, Amount amount, CreatedDateTime created, Set<Tag> tags) {
+    public Expense(Name name, Description description,
+                   Amount amount, CreatedDateTime created,
+                   Set<Tag> tags) {
+
         requireAllNonNull(name, description, created, amount, tags);
         this.name = name;
         this.description = description;
@@ -38,11 +41,15 @@ public class Expense {
         this.archiveName = "";
     }
 
-    public Expense(Name name, Description description, Amount amount, Set<Tag> tags, String archiveName) {
+    public Expense(Name name, Description description,
+                   Amount amount, CreatedDateTime created,
+                   Set<Tag> tags, String archiveName) {
+
         requireAllNonNull(name, description, amount);
         this.name = name;
         this.description = description;
         this.amount = amount;
+        this.created = created;
         this.tags.addAll(tags);
         this.archiveName = archiveName;
     }

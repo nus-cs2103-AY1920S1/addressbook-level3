@@ -63,21 +63,25 @@ public class TypicalExpenses {
     public static final Expense IPHONE11 = new ExpenseBuilder().withName("iphone 11")
             .withDescription("iphone 11 pro 132312321GB memory")
             .withAmount("10000")
+            .withCreatedDateTime("1/1/2019 0001")
             .withArchiveName("luxury")
             .build();
     public static final Expense GUCCI_SLIDES = new ExpenseBuilder().withName("Gucci slides")
             .withDescription("bought them cos I got sick of my slippers")
             .withAmount("299.99")
+            .withCreatedDateTime("1/1/2019 0002")
             .withArchiveName("luxury")
             .build();
     public static final Expense KPOP_LIGHT_STICK = new ExpenseBuilder().withName("Kpop lightstick")
             .withDescription("bought at kpoop concert")
             .withAmount("70")
+            .withCreatedDateTime("1/1/2019 0003")
             .withArchiveName("hobbies")
             .build();
     public static final Expense FOOTBALL = new ExpenseBuilder().withName("Nike football")
             .withDescription("To play with")
             .withAmount("39.99")
+            .withCreatedDateTime("1/1/2019 0004")
             .withArchiveName("hobbies")
             .build();
 

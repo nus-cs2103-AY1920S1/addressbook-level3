@@ -77,8 +77,8 @@ public class JsonAdaptedExpenseTest {
 
     @Test
     public void toModelType_nullAmount_throwsIllegalValueException() {
-        JsonAdaptedExpense expense = new JsonAdaptedExpense(VALID_NAME, VALID_DESCRIPTION, null, VALID_DATE,
-                VALID_TAGS, VALID_ARCHIVE);
+        JsonAdaptedExpense expense = new JsonAdaptedExpense(VALID_NAME, VALID_DESCRIPTION, null,
+                VALID_DATE, VALID_TAGS, VALID_ARCHIVE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
 
@@ -87,7 +87,8 @@ public class JsonAdaptedExpenseTest {
     @Test
     public void toModelType_invalidDate_throwsIllegalValueException() {
         JsonAdaptedExpense expense =
-                new JsonAdaptedExpense(VALID_NAME, VALID_DESCRIPTION, VALID_AMOUNT, INVALID_DATE, VALID_TAGS);
+                new JsonAdaptedExpense(VALID_NAME, VALID_DESCRIPTION, VALID_AMOUNT,
+                        INVALID_DATE, VALID_TAGS, VALID_ARCHIVE);
         String expectedMessage = CreatedDateTime.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
@@ -95,7 +96,8 @@ public class JsonAdaptedExpenseTest {
     @Test
     public void toModelType_nullDate_throwsIllegalValueException() {
         JsonAdaptedExpense expense =
-                new JsonAdaptedExpense(VALID_NAME, VALID_DESCRIPTION, VALID_AMOUNT, null, VALID_TAGS);
+                new JsonAdaptedExpense(VALID_NAME, VALID_DESCRIPTION, VALID_AMOUNT,
+                        null, VALID_TAGS, VALID_ARCHIVE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, CreatedDateTime.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
 
@@ -108,6 +110,7 @@ public class JsonAdaptedExpenseTest {
         JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(VALID_NAME, VALID_DESCRIPTION, VALID_AMOUNT,
                         VALID_DATE, invalidTags, VALID_ARCHIVE);
+
         assertThrows(IllegalValueException.class, expense::toModelType);
     }
 

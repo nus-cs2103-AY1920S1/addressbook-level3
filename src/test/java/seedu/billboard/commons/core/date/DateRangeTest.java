@@ -1,7 +1,9 @@
 package seedu.billboard.commons.core.date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.testutil.Assert.assertThrows;
 
 import java.time.DayOfWeek;
@@ -14,8 +16,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.billboard.commons.exceptions.IllegalValueException;
-
 
 public class DateRangeTest {
 
@@ -23,7 +23,7 @@ public class DateRangeTest {
     private LocalDate endDate = LocalDate.of(2019, 4, 13);
 
     @Test
-    public void constructor_givenValidDates_returnsEquivalentDateRange() throws IllegalValueException {
+    public void constructor_givenValidDates_returnsEquivalentDateRange() {
         DateRange dateRange = new DateRange(startDate, endDate);
 
         assertEquals(startDate, dateRange.getStartDate());
@@ -38,6 +38,38 @@ public class DateRangeTest {
     @Test
     public void constructor_givenEndDateEarlierThanStartDate_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> new DateRange(endDate, startDate));
+    }
+
+    @Test
+    public void overPeriod() {
+        // normal period
+        DateRange actual = DateRange.overPeriod(startDate, Period.of(0, 1, 2));
+        DateRange expected = new DateRange(startDate, LocalDate.of(2018, 5, 14));
+        assertEquals(expected, actual);
+
+        // zero period
+        assertThrows(IllegalArgumentException.class, () -> DateRange.overPeriod(startDate, Period.ZERO));
+
+        // negative period
+        assertThrows(IllegalArgumentException.class, () ->
+                DateRange.overPeriod(startDate, Period.of(-1, 1, 1)));
+    }
+
+    @Test
+    public void contains() {
+        DateRange dateRange = new DateRange(startDate, endDate);
+
+        assertTrue(dateRange.contains(LocalDate.of(2019, 1, 6)));
+        assertFalse(dateRange.contains(LocalDate.of(2019, 4, 14)));
+
+        // value same as start date, returns true
+        assertTrue(dateRange.contains(startDate));
+
+        // value same as end date, returns true
+        assertTrue(dateRange.contains(endDate));
+
+        // One day date range contains itself
+        assertTrue(new DateRange(startDate, startDate).contains(startDate));
     }
 
     @Test

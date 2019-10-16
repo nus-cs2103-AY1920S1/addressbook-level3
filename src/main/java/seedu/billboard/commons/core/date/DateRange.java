@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 
 
 /**
- * Represents a immutable {@code DateRange} from {@code startDate} to {@code endDate}.
+ * Represents a immutable {@code DateRange} from {@code startDate} to {@code endDate} inclusive.
  */
 public class DateRange {
 
-    private static final String INVALID_DATES_MESSAGE = "End date should not be before start date!";
+    private static final String INVALID_DATES_MESSAGE = "End date should not be before start date.";
 
     private final LocalDate startDate;
     private final LocalDate endDate;
@@ -37,13 +37,18 @@ public class DateRange {
     }
 
     /**
-     * Creates a date range starting at the given start date, and lasting for as long as the given period.
+     * Creates a date range starting at the given start date, and lasts for as long as the given period. Only accepts
+     * positive {@code Period} values. Zero or negative {@code Period} values will throw an exception.
      *
      * @param startDate Given start date.
      * @param period    Period the date range should last for.
      * @return the newly created date range.
+     * @throws IllegalArgumentException if the period given is negative or zero.
      */
-    public static DateRange overPeriod(LocalDate startDate, Period period) {
+    public static DateRange overPeriod(LocalDate startDate, Period period) throws IllegalArgumentException {
+        if (period.isZero() || period.isNegative()) {
+            throw new IllegalArgumentException("Period cannot be negative or zero.");
+        }
         return new DateRange(startDate, startDate.plus(period).minus(Period.ofDays(1)));
     }
 
@@ -110,5 +115,10 @@ public class DateRange {
         }
 
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "start: " + startDate.toString() + "\nEnd: " + endDate.toString();
     }
 }
