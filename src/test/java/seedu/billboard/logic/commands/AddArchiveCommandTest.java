@@ -1,6 +1,5 @@
 package seedu.billboard.logic.commands;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_DINNER;
@@ -48,7 +47,8 @@ public class AddArchiveCommandTest {
 
     @Test
     public void execute_nullModel_throwsNullPointerException() throws Exception {
-        assertThrows(NullPointerException.class, () -> new AddArchiveCommand(VALID_ARCHIVE_TAXES, INDEX_FIRST_EXPENSE).execute(null));
+        assertThrows(NullPointerException.class, () -> new AddArchiveCommand(VALID_ARCHIVE_TAXES,
+                INDEX_FIRST_EXPENSE).execute(null));
 
     }
 
