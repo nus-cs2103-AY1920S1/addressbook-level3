@@ -129,7 +129,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up peripheral components.
      */
     private void fillPeripherals() {
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, this::promptCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -258,5 +258,12 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Parse the user input and display the suggestions in ResultDisplay.
+     * @param userInput text input from CommandBox
+     */
+    private void promptCommand(String userInput) {
     }
 }
