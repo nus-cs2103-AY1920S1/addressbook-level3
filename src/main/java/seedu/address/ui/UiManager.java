@@ -51,11 +51,7 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
-            Timeline timeline = new Timeline(new KeyFrame(
-                    Duration.millis(10000),
-                    ae -> countDownAlert()));
-            timeline.play();
-
+            //createReminder(10000,"U r weird","but u r cool");
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -87,27 +83,42 @@ public class UiManager implements Ui {
     }
 
     /**
-     * Test alert for scheduler.
+     * function to make reminders
+     * called by scheduler commands
+     * @param duration
+     * @param reminderType
+     * @param reminderDetails
      */
-    private void countDownAlert() {
+    private void createReminder(int duration, String reminderType, String reminderDetails) {
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(duration),
+                ae -> countDownAlert(reminderType,reminderDetails)));
+        timeline.play();
+    }
+    /**
+     * alert for scheduler.
+     * sets properties of alert then
+     * plays sound file and shows alert dialog
+     */
+    private void countDownAlert(String reminderType, String reminderDetails) {
 
         final Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
         alert.initOwner(mainWindow.getPrimaryStage());
-        alert.setTitle("title");
-        alert.setHeaderText("headerText");
-        alert.setContentText("contentText");
+        alert.setTitle("Reminder!");
+        alert.setHeaderText(reminderType);
+        alert.setContentText(reminderDetails);
         playSound();
         alert.show();
 
     }
     /**
-     * handles playing alert audio for scheduled alert
+     * handles playing alert audio for scheduled alert.
+     * get .wav file from resource folder as input stream,
+     * then open and play.
      */
-    private void playSound()
-    {
-        try
-        {
+    private void playSound() {
+        try {
             InputStream inputStream = this.getClass().getResourceAsStream(ALERT_SOUND_PATH);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(inputStream);
             Clip sound = AudioSystem.getClip();
