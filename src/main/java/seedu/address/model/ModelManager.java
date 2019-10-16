@@ -13,10 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
-<<<<<<< HEAD
-=======
 import seedu.address.model.gamedifficulty.DifficultyEnum;
->>>>>>> e7bed9c64da955e9713f3c29b34478153e1142ad
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
