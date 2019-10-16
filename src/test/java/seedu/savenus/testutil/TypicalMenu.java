@@ -107,19 +107,6 @@ public class TypicalMenu {
         return menu;
     }
 
-    public static Menu getPoorMenu() {
-        Menu menu = new Menu();
-        for (Food food : getTypicalFood()) {
-            menu.addFood(food);
-        }
-        menu.setPurchaseHistory(List.of(
-                new Purchase(new Name("Ji Fan"), new Price("3.99"), new TimeOfPurchase("1570976664361")),
-                new Purchase(new Name("Wagyu steak"), new Price("50.00"), new TimeOfPurchase("1570976665687"))
-        ));
-        menu.setWallet(new Wallet("0.00", "30"));
-        return menu;
-    }
-
     public static List<Food> getTypicalFood() {
         return new ArrayList<>(Arrays
         .asList(CARBONARA, TONKATSU_RAMEN, BAK_KUT_TEH, TEH_PING, MALA_XIANG_GUO, WAGYU_DONBURI, NASI_AYAM));

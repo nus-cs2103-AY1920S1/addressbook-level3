@@ -1,7 +1,6 @@
 package seedu.savenus.model.purchase;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Objects;
 
 import seedu.savenus.model.food.Name;
@@ -38,15 +37,30 @@ public class Purchase {
         return foodPurchasedPrice;
     }
 
-    public long getTimeOfPurchaseInMillisSinceEpoch() {
-        return timeOfPurchase.getTimeOfPurchaseInMillisSinceEpoch();
+    public TimeOfPurchase getTimeOfPurchase() {
+        return timeOfPurchase;
     }
 
-    public String getTimeAgoString() {
-        return TimeFormatter.format((
-                LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
-                        - getTimeOfPurchaseInMillisSinceEpoch()));
+    public long getTimeOfPurchaseInMillisSinceEpoch() {
+        return getTimeOfPurchase().getTimeOfPurchaseInMillisSinceEpoch();
     }
+
+    public LocalDateTime getTimeOfPurchaseInLocalDateTime() {
+        return getTimeOfPurchase().getTimeOfPurchaseInLocalDateTime();
+    }
+
+    /**
+     * Returns "Today" plus local time if same day, else returns Day of the week plus Date.
+     */
+    public String getTimeAgoString() {
+        long daysAgo = TimeFormatter.getDaysAgo((getTimeOfPurchaseInLocalDateTime()));
+        if (daysAgo == 0) {
+            return "Today " + TimeFormatter.format12HourClock(getTimeOfPurchaseInLocalDateTime());
+        } else {
+            return TimeFormatter.formatDayPlusDate(getTimeOfPurchaseInLocalDateTime());
+        }
+    }
+
     /**
      * Returns true if both purchase have the same foodPurchased and timeOfPurchase fields.
      * This defines a stronger notion of equality between two purchases.
@@ -64,7 +78,7 @@ public class Purchase {
         Purchase otherPurchase = (Purchase) other;
         return otherPurchase.getPurchasedFoodName().equals(getPurchasedFoodName())
                 && otherPurchase.getPurchasedFoodPrice().equals(getPurchasedFoodPrice())
-                && otherPurchase.getTimeOfPurchaseInMillisSinceEpoch() == getTimeOfPurchaseInMillisSinceEpoch();
+                && otherPurchase.getTimeOfPurchase().equals(getTimeOfPurchase());
     }
 
     @Override

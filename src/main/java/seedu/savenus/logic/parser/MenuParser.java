@@ -13,11 +13,14 @@ import seedu.savenus.logic.commands.ClearCommand;
 import seedu.savenus.logic.commands.Command;
 import seedu.savenus.logic.commands.DefaultCommand;
 import seedu.savenus.logic.commands.DeleteCommand;
+import seedu.savenus.logic.commands.DislikeCommand;
 import seedu.savenus.logic.commands.EditCommand;
 import seedu.savenus.logic.commands.ExitCommand;
 import seedu.savenus.logic.commands.FilterCommand;
 import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.commands.HelpCommand;
+import seedu.savenus.logic.commands.InfoCommand;
+import seedu.savenus.logic.commands.LikeCommand;
 import seedu.savenus.logic.commands.ListCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.SortCommand;
@@ -86,11 +89,20 @@ public class MenuParser {
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
+        case InfoCommand.COMMAND_WORD:
+            return new InfoCommandParser().parse(arguments);
+
         case DefaultCommand.COMMAND_WORD:
             return new DefaultCommand();
 
         case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);
+
+        case LikeCommand.COMMAND_WORD:
+            return new PreferenceCommandParser().parse(arguments, true);
+
+        case DislikeCommand.COMMAND_WORD:
+            return new PreferenceCommandParser().parse(arguments, false);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

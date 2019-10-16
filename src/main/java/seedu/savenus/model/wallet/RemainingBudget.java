@@ -30,6 +30,9 @@ public class RemainingBudget {
     public RemainingBudget(String newRemainingBudgetString) {
         requireNonNull(newRemainingBudgetString);
         checkArgument(isValidRemainingBudget(newRemainingBudgetString), MESSAGE_CONSTRAINTS);
+        if (!newRemainingBudgetString.contains(".")) {
+            newRemainingBudgetString += ".00";
+        }
         remainingBudgetProperty = new SimpleStringProperty("$" + newRemainingBudgetString);
     }
 
@@ -37,11 +40,7 @@ public class RemainingBudget {
      * Returns true if a given string is a valid {@code RemainingBudget}.
      */
     public static boolean isValidRemainingBudget(String test) {
-        if (test.equals("0")) {
-            return true;
-        } else {
-            return test.matches(VALIDATION_REGEX);
-        }
+        return test.matches(VALIDATION_REGEX);
     }
 
     /**

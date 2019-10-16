@@ -171,25 +171,25 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             switch(field) {
 
             case FIELD_NAME_CATEGORY:
-                return Category.isValidCategory(field);
+                return Category.isValidCategory(value);
 
             case FIELD_NAME_DESCRIPTION:
-                return Description.isValidDescription(field);
+                return Description.isValidDescription(value);
 
             case FIELD_NAME_LOCATION:
-                return Location.isValidLocation(field);
+                return Location.isValidLocation(value);
 
             case FIELD_NAME_NAME:
-                return Name.isValidName(field);
+                return Name.isValidName(value);
 
             case FIELD_NAME_OPENING_HOURS:
-                return OpeningHours.isValidOpeningHours(field);
+                return OpeningHours.isValidOpeningHours(value);
 
             case FIELD_NAME_PRICE:
-                return Price.isValidPrice(field);
+                return Price.isValidPrice(value);
 
             case FIELD_NAME_RESTRICTIONS:
-                return Restrictions.isValidRestrictions(field);
+                return Restrictions.isValidRestrictions(value);
 
             default:
                 return false;
