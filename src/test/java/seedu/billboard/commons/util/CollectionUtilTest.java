@@ -5,12 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.billboard.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
+
+import seedu.billboard.commons.core.date.DateInterval;
 
 public class CollectionUtilTest {
     @Test
@@ -65,12 +69,24 @@ public class CollectionUtilTest {
         assertNullPointerExceptionNotThrown(Collections.emptyList());
 
         // list with all non-null elements
-        assertNullPointerExceptionNotThrown(Arrays.asList(new Object(), "ham", Integer.valueOf(1)));
+        assertNullPointerExceptionNotThrown(Arrays.asList(new Object(), "ham", 1));
         assertNullPointerExceptionNotThrown(Arrays.asList(new Object()));
 
         // confirms nulls inside nested lists are not considered
         List<Object> containingNull = Arrays.asList((Object) null);
         assertNullPointerExceptionNotThrown(Arrays.asList(containingNull, new Object()));
+    }
+
+    @Test
+    public void checkNonEmpty() {
+        assertTrue(CollectionUtil.checkNonEmpty(List.of(1, 2, 3, 4)));
+        assertTrue(CollectionUtil.checkNonEmpty(Set.of(new Object(), new Object())));
+        assertTrue(CollectionUtil.checkNonEmpty(Collections.singletonList(DateInterval.MONTH)));
+
+        assertFalse(CollectionUtil.checkNonEmpty(new ArrayList<>()));
+        assertFalse(CollectionUtil.checkNonEmpty(Set.of()));
+
+        assertThrows(NullPointerException.class, () -> CollectionUtil.checkNonEmpty(null));
     }
 
     @Test

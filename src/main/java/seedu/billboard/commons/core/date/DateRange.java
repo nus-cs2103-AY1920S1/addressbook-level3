@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import seedu.billboard.commons.exceptions.IllegalValueException;
-
 
 /**
  * Represents a immutable {@code DateRange} from {@code startDate} to {@code endDate}.
@@ -23,13 +21,15 @@ public class DateRange {
 
     /**
      * Creates a new date range starting from {@code startDate} to {@code endDate}.
+     *
      * @param startDate The starting date.
-     * @param endDate The ending date.
+     * @param endDate   The ending date.
+     * @throws IllegalArgumentException if the end date is before the start date.
      */
-    public DateRange(LocalDate startDate, LocalDate endDate) throws IllegalValueException {
+    public DateRange(LocalDate startDate, LocalDate endDate) throws IllegalArgumentException {
         requireAllNonNull(startDate, endDate);
         if (endDate.isBefore(startDate)) {
-            throw new IllegalValueException(INVALID_DATES_MESSAGE);
+            throw new IllegalArgumentException(INVALID_DATES_MESSAGE);
         }
 
         this.startDate = startDate;
@@ -37,7 +37,19 @@ public class DateRange {
     }
 
     /**
+     * Creates a date range starting at the given start date, and lasting for as long as the given period.
+     *
+     * @param startDate Given start date.
+     * @param period    Period the date range should last for.
+     * @return the newly created date range.
+     */
+    public static DateRange overPeriod(LocalDate startDate, Period period) {
+        return new DateRange(startDate, startDate.plus(period).minus(Period.ofDays(1)));
+    }
+
+    /**
      * Getter for start date.
+     *
      * @return Start date, as a {@code LocalDate}.
      */
     public LocalDate getStartDate() {
@@ -46,10 +58,20 @@ public class DateRange {
 
     /**
      * Getter for end date.
+     *
      * @return End date, as a {@code LocalDate}.
      */
     public LocalDate getEndDate() {
         return endDate;
+    }
+
+    /**
+     * Checks if the given date lies within this {@code DateRange}
+     * @param date Date to be checked.
+     * @return true if the date lies within the date range, false otherwise.
+     */
+    public boolean contains(LocalDate date) {
+        return !date.isBefore(startDate) && !date.isAfter(endDate);
     }
 
     /**
@@ -62,29 +84,14 @@ public class DateRange {
      *
      * @param interval Specified interval to divide the date range by.
      * @return List of date ranges that span the same duration as the given intervals, from the start date to end date,
-     *         possible exceeding the end date.
+     * possible exceeding the end date.
      */
     public List<DateRange> partitionByInterval(DateInterval interval) {
         LocalDate closestStart = startDate.with(interval.getAdjuster());
 
         return closestStart.datesUntil(endDate, interval.getPeriod())
-                .map(start -> dateRangeOverPeriod(start, interval.getPeriod()))
+                .map(start -> overPeriod(start, interval.getPeriod()))
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * Creates a date range starting at the given start date, and lasting for as long as the given period.
-     * @param startDate Given start date.
-     * @param period Period the date range should last for.
-     * @return the newly created date range.
-     */
-    private DateRange dateRangeOverPeriod(LocalDate startDate, Period period) {
-        try {
-            return new DateRange(startDate, startDate.plus(period).minus(Period.ofDays(1)));
-        } catch (IllegalValueException e) {
-            // should never happen
-            return null;
-        }
     }
 
     @Override

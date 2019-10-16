@@ -12,13 +12,15 @@ public interface Statistics {
 
     /**
      * Generates an expense timeline based on the given list of expenses, with a default date interval of a month.
-     * @param expenses Input expenses.
+     *
+     * @param expenses Input expenses list.
      * @return An expense timeline.
      */
     ExpenseTimeline generateExpenseTimeline(List<Expense> expenses);
 
     /**
      * Generates an expense timeline based on the given list of expenses, and the specified date interval
+     *
      * @param expenses Input expenses.
      * @param interval Specified date interval.
      * @return An expense timeline.

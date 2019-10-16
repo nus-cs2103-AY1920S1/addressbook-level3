@@ -37,11 +37,11 @@ public class DateRangeTest {
 
     @Test
     public void constructor_givenEndDateEarlierThanStartDate_throwsException() {
-        assertThrows(IllegalValueException.class, () -> new DateRange(endDate, startDate));
+        assertThrows(IllegalArgumentException.class, () -> new DateRange(endDate, startDate));
     }
 
     @Test
-    public void partitionByInterval_weeklyInterval_expectedList() throws IllegalValueException {
+    public void partitionByInterval_weeklyInterval_expectedList() {
         DateRange dateRange = new DateRange(startDate, endDate);
         DateInterval weekInterval = DateInterval.WEEK;
 
@@ -63,7 +63,7 @@ public class DateRangeTest {
         }
     }
 
-    @Test void partitionByInterval_monthlyInterval_expectedList() throws IllegalValueException {
+    @Test void partitionByInterval_monthlyInterval_expectedList() {
         LocalDate startDate = LocalDate.of(2018, Month.DECEMBER, 6);
         LocalDate endDate = LocalDate.of(2019, Month.FEBRUARY, 13);
         DateRange range = new DateRange(startDate, endDate);
@@ -91,7 +91,7 @@ public class DateRangeTest {
 
 
     @Test
-    public void partitionByInterval_intervalLargerThanDateRange_listOfSizeOne() throws IllegalValueException {
+    public void partitionByInterval_intervalLargerThanDateRange_listOfSizeOne() {
         DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 1),
                 LocalDate.of(2019, 1, 2));
         DateInterval yearInterval = DateInterval.YEAR;
@@ -105,7 +105,7 @@ public class DateRangeTest {
     }
 
     @Test
-    public void equals() throws IllegalValueException {
+    public void equals() {
         DateRange range1 = new DateRange(startDate, endDate);
         DateRange range2 = new DateRange(startDate, endDate);
 

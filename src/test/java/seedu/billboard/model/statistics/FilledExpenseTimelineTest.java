@@ -6,8 +6,10 @@ import static seedu.billboard.testutil.Assert.assertThrows;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -16,52 +18,62 @@ import org.junit.jupiter.api.Test;
 
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.date.DateRange;
-import seedu.billboard.commons.exceptions.IllegalValueException;
 import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.CreatedDateTime;
+import seedu.billboard.model.expense.Description;
+import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.Name;
 
 
-public class ExpenseTimelineTest {
+public class FilledExpenseTimelineTest {
+
+    private final Function<Amount, Expense> expenseFromAmount =
+        amount -> new Expense(new Name("blank"),
+                new Description(""),
+                amount,
+                new CreatedDateTime("01/01/2019"), new HashSet<>());
 
     @Test
-    public void constructor_numberOfIntervalsAndSizeOfAggregateExpenseListMismatch_throwsException()
-            throws IllegalValueException {
-
+    public void constructor_numberOfIntervalsAndSizeOfAggregateExpenseListMismatch_throwsException() {
         DateRange dateRange = new DateRange(LocalDate.of(2016, 6, 12),
                 LocalDate.of(2017, 6, 21));
         DateInterval interval = DateInterval.MONTH; // 12 months
 
-        List<Amount> amounts = IntStream.range(0, 11)
-                .mapToObj(i -> new Amount(i + ""))
+        List<List<Expense>> aggregateExpenses = IntStream.range(0, 11)
+                .mapToObj(i -> Collections.singletonList(expenseFromAmount.apply(new Amount(i + ".70"))))
                 .collect(Collectors.toList()); // 11 aggregate expenses
 
-        assertThrows(IllegalValueException.class, () -> new ExpenseTimeline(dateRange, interval, amounts));
+        assertThrows(IllegalArgumentException.class, () ->
+                new FilledExpenseTimeline(dateRange, interval, aggregateExpenses));
     }
 
     @Test
-    public void getTimeline_oneInterval_expectedMap() throws IllegalValueException {
+    public void getTimeline_oneInterval_expectedMap() {
         DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 1),
                 LocalDate.of(2019, 1, 6));
 
         DateInterval interval = DateInterval.WEEK;
-        List<Amount> amounts = Collections.singletonList(new Amount("1.50"));
+        List<List<Expense>> aggregateExpense = Collections.singletonList(
+                Collections.singletonList(expenseFromAmount.apply(new Amount("1.50"))));
 
-        Map<DateRange, Amount> actual = new ExpenseTimeline(dateRange, interval, amounts).getTimeline();
+        Map<DateRange, Amount> actual = new FilledExpenseTimeline(dateRange, interval, aggregateExpense).getTimeline();
 
         assertThat(actual,
                 IsMapContaining.hasEntry(dateRange.partitionByInterval(interval).get(0), new Amount("1.50")));
     }
 
     @Test
-    public void getTimeline_manyIntervals_expectedMap() throws IllegalValueException {
+    public void getTimeline_manyIntervals_expectedMap() {
         DateRange dateRange = new DateRange(LocalDate.of(2000, 1, 4),
                 LocalDate.of(2000, 12, 2));
 
         DateInterval interval = DateInterval.MONTH;
-        List<Amount> amounts = IntStream.rangeClosed(1, 12)
-                .mapToObj(i -> new Amount(i + ".20"))
+        List<List<Expense>> aggregateExpenses = IntStream.rangeClosed(1, 12)
+                .mapToObj(i -> Collections.singletonList(expenseFromAmount.apply(new Amount(i + ".20"))))
                 .collect(Collectors.toList());
 
-        Map<DateRange, Amount> actual = new ExpenseTimeline(dateRange, interval, amounts).getTimeline();
+        Map<DateRange, Amount> actual = new FilledExpenseTimeline(dateRange, interval, aggregateExpenses)
+                .getTimeline();
 
         for (int i = 1; i <= 12; i++) {
             DateRange range = new DateRange(LocalDate.of(2000, i, 1),

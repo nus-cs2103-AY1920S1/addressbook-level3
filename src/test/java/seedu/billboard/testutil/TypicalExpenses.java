@@ -36,7 +36,7 @@ public class TypicalExpenses {
     public static final Expense GROCERIES = new ExpenseBuilder().withName("groceries")
             .withDescription("bought from fairprice")
             .withAmount("23.50")
-            .withCreatedDateTime("12/01/2019 1200")
+            .withCreatedDateTime("12/02/2019 1200")
             .build();
     public static final Expense MOVIE = new ExpenseBuilder().withName("movie tickets")
             .withDescription("tickets to joker")
