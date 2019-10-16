@@ -167,6 +167,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Answer showQuizAnswer(int index) {
+        return addressBook.showQuizAnswer(index);
+    }
+
+    @Override
     public boolean checkQuizAnswer(int index, Answer answer) {
         requireNonNull(answer);
 

@@ -175,6 +175,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns an answer for the question in quiz with specific {@code index}.
+     */
+    public Answer showQuizAnswer(int index) {
+        return quiz.showAnswer(index);
+    }
+
+    /**
      * Checks the answer input by user and return a boolean value as the result.
      */
     public boolean checkQuizAnswer(int index, Answer answer) {

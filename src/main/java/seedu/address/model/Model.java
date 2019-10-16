@@ -181,4 +181,9 @@ public interface Model {
     void markTaskAsDone(Task taskDone);
 
     void clearTaskList();
+
+    /**
+     * Returns an answer for question in quiz with specific {@code index}.
+     */
+    Answer showQuizAnswer(int index);
 }
