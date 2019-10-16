@@ -71,6 +71,12 @@ public class RemoveTagCommand extends TagCommand {
         return new CommandResult(String.format(MESSAGE_RM_TAG_SUCCESS, editedExpense));
     }
 
+    /**
+     * Checks and returns a set consisting of tags whose names exist in the set given in argument.
+     * @param set to check names against
+     * @param names of tags to be removed.
+     * @return set consisting of tags whose names exist in set.
+     */
     private Set<Tag> toDelete(Set<Tag> set, List<String> names) {
         Set<Tag> toReturn = new HashSet<Tag>();
         Iterator<Tag> it = set.iterator();
@@ -83,6 +89,12 @@ public class RemoveTagCommand extends TagCommand {
         return toReturn;
     }
 
+    /**
+     * Removes all elements from a set from another set.
+     * @param current set which elements will be removed from.
+     * @param toRemove set whose elements are to be removed.
+     * @return set consisting of remaining elements.
+     */
     private Set<Tag> getRemaining(Set<Tag> current, Set<Tag> toRemove) {
         Set<Tag> toReturn = new HashSet<>(current);
         toReturn.removeAll(toRemove);

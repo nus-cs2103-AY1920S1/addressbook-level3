@@ -97,7 +97,7 @@ public class TagCountManager {
         List<Tag> toReturn = new ArrayList<Tag>();
         Iterator it = count.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
+            Map.Entry pair = (Map.Entry) it.next();
             Integer num = (Integer) pair.getValue();
             if (num == 0) {
                 toReturn.add((Tag) pair.getKey());
