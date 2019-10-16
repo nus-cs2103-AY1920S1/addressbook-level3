@@ -34,7 +34,7 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of engagements */
     ObservableList<Engagement> getFilteredEngagementList();
 
     /** Returns an unmodifiable view of tabs in Typee */

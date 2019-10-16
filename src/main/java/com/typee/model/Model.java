@@ -58,13 +58,13 @@ public interface Model {
 
     /**
      * REDUNDANT.
-     * Returns true if the person is in the address book.
+     * Returns true if the engagement is in the address book.
      */
     boolean hasEngagement(Engagement engagement);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given engagement.
+     * The engagement must exist in the address book.
      */
     void deleteEngagement(Engagement target);
 
@@ -75,17 +75,18 @@ public interface Model {
     void addEngagement(Engagement engagement);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given engagement {@code target} with {@code editedEngagement}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The engagement identity of {@code editedPerson} must not be the same as
+     * another existing engagement in the address book.
      */
     void setEngagement(Engagement target, Engagement editedEngagement);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered engagement list */
     ObservableList<Engagement> getFilteredEngagementList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered engagement list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
 

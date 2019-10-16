@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameEngagement comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
@@ -31,7 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Engagements in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -41,8 +41,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the engagement list with {@code engagements}.
+     * {@code engagements} must not contain duplicate engagements.
      */
     public void setEngagements(List<Engagement> engagements) {
         this.engagements.setEngagements(engagements);
@@ -60,7 +60,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an engagement with the same identity as {@code engagement} exists in the address book.
      */
     public boolean hasEngagement(Engagement engagement) {
         requireNonNull(engagement);
@@ -68,17 +68,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds an engagement to the address book.
+     * The engagement must not already exist in the address book.
      */
     public void addEngagement(Engagement engagement) {
         engagements.add(engagement);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given engagement {@code target} in the list with {@code editedEngagement}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The engagement identity of {@code editedEngagement} must not be the same
+     * as another existing engagement in the address book.
      */
     public void setPerson(Engagement target, Engagement editedEngagement) {
         requireNonNull(editedEngagement);
@@ -98,7 +99,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return engagements.asUnmodifiableObservableList().size() + " persons";
+        return engagements.asUnmodifiableObservableList().size() + " engagements";
         // TODO: refine later
     }
 
