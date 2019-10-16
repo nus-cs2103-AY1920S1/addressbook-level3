@@ -11,10 +11,15 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.savenus.logic.commands.exceptions.CommandException;
+import seedu.savenus.model.Model;
+import seedu.savenus.model.ModelManager;
+
 /**
  * Contains integration tests (interaction with the Model) for {@code SortCommand}.
  */
 public class SortCommandTest {
+    private Model model = new ModelManager();
     private List<String> fields = new ArrayList<String>();
 
     @Test
@@ -35,4 +40,9 @@ public class SortCommandTest {
         assertFalse(command.equals(new SortCommand(null)));
     }
 
+    @Test
+    public void execute_correctReturnType() throws CommandException {
+        SortCommand test = new SortCommand(fields);
+        assertTrue(test.execute(model) instanceof CommandResult);
+    }
 }

@@ -40,6 +40,22 @@ public class CommandHistory {
     }
 
     /**
+     * Used to get the index.
+     * @return Command index.
+     */
+    public int getCurrentCommandIndex() {
+        return currentCommandIndex;
+    }
+
+    /**
+     * Used to get the command history.
+     * @return List of command history.
+     */
+    public List<String> getCommandHistory() {
+        return commandHistory;
+    }
+
+    /**
      * Store valid command.
      * @param command Command to be stored
      */
