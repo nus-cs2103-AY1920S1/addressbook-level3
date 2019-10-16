@@ -1,6 +1,7 @@
 package seedu.savenus.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX;
 import static seedu.savenus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.savenus.logic.commands.CommandTestUtil.CATEGORY_DESC_CHICKEN_RICE;
@@ -20,6 +21,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import javafx.collections.ObservableList;
+import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.logic.commands.AddCommand;
 import seedu.savenus.logic.commands.CommandResult;
 import seedu.savenus.logic.commands.ListCommand;
@@ -34,6 +37,7 @@ import seedu.savenus.storage.JsonMenuStorage;
 import seedu.savenus.storage.JsonUserPrefsStorage;
 import seedu.savenus.storage.StorageManager;
 import seedu.savenus.testutil.FoodBuilder;
+
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -96,6 +100,26 @@ public class LogicManagerTest {
     @Test
     public void getFilteredfoodList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredFoodList().remove(0));
+    }
+
+    @Test
+    public void getMenu_succesfullGet() {
+        assertTrue(logic.getMenu() instanceof ReadOnlyMenu);
+    }
+
+    @Test
+    public void getPurchaseHistory_successfulGet() {
+        assertTrue(logic.getPurchaseHistory() instanceof ObservableList);
+    }
+
+    @Test
+    public void getMenuFilePath_successfulGet() {
+        assertTrue(logic.getMenuFilePath() instanceof Path);
+    }
+
+    @Test
+    public void getGuiSettings_successfulGet() {
+        assertTrue(logic.getGuiSettings() instanceof GuiSettings);
     }
 
     /**
