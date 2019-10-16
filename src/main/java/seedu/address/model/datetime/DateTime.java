@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Visit's datetime in the application.
@@ -17,8 +18,8 @@ public class DateTime {
     public static final String MESSAGE_CONSTRAINTS_BODY = "Date Time should be of the format dd-MM-yyyy HHmm "
             + "and adhere to the following constraints:\n"
             + "1. The values that substitute 'dd', 'MM', 'yyyy', 'HH' and 'mm' must all be numerical numbers.";
-    static final SimpleDateFormat DATE_DISPLAY_FORMATTER = new SimpleDateFormat("dd-MM-yyyy HHmm");
-    static final SimpleDateFormat DATE_PARSER_VALIDATOR = new SimpleDateFormat("dd-MM-yyyy HHmm");
+    static final DateTimeFormatter DATE_DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+    static final DateTimeFormatter DATE_PARSER_VALIDATOR = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     public final LocalDateTime dateTime;
 
@@ -36,10 +37,16 @@ public class DateTime {
     /**
      * Returns the parsed dateTimeTime if a given string is a valid dateTime; else calls checkArgument
      * which will throw an IllegalArgumentException.
-     * @return StartDateTIme
+     * @return LocalDateTime
      */
     public static LocalDateTime parseDateTime(String value) {
-        return LocalDateTime.parse(value, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        try {
+            return LocalDateTime.parse(value, DATE_PARSER_VALIDATOR);
+        } catch (DateTimeParseException e) {
+            // This should not happen as we have already validated the value above
+            checkArgument(isValidDateTime(value), MESSAGE_CONSTRAINTS_BODY);
+            return null;
+        }
     }
 
     /**
@@ -49,7 +56,7 @@ public class DateTime {
         try {
             DATE_PARSER_VALIDATOR.parse(test);
             return true;
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             return false;
         }
     }
