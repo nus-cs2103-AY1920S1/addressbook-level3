@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..."/>
+<StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" prefHeight="25.0" prefWidth="205.0" promptText="How may I help you?">
+      <font>
+         <Font name="Gill Sans MT Italic" size="13.0" />
+      </font></TextField>
+   <Button mnemonicParsing="false" onMouseClicked="#handleCommandEntered" text="Send" StackPane.alignment="CENTER_RIGHT" />
 </StackPane>
-
