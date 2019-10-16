@@ -41,6 +41,7 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
      */
     public UnscheduleActivityCommand(Index activityIndex, Index dayIndex) {
         requireNonNull(activityIndex);
+        requireNonNull(dayIndex);
         this.activityIndexToUnschedule = activityIndex;
         this.dayIndex = dayIndex;
     }
