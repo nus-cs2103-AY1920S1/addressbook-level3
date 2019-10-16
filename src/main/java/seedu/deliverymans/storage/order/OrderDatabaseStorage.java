@@ -1,4 +1,4 @@
-package seedu.deliverymans.storage;
+package seedu.deliverymans.storage.order;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -11,7 +11,7 @@ import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 /**
  * Represents a storage for {@link OrderBook}.
  */
-public interface OrderBookStorage {
+public interface OrderDatabaseStorage {
     /**
      * Returns the file path of the data file.
      */

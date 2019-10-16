@@ -1,4 +1,4 @@
-package seedu.deliverymans.logic.commands.customer;
+package seedu.deliverymans.logic.commands.universal;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_CUSTOMER;
@@ -15,10 +15,8 @@ import seedu.deliverymans.model.order.Order;
 /**
  * Order command
  */
-public class OrderCommand extends Command {
+public class AddOrderCommand extends Command {
     public static final String COMMAND_WORD = "order";
-
-    public static final String MESSAGE_ADD_SUCCESS = "Added order: %1$s";
 
     public static final String MESSAGE_ADD_ORDER_USAGE = COMMAND_WORD
             + ": Adds an order to the manager. "
@@ -32,23 +30,29 @@ public class OrderCommand extends Command {
             + PREFIX_RESTAURANT + "KFC "
             + PREFIX_DELIVERYMAN + "Deliveryman #1337";
 
+    public static final String MESSAGE_SUCCESS = "New order added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This order already exists";
+
     private final Order toAdd;
 
-    public OrderCommand(Order toAdd) {
+    public AddOrderCommand(Order toAdd) {
         requireNonNull(toAdd);
         this.toAdd = toAdd;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (model.hasOrder(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
         model.addOrder(toAdd);
-        return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof OrderCommand // instanceof handles nulls
-                && toAdd.equals(((OrderCommand) other).toAdd));
+                || (other instanceof AddOrderCommand // instanceof handles nulls
+                && toAdd.equals(((AddOrderCommand) other).toAdd));
     }
 }

@@ -32,9 +32,8 @@ import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.util.SampleDataUtil;
 import seedu.deliverymans.storage.AddressBookStorage;
 import seedu.deliverymans.storage.JsonAddressBookStorage;
-import seedu.deliverymans.storage.JsonOrderBookStorage;
+import seedu.deliverymans.storage.JsonOrderDatabaseStorage;
 import seedu.deliverymans.storage.JsonUserPrefsStorage;
-import seedu.deliverymans.storage.OrderBookStorage;
 import seedu.deliverymans.storage.Storage;
 import seedu.deliverymans.storage.StorageManager;
 import seedu.deliverymans.storage.UserPrefsStorage;
@@ -42,6 +41,7 @@ import seedu.deliverymans.storage.customer.CustomerDatabaseStorage;
 import seedu.deliverymans.storage.customer.JsonCustomerDatabaseStorage;
 import seedu.deliverymans.storage.deliveryman.DeliverymenDatabaseStorage;
 import seedu.deliverymans.storage.deliveryman.JsonDeliverymenDatabaseStorage;
+import seedu.deliverymans.storage.order.OrderDatabaseStorage;
 import seedu.deliverymans.storage.restaurant.JsonRestaurantDatabaseStorage;
 import seedu.deliverymans.storage.restaurant.RestaurantDatabaseStorage;
 import seedu.deliverymans.ui.Ui;
@@ -81,11 +81,12 @@ public class MainApp extends Application {
                 new JsonRestaurantDatabaseStorage(userPrefs.getRestaurantDatabaseFilePath());
         OrderBookStorage orderBookStorage =
                 new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
+        OrderDatabaseStorage orderDatabaseStorage = new JsonOrderDatabaseStorage(userPrefs.getOrderBookFilePath());
         DeliverymenDatabaseStorage deliverymenDatabaseStorage =
                 new JsonDeliverymenDatabaseStorage(userPrefs.getDeliverymenDatabaseFilePath());
 
         storage = new StorageManager(addressBookStorage, customerDatabaseStorage, deliverymenDatabaseStorage,
-                restaurantDatabaseStorage, orderBookStorage, userPrefsStorage);
+                restaurantDatabaseStorage, orderDatabaseStorage, userPrefsStorage);
 
         initLogging(config);
 

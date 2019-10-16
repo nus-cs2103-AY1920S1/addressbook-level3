@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.food.Food;
 
 /**
@@ -22,15 +21,15 @@ public class Order {
     private final String customer;
     private final String restaurant;
     private final String deliveryman;
-    private final Set<Food> foods = new HashSet<>(); //implement food class
+    private boolean isCompleted;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Food> foods = new HashSet<>();
 
     /**
      * Constructs a {@code Order}
      *
-     * @param customer The customer who made the order.
+     * @param customer   The customer who made the order.
      * @param restaurant The restaurant...
      */
     public Order(String orderName, String customer, String restaurant, String deliveryman) {
@@ -46,6 +45,14 @@ public class Order {
         foods.add(food);
     }
 
+    public void addFood(Set<Food> foods) {
+        this.foods.addAll(foods);
+    }
+
+    public String getOrderName() {
+        return orderName;
+    }
+
     public String getCustomer() {
         return customer;
     }
@@ -54,13 +61,11 @@ public class Order {
         return deliveryman;
     }
 
-    public String getFood() {
-        StringBuilder sb = new StringBuilder();
-        foods.forEach(sb::append);
-        return sb.toString();
-    }
-
-    public Set<Food> getFoods() {
+    /**
+     * Returns an immutable food set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Food> getFood() {
         return Collections.unmodifiableSet(foods);
     }
 
@@ -69,7 +74,11 @@ public class Order {
     }
 
     public boolean isCompleted() {
-        return false;
+        return isCompleted;
+    }
+
+    public void completeOrder() {
+        isCompleted = true;
     }
 
     /**
@@ -77,14 +86,6 @@ public class Order {
      */
     public static boolean isValidOrderName(String test) {
         return test.matches(VALIDATION_REGEX);
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
     }
 
     /**
@@ -139,9 +140,8 @@ public class Order {
                 .append(getRestaurant())
                 .append(" Deliveryman: ")
                 .append(getDeliveryman())
-                .append(" Food: ")
-                .append(getFood());
-        getTags().forEach(builder::append);
+                .append(" Food: ");
+        getFood().forEach(builder::append);
         return builder.toString();
     }
 }
