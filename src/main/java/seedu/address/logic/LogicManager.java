@@ -13,13 +13,17 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.CardBookParser;
 import seedu.address.logic.parser.FileBookParser;
+import seedu.address.logic.parser.NoteBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CardBook;
 import seedu.address.model.Model;
+import seedu.address.model.NoteBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.ReadOnlyNoteBook;
+import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -35,6 +39,7 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
     private final FileBookParser fileBookParser;
     private final CardBookParser cardBookParser;
+    private final NoteBookParser noteBookParser;
 
     private String mode;
 
@@ -45,12 +50,16 @@ public class LogicManager implements Logic {
         fileBookParser = new FileBookParser(storage.getStoragePassword());
         cardBookParser = new CardBookParser();
         mode = "home";
+        noteBookParser = new NoteBookParser();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+//        CommandResult commandResult;
+//        Command command = addressBookParser.parseCommand(commandText);
+//        commandResult = command.execute(model);
         CommandResult commandResult;
         Command command;
         switch (mode) {
@@ -59,6 +68,9 @@ public class LogicManager implements Logic {
             break;
         case "card":
             command = cardBookParser.parseCommand(commandText);
+            break;
+        case "note":
+            command = noteBookParser.parseCommand(commandText);
             break;
         default:
             command = addressBookParser.parseCommand(commandText);
@@ -74,6 +86,9 @@ public class LogicManager implements Logic {
                 break;
             case "card":
                 // storage.saveCardBook(model.getCardBook());
+                break;
+            case "note":
+                storage.saveNoteBook(model.getNoteBook());
                 break;
             default:
                 storage.saveAddressBook(model.getAddressBook());
@@ -92,6 +107,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyNoteBook getNoteBook() {
+        return model.getNoteBook();
+    }
+
+    @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }
@@ -104,6 +124,12 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<EncryptedFile> getFilteredFileList() {
         return model.getFilteredFileList();
+    }
+
+    @Override
+    public ObservableList<Note> getFilteredNoteList() {
+        return model.getFilteredNoteList();
+
     }
 
     @Override
@@ -126,6 +152,9 @@ public class LogicManager implements Logic {
         return model.getCardBookFilePath();
     }
 
+    public Path getNoteBookFilePath() {
+        return model.getNoteBookFilePath();
+    }
     @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();

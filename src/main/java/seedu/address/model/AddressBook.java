@@ -5,8 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.UniqueNoteList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+
+import seedu.address.model.note.UniqueNoteList;
+
 
 /**
  * Wraps all data at the address-book level
@@ -70,7 +75,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson (Person p) {
         persons.add(p);
     }
 
@@ -94,13 +99,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// util methods
-
-    @Override
-    public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
-    }
-
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
@@ -112,9 +110,11 @@ public class AddressBook implements ReadOnlyAddressBook {
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons));
     }
-
     @Override
     public int hashCode() {
         return persons.hashCode();
     }
+
 }
+
+

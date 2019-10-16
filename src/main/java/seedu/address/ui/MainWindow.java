@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,6 +17,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.note.Note;
+import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private FileListPanel fileListPanel;
     private CardListPanel cardListPanel;
+    private NoteListPanel noteListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -48,6 +52,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane cardListPanelPlaceholder;
+
+    @FXML
+    private StackPane noteListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -113,10 +120,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         fillInnerPartsWithMode();
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
+        //ADD MODE LOGIC
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -136,6 +142,10 @@ public class MainWindow extends UiPart<Stage> {
         case "card":
             cardListPanel = new CardListPanel(logic.getFilteredCardList());
             cardListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
+            break;
+        case "note":
+            noteListPanel = new NoteListPanel(logic.getFilteredNoteList());
+            noteListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
             break;
         default:
             personListPanel = new PersonListPanel(logic.getFilteredPersonList());
@@ -195,6 +205,9 @@ public class MainWindow extends UiPart<Stage> {
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
+    public NoteListPanel getNoteListPanel() {
+        return noteListPanel;
+    }
 
     /**
      * Executes the command and returns the result.
@@ -210,11 +223,9 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
-
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             if (commandResult.isGoTo()) {
                 switch (commandResult.getModeToGoTo()) {
                 case "password":
