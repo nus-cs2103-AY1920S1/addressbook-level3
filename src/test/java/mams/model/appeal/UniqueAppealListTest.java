@@ -1,15 +1,16 @@
 package mams.model.appeal;
 
-import mams.model.appeal.exceptions.AppealNotFoundException;
-import mams.model.appeal.exceptions.DuplicateAppealException;
-import mams.testutil.Assert;
-import mams.testutil.TypicalAppeals;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import mams.model.appeal.exceptions.AppealNotFoundException;
+import mams.model.appeal.exceptions.DuplicateAppealException;
+
+import mams.testutil.Assert;
+import mams.testutil.TypicalAppeals;
+
+import org.junit.jupiter.api.Test;
 
 public class UniqueAppealListTest {
 
