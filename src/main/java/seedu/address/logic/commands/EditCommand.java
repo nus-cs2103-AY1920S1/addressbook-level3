@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_SPENDINGS;
 
@@ -20,9 +20,9 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.spending.Address;
+import seedu.address.model.spending.Date;
 import seedu.address.model.spending.Email;
 import seedu.address.model.spending.Name;
-import seedu.address.model.spending.Phone;
 import seedu.address.model.spending.Spending;
 import seedu.address.model.tag.Tag;
 
@@ -38,12 +38,12 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
+            + PREFIX_DATE + "today "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_SPENDING_SUCCESS = "Edited Spending: %1$s";
@@ -95,12 +95,12 @@ public class EditCommand extends Command {
         assert spendingToEdit != null;
 
         Name updatedName = editSpendingDescriptor.getName().orElse(spendingToEdit.getName());
-        Phone updatedPhone = editSpendingDescriptor.getPhone().orElse(spendingToEdit.getPhone());
+        Date updatedDate = editSpendingDescriptor.getDate().orElse(spendingToEdit.getDate());
         Email updatedEmail = editSpendingDescriptor.getEmail().orElse(spendingToEdit.getEmail());
         Address updatedAddress = editSpendingDescriptor.getAddress().orElse(spendingToEdit.getAddress());
         Set<Tag> updatedTags = editSpendingDescriptor.getTags().orElse(spendingToEdit.getTags());
 
-        return new Spending(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Spending(updatedName, updatedDate, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class EditCommand extends Command {
      */
     public static class EditSpendingDescriptor {
         private Name name;
-        private Phone phone;
+        private Date date;
         private Email email;
         private Address address;
         private Set<Tag> tags;
@@ -140,7 +140,7 @@ public class EditCommand extends Command {
          */
         public EditSpendingDescriptor(EditSpendingDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
+            setDate(toCopy.date);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
@@ -150,7 +150,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, date, email, address, tags);
         }
 
         public void setName(Name name) {
@@ -161,12 +161,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setDate(Date date) {
+            this.date = date;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
         }
 
         public void setEmail(Email email) {
@@ -218,7 +218,7 @@ public class EditCommand extends Command {
             EditSpendingDescriptor e = (EditSpendingDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
+                    && getDate().equals(e.getDate())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());

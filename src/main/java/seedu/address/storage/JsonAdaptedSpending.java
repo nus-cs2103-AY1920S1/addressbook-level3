@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.spending.Address;
+import seedu.address.model.spending.Date;
 import seedu.address.model.spending.Email;
 import seedu.address.model.spending.Name;
-import seedu.address.model.spending.Phone;
 import seedu.address.model.spending.Spending;
 import seedu.address.model.tag.Tag;
 
@@ -25,7 +25,7 @@ class JsonAdaptedSpending {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Spending's %s field is missing!";
 
     private final String name;
-    private final String phone;
+    private final String date;
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -34,11 +34,11 @@ class JsonAdaptedSpending {
      * Constructs a {@code JsonAdaptedSpending} with the given Spending details.
      */
     @JsonCreator
-    public JsonAdaptedSpending(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedSpending(@JsonProperty("name") String name, @JsonProperty("date") String date,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
+        this.date = date;
         this.email = email;
         this.address = address;
         if (tagged != null) {
@@ -51,7 +51,7 @@ class JsonAdaptedSpending {
      */
     public JsonAdaptedSpending(Spending source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
+        date = source.getDate().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
@@ -78,13 +78,13 @@ class JsonAdaptedSpending {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Date.isValidDate(date)) {
+            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Date modelDate = new Date(date);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
@@ -103,7 +103,7 @@ class JsonAdaptedSpending {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(spendingTags);
-        return new Spending(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Spending(modelName, modelDate, modelEmail, modelAddress, modelTags);
     }
 
 }

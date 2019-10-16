@@ -2,9 +2,9 @@ package seedu.address.model.spending;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalSpendings.ALICE;
@@ -30,25 +30,25 @@ public class SpendingTest {
         // null -> returns false
         assertFalse(ALICE.isSameSpending(null));
 
-        // different phone and email -> returns false
-        Spending editedAlice = new SpendingBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        // different date and email -> returns false
+        Spending editedAlice = new SpendingBuilder(ALICE).withDate(VALID_DATE_BOB).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameSpending(editedAlice));
 
         // different name -> returns false
         editedAlice = new SpendingBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameSpending(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
+        // same name, same date, different attributes -> returns true
         editedAlice = new SpendingBuilder(ALICE).withEmail(VALID_EMAIL_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameSpending(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new SpendingBuilder(ALICE).withPhone(VALID_PHONE_BOB)
+        editedAlice = new SpendingBuilder(ALICE).withDate(VALID_DATE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameSpending(editedAlice));
 
-        // same name, same phone, same email, different attributes -> returns true
+        // same name, same date, same email, different attributes -> returns true
         editedAlice = new SpendingBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameSpending(editedAlice));
     }
@@ -75,8 +75,8 @@ public class SpendingTest {
         Spending editedAlice = new SpendingBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
-        editedAlice = new SpendingBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // different date -> returns false
+        editedAlice = new SpendingBuilder(ALICE).withDate(VALID_DATE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different email -> returns false
