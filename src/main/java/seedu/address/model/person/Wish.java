@@ -10,20 +10,15 @@ import seedu.address.model.tag.Tag;
 public class Wish extends Entry {
 
     private static final String ENTRY_TYPE = "Wish";
-    private final Time time;
 
     public Wish(Description desc, Time time, Amount amount, Set<Tag> tags) {
-        super(desc, amount, tags);
-        this.time = time;
+        super(desc, time, amount, tags);
     }
 
     public String getType() {
         return this.ENTRY_TYPE;
     }
 
-    public Time getTime() {
-        return this.time;
-    }
 
     /**
      * Returns true if both expenses have the same data fields.
@@ -57,7 +52,7 @@ public class Wish extends Entry {
                 .append(getAmount())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append("(" + time + ")");
+        builder.append("(" + getTime() + ")");
         return builder.toString();
     }
 

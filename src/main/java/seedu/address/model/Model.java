@@ -9,6 +9,7 @@ import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
+import seedu.address.model.person.SortType;
 
 /**
  * The API of the Model component.
@@ -132,4 +133,7 @@ public interface Model {
     void updateFilteredIncomes(Predicate<Income> predicate);
 
     void updateFilteredWishes(Predicate<Wish> predicate);
+
+    void sortFilteredEntry(SortType Comparator);
+
 }

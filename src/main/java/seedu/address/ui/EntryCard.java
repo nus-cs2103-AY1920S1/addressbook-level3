@@ -46,15 +46,7 @@ public class EntryCard extends UiPart<Region> {
         this.entry = entry;
         id.setText(displayedIndex + ". ");
         desc.setText(entry.getDesc().fullDesc);
-        String type = entry.getType().toLowerCase();
-        if (type.equals("expense")) {
-            entry = (Expense) entry;
-        } else if (type.equals("income")) {
-            entry = (Income) entry;
-        } else {
-
-        }
-        time.setText("13:00");
+        time.setText((entry).getTime().fullTime);
         amt.setText(Double.toString(entry.getAmount().value));
 
         entry.getTags().stream()

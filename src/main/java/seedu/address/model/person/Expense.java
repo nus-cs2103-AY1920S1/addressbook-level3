@@ -9,20 +9,14 @@ import seedu.address.model.tag.Tag;
  */
 public class Expense extends Entry {
 
-    private static final String ENTRY_TYPE = "Expense";
-    private final Time time;
+    private static final String ENTRYTYPE = "Expense";
 
     public Expense(Description desc, Time time, Amount amount, Set<Tag> tags) {
-        super(desc, amount, tags);
-        this.time = time;
+        super(desc,time,amount,tags);
     }
 
     public String getType() {
-        return this.ENTRY_TYPE;
-    }
-
-    public Time getTime() {
-        return this.time;
+        return this.ENTRYTYPE;
     }
 
     /**
@@ -51,13 +45,13 @@ public class Expense extends Entry {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(ENTRY_TYPE + ": ")
+        builder.append(ENTRYTYPE + ": ")
                 .append(getDesc())
                 .append(" Amount: ")
                 .append(getAmount())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append("(" + time + ")");
+        builder.append("(" + this.getTime() + ")");
         return builder.toString();
     }
 

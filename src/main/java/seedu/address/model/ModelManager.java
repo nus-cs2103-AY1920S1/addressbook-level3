@@ -9,26 +9,29 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
-
+import seedu.address.model.person.SortType;
+import seedu.address.model.util.EntryComparator;
 
 /**
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
+    private final SortType sortByDescription = new SortType("description");
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Entry> filteredEntries;
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Income> filteredIncomes;
     private final FilteredList<Wish> filteredWishes;
+    private final SortedList<Entry> sortedEntryList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -41,10 +44,12 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredEntries = new FilteredList<>(this.addressBook.getEntryList());
         filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
         filteredIncomes = new FilteredList<>(this.addressBook.getIncomeList());
         filteredWishes = new FilteredList<>(this.addressBook.getWishList());
+        sortedEntryList = new SortedList<>(this.addressBook.getEntryList());
+        sortedEntryList.setComparator(new EntryComparator(sortByDescription));
+        filteredEntries = new FilteredList<>(sortedEntryList);
     }
 
     public ModelManager() {
@@ -144,24 +149,28 @@ public class ModelManager implements Model {
         } else if (entry instanceof Wish) {
             addressBook.addWish((Wish) entry);
         }
+        sortFilteredEntry(sortByDescription);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
     public void addExpense(Expense expense) {
         addressBook.addExpense(expense);
+        sortFilteredEntry(sortByDescription);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
     public void addIncome(Income income) {
         addressBook.addIncome(income);
+        sortFilteredEntry(sortByDescription);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
     public void addWish(Wish wish) {
         addressBook.addWish(wish);
+        sortFilteredEntry(sortByDescription);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
@@ -208,6 +217,11 @@ public class ModelManager implements Model {
     public void updateFilteredEntryList(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredEntries.setPredicate(predicate);
+    }
+
+    @Override
+    public void sortFilteredEntry(SortType c) {
+        sortedEntryList.setComparator(new EntryComparator(c));
     }
 
     @Override
