@@ -30,7 +30,6 @@ public class GenReportCommandTest {
 
     @Test
     public void execute_validBodyId_success() {
-        model.addEntity(ALICE);
         List<Body> bodyList = model.getFilteredBodyList();
         for (Body body : bodyList) {
             if (body.getIdNum().equals(FIRST_BODY_ID_NUM)) {
