@@ -209,17 +209,29 @@ public class Item {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Description: ")
-                .append(itemDescription.toString())
-                .append(" Task: ")
-                .append(getTask().toString())
-                .append(" Event: ")
-                .append(getEvent().toString())
-                .append(" Reminder: ")
-                .append(getReminder().toString())
-                .append(" Tags: ")
-                .append(getTags().toString());
-        //getTags().forEach(builder::append);
+        builder.append("\nDescription: ")
+                .append(itemDescription.toString());
+
+        if (getTask().isPresent()) {
+            builder.append("\n\nTask Details: ")
+                    .append(getTask().get().toString());
+        }
+
+        if (getEvent().isPresent()) {
+            builder.append("\n\nEvent Details: ")
+                    .append(getEvent().get().toString());
+        }
+
+        if (getReminder().isPresent()) {
+            builder.append("\n\nReminder Details: ")
+                    .append(getReminder().get().toString());
+        }
+
+        if (tags.size() > 0) {
+            builder.append("\nTags: ");
+            getTags().forEach(builder::append);
+        }
+
         return builder.toString();
     }
 
