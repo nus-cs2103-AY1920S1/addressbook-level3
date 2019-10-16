@@ -11,12 +11,6 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-
-import seedu.address.logic.commands.SwitchCustomerPanelCommand;
-import seedu.address.logic.commands.SwitchOrderPanelCommand;
-import seedu.address.logic.commands.SwitchPhonePanelCommand;
-import seedu.address.logic.commands.SwitchSchedulePanelCommand;
-
 import seedu.address.logic.commands.addcommand.AddCustomerCommand;
 import seedu.address.logic.commands.addcommand.AddOrderCommand;
 import seedu.address.logic.commands.addcommand.AddPhoneCommand;
@@ -31,8 +25,11 @@ import seedu.address.logic.commands.editcommand.EditPhoneCommand;
 import seedu.address.logic.commands.editcommand.EditScheduleCommand;
 import seedu.address.logic.commands.findcommand.FindCommand;
 import seedu.address.logic.commands.listcommand.ListCommand;
-
 import seedu.address.logic.commands.statisticcommand.StatsCommand;
+import seedu.address.logic.commands.switchcommand.SwitchCustomerPanelCommand;
+import seedu.address.logic.commands.switchcommand.SwitchOrderPanelCommand;
+import seedu.address.logic.commands.switchcommand.SwitchPhonePanelCommand;
+import seedu.address.logic.commands.switchcommand.SwitchSchedulePanelCommand;
 
 import seedu.address.logic.parser.addcommandparser.AddCustomerCommandParser;
 import seedu.address.logic.parser.addcommandparser.AddOrderCommandParser;
