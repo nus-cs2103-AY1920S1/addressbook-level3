@@ -45,6 +45,12 @@ public class ReportWindow extends UiPart<Stage> {
     @FXML
     private TextFlow averageCalorie;
 
+    @FXML
+    private TextFlow countCalorieExceeded;
+
+    @FXML
+    private TextFlow mostConsumedMeal;
+
     public ReportWindow(Stage root, Statistics statistics) {
         super(FXML, root);
 
@@ -66,58 +72,51 @@ public class ReportWindow extends UiPart<Stage> {
         averageCalorie.setBackground(forNumericalStatistics);
         averageCalorie.setTextAlignment(TextAlignment.CENTER);
 
-        if (statistics == null) {
-            this.maximum = 0;
-            this.minimum = 0;
-            this.average = 0.0;
+        Background forFoodStatistics = new Background(
+                new BackgroundFill(Color.DEEPSKYBLUE, CornerRadii.EMPTY, Insets.EMPTY));
+        countCalorieExceeded.setBackground(forFoodStatistics);
+        countCalorieExceeded.setTextAlignment(TextAlignment.CENTER);
+        mostConsumedMeal.setBackground(forFoodStatistics);
+        mostConsumedMeal.setTextAlignment(TextAlignment.CENTER);
 
-            Text maximum = new Text("Maximum");
-            maximum.setStyle("-fx-font-weight: bold");
-            maximum.setFont(new Font(100));
-            Text valueOfMaximum = new Text(String.valueOf(statistics.getMaximum()));
-            maximumCalorie.getChildren().addAll(maximum,
-                    new Text(" calorie intake of the month is: \n"), valueOfMaximum);
+        this.maximum = statistics.getMaximum();
+        this.minimum = statistics.getMinimum();
+        this.average = statistics.getAverage();
 
-            Text minimum = new Text("Minimum");
-            minimum.setStyle("-fx-font-weight: bold");
-            minimum.setFont(new Font(100));
-            Text valueOfMinimum = new Text(String.valueOf(statistics.getMinimum()));
-            minimumCalorie.getChildren().addAll(minimum,
-                    new Text(" calorie intake of the month is: \n"), valueOfMinimum);
+        Text maximum = new Text("Maximum\n");
+        maximum.setStyle("-fx-font-weight: bold; -fx-font-size: 35px");
+        Text valueOfMaximum = new Text(String.valueOf(statistics.getMaximum()));
+        valueOfMaximum.setStyle("-fx-font-size: 40px");
+        maximumCalorie.getChildren().addAll(maximum,
+                new Text(" calorie intake of the month is: \n"), valueOfMaximum);
 
-            Text average = new Text("Average");
-            average.setStyle("-fx-font-weight: bold");
-            average.setFont(new Font(100));
-            Text valueOfAverage = new Text(String.valueOf(statistics.getAverage()));
-            averageCalorie.getChildren().addAll(average,
-                    new Text(" calorie intake of the month is: \n"), valueOfAverage);
-        } else {
-            this.maximum = statistics.getMaximum();
-            this.minimum = statistics.getMinimum();
-            this.average = statistics.getAverage();
+        Text minimum = new Text("Minimum\n");
+        minimum.setStyle("-fx-font-weight: bold; -fx-font-size: 35px");
+        Text valueOfMinimum = new Text(String.valueOf(statistics.getMinimum()));
+        valueOfMinimum.setStyle("-fx-font-size: 40px");
+        minimumCalorie.getChildren().addAll(minimum,
+                new Text(" calorie intake of the month is: \n"), valueOfMinimum);
 
-            Text maximum = new Text("Maximum\n");
-            maximum.setStyle("-fx-font-weight: bold; -fx-font-size: 35px");
-            Text valueOfMaximum = new Text(String.valueOf(statistics.getMaximum()));
-            valueOfMaximum.setStyle("-fx-font-size: 40px");
-            maximumCalorie.getChildren().addAll(maximum,
-                    new Text(" calorie intake of the month is: \n"), valueOfMaximum);
+        Text average = new Text("Average\n");
+        average.setStyle("-fx-font-weight: bold; -fx-font-size: 35px");
+        Text valueOfAverage = new Text(String.valueOf(statistics.getAverage()));
+        valueOfAverage.setStyle("-fx-font-size: 40px");
+        averageCalorie.getChildren().addAll(average,
+                new Text(" calorie intake of the month is: \n"), valueOfAverage);
 
-            Text minimum = new Text("Minimum\n");
-            minimum.setStyle("-fx-font-weight: bold; -fx-font-size: 35px");
-            Text valueOfMinimum = new Text(String.valueOf(statistics.getMinimum()));
-            valueOfMinimum.setStyle("-fx-font-size: 40px");
-            minimumCalorie.getChildren().addAll(minimum,
-                    new Text(" calorie intake of the month is: \n"), valueOfMinimum);
+        Text calorieCountExceededHeader = new Text("Number of days calorie count exceeded budget: \n");
+        calorieCountExceededHeader.setStyle("-fx-font-size: 20px");
+        Text calorieCountExceededValue = new Text(String.valueOf(statistics.getCalorieExceedCount()));
+        calorieCountExceededValue.setStyle("-fx-font-size: 40px");
+        countCalorieExceeded.getChildren().addAll(calorieCountExceededHeader, calorieCountExceededValue);
 
-            Text average = new Text("Average\n");
-            average.setStyle("-fx-font-weight: bold; -fx-font-size: 35px");
-            Text valueOfAverage = new Text(String.valueOf(statistics.getAverage()));
-            valueOfAverage.setStyle("-fx-font-size: 40px");
-            averageCalorie.getChildren().addAll(average,
-                    new Text(" calorie intake of the month is: \n"), valueOfAverage);
-        }
+        Text mostConsumedFoodHeader = new Text("Most consumed food of the month is: \n");
+        mostConsumedFoodHeader.setStyle("-fx-font-size: 20px");
+        Text mostConsumedFoodValue = new Text(statistics.getMostConsumedMeal().getDish().getName().toString());
+        mostConsumedFoodValue.setStyle("-fx-font-size: 40px");
+        mostConsumedMeal.getChildren().addAll(mostConsumedFoodHeader, mostConsumedFoodValue);
     }
+
 
     public ReportWindow(Statistics statistics) {
         this(new Stage(), statistics);
