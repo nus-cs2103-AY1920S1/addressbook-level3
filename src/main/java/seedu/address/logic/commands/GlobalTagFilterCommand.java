@@ -3,11 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.GLOBAL_TAG_FILTER;
 
+import java.util.ArrayList;
+
 import seedu.address.model.Model;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.StudyBuddyItemContainsTagPredicate;
-
-import java.util.ArrayList;
 
 /**
  * Globally searches for any StudyBuddyItem that has tags which matches the user input of keywords.
