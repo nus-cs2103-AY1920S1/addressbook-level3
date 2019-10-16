@@ -14,12 +14,17 @@ public class Appeal {
             "Appeals should start with 'C' followed by a 6 digit number";
 
     public static final String MESSAGE_CONSTRAINTS_APPEAL_TYPE =
-            "Appeal type should be either add module, remove module or increase workload";
+            "Appeal type should be either add module, drop module or increase workload";
 
     /**
      * "C" followed by strictly 6 digits.
      */
     public static final String VALIDATION_REGEX_APPEAL_CODE = "C\\d{6}$";
+
+    /**
+     * "AY" followed by strictly 4 digits
+     */
+    public static final String VALIDATION_REGEX_ACADEMIC_YEAR = "AY\\d{4}";
 
     /**
      * "AY" followed by 4 digit year
@@ -306,8 +311,11 @@ public class Appeal {
     public static boolean isValidAppealType(String test) {
         return test.equalsIgnoreCase("increase workload")
                 || test.equalsIgnoreCase("add module")
-                || test.equalsIgnoreCase("remove module");
+                || test.equalsIgnoreCase("drop module");
     }
 
+    public static boolean isValidAcademicYear(String test) {
+        return test.matches(VALIDATION_REGEX_ACADEMIC_YEAR);
+    }
 
 }

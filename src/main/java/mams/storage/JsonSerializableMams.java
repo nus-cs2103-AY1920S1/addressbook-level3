@@ -24,6 +24,7 @@ class JsonSerializableMams {
 
     public static final String MESSAGE_DUPLICATE_STUDENT = "Students list contains duplicate student(s).";
     public static final String MESSAGE_DUPLICATE_MODULE = "Modules list contains duplicate module(s).";
+    public static final String MESSAGE_DUPLICATE_APPEALS = "Appeals list contains duplicate appeal(s)";
 
     private final List<JsonAdaptedStudent> students = new ArrayList<>();
 
@@ -52,6 +53,7 @@ class JsonSerializableMams {
     public JsonSerializableMams(ReadOnlyMams source) {
         students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
         modules.addAll(source.getModuleList().stream().map(JsonAdaptedModule::new).collect(Collectors.toList()));
+//        appeals.addAll(source.getAppealList().stream().map(JsonAdaptedAppeal::new)).collect(Collectors.toList());
     }
 
     /**

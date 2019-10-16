@@ -1,5 +1,19 @@
 {
-  "students" : [
+  "students": [
+    {
+      "name": "Paul",
+      "credits": "20",
+      "prevMods": "CS2202, CS5505",
+      "matricId": "A00192034Z",
+      "tagged": ["C123456", "C002923"]
+    },
+    {
+      "name": "Alex",
+      "credits": "20",
+      "prevMods": "CS2202, CS1111",
+      "matricId": "A220193040F",
+      "tagged": ["C123456", "C002923"]
+    }
   ],
   "modules" : [ {
     "code" : "CS1010",
@@ -244,7 +258,7 @@
     {
       "appealId": "C000006",
       "appealType": "Add module",
-      "academicYear": "AY",
+      "academicYear": "AY2019",
       "studentId": "A0180006",
       "studentWorkload": 20,
       "previousModule": "",
