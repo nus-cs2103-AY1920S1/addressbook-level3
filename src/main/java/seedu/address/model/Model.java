@@ -92,4 +92,6 @@ public interface Model {
      * Add training.
      */
     void addTraining(Training training);
+
+    Attendance getAttendance();
 }

@@ -31,6 +31,7 @@ public class Attendance {
     public List<Training> getTrainings() {
         return trainings;
     }
+
     /**
      * Returns the attendance rate of a given person name
      */
