@@ -1,9 +1,11 @@
 package seedu.address.storage;
 
+
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -53,15 +55,15 @@ public class JsonProjectListStorage implements ProjectListStorage {
 
         try {
             return Optional.of(jsonProjectList.get().toModelType());
-        } catch (IllegalValueException ive) {
+        } catch (IllegalValueException | ParseException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }
     }
 
     @Override
-    public void saveProjectList(ReadOnlyProjectList ProjectList) throws IOException {
-        saveProjectList(ProjectList, filePath);
+    public void saveProjectList(ReadOnlyProjectList projectList) throws IOException {
+        saveProjectList(projectList, filePath);
     }
 
     /**

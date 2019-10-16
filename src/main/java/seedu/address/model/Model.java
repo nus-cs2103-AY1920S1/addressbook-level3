@@ -1,13 +1,13 @@
 package seedu.address.model;
 
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.function.Predicate;
-
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Project;
+
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * The API of the Model component.
@@ -108,12 +108,12 @@ public interface Model {
     /**
      * Sets the user prefs' project list file path.
      */
-    void setProjectListFilePath(Path ProjectListFilePath);
+    void setProjectListFilePath(Path projectListFilePath);
 
     /**
      * Replaces project list data with the data in {@code ProjectList}.
      */
-    void setProjectList(ReadOnlyProjectList ProjectList);
+    void setProjectList(ReadOnlyProjectList projectList);
 
     /** Returns the ProjectList */
     ReadOnlyProjectList getProjectList();
@@ -121,25 +121,33 @@ public interface Model {
     /**
      * Returns true if a Project with the same identity as {@code Project} exists in the address book.
      */
-    boolean hasProject(Project Project);
+    boolean hasProject(Project project);
 
     /**
      * Deletes the given Project.
      * The Project must exist in the address book.
      */
     void deleteProject(Project target);
-    
+
     /**
      * Adds the given project.
      */
     void addProject(Project project);
-    
+
     /**
      * Replaces the given project {@code target} with {@code editedProject}.
      * {@code target} must exist in the project list.
      * The project identity of {@code editedProject} must not be the same as another existing Project in the project list.
      */
     void setProject(Project target, Project editedProject);
+
+    /**
+     * Deletes a given member from every project involved.
+     * The member must exist in at least one project.
+     */
+    void deleteMember(String name);
+
+    //=========== Filtered Project List Accessors =============================================================
 
     /** Returns an unmodifiable view of the filtered project list */
     ObservableList<Project> getFilteredProjectList();
@@ -149,6 +157,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredProjectList(Predicate<Project> predicate);
-    
-    
 }

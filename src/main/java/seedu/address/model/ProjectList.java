@@ -1,12 +1,12 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-
 import javafx.collections.ObservableList;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.UniqueProjectList;
+
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all data at the address-book level
@@ -59,11 +59,11 @@ public class ProjectList implements ReadOnlyProjectList {
     //// Project-level operations
 
     /**
-     * Returns true if a Project with the same identity as {@code Project} exists in the address book.
+     * Returns true if a Project with the same identity as {@code project} exists in the address book.
      */
-    public boolean hasProject(Project Project) {
-        requireNonNull(Project);
-        return projects.contains(Project);
+    public boolean hasProject(Project project) {
+        requireNonNull(project);
+        return projects.contains(project);
     }
 
     /**
@@ -91,6 +91,10 @@ public class ProjectList implements ReadOnlyProjectList {
      */
     public void removeProject(Project key) {
         projects.remove(key);
+    }
+
+    public void deleteMember(String member) {
+        projects.deleteMember(member);
     }
 
     //// util methods

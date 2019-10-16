@@ -1,19 +1,19 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Project;
+
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -165,9 +165,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setProjectListFilePath(Path ProjectListFilePath) {
-        requireNonNull(ProjectListFilePath);
-        userPrefs.setProjectListFilePath(ProjectListFilePath);
+    public void setProjectListFilePath(Path projectListFilePath) {
+        requireNonNull(projectListFilePath);
+        userPrefs.setProjectListFilePath(projectListFilePath);
     }
 
     @Override
@@ -192,8 +192,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addProject(Project Project) {
-        projectList.addProject(Project);
+    public void addProject(Project project) {
+        projectList.addProject(project);
         updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
     }
 
@@ -202,7 +202,16 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedProject);
 
         projectList.setProject(target, editedProject);
+        setWorkingProject(editedProject);
+        updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
     }
+
+    @Override
+    public void deleteMember(String name) {
+        projectList.deleteMember(name);
+        updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
+    }
+
 
     //=========== Filtered Project List Accessors =============================================================
 
