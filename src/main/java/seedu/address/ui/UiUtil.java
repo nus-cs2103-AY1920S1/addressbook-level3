@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;
@@ -85,12 +85,12 @@ public class UiUtil {
      *                         passes the {@code eventPredicate}.
      */
     private static void matchKeyEvents(final Node node,
-                                       final Function<KeyEvent, Boolean> eventPredicate,
+                                       final Predicate<KeyEvent> eventPredicate,
                                        final Consumer<KeyEvent> keyEventConsumer) {
         requireAllNonNull(node, eventPredicate, keyEventConsumer);
 
         node.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
-            final Boolean isInterestedEvent = eventPredicate.apply(keyEvent);
+            final Boolean isInterestedEvent = eventPredicate.test(keyEvent);
             if (!isInterestedEvent) {
                 return;
             }
@@ -129,7 +129,7 @@ public class UiUtil {
                                           final Consumer<KeyEvent> keyEventConsumer) {
         requireAllNonNull(node, keyEventConsumer, interestedKeyCodes);
 
-        final Function<KeyEvent, Boolean> keyCodeMatcher = (keyEvent -> {
+        final Predicate<KeyEvent> keyCodeMatcher = (keyEvent -> {
             return interestedKeyCodes.contains(keyEvent.getCode());
         });
         matchKeyEvents(node, keyCodeMatcher, keyEventConsumer);
