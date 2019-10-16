@@ -13,9 +13,9 @@ import java.util.stream.Stream;
 import seedu.address.logic.finance.commands.AddCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.logEntry.Address;
+import seedu.address.model.finance.logEntry.Amount;
 import seedu.address.model.finance.logEntry.Email;
 import seedu.address.model.finance.logEntry.LogEntry;
-import seedu.address.model.finance.logEntry.Name;
 import seedu.address.model.finance.logEntry.Phone;
 import seedu.address.model.finance.tag.Tag;
 
@@ -39,13 +39,13 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_DAY).get());
+        Amount amount = ParserUtil.parseName(argMultimap.getValue(PREFIX_DAY).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_ITEM).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_CATEGORY).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_PLACE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TRANSACTION_METHOD));
 
-        LogEntry logEntry = new LogEntry(name, phone, email, address, tagList);
+        LogEntry logEntry = new LogEntry(amount, phone, email, address, tagList);
 
         return new AddCommand(logEntry);
     }

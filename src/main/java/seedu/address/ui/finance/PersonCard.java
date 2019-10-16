@@ -15,7 +15,7 @@ import seedu.address.model.finance.logEntry.LogEntry;
  */
 public class PersonCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "FinanceLogEntryListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -46,7 +46,7 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.logEntry = logEntry;
         id.setText(displayedIndex + ". ");
-        name.setText(logEntry.getName().fullName);
+        name.setText(logEntry.getAmount().fullName);
         phone.setText(logEntry.getPhone().value);
         address.setText(logEntry.getAddress().value);
         email.setText(logEntry.getEmail().value);

@@ -10,8 +10,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.logEntry.Address;
+import seedu.address.model.finance.logEntry.Amount;
 import seedu.address.model.finance.logEntry.Email;
-import seedu.address.model.finance.logEntry.Name;
 import seedu.address.model.finance.logEntry.Phone;
 import seedu.address.model.finance.tag.Tag;
 
@@ -42,13 +42,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
+    public static Amount parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        if (!Amount.isValidName(trimmedName)) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Amount(trimmedName);
     }
 
     /**

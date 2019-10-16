@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.logEntry.Address;
-import seedu.address.model.finance.logEntry.Name;
+import seedu.address.model.finance.logEntry.Amount;
 import seedu.address.model.finance.logEntry.Email;
 import seedu.address.model.finance.logEntry.LogEntry;
 import seedu.address.model.finance.logEntry.Phone;
@@ -51,7 +51,7 @@ class JsonAdaptedLogEntry {
      * Converts a given {@code LogEntry} into this class for Jackson use.
      */
     public JsonAdaptedLogEntry(LogEntry source) {
-        name = source.getName().fullName;
+        name = source.getAmount().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
@@ -72,12 +72,12 @@ class JsonAdaptedLogEntry {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        if (!Amount.isValidName(name)) {
+            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final Amount modelAmount = new Amount(name);
 
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
@@ -104,7 +104,7 @@ class JsonAdaptedLogEntry {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(logEntryTags);
-        return new LogEntry(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new LogEntry(modelAmount, modelPhone, modelEmail, modelAddress, modelTags);
     }
 
 }

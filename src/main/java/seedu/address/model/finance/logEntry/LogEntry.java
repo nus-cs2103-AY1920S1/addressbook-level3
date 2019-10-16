@@ -17,7 +17,7 @@ import seedu.address.model.finance.tag.Tag;
 public class LogEntry {
 
     // Identity fields
-    private final Name name;
+    private final Amount amount;
     private final Phone phone;
     private final Email email;
 
@@ -28,17 +28,17 @@ public class LogEntry {
     /**
      * Every field must be present and not null.
      */
-    public LogEntry(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
+    public LogEntry(Amount amount, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(amount, phone, email, address, tags);
+        this.amount = amount;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
+    public Amount getAmount() {
+        return amount;
     }
 
     public Phone getPhone() {
@@ -71,7 +71,7 @@ public class LogEntry {
         }
 
         return otherLogEntry != null
-                && otherLogEntry.getName().equals(getName())
+                && otherLogEntry.getAmount().equals(getAmount())
                 && (otherLogEntry.getPhone().equals(getPhone()) || otherLogEntry.getEmail().equals(getEmail()));
     }
 
@@ -90,7 +90,7 @@ public class LogEntry {
         }
 
         LogEntry otherLogEntry = (LogEntry) other;
-        return otherLogEntry.getName().equals(getName())
+        return otherLogEntry.getAmount().equals(getAmount())
                 && otherLogEntry.getPhone().equals(getPhone())
                 && otherLogEntry.getEmail().equals(getEmail())
                 && otherLogEntry.getAddress().equals(getAddress())
@@ -100,13 +100,13 @@ public class LogEntry {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(amount, phone, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getAmount())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
