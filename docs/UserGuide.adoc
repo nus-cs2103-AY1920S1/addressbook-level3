@@ -67,7 +67,7 @@ Whenever a particular command requires a `DATE` field, you can choose either of 
 ** 1978-01-28
 ** 1984/04/02
 ** 1/02/1980
-** 2/28/79
+** 26/2/2019
 * Relaxed Dates
 ** The 31st of April in the year 2008
 ** Fri, 21 Nov 1997

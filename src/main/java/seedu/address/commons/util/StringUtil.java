@@ -65,4 +65,18 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Checks if an input is numeric.
+     * @param s Input string
+     * @return True if an input is numeric.
+     */
+    public static boolean isNumeric(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }

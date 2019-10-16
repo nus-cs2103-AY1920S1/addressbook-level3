@@ -85,14 +85,9 @@ public class DateUtil {
      * @return A standardised format date
      */
     private static String normaliseDate(String date) {
-        try {
-            // The input shouldn't only contain numbers.
-            Integer.parseInt(date);
-
-            // This isn't a date.
+        // The date should not only contain numbers.
+        if (StringUtil.isNumeric(date)) {
             return "";
-        } catch (NumberFormatException e) {
-            // Fall-through
         }
 
         StringBuilder builder = new StringBuilder();
@@ -110,6 +105,11 @@ public class DateUtil {
                 int year = Calendar.getInstance().get(Calendar.YEAR);
                 if (capturedYear != null && !capturedYear.isEmpty()) {
                     year = Integer.parseInt(capturedYear);
+
+                    // Invalidate year inputs like 79 or 89
+                    if (year < 1900) {
+                        return "";
+                    }
                 }
 
                 builder = new StringBuilder(String.format("%d/%d/%d", year, month, day));
