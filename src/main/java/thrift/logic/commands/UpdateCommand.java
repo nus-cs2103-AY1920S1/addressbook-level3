@@ -91,7 +91,7 @@ public class UpdateCommand extends Command implements Undoable {
         String updatedTransactionNotification = String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction);
 
         actualIndex = model.getIndexInFullTransactionList(transactionToUpdate).get();
-        model.setTransaction(transactionToUpdate, updatedTransaction);
+        model.setTransactionWithIndex(actualIndex, updatedTransaction);
 
         // Use null comparison instead of requireNonNull(transactionListPanel) as current JUnit tests are unable to
         // handle JavaFX initialization

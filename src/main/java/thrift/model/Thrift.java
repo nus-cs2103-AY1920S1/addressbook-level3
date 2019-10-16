@@ -1,6 +1,7 @@
 package thrift.model;
 
 import static java.util.Objects.requireNonNull;
+import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -75,13 +76,19 @@ public class Thrift implements ReadOnlyThrift {
     /**
      * Replaces the given transaction {@code target} in the list with {@code updatedTransaction}.
      * {@code target} must exist in THRIFT.
-     * The transaction identity of {@code updatedTransaction} must not be the same as another existing transaction in
-     * THRIFT.
      */
     public void setTransaction(Transaction target, Transaction updatedTransaction) {
-        requireNonNull(updatedTransaction);
-
+        requireAllNonNull(target, updatedTransaction);
         transactions.setTransaction(target, updatedTransaction);
+    }
+
+    /**
+     * Replaces the given transaction {@code actualIndex} in the list with {@code updatedTransaction}.
+     * {@code actualIndex} must be a valid index.
+     */
+    public void setTransactionWithIndex(Index actualIndex, Transaction updatedTransaction) {
+        requireAllNonNull(actualIndex, updatedTransaction);
+        transactions.setTransactionWithIndex(actualIndex, updatedTransaction);
     }
 
     /**

@@ -210,6 +210,11 @@ public class AddExpenseCommandTest {
         }
 
         @Override
+        public void setTransactionWithIndex(Index actualIndex, Transaction updatedTransaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Transaction getLastTransactionFromThrift() {
             throw new AssertionError("This method should not be called.");
         }

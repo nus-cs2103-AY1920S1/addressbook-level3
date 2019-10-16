@@ -65,6 +65,21 @@ public class TransactionList implements Iterable<Transaction> {
     }
 
     /**
+     * Replaces the given transaction {@code actualIndex} in the list with {@code updatedTransaction}.
+     * {@code actualIndex} must be a valid index.
+     */
+    public void setTransactionWithIndex(Index actualIndex, Transaction updatedTransaction) {
+        requireAllNonNull(actualIndex, updatedTransaction);
+        int index = actualIndex.getZeroBased();
+
+        if (internalList.size() <= index) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        internalList.set(actualIndex.getZeroBased(), updatedTransaction);
+    }
+
+    /**
      * Removes the equivalent transaction from the list.
      * The transaction must exist in the list.
      */

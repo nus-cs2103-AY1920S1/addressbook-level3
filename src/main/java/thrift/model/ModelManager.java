@@ -156,6 +156,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setTransactionWithIndex(Index actualIndex, Transaction updatedTransaction) {
+        CollectionUtil.requireAllNonNull(actualIndex, updatedTransaction);
+        thrift.setTransactionWithIndex(actualIndex, updatedTransaction);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+    }
+
+    @Override
     public Transaction getLastTransactionFromThrift() {
         return thrift.getLastTransaction();
     }

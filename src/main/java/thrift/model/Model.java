@@ -113,6 +113,12 @@ public interface Model {
     void setTransaction(Transaction target, Transaction updatedTransaction);
 
     /**
+     * Replaces the given transaction {@code actualIndex} with {@code updatedTransaction}.
+     * {@code actualIndex} must be a valid {@code Index}.
+     */
+    void setTransactionWithIndex(Index actualIndex, Transaction updatedTransaction);
+
+    /**
      * Gets the last transaction from thrift's transaction list
      *
      * @return the last transaction from thrift's transaction list

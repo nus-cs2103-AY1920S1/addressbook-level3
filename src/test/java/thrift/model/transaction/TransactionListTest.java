@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import thrift.commons.core.index.Index;
 import thrift.logic.commands.CommandTestUtil;
 import thrift.model.transaction.exceptions.TransactionNotFoundException;
 import thrift.testutil.ExpenseBuilder;
@@ -87,6 +88,25 @@ public class TransactionListTest {
         TransactionList expectedTransactionList = new TransactionList();
         expectedTransactionList.add(TypicalTransactions.PENANG_LAKSA);
         assertEquals(expectedTransactionList, transactionList);
+    }
+
+    @Test
+    public void setTransactionWithIndex_nullIndex_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, ()
+            -> transactionList.setTransactionWithIndex(null, TypicalTransactions.LAKSA));
+    }
+
+    @Test
+    public void setTransactionWithIndex_nullUpdatedTransaction_throwsNullPointerException() {
+        transactionList.add(TypicalTransactions.LAKSA);
+        assertThrows(NullPointerException.class, ()
+            -> transactionList.setTransactionWithIndex(Index.fromZeroBased(0), null));
+    }
+
+    @Test
+    public void setTransactionWithIndex_invalidIndex_throwsIndexOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> transactionList
+                .setTransactionWithIndex(Index.fromOneBased(0), TypicalTransactions.LAKSA));
     }
 
     @Test
