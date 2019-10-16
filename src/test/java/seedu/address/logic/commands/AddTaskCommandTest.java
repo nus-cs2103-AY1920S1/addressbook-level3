@@ -21,6 +21,7 @@ import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
@@ -183,32 +184,54 @@ public class AddTaskCommandTest {
 
         @Override
         public int getTasksLength() {
-            return 0;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<Inventory> getFilteredInventoriesList() {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredInventoriesList(Predicate<Inventory> predicate) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void addInventory(Inventory inventory) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasInventory(Inventory inventory) {
-            return false;
-        }
+            throw new AssertionError("This method should not be called.");        }
 
         @Override
         public void deleteInventory(Inventory target) {
+            throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public void addMapping(Mapping mapping) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMapping(Mapping mapping) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasMapping(Mapping mapping) {
+            throw new AssertionError("This method should not be called.");        }
+
+        @Override
+        public ObservableList<Mapping> getFilteredMappingsList() {
+            throw new AssertionError("This method should not be called.");        }
+
+        @Override
+        public void updateFilteredMappingsList(Predicate<Mapping> predicate) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

@@ -139,17 +139,17 @@ public class CommandTestUtil {
     public static void showMemberAtId(Model model, MemberId targetId) {
         List<Member> lastShownList = model.getFilteredMembersList();
 
-        //boolean contains = false;
+        boolean contains = false;
         Member targetMember  = null;
 
         for (int i = 0; i < lastShownList.size(); i++) {
-            if (lastShownList.get(i).getId() == targetId) {
-                //contains = true;
+            if (lastShownList.get(i).getId().equals(targetId)) {
+                contains = true;
                 targetMember = lastShownList.get(i);
                 break;
             }
         }
-        //assertTrue(contains);
+        assertTrue(contains);
 
         final String[] splitName = targetMember.getName().fullName.split("\\s+");
         model.updateFilteredMembersList(new MemberNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));

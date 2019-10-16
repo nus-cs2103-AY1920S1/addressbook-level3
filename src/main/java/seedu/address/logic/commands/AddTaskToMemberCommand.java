@@ -46,6 +46,7 @@ public class AddTaskToMemberCommand extends Command {
      */
     public AddTaskToMemberCommand(Index taskId, MemberId memberId) {
         requireNonNull(memberId);
+        requireNonNull(taskId);
 
         this.taskId = taskId;
         this.memberId = memberId;
@@ -56,6 +57,7 @@ public class AddTaskToMemberCommand extends Command {
         requireNonNull(model);
         List<Task> lastShownTaskList = model.getFilteredTasksList();
         List<Member> lastShownMemberList = model.getFilteredMembersList();
+
 
         if (taskId.getZeroBased() >= lastShownTaskList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);

@@ -26,7 +26,7 @@ public class MemberName {
      */
     public MemberName(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidMemberName(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
 
@@ -37,7 +37,7 @@ public class MemberName {
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidMemberName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

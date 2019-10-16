@@ -83,7 +83,7 @@ class JsonAdaptedTask {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     TaskStatus.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
+        if (!Name.isValidMemberName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
