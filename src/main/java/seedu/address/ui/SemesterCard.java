@@ -3,12 +3,12 @@ package seedu.address.ui;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.module.Module;
 import seedu.address.model.semester.Semester;
+
+import java.util.logging.Logger;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -27,10 +27,8 @@ public class SemesterCard extends UiPart<Region> {
 
     public final Semester semester;
 
-    private ModuleListPanel moduleListPanel;
-
     @FXML
-    private HBox cardPane;
+    private HBox semesterCardPane;
     @FXML
     private Label name;
     @FXML
@@ -40,18 +38,21 @@ public class SemesterCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private StackPane moduleListPanelPlaceholder;
+    private VBox moduleListPanelPlaceholder;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public SemesterCard(Semester semester, int displayedIndex) {
+    public SemesterCard(Semester semester) {
         super(FXML);
         this.semester = semester;
         name.setText(semester.getSemesterName().name());
-        totalMcCount.setText(Integer.toString(semester.getMcCount()));
+        totalMcCount.setText("(" + Integer.toString(semester.getMcCount()) + ")");
 
         ObservableList<Module> modules = semester.getModules().asUnmodifiableObservableList();
 
-        moduleListPanel = new ModuleListPanel(modules);
-        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        for (Module m : modules) {
+            ModuleCard moduleCard = new ModuleCard(m);
+            moduleListPanelPlaceholder.getChildren().add(moduleCard.getRoot());
+        }
     }
 
     @Override

@@ -81,9 +81,6 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        //        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        //        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
@@ -126,15 +123,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-
-            CommandBox commandBox = new CommandBox(this::executeCommand);
-            commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             semesterListPanel.refresh();
 
-            if (commandResult.isShowHelp()) {
+            if (commandResult.isChangesActiveStudyPlan()) {
                 StudyPlan sp = logic.getActiveStudyPlan();
                 ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
                 semesterListPanel = new SemesterListPanel(semesters);
