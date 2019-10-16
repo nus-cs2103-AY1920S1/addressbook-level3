@@ -7,40 +7,32 @@ import java.util.Optional;
  */
 public class Event extends CalendarEntry {
     private Optional<DateTime> endingDateTime;
-    private Optional<Venue> venue;
-    private Optional<Person> person;
     private Optional<Reminder> autoReminder;
 
     public Event(Description description, DateTime dateTime) {
         super(description, dateTime);
         endingDateTime = Optional.empty();
-        venue = Optional.empty();
-        person = Optional.empty();
         autoReminder = Optional.empty();
     }
 
-    public void setVenue(Venue venue) {
-        this.venue = Optional.of(venue);
+    public void setEndingDateTime(Optional<DateTime> endingDateTime) {
+        this.endingDateTime = endingDateTime;
     }
 
-    public void setPerson(Person person) {
-        this.person = Optional.of(person);
+    public void setEndingDateTime(DateTime endingDateTime) {
+        this.endingDateTime = Optional.ofNullable(endingDateTime);
+    }
+
+    public void setAutoReminder(Optional<Reminder> autoReminder) {
+        this.autoReminder = autoReminder;
     }
 
     public void setAutoReminder(Reminder reminder) {
-        this.autoReminder = Optional.of(reminder);
+        this.autoReminder = Optional.ofNullable(reminder);
     }
 
     public Optional<DateTime> getEndingDateTime() {
         return endingDateTime;
-    }
-
-    public Optional<Venue> getVenue() {
-        return venue;
-    }
-
-    public Optional<Person> getPerson() {
-        return person;
     }
 
     public Optional<Reminder> getAutoReminder() {
@@ -48,7 +40,21 @@ public class Event extends CalendarEntry {
     }
 
     /**
-     * Returns true if both events have the same description, dateTime, endingDateTime, venue and person.
+     * Returns true if both events have the same description, date and time;
+     * This defines a weaker notion of equality between two events.
+     */
+    public boolean isSameEvent(Event otherEvent) {
+        if (otherEvent == this) {
+            return true;
+        }
+
+        return otherEvent != null
+                && otherEvent.getDescription().equals(getDescription())
+                && otherEvent.getDateTime().equals(getDateTime());
+    }
+
+    /**
+     * Returns true if both events have the same description, dateTime, endingDateTime and autoReminder.
      */
     @Override
     public boolean equals(Object other) {
@@ -64,8 +70,7 @@ public class Event extends CalendarEntry {
         return otherEvent.getDescription().equals(getDescription())
                 && otherEvent.getDateTime().equals(getDateTime())
                 && otherEvent.getEndingDateTime().equals(getEndingDateTime())
-                && otherEvent.getPerson().equals(getPerson())
-                && otherEvent.getVenue().equals(getVenue());
+                && otherEvent.getAutoReminder().equals(getAutoReminder());
     }
 
     @Override
@@ -76,31 +81,13 @@ public class Event extends CalendarEntry {
                 .append(getDescription())
                 .append(" From: ")
                 .append(getDateTime())
-                .append(getEndingTimeString())
-                .append(getVenueString())
-                .append(getPersonString());
+                .append(getEndingTimeString());
         return builder.toString();
     }
 
     private String getEndingTimeString() {
         if (endingDateTime.isPresent()) {
             return " To: " + endingDateTime.get();
-        } else {
-            return "";
-        }
-    }
-
-    private String getVenueString() {
-        if (venue.isPresent()) {
-            return " at: " + venue.get();
-        } else {
-            return "";
-        }
-    }
-
-    private String getPersonString() {
-        if (person.isPresent()) {
-            return " with: " + person.get();
         } else {
             return "";
         }
