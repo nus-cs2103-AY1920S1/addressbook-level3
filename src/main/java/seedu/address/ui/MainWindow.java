@@ -153,6 +153,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Updates the panels to display the correct list of item.
+     */
     public void updatePanels() {
         taskListPanel = new TaskListPanel(logic.getVisualList());
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
