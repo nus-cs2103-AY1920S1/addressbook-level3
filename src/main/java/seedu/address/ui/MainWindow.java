@@ -9,7 +9,9 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
@@ -52,10 +54,19 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane taskListPanelPlaceholder;
 
     @FXML
+    private StackPane statsPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private HBox mainPanel;
+
+    @FXML
+    private VBox stats;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -70,7 +81,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        statsChart = new StatsChart(null);
     }
 
     public Stage getPrimaryStage() {
@@ -115,6 +125,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        stats.setVisible(false);
+
         noteListPanel = new NoteListPanel(logic.getFilteredNoteList());
         noteListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
 
@@ -177,8 +189,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void showStats() {
+        mainPanel.setVisible(false);
+        stats.setVisible(true);
         statsChart = new StatsChart(logic.getStatsChartData());
-        noteListPanelPlaceholder.getChildren().add(statsChart.getChart());
+        statsPanelPlaceholder.getChildren().add(statsChart.getRoot());
         statsChart.getChart().getData().forEach(data -> {
             String value = "" + data.getPieValue();
             Tooltip toolTip = new Tooltip(value);
@@ -193,7 +207,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void removeStats() {
-        noteListPanelPlaceholder.getChildren().remove(statsChart.getChart());
+        mainPanel.setVisible(true);
+        stats.setVisible(false);
     }
 
     public NoteListPanel getNoteListPanel() {
