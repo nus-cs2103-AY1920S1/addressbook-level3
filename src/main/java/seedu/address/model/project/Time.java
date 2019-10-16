@@ -13,15 +13,11 @@ public class Time {
      * otherwise " " (a blank string) becomes a valid input.
      */
 
-    public static final String MESSAGE_CONSTRAINTS = "Time should be written in the following format : dd/MM/yyyy hhmm and it must be written within the boundary of applicable date";
-    //public static final String VALIDATION_REGEX = "\"^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4} (2[0-3]|[01]?[0-9])([0-5]?[0-9])";
+    public static final String MESSAGE_CONSTRAINTS = "Time should be written in the following format : dd/MM/yyyy hhmm";
+    public static final String VALIDATION_REGEX = "^\\d{2}/\\d{2}/\\d{4} \\d{4}$";
 
     public final String time;
     private final Date date;
-
-    public Date getDate() {
-        return this.date;
-    }
 
     public Time(String time) throws ParseException {
         requireAllNonNull(time);
@@ -30,9 +26,12 @@ public class Time {
         this.date = formatter.parse(time);
     }
 
+    public Date getDate() {
+        return this.date;
+    }
+
     public static boolean isValidTime(String test) {
-        //return test.matches(VALIDATION_REGEX);
-        return true;
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

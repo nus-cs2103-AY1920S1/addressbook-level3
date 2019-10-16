@@ -1,11 +1,13 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.project.Project;
+import seedu.address.model.project.Task;
 
 import java.util.Comparator;
 
@@ -35,14 +37,25 @@ public class ProjectCard extends UiPart<Region> {
     @FXML
     private Label description;
     @FXML
+    private Label taskTitle;
+    @FXML
+    private FlowPane tasks;
+    @FXML
     private FlowPane meetings;
 
     public ProjectCard(Project project, int displayedIndex) {
         super(FXML);
         this.project = project;
+        int count = 0;
         id.setText(displayedIndex + ". ");
         title.setText(project.getTitle().title);
         description.setText(project.getDescription().description);
+        for (Task task : project.getTasks()) {
+            tasks.getChildren().add(new Label("    " + ++count + ". " + task.toString()));
+        }
+        taskTitle.setText("Tasks: ");
+        tasks.setOrientation(Orientation.VERTICAL);
+        tasks.setPrefWrapLength(100);
         project.getListOfMeeting().stream()
                 .sorted(Comparator.comparing(m -> m.getTime().getDate()))
                 .forEach(meeting -> meetings.getChildren().add(new Label(meeting.getDescription().description + " " + meeting.getTime().time)));

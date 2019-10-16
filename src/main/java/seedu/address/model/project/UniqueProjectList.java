@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.project.exceptions.DuplicateProjectException;
 import seedu.address.model.project.exceptions.ProjectNotFoundException;
 
+
 /**
  * I just copied from UniquePeronList
  */

@@ -3,11 +3,16 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddProjectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.project.*;
+import seedu.address.model.project.Description;
+import seedu.address.model.project.Project;
+import seedu.address.model.project.Task;
+import seedu.address.model.project.Title;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -30,8 +35,9 @@ public class AddProjectCommandParser implements Parser<AddProjectCommand> {
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_NAME).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        Set<Task> tasks = new HashSet<>();
 
-        Project project = new Project(title, description);
+        Project project = new Project(title, description, tasks);
 
         return new AddProjectCommand(project);
     }
