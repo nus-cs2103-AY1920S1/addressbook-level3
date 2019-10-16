@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import mams.model.appeal.exceptions.AppealNotFoundException;
-import mams.model.appeal.exceptions.DuplicateAppealException;
-
 import mams.testutil.Assert;
 import mams.testutil.TypicalAppeals;
 
 import org.junit.jupiter.api.Test;
+
+import mams.model.appeal.exceptions.AppealNotFoundException;
+import mams.model.appeal.exceptions.DuplicateAppealException;
 
 public class UniqueAppealListTest {
 
