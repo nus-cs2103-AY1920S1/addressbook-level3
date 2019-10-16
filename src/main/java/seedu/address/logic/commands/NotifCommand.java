@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BODIES;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -9,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.notif.Notif;
 
@@ -17,6 +17,7 @@ import seedu.address.model.notif.Notif;
  */
 public class NotifCommand extends Command {
     public static final String MESSAGE_DUPLICATE_NOTIF = "This notif already exists in the address book";
+    public static final String MESSAGE_BODY_STATUS_CHANGE_FAILURE = "There was an error in updating the body status";
     public static final String MESSAGE_SUCCESS = "New notif added: %1$s";
 
     private static ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
@@ -59,9 +60,16 @@ public class NotifCommand extends Command {
      * Updates the UI to reflect the change in BodyStatus.
      * @param model refers to the ModelManager
      */
-    public void startSesChangeBodyStatusUi(Model model) {
-        Runnable changeUi = () -> Platform.runLater(() ->
-                model.updateFilteredBodyList(PREDICATE_SHOW_ALL_BODIES));
+    public void startSesChangeBodyStatusUi(Model model) throws CommandException {
+        Runnable changeUi = () -> Platform.runLater(() -> {
+            UpdateCommand up = new UpdateCommand(toAdd.getBody().getIdNum(), new UpdateBodyDescriptor(toAdd.getBody()));
+            up.setUpdateFromNotif(true);
+            try {
+                up.execute(model);
+            } catch (CommandException e) {
+                // todo what to throw?
+            }
+        });
 
         ses.schedule(changeUi, period, timeUnit);
     }
