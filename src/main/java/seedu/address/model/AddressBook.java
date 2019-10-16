@@ -119,9 +119,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         if (primaryBudget != null) {
             //    return;
             //} else {
-            boolean expenseDateWithinBudget = p.getDate().isBefore(primaryBudget.getEndDate())
-                    && (p.getDate().isAfter(primaryBudget.getStartDate())
-                    || p.getDate().isEqual(primaryBudget.getStartDate()));
+            boolean expenseDateWithinBudget = p.getTimestamp().isBefore(primaryBudget.getEndDate())
+                    && (p.getTimestamp().isAfter(primaryBudget.getStartDate())
+                    || p.getTimestamp().isEqual(primaryBudget.getStartDate()));
             if (expenseDateWithinBudget) {
                 primaryBudget.addExpense(p);
             }
@@ -182,10 +182,21 @@ public class AddressBook implements ReadOnlyAddressBook {
         return events.contains(event);
     }
 
+    /**
+     * Adds an event to the address book.
+     * The event must not already exist in the address book.
+     */
     public void addEvent(Event event) {
         events.add(event);
     }
 
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeEvent(Event key) {
+        events.remove(key);
+    }
     //// util methods
 
     @Override

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
 import java.util.Collections;
@@ -20,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
+import seedu.address.model.expense.Timestamp;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -35,7 +37,8 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_PRICE + "PRICE] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]"
+            + "[" + PREFIX_TIMESTAMP + "TIMESTAMP]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PRICE + "3512.123 ";
 
@@ -59,20 +62,28 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    protected void validate(Model model) throws CommandException {
         requireNonNull(model);
-        List<Expense> lastShownList = model.getFilteredExpenseList();
 
+        List<Expense> lastShownList = model.getFilteredExpenseList();
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
         }
 
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
         Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
-
         if (!expenseToEdit.isSameExpense(editedExpense) && model.hasExpense(editedExpense)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
+    }
+
+    @Override
+    protected CommandResult execute(Model model) {
+        requireNonNull(model);
+
+        List<Expense> lastShownList = model.getFilteredExpenseList();
+        Expense expenseToEdit = lastShownList.get(index.getZeroBased());
+        Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
 
         model.setExpense(expenseToEdit, editedExpense);
         model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
@@ -89,9 +100,11 @@ public class EditCommand extends Command {
         Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
         Price updatedPrice = editExpenseDescriptor.getPrice().orElse(expenseToEdit.getPrice());
         Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
+        Timestamp updatedTimestamp = editExpenseDescriptor.getTimestamp().orElse(expenseToEdit.getTimestamp());
 
 
-        return new Expense(updatedDescription, updatedPrice, updatedTags, expenseToEdit.getUniqueIdentifier());
+        return new Expense(updatedDescription, updatedPrice, updatedTags,
+                updatedTimestamp, expenseToEdit.getUniqueIdentifier());
     }
 
     @Override
@@ -120,6 +133,7 @@ public class EditCommand extends Command {
         private Description description;
         private Price price;
         private Set<Tag> tags;
+        private Timestamp timestamp;
 
         public EditExpenseDescriptor() {}
 
@@ -131,13 +145,14 @@ public class EditCommand extends Command {
             setDescription(toCopy.description);
             setPrice(toCopy.price);
             setTags(toCopy.tags);
+            setTimestamp(toCopy.timestamp);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, price, tags);
+            return CollectionUtil.isAnyNonNull(description, price, tags, timestamp);
         }
 
         public void setDescription(Description description) {
@@ -173,6 +188,14 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        public void setTimestamp(Timestamp timestamp) {
+            this.timestamp = timestamp;
+        }
+
+        public Optional<Timestamp> getTimestamp() {
+            return Optional.ofNullable(timestamp);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -190,7 +213,8 @@ public class EditCommand extends Command {
 
             return getDescription().equals(e.getDescription())
                     && getPrice().equals(e.getPrice())
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getTimestamp().equals(e.getTimestamp());
         }
     }
 }

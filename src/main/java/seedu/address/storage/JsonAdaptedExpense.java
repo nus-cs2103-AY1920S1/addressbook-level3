@@ -1,9 +1,9 @@
 package seedu.address.storage;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
@@ -29,8 +28,8 @@ class JsonAdaptedExpense {
     private final String description;
     private final String price;
     private final String uniqueIdentifier;
-    private final String date;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String rawTimestamp;
 
     /**
      * Constructs a {@code JsonAdaptedExpense} with the given expense details.
@@ -39,11 +38,11 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(@JsonProperty("description") String description,
                               @JsonProperty("price") String price,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                              @JsonProperty("date") String date,
+                              @JsonProperty("timestamp") String rawTimestamp,
                               @JsonProperty("uniqueIdentifier") String uniqueIdentifier) {
         this.description = description;
         this.price = price;
-        this.date = date;
+        this.rawTimestamp = rawTimestamp;
         this.uniqueIdentifier = uniqueIdentifier;
 
         if (tagged != null) {
@@ -60,8 +59,8 @@ class JsonAdaptedExpense {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        date = ParserUtil.formatDate(source.getDate());
         uniqueIdentifier = source.getUniqueIdentifier().value;
+        rawTimestamp = source.getTimestamp().toString();
     }
 
     /**
@@ -93,14 +92,6 @@ class JsonAdaptedExpense {
         }
         final Price modelPrice = new Price(price);
 
-        if (date == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
-        }
-        if (!Timestamp.isValidTimestamp(date)) {
-            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
-        }
-        final LocalDate modelDate = ParserUtil.parseDate(date);
 
         if (uniqueIdentifier == null) {
             throw new IllegalValueException(
@@ -112,7 +103,19 @@ class JsonAdaptedExpense {
         final UniqueIdentifier modelUniqueIdentifier = new UniqueIdentifier(uniqueIdentifier);
 
         final Set<Tag> modelTags = new HashSet<>(expenseTags);
-        return new Expense(modelDescription, modelPrice, modelTags, modelDate, modelUniqueIdentifier);
+
+        if (rawTimestamp == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
+        }
+
+        Optional<Timestamp> potentialTimestamp = Timestamp.createTimestampIfValid(rawTimestamp);
+        if (potentialTimestamp.isEmpty()) {
+            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
+        }
+        final Timestamp modelTimestamp = potentialTimestamp.get();
+
+        return new Expense(modelDescription, modelPrice, modelTags, modelTimestamp, modelUniqueIdentifier);
     }
 
 }

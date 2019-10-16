@@ -27,7 +27,7 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void run_validIndexUnfilteredList_success() {
         Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EXPENSE);
 
@@ -40,7 +40,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+    public void run_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExpenseList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -48,7 +48,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
+    public void run_validIndexFilteredList_success() {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
 
         Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
@@ -64,7 +64,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
+    public void run_invalidIndexFilteredList_throwsCommandException() {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
 
         Index outOfBoundIndex = INDEX_SECOND_EXPENSE;

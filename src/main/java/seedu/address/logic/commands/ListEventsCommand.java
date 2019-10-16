@@ -1,17 +1,18 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 
 /**
- * Clears the address book.
+ * Lists all events to the user.
  */
-public class ClearCommand extends Command {
+public class ListEventsCommand extends Command {
 
-    public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String COMMAND_WORD = "events";
+
+    public static final String MESSAGE_SUCCESS = "Listed all events";
 
     @Override
     protected void validate(Model model) {
@@ -21,7 +22,7 @@ public class ClearCommand extends Command {
     @Override
     protected CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
+        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -156,10 +156,10 @@ public class ModelManager implements Model {
         return addressBook.hasEvent(event);
     }
 
-    //    @Override
-    //    public void deleteEvent(Event target) {
-    //        addressBook.removeEvent(target);
-    //    }
+    @Override
+    public void deleteEvent(Event target) {
+        addressBook.removeEvent(target);
+    }
 
     @Override
     public void addEvent(Event event) {

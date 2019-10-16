@@ -60,8 +60,8 @@ class JsonAdaptedBudget {
     public JsonAdaptedBudget(Budget source) {
         description = source.getDescription().fullDescription;
         amount = source.getAmount().value;
-        startDate = ParserUtil.formatDate(source.getStartDate());
-        endDate = ParserUtil.formatDate(source.getEndDate());
+        startDate = source.getStartDate().toString();
+        endDate = source.getEndDate().toString();
         period = ParserUtil.formatPeriod(source.getPeriod());
         expenses.addAll(source.getExpenses().stream()
                 .map(JsonAdaptedExpense::new)
@@ -102,10 +102,10 @@ class JsonAdaptedBudget {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, LocalDate.class.getSimpleName()));
         }
-        if (!Timestamp.isValidTimestamp(startDate)) {
-            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
-        }
-        final LocalDate modelStartDate = ParserUtil.parseDate(startDate);
+        //if (!Timestamp.isValidTimestamp(startDate)) {
+        //    throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
+        //}
+        final Timestamp modelStartDate = Timestamp.createTimestampIfValid(startDate).get();
 
         /*
         if (endDate == null) {

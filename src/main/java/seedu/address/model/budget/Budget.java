@@ -13,6 +13,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
+import seedu.address.model.expense.Timestamp;
 
 /**
  * Represents a Budget in Moolah.
@@ -24,22 +25,22 @@ public class Budget {
     //private static final Price DEFAULT_BUDGET_AMOUNT = new Price(Double.toString(Double.MAX_VALUE));
     private static final Price DEFAULT_BUDGET_AMOUNT = new Price("100000000000");
     //private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.MIN;
-    private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.of(2000, 1, 1);
+    private static final Timestamp DEFAULT_BUDGET_START_DATE = new Timestamp(LocalDate.of(2000, 1, 1));
     //private static final Period DEFAULT_BUDGET_PERIOD = Period.between(LocalDate.MIN, LocalDate.MAX);
     private static final Period DEFAULT_BUDGET_PERIOD = Period.ofYears(999);
     private static final Percentage IS_NEAR_THRESHOLD = new Percentage(90);
 
     private final Description description;
     private final Price amount;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private Timestamp startDate;
+    private Timestamp endDate;
     private final Period period;
     private final List<Expense> expenses;
     private boolean isPrimary;
     private Percentage proportionUsed;
 
-    public Budget(Description description, Price amount, LocalDate startDate, Period period) {
-        requireAllNonNull(description, amount, startDate, period);
+    public Budget(Description description, Price amount, Timestamp startDate, Period period) {
+        requireAllNonNull(description, startDate, period, amount);
         this.description = description;
         this.amount = amount;
         this.startDate = startDate;
@@ -50,7 +51,7 @@ public class Budget {
         this.proportionUsed = new Percentage(0);
     }
 
-    public Budget(Description description, Price amount, LocalDate startDate, Period period, List<Expense> expenses) {
+    public Budget(Description description, Price amount, Timestamp startDate, Period period, List<Expense> expenses) {
         requireAllNonNull(description, amount, startDate, period, expenses);
         this.description = description;
         this.amount = amount;
@@ -66,11 +67,11 @@ public class Budget {
         return description;
     }
 
-    public LocalDate getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 
@@ -96,9 +97,9 @@ public class Budget {
      */
     public static Budget createDefaultBudget() {
         return new Budget(DEFAULT_BUDGET_DESCRIPTION,
-               DEFAULT_BUDGET_AMOUNT,
-               DEFAULT_BUDGET_START_DATE,
-               DEFAULT_BUDGET_PERIOD);
+                DEFAULT_BUDGET_AMOUNT,
+                DEFAULT_BUDGET_START_DATE,
+                DEFAULT_BUDGET_PERIOD);
     }
 
     public double getExpenseSum() {
@@ -129,7 +130,7 @@ public class Budget {
      * @param date
      * @return
      */
-    public boolean expired(LocalDate date) {
+    public boolean expired(Timestamp date) {
         return endDate.isBefore(date);
     }
 
@@ -137,9 +138,9 @@ public class Budget {
      * dymmy.
      * @param date
      */
-    public void refresh(LocalDate date) {
+    public void refresh(Timestamp date) {
         assert endDate.isBefore(date) : "Budget is refreshed only when expired";
-        long daysDiff = ChronoUnit.DAYS.between(endDate, date);
+        long daysDiff = ChronoUnit.DAYS.between(endDate.getTimestamp(), date.getTimestamp());
         int periodDays = period.getDays();
         long cycles = daysDiff / periodDays;
         long offset = cycles * periodDays;
@@ -232,9 +233,9 @@ public class Budget {
                 .append(" Period: ")
                 .append(ParserUtil.formatPeriod(getPeriod()))
                 .append(" Start date: ")
-                .append(ParserUtil.formatDate(getStartDate()))
+                .append(startDate)
                 .append(" End date: ")
-                .append(ParserUtil.formatDate(getEndDate()))
+                .append(endDate)
                 .append("||");
         return builder.toString();
     }

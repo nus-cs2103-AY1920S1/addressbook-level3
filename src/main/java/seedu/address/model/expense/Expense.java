@@ -2,7 +2,7 @@ package seedu.address.model.expense;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -21,7 +21,7 @@ public class Expense {
     // data fields
     private final Description description;
     private final Price price;
-    private final LocalDate date;
+    private final Timestamp timestamp;
 
     private final Set<Tag> tags = new HashSet<>();
 
@@ -34,17 +34,17 @@ public class Expense {
         this.price = price;
         this.uniqueIdentifier = uniqueIdentifier;
         this.tags.addAll(tags);
-        this.date = LocalDate.now();
+        this.timestamp = Timestamp.getCurrentTimestamp();
     }
 
-    public Expense(Description description, Price price, Set<Tag> tags, LocalDate date,
+    public Expense(Description description, Price price, Set<Tag> tags, Timestamp timestamp,
                    UniqueIdentifier uniqueIdentifier) {
         requireAllNonNull(description, price, tags, uniqueIdentifier);
         this.description = description;
         this.price = price;
         this.uniqueIdentifier = uniqueIdentifier;
         this.tags.addAll(tags);
-        this.date = date;
+        this.timestamp = timestamp;
     }
 
     public Description getDescription() {
@@ -55,8 +55,8 @@ public class Expense {
         return price;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
     public UniqueIdentifier getUniqueIdentifier() {
@@ -102,7 +102,7 @@ public class Expense {
         return otherExpense.getUniqueIdentifier().equals(getUniqueIdentifier())
                 && otherExpense.getDescription().equals(getDescription())
                 && otherExpense.getPrice().equals(getPrice())
-                && otherExpense.getDate().equals(getDate())
+                && otherExpense.getTimestamp().equals(getTimestamp())
                 && otherExpense.getTags().equals(getTags());
     }
 
@@ -120,11 +120,12 @@ public class Expense {
                 .append(" Price: ")
                 .append(getPrice())
                 .append(" Date: ")
-                .append(getDate())
+                .append(getTimestamp())
                 .append(" [Tags: ");
         getTags().forEach(builder::append);
         builder.append("]");
+        builder.append("Timestamp: ")
+                .append(getTimestamp());
         return builder.toString();
     }
-
 }
