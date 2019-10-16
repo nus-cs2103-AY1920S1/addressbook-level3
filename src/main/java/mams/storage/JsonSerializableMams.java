@@ -41,13 +41,9 @@ class JsonSerializableMams {
      */
     public JsonSerializableMams(ReadOnlyMams source) {
         students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
-//        appeals.addAll(source.getAppealList().stream().map(JsonAdaptedAppeal::new)).collect(Collectors.toList());
 
     }
 
-//    public JsonSerializableMams(ReadOnlyMams source) {
-//        appeals.addAll(source.getAppealList().stream().map(JsonAdaptedAppeal::new).collect(Collectors.toList()));
-//    }
     /**
      * Converts this address book into the model's {@code Mams} object.
      *
