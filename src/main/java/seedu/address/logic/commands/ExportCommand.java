@@ -14,15 +14,15 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.ExportUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.FilePath;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
 import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
 import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.FilePath;
 
 /**
- * Finds and lists all flashcards in address book whose question contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Exports all {@code FlashCard}s whose category matches the supplied argument keyword. Keyword matching is case
+ * insensitive. FlashCards will have their questions and answers copied to a specified file.
  */
 public class ExportCommand extends Command {
 
@@ -43,6 +43,11 @@ public class ExportCommand extends Command {
     private final Category category;
     private final FilePath filePath;
 
+    /**
+     * Creates a new ExportCommand with the given Category and FilePath.
+     * @param category The Category from which the FlashCards will be exported
+     * @param filePath The FilePath to which the FlashCards will be exported
+     */
     public ExportCommand(Category category, FilePath filePath) {
         this.category = category;
         this.filePath = filePath;
@@ -77,6 +82,12 @@ public class ExportCommand extends Command {
                 && filePath.equals(((ExportCommand) other).filePath)); // state check
     }
 
+    /**
+     * Gets a list of FlashCards by category. Does not result in any change to model. Helper method for execute().
+     * @param model The model from which the FlashCards will be obtained
+     * @param category The desired category
+     * @return ObservableList of the FlashCards in the model that match the Category.
+     */
     public static ObservableList<FlashCard> getFlashCardsByCategory(Model model, Category category) {
         return model.getFilteredFlashCardListNoCommit(
                 categoryToPredicate(
@@ -85,6 +96,12 @@ public class ExportCommand extends Command {
         );
     }
 
+    /**
+     * Converts a given Category to a CategoryContainsAnyKeywordsPredicate.
+     *
+     * @param category The Category to convert.
+     * @return CategoryContainsAnyKeywordsPredicate representing the Category.
+     */
     public static CategoryContainsAnyKeywordsPredicate categoryToPredicate(Category category) {
         return new CategoryContainsAnyKeywordsPredicate(
                 categoryToKeywordList(
@@ -93,6 +110,12 @@ public class ExportCommand extends Command {
         );
     }
 
+    /**
+     * Converts a given Category to a singleton Category List.
+     *
+     * @param category The Category to convert into a List.
+     * @return Singleton List containing the given Category.
+     */
     public static List<String> categoryToKeywordList(Category category) {
         String categoryName = category.categoryName;
         List<String> categoryKeywordList = Collections.singletonList(categoryName);
