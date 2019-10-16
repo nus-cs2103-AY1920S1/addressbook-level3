@@ -20,18 +20,20 @@ public class Spending {
     private final Date date;
     private final Email email;
 
-    private final Address address;
+    private final Cost cost;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Spending(Name name, Date date, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, date, email, address, tags);
+
+    public Spending(Name name, Date date, Email email, Cost cost, Set<Tag> tags) {
+        requireAllNonNull(name, date, email, cost, tags);
+
         this.name = name;
         this.date = date;
         this.email = email;
-        this.address = address;
+        this.cost = cost;
         this.tags.addAll(tags);
     }
 
@@ -47,8 +49,8 @@ public class Spending {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Cost getCost() {
+        return cost;
     }
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -89,7 +91,7 @@ public class Spending {
         Spending otherSpending = (Spending) other;
         return otherSpending.getName().equals(getName())
                 && otherSpending.getDate().equals(getDate())
-                && otherSpending.getAddress().equals(getAddress())
+                && otherSpending.getCost().equals(getCost())
                 && otherSpending.getEmail().equals(getEmail())
                 && otherSpending.getTags().equals(getTags());
     }
@@ -97,7 +99,7 @@ public class Spending {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, date, email, address, tags);
+        return Objects.hash(name, date, email, cost, tags);
     }
 
     @Override
@@ -108,8 +110,8 @@ public class Spending {
                 .append(getDate())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Cost: ")
+                .append(getCost())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

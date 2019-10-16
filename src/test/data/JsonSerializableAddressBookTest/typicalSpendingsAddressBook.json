@@ -4,43 +4,43 @@
     "name" : "Alice Pauline",
     "date" : "1/1/2019",
     "email" : "alice@example.com",
-    "address" : "123, Jurong West Ave 6, #08-111",
+    "cost" : "123",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "date" : "2/1/2019",
     "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
+    "cost" : "311",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "date" : "3/1/2019",
     "email" : "heinz@example.com",
-    "address" : "wall street",
+    "cost" : "1.50",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
     "date" : "4/1/2019",
     "email" : "cornelia@example.com",
-    "address" : "10th street",
+    "cost" : "10.10",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "date" : "5/1/2019",
     "email" : "werner@example.com",
-    "address" : "michegan ave",
+    "cost" : "134.70",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "date" : "6/1/2019",
     "email" : "lydia@example.com",
-    "address" : "little tokyo",
+    "cost" : "52",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
     "date" : "7/1/2019",
     "email" : "anna@example.com",
-    "address" : "4th street",
+    "cost" : "27.10",
     "tagged" : [ ]
   } ]
 }

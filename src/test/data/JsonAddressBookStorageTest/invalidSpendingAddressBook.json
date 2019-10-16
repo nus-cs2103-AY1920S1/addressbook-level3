@@ -3,6 +3,6 @@
     "name": "Person with invalid name field: Ha!ns Mu@ster",
     "date": "1/1/2019",
     "email": "hans@example.com",
-    "address": "4th street"
+    "cost": "4"
   } ]
 }
