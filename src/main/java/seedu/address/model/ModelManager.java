@@ -197,6 +197,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredDeadlineList(Predicate<Deadline> predicate) {
         requireNonNull(predicate);
+        System.out.println(filteredDeadlines.toString());
         filteredDeadlines.setPredicate(predicate);
     }
 

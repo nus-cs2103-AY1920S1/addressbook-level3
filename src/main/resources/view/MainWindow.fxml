@@ -70,11 +70,11 @@
                    <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
                  </VBox>
 
-                 <VBox fx:id="reminderList" alignment="CENTER" minWidth="100.0" prefWidth="100.0" styleClass="pane-with-border">
+                 <VBox fx:id="deadlineList" alignment="CENTER" minWidth="100.0" prefWidth="100.0" styleClass="pane-with-border">
                    <padding>
                      <Insets bottom="10" left="10" right="10" top="10" />
                    </padding>
-                   <StackPane fx:id="reminderListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                   <StackPane fx:id="deadlineListPanelPlaceholder" VBox.vgrow="ALWAYS" />
 
                  </VBox>
                </items>

@@ -33,7 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private FlashCardListPanel flashCardListPanel;
-    //private DeadlineListPanel deadlineListPanel;
+    private DeadlineListPanel deadlineListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CategoryListPanel categoryListPanel;
@@ -51,8 +51,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane categoryListPanelPlaceholder;
 
-    //@FXML
-    // private StackPane ReminderList
+    @FXML
+    private StackPane deadlineListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -123,8 +123,8 @@ public class MainWindow extends UiPart<Stage> {
         categoryListPanel = new CategoryListPanel(logic.getCategoryList());
         categoryListPanelPlaceholder.getChildren().add(categoryListPanel.getRoot());
 
-        //deadlineListPanel = new DeadlineListPanel(logic.getFilteredFlashCardList());
-        //deadlinePanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
+        deadlineListPanel = new DeadlineListPanel(logic.getFilteredDeadlineList());
+        deadlineListPanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
