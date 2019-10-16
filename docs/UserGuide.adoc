@@ -47,7 +47,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`workers`* : switches to the workers tab
 * **`add -w`**`/firstName John /lastName Doe /dob 17-05-1980` :
 adds a worker named John Doe (with his date of birth) to the management system.
-* **`delete -w`**`100200` : deletes the worker with staff ID W100200
+* **`delete -w`**`2` : deletes the worker with staff ID W000002
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -266,7 +266,7 @@ Returns `john` and `John Doe`
 Returns any person having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
-==== Deleting a person : `delete`
+==== Deleting an entity : `delete`
 
 Delete a body, worker or fridge entry, indicated by its id number. +
 Format: `delete -flag  id`
