@@ -18,8 +18,10 @@ import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.CustomerDatabase;
+import seedu.deliverymans.model.database.DeliverymenDatabase;
 import seedu.deliverymans.model.database.OrderBook;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
+import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
@@ -36,6 +38,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final OrderBook orderBook;
     private final CustomerDatabase customerDatabase;
+    private final DeliverymenDatabase deliverymenDatabase;
     private final RestaurantDatabase restaurantDatabase;
 
     private final UserPrefs userPrefs;
@@ -43,6 +46,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Customer> filteredCustomers;
+    private final FilteredList<Deliveryman> filteredDeliverymen;
     private final FilteredList<Restaurant> filteredRestaurants;
 
     private Context context;
@@ -52,22 +56,25 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyAddressBook addressBook,
                         ReadOnlyCustomerDatabase customerDatabase,
+                        ReadOnlyDeliverymenDatabase deliverymenDatabase,
                         ReadOnlyRestaurantDatabase restaurantDatabase,
                         ReadOnlyOrderBook orderBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, customerDatabase, restaurantDatabase, orderBook, userPrefs);
+        requireAllNonNull(addressBook, customerDatabase, deliverymenDatabase, restaurantDatabase, orderBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.customerDatabase = new CustomerDatabase(customerDatabase);
+        this.deliverymenDatabase = new DeliverymenDatabase(deliverymenDatabase);
         this.restaurantDatabase = new RestaurantDatabase(restaurantDatabase);
         this.orderBook = new OrderBook(orderBook);
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
+        filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
         filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
         filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
 
@@ -75,7 +82,8 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new CustomerDatabase(), new RestaurantDatabase(), new OrderBook(), new UserPrefs());
+        this(new AddressBook(), new CustomerDatabase(), new DeliverymenDatabase(),
+                new RestaurantDatabase(), new OrderBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -240,15 +248,22 @@ public class ModelManager implements Model {
     //=========== Deliveryman Methods =============================================================
 
     @Override
+    public void deleteDeliveryman(Deliveryman target) {
+        deliverymenDatabase.removeDeliveryman(target);
+    }
+
+    @Override
+    public void addDeliveryman(Deliveryman deliveryman) {
+        deliverymenDatabase.addDeliveryman(deliveryman);
+        updateFilteredDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
+    }
+
+    @Override
     public boolean hasDeliveryman(Deliveryman deliveryman) {
         requireNonNull(deliveryman);
         return true;
     }
 
-    @Override
-    public void addDeliveryman(Deliveryman deliveryman) {
-        requireNonNull(deliveryman);
-    }
 
     //=========== Order Methods =============================================================
     @Override
@@ -317,6 +332,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Deliveryman> getFilteredDeliverymenList() {
+        return filteredDeliverymen;
+    }
+
+    @Override
     public ObservableList<Restaurant> getFilteredRestaurantList() {
         return filteredRestaurants;
     }
@@ -342,6 +362,12 @@ public class ModelManager implements Model {
     public void updateFilteredCustomerList(Predicate<Customer> predicate) {
         requireNonNull(predicate);
         filteredCustomers.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredDeliverymenList(Predicate<Deliveryman> predicate) {
+        requireNonNull(predicate);
+        filteredDeliverymen.setPredicate(predicate);
     }
 
     @Override
