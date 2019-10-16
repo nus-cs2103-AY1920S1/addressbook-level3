@@ -17,7 +17,7 @@ public class EntryBuilder {
 
     public static final String DEFAULT_DESCRIPTION = "Alice Pauline";
     public static final double DEFAULT_AMOUNT = 5.60;
-    public static final double DEFAULT_TIME = 2019-09-09;
+    public static final String DEFAULT_TIME = "2019-09-09";
 
 
     private Description desc;
