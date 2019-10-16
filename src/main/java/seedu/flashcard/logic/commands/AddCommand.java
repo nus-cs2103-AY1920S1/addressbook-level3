@@ -1,6 +1,7 @@
 package seedu.flashcard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_WORD;
@@ -19,12 +20,15 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a flashcard to a flashcard list. "
             + "Parameters: "
             + "[" + PREFIX_WORD + "WORD]"
+            + "[" + PREFIX_CHOICE + "CHOICE]"
             + "[" + PREFIX_DEFINITION + "DEFINITION]"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_WORD + "Refactor "
-            + PREFIX_DEFINITION + "Make the codes be in a neater style without changing its functions. "
-            + "This is different from debugging. "
+            + PREFIX_CHOICE + "Make the codes be in a neater style without changing its functions. "
+            + PREFIX_CHOICE + "Test for for bugs in the system "
+            + PREFIX_CHOICE + "Change a mathematical formula"
+            + PREFIX_DEFINITION + "a"
             + PREFIX_TAG + "Software Engineering ";
 
     public static final String MESSAGE_SUCCESS = "New flashcard added: %1$s";

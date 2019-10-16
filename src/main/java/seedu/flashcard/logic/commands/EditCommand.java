@@ -1,6 +1,7 @@
 package seedu.flashcard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_WORD;
@@ -17,6 +18,7 @@ import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.commons.util.CollectionUtil;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
+import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.Word;
@@ -34,9 +36,11 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_WORD + "WORD] "
+            + "[" + PREFIX_CHOICE + "Choice]"
             + "[" + PREFIX_DEFINITION + "DEFINITION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_CHOICE + "Sample"
             + PREFIX_WORD + "A* Search "
             + PREFIX_TAG + "Artificial Intelligence";
 
@@ -83,9 +87,10 @@ public class EditCommand extends Command {
                                                    EditFlashcardDescriptor editFlashcardDescriptor) {
         assert flashcardToEdit != null;
         Word updatedWord = editFlashcardDescriptor.getWord().orElse(flashcardToEdit.getWord());
+        Set<Choice> updatedChoices = editFlashcardDescriptor.getChoices().orElse(flashcardToEdit.getChoices());
         Definition updatedDefinition = editFlashcardDescriptor.getDefinition().orElse(flashcardToEdit.getDefinition());
         Set<Tag> updatedTags = editFlashcardDescriptor.getTags().orElse(flashcardToEdit.getTags());
-        return new Flashcard(updatedWord, updatedDefinition, updatedTags);
+        return new Flashcard(updatedWord, updatedChoices, updatedDefinition, updatedTags);
     }
 
     @Override
@@ -114,15 +119,19 @@ public class EditCommand extends Command {
 
         private Word word;
         private Definition definition;
+        private Set<Choice> choices;
         private Set<Tag> tags;
 
         public EditFlashcardDescriptor() {}
 
         public EditFlashcardDescriptor(EditFlashcardDescriptor toCopy) {
             setWord(toCopy.word);
+            setChoices(toCopy.choices);
             setDefinition(toCopy.definition);
             setTags(toCopy.tags);
         }
+
+
 
         /**
          * Returns true if at least one field is edited.
@@ -137,6 +146,23 @@ public class EditCommand extends Command {
 
         public Optional<Word> getWord() {
             return Optional.ofNullable(word);
+        }
+
+        /**
+         * Sets {@code choices} to this object's {@code choices}.
+         * A defensive copy of {@code choices} is used internally.
+         */
+        public void setChoices(Set<Choice> choices) {
+            this.choices = (choices != null) ? new HashSet<>(choices) : null;
+        }
+
+        /**
+         * Returns an unmodifiable choice set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code choice} is null.
+         */
+        public Optional<Set<Choice>> getChoices() {
+            return (choices != null) ? Optional.of(Collections.unmodifiableSet(choices)) : Optional.empty();
         }
 
         public void setDefinition(Definition definition) {
