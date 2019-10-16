@@ -18,9 +18,6 @@ import seedu.address.model.book.SerialNumberGenerator;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.borrower.BorrowerIdGenerator;
-import seedu.address.model.borrower.Email;
-import seedu.address.model.borrower.Name;
-import seedu.address.model.borrower.Phone;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanIdGenerator;
 
@@ -36,7 +33,7 @@ public class ModelManager implements Model {
     private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
 
-    private final Optional<Borrower> servingBorrower;
+    private Optional<Borrower> servingBorrower;
 
     /**
      * Initializes a ModelManager with the given catalog and userPrefs.
@@ -218,6 +215,10 @@ public class ModelManager implements Model {
         filteredBooks.setPredicate(predicate);
     }
 
+    public void resetFilteredBookList() {
+        filteredBooks.setPredicate(x -> true);
+    }
+
     @Override
     public Model excludeBookBeingReplaced(Book toBeReplaced) {
         Catalog tempCatalog = new Catalog(this.getCatalog());
@@ -234,18 +235,16 @@ public class ModelManager implements Model {
 
 
     @Override
-    public Optional<Borrower> getServingBorrower() {
-        // TODO
-        // return servingBorrower;
-        return Optional.of(new Borrower(new Name("Stub"), new Phone("12345"), new Email("mail@fakemail.co"),
-                new BorrowerId("K1234"))); // STUB
+    public Borrower getServingBorrower() {
+        if (!isServeMode()) {
+            throw new AssertionError("Not in Serve mode!");
+        }
+        return servingBorrower.get();
     }
 
     @Override
     public boolean isServeMode() {
-        // TODO
-        // return servingBorrower.isPresent();
-        return true; // STUB
+        return servingBorrower.isPresent();
     }
 
     @Override
@@ -283,4 +282,18 @@ public class ModelManager implements Model {
         BorrowerIdGenerator.setBorrowers(borrowerRecords);
     }
 
+    @Override
+    public void setServingBorrower(BorrowerId borrowerId) {
+        this.servingBorrower = Optional.of(borrowerRecords.getBorrowerFromId(borrowerId));
+    }
+
+    @Override
+    public boolean hasBorrowerId(BorrowerId borrowerId) {
+        return borrowerRecords.checkIfBorrowerIdExists(borrowerId);
+    }
+
+    @Override
+    public void exitsServeMode() {
+        this.servingBorrower = Optional.empty();
+    }
 }

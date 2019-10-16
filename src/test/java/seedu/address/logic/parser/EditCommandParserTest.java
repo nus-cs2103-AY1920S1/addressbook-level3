@@ -40,6 +40,8 @@ public class EditCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
 
+    private static final String VALID_INDEX_ONE = "1";
+
     private EditCommandParser parser = new EditCommandParser();
 
     @Test
@@ -48,7 +50,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_TITLE_BOOK_1, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, VALID_INDEX_ONE, EditCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -63,39 +65,39 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "0" + TITLE_DESC_BOOK_1, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_INDEX_ONE + " some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_INDEX_ONE + " i/ string", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid serial number
-        assertParseFailure(parser, "1" + INVALID_SERIAL_NUMBER_DESC, SerialNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, VALID_INDEX_ONE + INVALID_SERIAL_NUMBER_DESC, SerialNumber.MESSAGE_CONSTRAINTS);
         //invalid genre
-        assertParseFailure(parser, "1" + INVALID_GENRE_DESC, Genre.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, VALID_INDEX_ONE + INVALID_GENRE_DESC, Genre.MESSAGE_CONSTRAINTS);
 
         // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_SERIAL_NUMBER_DESC + AUTHOR_DESC_BOOK_1,
+        assertParseFailure(parser, VALID_INDEX_ONE + INVALID_SERIAL_NUMBER_DESC + AUTHOR_DESC_BOOK_1,
                 SerialNumber.MESSAGE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + SERIAL_NUMBER_DESC_BOOK_2 + INVALID_SERIAL_NUMBER_DESC,
+        assertParseFailure(parser, VALID_INDEX_ONE + SERIAL_NUMBER_DESC_BOOK_2 + INVALID_SERIAL_NUMBER_DESC,
                 SerialNumber.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid genre results in error
-        assertParseFailure(parser, "1" + GENRE_DESC_FICTION + GENRE_DESC_ACTION + TAG_EMPTY,
+        assertParseFailure(parser, VALID_INDEX_ONE + GENRE_DESC_FICTION + GENRE_DESC_ACTION + TAG_EMPTY,
                 Genre.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + GENRE_DESC_FICTION + TAG_EMPTY + GENRE_DESC_ACTION,
+        assertParseFailure(parser, VALID_INDEX_ONE + GENRE_DESC_FICTION + TAG_EMPTY + GENRE_DESC_ACTION,
                 Genre.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + GENRE_DESC_FICTION + GENRE_DESC_ACTION,
+        assertParseFailure(parser, VALID_INDEX_ONE + TAG_EMPTY + GENRE_DESC_FICTION + GENRE_DESC_ACTION,
                 Genre.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_SERIAL_NUMBER_DESC + INVALID_GENRE_DESC,
+        assertParseFailure(parser, VALID_INDEX_ONE + INVALID_SERIAL_NUMBER_DESC + INVALID_GENRE_DESC,
                 SerialNumber.MESSAGE_CONSTRAINTS);
     }
 

@@ -2,8 +2,6 @@ package seedu.address.model.book;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-//import java.time.LocalDate;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -11,7 +9,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.DateUtil;
-//import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.genre.Genre;
 import seedu.address.model.loan.Loan;
 
@@ -68,19 +65,6 @@ public class Book {
     public Optional<Loan> getLoan() {
         return loan;
     }
-
-    /**
-     * Loans book out.
-     *
-     * @param borrowerId Id of Borrower.
-     * @param startDate Date when the book is loaned out.
-     * @param dueDate Date when the book is due to return.
-     */
-    //    public void loanTo(BorrowerId borrowerId, LocalDate startDate, LocalDate dueDate) {
-    //        assert (!this.loan.isPresent()) : "Book not available for loan";
-    //        Loan currentLoan = new Loan(serialNumber, borrowerId, startDate, dueDate);
-    //        this.loan = Optional.of(currentLoan);
-    //    }
 
     /**
      * Returns true if book is currently on loan.

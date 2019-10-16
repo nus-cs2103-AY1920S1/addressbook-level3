@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -9,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
+import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.loan.Loan;
 
 /**
@@ -53,7 +53,7 @@ public interface Model {
     /**
      * Returns the user prefs' loan records file path.
      */
-    void setCatalog(ReadOnlyCatalog addressBook);
+    void setCatalog(ReadOnlyCatalog catalog);
 
     /**
      * Returns true if a book with the same identity as {@code book} exists in the catalog.
@@ -78,6 +78,8 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Book> getFilteredBookList();
+
+    void resetFilteredBookList();
 
     void updateFilteredBookList(Predicate<Book> predicate);
 
@@ -117,7 +119,7 @@ public interface Model {
      *
      * @return Borrower that is being Served.
      */
-    Optional<Borrower> getServingBorrower();
+    Borrower getServingBorrower();
 
     /**
      * Returns true if Liberry is currently in Serve mode, false otherwise.
@@ -131,4 +133,10 @@ public interface Model {
     void registerBorrower(Borrower borrower);
 
     void resetGenerator();
+
+    void setServingBorrower(BorrowerId borrowerId);
+
+    boolean hasBorrowerId(BorrowerId borrowerId);
+
+    void exitsServeMode();
 }

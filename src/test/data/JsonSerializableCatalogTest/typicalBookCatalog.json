@@ -4,12 +4,12 @@
     "title": "Harry Botter",
     "serialNumber": "B00001",
     "author": "J K Rowling",
-    "genres" : [ "Fiction" ]
+    "genres" : [ "FICTION" ]
   }, {
     "title": "Legend of the Condor Heroes",
     "serialNumber": "B00002",
     "author": "Jin Yong",
-    "genres" : [ "Fiction", "Action" ]
+    "genres" : [ "FICTION", "ACTION" ]
   }, {
     "title": "Animal the Farm",
     "serialNumber": "B00003",
@@ -19,6 +19,6 @@
     "title": "Harri Botter and the Full Blood Prince",
     "serialNumber": "B00004",
     "author": "J K Rowling",
-    "genres" : [ "Fiction", "Action" ]
+    "genres" : [ "FICTION", "ACTION" ]
   }]
 }
