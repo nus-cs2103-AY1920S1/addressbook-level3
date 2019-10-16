@@ -21,6 +21,7 @@ public class ResultDisplay extends UiPart<Region> {
 
     public ResultDisplay() {
         super(FXML);
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
     public void setFeedbackToUser(String feedbackToUser) {
