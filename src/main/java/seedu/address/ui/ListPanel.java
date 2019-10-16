@@ -15,7 +15,7 @@ import seedu.address.model.event.Event;
  * Panel containing the list of persons and events.
  */
 public class ListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "EmployeeListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
 
     @FXML

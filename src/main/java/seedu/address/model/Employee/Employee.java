@@ -33,11 +33,9 @@ public class Employee {
     /**
      * Every field must be present and not null.
      */
-    public Employee(EmployeePosition employeePosition, EmployeeID employeeID, EmployeeGender employeeGender,
-                    EmployeeJoinDate employeeJoinDate, EmployeeName employeeName, EmployeePhone employeePhone,
-                    EmployeeEmail employeeEmail, EmployeeAddress employeeAddress, Set<Tag> tags) {
-        requireAllNonNull(employeeName, employeePhone, employeeEmail, employeeAddress, tags,
-                          employeeGender, employeeID, employeeJoinDate, employeePosition);
+    public Employee( EmployeeID employeeID, EmployeeName employeeName,  EmployeeGender employeeGender,
+                     EmployeePosition employeePosition, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
+                     EmployeeAddress employeeAddress,  EmployeeJoinDate employeeJoinDate,Set<Tag> tags) {
         this.employeeName = employeeName;
         this.employeePhone = employeePhone;
         this.employeeEmail = employeeEmail;
@@ -46,6 +44,18 @@ public class Employee {
         this.employeeGender = employeeGender;
         this.employeeJoinDate = employeeJoinDate;
         this.employeePosition = employeePosition;
+        this.tags.addAll(tags);
+    }
+
+    public  Employee(){
+        this.employeeName = null;
+        this.employeePhone = null;
+        this.employeeEmail = null;
+        this.employeeAddress = null;
+        this.employeeID = null;
+        this.employeeGender = null;
+        this.employeeJoinDate = null;
+        this.employeePosition = null;
         this.tags.addAll(tags);
     }
 
@@ -99,8 +109,14 @@ public class Employee {
         }
 
         return otherEmployee != null
+                && otherEmployee.getEmployeeID().equals(getEmployeeID())
                 && otherEmployee.getEmployeeName().equals(getEmployeeName())
-                && (otherEmployee.getEmployeePhone().equals(getEmployeePhone()) || otherEmployee.getEmployeeEmail().equals(getEmployeeEmail()));
+                && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
+                && otherEmployee.getEmployeePosition().equals((getEmployeePosition()))
+                && otherEmployee.getEmployeePhone().equals(getEmployeePhone())
+                && otherEmployee.getEmployeeEmail().equals(getEmployeeEmail())
+                && otherEmployee.getEmployeeAddress().equals(getEmployeeAddress())
+                && otherEmployee.getEmployeeJoinDate().equals(getEmployeeJoinDate());
     }
 
     /**
@@ -118,13 +134,13 @@ public class Employee {
         }
 
         Employee otherEmployee = (Employee) other;
-        return otherEmployee.getEmployeeName().equals(getEmployeeName())
+        return otherEmployee.getEmployeeID().equals(getEmployeeID())
+                && otherEmployee.getEmployeeName().equals(getEmployeeName())
+                && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
+                && otherEmployee.getEmployeePosition().equals(getEmployeePosition())
                 && otherEmployee.getEmployeePhone().equals(getEmployeePhone())
                 && otherEmployee.getEmployeeEmail().equals(getEmployeeEmail())
                 && otherEmployee.getEmployeeAddress().equals(getEmployeeAddress())
-                && otherEmployee.getEmployeeID().equals(getEmployeeID())
-                && otherEmployee.getEmployeePosition().equals(getEmployeePosition())
-                && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
                 && otherEmployee.getEmployeeJoinDate().equals(getEmployeeJoinDate())
                 && otherEmployee.getTags().equals(getTags());
     }

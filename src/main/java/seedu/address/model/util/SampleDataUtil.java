@@ -21,10 +21,10 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Employee[] getSampleEmployees() {
         return new Employee[] {
-            new Employee(new EmployeePosition("Manager"), new EmployeeID("000"), new EmployeeGender("Male"),
-                    new EmployeeJoinDate(LocalDate.now()), new EmployeeName("Alex Yeoh"), new EmployeePhone("87438807"), new EmployeeEmail("alexyeoh@example.com"),
+            new Employee( new EmployeeID("000"), new EmployeeName("Alex Yeoh"), new EmployeeGender("Male"),
+                    new EmployeePosition("Manager"), new EmployeePhone("87438807"), new EmployeeEmail("alexyeoh@example.com"),
                 new EmployeeAddress("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
+                    new EmployeeJoinDate(LocalDate.now()), getTagSet("friends")),
 
         };
     }

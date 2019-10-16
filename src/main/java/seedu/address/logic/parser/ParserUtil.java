@@ -175,13 +175,8 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static EmployeeID parseID(String ID) throws ParseException {
-        requireNonNull(ID);
-        String trimmedID = ID.trim();
-        if (!EmployeeID.isValidID(trimmedID)) {
-            throw new ParseException(EmployeeID.MESSAGE_CONSTRAINTS);
-        }
-        return new EmployeeID(trimmedID);
+    public static EmployeeID parseEmploteeID() {
+            return new EmployeeID();
     }
 
     /**

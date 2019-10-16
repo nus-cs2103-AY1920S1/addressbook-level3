@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_Position;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_Gender;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JoinDate;
@@ -38,7 +37,6 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed employee list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_ID + "ID] "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_Gender + "GENDER] "
             + "[" + PREFIX_Position + "POSITION] "
@@ -108,8 +106,8 @@ public class EditCommand extends Command {
         EmployeeGender updatedEmployeeGender = editEmployeeDescriptor.getEmployeeGender().orElse(employeeToEdit.getEmployeeGender());
         EmployeeJoinDate updatedEmployeeJoinDate = editEmployeeDescriptor.getEmployeeJoinDate().orElse(employeeToEdit.getEmployeeJoinDate());
 
-        return new Employee(updatedEmployeePosition, updatedEmployeeID, updatedEmployeeGender, updatedEmployeeJoinDate,
-                updatedEmployeeName, updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress, updatedTags);
+        return new Employee(updatedEmployeeID, updatedEmployeeName, updatedEmployeeGender, updatedEmployeePosition,
+                 updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress, updatedEmployeeJoinDate, updatedTags);
     }
 
     @Override

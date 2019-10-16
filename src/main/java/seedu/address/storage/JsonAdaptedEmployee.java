@@ -64,7 +64,7 @@ class JsonAdaptedEmployee {
         phone = source.getEmployeePhone().value;
         email = source.getEmployeeEmail().value;
         address = source.getEmployeeAddress().value;
-        id = source.getEmployeeID().value;
+        id = source.getEmployeeID().id;
         position = source.getEmployeePosition().fullPosition;
         gender = source.getEmployeeGender().gender;
         joindate = source.getEmployeeJoinDate().joinDate.toString();
@@ -87,7 +87,7 @@ class JsonAdaptedEmployee {
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EmployeeID.class.getSimpleName()));
         }
-        if (!EmployeeID.isValidID(id)) {
+        if (!EmployeeID.isValidId(id)) {
             throw new IllegalValueException(EmployeeID.MESSAGE_CONSTRAINTS);
         }
         final EmployeeID modelEmployeeID = new EmployeeID(id);
@@ -151,8 +151,8 @@ class JsonAdaptedEmployee {
         final EmployeeAddress modelEmployeeAddress = new EmployeeAddress(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Employee(modelEmployeePosition, modelEmployeeID, modelEmployeeGender, modelEmployeeJoinDate,
-                modelEmployeeName, modelEmployeePhone, modelEmployeeEmail, modelEmployeeAddress, modelTags);
+        return new Employee(modelEmployeeID,  modelEmployeeName, modelEmployeeGender, modelEmployeePosition,
+                modelEmployeePhone, modelEmployeeEmail, modelEmployeeAddress,  modelEmployeeJoinDate,modelTags);
     }
 
 }

@@ -1,54 +1,52 @@
 package seedu.address.model.Employee;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Employee's ID number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidID(String)}
+ * Represent's the unique identifying ID of an Employee Object
  */
 public class EmployeeID {
-
-
     public static final String MESSAGE_CONSTRAINTS =
-            "EmployeeID should only contain numbers, and it should be at least 1 digits long";
-    public static final String VALIDATION_REGEX = "\\d{1,}";
-    public final String value;
+            "Employee IDs is a 3-digit unique number";
+    private static final String VALIDATION_REGEX = "\\d{3}";
+    private static int nextID = 0;
+    public final String id;
 
     /**
-     * Constructs a {@code EmployeeID}.
-     *
-     * @param ID A valid ID number.
+     * Constructs an {@code EmployeeID}.
      */
-    public EmployeeID(String ID) {
-        requireNonNull(ID);
-        checkArgument(isValidID(ID), MESSAGE_CONSTRAINTS);
-        value = ID;
+    public EmployeeID() {
+        String id = String.format("%03d", nextID);
+        checkArgument(isValidId(id), MESSAGE_CONSTRAINTS);
+        this.id = id;
+        nextID++;
+    }
+
+    public EmployeeID(String id) {
+        this.id = id;
     }
 
     /**
-     * Returns true if a given string is a valid ID number.
+     * Returns true if a given string is a valid name.
      */
-    public static boolean isValidID(String test) {
+    public static boolean isValidId(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
     @Override
     public String toString() {
-        return value;
+        return id;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EmployeeID // instanceof handles nulls
-                && value.equals(((EmployeeID) other).value)); // state check
+                && id.equals(((EmployeeID) other).id)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return id.hashCode();
     }
-
 }
-
