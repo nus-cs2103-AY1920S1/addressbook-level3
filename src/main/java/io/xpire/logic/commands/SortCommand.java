@@ -29,7 +29,7 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.sortItemList(this.method);
-        model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
+        model.updateFilteredItemList(Model.PREDICATE_SORT_ALL_ITEMS);
         return new CommandResult(MESSAGE_SUCCESS + " by " + method.getValue());
     }
 
