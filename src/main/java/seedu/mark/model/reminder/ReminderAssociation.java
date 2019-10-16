@@ -2,8 +2,10 @@ package seedu.mark.model.reminder;
 
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
-import javafx.collections.ObservableList;
+import java.util.Comparator;
+
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
 import seedu.mark.model.bookmark.Bookmark;
@@ -11,15 +13,12 @@ import seedu.mark.model.bookmark.exceptions.BookmarkContainNoReminderException;
 import seedu.mark.model.bookmark.exceptions.ExistReminderException;
 import seedu.mark.model.bookmark.exceptions.ReminderNotFoundException;
 
-import java.time.LocalDateTime;
-import java.util.Comparator;
-
 /**
  * Represents the association between bookmarks and reminders.
  */
 public class ReminderAssociation {
-    private static final Comparator<Reminder> comparator = (Reminder a, Reminder b) ->
-            (a.getRemindTime().isBefore(b.getRemindTime())) ? -1 : 1;
+    private static final Comparator<Reminder> comparator = (Reminder a, Reminder b)
+            -> (a.getRemindTime().isBefore(b.getRemindTime())) ? -1 : 1;
     //TODO: One bookmark may has multiple reminder in next version.
     private ObservableMap<Bookmark, Reminder> association = FXCollections.observableHashMap();
 
@@ -61,7 +60,7 @@ public class ReminderAssociation {
             throw new BookmarkContainNoReminderException();
         }
 
-        if(!association.remove(bookmark, reminder)) {
+        if (!association.remove(bookmark, reminder)) {
             throw new ReminderNotFoundException();
         }
     }
@@ -101,7 +100,7 @@ public class ReminderAssociation {
      * @param bookmark the bookmark to check.
      * @return whether the bookmark already has a reminder.
      */
-    public boolean isBookmarkHasReminder(Bookmark bookmark){
+    public boolean isBookmarkHasReminder(Bookmark bookmark) {
         return association.containsKey(bookmark);
     }
 

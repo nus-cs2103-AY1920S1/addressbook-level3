@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.collections.ObservableMap;
@@ -212,7 +211,7 @@ public class Mark implements ReadOnlyMark {
      * @param bookmark the bookmark to check.
      * @return whether the bookmark already has a reminder.
      */
-    public boolean isBookmarkHasReminder(Bookmark bookmark){
+    public boolean isBookmarkHasReminder(Bookmark bookmark) {
         return reminderAssociation.isBookmarkHasReminder(bookmark);
     }
 

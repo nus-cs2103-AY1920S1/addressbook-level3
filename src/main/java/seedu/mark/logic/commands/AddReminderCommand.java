@@ -18,6 +18,9 @@ import seedu.mark.model.reminder.Note;
 import seedu.mark.model.reminder.Reminder;
 import seedu.mark.storage.Storage;
 
+/**
+ * Adds a reminder to Mark.
+ */
 public class AddReminderCommand extends Command {
     public static final String COMMAND_WORD = "reminder";
 
@@ -64,7 +67,7 @@ public class AddReminderCommand extends Command {
         Reminder reminderToAdd = new Reminder(bookmarkToOpen, time, note);
 
         if (model.isBookmarkHasReminder(bookmarkToOpen)) {
-        throw new CommandException(MESSAGE_DUPLICATE_REMINDER); 
+            throw new CommandException(MESSAGE_DUPLICATE_REMINDER);
         }
 
         model.addReminder(bookmarkToOpen, reminderToAdd);

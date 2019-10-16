@@ -1,19 +1,21 @@
 package seedu.mark.logic.parser;
+import static java.util.Objects.requireNonNull;
+
+import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOTE;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_TIME;
+
+import java.time.LocalDateTime;
+import java.util.stream.Stream;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.AddReminderCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.reminder.Note;
-import seedu.mark.model.reminder.Reminder;
 
-import java.time.LocalDateTime;
-import java.util.stream.Stream;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOTE;
-import static seedu.mark.logic.parser.CliSyntax.PREFIX_TIME;
-
+/**
+ * Parses input arguments and creates a new AddReminderCommand object
+ */
 public class AddReminderParser implements Parser<AddReminderCommand> {
     @Override
     public AddReminderCommand parse(String args) throws ParseException {
@@ -28,7 +30,8 @@ public class AddReminderParser implements Parser<AddReminderCommand> {
             System.out.println(argMultimap.getPreamble());
         } catch (ParseException pe) {
             System.out.println("no index");
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReminderCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddReminderCommand.MESSAGE_USAGE), pe);
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TIME)) {

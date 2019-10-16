@@ -16,8 +16,8 @@ import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
-import seedu.mark.model.reminder.Reminder;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.Reminder;
 
 /**
  * Represents the in-memory model of the Mark data.
@@ -284,7 +284,7 @@ public class ModelManager implements Model {
      * @param bookmark the bookmark to check.
      * @return whether the bookmark already has a reminder.
      */
-    public boolean isBookmarkHasReminder(Bookmark bookmark){
+    public boolean isBookmarkHasReminder(Bookmark bookmark) {
         return versionedMark.isBookmarkHasReminder(bookmark);
     }
 
