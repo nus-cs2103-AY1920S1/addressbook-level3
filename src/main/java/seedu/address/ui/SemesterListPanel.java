@@ -26,6 +26,10 @@ public class SemesterListPanel extends UiPart<Region> {
         semesterListView.setCellFactory(listView -> new SemesterListViewCell());
     }
 
+    public void refresh() {
+        semesterListView.refresh();
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
