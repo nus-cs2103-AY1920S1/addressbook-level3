@@ -17,6 +17,11 @@ public interface ReadOnlyEntityList {
     boolean contains(Id id);
 
     /**
+     * Checks if this EntityList is empty;
+     */
+    boolean isEmpty();
+
+    /**
      * List the entities.
      *
      * @return List<? extends Entity>

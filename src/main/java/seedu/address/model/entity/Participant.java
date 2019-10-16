@@ -60,6 +60,7 @@ public class Participant extends Entity {
     public HashMap<String, String> viewDetailed() {
         HashMap<String, String> result = new HashMap<>();
         result.put("name", getName().toString());
+        result.put("id", getId().toString());
         result.put("phone", getPhone().toString());
         result.put("email", getEmail().toString());
         return result;
@@ -111,5 +112,21 @@ public class Participant extends Entity {
                 .append(getEmail());
 
         return builder.toString();
+    }
+
+    /**
+     * This implements a looser definition of equality for Participants.
+     *
+     * @param otherParticipant
+     * @return boolean
+     */
+    public boolean isSameParticipant(Participant otherParticipant) {
+        if (otherParticipant == this) {
+            return true;
+        }
+
+        return this.name.equals(otherParticipant.getName())
+                && (this.phone.equals(otherParticipant.getPhone())
+                    || this.email.equals(otherParticipant.getEmail()));
     }
 }

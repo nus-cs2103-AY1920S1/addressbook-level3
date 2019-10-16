@@ -31,10 +31,30 @@ public class TypicalTeams {
                                           ProjectType.PLACEHOLDER,
                                           new Location(1));
 
+    public static final Team A_UPDATED = new Team(new Id(PrefixType.T, 1),
+            new Name("Team A"),
+            initializeListA(),
+            Optional.of(TypicalMentors.A),
+            SubjectName.ENVIRONMENTAL,
+            new Score(1),
+            new Name("Project Alpha"),
+            ProjectType.PLACEHOLDER,
+            new Location(2));
+
+    public static final Team A_SIMILAR = new Team(new Id(PrefixType.T, 2),
+            new Name("Team B"),
+            TypicalParticipants.getTypicalParticipants(),
+            Optional.of(TypicalMentors.B),
+            SubjectName.EDUCATION,
+            new Score(2),
+            new Name("Project Alpha"),
+            ProjectType.PLACEHOLDER,
+            new Location(2));
+
     public static final Team B = new Team(new Id(PrefixType.T, 2),
-                                          new Name("Team B"),
-                                          TypicalParticipants.getTypicalParticipants(),
-                                          Optional.of(TypicalMentors.B),
+            new Name("Team B"),
+            TypicalParticipants.getTypicalParticipants(),
+            Optional.of(TypicalMentors.B),
                                           SubjectName.EDUCATION,
                                           new Score(2),
                                           new Name("Project Beta"),
