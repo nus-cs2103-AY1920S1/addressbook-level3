@@ -142,6 +142,21 @@ public class AddMemberCommandTest {
         }
 
         @Override
+        public ObservableList<Task> getFilteredTaskListNotStarted() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTaskListDoing() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTaskListDone() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public ObservableList<Task> getFilteredTasksList() {
             throw new AssertionError("This method should not be called.");
         }

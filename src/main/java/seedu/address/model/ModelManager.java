@@ -28,6 +28,9 @@ public class ModelManager implements Model {
     private final ProjectDashboard projectDashboard;
     private final UserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> filteredTasksNotStarted;
+    private final FilteredList<Task> filteredTasksDoing;
+    private final FilteredList<Task> filteredTasksDone;
     private final FilteredList<Member> filteredMembers;
     private final FilteredList<Mapping> filteredMappings;
     private final FilteredList<Inventory> filteredInventories;
@@ -46,6 +49,9 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredTasks = new FilteredList<>(this.projectDashboard.getTaskList());
+        filteredTasksNotStarted = new FilteredList<>(this.projectDashboard.getTasksNotStarted());
+        filteredTasksDoing = new FilteredList<>(this.projectDashboard.getTasksDoing());
+        filteredTasksDone = new FilteredList<>(this.projectDashboard.getTasksDone());
         filteredMembers = new FilteredList<>(this.projectDashboard.getMemberList());
         filteredInventories = new FilteredList<>(this.projectDashboard.getInventoryList());
         filteredMappings = new FilteredList<>(this.projectDashboard.getMappingList());
@@ -54,7 +60,6 @@ public class ModelManager implements Model {
     public ModelManager() {
         this(new ProjectDashboard(), new UserPrefs());
     }
-
 
     //=========== UserPrefs ==================================================================================
 
@@ -93,7 +98,7 @@ public class ModelManager implements Model {
 
     //=========== ProjectDashboard ================================================================================
 
-
+    @Override
     public void setProjectDashboard(ReadOnlyProjectDashboard projectDashboard) {
         this.projectDashboard.resetData(projectDashboard);
     }
@@ -129,6 +134,21 @@ public class ModelManager implements Model {
 
     //=========== Filtered Task List Accessors =============================================================
 
+    @Override
+    public ObservableList<Task> getFilteredTaskListNotStarted() {
+        return filteredTasksNotStarted;
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskListDoing() {
+        return filteredTasksDoing;
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskListDone() {
+        return filteredTasksDone;
+    }
+
     /**
      * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
      * {@code versionedAddressBook}
@@ -142,6 +162,9 @@ public class ModelManager implements Model {
     public void updateFilteredTasksList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
+        filteredTasksNotStarted.setPredicate(predicate);
+        filteredTasksDoing.setPredicate(predicate);
+        filteredTasksDone.setPredicate(predicate);
     }
 
     public int getTasksLength() {
