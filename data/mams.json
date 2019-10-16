@@ -162,9 +162,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "gay"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000002",
     "appealType" : "Drop module",
@@ -190,9 +190,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "gay"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000004",
     "appealType" : "Increase workload",
@@ -204,9 +204,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "gay"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000005",
     "appealType" : "Add module",
