@@ -5,12 +5,15 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.task.Task;
+import seedu.address.model.member.Member;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -28,6 +31,40 @@ public class UniqueMappingList implements Iterable<Mapping> {
     private final ObservableList<Mapping> internalList = FXCollections.observableArrayList();
     private final ObservableList<Mapping> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
+    public ObservableList<Member> getMappedMembers(Task task) {
+        requireNonNull(task);
+        ObservableList<Member> result = FXCollections.observableArrayList();
+        for (Mapping mapping : internalList) {
+            if (mapping.hasTask(task)) {
+                result.add(mapping.getMember());
+            }
+        }
+        return result;
+    }
+
+    public ObservableList<Task> getMappedTasks(Member member) {
+        requireNonNull(member);
+        ObservableList<Task> result = FXCollections.observableArrayList();
+        for (Mapping mapping : internalList) {
+            if (mapping.hasMember(member)) {
+                result.add(mapping.getTask());
+            }
+        }
+        return result;
+    }
+
+    public HashMap<Task, ObservableList<Member>> listMemberByTask() {
+        HashMap<Task, ObservableList<Member>> result = new HashMap<>();
+        for (Mapping mapping : internalList) {
+            Task currentTask = mapping.getTask();
+            if (result.get(currentTask) == null) {
+                result.put(currentTask, FXCollections.observableArrayList());
+            }
+            result.get(currentTask).add(mapping.getMember());
+        }
+        return result;
+    }
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
