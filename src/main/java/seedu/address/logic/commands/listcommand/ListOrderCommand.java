@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 public class ListOrderCommand extends Command {
 
     //to be discussed
-    public static final String COMMAND_WORD = "to be confirmed";
+    public static final String COMMAND_WORD = "list-o";
 
     public static final String MESSAGE_SUCCESS = "Listed all current orders";
 
