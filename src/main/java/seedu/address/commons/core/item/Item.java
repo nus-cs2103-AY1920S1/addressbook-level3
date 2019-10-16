@@ -294,38 +294,34 @@ public class Item {
         public ItemBuilder() {}
 
         public ItemBuilder setTask(Task task) {
-            //requireNonNull(task);
             this.task = task;
             return this;
         }
 
         public ItemBuilder setEvent(Event event) {
-            //requireNonNull(event);
+
             this.event = event;
             return this;
         }
 
         public ItemBuilder setReminder(Reminder reminder) {
-            //requireNonNull(reminder);
+
             this.reminder = reminder;
             return this;
         }
 
         public ItemBuilder setItemDescription(ItemDescription descriptor) {
-            requireNonNull(descriptor);
             this.itemDescription = descriptor;
             return this;
         }
 
         //Consider using a defensive copy of tags, similar to EditCommand in AB3
         public ItemBuilder setTags(Set<Tag> tags) {
-            requireNonNull(tags);
             this.tags = tags;
             return this;
         }
 
         public ItemBuilder setItemPriority(Priority priority) {
-            requireNonNull(priority);
             this.priority = priority;
             return this;
         }
