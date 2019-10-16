@@ -75,7 +75,13 @@ public class JsonWordBankStatisticsStorage implements WordBankStatisticsStorage 
     public void saveWordBankStatistics(WordBankStatistics statistics, Path filePath)
             throws IOException {
         requireAllNonNull(statistics, filePath);
-
+        File directory = new File(filePath.getParent().toUri());
+        if (!directory.exists()) {
+            boolean success = directory.mkdir();
+            if (!success) {
+                logger.fine("Cannot make directory for wbstats");
+            }
+        }
         JsonUtil.saveJsonFile(new JsonSerializableWordBankStatistics(statistics), filePath);
     }
 
@@ -84,6 +90,9 @@ public class JsonWordBankStatisticsStorage implements WordBankStatisticsStorage 
         String pathString = "data/wbstats/";
         File dataDirectory = new File(pathString);
         String[] pathArray = dataDirectory.list();
+        if (pathArray == null) {
+            return Optional.empty();
+        }
 
         for (int i = 0; i < pathArray.length; i++) {
             if (!pathArray[i].endsWith(".json")) {
