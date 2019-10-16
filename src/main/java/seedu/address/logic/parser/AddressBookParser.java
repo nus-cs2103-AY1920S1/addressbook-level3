@@ -8,18 +8,18 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Alias;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AliasCommand;
 import seedu.address.logic.commands.BudgetCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EventCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RemindersCommand;
+import seedu.address.logic.commands.ListEventsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyUserPrefs;
 
@@ -71,10 +71,10 @@ public class AddressBookParser {
             return new ExitCommand();
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-        case RemindersCommand.COMMAND_WORD:
-            return new RemindersCommand();
-        case EventCommand.COMMAND_WORD:
-            return new EventCommandParser().parse(arguments);
+        case ListEventsCommand.COMMAND_WORD:
+            return new ListEventsCommand();
+        case AddEventCommand.COMMAND_WORD:
+            return new AddEventCommandParser().parse(arguments);
         default:
             // check if alias exists
             if (readOnlyUserPrefs.hasAlias(commandWord)) {

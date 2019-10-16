@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
-import java.time.LocalDate;
 import java.time.Period;
 import java.util.stream.Stream;
 
@@ -15,6 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
+import seedu.address.model.expense.Timestamp;
 
 /**
  * Parses input arguments and creates a new BudgetCommand object
@@ -37,7 +37,7 @@ public class BudgetCommandParser implements Parser<BudgetCommand> {
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Price amount = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
-        LocalDate startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
+        Timestamp startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
         Period period = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_PERIOD).get());
 
         Budget budget = new Budget(description, amount, startDate, period);

@@ -2,15 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Alias;
@@ -73,21 +68,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String timestamp} into a {@code Timestamp}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code timestamp} is invalid.
-     */
-    public static Timestamp parseTimestamp(String timestamp) throws ParseException {
-        requireNonNull(timestamp);
-        String trimmedTimestamp = timestamp.trim();
-        if (!Timestamp.isValidTimestamp(trimmedTimestamp)) {
-            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
-        }
-        return new Timestamp(trimmedTimestamp);
-    }
-
-    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -130,29 +110,19 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String date} into a {@code LocalDate}.
+     * Parses a {@code String timestamp} into a {@code Timestamp}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code date} is invalid (not in MM-d format).
+     * @throws ParseException if the given {@code timestamp} is invalid.
      */
-    public static LocalDate parseDate(String date) throws ParseException {
-        String trimmedDate = date.trim();
-        try {
-            int currentYear = LocalDate.now().getYear();
-            DateTimeFormatter formatterWithoutYear = new DateTimeFormatterBuilder()
-                    .appendPattern("dd-MM")
-                    .parseDefaulting(ChronoField.YEAR, currentYear)
-                    .toFormatter(Locale.ENGLISH);
-            LocalDate parsedDate = LocalDate.parse(trimmedDate, formatterWithoutYear);
-            return parsedDate;
-        } catch (DateTimeParseException e) {
-            try {
-                DateTimeFormatter formatterWithYear = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
-                LocalDate parsedDate = LocalDate.parse(trimmedDate, formatterWithYear);
-                return parsedDate;
-            } catch (DateTimeParseException e1) {
-                throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
-            }
+    public static Timestamp parseTimestamp(String timestamp) throws ParseException {
+        requireNonNull(timestamp);
+        String trimmedTimestamp = timestamp.trim();
+        Optional<Timestamp> potentialTimestamp = Timestamp.createTimestampIfValid(trimmedTimestamp);
+        if (potentialTimestamp.isPresent()) {
+            return potentialTimestamp.get();
+        } else {
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
         }
     }
 

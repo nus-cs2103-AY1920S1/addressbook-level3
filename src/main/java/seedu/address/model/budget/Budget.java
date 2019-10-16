@@ -2,7 +2,6 @@ package seedu.address.model.budget;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +10,7 @@ import java.util.Objects;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
+import seedu.address.model.expense.Timestamp;
 
 /**
  * Represents a Budget in Moolah.
@@ -18,15 +18,15 @@ import seedu.address.model.expense.Price;
  */
 public class Budget {
     private final Description description;
-    private final LocalDate startDate;
-    private final LocalDate endDate;
+    private final Timestamp startDate;
+    private final Timestamp endDate;
     private final Period period;
     private final Price amount;
     private final List<Expense> expenses;
     private boolean isPrimary;
 
 
-    public Budget(Description description, Price amount, LocalDate startDate, Period period) {
+    public Budget(Description description, Price amount, Timestamp startDate, Period period) {
         requireAllNonNull(description, startDate, period, amount);
         this.description = description;
         this.amount = amount;
@@ -41,11 +41,11 @@ public class Budget {
         return description;
     }
 
-    public LocalDate getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 

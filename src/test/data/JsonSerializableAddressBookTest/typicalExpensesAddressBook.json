@@ -4,37 +4,44 @@
     "description" : "Alices Birthday",
     "price" : "20",
     "tagged" : [ "AnniversaryAndHoliday" ],
-    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001"
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001",
+    "timestamp" : "01-12-2019"
   }, {
     "description" : "Busan Trip",
     "price" : "1300",
     "tagged" : [ "Travel", "Korea", "Food", "Transport" ],
-    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000002"
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000002",
+    "timestamp" : "02-12-2019"
   }, {
     "description" : "Chicken Rice extra Chicken",
     "price" : "3.50",
     "tagged" : [ "nusDeck", "Favourite" ],
-    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000003"
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000003",
+    "timestamp" : "03-12-2019"
   }, {
     "description" : "Whiskey and Coke",
     "price" : "50",
     "tagged" : [ "Party", "AnniversaryAndHoliday" ],
-    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000004"
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000004",
+    "timestamp" : "04-12-2019"
   }, {
     "description" : "Marvel Movie Marathon",
     "price" : "75",
     "tagged" : [ "Entertainment"],
-    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000005"
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000005",
+    "timestamp" : "05-12-2019"
   }, {
     "description" : "Clothes for the New Year",
     "price" : "88.88",
-    "tagged" : [ ],
-    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000006"
+    "tagged" : [ "AnniversaryAndHoliday"],
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000006",
+    "timestamp" : "06-12-2019"
   }, {
     "description" : "Groceries for September meal preps",
     "price" : "125.35",
-    "tagged" : [ ],
-    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000007"
+    "tagged" : [ "AnniversaryAndHoliday"],
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000007",
+    "timestamp" : "07-12-2019"
   } ],
   "events" : []
 }

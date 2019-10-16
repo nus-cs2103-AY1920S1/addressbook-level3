@@ -21,7 +21,7 @@ public class Expense {
     // data fields
     private final Description description;
     private final Price price;
-    private final LocalDate date;
+    private final Timestamp timestamp;
 
     private final Set<Tag> tags = new HashSet<>();
 
@@ -34,7 +34,17 @@ public class Expense {
         this.price = price;
         this.uniqueIdentifier = uniqueIdentifier;
         this.tags.addAll(tags);
-        this.date = LocalDate.now();
+        this.timestamp = new Timestamp(LocalDate.now());
+    }
+
+    public Expense(Description description, Price price, Set<Tag> tags,
+                   UniqueIdentifier uniqueIdentifier, Timestamp timestamp) {
+        requireAllNonNull(description, price, tags, uniqueIdentifier);
+        this.description = description;
+        this.price = price;
+        this.uniqueIdentifier = uniqueIdentifier;
+        this.tags.addAll(tags);
+        this.timestamp = timestamp;
     }
 
     public Description getDescription() {
@@ -45,8 +55,8 @@ public class Expense {
         return price;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
     public UniqueIdentifier getUniqueIdentifier() {
@@ -111,6 +121,8 @@ public class Expense {
                 .append(" [Tags: ");
         getTags().forEach(builder::append);
         builder.append("]");
+        builder.append("Timestamp: ")
+                .append(getTimestamp());
         return builder.toString();
     }
 

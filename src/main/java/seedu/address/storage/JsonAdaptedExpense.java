@@ -3,6 +3,7 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
+import seedu.address.model.expense.Timestamp;
 import seedu.address.model.expense.UniqueIdentifier;
 import seedu.address.model.tag.Tag;
 
@@ -27,6 +29,7 @@ class JsonAdaptedExpense {
     private final String price;
     private final String uniqueIdentifier;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String rawTimestamp;
 
     /**
      * Constructs a {@code JsonAdaptedExpense} with the given expense details.
@@ -35,10 +38,12 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(@JsonProperty("description") String description,
                               @JsonProperty("price") String price,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                              @JsonProperty("uniqueIdentifier") String uniqueIdentifier) {
+                              @JsonProperty("uniqueIdentifier") String uniqueIdentifier,
+                              @JsonProperty("timestamp") String rawTimestamp) {
         this.description = description;
         this.price = price;
         this.uniqueIdentifier = uniqueIdentifier;
+        this.rawTimestamp = rawTimestamp;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -55,6 +60,7 @@ class JsonAdaptedExpense {
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         uniqueIdentifier = source.getUniqueIdentifier().value;
+        rawTimestamp = source.getTimestamp().toString();
     }
 
     /**
@@ -97,7 +103,19 @@ class JsonAdaptedExpense {
         final UniqueIdentifier modelUniqueIdentifier = new UniqueIdentifier(uniqueIdentifier);
 
         final Set<Tag> modelTags = new HashSet<>(expenseTags);
-        return new Expense(modelDescription, modelPrice, modelTags, modelUniqueIdentifier);
+
+        if (rawTimestamp == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
+        }
+
+        Optional<Timestamp> potentialTimestamp = Timestamp.createTimestampIfValid(rawTimestamp);
+        if (potentialTimestamp.isEmpty()) {
+            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
+        }
+        final Timestamp modelTimestamp = potentialTimestamp.get();
+
+        return new Expense(modelDescription, modelPrice, modelTags, modelUniqueIdentifier, modelTimestamp);
     }
 
 }

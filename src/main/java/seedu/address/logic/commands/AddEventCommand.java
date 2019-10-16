@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -12,7 +13,7 @@ import seedu.address.model.expense.Event;
 /**
  * Adds an event to the address book.
  */
-public class EventCommand extends Command {
+public class AddEventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";
 
@@ -25,7 +26,8 @@ public class EventCommand extends Command {
             + PREFIX_DESCRIPTION + "Chicken Rice "
             + PREFIX_PRICE + "3.50 "
             + PREFIX_TAG + "nusDeck "
-            + PREFIX_TAG + "chicken";
+            + PREFIX_TAG + "chicken"
+            + PREFIX_TIMESTAMP + "31-12-2019";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the tracker";
@@ -33,9 +35,9 @@ public class EventCommand extends Command {
     private final Event toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Expense}
+     * Creates an AddEventCommand to add the specified {@code Event}.
      */
-    public EventCommand(Event event) {
+    public AddEventCommand(Event event) {
         requireNonNull(event);
         toAdd = event;
     }
@@ -60,7 +62,7 @@ public class EventCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EventCommand // instanceof handles nulls
-                && toAdd.equals(((EventCommand) other).toAdd));
+                || (other instanceof AddEventCommand // instanceof handles nulls
+                && toAdd.equals(((AddEventCommand) other).toAdd));
     }
 }

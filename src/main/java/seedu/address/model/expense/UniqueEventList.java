@@ -9,14 +9,15 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.expense.exceptions.DuplicateEventException;
+import seedu.address.model.expense.exceptions.EventNotFoundException;
 
 /**
- * A list of expenses that enforces uniqueness between its elements and does not allow nulls.
- * A expense is considered unique by comparing using {@code Expense#isSameExpense(Expense)}.
- * As such, adding and updating of expenses uses Expense#isSameExpense(Expense) for equality so
- * as to ensure that the expense being added or updated is unique in terms of identity in
- * the UniqueExpenseList. However, the removal of a expense uses Expense#equals(Object) so
- * as to ensure that the expense with exactly the same fields will be removed.
+ * A list of events that enforces uniqueness between its elements and does not allow nulls.
+ * An event is considered unique by comparing using {@code Event#isSameEvent(Event)}.
+ * As such, adding and updating of events uses Expense#isSameEvent(Event) for equality so
+ * as to ensure that the event being added or updated is unique in terms of identity in
+ * the UniqueEventList. However, the removal of an event uses Event#equals(Object) so
+ * as to ensure that the event with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -29,7 +30,7 @@ public class UniqueEventList implements Iterable<Event> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent expense as the given argument.
+     * Returns true if the list contains an equivalent event as the given argument.
      */
     public boolean contains(Event toCheck) {
         requireNonNull(toCheck);
@@ -37,8 +38,8 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
-     * Adds a expense to the list.
-     * The expense must not already exist in the list.
+     * Adds an event to the list.
+     * The event must not already exist in the list.
      */
     public void add(Event toAdd) {
         requireNonNull(toAdd);
@@ -49,9 +50,9 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
-     * Replaces the expense {@code target} in the list with {@code editedExpense}.
+     * Replaces the event {@code target} in the list with {@code editedEvent}.
      * {@code target} must exist in the list.
-     * The expense identity of {@code editedExpense} must not be the same as another existing expense in the list.
+     * The event identity of {@code editedEvent} must not be the same as another existing event in the list.
      */
     //    IMPLEMENT AFTER WK 7
     //    public void setExpense(Expense target, Expense editedExpense) {
@@ -70,16 +71,15 @@ public class UniqueEventList implements Iterable<Event> {
     //    } IMPLEMENT AFTER WK 7
 
     /**
-     * Removes the equivalent expense from the list.
-     * The expense must exist in the list.
+     * Removes the equivalent event from the list.
+     * The event must exist in the list.
      */
-    //    IMPLEMENT AFTER WK 7
-    //    public void remove(Expense toRemove) {
-    //        requireNonNull(toRemove);
-    //        if (!internalList.remove(toRemove)) {
-    //            throw new ExpenseNotFoundException();
-    //        }
-    //    } IMPLEMENT AFTER WK 7
+    public void remove(Event toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new EventNotFoundException();
+        }
+    }
 
     public void setEvents(UniqueEventList replacement) {
         requireNonNull(replacement);
@@ -87,8 +87,8 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
-     * Replaces the contents of this list with {@code expenses}.
-     * {@code expenses} must not contain duplicate expenses.
+     * Replaces the contents of this list with {@code events}.
+     * {@code events} must not contain duplicate events.
      */
     public void setEvents(List<Event> events) {
         requireAllNonNull(events);
