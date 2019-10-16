@@ -18,8 +18,10 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Person;
 import seedu.address.model.policy.Coverage;
 import seedu.address.model.policy.Description;
 import seedu.address.model.policy.EndAge;
@@ -88,6 +90,16 @@ public class EditPolicyCommand extends Command {
 
         model.setPolicy(policyToEdit, editedPolicy);
         model.updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
+
+        // Update persons with the edited policy
+        for (Person p : model.getAddressBook().getPersonList()) {
+            if (p.hasPolicy(policyToEdit)) {
+                Person policyRemoved = new PersonBuilder(p).removePolicies(policyToEdit).build();
+                Person editedPerson = new PersonBuilder(policyRemoved).addPolicies(editedPolicy).build();
+                model.setPerson(p, editedPerson);
+            }
+        }
+
         return new CommandResult(String.format(MESSAGE_EDIT_POLICY_SUCCESS, editedPolicy));
     }
 
@@ -98,7 +110,6 @@ public class EditPolicyCommand extends Command {
     private static Policy createEditedPolicy(Policy policyToEdit, EditPolicyDescriptor editPolicyDescriptor) {
         assert policyToEdit != null;
 
-        // TODO: Edit policy details
         PolicyName updatedName = editPolicyDescriptor.getName().orElse(policyToEdit.getName());
         Description updatedDescription = editPolicyDescriptor.getDescription().orElse(policyToEdit.getDescription());
         Coverage updatedCoverage = editPolicyDescriptor.getCoverage().orElse(policyToEdit.getCoverage());

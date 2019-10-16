@@ -177,7 +177,6 @@ public class ModelManager implements Model {
         return filteredPolicies;
     }
 
-    // TODO: Show list of policies instead.
     @Override
     public void updateFilteredPolicyList(Predicate<Policy> predicate) {
         requireNonNull(predicate);

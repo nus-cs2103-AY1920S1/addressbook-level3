@@ -17,9 +17,9 @@ public class EndAge {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{N}]+";
-    public static final String INFINITY = "300";
+    public static final String AGE_INFINITY = "300";
 
-    private String age = INFINITY;
+    private final String age;
     /**
      * Constructs a {@code EndAge}.
      *
@@ -29,6 +29,14 @@ public class EndAge {
         requireNonNull(age);
         checkArgument(isValidAge(age), MESSAGE_CONSTRAINTS);
         this.age = age;
+    }
+
+    /**
+     * Constructs a {@code EndAge} starting from 0.
+     *
+     */
+    public EndAge() {
+        this.age = AGE_INFINITY;
     }
 
     /**

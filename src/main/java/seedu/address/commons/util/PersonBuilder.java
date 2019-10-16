@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.commons.util;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -21,7 +21,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_NRIC = "S000000J";
+    public static final String DEFAULT_NRIC = "S0000003J";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_DATE_OF_BIRTH = "3.3.1993";
@@ -99,21 +99,27 @@ public class PersonBuilder {
         return this;
     }
 
-    // TODO: withPolicies should use Policy instead of strings as arguments
-    // Gives dev flexibility to adjust policies instead of being restricted to those in sampledatautil.
     /**
      * Parses the {@code policies} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withPolicies(String ... policies) {
-        this.policies = SampleDataUtil.getPolicySet(policies);
+    public PersonBuilder withPolicies(Policy ... policies) {
+        this.policies = new HashSet<>(Arrays.asList(policies));
         return this;
     }
 
     /**
-     * Parses the {@code policies} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code policies} into a {@code Set<Tag>} and adds it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTypicalPolicies(Policy ... policies) {
-        this.policies = new HashSet<>(Arrays.asList(policies));
+    public PersonBuilder addPolicies(Policy ... policies) {
+        this.policies.addAll(Arrays.asList(policies));
+        return this;
+    }
+
+    /**
+     * Parses the {@code policies} into a {@code Set<Tag>} and removes it from the {@code Person} that we are building.
+     */
+    public PersonBuilder removePolicies(Policy ... policies) {
+        this.policies.removeAll(Arrays.asList(policies));
         return this;
     }
 

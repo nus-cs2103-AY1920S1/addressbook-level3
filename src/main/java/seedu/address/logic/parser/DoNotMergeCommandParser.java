@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.DoNotMergeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
@@ -27,58 +28,31 @@ import seedu.address.model.policy.Policy;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new FindCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class DoNotMergeCommandParser implements Parser<DoNotMergeCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * Parses the given {@code String} of arguments in the context of the FindCommand
+     * and returns a FindCommand object for execution.
+     * @throws seedu.address.logic.parser.exceptions.ParseException if the user input does not
+     * conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public DoNotMergeCommand parse(String args) throws ParseException {
+        String trimmedArgs = removeAddCommandWord(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                        PREFIX_DATE_OF_BIRTH, PREFIX_POLICY, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(trimmedArgs, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE, PREFIX_EMAIL,
+                        PREFIX_ADDRESS, PREFIX_DATE_OF_BIRTH);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_DATE_OF_BIRTH) || areAnyPrefixesPresent(argMultimap, PREFIX_POLICY, PREFIX_TAG)
+                PREFIX_DATE_OF_BIRTH) || arePrefixesPresent(argMultimap, PREFIX_POLICY, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-
-        boolean isInvalidNric = false;
-        boolean isInvalidPhone = false;
-        boolean isInvalidEmail = false;
-
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Nric nric = null;
-        try {
-            nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
-        } catch (ParseException e) {
-            isInvalidNric = true;
-        }
-        Phone phone = null;
-        try {
-            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        } catch (ParseException e) {
-            isInvalidPhone = true;
-        }
-        Email email = null;
-        try {
-            email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        } catch (ParseException e) {
-            isInvalidEmail = true;
-        }
-        if (isInvalidNric) {
-            ParseExceptionHandler.handleNricException(name, phone, email);
-        }
-        if (isInvalidPhone) {
-            ParseExceptionHandler.handlePhoneException(name, email);
-        }
-        if (isInvalidEmail) {
-            ParseExceptionHandler.handleEmailException(name, phone);
-        }
+        Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
+        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         DateOfBirth dateOfBirth = ParserUtil.parseDateOfBirth(argMultimap.getValue(PREFIX_DATE_OF_BIRTH).get());
         Set<Policy> policyList = new HashSet<>();
@@ -86,7 +60,12 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Person person = new Person(name, nric, phone, email, address, dateOfBirth, policyList, tagList);
 
-        return new AddCommand(person);
+        return new DoNotMergeCommand(person);
+    }
+
+    private String removeAddCommandWord(String args) {
+        String withoutAddCommandWord = args.replaceFirst(AddCommand.COMMAND_WORD, "");
+        return withoutAddCommandWord;
     }
 
     /**
@@ -95,10 +74,6 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-    private static boolean areAnyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

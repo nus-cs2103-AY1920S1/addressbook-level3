@@ -5,24 +5,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.DateOfBirth;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-
 import seedu.address.model.policy.Policy;
-import seedu.address.model.tag.Tag;
 
 /**
  * Command to assign a new policy to a person.
@@ -80,30 +71,12 @@ public class UnassignPolicyCommand extends Command {
                     person.getName(), policy.getName()));
         }
 
-        Person assignedPerson = createUnassignedPerson(person, policy);
+        Person assignedPerson = new PersonBuilder(person).removePolicies(policy).build();
 
         model.setPerson(person, assignedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_UNASSIGN_POLICY_SUCCESS,
                 policy.getName(), assignedPerson.getName()));
-    }
-
-    /**
-     * Creates a returns a {@code Person} with the details of {@code person}
-     * with an additional policy {@code policy}.
-     */
-    private static Person createUnassignedPerson(Person person, Policy policy) {
-        Name name = person.getName();
-        Nric nric = person.getNric();
-        Phone phone = person.getPhone();
-        Email email = person.getEmail();
-        Address address = person.getAddress();
-        DateOfBirth dateOfBirth = person.getDateOfBirth();
-        Set<Policy> updatedPolicies = new HashSet<Policy>(person.getPolicies());
-        updatedPolicies.remove(policy);
-        Set<Tag> tags = person.getTags();
-
-        return new Person(name, nric, phone, email, address, dateOfBirth, updatedPolicies, tags);
     }
 
     @Override

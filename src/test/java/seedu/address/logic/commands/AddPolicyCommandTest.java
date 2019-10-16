@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -16,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.util.PersonBuilder;
+import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -25,67 +24,57 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 
-public class AddCommandTest {
+public class AddPolicyCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    public void constructor_nullPolicy_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddPolicyCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_policyAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPolicyAdded modelStub = new ModelStubAcceptingPolicyAdded();
+        Policy validPolicy = new PolicyBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddPolicyCommand(validPolicy).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddPolicyCommand.MESSAGE_SUCCESS, validPolicy), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validPolicy), modelStub.policiesAdded);
     }
 
     @Test
-    public void execute_duplicatePersonWithSameFields_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicatePolicy_throwsCommandException() {
+        Policy validPolicy = new PolicyBuilder().build();
+        AddPolicyCommand addPolicyCommand = new AddPolicyCommand(validPolicy);
+        ModelStub modelStub = new ModelStubWithPolicy(validPolicy);
 
-        assertThrows(CommandException.class, addCommand.generateExceptionMessageWithoutMergePrompt(validPerson), ()
-            -> addCommand.execute(modelStub));
-    }
-
-    @Test
-    public void execute_duplicatePersonWithDifferentFields_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        Person duplicatePersonWithDifferentPhone = new PersonBuilder().withPhone(VALID_PHONE_BOB).build();
-        AddCommand addCommand = new AddCommand(duplicatePersonWithDifferentPhone);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
-        assertThrows(CommandException.class,
-            addCommand.generateExceptionMessageWithMergePrompt(validPerson), ()
-                -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, addPolicyCommand.MESSAGE_DUPLICATE_POLICY + "\n"
+                + validPolicy.toString() + "\n" + addPolicyCommand.DUPLICATE_POLICY_MERGE_PROMPT, ()
+                -> addPolicyCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Policy health = new PolicyBuilder().withName("Health").build();
+        Policy fitness = new PolicyBuilder().withName("Fitness").build();
+        AddPolicyCommand addHealthCommand = new AddPolicyCommand(health);
+        AddPolicyCommand addFitnessCommand = new AddPolicyCommand(fitness);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addHealthCommand.equals(addHealthCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddPolicyCommand addHealthCommandCopy = new AddPolicyCommand(health);
+        assertTrue(addHealthCommand.equals(addHealthCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addHealthCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addHealthCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addHealthCommand.equals(addFitnessCommand));
     }
 
     /**
@@ -204,46 +193,39 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single policy.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithPolicy extends ModelStub {
+        private final Policy policy;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithPolicy(Policy policy) {
+            requireNonNull(policy);
+            this.policy = policy;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasPolicy(Policy policy) {
+            requireNonNull(policy);
+            return this.policy.isSamePolicy(policy);
         }
 
         @Override
-        public Person getPerson(Person person) {
-            requireNonNull(person);
-            return this.person;
+        public Policy getPolicy(Policy policy) {
+            requireNonNull(policy);
+            return this.policy;
         }
     }
 
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingPolicyAdded extends ModelStub {
         final ArrayList<Policy> policiesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public boolean hasPolicy(Policy policy) {
+            requireNonNull(policy);
+            return policiesAdded.stream().anyMatch(policy::isSamePolicy);
         }
 
         @Override
