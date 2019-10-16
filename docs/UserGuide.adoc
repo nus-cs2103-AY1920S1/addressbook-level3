@@ -12,7 +12,6 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
 
 By: `Team T14-4`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -85,7 +84,7 @@ Format: `view`
 
 === Editing an expense : `edit`
 
-Edits an existing person in the address book. +
+Edits an existing expense in the expense list. +
 Format: `edit INDEX [/n NAME] [/a AMOUNT] [/t TAG]…`
 
 ****

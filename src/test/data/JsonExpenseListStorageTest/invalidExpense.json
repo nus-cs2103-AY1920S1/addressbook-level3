@@ -1,0 +1,8 @@
+{
+  "expenses": [ {
+    "name": "Expense with invalid date field",
+    "amount": "$23.50",
+    "date": "136/10/2019",
+    "tagged": [ "education" ]
+  } ]
+}
