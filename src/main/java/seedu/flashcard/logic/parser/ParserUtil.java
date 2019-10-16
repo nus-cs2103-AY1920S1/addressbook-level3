@@ -90,6 +90,11 @@ public class ParserUtil {
         return new Definition(trimmedDefinition);
     }
 
+    /**
+     * Parses a {@code String definition} into a {@code Definition}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code definition} is invalid.
+     */
     public static Answer parseAnswer(String answer) throws ParseException {
         requireNonNull(answer);
         String trimmedAnswer = answer.trim();

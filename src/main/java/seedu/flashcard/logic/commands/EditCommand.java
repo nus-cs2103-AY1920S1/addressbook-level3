@@ -108,118 +108,116 @@ public class EditCommand extends Command {
 
         // state check
         EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
-            && editFlashcardDescriptor.equals(e.editFlashcardDescriptor);
+        return index.equals(e.index) && editFlashcardDescriptor.equals(e.editFlashcardDescriptor);
+    }
 
+    /**
+     * Stores the details to edit the flashcard with.
+     * corresponding field value of the person.
+     */
+    public static class EditFlashcardDescriptor {
+
+        private Word word;
+        private Definition definition;
+        private Set<Choice> choices;
+        private Set<Tag> tags;
+        private Answer answer;
+
+        public EditFlashcardDescriptor() {
+        }
+
+        public EditFlashcardDescriptor(EditFlashcardDescriptor toCopy) {
+            setWord(toCopy.word);
+            setChoices(toCopy.choices);
+            setDefinition(toCopy.definition);
+            setTags(toCopy.tags);
+            setAnswer(toCopy.answer);
+        }
+
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(word, definition, tags);
+        }
+
+        public void setWord(Word word) {
+            this.word = word;
+        }
+
+        public Optional<Word> getWord() {
+            return Optional.ofNullable(word);
         }
 
         /**
-         * Stores the details to edit the flashcard with.
-         * corresponding field value of the person.
+         * Sets {@code choices} to this object's {@code choices}.
+         * A defensive copy of {@code choices} is used internally.
          */
-        public static class EditFlashcardDescriptor {
+        public void setChoices(Set<Choice> choices) {
+            this.choices = (choices != null) ? new HashSet<>(choices) : null;
+        }
 
-            private Word word;
-            private Definition definition;
-            private Set<Choice> choices;
-            private Set<Tag> tags;
-            private Answer answer;
+        /**
+         * Returns an unmodifiable choice set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code choice} is null.
+         */
+        public Optional<Set<Choice>> getChoices() {
+            return (choices != null) ? Optional.of(Collections.unmodifiableSet(choices)) : Optional.empty();
+        }
 
-            public EditFlashcardDescriptor() {
+        public void setDefinition(Definition definition) {
+            this.definition = definition;
+        }
+
+        public Optional<Definition> getDefinition() {
+            return Optional.ofNullable(definition);
+        }
+
+        public void setAnswer(Answer answer) {
+            this.answer = answer;
+        }
+
+        public Optional<Answer> getAnswer() {
+            return Optional.ofNullable(answer);
+        }
+
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTags(Set<Tag> tags) {
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tags} is null.
+         */
+        public Optional<Set<Tag>> getTags() {
+            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
             }
 
-            public EditFlashcardDescriptor(EditFlashcardDescriptor toCopy) {
-                setWord(toCopy.word);
-                setChoices(toCopy.choices);
-                setDefinition(toCopy.definition);
-                setTags(toCopy.tags);
-                setAnswer(toCopy.answer);
+            // instanceof handles nulls
+            if (!(other instanceof EditFlashcardDescriptor)) {
+                return false;
             }
 
+            // state check
+            EditFlashcardDescriptor e = (EditFlashcardDescriptor) other;
 
-            /**
-             * Returns true if at least one field is edited.
-             */
-            public boolean isAnyFieldEdited() {
-                return CollectionUtil.isAnyNonNull(word, definition, tags);
-            }
-
-            public void setWord(Word word) {
-                this.word = word;
-            }
-
-            public Optional<Word> getWord() {
-                return Optional.ofNullable(word);
-            }
-
-            /**
-             * Sets {@code choices} to this object's {@code choices}.
-             * A defensive copy of {@code choices} is used internally.
-             */
-            public void setChoices(Set<Choice> choices) {
-                this.choices = (choices != null) ? new HashSet<>(choices) : null;
-            }
-
-            /**
-             * Returns an unmodifiable choice set, which throws {@code UnsupportedOperationException}
-             * if modification is attempted.
-             * Returns {@code Optional#empty()} if {@code choice} is null.
-             */
-            public Optional<Set<Choice>> getChoices() {
-                return (choices != null) ? Optional.of(Collections.unmodifiableSet(choices)) : Optional.empty();
-            }
-
-            public void setDefinition(Definition definition) {
-                this.definition = definition;
-            }
-
-            public Optional<Definition> getDefinition() {
-                return Optional.ofNullable(definition);
-            }
-
-            public void setAnswer(Answer answer) {
-                this.answer = answer;
-            }
-
-            public Optional<Answer> getAnswer() {
-                return Optional.ofNullable(answer);
-            }
-
-            /**
-             * Sets {@code tags} to this object's {@code tags}.
-             * A defensive copy of {@code tags} is used internally.
-             */
-            public void setTags(Set<Tag> tags) {
-                this.tags = (tags != null) ? new HashSet<>(tags) : null;
-            }
-
-            /**
-             * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-             * if modification is attempted.
-             * Returns {@code Optional#empty()} if {@code tags} is null.
-             */
-            public Optional<Set<Tag>> getTags() {
-                return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-            }
-
-            @Override
-            public boolean equals(Object other) {
-                // short circuit if same object
-                if (other == this) {
-                    return true;
-                }
-
-                // instanceof handles nulls
-                if (!(other instanceof EditFlashcardDescriptor)) {
-                    return false;
-                }
-
-                // state check
-                EditFlashcardDescriptor e = (EditFlashcardDescriptor) other;
-
-                return getWord().equals(e.getWord())
-                    && getDefinition().equals(e.getDefinition())
-                    && getTags().equals(e.getTags());
-            }
+            return getWord().equals(e.getWord())
+                && getDefinition().equals(e.getDefinition())
+                && getTags().equals(e.getTags());
         }
     }
+}

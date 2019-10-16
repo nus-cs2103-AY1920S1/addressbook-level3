@@ -6,11 +6,11 @@ package seedu.flashcard.model.flashcard;
  */
 public class Answer extends Choice {
 
+    public static final String MESSAGE_CONSTRAINTS = "Answer can take any values, and it should not be blank";
+
     public Answer(String choice) {
         super(choice);
     }
-
-    public static final String MESSAGE_CONSTRAINTS = "Answer can take any values, and it should not be blank";
 
     /**
      * Returns true if a given string is a valid answer.

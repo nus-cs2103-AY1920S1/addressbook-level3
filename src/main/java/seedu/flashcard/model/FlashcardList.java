@@ -40,49 +40,12 @@ public class FlashcardList implements ReadOnlyFlashcardList {
     }
 
     /**
-<<<<<<< HEAD
      * Returns true if a flashcard with the same word as {@code flashcard} exists in the flashcard list.
      */
     public boolean hasFlashcard(Flashcard flashcard) {
         requireNonNull(flashcard);
         return flashcards.contains(flashcard);
-=======
-     * Edit the Flashcard of a particular id
-     * @param flashcardId the id number of the model we want to edit
-     * @param newFlashcard the updated Flashcard for the target model
-     */
-    public void setFlashcard(int flashcardId, Flashcard newFlashcard) {
-        deleteFlashcard(flashcardId);
-        if (newFlashcard.getId().getIdentityNumber() == flashcardId) {
-            addFlashcard(newFlashcard);
-        }
-    }
 
-    /**
-     * Edit the answer on a particular model
-     * @param flashcardId the id number of the model we want to edit
-     * @param newAnswer the updated answer for the target model
-     */
-    public void setFlashcardAnswer(int flashcardId, String newAnswer) {
-        Flashcard editFlashcard = getFlashcard(flashcardId);
-        editFlashcard.setAnswer(newAnswer);
-    }
-
-
-    /**
-     * Edit the options on a particular MCQ flash card
-     * @param flashcardId the id number of the model we want to edit
-     * @param newOptions the updated options for the target model
-     * @throws RuntimeException if the card with this id is not found or the corresponding card is not an MCQ card.
-     */
-    public void setFlashcardOptions(int flashcardId, ArrayList<String> newOptions) throws RuntimeException {
-        Flashcard editFlashcard = getFlashcard(flashcardId);
-        if (!(editFlashcard instanceof McqFlashcard)) {
-            throw new RuntimeException();
-        }
-        McqFlashcard castedEditFlashcard = (McqFlashcard) editFlashcard;
-        castedEditFlashcard.setOptions(newOptions);
->>>>>>> b2be09c2de08788b6778e7af7935239ad95c4624
     }
 
     /**
@@ -111,7 +74,6 @@ public class FlashcardList implements ReadOnlyFlashcardList {
         flashcards.remove(key);
     }
 
-<<<<<<< HEAD
     @Override
     public ObservableList<Flashcard> getFlashcardList() {
         return flashcards.asUnimodifiableObservableList();
@@ -121,61 +83,7 @@ public class FlashcardList implements ReadOnlyFlashcardList {
     public String toString() {
         return flashcards.asUnimodifiableObservableList().size() + "flashcards";
         // TODO: refine later
-=======
-    /**
-     * add a shortAnswer flash card into the list
-     * @param question the question of the model
-     * @param answer the options of the model
-     */
-    public void addFlashcard(String question, String answer) {
-        flashcards.add(new ShortAnswerFlashcard(new ShortAnswerQuestion(question), new Answer(answer)));
-    }
 
-    /**
-     * add a constructed flashcard directly into the list.
-     * @param flashcard the flashcard to be added
-     */
-    public void addFlashcard(Flashcard flashcard) {
-        flashcards.add(flashcard);
-    }
-
-    /**
-     * Give the target model a tag. If this tag currently does not exist, create a new one in the TagManager
-     * @param flashcardId the model to be tagged
-     * @param tagName the tag to be added to the model
-     */
-    public void tagFlashcard(int flashcardId, String tagName) {
-        if (!tagManager.hasTag(tagName)) {
-            tagManager.addTag(tagName);
-        }
-        Flashcard targetCard = getFlashcard(flashcardId);
-        Tag targetTag = tagManager.getTag(tagName);
-        targetCard.addTag(targetTag);
-        targetTag.addFlashcard(targetCard);
-    }
-
-
-    /**
-     * List all Flashcards in a String
-     * @return An appended string of all flashcards
-     */
-    public String listFlashcards() {
-        final StringBuilder builder = new StringBuilder();
-        getAllFlashcards().forEach((card) ->
-                builder.append(card)
-                        .append("\n"));
-        return builder.toString();
-    }
-
-    /**
-     * Inform whether the flashcardList contains a particular flashcard.
-     * @param flashcard the flashcard to be searched
-     * @return a boolean variable represents the card's existence
-     */
-    public boolean contains(Flashcard flashcard) {
-        requireNonNull(flashcard);
-        return flashcards.contains(flashcard);
->>>>>>> b2be09c2de08788b6778e7af7935239ad95c4624
     }
 
     @Override
