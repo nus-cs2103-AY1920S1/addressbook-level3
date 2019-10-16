@@ -140,6 +140,11 @@ public class ParserUtil {
         }
     }
 
+    public static String formatDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
+        return date.format(formatter);
+    }
+
     /**
      * Parses {@code String period} into a {@code Period}.
      * Leading and trailing whitespaces will be trimmed.
@@ -155,9 +160,26 @@ public class ParserUtil {
             return Period.ofMonths(1);
         case "year":
             return Period.ofYears(1);
+        case "infinity":
+            return Period.ofYears(9999);
         default:
             throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_PERIOD);
+        }
+    }
 
+    public static String formatPeriod(Period period) {
+        String periodString = period.toString();
+        switch (periodString) {
+        case "P1M":
+            return "month";
+        case "P1Y":
+            return "year";
+        case "P1W":
+            return "week";
+        case "P9999Y":
+            return "infinity";
+        default:
+            return periodString;
         }
     }
 }

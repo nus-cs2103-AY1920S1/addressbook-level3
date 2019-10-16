@@ -19,7 +19,7 @@ public class Timestamp {
     public static final String MESSAGE_CONSTRAINTS_PERIOD =
             "Input period is not week/month/year";
 
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM[-yyyy]");
 
     public final LocalDate timestamp;
 
@@ -42,7 +42,7 @@ public class Timestamp {
             LocalDate.parse(test, DATE_TIME_FORMATTER);
             return true;
         } catch (DateTimeParseException e) {
-            return false;
+                return false;
         }
     }
 

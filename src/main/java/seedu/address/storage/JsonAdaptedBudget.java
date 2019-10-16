@@ -18,7 +18,7 @@ import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
 
 /**
- * Jackson-friendly version of {@link Expense}.
+ * Jackson-friendly version of {@link Budget}.
  */
 class JsonAdaptedBudget {
 
@@ -29,7 +29,7 @@ class JsonAdaptedBudget {
     private final String startDate;
     private final String endDate;
     private final String period;
-    private List<JsonAdaptedExpense> expenses;
+    private List<JsonAdaptedExpense> expenses = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedBudget} with the given budget details.
@@ -46,7 +46,9 @@ class JsonAdaptedBudget {
         this.startDate = startDate;
         this.endDate = endDate;
         this.period = period;
-        this.expenses = expenses;
+        if (expenses != null) {
+            this.expenses.addAll(expenses);
+        }
     }
 
     /**
@@ -55,9 +57,9 @@ class JsonAdaptedBudget {
     public JsonAdaptedBudget(Budget source) {
         description = source.getDescription().fullDescription;
         amount = source.getAmount().value;
-        startDate = source.getStartDate().toString();
-        endDate = source.getEndDate().toString();
-        period = source.getPeriod().toString();
+        startDate = ParserUtil.formatDate(source.getStartDate());
+        endDate = ParserUtil.formatDate(source.getEndDate());
+        period = ParserUtil.formatPeriod(source.getPeriod());
         expenses.addAll(source.getExpenses().stream()
                 .map(JsonAdaptedExpense::new)
                 .collect(Collectors.toList()));
@@ -101,6 +103,7 @@ class JsonAdaptedBudget {
         }
         final LocalDate modelStartDate = ParserUtil.parseDate(startDate);
 
+        /*
         if (endDate == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, LocalDate.class.getSimpleName()));
@@ -109,6 +112,7 @@ class JsonAdaptedBudget {
             throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
         }
         final LocalDate modelEndDate = ParserUtil.parseDate(endDate);
+         */
 
         if (period == null) {
             throw new IllegalValueException(
@@ -116,7 +120,6 @@ class JsonAdaptedBudget {
         }
         final Period modelPeriod = ParserUtil.parsePeriod(period);
 
-        return new Budget(modelDescription, modelAmount, modelStartDate, modelPeriod);
+        return new Budget(modelDescription, modelAmount, modelStartDate, modelPeriod, expenseList);
     }
-
 }

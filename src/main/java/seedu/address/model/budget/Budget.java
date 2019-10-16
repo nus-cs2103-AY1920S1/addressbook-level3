@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
@@ -28,9 +29,12 @@ public class Budget {
     private Percentage proportionUsed;
 
     private static final Description DEFAULT_BUDGET_DESCRIPTION = new Description("Default Budget");
-    private static final Price DEFAULT_BUDGET_AMOUNT = new Price(Double.toString(Double.MAX_VALUE));
-    private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.MIN;
-    private static final Period DEFAULT_BUDGET_PERIOD = Period.between(LocalDate.MIN, LocalDate.MAX);
+    //private static final Price DEFAULT_BUDGET_AMOUNT = new Price(Double.toString(Double.MAX_VALUE));
+    private static final Price DEFAULT_BUDGET_AMOUNT = new Price("100000000000");
+    //private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.MIN;
+    private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.of(0000, 1, 1);
+    //private static final Period DEFAULT_BUDGET_PERIOD = Period.between(LocalDate.MIN, LocalDate.MAX);
+    private static final Period DEFAULT_BUDGET_PERIOD = Period.ofYears(9999);
     private static final Percentage IS_NEAR_THRESHOLD = new Percentage(90);
 
 
@@ -44,6 +48,18 @@ public class Budget {
         this.expenses = new ArrayList<>();
         this.isPrimary = false;
         this.proportionUsed = new Percentage(0);
+    }
+
+    public Budget(Description description, Price amount, LocalDate startDate, Period period, List<Expense> expenses) {
+        requireAllNonNull(description, startDate, period, amount);
+        this.description = description;
+        this.amount = amount;
+        this.startDate = startDate;
+        this.period = period;
+        this.endDate = startDate.plus(period);
+        this.isPrimary = false;
+        this.proportionUsed = new Percentage(0);
+        this.expenses = expenses;
     }
 
     public Description getDescription() {
@@ -179,11 +195,11 @@ public class Budget {
                 .append(" Amount: ")
                 .append(getAmount())
                 .append(" Period: ")
-                .append(getPeriod())
+                .append(ParserUtil.formatPeriod(getPeriod()))
                 .append(" Start date: ")
-                .append(getStartDate())
+                .append(ParserUtil.formatDate(getStartDate()))
                 .append(" End date: ")
-                .append(getEndDate())
+                .append(ParserUtil.formatDate(getEndDate()))
                 .append("||");
         return builder.toString();
     }
