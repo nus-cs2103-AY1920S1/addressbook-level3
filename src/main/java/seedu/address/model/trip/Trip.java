@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.diary.Diary;
+import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
@@ -23,6 +24,8 @@ public class Trip {
     private final DayList dayList;
     private final Expenditure totalBudget;
     private final Diary diary;
+
+    private final InventoryList inventoryList = new InventoryList();
 
     /**
      * Constructs a trip.
@@ -66,6 +69,10 @@ public class Trip {
 
     public Expenditure getBudget() {
         return totalBudget;
+    }
+
+    public InventoryList getInventoryList() {
+        return inventoryList;
     }
 
     public Diary getDiary() {

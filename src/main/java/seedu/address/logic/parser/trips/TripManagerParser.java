@@ -13,7 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses commands related to the trip manager page.
  */
-public class TripManagerParser implements PageParser {
+public class TripManagerParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EnterCreateTripCommand.COMMAND_WORD + " "
             + DeleteTripCommand.COMMAND_WORD + " "
