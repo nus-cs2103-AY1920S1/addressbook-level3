@@ -77,13 +77,14 @@ public class Expense {
         return otherExpense.getName().equals(getName())
                 && otherExpense.getDescription().equals(getDescription())
                 && otherExpense.getAmount().equals(getAmount())
+                && otherExpense.getCreated().equals(getCreated())
                 && otherExpense.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, amount);
+        return Objects.hash(name, description, amount, created, tags);
     }
 
     @Override
@@ -93,6 +94,10 @@ public class Expense {
                 + " Description: "
                 + getDescription()
                 + " Amount: "
-                + getAmount();
+                + getAmount()
+                + " Created: "
+                + getCreated()
+                + " Tags: "
+                + getTags();
     }
 }

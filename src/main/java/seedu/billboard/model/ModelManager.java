@@ -157,4 +157,9 @@ public class ModelManager implements Model {
                 && filteredExpense.equals(other.filteredExpense);
     }
 
+    @Override
+    public String toString() {
+        return "b: " + billboard.toString() + "up: " + userPrefs.toString() + "fe: " + filteredExpense.toString();
+    }
+    //TODO REmove
 }

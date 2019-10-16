@@ -3,6 +3,8 @@ package seedu.billboard.logic.parser;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.billboard.logic.commands.CommandTestUtil.AMOUNT_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.AMOUNT_DESC_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.DATE_DESC_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.DATE_DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
@@ -43,32 +45,36 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES
-                + AMOUNT_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
+                + AMOUNT_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_DINNER + NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES
-                + AMOUNT_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
+                + AMOUNT_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
 
         // multiple descriptions - last description accepted
         assertParseSuccess(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_DINNER + DESCRIPTION_DESC_TAXES
-                + AMOUNT_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
+                + AMOUNT_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
 
         // multiple amounts - last amounts accepted
         assertParseSuccess(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + AMOUNT_DESC_DINNER
-                + AMOUNT_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
+                + AMOUNT_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
+
+        // multiple dates - last date accepted
+        assertParseSuccess(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + AMOUNT_DESC_TAXES
+                + DATE_DESC_DINNER + DATE_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
 
         // multiple tags - all accepted
         Expense expectedExpenseMultipleTags = new ExpenseBuilder(TAXES).withTags(VALID_TAG_TAXES, VALID_TAG_DINNER)
                 .build();
         assertParseSuccess(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + AMOUNT_DESC_TAXES
-                + TAG_DESC_TAXES + TAG_DESC_DINNER, new AddCommand(expectedExpenseMultipleTags));
+                + TAG_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_DINNER, new AddCommand(expectedExpenseMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Expense expectedExpense = new ExpenseBuilder(DINNER).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_DINNER + DESCRIPTION_DESC_DINNER + AMOUNT_DESC_DINNER,
+        Expense expectedExpense = new ExpenseBuilder(DINNER).withTags().withDescription("").build();
+        assertParseSuccess(parser, NAME_DESC_DINNER + AMOUNT_DESC_DINNER + DATE_DESC_DINNER,
                 new AddCommand(expectedExpense));
     }
 

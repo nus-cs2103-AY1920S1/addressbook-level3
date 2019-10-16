@@ -2,6 +2,8 @@ package seedu.billboard.testutil;
 
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DATE_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DATE_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_DINNER;
@@ -59,11 +61,14 @@ public class TypicalExpenses {
     public static final Expense DINNER = new ExpenseBuilder().withName(VALID_NAME_DINNER)
             .withDescription(VALID_DESCRIPTION_DINNER)
             .withAmount(VALID_AMOUNT_DINNER)
-            .withTags(VALID_TAG_TAXES).build();
+            .withCreatedDateTime(VALID_DATE_DINNER)
+            .withTags(VALID_TAG_TAXES)
+            .build();
 
     public static final Expense TAXES = new ExpenseBuilder().withName(VALID_NAME_TAXES)
             .withDescription(VALID_DESCRIPTION_TAXES)
             .withAmount(VALID_AMOUNT_TAXES)
+            .withCreatedDateTime(VALID_DATE_TAXES)
             .withTags(VALID_TAG_DINNER, VALID_TAG_TAXES)
             .build();
 

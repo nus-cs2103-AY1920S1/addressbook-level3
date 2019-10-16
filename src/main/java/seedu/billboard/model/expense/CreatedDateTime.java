@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 public class CreatedDateTime {
 
     // More formats can be added
-    private static final List<String> acceptablePatterns =
-            List.of("d/M/yyyy HHmm", "d/M/yyyy");
-    private static final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:kk a");
+    public static final List<String> ACCEPTABLE_PATTERNS = List.of("d/M/yyyy[ HHmm]");
 
     public static final String MESSAGE_CONSTRAINTS = "Created date should follow one of these formats:\n"
-             + String.join("\n", acceptablePatterns);
+             + String.join("\n", ACCEPTABLE_PATTERNS);
+
+    private static final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:kk a");
 
 
     public final LocalDateTime dateTime;
@@ -47,7 +47,7 @@ public class CreatedDateTime {
      * @throws IllegalArgumentException if the date string does not match the accepted formats.
      */
     private static LocalDateTime tryParse(String dateString) throws IllegalArgumentException {
-        List<DateTimeFormatter> acceptableFormats = acceptablePatterns.stream()
+        List<DateTimeFormatter> acceptableFormats = ACCEPTABLE_PATTERNS.stream()
                 .map(DateTimeFormatter::ofPattern)
                 .collect(Collectors.toList());
 
@@ -59,7 +59,6 @@ public class CreatedDateTime {
                 } else if (accessor instanceof LocalDate) {
                     return ((LocalDate) accessor).atStartOfDay();
                 }
-
             } catch (DateTimeParseException e) {
                 e.printStackTrace();
             }

@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import seedu.billboard.logic.commands.EditCommand;
 import seedu.billboard.logic.commands.EditCommand.EditExpenseDescriptor;
 import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.CreatedDateTime;
 import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.Name;
@@ -35,6 +36,7 @@ public class EditExpenseDescriptorBuilder {
         descriptor.setName(expense.getName());
         descriptor.setDescription(expense.getDescription());
         descriptor.setAmount(expense.getAmount());
+        descriptor.setCreated(expense.getCreated());
         descriptor.setTags(expense.getTags());
     }
 
@@ -61,6 +63,15 @@ public class EditExpenseDescriptorBuilder {
         descriptor.setAmount(new Amount(amount));
         return this;
     }
+
+    /**
+     * Sets the {@code Description} of the {@code EditExpenseDescriptor} that we are building.
+     */
+    public EditExpenseDescriptorBuilder withCreatedDateTime(String dateTime) {
+        descriptor.setCreated(new CreatedDateTime(dateTime));
+        return this;
+    }
+
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditExpenseDescriptor}
