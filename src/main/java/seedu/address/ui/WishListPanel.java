@@ -10,6 +10,9 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Wish;
 
+/**
+ * Side panel for wishes in wishlist.
+ */
 public class WishListPanel extends UiPart<Region> {
     private static final String FXML = "WishListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(WishListPanel.class);

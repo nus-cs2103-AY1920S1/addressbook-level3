@@ -10,6 +10,9 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.BudgetStub;
 
+/**
+ * Side panel for budgets.
+ */
 public class BudgetPanel extends UiPart<Region> {
     private static final String FXML = "BudgetListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(BudgetPanel.class);

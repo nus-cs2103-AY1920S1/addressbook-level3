@@ -7,10 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Font;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.Income;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -50,14 +47,6 @@ public class EntryCard extends UiPart<Region> {
         String descWithType = "[" + type + "] " + entry.getDesc().fullDesc;
         desc.setText(descWithType);
 
-       // desc.setFont(Font.font("Century Gothic"));
-        /*if (type.equals("expense")) {
-            entry = (Expense) entry;
-        } else if (type.equals("income")) {
-            entry = (Income) entry;
-        } else {
-
-        }*/
         time.setText("13:00");
         amt.setText("$" + entry.getAmount().value);
 
