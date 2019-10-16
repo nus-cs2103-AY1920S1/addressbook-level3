@@ -12,9 +12,6 @@ public class FlashcardTabController {
     @FXML
     private TextArea ansTextArea;
 
-    public FlashcardTabController() {
-    }
-
     public void loadFlashcard(Flashcard flashcard) {
         qnsTextArea.setText(flashcard.getQuestion().toString());
         ansTextArea.setVisible(false);

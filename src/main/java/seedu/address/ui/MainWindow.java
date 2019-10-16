@@ -5,9 +5,7 @@ import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
@@ -40,12 +38,10 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private ActivityWindowController activityWindowController;
-
-//    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainWindowCopy.fxml"));
+    private ActivityWindow ActivityWindow;
 
     @FXML
-    private TabPane activityWindow;
+    private StackPane activityWindowPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -91,6 +87,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        ActivityWindow = new ActivityWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -135,6 +132,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        ActivityWindow = new ActivityWindow();
+        activityWindowPlaceholder.getChildren().add(ActivityWindow.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -213,11 +213,10 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.getFlashcard().isPresent()) {
-//                flashcardTabController.loadFlashcard(commandResult.getFlashcard().get());
+                ActivityWindow.displayFlashcard(commandResult.getFlashcard().get());
             }
 
             if (commandResult.getNote().isPresent()) {
-//                notesTabController.displayNoteCard(commandResult.getNote().get());
             }
 
             return commandResult;
@@ -247,7 +246,7 @@ public class MainWindow extends UiPart<Stage> {
         default:
         }
 
-        activityWindowController.switchWindowTo(targetMode);
+        ActivityWindow.switchWindowTo(targetMode);
         highlightCircle(currentHighlightedCircle);
     }
 
