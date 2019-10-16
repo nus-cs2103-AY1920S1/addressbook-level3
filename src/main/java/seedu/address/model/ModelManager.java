@@ -24,10 +24,10 @@ import seedu.address.statistics.WordBankStatistics;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final WordBank wordBank;
+    private WordBank wordBank;
     private final WordBankList wordBankList;
     private final UserPrefs userPrefs;
-    private final FilteredList<Card> filteredCards;
+    private FilteredList<Card> filteredCards;
     private final FilteredList<WordBank> filteredWordBanks;
 
     //Placeholder game model
@@ -43,6 +43,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with word bank: " + wordBank + " and user prefs " + userPrefs);
 
         this.wordBank = new WordBank(wordBank, wordBank.getName());
+//        this.wordBank = null;
         this.wordBankList = new WordBankList();
 
         this.userPrefs = new UserPrefs(userPrefs);
@@ -102,7 +103,17 @@ public class ModelManager implements Model {
 
     @Override
     public void setWordBank(ReadOnlyWordBank wordBank) {
-        this.wordBank.resetData(wordBank);
+        this.wordBank = (WordBank) wordBank;
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        // todo set wb stats
+//        this.wordBank.resetData(wordBank);
+    }
+
+    public void clearWordBank() {
+        wordBank.resetData(new WordBank(wordBank.getName()));
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        //todo clear wb stats
+//        this.wordBank.resetData(wordBank);
     }
 
     @Override
@@ -142,6 +153,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Card> getFilteredCardList() {
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
         return filteredCards;
     }
 
@@ -155,9 +167,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public WordBankList getWordBankList() {
+        return wordBankList;
+    }
+
+    @Override
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
+        System.out.println("++++++++++");
+        System.out.println(wordBank.getName());
+        for(Card c : filteredCards) {
+            System.out.println(c);
+        }
         filteredCards.setPredicate(predicate);
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        System.out.println("++++++++++");
     }
 
     @Override

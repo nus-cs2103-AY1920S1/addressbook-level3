@@ -15,12 +15,10 @@ public class ClearCommand extends AppCommand {
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Word bank has been cleared!";
 
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setWordBank(null);
-        // todo may need to clear wb stats here also
+        model.clearWordBank();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

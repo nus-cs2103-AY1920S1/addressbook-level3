@@ -16,9 +16,10 @@ import seedu.address.ui.modules.TitleScreenPanel;
 public class ModularDisplay {
 
     //private final LoadBankPanel loadBankPanel;
-    private final CardListPanel cardListPanel;
+    private CardListPanel cardListPanel;
     private final LoadBankPanel loadBankPanel;
     private final TitleScreenPanel titleScreenPanel;
+    private final GameManager gameManager;
 
     /**
      * Changes the screen.
@@ -29,6 +30,7 @@ public class ModularDisplay {
         loadBankPanel = new LoadBankPanel(gameManager.getFilteredWordBankList());
         cardListPanel = new CardListPanel(gameManager.getFilteredPersonList());
         titleScreenPanel = new TitleScreenPanel();
+        this.gameManager = gameManager;
     }
 
     /**
@@ -37,7 +39,7 @@ public class ModularDisplay {
      * @param paneToDisplay The view to change.
      */
     public void displayTitle(StackPane paneToDisplay) {
-        paneToDisplay.getChildren().add(titleScreenPanel.getRoot());
+        paneToDisplay.getChildren().add(loadBankPanel.getRoot());
     }
 
     /**
@@ -57,6 +59,7 @@ public class ModularDisplay {
      */
     public void swapToList(StackPane paneToDisplay) {
         paneToDisplay.getChildren().clear();
+        cardListPanel = new CardListPanel(gameManager.getFilteredPersonList());
         paneToDisplay.getChildren().add(cardListPanel.getRoot());
     }
 

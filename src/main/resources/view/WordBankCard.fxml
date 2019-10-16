@@ -29,10 +29,10 @@
         <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="meaning" styleClass="cell_small_label" text="\$meaning">
-            <VBox.margin>
-               <Insets top="4.0" />
-            </VBox.margin></Label>
+<!--      <Label fx:id="meaning" styleClass="cell_small_label" text="\$meaning">-->
+<!--            <VBox.margin>-->
+<!--               <Insets top="4.0" />-->
+<!--            </VBox.margin></Label>-->
     </VBox>
       <rowConstraints>
          <RowConstraints />

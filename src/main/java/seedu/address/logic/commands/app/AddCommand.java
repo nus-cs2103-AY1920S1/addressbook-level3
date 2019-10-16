@@ -45,7 +45,7 @@ public class AddCommand extends AppCommand {
     public CommandResult execute(Model model) throws CommandException {
         System.err.println("in add command execute: " + model);
         requireNonNull(model);
-
+        System.out.println(model.getWordBank().getName());
         if (model.hasCard(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD);
         }

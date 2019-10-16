@@ -35,7 +35,7 @@ public class WordBankCard extends UiPart<Region> {
     /**
      * Card containing the details of the word bank.
      *
-     * @param card The card representing its corresponding word bank.
+     * @param wordBank The card representing its corresponding word bank.
      * @param displayedIndex The index of the word bank.
      */
     public WordBankCard(WordBank wordBank, int displayedIndex) {

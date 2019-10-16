@@ -36,10 +36,9 @@ public class StartCommand extends SwitchCommand {
             + "Example: " + COMMAND_WORD + " 1";
     private static final String MESSAGE_GAME_IN_PROGRESS = "A game session is still in progress!"
             + " (Use 'stop' to terminate) Guess the word:";
-    private String wordBankName;
 
-    public StartCommand(String wordBankName) {
-        this.wordBankName = wordBankName;
+    public StartCommand() {
+
     }
 
     @Override
@@ -55,6 +54,7 @@ public class StartCommand extends SwitchCommand {
                     + "\n" + model.getGame().getCurrQuestion());
         }
 
+        String wordBankName = model.getWordBank().getName();
         String pathString = "data/" + wordBankName + ".json";
         Path filePath = Paths.get(pathString);
         WordBank wordBank = SampleDataUtil.getSampleWordBank();
