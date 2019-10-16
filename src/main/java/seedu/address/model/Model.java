@@ -11,6 +11,7 @@ import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
+import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.task.Task;
 
 /**
@@ -186,9 +187,16 @@ public interface Model {
     ObservableList<Question> getFilteredQuizQuestionList();
 
     /**
+     * Returns an unmodifiable view of the filtered quiz result list.
+     */
+    ObservableList<QuizResult> getFilteredQuizResultList();
+
+    /**
      * Checks the an answer input by user and return the boolean value as the result.
      */
     boolean checkQuizAnswer(int index, Answer answer);
+
+    void addQuizResult(QuizResult quizResult);
 
     /**
      * Clears the quiz question list.

@@ -26,6 +26,7 @@ import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
+import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.PersonBuilder;
 
@@ -265,7 +266,18 @@ public class AddNoteCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public Answer showQuizAnswer(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addQuizResult(QuizResult quizResult) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList getFilteredQuizResultList() {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -191,7 +191,7 @@ Format: `mark`
 
 ==== Exit test mode : `quit`
 
-Exits from the test mode. +
+Exits from the quiz mode. +
 Format: `quit`
 
 === Get statistics

@@ -15,6 +15,8 @@ import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.question.UniqueQuestionList;
 import seedu.address.model.quiz.QuizQuestionList;
+import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.quiz.QuizResultList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
@@ -27,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueNoteList notes;
     private final UniqueQuestionList questions;
     private final QuizQuestionList quiz;
+    private final QuizResultList quizResults;
     private final TaskList tasks;
 
     /*
@@ -41,6 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         notes = new UniqueNoteList();
         questions = new UniqueQuestionList();
         quiz = new QuizQuestionList();
+        quizResults = new QuizResultList();
         tasks = new TaskList();
     }
 
@@ -213,6 +217,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         quiz.clearQuizQuestionList();
     }
 
+    public void addQuizResult(QuizResult quizResult) {
+        quizResults.add(quizResult);
+    }
+
     // util methods
 
     @Override
@@ -234,6 +242,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Question> getQuizQuestionList() {
         return quiz.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<QuizResult> getQuizResultList() {
+        return quizResults.asUnmodifiableObservableList();
     }
 
     @Override
