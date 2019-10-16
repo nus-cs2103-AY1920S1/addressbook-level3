@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
 import seedu.address.model.Model;
 
@@ -16,7 +17,7 @@ public class ListDayCommand extends ListCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        //to be implemented
+        model.updateFilteredDayList(PREDICATE_SHOW_ALL_DAYS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

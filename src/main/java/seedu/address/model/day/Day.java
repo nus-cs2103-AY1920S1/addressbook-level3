@@ -21,6 +21,15 @@ public class Day {
     }
 
     /**
+     * Returns true if both days contain the same activities.
+     */
+    public boolean isSameDay(Day otherDay) {
+        if (otherDay == this) {
+            return true;
+        }
+        return timetable.equals(otherDay.timetable);
+    }
+    /**
      * Returns true if a given string is a valid integer.
      */
     public static boolean isValidDayNumber(String test) {

@@ -25,6 +25,7 @@ import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.day.Day;
+import seedu.address.model.day.Itinerary;
 import seedu.address.testutil.ContactBuilder;
 
 public class AddCommandTest {
@@ -191,15 +192,23 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void deleteDay(int n) {
+        public void deleteDay(Day target) {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void setDays(int n) {
+        public void setDays(Itinerary itinerary) {
             throw new AssertionError("This method should not be called.");
         }
 
         public void setDays(List<Day> days) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public ObservableList<Day> getFilteredDayList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void updateFilteredDayList(Predicate<Day> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

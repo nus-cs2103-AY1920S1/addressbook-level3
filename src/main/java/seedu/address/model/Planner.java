@@ -230,8 +230,8 @@ public class Planner implements ReadOnlyPlanner {
      * Replaces the contents of the contacts list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setDays(int n) {
-        this.days.setDays(n);
+    public void setDays(Itinerary itinerary) {
+        this.days.setDays(itinerary);
     }
 
     /**
@@ -247,15 +247,15 @@ public class Planner implements ReadOnlyPlanner {
      * The contacts must not already exist in the address book.
      */
     public void addDays(int n) {
-        this.days.addDays(n);
+        this.days.add(n);
     }
 
     /**
      * Removes {@code key} from this {@code Planner}.
      * {@code key} must exist in the address book.
      */
-    public void removeDay(int n) {
-        this.days.removeDay(n);
+    public void removeDay(Day target) {
+        this.days.remove(target);
     }
 
     //// util methods
@@ -281,6 +281,11 @@ public class Planner implements ReadOnlyPlanner {
     @Override
     public ObservableList<Contact> getContactList() {
         return contacts.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Day> getDayList() {
+        return days.asUnmodifiableObservableList();
     }
 
     @Override
