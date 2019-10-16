@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -8,6 +10,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -60,7 +63,7 @@ public class CommandBox extends UiPart<Region> {
      * Sets the command box style to use the default style.
      */
     private void setStyleToDefault() {
-        //syntaxHighlightTextArea.getStyleClass().remove(ERROR_STYLE_CLASS);
+        // enable syntax highlighting
         syntaxHighlightTextArea.watch();
     }
 
@@ -68,15 +71,14 @@ public class CommandBox extends UiPart<Region> {
      * Sets the command box style to indicate a failed command.
      */
     private void setStyleToIndicateCommandFailure() {
+        //override style and disable syntax highlighting
         syntaxHighlightTextArea.overrideStyle(ERROR_STYLE_CLASS);
-//        ObservableList<String> styleClass = syntaxHighlightTextArea.getStyleClass();
-//
-//        if (styleClass.contains(ERROR_STYLE_CLASS)) {
-//            return;
-//        }
-//
-//        styleClass.add(ERROR_STYLE_CLASS);
     }
+
+    public void addSyntax(String com, List<Prefix> pre, String syntax) {
+        syntaxHighlightTextArea.createPattern(com, pre, syntax);
+    }
+
 
     /**
      * Represents a function that can execute commands.

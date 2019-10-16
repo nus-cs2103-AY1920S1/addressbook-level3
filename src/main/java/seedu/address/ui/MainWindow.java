@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -119,6 +121,14 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBox.importSyntaxStyleSheet(getRoot().getScene());
+        commandBox.addSyntax();
+
+        // add supported commands (not complete)
+        Prefix[] a = new Prefix[]{new Prefix("p/"), new Prefix("d/")};
+        Prefix[] b = new Prefix[]{new Prefix("d/"), new Prefix("p/"), new Prefix("s/"), new Prefix("pr/")};
+
+        commandBox.addSyntax("add", List.of(a), "add d/<description_here> p/ <price here>");
+        commandBox.addSyntax("budget", List.of(b), "budget d/ <description> p/ <amount> s/ <start date> pr/ <period>");
 
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
