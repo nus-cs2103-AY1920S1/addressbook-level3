@@ -21,6 +21,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
+import seedu.address.model.day.time.DurationInHalfHour;
 import seedu.address.model.day.time.TimeInHalfHour;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
@@ -73,18 +74,18 @@ public class ScheduleCommandParser {
      */
     private ScheduleActivityCommand parseActivity(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ACTIVITY, PREFIX_START_TIME,
-                PREFIX_END_TIME, PREFIX_DAY);
+                PREFIX_DURATION, PREFIX_DAY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ACTIVITY, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DAY)
+        if (!arePrefixesPresent(argMultimap, PREFIX_ACTIVITY, PREFIX_START_TIME, PREFIX_DURATION, PREFIX_DAY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleActivityCommand.MESSAGE_USAGE));
         }
 
         Index activityIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ACTIVITY).get());
         TimeInHalfHour startTime = ParserUtil.parseTimeInHalfHour(argMultimap.getValue(PREFIX_START_TIME).get());
-        TimeInHalfHour endTime = ParserUtil.parseTimeInHalfHour(argMultimap.getValue(PREFIX_END_TIME).get());
+        DurationInHalfHour duration = ParserUtil.parseDurationInHalfHour(argMultimap.getValue(PREFIX_DURATION).get());
         Index dayIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
 
-        return new ScheduleActivityCommand(activityIndex, startTime, endTime, dayIndex);
+        return new ScheduleActivityCommand(activityIndex, startTime, duration, dayIndex);
     }
 }

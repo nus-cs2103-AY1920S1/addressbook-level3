@@ -171,6 +171,12 @@ public interface Model {
      */
     boolean hasDay(Day day);
 
+    /**
+     * Returns true if a day with the same identity as {@code day} exists in the itinerary.
+     */
+    boolean hasDay(Day day);
+
+
     void deleteDay(Day target);
 
     void addDays(int n);

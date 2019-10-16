@@ -13,6 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
+import seedu.address.model.day.time.DurationInHalfHour;
 import seedu.address.model.day.time.TimeInHalfHour;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
@@ -153,9 +154,26 @@ public class ParserUtil {
         if (!TimeInHalfHour.isValidTime(trimmedTime)) {
             throw new ParseException(TimeInHalfHour.MESSAGE_CONSTRAINTS);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> Add ScheduleActivityCommand
         int hour = Integer.parseInt(time.substring(0, 2));
         int min = Integer.parseInt(time.substring(2));
         return new TimeInHalfHour(hour, min);
     }
+<<<<<<< HEAD
+=======
+
+    public static DurationInHalfHour parseDurationInHalfHour(String duration) throws ParseException {
+        requireNonNull(duration);
+        String trimmedDuration = duration.trim();
+        if (!DurationInHalfHour.isValidDuration(trimmedDuration)) {
+            throw new ParseException(DurationInHalfHour.MESSAGE_CONSTRAINTS);
+        }
+        int numberOfHalfHour = Integer.parseInt(trimmedDuration) / 30;
+        return new DurationInHalfHour(numberOfHalfHour);
+    }
+
+>>>>>>> Add ScheduleActivityCommand
 }

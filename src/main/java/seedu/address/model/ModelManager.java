@@ -179,6 +179,11 @@ public class ModelManager implements Model {
         planner.setDays(itinerary);
     }
 
+    @Override
+    public boolean hasDay(Day day) {
+        requireNonNull(day);
+        return planner.hasDay(day);
+    }
     /**
      * Returns an unmodifiable view of the list of {@code Contact} backed by the internal list of
      * {@code versionedAddressBook}
