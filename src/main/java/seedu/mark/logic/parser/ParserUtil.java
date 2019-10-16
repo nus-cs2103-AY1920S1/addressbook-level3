@@ -162,7 +162,7 @@ public class ParserUtil {
 
         try {
             getTime = LocalDateTime.parse(trimmedTime, formatter);
-        } catch (Exception e) {
+        } catch (DateTimeParseException e) {
             throw new ParseException("Invalid time format! Please use the following format: " + DATE_FORMATTER);
         }
 
