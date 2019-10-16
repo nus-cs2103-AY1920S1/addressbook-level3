@@ -148,9 +148,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : null,
-    "remark" : ""
+    "resolved" : true,
+    "result" : "REJECTED",
+    "remark" : "gay"
   }, {
     "appealId" : "C000001",
     "appealType" : "Drop module",
