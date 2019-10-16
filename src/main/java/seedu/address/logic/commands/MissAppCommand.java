@@ -1,14 +1,11 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
-import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.model.Model;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * mark a appointment's status as MISSED for a patient.
@@ -21,7 +18,7 @@ public class MissAppCommand extends NonActionableCommand {
             + "Parameters: KEYWORD \n"
             + "Example: " + COMMAND_WORD;
 
-    public MissAppCommand(){
+    public MissAppCommand() {
 
     }
 

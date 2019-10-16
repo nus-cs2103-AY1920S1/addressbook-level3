@@ -3,14 +3,17 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Date;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.common.ReferenceId;
-import seedu.address.model.events.*;
-
+import seedu.address.model.events.Appointment;
+import seedu.address.model.events.Event;
+import seedu.address.model.events.Status;
+import seedu.address.model.events.Timing;
 
 /**
  * Finds and lists all events in address book whose name contains any of the argument keywords.
@@ -39,9 +42,9 @@ public class AppointmentsCommand extends NonActionableCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         autoMissEvent(model.getFilteredEventList(), model);
-        if(referenceId==null){
+        if (referenceId == null) {
             model.updateFilteredEventList();
-        }else{
+        } else {
             model.updateFilteredEventList(referenceId);
         }
 
@@ -60,7 +63,8 @@ public class AppointmentsCommand extends NonActionableCommand {
             Date current = new Date();
             if (!ev.getStatus().equals(new Status(Status.AppointmentStatuses.SETTLED))
                     && evTiming.getEndTime().getTime().before(current)) {
-                Event newAppt = new Appointment(ev.getPersonId(), ev.getEventTiming(), new Status(Status.AppointmentStatuses.MISSED));
+                Event newAppt = new Appointment(ev.getPersonId(), ev.getEventTiming(),
+                        new Status(Status.AppointmentStatuses.MISSED));
                 model.setEvent(ev, newAppt);
             }
         }

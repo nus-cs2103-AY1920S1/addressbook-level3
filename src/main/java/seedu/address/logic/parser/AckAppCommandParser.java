@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REFERENCEID;
 
-
 import javafx.collections.ObservableList;
+
 import seedu.address.logic.commands.AckAppCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -18,9 +18,10 @@ import seedu.address.model.events.Timing;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> {
+    public static final String MESSAGE_NOTING_ACK = "there is no appointment under this patient.";
+
     private Model model;
     private ObservableList<Event> filterEventList;
-    public static final String MESSAGE_NOTING_ACK = "there is no appointment under this patient.";
 
 
     public AckAppCommandParser(Model model) {

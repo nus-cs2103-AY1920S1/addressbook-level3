@@ -29,6 +29,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
     public AddAppCommandParser(Model model) {
         this.model = model;
     }
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -53,7 +54,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
 
         Timing timing = ParserUtil.parseTiming(startString, endString);
 
-        if(!timing.isValidTimingFromCurrentTime(timing.getStartTime(), timing.getEndTime())){
+        if (!timing.isValidTimingFromCurrentTime(timing.getStartTime(), timing.getEndTime())) {
             throw new ParseException(String.format(MESSAGE_INVALID_TIMING, AddAppCommand.MESSAGE_USAGE));
         }
 

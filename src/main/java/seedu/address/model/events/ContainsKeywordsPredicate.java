@@ -29,22 +29,6 @@ public class ContainsKeywordsPredicate implements Predicate<Event> {
         ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(keywords);
     }
 
-    public Boolean hasNoPredicate(){
-        Boolean res = true;
-        for(String str: keywords){
-            if(!str.isBlank() || !str.trim().isEmpty()){
-                res = false;
-                break;
-            }
-        }
-        return res;
-    }
-
-    public ContainsKeywordsPredicate addStatus(Status.AppointmentStatuses appointmentStatuses){
-        keywords.add(appointmentStatuses.toString().toUpperCase());
-        return new ContainsKeywordsPredicate(keywords);
-    }
-
     @Override
     public boolean test(Event event) {
         return keywords.stream()

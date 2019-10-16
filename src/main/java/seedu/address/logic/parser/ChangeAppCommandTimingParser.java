@@ -1,5 +1,13 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
+
+import java.util.List;
+import java.util.stream.Stream;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ChangeAppCommand;
@@ -11,13 +19,6 @@ import seedu.address.model.events.Event;
 import seedu.address.model.events.Status;
 import seedu.address.model.events.Timing;
 
-import java.util.List;
-import java.util.stream.Stream;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 
 /**
  * Parses input arguments and creates a new ChangeAppCommand object
@@ -31,6 +32,12 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
         this.model = model;
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the ReversibleActionPairCommand
+     * and returns a ReversibleActionPairCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
@@ -48,7 +55,7 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
             Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
             int idx = index.getZeroBased();
             if (idx >= lastShownList.size()) {
-                throw new ParseException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
+                throw new ParseException(Messages.MESSAGE_INVALID_INDEX);
             }
             String startString = argMultimap.getValue(PREFIX_START).get();
             String endString = argMultimap.getValue(PREFIX_END).get();

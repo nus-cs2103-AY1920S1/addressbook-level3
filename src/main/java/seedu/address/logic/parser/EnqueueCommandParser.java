@@ -17,6 +17,7 @@ public class EnqueueCommandParser implements Parser<EnqueueCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EnqueueCommand parse(String args) throws ParseException {

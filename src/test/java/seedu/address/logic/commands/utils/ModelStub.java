@@ -195,6 +195,36 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateToMissedEventList() {
+
+    }
+
+    @Override
+    public void updateFilteredEventList() {
+
+    }
+
+    @Override
+    public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
+
+    }
+
+    @Override
+    public void updateFilteredEventList(ReferenceId referenceId) {
+
+    }
+
+    @Override
+    public Boolean isPatientList() {
+        return null;
+    }
+
+    @Override
+    public Boolean isMissedList() {
+        return null;
+    }
+
+    @Override
     public ObservableList<ReferenceId> getQueueList() {
         throw new AssertionError("This method should not be called.");
     }

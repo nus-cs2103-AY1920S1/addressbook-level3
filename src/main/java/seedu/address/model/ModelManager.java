@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -14,12 +13,8 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.AppointmentsCommand;
 import seedu.address.model.common.ReferenceId;
-import seedu.address.model.events.ContainsKeywordsPredicate;
-import seedu.address.model.events.DateTime;
 import seedu.address.model.events.Event;
-import seedu.address.model.events.Status;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
@@ -295,14 +290,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredEventList(ReferenceId referenceId) {
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
-        Predicate<Event> byApproved = Event -> (Event.getStatus().isApproved() && Event.getPersonId().equals(referenceId));
-        filteredEvents.setPredicate(byApproved);
-    }
-
-    @Override
-    public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
-        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
-        Predicate<Event> byApproved = Event -> ((Event.getStatus().isApproved() || Event.getStatus().isAcked())
+        Predicate<Event> byApproved = Event -> (Event.getStatus().isApproved()
                 && Event.getPersonId().equals(referenceId));
         filteredEvents.setPredicate(byApproved);
     }
@@ -311,6 +299,14 @@ public class ModelManager implements Model {
     public void updateFilteredEventList() {
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         Predicate<Event> byApproved = Event -> Event.getStatus().isApproved();
+        filteredEvents.setPredicate(byApproved);
+    }
+
+    @Override
+    public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        Predicate<Event> byApproved = Event -> ((Event.getStatus().isApproved() || Event.getStatus().isAcked())
+                && Event.getPersonId().equals(referenceId));
         filteredEvents.setPredicate(byApproved);
     }
 

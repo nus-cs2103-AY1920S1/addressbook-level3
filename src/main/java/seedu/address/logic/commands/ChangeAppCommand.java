@@ -1,13 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
+
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import static seedu.address.logic.parser.CliSyntax.*;
-
-
 import seedu.address.model.events.Event;
 
 /**
@@ -32,7 +32,6 @@ public class ChangeAppCommand extends ReversibleCommand {
     private final Event eventToEdit;
     private final Event editedEvent;
 
-
     /**
      * Creates an ChangeAppCommand to add the specified {@code Person}
      */
@@ -50,9 +49,7 @@ public class ChangeAppCommand extends ReversibleCommand {
         if (model.hasExactEvent(editedEvent)) {
             throw new CommandException(MESSAGE_TIMING_NOTNEW);
         }
-
         model.setEvent(eventToEdit, editedEvent);
-
         model.updateFilteredEventList(editedEvent.getPersonId());
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
     }

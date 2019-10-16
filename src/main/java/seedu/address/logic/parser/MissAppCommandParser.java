@@ -1,17 +1,18 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.MissAppCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new MissAppCommand object
  */
 public class MissAppCommandParser implements Parser<MissAppCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns a FindCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the MissAppCommand
+     * and returns a MissAppCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

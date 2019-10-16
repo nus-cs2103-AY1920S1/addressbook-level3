@@ -41,6 +41,7 @@ public class Timing implements Comparable<Timing> {
         requireAllNonNull(testStart, testEnd);
         return testStart.getTime().before(testEnd.getTime());
     }
+
     /**
      * Returns true if the start dateTime is before the end dateTime.
      */
@@ -57,6 +58,9 @@ public class Timing implements Comparable<Timing> {
         return endTiming;
     }
 
+    /**
+     * Returns true if the endtime is before current time.
+     */
     public Boolean hasMissedTiming() {
         Date current = new Date();
         return getEndTime().getTime().before(current);
