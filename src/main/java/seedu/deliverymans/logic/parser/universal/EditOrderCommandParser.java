@@ -46,7 +46,6 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
         }
 
         EditOrderCommand.EditOrderDescriptor editOrderDescriptor = new EditOrderCommand.EditOrderDescriptor();
-        
         parseFoodForEdit(argMultimap.getAllValues(PREFIX_FOOD)).ifPresent(editOrderDescriptor::setFoods);
 
         if (!editOrderDescriptor.isAnyFieldEdited()) {
