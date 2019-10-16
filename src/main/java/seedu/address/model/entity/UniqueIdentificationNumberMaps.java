@@ -20,6 +20,7 @@ public class UniqueIdentificationNumberMaps {
      * Adds the {@code entity} to the respective map and returns the identification number assigned.
      */
     public static Integer addEntity(Entity entity) {
+        assert(entity != null);
         if (entity instanceof Worker) {
             return putWorker((Worker) entity);
         } else if (entity instanceof Body) {
