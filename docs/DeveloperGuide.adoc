@@ -317,7 +317,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find an expense name |locate a specific expense without having to go through the entire list
 
-|`* * *` |user |edit an expense |change the expense amount or tag
+|`* * *` |user |edit an expense |change the expense amount, date or tag
 
 |`* * *` |user |delete an expense |
 
