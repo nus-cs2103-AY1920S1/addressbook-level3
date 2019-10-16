@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.student.exceptions.DuplicateStudentException;
-import seedu.address.model.student.exceptions.StudentNotFoundException;
+import seedu.address.model.student.exceptions.DuplicateAssignmentException;
+import seedu.address.model.student.exceptions.AssignmentNotFoundException;
 
 /**
  * A list of students that enforces uniqueness between its elements and does not allow nulls.
@@ -43,7 +43,7 @@ public class UniqueStudentList implements Iterable<Student> {
     public void add(Student toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateStudentException();
+            throw new DuplicateAssignmentException();
         }
         internalList.add(toAdd);
     }
@@ -58,11 +58,11 @@ public class UniqueStudentList implements Iterable<Student> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new StudentNotFoundException();
+            throw new AssignmentNotFoundException();
         }
 
         if (!target.isSameStudent(editedStudent) && contains(editedStudent)) {
-            throw new DuplicateStudentException();
+            throw new DuplicateAssignmentException();
         }
 
         internalList.set(index, editedStudent);
@@ -75,7 +75,7 @@ public class UniqueStudentList implements Iterable<Student> {
     public void remove(Student toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new StudentNotFoundException();
+            throw new AssignmentNotFoundException();
         }
     }
 
@@ -91,7 +91,7 @@ public class UniqueStudentList implements Iterable<Student> {
     public void setStudents(List<Student> students) {
         requireAllNonNull(students);
         if (!studentsAreUnique(students)) {
-            throw new DuplicateStudentException();
+            throw new DuplicateAssignmentException();
         }
 
         internalList.setAll(students);

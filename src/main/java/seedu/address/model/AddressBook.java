@@ -2,9 +2,12 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.UniqueAssignmentList;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 
@@ -15,7 +18,7 @@ import seedu.address.model.student.UniqueStudentList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueStudentList students;
-
+    private final UniqueAssignmentList assignments;
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         students = new UniqueStudentList();
+        assignments = new UniqueAssignmentList();
     }
 
     public AddressBook() {}
@@ -47,6 +51,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.students.setStudents(students);
     }
 
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments.setAssignments(assignments);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -66,12 +74,25 @@ public class AddressBook implements ReadOnlyAddressBook {
         return students.contains(student);
     }
 
+    public boolean hasAssignment(Assignment assignment){
+        requireNonNull(assignment);
+        return assignments.contains(assignment);
+    }
+
     /**
      * Adds a student to the address book.
      * The student must not already exist in the address book.
      */
     public void addStudent(Student p) {
         students.add(p);
+    }
+
+    /**
+     * Adds an assignment to the address book.
+     * The assignment must not already exist in the address book.
+     */
+    public void addAssignment(Assignment p) {
+        assignments.add(p);
     }
 
     /**
@@ -87,11 +108,31 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given assignment {@code target} in the list with {@code editedAssignment}.
+     * {@code target} must exist in the address book.
+     * The student identity of {@code editedAssignment} must not be the same as another existing student in the address
+     * book.
+     */
+    public void setAssignment(Assignment target, Assignment editedAssignment) {
+        requireNonNull(editedAssignment);
+
+        assignments.setAssignment(target, editedAssignment);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removeStudent(Student key) {
         students.remove(key);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeAssignment(Assignment key) {
+        assignments.remove(key);
     }
 
     //// util methods
@@ -105,6 +146,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Student> getStudentList() {
         return students.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Assignment> getAssignmentList() {
+        return assignments.asUnmodifiableObservableList();
     }
 
     @Override
