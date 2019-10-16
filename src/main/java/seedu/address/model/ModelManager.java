@@ -110,6 +110,11 @@ public class ModelManager implements Model {
         return addressBook.hasEntry(entry);
     }
 
+    @Override
+    public boolean hasExpenseReminder(ExpenseReminder reminder) {
+        requireNonNull(reminder);
+        return addressBook.hasExpenseReminder(reminder);
+    }
 
     @Override
     public void deleteEntry(Entry target) {
@@ -238,7 +243,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<ExpenseReminder> getFilteredReminders() {
+    public ObservableList<ExpenseReminder> getFilteredExpenseReminders() {
         return filteredExpenseReminders;
     }
 
@@ -264,6 +269,12 @@ public class ModelManager implements Model {
     public void updateFilteredWishes(Predicate<Wish> predicate) {
         requireNonNull(predicate);
         filteredWishes.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate) {
+        requireNonNull(predicate);
+        filteredExpenseReminders.setPredicate(predicate);
     }
 
     @Override

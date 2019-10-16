@@ -94,11 +94,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a entry with the same identity as {@code entry} exists in the address book.
      */
     public boolean hasEntry(Entry entry) {
         requireNonNull(entry);
         return entries.contains(entry);
+    }
+
+    /**
+     * Returns true if a reminder with the same identity as {@code reminder} exists in the address book.
+     */
+    public boolean hasExpenseReminder(ExpenseReminder reminder) {
+        requireNonNull(reminder);
+        return expenseReminders.contains(reminder);
     }
 
     /**

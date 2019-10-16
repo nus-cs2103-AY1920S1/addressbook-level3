@@ -55,11 +55,9 @@ public class ExpenseTrackerList implements Iterable<ExpenseTracker> {
             throw new EntryNotFoundException();
         }
 
-        if (!target.equals(editedTracker) && contains(editedTracker)) {
-            throw new DuplicateEntryException();
+        if (target.equals(editedTracker) || !contains(editedTracker)) {
+            internalList.set(index, editedTracker);
         }
-
-        internalList.set(index, editedTracker);
     }
 
     /**

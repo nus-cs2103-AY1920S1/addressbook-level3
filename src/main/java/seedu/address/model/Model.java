@@ -9,6 +9,7 @@ import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Income;
+import seedu.address.model.person.Reminder;
 import seedu.address.model.person.Wish;
 
 /**
@@ -23,6 +24,8 @@ public interface Model {
     Predicate<Income> PREDICATE_SHOW_ALL_INCOMES = unused -> true;
 
     Predicate<Wish> PREDICATE_SHOW_ALL_WISHES = unused -> true;
+
+    Predicate<ExpenseReminder> PREDICATE_SHOW_ALL_EXPENSE_REMINDERS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -66,6 +69,8 @@ public interface Model {
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasEntry(Entry entry);
+
+    boolean hasExpenseReminder(ExpenseReminder reminder);
 
     /**
      * Deletes the given entry.
@@ -127,7 +132,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Wish> getFilteredWishes();
 
-    ObservableList<ExpenseReminder> getFilteredReminders();
+    ObservableList<ExpenseReminder> getFilteredExpenseReminders();
     /**
      * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -139,4 +144,6 @@ public interface Model {
     void updateFilteredIncomes(Predicate<Income> predicate);
 
     void updateFilteredWishes(Predicate<Wish> predicate);
+
+    public void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate);
 }
