@@ -65,7 +65,7 @@ $ find John Tim Betsy
 $ profile 1
 ----
 
-For other commands, check out our User Guide at <</AY1920S1-CS2103T-F12-2/main/blob/master/docs/UserGuide#, here>>!
+For other commands, check out our User Guide at link:https://github.com/AY1920S1-CS2103T-F12-2/main/blob/master/docs/UserGuide.adoc[here]!
 
 == Download
 
@@ -73,10 +73,10 @@ You can https://github.com/AY1920S1-CS2103T-F12-2/main/releases[download] the la
 
 == Site Map
 
-* <</AY1920S1-CS2103T-F12-2/main/blob/master/docs/AboutUs#, About Us>>
-* <</AY1920S1-CS2103T-F12-2/main/blob/master/docs/ContactUs#, Contact Us>>
-* <</AY1920S1-CS2103T-F12-2/main/blob/master/docs/UserGuide#, User Guide>>
-* <</AY1920S1-CS2103T-F12-2/main/blob/master/docs/DeveloperGuide#, Developer Guide>>
+* link:https://github.com/AY1920S1-CS2103T-F12-2/main/blob/master/docs/AboutUs.adoc[About Us]
+* link:https://github.com/AY1920S1-CS2103T-F12-2/main/blob/master/docs/ContactUs.adoc[Contact Us]
+* link:https://github.com/AY1920S1-CS2103T-F12-2/main/blob/master/docs/UserGuide.adoc[User Guide]
+* link:https://github.com/AY1920S1-CS2103T-F12-2/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]
 
 == Acknowledgements
 
