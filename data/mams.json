@@ -1,5 +1,19 @@
 {
-  "students" : [
+  "students": [
+    {
+      "name": "Paul",
+      "credits": "20",
+      "prevMods": "CS2202, CS5505",
+      "matricId": "A00192034Z",
+      "tagged": ["C123456", "C002923"]
+    },
+    {
+      "name": "Alex",
+      "credits": "20",
+      "prevMods": "CS2202, CS1111",
+      "matricId": "A220193040F",
+      "tagged": ["C123456", "C002923"]
+    }
   ],
   "modules" : [ {
     "code" : "CS1010",
@@ -155,5 +169,105 @@
       "A6185284H",
       "A5524592H"
     ]
-  } ]
+  } ],
+  "appeals": [
+    {
+      "appealId": "C000000",
+      "appealType": "Increase workload",
+      "academicYear": "AY2019",
+      "studentId": "A0180000",
+      "studentWorkload": 24,
+      "previousModule": "",
+      "newModule": "",
+      "moduleToAdd": "",
+      "moduleToDrop": "",
+      "appealDescription": "I want to increase my workload so I can graduate on time",
+      "resolved": false,
+      "remark": ""
+    },
+    {
+      "appealId": "C000001",
+      "appealType": "Drop module",
+      "academicYear": "AY2019",
+      "studentId": "A0180001",
+      "studentWorkload": 28,
+      "previousModule": "",
+      "newModule": "",
+      "moduleToAdd": "",
+      "moduleToDrop": "",
+      "appealDescription": "I don't think I can cope with the workload",
+      "resolved": false,
+      "remark": ""
+    },
+    {
+      "appealId": "C000002",
+      "appealType": "Drop module",
+      "academicYear": "AY2019",
+      "studentId": "A0180002",
+      "studentWorkload": 28,
+      "previousModule": "",
+      "newModule": "",
+      "moduleToAdd": "",
+      "moduleToDrop": "",
+      "appealDescription": "I cannot cope with the workload",
+      "resolved": false,
+      "remark": ""
+    },
+    {
+      "appealId": "C000003",
+      "appealType": "Add module",
+      "academicYear": "AY2020",
+      "studentId": "A0180003",
+      "studentWorkload": 20,
+      "previousModule": "",
+      "newModule": "",
+      "moduleToAdd": "",
+      "moduleToDrop": "",
+      "appealDescription": "I want to take another module",
+      "resolved": false,
+      "remark": ""
+    },
+    {
+      "appealId": "C000004",
+      "appealType": "Increase workload",
+      "academicYear": "AY2019",
+      "studentId": "A0180004",
+      "studentWorkload": 20,
+      "previousModule": "",
+      "newModule": "",
+      "moduleToAdd": "",
+      "moduleToDrop": "",
+      "appealDescription": "I want to clear my UEs",
+      "resolved": false,
+      "remark": ""
+    },
+    {
+      "appealId": "C000005",
+      "appealType": "Add module",
+      "academicYear": "AY2019",
+      "studentId": "A0180005",
+      "studentWorkload": 20,
+      "previousModule": "",
+      "newModule": "",
+      "moduleToAdd": "",
+      "moduleToDrop": "",
+      "appealDescription": "I want to graduate earlier",
+      "resolved": false,
+      "remark": ""
+    },
+    {
+      "appealId": "C000006",
+      "appealType": "Add module",
+      "academicYear": "AY2019",
+      "studentId": "A0180006",
+      "studentWorkload": 20,
+      "previousModule": "",
+      "newModule": "",
+      "moduleToAdd": "",
+      "moduleToDrop": "",
+      "appealDescription": "I wish to take this module to clear my prerequisite",
+      "resolved": false,
+      "remark": ""
+    }
+  ]
 }
