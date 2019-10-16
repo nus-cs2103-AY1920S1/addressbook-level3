@@ -1,19 +1,17 @@
 package seedu.address.logic.commands;
 
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
+import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.events.*;
-
-import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 
+
+import seedu.address.model.events.Event;
+
 /**
- * change a appointment's timing for a patient.
+ * Acknowledge a person to the address book.
  */
 public class ChangeAppCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "changeAppt";
@@ -29,66 +27,43 @@ public class ChangeAppCommand extends ReversibleCommand {
             + PREFIX_START + "01/11/19 1800 "
             + PREFIX_END + "01/11/19 1900";
 
-    private final Index apptIdx;
-    private Event oldAppt;
-    private Event newAppt;
-    private Timing timing;
+    public static final String MESSAGE_SUCCESS = "this appointmeent's timing has been changed: %1$s";
+    public static final String MESSAGE_TIMING_NOTNEW = "please a new timing for the appointment to chaneg.";
 
-    public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "Appointment cancelled: %1$s";
+    private final Event source;
+    private final Event dest;
 
-    public ChangeAppCommand(Index index, Timing timing){
-        this.apptIdx = index;
-        this.timing = timing;
-        oldAppt = null;
-        newAppt = null;
+
+    /**
+     * Creates an ChangeAppCommand to add the specified {@code Person}
+     */
+    public ChangeAppCommand(Event source, Event dest) {
+        requireNonNull(source);
+        requireNonNull(dest);
+        this.source = source;
+        this.dest = dest;
     }
-
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ObservableList<Event> filterEventList = model.getFilteredEventList();
 
-        if (apptIdx.getZeroBased() >= filterEventList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
+        if (model.hasEvent(dest)) {
+            throw new CommandException(MESSAGE_TIMING_NOTNEW);
         }
 
-        if (!model.isPatientList()) {
-            throw new CommandException(Messages.MESSAGE_NOT_PATIENTLIST);
-        }
+        model.deleteEvent(source);
 
-        oldAppt = filterEventList.get(apptIdx.getZeroBased());
-        newAppt = new Appointment(oldAppt.getPersonId(), timing, new Status());
-
-        if(model.hasEvent(newAppt)){
-            throw new CommandException(Messages.MESSAGE_DUPLICATE_CHANGE);
-        }
-
-        model.setEvent(oldAppt, newAppt);
-
-        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(oldAppt);
-        model.updateFilteredEventList(predicate);
-
-        return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, newAppt));
+        model.addEvent(dest);
+        model.displayApprovedAndAckedPatientEvent(dest.getPersonId());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, dest));
     }
-
-    /*
 
     @Override
-    public CommandResult undo(Model model) throws CommandException {
-        requireNonNull(model);
-
-        if (model.hasEvent(oldAppt)) {
-            throw new CommandException(String.format(MESSAGE_UNDO_ADD_ERROR, oldAppt));
-        }
-
-        model.setEvent(newAppt, oldAppt);
-
-
-        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(oldAppt);
-        model.updateFilteredEventList(predicate);
-
-        return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, oldAppt));
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ChangeAppCommand // instanceof handles nulls
+                && dest.equals(((ChangeAppCommand) other).dest));
     }
-*/
+
 }

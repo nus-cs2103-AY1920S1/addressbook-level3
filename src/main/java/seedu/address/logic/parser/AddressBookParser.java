@@ -10,7 +10,7 @@ import seedu.address.logic.commands.AckAppCommand;
 import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.AppointmentsCommand;
 import seedu.address.logic.commands.CancelAppCommand;
-import seedu.address.logic.commands.ChangeAppCommand;
+import seedu.address.logic.commands.ChangeAppTimingCommand;
 import seedu.address.logic.commands.DequeueCommand;
 import seedu.address.logic.commands.EnqueueCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -110,8 +110,8 @@ public class AddressBookParser {
         case CancelAppCommand.COMMAND_WORD:
             return new CancelAppCommandParser(model).parse(arguments);
 
-        case ChangeAppCommand.COMMAND_WORD:
-            return new ChangeAppCommandParser().parse(arguments);
+        case ChangeAppTimingCommand.COMMAND_WORD:
+            return new ChangeAppCommandTimingParser(model).parse(arguments);
 
         case MissAppCommand.COMMAND_WORD:
             return new MissAppCommandParser().parse(arguments);
