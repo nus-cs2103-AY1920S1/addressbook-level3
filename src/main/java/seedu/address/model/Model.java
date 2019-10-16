@@ -9,7 +9,6 @@ import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Income;
-import seedu.address.model.person.Reminder;
 import seedu.address.model.person.Wish;
 
 /**

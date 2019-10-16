@@ -43,11 +43,13 @@ public class EditExpenseReminderCommandParser implements Parser<EditExpenseRemin
         EditExpenseReminderCommand.EditReminderDescriptor editReminderDescriptor =
                 new EditExpenseReminderCommand.EditReminderDescriptor();
         if (argMultimap.getValue(PREFIX_DESC).isPresent()) {
-            editReminderDescriptor.setDesc(ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get()).toString());
+            editReminderDescriptor.setDesc(
+                    ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get()).toString());
         }
 
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
-            editReminderDescriptor.setAmount((long) ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()).value);
+            editReminderDescriptor.setAmount(
+                    (long) ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()).value);
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editReminderDescriptor::setTags);
 
