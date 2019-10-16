@@ -89,6 +89,22 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setPerson_changePerson_returnsTrue() {
+        modelManager.addPerson(ALICE);
+        modelManager.setPerson(ALICE, BENSON);
+        assertFalse(modelManager.hasPerson(ALICE));
+        assertTrue(modelManager.hasPerson(BENSON));
+    }
+
+    @Test
+    public void sortAddressBookByName_modifyList_returnsTrue() {
+        modelManager.addPerson(BENSON);
+        modelManager.addPerson(ALICE);
+        modelManager.sortAddressBookByName();
+        assertEquals(modelManager.getAddressBook().getPersonList().get(0), ALICE);
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }

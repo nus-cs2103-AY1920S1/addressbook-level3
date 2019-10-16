@@ -128,7 +128,7 @@ public class ModelManager implements Model {
 
     @Override
     public Person selectPerson() {
-            return selectedPerson[selectedPersonIndex];
+         return selectedPerson[selectedPersonIndex];
 
     }
 
@@ -136,6 +136,9 @@ public class ModelManager implements Model {
         selectedPerson[selectedPersonIndex] = person;
     }
 
+    public void sortAddressBookByName() {
+        this.addressBook.sortByName();
+    }
 
     //=========== Filtered Person List Accessors =============================================================
 
