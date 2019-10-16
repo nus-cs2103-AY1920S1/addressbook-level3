@@ -32,7 +32,7 @@ public class FilledExpenseTimeline implements ExpenseTimeline {
      *
      * @param dateRange         The range of dates that the timeline spans.
      * @param dateInterval      The level of "granularity" that the aggregate expenses are shown in
-     * @param aggregateExpenses List of aggregate expenses. The nth element represents a list of the all the expenses
+     * @param aggregateExpenses List of aggregate expenses. The nth element represents a list of all the expenses
      *                          that occurred between {@code start + n * dateInterval} and {@code start
      *                          + (n + 1) * dateInterval}.
      * @throws IllegalArgumentException if the size of the aggregate expense list and the number of intervals in the
