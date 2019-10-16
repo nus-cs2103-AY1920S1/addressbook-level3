@@ -14,7 +14,7 @@ import seedu.address.model.ItemModel;
 /**
  * Add an Item to the item list.
  */
-public class AddCommand extends Command {
+public abstract class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Task to the Task List. "
@@ -28,9 +28,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New Item added: %1$s";
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists.";
 
-    private static String itemType;
-
-    private final Item toAdd;
+    protected final Item toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Item}
@@ -40,33 +38,8 @@ public class AddCommand extends Command {
         toAdd = item;
     }
 
-    public static void setItemType(String newItemType) {
-        itemType = newItemType;
-    }
-
-    public static String getItemType() {
-        return itemType;
-    }
-
     @Override
-    public CommandResult execute(ItemModel model) throws CommandException {
-        requireNonNull(model);
-
-        // Check if item already exists, else, add it to the model.
-        if (model.hasItem(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ITEM);
-        } else {
-            model.addItem(toAdd);
-        }
-
-        // Notify Ui to change the view the that of the newly added item.
-        try {
-            model.setVisualList(itemType);
-        } catch (Exception e) {
-            // should not enter here as itemType is definitely valid.
-        }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), itemType);
-    }
+    public abstract CommandResult execute(ItemModel model) throws CommandException;
 
     @Override
     public boolean equals(Object other) {
