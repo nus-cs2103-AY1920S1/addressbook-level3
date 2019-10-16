@@ -1,7 +1,6 @@
 package seedu.address.model.project;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -31,7 +30,7 @@ public class Project {
         return description;
     }
 
-    public Set<Meeting> getListOfMeeting() { return meeting;}
+    public Set<Meeting> getListOfMeeting() { return meeting; }
 
     public void setListOfMeeting(Set<Meeting> meetings) {
         this.meeting.addAll(meetings);

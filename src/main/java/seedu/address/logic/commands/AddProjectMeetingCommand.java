@@ -3,11 +3,9 @@ package seedu.address.logic.commands;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.project.Meeting;
-import seedu.address.model.project.Project;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 public class AddProjectMeetingCommand extends Command {
     public static final String COMMAND_WORD = "addProjectMeeting";
@@ -17,8 +15,8 @@ public class AddProjectMeetingCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meeting to the project. "
             + "Parameters: "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "CS2103 TP "
-            + PREFIX_DESCRIPTION + "To create an app to manage projects";
+            + PREFIX_TIME + "29/09/2019 1900"
+            + PREFIX_DESCRIPTION + "milestone discussion";
 
     public static final String MESSAGE_DUPLICATE_PROJECT = "Project list contains duplicate project(s).";
 

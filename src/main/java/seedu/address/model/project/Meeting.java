@@ -29,11 +29,15 @@ public class Meeting {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Meeting meeting = (Meeting) o;
-        return time.equals(meeting.time) &&
-                Objects.equals(description, meeting.description);
+        return time.equals(meeting.time)
+                && Objects.equals(description, meeting.description);
     }
 
     @Override

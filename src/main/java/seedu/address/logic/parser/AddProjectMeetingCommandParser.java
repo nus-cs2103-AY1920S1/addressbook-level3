@@ -22,15 +22,15 @@ public class AddProjectMeetingCommandParser implements Parser<AddProjectMeetingC
      */
     public AddProjectMeetingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TIME, PREFIX_MEETING_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_TIME, PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TIME, PREFIX_MEETING_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TIME, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProjectMeetingCommand.MESSAGE_USAGE));
         }
 
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
-        Description description = ParserUtil.parseMeetingDescription((argMultimap.getValue(PREFIX_MEETING_DESCRIPTION).get()));
+        Description description = ParserUtil.parseMeetingDescription((argMultimap.getValue(PREFIX_DESCRIPTION).get()));
 
         Meeting meeting = new Meeting(time, description);
 
