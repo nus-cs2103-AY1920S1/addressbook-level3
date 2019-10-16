@@ -122,7 +122,7 @@ public class ModelManager implements Model {
     public void editStats(int type) {
         if (type == 0) {
             addressBook.addGood();
-        }   
+        }
         if (type == 1) {
             addressBook.addHard();
         }
