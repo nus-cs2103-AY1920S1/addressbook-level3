@@ -26,8 +26,12 @@ import seedu.address.logic.commands.editcommand.EditPhoneCommand;
 import seedu.address.logic.commands.editcommand.EditScheduleCommand;
 import seedu.address.logic.commands.findcommand.FindCommand;
 import seedu.address.logic.commands.findcommand.FindCustomerCommand;
+import seedu.address.logic.commands.findcommand.FindOrderCommand;
+import seedu.address.logic.commands.findcommand.FindPhoneCommand;
 import seedu.address.logic.commands.listcommand.ListCommand;
 import seedu.address.logic.commands.listcommand.ListCustomerCommand;
+import seedu.address.logic.commands.listcommand.ListOrderCommand;
+import seedu.address.logic.commands.listcommand.ListPhoneCommand;
 import seedu.address.logic.commands.statisticcommand.StatsCommand;
 import seedu.address.logic.commands.switchcommand.SwitchCustomerPanelCommand;
 import seedu.address.logic.commands.switchcommand.SwitchOrderPanelCommand;
@@ -48,6 +52,8 @@ import seedu.address.logic.parser.editcommandparser.EditPhoneCommandParser;
 import seedu.address.logic.parser.editcommandparser.EditScheduleCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.findcommandparser.FindCustomerCommandParser;
+import seedu.address.logic.parser.findcommandparser.FindOrderCommandParser;
+import seedu.address.logic.parser.findcommandparser.FindPhoneCommandParser;
 
 /**
  * Parses user input.
@@ -121,8 +127,20 @@ public class AddressBookParser {
         case FindCustomerCommand.COMMAND_WORD:
             return new FindCustomerCommandParser().parse(arguments);
 
+        case FindPhoneCommand.COMMAND_WORD:
+            return new FindPhoneCommandParser().parse(arguments);
+
+        case FindOrderCommand.COMMAND_WORD:
+            return new FindOrderCommandParser().parse(arguments);
+
         case ListCustomerCommand.COMMAND_WORD:
             return new ListCustomerCommand();
+
+        case ListPhoneCommand.COMMAND_WORD:
+            return new ListPhoneCommand();
+
+        case ListOrderCommand.COMMAND_WORD:
+            return new ListOrderCommand();
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
