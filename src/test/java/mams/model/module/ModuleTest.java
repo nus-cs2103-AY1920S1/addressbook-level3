@@ -69,7 +69,5 @@ class ModuleTest {
 
     @Test
     void testEquals() {
-
-
     }
 }
