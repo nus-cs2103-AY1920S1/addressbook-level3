@@ -12,7 +12,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.food.*;
+import seedu.address.model.food.Amount;
+import seedu.address.model.food.Name;
+import seedu.address.model.food.ShoppingItem;
 
 //For now edit shopping command will not be able to change the expiry date
 /**
