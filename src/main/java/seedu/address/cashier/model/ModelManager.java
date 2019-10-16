@@ -279,7 +279,7 @@ public class ModelManager implements Model {
      * @return the subtotal of the item
      */
     public double getSubtotal(Item i) {
-        return (i.getPrice() * i.getQuantity());
+        return Double.parseDouble(Item.DECIMAL_FORMAT.format(i.getPrice() * i.getQuantity()));
     }
 
     /**

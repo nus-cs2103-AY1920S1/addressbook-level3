@@ -1,10 +1,5 @@
 package seedu.address.inventory.ui;
 
-import java.util.logging.Logger;
-
-import seedu.address.inventory.model.Item;
-import seedu.address.person.commons.core.LogsCenter;
-
 /**
  * Formats the Ui return responses for different commands to be shown to user.
  */
@@ -45,17 +40,12 @@ public class InventoryMessages {
 
     public static final String NO_SUCH_INDEX_INVENTORY = "There is no item at the inputted index.";
 
-    private static final Logger logger = LogsCenter.getLogger(InventoryMessages.class);
+    public static final String MESSAGE_EDITED_ITEM = "Edited item from:\n%s\nto:%s";
 
-    public static String editedItem(Item itemBefore, Item itemAfter) {
-        return "Edited Item from:\n" + itemBefore + "\nto :" + itemAfter;
-    }
+    public static final String MESSAGE_DUPLICATE = "The given input is the same as that of item specified.";
 
-    public String addedItem(Item item) {
-        return "Added Item:\n" + item;
-    }
+    public static final String MESSAGE_ADDED_ITEM = "Added item:\n%s";
 
-    public String deletedItem(Item item) {
-        return "Deleted Item:\n" + item;
-    }
+    public static final String MESSAGE_DELETED_ITEM = "Deleted item:\n%s";
+
 }

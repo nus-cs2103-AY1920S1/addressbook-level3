@@ -1,7 +1,6 @@
-package seedu.address.inventory.logic;
+package seedu.address.ui.logic;
 
-import seedu.address.inventory.commands.CommandResult;
-import seedu.address.inventory.util.InventoryList;
+import seedu.address.ui.commands.CommandResult;
 
 /**
  * API of the Logic component
@@ -16,9 +15,4 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws Exception;
 
-    /**
-     * Returns the inventory list in the model manager.
-     * @return Inventory List in the model manager.
-     */
-    InventoryList getInventoryList();
 }

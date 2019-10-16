@@ -19,7 +19,6 @@ public abstract class Command {
      */
     public abstract CommandResult execute(ModelManager model, seedu.address.person.model.Model personModel,
                                           seedu.address.transaction.model.Model transactionModel,
-                                          seedu.address.inventory.model.Model inventoryModel)
-            throws Exception;
+                                          seedu.address.inventory.model.Model inventoryModel) throws Exception;
 }
 

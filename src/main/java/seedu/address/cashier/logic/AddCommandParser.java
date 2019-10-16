@@ -1,5 +1,9 @@
 package seedu.address.cashier.logic;
 
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT;
+import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_CASHIER;
+import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_A_NUMBER;
 import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
@@ -11,7 +15,6 @@ import seedu.address.cashier.logic.exception.NotANumberException;
 import seedu.address.cashier.logic.exception.ParseException;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchItemException;
-import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
 import seedu.address.util.Prefix;
@@ -34,7 +37,7 @@ public class AddCommandParser {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_QUANTITY)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(CashierMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT);
+            throw new ParseException(MESSAGE_INVALID_ADDCOMMAND_FORMAT);
         }
 
         String description = argMultimap.getValue(PREFIX_DESCRIPTION).get();
@@ -43,18 +46,17 @@ public class AddCommandParser {
         try {
             quantity = Integer.parseInt(quantityString);
         } catch (Exception e) {
-            throw new NotANumberException(CashierMessages.QUANTITY_NOT_A_NUMBER);
+            throw new NotANumberException(QUANTITY_NOT_A_NUMBER);
         }
 
         modelManager.updateRecentInventory();
 
         if (!modelManager.hasItemInInventory(description)) {
-            throw new NoSuchItemException(CashierMessages.NO_SUCH_ITEM_CASHIER);
+            throw new NoSuchItemException(NO_SUCH_ITEM_CASHIER);
         }
         if (!modelManager.hasSufficientQuantity(description, quantity)) {
             int quantityLeft = modelManager.getStockLeft(description);
-            throw new InsufficientAmountException(
-                    CashierMessages.insufficientStock(String.valueOf(quantityLeft), description));
+            throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));
         }
         if (modelManager.hasItemInInventory(description) && modelManager.hasSufficientQuantity(description, quantity)) {
             AddCommand addCommand = new AddCommand(description, quantity);

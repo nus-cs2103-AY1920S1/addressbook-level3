@@ -266,8 +266,8 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping Address Book ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
-            transactionModel.sortReset();
-            transactionStorage.writeFile(transactionModel.getTransactionList());
+            /*transactionModel.sortReset();
+            transactionStorage.writeFile(transactionModel.getTransactionList());*/
             reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
             inventoryStorage.writeFile(inventoryModel.getInventoryList());
         } catch (IOException | NoSuchIndexException e) {

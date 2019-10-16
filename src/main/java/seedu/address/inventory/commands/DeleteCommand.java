@@ -1,9 +1,10 @@
 package seedu.address.inventory.commands;
 
+import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_DELETED_ITEM;
+
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.ModelManager;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
-import seedu.address.inventory.ui.InventoryMessages;
 
 /**
  * Deletes a transaction to the transaction list.
@@ -22,9 +23,8 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(ModelManager model)
             throws NoSuchIndexException {
-        InventoryMessages inventoryMessages = new InventoryMessages();
         Item item = model.findItemByIndex(index);
         model.deleteItem(index);
-        return new CommandResult(inventoryMessages.deletedItem(item));
+        return new CommandResult(String.format(MESSAGE_DELETED_ITEM, item));
     }
 }

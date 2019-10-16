@@ -1,8 +1,8 @@
 package seedu.address.overview.logic;
 
-import static seedu.address.overview.logic.CliSyntax.PREFIX_BUDGET;
-import static seedu.address.overview.logic.CliSyntax.PREFIX_EXPENSE;
-import static seedu.address.overview.logic.CliSyntax.PREFIX_SALES;
+import static seedu.address.util.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.util.CliSyntax.PREFIX_EXPENSE;
+import static seedu.address.util.CliSyntax.PREFIX_SALES;
 
 import java.util.stream.Stream;
 
@@ -12,6 +12,9 @@ import seedu.address.overview.commands.SetExpenseCommand;
 import seedu.address.overview.commands.SetSalesCommand;
 import seedu.address.overview.logic.exception.ParseException;
 import seedu.address.overview.ui.OverviewMessages;
+import seedu.address.util.ArgumentMultimap;
+import seedu.address.util.ArgumentTokenizer;
+import seedu.address.util.Prefix;
 
 /**
  * Parses input arguments and creates a new SetCommand object

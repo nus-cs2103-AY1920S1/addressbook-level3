@@ -41,4 +41,6 @@ public class OverviewMessages {
 
     public static final String EXPENSE_PIE_CHART_TITLE = "Expenses by category";
 
+    public static final String INVENTORY_PIE_CHART_TITLE = "Inventory by category";
+
 }

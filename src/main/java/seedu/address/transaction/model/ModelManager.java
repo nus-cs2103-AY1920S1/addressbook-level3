@@ -68,6 +68,7 @@ public class ModelManager implements Model {
         Transaction transaction = filteredList.get(index - 1);
         //Transaction transaction = transactionList.get(index - 1);
         logger.info("transaction found: " + transaction.toString());
+        logger.info("actual: " + transactionList.get(index - 1));
         return transaction;
     }
 

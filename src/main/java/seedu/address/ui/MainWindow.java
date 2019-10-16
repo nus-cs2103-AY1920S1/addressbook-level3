@@ -14,8 +14,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import seedu.address.person.commons.core.GuiSettings;
 import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.ui.logic.Logic;
+import seedu.address.ui.logic.LogicManager;
 import seedu.address.util.OverallCommandResult;
 
 /**
@@ -44,8 +47,10 @@ public class MainWindow extends UiPart<Stage> {
     private Overview overview;
     private Lion lion;
 
-    private HelpWindow helpWindow;
+    private Logic uiLogic;
 
+    @FXML
+    private HelpWindow helpWindow;
 
     @FXML
     private AnchorPane homePlaceholder;
@@ -80,6 +85,21 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Tab homeTab;
 
+    @FXML
+    private Tab membersTab;
+
+    @FXML
+    private Tab reimbursementsTab;
+
+    @FXML
+    private Tab inventoryTab;
+
+    @FXML
+    private Tab cashierTab;
+
+    @FXML
+    private Tab overviewTab;
+
     public MainWindow(Stage primaryStage, seedu.address.transaction.logic.Logic transactionLogic,
                       seedu.address.reimbursement.logic.Logic reimbursementLogic,
                       seedu.address.inventory.logic.Logic inventoryLogic,
@@ -98,6 +118,7 @@ public class MainWindow extends UiPart<Stage> {
         this.personLogic = personLogic;
         this.cashierLogic = cashierLogic;
         this.overviewLogic = overviewLogic;
+        this.uiLogic = new LogicManager(tabPane, helpWindow);
 
         // Configure the UI
         //setWindowDefaultSize(logic.getGuiSettings());
@@ -152,11 +173,14 @@ public class MainWindow extends UiPart<Stage> {
         home = new Home(transactionLogic);
         homePlaceholder.getChildren().add(home.getRoot());
 
-        inventory = new Inventory(inventoryLogic);
-        inventoryPlaceholder.getChildren().add(inventory.getRoot());
+        PersonListPanel personListPanel = new PersonListPanel(personLogic.getFilteredPersonList());
+        membersPlaceholder.getChildren().add(personListPanel.getRoot());
 
         reimbursements = new Reimbursements(reimbursementLogic);
         reimbursementsPlaceholder.getChildren().add(reimbursements.getRoot());
+
+        inventory = new Inventory(inventoryLogic);
+        inventoryPlaceholder.getChildren().add(inventory.getRoot());
 
         cashier = new Cashier(cashierLogic);
         cashierPlaceholder.getChildren().add(cashier.getRoot());
@@ -167,15 +191,13 @@ public class MainWindow extends UiPart<Stage> {
         lion = new Lion();
         lionPlaceholder.getChildren().add(lion.getRoot());
 
-        PersonListPanel personListPanel = new PersonListPanel(personLogic.getFilteredPersonList());
-        membersPlaceholder.getChildren().add(personListPanel.getRoot());
-
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
     }
 
     /**
+     *
      * Sets the default size based on {@code guiSettings}.
      */
     /*private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -184,18 +206,6 @@ public class MainWindow extends UiPart<Stage> {
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
-    }*/
-
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    /*@FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
         }
     }*/
 
@@ -215,10 +225,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    //public PersonListPanel getPersonListPanel() {
-    //    return personListPanel;
-    //}
-
     /**
      * Executes the command and returns the result.
      *
@@ -226,7 +232,9 @@ public class MainWindow extends UiPart<Stage> {
     private OverallCommandResult executeCommand(String commandText) throws Exception {
         try {
             OverallCommandResult commandResult;
-            if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Home")) {
+            if (isUiCommand(commandText)) {
+                commandResult = uiLogic.execute(commandText);
+            } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Home")) {
                 commandResult = transactionLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Members")) {
                 commandResult = personLogic.execute(commandText);
@@ -236,7 +244,6 @@ public class MainWindow extends UiPart<Stage> {
                 commandResult = inventoryLogic.execute(commandText);
             } else if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Cashier")) {
                 commandResult = cashierLogic.execute(commandText);
-                //should be replace with cashier's logic
             } else {
                 commandResult = overviewLogic.execute(commandText);
             }
@@ -247,11 +254,11 @@ public class MainWindow extends UiPart<Stage> {
             homePlaceholder.getChildren().removeAll();
             homePlaceholder.getChildren().add(new Home(transactionLogic).getRoot());
 
-            inventoryPlaceholder.getChildren().removeAll();
-            inventoryPlaceholder.getChildren().add(new Inventory(inventoryLogic).getRoot());
-
             reimbursementsPlaceholder.getChildren().removeAll();
             reimbursementsPlaceholder.getChildren().add(new Reimbursements(reimbursementLogic).getRoot());
+
+            inventoryPlaceholder.getChildren().removeAll();
+            inventoryPlaceholder.getChildren().add(new Inventory(inventoryLogic).getRoot());
 
             cashierPlaceholder.getChildren().removeAll();
             cashierPlaceholder.getChildren().add(new Cashier(cashierLogic).getRoot());
@@ -274,5 +281,16 @@ public class MainWindow extends UiPart<Stage> {
             lion.setResponse(e.toString());
             throw e;
         }
+    }
+
+    /**
+     * Checks if command is a UI-related command
+     * @param userInput User input from command box.
+     * @return true if it is a UI-related command.
+     */
+    private boolean isUiCommand(String userInput) {
+        return userInput.split(" ")[0].equals("go")
+                || userInput.split(" ")[0].equals("help")
+                || userInput.split(" ")[0].equals("exit");
     }
 }

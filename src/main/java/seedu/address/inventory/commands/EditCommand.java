@@ -1,10 +1,12 @@
 package seedu.address.inventory.commands;
 
+import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_DUPLICATE;
+import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_EDITED_ITEM;
+
 import java.util.Optional;
 
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.ModelManager;
-import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.person.commons.util.CollectionUtil;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 
@@ -13,7 +15,6 @@ import seedu.address.person.logic.commands.exceptions.CommandException;
  */
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
-    public static final String MESSAGE_DUPLICATE = "The given input is the same as that of item specified.";
     private static int id;
     private int index;
     private EditItemDescriptor editItemDescriptor;
@@ -31,16 +32,14 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(ModelManager model)
             throws Exception {
-        InventoryMessages inventoryMessages = new InventoryMessages();
         Item itemToEdit = model.findItemByIndex(index);
-
         Item editedItem = createdEditedItem(itemToEdit, editItemDescriptor);
 
         if (itemToEdit.equals(editedItem) && model.hasItemInInventory(editedItem)) {
             throw new CommandException(MESSAGE_DUPLICATE);
         }
         model.setItem(Integer.parseInt(itemToEdit.getId()), editedItem);
-        return new CommandResult(InventoryMessages.editedItem(itemToEdit, editedItem));
+        return new CommandResult(String.format(MESSAGE_EDITED_ITEM, itemToEdit, editedItem));
     }
 
     /**
@@ -49,9 +48,9 @@ public class EditCommand extends Command {
     private static Item createdEditedItem(Item itemToEdit, EditItemDescriptor editItemDescriptor) {
         String updatedDescription = editItemDescriptor.getDescription().orElse(itemToEdit.getDescription());
         String updatedCategory = editItemDescriptor.getCategory().orElse(itemToEdit.getCategory());
-        int updatedQuantity = editItemDescriptor.getQuantity().orElse(itemToEdit.getQuantity());
-        double updatedCost = editItemDescriptor.getCost().orElse(itemToEdit.getCost());
-        double updatedPrice = editItemDescriptor.getPrice().orElse(itemToEdit.getPrice());
+        Integer updatedQuantity = editItemDescriptor.getQuantity().orElse(itemToEdit.getQuantity());
+        Double updatedCost = editItemDescriptor.getCost().orElse(itemToEdit.getCost());
+        Double updatedPrice = editItemDescriptor.getPrice().orElse(itemToEdit.getPrice());
         return new Item(updatedDescription, updatedCategory, updatedQuantity, updatedCost,
                 updatedPrice, id);
     }
@@ -63,9 +62,9 @@ public class EditCommand extends Command {
     public static class EditItemDescriptor {
         private String description;
         private String category;
-        private int quantity;
-        private double cost;
-        private double price;
+        private Integer quantity;
+        private Double cost;
+        private Double price;
 
 
         public EditItemDescriptor() {}
@@ -104,7 +103,7 @@ public class EditCommand extends Command {
             return Optional.ofNullable(category);
         }
 
-        public void setQuantity(int quantity) {
+        public void setQuantity(Integer quantity) {
             this.quantity = quantity;
         }
 
@@ -112,7 +111,7 @@ public class EditCommand extends Command {
             return Optional.ofNullable(quantity);
         }
 
-        public void setCost(double cost) {
+        public void setCost(Double cost) {
             this.cost = cost;
         }
 
@@ -120,7 +119,7 @@ public class EditCommand extends Command {
             return Optional.ofNullable(cost);
         }
 
-        public void setPrice(double price) {
+        public void setPrice(Double price) {
             this.price = price;
         }
 

@@ -12,10 +12,14 @@ import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser {
+    private static final Logger LOGGER = Logger.getLogger(EditCommandParser.class.getName());
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns a EditCommand object for execution.
@@ -53,7 +57,6 @@ public class EditCommandParser {
         if (!editItemDescriptor.isAnyFieldEdited()) {
             throw new ParseException(InventoryMessages.MESSAGE_NOT_EDITED);
         }
-        System.out.println(editItemDescriptor.getPrice());
         return new EditCommand(index, editItemDescriptor);
     }
 }
