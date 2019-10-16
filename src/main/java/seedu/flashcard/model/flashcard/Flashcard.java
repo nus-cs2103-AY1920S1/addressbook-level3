@@ -20,11 +20,13 @@ public class Flashcard {
 
     // Data fields
     private final Definition definition;
+    private final Set<Choice> choices = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
 
-    public Flashcard(Word word, Definition definitions, Set<Tag> tags) {
+    public Flashcard(Word word, Set<Choice> choices, Definition definitions, Set<Tag> tags) {
         requireAllNonNull(word, definitions, tags);
         this.word = word;
+        this.choices.addAll(choices);
         this.definition = definitions;
         this.tags.addAll(tags);
     }
@@ -50,11 +52,31 @@ public class Flashcard {
     }
 
     /**
+     * Returns an immutable choice set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted
+     */
+    public Set<Choice> getChoices() {
+        return Collections.unmodifiableSet(choices);
+    }
+
+    /**
      * Returns true if this flashcard has any one of the tags in the given tag sets.
      */
     public boolean hasAnyTag(Set<Tag> tags) {
         for (Tag tag : tags) {
             if (getTags().contains(tag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if this flashcard has any one of the choices in the given choice sets.
+     */
+    public boolean hasAnyChoice(Set<Choice> choices) {
+        for (Choice choice : choices) {
+            if (getChoices().contains(choice)) {
                 return true;
             }
         }
