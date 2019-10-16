@@ -15,7 +15,7 @@ class InfoCommandParserTest {
 
     private static final String VALID_INDEX_ONE = "1";
     private static final String VALID_INDEX_TWO = "2";
-    private static final String EMPTY_STRING = "     ";
+    private static final String SPACES = "     ";
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, InfoCommand.MESSAGE_USAGE);
 
@@ -23,7 +23,7 @@ class InfoCommandParserTest {
 
     @Test
     public void parse_nullArguments_failure() {
-        assertParseFailure(parser, EMPTY_STRING, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, SPACES, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
