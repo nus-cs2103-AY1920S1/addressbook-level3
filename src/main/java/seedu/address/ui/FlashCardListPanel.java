@@ -23,13 +23,13 @@ public class FlashCardListPanel extends UiPart<Region> {
     public FlashCardListPanel(ObservableList<FlashCard> flashCardList) {
         super(FXML);
         flashCardListView.setItems(flashCardList);
-        flashCardListView.setCellFactory(listView -> new PersonListViewCell());
+        flashCardListView.setCellFactory(listView -> new FlashCardListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code FlashCard} using a {@code FlashCardPanel}.
      */
-    class PersonListViewCell extends ListCell<FlashCard> {
+    class FlashCardListViewCell extends ListCell<FlashCard> {
         @Override
         protected void updateItem(FlashCard flashCard, boolean empty) {
             super.updateItem(flashCard, empty);

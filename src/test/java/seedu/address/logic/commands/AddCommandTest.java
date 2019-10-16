@@ -21,6 +21,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.testutil.FlashCardBuilder;
@@ -198,6 +199,18 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredFlashCardList(Predicate<FlashCard> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //@@author shutingy
+        @Override
+        public ObservableList<Category> getCategoryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //@@author shutingy
+        @Override
+        public void updateFilteredCategoryList(Predicate<Category> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

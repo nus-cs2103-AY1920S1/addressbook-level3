@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 
@@ -25,6 +26,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<FlashCard> filteredFlashCards;
     private final FilteredList<Deadline> filteredDeadlines;
+    private final FilteredList<Category> categoryList;
     private FlashCardTestModel flashCardTestModel;
 
 
@@ -41,6 +43,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFlashCards = new FilteredList<>(this.addressBook.getFlashcardList());
         filteredDeadlines = new FilteredList<>(this.addressBook.getDeadlineList());
+        categoryList = new FilteredList<>(this.addressBook.getCategoryList());
     }
 
     public ModelManager() {
@@ -105,10 +108,12 @@ public class ModelManager implements Model {
         addressBook.removeFlashCard(target);
     }
 
+    //@@author shutingy
     @Override
     public void addFlashCard(FlashCard flashCard) {
         addressBook.addFlashcard(flashCard);
         updateFilteredFlashCardList(PREDICATE_SHOW_ALL_FLASHCARDS);
+        updateFilteredCategoryList(PREDICATE_SHOW_ALL_CATEGORIES);
     }
 
     @Override
@@ -143,10 +148,11 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
+
     public int[] getStats() {
         return addressBook.getStats();
     }
+
 
     @Override
     public void deleteDeadline(Deadline target) {
@@ -231,8 +237,19 @@ public class ModelManager implements Model {
         return simulatedList;
     }
 
+    //@@author shutingy
+    @Override
+    public ObservableList<Category> getCategoryList() {
+        return categoryList;
+    }
 
-    //@@author
+    //@@author shutingy
+    @Override
+    public void updateFilteredCategoryList(Predicate<Category> predicate) {
+        requireNonNull(predicate);
+        categoryList.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -250,6 +267,7 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredFlashCards.equals(other.filteredFlashCards)
+                && categoryList.equals(other.categoryList)
                 && filteredDeadlines.equals(other.filteredDeadlines);
     }
 

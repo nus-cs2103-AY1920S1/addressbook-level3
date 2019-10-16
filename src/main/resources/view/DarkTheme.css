@@ -365,3 +365,8 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#categoryTitle {
+    -fx-text-fill: #00bfff;
+    -fx-font-weight: bold;
+}

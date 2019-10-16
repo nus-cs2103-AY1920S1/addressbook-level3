@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 
@@ -33,6 +34,10 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of flashcards */
     ObservableList<FlashCard> getFilteredFlashCardList();
+
+
+    /** Return an unmodifiable view of the category list**/
+    ObservableList<Category> getCategoryList();
 
     /** Returns an unmodifiable view of the filtered list of deadline */
     ObservableList<Deadline> getFilteredDeadlineList();

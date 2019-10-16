@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 
@@ -15,6 +16,7 @@ import seedu.address.model.flashcard.FlashCard;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<FlashCard> PREDICATE_SHOW_ALL_FLASHCARDS = unused -> true;
+    Predicate<Category> PREDICATE_SHOW_ALL_CATEGORIES = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Deadline> PREDICATE_SHOW_ALL_DEADLINES = unused -> true;
@@ -59,13 +61,13 @@ public interface Model {
 
     /**
      * Returns true if a flashCard with the same identity as {@code flashCard} exists in the address book.
-     */
+     *///@@author shutingy
     boolean hasFlashcard(FlashCard flashCard);
 
     /**
      * Deletes the given flashCard.
      * The flashCard must exist in the address book.
-     */
+     *///@@author shutingy -reused
     void deleteFlashCard(FlashCard target);
 
     /**
@@ -101,6 +103,7 @@ public interface Model {
      * Adds the given flashCard.
      * {@code flashCard} must not already exist in the address book.
      */
+    //@@author shutingy -reused
     void addFlashCard(FlashCard flashCard);
 
     /**
@@ -109,6 +112,7 @@ public interface Model {
      * The flashCard identity of {@code editedFlashCard}
      * must not be the same as another existing flashCard in the address book.
      */
+    //@@author shutingy -reused
     void setFlashCard(FlashCard target, FlashCard editedFlashCard);
 
 
@@ -121,10 +125,14 @@ public interface Model {
      */
     void updateFilteredFlashCardList(Predicate<FlashCard> predicate);
 
+    //@@author shutingy -reused
+    ObservableList<Category> getCategoryList();
+
+    //@@author shutingy -reused
+    void updateFilteredCategoryList(Predicate<Category> predicate);
+
     //@@author keiteo
-
     ObservableList<FlashCard> getFlashCardList();
-
     void initializeTestModel(List<FlashCard> testList);
 
     boolean hasTestFlashCard();

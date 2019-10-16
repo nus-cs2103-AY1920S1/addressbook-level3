@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     //private DeadlineListPanel deadlineListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CategoryListPanel categoryListPanel;
     private CalendarWindow calendarWindow;
 
     @FXML
@@ -45,7 +46,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane flashcardListPanelPlaceholder;
+
+    @FXML
+    private StackPane categoryListPanelPlaceholder;
+
+    //@FXML
+    // private StackPane ReminderList
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -111,7 +118,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         flashCardListPanel = new FlashCardListPanel(logic.getFilteredFlashCardList());
-        personListPanelPlaceholder.getChildren().add(flashCardListPanel.getRoot());
+        flashcardListPanelPlaceholder.getChildren().add(flashCardListPanel.getRoot());
+
+        categoryListPanel = new CategoryListPanel(logic.getCategoryList());
+        categoryListPanelPlaceholder.getChildren().add(categoryListPanel.getRoot());
 
         //deadlineListPanel = new DeadlineListPanel(logic.getFilteredFlashCardList());
         //deadlinePanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
@@ -188,6 +198,14 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            //Todo
+            // commandResult.isAdd() {
+            // handleaAdd
+
+            //todo
+            // commandResult.is start() {
+            // handleStart()
 
             return commandResult;
         } catch (CommandException | ParseException e) {
