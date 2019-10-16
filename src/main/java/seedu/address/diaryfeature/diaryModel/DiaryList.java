@@ -13,7 +13,7 @@ public class DiaryList {
      */
     public DiaryList() {
         myContainer = new LinkedList<>();
-        myContainer.add(new DiaryObject("placemat"));
+        myContainer.add(new DiaryObject("Placemat","12.12.2019","NUS Comp 2","CsPrayers","Coding challenge"));
     }
 
     /**

@@ -1,6 +1,7 @@
 package seedu.address.diaryfeature.diaryParser;
 
 import seedu.address.diaryfeature.diaryCommands.AddDiaryEntryCommand;
+import seedu.address.diaryfeature.diaryCommands.ByeDiaryCommand;
 import seedu.address.diaryfeature.diaryCommands.DeleteDiaryEntryCommand;
 import seedu.address.diaryfeature.diaryCommands.DiaryCommand;
 import seedu.address.diaryfeature.diaryCommands.DiaryErrorCommand;
@@ -22,7 +23,8 @@ public class DiaryParser{
                 //Note that "add entry" counts as 9 characters, and hence the added task
                 //only starts from pos 10
                 String entry = trimmed.substring(10);
-                return new AddDiaryEntryCommand(entry);
+                String[] temp = entry.split("/");
+                return new AddDiaryEntryCommand(temp[0],temp[1],temp[2],temp[3],temp[4]);
             } else if (trimmed.startsWith("delete entry")) {
                 //Note that "delete Entry" counts as 12 characters,
                 //and hence, we start from pos 13
@@ -30,8 +32,9 @@ public class DiaryParser{
                 return new DeleteDiaryEntryCommand(deleteIndex);
             } else if(trimmed.startsWith("show")) {
                 return new ShowDiaryCommand();
-
-        } else {
+            } else if (trimmed.equalsIgnoreCase("bye")) {
+                return new ByeDiaryCommand();
+            } else {
                 throw new CommandNotFoundException("No such command yet");
             }
         }

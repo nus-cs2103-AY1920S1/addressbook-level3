@@ -8,11 +8,15 @@ public class AddDiaryEntryCommand extends DiaryCommand {
 
     /**
      *
-     * @param input
+     * @param a
+     * @param b
+     * @param c
+     * @param d
+     * @param e
      */
+    public AddDiaryEntryCommand(String a, String b, String c, String d, String e) {
 
-    public AddDiaryEntryCommand(String input) {
-        myAddedObject = new DiaryObject(input);
+        myAddedObject = new DiaryObject(a,b,c,d,e);
     }
 
     /**

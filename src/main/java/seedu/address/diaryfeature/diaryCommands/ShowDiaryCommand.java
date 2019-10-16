@@ -11,7 +11,7 @@ public class ShowDiaryCommand extends DiaryCommand {
     public CommandResult executeCommand() {
         String diaryEntries = myReference.getEntriesAsString();
         CommandResult showResult =
-                new CommandResult("MY ENTRIES " + diaryEntries,false,false);
+                new CommandResult("MY ENTRIES \n" + diaryEntries,false,false);
         return showResult;
     }
 }
