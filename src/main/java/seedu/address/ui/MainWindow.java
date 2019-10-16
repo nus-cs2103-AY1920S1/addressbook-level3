@@ -50,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private StackPane featureBoxPlaceholder;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -118,6 +121,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        Calendar calendar = new Calendar();
+        featureBoxPlaceholder.getChildren().add(calendar.getRoot());
     }
 
     /**
