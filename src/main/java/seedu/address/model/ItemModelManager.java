@@ -308,10 +308,6 @@ public class ItemModelManager implements ItemModel {
     }
 
     /**
-<<<<<<< HEAD
-=======
-
->>>>>>> 2cf8c116186518872201e8642560da325a8b5a07
      * Checks if the item storage already contains this item.
      * @param item to check
      * @return true if the item storage contains this item, false otherwise
