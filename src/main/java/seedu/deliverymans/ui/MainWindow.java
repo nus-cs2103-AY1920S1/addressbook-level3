@@ -112,8 +112,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        //listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -166,16 +166,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Changes context of system depending on {@code context}
+     * Changes context of the system depending on {@code context}
      */
-    private void changeList(Context context) {
+    private void changeContext(Context context) {
         switch (context) {
         case CUSTOMER:
             customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
             listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
             break;
         case RESTAURANT:
-            // using personListPanel as placeholder for restaurant list
             restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
             listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
             break;
@@ -183,7 +182,7 @@ public class MainWindow extends UiPart<Stage> {
             // to be implemented with deliverymen list
             break;
         default:
-
+            // to be implemented with order list
         }
     }
 
@@ -203,7 +202,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.getContext() != null) {
-                changeList(commandResult.getContext());
+                changeContext(commandResult.getContext());
             }
 
             if (commandResult.isShowHelp()) {

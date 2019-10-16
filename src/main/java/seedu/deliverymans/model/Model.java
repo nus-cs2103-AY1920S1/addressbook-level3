@@ -29,6 +29,9 @@ public interface Model {
     Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
+    Predicate<Deliveryman> PREDICATE_SHOW_ALL_DELIVERYMEN = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
     Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
 
     /**
@@ -231,6 +234,9 @@ public interface Model {
 
     //=========== Deliveryman Methods =============================================================
 
+    /** Returns an unmodifiable view of the filtered deliverymen list */
+    ObservableList<Deliveryman> getFilteredDeliverymenList();
+
     /**
      * Returns true if a deliveryman with the same identity as {@code deliveryman} exists in the deliveryman book.
      */
@@ -241,6 +247,26 @@ public interface Model {
      * {@code customer} must not already exist in the address book.
      */
     void addDeliveryman(Deliveryman deliveryman);
+
+    /**
+     * Deletes the given customer.
+     * The customer must exist in the address book.
+     */
+    void deleteDeliveryman(Deliveryman target);
+
+    /**
+     * Replaces the given deliveryman {@code target} with {@code editedDeliveryman}.
+     * {@code target} must exist in the deliverymen database.
+     * The deliveryman identity of {@code editedDeliveryman} must not be the same as another existing deliveryman
+     * in the deliverymen database.
+     */
+    void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman);
+
+    /**
+     * Updates the filter of the filtered order list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDeliverymenList(Predicate<Deliveryman> predicate);
 
     //=========== Order Methods =============================================================
 
