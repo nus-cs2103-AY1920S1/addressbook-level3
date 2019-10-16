@@ -5,6 +5,7 @@ import static seedu.jarvis.model.address.AddressModel.PREDICATE_SHOW_ALL_PERSONS
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
@@ -38,26 +39,28 @@ public class DeleteAddressCommand extends Command {
     private Person deletedPerson;
 
     /**
+     * Creates a {@code DeleteAddressCommand} and sets targetIndex to the {@code Index} and {@code Person} that was
+     * deleted, which is null if person has not been deleted.
+     *
+     * @param targetIndex {@code Index} of the {@code Person} to be deleted.
+     * @param deletedPerson {@code Person} that was deleted, which is null if person has not been deleted.
+     */
+    public DeleteAddressCommand(Index targetIndex, Person deletedPerson) {
+        this.targetIndex = targetIndex;
+        this.deletedPerson = deletedPerson;
+    }
+
+    /**
      * Creates a {@code DeleteAddressCommand} and sets targetIndex to the {@code Index}
      * of the {@code Person} to be deleted.
      *
      * @param targetIndex of the {@code Person} to be deleted.
      */
     public DeleteAddressCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+        this(targetIndex, null);
     }
 
-    /**
-     * Creates a {@code DeleteAddressCommand} and sets targetIndex to the {@code Index} and {@code Person} that was
-     * deleted.
-     *
-     * @param targetIndex {@code Index} of the {@code Person} to be deleted.
-     * @param deletedPerson {@code Person} that was deleted.
-     */
-    public DeleteAddressCommand(Index targetIndex, Person deletedPerson) {
-        this.targetIndex = targetIndex;
-        this.deletedPerson = deletedPerson;
-    }
+
     /**
      * Gets the command word of the command.
      *
@@ -80,10 +83,10 @@ public class DeleteAddressCommand extends Command {
     /**
      * Gets the {@code Person} that was deleted, which is null if the person has not been deleted yet.
      *
-     * @return {@code Person} that was deleted, null if person has not been deleted.
+     * @return {@code Optional} of {@code Person} that was deleted, empty if person has not been deleted.
      */
-    public Person getDeletedPerson() {
-        return deletedPerson;
+    public Optional<Person> getDeletedPerson() {
+        return Optional.ofNullable(deletedPerson);
     }
 
     /**
