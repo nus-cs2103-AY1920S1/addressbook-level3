@@ -11,6 +11,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_EMPTY = "Invalid command format: need to have another para! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSON_NOT_FOUND = "The person '%1$s' is not registered";
+    public static final String MESSAGE_INVALID_REFERENCEID = "the reference id is not belong to any patient";
+
     public static final String MESSAGE_INVAILD_REFERENCE_ID =
         "The reference ID '%1$s' does not belong to any registered person!";
     public static final String MESSAGE_INVALID_APPOINTMENT_DATE_TIME = "The appointment dateTime provided is invalid!";
@@ -21,4 +23,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_SETTLE = "you have settled this missed appointment already";
     public static final String MESSAGE_NOT_PATIENTLIST = "current displaying appointment are not belong to the same patient\n";
     public static final String MESSAGE_NOT_MISSEDLIST = "current displaying appointment are not belong to missed appointment list\n";
+    public static final String MESSAGE_EVENT_NOT_FOUND = "The appointment '%1$s' is not registered";
+
+
 }

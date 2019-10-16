@@ -34,53 +34,33 @@ public class AddAppCommand extends ReversibleCommand {
     public static final String MESSAGE_DUPLICATE_EVENT = "This appointment is already scheduled.";
     public static final String MESSAGE_CLASH_APPOINTMENT = "This appointment clashes with a pre-existing appointment.";
 
-    private final Event appointment;
+    private final Event toAdd;
 
     /**
      * Creates an AddAppCommand to add the specified {@code Person}
      */
-    public AddAppCommand(Event appt) {
-        requireNonNull(appt);
-        appointment = appt;
+    public AddAppCommand(Event toAdd) {
+        requireNonNull(toAdd);
+        this.toAdd = toAdd;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (!model.hasPerson(appointment.getPersonId())) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, appointment.getPersonId()));
-        }
-        if (model.hasEvent(appointment)) {
+
+        if (model.hasEvent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
-        model.addEvent(appointment);
-        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(appointment);
-        model.updateFilteredEventList(predicate);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));
+        model.addEvent(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
-
-    /*
-    public CommandResult undo(Model model) throws CommandException {
-        requireNonNull(model);
-
-        if (!model.hasEvent(appointment)) {
-            throw new CommandException(String.format(MESSAGE_UNDO_ADD_ERROR, appointment));
-        }
-
-        model.deleteEvent(appointment);
-
-        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(appointment);
-        model.updateFilteredEventList(predicate);
-
-        return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, appointment));
-    }*/
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddAppCommand // instanceof handles nulls
-                && appointment.equals(((AddAppCommand) other).appointment));
+                && toAdd.equals(((AddAppCommand) other).toAdd));
     }
 }
 

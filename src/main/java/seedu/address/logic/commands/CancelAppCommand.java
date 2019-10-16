@@ -27,36 +27,58 @@ public class CancelAppCommand extends ReversibleCommand {
             + COMMAND_WORD + " 1";
     public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "Appointment cancelled: %1$s";
 
-    private final Index apptIdx;
-    private Event appointment;
+//    private final Index apptIdx;
+    private final Event toDelete;
+//    private Event appointment;
 
 
-    public CancelAppCommand(Index apptIdx) {
-        this.apptIdx = apptIdx;
-        appointment = null;
+//    public CancelAppCommand(Index apptIdx) {
+//        this.apptIdx = apptIdx;
+//        appointment = null;
+//    }
+
+    public CancelAppCommand(Event toDelete) {
+        requireNonNull(toDelete);
+        this.toDelete = toDelete;
     }
 
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ObservableList<Event> filterEventList = model.getFilteredEventList();
 
-        if (apptIdx.getZeroBased() >= filterEventList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
+        if (!model.hasExactEvent(toDelete)) {
+            throw new CommandException(String.format(Messages.MESSAGE_EVENT_NOT_FOUND, toDelete));
         }
 
-        if (!model.isPatientList()) {
-            throw new CommandException(Messages.MESSAGE_NOT_PATIENTLIST);
-        }
+//        if (model.isPatientInQueue(toDelete.getReferenceId())) {
+//            model.removeFromQueue(toDelete.getReferenceId());
+//        }
+//
+//        if (model.isPatientInQueue(toDelete.getReferenceId())) {
+//            model.removeFromQueue(toDelete.getReferenceId());
+//        }
 
-        appointment = filterEventList.get(apptIdx.getZeroBased());
-        model.deleteEvent(appointment);
-
-        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(appointment);
-        model.updateFilteredEventList(predicate);
-
-        return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, appointment));
+        model.deleteEvent(toDelete);
+        return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, toDelete));
+//        requireNonNull(model);
+//        ObservableList<Event> filterEventList = model.getFilteredEventList();
+//
+//        if (apptIdx.getZeroBased() >= filterEventList.size()) {
+//            throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
+//        }
+//
+//        if (!model.isPatientList()) {
+//            throw new CommandException(Messages.MESSAGE_NOT_PATIENTLIST);
+//        }
+//
+//        appointment = filterEventList.get(apptIdx.getZeroBased());
+//        model.deleteEvent(appointment);
+//
+//        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(appointment);
+//        model.updateFilteredEventList(predicate);
+//
+//        return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, appointment));
     }
 
     /*
@@ -76,4 +98,10 @@ public class CancelAppCommand extends ReversibleCommand {
         return new CommandResult(String.format(MESSAGE_UNDO_ADD_SUCCESS, appointment));
     }
 */
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CancelAppCommand // instanceof handles nulls
+                && toDelete.equals(((CancelAppCommand) other).toDelete));
+    }
 }

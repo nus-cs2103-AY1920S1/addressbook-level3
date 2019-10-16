@@ -99,7 +99,7 @@ public class AddressBookParser {
             return new DequeueCommandParser(model).parse(arguments);
 
         case AddAppCommand.COMMAND_WORD:
-            return new AddAppCommandParser().parse(arguments);
+            return new AddAppCommandParser(model).parse(arguments);
 
         case AppointmentsCommand.COMMAND_WORD:
             return new AppointmentsCommandParser().parse(arguments);
@@ -108,7 +108,7 @@ public class AddressBookParser {
             return new AckAppCommandParser().parse(arguments);
 
         case CancelAppCommand.COMMAND_WORD:
-            return new CancelAppCommandParser().parse(arguments);
+            return new CancelAppCommandParser(model).parse(arguments);
 
         case ChangeAppCommand.COMMAND_WORD:
             return new ChangeAppCommandParser().parse(arguments);
