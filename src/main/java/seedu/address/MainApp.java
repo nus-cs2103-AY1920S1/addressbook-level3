@@ -113,7 +113,7 @@ public class MainApp extends Application {
             }
             initialAddressBook = addressBookOptional
                 .orElseGet(SampleDataUtil::getSampleAddressBook);
-            initialStudentRecord = studentRecordOptional.orElseGet(null); //get samplestudentrecord
+            initialStudentRecord = studentRecordOptional.orElseGet(SampleDataUtil::getSampleStudentRecord);
             initialQuestions = questionsOptional.orElseGet(SampleDataUtil::getSampleQuestionList);
 
         } catch (DataConversionException e) {

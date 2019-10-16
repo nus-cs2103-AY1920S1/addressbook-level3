@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyStudentRecord;
+import seedu.address.model.StudentRecord;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -14,6 +16,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.question.OpenEndedQuestion;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
+import seedu.address.model.student.Student;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -50,12 +53,26 @@ public class SampleDataUtil {
         };
     }
 
+    public static Student[] getSampleStudent() {
+        return new Student[]{
+            new Student(new seedu.address.model.student.Name("Bernice Yu"))
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static ReadOnlyStudentRecord getSampleStudentRecord() {
+        StudentRecord sampleSr = new StudentRecord();
+        for (Student sampleStudent : getSampleStudent()) {
+            sampleSr.addStudent(sampleStudent);
+        }
+        return sampleSr;
     }
 
     public static ReadOnlyQuestions getSampleQuestionList() {
