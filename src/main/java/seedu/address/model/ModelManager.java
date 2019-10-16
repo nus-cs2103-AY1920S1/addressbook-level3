@@ -120,16 +120,13 @@ public class ModelManager implements Model {
 
     @Override
     public void editStats(int type) {
-        if(type==0)
-        addressBook.addGood();
-        if(type==1)
-        addressBook.addHard();
-        if(type==2)
-        addressBook.addEasy();;
+        if (type == 0) { addressBook.addGood(); }   
+        if (type == 1) { addressBook.addHard(); }
+        if (type == 2) { addressBook.addEasy(); }
     }
 
     @Override
-    public int[] getStats(){
+    public int[] getStats() {
         return addressBook.getStats();
     }
 
