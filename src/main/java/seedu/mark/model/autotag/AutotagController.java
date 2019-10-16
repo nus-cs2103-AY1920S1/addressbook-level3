@@ -15,6 +15,10 @@ public class AutotagController {
         this.taggers = taggers;
     }
 
+    private List<SelectiveBookmarkTagger> getTaggers() {
+        return this.taggers;
+    }
+
     /**
      * Adds a {@code SelectiveBookmarkTagger} to the existing list of taggers
      * to apply.
@@ -50,5 +54,12 @@ public class AutotagController {
      */
     public List<Bookmark> applyTaggersToList(List<Bookmark> bookmarks) {
         return bookmarks.stream().map(this::applyTaggers).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AutotagController // instanceof handles nulls
+                && getTaggers().equals(((AutotagController) other).getTaggers())); // state check
     }
 }

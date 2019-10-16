@@ -38,7 +38,7 @@ public class SelectiveBookmarkTagger extends BookmarkTagger {
         return other == this // short circuit if same object
                 || (other instanceof SelectiveBookmarkTagger // instanceof handles nulls
                 && getTagToApply().equals(((SelectiveBookmarkTagger) other).getTagToApply())
-                && predicate.equals(((SelectiveBookmarkTagger) other).getPredicate())); // state check
+                && getPredicate().equals(((SelectiveBookmarkTagger) other).getPredicate())); // state check
     }
 
     @Override

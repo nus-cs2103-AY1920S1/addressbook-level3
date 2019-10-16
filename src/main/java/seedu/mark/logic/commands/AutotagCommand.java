@@ -1,5 +1,6 @@
 package seedu.mark.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.mark.logic.commands.results.CommandResult;
@@ -27,6 +28,7 @@ public class AutotagCommand extends Command {
     private final SelectiveBookmarkTagger tagger;
 
     public AutotagCommand(SelectiveBookmarkTagger tagger) {
+        requireNonNull(tagger);
         this.tagger = tagger;
     }
 

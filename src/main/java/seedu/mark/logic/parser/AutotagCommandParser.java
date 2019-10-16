@@ -60,10 +60,10 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
     }
 
     /**
-     * Stores details of conditions that the final {@code Predicate<Bookmark>}
+     * Stores details of conditions that the resulting {@code Predicate<Bookmark>}
      * should either try to match or try to not match.
      */
-    private static final class BookmarkPredicateBuilder {
+    public static final class BookmarkPredicateBuilder {
         private List<Predicate<Bookmark>> conditionsToMatch;
         private List<Predicate<Bookmark>> conditionsToNotMatch;
 
@@ -72,25 +72,77 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
             conditionsToNotMatch = new ArrayList<>();
         }
 
+        private List<Predicate<Bookmark>> getConditionsToMatch() {
+            return this.conditionsToMatch;
+        }
+
+        private List<Predicate<Bookmark>> getConditionsToNotMatch() {
+            return this.conditionsToNotMatch;
+        }
+
+        /**
+         * Adds a condition that the final predicate should match.
+         *
+         * @param predicate Predicate specifying the condition to match.
+         * @return the current {@code BookmarkPredicateBuilder}.
+         */
         public BookmarkPredicateBuilder addCondition(Predicate<Bookmark> predicate) {
             conditionsToMatch.add(predicate);
             return this;
         }
 
+        /**
+         * Adds a condition that the final predicate should not match.
+         *
+         * @param predicate Predicate specifying the condition not to match.
+         * @return the current {@code BookmarkPredicateBuilder}.
+         */
         // for future use
         public BookmarkPredicateBuilder addNotCondition(Predicate<Bookmark> predicate) {
             conditionsToNotMatch.add(predicate);
             return this;
         }
 
+        /**
+         * Checks whether the {@code BookmarkPredicateBuilder} has any specified
+         * conditions.
+         */
         public boolean hasConditions() {
             return !(conditionsToMatch.isEmpty() && conditionsToNotMatch.isEmpty());
         }
 
+        /**
+         * Builds a Bookmark Predicate based on this {@code BookmarkPredicateBuilder}'s
+         * conditions.
+         *
+         * @return A {@code Predicate<Bookmark>} that returns true when the
+         * Bookmark it is testing matches all of the conditions-to-match and
+         * none of the conditions-to-not-match that are specified in this
+         * {@code BookmarkPredicateBuilder}.
+         */
         public Predicate<Bookmark> build() {
             List<Predicate<Bookmark>> allPredicates = new ArrayList<>(conditionsToMatch);
             allPredicates.add(new MatchNonePredicate(conditionsToNotMatch));
             return new MatchAllPredicate(allPredicates);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof BookmarkPredicateBuilder)) {
+                return false;
+            }
+
+            // state check
+            BookmarkPredicateBuilder predicateBuilder = (BookmarkPredicateBuilder) other;
+
+            return getConditionsToMatch().equals(predicateBuilder.getConditionsToMatch())
+                    && getConditionsToNotMatch().equals(predicateBuilder.getConditionsToNotMatch());
         }
     }
 }

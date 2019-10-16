@@ -1,5 +1,7 @@
 package seedu.mark.model.autotag;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +15,7 @@ public class BookmarkTagger {
     private final Tag tagToApply;
 
     public BookmarkTagger(Tag tag) {
+        requireNonNull(tag);
         this.tagToApply = tag;
     }
 
@@ -27,6 +30,8 @@ public class BookmarkTagger {
      * @return A new Bookmark containing {@code tagToApply}.
      */
     public Bookmark applyTag(Bookmark bookmark) {
+        requireNonNull(bookmark);
+
         Set<Tag> updatedTags = new HashSet<>(bookmark.getTags());
         updatedTags.add(new Tag(tagToApply)); // does not allow duplicate tags
 
