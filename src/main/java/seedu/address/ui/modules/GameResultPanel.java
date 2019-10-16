@@ -2,6 +2,11 @@ package seedu.address.ui.modules;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.chart.Axis;
+import javafx.scene.chart.Chart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,9 +14,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.model.card.Card;
 import seedu.address.statistics.GameStatistics;
+import seedu.address.statistics.ScoreData;
 import seedu.address.statistics.ScoreGrade;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.UiPart;
@@ -19,9 +26,11 @@ import seedu.address.ui.UiPart;
 import java.util.List;
 
 /**
- * Panel containing the game result. todo this can be separated into several ui elements.
+ * Panel containing the game result.
  */
 public class GameResultPanel extends UiPart<Region> {
+
+    public static final int PROGRESS_GAMES_NUM = 30;
     private static final String FXML = "GameResultPanel.fxml";
 
     private static final String BADGE_PATH = "/images/badges/";
@@ -66,11 +75,9 @@ public class GameResultPanel extends UiPart<Region> {
     private Label fastestClearText;
 
     @FXML
-    private VBox mostMissedBox;
+    private StackPane progressChartPlaceholder;
 
-    @FXML
-    private StackPane mostMissedList;
-
+    // todo this can be separated into several ui elements. currently very long method.
     public GameResultPanel(GameStatistics gameStatistics, WordBankStatistics wbStatistics) {
         super(FXML);
         AnchorPane.setLeftAnchor(title, 0.0);
@@ -121,12 +128,48 @@ public class GameResultPanel extends UiPart<Region> {
             gameFeedbackHeader.setText("Remember these!");
         }
 
-//        // init mostMissedBox
-//        List<Card> mostMissed = wbStatistics.getMostMissedCards(5);
-//        if (mostMissed.isEmpty()) {
-//            mostMissedBox.setVisible(false);
-//        } else {
-//
-//        }
+        // init progress chart
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setTickLabelFormatter(new StringConverter<Number>() {
+            @Override
+            public String toString(Number object) {
+                if (object.intValue() != object.doubleValue() || object.intValue() % 5 != 0)
+                    return "";
+                return "" + object.intValue();
+            }
+
+            @Override
+            public Number fromString(String string) {
+                Number val = Double.parseDouble(string);
+                return val.intValue();
+            }
+        });
+        xAxis.setTickUnit(1);
+        xAxis.setMinorTickVisible(false);
+        xAxis.setAutoRanging(false);
+        xAxis.setUpperBound(Math.max(PROGRESS_GAMES_NUM, wbStatistics.getGamesPlayed()) + 0.5);
+        xAxis.setLowerBound(Math.max(0, wbStatistics.getGamesPlayed() - PROGRESS_GAMES_NUM + 0.5));
+
+        yAxis.setAutoRanging(false);
+        yAxis.setUpperBound(ScoreData.MAX_SCORE + 9); // give some room at the top
+        yAxis.setLowerBound(ScoreData.MIN_SCORE);
+        yAxis.setTickUnit(10);
+
+        LineChart<Number,Number> progressChart = new LineChart<>(xAxis,yAxis);
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+
+        List<ScoreData> scoreStats = wbStatistics.getScoreStats();
+        for (int i = Math.max(0, scoreStats.size() - PROGRESS_GAMES_NUM); i < scoreStats.size(); ++i) {
+            int gameIndex = i + 1;
+            int curScore = scoreStats.get(i).getScore();
+            series.getData().add(new XYChart.Data<>(gameIndex, curScore));
+        }
+
+        progressChart.setLegendVisible(false);
+        progressChart.getData().add(series);
+        progressChart.setMinHeight(200);
+
+        progressChartPlaceholder.getChildren().add(progressChart);
     }
 }
