@@ -4,15 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertDeleteCommandFailure;
-import static seedu.address.testutil.TypicalBodies.ALICE;
-import static seedu.address.testutil.TypicalBodies.BOB;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_BODY_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_WORKER_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.SECOND_BODY_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.SECOND_WORKER_ID_NUM;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalWorkers.BENSON;
-import static seedu.address.testutil.TypicalWorkers.CLARA;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +32,7 @@ public class DeleteCommandTest {
     public void execute_validIndexUnfilteredList_success() {
 
         // Delete Body
-        model.addEntity(ALICE);
+        // model.addEntity(ALICE);
         Body bodyToDelete = model.getFilteredBodyList().get(FIRST_BODY_ID_NUM.getIdNum());
         DeleteCommand deleteBodyCommand = new DeleteCommand(FIRST_BODY_ID_NUM);
 
@@ -48,7 +44,7 @@ public class DeleteCommandTest {
         assertCommandSuccess(deleteBodyCommand, model, expectedBodyMessage, expectedBodyModel);
 
         // Delete Worker
-        model.addEntity(CLARA);
+        // model.addEntity(CLARA);
         Worker workerToDelete = model.getFilteredWorkerList().get(FIRST_WORKER_ID_NUM.getIdNum());
         DeleteCommand deleteWorkerCommand = new DeleteCommand(FIRST_WORKER_ID_NUM);
 
@@ -118,9 +114,8 @@ public class DeleteCommandTest {
     public void equals() {
 
         // BODY
-
-        model.addEntity(ALICE);
-        model.addEntity(BOB);
+        // model.addEntity(ALICE);
+        // model.addEntity(BOB);
         DeleteCommand deleteFirstBodyCommand = new DeleteCommand(FIRST_BODY_ID_NUM);
         DeleteCommand deleteSecondBodyCommand = new DeleteCommand(SECOND_BODY_ID_NUM);
 
@@ -137,14 +132,13 @@ public class DeleteCommandTest {
         // null -> returns false
         assertFalse(deleteFirstBodyCommand.equals(null));
 
-        // different person -> returns false
+        // different bodies -> returns false
         assertFalse(deleteFirstBodyCommand.equals(deleteSecondBodyCommand));
 
 
         // WORKER
-
-        model.addEntity(CLARA);
-        model.addEntity(BENSON);
+        // model.addEntity(CLARA);
+        // model.addEntity(BENSON);
         DeleteCommand deleteFirstWorkerCommand = new DeleteCommand(FIRST_WORKER_ID_NUM);
         DeleteCommand deleteSecondWorkerCommand = new DeleteCommand(SECOND_WORKER_ID_NUM);
 

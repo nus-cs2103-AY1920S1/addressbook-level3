@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
 import seedu.address.model.entity.worker.Worker;
 
 /**
@@ -29,18 +28,6 @@ public class TypicalWorkers {
             .withEmploymentStatus("cleaning").build();
 
     private TypicalWorkers() {} // prevents instantiation
-
-    /**
-     * Returns an {@code AddressBook} with all the typical bodies and workers.
-     */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
-        for (Worker worker : getTypicalWorkers()) {
-            ab.addEntity(worker);
-        }
-
-        return ab;
-    }
 
     public static List<Worker> getTypicalWorkers() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CHARLIE));

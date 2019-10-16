@@ -43,7 +43,7 @@ public class NotifCommand extends Command {
 
         startSesChangeBodyStatus();
         startSesChangeBodyStatusUi(model);
-        stopSes();
+        // stopSes();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
@@ -66,9 +66,12 @@ public class NotifCommand extends Command {
         ses.schedule(changeUi, period, timeUnit);
     }
 
+    /*
     public void stopSes() {
         ses.shutdown();
     }
+
+     */
 
     @Override
     public boolean equals(Object other) {
