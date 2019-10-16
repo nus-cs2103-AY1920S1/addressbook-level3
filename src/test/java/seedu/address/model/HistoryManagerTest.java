@@ -11,9 +11,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.MutatorCommand;
+import seedu.address.testutil.DummyMutatorCommand;
 
 public class HistoryManagerTest {
 
@@ -99,17 +97,5 @@ public class HistoryManagerTest {
 
         assertThrows(NoSuchElementException.class, () -> historyManager.popRecordsTo(outsideRecord));
         assertTrue(historyManager.size() == 1);
-    }
-
-    private static class DummyMutatorCommand extends Command implements MutatorCommand {
-        private String dummyData;
-
-        public DummyMutatorCommand(String dummyData) {
-            this.dummyData = dummyData;
-        }
-
-        public CommandResult execute(Model model) {
-            return new CommandResult("This is a dummy command with data " + dummyData);
-        }
     }
 }

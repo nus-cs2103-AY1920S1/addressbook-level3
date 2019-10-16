@@ -14,7 +14,7 @@ import seedu.address.testutil.SerializableTestClass;
 public class CopyUtilTest {
 
     @Test
-    public void copyObject_noExceptionThrown() throws CopyError {
+    public void deepCopy_noExceptionThrown() throws CopyError {
         SerializableTestClass serializableTestClass = new SerializableTestClass();
         serializableTestClass.setTestValues();
 

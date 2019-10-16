@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.DummyMutatorCommand;
 
 public class ModelManagerTest {
 
@@ -86,6 +87,21 @@ public class ModelManagerTest {
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
+    }
+
+    @Test
+    public void commit() {
+        Model actualModelManager = new ModelManager();
+
+        actualModelManager.addPerson(ALICE);
+        assertTrue(actualModelManager.hasPerson(ALICE));
+        actualModelManager.commit(new DummyMutatorCommand("add Alice"));
+        assertTrue(actualModelManager.hasPerson(ALICE));
+
+        actualModelManager.deletePerson(ALICE);
+        assertFalse(actualModelManager.hasPerson(ALICE));
+        actualModelManager.commit(new DummyMutatorCommand("delete Alice"));
+        assertFalse(actualModelManager.hasPerson(ALICE));
     }
 
     @Test
