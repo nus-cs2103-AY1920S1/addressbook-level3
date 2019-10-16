@@ -72,7 +72,7 @@ public class LogicManager implements Logic {
 
     @Override
     public Path getMemeBookFilePath() {
-        return model.getMemeBookFilePath();
+        return model.getDataFilePath();
     }
 
     @Override

@@ -62,14 +62,14 @@ public class ModelManagerTest {
 
     @Test
     public void setMemeBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setMemeBookFilePath(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setDataFilePath(null));
     }
 
     @Test
     public void setMemeBookFilePath_validPath_setsMemeBookFilePath() {
         Path path = Paths.get("weme/book/file/path");
-        modelManager.setMemeBookFilePath(path);
-        assertEquals(path, modelManager.getMemeBookFilePath());
+        modelManager.setDataFilePath(path);
+        assertEquals(path, modelManager.getDataFilePath());
     }
 
     @Test

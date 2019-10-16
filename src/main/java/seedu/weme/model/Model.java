@@ -36,14 +36,34 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' meme book file path.
+     * Returns the user prefs' data file path.
      */
-    Path getMemeBookFilePath();
+    Path getDataFilePath();
 
     /**
-     * Sets the user prefs' meme book file path.
+     * Sets the user prefs' data file path.
      */
-    void setMemeBookFilePath(Path memeBookFilePath);
+    void setDataFilePath(Path dataFilePath);
+
+    /**
+     * Returns the user prefs' meme image path.
+     */
+    Path getMemeImagePath();
+
+    /**
+     * Sets the user prefs' meme image path.
+     */
+    void setMemeImagePath(Path memeImagePath);
+
+    /**
+     * Returns the user prefs' template image path.
+     */
+    Path getTemplateImagePath();
+
+    /**
+     * Sets the user prefs' template image path.
+     */
+    void setTemplateImagePath(Path templateImagePath);
 
     /**
      * Replaces meme book data with the data in {@code memeBook}.

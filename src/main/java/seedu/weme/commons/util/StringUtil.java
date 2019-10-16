@@ -65,4 +65,17 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Converts a byte array into a hex string.
+     * @param byteArray the byte array to convert
+     * @return the converted hex string
+     */
+    public static String byteArrayToHex(byte[] byteArray) {
+        StringBuilder sb = new StringBuilder(byteArray.length * 2);
+        for (byte b : byteArray) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString().toUpperCase();
+    }
 }

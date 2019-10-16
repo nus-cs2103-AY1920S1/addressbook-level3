@@ -1,9 +1,12 @@
 package seedu.weme.testutil;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 
 import seedu.weme.commons.core.index.Index;
 import seedu.weme.model.Model;
@@ -30,6 +33,24 @@ public class TestUtil {
             throw new RuntimeException(e);
         }
         return SANDBOX_FOLDER.resolve(fileName);
+    }
+
+    /**
+     * Clears all files and directories in the sandbox folder.
+     */
+    public static void clearSandBoxFolder() {
+        if (!Files.exists(SANDBOX_FOLDER)) {
+            return;
+        }
+
+        try {
+            Files.walk(SANDBOX_FOLDER)
+                .map(Path::toFile)
+                .sorted(Comparator.reverseOrder())
+                .forEach(File::delete);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     /**

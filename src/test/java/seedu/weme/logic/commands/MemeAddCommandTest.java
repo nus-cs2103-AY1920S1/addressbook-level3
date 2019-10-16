@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -24,8 +25,16 @@ import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.testutil.MemeBuilder;
+import seedu.weme.testutil.MemeUtil;
+import seedu.weme.testutil.TestUtil;
+import seedu.weme.testutil.UserPrefsBuilder;
 
 public class MemeAddCommandTest {
+
+    @BeforeEach
+    public void setUp() {
+        TestUtil.clearSandBoxFolder();
+    }
 
     @Test
     public void constructor_nullMeme_throwsNullPointerException() {
@@ -37,17 +46,20 @@ public class MemeAddCommandTest {
         ModelStubAcceptingMemeAdded modelStub = new ModelStubAcceptingMemeAdded();
         Meme validMeme = new MemeBuilder().build();
 
+        Meme addedMeme = MemeUtil.generateCopiedMeme(validMeme, modelStub.getMemeImagePath());
         CommandResult commandResult = new MemeAddCommand(validMeme).execute(modelStub);
 
-        assertEquals(String.format(MemeAddCommand.MESSAGE_SUCCESS, validMeme), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validMeme), modelStub.memesAdded);
+        assertEquals(String.format(MemeAddCommand.MESSAGE_SUCCESS, addedMeme), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(addedMeme), modelStub.memesAdded);
     }
 
     @Test
-    public void execute_duplicateMeme_throwsCommandException() {
+    public void execute_duplicateMeme_throwsCommandException() throws Exception {
         Meme validMeme = new MemeBuilder().build();
         MemeAddCommand memeAddCommand = new MemeAddCommand(validMeme);
-        ModelStub modelStub = new ModelStubWithMeme(validMeme);
+
+        Meme addedMeme = MemeUtil.generateCopiedMeme(validMeme, new ModelStubWithMeme(validMeme).getMemeImagePath());
+        ModelStub modelStub = new ModelStubWithMeme(addedMeme);
 
         assertThrows(CommandException.class,
                 MemeAddCommand.MESSAGE_DUPLICATE_MEME, () -> memeAddCommand.execute(modelStub));
@@ -102,12 +114,32 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public Path getMemeBookFilePath() {
+        public Path getDataFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setMemeBookFilePath(Path memeBookFilePath) {
+        public void setDataFilePath(Path dataFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getMemeImagePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMemeImagePath(Path memeImagePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getTemplateImagePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTemplateImagePath(Path templateImagePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -199,6 +231,12 @@ public class MemeAddCommandTest {
             requireNonNull(meme);
             return this.meme.isSameMeme(meme);
         }
+
+        @Override
+        public Path getMemeImagePath() {
+            return UserPrefsBuilder.DEFAULT_MEME_IMAGE_PATH;
+        }
+
     }
 
     /**
@@ -222,6 +260,10 @@ public class MemeAddCommandTest {
         @Override
         public void commitMemeBook() {
             // called by {@code MemeAddCommand#execute()}
+        }
+
+        public Path getMemeImagePath() {
+            return UserPrefsBuilder.DEFAULT_MEME_IMAGE_PATH;
         }
 
         @Override

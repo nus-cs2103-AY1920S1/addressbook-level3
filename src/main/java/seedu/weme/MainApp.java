@@ -155,6 +155,8 @@ public class MainApp extends Application {
             initializedPrefs = new UserPrefs();
         }
 
+        logger.fine("Loaded preferences: " + initializedPrefs);
+
         //Update prefs file in case it was missing to begin with or there are new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
