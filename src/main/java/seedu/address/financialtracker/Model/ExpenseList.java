@@ -1,5 +1,7 @@
 package seedu.address.financialtracker.Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.financialtracker.Model.Expense.Expense;
 
 import java.util.ArrayList;
@@ -9,11 +11,9 @@ import java.util.ArrayList;
  */
 public class ExpenseList {
 
-    private ArrayList<Expense> expenses;
-
-    public ExpenseList() {
-        this.expenses = new ArrayList<Expense>();
-    }
+    private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
+    private final ObservableList<Expense> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(expenses);
 
     public void addExpense(Expense expense) {
         expenses.add(expense);
@@ -21,5 +21,12 @@ public class ExpenseList {
 
     public void deleteExpense(int index) {
         expenses.remove(index - 1);
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Expense> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
     }
 }

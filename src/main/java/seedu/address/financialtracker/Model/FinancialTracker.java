@@ -1,10 +1,11 @@
 package seedu.address.financialtracker.Model;
 
+import javafx.collections.ObservableList;
 import seedu.address.financialtracker.Model.Expense.Expense;
 
 public class FinancialTracker {
 
-    private ExpenseList expenseList;
+    private final ExpenseList expenseList;
 
     public FinancialTracker() {
         this.expenseList = new ExpenseList();
@@ -16,5 +17,9 @@ public class FinancialTracker {
 
     public void deleteExpense(int index) {
         expenseList.deleteExpense(index);
+    }
+
+    public ObservableList<Expense> getExpenseList() {
+        return expenseList.asUnmodifiableObservableList();
     }
 }

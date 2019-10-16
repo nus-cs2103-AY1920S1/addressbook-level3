@@ -33,23 +33,6 @@ public class ItineraryPage implements Page {
     Label monthLabel;
 
     public ItineraryPage() {
-        // todo: move to week header
-        weekHeader = generateWeekHeader();
-
-        // todo: replace with dynamic calendar object
-        CalendarSimplified c = new CalendarSimplified();
-        monthView = generateMonthView(c.getDays());
-        monthLabel = new Label("October");
-        monthLabel.setTextAlignment(TextAlignment.CENTER);
-        // todo: remove separate command box and integrate it with main page
-        commandBox.setOnAction(event -> {
-            String s = commandBox.getText();
-            System.out.println(s);
-            commandBox.setText("");
-        });
-        calendarPane.setAlignment(Pos.BOTTOM_LEFT);
-        calendarPane.getChildren().addAll(monthLabel, weekHeader, monthView, commandBox);
-        calendarScene = new Scene(calendarPane);
     }
 
     public boolean isOpened() {
