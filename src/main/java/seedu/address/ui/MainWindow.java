@@ -27,6 +27,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+
+
     private Stage primaryStage;
     private Logic logic;
 
@@ -124,7 +126,7 @@ public class MainWindow extends UiPart<Stage> {
 
 
         //the argument will be from select command
-        InformationDisplay informationDisplay = new InformationDisplay();
+        InformationDisplay informationDisplay = new InformationDisplay(logic.getPerson());
         informationDisplayTest.getChildren().add(informationDisplay.getRoot());
 
     }
@@ -191,6 +193,10 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            InformationDisplay informationDisplay = new InformationDisplay(logic.getPerson());
+            informationDisplayTest.getChildren().clear();
+            informationDisplayTest.getChildren().add(informationDisplay.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

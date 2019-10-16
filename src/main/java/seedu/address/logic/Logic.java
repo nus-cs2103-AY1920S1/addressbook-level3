@@ -38,6 +38,8 @@ public interface Logic {
      */
     Path getAddressBookFilePath();
 
+    Person getPerson();
+
     /**
      * Returns the user prefs' GUI settings.
      */

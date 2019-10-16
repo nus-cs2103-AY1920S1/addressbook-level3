@@ -21,11 +21,8 @@ import seedu.address.model.person.Phone;
  */
 public class InformationDisplay extends UiPart<Region> {
 
+    public static final String NO_PERSON_SELECTED_MESSAGE = "";
     private static final String FXML = "InformationDisplay.fxml";
-    private static final Person ALICE = new Person(new Name("Alice Pauline"), new Phone("94351253"),
-                                                   new Email("alice@example.com"),
-                                                   new Address("123, Jurong West Ave 6, #08-111"),
-                                                   getTagSet("friends"));
 
     public final Person person;
 
@@ -48,9 +45,9 @@ public class InformationDisplay extends UiPart<Region> {
     @FXML
     private Label performance;
 
-    public InformationDisplay() {
+    public InformationDisplay(Person selectedPerson) {
         super(FXML);
-        this.person = ALICE;
+        this.person = selectedPerson;
         name.setText(this.person.getName().fullName);
         phone.setText(this.person.getPhone().value);
         address.setText(this.person.getAddress().value);

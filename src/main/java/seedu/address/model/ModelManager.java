@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
@@ -12,6 +13,10 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Name;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +27,12 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final Person[] selectedPerson;
+    private final int selectedPersonIndex = 0;
+    private static final Person ALICE = new Person(new Name("Alice Pauline"), new Phone("94351253"),
+                                                   new Email("alice@example.com"),
+                                                   new Address("123, Jurong West Ave 6, #08-111"),
+                                                   getTagSet("friends"));
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +46,9 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.selectedPerson = new Person[1];
+        this.selectedPerson[selectedPersonIndex] = ALICE;
+
     }
 
     public ModelManager() {
@@ -111,6 +125,17 @@ public class ModelManager implements Model {
 
         addressBook.setPerson(target, editedPerson);
     }
+
+    @Override
+    public Person selectPerson() {
+            return selectedPerson[selectedPersonIndex];
+
+    }
+
+    public void storePerson(Person person) {
+        selectedPerson[selectedPersonIndex] = person;
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
