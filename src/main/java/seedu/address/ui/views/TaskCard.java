@@ -33,8 +33,7 @@ public class TaskCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label taskStatus;
+
     @FXML
     private Label deadline;
     @FXML
@@ -45,14 +44,13 @@ public class TaskCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
-        taskStatus.setText(task.getTaskStatus().getDisplayName());
         task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         if (task.hasDeadline()) {
             deadline.setText(task.getDeadline().toString());
         } else {
-            deadline.setText("No Deadline");
+            deadline.setText("No deadline set");
         }
     }
 
