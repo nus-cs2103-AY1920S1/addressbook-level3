@@ -19,7 +19,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-
 //@@author uberSaiyan-reused
 //StackOverflow answer on writing an autocomplete text field from
 //https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions
@@ -51,6 +50,7 @@ public class AutoCompleteTextField extends TextField {
                 // filter
                 List<String> filteredEntries = entries.stream()
                         .filter(e -> e.toLowerCase().contains(enteredText.toLowerCase()))
+                        .sorted((e1, e2) -> compareEntries(e1, e2, enteredText))
                         .collect(Collectors.toList());
                 if (!filteredEntries.isEmpty()) {
                     populatePopup(filteredEntries, enteredText);
@@ -69,13 +69,13 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     * Populates drop down menu with results from {@Code searchResults}.
-     * @param searchResults A list of strings that match {@Code searchWord}.
+     * Populates drop down menu with results from {@code searchResults}.
+     * @param searchResults A list of strings that match {@code searchWord}.
      * @param searchWord The word being matched against.
      */
     private void populatePopup(List<String> searchResults, String searchWord) {
         List<CustomMenuItem> menuItems = new LinkedList<>();
-        int maxEntries = 10;
+        int maxEntries = 5;
         int count = Math.min(searchResults.size(), maxEntries);
 
         for (int i = 0; i < count; i++) {
@@ -102,8 +102,8 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     * Returns a {@Code TextFlow} that highlights the filtered word in a matching word.
-     * @param text A word containing {@Code filter}.
+     * Returns a {@code TextFlow} that highlights the filtered word in a matching word.
+     * @param text A word containing {@code filter}.
      * @param filter A word to highlight.
      * @return A highlighted TextFlow.
      */
@@ -122,6 +122,12 @@ public class AutoCompleteTextField extends TextField {
      */
     private void setStyleToDefault() {
         this.getStyleClass().remove(ERROR_STYLE_CLASS);
+    }
+
+    private int compareEntries(String firstMatch, String secondMatch, String text) {
+        int firstIndex = firstMatch.indexOf(text);
+        int secondIndex = secondMatch.indexOf(text);
+        return firstIndex - secondIndex;
     }
 
 }

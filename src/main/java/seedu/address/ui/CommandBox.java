@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Arrays;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
@@ -26,7 +24,7 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        commandTextField.getEntries().addAll(Arrays.asList("add-c", "add-p", "add-o", "add-s"));
+        commandTextField.getEntries().addAll(CommandSuggestions.getSuggestions());
     }
 
     /**
