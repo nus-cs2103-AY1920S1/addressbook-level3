@@ -62,23 +62,23 @@ public class UniqueEmployeeListTest {
 
     @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueEmployeeList.setPerson(null, ALICE));
+        assertThrows(NullPointerException.class, () -> uniqueEmployeeList.setEmployee(null, ALICE));
     }
 
     @Test
     public void setPerson_nullEditedPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueEmployeeList.setPerson(ALICE, null));
+        assertThrows(NullPointerException.class, () -> uniqueEmployeeList.setEmployee(ALICE, null));
     }
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(EmployeeNotFoundException.class, () -> uniqueEmployeeList.setPerson(ALICE, ALICE));
+        assertThrows(EmployeeNotFoundException.class, () -> uniqueEmployeeList.setEmployee(ALICE, ALICE));
     }
 
     @Test
     public void setPerson_editedPersonIsSamePerson_success() {
         uniqueEmployeeList.add(ALICE);
-        uniqueEmployeeList.setPerson(ALICE, ALICE);
+        uniqueEmployeeList.setEmployee(ALICE, ALICE);
         UniqueEmployeeList expectedUniqueEmployeeList = new UniqueEmployeeList();
         expectedUniqueEmployeeList.add(ALICE);
         assertEquals(expectedUniqueEmployeeList, uniqueEmployeeList);
@@ -89,7 +89,7 @@ public class UniqueEmployeeListTest {
         uniqueEmployeeList.add(ALICE);
         Employee editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        uniqueEmployeeList.setPerson(ALICE, editedAlice);
+        uniqueEmployeeList.setEmployee(ALICE, editedAlice);
         UniqueEmployeeList expectedUniqueEmployeeList = new UniqueEmployeeList();
         expectedUniqueEmployeeList.add(editedAlice);
         assertEquals(expectedUniqueEmployeeList, uniqueEmployeeList);
@@ -98,7 +98,7 @@ public class UniqueEmployeeListTest {
     @Test
     public void setPerson_editedPersonHasDifferentIdentity_success() {
         uniqueEmployeeList.add(ALICE);
-        uniqueEmployeeList.setPerson(ALICE, BOB);
+        uniqueEmployeeList.setEmployee(ALICE, BOB);
         UniqueEmployeeList expectedUniqueEmployeeList = new UniqueEmployeeList();
         expectedUniqueEmployeeList.add(BOB);
         assertEquals(expectedUniqueEmployeeList, uniqueEmployeeList);
@@ -108,7 +108,7 @@ public class UniqueEmployeeListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueEmployeeList.add(ALICE);
         uniqueEmployeeList.add(BOB);
-        assertThrows(DuplicateEmployeeException.class, () -> uniqueEmployeeList.setPerson(ALICE, BOB));
+        assertThrows(DuplicateEmployeeException.class, () -> uniqueEmployeeList.setEmployee(ALICE, BOB));
     }
 
     @Test
@@ -131,7 +131,7 @@ public class UniqueEmployeeListTest {
 
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueEmployeeList.setPersons((UniqueEmployeeList) null));
+        assertThrows(NullPointerException.class, () -> uniqueEmployeeList.setEmployees((UniqueEmployeeList) null));
     }
 
     @Test
@@ -139,20 +139,20 @@ public class UniqueEmployeeListTest {
         uniqueEmployeeList.add(ALICE);
         UniqueEmployeeList expectedUniqueEmployeeList = new UniqueEmployeeList();
         expectedUniqueEmployeeList.add(BOB);
-        uniqueEmployeeList.setPersons(expectedUniqueEmployeeList);
+        uniqueEmployeeList.setEmployees(expectedUniqueEmployeeList);
         assertEquals(expectedUniqueEmployeeList, uniqueEmployeeList);
     }
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueEmployeeList.setPersons((List<Employee>) null));
+        assertThrows(NullPointerException.class, () -> uniqueEmployeeList.setEmployees((List<Employee>) null));
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
         uniqueEmployeeList.add(ALICE);
         List<Employee> employeeList = Collections.singletonList(BOB);
-        uniqueEmployeeList.setPersons(employeeList);
+        uniqueEmployeeList.setEmployees(employeeList);
         UniqueEmployeeList expectedUniqueEmployeeList = new UniqueEmployeeList();
         expectedUniqueEmployeeList.add(BOB);
         assertEquals(expectedUniqueEmployeeList, uniqueEmployeeList);
@@ -161,7 +161,7 @@ public class UniqueEmployeeListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Employee> listWithDuplicateEmployees = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateEmployeeException.class, () -> uniqueEmployeeList.setPersons(listWithDuplicateEmployees));
+        assertThrows(DuplicateEmployeeException.class, () -> uniqueEmployeeList.setEmployees(listWithDuplicateEmployees));
     }
 
     @Test

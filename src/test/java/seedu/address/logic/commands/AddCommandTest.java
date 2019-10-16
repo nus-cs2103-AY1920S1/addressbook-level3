@@ -40,7 +40,7 @@ public class AddCommandTest {
         CommandResult commandResult = new AddCommand(validEmployee).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validEmployee), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validEmployee), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validEmployee), modelStub.employeesAdded);
     }
 
     @Test
@@ -111,7 +111,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Employee employee) {
+        public void addEmployee(Employee employee) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -126,27 +126,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Employee employee) {
+        public boolean hasEmployee(Employee employee) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Employee target) {
+        public void deleteEmployee(Employee target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Employee target, Employee editedEmployee) {
+        public void setEmployee(Employee target, Employee editedEmployee) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Employee> getFilteredPersonList() {
+        public ObservableList<Employee> getFilteredEmployeeList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Employee> predicate) {
+        public void updateFilteredEmployeeList(Predicate<Employee> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -213,9 +213,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Employee employee) {
+        public boolean hasEmployee(Employee employee) {
             requireNonNull(employee);
-            return this.employee.isSamePerson(employee);
+            return this.employee.isSameEmployee(employee);
         }
     }
 
@@ -223,18 +223,18 @@ public class AddCommandTest {
      * A Model stub that always accept the employee being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Employee> personsAdded = new ArrayList<>();
+        final ArrayList<Employee> employeesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Employee employee) {
+        public boolean hasEmployee(Employee employee) {
             requireNonNull(employee);
-            return personsAdded.stream().anyMatch(employee::isSamePerson);
+            return employeesAdded.stream().anyMatch(employee::isSameEmployee);
         }
 
         @Override
-        public void addPerson(Employee employee) {
+        public void addEmployee(Employee employee) {
             requireNonNull(employee);
-            personsAdded.add(employee);
+            employeesAdded.add(employee);
         }
 
         @Override

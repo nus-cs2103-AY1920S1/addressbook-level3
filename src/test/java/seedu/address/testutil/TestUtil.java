@@ -36,20 +36,20 @@ public class TestUtil {
      * Returns the middle index of the employee in the {@code model}'s employee list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
+        return Index.fromOneBased(model.getFilteredEmployeeList().size() / 2);
     }
 
     /**
      * Returns the last index of the employee in the {@code model}'s employee list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size());
+        return Index.fromOneBased(model.getFilteredEmployeeList().size());
     }
 
     /**
      * Returns the employee in the {@code model}'s employee list at {@code index}.
      */
     public static Employee getPerson(Model model, Index index) {
-        return model.getFilteredPersonList().get(index.getZeroBased());
+        return model.getFilteredEmployeeList().get(index.getZeroBased());
     }
 }

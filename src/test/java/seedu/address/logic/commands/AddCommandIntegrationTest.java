@@ -31,7 +31,7 @@ public class AddCommandIntegrationTest {
         Employee validEmployee = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), model.getEventBook(), new UserPrefs());
-        expectedModel.addPerson(validEmployee);
+        expectedModel.addEmployee(validEmployee);
 
         assertCommandSuccess(new AddCommand(validEmployee), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validEmployee), expectedModel);
@@ -39,7 +39,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Employee employeeInList = model.getAddressBook().getPersonList().get(0);
+        Employee employeeInList = model.getAddressBook().getEmployeeList().get(0);
         assertCommandFailure(new AddCommand(employeeInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
