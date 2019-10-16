@@ -63,6 +63,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.userSettings = userSettings;
     }
 
+    @Override
     public Path getLoanRecordsFilePath() {
         return loanRecordsFilePath;
     }
@@ -88,6 +89,18 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setBorrowerRecordsFilePath(Path borrowerRecordsFilePath) {
         requireNonNull(borrowerRecordsFilePath);
         this.borrowerRecordsFilePath = borrowerRecordsFilePath;
+    }
+
+    public int getLoanPeriod() {
+        return userSettings.getLoanPeriod();
+    }
+
+    public int getRenewPeriod() {
+        return userSettings.getRenewPeriod();
+    }
+
+    public int getFineIncrement() {
+        return userSettings.getFineIncrement();
     }
 
     @Override

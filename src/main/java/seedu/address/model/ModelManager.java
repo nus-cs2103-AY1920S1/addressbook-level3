@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import seedu.address.commons.core.UserSettings;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
@@ -36,7 +37,7 @@ public class ModelManager implements Model {
     private Optional<Borrower> servingBorrower;
 
     /**
-     * Initializes a ModelManager with the given catalog and userPrefs.
+     * Initializes a ModelManager with the given catalog, loan records, borrower records and userPrefs.
      * TODO change
      */
     public ModelManager(ReadOnlyCatalog catalog,
@@ -77,6 +78,17 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
         return userPrefs;
+    }
+
+    @Override
+    public UserSettings getUserSettings() {
+        return userPrefs.getUserSettings();
+    }
+
+    @Override
+    public void setUserSettings(UserSettings userSettings) {
+        requireNonNull(userSettings);
+        userPrefs.setUserSettings(userSettings);
     }
 
     @Override

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_BOOK;
+import seedu.address.commons.core.UserSettings;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -102,6 +103,16 @@ public class AddCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UserSettings getUserSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserSettings(UserSettings userSettings) {
             throw new AssertionError("This method should not be called.");
         }
 
