@@ -1,6 +1,7 @@
 package seedu.address.model.day;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.activity.Activity;
@@ -33,7 +34,7 @@ public class Timetable {
         }
     }
 
-    public Activity getActivityAtIndex(Index index) {
+    public Optional<Activity> getActivityAtIndex(Index index) {
         return timetable[index.getZeroBased()].getActivity();
     }
 
