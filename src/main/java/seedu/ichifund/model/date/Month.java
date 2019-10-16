@@ -1,9 +1,9 @@
 package seedu.ichifund.model.date;
 
-import java.time.LocalDate;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.AppUtil.checkArgument;
+
+import java.time.LocalDate;
 
 /**
  * Represents a Month in a Date in IchiFund.

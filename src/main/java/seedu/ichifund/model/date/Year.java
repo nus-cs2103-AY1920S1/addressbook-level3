@@ -1,10 +1,9 @@
 package seedu.ichifund.model.date;
 
-import java.time.LocalDate;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
 /**
  * Represents a Year in a Date in IchiFund.
  * Guarantees: details are present and not null, field values are validated, immutable.
