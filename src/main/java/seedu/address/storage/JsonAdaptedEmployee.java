@@ -56,6 +56,22 @@ class JsonAdaptedEmployee {
         }
     }
 
+    public JsonAdaptedEmployee(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                               @JsonProperty("email") String email, @JsonProperty("address") String address,
+                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.id = "000";
+        this.joindate = "11/11/2011";
+        this.gender = "male";
+        this.position = "manager";
+        if (tagged != null) {
+            this.tagged.addAll(tagged);
+        }
+    }
+
     /**
      * Converts a given {@code Employee} into this class for Jackson use.
      */
