@@ -14,7 +14,9 @@ import seedu.deliverymans.logic.commands.universal.DeleteOrderCommand;
 import seedu.deliverymans.logic.commands.universal.EditOrderCommand;
 import seedu.deliverymans.logic.commands.universal.ExitCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
+import seedu.deliverymans.logic.commands.universal.RedoCommand;
 import seedu.deliverymans.logic.commands.universal.SummaryCommand;
+import seedu.deliverymans.logic.commands.universal.UndoCommand;
 import seedu.deliverymans.logic.parser.customer.CustomerParser;
 import seedu.deliverymans.logic.parser.deliveryman.DeliverymanParser;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
@@ -65,6 +67,12 @@ public class UniversalParser {
 
         case SummaryCommand.COMMAND_WORD:
             return new SummaryCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case CustomerParser.COMMAND_WORD:
             nextContext = Context.CUSTOMER;
