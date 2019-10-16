@@ -1,8 +1,11 @@
 package seedu.address.model.events;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.IcsUtil.generateUid;
+import static seedu.address.commons.util.IcsUtil.toIcsTimeStamp;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -60,4 +63,28 @@ public class EventSource {
     public DateTime getStartDateTime() {
         return start;
     }
+
+    public String toIcsString() {
+        DateTime now = DateTime.now();
+        StringBuilder icsStringBuilder = new StringBuilder("BEGIN:VEVENT");
+
+        String uid = generateUid();
+        String dtStamp = toIcsTimeStamp(now);
+        String start = toIcsTimeStamp(this.start);
+
+        icsStringBuilder
+                .append("\n").append("UID:").append(uid)
+                .append("\n").append("DTSTAMP:").append(dtStamp)
+                .append("\n").append("DTSTART:").append(start)
+                .append("\n").append("DTSUMMARY:").append(this.getDescription());
+        if (this.end != null) {
+            String end = toIcsTimeStamp(this.end);
+            icsStringBuilder
+                    .append("\n").append("DTEND:").append(end);
+        }
+
+        icsStringBuilder.append("\n").append("END:VEVENT");
+        return icsStringBuilder.toString();
+    }
+
 }
