@@ -167,6 +167,10 @@ public class EditCommand extends Command {
             return Optional.ofNullable(isReimbursed);
         }
 
+        public EditTransactionDescriptor build() {
+            return this;
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object

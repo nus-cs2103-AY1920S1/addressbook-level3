@@ -134,8 +134,36 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updatePredicate(TransactionContainsKeywordsPredicate predicate) {
+    public void updatePredicate(Predicate<Transaction> predicate) {
         this.predicate = predicate;
+    }
+
+    @Override
+    public boolean hasTransactionWithName(String name) {
+        for (int i = 0; i < transactionList.size(); i++) {
+            if (transactionList.get(i).getPerson().getName().toString().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return transactionList.equals(other.getTransactionList())
+                && filteredList.equals(other.getFilteredList());
     }
 
 }

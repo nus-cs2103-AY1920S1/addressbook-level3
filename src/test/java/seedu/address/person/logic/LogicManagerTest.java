@@ -9,13 +9,10 @@ import static seedu.address.person.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.person.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.person.logic.commands.AddCommand;
 import seedu.address.person.logic.commands.CommandResult;
@@ -30,7 +27,13 @@ import seedu.address.person.model.person.Person;
 import seedu.address.person.storage.JsonAddressBookStorage;
 import seedu.address.person.storage.JsonUserPrefsStorage;
 import seedu.address.person.storage.StorageManager;
+import seedu.address.stubs.TransactionLogicStub;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalTransactions;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -76,7 +79,11 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        seedu.address.transaction.model.ModelManager model =
+                new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+        Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        TransactionLogicStub transactionLogicStub = new TransactionLogicStub(model, personModel);
+        logic = new LogicManager(model, storage, transactionLogicStub); //add your logic stubs
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
@@ -102,9 +109,13 @@ public class LogicManagerTest {
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
             Model expectedModel) throws CommandException, ParseException {
-        CommandResult result = logic.execute(inputCommand);
-        assertEquals(expectedMessage, result.getFeedbackToUser());
-        assertEquals(expectedModel, model);
+        try {
+            CommandResult result = logic.execute(inputCommand);
+            assertEquals(expectedMessage, result.getFeedbackToUser());
+            assertEquals(expectedModel, model);
+        } catch (IOException e) {
+            throw new AssertionError("Execution of command should not fail.", e);
+        }
     }
 
     /**

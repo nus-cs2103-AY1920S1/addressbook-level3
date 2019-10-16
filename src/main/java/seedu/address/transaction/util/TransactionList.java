@@ -38,6 +38,13 @@ public class TransactionList {
         this.tList = FXCollections.observableList(this.tArrList);
     }
 
+    public ArrayList<Transaction> gettArrList() {
+        return tArrList;
+    }
+
+    public ArrayList<Transaction> getOriginal() {
+        return original;
+    }
 
     /**
      * Returns the transaction of given index.
@@ -127,6 +134,14 @@ public class TransactionList {
      */
     public Stream<Transaction> stream() {
         return this.tList.stream();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof TransactionList // instanceof handles nulls
+                && tArrList.equals(((TransactionList) other).gettArrList()))
+                && original.equals(((TransactionList) other).getOriginal());
     }
 }
 

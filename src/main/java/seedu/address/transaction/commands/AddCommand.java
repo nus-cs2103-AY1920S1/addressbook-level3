@@ -1,5 +1,6 @@
 package seedu.address.transaction.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_ADD_TRANSACTION;
 
 import seedu.address.transaction.model.Model;
@@ -16,6 +17,7 @@ public class AddCommand extends Command {
      * Creates an AddCommand to add the specified {@code Transaction}
      */
     public AddCommand(Transaction transaction) {
+        requireNonNull(transaction);
         this.transaction = transaction;
     }
 

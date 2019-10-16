@@ -2,12 +2,13 @@ package seedu.address.person.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.person.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.util.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.util.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.util.CliSyntax.PREFIX_NAME;
+import static seedu.address.util.CliSyntax.PREFIX_PHONE;
+import static seedu.address.util.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,9 +18,14 @@ import seedu.address.person.commons.core.index.Index;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.AddressBook;
 import seedu.address.person.model.Model;
+import seedu.address.person.model.ModelManager;
+import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.NameContainsKeywordsPredicate;
 import seedu.address.person.model.person.Person;
+import seedu.address.stubs.TransactionLogicStub;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.TypicalTransactions;
+import seedu.address.transaction.model.Transaction;
 
 /**
  * Contains helper methods for testing commands.
@@ -60,6 +66,11 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
+    private static seedu.address.transaction.model.ModelManager model =
+            new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+    private static Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private static TransactionLogicStub transactionLogicStub = new TransactionLogicStub(model, personModel);
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -77,7 +88,7 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
             Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result = command.execute(actualModel, transactionLogicStub); //add more logic stubs
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -107,7 +118,8 @@ public class CommandTestUtil {
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, transactionLogicStub));
+        //add more logic stubs
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
@@ -124,5 +136,4 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
-
 }
