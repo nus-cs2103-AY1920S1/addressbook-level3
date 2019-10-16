@@ -21,7 +21,8 @@ public class AddConsultationRoomCommand extends ReversibleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new room. "
             + "Parameters: "
-            + "REFERENCE_ID ";
+            + "REFERENCE_ID \n"
+            + "Example: " + COMMAND_WORD + " 001A";
 
     private final ReferenceId doctorReferenceId;
 

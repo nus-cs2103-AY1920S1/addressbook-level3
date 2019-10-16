@@ -16,14 +16,8 @@ import seedu.address.model.common.ReferenceId;
  */
 public class UndoRemoveRoomCommand extends ReversibleCommand {
 
-    public static final String MESSAGE_SUCCESS = "Person added back to the queue: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the queue";
-
-    public static final String COMMAND_WORD = "enqueue";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enqueues a patient to the queue. "
-            + "Parameters: "
-            + "REFERENCE_ID ";
+    public static final String MESSAGE_SUCCESS = "Room added back to the list: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This room already exists in the list";
 
     private final ReferenceId doctorReferenceId;
     private final int indexOfPatientInQueue;
