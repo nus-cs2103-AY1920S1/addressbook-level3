@@ -30,7 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         flashCards = new UniqueFlashCardList();
         deadlines = new UniqueDeadlineList();
-        stats = new int[3];                    //good,hard,easy
+        stats = new int[3]; //good,hard,easy
     }
 
     public AddressBook() {}
