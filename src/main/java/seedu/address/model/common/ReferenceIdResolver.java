@@ -9,12 +9,22 @@ import seedu.address.model.person.Person;
 public interface ReferenceIdResolver {
 
     /**
-     * Gets a person whose {@code ReferenceId} matches the given id.
+     * Gets a patient whose {@code ReferenceId} matches the given id.
      */
-    Person resolve(ReferenceId id) throws EntryNotFoundException;
+    Person resolvePatient(ReferenceId id) throws EntryNotFoundException;
 
     /**
-     * Checks whether a person whose {@code ReferenceId} matches the given id.
+     * Gets a staff whose {@code ReferenceId} matches the given id.
      */
-    boolean hasPerson(ReferenceId id);
+    Person resolveStaff(ReferenceId id) throws EntryNotFoundException;
+
+    /**
+     * Checks whether a staff whose {@code ReferenceId} matches the given id.
+     */
+    boolean hasStaff(ReferenceId id);
+
+    /**
+     * Checks whether a patient whose {@code ReferenceId} matches the given id.
+     */
+    boolean hasPatient(ReferenceId id);
 }

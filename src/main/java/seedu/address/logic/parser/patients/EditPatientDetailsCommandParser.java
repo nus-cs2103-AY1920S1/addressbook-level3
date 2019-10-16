@@ -79,7 +79,7 @@ public class EditPatientDetailsCommandParser implements Parser<ReversibleActionP
      * If {@code tags} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Tag>} containing zero tags.
      */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
+    public static Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
         assert tags != null;
 
         if (tags.isEmpty()) {
@@ -94,7 +94,7 @@ public class EditPatientDetailsCommandParser implements Parser<ReversibleActionP
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    private EditPersonDescriptor createEditedPersonDescriptor(ArgumentMultimap argMultimap) throws ParseException {
+    public static EditPersonDescriptor createEditedPersonDescriptor(ArgumentMultimap argMultimap) throws ParseException {
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -127,7 +127,7 @@ public class EditPatientDetailsCommandParser implements Parser<ReversibleActionP
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+    public static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         requireAllNonNull(personToEdit, editPersonDescriptor);
 
         ReferenceId updatedRefId = editPersonDescriptor.getReferenceId().orElse(personToEdit.getReferenceId());

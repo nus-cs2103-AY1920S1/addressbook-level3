@@ -120,8 +120,8 @@ public class EditPatientDetailsCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit person in filtered list into a duplicate in address book
-        Person firstPersonInList = model.getAddressBook().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person secondPersonInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Person firstPersonInList = model.getPatientAddressBook().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person secondPersonInList = model.getPatientAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(
             firstPersonInList, secondPersonInList);
 

@@ -44,7 +44,7 @@ public class DequeueCommand extends ReversibleCommand {
         }
         model.removeFromQueue(patientReferenceId);
 
-        if (!model.hasPerson(patientReferenceId)) {
+        if (!model.hasPatient(patientReferenceId)) {
             throw new CommandException(String.format(MESSAGE_DEQUEUE_PERSON_NOT_FOUND, patientReferenceId));
         }
 

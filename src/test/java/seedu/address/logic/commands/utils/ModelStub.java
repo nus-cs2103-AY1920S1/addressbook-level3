@@ -10,6 +10,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.common.ReferenceId;
 import seedu.address.model.events.Event;
+import seedu.address.model.exceptions.EntryNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
@@ -65,12 +66,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook newData) {
+    public void setPatientAddressBook(ReadOnlyAddressBook newData) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyAddressBook getPatientAddressBook() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -80,7 +81,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasPerson(ReferenceId person) {
+    public boolean hasPatient(ReferenceId person) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -106,6 +107,51 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setStaffAddressBook(ReadOnlyAddressBook staffAddressBook) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyAddressBook getStaffAddressBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasStaff(Person person) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasExactStaff(Person person) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteStaff(Person target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addStaff(Person person) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setStaff(Person target, Person editedPerson) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredStaffList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredStaffList(Predicate<Person> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -220,7 +266,17 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public Person resolve(ReferenceId person) {
+    public Person resolvePatient(ReferenceId person) {
         throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Person resolveStaff(ReferenceId id) throws EntryNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean hasStaff(ReferenceId id) {
+        return false;
     }
 }

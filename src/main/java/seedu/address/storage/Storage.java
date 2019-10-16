@@ -22,13 +22,13 @@ public interface Storage extends AddressBookStorage, AppointmentBookStorage, Use
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getPatientAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readPatientAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void savePatientAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
     @Override
     Path getAppointmentBookFilePath();

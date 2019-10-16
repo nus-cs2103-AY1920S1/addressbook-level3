@@ -27,8 +27,9 @@ import seedu.address.model.userprefs.UserPrefs;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
     private final AppointmentBook appointmentBook;
+    private final AddressBook staffAddressBook;
+    private final AddressBook patientAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
@@ -39,23 +40,26 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, QueueManager queueManager,
+    public ModelManager(ReadOnlyAddressBook patientAddressBook, ReadOnlyAddressBook staffAddressBook,
+                        ReadOnlyUserPrefs userPrefs, QueueManager queueManager,
                         ReadOnlyAppointmentBook patientSchedule) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        requireAllNonNull(patientAddressBook, userPrefs);
+        logger.fine("Initializing with address book: " + patientAddressBook + " and user prefs " + userPrefs);
+
         this.queueManager = new QueueManager(queueManager);
-        this.addressBook = new AddressBook(addressBook);
         this.appointmentBook = new AppointmentBook(patientSchedule);
+        this.staffAddressBook = new AddressBook(staffAddressBook);
+        this.patientAddressBook = new AddressBook(patientAddressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredRooms = new FilteredList<>(this.queueManager.getRoomList());
-        filteredEvents = new FilteredList<>(this.appointmentBook.getEventList());
-        filteredReferenceIds = new FilteredList<>(this.queueManager.getReferenceIdList());
+        this.filteredPersons = new FilteredList<>(this.patientAddressBook.getPersonList());
+        this.filteredRooms = new FilteredList<>(this.queueManager.getRoomList());
+        this.filteredEvents = new FilteredList<>(this.appointmentBook.getEventList());
+        this.filteredReferenceIds = new FilteredList<>(this.queueManager.getReferenceIdList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
+        this(new AddressBook(), new AddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
     }
 
     //=========== QueueManager ==================================================================================
@@ -162,44 +166,44 @@ public class ModelManager implements Model {
     }
 
 
-    //=========== AddressBook ================================================================================
+    //=========== Patient AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setPatientAddressBook(ReadOnlyAddressBook patientAddressBook) {
+        this.patientAddressBook.resetData(patientAddressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyAddressBook getPatientAddressBook() {
+        return patientAddressBook;
     }
 
     @Override
-    public boolean hasPerson(ReferenceId id) {
+    public boolean hasPatient(ReferenceId id) {
         requireNonNull(id);
-        return addressBook.hasPerson(id);
+        return patientAddressBook.hasPerson(id);
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return patientAddressBook.hasPerson(person);
     }
 
     @Override
     public boolean hasExactPerson(Person person) {
         requireNonNull(person);
-        return addressBook.hasExactPerson(person);
+        return patientAddressBook.hasExactPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        patientAddressBook.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        addressBook.addPerson(person);
+        patientAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -207,16 +211,16 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        patientAddressBook.setPerson(target, editedPerson);
     }
 
     @Override
-    public Person resolve(ReferenceId id) {
-        return addressBook.resolve(id);
+    public Person resolvePatient(ReferenceId id) {
+        return patientAddressBook.resolve(id);
     }
 
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Patient List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -233,11 +237,84 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Filtered Reference id List Accessors ========================================================
+    //=========== Patient AddressBook ================================================================================
+
+    @Override
+    public void setStaffAddressBook(ReadOnlyAddressBook staffAddressBook) {
+        this.staffAddressBook.resetData(staffAddressBook);
+    }
+
+    @Override
+    public ReadOnlyAddressBook getStaffAddressBook() {
+        return staffAddressBook;
+    }
+
+    @Override
+    public boolean hasStaff(ReferenceId id) {
+        requireNonNull(id);
+        return staffAddressBook.hasPerson(id);
+    }
+
+    @Override
+    public boolean hasStaff(Person person) {
+        requireNonNull(person);
+        return staffAddressBook.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasExactStaff(Person person) {
+        requireNonNull(person);
+        return staffAddressBook.hasExactPerson(person);
+    }
+
+    @Override
+    public void deleteStaff(Person target) {
+        staffAddressBook.removePerson(target);
+    }
+
+    @Override
+    public void addStaff(Person person) {
+        staffAddressBook.addPerson(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void setStaff(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+
+        staffAddressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public Person resolveStaff(ReferenceId id) {
+        return staffAddressBook.resolve(id);
+    }
+
+
+    //=========== Filtered Staff List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredStaffList() {
+        return filteredPersons;
+    }
+
+    @Override
+    public void updateFilteredStaffList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
+    }
+
+
+    //=========== Queue List Accessors ========================================================
     @Override
     public ObservableList<ReferenceId> getQueueList() {
         return filteredReferenceIds;
     }
+
 
     //=========== Filtered Room List Accessors =============================================================
 
@@ -248,7 +325,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setSchedule(ReadOnlyAppointmentBook schedule) {
-        this.addressBook.resetData(addressBook);
+        this.patientAddressBook.resetData(patientAddressBook);
     }
 
     @Override
@@ -321,7 +398,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return patientAddressBook.equals(other.patientAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredReferenceIds.equals(other.filteredReferenceIds)

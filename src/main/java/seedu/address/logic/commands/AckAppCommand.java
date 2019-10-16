@@ -61,7 +61,7 @@ public class AckAppCommand extends ReversibleCommand {
         ObservableList<Event> filterEventList = model.getFilteredEventList();
 
 
-        if (!model.hasPerson(referenceId)) {
+        if (!model.hasPatient(referenceId)) {
             throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, referenceId));
         } else if (filterEventList.size() == 0) {
             throw new CommandException(MESSAGE_NOTING_ACK);

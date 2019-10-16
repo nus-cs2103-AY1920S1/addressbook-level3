@@ -1,19 +1,11 @@
-package seedu.address.logic.parser.patients;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+package seedu.address.logic.parser.staff;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
-import seedu.address.logic.commands.patients.RegisterPatientCommand;
-import seedu.address.logic.commands.patients.UnregisterPatientCommand;
+import seedu.address.logic.commands.staff.RegisterStaffCommand;
+import seedu.address.logic.commands.staff.UnregisterStaffCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -28,10 +20,18 @@ import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.Phone;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class RegisterPatientCommandParser implements Parser<ReversibleActionPairCommand> {
+public class RegisterStaffCommandParser implements Parser<ReversibleActionPairCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -48,7 +48,7 @@ public class RegisterPatientCommandParser implements Parser<ReversibleActionPair
                 PREFIX_EMAIL, PREFIX_ADDRESS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                RegisterPatientCommand.MESSAGE_USAGE));
+                RegisterStaffCommand.MESSAGE_USAGE));
         }
 
         ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
@@ -61,8 +61,8 @@ public class RegisterPatientCommandParser implements Parser<ReversibleActionPair
         Person person = new Person(referenceId, name, phone, email, address, tagList);
 
         return new ReversibleActionPairCommand(
-            new RegisterPatientCommand(person),
-            new UnregisterPatientCommand(person));
+            new RegisterStaffCommand(person),
+            new UnregisterStaffCommand(person));
     }
 
     /**

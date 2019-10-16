@@ -28,7 +28,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new AddressBook(), new AddressBook(modelManager.getPatientAddressBook()));
     }
 
     @Test
@@ -81,20 +81,20 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_nullReferenceId_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson((ReferenceId) null));
+        assertThrows(NullPointerException.class, () -> modelManager.hasPatient((ReferenceId) null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
-        assertFalse(modelManager.hasPerson(ALICE.getReferenceId()));
+        assertFalse(modelManager.hasPatient(ALICE.getReferenceId()));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
-        assertTrue(modelManager.hasPerson(ALICE.getReferenceId()));
+        assertTrue(modelManager.hasPatient(ALICE.getReferenceId()));
     }
 
     @Test
@@ -104,15 +104,18 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        AddressBook patientAddressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        AddressBook staffAddressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
         AppointmentBook appointmentBook = new AppointmentBook();
         QueueManager queueManager = new QueueManager();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, queueManager, appointmentBook);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, queueManager, appointmentBook);
+        modelManager = new ModelManager(patientAddressBook, staffAddressBook,
+            userPrefs, queueManager, appointmentBook);
+        ModelManager modelManagerCopy = new ModelManager(patientAddressBook, staffAddressBook,
+            userPrefs, queueManager, appointmentBook);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -125,8 +128,8 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, queueManager,
-                appointmentBook)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, staffAddressBook,
+            userPrefs, queueManager, appointmentBook)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -134,7 +137,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, queueManager,
-                appointmentBook)));
+        assertFalse(modelManager.equals(new ModelManager(patientAddressBook, staffAddressBook,
+            differentUserPrefs, queueManager, appointmentBook)));
     }
 }

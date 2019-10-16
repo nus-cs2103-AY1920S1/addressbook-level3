@@ -70,7 +70,7 @@ public class LogicManager implements Logic {
 
         try {
             if (!(command instanceof NonActionableCommand)) {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.savePatientAddressBook(model.getPatientAddressBook());
                 storage.saveAppointmentBook(model.getAppointmentBook());
             }
         } catch (IOException ioe) {
@@ -107,7 +107,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+        return model.getPatientAddressBook();
     }
 
     @Override

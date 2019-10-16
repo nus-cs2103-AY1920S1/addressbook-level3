@@ -4,31 +4,25 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
+import seedu.address.model.common.Identical;
 import seedu.address.model.common.ReferenceId;
-
 
 /**
  * Represents a consultation room involving a single doctor and an optional patient.
  * Guarantees: Reference Id to a doctor is immutable and validated.
  */
-public class Room {
+public class Room implements Identical<Room> {
     private final ReferenceId doctor;
     private Optional<ReferenceId> patientCurrentlyBeingServed;
-    private boolean isResting;
 
     public Room(ReferenceId doctor, Optional<ReferenceId> patient) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = patient;
-        this.isResting = false;
     }
 
     public Room(ReferenceId doctor) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = Optional.empty();
-    }
-
-    public boolean isReadyToServe() {
-        return patientCurrentlyBeingServed.isEmpty();
     }
 
     public ReferenceId getDoctor() {
@@ -47,10 +41,15 @@ public class Room {
      * Returns true if both rooms are occupied by the same staff.
      * This defines a weaker notion of equality between two consultation rooms.
      */
-    public boolean isSameRoom(Room other) {
+    public boolean isSameAs(Room other) {
         requireNonNull(other);
         return other == this // short circuit if same object
-            || doctor.equals(((Room) other).doctor);
+            || doctor.equals(other.doctor);
+    }
+
+    @Override
+    public int compareTo(Room room) {
+        return room.getDoctor().compareTo(getDoctor());
     }
 
     public void serve(ReferenceId id) {
@@ -58,7 +57,7 @@ public class Room {
     }
 
     public void rest() {
-        isResting = false;
+        patientCurrentlyBeingServed = Optional.empty();
     }
 
     /**
@@ -78,8 +77,8 @@ public class Room {
         Room o = (Room) other;
         return getDoctor().equals(o.getDoctor())
                 && getCurrentPatient().isPresent() == o.getCurrentPatient().isPresent()
-                && isResting == o.isResting
                 && (getCurrentPatient().isEmpty()
                     || getCurrentPatient().get().equals(o.getCurrentPatient().get()));
     }
+
 }

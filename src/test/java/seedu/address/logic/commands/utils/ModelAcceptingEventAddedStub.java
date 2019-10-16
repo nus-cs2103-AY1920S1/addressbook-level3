@@ -27,7 +27,7 @@ public class ModelAcceptingEventAddedStub extends ModelStub {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyAddressBook getPatientAddressBook() {
         return new AddressBook();
     }
 }

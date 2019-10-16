@@ -1,6 +1,4 @@
-package seedu.address.logic.commands.patients;
-
-import static java.util.Objects.requireNonNull;
+package seedu.address.logic.commands.staff;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
@@ -9,23 +7,25 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
-/**
- * Deletes a patient identified using it's displayed index from the address book.
- */
-public class UnregisterPatientCommand extends ReversibleCommand {
+import static java.util.Objects.requireNonNull;
 
-    public static final String COMMAND_WORD = "unregister";
+/**
+ * Deletes a staff identified using it's displayed index from the address book.
+ */
+public class UnregisterStaffCommand extends ReversibleCommand {
+
+    public static final String COMMAND_WORD = "resigndoctor";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
+            + ": Deletes the staff identified by the index number used in the displayed staff listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Resigned staff member: %1$s";
 
     private final Person toDelete;
 
-    public UnregisterPatientCommand(Person toDelete) {
+    public UnregisterStaffCommand(Person toDelete) {
         requireNonNull(toDelete);
         this.toDelete = toDelete;
     }
@@ -34,22 +34,18 @@ public class UnregisterPatientCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasExactPerson(toDelete)) {
+        if (!model.hasExactStaff(toDelete)) {
             throw new CommandException(String.format(Messages.MESSAGE_PERSON_NOT_FOUND, toDelete));
         }
 
-        if (model.isPatientInQueue(toDelete.getReferenceId())) {
-            model.removeFromQueue(toDelete.getReferenceId());
-        }
-
-        model.deletePerson(toDelete);
+        model.deleteStaff(toDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, toDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UnregisterPatientCommand // instanceof handles nulls
-                && toDelete.equals(((UnregisterPatientCommand) other).toDelete)); // state check
+                || (other instanceof UnregisterStaffCommand // instanceof handles nulls
+                && toDelete.equals(((UnregisterStaffCommand) other).toDelete)); // state check
     }
 }

@@ -45,7 +45,7 @@ public class AddAppCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (!model.hasPerson(appointment.getPersonId())) {
+        if (!model.hasPatient(appointment.getPersonId())) {
             throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, appointment.getPersonId()));
         }
         if (model.hasEvent(appointment)) {

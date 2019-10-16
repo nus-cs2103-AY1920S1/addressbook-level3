@@ -114,13 +114,14 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
         if (c.isEmpty()) {
             return false;
         }
+
+        boolean anyElementAddedToList = false;
         for (E element : c) {
-            if (!add(element)) {
-                clear();
-                return false;
+            if (add(element)) {
+                anyElementAddedToList = true;
             }
         }
-        return true;
+        return anyElementAddedToList;
     }
 
     @Override

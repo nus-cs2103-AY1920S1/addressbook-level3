@@ -24,10 +24,16 @@ import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
 import seedu.address.logic.commands.patients.RegisterPatientCommand;
 import seedu.address.logic.commands.patients.UnregisterPatientCommand;
+import seedu.address.logic.commands.staff.EditStaffDetailsCommand;
+import seedu.address.logic.commands.staff.RegisterStaffCommand;
+import seedu.address.logic.commands.staff.UnregisterStaffCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.patients.EditPatientDetailsCommandParser;
 import seedu.address.logic.parser.patients.RegisterPatientCommandParser;
 import seedu.address.logic.parser.patients.UnregisterPatientCommandParser;
+import seedu.address.logic.parser.staff.EditStaffDetailsCommandParser;
+import seedu.address.logic.parser.staff.RegisterStaffCommandParser;
+import seedu.address.logic.parser.staff.UnregisterStaffCommandParser;
 import seedu.address.model.Model;
 
 /**
@@ -71,6 +77,15 @@ public class AddressBookParser {
 
         case UnregisterPatientCommand.COMMAND_WORD:
             return new UnregisterPatientCommandParser(model).parse(arguments);
+
+        case RegisterStaffCommand.COMMAND_WORD:
+            return new RegisterStaffCommandParser().parse(arguments);
+
+        case EditStaffDetailsCommand.COMMAND_WORD:
+            return new EditStaffDetailsCommandParser(model).parse(arguments);
+
+        case UnregisterStaffCommand.COMMAND_WORD:
+            return new UnregisterStaffCommandParser(model).parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);

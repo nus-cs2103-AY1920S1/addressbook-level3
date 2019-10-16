@@ -48,7 +48,7 @@ public interface Logic {
     /**
      * Returns the AddressBook.
      *
-     * @see Model#getAddressBook()
+     * @see Model#getPatientAddressBook()
      */
     ReadOnlyAddressBook getAddressBook();
 

@@ -90,6 +90,10 @@ public class UniqueElementList<T extends Identical> implements Iterable<T> {
         }
     }
 
+    public T get(int index) {
+        return internalList.get(index);
+    }
+
     public void setAll(UniqueElementList replacement) {
         requireNonNull(replacement);
         internalList.clear();

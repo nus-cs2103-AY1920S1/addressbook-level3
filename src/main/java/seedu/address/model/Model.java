@@ -23,7 +23,6 @@ public interface Model extends ReferenceIdResolver {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<ReferenceId> PREDICATE_SHOW_ALL_ID = unused -> true;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
 
@@ -71,17 +70,17 @@ public interface Model extends ReferenceIdResolver {
 
 
 
-    //=========== AddressBook ================================================================================
+    //=========== Patient AddressBook ================================================================================
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code patientAddressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setPatientAddressBook(ReadOnlyAddressBook patientAddressBook);
 
     /**
      * Returns the AddressBook
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyAddressBook getPatientAddressBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -113,7 +112,7 @@ public interface Model extends ReferenceIdResolver {
     void setPerson(Person target, Person editedPerson);
 
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Patient List Accessors =============================================================
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -124,6 +123,61 @@ public interface Model extends ReferenceIdResolver {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+
+    //=========== Staff AddressBook ================================================================================
+
+    /**
+     * Replaces address book data with the data in {@code staffAddressBook}.
+     */
+    void setStaffAddressBook(ReadOnlyAddressBook staffAddressBook);
+
+    /**
+     * Returns the AddressBook
+     */
+    ReadOnlyAddressBook getStaffAddressBook();
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the staff address book.
+     */
+    boolean hasStaff(Person person);
+
+    /**
+     * Returns true if an exact {@code person} exists in the staff address book.
+     */
+    boolean hasExactStaff(Person person);
+
+    /**
+     * Deletes the given person.
+     * The person must exist in the staff address book.
+     */
+    void deleteStaff(Person target);
+
+    /**
+     * Adds the given person.
+     * {@code person} must not already exist in the staff address book.
+     */
+    void addStaff(Person person);
+
+    /**
+     * Replaces the given person {@code target} with {@code editedPerson}.
+     * {@code target} must exist in the staff address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    void setStaff(Person target, Person editedPerson);
+
+
+    //=========== Filtered Person List Accessors =============================================================
+
+    /** Returns an unmodifiable view of the filtered staff list */
+    ObservableList<Person> getFilteredStaffList();
+
+    /**
+     * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredStaffList(Predicate<Person> predicate);
 
     //=========== Queue Manager ==================================================================================
 
