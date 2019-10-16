@@ -131,7 +131,6 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
     public int[] getStats() {
         return addressBook.getStats();
     }
