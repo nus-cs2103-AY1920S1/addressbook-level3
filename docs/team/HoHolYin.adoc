@@ -1,0 +1,84 @@
+=Ho Hol Yin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: LiBerry
+
+---
+
+== About the Project
+
+//Change to one line later
+My team believes in a right to education for everyone. With a common belief to improve literacy in the world,
+we decided to create a library management system called 'LiBerry' that is free and easy to use for all,
+thereby promoting literacy.
+'LiBerry' is designed for smaller communities where there is a lack of expertise and resources to manage a library.
+This library management system is able to add and remove books to and from the library. It is also able to register
+borrowers and mark a book as loaned to a borrower. On top of it, it is also able to automatically calculate loan
+periods and fines for any overdue loans.
+
+This is what our system looks like:
+image::Ui.png[width="150", align="center"]
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to add books*
+** What it does: allows the user to add books to the system.
+** Justification: This feature is a core functionality of any library management system and will greatly enhance the efficiency of the system if implemented and designed well.
+** Highlights: This implementation is slightly challenging. This is mainly because of four requirements we set for ourselves, which will require us to implement an efficient way of storing the books and their serial numbers.
+*** We want our system to be able to support up to 10,000 books
+*** We require all books to have a unique serial number tagged to it
+*** We allow librarians to assign books any custom serial number that is valid to a new book addition should they wish so.
+*** We want all input commands to return results in less than 1 second
+** Credits: This feature is adapted from the 'add person' feature from Address Book 3, but there are many changes to it to allow books to be loaned or tagged with a unique serial number, for instance.
+
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+//include::../UserGuide.adoc[tag=delete]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
