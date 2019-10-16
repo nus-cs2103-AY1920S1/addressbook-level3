@@ -11,8 +11,8 @@ import com.typee.commons.core.index.Index;
 import com.typee.commons.util.CollectionUtil;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.Model;
+import com.typee.model.engagement.Engagement;
 import com.typee.model.person.Name;
-import com.typee.model.person.Person;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -32,51 +32,53 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditEngagementDescriptor editEngagementDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditEngagementDescriptor editPersonDescriptor) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editEngagementDescriptor = new EditEngagementDescriptor(editPersonDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Engagement> lastShownList = model.getFilteredEngagementList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Engagement engagementToEdit = lastShownList.get(index.getZeroBased());
+        Engagement editedEngagement = createEditedEngagement(engagementToEdit, editEngagementDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if (!engagementToEdit.isSameEngagement(editedEngagement) && model.hasEngagement(editedEngagement)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
-        model.saveAppointmentList();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        model.setEngagement(engagementToEdit, editedEngagement);
+        model.updateFilteredEngagementList(Model.PREDICATE_SHOW_ALL_ENGAGEMENTS);
+        model.saveEngagementList();
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedEngagement));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Engagement createEditedEngagement(Engagement engagementToEdit,
+                                                     EditEngagementDescriptor editEngagementDescriptor) {
+        assert engagementToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        return new Person(updatedName);
+        //Name updatedName = editEngagementDescriptor.getName().orElse(engagementToEdit.getName());
+        //return new Person(updatedName);
+        return engagementToEdit;
     }
 
     @Override
@@ -94,23 +96,23 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editEngagementDescriptor.equals(e.editEngagementDescriptor);
     }
 
     /**
      * Stores the details to edit the person with. Each non-empty field value will replace the
      * corresponding field value of the person.
      */
-    public static class EditPersonDescriptor {
+    public static class EditEngagementDescriptor {
         private Name name;
 
-        public EditPersonDescriptor() {}
+        public EditEngagementDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditEngagementDescriptor(EditEngagementDescriptor toCopy) {
             setName(toCopy.name);
         }
 
@@ -137,12 +139,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditEngagementDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditEngagementDescriptor e = (EditEngagementDescriptor) other;
 
             return getName().equals(e.getName());
         }

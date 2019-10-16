@@ -1,67 +1,84 @@
 package com.typee.model.engagement;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
-import com.typee.model.person.Person;
 
 /**
  * Represents a generalization of meetings, interviews and appointments.
  */
-public class Engagement {
-    protected LocalDateTime start;
-    protected LocalDateTime end;
-    //future modification of Person class is required -- Ko Gi Hun
-    protected List<Person> managers;
-    protected List<Person> attendees;
+public abstract class Engagement {
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
+    protected AttendeeList attendees;
     protected Location location;
     protected String description;
     protected Priority priority;
 
-    protected Engagement(LocalDateTime start, LocalDateTime end, List<Person> managers,
-                      List<Person> attendees, Location location, String description, Priority priority) {
-        this.start = start;
-        this.end = end;
-        this.managers = managers;
+    /**
+     * Constructs an engagement.
+     *
+     * @param start start time of the engagement.
+     * @param end end time of the engagement.
+     * @param attendees list of people attending.
+     * @param location location of the engagement.
+     * @param description description of the engagement.
+     * @param priority priority level of the engagement.
+     */
+    protected Engagement(LocalDateTime start, LocalDateTime end,
+                         AttendeeList attendees, Location location, String description, Priority priority) {
+        this.startTime = start;
+        this.endTime = end;
         this.attendees = attendees;
         this.location = location;
         this.description = description;
         this.priority = priority;
     }
 
-    public Engagement makeEngagement(String userInput) {
-        return null;
+    /**
+     * Returns a {@code Meeting}, {@code Interview}, or {@code Appointment} with the given fields.
+     * @param type type of engagement.
+     * @param start start time.
+     * @param end end time.
+     * @param attendees list of people attending.
+     * @param location location of engagement.
+     * @param description description of the engagement.
+     * @param priority priority level of the engagement.
+     *
+     * @return an {@code Engagement} with the corresponding fields.
+     */
+    public static Engagement of(EngagementType type,
+                                LocalDateTime start, LocalDateTime end,
+                                AttendeeList attendees, Location location, String description,
+                                Priority priority) {
+        if (type.name().equalsIgnoreCase("meeting")) {
+            return new Meeting(start, end, attendees, location, description, priority);
+        } else if (type.name().equalsIgnoreCase("interview")) {
+            return new Interview(start, end, attendees, location, description, priority);
+        } else {
+            return new Appointment(start, end, attendees, location, description, priority);
+        }
     }
 
-    public LocalDateTime getStart() {
-        return start;
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
-    public void setStart(LocalDateTime start) {
-        this.start = start;
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 
-    public LocalDateTime getEnd() {
-        return end;
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 
-    public void setEnd(LocalDateTime end) {
-        this.end = end;
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
-    public List<Person> getManagers() {
-        return managers;
-    }
-
-    public void setManagers(List<Person> managers) {
-        this.managers = managers;
-    }
-
-    public List<Person> getAttendees() {
+    public AttendeeList getAttendees() {
         return attendees;
     }
 
-    public void setAttendees(List<Person> attendees) {
+    public void setAttendees(AttendeeList attendees) {
         this.attendees = attendees;
     }
 
@@ -87,5 +104,17 @@ public class Engagement {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    /**
+     * Checks if this {@code Engagement} clashes with another one.
+     *
+     * @param engagement the {@code Engagement} to check for a clash.
+     * @return true if there is a clash.
+     */
+    public boolean isSameEngagement(Engagement engagement) {
+        return engagement.endTime.equals(endTime)
+                && engagement.startTime.equals(startTime)
+                && engagement.location.equals(location);
     }
 }
