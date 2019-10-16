@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.expenditure.edit;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -8,8 +10,9 @@ import seedu.address.model.appstatus.PageType;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Placeholder.
+ */
 public class DoneEditExpenditureCommand extends Command {
     public static final String COMMAND_WORD = "done";
 
@@ -22,7 +25,8 @@ public class DoneEditExpenditureCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        EditExpenditureFieldCommand.EditExpenditureDescriptor editExpenditureDescriptor = model.getPageStatus().getEditExpenditureDescriptor();
+        EditExpenditureFieldCommand.EditExpenditureDescriptor editExpenditureDescriptor = model.getPageStatus()
+                .getEditExpenditureDescriptor();
         Expenditure expenditureToEdit = model.getPageStatus().getExpenditure();
         Expenditure expenditureToAdd;
 

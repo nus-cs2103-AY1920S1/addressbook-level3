@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import seedu.address.model.booking.Booking;
-import seedu.address.model.inventory.Inventory;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 

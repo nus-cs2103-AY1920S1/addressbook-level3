@@ -1,5 +1,13 @@
 package seedu.address.logic.commands.expenditure.edit;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.isAllPresent;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.util.Optional;
+
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -10,16 +18,12 @@ import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Name;
 
-import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.isAllPresent;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY_NUMBER;
-
-
-public class EditExpenditureFieldCommand extends Command  {
+/**
+ *
+ * Constructs a command that attempts to modify the current values in the edit expenditure page.
+ *
+ */
+public class EditExpenditureFieldCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of your form "
@@ -34,12 +38,12 @@ public class EditExpenditureFieldCommand extends Command  {
     public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!";
     public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
 
-    private final EditExpenditureFieldCommand.EditExpenditureDescriptor editExpenditureDescriptor;
+    private final EditExpenditureDescriptor editExpenditureDescriptor;
 
     /**
      * @param editExpenditureDescriptor details to edit the expenditure with
      */
-    public EditExpenditureFieldCommand(EditExpenditureFieldCommand.EditExpenditureDescriptor editExpenditureDescriptor) {
+    public EditExpenditureFieldCommand(EditExpenditureDescriptor editExpenditureDescriptor) {
         requireNonNull(editExpenditureDescriptor);
 
         this.editExpenditureDescriptor = editExpenditureDescriptor;
@@ -232,7 +236,7 @@ public class EditExpenditureFieldCommand extends Command  {
             }
 
             // state check
-            EditExpenditureFieldCommand.EditExpenditureDescriptor e = (EditExpenditureFieldCommand.EditExpenditureDescriptor) other;
+            EditExpenditureDescriptor e = (EditExpenditureDescriptor) other;
 
             return getName().equals(e.getName())
                     && getBudget().equals(e.getBudget())

@@ -1,5 +1,9 @@
 package seedu.address.ui.expenditure;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -14,7 +18,6 @@ import seedu.address.ui.components.form.DoubleFormItem;
 import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.template.Page;
 
-import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * WARNING INCOMEPLETE: TODO: FIELDS FOR INVENTORY AND BOOKING.

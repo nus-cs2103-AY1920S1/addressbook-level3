@@ -78,7 +78,8 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
                                 public void handle(javafx.scene.input.MouseEvent event) {
                                     if (events.get(index.getZeroBased()).getExpenditure().isPresent()) {
                                         totalBudgetLabel.setText("Total Budget: "
-                                                + events.get(index.getZeroBased()).getExpenditure().get().getBudget().toString());
+                                                + events.get(index.getZeroBased()).getExpenditure().get().getBudget()
+                                                .toString());
                                     } else {
                                         totalBudgetLabel.setText("NO BUDGET SET");
                                     }

@@ -7,7 +7,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Generic abstraction of day number.
  */
 public class DayNumber {
-    public static final String MESSAGE_CONSTRAINTS = "Day number can take any positive integer and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Day number can take any positive integer "
+            + "and it should not be blank";
 
     /*
      * The first character of the dayNumber must not be a whitespace,

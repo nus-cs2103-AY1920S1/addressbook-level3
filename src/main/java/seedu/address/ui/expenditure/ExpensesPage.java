@@ -1,5 +1,9 @@
 package seedu.address.ui.expenditure;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -16,10 +20,6 @@ import seedu.address.ui.MainWindow;
 import seedu.address.ui.components.NavigationSidebarLeft;
 import seedu.address.ui.components.NavigationSidebarRight;
 import seedu.address.ui.template.PageWithSidebar;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * {@code Page} for displaying the expenditure details.
@@ -39,7 +39,7 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> {
 
     @FXML
     private Label budgetLeftLabel;
-    
+
     @FXML
     private VBox sideBarLeft;
 

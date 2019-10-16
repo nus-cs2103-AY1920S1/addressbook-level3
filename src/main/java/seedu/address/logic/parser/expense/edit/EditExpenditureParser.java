@@ -1,13 +1,13 @@
 package seedu.address.logic.parser.expense.edit;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.expenditure.edit.CancelEditExpenditureCommand;
 import seedu.address.logic.commands.expenditure.edit.DoneEditExpenditureCommand;
 import seedu.address.logic.commands.expenditure.edit.EditExpenditureFieldCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
 
 /**
  * Placeholder javadoc.

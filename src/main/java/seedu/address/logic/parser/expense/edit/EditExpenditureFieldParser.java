@@ -1,5 +1,13 @@
 package seedu.address.logic.parser.expense.edit;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.util.Optional;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.expenditure.edit.EditExpenditureFieldCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -8,11 +16,6 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.expense.ExpenditureParserUtil;
-
-import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Placeholder javadoc.
@@ -61,7 +64,8 @@ public class EditExpenditureFieldParser implements Parser<EditExpenditureFieldCo
                     ExpenditureParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get()));
         }
         if (argMultimap.getValue(PREFIX_DAY_NUMBER).isPresent()) {
-            editExpenditureDescriptor.setDayNumber(ExpenditureParserUtil.parseDayNumber(argMultimap.getValue(PREFIX_DAY_NUMBER).get()));
+            editExpenditureDescriptor.setDayNumber(ExpenditureParserUtil.parseDayNumber(argMultimap
+                    .getValue(PREFIX_DAY_NUMBER).get()));
         }
         if (!editExpenditureDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditExpenditureFieldCommand.MESSAGE_NOT_EDITED);

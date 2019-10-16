@@ -1,19 +1,20 @@
 package seedu.address.model.expenditure;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Iterator;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.expenditure.exceptions.DuplicateExpenditureException;
 import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 
-import java.util.Iterator;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * List containing {@code Expenditure}s.
+ */
 public class ExpenditureList implements Iterable<Expenditure> {
 
     public final ObservableList<Expenditure> internalList = FXCollections.observableArrayList();
@@ -43,7 +44,7 @@ public class ExpenditureList implements Iterable<Expenditure> {
     /**
      * Replaces the expenditure {@code target} in the list with {@code editedExpenditure}.
      * {@code target} must exist in the list.
-     * The expenditure identity of {@code editedExpenditure} must not be the same as another existing expenditure in the list.
+     * The expenditure identity of {@code editedExpenditure} must not be the same as another in the list.
      */
     public void set(Expenditure target, Expenditure edited) throws ExpenditureNotFoundException {
         requireAllNonNull(target, edited);

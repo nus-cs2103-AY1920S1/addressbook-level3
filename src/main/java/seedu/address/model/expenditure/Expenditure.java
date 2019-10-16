@@ -1,11 +1,11 @@
 package seedu.address.model.expenditure;
 
-import seedu.address.model.itinerary.Budget;
-import seedu.address.model.itinerary.Name;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Optional;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.itinerary.Budget;
+import seedu.address.model.itinerary.Name;
 
 /**
  * Generic abstraction of expenditure.

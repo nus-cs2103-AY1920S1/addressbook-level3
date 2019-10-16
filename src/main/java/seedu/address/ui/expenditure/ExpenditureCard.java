@@ -1,5 +1,7 @@
 package seedu.address.ui.expenditure;
 
+import java.util.Optional;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -9,7 +11,6 @@ import seedu.address.model.expenditure.DayNumber;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.ui.UiPart;
 
-import java.util.Optional;
 
 /**
  * TODO: Implement display for inventory and booking labels.
@@ -46,7 +47,7 @@ public class ExpenditureCard extends UiPart<HBox> {
         nameLabel.setText(expenditure.getName().toString());
         budgetLabel.setText(" $" + expenditure.getBudget().toString());
         Optional<DayNumber> day = expenditure.getDayNumber();
-        if(day.isPresent()) {
+        if (day.isPresent()) {
             dayLabel.setText("  (Day " + day.get().toString() + ")");
         } else {
             dayLabel.setText("");

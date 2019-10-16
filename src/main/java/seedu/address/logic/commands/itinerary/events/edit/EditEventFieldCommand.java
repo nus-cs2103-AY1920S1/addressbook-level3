@@ -192,20 +192,21 @@ public class EditEventFieldCommand extends Command {
          * Requires name, startDate, destination to have been set minimally.
          * Uses the Optional constructor for event to accommodate missing optional fields.
          *
-         * @return New {@code Event} created.
          * @param model Source {@code Model} instance.
+         * @return New {@code Event} created.
          * @throws NullPointerException If any of the fields are empty.
          */
         public Event buildEvent(Model model) {
             if (isAllPresent(name, startDate, endDate, destination)) {
                 Optional<Expenditure> expenditure = Optional.empty();
-                if(totalBudget.isPresent()) {
+                if (totalBudget.isPresent()) {
                     DayList list = model.getPageStatus().getTrip().getDayList();
                     Day day = model.getPageStatus().getDay();
                     int index = list.internalList.indexOf(day);
-                    Expenditure newExpenditure = new Expenditure(name.get(), totalBudget.get(), new DayNumber(Integer.toString(index + 1)), false);
+                    Expenditure newExpenditure = new Expenditure(name.get(), totalBudget.get(),
+                            new DayNumber(Integer.toString(index + 1)), false);
                     expenditure = Optional.of(newExpenditure);
-                };
+                }
                 return new Event(name.get(), startDate.get(), endDate.get(), expenditure, destination.get());
             } else {
                 throw new NullPointerException();
@@ -243,11 +244,13 @@ public class EditEventFieldCommand extends Command {
                 destination = this.destination.get();
             }
             if (this.totalBudget.isPresent()) {
-                if(expenditure.isPresent()){
+                if (expenditure.isPresent()) {
                     model.getPageStatus().getTrip().getExpenditureList().remove(expenditure.get());
                 }
-                int index = model.getPageStatus().getTrip().getDayList().internalList.indexOf(model.getPageStatus().getDay());
-                Expenditure newExpenditure = new Expenditure(eventName, this.totalBudget.get(), new DayNumber(Integer.toString(index)), false);
+                int index = model.getPageStatus().getTrip().getDayList()
+                        .internalList.indexOf(model.getPageStatus().getDay());
+                Expenditure newExpenditure = new Expenditure(eventName, this.totalBudget.get(),
+                        new DayNumber(Integer.toString(index)), false);
                 expenditure = Optional.of(newExpenditure);
             }
             if (this.inventory.isPresent()) {

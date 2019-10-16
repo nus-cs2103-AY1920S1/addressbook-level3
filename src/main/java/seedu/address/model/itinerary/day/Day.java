@@ -3,8 +3,8 @@ package seedu.address.model.itinerary.day;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Budget;
+import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.EventList;

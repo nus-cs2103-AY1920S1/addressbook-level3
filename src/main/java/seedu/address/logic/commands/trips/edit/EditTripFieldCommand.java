@@ -206,7 +206,8 @@ public class EditTripFieldCommand extends Command {
                 budget = this.totalBudget.get();
             }
 
-            return new Trip(tripName, startDate, endDate, destination, budget, trip.getDayList(), trip.getExpenditureList());
+            return new Trip(tripName, startDate, endDate, destination, budget, trip.getDayList(),
+                    trip.getExpenditureList());
         }
 
         /**

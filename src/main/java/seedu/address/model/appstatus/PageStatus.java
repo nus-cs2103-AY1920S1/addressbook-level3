@@ -26,9 +26,11 @@ public class PageStatus {
     private final EditExpenditureFieldCommand.EditExpenditureDescriptor editExpenditureDescriptor;
 
     public PageStatus(PageType pageType, Trip trip, Day day,
-                      Event event, Expenditure expenditure, EditTripDescriptor editTripDescriptor, EditPrefsDescriptor editPrefsDescriptor,
+                      Event event, Expenditure expenditure, EditTripDescriptor editTripDescriptor,
+                      EditPrefsDescriptor editPrefsDescriptor,
                       EditDayFieldCommand.EditDayDescriptor editDayDescriptor,
-                      EditEventFieldCommand.EditEventDescriptor editEventDescriptor, EditExpenditureFieldCommand.EditExpenditureDescriptor editExpenditureDescriptor) {
+                      EditEventFieldCommand.EditEventDescriptor editEventDescriptor,
+                      EditExpenditureFieldCommand.EditExpenditureDescriptor editExpenditureDescriptor) {
         this.pageType = pageType;
         this.trip = trip;
         this.day = day;
@@ -49,7 +51,8 @@ public class PageStatus {
      */
     public PageStatus withNewPageType(PageType pageType) {
         return new PageStatus(pageType, getTrip(), getDay(), getEvent(), getExpenditure(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), getEditExpenditureDescriptor());
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor());
     }
 
     /**
@@ -60,7 +63,8 @@ public class PageStatus {
      */
     public PageStatus withNewTrip(Trip trip) {
         return new PageStatus(getPageType(), trip, getDay(), getEvent(), getExpenditure(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), getEditExpenditureDescriptor());
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor());
     }
 
     /**
@@ -71,7 +75,8 @@ public class PageStatus {
      */
     public PageStatus withNewDay(Day day) {
         return new PageStatus(getPageType(), getTrip(), day, getEvent(), getExpenditure(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), getEditExpenditureDescriptor());
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor());
     }
 
     /**
@@ -82,7 +87,8 @@ public class PageStatus {
      */
     public PageStatus withNewEvent(Event event) {
         return new PageStatus(getPageType(), getTrip(), getDay(), event, getExpenditure(), getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), getEditExpenditureDescriptor());
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor());
     }
 
     /**
@@ -93,7 +99,8 @@ public class PageStatus {
      */
     public PageStatus withNewExpenditure(Expenditure expenditure) {
         return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), expenditure, getEditTripDescriptor(),
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), getEditExpenditureDescriptor());
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor());
     }
 
     public PageStatus withResetTrip() {
@@ -120,7 +127,8 @@ public class PageStatus {
      */
     public PageStatus withNewEditTripDescriptor(EditTripDescriptor editTripDescriptor) {
         return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getExpenditure(), editTripDescriptor,
-                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), getEditExpenditureDescriptor());
+                getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(),
+                getEditExpenditureDescriptor());
     }
 
     /**
@@ -162,7 +170,8 @@ public class PageStatus {
      * @param editExpenditureDescriptor editExpenditureDescriptor to use.
      * @return The new PageStatus instance.
      */
-    public PageStatus withNewEditExpenditureDescriptor(EditExpenditureFieldCommand.EditExpenditureDescriptor editExpenditureDescriptor) {
+    public PageStatus withNewEditExpenditureDescriptor(EditExpenditureFieldCommand.EditExpenditureDescriptor
+                                                               editExpenditureDescriptor) {
         return new PageStatus(getPageType(), getTrip(), getDay(), getEvent(), getExpenditure(), getEditTripDescriptor(),
                 getEditPrefsDescriptor(), getEditDayDescriptor(), getEditEventDescriptor(), editExpenditureDescriptor);
     }

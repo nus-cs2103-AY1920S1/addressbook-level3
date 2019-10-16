@@ -45,14 +45,14 @@ public class DoneEditEventCommand extends Command {
                 //NullPointerException is caught below
                 eventToAdd = editEventDescriptor.buildEvent(model);
                 model.getPageStatus().getDay().getEventList().add(eventToAdd);
-                if(eventToAdd.getExpenditure().isPresent()){
+                if (eventToAdd.getExpenditure().isPresent()) {
                     model.getPageStatus().getTrip().getExpenditureList().add(eventToAdd.getExpenditure().get());
                 }
             } else {
                 //edit the current "selected" event
                 eventToAdd = editEventDescriptor.buildEvent(eventToEdit, model);
                 model.getPageStatus().getDay().getEventList().set(eventToEdit, eventToAdd);
-                if(eventToAdd.getExpenditure().isPresent()){
+                if (eventToAdd.getExpenditure().isPresent()) {
                     model.getPageStatus().getTrip().getExpenditureList().add(eventToAdd.getExpenditure().get());
                 }
             }

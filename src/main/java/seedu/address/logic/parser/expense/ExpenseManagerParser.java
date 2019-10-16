@@ -1,5 +1,7 @@
 package seedu.address.logic.parser.expense;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.expenditure.DeleteExpenditureCommand;
 import seedu.address.logic.commands.expenditure.EnterCreateExpenditureCommand;
@@ -12,8 +14,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.sidebar.EnterDayPageParser;
 import seedu.address.logic.parser.sidebar.EnterItineraryPageParser;
 import seedu.address.logic.parser.sidebar.EnterTripManagerParser;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
 
 /**
  * Parses commands related to the expense manager page.

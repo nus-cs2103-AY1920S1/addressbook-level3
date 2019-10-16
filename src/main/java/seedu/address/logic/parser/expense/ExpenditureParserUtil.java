@@ -1,11 +1,11 @@
 package seedu.address.logic.parser.expense;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expenditure.DayNumber;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Name;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Collection of methods for parsing expense's abstractions.
