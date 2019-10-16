@@ -52,6 +52,14 @@ public class HelpCommand extends Command {
         command = null;
     }
 
+    /**
+     * Gets the help message
+     */
+
+    public static String getHelpMessage() {
+        return helpMessage;
+    }
+
     @Override
     public CommandResult execute(Model model) throws IOException {
 
