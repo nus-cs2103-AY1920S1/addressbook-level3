@@ -8,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
+import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.addressbook.person.Email;
 import seedu.deliverymans.model.addressbook.person.Name;
 import seedu.deliverymans.model.addressbook.person.Phone;
-import seedu.deliverymans.model.addressbook.tag.Tag;
 import seedu.deliverymans.model.order.Order;
 
 /**

@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path customerDatabaseFilePath = Paths.get("data", "customerdatabase.json");
     private Path restaurantDatabaseFilePath = Paths.get("data" , "restaurantdatabase.json");
     private Path orderBookFilePath = Paths.get("data" , "orderbook.json");
     private Path deliverymenDatabaseFilePath = Paths.get("data" , "deliverymendatabase.json");
@@ -39,6 +40,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setCustomerDatabaseFilePath(newUserPrefs.getCustomerDatabaseFilePath());
         setRestaurantDatabaseFilePath(newUserPrefs.getRestaurantDatabaseFilePath());
         setOrderBookFilePath(newUserPrefs.getOrderBookFilePath());
         setDeliverymenDatabaseFilePath(newUserPrefs.getDeliverymenDatabaseFilePath());
@@ -60,6 +62,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public Path getCustomerDatabaseFilePath() {
+        return customerDatabaseFilePath;
+    }
+
+    public void setCustomerDatabaseFilePath(Path customerDatabaseFilePath) {
+        requireNonNull(customerDatabaseFilePath);
+        this.customerDatabaseFilePath = customerDatabaseFilePath;
     }
 
     public Path getRestaurantDatabaseFilePath() {
