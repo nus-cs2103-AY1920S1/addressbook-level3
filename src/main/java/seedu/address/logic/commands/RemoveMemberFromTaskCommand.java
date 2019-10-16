@@ -15,13 +15,10 @@ import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
 
-/**
- * Adds a task to member to be responsible for
- */
-public class AddTaskToMemberCommand extends Command {
-    public static final String COMMAND_WORD = "assign-task";
+public class RemoveMemberFromTaskCommand extends Command {
+    public static final String COMMAND_WORD = "fire-member";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task indicated "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a member indicated "
             + "by the index number used in the displayed task list, to the member indicated "
             + "by the member ID. \n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -31,7 +28,8 @@ public class AddTaskToMemberCommand extends Command {
             + PREFIX_TASK_INDEX + " 2 "
             + PREFIX_MEMBER_ID + " JD";
 
-    public static final String MESSAGE_ASSIGN_TASK_SUCCESS = "Set task for member: %1$s";
+    public static final String MESSAGE_REMOVE_TASK_SUCCESS = "Removes task for member: %1$s";
+    public static final String MESSAGE_INVALID_TASK_ID = "This task does not exist under member.";
 
     private final Index taskId;
     private final MemberId memberId;
@@ -40,9 +38,8 @@ public class AddTaskToMemberCommand extends Command {
      * @param taskId of the task in the filtered task list to be added to member
      * @param memberId of the member involved
      */
-    public AddTaskToMemberCommand(Index taskId, MemberId memberId) {
+    public RemoveMemberFromTaskCommand(Index taskId, MemberId memberId) {
         requireNonNull(memberId);
-        requireNonNull(taskId);
 
         this.taskId = taskId;
         this.memberId = memberId;
@@ -53,19 +50,18 @@ public class AddTaskToMemberCommand extends Command {
         requireNonNull(model);
         List<Task> lastShownTaskList = model.getFilteredTasksList();
         List<Member> lastShownMemberList = model.getFilteredMembersList();
-        List<Mapping> lastShownMappingList = model.getFilteredMappingsList();
 
         if (taskId.getZeroBased() >= lastShownTaskList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         boolean contains = false;
-        Member involvedMember = null;
+        Member memberToRemove = null;
 
         for (int i = 0; i < lastShownMemberList.size(); i++) {
             if (lastShownMemberList.get(i).getId() == memberId) {
                 contains = true;
-                involvedMember = lastShownMemberList.get(i);
+                memberToRemove = lastShownMemberList.get(i);
                 break;
             }
         }
@@ -74,11 +70,10 @@ public class AddTaskToMemberCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_ID);
         }
 
-        Task taskToAdd = lastShownTaskList.get(taskId.getZeroBased());
-        Mapping mappingToAdd = createMapping(involvedMember, taskToAdd);
-        model.addMapping(mappingToAdd);
-
-        return new CommandResult(String.format(MESSAGE_ASSIGN_TASK_SUCCESS, involvedMember));
+        Task involvedTask = lastShownTaskList.get(taskId.getZeroBased());
+        Mapping mappingToRemove = createMapping(memberToRemove, involvedTask);
+        model.deleteMapping(mappingToRemove);
+        return new CommandResult(String.format(MESSAGE_REMOVE_TASK_SUCCESS, involvedTask));
     }
 
     /**
@@ -100,12 +95,12 @@ public class AddTaskToMemberCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddTaskToMemberCommand)) {
+        if (!(other instanceof RemoveMemberFromTaskCommand)) {
             return false;
         }
 
         // state check
-        AddTaskToMemberCommand e = (AddTaskToMemberCommand) other;
+        RemoveMemberFromTaskCommand e = (RemoveMemberFromTaskCommand) other;
         return memberId.equals(e.memberId)
                 && taskId.equals(e.taskId);
     }

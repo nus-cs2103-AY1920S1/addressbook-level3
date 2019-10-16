@@ -12,6 +12,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.member.MemberName;
@@ -22,7 +23,7 @@ import seedu.address.model.task.Task;
  * Removes a task that member was responsible for
  */
 public class RemoveTaskFromMemberCommand extends Command {
-    public static final String COMMAND_WORD = "fire";
+    public static final String COMMAND_WORD = "fire-task";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a task indicated "
             + "by the index number used in the displayed task list, to the member indicated "
@@ -71,31 +72,26 @@ public class RemoveTaskFromMemberCommand extends Command {
                 break;
             }
         }
+
         if (!contains) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_ID);
         }
 
-        Member updatedMember = createUpdatedMember(involvedMember, taskId.getZeroBased());
-
-        model.setMember(involvedMember, updatedMember);
-        model.updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
-
-        return new CommandResult(String.format(MESSAGE_REMOVE_TASK_SUCCESS, updatedMember));
+        Task taskToRemove = lastShownTaskList.get(taskId.getZeroBased());
+        Mapping mappingToRemove = createMapping(involvedMember, taskToRemove);
+        model.deleteMapping(mappingToRemove);
+        return new CommandResult(String.format(MESSAGE_REMOVE_TASK_SUCCESS, involvedMember));
     }
 
     /**
      * Creates and returns a {@code Task} with the details of {@code taskToUpdate}
      * where TaskStatus is updated to 'In Progress".
      */
-    private static Member createUpdatedMember(Member involvedMember, int taskId) throws CommandException {
+    private static Mapping createMapping(Member involvedMember, Task taskToAdd) {
+        assert taskToAdd != null;
         assert involvedMember != null;
 
-        MemberName name = involvedMember.getName();
-        MemberId id = involvedMember.getId();
-        Set<Tag> tags = involvedMember.getTags();
-        Member updatedMember = new Member(name, id, tags);
-        updatedMember.removeTask(taskId);
-        return updatedMember;
+        return new Mapping(involvedMember, taskToAdd);
     }
 
     @Override

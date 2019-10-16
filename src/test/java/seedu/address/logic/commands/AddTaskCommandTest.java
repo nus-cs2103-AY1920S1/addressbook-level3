@@ -249,6 +249,16 @@ public class AddTaskCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void replaceExistingMappingsWithNewMember(Member oldMember, Member newMember) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
