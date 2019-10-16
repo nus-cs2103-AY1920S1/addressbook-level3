@@ -16,12 +16,14 @@ import seedu.address.logic.parser.diary.DiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.expense.ExpenseManagerParser;
 import seedu.address.logic.parser.expense.edit.EditExpenditureParser;
-import seedu.address.logic.parser.inventory.InventoryParser;
+import seedu.address.logic.parser.inventory.InventoryViewParser;
 import seedu.address.logic.parser.itinerary.dayview.DayViewParser;
 import seedu.address.logic.parser.itinerary.dayview.edit.EditDayParser;
 import seedu.address.logic.parser.itinerary.eventview.EventViewParser;
 import seedu.address.logic.parser.itinerary.eventview.edit.EditEventParser;
 import seedu.address.logic.parser.itinerary.overallview.ItineraryViewParser;
+import seedu.address.logic.parser.navbar.NavbarCommand;
+import seedu.address.logic.parser.navbar.NavbarViewParser;
 import seedu.address.logic.parser.preferences.PreferencesParser;
 import seedu.address.logic.parser.trips.TripManagerParser;
 import seedu.address.logic.parser.trips.edit.EditTripParser;
@@ -30,14 +32,14 @@ import seedu.address.model.appstatus.PageType;
 
 /**
  * Parses user input.
- *
  */
 public class TravelPalParser {
 
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT =
+            Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)", Pattern.DOTALL);
 
     /** Message to display when the command for the page has not been implemented. */
     private static final String UNKNOWN_PAGE_MESSAGE = "The commands for the page have not been implemented yet!";
@@ -62,7 +64,7 @@ public class TravelPalParser {
         final String commandWord = matcher.group("commandWord").toUpperCase();
         final String arguments = matcher.group("arguments");
 
-        PageParser commonParser;
+        PageParser<Command> commonParser;
 
         try {
             Command commonCommand = new CommonParser().parse(commandWord, arguments);
@@ -85,25 +87,50 @@ public class TravelPalParser {
         case ADD_EVENT:
             return new EditEventParser().parse(commandWord, arguments);
         case ITINERARY:
-            return new ItineraryViewParser().parse(commandWord, arguments);
+            return parseNavbarPageCommand(commandWord, arguments, new ItineraryViewParser(), NavbarCommand.ITINERARY);
         case OVERALL_VIEW:
-            return new DayViewParser().parse(commandWord, arguments);
+            return parseNavbarPageCommand(commandWord, arguments, new DayViewParser(), NavbarCommand.DAYS);
         case EVENT_PAGE:
             return new EventViewParser().parse(commandWord, arguments);
         case PRETRIP_INVENTORY:
-            return new InventoryParser().parse(commandWord, arguments);
+            return parseNavbarPageCommand(commandWord, arguments, new InventoryViewParser(), NavbarCommand.DAYS);
         case EXPENSE_MANAGER:
-            return new ExpenseManagerParser().parse(commandWord, arguments);
+            return parseNavbarPageCommand(commandWord, arguments, new ExpenseManagerParser(), NavbarCommand.DAYS);
         case ADD_EXPENDITURE:
-            return new EditExpenditureParser().parse(commandWord, arguments);
+            return parseNavbarPageCommand(commandWord, arguments, new EditExpenditureParser(), NavbarCommand.DAYS);
         case DIARY:
-            return new DiaryParser().parse(commandWord, arguments);
+            return parseNavbarPageCommand(commandWord, arguments, new DiaryParser(), NavbarCommand.DIARY);
         case CONTACTS_MANAGER:
-            return new ContactsParser().parse(commandWord, arguments);
+            return parseNavbarPageCommand(commandWord, arguments, new ContactsParser(), NavbarCommand.DAYS);
         case BOOKINGS:
-            return new BookingsParser().parse(commandWord, arguments);
+            return parseNavbarPageCommand(commandWord, arguments, new BookingsParser(), NavbarCommand.DAYS);
         default:
             throw new ParseException(UNKNOWN_PAGE_MESSAGE);
+        }
+    }
+
+    /**
+     * Tries to use the {@link NavbarViewParser} to parse the {@code commandWord} and {@code arguments},
+     * failing which, the {@code altPageParser} is used.
+     * This method, with {@link NavbarCommand} and {@link NavbarViewParser} handles parsing for pages
+     * where it is possible to execute navbar navigation commands.
+     *
+     * @param commandWord The String command word to parse.
+     * @param arguments The String arguments to parse.
+     * @param altPageParser The alternative {@link PageParser} to use if NavbarViewParser fails.
+     * @param precludedPage The {@link NavbarCommand} page to preclude from navigating to.
+     * @return The parsed {@link Command}.
+     * @throws ParseException If the alternate page parser fails to parse the given commandWord or arguments.
+     */
+    private Command parseNavbarPageCommand(String commandWord, String arguments,
+            PageParser altPageParser, NavbarCommand precludedPage) throws ParseException {
+        try {
+            NavbarViewParser navbarViewParser = new NavbarViewParser(precludedPage);
+            Command command = navbarViewParser.parse(commandWord, arguments);
+            return command;
+        } catch (ParseException ex) {
+            logger.info("User command executed was not a navbar command.");
+            return altPageParser.parse(commandWord, arguments);
         }
     }
 }

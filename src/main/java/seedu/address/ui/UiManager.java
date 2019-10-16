@@ -7,12 +7,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.Model;
-import seedu.address.ui.trips.TripsPage;
 
 /**
  * The manager of the UI component.
@@ -44,7 +44,6 @@ public class UiManager implements Ui {
 
         try {
             MainWindow mainWindow = new MainWindow(primaryStage, logic, model);
-            TripsPage initialPage = new TripsPage(mainWindow, logic, model);
             mainWindow.show();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

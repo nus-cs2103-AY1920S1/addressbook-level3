@@ -12,7 +12,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
        <GridPane style="-fx-background-color: #50514F;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
            <columnConstraints>
@@ -24,7 +25,7 @@
                <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
            </rowConstraints>
            <children>
-               <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleAddEvent" prefHeight="35.0" prefWidth="150.0" text="Add Event" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#handleAddEvent" text="Add Event" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                    <font>
                        <Font name="Consolas" size="16.0" />
                    </font>
@@ -32,7 +33,7 @@
                        <Insets bottom="5.0" top="5.0" />
                    </GridPane.margin>
                </Button>
-               <Button alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Help" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <Button alignment="CENTER" contentDisplay="CENTER" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" text="Help" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                    <font>
                        <Font name="Consolas" size="16.0" />
                    </font>
@@ -40,7 +41,7 @@
                        <Insets bottom="5.0" top="5.0" />
                    </GridPane.margin>
                </Button>
-               <Button alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handlePreferences" prefHeight="35.0" prefWidth="150.0" text="Preferences" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <Button alignment="CENTER" contentDisplay="CENTER" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#handlePreferences" text="Preferences" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                    <font>
                        <Font name="Consolas" size="16.0" />
                    </font>
@@ -72,6 +73,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
+                  <Label fx:id="nameLabel" alignment="CENTER" layoutX="10.0" layoutY="77.0" style="-fx-font-size: 20; -fx-font-weight: bold;" text="\$Name" />
                   <Label fx:id="inventoryLabel" alignment="CENTER" text="\$Inventory" GridPane.rowIndex="2" />
                   <Label fx:id="totalBudgetLabel" text="\$TotalBudget" GridPane.rowIndex="3" />
                   <Label fx:id="bookingLabel" text="\$Booking" GridPane.rowIndex="4" />

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.diary.Diary;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.ExpenditureList;
 import seedu.address.model.itinerary.Budget;
@@ -17,6 +18,7 @@ import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.trip.Trip;
+import seedu.address.storage.diary.JsonAdaptedDiary;
 
 /**
  * Jackson friendly version of {@code Trip}.
@@ -29,6 +31,7 @@ public class JsonAdaptedTrip {
     private final LocalDateTime endDate;
     private final String destination;
     private final Double totalBudget;
+    private final JsonAdaptedDiary diary;
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
     private final List<JsonAdaptedExpenditure> expenditureList = new ArrayList<>();
 
@@ -43,7 +46,8 @@ public class JsonAdaptedTrip {
             @JsonProperty("destination")String destination,
             @JsonProperty("totalBudget") Double totalBudget,
             @JsonProperty("dayList")List<JsonAdaptedDay> dayList,
-            @JsonProperty("expenditureList")List<JsonAdaptedExpenditure> expenditureList) {
+            @JsonProperty("expenditureList")List<JsonAdaptedExpenditure> expenditureList,
+            @JsonProperty("diary") JsonAdaptedDiary diary) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -55,6 +59,7 @@ public class JsonAdaptedTrip {
         if (expenditureList != null) {
             this.expenditureList.addAll(expenditureList);
         }
+        this.diary = diary;
     }
 
     /**
@@ -76,6 +81,7 @@ public class JsonAdaptedTrip {
                 .stream().map(JsonAdaptedExpenditure::new)
                 .collect(Collectors.toList())
         );
+        this.diary = new JsonAdaptedDiary(source.getDiary());
     }
 
     /**
@@ -94,6 +100,8 @@ public class JsonAdaptedTrip {
         for (JsonAdaptedExpenditure expenditure : expenditureList) {
             expenditures.add(expenditure.toModelType());
         }
+
+        Diary diary = this.diary.toModelType();
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -140,6 +148,6 @@ public class JsonAdaptedTrip {
         modelExpenditureList.set(expenditures);
 
         return new Trip(modelName, modelStartDate, modelEndDate,
-                modelDestination, modelTotalBudget, modelDayList, modelExpenditureList);
+                modelDestination, modelTotalBudget, modelDayList, modelExpenditureList, diary);
     }
 }

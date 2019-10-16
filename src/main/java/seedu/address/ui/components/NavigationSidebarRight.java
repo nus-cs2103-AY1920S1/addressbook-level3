@@ -3,6 +3,7 @@ package seedu.address.ui.components;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 
+import seedu.address.logic.commands.diary.EnterDiaryCommand;
 import seedu.address.logic.commands.sidebar.EnterExpenseManagerCommand;
 import seedu.address.logic.commands.sidebar.EnterItineraryPageCommand;
 import seedu.address.ui.MainWindow;
@@ -37,8 +38,8 @@ public class NavigationSidebarRight extends UiPart<Region> {
     }
 
     @FXML
-    private void handleEnterDairy() {
-
+    private void handleEnterDiary() {
+        mainWindow.executeGuiCommand(EnterDiaryCommand.COMMAND_WORD);
     }
 
 }

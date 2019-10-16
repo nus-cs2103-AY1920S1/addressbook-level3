@@ -70,11 +70,11 @@ public class EditEventFieldParser implements Parser<EditEventFieldCommand> {
         }
         if (argMultimap.getValue(PREFIX_DATE_START).isPresent()) {
             editEventDescriptor.setStartDate(
-                    ParserDateUtil.getDateFromString(argMultimap.getValue(PREFIX_DATE_START).get()));
+                    ParserDateUtil.getDateTimeFromString(argMultimap.getValue(PREFIX_DATE_START).get()));
         }
         if (argMultimap.getValue(PREFIX_DATE_END).isPresent()) {
             editEventDescriptor.setEndDate(
-                    ParserDateUtil.getDateFromString(argMultimap.getValue(PREFIX_DATE_END).get()));
+                    ParserDateUtil.getDateTimeFromString(argMultimap.getValue(PREFIX_DATE_END).get()));
         }
         if (argMultimap.getValue(PREFIX_BUDGET).isPresent()) {
             editEventDescriptor.setBudget(ItineraryParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get()));

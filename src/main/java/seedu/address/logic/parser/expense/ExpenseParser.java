@@ -1,4 +1,4 @@
-package seedu.address.logic.parser.inventory;
+package seedu.address.logic.parser.expense;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.PageParser;
@@ -7,7 +7,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Placeholder javadoc.
  */
-public class InventoryParser implements PageParser {
+public class ExpenseParser implements PageParser<Command> {
     @Override
     public Command parse(String command, String arguments) throws ParseException {
         throw new UnsupportedOperationException(getClass().getSimpleName() + " parser not implemented yet.");

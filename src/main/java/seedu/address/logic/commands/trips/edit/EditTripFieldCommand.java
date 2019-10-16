@@ -18,6 +18,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
+import seedu.address.model.diary.Diary;
 import seedu.address.model.expenditure.ExpenditureList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
@@ -101,6 +102,8 @@ public class EditTripFieldCommand extends Command {
         private Optional<LocalDateTime> endDate;
         private Optional<Location> destination;
         private Optional<Budget> totalBudget;
+        //Diary should not be edited here, only kept.
+        private final Diary diary;
 
         public EditTripDescriptor() {
             name = Optional.empty();
@@ -108,6 +111,7 @@ public class EditTripFieldCommand extends Command {
             endDate = Optional.empty();
             destination = Optional.empty();
             totalBudget = Optional.empty();
+            diary = new Diary();
         }
 
         /**
@@ -120,6 +124,7 @@ public class EditTripFieldCommand extends Command {
             endDate = toCopy.getEndDate();
             destination = toCopy.getDestination();
             totalBudget = toCopy.getBudget();
+            diary = toCopy.diary;
         }
 
         /**
@@ -132,7 +137,7 @@ public class EditTripFieldCommand extends Command {
             setEndDate(toCopy.getEndDate());
             setDestination(toCopy.getDestination());
             setBudget(toCopy.getBudget());
-
+            diary = toCopy.getDiary();
         }
 
         /**
@@ -171,7 +176,7 @@ public class EditTripFieldCommand extends Command {
         public Trip buildTrip() {
             if (isAllPresent(name, startDate, endDate, destination, totalBudget)) {
                 return new Trip(name.get(), startDate.get(), endDate.get(),
-                        destination.get(), totalBudget.get(), new DayList(), new ExpenditureList());
+                        destination.get(), totalBudget.get(), new DayList(), new ExpenditureList(), diary);
             } else {
                 throw new NullPointerException();
             }
@@ -206,8 +211,8 @@ public class EditTripFieldCommand extends Command {
                 budget = this.totalBudget.get();
             }
 
-            return new Trip(tripName, startDate, endDate, destination, budget, trip.getDayList(),
-                    trip.getExpenditureList());
+            return new Trip(tripName, startDate, endDate, destination, budget,
+                    trip.getDayList(), trip.getExpenditureList(), diary);
         }
 
         /**

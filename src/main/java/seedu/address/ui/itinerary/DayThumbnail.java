@@ -3,6 +3,7 @@ package seedu.address.ui.itinerary;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.ui.UiPart;
