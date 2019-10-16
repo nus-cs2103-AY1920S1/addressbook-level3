@@ -40,4 +40,11 @@ public class MemberId {
     public String getDisplayId() {
         return displayId;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MemberId // instanceof handles nulls
+                && displayId.equals(((MemberId) other).displayId)); // state check
+    }
 }
