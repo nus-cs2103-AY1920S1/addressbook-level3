@@ -165,11 +165,6 @@ public class ProjectDashboardTest {
         }
 
         @Override
-        public List<Mapping> getMappingList() {
-            return null;
-        }
-
-        @Override
         public ObservableList<Task> getTasksNotStarted() {
             return tasksNotStarted;
         }

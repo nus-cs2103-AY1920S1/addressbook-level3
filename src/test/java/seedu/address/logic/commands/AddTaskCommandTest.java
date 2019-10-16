@@ -249,30 +249,6 @@ public class AddTaskCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void addMapping(Mapping mapping) {
-
-        }
-
-        @Override
-        public void deleteMapping(Mapping mapping) {
-
-        }
-
-        @Override
-        public boolean hasMapping(Mapping mapping) {
-            return false;
-        }
-
-        @Override
-        public ObservableList<Mapping> getFilteredMappingsList() {
-            return null;
-        }
-
-        @Override
-        public void updateFilteredMappingsList(Predicate<Mapping> predicate) {
-
-        }
     }
 
     /**
