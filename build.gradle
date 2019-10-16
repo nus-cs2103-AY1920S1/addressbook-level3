@@ -64,6 +64,9 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+    // https://mvnrepository.com/artifact/com.joestelmach/natty
+    compile group: 'com.joestelmach', name: 'natty', version: '0.13'
 }
 
 shadowJar {
