@@ -1,25 +1,7 @@
 package com.typee.model;
 
-import static com.typee.testutil.Assert.assertThrows;
 //import static com.typee.testutil.TypicalPersons.ALICE;
 //import static com.typee.testutil.TypicalPersons.getTypicalAddressBook;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
-import org.junit.jupiter.api.Test;
-
-import com.typee.model.person.Person;
-import com.typee.model.person.exceptions.DuplicatePersonException;
-import com.typee.testutil.PersonBuilder;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class AddressBookTest {
 

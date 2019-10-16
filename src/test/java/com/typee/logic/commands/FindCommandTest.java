@@ -6,20 +6,6 @@ import static com.typee.testutil.TypicalPersons.ELLE;
 import static com.typee.testutil.TypicalPersons.FIONA;
 import static com.typee.testutil.TypicalPersons.getTypicalAddressBook;
  */
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Arrays;
-import java.util.Collections;
-
-import org.junit.jupiter.api.Test;
-
-import com.typee.commons.core.Messages;
-import com.typee.model.Model;
-import com.typee.model.ModelManager;
-import com.typee.model.UserPrefs;
-import com.typee.model.person.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

@@ -1,22 +1,5 @@
 package com.typee.logic.commands;
 
-import static com.typee.logic.parser.CliSyntax.PREFIX_NAME;
-import static com.typee.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import com.typee.commons.core.index.Index;
-import com.typee.logic.commands.exceptions.CommandException;
-import com.typee.model.AddressBook;
-import com.typee.model.Model;
-import com.typee.model.person.NameContainsKeywordsPredicate;
-import com.typee.model.person.Person;
-import com.typee.testutil.EditPersonDescriptorBuilder;
-
 /**
  * Contains helper methods for testing commands.
  */

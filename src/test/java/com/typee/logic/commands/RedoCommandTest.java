@@ -3,15 +3,6 @@ package com.typee.logic.commands;
 //import static com.typee.testutil.TypicalPersons.getTypicalAddressBook;
 //import static com.typee.testutil.TypicalPersons.getTypicalPersons;
 
-import org.junit.jupiter.api.Test;
-
-import com.typee.logic.commands.exceptions.NullRedoableActionException;
-import com.typee.logic.commands.exceptions.NullUndoableActionException;
-import com.typee.model.Model;
-import com.typee.model.ModelManager;
-import com.typee.model.UserPrefs;
-
-
 public class RedoCommandTest {
 
     /*

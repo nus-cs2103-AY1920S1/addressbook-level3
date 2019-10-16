@@ -1,14 +1,6 @@
 package com.typee.logic.commands;
 
-import static com.typee.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 //import static com.typee.testutil.TypicalPersons.getTypicalAddressBook;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import com.typee.model.Model;
-import com.typee.model.ModelManager;
-import com.typee.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.

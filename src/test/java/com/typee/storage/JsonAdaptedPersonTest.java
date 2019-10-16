@@ -1,13 +1,5 @@
 package com.typee.storage;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import com.typee.commons.exceptions.IllegalValueException;
-import com.typee.model.person.Name;
-import com.typee.testutil.Assert;
-import com.typee.testutil.TypicalPersons;
-
 public class JsonAdaptedPersonTest {
     /*
     private static final String INVALID_NAME = "R@chel";

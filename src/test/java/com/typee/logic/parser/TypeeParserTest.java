@@ -1,32 +1,5 @@
 package com.typee.logic.parser;
 
-import static com.typee.testutil.Assert.assertThrows;
-import static com.typee.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.junit.jupiter.api.Test;
-
-import com.typee.commons.core.Messages;
-import com.typee.logic.commands.AddCommand;
-import com.typee.logic.commands.ClearCommand;
-import com.typee.logic.commands.DeleteCommand;
-import com.typee.logic.commands.EditCommand;
-import com.typee.logic.commands.ExitCommand;
-import com.typee.logic.commands.FindCommand;
-import com.typee.logic.commands.HelpCommand;
-import com.typee.logic.commands.ListCommand;
-import com.typee.logic.parser.exceptions.ParseException;
-import com.typee.model.person.NameContainsKeywordsPredicate;
-import com.typee.model.person.Person;
-import com.typee.testutil.EditPersonDescriptorBuilder;
-import com.typee.testutil.PersonBuilder;
-import com.typee.testutil.PersonUtil;
-
 public class TypeeParserTest {
 
     /*

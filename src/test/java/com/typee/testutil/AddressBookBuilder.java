@@ -2,7 +2,6 @@ package com.typee.testutil;
 
 import com.typee.model.AddressBook;
 import com.typee.model.engagement.Engagement;
-import com.typee.model.person.Person;
 
 /**
  * A utility class to help with building Addressbook objects.

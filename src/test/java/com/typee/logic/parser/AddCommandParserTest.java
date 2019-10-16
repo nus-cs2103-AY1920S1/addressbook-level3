@@ -3,15 +3,6 @@ package com.typee.logic.parser;
 //import static com.typee.testutil.TypicalPersons.AMY;
 //import static com.typee.testutil.TypicalPersons.BOB;
 
-import org.junit.jupiter.api.Test;
-
-import com.typee.commons.core.Messages;
-import com.typee.logic.commands.AddCommand;
-import com.typee.logic.commands.CommandTestUtil;
-import com.typee.model.person.Name;
-import com.typee.model.person.Person;
-import com.typee.testutil.PersonBuilder;
-
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 

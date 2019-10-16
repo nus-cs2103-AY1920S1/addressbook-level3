@@ -1,18 +1,5 @@
 package com.typee.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import org.junit.jupiter.api.Test;
-
-import com.typee.commons.exceptions.IllegalValueException;
-import com.typee.commons.util.JsonUtil;
-import com.typee.model.AddressBook;
-import com.typee.testutil.Assert;
-import com.typee.testutil.TypicalPersons;
-
 public class JsonSerializableAddressBookTest {
 
     /*

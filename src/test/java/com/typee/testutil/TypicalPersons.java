@@ -1,14 +1,5 @@
 package com.typee.testutil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import com.typee.logic.commands.CommandTestUtil;
-import com.typee.model.AddressBook;
-import com.typee.model.HistoryManager;
-import com.typee.model.person.Person;
-
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */

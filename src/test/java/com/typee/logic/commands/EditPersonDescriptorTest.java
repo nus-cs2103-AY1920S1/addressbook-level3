@@ -1,20 +1,13 @@
 package com.typee.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
-
-import com.typee.logic.commands.EditCommand.EditEngagementDescriptor;
-import com.typee.testutil.EditPersonDescriptorBuilder;
-
 public class EditPersonDescriptorTest {
 
     /*
     @Test
     public void equals() {
         // same values -> returns true
-        EditEngagementDescriptor descriptorWithSameValues = new EditCommand.EditEngagementDescriptor(CommandTestUtil.DESC_AMY);
+        EditEngagementDescriptor descriptorWithSameValues = new EditCommand
+                .EditEngagementDescriptor(CommandTestUtil.DESC_AMY);
         assertTrue(CommandTestUtil.DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true

@@ -3,12 +3,6 @@ package com.typee.model.person;
 //import static com.typee.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 //import static com.typee.testutil.TypicalPersons.ALICE;
 //import static com.typee.testutil.TypicalPersons.BOB;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
-
-import com.typee.testutil.PersonBuilder;
 
 public class PersonTest {
 

@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import com.typee.commons.core.index.Index;
 import com.typee.model.Model;
 import com.typee.model.engagement.Engagement;
-import com.typee.model.person.Person;
 
 /**
  * A utility class for test cases.

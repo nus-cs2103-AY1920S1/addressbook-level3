@@ -1,22 +1,7 @@
 package com.typee.model;
 
-import static com.typee.model.Model.PREDICATE_SHOW_ALL_ENGAGEMENTS;
-import static com.typee.testutil.Assert.assertThrows;
 //import static com.typee.testutil.TypicalPersons.ALICE;
 //import static com.typee.testutil.TypicalPersons.BENSON;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-
-import org.junit.jupiter.api.Test;
-
-import com.typee.commons.core.GuiSettings;
-import com.typee.model.person.NameContainsKeywordsPredicate;
-import com.typee.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
 

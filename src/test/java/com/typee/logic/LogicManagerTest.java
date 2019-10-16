@@ -1,33 +1,8 @@
 package com.typee.logic;
 
-import static com.typee.testutil.Assert.assertThrows;
+//import com.typee.model.Model;
+
 //import static com.typee.testutil.TypicalPersons.AMY;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.io.IOException;
-import java.nio.file.Path;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-import com.typee.commons.core.Messages;
-import com.typee.logic.commands.AddCommand;
-import com.typee.logic.commands.CommandResult;
-import com.typee.logic.commands.CommandTestUtil;
-import com.typee.logic.commands.ListCommand;
-import com.typee.logic.commands.exceptions.CommandException;
-import com.typee.logic.parser.exceptions.ParseException;
-import com.typee.model.Model;
-import com.typee.model.ModelManager;
-import com.typee.model.ReadOnlyAddressBook;
-import com.typee.model.UserPrefs;
-import com.typee.model.person.Person;
-import com.typee.storage.JsonAddressBookStorage;
-import com.typee.storage.JsonTypeeStorage;
-import com.typee.storage.JsonUserPrefsStorage;
-import com.typee.storage.StorageManager;
-import com.typee.testutil.PersonBuilder;
 
 public class LogicManagerTest {
     /*

@@ -1,22 +1,7 @@
 package com.typee.model.person;
 
-import static com.typee.testutil.Assert.assertThrows;
 //import static com.typee.testutil.TypicalPersons.ALICE;
 //import static com.typee.testutil.TypicalPersons.BOB;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import org.junit.jupiter.api.Test;
-
-import com.typee.model.engagement.UniqueEngagementList;
-import com.typee.model.person.exceptions.DuplicatePersonException;
-import com.typee.model.person.exceptions.PersonNotFoundException;
-import com.typee.testutil.PersonBuilder;
 
 public class UniquePersonListTest {
 

@@ -1,23 +1,6 @@
 package com.typee.logic.commands;
 
-import static com.typee.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static com.typee.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 //import static com.typee.testutil.TypicalPersons.getTypicalAddressBook;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
-
-import com.typee.commons.core.Messages;
-import com.typee.commons.core.index.Index;
-import com.typee.logic.commands.EditCommand.EditEngagementDescriptor;
-import com.typee.model.AddressBook;
-import com.typee.model.Model;
-import com.typee.model.ModelManager;
-import com.typee.model.UserPrefs;
-import com.typee.model.person.Person;
-import com.typee.testutil.EditPersonDescriptorBuilder;
-import com.typee.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -50,7 +33,8 @@ public class EditCommandTest {
         PersonBuilder personInList = new PersonBuilder(lastPerson);
         Person editedPerson = personInList.withName(CommandTestUtil.VALID_NAME_BOB).build();
 
-        EditCommand.EditEngagementDescriptor descriptor = new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB)
+        EditCommand.EditEngagementDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withName(CommandTestUtil.VALID_NAME_BOB)
                 .build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
@@ -122,7 +106,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredEngagementList().size() + 1);
-        EditCommand.EditEngagementDescriptor descriptor = new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB)
+        EditCommand.EditEngagementDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withName(CommandTestUtil.VALID_NAME_BOB)
                 .build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -154,7 +139,8 @@ public class EditCommandTest {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, CommandTestUtil.DESC_AMY);
 
         // same values -> returns true
-        EditCommand.EditEngagementDescriptor copyDescriptor = new EditCommand.EditEngagementDescriptor(CommandTestUtil.DESC_AMY);
+        EditCommand.EditEngagementDescriptor copyDescriptor = new EditCommand
+                .EditEngagementDescriptor(CommandTestUtil.DESC_AMY);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

@@ -2,13 +2,6 @@ package com.typee.logic.commands;
 
 //import static com.typee.testutil.TypicalPersons.getTypicalAddressBook;
 
-import org.junit.jupiter.api.Test;
-
-import com.typee.model.AddressBook;
-import com.typee.model.Model;
-import com.typee.model.ModelManager;
-import com.typee.model.UserPrefs;
-
 public class ClearCommandTest {
 
     /*
