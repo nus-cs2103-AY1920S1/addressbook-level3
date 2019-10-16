@@ -8,7 +8,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.deliverymans.logic.commands.Command;
+import seedu.deliverymans.logic.commands.universal.AddOrderCommand;
 import seedu.deliverymans.logic.commands.universal.ContextCommand;
+import seedu.deliverymans.logic.commands.universal.DeleteOrderCommand;
+import seedu.deliverymans.logic.commands.universal.EditOrderCommand;
 import seedu.deliverymans.logic.commands.universal.ExitCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.commands.universal.SummaryCommand;
@@ -45,8 +48,17 @@ public class UniversalParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+        case AddOrderCommand.COMMAND_WORD:
+            return new AddOrderCommandParser().parse(arguments);
+
+        case EditOrderCommand.COMMAND_WORD:
+            return new EditOrderCommandParser().parse(arguments);
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+
+        case DeleteOrderCommand.COMMAND_WORD:
+            return new DeleteOrderCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand(arguments);

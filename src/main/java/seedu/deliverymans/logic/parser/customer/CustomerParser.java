@@ -12,7 +12,6 @@ import seedu.deliverymans.logic.commands.customer.DeleteCommand;
 import seedu.deliverymans.logic.commands.customer.EditCommand;
 import seedu.deliverymans.logic.commands.customer.HistoryCommand;
 import seedu.deliverymans.logic.commands.customer.ListCommand;
-import seedu.deliverymans.logic.commands.customer.OrderCommand;
 import seedu.deliverymans.logic.commands.customer.SortCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
@@ -57,9 +56,6 @@ public class CustomerParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-
-        case OrderCommand.COMMAND_WORD:
-            return new OrderCommandParser().parse(arguments);
 
         case SortCommand.COMMAND_WORD:
             return new SortCommand(arguments);

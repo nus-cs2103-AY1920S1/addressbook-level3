@@ -30,9 +30,9 @@ import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.util.SampleDataUtil;
 import seedu.deliverymans.storage.AddressBookStorage;
 import seedu.deliverymans.storage.JsonAddressBookStorage;
-import seedu.deliverymans.storage.JsonOrderBookStorage;
+import seedu.deliverymans.storage.JsonOrderDatabaseStorage;
 import seedu.deliverymans.storage.JsonUserPrefsStorage;
-import seedu.deliverymans.storage.OrderBookStorage;
+import seedu.deliverymans.storage.order.OrderDatabaseStorage;
 import seedu.deliverymans.storage.Storage;
 import seedu.deliverymans.storage.StorageManager;
 import seedu.deliverymans.storage.UserPrefsStorage;
@@ -69,8 +69,8 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         RestaurantDatabaseStorage restaurantDatabaseStorage =
                 new JsonRestaurantDatabaseStorage(userPrefs.getRestaurantDatabaseFilePath());
-        OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
-        storage = new StorageManager(addressBookStorage, restaurantDatabaseStorage, orderBookStorage, userPrefsStorage);
+        OrderDatabaseStorage orderDatabaseStorage = new JsonOrderDatabaseStorage(userPrefs.getOrderBookFilePath());
+        storage = new StorageManager(addressBookStorage, restaurantDatabaseStorage, orderDatabaseStorage, userPrefsStorage);
 
         initLogging(config);
 

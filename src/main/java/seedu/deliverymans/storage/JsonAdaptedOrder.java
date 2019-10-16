@@ -1,9 +1,5 @@
 package seedu.deliverymans.storage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,8 +7,9 @@ import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.model.addressbook.person.Email;
 import seedu.deliverymans.model.addressbook.person.Name;
 import seedu.deliverymans.model.addressbook.person.Phone;
-import seedu.deliverymans.model.addressbook.tag.Tag;
+import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.order.Order;
+import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
  * Jackson-friendly version of {@link Order}.
@@ -25,7 +22,6 @@ class JsonAdaptedOrder {
     private final String restaurant;
     private final String deliveryman;
     //    private final List<JsonAdaptedFood> foods = new ArrayList<>(); //implement food class
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedOrder} with the given order details.
@@ -33,15 +29,10 @@ class JsonAdaptedOrder {
     @JsonCreator
     public JsonAdaptedOrder(@JsonProperty("customer") String customer,
                             @JsonProperty("restaurant") String restaurant,
-                            @JsonProperty("deliveryman") String deliveryman,
-                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                            @JsonProperty("deliveryman") String deliveryman) {
         this.customer = customer;
         this.restaurant = restaurant;
         this.deliveryman = deliveryman;
-        //    if (foods != null) { this.foods.addAll(foods); }
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
     }
 
     /**
@@ -51,9 +42,6 @@ class JsonAdaptedOrder {
         customer = source.getCustomer();
         restaurant = source.getRestaurant();
         deliveryman = source.getDeliveryman();
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
     }
 
     /**
@@ -62,11 +50,6 @@ class JsonAdaptedOrder {
      * @throws IllegalValueException if there were any data constraints violated in the adapted order.
      */
     public Order toModelType() throws IllegalValueException {
-        final List<Tag> orderTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            orderTags.add(tag.toModelType());
-        }
-
         if (customer == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -76,7 +59,7 @@ class JsonAdaptedOrder {
         final Name modelName = new Name(customer);
 
         if (restaurant == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Restaurant.class.getSimpleName()));
         }
         if (!Phone.isValidPhone(restaurant)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
@@ -84,15 +67,13 @@ class JsonAdaptedOrder {
         final Phone modelPhone = new Phone(restaurant);
 
         if (deliveryman == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Deliveryman.class.getSimpleName()));
         }
         if (!Email.isValidEmail(deliveryman)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
         final Email modelEmail = new Email(deliveryman);
 
-        // final Set<Tag> modelTags = new HashSet<>(personTags);
-        // return new Order(modelName, modelPhone, modelEmail, modelRemark, modelTags);
         return new Order("", customer, restaurant, deliveryman);
     }
 }
