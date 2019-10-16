@@ -44,7 +44,7 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
             throw new DayNotFoundException();
         }
 
-        if (!targetDay.isClashingWith(editedDay) && contains(editedDay)) {
+        if (targetDay.isClashingWith(editedDay) && contains(editedDay)) {
             throw new ClashingDayException();
         }
 

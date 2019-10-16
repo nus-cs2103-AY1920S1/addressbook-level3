@@ -31,5 +31,4 @@ public abstract class PageWithSidebar<T extends Node> extends Page<T> {
         sideBarLeft.getChildren().add(navigationSidebarLeft.getRoot());
         sideBarRight.getChildren().add(navigationSidebarRight.getRoot());
     }
-
 }

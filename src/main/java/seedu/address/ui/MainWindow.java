@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -24,6 +25,7 @@ import seedu.address.model.appstatus.PageType;
 import seedu.address.ui.components.CommandBox;
 import seedu.address.ui.components.ResultDisplay;
 import seedu.address.ui.components.StatusBarFooter;
+import seedu.address.ui.diary.DiaryPage;
 import seedu.address.ui.inventory.InventoryPage;
 import seedu.address.ui.itinerary.DaysPage;
 import seedu.address.ui.itinerary.EditDayPage;
@@ -230,6 +232,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case PRETRIP_INVENTORY:
             newPage = new InventoryPage(this, logic, model);
+            break;
+        case DIARY:
+            newPage = new DiaryPage(this, logic, model);
             break;
         default:
             resultDisplay.setFeedbackToUser(

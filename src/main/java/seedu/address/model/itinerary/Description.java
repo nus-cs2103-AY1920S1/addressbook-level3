@@ -8,13 +8,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Generic abstraction of a description for various abstractions.
  */
 public class Description {
-    public static final String MESSAGE_CONSTRAINTS = "Description can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Description can take any values, and can be left blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = ".*";
 
     public final String description;
 

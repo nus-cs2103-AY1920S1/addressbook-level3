@@ -1,0 +1,19 @@
+.text-area {
+    -fx-background-color: transparent;
+    -fx-font-family: serif;
+    -fx-font-size: 20;
+    -fx-text-fill: white;
+}
+
+.text-area:info {
+    -fx-text-fill: white;
+}
+
+.text-area:error {
+    -fx-text-fill: white;
+}
+
+.text-area .content {
+    -fx-background-color: #121420;
+    -fx-text-fill: white;
+}
