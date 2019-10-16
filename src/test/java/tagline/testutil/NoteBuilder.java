@@ -13,7 +13,6 @@ import tagline.model.note.Title;
 import tagline.model.tag.Tag;
 import tagline.model.util.SampleDataUtil;
 
-
 /**
  * A utility class to help with building Note objects.
  */
@@ -46,7 +45,7 @@ public class NoteBuilder {
     }
 
     /**
-     * Initializes the NoteBuilder with the data of {@code personToCopy}.
+     * Initializes the NoteBuilder with the data of {@code noteToCopy}.
      */
     public NoteBuilder(Note noteToCopy) {
         noteId = noteToCopy.getNoteId();

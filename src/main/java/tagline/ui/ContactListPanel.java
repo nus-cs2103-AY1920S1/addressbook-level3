@@ -27,7 +27,7 @@ public class ContactListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Contact} using a {@code ContactCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Contact} using a {@code ContactListCard}.
      */
     class ContactListViewCell extends ListCell<Contact> {
         @Override
@@ -38,7 +38,7 @@ public class ContactListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ContactCard(contact, getIndex() + 1).getRoot());
+                setGraphic(new ContactListCard(contact, getIndex() + 1).getRoot());
             }
         }
     }

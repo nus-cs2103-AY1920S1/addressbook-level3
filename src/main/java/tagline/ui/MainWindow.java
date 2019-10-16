@@ -21,6 +21,7 @@ import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.model.util.SampleDataUtil;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -180,6 +181,11 @@ public class MainWindow extends UiPart<Stage> {
 
         DummyResultView dummyResultView = new DummyResultView();
         resultViewMap.put(ViewType.DUMMY, dummyResultView);
+
+        NoteResultView noteResultView = new NoteResultView();
+        //TODO: Replace with actual note list
+        noteResultView.fillInnerParts(SampleDataUtil.getSampleNoteBook().getNoteList());
+        resultViewMap.put(ViewType.NOTE, noteResultView);
 
         //set to contact result pane by default
         setCurrentViewType(ViewType.CONTACT);

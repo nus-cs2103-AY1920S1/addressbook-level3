@@ -61,5 +61,4 @@ public class NoteIdCounter {
         return test.matches(VALIDATION_REGEX);
 
     }
-
 }

@@ -11,7 +11,7 @@ import tagline.model.contact.Contact;
 /**
  * An UI component that displays information of a {@code Contact}.
  */
-public class ContactCard extends UiPart<Region> {
+public class ContactListCard extends UiPart<Region> {
 
     private static final String FXML = "ContactListCard.fxml";
 
@@ -26,7 +26,7 @@ public class ContactCard extends UiPart<Region> {
     public final Contact contact;
 
     @FXML
-    private HBox cardPane;
+    private HBox contactListCardPane;
     @FXML
     private Label name;
     @FXML
@@ -42,7 +42,7 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public ContactCard(Contact contact, int displayedIndex) {
+    public ContactListCard(Contact contact, int displayedIndex) {
         super(FXML);
         this.contact = contact;
         id.setText(displayedIndex + ". ");
@@ -61,12 +61,12 @@ public class ContactCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ContactCard)) {
+        if (!(other instanceof ContactListCard)) {
             return false;
         }
 
         // state check
-        ContactCard card = (ContactCard) other;
+        ContactListCard card = (ContactListCard) other;
         return id.getText().equals(card.id.getText())
                 && contact.equals(card.contact);
     }

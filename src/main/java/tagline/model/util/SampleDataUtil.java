@@ -1,6 +1,7 @@
 package tagline.model.util;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,14 @@ import tagline.model.contact.Email;
 import tagline.model.contact.Name;
 import tagline.model.contact.Phone;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.note.Content;
+import tagline.model.note.Note;
+import tagline.model.note.NoteBook;
+import tagline.model.note.NoteId;
+import tagline.model.note.ReadOnlyNoteBook;
+import tagline.model.note.TimeCreated;
+import tagline.model.note.TimeLastEdited;
+import tagline.model.note.Title;
 import tagline.model.tag.Tag;
 
 /**
@@ -42,6 +51,46 @@ public class SampleDataUtil {
             sampleAb.addContact(sampleContact);
         }
         return sampleAb;
+    }
+
+    public static Note[] getSampleNotes() {
+        return new Note[] {
+            new Note(new NoteId(), new Title(""), new Content(""), new TimeCreated(), new TimeLastEdited(),
+                new HashSet<>()),
+            new Note(new NoteId(), new Title("Lorem Ipsum"), new Content("Lorem ipsum dolor sit amet, "
+                + "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna "
+                + "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip"
+                + "ex ea commodo consequat."), new TimeCreated(), new TimeLastEdited(), new HashSet<>()),
+            new Note(new NoteId(), new Title("Lorem Ipsum Dolor Sit"), new Content("Lorem ipsum dolor sit amet, "
+                + "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna "
+                + "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip"
+                + "ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
+                + "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, "
+                + "sunt in culpa qui officia deserunt mollit anim id est laborum."), new TimeCreated(),
+                new TimeLastEdited(), new HashSet<>()),
+            new Note(new NoteId(), new Title("Lorem Ipsum Dolor Sit"), new Content("Lorem ipsum dolor sit amet, "
+                + "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna "
+                + "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip"
+                + "ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
+                + "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, "
+                + "sunt in culpa qui officia deserunt mollit anim id est laborum."), new TimeCreated(),
+                new TimeLastEdited(), new HashSet<>()),
+            new Note(new NoteId(), new Title("Lorem Ipsum Dolor Sit"), new Content("Lorem ipsum dolor sit amet, "
+                + "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna "
+                + "aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip"
+                + "ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
+                + "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, "
+                + "sunt in culpa qui officia deserunt mollit anim id est laborum."), new TimeCreated(),
+                new TimeLastEdited(), new HashSet<>())
+        };
+    }
+
+    public static ReadOnlyNoteBook getSampleNoteBook() {
+        NoteBook sampleNb = new NoteBook();
+        for (Note sampleNote : getSampleNotes()) {
+            sampleNb.addNote(sampleNote);
+        }
+        return sampleNb;
     }
 
     /**

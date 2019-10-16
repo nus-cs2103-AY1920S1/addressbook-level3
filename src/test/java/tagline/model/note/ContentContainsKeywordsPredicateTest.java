@@ -75,6 +75,5 @@ public class ContentContainsKeywordsPredicateTest {
         predicate = new ContentContainsKeywordsPredicate(Arrays.asList("12345"));
         //, "alice@email.com", "Main", "Street"));
         assertFalse(predicate.test(new NoteBuilder().withContent("Alice").withTitle("12345").build()));
-        //.withEmail("alice@email.com").withAddress("Main Street").build()));
     }
 }

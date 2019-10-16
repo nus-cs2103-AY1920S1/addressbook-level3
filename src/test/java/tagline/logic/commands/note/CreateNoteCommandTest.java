@@ -1,14 +1,12 @@
 package tagline.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -16,8 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import tagline.commons.core.GuiSettings;
-import tagline.logic.commands.CommandResult;
-import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.contact.Contact;
@@ -27,34 +23,11 @@ import tagline.model.note.NoteModel;
 import tagline.model.note.ReadOnlyNoteBook;
 import tagline.testutil.NoteBuilder;
 
-
 class CreateNoteCommandTest {
 
     @Test
     public void constructor_nullNote_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new CreateNoteCommand(null));
-    }
-
-    @Test
-    public void execute_noteAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
-        Note validNote = new NoteBuilder().build();
-
-        CommandResult commandResult = new CreateNoteCommand(validNote).execute(modelStub);
-
-        assertEquals(String.format(CreateNoteCommand.MESSAGE_SUCCESS, validNote),
-                commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validNote), modelStub.noteAdded);
-    }
-
-    @Test
-    public void execute_duplicateNote_throwsCommandException() {
-        Note validNote = new NoteBuilder().build();
-        CreateNoteCommand createNoteCommand = new CreateNoteCommand(validNote);
-        ModelStub modelStub = new ModelStubWithNote(validNote);
-
-        assertThrows(CommandException.class,
-                CreateNoteCommand.MESSAGE_DUPLICATE_NOTE, () -> createNoteCommand.execute(modelStub));
     }
 
     @Test

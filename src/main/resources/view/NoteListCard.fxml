@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Separator?>
+<HBox id="noteListCardPane" fx:id="noteListCardPane"
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane id="noteListInternalPane" HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="20" prefWidth="60"/>
+        </columnConstraints>
+        <VBox alignment="TOP_LEFT" spacing="5" minHeight="120" GridPane.columnIndex="0" HBox.hgrow="ALWAYS">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label fx:id="id" text="\$id" styleClass="cell_big_label">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE"/>
+                    </minWidth>
+                </Label>
+                <Label fx:id="title" text="\$title" styleClass="cell_big_label">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE"/>
+                    </minWidth>
+                </Label>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="time" text="\$time" styleClass="cell_big_label"/>
+            </HBox>
+            <Separator minHeight="2.0"/>
+            <Label fx:id="content" text="\$content" styleClass="cell_small_label" wrapText="true"/>
+            <FlowPane fx:id="tags"/>
+        </VBox>
+    </GridPane>
+</HBox>

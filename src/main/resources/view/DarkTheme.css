@@ -99,21 +99,37 @@
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell:filled:even {
+.list-cell:filled:even #contactListCardPane {
     -fx-background-color: #3c3e3f;
 }
 
-.list-cell:filled:odd {
+.list-cell:filled:odd #contactListCardPane {
     -fx-background-color: #515658;
 }
 
-.list-cell:filled:selected {
+.list-cell:filled:selected #contactListCardPane {
     -fx-background-color: #424d5f;
 }
 
-.list-cell:filled:selected #cardPane {
+.list-cell:filled:selected #contactListCardPane {
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
+}
+
+.list-cell:filled #noteListCardPane {
+    -fx-background-color: #383838;
+    -fx-padding: 10 10 10 10;
+}
+
+.list-cell:filled:selected #noteListCardPane {
+    -fx-background-color: #424d5f;
+}
+
+.list-cell:filled #noteListCardPane > #noteListInternalPane {
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-background-color: #313131;
 }
 
 .list-cell .label {
@@ -307,7 +323,7 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
+#contact-list {
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
