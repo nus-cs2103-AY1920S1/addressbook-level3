@@ -3,7 +3,6 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.BLOODTYPE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.DOB_DESC;
@@ -14,7 +13,6 @@ import static seedu.address.logic.commands.CommandTestUtil.WEIGHT_DESC;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExercises.PUSHUP;
 import static seedu.address.testutil.TypicalProfiles.AMY;
-import static seedu.address.testutil.TypicalDiaries.AMY_DIARY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -23,7 +21,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.AddDiaryCommand;
 import seedu.address.logic.commands.AddProfileCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
@@ -32,24 +29,22 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserProfile;
 import seedu.address.model.ReadOnlyWorkoutPlanner;
-import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.diary.Diary;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.model.person.Person;
+import seedu.address.storage.JsonDiaryStorage;
 import seedu.address.storage.JsonHealthRecordsStorage;
 import seedu.address.storage.JsonRecipeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.JsonUserProfileStorage;
 import seedu.address.storage.JsonWorkoutPlannerStorage;
-import seedu.address.storage.JsonDiaryStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.ExerciseBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.DiaryBuilder;
 
 
 public class LogicManagerTest {

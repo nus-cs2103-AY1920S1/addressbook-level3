@@ -6,20 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DiaryRecords;
-import seedu.address.model.Model;
+import seedu.address.model.ModelStub;
 import seedu.address.model.ReadOnlyDiary;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.diary.Diary;
 import seedu.address.testutil.DiaryBuilder;
 
@@ -75,80 +70,6 @@ public class AddDiaryCommandTest {
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getDiaryFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setDiaryFilePath(Path diaryFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addDiary(Diary diary) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setDiaryRecords(ReadOnlyDiary diaryRecords) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyDiary getDiaryRecords() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasDiary(Diary diary) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteDiary(Diary diary) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setDiary(Diary target, Diary editedDiary) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Diary> getFilteredDiaryList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredDiaryList(Predicate<Diary> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
 
     /**
      * A Model stub that contains a single diary.

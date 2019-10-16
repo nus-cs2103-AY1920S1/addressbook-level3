@@ -236,7 +236,10 @@ public class UserProfileWindow extends UiPart<Stage> {
      */
     @FXML
     private void switchDiary() {
-        // switch to diary page
+        primaryStage.hide();
+        DiaryWindow diaryWindow = new DiaryWindow(getPrimaryStage(), logic);
+        diaryWindow.show();
+        diaryWindow.fillInnerParts();
     }
 
 
