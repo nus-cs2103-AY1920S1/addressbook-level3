@@ -139,11 +139,11 @@ Clears all of your commitments for a particular date. +
 Format: ``clearAll [date]``
 
 *Editing your school break: ``editSchoolBreak``* +
-Edits either the start or end date of your school break.
+Edits either the start or end date of your school break. +
 Format: ``editSchoolBreak [original start date] [name] [original end date] [new start date] [new end date]``
 
 *Editing your commitment: ``editCommitment``* +
-Edits your commitment. You may change the date and/or details of your commitment.
+Edits your commitment. You may change the date and/or details of your commitment. +
 Format: ``editCommitment [original date] [name] <new date> <new details>``
 
 *Removing a commitment: ``removeCommitment``* +
