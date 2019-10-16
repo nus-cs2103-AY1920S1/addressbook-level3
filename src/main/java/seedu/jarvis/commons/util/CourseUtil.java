@@ -66,7 +66,8 @@ public class CourseUtil {
      * @return a {@code File} object
      * @throws IOException if the file is not found
      */
-    private static File getCourseFile(String courseCode) {
+    private static File getCourseFile(String courseCode)
+            throws CourseNotFoundException {
         String coursePrefix = getCoursePrefix(courseCode);
         String fileName = (courseCode.contains(".json")) ? courseCode : courseCode + ".json";
 
@@ -87,7 +88,8 @@ public class CourseUtil {
      * @return a {@code json String}
      * @throws IOException if the file is not found
      */
-    public static String getCourseJsonString(String courseCode) {
+    public static String getCourseJsonString(String courseCode)
+            throws CourseNotFoundException {
         File file = getCourseFile(courseCode);
         StringBuilder text = new StringBuilder();
         try (Stream<String> fileStream = Files.lines(file.toPath())) {
@@ -124,7 +126,8 @@ public class CourseUtil {
      * @return a {@code Map<String, String>} of all values
      * @throws IOException if the file is not found
      */
-    public static Map<String, String> getCourseMap(String courseCode) {
+    public static Map<String, String> getCourseMap(String courseCode)
+            throws CourseNotFoundException {
         String json = getCourseJsonString(courseCode);
         JsonNode root;
         try {
@@ -161,7 +164,8 @@ public class CourseUtil {
      * @param code of the course
      * @return a {@code Course} object containing information of the course.
      */
-    public static Course getCourse(String code) {
+    public static Course getCourse(String code)
+            throws CourseNotFoundException {
         // TODO somehow refactor this function
         AtomicReference<CourseCode> courseCode = new AtomicReference<>();
         AtomicReference<Title> title = new AtomicReference<>();

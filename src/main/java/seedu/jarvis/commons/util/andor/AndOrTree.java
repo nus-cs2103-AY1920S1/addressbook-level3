@@ -43,7 +43,7 @@ public class AndOrTree {
      * @return a new AndOr tree
      * @throws IOException if the course file could not be found
      */
-    public static AndOrTree buildTree(String courseCode) {
+    public static AndOrTree buildTree(String courseCode) throws CourseNotFoundException {
         Course course;
         course = CourseUtil.getCourse(courseCode);
         AndOrNode rootNode = AndOrNode.createLeafNode(course, null);
