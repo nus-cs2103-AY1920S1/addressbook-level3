@@ -50,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private StackPane featureBoxPlaceholder;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -118,6 +121,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        Calendar calendar = new Calendar();
+        featureBoxPlaceholder.getChildren().add(calendar.getRoot());
     }
 
     /**
@@ -174,6 +180,28 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (!(commandResult.getFeature() == null)) {
+                switch (commandResult.getFeature().toString()) {
+                case "calendar":
+                    Calendar calendar = new Calendar();
+                    featureBoxPlaceholder.getChildren().clear();
+                    featureBoxPlaceholder.getChildren().add(calendar.getRoot());
+                    break;
+                case "attendance":
+                    AttendancePanel attendance = new AttendancePanel();
+                    featureBoxPlaceholder.getChildren().clear();
+                    featureBoxPlaceholder.getChildren().add(attendance.getRoot());
+                    break;
+                case "performance":
+                    PerformancePanel performance = new PerformancePanel();
+                    featureBoxPlaceholder.getChildren().clear();
+                    featureBoxPlaceholder.getChildren().add(performance.getRoot());
+                    break;
+                default:
+                    break;
+                }
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
