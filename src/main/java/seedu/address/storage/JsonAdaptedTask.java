@@ -43,23 +43,16 @@ class JsonAdaptedTask {
             this.tagged.addAll(tagged);
         }
     }
-
-    public JsonAdaptedTask(@JsonProperty("name") String name, @JsonProperty("status") TaskStatus taskStatus,
-                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        this.name = name;
-        this.taskStatus = taskStatus;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
-    }
-
+    
     /**
      * Converts a given {@code Task} into this class for Jackson use.
      */
     public JsonAdaptedTask(Task source) {
         name = source.getName().fullName;
         taskStatus = source.getTaskStatus();
-        deadline = source.getDeadline().format(DateTimeFormatter.ISO_DATE_TIME);
+        if (source.getDeadline() != null) {
+            deadline = source.getDeadline().format(DateTimeFormatter.ISO_DATE_TIME);
+        }
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
