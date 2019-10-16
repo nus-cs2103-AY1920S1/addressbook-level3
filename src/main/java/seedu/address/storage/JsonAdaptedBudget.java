@@ -29,6 +29,7 @@ class JsonAdaptedBudget {
     private final String startDate;
     private final String endDate;
     private final String period;
+    private final boolean isPrimary;
     private List<JsonAdaptedExpense> expenses = new ArrayList<>();
 
     /**
@@ -40,7 +41,8 @@ class JsonAdaptedBudget {
                              @JsonProperty("startDate") String startDate,
                              @JsonProperty("endDate") String endDate,
                              @JsonProperty("period") String period,
-                             @JsonProperty("expenses") List<JsonAdaptedExpense> expenses) {
+                             @JsonProperty("expenses") List<JsonAdaptedExpense> expenses,
+                             @JsonProperty("isPrimary") boolean isPrimary) {
         this.description = description;
         this.amount = amount;
         this.startDate = startDate;
@@ -49,6 +51,7 @@ class JsonAdaptedBudget {
         if (expenses != null) {
             this.expenses.addAll(expenses);
         }
+        this.isPrimary = isPrimary;
     }
 
     /**
@@ -63,6 +66,7 @@ class JsonAdaptedBudget {
         expenses.addAll(source.getExpenses().stream()
                 .map(JsonAdaptedExpense::new)
                 .collect(Collectors.toList()));
+        isPrimary = source.isPrimary();
     }
 
     /**
@@ -120,6 +124,11 @@ class JsonAdaptedBudget {
         }
         final Period modelPeriod = ParserUtil.parsePeriod(period);
 
-        return new Budget(modelDescription, modelAmount, modelStartDate, modelPeriod, expenseList);
+        Budget budget = new Budget(modelDescription, modelAmount, modelStartDate, modelPeriod, expenseList);
+
+        if (isPrimary) {
+            budget.setPrimary();
+        }
+        return budget;
     }
 }
