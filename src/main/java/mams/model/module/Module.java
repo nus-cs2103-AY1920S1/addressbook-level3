@@ -138,7 +138,7 @@ public class Module {
         final int firstTimeSlot = 0;
         final int lastTimeSlot = 69;
 
-        if (test == null) {
+        if (test == null || test.isEmpty()) {
             return false;
         }
 
