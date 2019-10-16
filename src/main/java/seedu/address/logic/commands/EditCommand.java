@@ -104,7 +104,7 @@ public class EditCommand extends UndoableCommand {
 
 
         return new Expense(updatedDescription, updatedPrice, updatedTags,
-                expenseToEdit.getUniqueIdentifier(), updatedTimestamp);
+                updatedTimestamp, expenseToEdit.getUniqueIdentifier());
     }
 
     @Override

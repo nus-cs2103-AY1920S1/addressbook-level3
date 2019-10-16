@@ -141,8 +141,31 @@ public class ParserUtil {
             return Period.ofMonths(1);
         case "year":
             return Period.ofYears(1);
+        case "infinity":
+            return Period.ofYears(999);
         default:
             throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_PERIOD);
+        }
+    }
+
+    /**
+     * Dummy.
+     * @param period
+     * @return dummy.
+     */
+    public static String formatPeriod(Period period) {
+        String periodString = period.toString();
+        switch (periodString) {
+        case "P1M":
+            return "month";
+        case "P1Y":
+            return "year";
+        case "P1W":
+            return "week";
+        case "P999Y":
+            return "infinity";
+        default:
+            return periodString;
         }
     }
 }

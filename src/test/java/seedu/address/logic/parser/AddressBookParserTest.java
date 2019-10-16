@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
@@ -15,18 +17,21 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AliasCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.expense.DescriptionContainsKeywordsPredicate;
 import seedu.address.model.expense.Expense;
+
 import seedu.address.testutil.AliasTestUtil;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 import seedu.address.testutil.ExpenseBuilder;
@@ -45,7 +50,6 @@ public class AddressBookParserTest {
         userPrefs.setAliasMappings(AliasTestUtil.VALID_ALIAS_MAPPINGS);
         readOnlyUserPrefs = userPrefs;
     }
-    // parseCommand_add should return the same command as another addCommand even with the same arguments
 
     @Test
     public void parseCommand_alias() throws Exception {
@@ -72,7 +76,8 @@ public class AddressBookParserTest {
         Expense expense = new ExpenseBuilder().build();
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(expense).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_EXPENSE.getOneBased() + " " + ExpenseUtil.getEditExpenseDescriptorDetails(descriptor),
+                        + INDEX_FIRST_EXPENSE.getOneBased() + " "
+                        + ExpenseUtil.getEditExpenseDescriptorDetails(descriptor),
                 readOnlyUserPrefs);
         assertEquals(new EditCommand(INDEX_FIRST_EXPENSE, descriptor), command);
     }
@@ -114,4 +119,21 @@ public class AddressBookParserTest {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, ()
             -> parser.parseCommand("unknownCommand", readOnlyUserPrefs));
     }
+
+    @Test
+    void parseCommand_stats() throws Exception {
+        StatsCommand command = (StatsCommand) parser.parseCommand(
+                String.format("%s %s01-10-2019 %s31-10-2019",
+                        StatsCommand.COMMAND_WORD,
+                        PREFIX_START_DATE,
+                        PREFIX_END_DATE),
+                readOnlyUserPrefs);
+        assertEquals(command, new StatsCommand(
+                CommandTestUtil.OCTOBER_FIRST,
+                CommandTestUtil.OCTOBER_LAST));
+
+    }
+
+
+
 }

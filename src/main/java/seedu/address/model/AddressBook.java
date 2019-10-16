@@ -30,13 +30,22 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Note that non-static init blocks are not recommended to use. There are other ways to
      * avoid duplication among constructors.
      */
-    {
+    /*{
+        expenses = new UniqueExpenseList();
+        budgets = new UniqueBudgetList();
+        if (budgets.isEmpty()) {
+            Budget defaultBudget = Budget.createDefaultBudget();
+            defaultBudget.setPrimary();
+            budgets.add(defaultBudget);
+        }
+        events = new UniqueEventList();
+    }*/
+
+    public AddressBook() {
         expenses = new UniqueExpenseList();
         budgets = new UniqueBudgetList();
         events = new UniqueEventList();
     }
-
-    public AddressBook() {}
 
     /**
      * Creates an AddressBook using the Expenses in the {@code toBeCopied}
@@ -101,15 +110,21 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addExpense(Expense p) {
         expenses.add(p);
-        Budget primaryBudget = budgets.getPrimaryBudget();
-        if (primaryBudget == null) {
-            return;
+        if (budgets.isEmpty()) {
+            Budget defaultBudget = Budget.createDefaultBudget();
+            defaultBudget.setPrimary();
+            budgets.add(defaultBudget);
         }
-        boolean expenseDateWithinBudget = p.getTimestamp().isBefore(primaryBudget.getEndDate())
-                && (p.getTimestamp().isAfter(primaryBudget.getStartDate())
+        Budget primaryBudget = budgets.getPrimaryBudget();
+        if (primaryBudget != null) {
+            //    return;
+            //} else {
+            boolean expenseDateWithinBudget = p.getTimestamp().isBefore(primaryBudget.getEndDate())
+                    && (p.getTimestamp().isAfter(primaryBudget.getStartDate())
                     || p.getTimestamp().isEqual(primaryBudget.getStartDate()));
-        if (expenseDateWithinBudget) {
-            primaryBudget.addExpense(p);
+            if (expenseDateWithinBudget) {
+                primaryBudget.addExpense(p);
+            }
         }
     }
 
@@ -123,6 +138,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedExpense);
 
         expenses.setExpense(target, editedExpense);
+        for (Budget budget : budgets) {
+            budget.setExpense(target, editedExpense);
+        }
     }
 
     /**
@@ -131,6 +149,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
+        for (Budget budget : budgets) {
+            budget.removeIdentical(key);
+        }
     }
 
     /**

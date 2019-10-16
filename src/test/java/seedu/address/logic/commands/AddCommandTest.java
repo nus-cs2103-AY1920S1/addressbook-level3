@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +30,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Timestamp;
 import seedu.address.testutil.ExpenseBuilder;
 
 public class AddCommandTest {
@@ -274,6 +276,21 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredEventList(Predicate<? super Event> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasStatistic() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public StringBuilder getStatistic() {
             throw new AssertionError("This method should not be called.");
         }
     }

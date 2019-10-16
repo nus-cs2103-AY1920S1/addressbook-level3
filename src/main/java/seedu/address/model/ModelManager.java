@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.Period;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -17,6 +18,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Timestamp;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,6 +32,7 @@ public class ModelManager implements Model {
     private final ModelHistory modelHistory;
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Event> filteredEvents;
+    private StringBuilder statsBuilder;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -272,12 +276,25 @@ public class ModelManager implements Model {
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
-    //    @Override
-    //    public void setEvent(Event target, Event editedEvent) {
-    //        requireAllNonNull(target, editedEvent);
-    //
-    //        addressBook.setEvent(target, editedEvent);
-    //    }
+    @Override
+    public String calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period) {
+        FilteredList<Expense> statsExpenses = new FilteredList<>(addressBook.getExpenseList());
+        Statistics statistics = Statistics.startStatistics(statsExpenses);
+        this.statsBuilder = statistics.calculateStats(command, date1, date2, period);
+        return statsBuilder.toString();
+    }
+
+    @Override
+    public boolean hasStatistic() {
+        return statsBuilder == null;
+    }
+
+    @Override
+    public StringBuilder getStatistic() {
+        return statsBuilder;
+    }
+
+
 
     //=========== Filtered Expense List Accessors =============================================================
 
