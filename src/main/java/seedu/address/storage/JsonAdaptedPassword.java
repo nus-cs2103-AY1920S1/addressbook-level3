@@ -76,9 +76,6 @@ class JsonAdaptedPassword {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Username.class.getSimpleName()));
         }
-        //if (!Phone.isValidPhone(phone)) {
-        //    throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        //}
         final Username modelUserName = new Username(username);
 
         if (passwordValue == null) {

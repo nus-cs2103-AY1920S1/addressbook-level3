@@ -16,11 +16,11 @@ public class SampleDataPasswordUtil {
     public static Password[] getSamplePasswords() {
         return new Password[] {
             new Password(new Description("Gmail"), new Username("Randomguy"),
-                        new PasswordValue("password"), getTagSet("Social Media")),
+                        new PasswordValue("password"), getTagSet("SocialMedia")),
             new Password(new Description("Gmail1"), new Username("Randomguy1"),
                         new PasswordValue("password1"), getTagSet("Work")),
             new Password(new Description("Gmail2"), new Username("Randomguy2"),
-                        new PasswordValue("password2"), getTagSet("Social Media")),
+                        new PasswordValue("password2"), getTagSet("SocialMedia")),
             new Password(new Description("Gmail3"), new Username("Randomguy3"),
                         new PasswordValue("password3"), getTagSet("Game")),
             new Password(new Description("Gmail4"), new Username("Randomguy4"),

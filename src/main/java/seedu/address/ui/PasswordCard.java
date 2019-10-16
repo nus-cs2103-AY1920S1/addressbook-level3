@@ -2,10 +2,13 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 import seedu.address.model.password.Password;
+
+import java.util.Comparator;
 
 /**
  * An UI component that displays information of a {@code Password}.
@@ -25,6 +28,8 @@ public class PasswordCard extends UiPart<Region> {
     private Label username;
     @FXML
     private Label passwordValue;
+    @FXML
+    private FlowPane tags;
 
     public PasswordCard(Password password, int displayedIndex) {
         super(FXML);
@@ -33,6 +38,9 @@ public class PasswordCard extends UiPart<Region> {
         description.setText(password.getDescription().value);
         username.setText(password.getUsername().value);
         passwordValue.setText(password.getPasswordValue().value);
+        password.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
