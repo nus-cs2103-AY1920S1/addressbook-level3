@@ -13,7 +13,7 @@ import seedu.mark.testutil.BookmarkBuilder;
 class BookmarkTaggerTest {
 
     @Test
-    void applyTag_bookmarkDoesNotContainTag_tagAdded() {
+    public void applyTag_bookmarkDoesNotContainTag_tagAdded() {
         Bookmark originalBookmark = new BookmarkBuilder().withTags("module", "readLater").build();
         BookmarkTagger tagger = new BookmarkTagger(new Tag("NUS"));
 
@@ -23,7 +23,7 @@ class BookmarkTaggerTest {
     }
 
     @Test
-    void applyTag_bookmarkContainsTag_noChange() {
+    public void applyTag_bookmarkContainsTag_noChange() {
         Bookmark expectedBookmark = new BookmarkBuilder().withTags("module", "readLater").build();
         BookmarkTagger tagger = new BookmarkTagger(new Tag("module"));
 
@@ -31,7 +31,7 @@ class BookmarkTaggerTest {
     }
 
     @Test
-    void equals() {
+    public void equals() {
         // same object -> returns true
         BookmarkTagger tagger = new BookmarkTagger(new Tag("first"));
         assertTrue(tagger.equals(tagger));

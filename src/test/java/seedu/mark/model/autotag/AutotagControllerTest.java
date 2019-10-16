@@ -17,20 +17,22 @@ class AutotagControllerTest { // TODO: write tests
     private static final SelectiveBookmarkTagger TAGGER_2 = new SelectiveBookmarkTagger(
             new Tag("myTag"), new NameContainsKeywordsPredicate(Arrays.asList("tag")));
 
+    /*
     @Test
-    void addTagger() {
+    public void addTagger() {
     }
 
     @Test
-    void applyTaggers() {
+    public void applyTaggers() {
     }
 
     @Test
-    void applyTaggersToList() {
+    public void applyTaggersToList() {
     }
+    */
 
     @Test
-    void equals() {
+    public void equals() {
         // same object -> returns true
         AutotagController controller = new AutotagController(Arrays.asList(TAGGER_1));
         assertTrue(controller.equals(controller));

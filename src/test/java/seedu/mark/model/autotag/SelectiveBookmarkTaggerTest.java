@@ -21,12 +21,14 @@ class SelectiveBookmarkTaggerTest { // TODO: write tests
     private static final Predicate<Bookmark> SAMPLE_PREDICATE_2 =
             new NameContainsKeywordsPredicate(Arrays.asList("world"));
 
+    /*
     @Test
-    void applyTagSelectively() {
+    public void applyTagSelectively() {
     }
+    */
 
     @Test
-    void equals() {
+    public void equals() {
         // same object -> returns true
         SelectiveBookmarkTagger tagger = new SelectiveBookmarkTagger(SAMPLE_TAG, SAMPLE_PREDICATE);
         assertTrue(tagger.equals(tagger));
