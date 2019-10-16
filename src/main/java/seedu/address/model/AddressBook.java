@@ -66,11 +66,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.entries.setEntries(entries);
     }
 
-    public void setExpenses(List<Expense> expenses) { this.expenses.setEntries(expenses); }
+    public void setExpenses(List<Expense> expenses) {
+        this.expenses.setEntries(expenses);
+    }
 
-    public void setIncomes(List<Income> incomes) { this.incomes.setEntries(incomes); }
+    public void setIncomes(List<Income> incomes) {
+        this.incomes.setEntries(incomes);
+    }
 
-    public void setWishes(List<Wish> wishes) { this.wishes.setEntries(wishes); }
+    public void setWishes(List<Wish> wishes) {
+        this.wishes.setEntries(wishes);
+    }
 
     public void setExpenseReminders(List<ExpenseReminder> expenseReminders) {
         this.expenseReminders.setEntries(expenseReminders);
@@ -164,7 +170,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setEntry(Entry target, Entry editedEntry) {
         requireNonNull(editedEntry);
-        entries.setPerson(target, editedEntry);
+        entries.setEntry(target, editedEntry);
     }
 
     /**
@@ -175,7 +181,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setExpense(Expense target, Expense editedEntry) {
         requireNonNull(editedEntry);
         expenses.setExpense(target, editedEntry);
-        entries.setPerson(target, editedEntry);
+        entries.setEntry(target, editedEntry);
     }
 
     /**
@@ -186,7 +192,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setIncome(Income target, Income editedEntry) {
         requireNonNull(editedEntry);
         incomes.setIncome(target, editedEntry);
-        entries.setPerson(target, editedEntry);
+        entries.setEntry(target, editedEntry);
     }
 
     /**
@@ -197,7 +203,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setWish(Wish target, Wish editedEntry) {
         requireNonNull(editedEntry);
         wishes.setWish(target, editedEntry);
-        entries.setPerson(target, editedEntry);
+        entries.setEntry(target, editedEntry);
     }
 
     private void setExpenseTracker(ExpenseTracker target, ExpenseTracker editedEntry) {

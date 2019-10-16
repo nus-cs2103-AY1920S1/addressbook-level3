@@ -36,7 +36,7 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TYPE
+            + PREFIX_TYPE + " "
             + "[" + PREFIX_DESC + "DESCRIPTION] "
             + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
@@ -46,7 +46,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Entry: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the finance app.";
 
     private final Index index;
     private final EditEntryDescriptor editEntryDescriptor;

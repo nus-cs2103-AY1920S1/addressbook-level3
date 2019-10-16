@@ -8,15 +8,13 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.Income;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
 public class EntryCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "EntryListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -45,17 +43,12 @@ public class EntryCard extends UiPart<Region> {
         super(FXML);
         this.entry = entry;
         id.setText(displayedIndex + ". ");
-        desc.setText(entry.getDesc().fullDesc);
         String type = entry.getType().toLowerCase();
-        if (type.equals("expense")) {
-            entry = (Expense) entry;
-        } else if (type.equals("income")) {
-            entry = (Income) entry;
-        } else {
+        String descWithType = "[" + type + "] " + entry.getDesc().fullDesc;
+        desc.setText(descWithType);
 
-        }
         time.setText("13:00");
-        amt.setText(Double.toString(entry.getAmount().value));
+        amt.setText("$" + entry.getAmount().value);
 
         entry.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

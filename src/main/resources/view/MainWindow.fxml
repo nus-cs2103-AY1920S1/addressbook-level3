@@ -11,17 +11,24 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="guiltTrip() - your personal finance tracker" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/guiltTrip()_32.png" />
   </icons>
   <scene>
     <Scene>
       <stylesheets>
         <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
+        <URL value="@ExtensionsDark.css" />
       </stylesheets>
+
+        <HBox>
 
       <VBox>
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
@@ -32,12 +39,11 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
+<!--        <TabPane GridPane.rowIndex="0" GridPane.columnIndex="1" >-->
+<!--          <Tab text="text">-->
+<!--          </Tab>-->
+<!--        </TabPane>-->
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
 
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
                    minHeight="100" prefHeight="100" maxHeight="100">
@@ -53,8 +59,26 @@
           <StackPane fx:id="entryListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
         </VBox>
 
+        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+          <padding>
+            <Insets top="5" right="10" bottom="5" left="10" />
+          </padding>
+        </StackPane>
+
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
+            <VBox>
+                <VBox fx:id="wishesPlaceHolder" prefHeight="200" minWidth="140">
+                    <Label fx:id="wishlistTitle" text="Wishlist" styleClass="cell_big_label"/>
+                  <Label text="subtext" styleClass="cell_small_label"/>
+                </VBox>
+                <VBox fx:id="budgetsPlaceHolder" prefHeight="200" minWidth="140">
+                    <Label fx:id="budgetTitle" text="Budgets" styleClass="cell_big_label"/>
+                  <Label text="subtext" styleClass="cell_small_label"/>
+                </VBox>
+            </VBox>
+        </HBox>
     </Scene>
   </scene>
 </fx:root>
+<!--Icons made by Freepik "https://www.flaticon.com/authors/freepik" from Flaticon "https://www.flaticon.com/"-->

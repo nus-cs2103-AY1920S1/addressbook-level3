@@ -65,8 +65,8 @@ class JsonSerializableAddressBook {
             Income income = jsonAdaptedIncome.toModelType();
             addressBook.addIncome(income);
         }
-        for (JsonAdaptedWish JsonAdaptedWish: wishes) {
-            Wish wish = JsonAdaptedWish.toModelType();
+        for (JsonAdaptedWish jsonAdaptedWish: wishes) {
+            Wish wish = jsonAdaptedWish.toModelType();
             addressBook.addWish(wish);
         }
         for (JsonAdaptedExpenseReminder JsonAdaptedExpenseReminder : expenseReminders) {
