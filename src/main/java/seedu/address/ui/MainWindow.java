@@ -63,9 +63,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
     @FXML
     private Scene commonScene;
 
-    @FXML
-    private ItineraryWindow itineraryScene;
-
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -89,7 +86,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
         // todo-this-week: call the PageScene constructor with your page scene instead,
         // e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
-        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage);
+        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), itineraryPage, calendarPage, financialTrackerPage);
     }
 
     public Stage getPrimaryStage() {
@@ -137,9 +134,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        itineraryScene = new ItineraryWindow(logic);
-        itineraryScene.fillInnerParts();
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -169,7 +163,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
     public void handleCode() {
         if (!codeWindow.isShowing()) {
             codeWindow.show();
-            primaryStage.setScene(itineraryScene.getRoot());
         } else {
             codeWindow.focus();
         }
