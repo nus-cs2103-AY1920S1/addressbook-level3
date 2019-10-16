@@ -28,6 +28,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -152,6 +153,7 @@ public class ParserUtil {
         if (!TimeInHalfHour.isValidTime(trimmedTime)) {
             throw new ParseException(TimeInHalfHour.MESSAGE_CONSTRAINTS);
         }
+
         int hour = Integer.parseInt(time.substring(0, 2));
         int min = Integer.parseInt(time.substring(2));
         return new TimeInHalfHour(hour, min);
