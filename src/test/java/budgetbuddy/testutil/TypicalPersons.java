@@ -1,10 +1,14 @@
 package budgetbuddy.testutil;
 
+import static budgetbuddy.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static budgetbuddy.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static budgetbuddy.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static budgetbuddy.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import budgetbuddy.logic.commands.CommandTestUtil;
 import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.person.Person;
 
@@ -35,10 +39,10 @@ public class TypicalPersons {
             .build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Person AMY = new PersonBuilder().withName(CommandTestUtil.VALID_NAME_AMY)
-            .withTags(CommandTestUtil.VALID_TAG_FRIEND).build();
-    public static final Person BOB = new PersonBuilder().withName(CommandTestUtil.VALID_NAME_BOB)
-            .withTags(CommandTestUtil.VALID_TAG_HUSBAND, CommandTestUtil.VALID_TAG_FRIEND)
+    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY)
+            .withTags(VALID_TAG_FRIEND).build();
+    public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB)
+            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
