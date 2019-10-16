@@ -37,6 +37,8 @@ public class MemberList extends UiPart<Region> {
             listMembers.getChildren().add(memberCard.getRoot());
         }
         listHeaderContainer.hvalueProperty().bindBidirectional(listMemberContainer.hvalueProperty());
+        listMemberContainer.setFitToWidth(true);
+        listHeaderContainer.setFitToWidth(true);
     }
 
     /**

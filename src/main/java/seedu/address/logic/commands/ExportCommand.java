@@ -17,7 +17,7 @@ import seedu.address.model.person.Person;
 /** Command to export visual representations */
 public class ExportCommand<T> extends Command {
 
-    public static final String COMMAND_WORD = "export";
+    public static final String COMMAND_WORD = "export-vr";
 
     public static final String MESSAGE_SUCCESS = "Exporting %1$s";
     public static final String MESSAGE_FAILURE = "Failed to export...";

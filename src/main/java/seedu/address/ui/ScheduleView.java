@@ -243,12 +243,8 @@ public class ScheduleView extends UiPart<Region> {
         int minutes = durationMinutes % 60;
         double heightOfTimeslot = hours * oneHourLength + (minutes / 60.0) * oneHourLength;
         result.setPrefSize(blockWidth, heightOfTimeslot);
-        //result.setMaxWidth(blockWidth); setsMaxWidth of busy timeslot.
         result.setStyle("-fx-background-color: " + color + "; -fx-border-width: 2; -fx-background-radius: 5;");
-        DropShadow shadow = new DropShadow();
-        shadow.setOffsetX(3);
-        shadow.setOffsetY(3);
-        result.setEffect(shadow);
+        result.setId("colouredTimeslot");
         return result;
     }
 

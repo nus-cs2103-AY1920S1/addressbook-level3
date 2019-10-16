@@ -18,13 +18,13 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+TimeBook is an application to store your friends’ information and schedule. The unique feature of TimeBook is that it can find free time for you and your group of friends to meet up for projects, meals or casual drinking sessions based on you and your friends’ schedules. In addition, TimeBook has been optimised for those who prefer using Command Line Interface (CLI) while keeping the benefits of a Graphical User Interface (GUI). Furthermore, TimeBook has a simple yet useful User Interface (UI) and User Experience (UX) to cater for users who have never used a CLI at all. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `timebook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your TimeBook.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`-n John Doe -p 98765432 -em johnd@example.com -a John street, block 123, #01-01` : adds a contact named `John Doe` to the TimeBook.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -46,10 +46,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add -n NAME`, `NAME` is a parameter which can be used as `add -n John Doe`.
+* Items in square brackets are optional e.g `-n NAME [-t TAG]` can be used as `-n John Doe -t friend` or as `-n John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[-t TAG]...` can be used as `{nbsp}` (i.e. 0 times), `-t friend`, `-t friend -t family` etc.
+* Parameters can be in any order e.g. if the command specifies `-n NAME -p PHONE_NUMBER`, `-p PHONE_NUMBER -n NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -58,7 +58,7 @@ Format: `help`
 
 === Adding a person: `add`
 
-Adds a person to the address book +
+Adds a person to the timebook +
 Format: `add-person -n NAME -e EMAIL [-c NUS_MOD_LINK]`
 
 Examples:
@@ -68,27 +68,27 @@ Examples:
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all persons in the timebook. +
 Format: `list`
 
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing person in the timebook. +
+Format: `edit INDEX [-n NAME] [-p PHONE] [-em EMAIL] [-a ADDRESS] [-t TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* You can remove all the person's tags by typing `-t` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
+* `edit 1 -p 91234567 -em johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
+* `edit 2 -n Betsy Crower -t` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 === Locating persons by name: `find`
@@ -114,7 +114,7 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 // tag::delete[]
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified person from TimeBook. +
 Format: `delete-person -n NAME`
 
 ****
@@ -126,12 +126,12 @@ Format: `delete-person -n NAME`
 Examples:
 
 * `delete-person -n Benedict` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd person in TimeBook.
 
 // end::delete[]
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the TimeBook. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -141,7 +141,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+TimeBook data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -152,21 +152,23 @@ _{explain how the user can enable/disable data encryption}_
 
 == Advanced Features
 
-=== Add Schedule: `add-schedule`
+=== Add Event: `addevent`
 
-Adds a schedule to a person in TimeBook. Only schedules without clashes between time slots can be added to TimeBook.
-Can be used to mark a person as unavailable either on one-off dates or on a particular day every week +
+Adds an event to a person in TimeBook. Only events without clashes in the person's existing schedule can be added to TimeBook.
+Can be used to mark a person as unavailable either on one-off dates or on a particular day every week. +
 Format:
 
-* `add-schedule -n NAME -d DATE -t TIME` +
-* `add-schedule -n NAME -d DAY -t TIME` +
-* `add-schedule -n NAME -c NUS_MOD_LINK`
+*  format of START_DATE/END_DATE: `DDMMYYYY:HHMM` +
+*  format of START_TIME/END_TIME: `HHMM` +
+* `addevent -n NAME -e EVENT_NAME -t START_DATE-END_DATE-LOCATION` +
+* `addevent -n NAME -e EVENT_NAME -d DAY -t START_TIME-END_TIME` +
+* `addevent -n NAME -c NUS_MOD_LINK`
 
 Examples:
 
-* `add-schedule -n John -d 18/09/2019 -t 1000`
-* `add-schedule -n John -d Wednesday -t 1000`
-* `add-schedule -n Jake -c 23F6B742CE`
+* `addevent -n John -e CS2103T Lecture -t 18102019:1600-18102019:1800-i3`
+* `addevent -n John -e Lunch with kakis -d Wednesday -t 1000-1200`
+* `addevent -n Jake -c 23F6B742CE`
 
 === Delete schedule: `delete-schedule`
 
@@ -205,14 +207,19 @@ Examples:
 * `group -g TimeBook -m Catherine -m John Doe`
 * `group -g CS2030 T2 -m Amanda -m Catherine`
 
-=== Show group: `show-group`
+=== Show group: `show`
 
 Shows details of a group: who are its members and their available timings +
 Format:
 
-* `show-group -g TimeBook` +
-* `show-group -g CS2030 T2`
+* `show -g TimeBook` +
+* `show -g CS2030 T2`
 
+=== Group: 'group'
+Creates a group and adds all members into the group +
+Format:
+
+* `group -g GROUP_NAME [-m MEMBERS]`
 
 Examples:
 
@@ -221,7 +228,7 @@ Examples:
 
 === Delete group: `delete-group`
 
-Adds members into a group and creates the group if it doesn’t already exist +
+Deletes a group in TimeBook +
 Format:
 
 * `delete-group -g GROUP_NAME`
@@ -230,20 +237,20 @@ Examples:
 
 * `delete-group -g CS2030 T2`
 
-=== Show person: `show-person`
+=== Show person: `show`
 
 Shows a person’s details along with their schedule +
 Format:
 
-* `show-person -n NAME` +
+* `show -n NAME` +
 
 
 Examples:
 
-* `show-person -n Catherine`
-* `show-person -n Jake`
+* `show -n Catherine`
+* `show -n Jake`
 
-=== Export VR(Virtual Representation): `export-vr`
+=== Export VR(Virtual Representation): `export`
 
 Exports a visualisation representation of the schedule (timetable) of a group or person(s) to a PNG file+
 Format:
@@ -252,8 +259,8 @@ Format:
 
 Examples:
 
-* `export-vr -g TimeBook -o timetable.jpg`
-* `export-vr -n John Doe -n Joe Dohn -n Jackie Chan -o timetable.jpg`
+* `export-vr -g TimeBook`
+* `export-vr -n John Doe`
 
 === Export ICS: `export-ics`
 
@@ -293,29 +300,29 @@ Examples:
 Get the closest common location. +
 Format:
 
-* `closestlocation l/ LOCATIONA LOCATIONB ...` +
+* `closestlocation -l LOCATIONA LOCATIONB ...` +
 
 Examples:
 
-* `closestlocation l/LT16 LT15 AS5`
+* `closestlocation -l LT16 LT15 AS5`
 
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TimeBook folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add -n NAME -p PHONE_NUMBER -em EMAIL -a ADDRESS [-t TAG]...` +
+e.g. `add -n James Ho -p 22224444 -em jamesho@example.com -a 123, Clementi Rd, 1234665 -t friend -t colleague`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Edit* : `edit INDEX [-n NAME] [-p PHONE_NUMBER] [-em EMAIL] [-a ADDRESS] [-t TAG]...` +
+e.g. `edit 2 -n James Lee -em jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
 * *Help* : `help`
-* *Closes Location* : `closestlocation l/ LOCATIONA LOCATIONB ...`
+* *Closes Location* : `closestlocation -l LOCATIONA LOCATIONB ...`

@@ -22,7 +22,7 @@
                 <ColumnConstraints percentWidth="40" />
             </columnConstraints>
             <padding>
-                <Insets top="5" right="5" bottom="5" left="20" />
+                <Insets top="5" right="5" bottom="5" left="25" />
             </padding>
             <Label text="Name" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS"/>
             <Label text="Email" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
