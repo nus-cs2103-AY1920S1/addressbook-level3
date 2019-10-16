@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.util.List;
 import java.util.Optional;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
@@ -15,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.food.Amount;
 import seedu.address.model.food.Name;
 import seedu.address.model.food.TemplateItem;
+import seedu.address.model.food.UniqueTemplateItems;
 
 /**
  * Edits the details of an existing template item in the template list.
@@ -34,49 +37,57 @@ public class EditTemplateItemCommand extends Command {
     public static final String MESSAGE_EDIT_TEMPLATE_ITEM_SUCCESS = "Edited food item: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
-    private final Index index;
+    private final Index targetTemplateIndex;
+    private final Index targetItemIndex;
     private final EditTemplateItemDescriptor editTemplateItemDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param targetTemplate of the template in the filtered template list to edit
+     * @param targetItem of the template item in the template to edit
      * @param editTemplateItemDescriptor details to edit the person with
      */
-    public EditTemplateItemCommand(Index index, EditTemplateItemDescriptor editTemplateItemDescriptor) {
-        requireNonNull(index);
+    public EditTemplateItemCommand(Index targetTemplate, Index targetItem,
+                                   EditTemplateItemDescriptor editTemplateItemDescriptor) {
+        requireNonNull(targetItem);
+        requireNonNull(targetTemplate);
         requireNonNull(editTemplateItemDescriptor);
 
-        this.index = index;
+        this.targetItemIndex = targetItem;
+        this.targetTemplateIndex = targetTemplate;
         this.editTemplateItemDescriptor = new EditTemplateItemDescriptor(editTemplateItemDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        /**List<TemplateItem> lastShownList = model.getFilteredTemplateItemList();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
+        List<UniqueTemplateItems> lastShownList = model.getFilteredTemplateList();
+        if (targetTemplateIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
         }
 
-        TemplateItem foodToEdit = lastShownList.get(index.getZeroBased());
-        TemplateItem editedFood = createEditedFood(foodToEdit, editTemplateItemDescriptor);
+        UniqueTemplateItems templateToEdit = lastShownList.get(targetTemplateIndex.getZeroBased());
+        if (targetItemIndex.getZeroBased() >= templateToEdit.getSize()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_ITEM_DISPLAYED_INDEX);
+        }
 
-        model.setTemplateItem(foodToEdit, editedFood);
-        model.updateFilteredTemplateItemList(PREDICATE_SHOW_ALL_FOODS);
-        return new CommandResult(String.format(MESSAGE_EDIT_TEMPLATE_ITEM_SUCCESS, editedFood));**/
-        return new CommandResult("Method not implemented yet.");
+        TemplateItem itemToEdit = templateToEdit.get(targetItemIndex.getZeroBased());
+        TemplateItem editedItem = createEditedItem(itemToEdit, editTemplateItemDescriptor);
+
+        templateToEdit.setTemplateItem(itemToEdit, editedItem);
+
+        return new CommandResult(String.format(MESSAGE_EDIT_TEMPLATE_ITEM_SUCCESS, editedItem));
     }
 
     /**
-     * Creates and returns a {@code TemplateItem} with the details of {@code foodToEdit}
+     * Creates and returns a {@code TemplateItem} with the details of {@code itemToEdit}
      * edited with {@code editTemplateItemDescriptor}.
      */
-    private static TemplateItem createEditedFood(TemplateItem foodToEdit,
+    private static TemplateItem createEditedItem(TemplateItem itemToEdit,
                                                  EditTemplateItemDescriptor editTemplateItemDescriptor) {
-        assert foodToEdit != null;
+        assert itemToEdit != null;
 
-        Name updatedName = editTemplateItemDescriptor.getName().orElse(foodToEdit.getName());
-        Amount updatedAmount = editTemplateItemDescriptor.getAmount().orElse(foodToEdit.getAmount());
+        Name updatedName = editTemplateItemDescriptor.getName().orElse(itemToEdit.getName());
+        Amount updatedAmount = editTemplateItemDescriptor.getAmount().orElse(itemToEdit.getAmount());
 
         return new TemplateItem(updatedName, updatedAmount);
     }

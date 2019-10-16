@@ -27,7 +27,7 @@ public class JsonTemplateListStorageTest {
     }
 
     private java.util.Optional<ReadOnlyTemplateList> readTemplateList(String filePath) throws Exception {
-        return new JsonTemplateItemStorage(Paths.get(filePath)).readTemplateList(addToTestDataPathIfNotNull(filePath));
+        return new JsonTemplateListStorage(Paths.get(filePath)).readTemplateList(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -61,7 +61,7 @@ public class JsonTemplateListStorageTest {
     public void readAndSaveTemplateList_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("typicalTemplatesTemplateList.json");
         TemplateList original = getTypicalTemplateList();
-        JsonTemplateItemStorage jsonTemplateListStorage = new JsonTemplateItemStorage(filePath);
+        JsonTemplateListStorage jsonTemplateListStorage = new JsonTemplateListStorage(filePath);
 
         // Save in new file and read back
         jsonTemplateListStorage.saveTemplateList(original, filePath);
@@ -93,7 +93,7 @@ public class JsonTemplateListStorageTest {
      */
     private void saveTemplateList(ReadOnlyTemplateList templateList, String filePath) {
         try {
-            new JsonTemplateItemStorage(Paths.get(filePath))
+            new JsonTemplateListStorage(Paths.get(filePath))
                     .saveTemplateList(templateList, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);

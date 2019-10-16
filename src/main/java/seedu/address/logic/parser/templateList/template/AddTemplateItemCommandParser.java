@@ -4,8 +4,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.util.List;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.templateList.template.AddTemplateItemCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -16,6 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.food.Amount;
 import seedu.address.model.food.Name;
 import seedu.address.model.food.TemplateItem;
+import seedu.address.model.food.UniqueTemplateItems;
 
 /**
  * Parses input arguments and creates a new AddTemplateItemCommand object
@@ -31,8 +34,16 @@ public class AddTemplateItemCommandParser implements Parser<AddTemplateItemComma
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
-                || !argMultimap.getPreamble().isEmpty()) {
+        Index index;
+
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddTemplateItemCommand.MESSAGE_USAGE), pe);
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddTemplateItemCommand.MESSAGE_USAGE));
         }
@@ -42,7 +53,7 @@ public class AddTemplateItemCommandParser implements Parser<AddTemplateItemComma
 
         TemplateItem templateItem = new TemplateItem(name, amount);
 
-        return new AddTemplateItemCommand(templateItem);
+        return new AddTemplateItemCommand(index, templateItem);
     }
 
     /**
