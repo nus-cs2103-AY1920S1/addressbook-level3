@@ -122,7 +122,7 @@ public class ParserUtil {
      *
      * throws ParseException if the given {@code caller} is invalid.
      */
-    public static CallerNumber parseCaller(String caller) throws ParseException {
+    public static CallerNumber parseCallerNumber(String caller) throws ParseException {
         requireNonNull(caller);
         String trimmedCaller = caller.trim();
         if (!CallerNumber.isValidCaller(trimmedCaller)) {
