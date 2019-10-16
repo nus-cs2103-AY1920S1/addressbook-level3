@@ -1,5 +1,6 @@
 package seedu.address.model.performance;
 
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import seedu.address.model.person.Person;
@@ -11,6 +12,7 @@ public class Event {
 
     private String name;
     private TreeMap<Person, PerformanceEntry> performances;
+    private static ArrayList<Event> events = new ArrayList<>();
 
     /**
      * Creates a type of event that stores the members and their respective timings (performance) for this event.
@@ -19,6 +21,14 @@ public class Event {
     public Event(String name) {
         this.name = name;
         this.performances = new TreeMap<>();
+    }
+
+    /**
+     * Retrieves a list of all events.
+     * @return List of all events.
+     */
+    public ArrayList<Event> getEvents() {
+        return events;
     }
 
 }
