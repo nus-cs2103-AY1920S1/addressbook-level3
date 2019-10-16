@@ -20,6 +20,7 @@ public class UniqueIdentificationNumberMaps {
      * Adds the {@code entity} to the respective map and returns the identification number assigned.
      */
     public static Integer addEntity(Entity entity) {
+        assert(entity != null);
         if (entity instanceof Worker) {
             return putWorker((Worker) entity);
         } else if (entity instanceof Body) {
@@ -38,7 +39,7 @@ public class UniqueIdentificationNumberMaps {
         for (int id = 1; id <= numOfKeys; id++) {
             if (uniqueWorkerMap.get(id) == null) {
                 uniqueWorkerMap.put(id, worker);
-                break;
+                return id;
             }
         }
         int newId = numOfKeys + 1;
@@ -55,7 +56,7 @@ public class UniqueIdentificationNumberMaps {
         for (int id = 1; id <= numOfKeys; id++) {
             if (uniqueFridgeMap.get(id) == null) {
                 uniqueFridgeMap.put(id, fridge);
-                break;
+                return id;
             }
         }
         int newId = numOfKeys + 1;
@@ -68,11 +69,12 @@ public class UniqueIdentificationNumberMaps {
      */
     private static Integer putBody(Body body) {
         Set<Integer> keys = uniqueBodyMap.keySet();
+        System.out.println(keys);
         int numOfKeys = keys.size();
         for (int id = 1; id <= numOfKeys; id++) {
             if (uniqueBodyMap.get(id) == null) {
                 uniqueBodyMap.put(id, body);
-                break;
+                return id;
             }
         }
         int newId = numOfKeys + 1;
@@ -107,7 +109,7 @@ public class UniqueIdentificationNumberMaps {
     /**
      * Clears all mappings of id to entity.
      */
-    public void clearAllEntries() {
+    public static void clearAllEntries() {
         uniqueFridgeMap.clear();
         uniqueBodyMap.clear();
         uniqueWorkerMap.clear();

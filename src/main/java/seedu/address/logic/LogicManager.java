@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -93,4 +94,17 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+    //@@ shaoyi1997-reused
+    //Reused from SE-EDU Address Book Level 4
+    @Override
+    public ReadOnlyProperty<Body> selectedBodyProperty() {
+        return model.selectedBodyProperty();
+    }
+
+    @Override
+    public void setSelectedBody(Body body) {
+        model.setSelectedBody(body);
+    }
+    //@@ shaoyi1997
 }

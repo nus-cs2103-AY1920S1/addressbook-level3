@@ -7,6 +7,9 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -15,6 +18,7 @@ import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.history.CommandHistory;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.body.exceptions.BodyNotFoundException;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
@@ -33,6 +37,8 @@ public class ModelManager implements Model {
     private final CommandHistory commandHistory;
     private final CommandHistory undoHistory;
     private final FilteredList<Fridge> filteredFridges;
+    private final SimpleObjectProperty<Body> selectedBody = new SimpleObjectProperty<>();
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -51,6 +57,7 @@ public class ModelManager implements Model {
         commandHistory = new CommandHistory();
         undoHistory = new CommandHistory();
         filteredFridges = new FilteredList<>(this.addressBook.getFridgeList());
+        filteredBodies.addListener(this::ensureSelectedBodyIsValid);
     }
 
     public ModelManager() {
@@ -250,6 +257,57 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@ shaoyi1997-reused
+    //Reused from SE-EDU Address Book Level 4
+    //=========== Selected person ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Body> selectedBodyProperty() {
+        return selectedBody;
+    }
+
+    @Override
+    public Body getSelectedBody() {
+        return selectedBody.getValue();
+    }
+
+    @Override
+    public void setSelectedBody(Body body) {
+        if (body != null && !filteredBodies.contains(body)) {
+            throw new BodyNotFoundException();
+        }
+        selectedBody.setValue(body);
+    }
+
+    /**
+     * Ensures {@code selectedBody} is a valid body in {@code filteredbodies}.
+     */
+    private void ensureSelectedBodyIsValid(ListChangeListener.Change<? extends Body> change) {
+        while (change.next()) {
+            if (selectedBody.getValue() == null) {
+                // null is always a valid selected body, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedBodyReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                && change.getRemoved().contains(selectedBody.getValue());
+            if (wasSelectedBodyReplaced) {
+                // Update selectedBody to its new value.
+                int index = change.getRemoved().indexOf(selectedBody.getValue());
+                selectedBody.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedBodyRemoved = change.getRemoved().stream()
+                .anyMatch(removedBody -> selectedBody.getValue().isSameEntity(removedBody));
+            if (wasSelectedBodyRemoved) {
+                // Select the body that came before it in the list,
+                // or clear the selection if there is no such body.
+                selectedBody.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+    //@@ shaoyi1997-reused
 
     @Override
     public boolean equals(Object obj) {
@@ -272,5 +330,6 @@ public class ModelManager implements Model {
         //&& filteredBodies.equals(other.filteredBodies);
         //&& filteredFridges.equals(other.filteredFridges);
     }
+
 
 }

@@ -88,6 +88,7 @@ public class AddCommand extends UndoableCommand {
         requireNonNull(model);
 
         if (model.hasEntity(toAdd)) {
+            toAdd.getIdNum().removeMapping();
             throw new CommandException(MESSAGE_DUPLICATE_ENTITY);
         }
 

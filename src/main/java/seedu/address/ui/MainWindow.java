@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,14 +30,14 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private ReadOnlyAddressBook readOnlyAddressBook;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
-    private FridgeListPanel fridgeListPanel;
-    private WorkerListPanel workerListPanel;
-    private BodyListPanel bodyListPanel;
+    private LineChartPanel lineChartPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private BodyMasterDetailPane bodyMasterDetailPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -48,19 +49,16 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
-    private StackPane fridgeListPanelPlaceholder;
-
-    @FXML
-    private StackPane workerListPanelPlaceholder;
-
-    @FXML
-    private StackPane bodyListPanelPlaceholder;
+    private StackPane lineChartPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane bodyMasterListPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -122,14 +120,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        fridgeListPanel = new FridgeListPanel(logic.getFilteredFridgeList());
-        fridgeListPanelPlaceholder.getChildren().add(fridgeListPanel.getRoot());
-
-        workerListPanel = new WorkerListPanel(logic.getFilteredWorkerList());
-        workerListPanelPlaceholder.getChildren().add(workerListPanel.getRoot());
-
-        bodyListPanel = new BodyListPanel(logic.getFilteredBodyList());
-        bodyListPanelPlaceholder.getChildren().add(bodyListPanel.getRoot());
+        lineChartPanel = new LineChartPanel(logic.getAddressBook().getBodyList());
+        lineChartPanelPlaceholder.getChildren().add(lineChartPanel.getLineChart());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -139,6 +131,11 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        bodyMasterDetailPane = new BodyMasterDetailPane(new BodyTableView(logic.getFilteredBodyList(),
+                logic.selectedBodyProperty(), logic::setSelectedBody),
+                        new BodyCardSelected(logic.selectedBodyProperty()));
+        bodyMasterListPlaceholder.getChildren().add(bodyMasterDetailPane.getRoot());
     }
 
     /**
@@ -181,8 +178,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public FridgeListPanel getFridgeListPanel() {
-        return fridgeListPanel;
+    public PersonListPanel getPersonListPanel() {
+        return personListPanel;
     }
 
     /**
