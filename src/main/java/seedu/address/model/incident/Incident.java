@@ -85,7 +85,7 @@ public class Incident {
     public static Description promptForDescription() {
         System.out.println("Enter incident description now? y/n"); //change to GUI
         Scanner sc = new Scanner(System.in); //change to GUI
-        String desc = "";
+        String desc = "Testing search function";
         if (sc.next().equals("y")) {
             System.out.println("Please enter description:");
             desc = sc.nextLine();
