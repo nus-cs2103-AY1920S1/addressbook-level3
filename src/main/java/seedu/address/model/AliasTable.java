@@ -54,6 +54,15 @@ public class AliasTable {
         return this;
     }
 
+    /**
+     * Removes an alias from the alias table.
+     * @param alias Alias name
+     * @return This object.
+     */
+    public boolean removeAlias(String alias) {
+        return aliasTable.remove(alias) != null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
