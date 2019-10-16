@@ -9,9 +9,9 @@
 
 <VBox spacing="20" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <HBox alignment="BASELINE_CENTER" spacing="30">
-        <Button fx:id="previousMonthButton" text="&lt;&lt;" />
+        <Button text="&lt;&lt;" />
         <Text fill="white" text="Calendar" />
-        <Button fx:id="nextMonthButton" text="&gt;&gt;" />
+        <Button text="&gt;&gt;" />
     </HBox>
     <GridPane alignment="BASELINE_CENTER" prefWidth="600">
         <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="200" GridPane.columnIndex="0">
@@ -36,41 +36,6 @@
             <Text fill="white" text="Saturday" />
         </StackPane>
     </GridPane>
-    <GridPane gridLinesVisible="true" prefHeight="400" prefWidth="600">
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.rowIndex="0" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="6" GridPane.rowIndex="0" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-        <StackPane prefHeight="200" prefWidth="200" style="-fx-background-color: white;" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+    <GridPane fx:id="dateDisplayGrid" prefHeight="400" prefWidth="600">
     </GridPane>
 </VBox>

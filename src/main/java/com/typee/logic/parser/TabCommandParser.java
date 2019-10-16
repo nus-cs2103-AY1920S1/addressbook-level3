@@ -7,7 +7,7 @@ import com.typee.commons.core.Messages;
 import com.typee.logic.commands.TabCommand;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.ui.AppointmentWindow;
-import com.typee.ui.CalendarWindow;
+import com.typee.ui.calendar.CalendarWindow;
 import com.typee.ui.GameWindow;
 import com.typee.ui.Tab;
 import com.typee.ui.report.ReportWindow;
