@@ -6,6 +6,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.feature.Feature;
 
+/**
+ * Allows user to view calendar, attendance or performance.
+ */
 public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
