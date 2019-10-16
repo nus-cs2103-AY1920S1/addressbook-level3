@@ -16,7 +16,9 @@ import seedu.address.model.day.Itinerary;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Accommodation> PREDICATE_SHOW_ALL_ACCOMMODATIONS = unused -> true;
     Predicate<Activity> PREDICATE_SHOW_ALL_ACTIVITIES = unused -> true;
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
@@ -57,10 +59,13 @@ public interface Model {
      */
     void setPlanner(ReadOnlyPlanner planner);
 
-    /** Returns the Planner */
+    /**
+     * Returns the Planner
+     */
     ReadOnlyPlanner getPlanner();
 
     // ACCOMMODATION METHODS
+
     /**
      * Returns true if a contacts with the same identity as {@code contacts} exists in the address book.
      */
@@ -86,16 +91,20 @@ public interface Model {
      */
     void setAccommodation(Accommodation target, Accommodation editedAccommodation);
 
-    /** Returns an unmodifiable view of the filtered contacts list */
+    /**
+     * Returns an unmodifiable view of the filtered contacts list
+     */
     ObservableList<Accommodation> getFilteredAccommodationList();
 
     /**
      * Updates the filter of the filtered contacts list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAccommodationList(Predicate<Accommodation> predicate);
 
     // ACTIVITY METHODS
+
     /**
      * Returns true if a contacts with the same identity as {@code contacts} exists in the address book.
      */
@@ -121,16 +130,20 @@ public interface Model {
      */
     void setActivity(Activity target, Activity editedActivity);
 
-    /** Returns an unmodifiable view of the filtered contacts list */
+    /**
+     * Returns an unmodifiable view of the filtered contacts list
+     */
     ObservableList<Activity> getFilteredActivityList();
 
     /**
      * Updates the filter of the filtered contacts list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredActivityList(Predicate<Activity> predicate);
 
     // CONTACT METHODS
+
     /**
      * Returns true if a contacts with the same identity as {@code contacts} exists in the contact list.
      */
@@ -156,16 +169,20 @@ public interface Model {
      */
     void setContact(Contact target, Contact editedContact);
 
-    /** Returns an unmodifiable view of the filtered contacts list */
+    /**
+     * Returns an unmodifiable view of the filtered contacts list
+     */
     ObservableList<Contact> getFilteredContactList();
 
     /**
      * Updates the filter of the filtered contacts list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredContactList(Predicate<Contact> predicate);
 
     // DAY METHODS
+
     /**
      * Returns true if a day with the same identity as {@code day} exists in the itinerary.
      */
@@ -186,6 +203,7 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered days list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDayList(Predicate<Day> predicate);

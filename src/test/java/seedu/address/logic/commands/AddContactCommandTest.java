@@ -188,10 +188,6 @@ public class AddContactCommandTest {
         }
 
         // DAY METHODS
-        @Override
-        public boolean hasDay(Day day) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         public void addDays(int n) {
             throw new AssertionError("This method should not be called.");
@@ -207,6 +203,10 @@ public class AddContactCommandTest {
 
         public void setDays(List<Day> days) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        public boolean hasDay(Day day) {
+            throw new AssertionError("This method should not be called");
         }
 
         public ObservableList<Day> getFilteredDayList() {

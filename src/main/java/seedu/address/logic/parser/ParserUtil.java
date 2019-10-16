@@ -13,6 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
+import seedu.address.model.day.time.DurationInHalfHour;
 import seedu.address.model.day.time.TimeInHalfHour;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
@@ -28,6 +29,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -156,4 +158,22 @@ public class ParserUtil {
         int min = Integer.parseInt(time.substring(2));
         return new TimeInHalfHour(hour, min);
     }
+
+
+    /**
+     * Parses a {@code String duration} into an {@code Integer}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     */
+    public static DurationInHalfHour parseDurationInHalfHour(String duration) throws ParseException {
+        requireNonNull(duration);
+        String trimmedDuration = duration.trim();
+        if (!DurationInHalfHour.isValidDuration(trimmedDuration)) {
+            throw new ParseException(DurationInHalfHour.MESSAGE_CONSTRAINTS);
+        }
+        int numberOfHalfHour = Integer.parseInt(trimmedDuration) / 30;
+        return new DurationInHalfHour(numberOfHalfHour);
+    }
+
 }
