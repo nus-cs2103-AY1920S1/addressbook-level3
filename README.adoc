@@ -2,7 +2,7 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-T09-1/main[image:https://travis-ci.org/AY1920S1-CS2103T-T09-1/main.svg?branch=master[Build Status]]
-https://coveralls.io/github/AY1920S1-CS2103T-T09-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T09-1/main/badge.svg?branch=master[Coverage Status]]
+https://coveralls.io/github/AY1920S1-CS2103T-T09-1/main[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T09-1/main/badge.svg[Coverage Status]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]

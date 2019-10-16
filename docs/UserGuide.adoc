@@ -12,9 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-T09-1/main
 
-By: `Team CS2103T T09-1`      Since: `MMM 2019`      License: `MIT`
+By: `Team CS2103T T09-1`      Since: `Aug 2019`      License: `MIT`
 
 == Introduction
 
@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`help`* : a list of commands available on Plan^2^Travel
-* **`create activity`**`n/Ernest d/1 l/Tokyo dt/18/9/2019 0900` : adds an activity named `Ernest` at location `Tokyo` from `18/9/2019 0900` to the activity list.
+* **`add act`**`n/Visit Gundam Museum a/Tokyo p/65543221` : adds an activity named `Visit Gundam Museum` at location `Tokyo` with contact number `65543221` to the activity list.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -45,8 +45,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Eat lunch`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Eat lunch t/Western` or as `n/Eat lunch`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
@@ -56,25 +56,71 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Displays a help page +
 Format: `help`
 
-// tag::createactivity[]
-=== Creating an activity: `create activity`
+// tag::addaccommodation[]
+=== Adding an accommodation: `add acc`
 
-Creates an activity to the activity list +
-Format: `create activity n/NAME d/DURATION [l/LOCATION] [dt/DATE_TIME]`
-
-* DURATION is in hours. Shortest acceptable duration is 0.5 hours.
-* DATE_TIME is in dd/mm/yyyy HHHH format.
+Creates an accommodation to the accommodation list +
+Format: `add acc n/NAME a/ADDRESS [p/PHONE_NUMBER][e/EMAIL][t/TAGS]`
 
 Examples:
 
-* `create activity n/Oscar d/21`
-* `create activity n/Ernest d/1 l/Tokyo dt/18/9/2019 0900`
+* `add acc n/Hotel 81 a/Orchard /p67555312`
+* `add acc n/Mandarin Oriental a/Ang Mo Kio`
 
-// end::createactivity[]
-=== Editing an activity: `edit activity`
+// end::addaccommodation[]
+=== Editing an accommodation: `edit acc`
+
+Edits an accommodation +
+Format: `edit act INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
+
+* Edits the accommodation with the specified INDEX. The index refers to the index number shown in the displayed accommodation list. The index must be a positive integer 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+Examples:
+
+* `edit acc 1 n/MBS a/Marina Bay t/Atas`
+
+Edits the name, address and tag of the 1st accommodation to be MBS, Marina Bay and Atas respectively.
+
+// tag::deleteaccommodation[]
+=== Deleting an accommodation: `delete acc`
+
+Delete one or more accommodation from the accommodation list +
+Format: `delete acc INDEX...`
+
+* Deletes the accommodation at the specified INDEX.
+* The index refers to the index number shown in the displayed accommodation list.
+* The index must be a positive integer 1, 2, 3, …
+
+Examples:
+
+* `delete acc 2`
+
+Deletes the 2nd accommodation in the accommodation list.
+
+// end::deleteaccommodation[]
+=== Listing all accommodation: `list acc`
+
+Displays a list view of all the accommodation +
+Format: `list acc`
+
+// tag::addactivity[]
+=== Adding an activity: `add act`
+
+Creates an activity to the activity list +
+Format: `add act n/NAME a/ADDRESS [p/PHONE_NUMBER][e/EMAIL][t/TAGS]`
+
+Examples:
+
+* `add act n/Visit Gundam Museum a/Tokyo /p67521312`
+* `add act n/Ski a/Mount Sinai`
+
+// end::addactivity[]
+=== Editing an activity: `edit act`
 
 Edits an activity +
-Format: `edit activity INDEX [n/NAME] [d/DURATION] [l/LOCATION]`
+Format: `edit act INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
 
 * Edits the activity with the specified INDEX. The index refers to the index number shown in the displayed activity list. The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -82,15 +128,15 @@ Format: `edit activity INDEX [n/NAME] [d/DURATION] [l/LOCATION]`
 
 Examples:
 
-* `edit activity 1 n/Dinner d/0.5 l/Hotel`
+* `edit activity 1 n/Dinner a/Hotel t/Western`
 
-Edits the name, duration and location of the 1st activity to be Dinner, 0.5 and Hotel respectively.
+Edits the name, address and tag of the 1st activity to be Dinner, Hotel and Western respectively.
 
 // tag::deleteactivity[]
-=== Deleting an activity: `delete activity`
+=== Deleting an activity: `delete act`
 
 Delete one or more activities from the activity list +
-Format: `delete activity INDEX...`
+Format: `delete act INDEX...`
 
 * Deletes the activity at the specified INDEX.
 * The index refers to the index number shown in the displayed activity list.
@@ -98,46 +144,29 @@ Format: `delete activity INDEX...`
 
 Examples:
 
-* `delete activity 2`
+* `delete act 2`
 
 Deletes the 2nd activity in the activity list.
 
 // end::deleteactivity[]
-=== Listing all activities: `list activity`
+=== Listing all activities: `list act`
 
 Displays a list view of all the activities +
-Format: `list activity`
+Format: `list act`
 
-=== Creating a contact: `create contact`
+=== Adding a contact: `add con`
 
 Creates a contact to the contact list +
-Format: `create contact n/NAME p/PHONE_NUMBER t/IS_EMERGENCY`
-
-* IS_EMERGENCY specifies whether the contact is for emergency purposes.
+Format: `add con n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 
 Examples:
 
-* `create contact n/Bob p/83746658 t/false`
+* `add con n/Bob p/83746658 t/false`
 
-=== Deleting a contact: `delete contact`
-
-Deletes a contact from the contact list +
-Format: `delete contact INDEX...`
-
-* Deletes the contact at the specified INDEX.
-* The index refers to the index number shown in the displayed contact list.
-* The index must be a positive integer 1, 2, 3, …
-
-Examples:
-
-* `delete activity 3`
-
-Deletes the 3rd contact in the contact list.
-
-=== Editing a contact: `edit contact`
+=== Editing a contact: `edit con`
 
 Edits an existing contact in the contact list +
-Format: `edit contact INDEX [p/PHONE_NUMBER] [t/IS_EMERGENCY]`
+Format: `edit con INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/IS_EMERGENCY]`
 
 * Edits the contact with the specified INDEX. The index refers to the index number shown in the displayed contact list. The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -146,36 +175,51 @@ Format: `edit contact INDEX [p/PHONE_NUMBER] [t/IS_EMERGENCY]`
 
 Examples:
 
-* `edit contact 1 p/93746658 t/true`
+* `edit con 1 p/93746658 t/true`
 
-Edits the phone number and emergency field of the 1st contact to be 93746658 and true respectively.
+Edits the phone number and tag of the 1st contact to be 93746658 and true respectively.
 
-=== Listing all contacts: `list contact`
+=== Deleting a contact: `delete con`
+
+Deletes a contact from the contact list +
+Format: `delete con INDEX...`
+
+* Deletes the contact at the specified INDEX.
+* The index refers to the index number shown in the displayed contact list.
+* The index must be a positive integer 1, 2, 3, …
+
+Examples:
+
+* `delete con 3`
+
+Deletes the 3rd contact in the contact list.
+
+=== Listing all contacts: `list con`
 
 Displays a list view of all the contact list +
-Format: `list contact`
+Format: `list con`
 
 === Adds days to the schedule: `add day`
 
-Adds DAY_NUMBER amount of days to the schedule +
-Format: `create day DAY_NUMBER`
+Adds DAY_NUMBER amount of days to the itinerary +
+Format: `add day DAY_NUMBER`
 
 Examples:
 
 * `add day 7`
 
-Adds 7 days to the back of the schedule.
+Adds 7 days to the back of the itinerary.
 
 === Deleting days: `delete day`
 
-Deletes DAY_NUMBER th day of the schedule. +
+Deletes DAY_NUMBER th day of the itinerary. +
 Format: `delete day DAY_NUMBER`
 
 Examples:
 
 * `delete day 2`
 
-Deletes the day 2 from the schedule.
+Deletes the day 2 from the itinery.
 
 === Scheduling activities to a day: `schedule`
 
@@ -208,7 +252,7 @@ Examples:
 
 * `unschedule time 2300 day 1`
 
-This removes the activity at 2300 from day 1 of the schedule.
+This removes the activity at 2300 from day 1 of the itinerary.
 
 === List the activities in a day: `list day`
 
@@ -238,7 +282,7 @@ Format: `history`
 
 === Saving the data: `save`
 
-Saves the state of the program. If provided with a schedule name, it will create a new file with the schedule name. Else, it will simply save it to the current save file +
+Saves the state of the program. If provided with a schedule name, it will add a new file with the schedule name. Else, it will simply save it to the current save file +
 Format: `save [SCHEDULE_NAME]`
 
 Examples:
@@ -247,7 +291,7 @@ Examples:
 
 === Loading the data: `load`
 
-The user can load the desired schedule with the schedule name. Else, the user can create a new schedule +
+The user can load the desired schedule with the schedule name. Else, the user can add a new schedule +
 Format: `load SCHEDULE_NAME`
 
 Examples:
@@ -277,18 +321,34 @@ Format: `exit`
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it adds with the file that contains the data of your previous Plan^2^Travel folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+** *Add* :
+* `add acc n/NAME a/ADDRESS [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
+e.g. `add acc n/Paradise Hotel a/23 Amoy Quee Road p/22224444`
+* `add act n/NAME a/ADDRESS [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
+e.g. `add act n/Skiing a/Mount Kurabaki`
+* `add con n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `add act n/James Ho a/123, Clementi Rd, 1234665 p/22224444 e/jamesho@example.com t/friend t/colleague`
+** *Clear* : `clear`
+** *Delete* : +
+* `delete acc INDEX`
+* `delete act INDEX`
+* `delete con INDEX`
+** *Edit* :
+* `edit acc INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
+e.g. `edit acc 3 n/Kent Ridge Hotel a/Clementi`
+* `edit act INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
+e.g. `edit act 5 n/Go Disneyland `
+* `edit con INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit con 2 n/James Lee e/jameslee@example.com`
+** *Find* :
+ * `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+** *List* :
+* `list acc`
+* `list act`
+* `list con`
+** *Help* : `help`
