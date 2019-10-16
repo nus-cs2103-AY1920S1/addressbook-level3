@@ -21,7 +21,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.common.Name;
 import seedu.address.model.medical.MedicalHistory;
-import seedu.address.model.person.*;
+import seedu.address.model.person.BloodType;
+import seedu.address.model.person.DoB;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Height;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Weight;
 
 /**
  * Edits the details of an existing person in Duke Cooks.

@@ -235,7 +235,10 @@ public class RecipeBookWindow extends UiPart<Stage> {
      */
     @FXML
     private void switchDiary() {
-        // switch to diary
+        primaryStage.hide();
+        DiaryWindow diaryWindow = new DiaryWindow(getPrimaryStage(), logic);
+        diaryWindow.show();
+        diaryWindow.fillInnerParts();
     }
 
     public RecipeListPanel getRecipeListPanel() {
