@@ -166,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Changes context of system depending on {@code context}
+     * Changes context of the system depending on {@code context}
      */
     private void changeContext(Context context) {
         switch (context) {
@@ -175,7 +175,6 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
             break;
         case RESTAURANT:
-            // using personListPanel as placeholder for restaurant list
             restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
             listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
             break;
@@ -183,7 +182,7 @@ public class MainWindow extends UiPart<Stage> {
             // to be implemented with deliverymen list
             break;
         default:
-
+            // to be implemented with order list
         }
     }
 

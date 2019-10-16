@@ -36,6 +36,8 @@ import seedu.deliverymans.storage.OrderBookStorage;
 import seedu.deliverymans.storage.Storage;
 import seedu.deliverymans.storage.StorageManager;
 import seedu.deliverymans.storage.UserPrefsStorage;
+import seedu.deliverymans.storage.customer.CustomerDatabaseStorage;
+import seedu.deliverymans.storage.customer.JsonCustomerDatabaseStorage;
 import seedu.deliverymans.storage.restaurant.JsonRestaurantDatabaseStorage;
 import seedu.deliverymans.storage.restaurant.RestaurantDatabaseStorage;
 import seedu.deliverymans.ui.Ui;
@@ -67,10 +69,13 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        CustomerDatabaseStorage customerDatabaseStorage =
+                new JsonCustomerDatabaseStorage(userPrefs.getCustomerDatabaseFilePath());
         RestaurantDatabaseStorage restaurantDatabaseStorage =
                 new JsonRestaurantDatabaseStorage(userPrefs.getRestaurantDatabaseFilePath());
         OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
-        storage = new StorageManager(addressBookStorage, restaurantDatabaseStorage, orderBookStorage, userPrefsStorage);
+        storage = new StorageManager(addressBookStorage, customerDatabaseStorage, restaurantDatabaseStorage,
+                orderBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -88,13 +93,14 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyCustomerDatabase> customerDatabaseOptional;
         Optional<ReadOnlyRestaurantDatabase> restaurantDatabaseOptional;
         Optional<ReadOnlyOrderBook> orderBookOptional;
 
         ReadOnlyAddressBook initialAddressData;
+        ReadOnlyCustomerDatabase initialCustomerData;
         ReadOnlyRestaurantDatabase initialRestaurantData;
         ReadOnlyOrderBook initialOrderData;
-        ReadOnlyCustomerDatabase initialCustomerData;
 
         try {
             addressBookOptional = storage.readAddressBook();
@@ -102,14 +108,27 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             initialAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-            initialCustomerData = new CustomerDatabase(); // to change when storage is settled
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialAddressData = new AddressBook();
-            initialCustomerData = new CustomerDatabase();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialAddressData = new AddressBook();
+        }
+
+        try {
+            customerDatabaseOptional = storage.readCustomerDatabase();
+            if (!customerDatabaseOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample CustomerDatabase");
+            }
+            initialCustomerData = customerDatabaseOptional.orElseGet(SampleDataUtil::getSampleCustomerDatabase);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. "
+                    + "Will be starting with an empty CustomerDatabase");
+            initialCustomerData = new CustomerDatabase();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. "
+                    + "Will be starting with an empty CustomerDatabase");
             initialCustomerData = new CustomerDatabase();
         }
 
