@@ -27,7 +27,7 @@ public class FilterCommand extends Command {
              + "You are only allowed to enter the following quantifiers:\n"
              + "LESS_THAN, EQUALS_TO or MORE_THAN";
     public static final String INVALID_VALUE_USAGE = "Note you have entered an invalid value! \n"
-             + "Please do make sure your valid follow the field requirements.";
+             + "Please do make sure your value follow the field requirements.";
     public static final String MESSAGE_SUCCESS = "This is the list of items at your disposal: ";
 
     private List<String> fields;
