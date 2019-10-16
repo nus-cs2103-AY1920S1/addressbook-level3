@@ -37,7 +37,7 @@ public class SpendingCard extends UiPart<Region> {
     @FXML
     private Label cost;
     @FXML
-    private Label email;
+    private Label remark;
     @FXML
     private FlowPane tags;
 
@@ -48,7 +48,7 @@ public class SpendingCard extends UiPart<Region> {
         name.setText(spending.getName().fullName);
         date.setText(spending.getDate().value);
         cost.setText("$" + spending.getCost().value);
-        email.setText(spending.getEmail().value);
+        remark.setText(spending.getRemark().value);
         spending.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

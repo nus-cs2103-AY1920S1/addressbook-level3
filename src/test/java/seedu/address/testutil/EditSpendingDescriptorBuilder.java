@@ -7,8 +7,8 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.EditCommand.EditSpendingDescriptor;
 import seedu.address.model.spending.Cost;
 import seedu.address.model.spending.Date;
-import seedu.address.model.spending.Email;
 import seedu.address.model.spending.Name;
+import seedu.address.model.spending.Remark;
 import seedu.address.model.spending.Spending;
 import seedu.address.model.tag.Tag;
 
@@ -34,7 +34,7 @@ public class EditSpendingDescriptorBuilder {
         descriptor = new EditSpendingDescriptor();
         descriptor.setName(spending.getName());
         descriptor.setDate(spending.getDate());
-        descriptor.setEmail(spending.getEmail());
+        descriptor.setRemark(spending.getRemark());
         descriptor.setCost(spending.getCost());
         descriptor.setTags(spending.getTags());
     }
@@ -56,10 +56,10 @@ public class EditSpendingDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Remark} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditSpendingDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+    public EditSpendingDescriptorBuilder withRemark(String remark) {
+        descriptor.setRemark(new Remark(remark));
         return this;
     }
 
@@ -72,8 +72,8 @@ public class EditSpendingDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
-     * that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor} that we are
+     * building.
      */
     public EditSpendingDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());

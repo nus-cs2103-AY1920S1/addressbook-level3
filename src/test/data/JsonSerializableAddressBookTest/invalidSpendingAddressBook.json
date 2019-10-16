@@ -1,8 +1,8 @@
 {
   "spendings": [ {
-    "name": "Hans Muster",
+    "name": "",
     "date": "1/1/2019",
-    "email": "invalid@email!3e",
+    "remark": "valid remark",
     "cost": "4"
   } ]
 }

@@ -18,7 +18,7 @@ public class Spending {
     // Identity fields
     private final Name name;
     private final Date date;
-    private final Email email;
+    private final Remark remark;
 
     private final Cost cost;
     private final Set<Tag> tags = new HashSet<>();
@@ -26,13 +26,12 @@ public class Spending {
     /**
      * Every field must be present and not null.
      */
-
-    public Spending(Name name, Date date, Email email, Cost cost, Set<Tag> tags) {
-        requireAllNonNull(name, date, email, cost, tags);
+    public Spending(Name name, Date date, Remark remark, Cost cost, Set<Tag> tags) {
+        requireAllNonNull(name, date, remark, cost, tags);
 
         this.name = name;
         this.date = date;
-        this.email = email;
+        this.remark = remark;
         this.cost = cost;
         this.tags.addAll(tags);
     }
@@ -45,13 +44,14 @@ public class Spending {
         return date;
     }
 
-    public Email getEmail() {
-        return email;
+    public Remark getRemark() {
+        return remark;
     }
 
     public Cost getCost() {
         return cost;
     }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -71,7 +71,7 @@ public class Spending {
 
         return otherSpending != null
                 && otherSpending.getName().equals(getName())
-                && (otherSpending.getDate().equals(getDate()) || otherSpending.getEmail().equals(getEmail()));
+                && (otherSpending.getDate().equals(getDate()) || otherSpending.getRemark().equals(getRemark()));
     }
 
     /**
@@ -92,14 +92,14 @@ public class Spending {
         return otherSpending.getName().equals(getName())
                 && otherSpending.getDate().equals(getDate())
                 && otherSpending.getCost().equals(getCost())
-                && otherSpending.getEmail().equals(getEmail())
+                && otherSpending.getRemark().equals(getRemark())
                 && otherSpending.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, date, email, cost, tags);
+        return Objects.hash(name, date, remark, cost, tags);
     }
 
     @Override
@@ -108,8 +108,8 @@ public class Spending {
         builder.append(getName())
                 .append(" Date: ")
                 .append(getDate())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" Remark: ")
+                .append(getRemark())
                 .append(" Cost: ")
                 .append(getCost())
                 .append(" Tags: ");

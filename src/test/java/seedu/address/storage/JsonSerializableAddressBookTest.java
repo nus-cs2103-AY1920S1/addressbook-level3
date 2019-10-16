@@ -17,8 +17,9 @@ public class JsonSerializableAddressBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
     private static final Path TYPICAL_SPENDINGS_FILE = TEST_DATA_FOLDER.resolve("typicalSpendingsAddressBook.json");
-    private static final Path INVALID_SPENDING_FILE = TEST_DATA_FOLDER.resolve("invalidSpendingAddressBook.json");
     private static final Path DUPLICATE_SPENDING_FILE = TEST_DATA_FOLDER.resolve("duplicateSpendingAddressBook.json");
+    private static final Path INVALID_SPENDING_FILE = TEST_DATA_FOLDER.resolve("invalidSpendingAddressBook.json");
+
 
     @Test
     public void toModelType_typicalSpendingsFile_success() throws Exception {
