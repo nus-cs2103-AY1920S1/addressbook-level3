@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class CalendarUserPrefs implements ReadOnlyCalendarUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path addressBookFilePath = Paths.get("data" , "calendardata.json");
 
     /**
      * Creates a {@code CalendarUserPrefs} with default values.

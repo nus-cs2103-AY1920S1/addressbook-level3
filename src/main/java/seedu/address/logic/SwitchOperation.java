@@ -83,7 +83,7 @@ public class SwitchOperation {
         } else if (args.equals("calendar")) {
             Config config = MainApp.getConfig();
             seedu.address.storage.calendar.UserPrefsStorage userCalendarPrefsStorage =
-                    new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+                    new JsonUserPrefsStorage(config.getCalendarUserPrefsFilePath());
             userCalendarPrefs = initPrefs(userCalendarPrefsStorage);
             seedu.address.storage.calendar.AddressBookStorage addressBookStorage =
                     new JsonAddressBookStorage(userCalendarPrefs.getAddressBookFilePath());

@@ -12,6 +12,8 @@ src/main/resources/docs/
 /data/
 /config.json
 /preferences.json
+/financepreferences.json
+/preferencesQuiz.json
 /*.log.*
 /.settings/
 
