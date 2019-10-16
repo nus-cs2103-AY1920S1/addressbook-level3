@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.net.SecureCacheResponse;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -88,7 +87,9 @@ class JsonAdaptedExpense {
         final Amount modelAmount = new Amount(amount);
 
         if (currency == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Currency.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                MISSING_FIELD_MESSAGE_FORMAT, Currency.class.getSimpleName())
+            );
         }
         if (!Currency.isValidCurrency(currency)) {
             throw new IllegalValueException(Currency.MESSAGE_CONSTRAINTS);
