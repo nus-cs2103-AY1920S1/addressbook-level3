@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -96,6 +97,22 @@ public class PersonBuilder {
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Adds the {@code tags} to the {@code Person} that we are building.
+     */
+    public PersonBuilder addTags(List<Tag> tags) {
+        this.tags.addAll(tags);
+        return this;
+    }
+
+    /**
+     * Removes the {@code tags} from the {@code Person} that we are building.
+     */
+    public PersonBuilder removeTags(List<Tag> tags) {
+        this.tags.removeAll(tags);
         return this;
     }
 

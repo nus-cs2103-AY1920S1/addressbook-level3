@@ -4,6 +4,7 @@ import static seedu.address.model.util.SampleDataUtil.getCriteriaSet;
 import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.policy.Coverage;
@@ -50,7 +51,7 @@ public class PolicyBuilder {
     }
 
     /**
-     * Initializes the Policy with the data of {@code personToCopy}.
+     * Initializes the Policy with the data of {@code policyToCopy}.
      */
     public PolicyBuilder(Policy policy) {
         name = policy.getName();
@@ -59,8 +60,8 @@ public class PolicyBuilder {
         price = policy.getPrice();
         startAge = policy.getStartAge();
         endAge = policy.getEndAge();
-        criteria = policy.getCriteria();
-        tags = policy.getTags();
+        criteria = new HashSet<>(policy.getCriteria());
+        tags = new HashSet<>(policy.getTags());
     }
 
     /**
@@ -130,6 +131,22 @@ public class PolicyBuilder {
      */
     public PolicyBuilder withTags(String... tags) {
         this.tags = getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Adds the {@code tags} to the {@code Policy} that we are building.
+     */
+    public PolicyBuilder addTags(List<Tag> tags) {
+        this.tags.addAll(tags);
+        return this;
+    }
+
+    /**
+     * Removes the {@code tags} from the {@code Policy} that we are building.
+     */
+    public PolicyBuilder removeTags(List<Tag> tags) {
+        this.tags.removeAll(tags);
         return this;
     }
 

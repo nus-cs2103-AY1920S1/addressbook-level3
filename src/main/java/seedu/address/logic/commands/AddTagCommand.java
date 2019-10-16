@@ -3,13 +3,11 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -49,22 +47,15 @@ public class AddTagCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Set<Tag> newTags = new HashSet<>(personToEdit.getTags());
+        List<Tag> newTags = new ArrayList<>();
 
         for (String tag : tags) {
             newTags.add(new Tag(tag));
         }
 
-        Person editedPerson = new Person(
-                personToEdit.getName(),
-                personToEdit.getNric(),
-                personToEdit.getPhone(),
-                personToEdit.getEmail(),
-                personToEdit.getAddress(),
-                personToEdit.getDateOfBirth(),
-                personToEdit.getPolicies(),
-                newTags
-        );
+        Person editedPerson = new PersonBuilder(personToEdit)
+                .addTags(newTags)
+                .build();
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

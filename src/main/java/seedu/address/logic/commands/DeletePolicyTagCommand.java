@@ -3,15 +3,15 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_POLICIES;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.PersonBuilder;
+import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.tag.Tag;
 
@@ -49,25 +49,27 @@ public class DeletePolicyTagCommand extends Command {
         }
 
         Policy policyToEdit = lastShownList.get(index.getZeroBased());
-        Set<Tag> newTags = new HashSet<>(policyToEdit.getTags());
+        List<Tag> removeTags = new ArrayList<>();
 
         for (String tag : tags) {
-            newTags.remove(new Tag(tag));
+            removeTags.add(new Tag(tag));
         }
 
-        Policy editedPolicy = new Policy(
-                policyToEdit.getName(),
-                policyToEdit.getDescription(),
-                policyToEdit.getCoverage(),
-                policyToEdit.getPrice(),
-                policyToEdit.getStartAge(),
-                policyToEdit.getEndAge(),
-                policyToEdit.getCriteria(),
-                newTags
-        );
+        Policy editedPolicy = new PolicyBuilder(policyToEdit)
+                .removeTags(removeTags)
+                .build();
 
         model.setPolicy(policyToEdit, editedPolicy);
         model.updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
+
+        // Update persons with the edited policy
+        for (Person p : model.getAddressBook().getPersonList()) {
+            if (p.hasPolicy(policyToEdit)) {
+                Person policyRemoved = new PersonBuilder(p).removePolicies(policyToEdit).build();
+                Person editedPerson = new PersonBuilder(policyRemoved).addPolicies(editedPolicy).build();
+                model.setPerson(p, editedPerson);
+            }
+        }
 
         return new CommandResult(generateSuccessMessage(editedPolicy));
     }
