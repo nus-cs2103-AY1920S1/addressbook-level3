@@ -1,14 +1,20 @@
 package seedu.address;
 
+import java.util.concurrent.TimeoutException;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
+import org.testfx.api.FxToolkit;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
+import javafx.stage.Stage;
 
 @ExtendWith(ApplicationExtension.class)
 public class MainAppTest extends ApplicationTest {
@@ -16,6 +22,20 @@ public class MainAppTest extends ApplicationTest {
     @BeforeEach
     public void beforeAll() throws Exception {
         launch(MainApp.class);
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        stage.show();
+    }
+
+    @AfterEach
+    public void beforeEach() throws TimeoutException {
+        FxToolkit.hideStage();
+        // release all keys
+        release(new KeyCode[0]);
+        // release all mouse buttons
+        release(new MouseButton[0]);
     }
 
     @Test
