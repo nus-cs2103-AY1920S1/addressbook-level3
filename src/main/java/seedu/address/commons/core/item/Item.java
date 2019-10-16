@@ -209,25 +209,25 @@ public class Item {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Description: ")
+        builder.append("\nDescription: ")
                 .append(itemDescription.toString());
 
         if (getTask().isPresent()) {
-            builder.append(" Task: ")
+            builder.append("\nTask: ")
                     .append(getTask().toString());
         }
 
         if (getEvent().isPresent()) {
-            builder.append(" Event: ")
+            builder.append("\nEvent: ")
                     .append(getEvent().toString());
         }
 
         if (getReminder().isPresent()) {
-            builder.append(" Reminder: ")
+            builder.append("\nReminder: ")
                     .append(getReminder().toString());
         }
 
-        builder.append(" Tags: ");
+        builder.append("\nTags: ");
         getTags().forEach(builder::append);
 
         return builder.toString();
