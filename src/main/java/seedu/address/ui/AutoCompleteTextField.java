@@ -3,7 +3,6 @@ package seedu.address.ui;
 import static seedu.address.ui.CommandBox.ERROR_STYLE_CLASS;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
