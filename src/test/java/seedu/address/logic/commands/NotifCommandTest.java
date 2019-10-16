@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalNotifs.ALICE_NOTIF;
 import static seedu.address.testutil.TypicalNotifs.BOB_NOTIF;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,7 @@ public class NotifCommandTest {
 
         Thread.sleep(ONE_SECOND);
 
-        assertEquals(PENDING_POLICE_REPORT, BOB_NOTIF.getBody().getBodyStatus());
+        assertEquals(Optional.of(PENDING_POLICE_REPORT), BOB_NOTIF.getBody().getBodyStatus());
     }
 
     @Test
@@ -37,7 +38,7 @@ public class NotifCommandTest {
 
         Thread.sleep(ONE_SECOND);
 
-        assertEquals(PENDING_CLAIM, ALICE_NOTIF.getBody().getBodyStatus());
+        assertEquals(Optional.of(PENDING_CLAIM), ALICE_NOTIF.getBody().getBodyStatus());
     }
 
 }

@@ -56,7 +56,7 @@ public class NotifCommand extends Command {
     }
 
     /**
-     * Updates the UI to reflect the chaneg in BodyStatus.
+     * Updates the UI to reflect the change in BodyStatus.
      * @param model refers to the ModelManager
      */
     public void startSesChangeBodyStatusUi(Model model) {

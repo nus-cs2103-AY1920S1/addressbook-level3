@@ -226,7 +226,9 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Notif> getFilteredNotifList() {
-        
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public ObservableList<Fridge> getFilteredFridgeList() {
             throw new AssertionError("This method should not be called.");
@@ -234,6 +236,8 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredNotifList(Predicate<Notif> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         public ReadOnlyProperty<Body> selectedBodyProperty() {
             throw new AssertionError("This method should not be called.");

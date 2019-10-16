@@ -13,10 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
-import seedu.address.model.entity.body.BodyStatus;
-import seedu.address.model.entity.body.Religion;
 
 //@@author ambervoong
 /**

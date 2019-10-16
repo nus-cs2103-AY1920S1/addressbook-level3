@@ -228,7 +228,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Notif> getNotifList() {
         return notifs.asUnmodifiableObservableListNotif();
-  
+    }
+
     public ObservableList<Fridge> getFridgeList() {
         return entities.asUnmodifiableObservableListFridge();
     }

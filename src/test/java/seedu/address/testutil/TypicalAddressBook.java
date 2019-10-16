@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.notif.Notif;
 
@@ -24,12 +25,9 @@ public class TypicalAddressBook {
             ab.addEntity(worker);
         }
 
-        // todo After merging!
-        /*
         for (Fridge fridge : TypicalFridges.getTypicalFridges()) {
             ab.addEntity(fridge);
         }
-         */
 
         for (Notif notif : TypicalNotifs.getTypicalNotifs()) {
             ab.addNotif(notif);

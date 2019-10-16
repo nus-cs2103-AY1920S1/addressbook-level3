@@ -3,7 +3,9 @@ package seedu.address.model.notif;
 import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 
 import java.util.Objects;
+import java.util.Optional;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 
@@ -22,9 +24,13 @@ public class Notif {
         this.alert = new Runnable() {
             @Override
             public void run() {
-                if (body.getBodyStatus() == ARRIVED) {
-                    body.setBodyStatus(BodyStatus.parseBodyStatus(
-                            "pending police report"));
+                if (body.getBodyStatus().equals(Optional.of(ARRIVED))) {
+                    try {
+                        body.setBodyStatus(BodyStatus.parseBodyStatus(
+                                "pending police report"));
+                    } catch (ParseException exp) {
+                        // todo what to do here?
+                    }
                 }
             }
         };

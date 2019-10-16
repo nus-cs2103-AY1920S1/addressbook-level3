@@ -177,7 +177,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredNotifList(Predicate<Notif> predicate);
-    
+
     /**
      * Updates the filter of the filtered fridge list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

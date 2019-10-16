@@ -56,7 +56,7 @@ public class ModelManager implements Model {
         filteredWorkers = new FilteredList<>(this.addressBook.getWorkerList());
         filteredBodies = new FilteredList<>(this.addressBook.getBodyList());
         filteredNotifs = new FilteredList<>(this.addressBook.getNotifList());
-      
+
         commandHistory = new CommandHistory();
         undoHistory = new CommandHistory();
         filteredFridges = new FilteredList<>(this.addressBook.getFridgeList());
