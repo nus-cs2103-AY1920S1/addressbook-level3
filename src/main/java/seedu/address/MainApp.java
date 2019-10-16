@@ -15,8 +15,10 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.model.CustomerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PhoneBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ScheduleBook;
@@ -89,26 +91,38 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        /*Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyDataBook<Customer>> customerBookOptional;
+        Optional<ReadOnlyDataBook<Phone>> phoneBookOptional;
+
+        ReadOnlyDataBook<Customer> initialCustomerData;
+        ReadOnlyDataBook<Phone> initialPhoneData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            customerBookOptional = storage.readCustomerBook();
+            phoneBookOptional = storage.readPhoneBook();
+
+            if (!customerBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample CustomerBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            if (!phoneBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample PhoneBook");
+            }
+            initialCustomerData = customerBookOptional.orElseGet(SampleDataUtil::getSampleCustomerBook);
+            initialPhoneData = phoneBookOptional.orElseGet(SampleDataUtil::getSamplePhoneBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialPhoneData = new PhoneBook();
+            initialCustomerData = new CustomerBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        }*/
+            initialPhoneData = new PhoneBook();
+            initialCustomerData = new CustomerBook();
+        }
 
         ReadOnlyDataBook<Customer> customerBook = SampleDataUtil.getSampleCustomerBook();
         ReadOnlyDataBook<Phone> phoneBook = SampleDataUtil.getSamplePhoneBook();
         ReadOnlyDataBook<Order> orderBook = SampleDataUtil.getSampleOrderBook();
-        return new ModelManager(customerBook, phoneBook, orderBook, new ScheduleBook(), userPrefs);
+
+        return new ModelManager(initialCustomerData, initialPhoneData, orderBook, new ScheduleBook(), userPrefs);
 
     }
 
