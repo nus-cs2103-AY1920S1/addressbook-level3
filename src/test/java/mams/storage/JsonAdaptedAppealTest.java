@@ -5,8 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import mams.commons.exceptions.IllegalValueException;
 import mams.model.appeal.Appeal;
-import mams.testutil.TypicalAppeals;
+
 import mams.testutil.Assert;
+import mams.testutil.TypicalAppeals;
 
 public class JsonAdaptedAppealTest {
     private static final String INVALID_APPEAL_ID = "C!22222";

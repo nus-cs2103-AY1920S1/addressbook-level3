@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import mams.model.Mams;
 import mams.model.appeal.Appeal;
 
 /**

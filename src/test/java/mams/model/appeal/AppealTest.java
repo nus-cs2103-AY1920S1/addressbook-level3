@@ -3,11 +3,10 @@ package mams.model.appeal;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import mams.testutil.TypicalAppeals;
 import org.junit.jupiter.api.Assertions;
-
 import org.junit.jupiter.api.Test;
 
+import mams.testutil.TypicalAppeals;
 public class AppealTest {
 
     @Test
@@ -20,7 +19,7 @@ public class AppealTest {
 
     }
 
-    @Test void isValidAppealId(){
+    @Test void isValidAppealId() {
         //invalid code
         assertFalse(Appeal.isValidAppealId("")); // empty string
         assertFalse(Appeal.isValidAppealId("CS")); // C with another letter only

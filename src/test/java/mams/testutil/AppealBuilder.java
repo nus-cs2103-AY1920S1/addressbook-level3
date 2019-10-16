@@ -1,7 +1,5 @@
 package mams.testutil;
 
-import mams.model.appeal.Appeal;
-
 /**
  * A utility class to help with building Appeal objects.
  */
