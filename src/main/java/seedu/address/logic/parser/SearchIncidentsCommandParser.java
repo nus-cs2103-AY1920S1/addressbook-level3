@@ -24,15 +24,6 @@ public class SearchIncidentsCommandParser implements Parser<SearchIncidentsComma
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchIncidentsCommand parse(String args) throws ParseException {
-//        String trimmedArgs = args.trim();
-//        if (trimmedArgs.isEmpty()) {
-//            throw new ParseException(
-//                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchIncidentsCommand.MESSAGE_USAGE));
-//        }
-//
-//        String[] nameKeywords = trimmedArgs.split("\\s+");
-//
-//        return new SearchIncidentsCommand(new IncidentContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
         ArgumentMultimap argDescMap = ArgumentTokenizer.tokenize(args, PREFIX_DESC);
         ArgumentMultimap argIdMap = ArgumentTokenizer.tokenize(args, PREFIX_ID);
 

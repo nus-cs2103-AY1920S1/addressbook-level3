@@ -1,19 +1,18 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
-import seedu.address.model.incident.Description;
 import seedu.address.model.incident.DescriptionKeywordsPredicate;
 import seedu.address.model.incident.IdKeywordsPredicate;
 import seedu.address.model.incident.Incident;
 
-import java.util.function.Predicate;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 
 /**
  * Finds and lists all incidents in address book whose name contains any of the argument keywords.
