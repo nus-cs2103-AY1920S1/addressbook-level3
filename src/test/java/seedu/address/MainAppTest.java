@@ -1,38 +1,21 @@
 package seedu.address;
 
-import java.util.concurrent.TimeoutException;
-
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
-import org.testfx.api.FxToolkit;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
-import org.testfx.util.WaitForAsyncUtils;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 
 @ExtendWith(ApplicationExtension.class)
-public class MainAppTest {
+public class MainAppTest extends ApplicationTest {
 
     @BeforeEach
     public void beforeEach() throws Exception {
-        FxToolkit.registerPrimaryStage();
-        FxToolkit.setupApplication(MainApp.class);
-        WaitForAsyncUtils.waitForFxEvents();
-    }
-
-    @AfterEach
-    public void afterEach(FxRobot robot) throws TimeoutException {
-        FxToolkit.cleanupStages();
-        // release all keys
-        robot.release(new KeyCode[0]);
-        // release all mouse buttons
-        robot.release(new MouseButton[0]);
-        WaitForAsyncUtils.waitForFxEvents();
+        ApplicationTest.launch(MainApp.class);
     }
 
     @Test
