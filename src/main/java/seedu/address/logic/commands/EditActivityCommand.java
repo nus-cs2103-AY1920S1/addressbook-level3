@@ -106,6 +106,10 @@ public class EditActivityCommand extends EditCommand {
             return true;
         }
 
+        if (!(other instanceof EditActivityCommand)) {
+            return false;
+        }
+
         // state check
         EditActivityCommand e = (EditActivityCommand) other;
         return other == this
@@ -177,7 +181,7 @@ public class EditActivityCommand extends EditCommand {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditContactCommand.EditContactDescriptor)) {
+            if (!(other instanceof EditActivityCommand.EditActivityDescriptor)) {
                 return false;
             }
 

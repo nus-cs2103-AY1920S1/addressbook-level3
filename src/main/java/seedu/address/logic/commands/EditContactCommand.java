@@ -54,15 +54,15 @@ public class EditContactCommand extends EditCommand {
     private final EditContactDescriptor editContactDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the contact in the filtered contact list to edit
+     * @param editContactDescriptor details to edit the contact with
      */
-    public EditContactCommand(Index index, EditContactDescriptor editPersonDescriptor) {
+    public EditContactCommand(Index index, EditContactDescriptor editContactDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editContactDescriptor);
 
         this.index = index;
-        this.editContactDescriptor = new EditContactDescriptor(editPersonDescriptor);
+        this.editContactDescriptor = new EditContactDescriptor(editContactDescriptor);
     }
 
     @Override
