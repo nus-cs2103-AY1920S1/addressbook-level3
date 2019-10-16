@@ -10,7 +10,6 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.common.ReferenceId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.StaffReferenceId;
 import seedu.address.testutil.PersonBuilder;
