@@ -35,6 +35,10 @@ public class IcsParser {
         this.icsFile = getIcsFile(path);
     }
 
+    public static IcsParser getParser(String path) throws IcsException {
+        return new IcsParser(path);
+    }
+
     private File getIcsFile(String path) throws IcsException {
         File file = new File(path);
         if (!file.exists()) {
@@ -47,48 +51,79 @@ public class IcsParser {
         return file;
     }
 
-    public static IcsParser getParser(String path) throws IcsException {
-        return new IcsParser(path);
+    /**
+     * Parses the file provided in the file path and returns an ArrayList of EventSources.
+     * @return An ArrayList of EventSources from the file.
+     * @throws IcsException Thrown if the file cannot be found or read,
+     * is not a proper Ics file, or if a description for an event in the file is empty.
+     */
+    public ArrayList<EventSource> parse() throws IcsException {
+        String fileContent = getFileContent();
+        return parseFileContent(fileContent);
     }
 
     /**
-     * Parses the Ics file.
-     * @return An ArrayList of EventSources provided by the Ics file.
-     * @throws IcsException
+     * Obtains the file content of the ics file specified in the filepath.
+     * @return A single String of the whole file.
+     * @throws IcsException Thrown if the file cannot be found or read.
      */
-    public ArrayList<EventSource> parse() throws IcsException {
-        ArrayList<EventSource> events = new ArrayList<>();
+    private String getFileContent() throws IcsException {
         try {
-            ParseState currentlyParsing = ParseState.None;
             BufferedReader br = new BufferedReader(new FileReader(icsFile));
-            StringBuilder stringBuilder = new StringBuilder("");
+            StringBuilder sb = new StringBuilder("");
+            boolean first = true;
             while (br.ready()) {
                 String line = br.readLine();
-                if (currentlyParsing == ParseState.Event) {
-                    if (line.startsWith("END:VEVENT")) {
-                        currentlyParsing = ParseState.None;
-                        EventSource eventSource = parseSingleEvent(stringBuilder.toString());
-                        events.add(eventSource);
-                    } else {
-                        stringBuilder.append(line).append("\n");
-                    }
+                if (first) {
+                    sb.append(line);
+                    first = false;
                 } else {
-                    if (line.equals("BEGIN:VEVENT")) {
-                        if (currentlyParsing != ParseState.None) {
-                            throw new IcsException(FILE_IS_CORRUPTED);
-                        } else {
-                            currentlyParsing = ParseState.Event;
-                            stringBuilder = new StringBuilder("");
-                        }
-                    }
+                    sb.append("\n").append(line);
                 }
             }
-            return events;
+            return sb.toString();
         } catch (FileNotFoundException e) {
             throw new IcsException(FILE_CANNOT_BE_FOUND);
         } catch (IOException e) {
             throw new IcsException(FILE_CANNOT_BE_READ);
         }
+    }
+
+    /**
+     * Parses the Ics file.
+     * @param fileContent The contents of the Ics file.
+     * @return An ArrayList of EventSources provided by the Ics file.
+     * @throws IcsException If the file is not a proper Ics file, or if a description for an event is empty.
+     */
+    public ArrayList<EventSource> parseFileContent(String fileContent) throws IcsException {
+        ArrayList<EventSource> events = new ArrayList<>();
+        StringBuilder stringBuilder = new StringBuilder("");
+
+        ParseState currentlyParsing = ParseState.None;
+        String[] lines = fileContent.split("\\r?\\n");
+
+        for (int i = 0; i < lines.length; i++) {
+            String line = lines[i];
+            if (currentlyParsing == ParseState.Event) {
+                if (line.startsWith("END:VEVENT")) {
+                    currentlyParsing = ParseState.None;
+                    EventSource eventSource = parseSingleEvent(stringBuilder.toString());
+                    events.add(eventSource);
+                } else {
+                    stringBuilder.append(line).append("\n");
+                }
+            } else {
+                if (line.equals("BEGIN:VEVENT")) {
+                    if (currentlyParsing != ParseState.None) {
+                        throw new IcsException(FILE_IS_CORRUPTED);
+                    } else {
+                        currentlyParsing = ParseState.Event;
+                        stringBuilder = new StringBuilder("");
+                    }
+                }
+            }
+        }
+        return events;
     }
 
     /**
