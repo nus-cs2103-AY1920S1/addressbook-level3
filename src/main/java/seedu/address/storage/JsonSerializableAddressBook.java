@@ -76,6 +76,7 @@ class JsonSerializableAddressBook {
         for (JsonAdaptedBudget JsonAdaptedBudget: budgets) {
             Budget budget = JsonAdaptedBudget.toModelType();
             addressBook.addBudget(budget);
+        }
 
         for (JsonAdaptedExpenseReminder JsonAdaptedExpenseReminder : expenseReminders) {
             ExpenseReminder reminder = JsonAdaptedExpenseReminder.toModelType();
