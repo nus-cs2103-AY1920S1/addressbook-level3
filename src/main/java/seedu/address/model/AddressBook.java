@@ -61,10 +61,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     }
 
-    public void setDeadlines(List<Deadline> deadlines) {
-        this.deadlines.setDeadline(deadlines);
-    }
-
     public void setCategories(List<FlashCard> flashCards) {
         //clear the existing data
         categories.clear();

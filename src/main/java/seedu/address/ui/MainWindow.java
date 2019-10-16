@@ -119,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         flashCardListPanel = new FlashCardListPanel(logic.getFilteredFlashCardList());
         flashcardListPanelPlaceholder.getChildren().add(flashCardListPanel.getRoot());
-      
+
         categoryListPanel = new CategoryListPanel(logic.getCategoryList());
         categoryListPanelPlaceholder.getChildren().add(categoryListPanel.getRoot());
 

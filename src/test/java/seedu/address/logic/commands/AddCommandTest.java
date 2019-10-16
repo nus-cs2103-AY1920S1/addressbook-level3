@@ -201,24 +201,24 @@ public class AddCommandTest {
         public void updateFilteredFlashCardList(Predicate<FlashCard> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-      
+
         //@@author shutingy
         @Override
         public ObservableList<Category> getCategoryList() {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         //@@author shutingy
         @Override
         public void updateFilteredCategoryList(Predicate<Category> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public void setDeadline(Deadline target, Deadline editedDeadline) {
             throw new AssertionError("This method should not be called.");
         }
-     
+
         @Override
         public ObservableList<Deadline> getFilteredDeadlineList() {
             return null;

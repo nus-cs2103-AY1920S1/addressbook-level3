@@ -108,10 +108,12 @@ public class ModelManager implements Model {
         addressBook.removeFlashCard(target);
     }
 
+    //@@author shutingy
     @Override
     public void addFlashCard(FlashCard flashCard) {
         addressBook.addFlashcard(flashCard);
         updateFilteredFlashCardList(PREDICATE_SHOW_ALL_FLASHCARDS);
+        updateFilteredCategoryList(PREDICATE_SHOW_ALL_CATEGORIES);
     }
 
     @Override
@@ -145,14 +147,8 @@ public class ModelManager implements Model {
             addressBook.addEasy();
         }
     }
-    //@@author shutingy
-    @Override
-    public void addFlashCard(FlashCard flashCard) {
-        addressBook.addFlashcard(flashCard);
-        updateFilteredFlashCardList(PREDICATE_SHOW_ALL_FLASHCARDS);
-        updateFilteredCategoryList(PREDICATE_SHOW_ALL_CATEGORIES);
-    }
-  
+
+
     public int[] getStats() {
         return addressBook.getStats();
     }
@@ -241,13 +237,12 @@ public class ModelManager implements Model {
         return simulatedList;
     }
 
-
     //@@author shutingy
     @Override
     public ObservableList<Category> getCategoryList() {
         return categoryList;
     }
-  
+
     //@@author shutingy
     @Override
     public void updateFilteredCategoryList(Predicate<Category> predicate) {

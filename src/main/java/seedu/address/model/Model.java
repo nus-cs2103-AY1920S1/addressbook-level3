@@ -61,15 +61,13 @@ public interface Model {
 
     /**
      * Returns true if a flashCard with the same identity as {@code flashCard} exists in the address book.
-     */ 
-    //@@author shutingy
+     *///@@author shutingy
     boolean hasFlashcard(FlashCard flashCard);
 
     /**
      * Deletes the given flashCard.
      * The flashCard must exist in the address book.
-     */
-    //@@author shutingy -reused
+     *///@@author shutingy -reused
     void deleteFlashCard(FlashCard target);
 
     /**
@@ -126,14 +124,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFlashCardList(Predicate<FlashCard> predicate);
+
     //@@author shutingy -reused
     ObservableList<Category> getCategoryList();
+
     //@@author shutingy -reused
     void updateFilteredCategoryList(Predicate<Category> predicate);
-    
+
     //@@author keiteo
     ObservableList<FlashCard> getFlashCardList();
-    
     void initializeTestModel(List<FlashCard> testList);
 
     boolean hasTestFlashCard();
