@@ -9,6 +9,9 @@ import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.EditDiaryEntryDescriptor;
 
+/**
+ * {@link Command} that commits the data in the {@link EditDiaryEntryDescriptor} to the user diary entry.
+ */
 public class DoneEditDiaryEntryCommand extends Command {
     public static final String COMMAND_WORD = "done";
 

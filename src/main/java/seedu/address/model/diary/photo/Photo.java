@@ -3,7 +3,6 @@ package seedu.address.model.diary.photo;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.AppUtil.getAbsoluteImage;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.commons.util.FileUtil.isFileExists;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -12,6 +11,7 @@ import java.time.LocalDateTime;
 
 import javafx.scene.image.Image;
 
+import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.parser.ParserDateUtil;
 
 /**
@@ -19,6 +19,8 @@ import seedu.address.logic.parser.ParserDateUtil;
  * Also contains other information such as the display name of the photo and the date.
  */
 public class Photo {
+    public static final String INVALID_FILE_PATH = "/images/invalidPhotoPlaceholder.png";
+
     public static final int MAXIMUM_DESCRIPTION_LENGTH = 20;
     public static final String MESSAGE_DESCRIPTION_CONSTRAINTS =
             "Description can take any values, but it should not be blank,"
@@ -89,19 +91,14 @@ public class Photo {
 
     /**
      * Validates the given path, setting the {@code image} property of this instance if valid.
-     *
-     * @throws IllegalArgumentException If the path does not point to a valid image file.
+     * Otherwise, the {@code image} is set to a placeholder image indicated by {@code INVALID_FILE_PATH}.
      */
     private void validateImagePath(Path imagePath) {
-        if (!isFileExists(imagePath))  {
-            throw new IllegalArgumentException(String.format(MESSAGE_PATH_CONSTRAINTS, imagePath.toAbsolutePath()));
-        }
-
         try {
             this.imageFilePath = imagePath.toAbsolutePath().toString();
             this.image = getAbsoluteImage(imageFilePath);
         } catch (IllegalArgumentException | FileNotFoundException ex) {
-            throw new IllegalArgumentException(String.format(MESSAGE_IMAGE_CONSTRAINTS, imagePath.toAbsolutePath()));
+            this.image = AppUtil.getImage(INVALID_FILE_PATH);
         }
     }
 
@@ -140,7 +137,7 @@ public class Photo {
         Photo otherPhoto = (Photo) obj;
 
         return description.equals(otherPhoto.description)
-                && imageFilePath.equals(otherPhoto.description)
+                && imageFilePath.equals(otherPhoto.imageFilePath)
                 && dateTaken.isEqual(otherPhoto.dateTaken);
     }
 }

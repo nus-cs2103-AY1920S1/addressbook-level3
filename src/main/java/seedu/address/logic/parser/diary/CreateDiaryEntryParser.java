@@ -11,6 +11,10 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * {@link Parser} that parses user input to return a {@link CreateDiaryEntryCommand}.
+ * The input must contain a valid integer index of the day to create the diary entry for.
+ */
 public class CreateDiaryEntryParser implements Parser<CreateDiaryEntryCommand> {
     @Override
     public CreateDiaryEntryCommand parse(String userInput) throws ParseException {

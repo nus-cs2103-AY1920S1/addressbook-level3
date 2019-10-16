@@ -2,6 +2,7 @@ package seedu.address.ui.diary;
 
 import java.util.function.Consumer;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
@@ -29,6 +30,10 @@ public class DiaryEditBox extends UiPart<VBox> {
 
     String getText() {
         return textEditor.getText();
+    }
+
+    ObservableList<CharSequence> getObservableParagraphs() {
+        return textEditor.getParagraphs();
     }
 
     void setText(String text) {

@@ -16,6 +16,9 @@ import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.photo.Photo;
 
+/**
+ * {@link Command} that adds a photo to photo list of the currently viewed diary entry.
+ */
 public class AddPhotoCommand extends Command {
     public static final String COMMAND_WORD = "addphoto";
 

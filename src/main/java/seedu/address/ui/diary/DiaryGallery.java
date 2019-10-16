@@ -3,7 +3,7 @@ package seedu.address.ui.diary;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.diary.photo.Photo;
@@ -13,7 +13,7 @@ import seedu.address.ui.UiPart;
 /**
  * Abstraction of a gallery for displaying the {@code Photo}s of a {@code DiaryEntry}.
  */
-public class DiaryGallery extends UiPart<ScrollPane> {
+public class DiaryGallery extends UiPart<VBox> {
     private static final String FXML = "diary/DiaryGallery.fxml";
 
     @FXML
@@ -21,9 +21,9 @@ public class DiaryGallery extends UiPart<ScrollPane> {
 
     private PhotoList photoList;
 
-    public DiaryGallery(PhotoList photoList) {
+    public DiaryGallery() {
         super(FXML);
-        this.photoList = photoList;
+        this.photoList = new PhotoList();
         fillPhotosPlaceholder();
     }
 

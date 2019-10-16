@@ -5,6 +5,9 @@ import java.io.File;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * Utility class for opening the OS file gui to choose an image file.
+ */
 public class ImageChooser {
 
     private final Stage fileChooserStage;
@@ -18,8 +21,13 @@ public class ImageChooser {
                 new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.gif"));
     }
 
+    /**
+     * Shows the OS file gui, waiting for the user to select an image file.
+     *
+     * @return The image {@link File} selected.
+     */
     public File showDialog() {
-        File f =  fileChooser.showOpenDialog(fileChooserStage);
+        File f = fileChooser.showOpenDialog(fileChooserStage);
         fileChooserStage.close();
 
         return f;

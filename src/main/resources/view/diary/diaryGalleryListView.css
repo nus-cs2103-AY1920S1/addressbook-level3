@@ -1,0 +1,14 @@
+.list-cell:filled:even {
+    -fx-background-color: #040F0F;
+}
+
+.list-cell:filled:odd {
+    -fx-background-color: #040F0F;
+}
+
+.list-view .scroll-bar .increment-arrow,
+.list-view .scroll-bar .decrement-arrow,
+.list-view .scroll-bar .increment-button,
+.list-view .scroll-bar .decrement-button {
+    -fx-padding:0;
+}

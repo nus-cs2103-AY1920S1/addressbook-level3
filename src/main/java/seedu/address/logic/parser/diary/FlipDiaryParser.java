@@ -10,6 +10,10 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * {@link Parser} that parses user input to return a {@link FlipDiaryCommand}.
+ * The input must contain a valid integer index of the day to flip to.
+ */
 public class FlipDiaryParser implements Parser<FlipDiaryCommand> {
     @Override
     public FlipDiaryCommand parse(String userInput) throws ParseException {

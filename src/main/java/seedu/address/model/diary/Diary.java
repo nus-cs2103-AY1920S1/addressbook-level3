@@ -27,6 +27,11 @@ public class Diary {
         return diaryEntryList.getDiaryEntry(index);
     }
 
+    /**
+     * Returns an {@code Optional} of the first diary entry ordered by index.
+     *
+     * @return The first {@code DiaryEntry} in the {@code DiaryEntryList}.
+     */
     public Optional<DiaryEntry> getFirstDiaryEntry() {
         return diaryEntryList.getFirstDiaryEntry();
     }

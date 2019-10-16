@@ -16,10 +16,8 @@ public class EditDiaryEntryDescriptor {
     private final PhotoList photoList;
     private String diaryText;
 
-    public DiaryEntry buildDiaryEntry() {
-        requireAllNonNull(dayIndex, diaryText, photoList);
-
-        return new DiaryEntry(dayIndex, photoList, diaryText);
+    public EditDiaryEntryDescriptor(DiaryEntry diaryEntry) {
+        this(diaryEntry.getDayIndex(), diaryEntry.getPhotoList(), diaryEntry.getDiaryText());
     }
 
     /**
@@ -37,8 +35,15 @@ public class EditDiaryEntryDescriptor {
         this.diaryText = diaryText;
     }
 
-    public EditDiaryEntryDescriptor(DiaryEntry diaryEntry) {
-        this(diaryEntry.getDayIndex(), diaryEntry.getPhotoList(), diaryEntry.getDiaryText());
+    /**
+     * Builds the diary entry from the instance variables that this edit descriptor holds.
+     *
+     * @return A new {@link DiaryEntry} constructed from {@code dayIndex}, {@code photoList}, {@code diaryText}.
+     */
+    public DiaryEntry buildDiaryEntry() {
+        requireAllNonNull(dayIndex, diaryText, photoList);
+
+        return new DiaryEntry(dayIndex, photoList, diaryText);
     }
 
     public String getDiaryText() {

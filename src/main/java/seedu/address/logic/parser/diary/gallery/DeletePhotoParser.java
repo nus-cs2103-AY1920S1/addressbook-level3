@@ -8,6 +8,10 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * {@link Parser} that parses user input to return a {@link DeletePhotoCommand}.
+ * The input must contain a valid integer index of the photo displayed to delete.
+ */
 public class DeletePhotoParser implements Parser<DeletePhotoCommand> {
     @Override
     public DeletePhotoCommand parse(String userInput) throws ParseException {

@@ -9,6 +9,10 @@ import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.EditDiaryEntryDescriptor;
 
+/**
+ * {@link Command} that sets the initial text of the edit box or opens the edit box with the current diary entry
+ * text, if any.
+ */
 public class EditDiaryEntryCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 

@@ -21,7 +21,6 @@ public class AppUtil {
 
     /**
      * Returns an {@link Image} with a stored absoluteImagePath url.
-     * Internally, it concatenates the {@code FILE_PROTOCOL_PREFIX} with the {@code absoluteImagePath}.
      *
      * @param absoluteImagePath The absolute image path to use.
      * @return The javafx {@link Image} instance.

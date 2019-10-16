@@ -13,7 +13,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.Model;
-import seedu.address.ui.trips.TripsPage;
 
 /**
  * The manager of the UI component.

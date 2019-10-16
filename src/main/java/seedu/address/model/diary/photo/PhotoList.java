@@ -52,6 +52,11 @@ public class PhotoList {
         return Optional.empty();
     }
 
+    /**
+     * Removes all photos in {@code photos} with a {@code description} matching the given searchTerm.
+     *
+     * @param searchTerm The string search term to use.
+     */
     public void removeAllPhotos(String searchTerm) {
         photos.forEach(photo -> {
             if (photo.getDescription().matches(searchTerm)) {

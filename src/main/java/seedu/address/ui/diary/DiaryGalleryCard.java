@@ -13,11 +13,13 @@ import seedu.address.ui.UiPart;
 import seedu.address.ui.components.PersonCard;
 
 /**
- *
+ * Abstraction of a diary gallery card able to display a {@link Photo}.
  */
 public class DiaryGalleryCard extends UiPart<AnchorPane> {
 
     private static final String FXML = "diary/DiaryGalleryCard.fxml";
+
+    private static final int BOUND_WIDTH_PADDING = 10;
 
     private final Photo photo;
     private final Index displayIndex;
@@ -38,14 +40,23 @@ public class DiaryGalleryCard extends UiPart<AnchorPane> {
         initialiseGalleryCard();
     }
 
+    /**
+     * Binds the fit width of the {@code photoImageView} to the given {@link ReadOnlyDoubleProperty}.
+     * Maintains the aspect ratio of the image in {@code photo}.
+     *
+     * @param galleryWidth {@link ReadOnlyDoubleProperty} to bind the fit width to.
+     */
     void bindImageViewWidth(ReadOnlyDoubleProperty galleryWidth) {
         double aspectRatio = photo.getImage().getWidth() / photo.getImage().getHeight();
         photoImageView.fitWidthProperty().addListener(((observable, oldValue, newValue) -> {
             photoImageView.setFitHeight(newValue.doubleValue() / aspectRatio);
         }));
-        photoImageView.fitWidthProperty().bind(galleryWidth);
+        photoImageView.fitWidthProperty().bind(galleryWidth.subtract(BOUND_WIDTH_PADDING * 2));
     }
 
+    /**
+     * Initialises the display data of the gallery card with the {@code photo} and {@displayIndex}.
+     */
     private void initialiseGalleryCard() {
         photoIndexLabel.setText(displayIndex.getOneBased() + "");
         photoDescriptionLabel.setText(photo.getDescription());

@@ -31,31 +31,31 @@ class DiaryEntryTest {
 
     @Test
     void testToString_validStringCombinations_success() {
-        assertAll("Empty photolist and text cases:",
-                () -> assertEquals(testEntry1.toString(), testEntry1String),
-                () -> assertEquals(testEntry2.toString(), testEntry2String));
+        assertAll("Empty photolist and text cases:", () ->
+                assertEquals(testEntry1.toString(), testEntry1String), () ->
+                assertEquals(testEntry2.toString(), testEntry2String));
     }
 
     @Test
     void testToString_invalidStringCombinations_failure() {
-        assertAll("Empty photolist and text cases:",
-                () -> assertNotEquals(testEntry1.toString(), testEntry2String),
-                () -> assertNotEquals(testEntry2.toString(), testEntry1String));
+        assertAll("Empty photolist and text cases:", () ->
+                assertNotEquals(testEntry1.toString(), testEntry2String), () ->
+                assertNotEquals(testEntry2.toString(), testEntry1String));
     }
 
     @Test
     void testEquals_equalDiaryEntries_success() {
-        assertAll("Empty photolist and text cases",
-                () -> assertEquals(testEntry1, testEntry1),
-                () -> assertEquals(testEntry2, testEntry2),
-                () -> assertEquals(testEntry1, testEntry1Copy),
-                () -> assertEquals(testEntry2, testEntry2Copy));
+        assertAll("Empty photolist and text cases", () ->
+                assertEquals(testEntry1, testEntry1), () ->
+                assertEquals(testEntry2, testEntry2), () ->
+                assertEquals(testEntry1, testEntry1Copy), () ->
+                assertEquals(testEntry2, testEntry2Copy));
     }
 
     @Test
     void testEquals_differentDiaryEntries_success() {
-        assertAll("Empty photolist and text cases",
-                () -> assertNotEquals(testEntry1, testEntry2Copy),
-                () -> assertNotEquals(testEntry2, testEntry1Copy));
+        assertAll("Empty photolist and text cases", () ->
+                assertNotEquals(testEntry1, testEntry2Copy), () ->
+                assertNotEquals(testEntry2, testEntry1Copy));
     }
 }

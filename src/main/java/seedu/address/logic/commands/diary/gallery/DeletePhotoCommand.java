@@ -11,6 +11,9 @@ import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.photo.Photo;
 
+/**
+ * {@link Command} that deletes a photo indicated by a provided {@link Index}.
+ */
 public class DeletePhotoCommand extends Command {
     public static final String COMMAND_WORD = "delphoto";
 

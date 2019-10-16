@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -38,14 +39,17 @@
             <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
          </BorderPane.margin>
          <children>
-            <ScrollPane fx:id="diaryTextScrollPane" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-               <content>
-                  <VBox fx:id="diaryTextPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #FFFFAA;">
-                     <children>
-                        <Label fx:id="dayIndexLabel" text="Label" />
-                     </children></VBox>
-               </content>
-            </ScrollPane>
+            <AnchorPane fx:id="diaryTextPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: #121420; -fx-border-width: 2;" GridPane.rowSpan="2147483647" GridPane.vgrow="NEVER">
+               <children>
+                  <Label fx:id="dayIndexLabel" contentDisplay="RIGHT" graphicTextGap="0.0" style="-fx-font-size: 25; -fx-font-family: Lucida Handwriting; -fx-border-width: 0 0 1 0; -fx-border-color: #121420; -fx-font-weight: bold;" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></Label>
+               </children>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </AnchorPane>
             <VBox fx:id="diaryRightPlaceholder" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #040F0F;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
             <ButtonBar fx:id="diaryRightButtonBar" buttonMinWidth="50.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #040F0F;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>

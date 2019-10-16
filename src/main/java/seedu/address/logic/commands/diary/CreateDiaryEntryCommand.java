@@ -10,6 +10,10 @@ import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.EditDiaryEntryDescriptor;
 
+/**
+ * {@link Command} that creates a new diary entry with the provided {@code dayIndex}.
+ * It fails if there is already an entry for the specified day.
+ */
 public class CreateDiaryEntryCommand extends Command {
     public static final String COMMAND_WORD = "create";
 

@@ -6,24 +6,30 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 
 import seedu.address.commons.core.index.Index;
 
 /**
  * Abstraction of a list of {@link DiaryEntry}s.
- * It is backed by an {@code ObservableList}.
- * It enforces each {@code DiaryEntry} to contain a unique {@code Index}.
+ * It is backed by an {@link SortedList} wrapped over an {@link ObservableList} to provide
+ * custom ordering based on the {@code dayIndex} of the {@link DiaryEntry}.
+ * It enforces each {@link DiaryEntry} to contain a unique {@link Index}.
  */
 public class DiaryEntryList {
 
-    private ObservableList<DiaryEntry> diaryEntries;
+    private SortedList<DiaryEntry> diaryEntrySortedList;
+    private ObservableList<DiaryEntry> diaryEntryObservableList;
 
     DiaryEntryList() {
-        diaryEntries = FXCollections.observableArrayList();
+        diaryEntryObservableList = FXCollections.observableArrayList();
+        diaryEntrySortedList = new SortedList<DiaryEntry>(diaryEntryObservableList,
+                Comparator.comparingInt(entry -> entry.getDayIndex().getZeroBased()));
     }
 
     public DiaryEntryList(Collection<DiaryEntry> diaryEntries) {
@@ -34,12 +40,12 @@ public class DiaryEntryList {
     }
 
     public ObservableList<DiaryEntry> getReadOnlyDiaryEntries() {
-        return FXCollections.unmodifiableObservableList(diaryEntries);
+        return FXCollections.unmodifiableObservableList(diaryEntrySortedList);
     }
 
     public Optional<DiaryEntry> getDiaryEntry(Index index) {
         requireNonNull(index);
-        for (DiaryEntry diaryEntry : diaryEntries) {
+        for (DiaryEntry diaryEntry : diaryEntrySortedList) {
             if (diaryEntry.getDayIndex().equals(index)) {
                 return Optional.of(diaryEntry);
             }
@@ -48,37 +54,45 @@ public class DiaryEntryList {
         return Optional.empty();
     }
 
+    /**
+     * Returns an {@code Optional} of the first diary entry ordered by the {@code dayIndex} of the {@link DiaryEntry}s.
+     *
+     * @return The first {@code DiaryEntry} in the {@code DiaryEntryList}.
+     */
     public Optional<DiaryEntry> getFirstDiaryEntry() {
-        for (DiaryEntry diaryEntry : diaryEntries) {
-            return Optional.of(diaryEntry);
-        }
-
-        return Optional.empty();
+        return diaryEntrySortedList.size() == 0
+                ? Optional.empty()
+                : Optional.of(diaryEntrySortedList.get(0));
     }
 
+    /**
+     * Adds the specified {@link DiaryEntry} to the {@code diaryEntryObservableList}.
+     *
+     * @param diaryEntry
+     */
     public void addDiaryEntry(DiaryEntry diaryEntry) {
         requireNonNull(diaryEntry);
         checkArgument(!doesClash(diaryEntry), DiaryEntry.MESSAGE_CONSTRAINTS);
-        diaryEntries.add(diaryEntry);
+        diaryEntryObservableList.add(diaryEntry);
     }
 
-    public void setDiaryEntry(DiaryEntry target, DiaryEntry replacement) {
+    void setDiaryEntry(DiaryEntry target, DiaryEntry replacement) {
         requireAllNonNull(target, replacement);
-        diaryEntries.remove(target);
+        diaryEntryObservableList.remove(target);
         addDiaryEntry(replacement);
     }
 
-    public boolean doesClash(DiaryEntry diaryEntry) {
-        return diaryEntries.stream()
+    /**
+     * Checks whether the given {@link DiaryEntry} has an {@link Index} {@code dayIndex} that is the same
+     * as any other {@link DiaryEntry} currently in {@code diaryEntryObservableList}.
+     *
+     * @param diaryEntry The {@link DiaryEntry} to check.
+     * @return True if there are clashing {@link DiaryEntry}s.
+     */
+    private boolean doesClash(DiaryEntry diaryEntry) {
+        return diaryEntryObservableList.stream()
                 .anyMatch(entry -> {
                     return entry.getDayIndex().equals(diaryEntry.getDayIndex());
-                });
-    }
-
-    public boolean hasEntry(Index index) {
-        return diaryEntries.stream()
-                .anyMatch(entry -> {
-                    return entry.getDayIndex().equals(index);
                 });
     }
 
@@ -87,7 +101,7 @@ public class DiaryEntryList {
         StringBuilder builder = new StringBuilder();
 
         builder.append("Diary Entries: ");
-        for (DiaryEntry diaryEntry : diaryEntries) {
+        for (DiaryEntry diaryEntry : diaryEntrySortedList) {
             builder.append(diaryEntry.toString()).append("\n");
         }
 
@@ -106,7 +120,7 @@ public class DiaryEntryList {
 
         DiaryEntryList otherEntryList = (DiaryEntryList) obj;
 
-        return diaryEntries.equals(otherEntryList.diaryEntries);
+        return diaryEntryObservableList.equals(otherEntryList.diaryEntryObservableList);
     }
 
 }

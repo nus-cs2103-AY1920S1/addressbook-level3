@@ -6,16 +6,21 @@ import java.util.Arrays;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.PageParser;
+import seedu.address.logic.parser.TravelPalParser;
 import seedu.address.logic.parser.diary.EnterDiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.sidebar.EnterDayPageParser;
 import seedu.address.logic.parser.sidebar.EnterItineraryPageParser;
 import seedu.address.logic.parser.sidebar.EnterTripManagerParser;
 
+/**
+ * Wrapping {@link PageParser} used in {@link TravelPalParser} for {@link PageParser} that support
+ * the common TravelPal side navbar navigation operations.
+ */
 public class NavbarViewParser implements PageParser {
 
     /** Concatenation of all NavbarCommand enum types. */
-    public static String MESSAGE_COMMAND_TYPES = "Available navigation commands :"
+    public static final String MESSAGE_COMMAND_TYPES = "Available navigation commands :"
             + Arrays.stream(NavbarCommand.values())
                     .map(navbarCommandEnum -> navbarCommandEnum.toString())
                     .reduce("", (firstType, secondType) -> {
