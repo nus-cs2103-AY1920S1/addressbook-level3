@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.ALICE_QUESTION;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDate;
@@ -57,7 +58,9 @@ public class AddressBookTest {
         LocalTime time = LocalTime.parse("1500", Task.FORMAT_USER_INPUT_TIME);
         Task task = new TaskForNote(editedAlice, date, time);
         List<Task> newTasks = Arrays.asList(task);
-        AddressBookStub newData = new AddressBookStub(newNotes, newTasks);
+
+        List<Question> newQuestions = Arrays.asList(ALICE_QUESTION);
+        AddressBookStub newData = new AddressBookStub(newNotes, newTasks, newQuestions);
 
         assertThrows(DuplicateTitleException.class, () -> addressBook.resetData(newData));
     }
@@ -95,22 +98,18 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Note> notes = FXCollections.observableArrayList();
-        private final ObservableList<Question> questions = FXCollections.observableArrayList();
         private final ObservableList<Task> tasks = FXCollections.observableArrayList();
+        private final ObservableList<Question> questions = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Note> notes, Collection<Task> tasks) {
+        AddressBookStub(Collection<Note> notes, Collection<Task> tasks, Collection<Question> questions) {
             this.notes.setAll(notes);
             this.tasks.setAll(tasks);
+            this.questions.setAll(questions);
         }
 
         @Override
         public ObservableList<Note> getNoteList() {
             return notes;
-        }
-
-        @Override
-        public ObservableList<Question> getQuestionList() {
-            return questions;
         }
 
         /**
@@ -119,6 +118,11 @@ public class AddressBookTest {
         @Override
         public List<Task> getTaskList() {
             return tasks;
+        }
+
+        @Override
+        public ObservableList<Question> getQuestionList() {
+            return questions;
         }
     }
 }

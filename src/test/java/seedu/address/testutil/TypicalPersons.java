@@ -13,6 +13,7 @@ import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.note.Note;
+import seedu.address.model.question.Question;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskForNote;
 
@@ -39,6 +40,11 @@ public class TypicalPersons {
     public static final Task ALICE_TASK = new TaskForNote(ALICE,
             LocalDate.parse("06/08/2019", Task.FORMAT_USER_INPUT_DATE),
             LocalTime.parse("1600", Task.FORMAT_USER_INPUT_TIME));
+
+    public static final Question ALICE_QUESTION = new QuestionBuilder().withQuestionBody("(  ) is a measure of the "
+            + "degree of dependence between components, classes, methods, etc.").withAnswer("Coupling")
+            .withSubject("CS2103T").withDifficulty("easy").build();
+
 
     // Manually added
     public static final Note HOON = new PersonBuilder().withTitle("Hoon Meier")
@@ -68,6 +74,10 @@ public class TypicalPersons {
         for (Task task : getTypicalTasks()) {
             ab.addTask(task);
         }
+
+        for (Question question : getTypicalQuestions()) {
+            ab.addQuestion(question);
+        }
         return ab;
     }
 
@@ -78,4 +88,9 @@ public class TypicalPersons {
     public static List<Task> getTypicalTasks() {
         return new ArrayList<>(Arrays.asList(ALICE_TASK));
     }
+
+    public static List<Question> getTypicalQuestions() {
+        return new ArrayList<>(Arrays.asList(ALICE_QUESTION));
+    }
+
 }
