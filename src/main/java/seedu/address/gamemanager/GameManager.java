@@ -26,8 +26,6 @@ import seedu.address.statistics.WordBankStatistics;
  */
 public class GameManager {
 
-    public static final long TIMER_MILLIS = 3000;
-
     private Logic logic;
     private GameTimer gameTimer = null;
     private TimerDisplayCallBack timerDisplayCallBack = null;
@@ -44,8 +42,8 @@ public class GameManager {
         logic.setGuiSettings(guiSettings);
     }
 
-    private void setAndRunGameTimer() {
-        gameTimer = new GameTimer("Time Left", TIMER_MILLIS,
+    private void setAndRunGameTimer(long timeAllowedPerQuestion) {
+        gameTimer = new GameTimer("Time Left", timeAllowedPerQuestion,
                 this.mainWindowExecuteCallBack,
                 this.timerDisplayCallBack);
         gameTimer.run();
@@ -96,7 +94,8 @@ public class GameManager {
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {
-            Platform.runLater(() -> setAndRunGameTimer());
+
+            Platform.runLater(() -> setAndRunGameTimer(logic.getTimeAllowedPerQuestion()));
         }
 
         return commandResult;

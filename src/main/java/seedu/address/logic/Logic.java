@@ -58,4 +58,6 @@ public interface Logic {
     void saveUpdatedWbStatistics(GameStatistics gameStats) throws CommandException;
 
     WordBankStatistics getWordBankStatistics();
+
+    long getTimeAllowedPerQuestion();
 }

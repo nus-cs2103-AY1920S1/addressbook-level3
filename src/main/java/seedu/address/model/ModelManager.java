@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
+import seedu.address.model.gamedifficulty.DifficultyEnum;
 import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
@@ -37,6 +38,7 @@ public class ModelManager implements Model {
 
     //Placeholder game model
     private Game game = null;
+    private DifficultyEnum difficulty;
 
     /**
      * Initializes a ModelManager with the given wordBank and userPrefs.
@@ -55,6 +57,9 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
         filteredWordBanks = new FilteredList<>(this.wordBankList.getWordBankList());
+
+        // Default Difficulty is always EASY.
+        this.difficulty = DifficultyEnum.EASY;
     }
 
     public ModelManager() {
@@ -68,6 +73,16 @@ public class ModelManager implements Model {
 
     public Game getGame() {
         return this.game;
+    }
+
+    @Override
+    public void setDifficulty(DifficultyEnum difficultyEnum) {
+        this.difficulty = difficultyEnum;
+    }
+
+    @Override
+    public DifficultyEnum getDifficulty() {
+        return difficulty;
     }
 
     //=========== UserPrefs ==================================================================================

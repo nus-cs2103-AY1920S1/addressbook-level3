@@ -18,7 +18,7 @@ public class HomeCommand extends SwitchCommand {
 
     @Override
     public ModeEnum check(Model model, ModeEnum mode) throws CommandException {
-        return ModeEnum.APP;
+        return ModeEnum.SETTINGS;
     }
 
     @Override

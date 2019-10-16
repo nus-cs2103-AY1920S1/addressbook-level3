@@ -1,9 +1,5 @@
 package seedu.address.logic.commands.switches;
 
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
-
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.FileUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.commands.SwitchCommand;
@@ -41,7 +37,7 @@ public class BankCommand extends SwitchCommand {
         if (model.getWordBankList().getWordBank(this.name) == null) {
             return ModeEnum.LOAD;
         }
-        return ModeEnum.APP;
+        return ModeEnum.SETTINGS;
     }
 
     @Override
