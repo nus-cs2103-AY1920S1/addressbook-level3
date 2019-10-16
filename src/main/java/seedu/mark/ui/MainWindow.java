@@ -128,7 +128,8 @@ public class MainWindow extends UiPart<Stage> {
         offlinePanel = new OfflinePanel();
         mainViewAreaPlaceholder.getChildren().add(dashboardPanel.getRoot());
 
-        bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());
+        bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList(),
+                logic.getCurrentUrlProperty(), logic::setCurrentUrl, this);
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -182,20 +183,17 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    private void handleSwitchToDashboard() {
-        //TODO:
+    public void handleSwitchToDashboard() {
         mainViewAreaPlaceholder.getChildren().set(0, dashboardPanel.getRoot());
     }
 
     @FXML
-    private void handleSwitchToOnline() {
-        //TODO:
+    public void handleSwitchToOnline() {
         mainViewAreaPlaceholder.getChildren().set(0, browserPanel.getRoot());
     }
 
     @FXML
-    private void handleSwitchToOffline() {
-        //TODO:
+    public void handleSwitchToOffline() {
         mainViewAreaPlaceholder.getChildren().set(0, offlinePanel.getRoot());
     }
 
