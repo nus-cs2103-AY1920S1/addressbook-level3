@@ -10,8 +10,7 @@ import seedu.weme.commons.exceptions.DataConversionException;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.UserPrefs;
-import seedu.weme.statistics.LikeData;
-import seedu.weme.statistics.LikeDataImpl;
+import seedu.weme.statistics.StatsEngine;
 
 /**
  * Manages storage of MemeBook data in local storage.
@@ -21,16 +20,16 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private MemeBookStorage memeBookStorage;
     private UserPrefsStorage userPrefsStorage;
-    private LikeDataStorage likeDataStorage;
+    private StatsDataStorage statsDataStorage;
 
 
     public StorageManager(MemeBookStorage memeBookStorage,
                           UserPrefsStorage userPrefsStorage,
-                          LikeDataStorage likeDataStorage) {
+                          StatsDataStorage statsDataStorage) {
         super();
         this.memeBookStorage = memeBookStorage;
         this.userPrefsStorage = userPrefsStorage;
-        this.likeDataStorage = likeDataStorage;
+        this.statsDataStorage = statsDataStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -80,32 +79,32 @@ public class StorageManager implements Storage {
         memeBookStorage.saveMemeBook(memeBook, filePath);
     }
 
-    // ================ LikeData methods ==============================
+    // ================ Statistics methods ==============================
 
     @Override
-    public Path getLikeDataFilePath() {
-        return likeDataStorage.getLikeDataFilePath();
+    public Path getStatsDataPath() {
+        return statsDataStorage.getStatsDataPath();
     }
 
     @Override
-    public Optional<LikeData> readLikeData() throws DataConversionException, IOException {
-        return readLikeData(getLikeDataFilePath());
+    public Optional<StatsEngine> readStatsData() throws DataConversionException, IOException {
+        return readStatsData(getStatsDataPath());
     }
 
     @Override
-    public Optional<LikeData> readLikeData(Path filePath) throws DataConversionException, IOException {
+    public Optional<StatsEngine> readStatsData(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return likeDataStorage.readLikeData(filePath);
+        return statsDataStorage.readStatsData(filePath);
     }
 
     @Override
-    public void saveLikeData(LikeDataImpl likeData) throws IOException {
-        saveLikeData(likeData, likeDataStorage.getLikeDataFilePath());
+    public void saveStatsData(StatsEngine statsEngine) throws IOException {
+        saveStatsData(statsEngine, statsDataStorage.getStatsDataPath());
     }
 
     @Override
-    public void saveLikeData(LikeDataImpl likeData, Path filePath) throws IOException {
+    public void saveStatsData(StatsEngine statsEngine, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        likeDataStorage.saveLikeData(likeData, filePath);
+        statsDataStorage.saveStatsData(statsEngine, filePath);
     }
 }

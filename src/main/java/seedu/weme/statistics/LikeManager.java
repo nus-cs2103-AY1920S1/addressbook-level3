@@ -41,7 +41,7 @@ public class LikeManager implements LikeData {
     /**
      * Returns an unmodifiable view of {@code LikeData}.
      */
-    public ObservableMap<String, Integer> getLikeDataMap() {
+    public ObservableMap<String, Integer> getLikeData() {
         return data.getInMap();
     }
 
@@ -68,4 +68,5 @@ public class LikeManager implements LikeData {
         String memeRef = meme.getFilePath().toString();
         data.deleteLikesByMemeRef(memeRef);
     }
+
 }

@@ -26,7 +26,7 @@ public class StorageManagerTest {
     public void setUp() {
         JsonMemeBookStorage memeBookStorage = new JsonMemeBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        JsonLikeDataStorage likeDataStorage = new JsonLikeDataStorage(getTempFilePath("likes"));
+        JsonStatsDataStorage likeDataStorage = new JsonStatsDataStorage(getTempFilePath("likes"));
         storageManager = new StorageManager(memeBookStorage, userPrefsStorage, likeDataStorage);
     }
 

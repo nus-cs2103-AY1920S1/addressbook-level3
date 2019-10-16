@@ -8,13 +8,12 @@ import seedu.weme.commons.exceptions.DataConversionException;
 import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.UserPrefs;
-import seedu.weme.statistics.LikeData;
-import seedu.weme.statistics.LikeDataImpl;
+import seedu.weme.statistics.StatsEngine;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends MemeBookStorage, UserPrefsStorage, LikeDataStorage {
+public interface Storage extends MemeBookStorage, UserPrefsStorage, StatsDataStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -32,8 +31,8 @@ public interface Storage extends MemeBookStorage, UserPrefsStorage, LikeDataStor
     void saveMemeBook(ReadOnlyMemeBook memeBook) throws IOException;
 
     @Override
-    Optional<LikeData> readLikeData() throws DataConversionException, IOException;
+    Optional<StatsEngine> readStatsData() throws DataConversionException, IOException;
 
     @Override
-    void saveLikeData(LikeDataImpl likeData) throws IOException;
+    void saveStatsData(StatsEngine statsEngine) throws IOException;
 }

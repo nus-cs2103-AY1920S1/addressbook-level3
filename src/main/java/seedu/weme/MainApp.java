@@ -22,13 +22,13 @@ import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.util.SampleDataUtil;
-import seedu.weme.statistics.LikeData;
-import seedu.weme.statistics.LikeManager;
-import seedu.weme.storage.JsonLikeDataStorage;
+import seedu.weme.statistics.StatsEngine;
+import seedu.weme.statistics.StatsManager;
 import seedu.weme.storage.JsonMemeBookStorage;
+import seedu.weme.storage.JsonStatsDataStorage;
 import seedu.weme.storage.JsonUserPrefsStorage;
-import seedu.weme.storage.LikeDataStorage;
 import seedu.weme.storage.MemeBookStorage;
+import seedu.weme.storage.StatsDataStorage;
 import seedu.weme.storage.Storage;
 import seedu.weme.storage.StorageManager;
 import seedu.weme.storage.UserPrefsStorage;
@@ -61,8 +61,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         MemeBookStorage memeBookStorage = new JsonMemeBookStorage(userPrefs.getMemeBookFilePath());
-        LikeDataStorage likeDataStorage = new JsonLikeDataStorage(userPrefs.getLikeDataFilePath());
-        storage = new StorageManager(memeBookStorage, userPrefsStorage, likeDataStorage);
+        StatsDataStorage statsDataStorage = new JsonStatsDataStorage(userPrefs.getStatsDataFilePath());
+        storage = new StorageManager(memeBookStorage, userPrefsStorage, statsDataStorage);
 
         initLogging(config);
 
@@ -81,30 +81,30 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyMemeBook> memeBookOptional;
         ReadOnlyMemeBook initialData;
-        Optional<LikeData> likeDataOptional;
-        LikeData initialLikeData;
+        Optional<StatsEngine> statsEngineOptional;
+        StatsEngine initialStatsEngine;
         try {
             memeBookOptional = storage.readMemeBook();
             if (!memeBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample MemeBook");
             }
             initialData = memeBookOptional.orElseGet(SampleDataUtil::getSampleMemeBook);
-            likeDataOptional = storage.readLikeData();
-            if (!likeDataOptional.isPresent()) {
+            statsEngineOptional = storage.readStatsData();
+            if (!statsEngineOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample LikeData");
             }
-            initialLikeData = likeDataOptional.orElseGet(SampleDataUtil::getSampleLikeData);
+            initialStatsEngine = statsEngineOptional.orElseGet(SampleDataUtil::getSampleStatsData);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty MemeBook and LikeData");
             initialData = new MemeBook();
-            initialLikeData = new LikeManager();
+            initialStatsEngine = new StatsManager();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty MemeBook and LikeData");
             initialData = new MemeBook();
-            initialLikeData = new LikeManager();
+            initialStatsEngine = new StatsManager();
         }
 
-        return new ModelManager(initialData, userPrefs, initialLikeData);
+        return new ModelManager(initialData, userPrefs, initialStatsEngine);
     }
 
     private void initLogging(Config config) {

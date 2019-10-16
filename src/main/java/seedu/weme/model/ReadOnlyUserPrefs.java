@@ -13,4 +13,5 @@ public interface ReadOnlyUserPrefs {
 
     Path getMemeBookFilePath();
 
+    Path getStatsDataFilePath();
 }

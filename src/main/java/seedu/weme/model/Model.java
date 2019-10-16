@@ -9,6 +9,7 @@ import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.statistics.LikeData;
+import seedu.weme.statistics.StatsEngine;
 
 /**
  * The API of the Model component.
@@ -102,6 +103,11 @@ public interface Model {
     void setContext(ModelContext context);
 
     /**
+     * Returns statistics data.
+     */
+    StatsEngine getStatsEngine();
+
+    /**
      * Returns the like data.
      */
     LikeData getLikeData();
@@ -109,7 +115,13 @@ public interface Model {
     ObservableMap<String, Integer> getObservableLikeData();
 
     /**
+     * Increments likes of a meme by the Meme object.
+     */
+    void incrementLikesByMeme(Meme meme);
+
+    /**
      * Deletes like data by meme.
      */
     void deleteLikesByMeme(Meme memeToDelete);
+
 }

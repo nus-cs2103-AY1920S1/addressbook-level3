@@ -23,7 +23,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.statistics.LikeManager;
+import seedu.weme.statistics.StatsManager;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
 import seedu.weme.testutil.MemeBuilder;
 
@@ -33,7 +33,7 @@ import seedu.weme.testutil.MemeBuilder;
  */
 public class MemeEditCommandTest {
 
-    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new LikeManager());
+    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
 
 
     @Test
@@ -44,7 +44,8 @@ public class MemeEditCommandTest {
 
         String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs(), model.getLikeData());
+        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()),
+                new UserPrefs(), model.getStatsEngine());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
@@ -80,7 +81,8 @@ public class MemeEditCommandTest {
 
         String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs(), model.getLikeData());
+        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()),
+                new UserPrefs(), model.getStatsEngine());
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }
@@ -96,7 +98,8 @@ public class MemeEditCommandTest {
 
         String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs(), model.getLikeData());
+        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()),
+                new UserPrefs(), model.getStatsEngine());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
-import seedu.weme.statistics.LikeManager;
+import seedu.weme.statistics.StatsManager;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for MemeListCommand.
@@ -23,8 +23,8 @@ public class MemeListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new LikeManager());
-        expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), new LikeManager());
+        model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
+        expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), new StatsManager());
     }
 
     @Test

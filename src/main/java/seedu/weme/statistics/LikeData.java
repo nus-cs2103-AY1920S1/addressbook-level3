@@ -16,7 +16,7 @@ public interface LikeData {
     /**
      * Returns the like data in map form.
      */
-    ObservableMap<String, Integer> getLikeDataMap();
+    ObservableMap<String, Integer> getLikeData();
 
     /**
      * Like a meme once.

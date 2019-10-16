@@ -8,7 +8,6 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
@@ -16,7 +15,8 @@ import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.statistics.LikeData;
-import seedu.weme.statistics.LikeManager;
+import seedu.weme.statistics.StatsEngine;
+import seedu.weme.statistics.StatsManager;
 
 /**
  * Represents the in-memory model of the meme book data.
@@ -27,8 +27,7 @@ public class ModelManager implements Model {
     private final MemeBook memeBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Meme> filteredMemes;
-    private final LikeData likeData;
-    private final ObservableMap<String, Integer> observableLikeData;
+    private final StatsEngine statsEngine;
 
     // ModelContext determines which parser to use at any point of time.
     private SimpleObjectProperty<ModelContext> context = new SimpleObjectProperty<>(ModelContext.CONTEXT_MEMES);
@@ -36,7 +35,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given memeBook and userPrefs.
      */
-    public ModelManager(ReadOnlyMemeBook memeBook, ReadOnlyUserPrefs userPrefs, LikeData likeData) {
+    public ModelManager(ReadOnlyMemeBook memeBook, ReadOnlyUserPrefs userPrefs, StatsEngine statsEngine) {
         super();
         requireAllNonNull(memeBook, userPrefs);
 
@@ -45,12 +44,11 @@ public class ModelManager implements Model {
         this.memeBook = new MemeBook(memeBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredMemes = new FilteredList<>(this.memeBook.getMemeList());
-        this.likeData = likeData;
-        this.observableLikeData = FXCollections.observableMap(likeData.getLikeDataMap());
+        this.statsEngine = statsEngine;
     }
 
     public ModelManager() {
-        this(new MemeBook(), new UserPrefs(), new LikeManager());
+        this(new MemeBook(), new UserPrefs(), new StatsManager());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -150,19 +148,31 @@ public class ModelManager implements Model {
         this.context.set(context);
     }
 
+    //=========== Statistics Methods =============================================================
+
+    @Override
+    public StatsEngine getStatsEngine() {
+        return statsEngine;
+    }
+
     @Override
     public LikeData getLikeData() {
-        return this.likeData;
+        return statsEngine.getLikeData();
     }
 
     @Override
     public ObservableMap<String, Integer> getObservableLikeData() {
-        return observableLikeData;
+        return statsEngine.getObservableLikeData();
+    }
+
+    @Override
+    public void incrementLikesByMeme(Meme meme) {
+        statsEngine.incrementLikesByMeme(meme);
     }
 
     @Override
     public void deleteLikesByMeme(Meme meme) {
-        likeData.deleteLikesByMeme(meme);
+        statsEngine.deleteLikesByMeme(meme);
     }
 
     @Override

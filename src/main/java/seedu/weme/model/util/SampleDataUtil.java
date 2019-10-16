@@ -12,6 +12,8 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.LikeManager;
+import seedu.weme.statistics.StatsEngine;
+import seedu.weme.statistics.StatsManager;
 
 /**
  * Contains utility methods for populating {@code MemeBook} with sample data.
@@ -40,6 +42,12 @@ public class SampleDataUtil {
             sampleMb.addMeme(sampleMeme);
         }
         return sampleMb;
+    }
+
+    public static StatsEngine getSampleStatsData() {
+        StatsEngine statsEngine = new StatsManager();
+        statsEngine.setLikeData(getSampleLikeData());
+        return statsEngine;
     }
 
     public static LikeData getSampleLikeData() {

@@ -47,7 +47,7 @@ public class LikeCommand extends Command {
 
         Meme memeToLike = lastShownList.get(index.getZeroBased());
 
-        model.getLikeData().incrementLikesByMeme(memeToLike);
+        model.incrementLikesByMeme(memeToLike);
         model.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES); // This line only re-renders the GUI on first like.
         return new CommandResult(String.format(MESSAGE_LIKE_MEME_SUCCESS, memeToLike));
     }

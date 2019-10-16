@@ -17,7 +17,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.statistics.LikeManager;
+import seedu.weme.statistics.StatsManager;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -25,7 +25,7 @@ import seedu.weme.statistics.LikeManager;
  */
 public class MemeDeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new LikeManager());
+    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,7 +34,7 @@ public class MemeDeleteCommandTest {
 
         String expectedMessage = String.format(MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), model.getLikeData());
+        ModelManager expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), model.getStatsEngine());
         expectedModel.deleteMeme(memeToDelete);
 
         assertCommandSuccess(memeDeleteCommand, model, expectedMessage, expectedModel);
@@ -57,7 +57,7 @@ public class MemeDeleteCommandTest {
 
         String expectedMessage = String.format(MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
-        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), model.getLikeData());
+        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), model.getStatsEngine());
         expectedModel.deleteMeme(memeToDelete);
         showNoMeme(expectedModel);
 
