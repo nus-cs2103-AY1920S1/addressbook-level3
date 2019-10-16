@@ -11,7 +11,7 @@ import java.util.Objects;
 public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 600;
-    private static final double DEFAULT_WIDTH = 740;
+    private static final double DEFAULT_WIDTH = 700;
 
     private final double windowWidth;
     private final double windowHeight;

@@ -32,10 +32,12 @@
 }
 
 .label-header {
-    -fx-font-size: 32pt;
+    -fx-font-size: 16pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 1;
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: derive(#1d1d1d, 10%);
 }
 
 .text-field {
