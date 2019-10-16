@@ -9,7 +9,7 @@ public class ExpenseTracker {
     private ExpenseContainsTagPredicate predicate;
 
     public ExpenseTracker(ExpenseContainsTagPredicate predicate) {
-       this.predicate = predicate;
+        this.predicate = predicate;
         currAmount = 0;
     }
 
