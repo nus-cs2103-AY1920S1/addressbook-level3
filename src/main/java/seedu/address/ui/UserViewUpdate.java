@@ -28,15 +28,13 @@ public class UserViewUpdate {
 
         assert !(preamble.isEmpty());
 
-        paneToRender.getChildren().clear();
-
         switch(preamble) {
         case "list":
-            paneToRender.getChildren().add(userViewMain.loadTasks());
+            paneToRender = userViewMain.loadTasks();
             break;
 
         default:
-            paneToRender.getChildren().add(userViewMain.loadDashboard());
+            paneToRender = userViewMain.loadDashboard();
         }
     }
 }

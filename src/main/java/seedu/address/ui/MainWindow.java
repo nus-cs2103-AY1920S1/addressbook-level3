@@ -118,7 +118,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         Pane defaultPane = userViewMain.loadDashboard();
-        userNavigableView.getChildren().addAll(defaultPane);
+        userNavigableView.getChildren().add(defaultPane);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
