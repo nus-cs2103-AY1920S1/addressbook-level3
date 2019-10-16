@@ -15,6 +15,8 @@ import seedu.mark.logic.parser.MarkParser;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyMark;
+import seedu.mark.model.annotation.OfflineDocument;
+import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
@@ -92,5 +94,15 @@ public class LogicManager implements Logic {
     @Override
     public void setCurrentUrl(Url url) {
         model.setCurrentUrl(url);
+    }
+
+    @Override
+    public ObservableList<Paragraph> getObservableDocument() {
+        return model.getObservableDocument();
+    }
+
+    @Override
+    public void updateDocument(OfflineDocument doc) {
+        model.updateDocument(doc);
     }
 }

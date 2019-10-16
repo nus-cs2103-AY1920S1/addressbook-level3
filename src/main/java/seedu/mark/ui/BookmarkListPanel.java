@@ -1,7 +1,9 @@
 package seedu.mark.ui;
 
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -9,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Url;
 
 /**
  * Panel containing the list of bookmarks.
@@ -20,10 +23,43 @@ public class BookmarkListPanel extends UiPart<Region> {
     @FXML
     private ListView<Bookmark> bookmarkListView;
 
-    public BookmarkListPanel(ObservableList<Bookmark> bookmarkList) {
+    public BookmarkListPanel(ObservableList<Bookmark> bookmarkList, ObservableValue<Url> currentBookmarkUrl,
+                             Consumer<Url> currentBookmarkUrlChangeHandler, MainWindow mainWindow) {
         super(FXML);
         bookmarkListView.setItems(bookmarkList);
         bookmarkListView.setCellFactory(listView -> new BookmarkListViewCell());
+
+        // Whenever selection changes, update the current bookmark url
+        bookmarkListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            logger.info("Selection in bookmark list panel changed to: " + newValue);
+            currentBookmarkUrlChangeHandler.accept(newValue.getUrl());
+            mainWindow.handleSwitchToOnline();
+        });
+
+        // Whenever current bookmark url changes, update the selection
+        currentBookmarkUrl.addListener((observable, oldValue, newValue) -> {
+            logger.info("Current bookmark url changed to: " + newValue);
+            Bookmark selectedBookmark = bookmarkListView.getSelectionModel().getSelectedItem();
+            // Early return if the url change is due to change of selection
+            if (selectedBookmark != null && selectedBookmark.getUrl().equals(newValue)) {
+                return;
+            }
+            // Clear the selection when current bookmark url is set to null
+            if (newValue == null) {
+                bookmarkListView.getSelectionModel().clearSelection();
+            } else { // Update the selection to the corresponding bookmark
+                int index = 0;
+                ObservableList<Bookmark> currentBookmarkList = bookmarkListView.getItems();
+                for (Bookmark bookmark : currentBookmarkList) {
+                    if (bookmark.getUrl().equals(newValue)) {
+                        break;
+                    }
+                    index++;
+                }
+                bookmarkListView.scrollTo(index);
+                bookmarkListView.getSelectionModel().clearAndSelect(index);
+            }
+        });
     }
 
     /**
