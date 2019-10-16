@@ -16,7 +16,7 @@ import seedu.address.model.events.Event;
  */
 public class AddAppCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "addappt";
+    public static final String COMMAND_WORD = "addAppt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a appointment to the address book. "
             + "Parameters: "
