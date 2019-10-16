@@ -300,6 +300,14 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        Predicate<Event> byApproved = Event -> ((Event.getStatus().isApproved() || Event.getStatus().isAcked())
+                && Event.getPersonId().equals(referenceId));
+        filteredEvents.setPredicate(byApproved);
+    }
+
+    @Override
     public void updateFilteredEventList() {
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         Predicate<Event> byApproved = Event -> Event.getStatus().isApproved();

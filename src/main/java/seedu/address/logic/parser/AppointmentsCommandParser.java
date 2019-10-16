@@ -39,7 +39,7 @@ public class AppointmentsCommandParser implements Parser<AppointmentsCommand> {
             ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getPreamble());
 
             if (!model.hasPerson(referenceId)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_REFERENCEID, AddAppCommand.MESSAGE_USAGE));
+                throw new ParseException(MESSAGE_INVALID_REFERENCEID);
             }
 
             return new AppointmentsCommand(referenceId);

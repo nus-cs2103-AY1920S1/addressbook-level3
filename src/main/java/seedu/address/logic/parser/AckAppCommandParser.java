@@ -1,17 +1,37 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REFERENCEID;
 
+
+import javafx.collections.ObservableList;
 import seedu.address.logic.commands.AckAppCommand;
-import seedu.address.logic.commands.AckAppCommand.EditEventStatus;
+import seedu.address.logic.commands.AddAppCommand;
+import seedu.address.logic.commands.CancelAppCommand;
+import seedu.address.logic.commands.UnAckApptCommand;
+import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 import seedu.address.model.common.ReferenceId;
+import seedu.address.model.events.Appointment;
+import seedu.address.model.events.ContainsKeywordsPredicate;
+import seedu.address.model.events.Event;
+import seedu.address.model.events.Status;
+import seedu.address.model.events.Timing;
+
+import java.util.Arrays;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AckAppCommandParser implements Parser<AckAppCommand> {
+public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> {
+    private Model model;
+    private ObservableList<Event> filterEventList;
+    public static final String MESSAGE_NOTING_ACK = "there is no appointment under this patient.";
+
+
+    public AckAppCommandParser(Model model) {
+        this.model = model;
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -19,26 +39,42 @@ public class AckAppCommandParser implements Parser<AckAppCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AckAppCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ID);
+    public ReversibleActionPairCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        EditEventStatus editEventStatus = new EditEventStatus();
+        if (args.trim().isEmpty()) {
+            throw new ParseException(AckAppCommand.MESSAGE_USAGE);
+        } else {
+            ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getPreamble());
 
-        if (argMultimap.getValue(PREFIX_ID).isPresent()) {
-            editEventStatus.setReferenceId(
-                    ParserUtil.parsePatientReferenceId(argMultimap.getValue(PREFIX_ID).get()));
+            if (!model.hasPerson(referenceId)) {
+                throw new ParseException(MESSAGE_INVALID_REFERENCEID);
+//                throw new ParseException("something is wrong here");
+            }
+
+            updateToPatientList(referenceId);
+            if (filterEventList.size() == 0) {
+                throw new ParseException(MESSAGE_NOTING_ACK);
+            } else if (filterEventList.get(0).getStatus().isAcked()) {
+                throw new ParseException(AckAppCommand.MESSAGE_DUPLICATE_ACKED);
+            }else{
+                Event unAck = filterEventList.get(0);
+                model.deleteEvent(unAck);
+
+                Timing timing = unAck.getEventTiming();
+                Status status = new Status(Status.AppointmentStatuses.ACKNOWLEDGED);
+                Event toAck = new Appointment(referenceId, timing, status);
+
+                return new ReversibleActionPairCommand(new AckAppCommand(toAck),
+                        new UnAckApptCommand(unAck));
+            }
         }
+    }
 
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AckAppCommand.MESSAGE_USAGE));
-        }
-
-        editEventStatus.setAckStatus();
-        ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getPreamble());
-
-        return new AckAppCommand(referenceId, editEventStatus);
+    private void updateToPatientList(ReferenceId referenceId) {
+        String[] nameKeywords = referenceId.toString().split("\\s+");
+        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(Arrays.asList(nameKeywords));
+        model.updateFilteredEventList(predicate);
+        filterEventList = model.getFilteredEventList();
     }
 }
