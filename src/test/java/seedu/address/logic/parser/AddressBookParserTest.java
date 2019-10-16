@@ -19,12 +19,18 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindAnswerCommand;
+import seedu.address.logic.commands.FindCategoryCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindQuestionCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
+import seedu.address.model.flashcard.AnswerContainsAnyKeywordsPredicate;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.QuestionContainsAnyKeywordsPredicate;
+import seedu.address.model.flashcard.QuestionOrAnswerContainsAnyKeywordsPredicate;
 import seedu.address.testutil.EditFlashCardDescriptorBuilder;
 import seedu.address.testutil.FlashCardBuilder;
 import seedu.address.testutil.FlashCardUtil;
@@ -76,7 +82,33 @@ public class AddressBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new QuestionContainsAnyKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new QuestionOrAnswerContainsAnyKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findCategory() throws Exception {
+        List<String> keywords = Arrays.asList("C", "cs2101");
+        FindCategoryCommand command = (FindCategoryCommand) parser.parseCommand(
+                FindCategoryCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindCategoryCommand(new CategoryContainsAnyKeywordsPredicate(keywords)), command);
+
+    }
+
+    @Test
+    public void parseCommand_findQuestion() throws Exception {
+        List<String> keywords = Arrays.asList("what", "cs2101");
+        FindQuestionCommand command = (FindQuestionCommand) parser.parseCommand(
+            FindQuestionCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindQuestionCommand(new QuestionContainsAnyKeywordsPredicate(keywords)), command);
+
+    }
+
+    @Test
+    public void parseCommand_findAnswer() throws Exception {
+        List<String> keywords = Arrays.asList("C", "cs2101");
+        FindAnswerCommand command = (FindAnswerCommand) parser.parseCommand(
+                FindAnswerCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindAnswerCommand(new AnswerContainsAnyKeywordsPredicate(keywords)), command);
     }
 
     @Test

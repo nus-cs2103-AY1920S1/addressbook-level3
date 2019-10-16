@@ -40,13 +40,13 @@ public class FlashCardTest {
 
         // same name, different attributes -> returns true
         editedCard = new FlashCardBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2)
-                .withTags(VALID_CATEGORY_HISTORY).build();
+                .withCatgeories(VALID_CATEGORY_HISTORY).build();
 
         assertTrue(STORE_AND_FORWARD.isSameFlashCard(editedCard));
 
         // same name, same answer, different attributes -> returns true
         editedCard = new FlashCardBuilder(STORE_AND_FORWARD).withRating(VALID_RATING_2)
-                .withTags(VALID_CATEGORY_HISTORY).build();
+                .withCatgeories(VALID_CATEGORY_HISTORY).build();
 
         assertTrue(STORE_AND_FORWARD.isSameFlashCard(editedCard));
     }
@@ -83,7 +83,7 @@ public class FlashCardTest {
         assertFalse(STORE_AND_FORWARD.equals(editedAlice));
 
         // different categories -> returns false
-        editedAlice = new FlashCardBuilder(STORE_AND_FORWARD).withTags(VALID_CATEGORY_HISTORY).build();
+        editedAlice = new FlashCardBuilder(STORE_AND_FORWARD).withCatgeories(VALID_CATEGORY_HISTORY).build();
         assertFalse(STORE_AND_FORWARD.equals(editedAlice));
     }
 }

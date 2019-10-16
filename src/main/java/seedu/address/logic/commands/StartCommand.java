@@ -13,6 +13,7 @@ import seedu.address.model.flashcard.Question;
 import seedu.address.model.flashcard.Rating;
 import seedu.address.model.util.SampleDataUtil;
 
+//@@author keiteo
 /**
  * Starts the flashcard test by going through the cards in the specified deck.
  * If no deck name is supplied, a random deck will be chosen.
@@ -50,13 +51,13 @@ public class StartCommand extends Command {
         addressBookParser.startTest();
 
         // start stub
-        List<FlashCard> testList = new ArrayList();
+        List<FlashCard> testList = new ArrayList<>();
         testList.add(new FlashCard(new Question("1+1"), new Answer("2"), new Rating("good"),
-                SampleDataUtil.getTagSet("test")));
+                SampleDataUtil.getCategorySet("test")));
         testList.add(new FlashCard(new Question("1+2"), new Answer("3"), new Rating("good"),
-                SampleDataUtil.getTagSet("test")));
+                SampleDataUtil.getCategorySet("test")));
         testList.add(new FlashCard(new Question("1+3"), new Answer("4"), new Rating("good"),
-                SampleDataUtil.getTagSet("test")));
+                SampleDataUtil.getCategorySet("test")));
         // end stub
 
         // TODO: integrate into GUI

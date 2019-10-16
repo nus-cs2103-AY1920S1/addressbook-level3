@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.StartCommand;
 
+//@@author keiteo
 /**
  * Parses input arguments and creates a new StartCommand object.
  */
@@ -9,7 +10,7 @@ public class StartCommandParser implements Parser<StartCommand> {
 
     private final AddressBookParser addressBookParser;
 
-    public StartCommandParser(AddressBookParser addressBookParser) {
+    StartCommandParser(AddressBookParser addressBookParser) {
         this.addressBookParser = addressBookParser;
     }
     /**

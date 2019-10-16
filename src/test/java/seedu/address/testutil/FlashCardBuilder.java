@@ -53,8 +53,8 @@ public class FlashCardBuilder {
      * Parses the {@code categories} into a {@code Set<Category>}
      * and set it to the {@code FlashCard} that we are building.
      */
-    public FlashCardBuilder withTags(String ... categories) {
-        this.categories = SampleDataUtil.getTagSet(categories);
+    public FlashCardBuilder withCatgeories(String ... categories) {
+        this.categories = SampleDataUtil.getCategorySet(categories);
         return this;
     }
 

@@ -81,7 +81,7 @@ public class AddCommandTest {
         assertFalse(addAliceCommand.equals(addAliceCommandCopy));
 
         //same question different category
-        aliceCopy = new FlashCardBuilder(alice).withTags("1234123").build();
+        aliceCopy = new FlashCardBuilder(alice).withCatgeories("1234123").build();
         addAliceCommandCopy = new AddCommand(aliceCopy);
         assertFalse(addAliceCommand.equals(addAliceCommandCopy));
 
@@ -207,6 +207,10 @@ public class AddCommandTest {
 
         @Override
         public void editStats(int type) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public ObservableList<FlashCard> getFilteredFlashCardListNoCommit(Predicate<FlashCard> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
