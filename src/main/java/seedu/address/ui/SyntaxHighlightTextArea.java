@@ -182,6 +182,16 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
     }
 
     /**
+     * Returns the text in the text area and clears it.
+     * @return
+     */
+    public String flush() {
+        String value = getText();
+        replaceText("");
+        return value;
+    }
+
+    /**
      * Compile pattern for a command input syntax used for matching during syntax highlighting.
      * @param commandWord The command word of the command.
      * @param prefixes The list of prefixes of the command.
