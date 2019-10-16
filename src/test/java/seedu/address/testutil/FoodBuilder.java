@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.sgm.model.food.Calorie;
 import seedu.sgm.model.food.Fat;
 import seedu.sgm.model.food.Food;
@@ -9,16 +10,16 @@ import seedu.sgm.model.food.Gi;
 import seedu.sgm.model.food.Sugar;
 
 /**
- * A utility class to help with building Food objects.
+ * This is a utility class to help with building Food objects.
  */
 public class FoodBuilder {
 
-    public static final String DEFAULT_FOOD_NAME = "Alice Pauline";
+    public static final String DEFAULT_FOOD_NAME = "FOOD";
     public static final String DEFAULT_CALORIE = "34.0";
     public static final String DEFAULT_GI = "10.0";
     public static final String DEFAULT_SUGAR = "1.7";
     public static final String DEFAULT_FAT = "0.4";
-    public static final String DEFAULT_TYPE = "svf";
+    public static final String DEFAULT_TYPE = "nsv";
 
     private FoodName foodName;
     private Calorie calorie;
@@ -36,7 +37,11 @@ public class FoodBuilder {
         this.gi = new Gi(DEFAULT_GI);
         this.sugar = new Sugar(DEFAULT_SUGAR);
         this.fat = new Fat(DEFAULT_FAT);
-        this.foodType = FoodType.getFrom(DEFAULT_TYPE);
+        try {
+            this.foodType = FoodType.getFrom(DEFAULT_TYPE);
+        } catch (ParseException pe) {
+            assert false : "The type cannot be wrong.";
+        }
     }
 
     /**
@@ -95,7 +100,11 @@ public class FoodBuilder {
      * Sets the {@code Fat} of the {@code Food} that we are building.
      */
     public FoodBuilder withFoodType(String foodType) {
-        this.foodType = FoodType.getFrom(foodType);
+        try {
+            this.foodType = FoodType.getFrom(foodType);
+        } catch (ParseException pe) {
+            assert false : "The type cannot be wrong.";
+        }
         return this;
     }
 

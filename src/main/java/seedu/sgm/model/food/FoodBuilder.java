@@ -33,6 +33,7 @@ public class FoodBuilder {
         try {
             this.foodType = FoodType.getFrom(DEFAULT_TYPE);
         } catch (ParseException pe) {
+            assert false : "The type cannot be wrong.";
         }
     }
 
@@ -94,7 +95,9 @@ public class FoodBuilder {
     public FoodBuilder withFoodType(String foodType) {
         try {
             this.foodType = FoodType.getFrom(foodType);
-        } catch (ParseException pe) {}
+        } catch (ParseException pe) {
+            assert false : "The type cannot be wrong.";
+        }
         return this;
     }
 

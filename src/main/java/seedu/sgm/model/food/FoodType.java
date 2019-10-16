@@ -21,7 +21,7 @@ public enum FoodType {
     SNACK,
     MEAL;
 
-    public static FoodType getFrom(String shortHandType) throws ParseException{
+    public static FoodType getFrom(String shortHandType) throws ParseException {
         switch (shortHandType.toLowerCase()) {
         case ABBR_NON_STARCHY_VEGETABLE:
         case FLAG_SIGNAL + ABBR_NON_STARCHY_VEGETABLE:
