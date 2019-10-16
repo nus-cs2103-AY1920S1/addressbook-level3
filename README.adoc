@@ -4,7 +4,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/AY1920S1-CS2103T-T09-4[image:https://travis-ci.org/AY1920S1-CS2103T-T09-4/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/EugeneTeu/main/branch/master[image:https://ci.appveyor.com/api/projects/status/h3v2fp6lbwji077b/branch/master?svg=true[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-T09-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T09-4/main/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/manual/zhixianggg/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2103T-T09-4/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/ecdd0bab29a34f7ba5209d25f2b5eee9[Codacy Badge]]
+https://www.codacy.com/manual/AY1920S1-CS2103T-T09-4/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2103T-T09-4/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/ecdd0bab29a34f7ba5209d25f2b5eee9[Codacy Badge]]
 
 = The ultimate management system for your business needs! Tailored to fufil the needs of the solo Handphone retailer!
 
