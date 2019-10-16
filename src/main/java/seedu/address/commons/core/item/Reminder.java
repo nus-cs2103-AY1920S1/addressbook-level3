@@ -47,7 +47,7 @@ public class Reminder {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Reminder DateTime: ")
+        builder.append("\nReminder DateTime: ")
                 .append(getDateTime().toString());
         return builder.toString();
     }
