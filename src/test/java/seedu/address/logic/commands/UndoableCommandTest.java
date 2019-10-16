@@ -26,7 +26,7 @@ class UndoableCommandTest {
     void test_commandStateEnum() {
         assertEquals(UndoableCommand.UndoableCommandState.UNDOABLE.toString(), "UNDOABLE");
     }
-  
+
     @Test
     void getCommandState() {
         // Default command state of an UndoableCommand
