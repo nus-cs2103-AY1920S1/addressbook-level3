@@ -1,10 +1,13 @@
 package seedu.address.model.field;
 
+import java.util.function.Predicate;
+
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
 
-import java.util.function.Predicate;
-
+/**
+ * Tests that a {@code Contact}'s {@code Phone} matches any of the keywords given.
+ */
 public class ContactContainsNumberPredicate implements Predicate<Contact> {
     private final Phone phone;
 
