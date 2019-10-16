@@ -36,16 +36,17 @@ public class Incident {
      * Creates a new Incident report, fields will be filled in through prompts in the GUI.
      * @param callerNumber is the phone number of the caller that reported the incident.
      */
-    public Incident(CallerNumber callerNumber) {
+    public Incident(CallerNumber callerNumber, District location, Description description) {
         //this.operator = autofilled on sign in
         // TODO: autofill operator upon sign in. Currently dummy data
         this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 getTagSet("friends"), new Username("user1"), new Password("pass123"));
         this.incidentDateTime = new IncidentDateTime();
         this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
-        this.incidentDesc = promptForDescription();
-        this.location = promptForLocation();
-        this.callerNumber = callerNumber; // changed by Atharv - incident constructor takes in CallerNumber, not String
+        // changed by Atharv - incident constructor takes in CallerNumber, District, and Description, not String
+        this.incidentDesc = description;
+        this.location = location;
+        this.callerNumber = callerNumber;
         //this.car = VehicleAssigner.assignVehicle(location);
     }
 
