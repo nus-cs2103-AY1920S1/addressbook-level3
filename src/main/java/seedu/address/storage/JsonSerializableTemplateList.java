@@ -16,7 +16,7 @@ import seedu.address.model.food.UniqueTemplateItems;
 /**
  * An Immutable AddressBook that is serializable to JSON format.
  */
-@JsonRootName(value = "templatelist")
+@JsonRootName(value = "templateList")
 class JsonSerializableTemplateList {
 
     public static final String MESSAGE_DUPLICATE_TEMPLATE = "TemplateList contains duplicate template(s).";

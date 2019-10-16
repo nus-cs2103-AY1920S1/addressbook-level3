@@ -52,7 +52,7 @@ public class EditTemplateItemCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        /*List<TemplateItem> lastShownList = model.getFilteredTemplateItemList();
+        /**List<TemplateItem> lastShownList = model.getFilteredTemplateItemList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);

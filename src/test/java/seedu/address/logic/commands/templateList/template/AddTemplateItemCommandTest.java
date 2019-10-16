@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TemplateList;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.model.food.TemplateItem;
+import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.testutil.TemplateItemBuilder;
 
 public class AddTemplateItemCommandTest {
@@ -150,6 +151,56 @@ public class AddTemplateItemCommandTest {
         public void updateFilteredGroceryItemList(Predicate<GroceryItem> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+
+        @Override
+        public Path getTemplateListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTemplateListFilePath(Path templateListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void setTemplateList(ReadOnlyTemplateList templateList) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public ReadOnlyTemplateList getTemplateList() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public boolean hasTemplate(UniqueTemplateItems toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void deleteTemplate(UniqueTemplateItems target) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void addTemplate(UniqueTemplateItems toAdd) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void setTemplate(UniqueTemplateItems target, UniqueTemplateItems editedTemplate) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public ObservableList<UniqueTemplateItems> getFilteredTemplateList() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void updateFilteredTemplateList(Predicate<UniqueTemplateItems> predicate) {
+            throw new AssertionError("This method should not be called.");
+        };
     }
 
     /**

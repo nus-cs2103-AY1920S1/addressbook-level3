@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.groceryList.GroceryListParser;
+import seedu.address.logic.parser.templateList.TemplateListParser;
 
 /**
  * Parses user input.
@@ -36,9 +38,10 @@ public class IfridgeParser {
         final String listType = matcher.group("listType");
         final String others = matcher.group("others");
         switch (listType) {
-
-        case "glist":
+        case GroceryListParser.LIST_TYPE_WORD:
             return new GroceryListParser().parseCommand(others);
+        case TemplateListParser.LIST_TYPE_WORD:
+            return new TemplateListParser().parseCommand(others);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

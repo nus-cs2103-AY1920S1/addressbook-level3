@@ -9,11 +9,15 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTemplateList;
+import seedu.address.model.TemplateList;
 import seedu.address.model.food.Amount;
 import seedu.address.model.food.ExpiryDate;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.model.food.Name;
+import seedu.address.model.food.TemplateItem;
+import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.waste.WasteMonth;
 
@@ -34,7 +38,6 @@ public class SampleDataUtil {
         };
     }
 
-
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Food sampleFood : getSampleFoods()) {
@@ -42,8 +45,6 @@ public class SampleDataUtil {
         }
         return sampleAb;
     }
-
-
 
     /**
      * Returns a tag set containing the list of strings given.
@@ -55,7 +56,6 @@ public class SampleDataUtil {
     }
 
     // =============================== Waste List Sample =============================== //
-
     /**
      * Generates sample of past 12 months
      * @return WasteMonth array of past 12 months
@@ -172,6 +172,41 @@ public class SampleDataUtil {
                 addFoodItemToArchive(wasteItems[j], wasteMonths[i]);
             }
         }
+    }
+
+    // =============================== Template List Sample =============================== //
+
+    public static TemplateItem[] getSampleTemplateItems() {
+        return new TemplateItem[] {
+            new TemplateItem(new Name("Minced Beef"), new Amount("300g")),
+            new TemplateItem(new Name("FullFat Milk"), new Amount("1L")),
+            new TemplateItem(new Name("Red Wine"), new Amount("1L")),
+            new TemplateItem(new Name("Minced Chicken"), new Amount("300g")),
+            new TemplateItem(new Name("Tomato"), new Amount("2units"))
+        };
+    }
+
+    /**
+     * Generates sample of template list
+     * @return Template array
+     */
+    public static UniqueTemplateItems[] getSampleTemplates() {
+        return new UniqueTemplateItems[] {
+            new UniqueTemplateItems(new Name("Weekly Necessities")),
+            new UniqueTemplateItems(new Name("Birthday Party")),
+            new UniqueTemplateItems(new Name("Diet Plan"))
+        };
+    }
+
+    public static ReadOnlyTemplateList getSampleTemplateList() {
+        TemplateList sampleAc = new TemplateList();
+        for (UniqueTemplateItems sampleTemplates: getSampleTemplates()) {
+            for (TemplateItem sampleTemplateItem : getSampleTemplateItems()) {
+                sampleTemplates.add(sampleTemplateItem);
+            }
+            sampleAc.addTemplate(sampleTemplates);
+        }
+        return sampleAc;
     }
 
 }

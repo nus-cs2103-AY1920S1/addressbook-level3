@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.groceryList;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -22,6 +22,7 @@ public class GroceryListParser {
     /**
      * Used for initial separation of command word and args.
      */
+    public static final String LIST_TYPE_WORD = "glist";
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
@@ -40,7 +41,6 @@ public class GroceryListParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
         case AddGroceryCommand.COMMAND_WORD:
             return new AddGroceryCommandParser().parse(arguments);
 

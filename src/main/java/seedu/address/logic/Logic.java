@@ -9,7 +9,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.UniqueTemplateItems;
 
 /**
  * API of the Logic component
@@ -38,6 +40,21 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the TemplateList.
+     *
+     * @see seedu.address.model.Model#getTemplateList()
+     */
+    ReadOnlyTemplateList getTemplateList();
+
+    /** Returns an unmodifiable view of the filtered list of templates */
+    ObservableList<UniqueTemplateItems> getFilteredTemplateList();
+
+    /**
+     * Returns the user prefs' template list file path.
+     */
+    Path getTemplateListFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
