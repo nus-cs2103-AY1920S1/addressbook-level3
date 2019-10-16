@@ -16,6 +16,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ProjectDashboard;
+import seedu.address.model.member.Member;
+import seedu.address.model.member.MemberId;
+import seedu.address.model.member.MemberNameContainsKeywordsPredicate;
+import seedu.address.model.member.MemberNameContainsKeywordsPredicateTest;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
@@ -29,11 +33,16 @@ public class CommandTestUtil {
     /* Task related names will be split into four categories: Finance and Publicity */
     public static final String VALID_TASK_NAME_FINANCE = "Review Project Budget";
     public static final String VALID_MEMBER_NAME_FINANCE = "Gabriel Seow";
+    public static final String VALID_MEMBER_ID_FINANCE = "GS";
     public static final String VALID_TASK_NAME_PUBLICITY = "Build Project Website";
+    public static final String VALID_MEMBER_NAME_PUBLICITY = "Abhinav";
+    public static final String VALID_MEMBER_ID_PUBLICITY = "AB";
     public static final String VALID_TASK_STATUS_FINANCE = "unbegun";
     public static final String VALID_TASK_STATUS_PUBLICITY = "doing";
     public static final String VALID_TAG_FINANCE = "finance";
+    public static final String VALID_MEMBER_TAG_FINANCE = "ChiefProgrammer";
     public static final String VALID_TAG_PUBLICITY = "publicity";
+    public static final String VALID_MEMBER_TAG_PUBLICITY = "UIdesigner";
     public static final String VALID_TAG_URGENCY = "urgent";
 
     public static final String TASK_NAME_DESC_FINANCE = " " + PREFIX_TASK_NAME + VALID_TASK_NAME_FINANCE;
@@ -126,6 +135,31 @@ public class CommandTestUtil {
         model.updateFilteredTasksList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredTasksList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the member at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showMemberAtId(Model model, MemberId targetId) {
+        List<Member> lastShownList = model.getFilteredMembersList();
+
+        //boolean contains = false;
+        Member targetMember  = null;
+
+        for (int i = 0; i < lastShownList.size(); i++) {
+            if (lastShownList.get(i).getId() == targetId) {
+                //contains = true;
+                targetMember = lastShownList.get(i);
+                break;
+            }
+        }
+        //assertTrue(contains);
+
+        final String[] splitName = targetMember.getName().fullName.split("\\s+");
+        model.updateFilteredMembersList(new MemberNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredMembersList().size());
     }
 
 }

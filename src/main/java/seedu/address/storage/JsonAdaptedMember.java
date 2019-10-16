@@ -18,19 +18,20 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Member}.
  */
-public class JsonAdaptedMember {
+class JsonAdaptedMember {
+
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Member's %s field is missing!";
 
-    private final MemberName name;
+    private final String name;
     private final MemberId id;
 
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedTask} with the given task details.
+     * Constructs a {@code JsonAdaptedMember} with the given member details.
      */
     @JsonCreator
-    public JsonAdaptedMember(@JsonProperty("name") MemberName name, @JsonProperty("id") MemberId id,
+    public JsonAdaptedMember(@JsonProperty("name") String name, @JsonProperty("id") MemberId id,
                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.id = id;
@@ -43,7 +44,7 @@ public class JsonAdaptedMember {
      * Converts a given {@code Mmeber} into this class for Jackson use.
      */
     public JsonAdaptedMember(Member source) {
-        name = source.getName();
+        name = source.getName().fullName;
         id = source.getId();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -62,20 +63,18 @@ public class JsonAdaptedMember {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                                                            MemberName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, MemberName.class.getSimpleName()));
         }
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     MemberId.class.getSimpleName()));
         }
-        if (!MemberName.isValidName(name.toString())) {
+        if (!MemberName.isValidName(name)) {
             throw new IllegalValueException(MemberName.MESSAGE_CONSTRAINTS);
         }
-        final MemberName modelName = new MemberName(name.toString());
-        final MemberId modelId = new MemberId(id.getDisplayName());
+        final MemberName modelName = new MemberName(name);
+        final MemberId modelId = new MemberId(id.getDisplayId());
         final Set<Tag> modelTags = new HashSet<>(memberTags);
         return new Member(modelName, modelId, modelTags);
     }
-
 }

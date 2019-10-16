@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,7 +27,7 @@ class JsonAdaptedTask {
     private final String name;
     private final TaskStatus taskStatus;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
-    private final LocalDateTime deadline;
+    private String deadline = null;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
@@ -34,10 +35,19 @@ class JsonAdaptedTask {
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("name") String name, @JsonProperty("status") TaskStatus taskStatus,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                           @JsonProperty("deadline") LocalDateTime deadline) {
+                           @JsonProperty("deadline") String deadline) {
         this.name = name;
         this.taskStatus = taskStatus;
         this.deadline = deadline;
+        if (tagged != null) {
+            this.tagged.addAll(tagged);
+        }
+    }
+
+    public JsonAdaptedTask(@JsonProperty("name") String name, @JsonProperty("status") TaskStatus taskStatus,
+                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.name = name;
+        this.taskStatus = taskStatus;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -49,7 +59,7 @@ class JsonAdaptedTask {
     public JsonAdaptedTask(Task source) {
         name = source.getName().fullName;
         taskStatus = source.getTaskStatus();
-        deadline = source.getDeadline();
+        deadline = source.getDeadline().format(DateTimeFormatter.ISO_DATE_TIME);
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -78,10 +88,12 @@ class JsonAdaptedTask {
         }
         final Name modelName = new Name(name);
         final TaskStatus modelTaskStatus = TaskStatus.valueOf(taskStatus.name());
-        //No need to clone deadline to modelDeadline since LocalDateTime is immutable
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Task modelTask = new Task(modelName, modelTaskStatus, modelTags);
-        modelTask.setDeadline(deadline);
+        if (deadline != null) {
+            final LocalDateTime modelDeadline = LocalDateTime.parse(deadline);
+            modelTask.setDeadline(modelDeadline);
+        }
         return modelTask;
     }
 

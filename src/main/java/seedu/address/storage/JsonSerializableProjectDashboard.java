@@ -3,6 +3,8 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,6 +16,8 @@ import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
+import seedu.address.model.member.Member;
+import seedu.address.model.mapping.Mapping;
 
 /**
  * An Immutable ProjectDashboard that is serializable to JSON format.
@@ -24,11 +28,13 @@ class JsonSerializableProjectDashboard {
 
     public static final String MESSAGE_DUPLICATE_TASKS = "Tasks list contains duplicate task(s).";
     public static final String MESSAGE_DUPLICATE_INVENTORIES = "Inventory list contains duplicate inventory(s).";
-    public static final String MESSAGE_DUPLICATE_MEMBERS = "Member list contains duplicate member(s).";
+    public static final String MESSAGE_DUPLICATE_MEMBERS = "Members list contains duplicate member(s).";
+    public static final String MESSAGE_DUPLICATE_MAPPINGS = "Mappings list contains duplicate mapping(s).";
 
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
     private final List<JsonAdaptedMember> members = new ArrayList<>();
     private final List<JsonAdaptedInventory> inventory = new ArrayList<>();
+    private final List<JsonAdaptedMapping> mappings = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableProjectDashboard} with the given task.
@@ -36,10 +42,12 @@ class JsonSerializableProjectDashboard {
     @JsonCreator
     public JsonSerializableProjectDashboard(@JsonProperty("tasks") List<JsonAdaptedTask> tasks,
                                             @JsonProperty("members") List<JsonAdaptedMember> members,
-                                            @JsonProperty("inventories") List<JsonAdaptedInventory> inventory) {
+                                            @JsonProperty("mappings") List<JsonAdaptedMapping> mappings,
+                                            @JsonProperty("inventory") List<JsonAdaptedInventory> inventory) {
         this.tasks.addAll(tasks);
         this.inventory.addAll(inventory);
         this.members.addAll(members);
+        this.mappings.addAll(mappings);
     }
 
     /**
@@ -53,6 +61,8 @@ class JsonSerializableProjectDashboard {
         members.addAll(source.getMemberList().stream().map(JsonAdaptedMember::new)
                 .collect(Collectors.toList()));
         inventory.addAll(source.getInventoryList().stream().map(JsonAdaptedInventory::new)
+                .collect(Collectors.toList()));
+        mappings.addAll(source.getMappingList().stream().map(JsonAdaptedMapping::new)
                 .collect(Collectors.toList()));
     }
 
@@ -71,7 +81,6 @@ class JsonSerializableProjectDashboard {
             }
             projectDashboard.addTask(task);
         }
-
         for (JsonAdaptedInventory jsonAdaptedInv : inventory) {
             Inventory inventory = jsonAdaptedInv.toModelType();
             if (projectDashboard.hasInventory(inventory)) {
@@ -87,7 +96,13 @@ class JsonSerializableProjectDashboard {
             }
             projectDashboard.addMember(member);
         }
+        for (JsonAdaptedMapping jsonAdaptedMapping : mappings) {
+            Mapping mapping = jsonAdaptedMapping.toModelType();
+            if (projectDashboard.hasMapping(mapping)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MAPPINGS);
+            }
+            projectDashboard.addMapping(mapping);
+        }
         return projectDashboard;
     }
-
 }
