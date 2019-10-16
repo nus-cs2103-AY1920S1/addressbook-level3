@@ -148,9 +148,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "gay"
+    "resolved" : false,
+    "result" : null,
+    "remark" : ""
   }, {
     "appealId" : "C000001",
     "appealType" : "Drop module",
@@ -162,9 +162,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : "",
-    "remark" : ""
+    "resolved" : true,
+    "result" : "APPROVED",
+    "remark" : "gay"
   }, {
     "appealId" : "C000002",
     "appealType" : "Drop module",
@@ -176,7 +176,7 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
+    "resolved" : false,
     "result" : null,
     "remark" : ""
   }, {
@@ -191,7 +191,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : "",
+    "result" : null,
     "remark" : ""
   }, {
     "appealId" : "C000004",
@@ -205,7 +205,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : "",
+    "result" : null,
     "remark" : ""
   }, {
     "appealId" : "C000005",
@@ -231,6 +231,20 @@
     "previousModule" : "",
     "newModule" : "",
     "moduleToAdd" : "",
+    "moduleToDrop" : "",
+    "resolved" : false,
+    "result" : null,
+    "remark" : ""
+  }, {
+    "appealId" : "C000007",
+    "appealType" : "Add module",
+    "studentId" : "A00192034Z",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 20,
+    "appealDescription" : "I wish to take this module to clear my prerequisite",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "CS1010",
     "moduleToDrop" : "",
     "resolved" : false,
     "result" : null,

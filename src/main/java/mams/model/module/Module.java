@@ -250,7 +250,7 @@ public class Module {
                 .append(" Lecturer Name: ")
                 .append(getLecturerName())
                 .append(" TimeSlots: ")
-                .append(timeSlotsToString())
+                .append(getModuleTimeTableToString())
                 .append(" Quota: ")
                 .append(quotaToString())
                 .append(" Students: ");
@@ -262,36 +262,43 @@ public class Module {
      * Returns the string indicating which time slot this module occupies.
      * @return Day and TimeSlots of this module
      */
-    public String timeSlotsToString() {
+    public String getModuleTimeTableToString() {
+        int[] slots = getTimeSlotToIntArray();
+        return timeSlotsToString(slots);
+    }
 
-        int[] temp = getTimeSlotToIntArray();
+    /**
+     * Returns the string indicating of time slots.
+     * @return Day and TimeSlots of the given int array.
+     */
+    public String timeSlotsToString(int[] slots) {
 
         final StringBuilder builder = new StringBuilder();
         int startTimeSlot = 0;
 
         int test;
-        for (int i = 0; i < temp.length; i++) {
-            test = temp[i];
-            if (((startTimeSlot == 0) && (i != temp.length - 1) && (temp[i] < temp[i + 1] - 1))
-                    || ((i == temp.length - 1) && (startTimeSlot == 0))) {
+        for (int i = 0; i < slots.length; i++) {
+            test = slots[i];
+            if (((startTimeSlot == 0) && (i != slots.length - 1) && (slots[i] < slots[i + 1] - 1))
+                    || ((i == slots.length - 1) && (startTimeSlot == 0))) {
                 //print for 1hour time slot OR print 1hr time slot(last time in array)
-                builder.append(getDay(temp[i]))
+                builder.append(getDay(slots[i]))
                         .append(" ")
-                        .append(getTime(temp[i]))
+                        .append(getTime(slots[i]))
                         .append(" to ")
-                        .append(getTime(temp[i] + 1))
+                        .append(getTime(slots[i] + 1))
                         .append(" "); //Ends at next hour
                 startTimeSlot = 0;
-            } else if (startTimeSlot == 0 && (i != temp.length - 1)) {
+            } else if (startTimeSlot == 0 && (i != slots.length - 1)) {
                 //first hour of 2/3hr sessions.
-                startTimeSlot = temp[i];
-            } else if ((i == temp.length - 1) || (temp[i] < temp[i + 1] - 1)) {
+                startTimeSlot = slots[i];
+            } else if ((i == slots.length - 1) || (slots[i] < slots[i + 1] - 1)) {
                 //print time slot 2nd hour of 2hr session/3rd hour of 3 hours session.
-                builder.append(getDay(temp[i]))
+                builder.append(getDay(slots[i]))
                         .append(" ")
                         .append(getTime(startTimeSlot))
                         .append(" to ")
-                        .append(getTime(temp[i] + 1))
+                        .append(getTime(slots[i] + 1))
                         .append(" "); //Ends at next hour
                 startTimeSlot = 0;
             }

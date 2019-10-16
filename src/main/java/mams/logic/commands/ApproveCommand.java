@@ -2,19 +2,19 @@ package mams.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static mams.logic.parser.CliSyntax.PREFIX_REASON;
+
+import mams.model.Model;
+import mams.model.appeal.Appeal;
 import mams.commons.core.Messages;
 import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
-import static mams.logic.parser.CliSyntax.PREFIX_REASON;
-import mams.model.Model;
-import mams.model.appeal.Appeal;
-
 import java.util.List;
 
 /**
  * Edits the details of an existing student in MAMS.
  */
-public class ApproveCommand  extends Command {
+public class ApproveCommand extends Command {
 
     public static final String COMMAND_WORD = "approve";
 
@@ -53,7 +53,7 @@ public class ApproveCommand  extends Command {
         Appeal approvedAppeal;
 
         Appeal appealToApprove = lastShownList.get(index.getZeroBased());
-        if(appealToApprove.isResolved() == false) {
+        if (appealToApprove.isResolved() == false) {
             approvedAppeal = new Appeal(appealToApprove.getAppealId(),
                     appealToApprove.getAppealType(),
                     appealToApprove.getStudentId(),
