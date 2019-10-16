@@ -1,6 +1,4 @@
-package seedu.address.diaryfeature.diarymain;
-
-import java.awt.*;
+package seedu.address.diaryfeature.diaryModel;
 
 /**
  *

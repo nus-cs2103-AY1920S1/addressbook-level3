@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.diaryfeature.diaryUI.DiaryPage;
 import seedu.address.financialtracker.ui.FinancialTrackerPage;
 import seedu.address.itinerary.ui.ItineraryPage;
 import seedu.address.logic.Logic;
@@ -42,6 +43,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
     private FinancialTrackerPage financialTrackerPage;
     private CalendarPage calendarPage;
     private ItineraryPage itineraryPage;
+    private DiaryPage diaryPage;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -74,13 +76,14 @@ public class MainWindow extends UiPart<Stage> implements Page {
         financialTrackerPage = new FinancialTrackerPage();
         calendarPage = new CalendarPage();
         itineraryPage = new ItineraryPage();
+        diaryPage = new DiaryPage();
 
         mainScene = primaryStage.getScene();
 
         // todo-this-week: call the PageScene constructor with your page scene instead,
         // e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
-        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage);
+        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage,diaryPage);
     }
 
     public Stage getPrimaryStage() {

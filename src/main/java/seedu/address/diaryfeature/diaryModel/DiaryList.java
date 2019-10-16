@@ -1,4 +1,4 @@
-package seedu.address.diaryfeature.diarymain;
+package seedu.address.diaryfeature.diaryModel;
 
 import java.util.LinkedList;
 
@@ -12,13 +12,13 @@ public class DiaryList {
      *
      */
     public DiaryList() {
-        myContainer = new LinkedList();
+        myContainer = new LinkedList<>();
     }
 
     /**
      *
      * @param x
-     * @return
+     * @return diaryObject
      */
     public DiaryObject addEntry(DiaryObject x) {
         myContainer.add(x);

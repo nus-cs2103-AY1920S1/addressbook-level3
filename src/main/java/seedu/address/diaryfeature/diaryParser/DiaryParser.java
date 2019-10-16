@@ -1,22 +1,21 @@
-package seedu.address.diaryfeature.diaryparser;
+package seedu.address.diaryfeature.diaryParser;
 
-import seedu.address.diaryfeature.diarycommands.AddDiaryEntryCommand;
-import seedu.address.diaryfeature.diarycommands.DeleteDiaryEntryCommand;
-import seedu.address.diaryfeature.diarycommands.DiaryErrorCommand;
-import seedu.address.diaryfeature.diaryexceptions.CommandNotFoundException;
-import seedu.address.logic.commands.Command;
+import seedu.address.diaryfeature.diaryCommands.AddDiaryEntryCommand;
+import seedu.address.diaryfeature.diaryCommands.DeleteDiaryEntryCommand;
+import seedu.address.diaryfeature.diaryCommands.DiaryCommand;
+import seedu.address.diaryfeature.diaryCommands.DiaryErrorCommand;
+import seedu.address.diaryfeature.diaryExceptions.CommandNotFoundException;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public class DiaryParser implements Parser {
+public class DiaryParser{
     /**
      *
      * @param userInput
      * @return
      * @throws ParseException
      */
-    @Override
-    public Command parse(String userInput)  {
+    public DiaryCommand parse(String userInput)  {
         try {
             String trimmed = userInput.trim();
             if (trimmed.startsWith("add entry")) {

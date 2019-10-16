@@ -1,4 +1,4 @@
-package seedu.address.diaryfeature.diaryexceptions;
+package seedu.address.diaryfeature.diaryExceptions;
 
 public class CommandNotFoundException extends Exception {
 
