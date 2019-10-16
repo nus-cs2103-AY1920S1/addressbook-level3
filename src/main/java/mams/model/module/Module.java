@@ -1,5 +1,6 @@
 package mams.model.module;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -16,12 +17,24 @@ public class Module {
     public static final String MESSAGE_CONSTRAINTS_MODULE_CODE =
             "Modules should start with 'CS' followed by a 4 digit number";
 
-    public static final String MESSAGE_CONSTRAINTS_SESSION_ID =
-            "Session ID can only be 1 or 2";
+    public static final String MESSAGE_CONSTRAINTS_MODULE_NAME =
+            "Module Names should only contain alphanumeric "
+                    + "characters and spaces, and it should not be blank";
+
+    public static final String MESSAGE_CONSTRAINTS_MODULE_DESCRIPTION =
+            "Module Description should only contain alphanumeric "
+                    + "characters and spaces, and it should not be blank";
+
+    public static final String MESSAGE_CONSTRAINTS_LECTURER_NAME =
+            "Lecturer Name should only contain alphanumeric "
+                    + "characters and spaces, and it should not be blank";
 
     public static final String MESSAGE_CONSTRAINTS_TIME_SLOT =
             "Time slots can only range from 1 to 69, and must be in "
                     + "ascending order";
+
+    public static final String MESSAGE_CONSTRAINTS_QUOTA =
+            "Quota must be more than 0";
 
     /*
      * Only CS modules are allowed for adding. The first 2 characters should be
@@ -29,28 +42,49 @@ public class Module {
      */
     public static final String VALIDATION_REGEX_MODULE_CODE = "CS\\d{4}$";
 
+    /*
+     * The first character of the module name must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String VALIDATION_REGEX_MODULE_NAME = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+    /*
+     * The first character of the module name must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String VALIDATION_REGEX_MODULE_DESCRIPTION = "[^\\s].*";
+
+
+    /*
+     * Lecturer name has the same requirements as module name.
+     */
+    public static final String VALIDATION_REGEX_LECTURER_NAME = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+
     // Identity fields
     private final String moduleCode;
-    private final String sessionId;
+    private final String moduleName;
 
     // Data fields
-    /**
-     * timeSlots of lecture of the module. Time slots can occupy any number
-     *  of hours in a day.
-     * Assumptions: No more than 1 session per day.
-     *   TimeSlots(value) are arranged in ascending order
-     */
+    private final String moduleDescription;
+    private final String lecturerName;
     private final String timeSlot;
+    private final String quota;
     private final Set<Tag> students = new HashSet<>(); // to be added
 
     /**
      * Every field must be present and not null.
      */
-    public Module(String moduleCode, String sessionId, String timeSlot, Set<Tag> students) {
-        CollectionUtil.requireAllNonNull(moduleCode, sessionId, timeSlot, students);
+    public Module(String moduleCode, String moduleName, String moduleDescription,
+                  String lecturerName, String timeSlot, String quota,
+                  Set<Tag> students) {
+        CollectionUtil.requireAllNonNull(moduleCode, moduleName, timeSlot, students);
         this.moduleCode = moduleCode;
-        this.sessionId = sessionId;
+        this.moduleName = moduleName;
+        this.moduleDescription = moduleDescription;
+        this.lecturerName = lecturerName;
         this.timeSlot = timeSlot;
+        this.quota = quota;
         this.students.addAll(students);
     }
 
@@ -62,13 +96,32 @@ public class Module {
     }
 
     /**
-     * Returns true if a given session ID is valid
-     * @param test String sessionId to be tested
-     * @return result of test
+     * Returns true if a given string is a valid module name.
      */
-    public static boolean isValidSessionId(String test) {
+    public static boolean isValidModuleName(String test) {
+        return test.matches(VALIDATION_REGEX_MODULE_NAME);
+    }
+
+    /**
+     * Returns true if a given string is a valid module description.
+     */
+    public static boolean isValidModuleDescription(String test) {
+        return test.matches(VALIDATION_REGEX_MODULE_DESCRIPTION);
+    }
+
+    /**
+     * Returns true if a given string is a valid module description.
+     */
+    public static boolean isValidLecturerName(String test) {
+        return test.matches(VALIDATION_REGEX_LECTURER_NAME);
+    }
+
+    /**
+     * Returns if a given quota is valid. Quota must be more than zero.
+     */
+    public static boolean isValidQuota(String test) {
         int result = Integer.parseInt(test);
-        if (result == 1 || result == 2) {
+        if (result > 0) {
             return true;
         } else {
             return false;
@@ -81,34 +134,21 @@ public class Module {
      * @return result of test
      */
     public static boolean isValidTimeSlot(String test) {
-        final int lastTimeSlot = 69;
-        int currentTimeSlot = 0;
 
-        if (test == null) {
+        final int firstTimeSlot = 0;
+        final int lastTimeSlot = 69;
+
+        if (test == null || test.isEmpty()) {
             return false;
         }
 
         String []arr = test.split(",");
-
-        /*
-         * Test for one time slot
-         */
-        if (arr.length == 1 && Integer.parseInt(arr[0]) <= lastTimeSlot) {
-            return true;
-        }
-
-        /*
-         * Test for more than 1 time slots
-         */
-        currentTimeSlot = Integer.parseInt(arr[0]);
         for (String str : arr) {
             int temp = Integer.parseInt(str);
-            if (temp <= currentTimeSlot || temp > lastTimeSlot) {
+            if (temp > lastTimeSlot || temp < firstTimeSlot) {
                 return false;
             }
-            currentTimeSlot = temp;
         }
-
         return true;
     }
 
@@ -116,12 +156,24 @@ public class Module {
         return moduleCode;
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public String getModuleDescription() {
+        return moduleDescription;
+    }
+
+    public String getLecturerName() {
+        return lecturerName;
     }
 
     public String getTimeSlot() {
         return timeSlot;
+    }
+
+    public String getQuota() {
+        return quota;
     }
 
     public int[] getTimeSlotToIntArray() {
@@ -131,7 +183,10 @@ public class Module {
         int x = 0;
         for (String str : arr) {
             slots[x] = Integer.parseInt(str);
+            x++;
         }
+
+        Arrays.sort(slots);
         return slots;
     }
 
@@ -153,9 +208,7 @@ public class Module {
         }
 
         return otherModule != null
-                && otherModule.getModuleCode().equals(getModuleCode())
-                && otherModule.getSessionId().equals(getSessionId())
-                && otherModule.getTimeSlot().equals(getTimeSlot());
+                && otherModule.getModuleCode().equals(getModuleCode());
     }
 
     /**
@@ -173,26 +226,29 @@ public class Module {
         }
 
         Module otherModule = (Module) other;
-        return otherModule.getModuleCode().equals(getModuleCode())
-                && otherModule.getSessionId().equals(getSessionId())
-                && otherModule.getTimeSlot().equals((getTimeSlot()))
-                && otherModule.getStudents().equals(getStudents());
+        return otherModule.getModuleCode().equals(getModuleCode());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moduleCode, sessionId, timeSlot, students);
+        return Objects.hash(moduleCode);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getModuleCode())
-                .append(" SessionID: ")
-                .append(getSessionId())
+                .append(" Module Name: ")
+                .append(getModuleName())
+                .append(" Module Description: ")
+                .append(getModuleDescription())
+                .append(" Lecturer Name: ")
+                .append(getLecturerName())
                 .append(" TimeSlots: ")
                 .append(timeSlotsToString())
+                .append(" Quota: ")
+                .append(quotaToString())
                 .append(" Students: ");
         getStudents().forEach(builder::append);
         return builder.toString();
@@ -202,7 +258,6 @@ public class Module {
      * Returns the string indicating which time slot this module occupies.
      * @return Day and TimeSlots of this module
      */
-
     public String timeSlotsToString() {
 
         int[] temp = getTimeSlotToIntArray();
@@ -210,7 +265,9 @@ public class Module {
         final StringBuilder builder = new StringBuilder();
         int startTimeSlot = 0;
 
+        int test;
         for (int i = 0; i < temp.length; i++) {
+            test = temp[i];
             if (((startTimeSlot == 0) && (i != temp.length - 1) && (temp[i] < temp[i + 1] - 1))
                     || ((i == temp.length - 1) && (startTimeSlot == 0))) {
                 //print for 1hour time slot OR print 1hr time slot(last time in array)
@@ -250,15 +307,15 @@ public class Module {
 
         switch (day) {
         case 0:
-            return "MONDAY";
+            return "Monday";
         case 1:
-            return "TUESDAY";
+            return "Tuesday";
         case 2:
-            return "WEDNESDAY";
+            return "Wednesday";
         case 3:
-            return "THURSDAY";
+            return "Thursday";
         case 4:
-            return "FRIDAY";
+            return "Friday";
         default:
             return "Invalid day";
         }
@@ -307,5 +364,21 @@ public class Module {
         default:
             return "Invalid time";
         }
+    }
+
+    /**
+     * Returns the current number of students and max quota.
+     * @return String of quota figures
+     */
+    public String quotaToString() {
+        final StringBuilder builder = new StringBuilder();
+        String currentNumber = Integer.toString(students.size());
+
+        builder.append("Quota: ")
+                .append(currentNumber)
+                .append("/")
+                .append(getQuota());
+
+        return builder.toString();
     }
 }
