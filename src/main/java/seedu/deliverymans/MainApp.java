@@ -22,8 +22,10 @@ import seedu.deliverymans.model.UserPrefs;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.database.CustomerDatabase;
+import seedu.deliverymans.model.database.DeliverymenDatabase;
 import seedu.deliverymans.model.database.OrderBook;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
+import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
@@ -38,6 +40,8 @@ import seedu.deliverymans.storage.StorageManager;
 import seedu.deliverymans.storage.UserPrefsStorage;
 import seedu.deliverymans.storage.customer.CustomerDatabaseStorage;
 import seedu.deliverymans.storage.customer.JsonCustomerDatabaseStorage;
+import seedu.deliverymans.storage.deliveryman.DeliverymenDatabaseStorage;
+import seedu.deliverymans.storage.deliveryman.JsonDeliverymenDatabaseStorage;
 import seedu.deliverymans.storage.restaurant.JsonRestaurantDatabaseStorage;
 import seedu.deliverymans.storage.restaurant.RestaurantDatabaseStorage;
 import seedu.deliverymans.ui.Ui;
@@ -74,8 +78,10 @@ public class MainApp extends Application {
         RestaurantDatabaseStorage restaurantDatabaseStorage =
                 new JsonRestaurantDatabaseStorage(userPrefs.getRestaurantDatabaseFilePath());
         OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
-        storage = new StorageManager(addressBookStorage, customerDatabaseStorage, restaurantDatabaseStorage,
-                orderBookStorage, userPrefsStorage);
+        DeliverymenDatabaseStorage deliverymenDatabaseStorage =
+                new JsonDeliverymenDatabaseStorage(userPrefs.getDeliverymenDatabaseFilePath());
+        storage = new StorageManager(addressBookStorage, customerDatabaseStorage, deliverymenDatabaseStorage,
+                restaurantDatabaseStorage, orderBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -94,12 +100,14 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyCustomerDatabase> customerDatabaseOptional;
+        Optional<ReadOnlyDeliverymenDatabase> deliverymenDatabaseOptional;
         Optional<ReadOnlyRestaurantDatabase> restaurantDatabaseOptional;
         Optional<ReadOnlyOrderBook> orderBookOptional;
 
         ReadOnlyAddressBook initialAddressData;
         ReadOnlyCustomerDatabase initialCustomerData;
         ReadOnlyRestaurantDatabase initialRestaurantData;
+        ReadOnlyDeliverymenDatabase initialDeliverymenData;
         ReadOnlyOrderBook initialOrderData;
 
         try {
@@ -133,6 +141,23 @@ public class MainApp extends Application {
         }
 
         try {
+            deliverymenDatabaseOptional = storage.readDeliverymenDatabase();
+            if (!deliverymenDatabaseOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample RestaurantDatabase");
+            }
+            initialDeliverymenData =
+                    deliverymenDatabaseOptional.orElseGet(SampleDataUtil::getSampleDeliverymenDatabase);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. "
+                    + "Will be starting with an empty RestaurantDatabase");
+            initialDeliverymenData = new DeliverymenDatabase();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. "
+                    + "Will be starting with an empty RestaurantDatabase");
+            initialDeliverymenData = new DeliverymenDatabase();
+        }
+
+        try {
             restaurantDatabaseOptional = storage.readRestaurantDatabase();
             if (!restaurantDatabaseOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample RestaurantDatabase");
@@ -162,8 +187,8 @@ public class MainApp extends Application {
             initialOrderData = new OrderBook();
         }
 
-        return new ModelManager(initialAddressData, initialCustomerData, initialRestaurantData, initialOrderData,
-                userPrefs);
+        return new ModelManager(initialAddressData, initialCustomerData, initialDeliverymenData, initialRestaurantData,
+                initialOrderData, userPrefs);
     }
 
     private void initLogging(Config config) {

@@ -18,6 +18,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path customerDatabaseFilePath = Paths.get("data", "customerdatabase.json");
     private Path restaurantDatabaseFilePath = Paths.get("data" , "restaurantdatabase.json");
     private Path orderBookFilePath = Paths.get("data" , "orderbook.json");
+    private Path deliverymenDatabaseFilePath = Paths.get("data" , "deliverymendatabase.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -42,6 +43,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setCustomerDatabaseFilePath(newUserPrefs.getCustomerDatabaseFilePath());
         setRestaurantDatabaseFilePath(newUserPrefs.getRestaurantDatabaseFilePath());
         setOrderBookFilePath(newUserPrefs.getOrderBookFilePath());
+        setDeliverymenDatabaseFilePath(newUserPrefs.getDeliverymenDatabaseFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -87,6 +89,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setOrderBookFilePath(Path orderBookFilePath) {
         requireNonNull(orderBookFilePath);
         this.orderBookFilePath = orderBookFilePath;
+    }
+
+    public Path getDeliverymenDatabaseFilePath() {
+        return deliverymenDatabaseFilePath;
+    }
+
+    public void setDeliverymenDatabaseFilePath(Path deliverymenDatabaseFilePath) {
+        requireNonNull(deliverymenDatabaseFilePath);
+        this.deliverymenDatabaseFilePath = deliverymenDatabaseFilePath;
     }
 
     @Override
