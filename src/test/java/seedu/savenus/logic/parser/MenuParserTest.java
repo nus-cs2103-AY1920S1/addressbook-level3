@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.savenus.logic.commands.AddCommand;
+import seedu.savenus.logic.commands.BudgetCommand;
+import seedu.savenus.logic.commands.BuyCommand;
 import seedu.savenus.logic.commands.ClearCommand;
 import seedu.savenus.logic.commands.DefaultCommand;
 import seedu.savenus.logic.commands.DeleteCommand;
@@ -24,6 +26,7 @@ import seedu.savenus.logic.commands.ExitCommand;
 import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.commands.HelpCommand;
 import seedu.savenus.logic.commands.ListCommand;
+import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.SortCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Food;
@@ -101,6 +104,21 @@ public class MenuParserTest {
     public void parseCommand_default() throws Exception {
         assertTrue(parser.parseCommand(DefaultCommand.COMMAND_WORD) instanceof DefaultCommand);
         assertTrue(parser.parseCommand(DefaultCommand.COMMAND_WORD + " 3") instanceof DefaultCommand);
+    }
+
+    @Test
+    public void parseCommand_budget() throws Exception {
+        assertTrue(parser.parseCommand(BudgetCommand.COMMAND_WORD + " 100 25") instanceof BudgetCommand);
+    }
+
+    @Test
+    public void parseCommand_buy() throws Exception {
+        assertTrue(parser.parseCommand(BuyCommand.COMMAND_WORD + " 1") instanceof BuyCommand);
+    }
+
+    @Test
+    public void parseCommand_recommend() throws Exception {
+        assertTrue(parser.parseCommand(RecommendCommand.COMMAND_WORD) instanceof RecommendCommand);
     }
 
     @Test

@@ -12,6 +12,7 @@ import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.Logic;
 import seedu.savenus.logic.commands.CommandResult;
+import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 
@@ -32,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     private PurchaseListPanel purchaseListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private InfoWindow infoWindow;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -69,6 +71,7 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         helpWindow = new HelpWindow();
+        infoWindow = new InfoWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -148,6 +151,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the info window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleInfo(String info) {
+        if (!infoWindow.isShowing()) {
+            infoWindow.show(info);
+        } else {
+            infoWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -189,6 +204,26 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.getFeedbackToUser().equals(InfoCommand.ADD_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.BUDGET_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.BUY_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.CLEAR_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.DEFAULT_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.DELETE_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.EDIT_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.EXIT_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.FIND_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.HELP_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.INFO_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.LIST_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.RECOMMEND_INFO)
+                || commandResult.getFeedbackToUser().equals(InfoCommand.SORT_INFO)) {
+                if (infoWindow.isShowing()) {
+                    infoWindow.closeWindow();
+                }
+                handleInfo(commandResult.getFeedbackToUser());
             }
 
             // Update foodListPanel after every command
