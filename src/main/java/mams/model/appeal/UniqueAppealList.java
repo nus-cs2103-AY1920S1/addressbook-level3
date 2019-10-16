@@ -67,9 +67,6 @@ public class UniqueAppealList implements Iterable<Appeal> {
             throw new AppealNotFoundException();
         }
 
-        if (!target.isSameAppeal(editedAppeal) && contains(editedAppeal)) {
-            throw new DuplicateAppealException();
-        }
 
         internalList.set(index, editedAppeal);
     }
