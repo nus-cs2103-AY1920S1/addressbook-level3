@@ -161,7 +161,7 @@ public class ParserUtil {
         case "year":
             return Period.ofYears(1);
         case "infinity":
-            return Period.ofYears(9999);
+            return Period.ofYears(999);
         default:
             throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_PERIOD);
         }
@@ -176,7 +176,7 @@ public class ParserUtil {
             return "year";
         case "P1W":
             return "week";
-        case "P9999Y":
+        case "P999Y":
             return "infinity";
         default:
             return periodString;
