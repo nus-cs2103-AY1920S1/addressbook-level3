@@ -1,0 +1,52 @@
+package seedu.address.model.project;
+
+import java.util.Objects;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+/**
+ * Represents a meeting in the app.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
+public class Meeting {
+
+    private final Time time;
+    private final Description description;
+
+    public Meeting(Time time, Description description) {
+        requireAllNonNull(time, description);
+        this.time = time;
+        this.description = description;
+    }
+
+    public Time getTime() {
+        return this.time;
+    }
+
+    public Description getDescription() {
+        return this.description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Meeting meeting = (Meeting) o;
+        return time.equals(meeting.time) &&
+                Objects.equals(description, meeting.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(time, description);
+    }
+
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Meeting Description: ")
+                .append(getDescription())
+                .append("Meeting Time: ")
+                .append(getTime());
+        return builder.toString();
+    }
+}

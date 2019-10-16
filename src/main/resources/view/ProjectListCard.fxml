@@ -27,6 +27,7 @@
                 </Label>
                 <Label fx:id="title" text="\$first" styleClass="cell_big_label" />
             </HBox>
+            <FlowPane fx:id="meetings" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="vertical"  prefWrapLength="45"/>
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
         </VBox>
     </GridPane>

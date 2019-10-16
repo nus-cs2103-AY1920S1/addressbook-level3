@@ -14,6 +14,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.project.Description;
+import seedu.address.model.project.Time;
 import seedu.address.model.project.Title;
 import seedu.address.model.tag.Tag;
 
@@ -65,6 +66,28 @@ public class ParserUtil {
             throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
         return new Title(trimmedTitle);
+    }
+
+    public static Time parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!Time.isValidTime(trimmedTime)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+        try {
+            return new Time(trimmedTime);
+        } catch (Exception e) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    public static Description parseMeetingDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDesc = description.trim();
+        if (!Description.isValidDescription(trimmedDesc)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDesc);
     }
 
     /**

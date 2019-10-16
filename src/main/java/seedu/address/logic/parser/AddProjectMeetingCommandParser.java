@@ -5,35 +5,36 @@ import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddProjectCommand;
+import seedu.address.logic.commands.AddProjectMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.project.*;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddProjectCommandParser implements Parser<AddProjectCommand> {
+public class AddProjectMeetingCommandParser implements Parser<AddProjectMeetingCommand> {
+
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddProjectCommand parse(String args) throws ParseException {
+    public AddProjectMeetingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_TIME, PREFIX_MEETING_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TIME, PREFIX_MEETING_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProjectCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddProjectMeetingCommand.MESSAGE_USAGE));
         }
 
-        Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_NAME).get());
-        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
+        Description description = ParserUtil.parseMeetingDescription((argMultimap.getValue(PREFIX_MEETING_DESCRIPTION).get()));
 
-        Project project = new Project(title, description);
+        Meeting meeting = new Meeting(time, description);
 
-        return new AddProjectCommand(project);
+        return new AddProjectMeetingCommand(meeting);
     }
 
     /**
