@@ -212,7 +212,7 @@ public class ModelManager implements Model {
         List<Order> orders = orderBook.getList();
         for (Order order : orders) {
             if (order.getCustomer().equals(target)) {
-                orderBook.removeOrder(order);
+                deleteOrder(order);
                 break;
             }
         }
@@ -284,7 +284,7 @@ public class ModelManager implements Model {
         List<Order> orders = orderBook.getList();
         for (Order order : orders) {
             if (order.getPhone().equals(target)) {
-                orderBook.removeOrder(order);
+                deleteOrder(order);
                 break;
             }
         }
