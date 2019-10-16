@@ -15,30 +15,28 @@ import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
 
-/**
- * Deletes a tag completely from the study plan.
- */
-public class DeleteTagCommand extends Command {
+public class RemoveTagFromAllCommand extends Command {
 
-    public static final String COMMAND_WORD = "deletetag";
+    public static final String COMMAND_WORD = "removeall";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Deletes the tag with the specified tag name "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Removes the tag with the specified tag name "
+        + "from all modules "
         + "Parameters: "
         + PREFIX_TAG + "TAG_NAME \n"
         + "Example: "
-        + "delete t/exchange";
+        + "removeall t/exchange";
 
-    public static final String MESSAGE_SUCCESS = "Tag deleted: %1$s";
+    public static final String MESSAGE_SUCCESS = "Tag removed from all modules: %1$s";
     public static final String MESSAGE_TAG_CANNOT_BE_FOUND = "This tag does not exist";
-    public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be deleted";
+    public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be removed";
 
     private final String tagName;
 
     /**
-     * Creates an {@code DeleteTagCommand} to delete the tag with the given name.
+     * Creates an {@code RemoveTagFromAllCommand} to remove the tag with the given name from all modules.
      * @param tagName
      */
-    public DeleteTagCommand(String tagName) {
+    public RemoveTagFromAllCommand(String tagName) {
         requireNonNull(tagName);
         this.tagName = tagName;
     }
@@ -59,8 +57,6 @@ public class DeleteTagCommand extends Command {
         }
 
         UserTag toDelete = (UserTag) uniqueTagList.getTag(tagName);
-        // delete from mega-list
-        uniqueTagList.remove(toDelete);
 
         // delete from list in every module
         HashMap<String, Module> moduleHashMap = activeStudyPlan.getModules();
