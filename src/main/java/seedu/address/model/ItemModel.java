@@ -67,4 +67,6 @@ public interface ItemModel {
     public VisualizeList findItem(String[] searchStrings);
 
     public void sort();
+
+    public boolean hasItem(Item item);
 }

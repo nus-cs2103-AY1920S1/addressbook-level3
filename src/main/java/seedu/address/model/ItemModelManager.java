@@ -234,4 +234,13 @@ public class ItemModelManager implements ItemModel {
     public void sort() {
         this.visualList = visualList.sort();
     }
+
+    /**
+     * Checks if the item storage already contains this item.
+     * @param item to check
+     * @return true if the item storage contains this item, false otherwise
+     */
+    public boolean hasItem(Item item) {
+        return itemStorage.contains(item);
+    }
 }
