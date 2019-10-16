@@ -13,6 +13,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
+import seedu.address.model.person.ExpenseReminder;
+import seedu.address.model.person.ExpenseTrackerManager;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
 
@@ -29,6 +31,8 @@ public class ModelManager implements Model {
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Income> filteredIncomes;
     private final FilteredList<Wish> filteredWishes;
+    private final FilteredList<ExpenseReminder> filteredExpenseReminders;
+    private final ExpenseTrackerManager expenseTrackers;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -45,6 +49,8 @@ public class ModelManager implements Model {
         filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
         filteredIncomes = new FilteredList<>(this.addressBook.getIncomeList());
         filteredWishes = new FilteredList<>(this.addressBook.getWishList());
+        filteredExpenseReminders = new FilteredList<>(this.addressBook.getExpenseReminderList());
+        expenseTrackers = new ExpenseTrackerManager(this.addressBook.getExpenseTrackerList());
     }
 
     public ModelManager() {
@@ -104,11 +110,14 @@ public class ModelManager implements Model {
         return addressBook.hasEntry(entry);
     }
 
+
     @Override
     public void deleteEntry(Entry target) {
         addressBook.removeEntry(target);
         if (target instanceof Expense) {
             addressBook.removeExpense((Expense) target);
+            expenseTrackers.track(filteredExpenses);
+            addressBook.updateExpenseReminders();
         } else if (target instanceof Income) {
             addressBook.removeIncome((Income) target);
         } else if (target instanceof Wish) {
@@ -120,6 +129,8 @@ public class ModelManager implements Model {
     public void deleteExpense(Expense target) {
         addressBook.removeEntry(target);
         addressBook.removeExpense(target);
+        expenseTrackers.track(filteredExpenses);
+        addressBook.updateExpenseReminders();
     }
 
     @Override
@@ -135,10 +146,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteExpenseReminder(ExpenseReminder target) {
+        addressBook.removeExpenseReminder(target);
+    }
+
+    @Override
     public void addEntry(Entry entry) {
         addressBook.addEntry(entry);
         if (entry instanceof Expense) {
             addressBook.addExpense((Expense) entry);
+            expenseTrackers.track(filteredExpenses);
+            addressBook.updateExpenseReminders();
         } else if (entry instanceof Income) {
             addressBook.addIncome((Income) entry);
         } else if (entry instanceof Wish) {
@@ -151,6 +169,8 @@ public class ModelManager implements Model {
     public void addExpense(Expense expense) {
         addressBook.addExpense(expense);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        expenseTrackers.track(filteredExpenses);
+        addressBook.updateExpenseReminders();
     }
 
     @Override
@@ -166,16 +186,29 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addExpenseReminder(ExpenseReminder expenseReminder) {
+        addressBook.addExpenseReminder(expenseReminder);
+    }
+
+    @Override
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
         addressBook.setEntry(target, editedEntry);
         if (target instanceof Expense) {
             addressBook.setExpense((Expense) target, (Expense) editedEntry);
+            expenseTrackers.track(filteredExpenses);
+            addressBook.updateExpenseReminders();
         } else if (target instanceof Income) {
             addressBook.setIncome((Income) target, (Income) editedEntry);
         } else if (target instanceof Wish) {
             addressBook.setWish((Wish) target, (Wish) editedEntry);
         }
+    }
+
+    @Override
+    public void setExpenseReminder(ExpenseReminder target, ExpenseReminder editedEntry) {
+        requireAllNonNull(target, editedEntry);
+        addressBook.setExpenseReminder(target, editedEntry);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -202,6 +235,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Wish> getFilteredWishes() {
         return filteredWishes;
+    }
+
+    @Override
+    public ObservableList<ExpenseReminder> getFilteredReminders() {
+        return filteredExpenseReminders;
     }
 
     @Override

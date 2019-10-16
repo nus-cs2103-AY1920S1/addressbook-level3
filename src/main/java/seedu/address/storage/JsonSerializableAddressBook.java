@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Expense;
+import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
 /**
@@ -25,6 +26,7 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedExpense> expenses = new ArrayList<>();
     private final List<JsonAdaptedIncome> incomes = new ArrayList<>();
     private final List<JsonAdaptedWish> wishes = new ArrayList<>();
+    private final List<JsonAdaptedExpenseReminder> expenseReminders = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
@@ -63,6 +65,10 @@ class JsonSerializableAddressBook {
         for (JsonAdaptedWish JsonAdaptedWish: wishes) {
             Wish wish = JsonAdaptedWish.toModelType();
             addressBook.addWish(wish);
+        }
+        for (JsonAdaptedExpenseReminder JsonAdaptedExpenseReminder : expenseReminders) {
+            ExpenseReminder reminder = JsonAdaptedExpenseReminder.toModelType();
+            addressBook.addExpenseReminder(reminder);
         }
         return addressBook;
     }

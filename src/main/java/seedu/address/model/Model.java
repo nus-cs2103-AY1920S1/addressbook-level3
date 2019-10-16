@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
+import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
 
@@ -90,24 +91,29 @@ public interface Model {
      */
     void deleteWish(Wish target);
 
+    void deleteExpenseReminder(ExpenseReminder target);
+
     /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
     void addEntry(Entry entry);
 
-    public void addExpense(Expense expense);
+    void addExpense(Expense expense);
 
-    public void addIncome(Income income);
+    void addIncome(Income income);
 
-    public void addWish(Wish wish);
+    void addWish(Wish wish);
 
+    void addExpenseReminder(ExpenseReminder expenseReminder);
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
      * {@code target} must exist in the address book.
      * The entry identity of {@code editedEntry} must not be the same as another existing entry in the address book.
      */
     void setEntry(Entry target, Entry editedEntry);
+
+    void setExpenseReminder(ExpenseReminder target, ExpenseReminder editedEntry);
 
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Entry> getFilteredEntryList();
@@ -121,6 +127,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Wish> getFilteredWishes();
 
+    ObservableList<ExpenseReminder> getFilteredReminders();
     /**
      * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
