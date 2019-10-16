@@ -12,11 +12,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class FilePath {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "File path can take any value, as long as it is a valid file path.";
+            "File path may only consist of alphanumeric characters, spaces, and the following characters:\n"
+            + "~\\/-_!:[]()\n"
+            + "It must also end with \".docx\".";
 
     /*
      * The following characters are allowed (in addition to alphanumeric):
-     * ~\/-!:[]()
+     * ~\/-_!:[]()
      * Space is allowed.
      * FilePath is required to end with the String: ".docx"
      */
