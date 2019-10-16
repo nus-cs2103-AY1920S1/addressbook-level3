@@ -37,7 +37,7 @@ public class ActiveRemindersList extends ListPropertyBase<Item> {
     */
 
     /**
-     * Adds a reminder to the ActiveRemindersList
+     * Adds a reminder to ActiveRemindersList
      *
      * @param reminders Collection of reminders to be added to the list.
      */
