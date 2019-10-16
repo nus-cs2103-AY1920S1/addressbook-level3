@@ -12,10 +12,10 @@ public class AppealTest {
     @Test
     public void isSameAppeal() {
         // same object -> returns true
-        Assertions.assertTrue(TypicalAppeals.appeal1.isSameAppeal(TypicalAppeals.appeal1));
+        Assertions.assertTrue(TypicalAppeals.APPEAL1.isSameAppeal(TypicalAppeals.APPEAL1));
 
         // null -> returns false
-        Assertions.assertFalse(TypicalAppeals.appeal1.isSameAppeal(null));
+        Assertions.assertFalse(TypicalAppeals.APPEAL1.isSameAppeal(null));
 
     }
 
