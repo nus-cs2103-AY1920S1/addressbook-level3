@@ -16,12 +16,7 @@ import seedu.address.logic.commands.AddProfileCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Name;
 import seedu.address.model.medical.MedicalHistory;
-import seedu.address.model.person.BloodType;
-import seedu.address.model.person.DoB;
-import seedu.address.model.person.Gender;
-import seedu.address.model.person.Height;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Weight;
+import seedu.address.model.person.*;
 
 /**
  * Parses input arguments and creates a new AddProfileCommand object

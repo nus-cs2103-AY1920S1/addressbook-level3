@@ -16,6 +16,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.HealthRecords;
+import seedu.address.model.DiaryRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyHealthRecords;
@@ -23,18 +24,22 @@ import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyUserProfile;
 import seedu.address.model.ReadOnlyWorkoutPlanner;
+import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.RecipeBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.UserProfile;
 import seedu.address.model.WorkoutPlanner;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.util.SampleRecipeDataUtil;
+import seedu.address.model.util.DiarySampleDataUtil;
 import seedu.address.storage.HealthRecordsStorage;
+import seedu.address.storage.DiaryStorage;
 import seedu.address.storage.JsonHealthRecordsStorage;
 import seedu.address.storage.JsonRecipeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.JsonUserProfileStorage;
 import seedu.address.storage.JsonWorkoutPlannerStorage;
+import seedu.address.storage.JsonDiaryStorage;
 import seedu.address.storage.RecipeBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -73,8 +78,9 @@ public class MainApp extends Application {
         UserProfileStorage userProfileStorage = new JsonUserProfileStorage(userPrefs.getUserProfileFilePath());
         HealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(userPrefs.getHealthRecordsFilePath());
         WorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(userPrefs.getExercisesFilePath());
+        DiaryStorage diaryStorage = new JsonDiaryStorage(userPrefs.getDiaryFilePath());
         storage = new StorageManager(userProfileStorage, healthRecordsStorage, recipeBookStorage,
-                workoutPlannerStorage, userPrefsStorage);
+                workoutPlannerStorage, diaryStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -103,8 +109,11 @@ public class MainApp extends Application {
         ReadOnlyWorkoutPlanner initialWorkoutPlanner;
         initialWorkoutPlanner = initWorkoutPlanner(storage);
 
+        ReadOnlyDiary initialDiary;
+        initialDiary = initDiary(storage);
+
         return new ModelManager(initialDukeCooks, initialHealthRecords, initialRecipeBook, initialWorkoutPlanner,
-                userPrefs);
+                initialDiary, userPrefs);
     }
 
     /**
@@ -207,6 +216,32 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Health Records");
             initialData = new HealthRecords();
+        }
+
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code ReadOnlyDiary} with the data from {@code storage}'s Diary Records. <br>
+     * The data from the sample diary will be used instead if {@code storage}'s diary records are not found,
+     * or an empty Diary Record will be used instead if errors occur when reading {@code storage}'s Diary Records.
+     */
+    private ReadOnlyDiary initDiary(Storage storage) {
+        Optional<ReadOnlyDiary> diaryRecordsOptional;
+        ReadOnlyDiary initialData;
+
+        try {
+            diaryRecordsOptional = storage.readDiary();
+            if (!diaryRecordsOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with sample DiaryRecords");
+            }
+            initialData = diaryRecordsOptional.orElseGet(DiarySampleDataUtil::getSampleDiaryRecords);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
+            initialData = new DiaryRecords();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
+            initialData = new DiaryRecords();
         }
 
         return initialData;

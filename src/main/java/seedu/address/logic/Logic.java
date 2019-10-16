@@ -11,6 +11,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserProfile;
 import seedu.address.model.ReadOnlyWorkoutPlanner;
+import seedu.address.model.ReadOnlyDiary;
+import seedu.address.model.diary.Diary;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
@@ -37,14 +39,18 @@ public interface Logic {
     ReadOnlyRecipeBook getRecipeBook();
 
     /**
+     * Returns DiaryRecords.
+     *
+     * @see seedu.address.model.Model#getDiaryRecords()
+     */
+    ReadOnlyDiary getDiaryRecords();
+
+    /**
      * Returns UserProfile.
      *
      * @see Model#getUserProfile()
      */
     ReadOnlyUserProfile getUserProfile();
-
-    /** Returns an unmodifiable view of the filtered list of recipes */
-    ObservableList<Recipe> getFilteredRecipeList();
 
     /**
      * Returns DukeCooks.
@@ -52,6 +58,12 @@ public interface Logic {
      * @see seedu.address.model.Model#getWorkoutPlanner()
      */
     ReadOnlyWorkoutPlanner getDukeCooks();
+
+    /** Returns an unmodifiable view of the filtered list of recipes */
+    ObservableList<Recipe> getFilteredRecipeList();
+
+    /** Returns an unmodifiable view of the filtered list of diaries */
+    ObservableList<Diary> getFilteredDiaryList();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -81,6 +93,11 @@ public interface Logic {
      * Returns the user prefs' Health Records file path.
      */
     Path getHealthRecordsFilePath();
+
+    /**
+     * Returns the user prefs' Duke Cooks file path.
+     */
+    Path getDiaryFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

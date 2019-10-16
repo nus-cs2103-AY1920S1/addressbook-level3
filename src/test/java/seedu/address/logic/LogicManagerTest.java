@@ -3,6 +3,7 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.BLOODTYPE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.DOB_DESC;
@@ -13,6 +14,7 @@ import static seedu.address.logic.commands.CommandTestUtil.WEIGHT_DESC;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExercises.PUSHUP;
 import static seedu.address.testutil.TypicalProfiles.AMY;
+import static seedu.address.testutil.TypicalDiaries.AMY_DIARY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -21,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.logic.commands.AddDiaryCommand;
 import seedu.address.logic.commands.AddProfileCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
@@ -32,7 +35,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserProfile;
 import seedu.address.model.ReadOnlyWorkoutPlanner;
+import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.diary.Diary;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonHealthRecordsStorage;
@@ -40,9 +45,11 @@ import seedu.address.storage.JsonRecipeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.JsonUserProfileStorage;
 import seedu.address.storage.JsonWorkoutPlannerStorage;
+import seedu.address.storage.JsonDiaryStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.ExerciseBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.DiaryBuilder;
 
 
 public class LogicManagerTest {
@@ -64,10 +71,12 @@ public class LogicManagerTest {
                 new JsonHealthRecordsStorage(temporaryFolder.resolve("healthrecords.json"));
         JsonWorkoutPlannerStorage workoutPlannerStorage =
                 new JsonWorkoutPlannerStorage(temporaryFolder.resolve("exercises.json"));
+        JsonDiaryStorage diaryStorage =
+                new JsonDiaryStorage(temporaryFolder.resolve("diary.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
         StorageManager storage = new StorageManager(userProfileStorage, healthRecordsStorage,
-                recipeBookStorage, workoutPlannerStorage, userPrefsStorage);
+                recipeBookStorage, workoutPlannerStorage, diaryStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -113,11 +122,14 @@ public class LogicManagerTest {
         JsonWorkoutPlannerStorage workoutPlannerStorage =
                 new JsonWorkoutPlannerIoExceptionThrowingStub(temporaryFolder
                         .resolve("ioExceptionWorkoutPlanner.json"));
+        // Setup LogicManager with JsonDiaryIoExceptionThrowingStub
+        JsonDiaryStorage diaryStorage =
+                new JsonDiaryIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDiary.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
         StorageManager storage = new StorageManager(userProfileStorage, null,
-                recipeBookStorage, workoutPlannerStorage, userPrefsStorage);
+                recipeBookStorage, workoutPlannerStorage, diaryStorage, userPrefsStorage);
         new JsonUserPrefsStorage(temporaryFolder
                 .resolve("ioExceptionUserPrefs.json"));
         logic = new LogicManager(model, storage);
@@ -187,7 +199,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
         Model expectedModel = new ModelManager(model.getUserProfile(), model.getHealthRecords(),
-                model.getRecipeBook(), model.getWorkoutPlanner(), new UserPrefs());
+                model.getRecipeBook(), model.getWorkoutPlanner(), model.getDiaryRecords(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -243,6 +255,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveRecipeBook(ReadOnlyRecipeBook recipeBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonDiaryIoExceptionThrowingStub extends JsonDiaryStorage {
+        private JsonDiaryIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveDiary(ReadOnlyDiary diary, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

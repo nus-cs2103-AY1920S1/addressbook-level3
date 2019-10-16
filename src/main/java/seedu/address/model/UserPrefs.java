@@ -18,6 +18,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path userProfileFilePath = Paths.get("data" , "userprofile.json");
     private Path healthRecordsFilePath = Paths.get("data", "healthrecords.json");
     private Path recipesFilePath = Paths.get("data" , "recipes.json");
+    private Path diaryFilePath = Paths.get("data" , "diary.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -42,6 +43,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setUserProfileFilePath(newUserPrefs.getUserProfileFilePath());
         setHealthRecordsFilePath(newUserPrefs.getHealthRecordsFilePath());
         setRecipesFilePath(newUserPrefs.getRecipesFilePath());
+        setDiaryFilePath(newUserPrefs.getDiaryFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -65,13 +67,17 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return recipesFilePath;
     }
 
-    public void setUserProfileFilePath(Path userProfileFilePath) {
-        requireNonNull(userProfileFilePath);
-        this.userProfileFilePath = userProfileFilePath;
+    public Path getDiaryFilePath() {
+        return diaryFilePath;
     }
 
     public Path getHealthRecordsFilePath() {
         return healthRecordsFilePath;
+    }
+
+    public void setUserProfileFilePath(Path userProfileFilePath) {
+        requireNonNull(userProfileFilePath);
+        this.userProfileFilePath = userProfileFilePath;
     }
 
     public void setHealthRecordsFilePath(Path healthRecordsFilePath) {
@@ -89,6 +95,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.recipesFilePath = recipesFilePath;
     }
 
+    public void setDiaryFilePath(Path diaryFilePath) {
+        requireNonNull(diaryFilePath);
+        this.diaryFilePath = diaryFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -103,13 +114,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return guiSettings.equals(o.guiSettings)
                 && exercisesFilePath.equals(o.exercisesFilePath)
                 && userProfileFilePath.equals(o.userProfileFilePath)
-                && recipesFilePath.equals(o.recipesFilePath);
+                && recipesFilePath.equals(o.recipesFilePath)
+                && diaryFilePath.equals(o.diaryFilePath);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(guiSettings, exercisesFilePath, userProfileFilePath, healthRecordsFilePath,
-                recipesFilePath);
+                recipesFilePath, diaryFilePath);
     }
 
     @Override
@@ -119,6 +131,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nLocal WorkoutPlanner data file location : " + exercisesFilePath);
         sb.append("\nLocal UserPref data file location : " + userProfileFilePath);
         sb.append("\nLocal RecipeBook data file location : " + recipesFilePath);
+        sb.append("\nLocal data file location : " + diaryFilePath);
         return sb.toString();
     }
 

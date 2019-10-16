@@ -26,6 +26,7 @@ public class UiManager implements Ui {
     private WorkoutPlannerWindow workoutPlannerWindow;
     private TempWindow tempWindow;
     private RecipeBookWindow recipeBookWindow;
+    private DiaryWindow diaryWindow;
 
     public UiManager(Logic logic) {
         super();

@@ -1,0 +1,18 @@
+{
+  "_comment": "DukeCooks save file which contains the same Diary values as in TypicalPersons#getTypicalDukeCooks()",
+  "diaries" : [ {
+    "name" : "Meat Lovers"
+  }, {
+    "name" : "Brunches"
+  }, {
+    "name" : "Carbs For Life"
+  }, {
+    "name" : "Drinks All Day"
+  }, {
+    "name" : "High Energy Foods"
+  }, {
+    "name" : "Fun Foods"
+  }, {
+    "name" : "Great Grapes"
+  } ]
+}
