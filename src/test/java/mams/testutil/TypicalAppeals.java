@@ -11,28 +11,28 @@ import mams.model.appeal.Appeal;
  */
 public class TypicalAppeals {
 
-    public static final Appeal appeal1 = new Appeal("C000001" ,
+    public static final Appeal APPEAL1 = new Appeal("C000001" ,
             "add module", "A0180000A", "AY2019",
             20, "I want to graduate early",
             "", "", "CS2100",
             "", false, "");
-    public static final Appeal appeal2 = new Appeal("C000002" ,
+    public static final Appeal APPEAL2 = new Appeal("C000002" ,
             "remove module", "A0180001A", "AY2019",
             20, "I want to take another module",
             "", "", "",
             "CS2103", false, "");
-    public static final Appeal appeal3 = new Appeal("C000003" ,
+    public static final Appeal APPEAL3 = new Appeal("C000003" ,
             "increase workload", "A0180003A", "AY2019",
             20, "I want to overload",
             "", "", "",
             "", false, "");
-    public static final Appeal appeal4 = new Appeal("C000004" ,
+    public static final Appeal APPEAL4 = new Appeal("C000004" ,
             "add module", "A0180002A", "AY2019",
             20, "I want to clear prerequisites",
             "", "", "CS2105",
             "", false, "");
 
     public static List<Appeal> getTypicalAppeals() {
-        return new ArrayList<>(Arrays.asList(appeal1, appeal2, appeal3, appeal4));
+        return new ArrayList<>(Arrays.asList(APPEAL1, APPEAL2, APPEAL3, APPEAL4));
     }
 }

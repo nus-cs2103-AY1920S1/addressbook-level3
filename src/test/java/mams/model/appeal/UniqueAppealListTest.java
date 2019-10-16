@@ -23,13 +23,13 @@ public class UniqueAppealListTest {
 
     @Test
     public void contains_appealNotInList_returnsFalse() {
-        assertFalse(uniqueAppealList.contains(TypicalAppeals.appeal1));
+        assertFalse(uniqueAppealList.contains(TypicalAppeals.APPEAL1));
     }
 
     @Test
     public void contains_appealInList_returnsTrue() {
-        uniqueAppealList.add(TypicalAppeals.appeal1);
-        assertTrue(uniqueAppealList.contains(TypicalAppeals.appeal1));
+        uniqueAppealList.add(TypicalAppeals.APPEAL1);
+        assertTrue(uniqueAppealList.contains(TypicalAppeals.APPEAL1));
     }
 
     @Test
@@ -39,8 +39,8 @@ public class UniqueAppealListTest {
 
     @Test
     public void add_duplicateAppeal_throwsDuplicateAppealException() {
-        uniqueAppealList.add(TypicalAppeals.appeal1);
-        Assert.assertThrows(DuplicateAppealException.class, () -> uniqueAppealList.add(TypicalAppeals.appeal1));
+        uniqueAppealList.add(TypicalAppeals.APPEAL1);
+        Assert.assertThrows(DuplicateAppealException.class, () -> uniqueAppealList.add(TypicalAppeals.APPEAL1));
     }
 
     @Test
@@ -50,13 +50,13 @@ public class UniqueAppealListTest {
 
     @Test
     public void remove_studentDoesNotExist_throwsStudentNotFoundException() {
-        Assert.assertThrows(AppealNotFoundException.class, () -> uniqueAppealList.remove(TypicalAppeals.appeal1));
+        Assert.assertThrows(AppealNotFoundException.class, () -> uniqueAppealList.remove(TypicalAppeals.APPEAL1));
     }
 
     @Test
     public void remove_existingAppeal_removesAppeal() {
-        uniqueAppealList.add(TypicalAppeals.appeal1);
-        uniqueAppealList.remove(TypicalAppeals.appeal1);
+        uniqueAppealList.add(TypicalAppeals.APPEAL1);
+        uniqueAppealList.remove(TypicalAppeals.APPEAL1);
         UniqueAppealList expectedUniqueAppealList = new UniqueAppealList();
         assertEquals(expectedUniqueAppealList, uniqueAppealList);
     }

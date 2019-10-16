@@ -16,26 +16,26 @@ public class JsonAdaptedAppealTest {
     private static final int INVALID_WORKLOAD = 0;
     private static final String INVALID_MATRICID = " ";
 
-    private static final String VALID_APPEAL_ID = TypicalAppeals.appeal2.getAppealId();
-    private static final String VALID_APPEAL_TYPE = TypicalAppeals.appeal2.getAppealType();
-    private static final String VALID_STUDENT_ID = TypicalAppeals.appeal2.getStudentId();
-    private static final String VALID_ACADEMIC_YEAR = TypicalAppeals.appeal2.getAcademicYear();
-    private static final int VALID_WORKLOAD = TypicalAppeals.appeal2.getStudentWorkload();
-    private static final String VALID_DESCRIPTION = TypicalAppeals.appeal2.getAppealDescription();
-    private static final String VALID_MODULES = TypicalAppeals.appeal2.getModule_to_drop();
-    private static final boolean VALID_IS_RESOLVED = TypicalAppeals.appeal2.isResolved();
-    private static final String VALID_REMARK = TypicalAppeals.appeal2.getRemark();
+    private static final String VALID_APPEAL_ID = TypicalAppeals.APPEAL2.getAppealId();
+    private static final String VALID_APPEAL_TYPE = TypicalAppeals.APPEAL2.getAppealType();
+    private static final String VALID_STUDENT_ID = TypicalAppeals.APPEAL2.getStudentId();
+    private static final String VALID_ACADEMIC_YEAR = TypicalAppeals.APPEAL2.getAcademicYear();
+    private static final int VALID_WORKLOAD = TypicalAppeals.APPEAL2.getStudentWorkload();
+    private static final String VALID_DESCRIPTION = TypicalAppeals.APPEAL2.getAppealDescription();
+    private static final String VALID_MODULES = TypicalAppeals.APPEAL2.getModule_to_drop();
+    private static final boolean VALID_IS_RESOLVED = TypicalAppeals.APPEAL2.isResolved();
+    private static final String VALID_REMARK = TypicalAppeals.APPEAL2.getRemark();
 
     @Test
     public void toModelType_validAppealDetails_returnsAppeal() throws Exception {
-        JsonAdaptedAppeal appeal = new JsonAdaptedAppeal(TypicalAppeals.appeal2);
-        Assertions.assertEquals(TypicalAppeals.appeal2, appeal.toModelType());
+        JsonAdaptedAppeal appeal = new JsonAdaptedAppeal(TypicalAppeals.APPEAL2);
+        Assertions.assertEquals(TypicalAppeals.APPEAL2, appeal.toModelType());
     }
 
     @Test
     public void toModelType_invalidAppealId_throwsIllegalValueException() {
         JsonAdaptedAppeal appeal =
-                new JsonAdaptedAppeal(INVALID_APPEAL_ID, VALID_APPEAL_TYPE,
+                new JsonAdaptedAppeal( INVALID_APPEAL_ID, VALID_APPEAL_TYPE,
                         VALID_STUDENT_ID, VALID_ACADEMIC_YEAR,
                         VALID_WORKLOAD, VALID_DESCRIPTION,
                         VALID_MODULES, VALID_MODULES,
@@ -49,7 +49,7 @@ public class JsonAdaptedAppealTest {
     @Test
     public void toModelType_nullID_throwsIllegalValueException() {
         JsonAdaptedAppeal appeal =
-                new JsonAdaptedAppeal( null, VALID_APPEAL_TYPE,
+                new JsonAdaptedAppeal(null, VALID_APPEAL_TYPE,
                         VALID_STUDENT_ID, VALID_ACADEMIC_YEAR,
                         VALID_WORKLOAD, VALID_DESCRIPTION,
                         VALID_MODULES, VALID_MODULES,
