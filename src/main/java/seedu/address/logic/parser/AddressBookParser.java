@@ -18,8 +18,9 @@ import seedu.address.logic.commands.app.ListCommand;
 import seedu.address.logic.commands.game.GuessCommand;
 import seedu.address.logic.commands.game.SkipCommand;
 import seedu.address.logic.commands.game.StopCommand;
-import seedu.address.logic.commands.load.BankCommand;
+import seedu.address.logic.commands.switches.BankCommand;
 import seedu.address.logic.commands.switches.HomeCommand;
+import seedu.address.logic.commands.switches.LoadScreenCommand;
 import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -85,6 +86,9 @@ public class AddressBookParser {
 
         case HomeCommand.COMMAND_WORD:
             return new HomeCommand();
+
+        case LoadScreenCommand.COMMAND_WORD:
+            return new LoadScreenCommand();
 
         case StartCommand.COMMAND_WORD:
             return new StartCommandParser().parse(arguments);

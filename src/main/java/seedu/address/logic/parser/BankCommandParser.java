@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.load.BankCommand;
+import seedu.address.logic.commands.switches.BankCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -16,12 +16,14 @@ public class BankCommandParser implements Parser<BankCommand> {
      * and returns a DeleteCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public BankCommand parse(String args) throws ParseException {
+    public BankCommand parse(String userInput) throws ParseException {
         try {
-//            Index index = ParserUtil.parseIndex(args);
-//            return new BankCommand(index);
-            String word = ParserUtil.parseWord(args).toString();
-            return new BankCommand(word);
+            String trimmedArgs = userInput.trim();
+            if (trimmedArgs.isEmpty()) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, BankCommand.MESSAGE_USAGE));
+            }
+            return new BankCommand(trimmedArgs);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, BankCommand.MESSAGE_USAGE), pe);
