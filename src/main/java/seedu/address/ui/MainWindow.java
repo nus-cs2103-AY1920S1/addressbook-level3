@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
@@ -29,9 +30,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindowCopy.fxml";
-    private static final int FLASHCARD_TAB_INDEX = 0;
-    private static final int CHEATSHEET_TAB_INDEX = 1;
-    private static final int NOTES_TAB_INDEX = 2;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -42,8 +40,9 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private FlashcardTabController flashcardTabController;
-    private NotesTabController notesTabController;
+    private ActivityWindowController activityWindowController;
+
+//    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainWindowCopy.fxml"));
 
     @FXML
     private TabPane activityWindow;
@@ -92,10 +91,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
-        flashcardTabController = new FlashcardTabController();
-
-        currentHighlightedCircle = fcHighlightCircle;
     }
 
     public Stage getPrimaryStage() {
@@ -218,11 +213,11 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.getFlashcard().isPresent()) {
-                flashcardTabController.loadFlashcard(commandResult.getFlashcard().get());
+//                flashcardTabController.loadFlashcard(commandResult.getFlashcard().get());
             }
 
             if (commandResult.getNote().isPresent()) {
-                notesTabController.displayNoteCard(commandResult.getNote().get());
+//                notesTabController.displayNoteCard(commandResult.getNote().get());
             }
 
             return commandResult;
@@ -242,18 +237,17 @@ public class MainWindow extends UiPart<Stage> {
         switch (targetMode) {
         case FLASHCARD:
             currentHighlightedCircle = fcHighlightCircle;
-            activityWindow.getSelectionModel().select(FLASHCARD_TAB_INDEX);
             break;
         case CHEATSHEET:
             currentHighlightedCircle = csHighlightCircle;
-            activityWindow.getSelectionModel().select(CHEATSHEET_TAB_INDEX);
             break;
         case NOTE:
             currentHighlightedCircle = notesHighlightCircle;
-            activityWindow.getSelectionModel().select(NOTES_TAB_INDEX);
             break;
         default:
         }
+
+        activityWindowController.switchWindowTo(targetMode);
         highlightCircle(currentHighlightedCircle);
     }
 

@@ -1,11 +1,11 @@
 package seedu.address.ui;
 
-import java.awt.TextArea;
-
-import javafx.fxml.FXML;
+import javafx.fxml.FXML;;
+import javafx.scene.control.TextArea;
 import seedu.address.model.flashcard.Flashcard;
 
 public class FlashcardTabController {
+
     @FXML
     private TextArea qnsTextArea;
 

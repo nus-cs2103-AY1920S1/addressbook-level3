@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -81,27 +82,12 @@
                         <Insets left="20.0" top="20.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <TabPane fx:id="activityWindow" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <tabs>
-                        <Tab text="FlashcardTab">
-                            <fx:include fx:id="FlashcardTab" source="FlashcardTab.fxml" />
-                        </Tab>
-                        <Tab text="NotesTab">
-                            <fx:include fx:id="NotesTab" source="NotesTab.fxml" />
-                        </Tab>
-                        <Tab text="CheatsheetTab">
-                            <fx:include fx:id="CheatsheetTab" source="CheatsheetTab.fxml" />
-                        </Tab>
-                    </tabs>
-                     <GridPane.margin>
-                        <Insets bottom="10.0" left="50.0" right="25.0" top="10.0" />
-                     </GridPane.margin>
-                  </TabPane>
-                  <VBox alignment="CENTER" GridPane.rowIndex="1">
+
+                  <VBox fx:id="activityWindowPlaceholder" alignment="CENTER" GridPane.rowIndex="1">
                      <children>
                         <StackPane>
                            <children>
-                              <ImageView fx:id="fcHighlightCircle" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="fcHighlightCircle" fitHeight="120.0" fitWidth="120.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/selectCircle.png" />
                                  </image>
@@ -146,6 +132,28 @@
                         <Insets bottom="5.0" left="25.0" right="5.0" top="5.0" />
                      </padding>
                   </VBox>
+                   <TabPane fx:id="activityWindow" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                       <tabs>
+                           <Tab text="EmptyTab">
+                               <content>
+                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                               </content>
+                           </Tab>
+                           <Tab fx:id="FlashcardTab" text="FlashcardTab">
+                               <fx:include fx:id="flashcardTabController" source="FlashcardTabWindow.fxml" />
+                           </Tab>
+                           <Tab fx:id="NotesTab" text="NotesTab">
+                               <fx:include fx:id="notesTabController" source="NotesTabWindow.fxml" />
+                           </Tab>
+                           <Tab fx:id="CheatsheetTab" text="CheatsheetTab">
+                               <fx:include fx:id="cheatsheetTabController" source="CheatsheetTabWindow.fxml" />
+                           </Tab>
+                       </tabs>
+                       <GridPane.margin>
+                           <Insets bottom="10.0" left="50.0" right="25.0" top="10.0" />
+                       </GridPane.margin>
+                   </TabPane>
+
                </children>
                <VBox.margin>
                   <Insets />
