@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
+import seedu.address.model.incident.IncidentId;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Password;
@@ -185,5 +186,17 @@ public class ParserUtil {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
         return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String incident id keyword} into an {@code IncidentId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code incident id keyword} is invalid.
+     */
+    public static IncidentId parseId(String id) throws ParseException {
+        requireNonNull(id);
+        String trimmedId = id.trim();
+        return new IncidentId(trimmedId);
     }
 }

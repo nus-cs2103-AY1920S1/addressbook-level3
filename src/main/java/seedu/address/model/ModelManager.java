@@ -147,6 +147,12 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    @Override
+    public void updateFilteredIncidentList(Predicate<Incident> predicate) {
+        requireNonNull(predicate);
+        filteredIncidents.setPredicate(predicate);
+    }
+
     //=========== Incidents ================================================================================
 
     @Override
@@ -172,11 +178,12 @@ public class ModelManager implements Model {
         return filteredIncidents;
     }
 
+    /*
     @Override
     public void updateFilteredIncidentList(Predicate<Incident> predicate) {
         requireNonNull(predicate);
         filteredIncidents.setPredicate(predicate);
-    }
+    }*/
 
     //=========== Filtered Vehicle List Accessors =============================================================
 
