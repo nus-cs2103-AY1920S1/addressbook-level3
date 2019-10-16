@@ -27,7 +27,7 @@ public class Price {
      */
     public Price(double price) {
         requireNonNull(price);
-        checkArgument(isValidName(price), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidMemberName(price), MESSAGE_CONSTRAINTS);
         this.price = price;
     }
 
@@ -38,7 +38,7 @@ public class Price {
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidName(double price) {
+    public static boolean isValidMemberName(double price) {
         return price >= 0;
     }
 

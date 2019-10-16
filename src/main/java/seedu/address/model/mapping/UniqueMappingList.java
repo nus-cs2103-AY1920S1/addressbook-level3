@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
+import seedu.address.model.task.Task;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.

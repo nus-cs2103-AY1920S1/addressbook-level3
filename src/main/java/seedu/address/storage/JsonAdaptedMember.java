@@ -70,7 +70,7 @@ class JsonAdaptedMember {
                     MemberId.class.getSimpleName()));
         }
 
-        if (!MemberName.isValidName(name.toString())) {
+        if (!MemberName.isValidMemberName(name.toString())) {
             throw new IllegalValueException(MemberName.MESSAGE_CONSTRAINTS);
         }
         final MemberName modelName = new MemberName(name);

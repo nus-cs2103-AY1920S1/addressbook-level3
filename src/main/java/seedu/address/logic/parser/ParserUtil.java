@@ -47,7 +47,7 @@ public class ParserUtil {
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
+        if (!Name.isValidMemberName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
@@ -62,7 +62,7 @@ public class ParserUtil {
     public static InvName parseInvName(String invname) throws ParseException {
         requireNonNull(invname);
         String trimmedName = invname.trim();
-        if (!InvName.isValidName(trimmedName)) {
+        if (!InvName.isValidMemberName(trimmedName)) {
             throw new ParseException(InvName.MESSAGE_CONSTRAINTS);
         }
         return new InvName(trimmedName);

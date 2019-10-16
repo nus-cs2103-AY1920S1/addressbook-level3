@@ -21,6 +21,7 @@ import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.MemberBuilder;
@@ -207,6 +208,31 @@ public class AddMemberCommandTest {
 
         @Override
         public void deleteInventory(Inventory target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMapping(Mapping mapping) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMapping(Mapping mapping) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasMapping(Mapping mapping) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Mapping> getFilteredMappingsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredMappingsList(Predicate<Mapping> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
