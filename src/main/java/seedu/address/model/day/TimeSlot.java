@@ -1,6 +1,6 @@
 package seedu.address.model.day;
 
-import static java.util.Objects.requireNonNull;
+import java.util.Optional;
 
 import seedu.address.model.activity.Activity;
 
@@ -18,9 +18,8 @@ public class TimeSlot {
         return activityAtThisTime == null;
     }
 
-    public Activity getActivity() {
-        requireNonNull(activityAtThisTime);
-        return activityAtThisTime;
+    public Optional<Activity> getActivity() {
+        return Optional.ofNullable(activityAtThisTime);
     }
 
     @Override
