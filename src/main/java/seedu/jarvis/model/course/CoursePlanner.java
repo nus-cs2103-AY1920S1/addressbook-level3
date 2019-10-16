@@ -2,7 +2,10 @@ package seedu.jarvis.model.course;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
 import java.util.Objects;
+
+import javafx.collections.ObservableList;
 
 /**
  * Wraps all data for the Course Planner.
@@ -28,7 +31,7 @@ public class CoursePlanner {
      */
     public void resetData(CoursePlanner newData) {
         requireNonNull(newData);
-        setUniqueCourseList(newData.getUniqueCourseList());
+        setUniqueCourseList(newData.getCourseList());
         setShowString(newData.getShowString());
     }
 
@@ -40,16 +43,40 @@ public class CoursePlanner {
         return showString;
     }
 
-    public void setUniqueCourseList(UniqueCourseList uniqueCourseList) {
-        this.uniqueCourseList = uniqueCourseList;
+    public void setUniqueCourseList(List<Course> courses) {
+        this.uniqueCourseList.setCourses(courses);
     }
 
     public void setShowString(String showString) {
         this.showString = showString;
     }
 
-    public void lookUpCourse(Course code) {
-        showString = code.toDisplayableString();
+    public void lookUpCourse(Course course) {
+        showString = course.toDisplayableString();
+    }
+
+    public boolean hasCourse(Course course) {
+        return uniqueCourseList.contains(course);
+    }
+
+    public void addCourse(Course course) {
+        uniqueCourseList.add(course);
+    }
+
+    public void addCourse(int zeroBasedIndex, Course course) {
+        uniqueCourseList.add(zeroBasedIndex, course);
+    }
+
+    public void removeCourse(Course course) {
+        uniqueCourseList.remove(course);
+    }
+
+    public void setCourses(List<Course> courses) {
+        uniqueCourseList.setCourses(courses);
+    }
+
+    public ObservableList<Course> getCourseList() {
+        return uniqueCourseList.asUnmodifiableObservableList();
     }
 
     @Override
