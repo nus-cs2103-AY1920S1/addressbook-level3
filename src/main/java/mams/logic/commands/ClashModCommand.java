@@ -32,12 +32,22 @@ public class ClashModCommand extends ClashCommand {
         requireNonNull(model);
         List<Module> lastShownList = model.getFilteredModuleList();
 
-        // todo: check whether the uniquemodulelist contains the two modules.
         List<Module> modulesToCheckListA = lastShownList.stream()
                 .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleA)).collect(Collectors.toList());
-        Module moduleToCheckA = modulesToCheckListA.get(0);
+
+        if (modulesToCheckListA.isEmpty()) {
+            throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
+        }
+
         List<Module> modulesToCheckListB = lastShownList.stream()
                 .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleB)).collect(Collectors.toList());
+
+        if (modulesToCheckListB.isEmpty()) {
+            throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
+        }
+
+
+        Module moduleToCheckA = modulesToCheckListA.get(0);
         Module moduleToCheckB = modulesToCheckListB.get(0);
 
         if (getClashingSlots(moduleToCheckA, moduleToCheckB).size() != 0) {

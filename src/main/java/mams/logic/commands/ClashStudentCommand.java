@@ -35,9 +35,14 @@ public class ClashStudentCommand extends ClashCommand {
         List<Student> lastShownList = model.getFilteredStudentList();
 
         // to get the student from student list.
-        List<Student> studentInList = lastShownList.stream()
+        List<Student> studentList = lastShownList.stream()
                 .filter(s -> s.getMatricId().toString().equalsIgnoreCase(matricId)).collect(Collectors.toList());
-        Student studentToCheck = studentInList.get(0);
+
+        if (studentList.isEmpty()) {
+            throw new CommandException(MESSAGE_INVALID_MATRICID);
+        }
+
+        Student studentToCheck = studentList.get(0);
 
         // to get the student current modules.
         Set<Tag> currentModulesSet = studentToCheck.getCurrentModules();

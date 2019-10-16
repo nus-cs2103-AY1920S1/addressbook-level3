@@ -31,7 +31,9 @@ public abstract class ClashCommand extends Command {
     public static final String MESSAGE_INVALID_MODULE_CODE = "Please enter 2 valid module codes.";
     public static final String MESSAGE_INVALID_MATRICID = "Please enter 1 valid Matric ID. ";
     public static final String MESSAGE_INVALID_APPEALID = "Please enter 1 valid Appeal ID. ";
-
+    public static final String MESSAGE_INVALID_MODULETOADD = "The module requested is not available. ";
+    public static final String MESSAGE_INVALID_STUDENT = "The student submitting the appeal is not found. ";
+    public static final String MESSAGE_NOT_ADDMOD_APPEAL = "This is not a add module appeal. No need to check clashes.";
     protected ArrayList<Integer> clashingSlots;
 
     /**

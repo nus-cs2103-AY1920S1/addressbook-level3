@@ -36,8 +36,6 @@ public class ClashAppealCommand extends ClashCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // todo: check it is an "add module" appeal
-
         List<Appeal> lastShownList = model.getFilteredAppealList();
         List<Module> moduleList = model.getFilteredModuleList();
         List<Student> studentList = model.getFilteredStudentList();
@@ -45,7 +43,16 @@ public class ClashAppealCommand extends ClashCommand {
         // get the appeal object
         List<Appeal> appealToCheckList = lastShownList.stream()
                 .filter(a -> a.getAppealId().equalsIgnoreCase(appealId)).collect(Collectors.toList());
+
+        if (appealToCheckList.isEmpty()) {
+            throw new CommandException(MESSAGE_INVALID_APPEALID);
+        }
+
         Appeal appealToCheck = appealToCheckList.get(0);
+
+        if (!isAddModAppeal(appealToCheck)) {
+            throw new CommandException(MESSAGE_NOT_ADDMOD_APPEAL);
+        }
 
         // get module requested and student who submitted this appeal
         moduleToAdd = getRequestedModule(appealToCheck, moduleList);
@@ -73,16 +80,25 @@ public class ClashAppealCommand extends ClashCommand {
         }
     }
 
+    private boolean isAddModAppeal(Appeal appeal) {
+        return appeal.getAppealType().equalsIgnoreCase("add module");
+    }
+
     /**
      * Returns a module object of the requested module in this appeal
      * @param appeal a particular appeal object
      * @param moduleList the module list
      * @return a module object of the requested module in this appeal
      */
-    private Module getRequestedModule(Appeal appeal, List<Module> moduleList) {
+    private Module getRequestedModule(Appeal appeal, List<Module> moduleList) throws CommandException {
         String moduleToAdd = appeal.getModule_to_add();
         List<Module> modulesToCheckList = moduleList.stream()
                 .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleToAdd)).collect(Collectors.toList());
+
+        if (modulesToCheckList.isEmpty()) {
+            throw new CommandException(MESSAGE_INVALID_MODULETOADD);
+        }
+
         return modulesToCheckList.get(0);
     }
 
@@ -92,10 +108,15 @@ public class ClashAppealCommand extends ClashCommand {
      * @param studentList the student list
      * @return a student object who submitted this appeal
      */
-    private Student getStudentToCheck(Appeal appeal, List<Student> studentList) {
+    private Student getStudentToCheck(Appeal appeal, List<Student> studentList) throws CommandException {
         String studentId = appeal.getStudentId();
         List<Student> studentToCheckList = studentList.stream()
                 .filter(s -> s.getMatricId().toString().equalsIgnoreCase(studentId)).collect(Collectors.toList());
+
+        if (studentToCheckList.isEmpty()) {
+            throw new CommandException(MESSAGE_INVALID_STUDENT);
+        }
+
         return studentToCheckList.get(0);
     }
 
