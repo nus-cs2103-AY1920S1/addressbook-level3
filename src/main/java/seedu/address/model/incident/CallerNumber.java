@@ -37,5 +37,22 @@ public class CallerNumber extends Phone {
         }
         return correctLength & isNumber;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof CallerNumber)) {
+            return false;
+        }
+
+        // state check
+        CallerNumber e = (CallerNumber) other;
+
+        return e.value.equals(this.value);
+    }
 }
 

@@ -191,7 +191,7 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditIncident)) {
                 return false;
             }
 
