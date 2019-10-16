@@ -55,10 +55,10 @@ public class MainAppTest extends ApplicationTest {
         robot.write('a').type(KeyCode.UP);
         Assertions.assertThat(lookup("#autoCompleteOverlay").queryListView().isVisible()).isTrue();
         Assertions.assertThat(lookup("#autoCompleteOverlay").queryListView().getSelectionModel().getSelectedIndex())
-            .isEqualTo(3);
+                .isEqualTo(3);
         robot.type(KeyCode.DOWN);
         Assertions.assertThat(lookup("#autoCompleteOverlay").queryListView().getSelectionModel().getSelectedIndex())
-            .isEqualTo(0);
+                .isEqualTo(0);
         robot.eraseText(1);
     }
 
@@ -67,11 +67,16 @@ public class MainAppTest extends ApplicationTest {
         robot.clickOn("#commandTextField").write("lol").type(KeyCode.ENTER);
         Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl()).hasText("Unknown command");
         robot.type(KeyCode.UP);
-//        Assertions.assertThat(lookup("#commandTextField").queryTextInputControl().getCaretPosition()).isEqualTo(3);
-//        robot.type(KeyCode.LEFT, KeyCode.BACK_SPACE);
-//        Assertions.assertThat(lookup("#commandTextField").queryTextInputControl().getCaretPosition()).isEqualTo(1);
-//        robot.type(KeyCode.RIGHT).eraseText(2);
     }
+
+    /*
+
+        Assertions.assertThat(lookup("#commandTextField").queryTextInputControl().getCaretPosition()).isEqualTo(3);
+        robot.type(KeyCode.LEFT, KeyCode.BACK_SPACE);
+        Assertions.assertThat(lookup("#commandTextField").queryTextInputControl().getCaretPosition()).isEqualTo(1);
+        robot.type(KeyCode.RIGHT).eraseText(2);
+
+     */
 
     /*
     @Test
@@ -83,25 +88,27 @@ public class MainAppTest extends ApplicationTest {
     }
     */
 
-//    @Test
-//    public void invalidCommandFormatTest(FxRobot robot) {
-//        robot.clickOn("#commandTextField").write("addAppt").type(KeyCode.ENTER);
-//        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
-//            .startsWith("Invalid command format!");
-//        robot.eraseText(7).write("ackAppt").type(KeyCode.ENTER);
-//        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
-//            .startsWith("Invalid command format!");
-//        robot.eraseText(7).write("appointments").type(KeyCode.ENTER);
-//        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
-//            .startsWith("Invalid command format!");
-//        robot.eraseText(12);
-//    }
+    /*
+    @Test
+    public void invalidCommandFormatTest(FxRobot robot) {
+        robot.clickOn("#commandTextField").write("addAppt").type(KeyCode.ENTER);
+        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
+            .startsWith("Invalid command format!");
+        robot.eraseText(7).write("ackAppt").type(KeyCode.ENTER);
+        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
+            .startsWith("Invalid command format!");
+        robot.eraseText(7).write("appointments").type(KeyCode.ENTER);
+        Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
+            .startsWith("Invalid command format!");
+        robot.eraseText(12);
+    }
+     */
 
     @Test
     public void helpCommandTest(FxRobot robot) {
         robot.clickOn("#commandTextField").write("help").type(KeyCode.ENTER);
         Assertions.assertThat(lookup("#resultDisplay").queryTextInputControl().getText())
-            .startsWith("Opened help window.");
+                .startsWith("Opened help window.");
         Assertions.assertThat(window("Help")).isShowing();
         Assertions.assertThat(listWindows().size()).isEqualTo(2);
     }
