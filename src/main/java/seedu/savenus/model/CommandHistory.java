@@ -9,7 +9,7 @@ import java.util.List;
 public class CommandHistory {
     private static final int MAX_LENGTH = 10;
     private static final List<String> commandHistory = new ArrayList<>();
-    private int currentCommandIndex = -1;
+    private static int currentCommandIndex = -1;
 
     /**
      * Add Command to history.
@@ -43,7 +43,7 @@ public class CommandHistory {
      * Used to get the index.
      * @return Command index.
      */
-    public int getCurrentCommandIndex() {
+    public static int getCurrentCommandIndex() {
         return currentCommandIndex;
     }
 
@@ -61,13 +61,16 @@ public class CommandHistory {
      */
     public void storeValidCommand(String command) {
         this.addCommandToHistory(command);
+        System.out.println("executed valid " + ": " + commandHistory.toString());
         currentCommandIndex = commandHistory.size();
+        System.out.println("curr list size: " + commandHistory.size());
+        System.out.println("curr index: " + currentCommandIndex);
     }
 
     /**
      * Get previously stored command.
      */
-    public String getPrev() {
+    public static String getPrev() {
         // Return null if reached the start of command history
         if (currentCommandIndex <= 0) {
             return null;
@@ -79,7 +82,7 @@ public class CommandHistory {
     /**
      * Get following stored command.
      */
-    public String getNext() {
+    public static String getNext() {
         // Return null if reached the end of command history
         if (currentCommandIndex >= commandHistory.size() - 1) {
             return null;
