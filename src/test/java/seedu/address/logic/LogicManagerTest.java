@@ -12,6 +12,8 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ElisaStateHistory;
+import seedu.address.model.ElisaStateHistoryManager;
 import seedu.address.model.ItemModel;
 import seedu.address.model.ItemModelManager;
 import seedu.address.model.ItemStorage;
@@ -37,7 +39,9 @@ public class LogicManagerTest {
                 new JsonItemStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(jsonItemStorage, userPrefsStorage);
-        model = new ItemModelManager(storage.toModelType(), userPrefsStorage.readUserPrefs().get());
+        ElisaStateHistory historyManager = new ElisaStateHistoryManager();
+        model = new ItemModelManager(storage.toModelType(), userPrefsStorage.readUserPrefs().get(), historyManager);
+        historyManager.pushCommand(logic.getModel().getState().deepCopy());
         logic = new LogicManager(model, storage);
     }
 
@@ -92,10 +96,11 @@ public class LogicManagerTest {
      * - no exceptions are thrown <br>
      * - the feedback message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
      * @see #assertCommandFailure(String, Class, String, ItemModel)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+                                      Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -103,6 +108,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, ItemModel)
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
@@ -111,6 +117,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, ItemModel)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
@@ -119,11 +126,13 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, ItemModel)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage) {
-        ItemModel expectedModel = new ItemModelManager(model.getItemStorage(), new UserPrefs());
+                                      String expectedMessage) {
+        ItemModel expectedModel = new ItemModelManager(model.getItemStorage(),
+                new UserPrefs(), model.getElisaStateHistory());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -132,10 +141,11 @@ public class LogicManagerTest {
      * - the {@code expectedException} is thrown <br>
      * - the resulting error message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
      * @see #assertCommandSuccess(String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage, ItemModel expectedModel) {
+                                      String expectedMessage, ItemModel expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }

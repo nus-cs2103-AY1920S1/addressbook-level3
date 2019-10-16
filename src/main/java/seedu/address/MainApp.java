@@ -7,19 +7,25 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
+
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+
+import seedu.address.model.ElisaStateHistory;
+import seedu.address.model.ElisaStateHistoryManager;
 import seedu.address.model.ItemModel;
 import seedu.address.model.ItemModelManager;
 import seedu.address.model.ItemStorage;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+
 import seedu.address.storage.ItemListStorage;
 import seedu.address.storage.JsonItemStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -43,6 +49,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected ItemModel model;
     protected Config config;
+    protected ElisaStateHistory stateHistory;
 
     @Override
     public void init() throws Exception {
@@ -59,7 +66,9 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        stateHistory = new ElisaStateHistoryManager();
+
+        model = initModelManager(storage, userPrefs, stateHistory);
 
         logic = new LogicManager(model, storage);
 
@@ -71,7 +80,7 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private ItemModel initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private ItemModel initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, ElisaStateHistory stateHistory) {
         ItemStorage initialData;
         try {
             initialData = storage.toModelType();
@@ -83,7 +92,7 @@ public class MainApp extends Application {
             initialData = new ItemStorage();
         }
 
-        return new ItemModelManager(initialData, userPrefs);
+        return new ItemModelManager(initialData, userPrefs, stateHistory);
     }
 
     private void initLogging(Config config) {

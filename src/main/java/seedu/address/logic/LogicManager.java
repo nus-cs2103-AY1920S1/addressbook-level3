@@ -30,7 +30,7 @@ public class LogicManager implements Logic {
     public LogicManager(ItemModel model, Storage storage) {
         this.storage = storage;
         this.model = model;
-        addressBookParser = new AddressBookParser();
+        addressBookParser = new AddressBookParser(model.getElisaStateHistory());
     }
 
     @Override
@@ -49,6 +49,17 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
+
+        if (commandResult.isUndo()) {
+            model.setToCurrState();
+        } else if (commandResult.isSwitchViews()) {
+            /*switching view is not counted as a change in state,
+            hence this block is left blank*/
+        } else {
+            model.updateState();
+        }
+
+        model.updateModelLists();
 
         return commandResult;
     }
@@ -69,6 +80,11 @@ public class LogicManager implements Logic {
     @Override
     public VisualizeList getVisualList() {
         return model.getVisualList();
+    }
+
+    @Override
+    public ItemModel getModel() {
+        return model;
     }
 
     @Override

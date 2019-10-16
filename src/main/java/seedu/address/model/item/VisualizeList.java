@@ -164,5 +164,8 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
      */
     public abstract VisualizeList sort();
 
+    public void clear() {
+        list.clear();
+    }
 
 }
