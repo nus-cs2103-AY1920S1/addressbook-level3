@@ -70,7 +70,7 @@ class JsonAdaptedPhone {
         serialNumber = source.getSerialNumber().value;
         phoneName = source.getPhoneName().fullName;
         brand = source.getBrand().value;
-        capacity = source.getCapacity().value;
+        capacity = source.getCapacity().value.split("GB")[0];
         colour = source.getColour().value;
         cost = source.getCost().value;
         tagged.addAll(source.getTags().stream()
@@ -132,7 +132,28 @@ class JsonAdaptedPhone {
         if (!Capacity.isValidCapacity(capacity)) {
             throw new IllegalValueException(Capacity.MESSAGE_CONSTRAINTS);
         }
-        final Capacity modelCapacity = Capacity.valueOf(capacity);
+
+        Capacity temp;
+
+        if (capacity.equals("8")) {
+            temp = Capacity.SIZE_8GB;
+        } else if (capacity.equals("16")) {
+            temp = Capacity.SIZE_16GB;
+        } else if (capacity.equals("32")) {
+            temp = Capacity.SIZE_32GB;
+        } else if (capacity.equals("64")) {
+            temp = Capacity.SIZE_64GB;
+        } else if (capacity.equals("128")) {
+            temp = Capacity.SIZE_128GB;
+        } else if (capacity.equals("256")) {
+            temp = Capacity.SIZE_256GB;
+        } else if (capacity.equals("512")) {
+            temp = Capacity.SIZE_512GB;
+        } else {
+            temp = Capacity.SIZE_1024GB;
+        }
+
+        final Capacity modelCapacity = temp;
 
         if (colour == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

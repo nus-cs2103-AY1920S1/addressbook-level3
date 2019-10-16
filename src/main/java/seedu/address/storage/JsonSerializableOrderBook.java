@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ class JsonSerializableOrderBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public OrderBook toModelType() throws IllegalValueException {
+    public OrderBook toModelType() throws IllegalValueException, ParseException {
         OrderBook orderBook = new OrderBook();
         for (JsonAdaptedOrder jsonAdaptedOrder : orders) {
             Order order = jsonAdaptedOrder.toModelType();

@@ -27,6 +27,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
 import seedu.address.model.phone.Phone;
+import seedu.address.model.schedule.Schedule;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.statistic.Statistic;
 import seedu.address.statistic.StatisticManager;
@@ -97,10 +98,12 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyDataBook<Customer>> customerBookOptional;
         Optional<ReadOnlyDataBook<Phone>> phoneBookOptional;
+        Optional<ReadOnlyDataBook<Schedule>> scheduleBookOptional;
         Optional<ReadOnlyDataBook<Order>> orderBookOptional;
 
         ReadOnlyDataBook<Customer> initialCustomerData;
         ReadOnlyDataBook<Phone> initialPhoneData;
+        ReadOnlyDataBook<Schedule> initialScheduleData;
         ReadOnlyDataBook<Order> initialOrderData;
 
         try {
@@ -139,6 +142,24 @@ public class MainApp extends Application {
         }
 
         try {
+            scheduleBookOptional = storage.readScheduleBook();
+
+            if (!scheduleBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample ScheduleBook");
+            }
+
+            initialScheduleData = scheduleBookOptional.orElseGet(SampleDataUtil::getSampleScheduleBook);
+
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ScheduleBook");
+            initialScheduleData = new ScheduleBook();
+
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty PhoneBook");
+            initialScheduleData = new ScheduleBook();
+        }
+
+        try {
             orderBookOptional = storage.readOrderBook();
 
             if (!orderBookOptional.isPresent()) {
@@ -160,7 +181,8 @@ public class MainApp extends Application {
         //ReadOnlyDataBook<Customer> customerBook = SampleDataUtil.getSampleCustomerBook();
         //ReadOnlyDataBook<Phone> phoneBook = SampleDataUtil.getSamplePhoneBook();
         //ReadOnlyDataBook<Order> orderBook = SampleDataUtil.getSampleOrderBook();
-        return new ModelManager(initialCustomerData, initialPhoneData, initialOrderData, new ScheduleBook(), userPrefs);
+        return new ModelManager(initialCustomerData, initialPhoneData, initialOrderData, initialScheduleData,
+                userPrefs);
     }
 
     private void initLogging(Config config) {

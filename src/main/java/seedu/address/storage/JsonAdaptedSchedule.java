@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.Format;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.model.schedule.Schedule;

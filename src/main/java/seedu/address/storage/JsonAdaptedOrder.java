@@ -48,7 +48,7 @@ class JsonAdaptedOrder {
     private final JsonAdaptedPhone phone;
     private final String price;
     private final String status;
-    private final JsonAdaptedSchedule schedule;
+    private JsonAdaptedSchedule schedule;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -81,7 +81,9 @@ class JsonAdaptedOrder {
         phone = new JsonAdaptedPhone(source.getPhone());
         price = source.getPrice().value;
         status = source.getStatus().toString();
-        schedule = new JsonAdaptedSchedule(source.getSchedule().get());
+        if (!source.getSchedule().isEmpty()) {
+            schedule = new JsonAdaptedSchedule(source.getSchedule().get());
+        }
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -138,7 +140,7 @@ class JsonAdaptedOrder {
         if (!Brand.isValidBrand(phone.toModelType().getBrand().toString())) {
             throw new IllegalValueException(Brand.MESSAGE_CONSTRAINTS);
         }
-        if (!Capacity.isValidCapacity(phone.toModelType().getCapacity().toString())) {
+        if (!Capacity.isValidCapacity(phone.toModelType().getCapacity().toString().split("GB")[0])) {
             throw new IllegalValueException(Capacity.MESSAGE_CONSTRAINTS);
         }
         if (!Colour.isValidColour(phone.toModelType().getColour().toString())) {
@@ -162,17 +164,34 @@ class JsonAdaptedOrder {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Status.class.getSimpleName()));
         }
-        final Status modelStatus = Status.valueOf(status);
 
-        if (schedule == null) {
+        Status temp;
+
+        if (status.equals("Unscheduled")) {
+            temp = Status.UNSCHEDULED;
+        } else if (status.equals("Scheduled")) {
+            temp = Status.SCHEDULED;
+        } else if (status.equals("Completed")) {
+            temp = Status.COMPLETED;
+        } else {
+            temp = Status.CANCELLED;
+        }
+        final Status modelStatus = temp;
+
+        if (schedule == null && !status.equals("Unscheduled")) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Schedule.class.getSimpleName()));
         }
-        if (!Venue.isValidVenue(schedule.toModelType().getVenue().toString())) {
+        if (schedule != null && !Venue.isValidVenue(schedule.toModelType().getVenue().toString())) {
             throw new IllegalValueException(Venue.MESSAGE_CONSTRAINTS);
         }
 
-        final Optional<Schedule> modelSchedule = Optional.of(schedule.toModelType());
+        Optional<Schedule> modelSchedule;
+        if (schedule != null) {
+            modelSchedule = Optional.of(schedule.toModelType());
+        } else {
+            modelSchedule = Optional.ofNullable(null);
+        }
 
         final Set<Tag> modelTags = new HashSet<>(orderTags);
         return new Order(modelId, modelCustomer, modelPhone, modelPrice, modelStatus, modelSchedule,
