@@ -312,6 +312,10 @@
     -fx-font-size: 1em;
 }
 
+.stats-pane-color {
+    -fx-background-color: #383838;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;

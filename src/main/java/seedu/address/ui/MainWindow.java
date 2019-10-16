@@ -194,7 +194,7 @@ public class MainWindow extends UiPart<Stage> {
         statsChart = new StatsChart(logic.getStatsChartData());
         statsPanelPlaceholder.getChildren().add(statsChart.getRoot());
         statsChart.getChart().getData().forEach(data -> {
-            String value = "" + data.getPieValue();
+            String value = "" + (int) data.getPieValue();
             Tooltip toolTip = new Tooltip(value);
             toolTip.setStyle("-fx-font-size: 20");
             toolTip.setShowDelay(Duration.seconds(0));

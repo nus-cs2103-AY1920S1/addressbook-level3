@@ -63,7 +63,7 @@
             </VBox>
           </HBox>
 
-          <VBox fx:id="stats" styleClass="pane-with-border" minWidth="440" prefWidth="440" VBox.vgrow="ALWAYS">
+          <VBox fx:id="stats" styleClass="pane-with-border" minWidth="450" prefWidth="450">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
