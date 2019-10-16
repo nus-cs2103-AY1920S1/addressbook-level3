@@ -40,4 +40,11 @@ public interface PlannerModel {
      * @param planner {@code Planner} to take reference from.
      */
     void resetData(Planner planner);
+
+    /**
+     * Checks if this planner is equal to another planner
+     * @param other the other planner to be compared against
+     * @return true if the planners are equal, false if they are not
+     */
+    boolean isEqual(Planner other);
 }
