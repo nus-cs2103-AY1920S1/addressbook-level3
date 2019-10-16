@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
@@ -140,6 +141,7 @@ public class ProjectDashboardTest {
         private final ObservableList<Member> members = FXCollections.observableArrayList();
         private final ObservableList<Inventory> inventories = FXCollections.observableArrayList();
         private final ObservableList<Mapping> mappings = FXCollections.observableArrayList();
+        private final HashMap<Task, ObservableList<Member>> memberByTask = new HashMap<>();
 
         private final ObservableList<Task> tasksNotStarted = FXCollections.observableArrayList();
         private final ObservableList<Task> tasksDoing = FXCollections.observableArrayList();
@@ -182,6 +184,11 @@ public class ProjectDashboardTest {
         @Override
         public ObservableList<Mapping> getMappingList() {
             return mappings;
+        }
+
+        @Override
+        public HashMap<Task, ObservableList<Member>> listMemberByTask() {
+            return memberByTask;
         }
     }
 

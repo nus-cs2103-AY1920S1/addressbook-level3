@@ -8,6 +8,7 @@ import seedu.address.model.member.Member;
 import seedu.address.model.mapping.Mapping;
 
 import java.util.List;
+import java.util.HashMap;
 
 
 /**
@@ -33,8 +34,9 @@ public interface ReadOnlyProjectDashboard {
      */
     ObservableList<Inventory> getInventoryList();
 
-    List<Mapping> getMappingList();
+    ObservableList<Mapping> getMappingList();
 
+    HashMap<Task, ObservableList<Member>> listMemberByTask();
 
     ObservableList<Task> getTasksNotStarted();
 

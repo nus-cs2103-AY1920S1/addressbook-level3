@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.HashMap;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.inventory.Inventory;
@@ -318,4 +319,9 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     public int hashCode() {
         return members.hashCode();
     }*/
+
+    @Override
+    public HashMap<Task, ObservableList<Member>> listMemberByTask() {
+        return mappings.listMemberByTask();
+    }
 }

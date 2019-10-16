@@ -2,6 +2,7 @@ package seedu.address.model.member;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 /**
  * Represents a Member's ID in the address book.
@@ -20,6 +21,7 @@ public class MemberId {
      *
      * @param displayId an alternate name for the member ID
      */
+    @JsonCreator
     public MemberId(String displayId) {
         this.displayId = displayId;
     }
