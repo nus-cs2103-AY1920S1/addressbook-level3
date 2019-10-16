@@ -247,7 +247,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setBudget(Budget target, Budget editedEntry) {
         requireNonNull(editedEntry);
         budgets.setBudget(target, editedEntry);
-        entries.setPerson(target, editedEntry);
+        entries.setEntry(target, editedEntry);
     }
 
     /**
