@@ -10,5 +10,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_ITEM_DISPLAYED_INDEX = "The item index provided is invalid";
     public static final String MESSAGE_ITEMS_LISTED_OVERVIEW = "%d items listed!";
     public static final String MESSAGE_INVALID_REMINDER_THRESHOLD = "%s is not a valid reminder threshold";
+    public static final String MESSAGE_INVALID_TAGS = "Tags are not in the item specified!";
+    public static final String MESSAGE_UNKNOWN_DELETE_MODE = "Unknown Delete mode";
 
 }

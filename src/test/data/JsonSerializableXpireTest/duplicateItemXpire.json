@@ -2,11 +2,13 @@
   "items": [ {
     "name": "Strawberry",
     "expiryDate": "31/12/2019",
+    "quantity" : "2",
     "reminderThreshold": "0",
     "tags": [ "friends" ]
   }, {
     "name": "Strawberry",
     "expiryDate": "31/12/2019",
+    "quantity" : "2",
     "reminderThreshold": "0",
     "tags": [ "friends" ]
   } ]

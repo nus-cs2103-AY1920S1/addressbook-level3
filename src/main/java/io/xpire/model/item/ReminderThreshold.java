@@ -8,11 +8,12 @@ import io.xpire.commons.util.StringUtil;
 
 /**
  * Represents an Item's reminder threshold.
- * Guarantees: immutable; is valid as declared in {@link #isValidReminderThreshold(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidReminderThreshold(String)}.
  */
 public class ReminderThreshold {
 
     public static final String MESSAGE_CONSTRAINTS = "Reminder threshold should be a non-negative integer.";
+    public static final String DEFAULT_THRESHOLD = "0";
 
     private final int reminderThreshold;
 

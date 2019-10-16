@@ -50,7 +50,7 @@ public class CollectionUtil {
             finalMapper = finalMapper.andThen(mapper);
         }
         return items.stream()
-                .map(item -> item.toString())
+                .map(Object::toString)
                 .map(finalMapper)
                 .collect(Collectors.toList());
     }

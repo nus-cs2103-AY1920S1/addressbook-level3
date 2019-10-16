@@ -19,10 +19,12 @@ public class SearchCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         // empty args
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
 
         // all empty keywords
-        assertParseFailure(parser, " | || |  | ||  ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " | || |  | ||  ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
     }
 
     @Test
