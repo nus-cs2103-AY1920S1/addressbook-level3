@@ -64,9 +64,9 @@ public class Task {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Priority: ")
+        builder.append("\nPriority: ")
                 .append(getPriority().toString())
-                .append(" Completed: ")
+                .append("\nCompleted: ")
                 .append(isComplete().toString());
         return builder.toString();
     }
