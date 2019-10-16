@@ -182,7 +182,6 @@ public class MainWindow extends UiPart<Stage> {
             //showListPanel = new ShowListPanel(logic.getSearchResultList());
             //contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
 
-
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
