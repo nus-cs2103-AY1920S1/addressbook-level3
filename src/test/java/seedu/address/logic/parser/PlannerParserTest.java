@@ -21,7 +21,7 @@ import seedu.address.logic.commands.EditCommand.EditContactDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListContactCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
@@ -84,8 +84,10 @@ public class PlannerParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListContactCommand.COMMAND_WORD + " "
+                + ListContactCommand.SECOND_COMMAND_WORD) instanceof ListContactCommand);
+        assertTrue(parser.parseCommand(ListContactCommand.COMMAND_WORD + " "
+                + ListContactCommand.SECOND_COMMAND_WORD + " 3") instanceof ListContactCommand);
     }
 
     @Test

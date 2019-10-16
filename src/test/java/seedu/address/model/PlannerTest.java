@@ -22,6 +22,7 @@ import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
+import seedu.address.model.day.Day;
 import seedu.address.testutil.ContactBuilder;
 
 public class PlannerTest {
@@ -92,6 +93,7 @@ public class PlannerTest {
         private final ObservableList<Accommodation> accommodations = FXCollections.observableArrayList();
         private final ObservableList<Activity> activities = FXCollections.observableArrayList();
         private final ObservableList<Contact> contacts = FXCollections.observableArrayList();
+        private final ObservableList<Day> days = FXCollections.observableArrayList();
 
         PlannerStub(Collection<Contact> contacts) {
             this.contacts.setAll(contacts);
@@ -110,8 +112,10 @@ public class PlannerTest {
             return contacts;
         }
 
-
-
+        @Override
+        public ObservableList<Day> getDayList() {
+            return days;
+        }
     }
 
 }

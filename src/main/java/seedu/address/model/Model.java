@@ -10,6 +10,7 @@ import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.day.Day;
+import seedu.address.model.day.Itinerary;
 
 /**
  * The API of the Model component.
@@ -19,6 +20,7 @@ public interface Model {
     Predicate<Accommodation> PREDICATE_SHOW_ALL_ACCOMMODATIONS = unused -> true;
     Predicate<Activity> PREDICATE_SHOW_ALL_ACTIVITIES = unused -> true;
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
+    Predicate<Day> PREDICATE_SHOW_ALL_DAYS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -165,11 +167,22 @@ public interface Model {
 
     // DAY METHODS
 
-    void deleteDay(int n);
+    void deleteDay(Day target);
 
     void addDays(int n);
 
     void setDays(List<Day> days);
 
-    void setDays(int n);
+    void setDays(Itinerary itinerary);
+
+    /**
+     * Returns an unmodifiable view of the filtered days list
+     */
+    ObservableList<Day> getFilteredDayList();
+
+    /**
+     * Updates the filter of the filtered days list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDayList(Predicate<Day> predicate);
 }
