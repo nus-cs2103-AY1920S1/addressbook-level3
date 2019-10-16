@@ -20,7 +20,20 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
      * @param item the item to be added into the list
      */
     public boolean add(Item item) {
-        return list.add(item);
+        if (hasItem(item)) {
+            return false;
+        } else {
+            return list.add(item);
+        }
+    }
+
+    /**
+     * Check if the list contains the item.
+     * @param item the item to be checked for.
+     * @return true if the item is in the list, else return false.
+     */
+    public boolean hasItem(Item item) {
+        return list.contains(item);
     }
 
     @Override
