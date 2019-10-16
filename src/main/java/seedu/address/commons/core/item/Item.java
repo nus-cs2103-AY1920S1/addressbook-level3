@@ -240,8 +240,8 @@ public class Item {
         final StringBuilder builder = new StringBuilder();
         builder.append("Description: ")
                 .append(itemDescription.toString())
-                .append(" Reminder: ")
-                .append(getReminder().toString());
+                .append("\nReminder! ")
+                .append(getReminder().get().toString());
         return builder.toString();
     }
 

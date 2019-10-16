@@ -10,7 +10,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.core.item.Task;
-import seedu.address.commons.core.item.Reminder;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.exceptions.IllegalListException;
 import seedu.address.model.item.ActiveRemindersList;
