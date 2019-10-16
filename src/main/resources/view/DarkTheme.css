@@ -155,16 +155,28 @@
     -fx-background-color: #4FF77A;
 }
 
+.prefix-label.prefix_yellow {
+    -fx-background-color: #EFF88B;
+}
+
 .prefix-label.prefix_pink {
     -fx-background-color: #FA77C3;
+}
+
+.prefix-label.prefix_orange {
+    -fx-background-color: #FEB86C;
 }
 
 .prefix-label.prefix_sky_blue {
     -fx-background-color: #8BE9FD;
 }
 
-.prefix-label.prefix_purple{
+.prefix-label.prefix_purple {
     -fx-background-color: #B88FF2;
+}
+
+.prefix-label.prefix_red {
+    -fx-background-color: #990000;
 }
 
 .stack-pane {
@@ -379,9 +391,10 @@
 
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: red;
+    -fx-background-color: #990000;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+

@@ -3,12 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.Pane?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -26,11 +26,30 @@
                     </minWidth>
                 </Label>
                 <Label fx:id="appealId" text="\$appealId" styleClass="cell_big_label" />
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Label fx:id="status" styleClass="prefix-label" text="\%status" alignment="CENTER_RIGHT"/>
             </HBox>
-            <FlowPane fx:id="tags" />
-            <Label fx:id="appealType" styleClass="cell_small_label" text="\$appealType" />
-            <Label fx:id="studentId" styleClass="cell_small_label" text="\$studentId" />
-            <Label fx:id="academicYear" styleClass="cell_small_label" text="\$academicYear" />
+            <HBox spacing="3">
+                <padding>
+                    <Insets top="1" bottom="1" />
+                </padding>
+                <Label fx:id="appealTypePrefix" styleClass="prefix-label, prefix_yellow" text="Appeal Type" />
+                <Label fx:id="appealType" styleClass="cell_small_label" text="\$appealType" />
+            </HBox>
+            <HBox spacing="3">
+                <padding>
+                    <Insets top="1" bottom="1" />
+                </padding>
+                <Label fx:id="studentIdPrefix" styleClass="prefix-label, prefix_orange" text="Requested By" />
+                <Label fx:id="studentId" styleClass="cell_small_label" text="\$studentId" />
+            </HBox>
+            <HBox spacing="3">
+                <padding>
+                    <Insets top="1" bottom="1" />
+                </padding>
+                <Label fx:id="academicYearPrefix" styleClass="prefix-label, prefix_orange" text="Academic Year" />
+                <Label fx:id="academicYear" styleClass="cell_small_label" text="\$academicYear" />
+            </HBox>
         </VBox>
     </GridPane>
 </HBox>
