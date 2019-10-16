@@ -215,7 +215,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateToMissedEventList() {
+    public void updateFilteredEventList(ReferenceId referenceId) {
 
     }
 
@@ -225,14 +225,15 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
+    public void updateToMissedEventList() {
 
     }
 
     @Override
-    public void updateFilteredEventList(ReferenceId referenceId) {
+    public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
 
     }
+
 
     @Override
     public Boolean isPatientList() {
