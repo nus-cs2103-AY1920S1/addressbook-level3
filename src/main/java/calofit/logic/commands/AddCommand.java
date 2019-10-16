@@ -65,24 +65,29 @@ public class AddCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, wantToAdd));
             //throw new CommandException(MESSAGE_DUPLICATE_MEAL);
         } else {
-
-            if (model.hasDishName(wantToAdd) && !wantToAdd.getCalories().equals(new Calorie(DEFAULT_MEAL_CALORIE))) {
+            if (model.hasDishName(wantToAdd) && !wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)) {
                 model.addDish(wantToAdd);
                 Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
                 mealLog.addMeal(toAddMeal);
 
             } else if (model.hasDishName(wantToAdd)
-                    && wantToAdd.getCalories().equals(new Calorie(DEFAULT_MEAL_CALORIE))) {
+                    && wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)) {
                 wantToAdd = model.getDishByName(toAdd);
-                if (!wantToAdd.getCalories().equals(toAdd.getCalories())) {
-                    wantToAdd = toAdd;
-                }
                 try {
                     model.addDish(wantToAdd);
                 } catch (DuplicateDishException e) {
                     System.out.println("There is another Dish with the same name");
                 }
                 Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
+                mealLog.addMeal(toAddMeal);
+            } else if (!model.hasDishName(wantToAdd) && wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)){
+                // If the meal is not in the dishDB and does not have a calorie tag,
+                // the dish will be added to the dishDB with a default calorie of 700
+                // and added to the meal log with a default value of 700 as well
+                Dish mealNonNegativeCal = new Dish(wantToAdd.getName(), new Calorie(700));
+                wantToAdd = mealNonNegativeCal;
+                model.addDish(mealNonNegativeCal);
+                Meal toAddMeal = new Meal(mealNonNegativeCal, new Timestamp(LocalDateTime.now()));
                 mealLog.addMeal(toAddMeal);
             } else {
                 model.addDish(wantToAdd);

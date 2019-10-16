@@ -12,6 +12,8 @@ public class Calorie {
             "Calories should only be positive values that are not 0";
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
+    public static final Calorie UNKNOWN_CALORIE = new Calorie(-1, true);
+
     public final int calories;
 
     /**
@@ -21,6 +23,14 @@ public class Calorie {
      */
     public Calorie(int calorieValue) {
         AppUtil.checkArgument(calorieValue > 0, MESSAGE_CONSTRAINTS);
+        calories = calorieValue;
+    }
+
+    /*
+     * Private unsafe constructor that does not validate.
+     * Used to construct "fake" calorie values.
+     */
+    private Calorie(int calorieValue, boolean secret) {
         calories = calorieValue;
     }
 
