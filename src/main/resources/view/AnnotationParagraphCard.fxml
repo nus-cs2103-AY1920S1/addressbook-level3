@@ -19,7 +19,7 @@
         </VBox>
         <HBox spacing="5" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS"
             maxWidth="500" minWidth="400" prefWidth="500">
-            <Label fx:id="para" styleClass="cell_big_label" wrapText="true" textOverrun="CLIP">
+            <Label fx:id="para" styleClass="cell_big_label" wrapText="true" textOverrun="CLIP" prefWidth="400">
                 <minWidth>
                     <!-- Ensures that the label text is never truncated -->
                     <Region fx:constant="USE_PREF_SIZE" />
