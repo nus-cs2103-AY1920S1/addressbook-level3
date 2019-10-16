@@ -132,19 +132,19 @@ public interface Model {
 
     // CONTACT METHODS
     /**
-     * Returns true if a contacts with the same identity as {@code contacts} exists in the address book.
+     * Returns true if a contacts with the same identity as {@code contacts} exists in the contact list.
      */
     boolean hasContact(Contact contact);
 
     /**
      * Deletes the given contacts.
-     * The contacts must exist in the address book.
+     * The contacts must exist in the contact list.
      */
     void deleteContact(Contact target);
 
     /**
      * Adds the given contacts.
-     * {@code contacts} must not already exist in the address book.
+     * {@code contacts} must not already exist in the contact list.
      */
     void addContact(Contact contact);
 
@@ -152,7 +152,7 @@ public interface Model {
      * Replaces the given contacts {@code target} with {@code editedContact}.
      * {@code target} must exist in the address book.
      * The contacts identity of {@code editedContact} must not be the same as another existing contacts in the
-     * address book.
+     * contact list.
      */
     void setContact(Contact target, Contact editedContact);
 

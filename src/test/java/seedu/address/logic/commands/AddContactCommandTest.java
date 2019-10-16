@@ -28,11 +28,11 @@ import seedu.address.model.day.Day;
 import seedu.address.model.day.Itinerary;
 import seedu.address.testutil.ContactBuilder;
 
-public class AddCommandTest {
+public class AddContactCommandTest {
 
     @Test
-    public void constructor_nullContact_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand((Contact) null));
+    public void constructor_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddContactCommand((Contact) null));
     }
 
     @Test
@@ -40,33 +40,34 @@ public class AddCommandTest {
         ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
         Contact validContact = new ContactBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validContact).execute(modelStub);
+        CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validContact), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
     }
 
     @Test
     public void execute_duplicateContact_throwsCommandException() {
         Contact validContact = new ContactBuilder().build();
-        AddCommand addCommand = new AddCommand(validContact);
+        AddCommand addContactCommand = new AddContactCommand(validContact);
         ModelStub modelStub = new ModelStubWithContact(validContact);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_CONTACT, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddContactCommand.MESSAGE_DUPLICATE_CONTACT, () -> addContactCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Contact alice = new ContactBuilder().withName("Alice").build();
         Contact bob = new ContactBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddContactCommand addAliceCommand = new AddContactCommand(alice);
+        AddContactCommand addBobCommand = new AddContactCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddContactCommand addAliceCommandCopy = new AddContactCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -166,7 +167,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        // CONTACT METHODS
         @Override
         public void addContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
