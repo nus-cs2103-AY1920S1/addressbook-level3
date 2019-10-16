@@ -15,56 +15,62 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.inventory.Inventory;
-import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.MemberBuilder;
+import seedu.address.testutil.InventoryBuilder;
 
-public class AddMemberCommandTest {
+public class AddInventoryCommandTest {
     @Test
-    public void constructor_nullMember_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddMemberCommand(null));
+    public void constructor_nullTask_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddInventoryCommand(null,null));
     }
 
     @Test
-    public void execute_memberAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingMemberAdded modelStub = new ModelStubAcceptingMemberAdded();
-        Member validMember = new MemberBuilder().build();
+    public void execute_inventoryAcceptedByModel_addSuccessful() throws Exception {
+        AddInventoryCommandTest.ModelStubAcceptingInventoryAdded modelStub = new AddInventoryCommandTest.ModelStubAcceptingInventoryAdded();
+        Inventory validInventory = new InventoryBuilder().build();
 
-        CommandResult commandResult = new AddMemberCommand(validMember).execute(modelStub);
+        CommandResult commandResult = new AddInventoryCommand(new Index(1),
+                validInventory.getName(), validInventory.getPrice()).execute(modelStub);
 
-        assertEquals(String.format(AddMemberCommand.MESSAGE_SUCCESS, validMember), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validMember), modelStub.membersAdded);
+        assertEquals(String.format(AddInventoryCommand.MESSAGE_SUCCESS, validInventory), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validInventory), modelStub.inventoriesAdded);
     }
 
     @Test
-    public void execute_duplicateMember_throwsCommandException() {
-        Member validMember = new MemberBuilder().build();
-        AddMemberCommand addMemberCommand = new AddMemberCommand(validMember);
-        ModelStub modelStub = new ModelStubWithMember(validMember);
+    public void execute_duplicateInventory_throwsCommandException() {
+        Inventory validInventory = new InventoryBuilder().build();
+        AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(1),
+                                                            validInventory.getName(), validInventory.getPrice());
+        AddInventoryCommandTest.ModelStub modelStub = new AddInventoryCommandTest
+                                                            .ModelStubWithInventory(validInventory);
 
-        assertThrows(CommandException.class, addMemberCommand.MESSAGE_DUPLICATE_MEMBER, () ->
-                addMemberCommand.execute(modelStub));
+        assertThrows(CommandException.class, addInventoryCommand.MESSAGE_DUPLICATE_INVENTORY, () ->
+                addInventoryCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Member alice = new MemberBuilder().withName("Alice").build();
-        Member bob = new MemberBuilder().withName("Bob").build();
-        AddMemberCommand addAliceCommand = new AddMemberCommand(alice);
-        AddMemberCommand addBobCommand = new AddMemberCommand(bob);
+        Inventory alice = new InventoryBuilder().withName("Alice").build();
+        Inventory bob = new InventoryBuilder().withName("Bob").build();
+        AddInventoryCommand addAliceCommand = new AddInventoryCommand(new Index(1),
+                                                                        alice.getName(), alice.getPrice());
+        AddInventoryCommand addBobCommand = new AddInventoryCommand(new Index(1),
+                                                                        bob.getName(), bob.getPrice());
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddMemberCommand addAliceCommandCopy = new AddMemberCommand(alice);
+        AddInventoryCommand addAliceCommandCopy = new AddInventoryCommand(new Index(1),
+                                                                    alice.getName(), alice.getPrice());
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -142,21 +148,6 @@ public class AddMemberCommandTest {
         }
 
         @Override
-        public ObservableList<Task> getFilteredTaskListNotStarted() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public ObservableList<Task> getFilteredTaskListDoing() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public ObservableList<Task> getFilteredTaskListDone() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
         public ObservableList<Task> getFilteredTasksList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -198,7 +189,7 @@ public class AddMemberCommandTest {
 
         @Override
         public int getTasksLength() {
-            throw new AssertionError("This method should not be called.");
+            return 0;
         }
 
         @Override
@@ -225,77 +216,42 @@ public class AddMemberCommandTest {
         public void deleteInventory(Inventory target) {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public void addMapping(Mapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteMapping(Mapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasMapping(Mapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Mapping> getFilteredMappingsList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredMappingsList(Predicate<Mapping> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void replaceExistingMappingsWithNewMember(Member oldMember, Member newMember) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask) {
-            throw new AssertionError("This method should not be called.");
-        }
     }
-//TILL HERE
+
     /**
      * A Model stub that contains a single task.
      */
-    private class ModelStubWithMember extends ModelStub {
-        private final Member member;
+    private class ModelStubWithInventory extends AddInventoryCommandTest.ModelStub {
+        private final Inventory inventory;
 
-        ModelStubWithMember(Member member) {
-            requireNonNull(member);
-            this.member = member;
+        ModelStubWithInventory(Inventory inventory) {
+            requireNonNull(inventory);
+            this.inventory = inventory;
         }
 
         @Override
-        public boolean hasMember(Member member) {
-            requireNonNull(member);
-            return this.member.isSameMember(member);
+        public boolean hasInventory(Inventory inventory) {
+            requireNonNull(inventory);
+            return this.inventory.isSameInventory(inventory);
         }
     }
 
     /**
-     * A Model stub that always accept the task being added.
+     * A Model stub that always accept the inventory being added.
      */
-    private class ModelStubAcceptingMemberAdded extends ModelStub {
-        final ArrayList<Member> membersAdded = new ArrayList<>();
+    private class ModelStubAcceptingInventoryAdded extends AddInventoryCommandTest.ModelStub {
+        final ArrayList<Inventory> inventoriesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasMember(Member member) {
-            requireNonNull(member);
-            return membersAdded.stream().anyMatch(member::isSameMember);
+        public boolean hasInventory(Inventory inventory) {
+            requireNonNull(inventory);
+            return inventoriesAdded.stream().anyMatch(inventory::isSameInventory);
         }
 
         @Override
-        public void addMember(Member member) {
-            requireNonNull(member);
-            membersAdded.add(member);
+        public void addInventory(Inventory inventory) {
+            requireNonNull(inventory);
+            inventoriesAdded.add(inventory);
         }
 
         @Override

@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
+import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
 import seedu.address.model.mapping.Mapping;
 
@@ -177,7 +178,7 @@ public class ModelManager implements Model {
     @Override
     public void addInventory(Inventory inventory) {
         projectDashboard.addInventory(inventory);
-        updateFilteredTasksList(PREDICATE_SHOW_ALL_INVENTORIES);
+        updateFilteredInventoriesList(PREDICATE_SHOW_ALL_INVENTORIES);
     }
 
     @Override
@@ -231,6 +232,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasMemberId(MemberId memId) {
+        requireNonNull(memId);
+        return projectDashboard.hasMemId(memId);
+    }
+
+    @Override
     public void deleteMember(Member target) {
         projectDashboard.removeMember(target);
     }
@@ -246,6 +253,11 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedMember);
 
         projectDashboard.setMember(target, editedMember);
+    }
+
+    @Override
+    public int getMembersLength() {
+        return filteredMembers.size();
     }
 
     //=========== Filtered Member List Accessors =============================================================

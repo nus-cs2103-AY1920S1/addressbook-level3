@@ -208,7 +208,7 @@ public class AddTaskCommandTest {
         }
 
         @Override
-        public void updateFilteredInventoriesList(Predicate<Inventory> predicate) {
+        public void updateFilteredInventoriesList(Predicate<Task> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

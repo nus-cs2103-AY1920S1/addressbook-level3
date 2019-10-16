@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.UniqueInventoryList;
 import seedu.address.model.member.Member;
+import seedu.address.model.member.MemberId;
 import seedu.address.model.member.UniqueMemberList;
 
 import seedu.address.model.mapping.Mapping;
@@ -272,6 +273,14 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     public boolean hasMember(Member member) {
         requireNonNull(member);
         return members.contains(member);
+    }
+
+    /**
+     * Returns true if a member with the same identity as {@code memberId} exists in the dashboard.
+     */
+    public boolean hasMemId(MemberId memId) {
+        requireNonNull(memId);
+        return members.containsId(memId);
     }
 
     /**
