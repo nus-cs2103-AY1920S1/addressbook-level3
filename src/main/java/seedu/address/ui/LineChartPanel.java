@@ -59,12 +59,17 @@ public class LineChartPanel extends UiPart<Region> {
         xAxis.setLabel("Day");
         yAxis.setLabel("Number");
 
+        // y axis shows only integers
+        yAxis.setTickUnit(1);
+        yAxis.setMinorTickCount(0);
+        yAxis.setMinorTickVisible(false);
+
         //creating the line chart with two axis created above
         lineChart.setTitle("Statistics");
         lineChart.setAnimated(false);
 
         //defining a series to display data
-        series.setName("Bodies admitted");
+        series.setName("Bodies admitted daily");
 
         // add series to chart
         lineChart.getData().add(series);

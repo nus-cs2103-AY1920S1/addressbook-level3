@@ -400,11 +400,13 @@
 
 .chart-title {
   -fx-text-fill: white;
-  -fx-font-size: 1.6em;
+  -fx-font-family: "Segoe UI Semibold";
 }
 
 .axis-label {
   -fx-text-fill: white;
+  -fx-font-family: "Segoe UI Semibold";
+  -fx-font-size: 1em;
 }
 
 .chart-legend {
