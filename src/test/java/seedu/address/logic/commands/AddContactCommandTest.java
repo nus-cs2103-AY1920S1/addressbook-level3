@@ -209,6 +209,10 @@ public class AddContactCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public boolean hasDay(Day day) {
+            throw new AssertionError("This method should not be called");
+        }
+
         public ObservableList<Day> getFilteredDayList() {
             throw new AssertionError("This method should not be called.");
         }

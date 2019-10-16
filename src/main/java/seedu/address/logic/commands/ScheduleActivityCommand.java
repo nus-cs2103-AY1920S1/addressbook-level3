@@ -1,12 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
-import java.sql.Time;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -18,10 +20,10 @@ import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
 import seedu.address.model.day.time.DurationInHalfHour;
 import seedu.address.model.day.time.TimeInHalfHour;
-import seedu.address.model.field.Address;
-import seedu.address.model.field.Name;
-import seedu.address.model.tag.Tag;
 
+/**
+ * Schedules an activity to a day.
+ */
 public class ScheduleActivityCommand extends ScheduleCommand {
 
     public static final String SECOND_COMMAND_WORD = "activity";

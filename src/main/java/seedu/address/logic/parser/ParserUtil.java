@@ -165,6 +165,12 @@ public class ParserUtil {
 <<<<<<< HEAD
 =======
 
+    /**
+     * Parses a {@code String duration} into an {@code Integer}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     */
     public static DurationInHalfHour parseDurationInHalfHour(String duration) throws ParseException {
         requireNonNull(duration);
         String trimmedDuration = duration.trim();

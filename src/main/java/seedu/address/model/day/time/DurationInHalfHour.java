@@ -19,6 +19,11 @@ public class DurationInHalfHour {
         return numberOfHalfHour;
     }
 
+    /**
+     * Checks if the duration is in the correct intervals
+     *
+     * @throws ParseException
+     */
     public static boolean isValidDuration(String test) throws ParseException {
         int duration = Integer.parseInt(test);
         if (test.matches(VALIDATION_REGEX)) {

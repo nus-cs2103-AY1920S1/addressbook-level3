@@ -1,31 +1,22 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ScheduleActivityCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.accommodation.Accommodation;
-import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Phone;
-import seedu.address.model.day.Day;
 import seedu.address.model.day.time.DurationInHalfHour;
 import seedu.address.model.day.time.TimeInHalfHour;
-import seedu.address.model.field.Address;
-import seedu.address.model.field.Name;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new ScheduleCommand object
@@ -50,10 +41,9 @@ public class ScheduleCommandParser {
         final String type = matcher.group("type");
         final String arguments = matcher.group("arguments");
 
-        switch (type) {
-        case ScheduleActivityCommand.SECOND_COMMAND_WORD:
+        if (type.equals(ScheduleActivityCommand.SECOND_COMMAND_WORD)) {
             return parseActivity(arguments);
-        default:
+        } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
     }
@@ -78,7 +68,8 @@ public class ScheduleCommandParser {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ACTIVITY, PREFIX_START_TIME, PREFIX_DURATION, PREFIX_DAY)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleActivityCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ScheduleActivityCommand.MESSAGE_USAGE));
         }
 
         Index activityIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ACTIVITY).get());
