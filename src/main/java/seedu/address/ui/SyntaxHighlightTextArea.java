@@ -107,7 +107,7 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
         };
 
         autoFillAddCompulsoryFieldsListener = (obser, s, t1) -> {
-            if (stringAutofillMap.containsKey(t1.trim())) {
+            if (stringAutofillMap.containsKey(t1.trim()) && stringIntMap.get(t1.trim()) > 0) {
                 replaceText(stringAutofillMap.get(t1.trim()));
             }
         };
@@ -161,8 +161,8 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
     /**
      * Import the css stylesheet containing the different styles for the syntax highlighter.
      */
-    public void importStyleSheet(Scene scene) {
-        scene
+    public void importStyleSheet(Scene parentSceneOfNode) {
+        parentSceneOfNode
                 .getStylesheets()
                 .add(SyntaxHighlightTextArea.class.getResource("/view/syntax-highlighting.css")
                         .toExternalForm());
