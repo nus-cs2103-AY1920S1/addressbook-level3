@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -51,7 +52,8 @@ class JsonAdaptedWish {
     public JsonAdaptedWish(Wish source) {
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().value;
-        time = source.getTime().fullTime;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
+        time = source.getTime().format(formatter);
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

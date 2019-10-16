@@ -17,6 +17,8 @@ import seedu.address.model.person.IncomeList;
 import seedu.address.model.person.UniqueEntryList;
 import seedu.address.model.person.Wish;
 import seedu.address.model.person.WishList;
+import seedu.address.model.person.WishReminder;
+import seedu.address.model.person.WishReminderList;
 
 /**
  * Wraps all data at the address-book level
@@ -30,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final WishList wishes;
     private final ExpenseReminderList expenseReminders;
     private final ExpenseTrackerList expenseTrackers;
+    private final WishReminderList wishReminders;
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -44,9 +47,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         wishes = new WishList();
         expenseReminders = new ExpenseReminderList();
         expenseTrackers = new ExpenseTrackerList();
+        wishReminders = new WishReminderList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -76,6 +81,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.expenseReminders.setEntries(expenseReminders);
     }
 
+    public void setWishReminders(List<WishReminder> wishReminders) {
+        this.wishReminders.setEntries(wishReminders);
+    }
+
     public void setExpenseTrackers(List<ExpenseTracker> trackers) { this.expenseTrackers.setEntries(trackers); }
 
     /**
@@ -89,6 +98,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         setWishes(newData.getWishList());
         setExpenseReminders(newData.getExpenseReminderList());
         setExpenseTrackers(newData.getExpenseTrackerList());
+        setWishReminders(newData.getWishReminderList());
+        mapWishToReminders();
     }
 
     //// person-level operations
@@ -107,6 +118,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasExpenseReminder(ExpenseReminder reminder) {
         requireNonNull(reminder);
         return expenseReminders.contains(reminder);
+    }
+
+    /**
+     * Returns true if a reminder with the same identity as {@code reminder} exists in the address book.
+     */
+    public boolean hasWishReminder(WishReminder reminder) {
+        requireNonNull(reminder);
+        return wishReminders.contains(reminder);
     }
 
     /**
@@ -155,6 +174,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addExpenseReminder(ExpenseReminder expenseReminder) {
         expenseReminders.add(expenseReminder);
         addExpenseTracker(expenseReminder.getTracker());
+    }
+
+    /**
+     * Adds the specified ExpenseTrackerReminder to the app.
+     * @param wishReminder the specified ExpenseTracker to be added.
+     */
+    public void addWishReminder(WishReminder wishReminder) {
+        wishReminders.add(wishReminder);
     }
 
     /**
@@ -218,6 +245,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given ExpenseTracker {@code target} in the list with {@code editedTracker}.
+     * {@code target} must exist in the address book.
+     * The ExpenseTracer identity of {@code editedTracker}
+     * must not be the same as another existing ExpenseTracker in the address book.
+     */
+    public void setWishReminder(WishReminder target, WishReminder editedEntry) {
+        requireNonNull(editedEntry);
+        wishReminders.setWishReminder(target, editedEntry);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
@@ -268,8 +306,27 @@ public class AddressBook implements ReadOnlyAddressBook {
         removeExpenseTracker(key.getTracker());
     }
 
+    public void removeWishReminder(WishReminder key) {
+        wishReminders.remove(key);
+    }
+
     public void updateExpenseReminders() {
         expenseReminders.updateList();
+    }
+
+    /**
+     * When Wishes and WishReminders are read from list, new instances are created.
+     * As such editing a wish after loading a file may result in WishReminder not updating wish accordingly.
+     * This attempts to address that.
+     */
+    private void mapWishToReminders() {
+        for (WishReminder reminder : wishReminders) {
+            for (Wish wish : wishes) {
+                if ((reminder.getWish()).equals(wish)) {
+                    reminder.setWish(wish);
+                }
+            }
+        }
     }
 
     //// util methods
@@ -311,6 +368,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<ExpenseTracker> getExpenseTrackerList() {
         return expenseTrackers.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<WishReminder> getWishReminderList() {
+        return wishReminders.asUnmodifiableObservableList();
     }
 
     @Override

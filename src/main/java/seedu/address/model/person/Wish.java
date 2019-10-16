@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -10,9 +11,16 @@ import seedu.address.model.tag.Tag;
 public class Wish extends Entry {
 
     private static final String ENTRY_TYPE = "Wish";
-    private final Time time;
+    private final LocalDate time;
 
     public Wish(Description desc, Time time, Amount amount, Set<Tag> tags) {
+        super(desc, amount, tags);
+        String[] date = time.toString().split(" ");
+        this.time = LocalDate.of(Integer.parseInt(date[0]), Integer.parseInt(date[1]),
+                Integer.parseInt(date[2]));
+    }
+
+    public Wish(Description desc, LocalDate time, Amount amount, Set<Tag> tags) {
         super(desc, amount, tags);
         this.time = time;
     }
@@ -21,7 +29,7 @@ public class Wish extends Entry {
         return this.ENTRY_TYPE;
     }
 
-    public Time getTime() {
+    public LocalDate getTime() {
         return this.time;
     }
 

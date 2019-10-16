@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +22,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
-import seedu.address.model.person.Time;
 import seedu.address.model.person.Wish;
 import seedu.address.model.tag.Tag;
 
@@ -92,7 +92,7 @@ public class EditWishCommand extends Command {
     private static Wish createEditedWish(Wish wishToEdit, EditWishDescriptor editEntryDescriptor) {
         assert wishToEdit != null;
         Description updatedName = editEntryDescriptor.getDesc().orElse(wishToEdit.getDesc());
-        Time updatedTime = editEntryDescriptor.getTime().orElse(wishToEdit.getTime());
+        LocalDate updatedTime = editEntryDescriptor.getTime().orElse(wishToEdit.getTime());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(wishToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(wishToEdit.getTags());
         return new Wish(updatedName, updatedTime, updatedAmount, updatedTags);
@@ -122,7 +122,7 @@ public class EditWishCommand extends Command {
      */
     public static class EditWishDescriptor {
         private Description desc;
-        private Time time;
+        private LocalDate time;
         private Amount amt;
         private Set<Tag> tags;
 
@@ -154,11 +154,11 @@ public class EditWishCommand extends Command {
             return Optional.ofNullable(desc);
         }
 
-        public void setTime(Time time) {
+        public void setTime(LocalDate time) {
             this.time = time;
         }
 
-        public Optional<Time> getTime() {
+        public Optional<LocalDate> getTime() {
             return Optional.ofNullable(time);
         }
 

@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -68,6 +69,17 @@ public class ParserUtil {
     public static Time parseTime(String time) {
         requireNonNull(time);
         return new Time(time);
+    }
+
+    /**
+     * Parses a time in String to Time.
+     * @param time the time as a String.
+     * @return the specified time as Time.
+     */
+    public static LocalDate parseDate(String time) {
+        requireNonNull(time);
+        String[] date = time.split(" ");
+        return LocalDate.of(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
     }
 
     /**

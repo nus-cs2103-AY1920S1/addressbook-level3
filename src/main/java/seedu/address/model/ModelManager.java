@@ -17,6 +17,7 @@ import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.ExpenseTrackerManager;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
+import seedu.address.model.person.WishReminder;
 
 
 /**
@@ -33,6 +34,7 @@ public class ModelManager implements Model {
     private final FilteredList<Wish> filteredWishes;
     private final FilteredList<ExpenseReminder> filteredExpenseReminders;
     private final ExpenseTrackerManager expenseTrackers;
+    private final FilteredList<WishReminder> filteredWishReminders;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -50,7 +52,10 @@ public class ModelManager implements Model {
         filteredIncomes = new FilteredList<>(this.addressBook.getIncomeList());
         filteredWishes = new FilteredList<>(this.addressBook.getWishList());
         filteredExpenseReminders = new FilteredList<>(this.addressBook.getExpenseReminderList());
+        filteredWishReminders = new FilteredList<>(this.addressBook.getWishReminderList());
         expenseTrackers = new ExpenseTrackerManager(this.addressBook.getExpenseTrackerList());
+        expenseTrackers.track(filteredExpenses);
+        this.addressBook.updateExpenseReminders();
     }
 
     public ModelManager() {
@@ -252,6 +257,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<WishReminder> getFiltereWishReminders() {
+        return filteredWishReminders;
+    }
+
+    @Override
     public void updateFilteredEntryList(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredEntries.setPredicate(predicate);
@@ -279,6 +289,12 @@ public class ModelManager implements Model {
     public void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate) {
         requireNonNull(predicate);
         filteredExpenseReminders.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredWishReminders(Predicate<WishReminder> predicate) {
+        requireNonNull(predicate);
+        filteredWishReminders.setPredicate(predicate);
     }
 
     @Override

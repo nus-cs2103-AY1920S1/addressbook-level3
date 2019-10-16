@@ -10,6 +10,7 @@ import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
+import seedu.address.model.person.WishReminder;
 
 /**
  * The API of the Model component.
@@ -132,6 +133,8 @@ public interface Model {
     ObservableList<Wish> getFilteredWishes();
 
     ObservableList<ExpenseReminder> getFilteredExpenseReminders();
+
+    ObservableList<WishReminder> getFiltereWishReminders();
     /**
      * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -144,5 +147,7 @@ public interface Model {
 
     void updateFilteredWishes(Predicate<Wish> predicate);
 
-    public void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate);
+    void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate);
+
+    void updateFilteredWishReminders(Predicate<WishReminder> predicate);
 }

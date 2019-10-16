@@ -48,7 +48,7 @@ public class EditWishCommandParser implements Parser<EditWishCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
-            editWishDescriptor.setTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get()));
+            editWishDescriptor.setTime(ParserUtil.parseDate(argMultimap.getValue(PREFIX_TIME).get()));
         }
 
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
