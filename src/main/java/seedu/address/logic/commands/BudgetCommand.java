@@ -1,10 +1,11 @@
 package seedu.address.logic.commands;
 
+import java.util.List;
+
 import seedu.address.model.Model;
 import seedu.address.model.budget.Budget;
-//import seedu.address.model.claim.Claim;
-//import seedu.address.model.income.Income;
-//import java.util.List;
+import seedu.address.model.claim.Claim;
+import seedu.address.model.income.Income;
 
 /**
  * Calculates current budget for users.
@@ -17,13 +18,12 @@ public class BudgetCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        //List<Claim> claimList = model.getFilteredClaimList();
-        //List<Income> incomeList = model.getFilteredIncomeList();
+        List<Claim> claimList = model.getFilteredClaimList();
+        List<Income> incomeList = model.getFilteredIncomeList();
 
         String message;
 
-        //Budget budget = new Budget(claimList, incomeList);
-        Budget budget = new Budget(); //placeholder
+        Budget budget = new Budget(claimList, incomeList);
         budget.calculateBudget();
 
         message = "Total income: "
