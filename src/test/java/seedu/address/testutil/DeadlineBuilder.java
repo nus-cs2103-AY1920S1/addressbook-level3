@@ -4,7 +4,6 @@ import seedu.address.model.deadline.Deadline;
 import seedu.address.model.deadline.DueDate;
 import seedu.address.model.deadline.Task;
 
-
 /**
  * A utility class to help with building FlashCard objects.
  */

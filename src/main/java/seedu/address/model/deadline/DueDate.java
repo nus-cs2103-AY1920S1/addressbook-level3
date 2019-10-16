@@ -24,7 +24,7 @@ public class DueDate {
     /**
      * Constructs a {@code Question}.
      *
-     * @param deadline A valid question.
+     * @param deadline A valid DueDate.
      */
     public DueDate(String deadline) {
         this.dateStr = deadline;

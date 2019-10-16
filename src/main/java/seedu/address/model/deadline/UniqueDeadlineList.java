@@ -9,21 +9,16 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import seedu.address.model.deadline.exceptions.DeadlineNotFoundException;
 import seedu.address.model.deadline.exceptions.DuplicateDeadlineException;
 import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
 
 /**
- * A list of flash cards that enforces uniqueness between its elements and does not allow nulls.
- * A flash card is considered unique by comparing using {@code Deadline#equals(Deadline)}.
- * As such, adding and updating of flash cards uses FlashCard#isSameFlashCard(FlashCard) for equality
+ * A list of Deadlines that enforces uniqueness between its elements and does not allow nulls.
+ * A Deadline is considered unique by comparing using {@code Deadline#equals(Deadline)}.
+ * As such, adding and updating of deadlines uses Deadline#equals(Deadline) for equality
  * so as to ensure that the flash card being added or updated
- * is unique in terms of identity in the UniqueFlashCardList.
- * However, the removal of a flashCard uses FlashCard#equals(Object) so
- * as to ensure that the flashCard with exactly the same fields will be removed.
- *
- * Supports a minimal set of list operations.
- *
- * @see Deadline#equals(Deadline)
+ * is unique in terms of identity in the UniqueDeadlineList.
  */
 public class UniqueDeadlineList implements Iterable<Deadline> {
 
@@ -31,9 +26,8 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     private final ObservableList<Deadline> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-
     /**
-     * Returns true if the list contains an equivalent flashCard as the given argument.
+     * Returns true if the list contains an equivalent Deadline as the given argument.
      */
     public boolean contains(Deadline toCheck) {
         requireNonNull(toCheck);
@@ -52,9 +46,10 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     }
 
     /**
-     * Replaces the flashCard {@code target} in the list with {@code editedFlashCard}.
+     * Replaces the deadline {@code target} in the list with {@code editedDeadline}.
      * {@code target} must exist in the list.
-     * The flashCard identity of {@code editedFlashCard} must not be the same as another existing flashCard in the list.
+     * The flashCard identity of {@code editedDeadline} must not be the same as another
+     * existing deadline in the list.
      */
     public void setDeadline(Deadline target, Deadline editedDeadline) {
         requireAllNonNull(target, editedDeadline);
@@ -77,13 +72,13 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     }
 
     /**
-     * Removes the equivalent flashCard from the list.
-     * The flashCard must exist in the list.
+     * Removes the equivalent Deadline from the list.
+     * The Deadline must exist in the list.
      */
     public void remove(Deadline toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new FlashCardNotFoundException();
+            throw new DeadlineNotFoundException();
         }
     }
 

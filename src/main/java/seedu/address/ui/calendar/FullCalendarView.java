@@ -12,13 +12,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-
 /**
  * Create FullCalendarView GUI
  */
 public class FullCalendarView {
 
-    private ArrayList<AnchorPaneNode> allCalendarDays = new ArrayList<>(35);
+    private ArrayList<CalendarPane> allCalendarDays = new ArrayList<>(35);
     private VBox view;
     private Text calendarTitle;
     private YearMonth currentYearMonth;
@@ -37,7 +36,7 @@ public class FullCalendarView {
         // Create rows and columns with anchor panes for the calendar
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 7; j++) {
-                AnchorPaneNode ap = new AnchorPaneNode();
+                CalendarPane ap = new CalendarPane();
                 ap.setPrefSize(200, 200);
                 calendar.add(ap, j, i);
                 allCalendarDays.add(ap);
@@ -83,7 +82,7 @@ public class FullCalendarView {
             calendarDate = calendarDate.minusDays(1);
         }
         // Populate the calendar with day numbers
-        for (AnchorPaneNode ap : allCalendarDays) {
+        for (CalendarPane ap : allCalendarDays) {
             if (ap.getChildren().size() != 0) {
                 ap.getChildren().remove(0);
             }
@@ -118,11 +117,11 @@ public class FullCalendarView {
         return view;
     }
 
-    public ArrayList<AnchorPaneNode> getAllCalendarDays() {
+    public ArrayList<CalendarPane> getAllCalendarDays() {
         return allCalendarDays;
     }
 
-    public void setAllCalendarDays(ArrayList<AnchorPaneNode> allCalendarDays) {
+    public void setAllCalendarDays(ArrayList<CalendarPane> allCalendarDays) {
         this.allCalendarDays = allCalendarDays;
     }
 }

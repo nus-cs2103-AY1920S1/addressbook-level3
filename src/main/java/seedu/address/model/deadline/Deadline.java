@@ -13,7 +13,7 @@ public class Deadline {
 
     public static final String MESSAGE_CONSTRAINTS = "Deadlines are of dd/MM/yyyy Format.";
 
-    // ADDED IN THE FUTURE - for comparison of deadlines for each flashcard
+    // TODO: for comparison of deadlines for each flashcard
     //public static LocalDate today = LocalDate.now();
     //public static String dateStr;
     //public static LocalDate localDate;
