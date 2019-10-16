@@ -52,7 +52,10 @@
                         <Insets bottom="5" left="10" right="10" top="5" />
                       </padding>
                     </StackPane>
-                        <StackPane fx:id="featureBoxPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
+                        <StackPane fx:id="featureBoxPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding></StackPane>
                      </children>
                   </VBox>
                </children>
@@ -62,5 +65,4 @@
       </VBox>
     </Scene>
   </scene>
-  
 </fx:root>
