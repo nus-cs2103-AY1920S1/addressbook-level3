@@ -254,8 +254,6 @@ public class ModelManager implements Model {
         groupList.addGroup(group);
     }
 
-    ;
-
     /**
      * Adds a student to a group.
      * {@code groupId} Must already exist in the list of groups.
@@ -274,8 +272,6 @@ public class ModelManager implements Model {
         return false;
     }
 
-    ;
-
     /**
      * Removes a student from a group.
      */
@@ -286,8 +282,6 @@ public class ModelManager implements Model {
             group.removeStudent(groupIndexNumber);
         }
     }
-
-    ;
 
     /**
      * Returns a students from a group in list view.
@@ -301,8 +295,6 @@ public class ModelManager implements Model {
         }
         return students;
     }
-
-    ;
 
     //region Questions
 
