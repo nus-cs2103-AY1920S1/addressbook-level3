@@ -25,8 +25,8 @@ public class StudyBuddyItemContainsTagPredicate implements Predicate<StudyBuddyI
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof StudyBuddyItemContainsTagPredicate  // instanceof handles nulls
-                && tags.equals(((StudyBuddyItemContainsTagPredicate ) other).tags)); // state check
+                || (other instanceof StudyBuddyItemContainsTagPredicate // instanceof handles nulls
+                && tags.equals(((StudyBuddyItemContainsTagPredicate) other).tags)); // state check
     }
 
 }

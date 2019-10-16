@@ -1,20 +1,24 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.GLOBAL_TAG_FILTER;
+
 import seedu.address.model.Model;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.StudyBuddyItemContainsTagPredicate;
 
 import java.util.ArrayList;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.GLOBAL_TAG_FILTER;
+/**
+ * Globally searches for any StudyBuddyItem that has tags which matches the user input of keywords.
+ */
 
 public class GlobalTagFilterCommand extends Command {
 
     public static final String COMMAND_WORD = GLOBAL_TAG_FILTER;
 
-    public static final String MESSAGE_USAGE = "filters every studyBuddy item by a tag." +
-            "\nexample usage : globaltagfilter cs2100";
+    public static final String MESSAGE_USAGE = "filters every studyBuddy item by a tag."
+            + "\nexample usage : globaltagfilter cs2100";
 
     public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter the whole StudyBuddy by tag(s) : ";
 
@@ -41,7 +45,7 @@ public class GlobalTagFilterCommand extends Command {
             sb.append(sbi.toString());
             sb.append("\n");
         }
-        return new CommandResult( FILTER_TAG_MESSAGE_SUCCESS
+        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS
                 + "\n" + FilterByTagCommand.displayTagKeywords(tagKeywords)
                 + "\n" + sb.toString());
     }

@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
