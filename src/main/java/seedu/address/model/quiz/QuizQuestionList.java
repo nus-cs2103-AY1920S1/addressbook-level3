@@ -7,30 +7,32 @@ import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.question.Answer;
-import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
-import seedu.address.model.question.Subject;
-import seedu.address.model.question.UniqueQuestionList;
 
 /**
  * A list of quiz questions.
  */
 public class QuizQuestionList implements Iterable<Question> {
     private final ObservableList<Question> internalList = FXCollections.observableArrayList();
-    private final UniqueQuestionList questions = new UniqueQuestionList();
+    private final ObservableList<Question> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Sets the question list in quiz with specific {@code subject} and {@code difficulty}.
+     * Sets the question list in quiz as {@code quizQuestionList}.
      */
-    public void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty) {
-        requireAllNonNull(subject, difficulty);
+    public void setQuizQuestionList(ObservableList<Question> quizQuestionList) {
+        internalList.setAll(quizQuestionList);
+    }
 
-        for (int i = 0; i < numOfQuestions; i++) {
-            Question target = questions.get(i);
-            if (target.getSubject().equals(subject) && target.getDifficulty().equals(difficulty)) {
-                internalList.add(target);
-            }
-        }
+    public Question get(int index) {
+        return internalList.get(index);
+    }
+
+    /**
+     * Returns an answer for the question in quiz with specific {@code index}.
+     */
+    public Answer showAnswer(int index) {
+        return get(index).getAnswer();
     }
 
     /**
@@ -39,7 +41,7 @@ public class QuizQuestionList implements Iterable<Question> {
     public boolean checkQuizAnswer(int index, Answer answer) {
         requireAllNonNull(answer);
 
-        return internalList.get(index).getAnswer().equals(answer);
+        return get(index - 1).getAnswer().equals(answer);
     }
 
     /**
@@ -49,8 +51,27 @@ public class QuizQuestionList implements Iterable<Question> {
         internalList.clear();
     }
 
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Question> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
+    }
+
     @Override
     public Iterator<Question> iterator() {
         return internalList.iterator();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof QuizQuestionList // instanceof handles nulls
+                && internalList.equals(((QuizQuestionList) other).internalList));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
     }
 }

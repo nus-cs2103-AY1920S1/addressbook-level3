@@ -24,6 +24,11 @@ public interface ReadOnlyAddressBook {
     ObservableList<Question> getQuestionList();
 
     /**
+     * Returns an unmodifiable view of the quiz question list.
+     */
+    ObservableList<Question> getQuizQuestionList();
+
+    /**
      * Returns an unmodifiable view of the task list.
      */
     List<Task> getTaskList();

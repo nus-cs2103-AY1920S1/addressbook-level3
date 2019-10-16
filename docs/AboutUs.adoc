@@ -30,7 +30,7 @@ Responsibilities: Implementing the report feature
 
 === Shui Yao
 image::shuiyao-sg.png[width="150", align="left"]
-{empty}[https://github.com/shuiyao-sg[github]]
+{empty}[https://github.com/shuiyao-sg[github]] [<<PortfolioShuiYao#, portfolio>>]
 
 Role: Team lead +
 Responsibilities: Implementing the revision feature

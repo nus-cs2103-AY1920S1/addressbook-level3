@@ -98,8 +98,10 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Note> notes = FXCollections.observableArrayList();
-        private final ObservableList<Task> tasks = FXCollections.observableArrayList();
+
         private final ObservableList<Question> questions = FXCollections.observableArrayList();
+        private final ObservableList<Question> quizQuestions = FXCollections.observableArrayList();
+        private final ObservableList<Task> tasks = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Note> notes, Collection<Task> tasks, Collection<Question> questions) {
             this.notes.setAll(notes);
@@ -112,17 +114,22 @@ public class AddressBookTest {
             return notes;
         }
 
+        @Override
+        public ObservableList<Question> getQuestionList() {
+            return questions;
+        }
+
+        @Override
+        public ObservableList<Question> getQuizQuestionList() {
+            return quizQuestions;
+        }
+
         /**
          * Returns an unmodifiable view of the task list.
          */
         @Override
         public List<Task> getTaskList() {
             return tasks;
-        }
-
-        @Override
-        public ObservableList<Question> getQuestionList() {
-            return questions;
         }
     }
 }
