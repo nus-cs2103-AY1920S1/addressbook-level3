@@ -138,7 +138,7 @@ public class ParserUtil {
      *
      * throws ParseException if the given {@code district} is invalid.
      */
-    public static District parseDistrict(String district) throws ParseException {
+    public static District parseLocation(String district) throws ParseException {
         requireNonNull(district);
         String trimmedDistrict = district.trim();
         try {
@@ -209,51 +209,7 @@ public class ParserUtil {
         return tagSet;
     }
 
-    /**
-     * Parses a {@code String callerNumber} into a {@code CallerNumber}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code callerNumber} is invalid.
-     */
-    public static CallerNumber parseCallerNumber(String callerNumber) throws ParseException {
-        requireNonNull(callerNumber);
-        String trimmedCallerNumber = callerNumber.trim();
-        if (!CallerNumber.isValidPhone(trimmedCallerNumber)) {
-            throw new ParseException(CallerNumber.MESSAGE_CONSTRAINTS);
-        }
-        return new CallerNumber(trimmedCallerNumber);
-    }
 
-    /**
-     * Parses a {@code String location} into a {@code District}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code location} is invalid.
-     */
-    public static District parseLocation(String location) throws ParseException {
-        requireNonNull(location);
-        String trimmedLocation = location.trim();
-        Integer trimmedLocationIndex = Integer.parseInt((trimmedLocation));
-        if (!District.isValidDistrict(trimmedLocationIndex)) {
-            throw new ParseException(CallerNumber.MESSAGE_CONSTRAINTS);
-        }
-        return new District(trimmedLocationIndex);
-    }
-
-    /**
-     * Parses a {@code String description} into a {@code Description}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code description} is invalid.
-     */
-    public static Description parseDescription(String description) throws ParseException {
-        requireNonNull(description);
-        String trimmedDescription = description.trim();
-        if (!Description.isValidDescription(trimmedDescription)) {
-            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
-        }
-        return new Description(trimmedDescription);
-    }
 
     /**
      * Parses a {@code String incident id keyword} into an {@code IncidentId}.
