@@ -9,9 +9,9 @@
 
 <VBox spacing="20" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <HBox alignment="BASELINE_CENTER" spacing="30">
-        <Button text="&lt;&lt;" />
+        <Button text="&lt;&lt;" onMouseClicked="#populateCalendarWithPreviousMonth" />
         <Text fill="white" text="Calendar" />
-        <Button text="&gt;&gt;" />
+        <Button text="&gt;&gt;" onMouseClicked="#populateCalendarWithNextMonth" />
     </HBox>
     <GridPane alignment="BASELINE_CENTER" prefWidth="600">
         <StackPane alignment="BASELINE_CENTER" prefHeight="10" prefWidth="200" GridPane.columnIndex="0">

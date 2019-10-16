@@ -34,6 +34,7 @@ public class CalendarWindow extends UiPart<Region> {
     private GridPane dateDisplayGrid;
 
     private List<StackPane> allCalendarDays;
+    private YearMonth currentDisplayedYearMonth;
 
     /**
      * Constructs a calendar window using the calendar's FXML file path.
@@ -48,8 +49,9 @@ public class CalendarWindow extends UiPart<Region> {
     @FXML
     public void initialize() {
         allCalendarDays = new ArrayList<>();
+        currentDisplayedYearMonth = YearMonth.now();
         initializeDateDisplayGrid();
-        populateCalenderWithCurrentMonth();
+        populateCalendarWithSpecifiedMonth(currentDisplayedYearMonth);
     }
 
     /**
@@ -66,11 +68,11 @@ public class CalendarWindow extends UiPart<Region> {
     }
 
     /**
-     * Populates the calendar with information about the current month.
+     * Populates the calendar based on the specified {@code YearMonth}
+     * @param yearMonth The specified {@code YearMonth}
      */
-    private void populateCalenderWithCurrentMonth() {
-        YearMonth currentYearMonth = YearMonth.now();
-        LocalDate calendarDate = LocalDate.of(currentYearMonth.getYear(), currentYearMonth.getMonth(),
+    private void populateCalendarWithSpecifiedMonth(YearMonth yearMonth) {
+        LocalDate calendarDate = LocalDate.of(yearMonth.getYear(), yearMonth.getMonth(),
                 FIRST_DATE_OF_MONTH);
         while (!calendarDate.getDayOfWeek().toString().equals(FIRST_DAY_TO_DISPLAY)) {
             calendarDate = calendarDate.minusDays(1);
@@ -84,6 +86,24 @@ public class CalendarWindow extends UiPart<Region> {
             individualDateStackPane.getChildren().add(dateText);
             calendarDate = calendarDate.plusDays(1);
         }
+    }
+
+    /**
+     * Populates the calendar with information about the next month.
+     */
+    @FXML
+    private void populateCalendarWithNextMonth() {
+        currentDisplayedYearMonth = currentDisplayedYearMonth.plusMonths(1);
+        populateCalendarWithSpecifiedMonth(currentDisplayedYearMonth);
+    }
+
+    /**
+     * Populates the calendar with information about the previous month.
+     */
+    @FXML
+    private void populateCalendarWithPreviousMonth() {
+        currentDisplayedYearMonth = currentDisplayedYearMonth.minusMonths(1);
+        populateCalendarWithSpecifiedMonth(currentDisplayedYearMonth);
     }
 
 }
