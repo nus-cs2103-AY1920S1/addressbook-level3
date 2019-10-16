@@ -1,5 +1,6 @@
 package seedu.jarvis.storage.history;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonExce
 @JsonRootName(value = "historymanager")
 public class JsonSerializableHistoryManager {
 
+    public static final String MESSAGE_ERROR_CONVERTING_HISTORY_MANAGER = "Error converting HistoryManager";
     public static final String MESSAGE_INVALID_COMMAND = "Invalid Command";
 
     private final List<JsonAdaptedCommand> executedCommands = new ArrayList<>();
@@ -46,17 +48,21 @@ public class JsonSerializableHistoryManager {
      * Converts a given {@code HistoryManager} into this class for Jackson use.
      *
      * @param historyManager {@code HistoryManager} to be converted for Jackson-Friendly use.
-     * @throws InvalidCommandToJsonException If there was an error in converting any commands into Jackson-Friendly
+     * @throws IOException If there was an error in converting any commands into Jackson-Friendly
      * objects.
      */
-    public JsonSerializableHistoryManager(HistoryManager historyManager) throws InvalidCommandToJsonException {
+    public JsonSerializableHistoryManager(HistoryManager historyManager) throws IOException {
         List<Command> executedCommands = historyManager.getExecutedCommands().getCommands();
         List<Command> inverselyExecutedCommands = historyManager.getInverselyExecutedCommands().getCommands();
-        for (Command command : executedCommands) {
-            this.executedCommands.add(convertToJsonAdaptedCommand(command));
-        }
-        for (Command command : inverselyExecutedCommands) {
-            this.inverselyExecutedCommands.add(convertToJsonAdaptedCommand(command));
+        try {
+            for (Command command : executedCommands) {
+                this.executedCommands.add(convertToJsonAdaptedCommand(command));
+            }
+            for (Command command : inverselyExecutedCommands) {
+                this.inverselyExecutedCommands.add(convertToJsonAdaptedCommand(command));
+            }
+        } catch (InvalidCommandToJsonException e) {
+            throw new IOException(MESSAGE_ERROR_CONVERTING_HISTORY_MANAGER);
         }
     }
 
