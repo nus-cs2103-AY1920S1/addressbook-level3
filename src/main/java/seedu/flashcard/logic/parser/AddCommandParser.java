@@ -1,6 +1,7 @@
 package seedu.flashcard.logic.parser;
 
 import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
@@ -11,6 +12,7 @@ import java.util.stream.Stream;
 
 import seedu.flashcard.logic.commands.AddCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
+import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.Flashcard;
@@ -41,8 +43,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Choice> choices = ParserUtil.parseChoices(argMultimap.getAllValues(PREFIX_CHOICE));
         Definition definition = ParserUtil.parseDefinition(argMultimap.getValue(PREFIX_DEFINITION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Answer answer = ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
 
-        Flashcard flashcard = new Flashcard(word, choices, definition, tagList);
+        Flashcard flashcard = new Flashcard(word, choices, definition, tagList, answer);
 
         return new AddCommand(flashcard);
     }

@@ -91,7 +91,8 @@ public class EditCommand extends Command {
         Set<Choice> updatedChoices = editFlashcardDescriptor.getChoices().orElse(flashcardToEdit.getChoices());
         Definition updatedDefinition = editFlashcardDescriptor.getDefinition().orElse(flashcardToEdit.getDefinition());
         Set<Tag> updatedTags = editFlashcardDescriptor.getTags().orElse(flashcardToEdit.getTags());
-        return new Flashcard(updatedWord, updatedChoices, updatedDefinition, updatedTags);
+        Answer updatedAnswer = editFlashcardDescriptor.getAnswer().orElse(flashcardToEdit.getAnswer());
+        return new Flashcard(updatedWord, updatedChoices, updatedDefinition, updatedTags, updatedAnswer);
     }
 
     @Override
@@ -139,7 +140,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(word, definition, tags);
+            return CollectionUtil.isAnyNonNull(word, definition, tags, choices, answer);
         }
 
         public void setWord(Word word) {

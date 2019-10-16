@@ -18,11 +18,4 @@ public class Answer extends Choice {
     public static boolean isValidAnswer(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this
-            || (other instanceof Answer
-            && choice.equals(((Answer) other).choice));
-    }
 }

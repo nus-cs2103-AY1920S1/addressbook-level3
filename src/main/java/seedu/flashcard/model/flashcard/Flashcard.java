@@ -22,13 +22,15 @@ public class Flashcard {
     private final Definition definition;
     private final Set<Choice> choices = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
+    private final Answer answer;
 
-    public Flashcard(Word word, Set<Choice> choices, Definition definitions, Set<Tag> tags) {
+    public Flashcard(Word word, Set<Choice> choices, Definition definitions, Set<Tag> tags, Answer answer) {
         requireAllNonNull(word, definitions, tags);
         this.word = word;
         this.choices.addAll(choices);
         this.definition = definitions;
         this.tags.addAll(tags);
+        this.answer = answer;
     }
 
     public Word getWord() {
@@ -36,11 +38,19 @@ public class Flashcard {
     }
 
     /**
-     * Returns an immutable definition set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable definition, which throws {@code UnsupportedOperationException}
      * if modification is attempted
      */
     public Definition getDefinition() {
         return definition;
+    }
+
+    /**
+     * Returns an immutable answer, which throws {@code UnsupportedOperationException}
+     * if modification attempted
+     */
+    public Answer getAnswer() {
+        return answer;
     }
 
     /**
