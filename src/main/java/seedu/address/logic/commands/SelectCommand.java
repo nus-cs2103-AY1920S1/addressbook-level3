@@ -43,7 +43,8 @@ public class SelectCommand extends Command {
 
         selectedPerson = lastShownList.get(targetIndex.getZeroBased());
         model.storePerson(selectedPerson);
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, selectedPerson));
+        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, selectedPerson),
+                selectedPerson);
     }
 
     @Override

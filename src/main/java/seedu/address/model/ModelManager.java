@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
@@ -12,9 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
 
@@ -28,7 +24,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final Attendance attendance;
     private final FilteredList<Person> filteredPersons;
-    private final Person selectedPerson;
+    private Person selectedPerson;
 
 
     /**
