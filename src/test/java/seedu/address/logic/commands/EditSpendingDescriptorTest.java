@@ -47,8 +47,8 @@ public class EditSpendingDescriptorTest {
         editedAmy = new EditSpendingDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different address -> returns false
-        editedAmy = new EditSpendingDescriptorBuilder(DESC_AMY).withAddress(VALID_COST_BOB).build();
+        // different cost -> returns false
+        editedAmy = new EditSpendingDescriptorBuilder(DESC_AMY).withCost(VALID_COST_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false

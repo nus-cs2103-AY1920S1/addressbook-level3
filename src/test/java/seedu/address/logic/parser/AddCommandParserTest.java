@@ -55,7 +55,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + DATE_DESC_BOB + EMAIL_DESC_BOB
                 + COST_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedSpending));
 
-        // multiple phones - last phone accepted
+        // multiple dates - last date accepted
         assertParseSuccess(parser, NAME_DESC_BOB + DATE_DESC_AMY + DATE_DESC_BOB + EMAIL_DESC_BOB
                 + COST_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedSpending));
 
@@ -63,7 +63,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BOB + DATE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
                 + COST_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedSpending));
 
-        // multiple addresses - last address accepted
+        // multiple cost - last cost accepted
         assertParseSuccess(parser, NAME_DESC_BOB + DATE_DESC_BOB + EMAIL_DESC_BOB + COST_DESC_AMY
                 + COST_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedSpending));
 
@@ -90,7 +90,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, VALID_NAME_BOB + DATE_DESC_BOB + EMAIL_DESC_BOB + COST_DESC_BOB,
                 expectedMessage);
 
-        // missing phone prefix
+        // missing date prefix
         assertParseFailure(parser, NAME_DESC_BOB + VALID_DATE_BOB + EMAIL_DESC_BOB + COST_DESC_BOB,
                 expectedMessage);
 
@@ -98,7 +98,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + DATE_DESC_BOB + VALID_EMAIL_BOB + COST_DESC_BOB,
                 expectedMessage);
 
-        // missing address prefix
+        // missing cost prefix
         assertParseFailure(parser, NAME_DESC_BOB + DATE_DESC_BOB + EMAIL_DESC_BOB + VALID_COST_BOB,
                 expectedMessage);
 
@@ -113,7 +113,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_NAME_DESC + DATE_DESC_BOB + EMAIL_DESC_BOB + COST_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
 
-        // invalid phone
+        // invalid date
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_DATE_DESC + EMAIL_DESC_BOB + COST_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Date.MESSAGE_CONSTRAINTS);
 
@@ -121,7 +121,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + DATE_DESC_BOB + INVALID_EMAIL_DESC + COST_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
 
-        // invalid address
+        // invalid cost
         assertParseFailure(parser, NAME_DESC_BOB + DATE_DESC_BOB + EMAIL_DESC_BOB + INVALID_COST_DESC
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Cost.MESSAGE_CONSTRAINTS);
 

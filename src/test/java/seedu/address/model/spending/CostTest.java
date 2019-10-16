@@ -21,14 +21,14 @@ public class CostTest {
 
     @Test
     public void isValidCost() {
-        // null address
+        // null cost
         assertThrows(NullPointerException.class, () -> Cost.isValidCost(null));
 
-        // invalid addresses
+        // invalid cost
         assertFalse(Cost.isValidCost("")); // empty string
         assertFalse(Cost.isValidCost(" ")); // spaces only
 
-        // valid addresses
+        // valid cost
         assertTrue(Cost.isValidCost("100"));
         //assertTrue(Cost.isValidCost("-")); // one character
         //assertTrue(Cost.isValidCost("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
