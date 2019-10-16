@@ -15,8 +15,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
-import seedu.address.model.person.Wish;
+import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
+import seedu.address.model.person.Wish;
 import seedu.address.model.util.EntryComparator;
 
 /**
@@ -25,6 +26,7 @@ import seedu.address.model.util.EntryComparator;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private final SortType sortByDescription = new SortType("description");
+    private final SortSequence sortByAsc = new SortSequence("ascending");
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Entry> filteredEntries;
@@ -48,7 +50,7 @@ public class ModelManager implements Model {
         filteredIncomes = new FilteredList<>(this.addressBook.getIncomeList());
         filteredWishes = new FilteredList<>(this.addressBook.getWishList());
         sortedEntryList = new SortedList<>(this.addressBook.getEntryList());
-        sortedEntryList.setComparator(new EntryComparator(sortByDescription));
+        sortedEntryList.setComparator(new EntryComparator(sortByDescription, sortByAsc));
         filteredEntries = new FilteredList<>(sortedEntryList);
     }
 
@@ -149,28 +151,28 @@ public class ModelManager implements Model {
         } else if (entry instanceof Wish) {
             addressBook.addWish((Wish) entry);
         }
-        sortFilteredEntry(sortByDescription);
+        sortFilteredEntry(sortByDescription, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
     public void addExpense(Expense expense) {
         addressBook.addExpense(expense);
-        sortFilteredEntry(sortByDescription);
+        sortFilteredEntry(sortByDescription, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
     public void addIncome(Income income) {
         addressBook.addIncome(income);
-        sortFilteredEntry(sortByDescription);
+        sortFilteredEntry(sortByDescription, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
     public void addWish(Wish wish) {
         addressBook.addWish(wish);
-        sortFilteredEntry(sortByDescription);
+        sortFilteredEntry(sortByDescription, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
@@ -220,8 +222,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortFilteredEntry(SortType c) {
-        sortedEntryList.setComparator(new EntryComparator(c));
+    public void sortFilteredEntry(SortType c, SortSequence sequence) {
+        sortedEntryList.setComparator(new EntryComparator(c, sequence));
     }
 
     @Override

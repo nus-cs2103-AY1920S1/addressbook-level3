@@ -25,8 +25,6 @@ class JsonAdaptedEntry {
 
     private final String desc;
     private final String time;
-//    private final String email;
-//    private final String address;
     private final double amt;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -40,8 +38,6 @@ class JsonAdaptedEntry {
         this.desc = desc;
         this.amt = amt;
         this.time = time;
-//        this.email = email;
-//        this.address = address;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -52,8 +48,6 @@ class JsonAdaptedEntry {
      */
     public JsonAdaptedEntry(Entry source) {
         desc = source.getDesc().fullDesc;
-//        phone = source.getPhone().value;
-//        email = source.getEmail().value;
         time = source.getTime().fullTime;
         amt = source.getAmount().value;
         tagged.addAll(source.getTags().stream()

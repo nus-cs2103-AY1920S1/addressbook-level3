@@ -8,8 +8,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.Income;
 
 /**
  * An UI component that displays information of a {@code Person}.

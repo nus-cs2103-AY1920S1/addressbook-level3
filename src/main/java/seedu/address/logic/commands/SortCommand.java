@@ -3,15 +3,14 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEQUENCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
-import java.util.stream.Stream;
-
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
+import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 
+/**
+ * Sorts the list according to sortType and sortSequence
+ */
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
@@ -26,9 +25,9 @@ public class SortCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Sorted all entries by %s";
 
     private final SortType type;
-    private final String sequence;
+    private final SortSequence sequence;
 
-    public SortCommand(SortType type, String sequence) {
+    public SortCommand(SortType type, SortSequence sequence) {
         this.type = type;
         this.sequence = sequence;
     }
@@ -36,7 +35,7 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.sortFilteredEntry(type);
+        model.sortFilteredEntry(type, sequence);
         return new CommandResult(String.format(MESSAGE_SUCCESS, type));
     }
 

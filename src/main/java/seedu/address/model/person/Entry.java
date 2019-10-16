@@ -31,7 +31,6 @@ public class Entry {
         this.desc = desc;
         this.amt = amount;
         this.time = time;
-//        this.email = email;
         this.tags.addAll(tags);
     }
 

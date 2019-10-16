@@ -59,11 +59,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.entries.setEntries(entries);
     }
 
-    public void setExpenses(List<Expense> expenses) { this.expenses.setEntries(expenses); }
+    public void setExpenses(List<Expense> expenses) {
+        this.expenses.setEntries(expenses);
+    }
 
-    public void setIncomes(List<Income> incomes) { this.incomes.setEntries(incomes); }
+    public void setIncomes(List<Income> incomes) {
+        this.incomes.setEntries(incomes);
+    }
 
-    public void setWishes(List<Wish> wishes) { this.wishes.setEntries(wishes); }
+    public void setWishes(List<Wish> wishes) {
+        this.wishes.setEntries(wishes);
+    }
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
