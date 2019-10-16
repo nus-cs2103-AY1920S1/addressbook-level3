@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyBorrowerRecords;
+import seedu.address.model.ReadOnlyLoanRecords;
 
 /**
  * A class to access BorrowerRecords data stored as a json file on the hard disk.
@@ -32,17 +33,19 @@ public class JsonBorrowerRecordsStorage implements BorrowerRecordsStorage {
     }
 
     @Override
-    public Optional<ReadOnlyBorrowerRecords> readBorrowerRecords() throws DataConversionException {
-        return readBorrowerRecords(filePath);
+    public Optional<ReadOnlyBorrowerRecords> readBorrowerRecords(ReadOnlyLoanRecords initialLoanRecords)
+            throws DataConversionException {
+        return readBorrowerRecords(filePath, initialLoanRecords);
     }
 
     /**
-     * Similar to {@link #readBorrowerRecords()}.
+     * Similar to {@link #readBorrowerRecords(ReadOnlyLoanRecords)}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyBorrowerRecords> readBorrowerRecords(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyBorrowerRecords> readBorrowerRecords(Path filePath, ReadOnlyLoanRecords initialLoanRecords)
+            throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableBorrowerRecords> jsonBorrowerRecords = JsonUtil.readJsonFile(
@@ -52,7 +55,7 @@ public class JsonBorrowerRecordsStorage implements BorrowerRecordsStorage {
         }
 
         try {
-            return Optional.of(jsonBorrowerRecords.get().toModelType());
+            return Optional.of(jsonBorrowerRecords.get().toModelType(initialLoanRecords));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

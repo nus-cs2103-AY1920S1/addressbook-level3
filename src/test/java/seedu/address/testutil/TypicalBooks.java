@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalLoans.LOAN_1;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +26,9 @@ public class TypicalBooks {
             .withSerialNumber("B00005").withAuthor("Jin Yong").withGenres("Fiction", "Action").build();
     public static final Book BOOK_6 = new BookBuilder().withTitle("My Book")
             .withSerialNumber("B00006").withAuthor("Jin Yong").withGenres("Fiction", "Action").build();
+    public static final Book BOOK_7 = new BookBuilder().withTitle("The Hunger Games")
+            .withSerialNumber("B00007").withAuthor("Suzanne Collins")
+            .withGenres("Fiction", "Action").withLoan(LOAN_1).build();
 
     private TypicalBooks() {} // prevents instantiation
 

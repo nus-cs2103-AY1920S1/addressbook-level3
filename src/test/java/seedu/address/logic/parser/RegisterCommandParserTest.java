@@ -12,7 +12,9 @@ import static seedu.address.testutil.TypicalBorrowers.AMY;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.RegisterCommand;
+import seedu.address.model.BorrowerRecords;
 import seedu.address.model.borrower.Borrower;
+import seedu.address.model.borrower.BorrowerIdGenerator;
 import seedu.address.testutil.BorrowerBuilder;
 
 public class RegisterCommandParserTest {
@@ -20,6 +22,7 @@ public class RegisterCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
+        BorrowerIdGenerator.setBorrowers(new BorrowerRecords());
         Borrower expectedBorrower = new BorrowerBuilder(AMY).build();
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY, new RegisterCommand(expectedBorrower));

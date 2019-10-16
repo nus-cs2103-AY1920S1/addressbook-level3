@@ -52,6 +52,7 @@ public class CommandTestUtil {
     public static final String VALID_SERIAL_NUMBER_BOOK_1 = "B00001";
     public static final String VALID_SERIAL_NUMBER_BOOK_2 = "B00002";
     public static final String VALID_SERIAL_NUMBER_BOOK_3 = "B00005";
+    public static final String VALID_SERIAL_NUMBER_BOOK_4 = "B00007";
     public static final String VALID_AUTHOR_BOOK_1 = "J K Rowling";
     public static final String VALID_AUTHOR_BOOK_2 = "Jin Yong";
     public static final String VALID_GENRE_ACTION = "Action";
@@ -69,6 +70,8 @@ public class CommandTestUtil {
 
     public static final String INVALID_SERIAL_NUMBER_DESC = " " + PREFIX_SERIAL_NUMBER + "9a"; // 'a' not allowed
     public static final String INVALID_GENRE_DESC = " " + PREFIX_GENRE + "hubby*"; // '*' not allowed in tags
+
+    public static final String VALID_LOAN_ID = "L000001";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

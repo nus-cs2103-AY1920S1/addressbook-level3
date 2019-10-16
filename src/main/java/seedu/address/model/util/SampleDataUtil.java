@@ -59,7 +59,7 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
-    // TODO ZY
+    // Technically not needed
     public static ReadOnlyLoanRecords getSampleLoanRecords() {
         LoanRecords loanRecords = new LoanRecords();
         return loanRecords;

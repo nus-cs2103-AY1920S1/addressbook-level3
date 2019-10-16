@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
+import static seedu.address.testutil.TypicalLoans.getTypicalLoanRecords;
 
 import java.nio.file.Path;
 
@@ -14,8 +15,10 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
+import seedu.address.model.LoanRecords;
 import seedu.address.model.ReadOnlyBorrowerRecords;
 import seedu.address.model.ReadOnlyCatalog;
+import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.borrowerrecords.JsonBorrowerRecordsStorage;
 import seedu.address.storage.catalog.JsonCatalogStorage;
@@ -67,25 +70,22 @@ public class StorageManagerTest {
          */
         Catalog original = getTypicalCatalog();
         storageManager.saveCatalog(original);
-        ReadOnlyCatalog retrieved = storageManager.readCatalog().get();
+        ReadOnlyCatalog retrieved = storageManager.readCatalog(new LoanRecords()).get();
         assertEquals(original, new Catalog(retrieved));
     }
 
-    /*
     @Test
-    public void loanRecordsReadSave() throws Exception {*/
-    /*
+    public void loanRecordsReadSave() throws Exception {
+        /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonLoanRecordsStorage} class.
          * More extensive testing of LoanRecords saving/reading is done in {@link JsonLoanRecordsStorageTest} class.
          */
-    /*
         LoanRecords original = getTypicalLoanRecords();
         storageManager.saveLoanRecords(original);
         ReadOnlyLoanRecords retrieved = storageManager.readLoanRecords().get();
         assertEquals(original, new LoanRecords(retrieved));
     }
-         */
 
     @Test
     public void borrowerRecordsReadSave() throws Exception {
@@ -97,7 +97,7 @@ public class StorageManagerTest {
          */
         BorrowerRecords original = getTypicalBorrowerRecords();
         storageManager.saveBorrowerRecords(original);
-        ReadOnlyBorrowerRecords retrieved = storageManager.readBorrowerRecords().get();
+        ReadOnlyBorrowerRecords retrieved = storageManager.readBorrowerRecords(new LoanRecords()).get();
         assertEquals(original, new BorrowerRecords(retrieved));
     }
 
