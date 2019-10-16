@@ -53,7 +53,7 @@ public class AddEventCommandParser implements Parser<AddCommand> {
         itemBuilder.setTags(tagList);
 
         if (priority.isPresent()) {
-            event = event.changePriority(priority.get());
+            itemBuilder.setItemPriority(priority.get());
         }
         itemBuilder.setEvent(event);
 

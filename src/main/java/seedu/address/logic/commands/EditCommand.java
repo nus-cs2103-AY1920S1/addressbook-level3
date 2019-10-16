@@ -124,23 +124,10 @@ public class EditCommand extends UndoableCommand {
                         .orElse(null)));
         Set<Tag> updatedTags = editItemDescriptor.getTags().orElse(itemToEdit.getTags());
 
-        if (lastShownList instanceof TaskList) {
-            // Change the Priority of this Task. If no priority is given, use the priority of the old item.
-            updatedTask = Optional.of(updatedTask.get()
-                    .changePriority(editItemDescriptor
-                            .getPriority()
-                            .orElse(itemToEdit.getTask().get().getPriority())));
-        } else if (lastShownList instanceof EventList) {
-            // Change the Priority of this Event. If no priority is given, use the priority of the old item.
-            updatedEvent = Optional.of(updatedEvent.get()
-                    .changePriority(editItemDescriptor
-                            .getPriority()
-                            .orElse(itemToEdit.getEvent().get().getPriority())));
-        }
-
         ItemBuilder itemBuilder = new ItemBuilder();
         itemBuilder.setItemDescription(updatedDescription);
         itemBuilder.setTags(updatedTags);
+        itemBuilder.setItemPriority(editItemDescriptor.getPriority().orElse(Priority.MEDIUM));
 
         if (updatedTask.isPresent()) {
             itemBuilder.setTask(updatedTask.get());
