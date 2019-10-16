@@ -95,8 +95,8 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setStagedAddressBook(ReadOnlyAddressBook stagedAddressBook) {
-        this.stagedAddressBook.resetData(stagedAddressBook);
+    public void setStagedAddressBook(ReadOnlyAddressBook addressBook) {
+        this.stagedAddressBook.resetData(addressBook);
         refreshStagedPersons();
     }
 

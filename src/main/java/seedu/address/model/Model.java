@@ -49,9 +49,9 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setStagedAddressBook(ReadOnlyAddressBook stagedAddressBook);
+    void setStagedAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /** Returns the current AddressBook */
     ReadOnlyAddressBook getStagedAddressBook();
 
     /**
