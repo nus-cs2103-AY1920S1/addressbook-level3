@@ -1,5 +1,7 @@
 package seedu.ichifund.model.date;
 
+import java.time.LocalDate;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 
@@ -29,6 +31,10 @@ public class Year {
      */
     public static boolean isValidYear(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public static Year getCurrent() {
+        return new Year(Integer.toString(LocalDate.now().getYear()));
     }
 
     /**

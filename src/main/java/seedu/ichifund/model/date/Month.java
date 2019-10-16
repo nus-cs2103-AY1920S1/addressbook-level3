@@ -1,5 +1,7 @@
 package seedu.ichifund.model.date;
 
+import java.time.LocalDate;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 
@@ -31,6 +33,10 @@ public class Month {
      */
     public static boolean isValidMonth(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public static Month getCurrent() {
+        return new Month(Integer.toString(LocalDate.now().getMonth().getValue()));
     }
 
     /**
