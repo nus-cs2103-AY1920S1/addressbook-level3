@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import tagline.model.contact.exceptions.ContactNotFoundException;
 import tagline.model.contact.exceptions.DuplicateContactException;
-import tagline.testutil.ContactBuilder;
 
 public class UniqueContactListTest {
 

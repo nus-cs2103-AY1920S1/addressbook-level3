@@ -1,6 +1,6 @@
 package tagline.testutil;
 
-import tagline.model.AddressBook;
+import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
 
 /**

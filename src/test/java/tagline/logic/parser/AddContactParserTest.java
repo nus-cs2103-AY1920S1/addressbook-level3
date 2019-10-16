@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import tagline.logic.commands.contact.CreateContactCommand;
 import tagline.logic.parser.contact.AddContactParser;
 import tagline.model.contact.Contact;
-import tagline.testutil.ContactBuilder;
+import tagline.model.contact.ContactBuilder;
 
 public class AddContactParserTest {
     private AddContactParser parser = new AddContactParser();

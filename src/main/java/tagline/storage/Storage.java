@@ -5,9 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import tagline.commons.exceptions.DataConversionException;
-import tagline.model.ReadOnlyAddressBook;
 import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.UserPrefs;
+import tagline.model.contact.ReadOnlyAddressBook;
 
 /**
  * API of the Storage component

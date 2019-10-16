@@ -38,6 +38,8 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label contactId;
+    @FXML
     private FlowPane tags;
 
     public ContactCard(Contact contact, int displayedIndex) {
@@ -48,6 +50,7 @@ public class ContactCard extends UiPart<Region> {
         phone.setText(contact.getPhone().value);
         address.setText(contact.getAddress().value);
         email.setText(contact.getEmail().value);
+        contactId.setText("id: " + contact.getContactId().toString());
     }
 
     @Override

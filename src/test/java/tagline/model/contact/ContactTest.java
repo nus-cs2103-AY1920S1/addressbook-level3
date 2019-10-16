@@ -11,8 +11,6 @@ import static tagline.testutil.TypicalContacts.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import tagline.testutil.ContactBuilder;
-
 public class ContactTest {
 
     @Test

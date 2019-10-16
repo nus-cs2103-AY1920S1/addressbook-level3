@@ -20,12 +20,12 @@ import tagline.commons.core.index.Index;
 import tagline.logic.commands.contact.ClearContactCommand;
 import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.contact.EditContactCommand.EditContactDescriptor;
-import tagline.model.AddressBook;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
+import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
-import tagline.testutil.ContactBuilder;
+import tagline.model.contact.ContactBuilder;
 import tagline.testutil.EditContactDescriptorBuilder;
 
 /**

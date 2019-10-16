@@ -22,8 +22,8 @@ import tagline.logic.commands.contact.ListContactCommand;
 import tagline.logic.parser.contact.ContactCommandParser;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactBuilder;
 import tagline.model.contact.NameContainsKeywordsPredicate;
-import tagline.testutil.ContactBuilder;
 import tagline.testutil.ContactUtil;
 import tagline.testutil.EditContactDescriptorBuilder;
 

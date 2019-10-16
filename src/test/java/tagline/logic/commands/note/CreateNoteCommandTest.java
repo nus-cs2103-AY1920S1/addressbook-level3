@@ -9,6 +9,7 @@ import static tagline.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -18,9 +19,9 @@ import tagline.commons.core.GuiSettings;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
-import tagline.model.ReadOnlyAddressBook;
 import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.note.Note;
 import tagline.model.note.NoteModel;
 import tagline.model.note.ReadOnlyNoteBook;
@@ -254,6 +255,11 @@ class CreateNoteCommandTest {
 
         @Override
         public void setContact(Contact target, Contact editedContact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Contact> findContact(int id) {
             throw new AssertionError("This method should not be called.");
         }
 

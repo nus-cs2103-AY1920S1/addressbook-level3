@@ -3,7 +3,7 @@ package tagline.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tagline.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
 import static tagline.testutil.Assert.assertThrows;
 import static tagline.testutil.TypicalContacts.ALICE;
 import static tagline.testutil.TypicalContacts.BENSON;
@@ -15,6 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import tagline.commons.core.GuiSettings;
+import tagline.model.contact.AddressBook;
 import tagline.model.contact.NameContainsKeywordsPredicate;
 import tagline.testutil.AddressBookBuilder;
 

@@ -6,7 +6,7 @@ import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_DESCRIPTION;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_EMAIL;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_PHONE;
-import static tagline.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
 
 import java.util.List;
 import java.util.Optional;
@@ -53,7 +53,7 @@ public class EditContactCommand extends ContactCommand {
     private final EditContactDescriptor editContactDescriptor;
 
     /**
-     * @param index                of the contact in the filtered contact list to edit
+     * @param index                 of the contact in the filtered contact list to edit
      * @param editContactDescriptor details to edit the contact with
      */
     public EditContactCommand(Index index, EditContactDescriptor editContactDescriptor) {

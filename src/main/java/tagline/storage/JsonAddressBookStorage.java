@@ -12,7 +12,7 @@ import tagline.commons.exceptions.DataConversionException;
 import tagline.commons.exceptions.IllegalValueException;
 import tagline.commons.util.FileUtil;
 import tagline.commons.util.JsonUtil;
-import tagline.model.ReadOnlyAddressBook;
+import tagline.model.contact.ReadOnlyAddressBook;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.

@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 
 import tagline.commons.core.LogsCenter;
 import tagline.commons.exceptions.DataConversionException;
-import tagline.model.ReadOnlyAddressBook;
 import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.UserPrefs;
+import tagline.model.contact.ReadOnlyAddressBook;
 
 /**
  * Manages storage of AddressBook data in local storage.

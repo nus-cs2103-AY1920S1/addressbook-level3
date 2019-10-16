@@ -10,8 +10,8 @@ import tagline.commons.core.GuiSettings;
 import tagline.logic.Logic;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
-import tagline.model.ReadOnlyAddressBook;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ReadOnlyAddressBook;
 
 /**
  * A stub class for Logic which returns a fixed {@code CommandResult} which is settable.
@@ -27,6 +27,7 @@ public class LogicStub implements Logic {
 
     /**
      * Sets the command result returned by {@code execute()}.
+     *
      * @param commandResult The CommandResult to return
      */
     public void setCommandResult(CommandResult commandResult) {

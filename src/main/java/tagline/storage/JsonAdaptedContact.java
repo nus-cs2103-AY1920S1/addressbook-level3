@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import tagline.commons.exceptions.IllegalValueException;
 import tagline.model.contact.Address;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactId;
 import tagline.model.contact.Description;
 import tagline.model.contact.Email;
 import tagline.model.contact.Name;
@@ -23,20 +24,22 @@ class JsonAdaptedContact {
     private final String email;
     private final String address;
     private final String description;
+    private final String id;
 
     /**
      * Constructs a {@code JsonAdaptedContact} with the given contact details.
      */
     @JsonCreator
     public JsonAdaptedContact(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("address") String address,
-                             @JsonProperty("desciption") String description) {
+                              @JsonProperty("email") String email, @JsonProperty("address") String address,
+                              @JsonProperty("description") String description, @JsonProperty("id") String id) {
 
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.description = description;
+        this.id = id;
     }
 
     /**
@@ -48,6 +51,7 @@ class JsonAdaptedContact {
         email = source.getEmail().value;
         address = source.getAddress().value;
         description = source.getDescription().value;
+        id = source.getContactId().toString();
     }
 
     /**
@@ -97,7 +101,15 @@ class JsonAdaptedContact {
         }
         final Description modelDescription = new Description(description);
 
-        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelDescription);
-    }
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ContactId.class.getSimpleName()));
+        }
+        if (!ContactId.isValidId(id)) {
+            throw new IllegalValueException(ContactId.MESSAGE_CONSTRAINTS);
+        }
+        final ContactId modelContactId = new ContactId(id);
 
+        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelDescription, modelContactId);
+    }
 }

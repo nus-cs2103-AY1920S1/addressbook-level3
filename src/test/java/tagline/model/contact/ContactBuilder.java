@@ -1,11 +1,4 @@
-package tagline.testutil;
-
-import tagline.model.contact.Address;
-import tagline.model.contact.Contact;
-import tagline.model.contact.Description;
-import tagline.model.contact.Email;
-import tagline.model.contact.Name;
-import tagline.model.contact.Phone;
+package tagline.model.contact;
 
 /**
  * A utility class to help with building Contact objects.
@@ -17,12 +10,14 @@ public class ContactBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_DESCRIPTION = "";
+    public static final int DEFAULT_ID = 0;
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private Description description;
+    private ContactId contactId;
 
     public ContactBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -30,6 +25,7 @@ public class ContactBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         description = new Description(DEFAULT_DESCRIPTION);
+        contactId = new ContactId(DEFAULT_ID);
     }
 
     /**
@@ -41,6 +37,7 @@ public class ContactBuilder {
         email = contactToCopy.getEmail();
         address = contactToCopy.getAddress();
         description = contactToCopy.getDescription();
+        contactId = contactToCopy.getContactId();
     }
 
     /**
@@ -83,8 +80,23 @@ public class ContactBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Id} of the {@code Contact} that we are building.
+     */
+    public ContactBuilder withId(int id) {
+        this.contactId = new ContactId(id);
+        return this;
+    }
+
+    /**
+     * Creates a contact
+     *
+     * @return new Contact
+     */
     public Contact build() {
-        return new Contact(name, phone, email, address, description);
+        Contact contact = new Contact(name, phone, email, address, description);
+        contact.setContactId(contactId);
+        return contact;
     }
 
 }

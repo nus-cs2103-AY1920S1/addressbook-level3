@@ -6,10 +6,10 @@ import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.contact.ClearContactCommand;
-import tagline.model.AddressBook;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
+import tagline.model.contact.AddressBook;
 
 public class ClearContactCommandTest {
 

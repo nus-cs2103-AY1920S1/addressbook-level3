@@ -3,8 +3,8 @@ package tagline.logic.commands.contact;
 import static java.util.Objects.requireNonNull;
 
 import tagline.logic.commands.CommandResult;
-import tagline.model.AddressBook;
 import tagline.model.Model;
+import tagline.model.contact.AddressBook;
 
 /**
  * Clears the address book.

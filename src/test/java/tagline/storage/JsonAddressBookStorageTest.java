@@ -16,10 +16,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import tagline.commons.exceptions.DataConversionException;
-import tagline.model.AddressBook;
-import tagline.model.ReadOnlyAddressBook;
+import tagline.model.contact.AddressBook;
+import tagline.model.contact.ReadOnlyAddressBook;
 
 public class JsonAddressBookStorageTest {
+
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
 
     @TempDir

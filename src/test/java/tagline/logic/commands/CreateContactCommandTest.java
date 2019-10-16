@@ -9,22 +9,22 @@ import static tagline.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-
 import tagline.commons.core.GuiSettings;
 import tagline.logic.commands.contact.CreateContactCommand;
 import tagline.logic.commands.exceptions.CommandException;
-import tagline.model.AddressBook;
 import tagline.model.Model;
-import tagline.model.ReadOnlyAddressBook;
 import tagline.model.ReadOnlyUserPrefs;
+import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactBuilder;
+import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.note.Note;
-import tagline.testutil.ContactBuilder;
 
 public class CreateContactCommandTest {
 
@@ -140,6 +140,11 @@ public class CreateContactCommandTest {
 
         @Override
         public void setContact(Contact target, Contact editedContact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Contact> findContact(int id) {
             throw new AssertionError("This method should not be called.");
         }
 

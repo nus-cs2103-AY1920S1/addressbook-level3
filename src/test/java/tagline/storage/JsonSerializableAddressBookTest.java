@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import tagline.commons.exceptions.IllegalValueException;
 import tagline.commons.util.JsonUtil;
-import tagline.model.AddressBook;
+import tagline.model.contact.AddressBook;
 import tagline.testutil.TypicalContacts;
 
 public class JsonSerializableAddressBookTest {
@@ -26,6 +26,8 @@ public class JsonSerializableAddressBookTest {
                 JsonSerializableAddressBook.class).get();
         AddressBook addressBookFromFile = dataFromFile.toModelType();
         AddressBook typicalContactsAddressBook = TypicalContacts.getTypicalAddressBook();
+
+
         assertEquals(addressBookFromFile, typicalContactsAddressBook);
     }
 

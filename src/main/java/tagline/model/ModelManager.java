@@ -4,14 +4,17 @@ import static java.util.Objects.requireNonNull;
 import static tagline.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
+import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactManager;
+import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.note.Note;
 import tagline.model.note.NoteModel;
 import tagline.model.note.NoteModelManager;
@@ -22,9 +25,8 @@ import tagline.model.note.NoteModelManager;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final ContactManager contactManager;
     private final UserPrefs userPrefs;
-    private final FilteredList<Contact> filteredContacts;
     private final NoteModel noteModel;
 
     /**
@@ -36,10 +38,8 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.contactManager = new ContactManager(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredContacts = new FilteredList<>(this.addressBook.getContactList());
-
         noteModel = new NoteModelManager();
     }
 
@@ -86,36 +86,37 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+        contactManager.setAddressBook(addressBook);
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+        return contactManager.getAddressBook();
     }
 
     @Override
     public boolean hasContact(Contact contact) {
-        requireNonNull(contact);
-        return addressBook.hasContact(contact);
+        return contactManager.hasContact(contact);
     }
 
     @Override
     public void deleteContact(Contact target) {
-        addressBook.removeContact(target);
+        contactManager.deleteContact(target);
     }
 
     @Override
     public void addContact(Contact contact) {
-        addressBook.addContact(contact);
-        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
+        contactManager.addContact(contact);
     }
 
     @Override
     public void setContact(Contact target, Contact editedContact) {
-        requireAllNonNull(target, editedContact);
+        contactManager.setContact(target, editedContact);
+    }
 
-        addressBook.setContact(target, editedContact);
+    @Override
+    public Optional<Contact> findContact(int id) {
+        return contactManager.findContact(id);
     }
 
     //=========== NoteBook ================================================================================
@@ -139,13 +140,12 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Contact> getFilteredContactList() {
-        return filteredContacts;
+        return contactManager.getFilteredContactList();
     }
 
     @Override
     public void updateFilteredContactList(Predicate<Contact> predicate) {
-        requireNonNull(predicate);
-        filteredContacts.setPredicate(predicate);
+        contactManager.updateFilteredContactList(predicate);
     }
 
     @Override
@@ -162,9 +162,8 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredContacts.equals(other.filteredContacts);
+        return contactManager.equals(other.contactManager)
+                && userPrefs.equals(other.userPrefs);
     }
 
 }

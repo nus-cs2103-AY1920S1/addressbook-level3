@@ -9,8 +9,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import tagline.testutil.ContactBuilder;
-
 public class NameContainsKeywordsPredicateTest {
 
     @Test

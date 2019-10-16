@@ -25,13 +25,13 @@ import tagline.logic.commands.exceptions.CommandException;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.Model;
 import tagline.model.ModelManager;
-import tagline.model.ReadOnlyAddressBook;
 import tagline.model.UserPrefs;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactBuilder;
+import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.storage.JsonAddressBookStorage;
 import tagline.storage.JsonUserPrefsStorage;
 import tagline.storage.StorageManager;
-import tagline.testutil.ContactBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

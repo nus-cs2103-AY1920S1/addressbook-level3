@@ -1,7 +1,7 @@
 package tagline.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
-import static tagline.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
 
 import tagline.logic.commands.CommandResult;
 import tagline.model.Model;

@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import tagline.commons.exceptions.IllegalValueException;
-import tagline.model.AddressBook;
-import tagline.model.ReadOnlyAddressBook;
+import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ReadOnlyAddressBook;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
