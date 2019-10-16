@@ -34,16 +34,12 @@ the results. The overall appearance is similar to a simple note-taking client.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing `help` and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* `list`: lists all contacts
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`: adds a contact named `John Doe` to the Address Book.
-* `delete 3`: deletes the 3rd contact shown in the current list
+.  Type the command in the command box and press kbd:[Enter] to execute it. Some commands you can try are
+* `listnote`: lists all lecture notes
+* `addnote t/Title c/Content`: adds a lecture note with title "Title" and contents "Content".
+* `deletenote 1`: deletes the first lecture note
+* `help`: open the help window
 * `exit`: exits the app
-
-.  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -57,6 +53,7 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+// tag::lecnote[]
 === Lecture notes
 
 ==== Adding lecture notes: `addnote`
@@ -87,31 +84,32 @@ Format: `export FILENAME`
 ==== Importing all entries: `import`
 Import all items in the given file into NUStudy. This overwrites any items already in the app. +
 Format: `import FILENAME`
+// end::lecnote[]
 
 === Questions
 
 NUStudy can also store different sets of questions and answers;
 at your command, the system will prompt you to answer those questions.
 
-==== Adding Questions : `add`
+==== Adding Questions : `addq`
 
 Adds a question and its answer. +
-Format: `add q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
+Format: `addq q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
 
-==== Listing all questions: `list`
+==== Listing all questions: `listq`
 
 Shows a list of questions. +
-Format: `list`
+Format: `listq`
 
-==== Listing all questions with answers: `list -all`
+==== Listing all questions with answers: `listq -all`
 
 Shows a list of questions and their corresponding answers. +
-Format: `list -all`
+Format: `listq -all`
 
-==== Editing a question: `edit`
+==== Editing a question: `editq`
 
 Edits the fields of an existing question. +
-Format: `edit INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
+Format: `editq INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 
 ****
 * Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed question list. The index *must be a positive integer* 1, 2, 3, ...
@@ -120,15 +118,15 @@ Format: `edit INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 * When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
 ****
 
-==== Locating questions by keyword: `find`
+==== Locating questions by keyword: `findq`
 
 Finds questions containing the keyword. +
-Format: `find KEYWORD [MORE KEYWORDS]`
+Format: `findq KEYWORD [MORE KEYWORDS]`
 
-==== Deleting a question: `delete`
+==== Deleting a question: `deleteq`
 
 Deletes the specific question at the specified INDEX and its answer from the list. +
-Format: `delete INDEX`
+Format: `deleteq INDEX`
 
 ****
 * Deletes the question at the specified `INDEX`.
@@ -196,40 +194,28 @@ Format: `quit`
 
 ==== Get statistics for subjects : `stats`
 
-Gets statistics of how well you answered the questions for a subject.
-A pie chart of the number of questions that have been answered correctly and incorrectly will be returned.
+Returns a pie chart of the number of questions that have been answered correctly and incorrectly.
+You can choose to only get the statistics for a difficulty level by adding an optional `d/`.
 You can even get the combined statistics of more than one subject. +
-Format: `stats s/SUBJECT [s/SUBJECT1] [s/SUBJECT2]...`
+Format: `stats s/SUBJECT [d/DIFFICULTY] [s/SUBJECT1] [s/SUBJECT2]...`
 
-==== Get questions with correct answers: correct
-Gets all questions that have been answered correctly for a particular subject.
-You can also choose to see past answers to the questions by adding the `-a`. +
-Format: `correct s/SUBJECT [-a]`
+==== Get questions with correct/incorrect answers: `questions`
+Gets all questions that have been answered correctly/incorrectly for a particular subject by using `-c/-i` respectively.
+Either one of `-c` or `-i` must be used.
+You can also choose to see past answers to the questions by adding an optional `-a`. +
+Format: `questions s/SUBJECT [-c] [-i] [-a]`
 
-==== Get questions with incorrect answers: incorrect
-Gets all questions that have been answered incorrectly for a particular subject.
-You can also choose to see past answers to the questions by adding the `-a`. +
-Format: `incorrect s/SUBJECT [-a]`
-
-==== Get statistics for individual questions: stats
-Gets statistics of how well you answered a particular question,
+==== Get a report for individual questions: `report`
+Returns a report of how well you have answered a particular question,
 the number of times the question has been attempted and the past answers to the question. +
-Format: `stats INDEX`
+Format: `report INDEX`
 
-==== Statistics for difficulty level: stats -dif
-Gets statistics of the number of questions within a subject attempted at the specified difficulty level. +
-Format: `stats -dif d/DIFFICULTY s/SUBJECT`
-
-==== Statistics for difficulty level accuracy: accur -dif
-Gets statistics of the questions answered correctly and incorrectly within a subject of a specific difficulty level. +
-Format: `accur -dif d/DIFFICULTY s/SUBJECT`
-
-==== Get overview of lecture notes: overview -ln
+==== Get overview of lecture notes: `overview -ln`
 Gets an overview of the types of notes that have been added into the app.
 A stacked bar graph, sorted by subjects will be returned. +
 Format: `overview -ln`
 
-==== Get overview of questions attempted: overview -q
+==== Get overview of questions attempted: `overview -q`
 Gets an overview of the types of questions that have been attempted overall.
 A stacked bar graph, sorted by subjects will be returned. +
 Format: `overview -q [dt/START_DATE] [dt/END_DATE]`
@@ -289,8 +275,10 @@ The student shares notes and questions with other students with Internet connect
 === Login using email and password `[coming in v2.0]`
 The student can register and login to the application using their email and password.
 
-=== Flash card grouping suggestions `[coming in v2.0]`
-NUStudy will intelligently suggest groupings of flash cards based on their content.
+// tag::lngroup[]
+=== Lecture note grouping suggestions `[coming in v2.0]`
+NUStudy will intelligently suggest groupings of lecture notes based on their content.
+// end::lngroup[]
 
 == FAQ
 

@@ -6,10 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -32,8 +34,10 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private NoteListPanel noteListPanel;
+    private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatsChart statsChart;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -43,6 +47,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane noteListPanelPlaceholder;
+
+    @FXML
+    private StackPane taskListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -63,6 +70,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statsChart = new StatsChart(null);
     }
 
     public Stage getPrimaryStage() {
@@ -109,6 +117,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         noteListPanel = new NoteListPanel(logic.getFilteredNoteList());
         noteListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
+
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -160,6 +171,31 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Shows a pie chart and returns the value of the data
+     * in each slice of the chart when the mouse hovers over it.
+     */
+    @FXML
+    private void showStats() {
+        statsChart = new StatsChart(logic.getStatsChartData());
+        noteListPanelPlaceholder.getChildren().add(statsChart.getChart());
+        statsChart.getChart().getData().forEach(data -> {
+            String value = "" + data.getPieValue();
+            Tooltip toolTip = new Tooltip(value);
+            toolTip.setStyle("-fx-font-size: 20");
+            toolTip.setShowDelay(Duration.seconds(0));
+            Tooltip.install(data.getNode(), toolTip);
+        });
+    }
+
+    /**
+     * Remove the pie chart from the noteListPanel.
+     */
+    @FXML
+    private void removeStats() {
+        noteListPanelPlaceholder.getChildren().remove(statsChart.getChart());
+    }
+
     public NoteListPanel getNoteListPanel() {
         return noteListPanel;
     }
@@ -181,6 +217,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowStats()) {
+                showStats();
+            } else {
+                removeStats();
             }
 
             return commandResult;

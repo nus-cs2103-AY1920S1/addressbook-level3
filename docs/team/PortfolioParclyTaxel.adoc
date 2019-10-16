@@ -1,0 +1,89 @@
+= NUStudy project portfolio for Jeremy Tan (Parcly-Taxel)
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+
+As part of the CS2103 Software Engineering module at the National University of Singapore,
+I was part of a team of five tasked to develop an application from https://github.com/nus-cs2103-AY1920S1/addressbook-level3[a given Java
+address book application], which will be called AB3 in the rest of the portfolio.
+We chose to morph it into NUStudy, an application for
+managing lecture notes, questions and revision tasks -- all three things pertinent to the
+average university student, regardless of location. Like the original, it has a command line
+as its main method of interaction and a JavaFX GUI for display. It has around 5000 lines of code.
+
+This portfolio showcases my contributions to NUStudy: implementing the lecture notes by
+retooling the existing _Person_ class, related documentation in the user and developer guides
+and management of the Git repository surrounding NUStudy. It also showcases my technical writing skills
+and my ability to explain complicated enhancements or modifications to the uninitiated person.
+
+In this portfolio `monospace` indicates command-line input (commands, parameters, etc.)
+and _italics_ mark class names. Pull requests and issues will be marked solely
+by their numbers and a # sign (e.g. https://github.com/AY1920S1-CS2103T-F11-4/main/issues/1[#1]);
+unless otherwise specified they refer to NUStudy.
+
+== Summary of contributions
+
+This is a brief description of my contributions to NUStudy, to code, documentation
+and project management. These contributions show my ability to not only write good code,
+but also manage and synthesise team members' varying output into a coherent whole.
+
+* I was responsible for **implementing lecture notes** (starting from https://github.com/AY1920S1-CS2103T-F11-4/main/pull/34[#34]).
+These are simple items with a title, some content and optionally an image. For this I modified the existing
+_Person_ class in the original address book application and its associated commands (_AddCommand_, _EditCommand_, etc.)
+-- I did not have to make any new classes.
+** Lecture notes are the primary source of a student's acquired knowledge in university, yet they come in many formats.
+Having a unified appearance helps the student understand the content of lecture notes better, by removing
+unnecessary markup and distracting styles.
+** While adding this feature I also refactored all other code throughout the application to use names relevant to
+lecture notes. This helped my teammates add their own features, setting an example for them to follow.
+* Minor enhancements, enhancements to existing features: _fill in here_
+* I enforced a style for the user and developer guides and wrote several of their key sections,
+such as the user guide's introduction and the developer guide's non-functional requirements.
+See https://github.com/AY1920S1-CS2103T-F11-4/main/pull/21[#21] and https://github.com/AY1920S1-CS2103T-F11-4/main/pull/22[#22]
+for examples.
+* I was the **main integrator** for NUStudy:
+** Managed all four releases (v1.1 to v1.4) on GitHub
+** Set up Travis and Netlify for the project, enabling continuous integration and previews of documentation
+** Resolved merge conflicts for teammates' pull requests (see https://github.com/AY1920S1-CS2103T-F11-4/main/pull/44[#44] for an example)
+** Attached milestones and labels to issues and pull requests where the original authors failed to specify them
+** Before v1.2, the only person who could merge pull requests
+* I contributed to https://github.com/nus-cs2103-AY1920S1/forum[forum] discussions, both as an answerer
+(https://github.com/nus-cs2103-AY1920S1/forum/issues/88[#88], https://github.com/nus-cs2103-AY1920S1/forum/issues/106[#106]) and asker
+(https://github.com/nus-cs2103-AY1920S1/forum/issues/68[#68], https://github.com/nus-cs2103-AY1920S1/forum/issues/100[#100]).
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* PRs reviewed (with non-trivial review comments): https://github.com[#A], https://github.com[#B], https://github.com[#C], https://github.com[#D]
+
+* Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+== User guide contributions
+
+Our application's user guide had to be updated with the new features we added in code.
+The sections below are what I wrote for my features, demonstrating my ability to write
+clear, concise end-user documentation.
+
+'''
+
+include::../UserGuide.adoc[tag=lecnote]
+
+include::../UserGuide.adoc[tag=lngroup]
+
+'''
+
+In addition, I also harmonised the layout of the user guide and
+formatted other team members' contributions to said guide in a common manner.
+
+== Developer guide contributions
+
+Like other projects in CS2103, there is the expectation that future developers could
+build on NUStudy. Thus we also updated the developer guide; below are my principal contributions to it,
+showcasing three aspects: my ability to write technical documentation, the complexity of what
+I contributed in code and my proficiency in using diagrams to explain my work.
+
+'''
+
+include::../DeveloperGuide.adoc[tag=usecase]
+
+include::../DeveloperGuide.adoc[tag=nfrglossary]
