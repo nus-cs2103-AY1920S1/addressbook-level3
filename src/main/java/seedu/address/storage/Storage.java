@@ -5,12 +5,12 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.ReadOnlyHealthRecords;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyUserProfile;
 import seedu.address.model.ReadOnlyWorkoutPlanner;
-import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.UserPrefs;
 
 /**

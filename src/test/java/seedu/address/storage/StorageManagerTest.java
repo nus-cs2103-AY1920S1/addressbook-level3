@@ -2,10 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static seedu.address.testutil.TypicalDiaries.getTypicalDiaryRecords;
 import static seedu.address.testutil.TypicalExercises.getTypicalWorkoutPlanner;
 import static seedu.address.testutil.TypicalProfiles.getTypicalProfiles;
 import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
-import static seedu.address.testutil.TypicalDiaries.getTypicalDiaryRecords;
 
 import java.nio.file.Path;
 

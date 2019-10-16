@@ -17,7 +17,7 @@ public class AddProfileCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalProfiles(), null, null, null, new UserPrefs());
+        model = new ModelManager(getTypicalProfiles(), null, null, null, null, new UserPrefs());
     }
 
 }
