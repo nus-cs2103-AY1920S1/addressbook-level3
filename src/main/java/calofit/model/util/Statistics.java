@@ -1,7 +1,6 @@
 package calofit.model.util;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.SortedMap;
@@ -24,8 +23,7 @@ public class Statistics {
     private final Meal mostConsumedMeal;
 
     /**
-     * Constructor for thw wrapper Statistics class that cannot be called by other classes.
-     *
+     * Constructor for the wrapper Statistics class that cannot be called by other classes.
      * @param maximum is the maximum Calorie intake of the month.
      * @param minimum is the minimum Calorie intake of the month.
      * @param average is the average Calorie intake per day of the month.
@@ -42,7 +40,6 @@ public class Statistics {
 
     /**
      * Factory static method to generate a Statistics wrapper class based on the MealLog for current month.
-     *
      * @param mealLog is the MealLog to get the statistics from.
      * @param budget is the CalorieBudget to obtain the history of budgets set by the user.
      * @return a Statistics object that wraps about the statistics generated.
@@ -51,32 +48,36 @@ public class Statistics {
         ObservableList<Meal> currentMonthMeals = mealLog.getCurrentMonthMeals();
         Meal mostConsumed = Statistics.getMostConsumedMeal(currentMonthMeals);
         int calorieExceedCount = Statistics.getCalorieExceedCount(budget, currentMonthMeals);
-        int maximum = currentMonthMeals.get(0).getDish().getCalories().getValue();
-        int minimum = currentMonthMeals.get(0).getDish().getCalories().getValue();
-        int average = currentMonthMeals.get(0).getDish().getCalories().getValue();
-        Month currentMonth = currentMonthMeals.get(0).getTimestamp().getDateTime().getMonth();
-
-        for (int i = 1; i < currentMonthMeals.size(); i++) {
-            Meal current = currentMonthMeals.get(i);
-            int currentCalories = current.getDish().getCalories().getValue();
-            if (current.getTimestamp().getDateTime().getMonth() != currentMonth) {
-                break;
-            } else {
-                if (currentCalories > maximum) {
-                    maximum = currentCalories;
-                }
-                if (currentCalories < minimum) {
-                    minimum = currentCalories;
-                }
-                average += currentCalories;
+        int maximum = 0;
+        int minimum = 0;
+        double average = 0.0;
+        for (int i = 1; i <= LocalDate.now().lengthOfMonth(); i++) {
+            LocalDate currentDate = LocalDate.now().withDayOfMonth(i);
+            int currentCalorieValue = 0;
+            ObservableList<Meal> currentDayMeals = currentMonthMeals
+                    .filtered(meal -> meal.getTimestamp().getDateTime().toLocalDate().equals(currentDate));
+            for (int j = 0; j < currentDayMeals.size(); j++) {
+                Meal currentMeal = currentDayMeals.get(j);
+                currentCalorieValue += currentMeal.getDish().getCalories().getValue();
+            }
+            average += currentCalorieValue;
+            if (currentCalorieValue > maximum) {
+                maximum = currentCalorieValue;
+            }
+            if (currentCalorieValue < minimum) {
+                minimum = currentCalorieValue;
             }
         }
 
-        average = average / currentMonthMeals.size();
+        average = Math.round(average / LocalDate.now().lengthOfMonth());
 
         return new Statistics(maximum, minimum, average, calorieExceedCount, mostConsumed);
     }
 
+    /**
+     * Returns number of days of current month where calorie intake exceeded calorie budget.
+     * @return the number of days.
+     */
     public int getCalorieExceedCount() {
         return this.calorieExceedCount;
     }
@@ -86,7 +87,6 @@ public class Statistics {
      * Calorie intake for that day is computed by filtering MealLog to obtain that day's meals and
      * summing them up.
      * The calorie intake computed is then compared to that day's calorie budget set by the user.
-     *
      * @param budget the calorie budget class that contains the history of budgets set by the user.
      * @param monthlyMeals is the history of meals that the user has eaten for that month.
      * @return the number of days where the calorie intake exceeded the calorie budget.
@@ -113,6 +113,10 @@ public class Statistics {
         return calorieExceedCount;
     }
 
+    /**
+     * Returns the most consumed meal of the Month.
+     * @return a Meal.
+     */
     public Meal getMostConsumedMeal() {
         return this.mostConsumedMeal;
     }
@@ -120,7 +124,6 @@ public class Statistics {
     /**
      * Method to obtain the most consumed meal in a list of meals
      * Obtained by storing meals in a hashmap to check for duplicates and increment how many times they are eaten.
-     *
      * @param meals is the list of meals that we want to know the information from.
      * @return the most consumed meal in the list.
      */
@@ -140,14 +143,26 @@ public class Statistics {
         return max.getKey();
     }
 
+    /**
+     * Gets the maximum calorie intake of the month.
+     * @return the calorie value as an int
+     */
     public int getMaximum() {
         return this.maximum;
     }
 
+    /**
+     * Gets the minimum calorie intake of the month.
+     * @return the calorie value as an int
+     */
     public int getMinimum() {
         return this.minimum;
     }
 
+    /**
+     * Gets the average calorie intake of the month.
+     * @return the calorie value as an int
+     */
     public double getAverage() {
         return this.average;
     }

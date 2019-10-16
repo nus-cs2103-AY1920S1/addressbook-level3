@@ -50,7 +50,12 @@ public class ReportWindow extends UiPart<Stage> {
     @FXML
     private TextFlow mostConsumedMeal;
 
-    public ReportWindow(Stage root, Statistics statistics) {
+    /**
+     * Constructs the Report Window based on the FXML file as the basis.
+     * @param root is the current root of the GUI.
+     * @param statistics is the statistics object that contains the values we want to show in the report.
+     */
+    private ReportWindow(Stage root, Statistics statistics) {
         super(FXML, root);
 
         numericalStatistics.setBackground(new Background(
@@ -106,23 +111,26 @@ public class ReportWindow extends UiPart<Stage> {
         Text calorieCountExceededHeader = new Text("Number of days calorie count exceeded budget: \n");
         calorieCountExceededHeader.setStyle("-fx-font-size: 20px");
         Text calorieCountExceededValue = new Text(String.valueOf(statistics.getCalorieExceedCount()));
-        calorieCountExceededValue.setStyle("-fx-font-size: 40px");
+        calorieCountExceededValue.setStyle("-fx-font-size: 35px");
         countCalorieExceeded.getChildren().addAll(calorieCountExceededHeader, calorieCountExceededValue);
 
         Text mostConsumedFoodHeader = new Text("Most consumed food of the month is: \n");
         mostConsumedFoodHeader.setStyle("-fx-font-size: 20px");
         Text mostConsumedFoodValue = new Text(statistics.getMostConsumedMeal().getDish().getName().toString());
-        mostConsumedFoodValue.setStyle("-fx-font-size: 40px");
+        mostConsumedFoodValue.setStyle("-fx-font-size: 35px");
         mostConsumedMeal.getChildren().addAll(mostConsumedFoodHeader, mostConsumedFoodValue);
     }
 
-
+    /**
+     * Constructor that the initial controller calls upon to create a new Stage.
+     * @param statistics is the statistics object that contains the values we want to show in the report.
+     */
     public ReportWindow(Statistics statistics) {
         this(new Stage(), statistics);
     }
 
     /**
-     * Displays the Report to the user.
+     * Displays the ReportWindow to the user.
      */
     public void show() {
         logger.fine("Showing report page about the application.");
@@ -130,6 +138,9 @@ public class ReportWindow extends UiPart<Stage> {
         getRoot().centerOnScreen();
     }
 
+    /**
+     * Hides the ReportWindow from the user.
+     */
     public void hide() {
         getRoot().hide();
     }
