@@ -3,6 +3,8 @@ package seedu.address.model.expense;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Represents the description of an expense in the expense list.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
@@ -28,7 +30,7 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        fullName = StringUtils.capitalize(name);
     }
 
     /**
