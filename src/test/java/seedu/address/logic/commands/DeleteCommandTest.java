@@ -26,7 +26,8 @@ import seedu.address.model.food.GroceryItem;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(), getTypicalWasteList());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
+            getTypicalWasteList());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -35,7 +36,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, foodToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(), model.getWasteList());
+        ModelManager expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
+                model.getWasteList());
         expectedModel.deleteGroceryItem(foodToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -58,7 +60,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, foodToDelete);
 
-        Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(), model.getWasteList());
+        Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
+                model.getWasteList());
         expectedModel.deleteGroceryItem(foodToDelete);
         showNoPerson(expectedModel);
 

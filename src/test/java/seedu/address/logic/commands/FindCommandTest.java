@@ -26,8 +26,10 @@ import seedu.address.model.food.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(), getTypicalWasteList());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(), getTypicalWasteList());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
+            getTypicalWasteList());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
+            getTypicalWasteList());
 
     @Test
     public void equals() {

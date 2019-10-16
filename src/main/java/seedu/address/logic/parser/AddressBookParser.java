@@ -20,7 +20,7 @@ import seedu.address.logic.commands.defaults.ReminderDefaultCommand;
 import seedu.address.logic.commands.defaults.SortDefaultCommand;
 import seedu.address.logic.commands.grocerylist.DeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.groceryList.ListDefaultCommandParser;
+import seedu.address.logic.parser.grocerylist.ListDefaultCommandParser;
 
 /**
  * Parses user input.

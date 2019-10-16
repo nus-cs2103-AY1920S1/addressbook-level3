@@ -42,7 +42,8 @@ public class LogicManagerTest {
                 new JsonTemplateItemStorage(temporaryFolder.resolve("templateList.json"));
         JsonWasteListStorage wasteListStorage =
                 new JsonWasteListStorage(temporaryFolder.resolve("wastelist.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, templateListStorage, wasteListStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, templateListStorage,
+                wasteListStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -125,7 +126,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(), model.getWasteList());
+        Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
+                model.getWasteList());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

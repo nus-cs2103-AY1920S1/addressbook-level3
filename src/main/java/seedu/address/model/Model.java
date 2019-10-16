@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.model.food.GroceryItem;
-import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.model.waste.WasteMonth;
 

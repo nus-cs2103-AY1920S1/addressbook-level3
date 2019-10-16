@@ -7,6 +7,9 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyWasteList;
 
+/**
+ * A storage for waste lists
+ */
 public interface WasteListStorage {
 
     /**

@@ -25,7 +25,8 @@ import seedu.address.testutil.EditFoodDescriptorBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(), getTypicalWasteList());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
+            getTypicalWasteList());
 
     /*@Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {

@@ -205,17 +205,17 @@ public class AddCommandTest {
         };
 
         @Override
-        public Path getWasteListFilePath(){
+        public Path getWasteListFilePath() {
             throw new AssertionError("This method should not be called.");
         };
 
         @Override
-        public void setWasteListFilePath(Path wasteListFilePath){
+        public void setWasteListFilePath(Path wasteListFilePath) {
             throw new AssertionError("This method should not be called.");
         };
 
         @Override
-        public void setWasteList(ReadOnlyWasteList wasteList){
+        public void setWasteList(ReadOnlyWasteList wasteList) {
             throw new AssertionError("This method should not be called.");
         };
 

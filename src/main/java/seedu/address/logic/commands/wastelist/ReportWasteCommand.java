@@ -7,7 +7,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.waste.WasteMonth;
-import seedu.address.model.waste.WasteStatistic;
 
 /**
  * Generates a report of user's food waste for a specified time frame.

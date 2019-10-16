@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.groceryList.GroceryListParser;
-import seedu.address.logic.parser.templateList.TemplateListParser;
+import seedu.address.logic.parser.grocerylist.GroceryListParser;
+import seedu.address.logic.parser.templatelist.TemplateListParser;
 import seedu.address.logic.parser.wastelist.WasteListParser;
 
 /**

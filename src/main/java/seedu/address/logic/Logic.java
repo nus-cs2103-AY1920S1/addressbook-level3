@@ -12,7 +12,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.food.GroceryItem;
-import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.food.UniqueTemplateItems;
 
 /**

@@ -2,8 +2,6 @@ package seedu.address.logic.parser.wastelist;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
 
-import java.time.LocalDate;
-
 import seedu.address.logic.commands.wastelist.ListWasteCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;

@@ -34,8 +34,8 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.TemplateListStorage;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.wastelist.WasteListStorage;
 import seedu.address.storage.wastelist.JsonWasteListStorage;
+import seedu.address.storage.wastelist.WasteListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 

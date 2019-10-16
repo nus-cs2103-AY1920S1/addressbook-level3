@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.templateList.template.EditTemplateItemCommand;
-import seedu.address.logic.commands.templateList.template.EditTemplateItemCommand.EditTemplateItemDescriptor;
+import seedu.address.logic.commands.templatelist.template.EditTemplateItemCommand;
+import seedu.address.logic.commands.templatelist.template.EditTemplateItemCommand.EditTemplateItemDescriptor;
 import seedu.address.model.food.Amount;
 import seedu.address.model.food.Name;
 import seedu.address.model.food.TemplateItem;

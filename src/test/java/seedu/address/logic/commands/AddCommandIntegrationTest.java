@@ -19,7 +19,8 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(), getTypicalWasteList());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
+                getTypicalWasteList());
     }
 
     /*@Test

@@ -7,6 +7,9 @@ import java.util.List;
 import seedu.address.model.WasteList;
 import seedu.address.model.food.GroceryItem;
 
+/**
+ * A Typical Waste List
+ */
 public class TypicalWasteList {
 
     public static final GroceryItem APPLE = new GroceryItemBuilder().withName("Apple")

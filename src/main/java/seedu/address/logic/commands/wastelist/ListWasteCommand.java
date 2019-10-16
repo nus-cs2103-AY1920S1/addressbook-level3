@@ -3,8 +3,6 @@ package seedu.address.logic.commands.wastelist;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
 
-import java.time.LocalDate;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -51,7 +49,6 @@ public class ListWasteCommand extends Command {
         }
         model.updateFilteredWasteItemList(this.wasteMonth);
 
-        System.out.println(model.getWasteListByMonth(this.wasteMonth).getWasteList().get(0));
         CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS);
         commandResult.setWastelistCommand();
         return commandResult;

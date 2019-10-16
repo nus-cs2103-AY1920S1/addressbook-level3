@@ -14,6 +14,9 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyWasteList;
 
+/**
+ * A storage for waste lists
+ */
 public class JsonWasteListStorage implements WasteListStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonWasteListStorage.class);
