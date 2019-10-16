@@ -53,7 +53,7 @@ public class EntryBuilder {
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
     public EntryBuilder withTime(String time) {
-        this.time = new Description(time);
+        this.time = new Time(time);
         return this;
     }
 
