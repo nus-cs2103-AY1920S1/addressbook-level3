@@ -15,29 +15,24 @@ import org.testfx.util.WaitForAsyncUtils;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.stage.Stage;
 
 @ExtendWith(ApplicationExtension.class)
-public class MainAppTest extends ApplicationTest {
+public class MainAppTest {
 
     @BeforeEach
     public void beforeEach() throws Exception {
-        launch(MainApp.class);
+        FxToolkit.registerPrimaryStage();
+        FxToolkit.setupApplication(MainApp.class);
         WaitForAsyncUtils.waitForFxEvents();
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        stage.show();
-    }
-
     @AfterEach
-    public void afterEach() throws TimeoutException {
-        FxToolkit.hideStage();
+    public void afterEach(FxRobot robot) throws TimeoutException {
+        FxToolkit.cleanupStages();
         // release all keys
-        release(new KeyCode[0]);
+        robot.release(new KeyCode[0]);
         // release all mouse buttons
-        release(new MouseButton[0]);
+        robot.release(new MouseButton[0]);
         WaitForAsyncUtils.waitForFxEvents();
     }
 
