@@ -105,7 +105,7 @@ public class JsonAdaptedExpenseTest {
     public void toModelType_invalidTimestamp_throwsIllegalValueException() {
         JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(VALID_DESCRIPTION, VALID_PRICE,
-                        VALID_TAGS,  INVALID_TIMESTAMP, VALID_UNIQUE_IDENTIFIER);
+                        VALID_TAGS, INVALID_TIMESTAMP, VALID_UNIQUE_IDENTIFIER);
         String expectedMessage = Timestamp.MESSAGE_CONSTRAINTS_DATE;
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }

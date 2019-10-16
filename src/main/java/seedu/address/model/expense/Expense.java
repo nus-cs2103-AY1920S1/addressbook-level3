@@ -2,7 +2,6 @@ package seedu.address.model.expense;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
