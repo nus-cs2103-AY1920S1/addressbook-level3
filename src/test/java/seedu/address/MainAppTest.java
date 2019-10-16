@@ -14,7 +14,7 @@ public class MainAppTest extends ApplicationTest {
 
     @Override
     public void init() throws Exception {
-        launch(MainApp.class, "");
+        this.launch(MainApp.class, "");
     }
 
     @Test
@@ -43,7 +43,6 @@ public class MainAppTest extends ApplicationTest {
         Assertions.assertThat(lookup("#autoCompleteOverlay").queryListView().getSelectionModel().getSelectedIndex())
             .isEqualTo(0);
         robot.eraseText(1);
-        robot.sleep(1);
     }
 
     @Test
