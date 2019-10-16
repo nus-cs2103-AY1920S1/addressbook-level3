@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.control.TitledPane;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -32,11 +31,9 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private SplitDisplay splitDisplay;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private ActivityListPanel activityListPanel;
-    private ContactListPanel contactListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -45,19 +42,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane splitDisplayPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
-
-    @FXML
-    private TitledPane contactListPanelPlaceHolder;
-
-    @FXML
-    private TitledPane activityListPanelPlaceHolder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -116,8 +107,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredContactList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        splitDisplay = new SplitDisplay(logic.getFilteredAccommodationList(), logic.getFilteredActivityList(),
+                logic.getFilteredContactList());
+        splitDisplayPanelPlaceholder.getChildren().add(splitDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -127,10 +119,6 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
-        activityListPanel = new ActivityListPanel();
-
-        contactListPanel = new ContactListPanel();
     }
 
     /**
@@ -173,8 +161,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public SplitDisplay getSplitDisplay() {
+        return splitDisplay;
     }
 
     /**

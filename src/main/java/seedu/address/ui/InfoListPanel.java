@@ -11,25 +11,25 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.contact.Contact;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of information.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+public class InfoListPanel extends UiPart<Region> {
+    private static final String FXML = "InfoListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(InfoListPanel.class);
 
     @FXML
-    private ListView<Contact> personListView;
+    private ListView<Contact> infoListView;
 
-    public PersonListPanel(ObservableList<Contact> contactList) {
+    public InfoListPanel(ObservableList<Contact> contactList) {
         super(FXML);
-        personListView.setItems(contactList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        infoListView.setItems(contactList);
+        infoListView.setCellFactory(listView -> new InfoListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Contact} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Contact> {
+    class InfoListViewCell extends ListCell<Contact> {
         @Override
         protected void updateItem(Contact contact, boolean empty) {
             super.updateItem(contact, empty);
@@ -38,7 +38,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(contact, getIndex() + 1).getRoot());
+                setGraphic(new ContactCardFull(contact, getIndex() + 1).getRoot());
             }
         }
     }
