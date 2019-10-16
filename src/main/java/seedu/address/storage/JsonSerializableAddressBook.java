@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -53,7 +54,8 @@ class JsonSerializableAddressBook {
         notes.addAll(source.getNoteList().stream().map(JsonAdaptedNote::new).collect(Collectors.toList()));
         tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTaskForNote::new).collect(Collectors.toList()));
         questions.addAll(source.getQuestionList().stream().map(JsonAdaptedQuestion::new).collect(Collectors.toList()));
-        quizResults.addAll(source.getQuizResultList().stream().map(JsonAdaptedQuizResult::new).collect(Collectors.toList()));
+        quizResults.addAll(source.getQuizResultList().stream().map(JsonAdaptedQuizResult::new)
+                .collect(Collectors.toList()));
     }
 
     /**

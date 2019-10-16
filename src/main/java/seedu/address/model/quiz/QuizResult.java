@@ -1,11 +1,13 @@
 package seedu.address.model.quiz;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import seedu.address.model.question.Answer;
 import seedu.address.model.question.QuestionBody;
 
+/**
+ * Represents a question. Its answer, questionBody, quizTime and result are guaranteed non-null.
+ */
 public class QuizResult {
     private final Answer answer;
     private final QuestionBody questionBody;

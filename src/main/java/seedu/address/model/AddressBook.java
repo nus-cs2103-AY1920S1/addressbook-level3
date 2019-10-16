@@ -180,7 +180,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         ObservableList<Question> quizQuestions = FXCollections.observableArrayList();
         List<Question> filteredQuestions = getQuestionList()
                 .stream()
-                .filter(question -> subject.equals(question.getSubject()) && difficulty.equals(question.getDifficulty()))
+                .filter(question -> subject.equals(question.getSubject())
+                        && difficulty.equals(question.getDifficulty()))
                 .collect(Collectors.toList());
 
         Random random = new Random();
