@@ -13,21 +13,21 @@ public enum Sex {
      * Checks if {@code String sex} is female.
      */
     public static boolean isMale(String sex) {
-        return sex.equalsIgnoreCase("male");
+        return sex.equalsIgnoreCase("male") || sex.equalsIgnoreCase("m");
     }
 
     /**
      * Checks if {@code String sex} is male.
      */
     public static boolean isFemale(String sex) {
-        return sex.equalsIgnoreCase("female");
+        return sex.equalsIgnoreCase("female") || sex.equalsIgnoreCase("f");
     }
 
     /**
      * Checks if {@code String sex} is a valid sex.
      */
     public static boolean isValidSex(String sex) {
-        if (sex.equalsIgnoreCase("Male") || sex.equalsIgnoreCase("female")) {
+        if (isMale(sex) || isFemale(sex)) {
             return true;
         } else {
             return false;

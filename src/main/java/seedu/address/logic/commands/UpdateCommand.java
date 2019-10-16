@@ -7,22 +7,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_DEATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESIGNATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRIDGE_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LAST_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MIDDLE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME_NOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANS_FOR_DONATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NOK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BODIES;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,11 +28,13 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.logic.parser.utility.UpdateEntityDescriptor;
+import seedu.address.logic.parser.utility.UpdateFridgeDescriptor;
 import seedu.address.logic.parser.utility.UpdateWorkerDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 
 
@@ -43,10 +42,9 @@ import seedu.address.model.entity.worker.Worker;
 /**
  * Updates the details of an existing body, worker, or fridge in Mortago.
  */
-public class UpdateCommand extends Command {
+public class UpdateCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "update";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Updates the details of a body, worker, or fridge, identified "
             + "by the identification number that was automatically assigned to the entity. "
@@ -57,9 +55,7 @@ public class UpdateCommand extends Command {
             + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATION NUMBER \n"
             + "Optional fields are listed below. \n"
             + "Update fields for a Body object: \n"
-            + PREFIX_FIRST_NAME + "FIRST_NAME "
-            + PREFIX_MIDDLE_NAME + "MIDDLE_NAME "
-            + PREFIX_LAST_NAME + "LAST_NAME "
+            + PREFIX_NAME + "NAME "
             + PREFIX_SEX + "SEX "
             + PREFIX_NRIC + "NRIC "
             + PREFIX_RELIGION + "RELIGION "
@@ -73,7 +69,7 @@ public class UpdateCommand extends Command {
             + PREFIX_RELATIONSHIP + "RELATIONSHIP "
             + PREFIX_PHONE_NOK + "PHONE_NOK "
             + "\nUpdate fields for a Worker object: \n"
-            + PREFIX_PHONE + "PHONE "
+            + PREFIX_PHONE_NUMBER + "PHONE "
             + PREFIX_SEX + "SEX "
             + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH "
             + PREFIX_DATE_JOINED + "DATE JOINED "
@@ -83,15 +79,11 @@ public class UpdateCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FLAG + "b "
             + PREFIX_IDENTIFICATION_NUMBER + " 1 "
-            + PREFIX_FIRST_NAME + " Jane"
-            + PREFIX_LAST_NAME + " Cthulhu";
+            + PREFIX_NAME + " Jane Cthulhu";
 
     public static final String MESSAGE_UPDATE_ENTITY_SUCCESS = "Edited Entity: %1$s";
-    public static final String MESSAGE_UNDO_SUCCESS = "Undid edits to entity: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_ENTITY_NOT_FOUND = "The entity with the specified identification number"
-            + "was not found.";
-
+    public static final String MESSAGE_UNDO_SUCCESS = "Undid updates to entity: %1$s";
 
     private final IdentificationNumber id;
     private final UpdateEntityDescriptor updateEntityDescriptor;
@@ -124,9 +116,11 @@ public class UpdateCommand extends Command {
             return new UpdateBodyDescriptor((Body) entity);
         } else if (entity instanceof Worker) {
             return new UpdateWorkerDescriptor((Worker) entity);
+        } else if (entity instanceof Fridge) {
+            return new UpdateFridgeDescriptor((Fridge) entity);
+        } else {
+            throw new CommandException("Could not find original entity.");
         }
-        // todo: add support for fridge
-        throw new CommandException("Could not find original entity.");
     }
 
     @Override
@@ -137,12 +131,44 @@ public class UpdateCommand extends Command {
         if (!model.hasEntity(entity)) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
+        if (updateEntityDescriptor instanceof UpdateFridgeDescriptor) {
+            try {
+                UpdateFridgeDescriptor fridgeDescriptor = (UpdateFridgeDescriptor) updateEntityDescriptor;
+                getBodyFromId(model, fridgeDescriptor.getBodyId().orElse(null), fridgeDescriptor);
+            } catch (CommandException e) {
+                return new CommandResult(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
+            }
+        }
 
-        this.originalEntityDescriptor = saveOriginalFields(entity);
+        try {
+            this.originalEntityDescriptor = saveOriginalFields(entity);
+            model.setEntity(entity, updateEntityDescriptor.apply(entity));
+        } catch (NullPointerException e) {
+            throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
+        }
 
-        model.setEntity(entity, updateEntityDescriptor.apply(entity));
-        model.updateFilteredBodyList(PREDICATE_SHOW_ALL_BODIES);
+        setUndoable();
+        model.addExecutedCommand(this);
         return new CommandResult(String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, entity));
+    }
+
+    /**
+     * Undoes the effects of the UpdateCommand. Only can be executed if this command was previously executed before.
+     * @return result of undoing the command.
+     */
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        if (!(getCommandState().equals(UndoableCommandState.UNDOABLE))) {
+            throw new CommandException(MESSAGE_NOT_EXECUTED_BEFORE);
+        }
+        try {
+            model.setEntity(entity, originalEntityDescriptor.apply(entity));
+        } catch (NullPointerException e) {
+            throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
+        }
+        setRedoable();
+        model.addUndoneCommand(this);
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, entity));
     }
 
     public Entity getEntityFromId(Model model, IdentificationNumber id, UpdateEntityDescriptor descriptor)
@@ -150,19 +176,50 @@ public class UpdateCommand extends Command {
         if (descriptor instanceof UpdateBodyDescriptor) {
             List<Body> lastShownList = model.getFilteredBodyList();
             for (Body body : lastShownList) {
-                if (body.getBodyIdNum().equals(id)) {
+                if (body.getIdNum().equals(id)) {
                     return body;
                 }
             }
         } else if (descriptor instanceof UpdateWorkerDescriptor) {
             List<Worker> lastShownList = model.getFilteredWorkerList();
             for (Worker worker : lastShownList) {
-                if (worker.getWorkerIdNum().equals(id)) {
+                if (worker.getIdNum().equals(id)) {
                     return worker;
                 }
             }
+        } else if (descriptor instanceof UpdateFridgeDescriptor) {
+            List<Fridge> lastShownList = model.getFilteredFridgeList();
+            for (Fridge fridge : lastShownList) {
+                if (fridge.getIdNum().equals(id)) {
+                    return fridge;
+                }
+            }
         }
-        // todo: add support for fridge
+
+        throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
+    }
+
+    /**
+     * Gets a Body in Mortago according to a given Identification Number and add it to the UpdateFridgeDescriptor, if
+     * present.
+     * @param model the current model of the program.
+     * @param id an identification number.
+     * @param descriptor an UpdateFridgeDescriptor containing changes to a Fridge object.
+     * @return an UpdateFridgeDescriptor
+     * @throws CommandException if there is no Body object with the given identification number.
+     */
+    public UpdateFridgeDescriptor getBodyFromId(Model model, IdentificationNumber id, UpdateFridgeDescriptor descriptor)
+            throws CommandException {
+        if (id == null) {
+            return descriptor;
+        }
+        List<Body> lastShownList = model.getFilteredBodyList();
+        for (Body body : lastShownList) {
+            if (body.getIdNum().equals(id)) {
+                descriptor.setNewBody(body);
+                return descriptor;
+            }
+        }
         throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
     }
 

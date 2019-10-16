@@ -1,14 +1,16 @@
 package seedu.address.model;
 
+import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
 
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyAddressBook extends Observable {
 
     /**
      * Returns an unmodifiable view of the persons list.
@@ -27,5 +29,11 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate bodies.
      */
     ObservableList<Body> getBodyList();
+
+    /**
+     * Returns an unmodifiable view of the fridges list.
+     * This list will not contain any duplicate fridges.
+     */
+    ObservableList<Fridge> getFridgeList();
 
 }
