@@ -80,12 +80,12 @@ public class Timing implements Comparable<Timing> {
     @Override
     public int compareTo(Timing t) {
         requireNonNull(t);
-        int cmpStartTimingResult = getStartTime().compareTo(t.getStartTime());
+        int cmpStartTimingResult = t.getStartTime().compareTo(getStartTime());
         if (cmpStartTimingResult != 0) {
             return cmpStartTimingResult;
         }
 
-        return getEndTime().compareTo(t.getEndTime());
+        return t.getEndTime().compareTo(getEndTime());
     }
 
     @Override
