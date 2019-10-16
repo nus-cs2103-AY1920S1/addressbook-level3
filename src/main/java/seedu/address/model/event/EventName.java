@@ -26,7 +26,7 @@ public class EventName {
      */
     public EventName(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidName(name), this.MESSAGE_CONSTRAINTS);
         eventName = name;
     }
 
