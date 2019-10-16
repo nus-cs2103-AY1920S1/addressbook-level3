@@ -115,7 +115,7 @@ class JsonAdaptedEmployee {
         if (!EmployeeJoinDate.isValidJoinDate(joindate)) {
             throw new IllegalValueException(EmployeeJoinDate.MESSAGE_CONSTRAINTS);
         }
-        LocalDate newJoinDate = LocalDate.parse(joindate, FORMATTER );
+        LocalDate newJoinDate = LocalDate.parse(joindate, FORMATTER);
         final EmployeeJoinDate modelEmployeeJoinDate= new EmployeeJoinDate(newJoinDate);
 
         if (name == null) {
