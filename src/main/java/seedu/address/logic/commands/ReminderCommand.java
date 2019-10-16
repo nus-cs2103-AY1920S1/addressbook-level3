@@ -8,8 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.food.NameContainsCloseExpiryDatePredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all food in iFridge whose expiry dates is within r days.
  */
 public class ReminderCommand extends Command {
     public static final String COMMAND_WORD = "rem";
@@ -32,5 +31,12 @@ public class ReminderCommand extends Command {
         model.updateFilteredGroceryItemList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredGroceryItemList().size()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReminderCommand // instanceof handles nulls
+                && predicate.equals(((ReminderCommand) other).predicate)); // state check
     }
 }

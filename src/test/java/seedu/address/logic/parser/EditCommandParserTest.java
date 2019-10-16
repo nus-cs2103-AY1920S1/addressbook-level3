@@ -75,7 +75,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + TAG_DESC_HUSBAND
                 + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_AMY)
+        EditTemplateItemDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -87,7 +87,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
 
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        EditTemplateItemDescriptor descriptor = new EditFoodDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -98,7 +98,7 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        EditTemplateItemDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -115,7 +115,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased()
                 + TAG_DESC_FRIEND + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
 
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder()
+        EditTemplateItemDescriptor descriptor = new EditFoodDescriptorBuilder()
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -128,7 +128,7 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_NAME_DESC + NAME_DESC_AMY;
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        EditTemplateItemDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -146,7 +146,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withTags().build();
+        EditTemplateItemDescriptor descriptor = new EditFoodDescriptorBuilder().withTags().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
