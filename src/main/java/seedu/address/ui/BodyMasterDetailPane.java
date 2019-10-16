@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import org.controlsfx.control.MasterDetailPane;
-import org.controlsfx.control.PropertySheet;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
@@ -17,9 +16,9 @@ public class BodyMasterDetailPane extends UiPart<Region> {
     @FXML
     private MasterDetailPane bodyMasterDetailPane;
 
-    public BodyMasterDetailPane(BodyTableView bodyTableView) {
+    public BodyMasterDetailPane(BodyTableView bodyTableView, BodyCardSelected bodyCardSelected) {
         super(FXML);
         bodyMasterDetailPane.setMasterNode(bodyTableView.getRoot());
-        bodyMasterDetailPane.setDetailNode(new PropertySheet());
+        bodyMasterDetailPane.setDetailNode(bodyCardSelected.getRoot());
     }
 }

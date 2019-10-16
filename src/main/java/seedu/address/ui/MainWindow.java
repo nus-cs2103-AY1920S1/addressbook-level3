@@ -124,7 +124,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         bodyMasterDetailPane = new BodyMasterDetailPane(new BodyTableView(logic.getFilteredBodyList(),
-                logic.selectedBodyProperty(), logic::setSelectedBody));
+                logic.selectedBodyProperty(), logic::setSelectedBody), new BodyCardSelected(logic.selectedBodyProperty()));
         bodyMasterListPlaceholder.getChildren().add(bodyMasterDetailPane.getRoot());
     }
 
