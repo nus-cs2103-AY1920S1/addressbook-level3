@@ -38,6 +38,7 @@ public class AutoCompleteWordHandler {
         oListAutoCompleteWordBank.add(new CommandWord("delete"));
         oListAutoCompleteWordBank.add(new CommandWord("add"));
         oListAutoCompleteWordBank.add(new CommandWord("import"));
+        oListAutoCompleteWordBank.add(new CommandWord("history"));
     }
 
     /*public void addPrefixToBank() {
