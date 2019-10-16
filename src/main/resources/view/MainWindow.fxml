@@ -72,6 +72,7 @@
                         <Insets bottom="5" left="10" right="10" top="5" />
                       </padding>
                     </StackPane>
+                        <StackPane fx:id="resultDisplayPlaceHolder" prefHeight="30.0" styleClass="stack-pane" />
                      </children>
                   </VBox>
                </children>
