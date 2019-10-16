@@ -13,6 +13,7 @@ import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
+import seedu.address.model.tag.Tag;
 
 
 /**
@@ -67,11 +68,6 @@ public class AddCommand extends Command {
             throw new CommandException("command not found");
         }
 
-        /*if (toAdd.getType().equalsIgnoreCase("Expense")) {
-
-        } else {
-            model.addEntry(toAdd);
-        }*/
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

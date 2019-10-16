@@ -128,7 +128,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setEntry(Entry target, Entry editedEntry) {
         requireNonNull(editedEntry);
-        entries.setPerson(target, editedEntry);
+        entries.setEntry(target, editedEntry);
     }
 
     /**
@@ -139,7 +139,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setExpense(Expense target, Expense editedEntry) {
         requireNonNull(editedEntry);
         expenses.setExpense(target, editedEntry);
-        entries.setPerson(target, editedEntry);
+        entries.setEntry(target, editedEntry);
     }
 
     /**
@@ -150,7 +150,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setIncome(Income target, Income editedEntry) {
         requireNonNull(editedEntry);
         incomes.setIncome(target, editedEntry);
-        entries.setPerson(target, editedEntry);
+        entries.setEntry(target, editedEntry);
     }
 
     /**
@@ -161,7 +161,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setWish(Wish target, Wish editedEntry) {
         requireNonNull(editedEntry);
         wishes.setWish(target, editedEntry);
-        entries.setPerson(target, editedEntry);
+        entries.setEntry(target, editedEntry);
     }
 
     /**
