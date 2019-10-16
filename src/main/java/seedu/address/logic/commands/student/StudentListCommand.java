@@ -17,8 +17,6 @@ public class StudentListCommand extends StudentCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS); //change later
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(model.getStudentSummary());
     }
 }

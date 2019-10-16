@@ -12,10 +12,11 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.group.GroupCommand;
 import seedu.address.logic.commands.note.NoteAddCommand;
 import seedu.address.logic.commands.question.QuestionCommand;
 import seedu.address.logic.commands.quiz.QuizCommand;
-import seedu.address.logic.commands.student.StudentAddCommand;
+import seedu.address.logic.commands.student.StudentCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.note.NoteCommandParser;
@@ -59,7 +60,7 @@ public class NjoyParser {
         case NoteAddCommand.COMMAND_WORD:
             return new NoteCommandParser().parse(arguments);
 
-        case StudentAddCommand.COMMAND_WORD:
+        case StudentCommand.COMMAND_WORD:
             return new StudentCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:

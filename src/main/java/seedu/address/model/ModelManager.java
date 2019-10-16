@@ -194,7 +194,7 @@ public class ModelManager implements Model {
     //region FilteredStudent List Accessors
     @Override
     public ObservableList<Student> getFilteredStudentList() {
-        return null;
+        return studentRecord.getStudentList();
     }
 
     @Override
@@ -227,6 +227,12 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedStudent);
         studentRecord.setStudent(target, editedStudent);
     }
+
+    @Override
+    public String getStudentSummary() {
+        return studentRecord.getStudentSummary();
+    }
+
     //endregion
 
     //region Group

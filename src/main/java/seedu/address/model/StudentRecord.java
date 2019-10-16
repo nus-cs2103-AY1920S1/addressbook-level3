@@ -107,6 +107,9 @@ public class StudentRecord implements ReadOnlyStudentRecord {
         return students.asUnmodifiableObservableList();
     }
 
+
+    public String getStudentSummary() {return students.getStudentList();}
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

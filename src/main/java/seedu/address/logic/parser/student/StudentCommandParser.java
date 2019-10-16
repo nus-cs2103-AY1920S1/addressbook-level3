@@ -83,7 +83,7 @@ public class StudentCommandParser implements Parser<StudentCommand> {
             EditStudentDescriptor editStudentDescriptor = new EditStudentDescriptor();
             //HashMap<String, String> fields = new HashMap<>();
             //fields.put("name", argMultimap.getValue(PREFIX_QUESTION).orElse(""));
-            editStudentDescriptor.setName(ParserUtil.parseStudentName(argMultimap.getValue(PREFIX_NAME).get()));
+            editStudentDescriptor.setName(ParserUtil.parseStudentName(argMultimap.getValue(PREFIX_STUDENT).get()));
             return new StudentEditCommand(index, editStudentDescriptor);
         } else { // Create command
             if (!arePrefixesPresent(argMultimap, PREFIX_STUDENT)
