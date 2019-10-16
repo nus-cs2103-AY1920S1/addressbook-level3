@@ -114,16 +114,25 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyData<Participation>> readParticipationData() throws DataConversionException, IOException {
-        return readParticipationData(systemStorage.getParticipationDataFilePath());
+    public Optional<ReadOnlyData<Participation>> readParticipationData(
+        ReadOnlyData<Person> personReadOnlyData,
+        ReadOnlyData<Competition> competitionReadOnlyData
+    ) throws DataConversionException, IOException {
+        return readParticipationData(
+            systemStorage.getParticipationDataFilePath(),
+            personReadOnlyData,
+            competitionReadOnlyData
+        );
     }
 
     @Override
     public Optional<ReadOnlyData<Participation>> readParticipationData(
-        Path filePath
+        Path filePath,
+        ReadOnlyData<Person> personReadOnlyData,
+        ReadOnlyData<Competition> competitionReadOnlyData
     ) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return systemStorage.readParticipationData(filePath);
+        return systemStorage.readParticipationData(filePath, personReadOnlyData, competitionReadOnlyData);
     }
 
     @Override

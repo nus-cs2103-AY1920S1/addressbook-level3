@@ -93,8 +93,11 @@ public interface SystemStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyData<Participation>> readParticipationData(Path filePath)
-        throws DataConversionException, IOException;
+    Optional<ReadOnlyData<Participation>> readParticipationData(
+        Path filePath,
+        ReadOnlyData<Person> personReadOnlyData,
+        ReadOnlyData<Competition> competitionReadOnlyData
+    ) throws DataConversionException, IOException;
 
     /**
      * Returns Data data as a {@link ReadOnlyData}.
@@ -102,7 +105,10 @@ public interface SystemStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyData<Participation>> readParticipationData() throws DataConversionException, IOException;
+    Optional<ReadOnlyData<Participation>> readParticipationData(
+        ReadOnlyData<Person> personReadOnlyData,
+        ReadOnlyData<Competition> competitionReadOnlyData
+    ) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyData} to the storage.

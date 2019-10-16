@@ -1,7 +1,5 @@
 package seedu.address.model.util;
 
-import java.util.Date;
-
 import seedu.address.model.Data;
 import seedu.address.model.ReadOnlyData;
 import seedu.address.model.competition.Competition;
@@ -35,8 +33,8 @@ public class SampleDataUtil {
         return new Competition[]{
             new Competition(
                 new Name("NUS Powerlifting Open 2019"),
-                new Date("8/5/2019"),
-                new Date("8/9/2019"))
+                new CustomDate("08/05/2019"),
+                new CustomDate("08/09/2019"))
         };
     }
 

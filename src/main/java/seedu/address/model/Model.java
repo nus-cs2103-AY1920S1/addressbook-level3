@@ -159,6 +159,16 @@ public interface Model {
     void deleteParticipation(Participation target);
 
     /**
+     * Deletes all participations dependent with an association with the competition
+     */
+    void deleteDependentParticipations(Competition competition);
+
+    /**
+     * Deletes all participations dependent with an assoiciation with the person
+     */
+    void deleteDependentParticipations(Person person);
+
+    /**
      * Adds the given participation.
      * {@code participation} must not already exist in the system.
      */

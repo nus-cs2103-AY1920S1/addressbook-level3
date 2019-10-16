@@ -75,9 +75,7 @@ public class Person extends UniqueElement {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getDateOfBirth().equals(getDateOfBirth())
-                && otherPerson.getGender().equals(getGender());
+        return otherPerson.getName().equals(getName());
     }
 
     @Override

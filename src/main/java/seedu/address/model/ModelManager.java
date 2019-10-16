@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -109,6 +111,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deletePerson(Person target) {
+        deleteDependentParticipations(target);
         persons.removeElement(target);
     }
 
@@ -163,6 +166,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteCompetition(Competition competition) {
+        deleteDependentParticipations(competition);
         competitions.removeElement(competition);
     }
 
@@ -217,6 +221,37 @@ public class ModelManager implements Model {
     @Override
     public void deleteParticipation(Participation participation) {
         participations.removeElement(participation);
+    }
+
+    @Override
+    public void deleteDependentParticipations(Competition competition) {
+        List<Participation> toDelete = new ArrayList<>();
+
+        for (Participation participation : participations.getListOfElements()) {
+            if (participation.getCompetition().equals((competition))) {
+                toDelete.add(participation);
+            }
+        }
+
+        for (Participation participation : toDelete) {
+            deleteParticipation(participation);
+        }
+    }
+
+    @Override
+    public void deleteDependentParticipations(Person person) {
+        List<Participation> toDelete = new ArrayList<>();
+
+        for (Participation participation : participations.getListOfElements()) {
+            if (participation.getPerson().equals((person))) {
+                toDelete.add(participation);
+            }
+        }
+
+        for (Participation participation : toDelete) {
+            deleteParticipation(participation);
+        }
+
     }
 
     @Override

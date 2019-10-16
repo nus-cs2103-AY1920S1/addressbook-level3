@@ -1,8 +1,7 @@
 package seedu.address.testutil;
 
-import java.util.Date;
-
 import seedu.address.model.competition.Competition;
+import seedu.address.model.person.CustomDate;
 import seedu.address.model.person.Name;
 
 /**
@@ -11,12 +10,12 @@ import seedu.address.model.person.Name;
 public class CompetitionBuilder {
 
     public static final String DEFAULT_NAME = "NUS Powerlifting Open";
-    public static final Date DEFAULT_START_DATE = new Date();
-    public static final Date DEFAULT_END_DATE = new Date();
+    public static final CustomDate DEFAULT_START_DATE = new CustomDate("01/01/2019");
+    public static final CustomDate DEFAULT_END_DATE = new CustomDate("01/01/2019");
 
     private Name name;
-    private Date startDate;
-    private Date endDate;
+    private CustomDate startDate;
+    private CustomDate endDate;
 
     public CompetitionBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -45,7 +44,7 @@ public class CompetitionBuilder {
      * Sets the {@code StartDate} of the {@code Competition} that we are building.
      */
     public CompetitionBuilder withStartDate(String dateString) {
-        this.startDate = new Date(dateString);
+        this.startDate = new CustomDate(dateString);
         return this;
     }
 
@@ -53,7 +52,7 @@ public class CompetitionBuilder {
      * Sets the {@code EndDate} of the {@code Competition} that we are building.
      */
     public CompetitionBuilder withEndDate(String dateString) {
-        this.endDate = new Date(dateString);
+        this.endDate = new CustomDate(dateString);
         return this;
     }
 

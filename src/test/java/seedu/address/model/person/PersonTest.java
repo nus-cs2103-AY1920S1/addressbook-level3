@@ -66,13 +66,13 @@ public class PersonTest {
         Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different DOB -> returns false
+        // different DOB -> returns true
         editedAlice = new PersonBuilder(ALICE).withDateOfBirth(VALID_DOB_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertTrue(ALICE.equals(editedAlice));
 
-        // different gender -> returns false
+        // different gender -> returns true
         editedAlice = new PersonBuilder(ALICE).withGender(VALID_GENDER_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertTrue(ALICE.equals(editedAlice));
 
     }
 }

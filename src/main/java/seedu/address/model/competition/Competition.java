@@ -1,42 +1,53 @@
 package seedu.address.model.competition;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.address.model.UniqueElement;
-import seedu.address.model.UniqueElementList;
 import seedu.address.model.exercise.Exercise;
-import seedu.address.model.participation.Participation;
+import seedu.address.model.exercise.Lift;
+import seedu.address.model.person.CustomDate;
 import seedu.address.model.person.Name;
 
 /**
  * Represents a Competition in the app.
  */
 public class Competition extends UniqueElement {
-    private final Name name; // to be replaced
-    private final Date startDate;
-    private final Date endDate;
-    private final UniqueElementList<Exercise> exerciseList;
-    private final UniqueElementList<Participation> participationList;
 
-    public Competition(Name name, Date startDate, Date endDate) {
+    private static final Exercise squat = new Exercise(Lift.SQUAT);
+    private static final Exercise bench = new Exercise(Lift.BENCH);
+    private static final Exercise deadlift = new Exercise(Lift.DEADLIFT);
+
+    private final Name name;
+    private final CustomDate startDate;
+    private final CustomDate endDate;
+    private final List<Exercise> exerciseList;
+
+    public Competition(Name name, CustomDate startDate, CustomDate endDate) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.exerciseList = new UniqueElementList<>();
-        this.participationList = new UniqueElementList<>();
+        this.exerciseList = new ArrayList<>();
+        this.exerciseList.add(squat);
+        this.exerciseList.add(bench);
+        this.exerciseList.add(deadlift);
     }
 
     public Name getName() {
         return name;
     }
 
-    public Date getStartDate() {
+    public CustomDate getStartDate() {
         return startDate;
     }
 
-    public Date getEndDate() {
+    public CustomDate getEndDate() {
         return endDate;
+    }
+
+    public List<Exercise> getExerciseList() {
+        return exerciseList;
     }
 
     /**
@@ -66,8 +77,8 @@ public class Competition extends UniqueElement {
             return false;
         }
 
-        Competition otherPerson = (Competition) other;
-        return otherPerson.getName().equals(getName());
+        Competition otherCompetition = (Competition) other;
+        return otherCompetition.getName().equals(getName());
     }
 
     @Override

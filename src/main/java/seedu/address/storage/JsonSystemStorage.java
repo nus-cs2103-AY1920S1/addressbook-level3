@@ -59,6 +59,7 @@ public class JsonSystemStorage implements SystemStorage {
         saveData(new JsonSerializablePersonData(readOnlyData), filePath);
     }
 
+    @Override
     public Path getCompetitionDataFilePath() {
         return competitionDataFilePath;
     }
@@ -88,12 +89,37 @@ public class JsonSystemStorage implements SystemStorage {
     }
 
     @Override
-    public Optional<ReadOnlyData<Participation>> readParticipationData() throws DataConversionException {
-        return readData(participationDataFilePath, JsonSerializableParticipationData.class);
+    public Optional<ReadOnlyData<Participation>> readParticipationData(
+        ReadOnlyData<Person> personReadOnlyData,
+        ReadOnlyData<Competition> competitionReadOnlyData
+    ) throws DataConversionException {
+        return readParticipationData(
+            participationDataFilePath,
+            personReadOnlyData,
+            competitionReadOnlyData
+        );
     }
+
     @Override
-    public Optional<ReadOnlyData<Participation>> readParticipationData(Path filePath) throws DataConversionException {
-        return readData(filePath, JsonSerializableParticipationData.class);
+    public Optional<ReadOnlyData<Participation>> readParticipationData(
+        Path filePath,
+        ReadOnlyData<Person> personReadOnlyData,
+        ReadOnlyData<Competition> competitionReadOnlyData
+    ) throws DataConversionException {
+        requireNonNull(filePath);
+
+        Optional<JsonSerializableParticipationData> jsonData =
+            JsonUtil.readJsonFile(filePath, JsonSerializableParticipationData.class);
+        if (!jsonData.isPresent()) {
+            return Optional.empty();
+        }
+
+        try {
+            return Optional.of(jsonData.get().toModelType(personReadOnlyData, competitionReadOnlyData));
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
     }
 
     @Override
@@ -107,24 +133,24 @@ public class JsonSystemStorage implements SystemStorage {
     }
 
     /**
-     * Similar to {@link #readPersonData()}, {@link #readCompetitionData()}, {@link #readPersonData()}.
+     * Similar to {@link #readPersonData()}, {@link #readCompetitionData()}}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public <T extends UniqueElement, J extends JsonSerializableData> Optional<ReadOnlyData<T>> readData(
+    private <T extends UniqueElement, J extends JsonSerializableData> Optional<ReadOnlyData<T>> readData(
         Path filePath,
         Class<J> classOfData
     ) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<J> jsonAddressBook = JsonUtil.readJsonFile(filePath, classOfData);
-        if (!jsonAddressBook.isPresent()) {
+        Optional<J> jsonData = JsonUtil.readJsonFile(filePath, classOfData);
+        if (!jsonData.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonData.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

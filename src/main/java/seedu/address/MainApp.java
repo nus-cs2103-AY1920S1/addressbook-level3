@@ -82,29 +82,32 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyData<Person>> personDataOptional;
-        ReadOnlyData<Person> initialPersonData;
-        Optional<ReadOnlyData<Competition>> competitionDataOptional;
-        ReadOnlyData<Competition> initialCompetitionData;
-        Optional<ReadOnlyData<Participation>> participationDataOptional;
-        ReadOnlyData<Participation> initialParticipationData;
+        ReadOnlyData<Person> initialPersonData = new Data<>();
+        Optional<ReadOnlyData<Person>> personDataOptional = Optional.empty();
+        Optional<ReadOnlyData<Competition>> competitionDataOptional = Optional.empty();
+        ReadOnlyData<Competition> initialCompetitionData = new Data<>();
+        Optional<ReadOnlyData<Participation>> participationDataOptional = Optional.empty();
+        ReadOnlyData<Participation> initialParticipationData = new Data<>();
 
         try {
             personDataOptional = storage.readPersonData();
             competitionDataOptional = storage.readCompetitionData();
-            participationDataOptional = storage.readParticipationData();
 
-            boolean allFilesPresent = personDataOptional.isPresent()
-                && competitionDataOptional.isPresent() && participationDataOptional.isPresent();
-            if (!allFilesPresent) {
+            if (personDataOptional.isPresent() && competitionDataOptional.isPresent()) {
+                initialPersonData = personDataOptional.get();
+                initialCompetitionData = competitionDataOptional.get();
+                participationDataOptional =
+                    storage.readParticipationData(personDataOptional.get(), initialCompetitionData);
+                if (participationDataOptional.isPresent()) {
+                    initialParticipationData = participationDataOptional.get();
+                }
+            } else {
                 logger.info("Not all data files were found. Will be starting with a sample Data");
+                initialPersonData = SampleDataUtil.getSamplePersonData();
+                initialCompetitionData = SampleDataUtil.getSampleCompetitionData();
+                initialParticipationData = SampleDataUtil.getSampleParticipationData(initialPersonData,
+                    initialCompetitionData);
             }
-            initialPersonData = personDataOptional.orElseGet(SampleDataUtil::getSamplePersonData);
-            initialCompetitionData = competitionDataOptional.orElseGet(SampleDataUtil::getSampleCompetitionData);
-            initialParticipationData =
-                participationDataOptional.orElse(
-                    SampleDataUtil.getSampleParticipationData(initialPersonData, initialCompetitionData)
-                );
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Data");
             initialPersonData = new Data();

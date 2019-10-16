@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Data;
 import seedu.address.model.ReadOnlyData;
+import seedu.address.model.competition.Competition;
 import seedu.address.model.participation.Participation;
+import seedu.address.model.person.Person;
 
 /**
  * An Immutable Person Data that is serializable to JSON format.
@@ -47,8 +49,22 @@ public class JsonSerializableParticipationData implements JsonSerializableData {
     @Override
     public Data toModelType() throws IllegalValueException {
         Data<Participation> participations = new Data();
+        return participations;
+    }
+
+    /**
+     * Converts the stored data into the model's {@code Data} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated.
+     */
+    public Data<Participation> toModelType(
+        ReadOnlyData<Person> personReadOnlyData,
+        ReadOnlyData<Competition> competitionReadOnlyData
+    ) throws IllegalValueException {
+        Data<Participation> participations = new Data();
         for (JsonAdaptedParticipation jsonAdaptedParticipation : this.participations) {
-            Participation participation = jsonAdaptedParticipation.toModelType();
+            Participation participation =
+                jsonAdaptedParticipation.toModelType(personReadOnlyData, competitionReadOnlyData);
             if (participations.hasUniqueElement(participation)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PARTICIPATION);
             }

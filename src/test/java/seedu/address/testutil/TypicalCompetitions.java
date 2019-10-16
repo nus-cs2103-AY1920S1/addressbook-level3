@@ -13,7 +13,7 @@ import seedu.address.model.competition.Competition;
 public class TypicalCompetitions {
 
     public static final Competition NUS_OPEN = new CompetitionBuilder().withName("NUS Powerlifting Open 2019")
-        .withStartDate("8/5/2019").withEndDate("8/9/2019").build();
+        .withStartDate("08/05/2019").withEndDate("08/09/2019").build();
 
     private TypicalCompetitions() {} // prevents instantiation
 
