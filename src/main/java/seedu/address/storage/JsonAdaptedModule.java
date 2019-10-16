@@ -49,7 +49,7 @@ class JsonAdaptedModule {
         Iterator<Tag> tagIterator = source.getTags().iterator();
         while (tagIterator.hasNext()) {
             Tag tag = tagIterator.next();
-            if (tag instanceof UserTag) {
+            if (!tag.isDefault()) {
                 userTags.add(new JsonAdaptedTag(tag));
             }
         }

@@ -15,6 +15,7 @@ import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.versiontracking.CommitList;
 import seedu.address.model.versiontracking.StudyPlanCommitManager;
@@ -148,6 +149,16 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             ModuleInfo moduleInfo = modulesInfo.find(module.getModuleCode().toString());
             module.setName(new Name(moduleInfo.getName()));
             module.setMcCount(moduleInfo.getMc());
+
+            /*
+            // adds default tags to each module
+            UniqueTagList defaultTags = activeStudyPlan.assignDefaultTags(moduleInfo);
+            Iterator<Tag> tagIterator = defaultTags.iterator();
+            while (tagIterator.hasNext()) {
+                module.getTags().addTag(tagIterator.next());
+            }
+             */
+
         }
 
         // replace skeletal modules under semesters with the actual reference to modules in mega list
@@ -161,11 +172,6 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
                 Module actualModule = megaModuleHash.get(skeletalModule.getModuleCode().toString());
                 uniqueModuleList.setModule(skeletalModule, actualModule);
             }
-        }
-
-        // TODO: get user-defined tags from mega tag list, and make the tags refer to the megalist of tags
-        for (Module module : megaModuleHash.values()) {
-            UniqueTagList tagList = module.getTags();
         }
 
         return activeStudyPlan;

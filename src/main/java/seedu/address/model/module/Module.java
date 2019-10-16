@@ -137,7 +137,11 @@ public class Module implements Cloneable {
             return true;
         }
 
-        if (!(other instanceof seedu.address.model.module.Module)) {
+        if (!(other instanceof Module)) {
+            return false;
+        }
+
+        if ((name == null && ((Module) other).name != null) || (name != null && ((Module) other).name == null)) {
             return false;
         }
 

@@ -148,6 +148,7 @@ public class StudyPlan implements Cloneable {
      * @param moduleInfo The module info of the module.
      * @return A {@code UniqueTagList} with the default tags.
      */
+    // Change to public so that the activate function in module planner can access it.
     private UniqueTagList assignDefaultTags(ModuleInfo moduleInfo) {
         UniqueTagList moduleTagList = new UniqueTagList();
         UniqueTagList studyPlanTagList = getTags();

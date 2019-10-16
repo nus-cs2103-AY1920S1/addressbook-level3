@@ -34,7 +34,13 @@ public class UserTag implements Tag {
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX) && (!DefaultTagType.contains(test));
+        boolean a = test.matches(VALIDATION_REGEX) && (!DefaultTagType.contains(test));
+        if (!a) {
+            System.out.println(test);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
