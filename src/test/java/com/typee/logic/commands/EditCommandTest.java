@@ -35,8 +35,13 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getHistoryManager()), new UserPrefs());
+<<<<<<< HEAD
         expectedModel.setEngagement(model.getFilteredEngagementList().get(0), editedPerson);
+=======
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.saveAppointmentList();
+>>>>>>> 95a35944eea68dec37a5a185a16f207c3884228f
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -55,8 +60,13 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getHistoryManager()), new UserPrefs());
+<<<<<<< HEAD
         expectedModel.setEngagement(lastPerson, editedPerson);
+=======
+        expectedModel.setPerson(lastPerson, editedPerson);
+        expectedModel.saveAppointmentList();
+>>>>>>> 95a35944eea68dec37a5a185a16f207c3884228f
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -68,7 +78,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getHistoryManager()), new UserPrefs());
+        expectedModel.saveAppointmentList();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -84,8 +95,13 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getHistoryManager()), new UserPrefs());
+<<<<<<< HEAD
         expectedModel.setEngagement(model.getFilteredEngagementList().get(0), editedPerson);
+=======
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.saveAppointmentList();
+>>>>>>> 95a35944eea68dec37a5a185a16f207c3884228f
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -104,7 +120,7 @@ public class EditCommandTest {
         CommandTestUtil.showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getEngagementList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Person personInList = model.getHistoryManager().getEngagementList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
 
@@ -130,7 +146,7 @@ public class EditCommandTest {
         CommandTestUtil.showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getEngagementList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getHistoryManager().getEngagementList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());

@@ -15,6 +15,8 @@ import org.junit.jupiter.api.Test;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.logic.commands.exceptions.CommandException;
+import com.typee.logic.commands.exceptions.NullRedoableActionException;
+import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.AddressBook;
 import com.typee.model.Model;
 import com.typee.model.ReadOnlyAddressBook;
@@ -115,12 +117,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setHistoryManager(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyAddressBook getHistoryManager() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -145,8 +147,32 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredEngagementList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasNoUndoableCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoAppointmentList() throws NullUndoableActionException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasNoRedoableCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoAppointmentList() throws NullRedoableActionException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveAppointmentList() {
         }
     }
 
@@ -187,7 +213,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyAddressBook getHistoryManager() {
             return new AddressBook();
         }
     }

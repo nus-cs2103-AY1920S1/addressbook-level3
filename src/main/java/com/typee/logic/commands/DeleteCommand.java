@@ -38,8 +38,10 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+
         Engagement engagementToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEngagement(engagementToDelete);
+        model.saveAppointmentList();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, engagementToDelete));
     }
 

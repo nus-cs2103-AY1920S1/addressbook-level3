@@ -86,11 +86,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        AddressBook expectedAddressBook = new AddressBook(actualModel.getHistoryManager());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredEngagementList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedAddressBook, actualModel.getHistoryManager());
         assertEquals(expectedFilteredList, actualModel.getFilteredEngagementList());
     }
 
@@ -103,7 +103,11 @@ public class CommandTestUtil {
 
         Person person = model.getFilteredEngagementList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
+<<<<<<< HEAD
         model.updateFilteredEngagementList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+=======
+        model.updateFilteredEngagementList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+>>>>>>> 95a35944eea68dec37a5a185a16f207c3884228f
 
         assertEquals(1, model.getFilteredEngagementList().size());
     }

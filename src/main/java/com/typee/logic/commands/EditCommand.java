@@ -63,6 +63,7 @@ public class EditCommand extends Command {
 
         model.setEngagement(engagementToEdit, editedEngagement);
         model.updateFilteredEngagementList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.saveAppointmentList();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedEngagement));
     }
 

@@ -59,7 +59,11 @@ public class FindCommandTest {
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
+<<<<<<< HEAD
         expectedModel.updateFilteredEngagementList(predicate);
+=======
+        expectedModel.updateFilteredEngagementList(predicate);
+>>>>>>> 95a35944eea68dec37a5a185a16f207c3884228f
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredEngagementList());
     }
@@ -69,7 +73,11 @@ public class FindCommandTest {
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
+<<<<<<< HEAD
         expectedModel.updateFilteredEngagementList(predicate);
+=======
+        expectedModel.updateFilteredEngagementList(predicate);
+>>>>>>> 95a35944eea68dec37a5a185a16f207c3884228f
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredEngagementList());
     }

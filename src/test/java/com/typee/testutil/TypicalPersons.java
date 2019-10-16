@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.typee.logic.commands.CommandTestUtil;
 import com.typee.model.AddressBook;
+import com.typee.model.HistoryManager;
 import com.typee.model.person.Person;
 
 /**
@@ -37,12 +38,13 @@ public class TypicalPersons {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
+    public static HistoryManager getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Person person : getTypicalPersons()) {
             ab.addEngagement(person);
         }
-        return ab;
+        HistoryManager hm = new HistoryManager(ab);
+        return hm;
     }
 
     public static List<Person> getTypicalPersons() {

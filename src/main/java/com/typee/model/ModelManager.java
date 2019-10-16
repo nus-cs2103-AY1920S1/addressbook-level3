@@ -8,6 +8,8 @@ import javafx.collections.transformation.FilteredList;
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.util.CollectionUtil;
+import com.typee.logic.commands.exceptions.NullRedoableActionException;
+import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.engagement.Engagement;
 import java.nio.file.Path;
 import java.util.function.Predicate;
@@ -19,9 +21,9 @@ import java.util.logging.Logger;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final HistoryManager historyManager;
     private final UserPrefs userPrefs;
-    private final FilteredList<Engagement> filteredPersons;
+    private final FilteredList<Engagement> filteredEngagements;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -32,9 +34,9 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.historyManager = new HistoryManager(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getEngagementList());
+        filteredEngagements = new FilteredList<>(this.historyManager.getEngagementList());
     }
 
     public ModelManager() {
@@ -79,36 +81,35 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setHistoryManager(ReadOnlyAddressBook historyManager) {
+        this.historyManager.resetData(historyManager);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyAddressBook getHistoryManager() {
+        return historyManager;
     }
 
     @Override
     public boolean hasEngagement(Engagement engagement) {
         requireNonNull(engagement);
-        return addressBook.hasEngagement(engagement);
+        return historyManager.hasEngagement(engagement);
     }
 
     public void deleteEngagement(Engagement target) {
-        addressBook.removeEngagement(target);
+        historyManager.removeEngagement(target);
     }
 
     //@Override
     public void addEngagement(Engagement engagement) {
-        addressBook.addEngagement(engagement);
-        updateFilteredEngagementList(PREDICATE_SHOW_ALL_PERSONS);
+        historyManager.addEngagement(engagement);
+        updateFilteredEngagementList(PREDICATE_SHOW_ALL_ENGAGEMENTS);
     }
 
     @Override
     public void setEngagement(Engagement target, Engagement editedEngagement) {
         CollectionUtil.requireAllNonNull(target, editedEngagement);
-
-        addressBook.setPerson(target, editedEngagement);
+        historyManager.setPerson(target, editedEngagement);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -119,12 +120,43 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Engagement> getFilteredEngagementList() {
-        return filteredPersons;
+        return filteredEngagements;
     }
 
+
+    @Override
     public void updateFilteredEngagementList(Predicate<Engagement> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredEngagements.setPredicate(predicate);
+    }
+
+    //=========== Undo ================================================================================
+
+    @Override
+    public boolean hasNoUndoableCommand() {
+        return !historyManager.isUndoable();
+    }
+
+    @Override
+    public void undoAppointmentList() throws NullUndoableActionException {
+        historyManager.undo();
+    }
+
+    //=========== Redo ================================================================================
+
+    @Override
+    public boolean hasNoRedoableCommand() {
+        return !historyManager.isRedoable();
+    }
+
+    @Override
+    public void redoAppointmentList() throws NullRedoableActionException {
+        historyManager.redo();
+    }
+
+    @Override
+    public void saveAppointmentList() {
+        historyManager.saveState();
     }
 
     @Override
@@ -141,9 +173,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return historyManager.equals(other.historyManager)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredEngagements.equals(other.filteredEngagements);
     }
 
 }

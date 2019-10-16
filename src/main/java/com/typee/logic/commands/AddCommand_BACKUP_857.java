@@ -41,8 +41,12 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_CONFLICTING_ENGAGEMENT);
         }
 
+<<<<<<< HEAD
         model.addEngagement(toAdd);
+=======
+        model.addPerson(toAdd);
         model.saveAppointmentList();
+>>>>>>> 95a35944eea68dec37a5a185a16f207c3884228f
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

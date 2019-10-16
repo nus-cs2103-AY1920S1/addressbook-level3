@@ -29,7 +29,7 @@ public interface Logic {
     /**
      * Returns the AddressBook.
      *
-     * @see Model#getAddressBook()
+     * @see Model#getHistoryManager()
      */
     ReadOnlyAddressBook getAddressBook();
 
