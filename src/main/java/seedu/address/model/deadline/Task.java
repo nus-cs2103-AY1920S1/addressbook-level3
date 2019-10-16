@@ -29,7 +29,7 @@ public class Task {
     public Task(String task) {
         requireNonNull(task);
         checkArgument(isValidTask(task), MESSAGE_CONSTRAINTS);
-        this.fullTask = task;
+        fullTask = task;
     }
 
     /**

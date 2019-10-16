@@ -51,6 +51,7 @@ class JsonSerializableAddressBook {
                 .collect(Collectors.toList()));
     }
 
+
     /**
      * Converts this address book into the model's {@code AddressBook} object.
      *

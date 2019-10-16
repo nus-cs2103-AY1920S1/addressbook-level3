@@ -370,3 +370,8 @@
     -fx-text-fill: #00bfff;
     -fx-font-weight: bold;
 }
+
+#deadlineTitle {
+    -fx-text-fill: #FF0000;
+    -fx-font-weight: bold;
+}
