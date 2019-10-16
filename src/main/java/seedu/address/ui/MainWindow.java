@@ -10,6 +10,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
@@ -39,6 +40,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CodeWindow codeWindow;
     private FinancialTrackerPage financialTrackerPage;
     private CalendarPage calendarPage;
     private ItineraryPage itineraryPage;
@@ -58,6 +60,9 @@ public class MainWindow extends UiPart<Stage> implements Page {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private Scene commonScene;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -71,13 +76,18 @@ public class MainWindow extends UiPart<Stage> implements Page {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        codeWindow = new CodeWindow();
         financialTrackerPage = new FinancialTrackerPage();
         calendarPage = new CalendarPage();
         itineraryPage = new ItineraryPage();
 
         mainScene = primaryStage.getScene();
 
-        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage);
+        // todo-this-week: call the PageScene constructor with your page scene instead,
+        // e.g. Pages(primaryScene, diaryScene)
+        // note that one of the PageScene's constructor is a vararg
+        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), itineraryPage, calendarPage, financialTrackerPage);
+
     }
 
     public Stage getPrimaryStage() {
@@ -144,6 +154,18 @@ public class MainWindow extends UiPart<Stage> implements Page {
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
+    }
+
+    /**
+     * Opens the code window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleCode() {
+        if (!codeWindow.isShowing()) {
+            codeWindow.show();
+        } else {
+            codeWindow.focus();
         }
     }
 
