@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.UnscheduleActivityCommand;
 import seedu.address.logic.commands.UnscheduleCommand;
 import seedu.address.logic.commands.UnscheduleTimeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -39,6 +40,8 @@ public class UnscheduleCommandParser implements Parser<UnscheduleCommand> {
         switch(type) {
         case UnscheduleTimeCommand.SECOND_COMMAND_WORD:
             return parseUnscheduleTime(arguments);
+        case UnscheduleActivityCommand.SECOND_COMMAND_WORD:
+            return parseUnscheduleActivity(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
@@ -58,15 +61,32 @@ public class UnscheduleCommandParser implements Parser<UnscheduleCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     private UnscheduleTimeCommand parseUnscheduleTime(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DAY, PREFIX_START_TIME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_START_TIME, PREFIX_DAY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DAY, PREFIX_START_TIME) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_START_TIME, PREFIX_DAY) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnscheduleCommand.MESSAGE_USAGE));
         }
 
-        Index dayIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
         TimeInHalfHour startTime = ParserUtil.parseTimeInHalfHour(argMultimap.getValue(PREFIX_START_TIME).get());
-        return new UnscheduleTimeCommand(dayIndex, startTime);
+        Index dayIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
+        return new UnscheduleTimeCommand(startTime, dayIndex);
+    }
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddActivityCommand for a Activity
+     * and returns an AddActivityCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private UnscheduleActivityCommand parseUnscheduleActivity(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ACTIVITY, PREFIX_DAY);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_ACTIVITY, PREFIX_DAY) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnscheduleCommand.MESSAGE_USAGE));
+        }
+        Index activityIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ACTIVITY).get());
+        Index dayIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
+
+        return new UnscheduleActivityCommand(activityIndex, dayIndex);
     }
 
 

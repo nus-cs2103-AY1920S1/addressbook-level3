@@ -21,7 +21,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
  */
 public class UnscheduleActivityCommand extends UnscheduleCommand {
 
-    public static final String SECOND_COMMAND_WORD = "time";
+    public static final String SECOND_COMMAND_WORD = "activity";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
             + ": Unschedules all instances of an activity on a certain day. "
