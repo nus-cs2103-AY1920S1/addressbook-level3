@@ -103,6 +103,9 @@ public interface Model {
      */
     ObservableList<Note> getFilteredNoteList();
 
+    /**
+     * Returns an unmodifiable view of the filtered task list
+     */
     ObservableList<Task> getFilteredTaskList();
 
     /**
@@ -116,6 +119,11 @@ public interface Model {
 
     ObservableList<PieChart.Data> getStatsChartData();
 
+    /**
+     * Updates the filter of the filtered task list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     void updateFilteredTaskList(Predicate<Task> predicate);
 
     Note getNote(Note note);
@@ -169,6 +177,10 @@ public interface Model {
      * Clears the quiz question list.
      */
     void clearQuizQuestionList();
+
+    void markTaskAsDone(Task taskDone);
+
+    void clearTaskList();
 
     /**
      * Returns an answer for question in quiz with specific {@code index}.

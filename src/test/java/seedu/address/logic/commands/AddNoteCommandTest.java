@@ -246,6 +246,16 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public void markTaskAsDone(Task taskDone) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Answer showQuizAnswer(int index) {
             throw new AssertionError("This method should not be called.");
         }
