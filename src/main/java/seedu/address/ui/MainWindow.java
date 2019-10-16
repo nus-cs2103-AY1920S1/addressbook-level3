@@ -77,7 +77,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
 
         mainScene = primaryStage.getScene();
 
-        PageManager.getInstance(primaryStage, primaryScene, new SamplePage(), calendarPage);
+        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage);
     }
 
     public Stage getPrimaryStage() {
