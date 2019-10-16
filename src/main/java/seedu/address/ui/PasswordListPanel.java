@@ -12,6 +12,7 @@ import seedu.address.model.password.Password;
  * Panel containing the list of passwords.
  */
 public class PasswordListPanel extends UiPart<Region> {
+    //TODO: I think we should abstract ListPanel out to some other class so our main UI doesn't get cluttered
     private static final String FXML = "PasswordListPanel.fxml";
 
     @FXML

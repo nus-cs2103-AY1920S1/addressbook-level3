@@ -60,4 +60,17 @@ public class Password {
 
         return builder.toString();
     }
+
+    /**
+     * Returns true if both passwords have the same description.
+     * This defines a weaker notion of equality between two persons.
+     */
+    public boolean isSamePassword(Password otherPassword) {
+        if (otherPassword == this) {
+            return true;
+        }
+
+        return otherPassword != null
+                && otherPassword.getDescription().equals(getDescription());
+    }
 }
