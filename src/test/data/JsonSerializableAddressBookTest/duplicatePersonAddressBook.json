@@ -29,6 +29,11 @@
     "answer" : "123",
     "subject" : "456",
     "difficulty" : "y"
+  } ],
+  "quizResults" : [ {
+    "answer" : "abc",
+    "questionBody" : "def",
+    "quizTime" : "2019/10/10 12:00",
+    "result" : "true"
   } ]
-
 }

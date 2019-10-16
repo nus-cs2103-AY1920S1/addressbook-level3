@@ -34,5 +34,11 @@
     "answer" : "Coupling",
     "subject" : "CS2103T",
     "difficulty" : "easy"
+  } ],
+  "quizResults" : [ {
+    "answer" : "Coupling",
+    "questionBody" : "(  ) is a measure of the degree of dependence between components, classes, methods, etc.",
+    "quizTime" : "2019/10/10 12:00",
+    "result" : true
   } ]
 }
