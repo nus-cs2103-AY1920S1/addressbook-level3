@@ -155,6 +155,32 @@ public class MemeAddCommandTest {
         public SimpleObjectProperty<ModelContext> getContext() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean canUndoMemeBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoMemeBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoMemeBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoMemeBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitMemeBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
@@ -191,6 +217,11 @@ public class MemeAddCommandTest {
         public void addMeme(Meme meme) {
             requireNonNull(meme);
             memesAdded.add(meme);
+        }
+
+        @Override
+        public void commitMemeBook() {
+            // called by {@code MemeAddCommand#execute()}
         }
 
         @Override

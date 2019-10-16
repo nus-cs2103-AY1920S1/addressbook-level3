@@ -9,7 +9,9 @@ import java.util.regex.Pattern;
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.ExitCommand;
 import seedu.weme.logic.commands.HelpCommand;
+import seedu.weme.logic.commands.RedoCommand;
 import seedu.weme.logic.commands.TabCommand;
+import seedu.weme.logic.commands.UndoCommand;
 import seedu.weme.logic.parser.exceptions.ParseException;
 
 /**
@@ -38,6 +40,11 @@ public abstract class WemeParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case TabCommand.COMMAND_WORD:
             return new TabCommandParser().parse(arguments);

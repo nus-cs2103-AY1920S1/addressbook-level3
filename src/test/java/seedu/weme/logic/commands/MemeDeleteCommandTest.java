@@ -35,6 +35,7 @@ public class MemeDeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
         expectedModel.deleteMeme(memeToDelete);
+        expectedModel.commitMemeBook();
 
         assertCommandSuccess(memeDeleteCommand, model, expectedMessage, expectedModel);
     }
@@ -59,6 +60,7 @@ public class MemeDeleteCommandTest {
         Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
         expectedModel.deleteMeme(memeToDelete);
         showNoMeme(expectedModel);
+        expectedModel.commitMemeBook();
 
         assertCommandSuccess(memeDeleteCommand, model, expectedMessage, expectedModel);
     }

@@ -41,6 +41,7 @@ public class MemeDeleteCommand extends Command {
 
         Meme memeToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteMeme(memeToDelete);
+        model.commitMemeBook();
         return new CommandResult(String.format(MESSAGE_DELETE_MEME_SUCCESS, memeToDelete));
     }
 

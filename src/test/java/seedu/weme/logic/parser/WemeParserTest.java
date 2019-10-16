@@ -10,12 +10,26 @@ import org.junit.jupiter.api.Test;
 
 import seedu.weme.logic.commands.ExitCommand;
 import seedu.weme.logic.commands.HelpCommand;
+import seedu.weme.logic.commands.RedoCommand;
 import seedu.weme.logic.commands.TabCommand;
+import seedu.weme.logic.commands.UndoCommand;
 import seedu.weme.logic.parser.exceptions.ParseException;
 
 public class WemeParserTest {
 
     private final WemeParser parser = new WemeParserStub();
+
+    @Test
+    public void parseCommand_undo() throws Exception {
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 2") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_redo() throws Exception {
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " 2") instanceof RedoCommand);
+    }
 
     @Test
     public void parseCommand_tab() throws Exception {
