@@ -47,7 +47,7 @@ public class CustomerParser {
             return new AddCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommand(arguments);
+            return new DeleteCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
