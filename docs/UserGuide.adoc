@@ -88,13 +88,13 @@ a| Attributes are properties of a worker, body or fridge that are supplied by yo
 ** The `/attributeName` should always be given before specifying the information of the `attribute` that the entry has.
 ** eg. when specifying the `/name name` of a body with the name "John Doe", it should be given as `/name John Doe`.
 
-    
+
 * `ATTRIBUTES` in parentheses are optional.
     ** e.g. The following 2 commands are valid for the update command, with the abridged format: `update -b (/religion religion /status status)`.
         *** `update -b /religion Buddhist`
         *** `update -b /religion Buddhist /status released`
 * `ATTRIBUTES` specified in a command can be given in any order.
-    ** e.g. The following 2 commands are valid for the update command, with the abridged format: `update -b (/religion religion /status status)`. 
+    ** e.g. The following 2 commands are valid for the update command, with the abridged format: `update -b (/religion religion /status status)`.
         *** `update -b /religion Buddhist /status released`
         *** `update -b /status released /religion Buddhist`
 
@@ -104,7 +104,7 @@ a| Attributes are properties of a worker, body or fridge that are supplied by yo
     ** For the filter command: `filter (/attributeName attributeValue)...`
     *** `filter /firstName John` and `filter /sex F` are valid commands.
     *** `filter` is an invalid command.
-    
+
 *Identification Number*
 
 * All entries in Mortago have a unique idfentification number tagged to it.
@@ -115,7 +115,7 @@ a| Attributes are properties of a worker, body or fridge that are supplied by yo
     ** `body` entries: `B\\####\####`
     ** `worker` entries: `W\\#####`
     **  `fridge` entries: `F##`
-    
+
 * If you need to supply the identification number to a command, providing the number (e.g. `20` instead of `W00020`) is sufficient.
 
 ====
@@ -157,7 +157,7 @@ add -b
 /doa dateOfAdmission
 (/dob dateOfBirth)
 (/status status)
-(/nric nricNumber)   
+(/nric nricNumber)
 (/religion religion)
 (/nameNOK nameOfNextOfKin)
 (/relationship relationshipOfNextOfKin)
