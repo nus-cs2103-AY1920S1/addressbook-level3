@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -112,7 +112,7 @@ public interface Model {
 
     ObservableList<FlashCard> getFlashCardList();
 
-    void initializeTestModel(ArrayList<FlashCard> testList);
+    void initializeTestModel(List<FlashCard> testList);
 
     boolean hasTestFlashCard();
 

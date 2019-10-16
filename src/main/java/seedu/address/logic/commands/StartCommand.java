@@ -2,8 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.model.Model;
@@ -46,7 +47,7 @@ public class StartCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        ArrayList<FlashCard> testList = searchTag(model);
+        List<FlashCard> testList = searchTag(model);
         model.initializeTestModel(testList);
         if (!model.hasTestFlashCard()) {
             return new CommandResult(MESSAGE_NO_FLASHCARDS);
@@ -65,13 +66,13 @@ public class StartCommand extends Command {
     }
 
     /** Searches the list of flashcard to fetch the relevant tags. */
-    private ArrayList<FlashCard> searchTag(Model model) {
+    private List<FlashCard> searchTag(Model model) {
         if (tagName.isEmpty()) {
-            return new ArrayList<>(model.getFlashCardList());
+            return new LinkedList<>(model.getFlashCardList());
         }
         CategoryContainsAnyKeywordsPredicate predicate = processSearchTerm();
         model.updateFilteredFlashCardList(predicate);
-        return new ArrayList<>(model.getFilteredFlashCardList());
+        return new LinkedList<>(model.getFilteredFlashCardList());
     }
 
     /** Converts tagName to a CategoryContainsAnyKeywordsPredicate for searchTag(). */

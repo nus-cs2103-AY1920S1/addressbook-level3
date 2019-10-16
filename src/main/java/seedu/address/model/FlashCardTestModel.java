@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.model.flashcard.FlashCard;
 
@@ -12,10 +12,10 @@ import seedu.address.model.flashcard.FlashCard;
  */
 public class FlashCardTestModel {
 
-    private ArrayList<FlashCard> testList;
+    private List<FlashCard> testList;
     private FlashCard currentFlashCard;
 
-    public FlashCardTestModel(ArrayList<FlashCard> testList) {
+    public FlashCardTestModel(List<FlashCard> testList) {
         this.testList = testList;
     }
 
@@ -24,7 +24,7 @@ public class FlashCardTestModel {
     }
 
     public String getQuestion() {
-        assert(!testList.isEmpty());
+        assert !testList.isEmpty();
         currentFlashCard = testList.remove(0);
         return currentFlashCard.getQuestion().toString();
     }

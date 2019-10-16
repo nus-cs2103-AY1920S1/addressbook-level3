@@ -73,7 +73,7 @@ public class AddressBookParser {
         this.isAwaitingAnswer = isAwaitingAnswer;
     }
 
-    /** Parses for test specific commands. */
+    /** Parses test specific commands. */
     private Command parseTestCommand(Matcher matcher) throws ParseException {
 
         final String commandWord = matcher.group("commandWord");
@@ -90,7 +90,7 @@ public class AddressBookParser {
     }
 
     //@@author
-    /** Parses normal commands. */
+    /** Parses commands outside test mode i.e. list, add etc. */
     private Command parseNormalCommand(Matcher matcher) throws ParseException {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");

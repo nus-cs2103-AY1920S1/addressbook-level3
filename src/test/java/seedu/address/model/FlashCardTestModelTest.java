@@ -4,7 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,11 +15,11 @@ import seedu.address.testutil.FlashCardTestListBuilder;
 public class FlashCardTestModelTest {
 
     private FlashCardTestModel flashCardTestModel;
-    private ArrayList<FlashCard> testList = new FlashCardTestListBuilder().build();
+    private List<FlashCard> testList = new FlashCardTestListBuilder().build();
 
     @Test
     public void isEmpty_emptyList_success() {
-        flashCardTestModel = new FlashCardTestModel(new ArrayList<>());
+        flashCardTestModel = new FlashCardTestModel(new LinkedList<>());
         assertTrue(flashCardTestModel.isEmpty());
     }
 
