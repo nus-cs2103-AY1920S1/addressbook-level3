@@ -153,6 +153,12 @@ Throughout the Bookings Manager, there will be many contacts which you will come
 
 === Pre-trip Inventory Manager [coming in v2.0]
 
+Allows the user to make a list of things (inventory of things) he/she needs for the trip.
+
+* add <item> : adds an item to the inventory list
+* delete <index of item> *yes_i_am_sure* : deletes the item at the specified index from the inventory list
+
+
 == General info
 
 ====
