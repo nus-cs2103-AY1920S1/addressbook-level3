@@ -48,6 +48,7 @@ public class MemeAddCommand extends Command {
         }
 
         model.addMeme(toAdd);
+        model.commitMemeBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

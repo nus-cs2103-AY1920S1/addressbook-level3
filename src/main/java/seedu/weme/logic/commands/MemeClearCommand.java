@@ -18,6 +18,7 @@ public class MemeClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setMemeBook(new MemeBook());
+        model.commitMemeBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -31,6 +31,7 @@ public class MemeAddCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs());
         expectedModel.addMeme(validMeme);
+        expectedModel.commitMemeBook();
 
         assertCommandSuccess(new MemeAddCommand(validMeme), model,
                 String.format(MemeAddCommand.MESSAGE_SUCCESS, validMeme), expectedModel);

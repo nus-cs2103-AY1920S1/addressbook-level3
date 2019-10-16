@@ -20,7 +20,7 @@ import seedu.weme.model.meme.Meme;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final MemeBook memeBook;
+    private final VersionedMemeBook versionedMemeBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Meme> filteredMemes;
 
@@ -36,9 +36,9 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with meme book: " + memeBook + " and user prefs " + userPrefs);
 
-        this.memeBook = new MemeBook(memeBook);
+        versionedMemeBook = new VersionedMemeBook(memeBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredMemes = new FilteredList<>(this.memeBook.getMemeList());
+        filteredMemes = new FilteredList<>(versionedMemeBook.getMemeList());
     }
 
     public ModelManager() {
@@ -84,28 +84,28 @@ public class ModelManager implements Model {
 
     @Override
     public void setMemeBook(ReadOnlyMemeBook memeBook) {
-        this.memeBook.resetData(memeBook);
+        this.versionedMemeBook.resetData(memeBook);
     }
 
     @Override
     public ReadOnlyMemeBook getMemeBook() {
-        return memeBook;
+        return versionedMemeBook;
     }
 
     @Override
     public boolean hasMeme(Meme meme) {
         requireNonNull(meme);
-        return memeBook.hasMeme(meme);
+        return versionedMemeBook.hasMeme(meme);
     }
 
     @Override
     public void deleteMeme(Meme target) {
-        memeBook.removeMeme(target);
+        versionedMemeBook.removeMeme(target);
     }
 
     @Override
     public void addMeme(Meme meme) {
-        memeBook.addMeme(meme);
+        versionedMemeBook.addMeme(meme);
         updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
     }
 
@@ -113,7 +113,7 @@ public class ModelManager implements Model {
     public void setMeme(Meme target, Meme editedMeme) {
         requireAllNonNull(target, editedMeme);
 
-        memeBook.setMeme(target, editedMeme);
+        versionedMemeBook.setMeme(target, editedMeme);
     }
 
     //=========== Filtered Meme List Accessors =============================================================
@@ -139,6 +139,31 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean canUndoMemeBook() {
+        return versionedMemeBook.canUndo();
+    }
+
+    @Override
+    public boolean canRedoMemeBook() {
+        return versionedMemeBook.canRedo();
+    }
+
+    @Override
+    public void undoMemeBook() {
+        versionedMemeBook.undo();
+    }
+
+    @Override
+    public void redoMemeBook() {
+        versionedMemeBook.redo();
+    }
+
+    @Override
+    public void commitMemeBook() {
+        versionedMemeBook.commit();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -152,7 +177,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return memeBook.equals(other.memeBook)
+        return versionedMemeBook.equals(other.versionedMemeBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredMemes.equals(other.filteredMemes)
                 && context.getValue().equals(other.context.getValue());
