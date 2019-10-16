@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
+import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 import seedu.address.model.member.Member;
 
@@ -172,4 +173,5 @@ public class UniqueMappingList implements Iterable<Mapping> {
         }
         return true;
     }
+
 }
