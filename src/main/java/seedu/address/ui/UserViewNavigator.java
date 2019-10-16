@@ -47,7 +47,7 @@ public class UserViewNavigator {
     }
 
     /**
-     * Relays to controller to swap current user view with task list.
+     * Relays to controller to swap current user view with member list.
      * @param logic to access task data
      */
     public void loadMemberListView(Logic logic) {
