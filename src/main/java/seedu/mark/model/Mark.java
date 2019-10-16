@@ -9,6 +9,7 @@ import java.util.Objects;
 import javafx.collections.ObservableList;
 
 import javafx.collections.ObservableMap;
+
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.UniqueBookmarkList;
