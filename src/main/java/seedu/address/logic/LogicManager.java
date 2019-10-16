@@ -14,6 +14,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.category.Category;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.storage.Storage;
 
@@ -61,6 +62,10 @@ public class LogicManager implements Logic {
         return model.getFilteredFlashCardList();
     }
 
+    @Override
+    public ObservableList<Category> getCategoryList() {
+        return model.getCategoryList();
+    }
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();

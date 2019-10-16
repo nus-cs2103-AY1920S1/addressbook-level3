@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<FlashCard> filteredFlashCards;
     private final FilteredList<Deadline> filteredDeadlines;
+    private final FilteredList<Category> categoryList;
 
 
     /**
@@ -39,6 +41,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredFlashCards = new FilteredList<>(this.addressBook.getFlashcardList());
         filteredDeadlines = new FilteredList<>(this.addressBook.getDeadlineList());
+        categoryList = new FilteredList<>(this.addressBook.getCategoryList());
     }
 
     public ModelManager() {
@@ -122,7 +125,9 @@ public class ModelManager implements Model {
     public void addFlashCard(FlashCard flashCard) {
         addressBook.addFlashcard(flashCard);
         updateFilteredFlashCardList(PREDICATE_SHOW_ALL_FLASHCARDS);
+        updateFilteredCategoryList(PREDICATE_SHOW_ALL_CATEGORIES);
     }
+
 
     @Override
     public void setFlashCard(FlashCard target, FlashCard editedFlashCard) {
@@ -146,6 +151,24 @@ public class ModelManager implements Model {
     public void updateFilteredFlashCardList(Predicate<FlashCard> predicate) {
         requireNonNull(predicate);
         filteredFlashCards.setPredicate(predicate);
+    }
+
+
+
+    @Override
+    public void deleteCategory(Category category) {
+
+    }
+
+    @Override
+    public ObservableList<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    @Override
+    public void updateFilteredCategoryList(Predicate<Category> predicate) {
+        requireNonNull(predicate);
+        categoryList.setPredicate(predicate);
     }
 
     @Override

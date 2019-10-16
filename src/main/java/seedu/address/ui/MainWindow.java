@@ -34,6 +34,9 @@ public class MainWindow extends UiPart<Stage> {
     private FlashCardListPanel flashCardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CategoryListPanel categoryListPanel; //(left hand side)
+    //resultDisplay centre
+    //private Reminderlist (right hand side)
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,7 +45,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane flashcardListPanelPlaceholder;
+
+    @FXML
+    private StackPane categoryListPanelPlaceholder;
+
+    //@FXML
+    // private StackPane ReminderList
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -108,7 +117,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         flashCardListPanel = new FlashCardListPanel(logic.getFilteredFlashCardList());
-        personListPanelPlaceholder.getChildren().add(flashCardListPanel.getRoot());
+        flashcardListPanelPlaceholder.getChildren().add(flashCardListPanel.getRoot());
+        categoryListPanel = new CategoryListPanel(logic.getCategoryList());
+        categoryListPanelPlaceholder.getChildren().add(categoryListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -182,6 +193,14 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            //Todo
+            // commandResult.isAdd() {
+            // handleaAdd
+
+            //todo
+            // commandResult.is start() {
+            // handleStart()
 
             return commandResult;
         } catch (CommandException | ParseException e) {

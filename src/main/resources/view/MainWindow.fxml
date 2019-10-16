@@ -39,11 +39,11 @@
                         focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
                <items>
 
-                 <VBox fx:id="flashCardList" minWidth="100.0" prefWidth="100.0" styleClass="pane-with-border">
+                 <VBox fx:id="categoryList" minWidth="100.0" prefWidth="100.0" styleClass="pane-with-border">
                    <padding>
                      <Insets bottom="10" left="10" right="10" top="10" />
                    </padding>
-                   <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                   <StackPane fx:id="categoryListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                  </VBox>
 
                  <VBox fx:id = "centreBlock" minWidth="300" prefWidth="300" >
@@ -58,6 +58,14 @@
                        <Insets bottom="5" left="10" right="10" top="5" />
                      </padding>
                    </StackPane>
+
+                   <VBox fx:id="flashCardList" minWidth="340.0" prefWidth="340.0" styleClass="pane-with-border">
+                     <padding>
+                       <Insets bottom="10" left="10" right="10" top="10" />
+                     </padding>
+                     <StackPane fx:id="flashcardListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                   </VBox>
+
 
                    <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
                  </VBox>

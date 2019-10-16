@@ -3,8 +3,11 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.category.Category;
+import seedu.address.model.category.UniqueCategoryList;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.deadline.UniqueDeadlineList;
 import seedu.address.model.flashcard.FlashCard;
@@ -18,6 +21,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueFlashCardList flashCards;
     private final UniqueDeadlineList deadlines;
+    private final UniqueCategoryList categories;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -29,6 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         flashCards = new UniqueFlashCardList();
         deadlines = new UniqueDeadlineList();
+        categories = new UniqueCategoryList();
     }
 
     public AddressBook() {}
@@ -49,7 +54,21 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setFlashCards(List<FlashCard> flashCards) {
         this.flashCards.setFlashCards(flashCards);
+        //only when setFlashCards is success the set the categories
+        setCategories(flashCards);
+
     }
+
+    public void setDeadlines(List<Deadline> deadlines) {
+        this.deadlines.setDeadline(deadlines);
+    }
+
+    public void setCategories(List<FlashCard> flashCards) {
+        //clear the existing data
+        categories.clear();
+        flashCards.forEach(flashCard -> categories.add(flashCard.getCategories()));
+    }
+
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
@@ -58,6 +77,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setFlashCards(newData.getFlashcardList());
+        setDeadlines(newData.getDeadlineList());
+        //setCategories(newData.getCategoryList());
     }
 
     //// flashCard-level operations
@@ -76,6 +97,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addFlashcard (FlashCard c) {
         flashCards.add(c);
+        //update the categoryList
+        addCategory(c.getCategories());
+
     }
 
     /**
@@ -84,11 +108,26 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The flashCard identity of {@code editedFlashCard} must not be the same as another existing
      * flashCard in the address book.
      */
+
+    public void addDeadline(Deadline d) {
+        deadlines.add(d);
+    }
+
+    public void addCategory(Category category) {
+        categories.add(category);
+    }
+
+    public void addCategory(Set<Category> categorySet) {
+        categories.add(categorySet);
+    }
+
     public void setFlashcard(FlashCard target, FlashCard editedFlashCard) {
         requireNonNull(editedFlashCard);
-
         flashCards.setFlashcard(target, editedFlashCard);
+        categories.remove(target.getCategories());
+        categories.add(editedFlashCard.getCategories());
     }
+
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
@@ -96,6 +135,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeFlashCard(FlashCard key) {
         flashCards.remove(key);
+        categories.remove(key.getCategories());
+    }
+
+    public void removeDeadline(Deadline key) {
+        deadlines.remove(key);
     }
 
     //// util methods
@@ -117,6 +161,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Category> getCategoryList() {
+        return categories.asUnmodifiableObservablelist();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
@@ -130,16 +179,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     // Deadline methods
 
-    public void addDeadline(Deadline d) {
-        deadlines.add(d);
-    }
 
-    public void setDeadlines(List<Deadline> deadlines) {
-        this.deadlines.setDeadline(deadlines);
-    }
 
-    public void removeDeadline(Deadline key) {
-        deadlines.remove(key);
-    }
 
 }

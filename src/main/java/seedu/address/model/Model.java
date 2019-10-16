@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 
@@ -14,6 +15,7 @@ import seedu.address.model.flashcard.FlashCard;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<FlashCard> PREDICATE_SHOW_ALL_FLASHCARDS = unused -> true;
+    Predicate<Category> PREDICATE_SHOW_ALL_CATEGORIES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -106,4 +108,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFlashCardList(Predicate<FlashCard> predicate);
+
+
+
+    void deleteCategory(Category category);
+
+    ObservableList<Category> getCategoryList();
+
+    void updateFilteredCategoryList(Predicate<Category> predicate);
 }
