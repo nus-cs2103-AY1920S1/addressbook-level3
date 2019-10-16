@@ -10,12 +10,7 @@ import seedu.address.model.activity.Activity;
 public class TimeSlot {
     private Activity activityAtThisTime;
 
-    public TimeSlot() {
-        activityAtThisTime = null;
-    }
-
     public TimeSlot(Activity activity) {
-        requireNonNull(activity);
         this.activityAtThisTime = activity;
     }
 

@@ -28,7 +28,7 @@ public class Timetable {
         // fill up remaining time slots with empty half hours
         for (int i = 0; i < NUMBER_OF_HALF_HOUR_IN_A_DAY; i++) {
             if (timetable[i] == null) {
-                timetable[i] = new TimeSlot();
+                timetable[i] = new TimeSlot(null);
             }
         }
     }
