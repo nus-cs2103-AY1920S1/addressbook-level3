@@ -3,7 +3,7 @@
     "question" : "What is pointer in C ?",
     "answer" : "A pointer variable stores the address of a memory location",
     "rating" : "easy",
-    "categories" : [ "CS2100", "pointer", "C" ]
+    "categories" : [ "CS2100", "C", "POINTER" ]
   }, {
     "question" : "How to declare a pointer in C ?",
     "answer" : "& + variable name",
@@ -13,7 +13,7 @@
     "question" : "What is internet",
     "answer" : "The Internet is a network of connected computing devices",
     "rating" : "good",
-    "categories" : [ "CS2105" ]
+    "categories" : [ "EDIT" ]
   }, {
     "question" : "How is data transmitted through net?",
     "answer" : "Circuit switching / Packet switching",
@@ -24,13 +24,16 @@
     "answer" : "It is aka link capacity or link bandwidth",
     "rating" : "easy",
     "categories" : [ ]
-  },
-    {
-      "question": "Transmission delay",
-      "answer": "L (bit) / R (bits.sec)",
-      "rating": "good",
-      "categories": []
-    } ]
+  }, {
+    "question" : "Transmission delay",
+    "answer" : "L (bit) / R (bits.sec)",
+    "rating" : "good",
+    "categories" : [ ]
+  }, {
+    "question" : "asb",
+    "answer" : "asd",
+    "rating" : "good",
+    "categories" : [ ]
+  } ],
+  "deadlines" : [ ]
 }
-
-
