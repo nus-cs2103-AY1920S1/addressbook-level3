@@ -27,10 +27,12 @@ public class CostTest {
         // invalid cost
         assertFalse(Cost.isValidCost("")); // empty string
         assertFalse(Cost.isValidCost(" ")); // spaces only
+        assertFalse(Cost.isValidCost("hi:")); // non-numbers
+        assertFalse(Cost.isValidCost("1.100")); // numbers with more than 2 decimal places
 
         // valid cost
         assertTrue(Cost.isValidCost("100"));
-        //assertTrue(Cost.isValidCost("-")); // one character
-        //assertTrue(Cost.isValidCost("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        assertTrue(Cost.isValidCost("100.5"));
+        assertTrue(Cost.isValidCost("100.50"));
     }
 }

@@ -9,13 +9,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Cost {
 
-    public static final String MESSAGE_CONSTRAINTS = "Cost can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Cost must be a number with at most 2 decimal places, "
+        + "and it should not be blank.";
 
     /*
      * The first character of the cost must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
+     * Cost must be a number with at most 2 decimal places.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "[0-9]+([,.][0-9]{1,2})?";
 
     public final String value;
 
