@@ -65,7 +65,7 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_invalidFilePath_exceptionThrown() {
+    public void execute_invalidFilePath_throwsException() {
         String expectedMessage = MESSAGE_EXPORT_IO_EXCEPTION;
         assertCommandFailure(invalidFilePathCommand, model, expectedMessage);
         // TODO assert no file created
