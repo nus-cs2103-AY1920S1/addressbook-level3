@@ -7,13 +7,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Cheatsheet object in the StudyBuddy application.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class CheatSheet {
+public class CheatSheet implements StudyBuddyItem {
     // Identity fields
     private final Title title;
 
@@ -54,10 +55,6 @@ public class CheatSheet {
         return Collections.unmodifiableSet(tags);
     }
 
-    public boolean containsTag(Tag tag) {
-        return this.tags.contains(tag);
-    }
-
     public Set<Content> getContents() {
         return Collections.unmodifiableSet(contents);
     }
@@ -82,6 +79,16 @@ public class CheatSheet {
 
         return otherCheatSheet != null
                 && otherCheatSheet.getTitle().equals(getTitle());
+    }
+
+    /**
+     * Returns true if the specified tag is found in this cheatsheet
+     * @param tag
+     * @return true or false depending
+     */
+    @Override
+    public boolean containsTag(Tag tag) {
+        return this.tags.contains(tag);
     }
 
     /**
