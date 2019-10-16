@@ -48,13 +48,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         ParentPhone parentPhone = ParserUtil.parseParentPhone(argMultimap.getValue(PREFIX_PARENTPHONE).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        MedicalCondition medicalCondition;
-        if (!arePrefixesPresent(argMultimap, PREFIX_PARENTPHONE) || !argMultimap.getPreamble().isEmpty()) {
-            medicalCondition = ParserUtil.parseMedicalCondition(argMultimap
-                    .getValue(PREFIX_MEDICALCONDITION).get());
-        } else {
-            medicalCondition = new MedicalCondition("NIL");
-        }
+        MedicalCondition medicalCondition = ParserUtil.parseMedicalCondition(argMultimap
+                .getValue(PREFIX_MEDICALCONDITION).get());
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
