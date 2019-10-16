@@ -79,8 +79,6 @@ public class MainApp extends Application {
                 new JsonCustomerDatabaseStorage(userPrefs.getCustomerDatabaseFilePath());
         RestaurantDatabaseStorage restaurantDatabaseStorage =
                 new JsonRestaurantDatabaseStorage(userPrefs.getRestaurantDatabaseFilePath());
-        OrderBookStorage orderBookStorage =
-                new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
         OrderDatabaseStorage orderDatabaseStorage = new JsonOrderDatabaseStorage(userPrefs.getOrderBookFilePath());
         DeliverymenDatabaseStorage deliverymenDatabaseStorage =
                 new JsonDeliverymenDatabaseStorage(userPrefs.getDeliverymenDatabaseFilePath());
