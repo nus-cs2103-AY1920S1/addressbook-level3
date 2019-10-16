@@ -6,6 +6,7 @@ package mams.logic.parser;
 public class CliSyntax {
 
     /* Prefix definitions for Student class */
+    public static final Prefix PREFIX_STUDENT = new Prefix("e/");
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_CREDITS = new Prefix("c/");
     public static final Prefix PREFIX_PREVMODS = new Prefix("p/");
