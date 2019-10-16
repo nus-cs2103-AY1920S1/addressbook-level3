@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
+import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -111,6 +112,21 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code String aliasName} and {@code String input} into a user defined {@code Alias}.
+     *
+     * @throws ParseException if the given {@code aliasName} is invalid.
+     */
+    public static Alias parseAlias(String aliasName, String input) throws ParseException {
+        if (!Alias.isValidAliasName(aliasName)) {
+            throw new ParseException(Alias.MESSAGE_NAME_CONSTRAINTS);
+        }
+        if (!Alias.isValidInput(input)) {
+            throw new ParseException(Alias.MESSAGE_INPUT_CONSTRAINTS);
+        }
+        return new Alias(aliasName, input);
     }
 
     /**
