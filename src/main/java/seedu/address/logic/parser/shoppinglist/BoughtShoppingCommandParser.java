@@ -2,12 +2,13 @@ package seedu.address.logic.parser.shoppinglist;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.shoppinglist.BoughtShoppingCommand;
-import seedu.address.logic.commands.shoppinglist.EditShoppingCommand;
 import seedu.address.logic.commands.shoppinglist.BoughtShoppingCommand.BoughtShoppingItemDescriptor;
+import seedu.address.logic.commands.shoppinglist.EditShoppingCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -34,7 +35,8 @@ public class BoughtShoppingCommandParser implements Parser<BoughtShoppingCommand
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditShoppingCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditShoppingCommand.MESSAGE_USAGE), pe);
         }
 
         BoughtShoppingItemDescriptor boughtShoppingItemDescriptor = new BoughtShoppingItemDescriptor();

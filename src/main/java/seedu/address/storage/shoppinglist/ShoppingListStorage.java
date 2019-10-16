@@ -38,7 +38,7 @@ public interface ShoppingListStorage {
     void saveShoppingList(ReadOnlyShoppingList shoppingList) throws IOException;
 
     /**
-     * @see #saveShoppingList(ReadOnlyShoppingList, Path) 
+     * @see #saveShoppingList(ReadOnlyShoppingList, Path)
      */
     void saveShoppingList(ReadOnlyShoppingList shoppingList, Path filePath) throws IOException;
 

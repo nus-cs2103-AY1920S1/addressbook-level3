@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Represents a shopping item.
  */
-public class ShoppingItem extends Food{
+public class ShoppingItem extends Food {
 
     private final boolean bought;
     private final boolean urgent;

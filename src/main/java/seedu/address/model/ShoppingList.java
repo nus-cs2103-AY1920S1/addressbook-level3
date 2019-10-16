@@ -5,7 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.food.*;
+import seedu.address.model.food.ShoppingItem;
+import seedu.address.model.food.UniqueShoppingList;
 
 /**
  * Wraps all data at the address-book level

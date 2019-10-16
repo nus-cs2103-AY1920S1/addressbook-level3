@@ -37,7 +37,8 @@ class JsonSerializableShoppingList {
      * @param source future changes to this will not affect the created {@code JsonSerializableShoppingList}.
      */
     public JsonSerializableShoppingList(ReadOnlyShoppingList source) {
-        shoppingItems.addAll(source.getShoppingList().stream().map(JsonAdaptedShoppingItem::new).collect(Collectors.toList()));
+        shoppingItems.addAll(source.getShoppingList().stream()
+                .map(JsonAdaptedShoppingItem::new).collect(Collectors.toList()));
     }
 
     /**

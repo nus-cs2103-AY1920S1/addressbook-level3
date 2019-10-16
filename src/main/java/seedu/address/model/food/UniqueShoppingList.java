@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.food.exceptions.DuplicateFoodException;
 import seedu.address.model.food.exceptions.DuplicateShoppingItemException;
 import seedu.address.model.food.exceptions.FoodNotFoundException;
 

@@ -4,10 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.food.*;
+import seedu.address.model.food.Amount;
+import seedu.address.model.food.ExpiryDate;
+import seedu.address.model.food.Name;
+import seedu.address.model.food.ShoppingItem;
 
 /**
- * Jackson-friendly version of {@link Food}.
+ * Jackson-friendly version of {@link ShoppingItem}.
  */
 public class JsonAdaptedShoppingItem {
 
