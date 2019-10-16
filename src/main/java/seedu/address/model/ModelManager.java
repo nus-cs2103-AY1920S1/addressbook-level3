@@ -4,24 +4,32 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.MutatorCommand;
 import seedu.address.model.person.Person;
 
 /**
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
+    private static final int MAX_HISTORY_SIZE = 20;
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private AddressBook baseAddressBook;
+    private AddressBook stagedAddressBook;
+    private final HistoryManager historyManager;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final ObservableList<Person> stagedPersons; // Modifiable list containing current stagedAddressBook persons
+    private final FilteredList<Person> filteredPersons; // Unmodifiable view for the UI linked to stagedPersons
 
     //Previous predicate variable to keep track of the predicate used by FindCommands
     private Predicate<Person> previousPredicate = PREDICATE_SHOW_ALL_PERSONS;
@@ -35,9 +43,14 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.baseAddressBook = new AddressBook(addressBook);
+        this.stagedAddressBook = this.baseAddressBook.deepCopy();
+        this.historyManager = new HistoryManager(MAX_HISTORY_SIZE);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        stagedPersons = FXCollections.observableArrayList();
+        filteredPersons = new FilteredList<>(FXCollections.unmodifiableObservableList(stagedPersons));
+
+        refreshStagedPersons();
     }
 
     public ModelManager() {
@@ -82,30 +95,33 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setStagedAddressBook(ReadOnlyAddressBook stagedAddressBook) {
+        this.stagedAddressBook.resetData(stagedAddressBook);
+        refreshStagedPersons();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyAddressBook getStagedAddressBook() {
+        return stagedAddressBook;
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return stagedAddressBook.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        stagedAddressBook.removePerson(target);
+        refreshStagedPersons();
         refreshFilteredPersonList();
     }
 
     @Override
     public void addPerson(Person person) {
-        addressBook.addPerson(person);
+        stagedAddressBook.addPerson(person);
+        refreshStagedPersons();
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -113,23 +129,59 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        stagedAddressBook.setPerson(target, editedPerson);
     }
 
     /**
-     * Returns an unmodifiable view of the full list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the full list of {@code Person} backed by {@code stagedPersons}
      */
     @Override
-    public ObservableList<Person> getPersonList() {
-        return new FilteredList<>(this.addressBook.getPersonList());
+    public ObservableList<Person> getStagedPersonList() {
+        return new FilteredList<>(FXCollections.unmodifiableObservableList(stagedPersons));
+    }
+
+    @Override
+    public boolean hasStagedChanges() {
+        return !baseAddressBook.equals(stagedAddressBook);
+    }
+
+    @Override
+    public void commit(MutatorCommand command) {
+        historyManager.pushRecord(command, baseAddressBook);
+        changeBaseTo(stagedAddressBook);
+    }
+
+    @Override
+    public void discardStagedChanges() {
+        stagedAddressBook = baseAddressBook.deepCopy();
+        refreshStagedPersons();
+    }
+
+    @Override
+    public void revertTo(HistoryRecord record) throws NoSuchElementException {
+        historyManager.popRecordsTo(record);
+        changeBaseTo(record.getCopyOfAddressBook());
+    }
+
+    @Override
+    public ObservableList<HistoryRecord> getHistory() {
+        return historyManager.asUnmodifiableObservableList();
+    }
+
+    private void changeBaseTo(AddressBook addressBook) {
+        baseAddressBook = addressBook;
+        stagedAddressBook = baseAddressBook.deepCopy();
+        refreshStagedPersons();
+    }
+
+    private void refreshStagedPersons() {
+        stagedPersons.setAll(stagedAddressBook.getPersonList());
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Person} backed by {@code stagedPersons}
      */
     @Override
     public FilteredList<Person> getFilteredPersonList() {
@@ -154,6 +206,10 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    /**
+     * Returns true if the current state of this {@code ModelManager} is the same as {@code obj}.
+     * It does NOT take into account {@code baseAddressBook} or {@code historyManager}.
+     */
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -168,7 +224,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return stagedAddressBook.equals(other.stagedAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }

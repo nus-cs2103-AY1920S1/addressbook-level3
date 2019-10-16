@@ -2,7 +2,7 @@ package seedu.address.commons.util;
 
 import java.io.IOException;
 
-import seedu.address.commons.exceptions.CopyException;
+import seedu.address.commons.exceptions.CopyError;
 
 /**
  * Deep copies an object
@@ -15,13 +15,13 @@ public class CopyUtil {
      * @param instance  the object to copy
      * @param <T>  the generic type of the object to copy
      * @return  the copied object
-     * @throws CopyException  if an error occurs while copying
+     * @throws CopyError  if an error occurs while copying
      */
-    public static <T> T deepCopy(T instance) throws CopyException {
+    public static <T> T deepCopy(T instance) throws CopyError {
         try {
             return (T) JsonUtil.fromJsonString(JsonUtil.toJsonString(instance), instance.getClass());
         } catch (IOException e) {
-            throw new CopyException("Error copying object", e);
+            throw new CopyError("Error copying object", e);
         }
     }
 }

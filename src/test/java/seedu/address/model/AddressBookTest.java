@@ -3,6 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.util.CollectionUtil.deepCopyOfObservableList;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -102,6 +103,11 @@ public class AddressBookTest {
         @Override
         public Pair<Integer, Integer> getIndexPairOfOngoingVisit() {
             return new Pair<>(-1, -1);
+        }
+
+        @Override
+        public AddressBookStub deepCopy() {
+            return new AddressBookStub(deepCopyOfObservableList(persons));
         }
     }
 

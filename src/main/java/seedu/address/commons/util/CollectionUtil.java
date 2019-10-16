@@ -1,12 +1,18 @@
 package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CopyUtil.deepCopy;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Utility methods related to Collections
@@ -45,5 +51,34 @@ public class CollectionUtil {
             }
         }
         return true;
+    }
+
+    /**
+     * Returns a deep copy of the specified {@code ObservableList}. The copy is identical to the original except for
+     * the listeners which will not be carried over. Any changes to the copied list or its elements will not affect
+     * the original and vice versa.
+     */
+    public static <E> ObservableList<E> deepCopyOfObservableList(ObservableList<E> list) {
+        List<E> listCopy = new ArrayList<>();
+        for (E item : list) {
+            listCopy.add(deepCopy(item));
+        }
+        return FXCollections.observableArrayList(listCopy);
+    }
+
+    /**
+     * Returns a String representation of {@code items} with each element separated
+     * by a newline.
+     */
+    public static <E> String collectionToString(Collection<E> items) {
+        StringBuilder sb = new StringBuilder();
+        for (E item : items) {
+            sb.append(item.toString());
+            sb.append('\n');
+        }
+        if (sb.length() != 0) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
     }
 }

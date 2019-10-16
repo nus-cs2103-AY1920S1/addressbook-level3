@@ -17,7 +17,7 @@ public class ClearCommand extends Command implements MutatorCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
+        model.setStagedAddressBook(new AddressBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
