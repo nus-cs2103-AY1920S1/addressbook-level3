@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.deadline.DueDate;
 import seedu.address.model.deadline.Task;
-import seedu.address.model.util.SampleDataUtil;
 
 
 /**
