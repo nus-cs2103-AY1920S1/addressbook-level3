@@ -143,6 +143,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        //=============Person stuff===============================================
         @Override
         public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
             throw new AssertionError("This method should not be called.");
@@ -179,7 +180,7 @@ public class AddCommandTest {
 
         @Override
         public void addFlashcard(Flashcard flashcard) {
-            // To be implemented
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -189,16 +190,21 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deleteFlashcard(Flashcard flashcard) {
-            // To be implemented
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasFlashcard(Flashcard flashcard) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
             throw new AssertionError("This method should not be called.");
         }
 

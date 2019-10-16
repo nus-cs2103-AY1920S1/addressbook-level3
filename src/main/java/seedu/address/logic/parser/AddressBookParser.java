@@ -253,9 +253,6 @@ switch (commandWord) {
         case AddFlashcardCommand.COMMAND_WORD:
             return new AddFlashcardCommandParser().parse(arguments);
 
-        case ListFlashcardCommand.COMMAND_WORD:
-            return new ListFlashcardCommand();
-
         case DeleteFlashcardCommand.COMMAND_WORD:
             return new DeleteFlashcardCommandParser().parse(arguments);
 
