@@ -46,8 +46,23 @@ public class QueueManager {
         roomList.serve(index, id);
     }
 
+    /**
+     * Enqueue back the patient which was allocated to a room
+     *
+     * @param index of the room which a patient was allocated
+     */
+    public void undoServeNext(int index) {
+        ReferenceId id = roomList.getCurrentlyServed(index);
+        queueList.addPatient(0, id);
+        roomList.removeCurrentPatient(index);
+    }
+
     public void addPatient(ReferenceId id) {
         queueList.addPatient(id);
+    }
+
+    public void addPatient(int index, ReferenceId id) {
+        queueList.addPatient(index, id);
     }
 
     public void removePatient(ReferenceId id) {
@@ -63,15 +78,23 @@ public class QueueManager {
     }
 
     public void addRoom(ReferenceId id) {
-        roomList.addRoom(new Room(id));
+        roomList.addRoom(id);
+    }
+
+    public void addRoomToIndex(ReferenceId doctorReferenceId, int indexOfRoom) {
+        roomList.addRoom(doctorReferenceId, indexOfRoom);
     }
 
     public boolean hasId(ReferenceId id) {
         return queueList.hasId(id);
     }
 
-    public void removeRoom(int index) {
-        roomList.removeRoom(index);
+    public void removeRoom(ReferenceId target) {
+        roomList.removeRoom(target);
+    }
+
+    public boolean hasRoom(ReferenceId doctorReferenceId) {
+        return roomList.hasRoom(doctorReferenceId);
     }
 
     public ReferenceId getCurrentlyServed(int index) {
@@ -98,5 +121,4 @@ public class QueueManager {
                 && queueList.equals(((QueueManager) other).queueList)
                 && roomList.equals(((QueueManager) other).roomList));
     }
-
 }

@@ -17,16 +17,13 @@ import seedu.address.model.queue.Room;
 /**
  * Serves the next patient in queue.
  */
-public class NextCommand extends ReversibleCommand {
+public class UndoNextCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "next";
-    public static final String MESSAGE_SUCCESS = "Next patient has been allocated to room ";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Allocates next patient in queue to a room. "
-            + "Parameters: INDEX (must be a positive integer)";
+    public static final String MESSAGE_SUCCESS = "Next patient has been unallocated from room ";
 
     private final Index targetIndex;
 
-    public NextCommand(Index targetIndex) {
+    public UndoNextCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -38,14 +35,8 @@ public class NextCommand extends ReversibleCommand {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ROOM_INDEX);
         }
-        model.serveNextPatient(targetIndex.getOneBased());
+        model.undoServeNextPatient(targetIndex.getOneBased());
         return new CommandResult(MESSAGE_SUCCESS + targetIndex);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof NextCommand // instanceof handles nulls
-                && targetIndex.equals(((NextCommand) other).targetIndex)); // state check
-    }
 }

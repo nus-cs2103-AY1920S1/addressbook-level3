@@ -55,7 +55,7 @@ public class MainAppTest extends ApplicationTest {
         robot.write('a').type(KeyCode.UP);
         Assertions.assertThat(lookup("#autoCompleteOverlay").queryListView().isVisible()).isTrue();
         Assertions.assertThat(lookup("#autoCompleteOverlay").queryListView().getSelectionModel().getSelectedIndex())
-            .isEqualTo(2);
+            .isEqualTo(3);
         robot.type(KeyCode.DOWN);
         Assertions.assertThat(lookup("#autoCompleteOverlay").queryListView().getSelectionModel().getSelectedIndex())
             .isEqualTo(0);
