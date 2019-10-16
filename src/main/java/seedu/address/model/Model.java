@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -118,6 +119,18 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFlashCardList(Predicate<FlashCard> predicate);
+
+    //@@author keiteo
+
+    ObservableList<FlashCard> getFlashCardList();
+
+    void initializeTestModel(List<FlashCard> testList);
+
+    boolean hasTestFlashCard();
+
+    String getTestQuestion();
+
+    String getTestAnswer();
 
     /**
      * Simulates updating the filter of the filtered flashCard list to filter by the given {@code predicate}.
