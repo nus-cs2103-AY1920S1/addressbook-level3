@@ -36,6 +36,11 @@ public class UniqueTagListTest {
     }
 
     @Test
+    public void addNewTags_nullTag_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueTagList.addNewTags(null));
+    }
+
+    @Test
     public void retrieve_nullTag_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueTagList.retrieveTag(null));
     }

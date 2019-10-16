@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.ExpenseList;
 import seedu.billboard.model.tag.Tag;
+import seedu.billboard.model.tag.TagCountManager;
 import seedu.billboard.model.tag.UniqueTagList;
 
 /**
@@ -19,6 +20,7 @@ public class Billboard implements ReadOnlyBillboard {
 
     private final ExpenseList expenses;
     private final UniqueTagList tags;
+    private final TagCountManager count;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -30,6 +32,7 @@ public class Billboard implements ReadOnlyBillboard {
     {
         expenses = new ExpenseList();
         tags = new UniqueTagList();
+        count = new TagCountManager();
     }
 
     public Billboard() {}
@@ -100,8 +103,19 @@ public class Billboard implements ReadOnlyBillboard {
     }
 
     //// Tag methods
+
+    /**
+     * Retrieve tags to be added to an expense.
+     */
     public Set<Tag> retrieveTags(List<String> toRetrieve) {
         return tags.retrieveTags(toRetrieve);
+    }
+
+    /**
+     * Increment count of tags which will be added to an expense.
+     */
+    public void incrementCount(List<Tag> toIncrement) {
+        count.incrementAllCount(toIncrement);
     }
 
     //// util methods

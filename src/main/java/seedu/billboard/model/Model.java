@@ -79,7 +79,18 @@ public interface Model {
      */
     void setExpense(Expense target, Expense editedExpense);
 
+    /**
+     * Retrieves tags from unique tag list.
+     * @param toRetrieve tags to be retrieved.
+     * @return set of tags retrieved.
+     */
     Set<Tag> retrieveTags(List<String> toRetrieve);
+
+    /**
+     * Increment counts of tags.
+     * @param toIncrement tags whose count are to be incremented.
+     */
+    void incrementCount(List<Tag> toIncrement);
 
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenses();

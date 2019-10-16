@@ -23,7 +23,7 @@ public class UniqueTagList {
 
     /**
      * Checks if tag of specific name exists in list.
-      * @param tagName  Name of the tag.
+     * @param tagName  Name of the tag.
      * @return tag's existence.
      */
     public boolean contains(String tagName) {
@@ -53,17 +53,28 @@ public class UniqueTagList {
     }
 
     /**
+     * Checks and adds tags that do not exist in the list.
+     * @param toAdd list of tag names to be checked.
+     */
+    public void addNewTags(List<String> toAdd) {
+        requireNonNull(toAdd);
+        for (String tagName: toAdd) {
+            if (!contains(tagName)) {
+                add(tagName);
+            }
+        }
+    }
+
+    /**
      * Retrieves corresponding tags according to the list of tag names.
+     * If tag does not exist, it will be added to the list.
      * @param toRetrieve List of tag names.
      * @return Set of all tags retrieved.
      */
     public Set<Tag> retrieveTags(List<String> toRetrieve) {
         Set<Tag> toReturn = new HashSet<>();
-        for (int i = 0; i < toRetrieve.size(); i++) {
-            String current = toRetrieve.get(i);
-            if (!contains(current)) {
-                add(current);
-            }
+        addNewTags(toRetrieve);
+        for (String current : toRetrieve) {
             toReturn.add(retrieveTag(current));
         }
         return Collections.unmodifiableSet(toReturn);

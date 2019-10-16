@@ -120,6 +120,12 @@ public class ModelManager implements Model {
         return billboard.retrieveTags(toRetrieve);
     }
 
+    @Override
+    public void incrementCount(List<Tag> toIncrement) {
+        requireNonNull(toIncrement);
+        billboard.incrementCount(toIncrement);
+    }
+
     //=========== Filtered Expense List Accessors =============================================================
 
     /**
