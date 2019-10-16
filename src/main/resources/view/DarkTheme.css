@@ -168,7 +168,7 @@
 .timer-display {
     -fx-background-color: transparent;
     -fx-font-family: "monospace";
-    -fx-font-size: 13pt;
+    -fx-font-size: 11.7pt;
     -fx-text-fill: pink;
 }
 
@@ -360,10 +360,20 @@
     -fx-background-radius: 0;
 }
 
-#timerDisplay .content {
+#timerText .content {
     -fx-background-color: transparent, #383838, transparent, #383838;
     -fx-background-radius: 0;
 }
+
+.progress-bar > .track {
+    -fx-box-border: red;
+    -fx-control-inner-background: #383838;
+}
+
+.progress-bar {
+    -fx-accent: lightgreen;
+}
+
 
 #tags {
     -fx-hgap: 7;
