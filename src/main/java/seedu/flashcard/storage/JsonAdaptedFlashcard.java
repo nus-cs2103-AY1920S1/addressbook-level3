@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.flashcard.commons.exceptions.IllegalValueException;
+import seedu.flashcard.model.flashcard.Answer;
+import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.Word;
@@ -23,20 +25,29 @@ public class JsonAdaptedFlashcard {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Flashcard's %s field is missing.";
 
     private final String word;
+    private final List<JsonAdaptedChoice> choices = new ArrayList<>();
     private final String definition;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String answer;
 
     /**
      * Constructs a {@code JsonAdaptedFlashcard} with the given flashcard details.
      */
     @JsonCreator
-    public JsonAdaptedFlashcard(@JsonProperty("word") String word, @JsonProperty("definition") String definition,
-                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedFlashcard(@JsonProperty("word") String word,
+                                @JsonProperty("choices") List<JsonAdaptedChoice> choices,
+                                @JsonProperty("definition") String definition,
+                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                                @JsonProperty("answer") String answer) {
         this.word = word;
+        if (choices != null) {
+            this.choices.addAll(choices);
+        }
         this.definition = definition;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.answer = answer;
     }
 
     /**
@@ -44,8 +55,10 @@ public class JsonAdaptedFlashcard {
      */
     public JsonAdaptedFlashcard(Flashcard source) {
         word = source.getWord().word;
+        choices.addAll(source.getChoices().stream().map(JsonAdaptedChoice::new).collect(Collectors.toList()));
         definition = source.getDefinition().definition;
         tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
+        answer = source.getAnswer().choice;
     }
 
     /**
@@ -57,6 +70,11 @@ public class JsonAdaptedFlashcard {
         final List<Tag> flashcardTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             flashcardTags.add(tag.toModelType());
+        }
+
+        final List<Choice> flashcardChoices = new ArrayList<>();
+        for (JsonAdaptedChoice choice : choices) {
+            flashcardChoices.add(choice.toModelType());
         }
 
         if (word == null) {
@@ -76,8 +94,15 @@ public class JsonAdaptedFlashcard {
         }
         final Definition modelDefinition = new Definition(definition);
 
+        if (!Answer.isValidAnswer(answer)) {
+            throw new IllegalValueException(Answer.MESSAGE_CONSTRAINTS);
+        }
+        final Answer modelAnswer = new Answer(answer);
+
+        final Set<Choice> modelChoices = new HashSet<>(flashcardChoices);
+
         final Set<Tag> modelTags = new HashSet<>(flashcardTags);
 
-        return new Flashcard(modelWord, modelDefinition, modelTags);
+        return new Flashcard(modelWord, modelChoices, modelDefinition, modelTags, modelAnswer);
     }
 }

@@ -47,6 +47,7 @@ public class FlashcardList implements ReadOnlyFlashcardList {
     public boolean hasFlashcard(Flashcard flashcard) {
         requireNonNull(flashcard);
         return flashcards.contains(flashcard);
+
     }
 
     /**
@@ -105,6 +106,7 @@ public class FlashcardList implements ReadOnlyFlashcardList {
     public String toString() {
         return flashcards.asUnimodifiableObservableList().size() + "flashcards";
         // TODO: refine later
+
     }
 
     @Override

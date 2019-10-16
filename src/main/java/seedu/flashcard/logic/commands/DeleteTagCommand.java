@@ -2,9 +2,9 @@ package seedu.flashcard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.flashcard.model.tag.Tag;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
+import seedu.flashcard.model.tag.Tag;
 
 /**
  * Represent a command that removes a tag, but the cards under this tag will be kept.
