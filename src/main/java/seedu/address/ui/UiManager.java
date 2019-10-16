@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.io.InputStream;
+import java.util.logging.Logger;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -7,18 +10,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.text.Text;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.io.InputStream;
-import java.util.logging.Logger;
 
 /**
  * The manager of the UI component.\
@@ -91,8 +92,8 @@ public class UiManager implements Ui {
      */
     private void createReminder(int duration, String reminderType, String reminderDetails) {
         Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(duration),
-                ae -> countDownAlert(reminderType,reminderDetails)));
+            Duration.millis(duration),
+            ae -> countDownAlert(reminderType, reminderDetails)));
         timeline.play();
     }
     /**
