@@ -24,24 +24,25 @@ import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_TAG_KID_FRIENDLY;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_TAG_HORROR;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
+import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_SHOW;
+import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_THIRD_SHOW;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.EditCommand;
-import seedu.ezwatchlist.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.ezwatchlist.model.person.Address;
-import seedu.ezwatchlist.model.person.Email;
-import seedu.ezwatchlist.model.person.Name;
-import seedu.ezwatchlist.model.person.Phone;
-import seedu.ezwatchlist.model.tag.Tag;
-import seedu.ezwatchlist.testutil.EditPersonDescriptorBuilder;
+import seedu.ezwatchlist.logic.commands.EditCommand.EditShowDescriptor;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.testutil.EditShowDescriptorBuilder;
 
 public class EditCommandParserTest {
 

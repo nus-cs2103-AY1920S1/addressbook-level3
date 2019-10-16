@@ -1,9 +1,9 @@
 package seedu.ezwatchlist.logic.commands;
 
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.ezwatchlist.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.showShowAtIndex;
+import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
+import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showShowAtIndex(model, INDEX_FIRST_SHOW);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
