@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import mams.commons.exceptions.IllegalValueException;
 import mams.model.Mams;
 import mams.model.ReadOnlyMams;
+import mams.model.module.Module;
 import mams.model.student.Student;
+
 
 /**
  * An Immutable MAMS that is serializable to JSON format.
@@ -20,14 +22,25 @@ import mams.model.student.Student;
 class JsonSerializableMams {
 
     public static final String MESSAGE_DUPLICATE_STUDENT = "Students list contains duplicate student(s).";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Modules list contains duplicate module(s).";
 
     private final List<JsonAdaptedStudent> students = new ArrayList<>();
+    private final List<JsonAdaptedModule> modules = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableMams} with the given students.
+     * Constructs a {@code JsonSerializableMams} with the given students and modules.
      */
+    /*@JsonCreator
+    public JsonSerializableMams(@JsonProperty("students") List<JsonAdaptedStudent> students,
+                                @JsonProperty("modules") List<JsonAdaptedModule> modules) {
+        this.students.addAll(students);
+        this.modules.addAll(modules);
+    }*/
+
     @JsonCreator
-    public JsonSerializableMams(@JsonProperty("students") List<JsonAdaptedStudent> students) {
+    public JsonSerializableMams(@JsonProperty("students") List<JsonAdaptedStudent> students,
+                                @JsonProperty("modules") List<JsonAdaptedModule> modules) {
+        this.modules.addAll(modules);
         this.students.addAll(students);
     }
 
@@ -38,6 +51,7 @@ class JsonSerializableMams {
      */
     public JsonSerializableMams(ReadOnlyMams source) {
         students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
+        modules.addAll(source.getModuleList().stream().map(JsonAdaptedModule::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,6 +61,15 @@ class JsonSerializableMams {
      */
     public Mams toModelType() throws IllegalValueException {
         Mams mams = new Mams();
+
+        for (JsonAdaptedModule jsonAdaptedModule : modules) {
+            Module module = jsonAdaptedModule.toModelType();
+            if (mams.hasModule(module)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
+            }
+            mams.addModule(module);
+        }
+
         for (JsonAdaptedStudent jsonAdaptedStudent : students) {
             Student student = jsonAdaptedStudent.toModelType();
             if (mams.hasStudent(student)) {

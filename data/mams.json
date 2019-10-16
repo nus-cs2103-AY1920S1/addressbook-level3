@@ -1,0 +1,159 @@
+{
+  "students" : [
+  ],
+  "modules" : [ {
+    "code" : "CS1010",
+    "modulename": "Programming Methodology",
+    "moduledescription": "This module introduces the fundamental concepts of problem solving by computing and programming using an imperative programming language. It is the first and foremost introductory course to computing. Topics covered include computational thinking and computational problem solving, designing and specifying an algorithm, basic problem formulation and problem solving approaches, program development, coding, testing and debugging, fundamental programming constructs (variables, types, expressions, assignments, functions, control structures, etc.), fundamental data structures (arrays, strings, composite data types), basic sorting, and recursion.",
+    "lecturername": "Tung Kum Hoe Anthony",
+    "timeslot" : "1,2,45,46,47",
+    "quota" : "100",
+    "tagged": [
+      "A6614133H",
+      "A1748370H",
+      "A5802229H",
+      "A6185284H",
+      "A5524592H"
+    ]
+  }, {
+    "code" : "CS1231",
+    "modulename": "Discrete Structures",
+    "moduledescription": "This module introduces mathematical tools required in the study of computer science. Topics include: (1) Logic and proof techniques: propositions, conditionals, quantifications. (2) Relations and Functions: Equivalence relations and partitions. Partially ordered sets. Well-Ordering Principle. Function equality. Boolean/identity/inverse functions. Bijection. (3) Mathematical formulation of data models (linear model, trees, graphs). (4) Counting and Combinatoric: Pigeonhole Principle. Inclusion-Exclusion Principle. Number of relations on a set, number of injections from one finite set to another, Diagonalisation proof: An infinite countable set has an uncountable power set; Algorithmic proof: An infinite set has a countably infinite subset. Subsets of countable sets are countable.",
+    "lecturername": "Terence Sim",
+    "timeslot" : "1,2,45,46,47",
+    "quota" : "120",
+    "tagged": [
+      "A6614133H",
+      "A1748370H",
+      "A5802229H",
+      "A6185284H",
+      "A5524592H"
+    ]
+  }, {
+    "code" : "CS1020",
+    "modulename": "Data Structures and Algorithms Is",
+    "moduledescription": "This module is the second part of a three-part series on introductory programming and problem solving by computing. It continues the introduction that begins in CS1010, and emphasises objectoriented programming with application to simple data structures. Topics include object-oriented problem modeling with objects, classes and methods, object-oriented problem formulation and solving, data structure implementation strageties, abstraction and encapsulation of data structures, object-oriented programming constructs, APIs and class libraries, exception handling, lists, linked lists, stacks, queues, hash tables and their algorithmic design, sorting and searching methods, recursive algorithms, and Big-O notation. This module is appropriate for SoC and FoS students.",
+    "lecturername": "Tan Sun Teck",
+    "timeslot" : "21,20,55,56,57",
+    "quota" : "120",
+    "tagged": [
+      "A6614133H",
+      "A1748370H",
+      "A5802229H",
+      "A6185284H",
+      "A5524592H"
+    ]
+  }, {
+    "code" : "CS2309",
+    "modulename": "CS Research Methodology",
+    "moduledescription": "This module is for research students.",
+    "lecturername": "Wynne Hsu",
+    "timeslot" : "1,2,45,46,47",
+    "quota" : "420",
+    "tagged": [
+      "A6614133H",
+      "A1748370H",
+      "A5802229H",
+      "A6185284H",
+      "A5524592H"
+    ]
+  }, {
+    "code" : "CS2106",
+    "modulename": "Introduction to Operating Systems",
+    "moduledescription": "This module introduces the basic concepts in operating systems and links it with contemporary operating systems (eg. Unix/Linux and Windows). It focuses on OS structuring and architecture, processes, memory management, concurrency and file systems. Topics include kernel architecture, system calls, interrupts, models of processes, process abstraction and services, scheduling, review of physical memory and memory management hardware, kernel memory management, virtual memory and paging, caches, working set, deadlock, mutual exclusion, synchronisation mechanisms, data and metadata in file systems, directories and structure, file system abstraction and operations, OS protection mechanisms, and user authentication.",
+    "lecturername": "ANG RAY YAN",
+    "timeslot" : "1,2,45,46,47",
+    "quota" : "840",
+    "tagged": [
+      "A6614133H",
+      "A1748370H",
+      "A5802229H",
+      "A6185284H",
+      "A5524592H"
+    ]
+  }, {
+    "code" : "CS2040",
+    "modulename": "Data Structures and Algorithms",
+    "moduledescription": "This module introduces students to the design and implementation of fundamental data structures and algorithms. The module covers basic data structures (linked lists, stacks, queues, hash tables, binary heaps, trees, and graphs), searching and sorting algorithms, and basic analysis of algorithms.",
+    "lecturername": "Chong Ket Fah",
+    "timeslot" : "40,41,10,11,12",
+    "quota" : "240",
+    "tagged": [
+      "A6614133H",
+      "A1748370H",
+      "A5802229H",
+      "A6185284H",
+      "A5524592H"
+    ]
+  }, {
+    "code" : "CS2220",
+    "modulename": "Introduction to Computational Biology",
+    "moduledescription": "This course aims to develop flexible and logical problem solving skills, understanding of main bioinformatics problems, and appreciation of main techniques and approaches to bioinformatics. Through case studies and hands-on exercises, the student will (i) master the basic tools and approaches for analysis of DNA sequences, protein sequences, gene expression profiles, etc. (ii) understand important problems and applications of computational biology, including identifying functional features in DNA and protein sequences, predicting protein function, and deriving diagnostic models from gene expression profiles, (iii) be confident to propose new solutions to both existing and emerging problems in computational biology.",
+    "lecturername": "Limsoon Wong",
+    "timeslot" : "30,31,32,33",
+    "quota" : "120",
+    "tagged": [
+      "A6614133H",
+      "A1748370H",
+      "A5802229H",
+      "A6185284H",
+      "A5524592H"
+    ]
+  }, {
+    "code" : "CS2100",
+    "modulename": "Computer Organisation",
+    "moduledescription": "The objective of this module is to familiarise students with the fundamentals of computing devices. Through this module students will understand the basics of data representation, and how the various parts of a computer work, separately and with each other. This allows students to understand the issues in computing devices, and how these issues affect the implementation of solutions. Topics covered include data representation systems, combinational and sequential circuit design techniques, assembly language, processor execution cycles, pipelining, memory hierarchy and input/output systems.",
+    "lecturername": "LI ZHAOYING",
+    "timeslot" : "32,33,12,13",
+    "quota" : "666",
+    "tagged": [
+      "A6614133H",
+      "A1748370H",
+      "A5802229H",
+      "A6185284H",
+      "A5524592H"
+    ]
+  }, {
+    "code" : "CS2105",
+    "modulename": "Introduction to Computer Networks",
+    "moduledescription": "This module aims to provide a broad introduction to computer networks and network application programming. It covers the main concepts, the fundamental principles, and the high-level workings of important protocols in each of the Internet protocol layer. Topics include the Web and Web applications, DNS services, socket programming, reliable protocols, transport and network layer protocols, secure communication, LAN, and data communication. Practical assignments and handson exercises expose students to network application programming and various networking tools and utilities.",
+    "lecturername": "Zhou Lifeng",
+    "timeslot" : "1,2,45,46,47",
+    "quota" : "720",
+    "tagged": [
+      "A6614133H",
+      "A1748370H",
+      "A5802229H",
+      "A6185284H",
+      "A5524592H"
+    ]
+  }, {
+    "code" : "CS2030",
+    "modulename": "Programming Methodology II",
+    "moduledescription": "This module is a follow up to CS1010. It explores two modern programming paradigms, object-oriented programming and functional programming. Through a series of integrated assignments, students will learn to develop medium-scale software programs in the order of thousands of lines of code and tens of classes using objectoriented design principles and advanced programming constructs available in the two paradigms. Topics include objects and classes, composition, association, inheritance, interface, polymorphism, abstract classes, dynamic binding, lambda expression, effect-free programming, first class functions, closures, continuations, monad, etc.",
+    "lecturername": "LEE LIAK GHEE",
+    "timeslot" : "1,2,45,46,47",
+    "quota" : "120",
+    "tagged": [
+      "A6614133H",
+      "A1748370H",
+      "A5802229H",
+      "A6185284H",
+      "A5524592H"
+    ]
+  }, {
+    "code" : "CS2101",
+    "modulename": "Effective Communication for Computing Professionals",
+    "moduledescription": "This module aims to equip students with the skills needed to communicate technical information to technical and nontechnical audiences, and to create comprehensible software documentation. A student-centric approach will be adopted to encourage independent and collaborative learning while engaging students in team-based projects. Students will learn interpersonal and intercultural communication skills as well as hone their oral and written communication skills. Assessment modes include a variety of oral and written communication tasks such as reports, software guides, oral presentations, software demonstrations and project blogs.",
+    "lecturername": "Shirley James",
+    "timeslot" : "29,30,31,54,55",
+    "quota" : "111",
+    "tagged": [
+      "A6614133H",
+      "A1748370H",
+      "A5802229H",
+      "A6185284H",
+      "A5524592H"
+    ]
+  } ]
+}
