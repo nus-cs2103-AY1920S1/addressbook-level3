@@ -144,7 +144,8 @@ public class SampleDataUtil {
                         getTagSet("New")),
                    new Price("$1000"),
                    Status.UNSCHEDULED,
-                   Optional.empty(), getTagSet("Urgent")),
+                   Optional.empty(),
+                   getTagSet("Urgent")),
             new Order(UUID.randomUUID(),
                   new Customer(new CustomerName("Alex Yeoh"), new ContactNumber("87438807"),
                         new Email("alexyeoh@example.com"), getTagSet("friends")),
@@ -154,7 +155,8 @@ public class SampleDataUtil {
                         getTagSet("Used")),
                   new Price("$1500"),
                   Status.UNSCHEDULED,
-                  Optional.empty(), getTagSet("New")),
+                  Optional.empty(),
+                    getTagSet("New")),
             new Order(UUID.randomUUID(),
                   new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
                         new Email("lidavid@example.com"), getTagSet("family")),
@@ -164,8 +166,7 @@ public class SampleDataUtil {
                         getTagSet("New")),
                   new Price("$1200"),
                   Status.UNSCHEDULED,
-                  Optional.empty(), getTagSet("New"))
-
+                  Optional.empty(), getTagSet("New")),
         };
     }
 

@@ -19,10 +19,10 @@ import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.exception.EnumNotPresentException;
+import seedu.address.ui.panels.CalendarPanel;
 import seedu.address.ui.panels.CustomerListPanel;
 import seedu.address.ui.panels.OrderListPanel;
 import seedu.address.ui.panels.PhoneListPanel;
-import seedu.address.ui.panels.ScheduleListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -48,8 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private CustomerListPanel customerListPanel;
     private PhoneListPanel phoneListPanel;
     private OrderListPanel orderListPanel;
-    private ScheduleListPanel scheduleListPanel;
-
+    private CalendarPanel calendarPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -130,9 +129,9 @@ public class MainWindow extends UiPart<Stage> {
         customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
         phoneListPanel = new PhoneListPanel(logic.getFilteredPhoneList());
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
-        scheduleListPanel = new ScheduleListPanel(logic.getFilteredScheduleList());
+        calendarPanel = new CalendarPanel(logic.getFilteredScheduleList(), logic.getFilteredOrderList());
 
-        tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel, scheduleListPanel);
+        tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel, calendarPanel);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
