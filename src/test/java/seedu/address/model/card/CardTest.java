@@ -9,7 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.ABRA;
 import static seedu.address.testutil.TypicalCards.BUTTERFREE;
 
-import java.util.HashSet;
+//import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 
@@ -41,17 +41,17 @@ public class CardTest {
         assertFalse(ABRA.isSameMeaning(editedAbra));
     }
 
-    @Test
-    public void getHint() {
-        String wordStr = "Pikachu";
-        String meaningStr = "PIKA PIKA";
-        Card card = new Card(new Word(wordStr), new Meaning(meaningStr), new HashSet<>());
-        for (int i = 0; i < wordStr.length(); ++i) {
-            Hint hint = card.getHint();
-            assertTrue(wordStr.charAt(hint.index.getZeroBased()) == hint.letter);
-        }
-        assertTrue(card.getHint() == null); // hints exhausted
-    }
+    //    @Test
+    //    public void getHint() {
+    //        String wordStr = "Pikachu";
+    //        String meaningStr = "PIKA PIKA";
+    //        Card card = new Card(new Word(wordStr), new Meaning(meaningStr), new HashSet<>());
+    //        for (int i = 0; i < wordStr.length(); ++i) {
+    //            Hint hint = card.getHint();
+    //            assertTrue(wordStr.charAt(hint.index.getZeroBased()) == hint.letter);
+    //        }
+    //        assertTrue(card.getHint() == null); // hints exhausted
+    //    }
 
 
 
