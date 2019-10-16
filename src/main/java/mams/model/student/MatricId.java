@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static mams.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Student's MatricId in the address book.
+ * Represents a Student's MatricId in MAMS.
  * Guarantees: immutable; is valid as declared in {@link #isValidMatricId(String)} (String)}
  */
 public class MatricId {

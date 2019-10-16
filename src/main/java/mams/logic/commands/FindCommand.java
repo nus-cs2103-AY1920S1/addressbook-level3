@@ -7,7 +7,7 @@ import mams.model.Model;
 import mams.model.student.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all students in address book whose name contains any of the argument keywords.
+ * Finds and lists all students in MAMS whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

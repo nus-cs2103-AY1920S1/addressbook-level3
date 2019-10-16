@@ -57,7 +57,7 @@ class JsonAdaptedModule {
         moduleDescription = source.getModuleDescription();
         lecturerName = source.getLecturerName();
         timeSlot = source.getTimeSlot();
-        quota = source.getQuota();
+        quota = Integer.toString(source.getQuota());
         tagged.addAll(source.getStudents().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
