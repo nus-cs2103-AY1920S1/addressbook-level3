@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.ui.UiPart;
 
+//@author dalsontws
 /**
  * Controller for a help page
  */

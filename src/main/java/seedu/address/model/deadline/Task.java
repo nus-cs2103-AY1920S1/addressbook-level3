@@ -3,6 +3,7 @@ package seedu.address.model.deadline;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@author dalsontws
 /**
  * Represents a Deadline's Question in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTask(String)}

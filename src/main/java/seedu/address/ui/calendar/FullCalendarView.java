@@ -12,8 +12,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+//@author dalsontws
 /**
  * Create FullCalendarView GUI
+ * TODO: Replace calendar placeholder
  */
 public class FullCalendarView {
 
@@ -24,8 +26,7 @@ public class FullCalendarView {
 
     /**
      * Create a calendar view
-     *
-     * @param yearMonth year month to create the calendar of
+     * @param yearMonth year month to create the calendar
      */
     public FullCalendarView(YearMonth yearMonth) {
         currentYearMonth = yearMonth;

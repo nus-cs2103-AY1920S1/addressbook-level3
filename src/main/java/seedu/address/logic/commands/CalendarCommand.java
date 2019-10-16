@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import seedu.address.model.Model;
 import seedu.address.ui.calendar.FullCalendarView;
 
+//@author dalsontws
 /**
  * Format full help instructions for every command for display.
  */
@@ -19,6 +20,7 @@ public class CalendarCommand extends Command {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened calendar window.";
 
+    //TODO: Replace with completed version of Calendar GUI
     @Override
     public CommandResult execute(Model model) {
         Stage primaryStage = new Stage();
