@@ -47,8 +47,8 @@ public class PersonCard extends UiPart<Region> {
         serialNumber.setText(book.getSerialNumber().value);
         author.setText(book.getAuthor().value);
         book.getGenres().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> genres.getChildren().add(new Label(tag.tagName)));
+                .sorted(Comparator.comparing(tag -> tag.genreName))
+                .forEach(tag -> genres.getChildren().add(new Label(tag.genreName)));
     }
 
     @Override

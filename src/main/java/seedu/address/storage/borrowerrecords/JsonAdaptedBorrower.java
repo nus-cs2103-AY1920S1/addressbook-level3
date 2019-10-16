@@ -1,14 +1,23 @@
 package seedu.address.storage.borrowerrecords;
 
+import static seedu.address.commons.core.Messages.MESSAGE_LOAN_ID_DOES_NOT_EXISTS;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.borrower.Email;
 import seedu.address.model.borrower.Name;
 import seedu.address.model.borrower.Phone;
+import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
+import seedu.address.model.loan.LoanList;
 
 /**
  * Jackson-friendly version of {@link Borrower}.
@@ -21,28 +30,33 @@ class JsonAdaptedBorrower {
     private final String phone;
     private final String email;
     private final String borrowerId;
+    private final List<String> currentLoanList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedBorrower} with the given borrower detail.
      */
     @JsonCreator
-    public JsonAdaptedBorrower(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                               @JsonProperty("email") String email, @JsonProperty("borrowerId") String borrowerId) {
+    public JsonAdaptedBorrower(@JsonProperty("name") String name,
+                               @JsonProperty("phone") String phone,
+                               @JsonProperty("email") String email,
+                               @JsonProperty("borrowerId") String borrowerId,
+                               @JsonProperty("currentLoanList") List<String> currentLoanList) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.borrowerId = borrowerId;
+        this.currentLoanList.addAll(currentLoanList);
     }
 
     /**
      * Converts a given {@code Borrower} into this class for Jackson use.
      */
     public JsonAdaptedBorrower(Borrower source) {
-
         name = source.getName().name;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         borrowerId = source.getBorrowerId().value;
+        source.getCurrentLoanList().forEach(loan -> currentLoanList.add(loan.getLoanId().toString()));
     }
 
     /**
@@ -50,7 +64,7 @@ class JsonAdaptedBorrower {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted book.
      */
-    public Borrower toModelType() throws IllegalValueException {
+    public Borrower toModelType(ReadOnlyLoanRecords initialLoanRecords) throws IllegalValueException {
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -87,7 +101,26 @@ class JsonAdaptedBorrower {
         }
         final BorrowerId modelBorrowerId = new BorrowerId(borrowerId);
 
-        return new Borrower(modelName, modelPhone, modelEmail, modelBorrowerId);
+        if (currentLoanList == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    LoanList.class.getSimpleName()));
+        }
+        final LoanList modelCurrentLoanList = new LoanList();
+        for (String loanIdString : currentLoanList) {
+            if (!LoanId.isValidLoanId(loanIdString)) {
+                throw new IllegalValueException(LoanId.MESSAGE_CONSTRAINTS);
+            }
+
+            LoanId loanId = new LoanId(loanIdString);
+            Loan modelLoan = initialLoanRecords.getLoansMap().get(loanId);
+            if (modelLoan == null) {
+                throw new IllegalValueException(String.format(MESSAGE_LOAN_ID_DOES_NOT_EXISTS, loanId));
+            }
+
+            modelCurrentLoanList.add(modelLoan);
+        }
+
+        return new Borrower(modelName, modelPhone, modelEmail, modelBorrowerId, modelCurrentLoanList);
     }
 
 }

@@ -20,15 +20,15 @@ import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
 
 public class ParserUtilTest {
-    private static final String INVALID_TITLE = "R@chel";
+    private static final String INVALID_TITLE = "&HarryBotter";
     private static final String INVALID_SERIAL_NUMBER = "+651234";
     private static final String INVALID_GENRE = "#friend";
 
-    private static final String VALID_TITLE = "Rachel Walker";
+    private static final String VALID_TITLE = "Harry Botter";
     private static final String VALID_SERIAL_NUMBER = "B03456";
-    private static final String VALID_AUTHOR = "rachel@example.com";
-    private static final String VALID_GENRE_1 = "friend";
-    private static final String VALID_GENRE_2 = "neighbour";
+    private static final String VALID_AUTHOR = "J K Rowling";
+    private static final String VALID_GENRE_1 = "FICTION";
+    private static final String VALID_GENRE_2 = "ACTION";
 
     private static final String WHITESPACE = " \t\r\n";
 

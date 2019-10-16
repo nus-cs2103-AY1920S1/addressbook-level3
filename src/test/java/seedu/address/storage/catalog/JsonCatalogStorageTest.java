@@ -17,6 +17,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.Catalog;
+import seedu.address.model.LoanRecords;
 import seedu.address.model.ReadOnlyCatalog;
 
 public class JsonCatalogStorageTest {
@@ -31,7 +32,8 @@ public class JsonCatalogStorageTest {
     }
 
     private java.util.Optional<ReadOnlyCatalog> readCatalog(String filePath) throws Exception {
-        return new JsonCatalogStorage(Paths.get(filePath)).readCatalog(addToTestDataPathIfNotNull(filePath));
+        return new JsonCatalogStorage(Paths.get(filePath)).readCatalog(addToTestDataPathIfNotNull(filePath),
+                new LoanRecords());
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -68,20 +70,20 @@ public class JsonCatalogStorageTest {
 
         // Save in new file and read back
         jsonAddressBookStorage.saveCatalog(original, filePath);
-        ReadOnlyCatalog readBack = jsonAddressBookStorage.readCatalog(filePath).get();
+        ReadOnlyCatalog readBack = jsonAddressBookStorage.readCatalog(filePath, new LoanRecords()).get();
         assertEquals(original, new Catalog(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addBook(BOOK_5);
         original.removeBook(BOOK_2);
         jsonAddressBookStorage.saveCatalog(original, filePath);
-        readBack = jsonAddressBookStorage.readCatalog(filePath).get();
+        readBack = jsonAddressBookStorage.readCatalog(filePath, new LoanRecords()).get();
         assertEquals(original, new Catalog(readBack));
 
         // Save and read without specifying file path
         original.addBook(BOOK_6);
         jsonAddressBookStorage.saveCatalog(original); // file path not specified
-        readBack = jsonAddressBookStorage.readCatalog().get(); // file path not specified
+        readBack = jsonAddressBookStorage.readCatalog(new LoanRecords()).get(); // file path not specified
         assertEquals(original, new Catalog(readBack));
     }
 

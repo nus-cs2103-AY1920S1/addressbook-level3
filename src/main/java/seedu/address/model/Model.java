@@ -79,6 +79,8 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Book> getFilteredBookList();
 
+    void resetFilteredBookList();
+
     void updateFilteredBookList(Predicate<Book> predicate);
 
     Model excludeBookBeingReplaced(Book toBeReplaced);
@@ -135,4 +137,6 @@ public interface Model {
     void setServingBorrower(BorrowerId borrowerId);
 
     boolean hasBorrowerId(BorrowerId borrowerId);
+
+    void exitsServeMode();
 }
