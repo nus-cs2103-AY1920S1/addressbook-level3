@@ -71,6 +71,7 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
         stringIntMap = new HashMap<>();
         stringAutofillMap = new HashMap<>();
 
+        // adapted from RichTextFX OverrideBehaviorDemo
         consumeKeyPress = InputMap.consume(EventPattern.anyOf(
                 // enter
                 keyPressed(ENTER, SHIFT_ANY, SHORTCUT_ANY),
@@ -112,12 +113,11 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
         };
 
         // temporary sizes
-        double h = 40;
+        double h = 35;
         setHeight(h);
         setPrefHeight(h);
         setMaxHeight(h);
         setMinHeight(h);
-        setMinWidth(200);
 
         Nodes.addInputMap(this, consumeKeyPress);
 
@@ -222,7 +222,7 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
      */
     private StyleSpans<Collection<String>> computeHighlighting(String text) {
         String commandWordRegex = String.join("|", stringPatternMap.keySet());
-        Matcher m = Pattern.compile("^\\s*(?<COMMAND>" + commandWordRegex + ")\\s*$").matcher(text);
+        Matcher m = Pattern.compile("^\\s*(?<COMMAND>" + commandWordRegex + ")\\s*").matcher(text);
 
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 
@@ -243,6 +243,7 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
         return spansBuilder.create();
     }
 
+    // adapted from RichTextFX JavaKeywordDemo
     /**
      * Returns the StyleSpans to apply rich text formatting to the text area, using a given pattern.
      *
