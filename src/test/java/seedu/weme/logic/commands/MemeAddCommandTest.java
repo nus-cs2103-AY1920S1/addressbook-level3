@@ -172,6 +172,36 @@ public class MemeAddCommandTest {
         public void deleteLikesByMeme(Meme meme) {
             throw new AssertionError("This method should not be called");
         }
+
+        @Override
+        public LikeData getLikeData() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableMap<String, Integer> getObservableLikeData() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void deleteLikesByMeme(Meme meme) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public LikeData getLikeData() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableMap<String, Integer> getObservableLikeData() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void deleteLikesByMeme(Meme meme) {
+            throw new AssertionError("This method should not be called");
+        }
     }
 
     /**

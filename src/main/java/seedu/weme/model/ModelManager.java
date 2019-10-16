@@ -171,6 +171,36 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public LikeData getLikeData() {
+        return this.likeData;
+    }
+
+    @Override
+    public ObservableMap<String, Integer> getObservableLikeData() {
+        return observableLikeData;
+    }
+
+    @Override
+    public void deleteLikesByMeme(Meme meme) {
+        likeData.deleteLikesByMeme(meme);
+    }
+
+    @Override
+    public LikeData getLikeData() {
+        return this.likeData;
+    }
+
+    @Override
+    public ObservableMap<String, Integer> getObservableLikeData() {
+        return observableLikeData;
+    }
+
+    @Override
+    public void deleteLikesByMeme(Meme meme) {
+        likeData.deleteLikesByMeme(meme);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
