@@ -181,6 +181,26 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            if (!(commandResult.getFeature() == null)) {
+                switch (commandResult.getFeature().toString()) {
+                case "calendar":
+                    Calendar calendar = new Calendar();
+                    featureBoxPlaceholder.getChildren().clear();
+                    featureBoxPlaceholder.getChildren().add(calendar.getRoot());
+                    break;
+                case "attendance":
+                    AttendancePanel attendance = new AttendancePanel();
+                    featureBoxPlaceholder.getChildren().clear();
+                    featureBoxPlaceholder.getChildren().add(attendance.getRoot());
+                    break;
+                case "performance":
+                    PerformancePanel performance = new PerformancePanel();
+                    featureBoxPlaceholder.getChildren().clear();
+                    featureBoxPlaceholder.getChildren().add(performance.getRoot());
+                    break;
+                }
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }

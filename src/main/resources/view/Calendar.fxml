@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="600.0" style="-fx-background-color: #C5EFF7;" text="Today's Day and Date">
+      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="45.0" style="-fx-background-color: #C5EFF7;" text="Today's Day and Date">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <HBox style="-fx-background-color: #95A5A6;">
+      <HBox maxWidth="1.7976931348623157E308" style="-fx-background-color: #95A5A6;">
          <children>
             <Button mnemonicParsing="false" text="Prev">
                <HBox.margin>

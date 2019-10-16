@@ -41,7 +41,7 @@
                 </padding>
                 <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
               </VBox>
-                  <VBox prefWidth="400.0" HBox.hgrow="ALWAYS">
+                  <VBox maxHeight="1.7976931348623157E308" prefWidth="400.0" HBox.hgrow="ALWAYS">
                      <children>
             
                           <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
@@ -55,7 +55,7 @@
                         <Insets bottom="5" left="10" right="10" top="5" />
                       </padding>
                     </StackPane>
-                        <StackPane fx:id="featureBoxPlaceholder" prefWidth="400.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
+                        <StackPane fx:id="featureBoxPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>

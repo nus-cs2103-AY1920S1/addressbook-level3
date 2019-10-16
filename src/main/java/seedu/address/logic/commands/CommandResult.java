@@ -4,12 +4,15 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.feature.Feature;
+
 /**
  * Represents the result of a command execution.
  */
 public class CommandResult {
 
     private final String feedbackToUser;
+    private Feature feature;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -34,6 +37,19 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code
+     * featureToDisplay}, and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, Feature featureToDisplay) {
+        this(feedbackToUser, false, false);
+        this.feature = featureToDisplay;
+    }
+
+    public Feature getFeature() {
+        return feature;
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -45,6 +61,8 @@ public class CommandResult {
     public boolean isExit() {
         return exit;
     }
+
+
 
     @Override
     public boolean equals(Object other) {
