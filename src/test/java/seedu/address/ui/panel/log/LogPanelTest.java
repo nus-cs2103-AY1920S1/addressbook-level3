@@ -18,7 +18,13 @@ public class LogPanelTest {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
                 while (threadFlag) {
-                    Application.launch(MainApp.class, new String[0]);
+                    try {
+                        Application.launch(MainApp.class, new String[0]);
+                    } catch (Exception e) {
+                        Thread.currentThread().interrupt();
+                    }
+
+
                 }
             }
         };
