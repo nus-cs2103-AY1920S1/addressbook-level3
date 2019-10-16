@@ -204,11 +204,10 @@ public class MainWindow extends UiPart<Stage> {
                     break;
                 }
             }
-          
             if (!(commandResult.getPerson() == null)) {
                 InformationDisplay informationDisplay = new InformationDisplay(logic.getPerson());
-                featureBoxPlaceHolder.getChildren().clear();
-                featureBoxPlaceHolder.getChildren().add(informationDisplay.getRoot());
+                featureBoxPlaceholder.getChildren().clear();
+                featureBoxPlaceholder.getChildren().add(informationDisplay.getRoot());
             }
 
             if (commandResult.isShowHelp()) {
