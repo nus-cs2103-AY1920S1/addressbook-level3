@@ -152,7 +152,7 @@ public class GameManager {
      */
     @FunctionalInterface
     public interface TimerDisplayCallBack {
-        void updateTimerDisplay(String timerMessage, long timeLeft);
+        void updateTimerDisplay(String timerMessage, long timeLeft, long totalTimeGiven);
     }
 
     /**

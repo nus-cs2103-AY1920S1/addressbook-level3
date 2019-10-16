@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable Word Bank Statistics that is serializable to JSON format.
+ * A Word Bank Statistics class that is serializable to JSON format.
  */
 
 @JsonRootName(value = "wbstats")
@@ -40,6 +40,9 @@ public class JsonSerializableWordBankStatistics {
         this.scoreStats.addAll(scoreStats);
     }
 
+    /**
+     * Construct a json serializable version of the parameter {@code wbStats}.
+     */
     public JsonSerializableWordBankStatistics(WordBankStatistics wbStats) {
         this.wordBankName = wbStats.getWordBankName();
         this.gamesPlayed = wbStats.getGamesPlayed();
@@ -57,6 +60,9 @@ public class JsonSerializableWordBankStatistics {
 
     }
 
+    /**
+     * Converts this into the {@code WordBankStatistics} object.
+     */
     public WordBankStatistics toModelType() {
         List<CardStatistics> cardStatistics = cardStats
                 .stream()

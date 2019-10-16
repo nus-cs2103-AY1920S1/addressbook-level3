@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+/**
+ * Represents a storage for {@link WordBankStatistics}.
+ */
 public interface WordBankStatisticsStorage {
 
     /**

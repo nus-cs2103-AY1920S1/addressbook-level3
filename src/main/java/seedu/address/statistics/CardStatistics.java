@@ -1,5 +1,8 @@
 package seedu.address.statistics;
 
+/**
+ * Represents the statistics of a card.
+ */
 public class CardStatistics {
 
     private String cardId;
@@ -24,10 +27,16 @@ public class CardStatistics {
         return numCorrect;
     }
 
+    /**
+     * Add a wrong guess data point to this card stats.
+     */
     public void addWrong() {
         ++numShown;
     }
 
+    /**
+     * Add a correct guess data point to this card stats.
+     */
     public void addCorrect() {
         ++numCorrect;
         ++numShown;

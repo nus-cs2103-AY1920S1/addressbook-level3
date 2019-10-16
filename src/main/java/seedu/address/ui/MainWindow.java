@@ -9,6 +9,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -55,7 +56,7 @@ public class MainWindow extends UiPart<Stage> {
 
     //TimerDisplay placeholder
     @FXML
-    private StackPane timerDisplayPlaceholder;
+    private AnchorPane timerDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -269,13 +270,16 @@ public class MainWindow extends UiPart<Stage> {
      * @param timerMessage Message to be displayed on the TimerDisplay.
      * @param timeLeft Time in milliseconds that is left in the current timer.
      */
-    private void updateTimerDisplay(String timerMessage, long timeLeft) {
-        if (timeLeft <= 200) { // todo dont hardcode!
+    private void updateTimerDisplay(String timerMessage, long timeLeft, long totalTimeGiven) {
+        double percentageTimeLeft = (timeLeft * 1.0) / totalTimeGiven;
+
+        if (percentageTimeLeft <= 0.5) { // when time left is <= half of time given, switch to alert colour
             this.timerDisplay.setAlertTextColour();
         } else {
             this.timerDisplay.setNormalTextColour();
         }
-        this.timerDisplay.setFeedbackToUser(timerMessage);
+        timerDisplay.setProgressBarProgress(percentageTimeLeft);
+        timerDisplay.setFeedbackToUser(timerMessage);
     }
 
     private void updateResultDisplay(String resultDisplayMessage) {

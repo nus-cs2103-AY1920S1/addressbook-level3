@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.game;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.GameCommand;
 import seedu.address.logic.commands.exceptions.CommandException;

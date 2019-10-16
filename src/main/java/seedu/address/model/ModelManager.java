@@ -110,16 +110,14 @@ public class ModelManager implements Model {
     @Override
     public void setWordBank(ReadOnlyWordBank wordBank) {
         this.wordBank = (WordBank) wordBank;
-        filteredCards = new FilteredList<>(this.wordBank.getCardList());
-        // todo set wb stats
-//        this.wordBank.resetData(wordBank);
+            filteredCards = new FilteredList<>(this.wordBank.getCardList());
+            //        this.wordBank.resetData(wordBank);
     }
 
     public void clearWordBank() {
         wordBank.resetData(new WordBank(wordBank.getName()));
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
-        //todo clear wb stats
-//        this.wordBank.resetData(wordBank);
+        //        this.wordBank.resetData(wordBank);
     }
 
     @Override
@@ -136,6 +134,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteCard(Card target) {
         wordBank.removeCard(target);
+        wordBankStatistics.removeCardStatistics(target.getId());
     }
 
     @Override
