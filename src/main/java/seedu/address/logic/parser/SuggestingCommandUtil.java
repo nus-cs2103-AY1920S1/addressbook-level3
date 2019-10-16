@@ -15,6 +15,7 @@ import seedu.address.logic.commands.AddNusModCommand;
 import seedu.address.logic.commands.AddNusModsCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddToGroupCommand;
+import seedu.address.logic.commands.ClosestLocationCommand;
 import seedu.address.logic.commands.DeleteGroupCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.EditGroupCommand;
@@ -50,7 +51,8 @@ public class SuggestingCommandUtil {
             ShowCommand.COMMAND_WORD,
             ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
-            ListCommand.COMMAND_WORD
+            ListCommand.COMMAND_WORD,
+            ClosestLocationCommand.COMMAND_WORD
     );
     private static ObservableList<String> readOnlyCommandWords = FXCollections.unmodifiableObservableList(commandWords);
 

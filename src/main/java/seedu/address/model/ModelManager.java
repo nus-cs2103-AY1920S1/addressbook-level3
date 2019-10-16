@@ -19,6 +19,7 @@ import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.SimpleJsonUtil;
+import seedu.address.logic.internal.gmaps.ClosestLocation;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.detailwindow.WeekSchedule;
@@ -38,6 +39,7 @@ import seedu.address.model.module.DetailedModuleList;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.SemesterNo;
+import seedu.address.model.module.Venue;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -68,6 +70,7 @@ public class ModelManager implements Model {
     private PersonToGroupMappingList personToGroupMappingList;
 
     private NusModsData nusModsData;
+    private ClosestLocation closestLocation;
 
     // UI display
     private DetailWindowDisplay detailWindowDisplay;
@@ -95,7 +98,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, TimeBook timeBook,
-                        NusModsData nusModsData, ReadOnlyUserPrefs userPrefs) {
+                        NusModsData nusModsData, ReadOnlyUserPrefs userPrefs, ClosestLocation closestLocation) {
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
@@ -103,7 +106,7 @@ public class ModelManager implements Model {
         this.personList = timeBook.getPersonList();
         this.groupList = timeBook.getGroupList();
         this.personToGroupMappingList = timeBook.getPersonToGroupMappingList();
-
+        this.closestLocation = closestLocation;
         this.nusModsData = nusModsData;
 
         int personCounter = -1;
@@ -138,7 +141,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager(TimeBook timeBook) {
-        this(new AddressBook(), timeBook, new NusModsData(), new UserPrefs());
+        this(new AddressBook(), timeBook, new NusModsData(), new UserPrefs(), new ClosestLocation());
     }
 
     public ModelManager() {
@@ -560,6 +563,18 @@ public class ModelManager implements Model {
 
     public List<String> getHolidayDateStrings() {
         return nusModsData.getHolidays().getHolidayDates();
+    }
+
+    //=========== ClosestLocation ================================================================================
+
+    @Override
+    public String getClosestLocationVenues(ArrayList<Venue> venues) {
+        return closestLocation.closestLocationVenues(venues);
+    }
+
+    @Override
+    public String getClosestLocationString(ArrayList<String> venues) {
+        return closestLocation.closestLocationString(venues);
     }
 
     //=========== Others =============================================================
