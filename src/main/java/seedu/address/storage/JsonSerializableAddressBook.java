@@ -63,6 +63,14 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
+        for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
+            Budget budget = jsonAdaptedBudget.toModelType();
+            if (addressBook.hasBudget(budget)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_BUDGET);
+            }
+            addressBook.addBudget(budget);
+        }
+
         for (JsonAdaptedExpense jsonAdaptedExpense : expenses) {
             Expense expense = jsonAdaptedExpense.toModelType();
             if (addressBook.hasExpense(expense)) {
@@ -77,14 +85,6 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EVENT);
             }
             addressBook.addEvent(event);
-        }
-
-        for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
-            Budget budget = jsonAdaptedBudget.toModelType();
-            if (addressBook.hasBudget(budget)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_BUDGET);
-            }
-            addressBook.addBudget(budget);
         }
         return addressBook;
     }

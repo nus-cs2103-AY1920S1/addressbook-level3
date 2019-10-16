@@ -32,14 +32,14 @@ public class Budget {
     //private static final Price DEFAULT_BUDGET_AMOUNT = new Price(Double.toString(Double.MAX_VALUE));
     private static final Price DEFAULT_BUDGET_AMOUNT = new Price("100000000000");
     //private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.MIN;
-    private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.of(0000, 1, 1);
+    private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.of(2000, 1, 1);
     //private static final Period DEFAULT_BUDGET_PERIOD = Period.between(LocalDate.MIN, LocalDate.MAX);
-    private static final Period DEFAULT_BUDGET_PERIOD = Period.ofYears(9999);
+    private static final Period DEFAULT_BUDGET_PERIOD = Period.ofYears(999);
     private static final Percentage IS_NEAR_THRESHOLD = new Percentage(90);
 
 
     public Budget(Description description, Price amount, LocalDate startDate, Period period) {
-        requireAllNonNull(description, startDate, period, amount);
+        requireAllNonNull(description, amount, startDate, period);
         this.description = description;
         this.amount = amount;
         this.startDate = startDate;
@@ -51,7 +51,7 @@ public class Budget {
     }
 
     public Budget(Description description, Price amount, LocalDate startDate, Period period, List<Expense> expenses) {
-        requireAllNonNull(description, startDate, period, amount);
+        requireAllNonNull(description, amount, startDate, period, expenses);
         this.description = description;
         this.amount = amount;
         this.startDate = startDate;
@@ -144,6 +144,17 @@ public class Budget {
 
     public void setNotPrimary() {
         isPrimary = false;
+    }
+
+    public void removeIdentical(Expense otherExpense) {
+        Expense toRemove = null;
+        for (Expense expense : expenses) {
+            if (expense.isSameExpense(otherExpense)) {
+                toRemove = expense;
+                break;
+            }
+        }
+        expenses.remove(toRemove);
     }
 
     /**

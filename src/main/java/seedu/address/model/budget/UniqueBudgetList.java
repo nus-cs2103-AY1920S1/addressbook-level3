@@ -66,7 +66,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
         requireAllNonNull(budget);
         for (int i = 0; i < internalList.size(); i++) {
             Budget b = internalList.get(i);
-            if (b.isPrimary() == true) {
+            if (b.isPrimary()) {
                 b.setNotPrimary();
             }
         }
