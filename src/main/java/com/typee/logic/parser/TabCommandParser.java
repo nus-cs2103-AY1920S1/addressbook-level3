@@ -8,8 +8,8 @@ import com.typee.logic.commands.TabCommand;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.ui.AppointmentWindow;
 import com.typee.ui.CalendarWindow;
-import com.typee.ui.GameWindow;
 import com.typee.ui.Tab;
+import com.typee.ui.game.StartWindow;
 import com.typee.ui.report.ReportWindow;
 
 /**
@@ -29,8 +29,8 @@ public class TabCommandParser implements Parser<TabCommand> {
         } else {
             switch(tabName.toLowerCase()) {
             //Feel free to modify your tab name and respective Controller class together with your fxml file.
-            case "typinggame":
-                return new TabCommand(new Tab("Typing Game", GameWindow.FXML, new GameWindow()));
+            case "game":
+                return new TabCommand(new Tab("Typing Game", StartWindow.FXML, new StartWindow()));
             case "appointment":
                 return new TabCommand(new Tab("Add Engagement", AppointmentWindow.FXML, new AppointmentWindow()));
             case "report":
