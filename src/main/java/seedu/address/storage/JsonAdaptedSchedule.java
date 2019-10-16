@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -11,6 +13,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.junit.jupiter.params.shadow.com.univocity.parsers.common.Format;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.model.schedule.Schedule;
@@ -25,20 +28,20 @@ class JsonAdaptedSchedule {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Schedule's %s field is missing!";
 
     // Identity fields
-    private final UUID id;
+    private final String id;
 
     // Data fields
-    private final Calendar calendar;
-    private final Venue venue;
+    private final String calendar;
+    private final String venue;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedSchedule} with the given schedule details.
      */
     @JsonCreator
-    public JsonAdaptedSchedule(@JsonProperty("id") UUID id,
-                            @JsonProperty("calendar") Calendar calendar,
-                            @JsonProperty("venue") Venue venue,
+    public JsonAdaptedSchedule(@JsonProperty("id") String id,
+                            @JsonProperty("calendar") String calendar,
+                            @JsonProperty("venue") String venue,
                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.id = id;
         this.calendar = calendar;
@@ -52,9 +55,9 @@ class JsonAdaptedSchedule {
      * Converts a given {@code Schedule} into this class for Jackson use.
      */
     public JsonAdaptedSchedule(Schedule source) {
-        id = source.getId();
-        calendar = source.getCalendar();
-        venue = source.getVenue();
+        id = source.getId().toString();
+        calendar = DateFormat.getDateInstance().format(source.getCalendar().getTime());
+        venue = source.getVenue().venue;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -65,7 +68,7 @@ class JsonAdaptedSchedule {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted schedule.
      */
-    public Schedule toModelType() throws IllegalValueException {
+    public Schedule toModelType() throws IllegalValueException, ParseException {
         final List<Tag> scheduleTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             scheduleTags.add(tag.toModelType());
@@ -76,14 +79,15 @@ class JsonAdaptedSchedule {
                     UUID.class.getSimpleName()));
         }
 
-        final UUID modelId = id;
+        final UUID modelId = UUID.fromString(id);
 
         if (calendar == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Calendar.class.getSimpleName()));
         }
 
-        final Calendar modelCalendar = calendar;
+        final Calendar modelCalendar = Calendar.getInstance();
+        modelCalendar.setTime(DateFormat.getDateInstance().parse(calendar));
 
         if (venue == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
