@@ -137,4 +137,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Replaces the current model's context with the given {@code context}.
+     */
+    void setContext(Context context);
+
+    /**
+     * Returns the current model's context.
+     */
+    Context getContext();
 }
