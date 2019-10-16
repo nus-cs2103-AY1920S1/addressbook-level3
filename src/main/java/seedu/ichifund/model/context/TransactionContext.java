@@ -1,5 +1,6 @@
 package seedu.ichifund.model.context;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -79,5 +80,19 @@ public class TransactionContext implements Context<Transaction> {
         } else {
             return datePredicate;
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof TransactionContext // instanceof handles nulls
+                && month.equals((((TransactionContext) other).month))
+                && year.equals((((TransactionContext) other).year))
+                && category.equals((((TransactionContext) other).category))); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(month, year, category);
     }
 }
