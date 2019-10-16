@@ -80,7 +80,7 @@ public class AddCommand extends Command {
                 }
                 Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
                 mealLog.addMeal(toAddMeal);
-            } else if (!model.hasDishName(wantToAdd) && wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)){
+            } else if (!model.hasDishName(wantToAdd) && wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)) {
                 // If the meal is not in the dishDB and does not have a calorie tag,
                 // the dish will be added to the dishDB with a default calorie of 700
                 // and added to the meal log with a default value of 700 as well
