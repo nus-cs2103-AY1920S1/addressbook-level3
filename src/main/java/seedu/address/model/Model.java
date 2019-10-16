@@ -121,6 +121,30 @@ public interface Model {
 
     //endregion
 
+    //region Group
+    /**
+     * Creates a group manually.
+     */
+    void createGroupManually(String groupId, ArrayList<Integer> studentNumbers);
+
+    /**
+     * Adds a student to a group.
+     * {@code groupId} Must already exist in the list of groups.
+     * {@code studentNumber} Must already exist in the list of students.
+     * {@code groupIndexNumber} Must already exist in the quiz.
+     */
+    boolean addStudentToGroup(String groupId, int studentNumber, int groupIndexNumber);
+
+    /**
+     * Removes a student from a group.
+     */
+    void removeStudentFromGroup(String groupId, int groupIndexNumber);
+
+    /**
+     * Returns a students from a group in list view.
+     */
+    String getStudentsFromGroup(String groupId);
+
     //region Questions
     /**
      * Adds the given question.

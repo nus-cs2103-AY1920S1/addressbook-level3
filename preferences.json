@@ -7,6 +7,6 @@
       "y" : 74
     }
   },
-  "addressBookFilePath" : "data\\addressbook.json",
-  "studentRecordFilePath" : "data\\students.json"
+  "addressBookFilePath" : "data/addressbook.json",
+  "studentRecordFilePath" : "data/students.json"
 }

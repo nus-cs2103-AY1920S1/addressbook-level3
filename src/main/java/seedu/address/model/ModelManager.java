@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.group.ListOfGroups;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteList;
 import seedu.address.model.person.Person;
@@ -22,6 +23,8 @@ import seedu.address.model.question.QuestionBank;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizBank;
 import seedu.address.model.student.Student;
+import seedu.address.model.group.Group;
+
 
 
 /**
@@ -34,6 +37,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final QuestionBank questionBank;
     private final QuizBank quizBank;
+    private final ListOfGroups groupList;
     private final NoteList notes;
     private final UserPrefs userPrefs;
     private final StudentRecord studentRecord;
@@ -55,6 +59,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.questionBank = new QuestionBank();
         this.quizBank = new QuizBank();
+        this.groupList = new ListOfGroups();
         this.notes = new NoteList();
         this.userPrefs = new UserPrefs(userPrefs);
         this.studentRecord = new StudentRecord(studentRecord);
@@ -219,6 +224,67 @@ public class ModelManager implements Model {
         studentRecord.setStudent(target, editedStudent);
     }
     //endregion
+
+    //region Group
+    /**
+     * Creates a group manually.
+     */
+    public void createGroupManually(String groupId, ArrayList<Integer> studentNumbers){
+        Group group = new Group(groupId);
+
+        ArrayList<Student> students = new ArrayList<>();
+        for (Integer i : studentNumbers) {
+            students.add(filteredStudents.get(i+1));
+        }
+
+        for (Student s : students) {
+            group.addStudent(s);
+        }
+
+        groupList.addGroup(group);
+    };
+
+    /**
+     * Adds a student to a group.
+     * {@code groupId} Must already exist in the list of groups.
+     * {@code studentNumber} Must already exist in the list of students.
+     * {@code groupIndexNumber} Must already exist in the quiz.
+     */
+    public boolean addStudentToGroup(String groupId, int studentNumber, int groupIndexNumber){
+        int questionIndex = studentNumber - 1;
+        Student student  = filteredStudents.get(questionIndex);
+
+        int groupIndex = groupList.getGroupIndex(groupId);
+        if (groupIndex != -1) {
+            Group group = groupList.getGroup(groupIndex);
+            return group.addStudent(groupIndexNumber, student);
+        }
+        return false;
+    };
+
+    /**
+     * Removes a student from a group.
+     */
+    public void removeStudentFromGroup(String groupId, int groupIndexNumber){
+        int groupIndex = groupList.getGroupIndex(groupId);
+        if (groupIndex != -1) {
+            Group group = groupList.getGroup(groupIndex);
+            group.removeStudent(groupIndexNumber);
+        }
+    };
+
+    /**
+     * Returns a students from a group in list view.
+     */
+    public String getStudentsFromGroup(String groupId){
+        String students = "";
+        int groupIndex = groupList.getGroupIndex(groupId);
+        if (groupIndex != -1) {
+            Group group = groupList.getGroup(groupIndex);
+            students = group.getStudentsFormatted();
+        }
+        return students;
+    };
 
     //region Questions
 
