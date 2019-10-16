@@ -160,9 +160,7 @@ public class MainApp extends Application {
         //ReadOnlyDataBook<Customer> customerBook = SampleDataUtil.getSampleCustomerBook();
         //ReadOnlyDataBook<Phone> phoneBook = SampleDataUtil.getSamplePhoneBook();
         //ReadOnlyDataBook<Order> orderBook = SampleDataUtil.getSampleOrderBook();
-
         return new ModelManager(initialCustomerData, initialPhoneData, initialOrderData, new ScheduleBook(), userPrefs);
-
     }
 
     private void initLogging(Config config) {
