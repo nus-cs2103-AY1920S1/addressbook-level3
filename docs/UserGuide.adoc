@@ -151,7 +151,7 @@ Throughout the Bookings Manager, there will be many contacts which you will come
 
 === Diary [coming in v2.0]
 
-=== Pre-trip Inventory Manager [coming in v2.0]
+=== Pre-trip Inventory Manager
 
 Allows the user to make a list of things (inventory of things) he/she needs for the trip.
 
