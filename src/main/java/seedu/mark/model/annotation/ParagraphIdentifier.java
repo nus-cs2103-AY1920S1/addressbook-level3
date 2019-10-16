@@ -9,7 +9,7 @@ import seedu.mark.commons.core.index.Index;
 /**
  * Represents the identifier for a paragraph. Each identifier includes a {@code type} and an {@code index}.
  */
-public class ParagraphIdentifier {
+public class ParagraphIdentifier implements Comparable<ParagraphIdentifier> {
     private Index index;
     private ParagraphType type;
 
@@ -33,6 +33,23 @@ public class ParagraphIdentifier {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(index, type);
+    }
+
+    @Override
+    public int compareTo(ParagraphIdentifier other) {
+        if (this.type == ParagraphType.EXIST) {
+            if (other.type == ParagraphType.EXIST) {
+                return this.index.getOneBased() - other.index.getOneBased();
+            } else {
+                return -1;
+            }
+        } else {
+            if (other.type == ParagraphType.EXIST) {
+                return 1;
+            } else {
+                return this.index.getOneBased() - other.index.getOneBased();
+            }
+        }
     }
 
     @Override

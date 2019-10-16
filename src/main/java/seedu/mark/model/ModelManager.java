@@ -17,6 +17,7 @@ import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
+import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
@@ -46,7 +47,13 @@ public class ModelManager implements Model {
         versionedMark = new VersionedMark(mark);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBookmarks = new FilteredList<>(versionedMark.getBookmarkList());
-        annotatedDocument = new SortedList<>(FXCollections.observableArrayList(OfflineDocument.OFFLINE_DOC_EXAMPLE.getCollection()));
+        annotatedDocument = new SortedList<>(
+                FXCollections.observableArrayList(OfflineDocument.OFFLINE_DOC_EXAMPLE.getCollection()),
+                (p1, p2) -> {
+                    ParagraphIdentifier pid1 = p1.getId();
+                    ParagraphIdentifier pid2 = p2.getId();
+                    return pid1.compareTo(pid2);
+                });
     }
 
     public ModelManager() {
