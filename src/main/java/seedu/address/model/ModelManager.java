@@ -130,18 +130,6 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    @Override
-    public boolean hasIncident(Incident incident) {
-        requireNonNull(incident);
-        return addressBook.hasIncident(incident);
-    }
-
-    @Override
-    public void setIncident(Incident target, Incident editedIncident) {
-        requireAllNonNull(target, editedIncident);
-        addressBook.setIncident(target, editedIncident);
-
-    }
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -173,6 +161,13 @@ public class ModelManager implements Model {
     public boolean hasIncident(Incident incident) {
         requireNonNull(incident);
         return addressBook.hasIncident(incident);
+    }
+    
+    @Override
+    public void setIncident(Incident target, Incident editedIncident) {
+        requireAllNonNull(target, editedIncident);
+        addressBook.setIncident(target, editedIncident);
+
     }
 
     @Override
