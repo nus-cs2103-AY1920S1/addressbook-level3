@@ -48,7 +48,7 @@ public class ModelManager implements Model {
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Deliveryman> filteredDeliverymen;
     private final FilteredList<Restaurant> filteredRestaurants;
-    private final UndoHistory<ReadOnlyAddressBook> undoHistory;
+    private final UndoHistory<Data> undoHistory;
 
     private Context context;
 
@@ -78,7 +78,7 @@ public class ModelManager implements Model {
         filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
         filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
         filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
-        undoHistory = new UndoHistory<>(addressBook);
+        undoHistory = new UndoHistory<>(new Data(this));
 
         context = Context.GLOBAL;
     }
@@ -323,7 +323,7 @@ public class ModelManager implements Model {
 
     @Override
     public void notifyChange(String commandText) {
-        undoHistory.notifyChange(commandText, new AddressBook(addressBook));
+        undoHistory.notifyChange(commandText, new Data(this));
     }
 
     @Override
@@ -338,16 +338,22 @@ public class ModelManager implements Model {
 
     @Override
     public String undo() {
-        UndoHistory<ReadOnlyAddressBook>.State state = undoHistory.undo();
-        setAddressBook(state.getData());
+        UndoHistory<Data>.State state = undoHistory.undo();
+        setData(state.getData());
         return state.getSubsequentCause();
     }
 
     @Override
     public String redo() {
-        UndoHistory<ReadOnlyAddressBook>.State state = undoHistory.redo();
-        setAddressBook(state.getData());
+        UndoHistory<Data>.State state = undoHistory.redo();
+        setData(state.getData());
         return state.getCause();
+    }
+
+    private void setData(Data data) {
+        setAddressBook(data.addressBook);
+        setRestaurantDatabase(data.restaurantDatabase);
+        setOrderBook(data.orderBook);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -432,5 +438,39 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+    }
+
+    /**
+     * Wrapper class for data stored in a model.
+     */
+    public static class Data {
+        private final AddressBook addressBook;
+        private final RestaurantDatabase restaurantDatabase;
+        private final OrderBook orderBook;
+
+        public Data(Model model) {
+            addressBook = new AddressBook(model.getAddressBook());
+            restaurantDatabase = new RestaurantDatabase(model.getRestaurantDatabase());
+            orderBook = new OrderBook(model.getOrderBook());
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            // short circuit if same object
+            if (obj == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(obj instanceof Data)) {
+                return false;
+            }
+
+            // state check
+            Data other = (Data) obj;
+            return addressBook.equals(other.addressBook)
+                    && restaurantDatabase.equals(other.restaurantDatabase)
+                    && orderBook.equals(other.orderBook);
+        }
     }
 }
