@@ -29,8 +29,7 @@ public class ApproveCommand  extends Command {
 
     public static final String MESSAGE_APPROVE_APPEAL_SUCCESS = "Approved appeal: %1$s";
     public static final String MESSAGE_APPROVE_UNSUCCESSFUL = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_APPEAL = "This appeal already exists in MAMS.";
-
+    public static final String MESSAGE_APPEAL_ALREADY_APPROVED = "The appeal was already resolved";
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Reason: %2$s";
 
     private final Index index;
@@ -54,7 +53,7 @@ public class ApproveCommand  extends Command {
         Appeal approvedAppeal;
 
         Appeal appealToApprove = lastShownList.get(index.getZeroBased());
-
+        if(appealToApprove.isResolved() == false) {
             approvedAppeal = new Appeal(appealToApprove.getAppealId(),
                     appealToApprove.getAppealType(),
                     appealToApprove.getStudentId(),
@@ -70,13 +69,15 @@ public class ApproveCommand  extends Command {
                     reason);
             model.setAppeal(appealToApprove, approvedAppeal);
             model.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
-            return new CommandResult(approvedAppeal.toString());
+            return new CommandResult(generateSuccessMessage(approvedAppeal));
+        } else {
+            return new CommandResult(MESSAGE_APPEAL_ALREADY_APPROVED);
+        }
 
     }
 
     private String generateSuccessMessage(Appeal appealToApprove) {
-        String message = !reason.isEmpty() ? MESSAGE_APPROVE_APPEAL_SUCCESS : MESSAGE_APPROVE_UNSUCCESSFUL;
-        return String.format(message, appealToApprove);
+        return "Approved " + appealToApprove.getAppealId();
     }
 
     @Override
