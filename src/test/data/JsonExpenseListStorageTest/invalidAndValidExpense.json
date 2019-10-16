@@ -1,0 +1,13 @@
+{
+  "expenses": [ {
+    "name": "Valid Expense",
+    "amount": "$23.50",
+    "date": "13/10/2019",
+    "tagged": [ "education" ]
+  }, {
+    "name": "Expense with Invalid amount",
+    "amount": "$94asd44",
+    "date": "12/12/2019",
+    "tagged": [ "education" ]
+  } ]
+}

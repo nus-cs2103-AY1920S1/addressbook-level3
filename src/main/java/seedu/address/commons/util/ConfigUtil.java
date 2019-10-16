@@ -19,5 +19,4 @@ public class ConfigUtil {
     public static void saveConfig(Config config, Path configFilePath) throws IOException {
         JsonUtil.saveJsonFile(config, configFilePath);
     }
-
 }

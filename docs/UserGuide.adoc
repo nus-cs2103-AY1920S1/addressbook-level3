@@ -84,7 +84,7 @@ Format: `view`
 
 === Editing an expense : `edit`
 
-Edits an existing person in the address book. +
+Edits an existing expense in the expense list. +
 Format: `edit INDEX [/n NAME] [/a AMOUNT] [/t TAG]…`
 
 ****
