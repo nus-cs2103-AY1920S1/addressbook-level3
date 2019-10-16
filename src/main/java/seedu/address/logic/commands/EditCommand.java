@@ -4,10 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCIDENTS;
 
 import java.util.Collections;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +42,7 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DISTRICT + "DISTRICT] "
+            + "[" + PREFIX_LOCATION + "DISTRICT] "
             + "[" + PREFIX_CALLER + "CALLER NUMBER] "
             + "[" + PREFIX_DATETIME + "DATETIME] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
