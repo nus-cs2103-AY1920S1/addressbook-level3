@@ -7,12 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.RecmFoodCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.FoodNameContainsKeywordsPredicate;
 import seedu.sgm.model.food.FoodType;
 import seedu.sgm.model.food.FoodTypeIsWantedPredicate;
@@ -29,7 +27,7 @@ public class RecmFoodCommandParser implements Parser<RecmFoodCommand> {
         Optional<String> foodWords = argumentMultimap.getValue(PREFIX_FOOD);
 
         if (foodWords.isEmpty()) {
-            return new RecmFoodCommand(new FoodTypeIsWantedPredicate(foodTypes), x->true);
+            return new RecmFoodCommand(new FoodTypeIsWantedPredicate(foodTypes), x -> true);
         }
 
         String[] foodKeywords = foodWords.get().trim().split("\\s+");
@@ -58,7 +56,7 @@ public class RecmFoodCommandParser implements Parser<RecmFoodCommand> {
 
         List<FoodType> foodTypes = new ArrayList<>();
         for (Flag flag : flags) {
-           foodTypes.add(FoodType.getFrom(flag.toString()));
+            foodTypes.add(FoodType.getFrom(flag.toString()));
         }
         return foodTypes;
     }

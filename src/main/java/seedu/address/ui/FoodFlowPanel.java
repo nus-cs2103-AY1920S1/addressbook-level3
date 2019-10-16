@@ -6,8 +6,6 @@ import java.util.logging.Logger;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
@@ -41,6 +39,9 @@ public class FoodFlowPanel extends UiPart<Region> {
         mainScrollPanel.setContent(flowPane);
     }
 
+    /**
+     * Updates the food recommendation panel.
+     */
     private void refreshFlowPanel(ObservableList<Food> foodList) {
         flowPane.getChildren().clear();
         for (Food food : foodList) {

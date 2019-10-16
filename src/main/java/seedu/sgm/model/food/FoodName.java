@@ -3,8 +3,6 @@ package seedu.sgm.model.food;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.person.Name;
-
 /**
  * Represents the name of <code>Food</code> in the recommended food list. Guarantees: immutable; is valid as declared in
  * {@link #isValidName(String)}

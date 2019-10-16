@@ -3,8 +3,9 @@ package seedu.sgm.model.food;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-
+/**
+ * Tests that a {@code Food} belongs to any given {@code FoodType}.
+ */
 public class FoodTypeIsWantedPredicate implements Predicate<Food> {
     private final List<FoodType> foodTypes;
 

@@ -20,9 +20,19 @@ import seedu.sgm.model.food.Food;
  */
 public class FoodCard extends UiPart<Region> {
     private static final String FXML = "FoodListCard.fxml";
-
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final String CALORIE_TEXT = "Calorie";
+    private static final String GI_TEXT = "GI";
+    private static final String SUGAR_TEXT = "Sugar";
+    private static final String FAT_TEXT = "Fat";
+    private static final String POSTFIX = ":  ";
+    private static final Color ORANGE = Color.rgb(240, 147, 43);
+    private static final Color GREEN = Color.rgb(186, 220, 88);
+    private static final Color YELLOW = Color.rgb(249, 202, 36);
+    private static final Color BLUE = Color.rgb(126, 214, 223);
+    private static final Color PINK = Color.rgb(214, 162, 232);
+    private static final Color RED = Color.rgb(255, 127, 80);
     public final Food food;
-
     @FXML
     private Rectangle header;
     @FXML
@@ -35,22 +45,6 @@ public class FoodCard extends UiPart<Region> {
     private Label sugar;
     @FXML
     private Label fat;
-
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
-
-    private static final String CALORIE_TEXT = "Calorie";
-    private static final String GI_TEXT = "GI";
-    private static final String SUGAR_TEXT = "Sugar";
-    private static final String FAT_TEXT = "Fat";
-    private static final String POSTFIX = ":  ";
-
-    private static final Color ORANGE = Color.rgb(240, 147, 43);
-    private static final Color GREEN = Color.rgb(186, 220, 88);
-    private static final Color YELLOW = Color.rgb(249, 202, 36);
-    private static final Color BLUE = Color.rgb(126, 214, 223);
-    private static final Color PINK = Color.rgb(214, 162, 232);
-    private static final Color RED= Color.rgb(255, 127, 80);
-
 
 
     public FoodCard(Food food) {

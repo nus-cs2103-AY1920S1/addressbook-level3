@@ -1,6 +1,6 @@
 package seedu.address;
 
-import static seedu.sgm.model.food.TypicalFoods.foods;
+import static seedu.sgm.model.food.TypicalFoods.FOODS;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -81,7 +81,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         UniqueFoodList foodList = new UniqueFoodList();
-        foodList.setFoods(foods);
+        foodList.setFoods(FOODS);
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {

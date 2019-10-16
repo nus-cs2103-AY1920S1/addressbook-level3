@@ -17,19 +17,16 @@ public class AddFoodCommand extends Command {
     public static final String COMMAND_WORD = "addfood";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a food to the food recommendation list."
-        + "Parameters: "
-        + PREFIX_FOOD + "FOOD_NAME "
-        + PREFIX_FOOD_TYPE + "FOOD_TYPE "
-        + PREFIX_VALUE + "CALORIE GI SUGAR FAT FOOD_TYPE"
-        + "Calorie(Cal), GI, sugar(g), and fat(g) are all numbers while the food type can be one of the following:\n"
-        + "nsv: breakfast recommendations\n"
-        + "sv: lunch recommendations\n"
-        + "f: fruit recommendations\n"
-        + "p: protein recommendations\n"
-        + "s: snack recommendations\n"
-        + "m: meal recommendations\n"
-        + "Example: addfood " + PREFIX_FOOD + "Spinach Quiche" + PREFIX_FOOD_TYPE + "m"
-        +PREFIX_VALUE+ "231 40 3.0 12.0 m";
+            + "Parameters: "
+            + PREFIX_FOOD + "FOOD_NAME "
+            + PREFIX_FOOD_TYPE + "FOOD_TYPE "
+            + PREFIX_VALUE + "CALORIE GI SUGAR FAT FOOD_TYPE\n"
+            + "Calorie(Cal), GI, sugar(g), and fat(g) are all numbers.\n"
+            + "Food type can be one of the following:\n"
+            + "nsv: non-starchy vegetables; sv: starchy vegetables\n"
+            + "f: fruit; p: protein; s: snack; m: meal\n"
+            + "Example: addfood " + PREFIX_FOOD + "Spinach Quiche" + PREFIX_FOOD_TYPE + "m"
+            + PREFIX_VALUE + "231 40 3.0 12.0 m";
 
     public static final String MESSAGE_SUCCESS = "New food added: %1$s";
     public static final String MESSAGE_DUPLICATE_FOOD = "This food already exists";
@@ -59,7 +56,7 @@ public class AddFoodCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this
-            || (other instanceof AddFoodCommand
-            && toAdd.equals(((AddFoodCommand) other).toAdd));
+                || (other instanceof AddFoodCommand
+                && toAdd.equals(((AddFoodCommand) other).toAdd));
     }
 }

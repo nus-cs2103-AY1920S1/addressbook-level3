@@ -152,8 +152,21 @@ public class AddCommandTest {
 
         @Override
         public void setFoodList(UniqueFoodList newFoodList) {
-
         }
+
+        @Override
+        public boolean hasFood(Food food) {
+            return false;
+        }
+
+        @Override
+        public void addFood(Food food) {
+        }
+
+        @Override
+        public void deleteFood(Food food) {
+        }
+
 
         @Override
         public ObservableList<Food> getFoodList() {

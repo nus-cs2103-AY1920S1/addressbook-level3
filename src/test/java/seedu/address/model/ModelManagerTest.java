@@ -7,7 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.sgm.model.food.TypicalFoods.foods;
+import static seedu.sgm.model.food.TypicalFoods.FOODS;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -101,7 +101,7 @@ public class ModelManagerTest {
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
         UniqueFoodList foodList = new UniqueFoodList();
-        foodList.setFoods(foods);
+        foodList.setFoods(FOODS);
 
         // same values -> returns true
         modelManager = new ModelManager(addressBook, userPrefs, foodList);
