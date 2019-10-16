@@ -73,7 +73,7 @@
                      <children>
                         <TabPane fx:id="viewsPlaceholder" style="-fx-background-color: #383838;" stylesheets="@tabpane.css" tabClosingPolicy="UNAVAILABLE">
                           <tabs>
-                            <Tab text="(T)ask">
+                            <Tab fx:id="T" text="(T)ask">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
                                        <children>
@@ -82,7 +82,7 @@
                                     </AnchorPane>
                               </content>
                             </Tab>
-                              <Tab text="(E)vent">
+                              <Tab fx:id="E" text="(E)vent">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
                                        <children>
@@ -91,7 +91,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab text="(R)eminder">
+                              <Tab fx:id="R" text="(R)eminder">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
                                        <children>
@@ -100,7 +100,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab text="(C)alendar">
+                              <Tab fx:id="C" text="(C)alendar">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
                                        <children>
