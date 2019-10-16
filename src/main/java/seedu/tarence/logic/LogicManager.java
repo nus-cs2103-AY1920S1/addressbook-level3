@@ -2,6 +2,7 @@ package seedu.tarence.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -43,6 +44,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command;
+        Optional<Tutorial> tutorialToStore = Optional.empty();
 
         // processes multiple commands in user input if they exit
         String[] commandStrings = commandText.split("&");
@@ -81,10 +83,19 @@ public class LogicManager implements Logic {
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
+
+            // If attendance is to be displayed, it will be passed into the commandResult
+            if (currCommandResult.isShowAttendance()) {
+                tutorialToStore = Optional.of(currCommandResult.getTutorialAttendance());
+            }
         }
 
         // creates a new command concatenating all command result messages into a single result
-        commandResult = new CommandResult(combinedFeedback.toString());
+        if (tutorialToStore.isPresent()) {
+            commandResult = new CommandResult(combinedFeedback.toString(), tutorialToStore.get());
+        } else {
+            commandResult = new CommandResult(combinedFeedback.toString());
+        }
 
         return commandResult;
     }

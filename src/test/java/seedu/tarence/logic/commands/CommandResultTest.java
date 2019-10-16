@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.tarence.model.builder.TutorialBuilder;
+import seedu.tarence.model.tutorial.Tutorial;
+
 public class CommandResultTest {
     @Test
     public void equals() {
@@ -33,6 +36,20 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+
+        // different hasAttendanceDisplay value -> returns false
+        Tutorial tutorial = new TutorialBuilder().build();
+        assertFalse(commandResult.equals(new CommandResult("feedback", tutorial)));
+
+        // Same tutorial, everything else same, returns true
+        commandResult = new CommandResult("feedback", tutorial);
+        assertTrue(commandResult.equals(new CommandResult("feedback", tutorial)));
+
+        // Show attendance feature is set
+        assertTrue(commandResult.isShowAttendance());
+
+        // Same tutorial is received
+        assertTrue(tutorial.equals(commandResult.getTutorialAttendance()));
     }
 
     @Test

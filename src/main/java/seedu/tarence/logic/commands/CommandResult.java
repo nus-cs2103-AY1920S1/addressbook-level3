@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.tarence.model.tutorial.Tutorial;
+
 /**
  * Represents the result of a command execution.
  */
@@ -17,6 +19,12 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should display attendance */
+    private boolean hasAttendanceDisplay;
+
+    /** The attendance to be displayed by the application */
+    private Tutorial tutorialAttendanceToDisplay;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -24,6 +32,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.hasAttendanceDisplay = false;
     }
 
     /**
@@ -32,6 +41,16 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and
+     * a specified {@code Tutorial} and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, Tutorial tutorialAttendanceToDisplay) {
+        this(feedbackToUser, false, false);
+        this.tutorialAttendanceToDisplay = tutorialAttendanceToDisplay;
+        this.hasAttendanceDisplay = true;
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +63,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShowAttendance() {
+        return hasAttendanceDisplay;
+    }
+
+    public Tutorial getTutorialAttendance() {
+        return this.tutorialAttendanceToDisplay;
     }
 
     @Override
@@ -60,12 +87,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && hasAttendanceDisplay == otherCommandResult.hasAttendanceDisplay;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, hasAttendanceDisplay);
     }
 
     @Override
