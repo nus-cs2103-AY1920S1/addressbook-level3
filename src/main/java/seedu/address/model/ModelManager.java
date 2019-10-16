@@ -18,7 +18,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the schedule table data.
  */
 public class ModelManager implements Model {
     public static final Schedule EMPTY_SCHEDULE = new Schedule("", new LinkedList<>());
@@ -27,20 +27,24 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final List<Schedule> schedulesList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
-                        LinkedList<Schedule> schedulesList) {
+                        List<Schedule> schedulesList) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, userPrefs, schedulesList);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with list of schedules: " + schedulesList + " and user prefs " + userPrefs);
 
+        // TODO: Delete these later
         this.addressBook = new AddressBook(addressBook);
-        this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        this.schedulesList = cloneSchedulesList(schedulesList);
+        this.userPrefs = new UserPrefs(userPrefs);
     }
 
     public ModelManager() {
@@ -87,15 +91,15 @@ public class ModelManager implements Model {
      * Replaces schedule data with the data in {@code schedule}.
      */
     @Override
-    public void setScheduleList(LinkedList<Schedule> schedulesList) {
-
+    public void setSchedulesList(LinkedList<Schedule> schedulesList) {
+        schedulesList.clear();
+        schedulesList.addAll(schedulesList);
     }
 
     /** Returns the schedulesList **/
     @Override
-    public LinkedList<Schedule> getSchedulesList() {
-        // TODO: Implementation
-        return null;
+    public List<Schedule> getSchedulesList() {
+        return schedulesList;
     }
 
     /**
@@ -103,26 +107,63 @@ public class ModelManager implements Model {
      */
     @Override
     public List<ObservableList<ObservableList<String>>> getObservableLists() {
-        // TODO: Implementation
-        return null;
+        List<ObservableList<ObservableList<String>>> observableLists = new LinkedList<>();
+        for (Schedule schedule : schedulesList) {
+            observableLists.add(schedule.getObservableList());
+        }
+        return observableLists;
     }
 
     /**
-     * Returns the interview slot assigned to the interviewee with the {@code intervieweeName}.
+     * Returns a list of interview slots assigned to the interviewee with the {@code intervieweeName}.
      */
     @Override
-    public Slot getInterviewSlot(String intervieweeName) {
-        // TODO: Implementation
-        return null;
+    public List<Slot> getInterviewSlots(String intervieweeName) {
+        List<Slot> slots = new LinkedList<>();
+        for (Schedule schedule : schedulesList) {
+            slots.addAll(schedule.getInterviewSlots(intervieweeName));
+        }
+        return slots;
     }
 
     /**
-     * Adds an interviewer to one of the schedules if the interviewer's availability fall within those schedules,
-     * else the method will not add the interviewer.
+     * Returns the date of the first schedule in which the interviewer exists in, otherwise return empty string.
      */
     @Override
-    public boolean addInterviewer(Interviewer interviewer) {
-        return true;
+    public String hasInterviewer(Interviewer interviewer) {
+        String date = "";
+        for (Schedule schedule : schedulesList) {
+            if (schedule.hasInterviewer(interviewer)) {
+                date = schedule.getDate();
+                break;
+            }
+        }
+        return date;
+    }
+    /**
+     * Adds the given interviewer to schedule(s) in which the interviewer's availability fall.
+     * If the interviewer's availability does not fall within any of the schedule, then the interviewer will not
+     * be added into any of the schedule.
+     */
+    @Override
+    public void addInterviewer(Interviewer interviewer) {
+        for (Schedule schedule : schedulesList) {
+            schedule.addInterviewer(interviewer);
+        }
+    }
+
+    /**
+     * Returns the deep copy of the schedules list given.
+     *
+     * @param schedulesList the list of schedules to be copied.
+     * @return the deep copy of the schedules list given.
+     */
+    private static List<Schedule> cloneSchedulesList(List<Schedule> schedulesList) {
+        List<Schedule> listClone = new LinkedList<>();
+        for (Schedule schedule : schedulesList) {
+            listClone.add(Schedule.cloneSchedule(schedule));
+        }
+        return listClone;
     }
 
     //=========== AddressBook ================================================================================
@@ -196,5 +237,4 @@ public class ModelManager implements Model {
             && userPrefs.equals(other.userPrefs)
             && filteredPersons.equals(other.filteredPersons);
     }
-
 }

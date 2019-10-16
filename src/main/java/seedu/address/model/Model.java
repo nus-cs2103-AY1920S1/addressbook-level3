@@ -41,7 +41,7 @@ public interface Model {
     /**
      * Replaces schedule data with the data in {@code schedule}.
      */
-    void setScheduleList(LinkedList<Schedule> schedulesList);
+    void setSchedulesList(LinkedList<Schedule> schedulesList);
 
     /** Returns the schedulesList **/
     List<Schedule> getSchedulesList();
@@ -54,13 +54,18 @@ public interface Model {
     /**
      * Returns the interview slot assigned to the interviewee with the {@code intervieweeName}.
      */
-    Slot getInterviewSlot(String intervieweeName);
+    List<Slot> getInterviewSlots(String intervieweeName);
+
+    /**
+     * Returns the date of the schedule in which the interviewer exists in, otherwise return empty string.
+     */
+    String hasInterviewer(Interviewer interviewer);
 
     /**
      * Adds an interviewer to one of the schedules if the interviewer's availability fall within those schedules
      * and returns true. Otherwise, the method will not add the interviewer and return false.
      */
-    boolean addInterviewer(Interviewer interviewer);
+    void addInterviewer(Interviewer interviewer);
 
     /**
      * Returns the user prefs' address book file path.

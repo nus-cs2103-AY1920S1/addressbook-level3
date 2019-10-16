@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -8,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Schedule;
 import seedu.address.model.person.Person;
 
 /**
@@ -37,6 +39,16 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the list of Schedules.
+     *
+     * @see seedu.address.model.Model#getSchedulesList()
+     */
+    List<Schedule> getSchedulesList();
+
+    /** Returns a list of @code{ObservableList} objects, each representing a Schedule table*/
+    List<ObservableList<ObservableList<String>>> getObservableLists();
 
     /**
      * Returns the user prefs' GUI settings.

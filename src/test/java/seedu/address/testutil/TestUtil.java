@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.LinkedList;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
@@ -51,5 +53,17 @@ public class TestUtil {
      */
     public static Person getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the given two dimensional array of strings as a two dimensional LinkedList of strings.
+     */
+    public static LinkedList<LinkedList<String>> toTwoDimensionalLinkedList(String[][] table) {
+        LinkedList<LinkedList<String>> tableCopy = new LinkedList<>();
+        for (String[] row : table) {
+            LinkedList<String> rowCopy = new LinkedList<>(Arrays.asList(row));
+            tableCopy.add(rowCopy);
+        }
+        return tableCopy;
     }
 }

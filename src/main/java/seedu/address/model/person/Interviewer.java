@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import seedu.address.model.Schedule;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -12,7 +11,8 @@ import seedu.address.model.tag.Tag;
  */
 public class Interviewer extends Person {
 
-    private final List<Schedule> schedules = new ArrayList<>();
+    // Each availability is given as a string in this format DD/MM/YYYY HH:MM - HH:MM
+    private final List<String> availabilities = new ArrayList<>();
     private final Department department;
 
     /**
@@ -22,5 +22,17 @@ public class Interviewer extends Person {
         super(name, phone, email, address, tags);
         this.department = department;
     }
-    // TODO: Implementation
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public List<String> getAvailabilities() {
+        return availabilities;
+    }
+
+    public void setAvailabilities(List<String> availabilities) {
+        this.availabilities.clear();
+        this.availabilities.addAll(availabilities);
+    }
 }

@@ -104,7 +104,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setScheduleList(LinkedList<Schedule> schedulesList) {
+        public void setSchedulesList(LinkedList<Schedule> schedulesList) {
 
         }
 
@@ -121,14 +121,18 @@ public class AddCommandTest {
         }
 
         @Override
-        public Slot getInterviewSlot(String intervieweeName) {
+        public List<Slot> getInterviewSlots(String intervieweeName) {
             // TODO: Implementation
             return null;
         }
 
         @Override
-        public boolean addInterviewer(Interviewer interviewer) {
-            return true;
+        public String hasInterviewer(Interviewer interviewer) {
+            // TODO: Implementation
+            return "";
+        }
+        @Override
+        public void addInterviewer(Interviewer interviewer) {
         }
 
         @Override

@@ -1,78 +1,136 @@
 package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Slot;
+import seedu.address.testutil.SampleInterviewers;
+import seedu.address.testutil.SampleSchedules;
 
 public class ScheduleTest {
-    private static String[][] sampleFilledTable =
-        new String[][]{
-            {"10/9/2019(Thur)", "Welfare-Hazel", "Technical-Johnathan", "Publicity-Lucia"},
-            {"6:00pm-6:30pm", "John", "Steven", "NA"},
-            {"6:30pm-7:00pm", "Alex", "Clark", "Alice"},
-            {"7:00pm-7:30pm", "Alicia", "NA", "Charlie"},
-            {"7:30pm-8:00pm", "Bruce", "NA", "Selina"},
-            {"8:00pm-8:30pm", "Barry", "NA", "NA"},
-            {"8:30pm-9:00pm", "Natal", "NA", "NA"}};
-
-    private static String[][] sampleAvailabilityTable =
-        new String[][]{
-            {"10/9/2019(Thur)", "Welfare-Hazel", "Technical-Johnathan", "Publicity-Lucia"},
-            {"6:00pm-6:30pm", "0", "0", "1"},
-            {"6:30pm-7:00pm", "1", "1", "0"},
-            {"7:00pm-7:30pm", "1", "1", "0"},
-            {"7:30pm-8:00pm", "0", "0", "1"},
-            {"8:00pm-8:30pm", "1", "0", "1"},
-            {"8:30pm-9:00pm", "1", "0", "0"}};
-
-    /**
-     * Compare the resultant Schedule object given a sample interviewer's availability table
-     * with the expected Schedule object.
-     */
-    @Test
-    public void constructor_nonEmptyAvailabilityTable_success() {
-        LinkedList<LinkedList<String>> table = toTwoDimensionalLinkedList(sampleAvailabilityTable);
-        ObservableList<ObservableList<String>> tableObservable = Schedule.toTwoDimensionalObservableList(table);
-        ObservableList<String> columnTitles = tableObservable.get(0);
-        String date = columnTitles.get(0);
-
-        Schedule schedule = new Schedule(date, table);
-        assertEquals(date, schedule.getDate());
-        assertEquals(tableObservable, schedule.getTable());
-    }
 
     @Test
     public void getInterviewsSlot_existingInterviewee_success() {
-        String date = sampleFilledTable[0][0];
-        LinkedList<LinkedList<String>> sampleData = toTwoDimensionalLinkedList(sampleFilledTable);
-        Schedule schedule = new Schedule(date, sampleData);
+        Schedule schedule = SampleSchedules.getSampleFilledSchedule();
 
-        Slot slot1 = new Slot("6:00pm", "6:30pm");
-        Slot slot2 = new Slot("7:30pm", "8:00pm");
-        Slot slot3 = new Slot("8:30pm", "9:00pm");
+        List<Slot> johnSlots = new LinkedList<>();
+        johnSlots.add(new Slot("18:00", "18:30"));
+        johnSlots.add(new Slot("18:30", "19:00"));
 
-        assertEquals(slot1, schedule.getInterviewSlot("Steven"));
-        assertEquals(slot2, schedule.getInterviewSlot("Selina"));
-        assertEquals(slot3, schedule.getInterviewSlot("Natal"));
+        List<Slot> selinaSlots = new LinkedList<>();
+        selinaSlots.add(new Slot("19:30", "20:00"));
+        selinaSlots.add(new Slot("20:00", "20:30"));
+
+        assertEquals(johnSlots, schedule.getInterviewSlots("John"));
+        assertEquals(selinaSlots, schedule.getInterviewSlots("Selina"));
     }
 
     @Test
-    public void getInterviewsSlot_nonExistingInterviewee_nullReturned() {
-        String date = sampleFilledTable[0][0];
-        LinkedList<LinkedList<String>> sampleData = toTwoDimensionalLinkedList(sampleFilledTable);
-        Schedule schedule = new Schedule(date, sampleData);
+    public void getInterviewsSlots_nonExistingInterviewee_emptyList() {
+        Schedule schedule = SampleSchedules.getSampleFilledSchedule();
+        assertEquals(new LinkedList<>(), schedule.getInterviewSlots("ABC"));
+    }
 
-        assertNull(schedule.getInterviewSlot("Zoom"));
-        assertNull(schedule.getInterviewSlot("NA"));
+    @Test
+    public void hasInterviewer_existingInterviewer_true() {
+        Schedule schedule = SampleSchedules.getSampleAvailabilityTable();
+        Interviewer hazel = SampleInterviewers.getHazel();
+        assertTrue(schedule.hasInterviewer(hazel));
+    }
+
+    @Test
+    public void hasInterviewer_nonExistingInterviewer_false() {
+        Schedule schedule = SampleSchedules.getSampleAvailabilityTable();
+        Interviewer bernard = SampleInterviewers.getBernard();
+        assertFalse(schedule.hasInterviewer(bernard));
+    }
+
+    @Test
+    public void addInterviewer_oneValidAvailability_true() {
+        Schedule scheduleTest = SampleSchedules.getSampleAvailabilityTable();
+        Interviewer interviewer = SampleInterviewers.getInterviewerOneValidAvailability();
+
+        // Generate the expected Schedule
+        Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
+        String[] newColumn = new String[]{"Technical - Alice Pauline", "1", "0", "0", "0", "0", "0"};
+        addColumn(expectedSchedule, newColumn);
+
+        assertTrue(scheduleTest.addInterviewer(interviewer));
+        assertEquals(expectedSchedule, scheduleTest);
+    }
+
+    @Test
+    public void addInterviewer_multipleValidAvailabilities_true() {
+        Schedule scheduleTest = SampleSchedules.getSampleAvailabilityTable();
+        Interviewer interviewer = SampleInterviewers.getInterviewerMultipleValidAvailabilities();
+
+        // Generate the expected Schedule
+        Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
+        String[] newColumn = new String[]{"Technical - Alice Pauline", "0", "1", "1", "0", "1", "0"};
+        addColumn(expectedSchedule, newColumn);
+
+        assertTrue(scheduleTest.addInterviewer(interviewer));
+        assertEquals(expectedSchedule, scheduleTest);
+    }
+
+    @Test
+    public void addInterviewer_multipleInvalidAvailabilities_false() {
+        Schedule scheduleTest = SampleSchedules.getSampleAvailabilityTable();
+        Interviewer interviewer = SampleInterviewers.getInterviewerMultipleInvalidAvailabilities();
+        Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
+
+        assertFalse(scheduleTest.addInterviewer(interviewer));
+        assertEquals(expectedSchedule, scheduleTest);
+    }
+
+    @Test
+    public void addInterviewer_multipleAvailabilitiesSomeInvalid_true() {
+        Schedule scheduleTest = SampleSchedules.getSampleAvailabilityTable();
+        Interviewer interviewer = SampleInterviewers.getInterviewerMultipleAvailabilitiesSomeInvalid();
+
+        // Generate the expected Schedule
+        Schedule expectedSchedule = SampleSchedules.getSampleAvailabilityTable();
+        String[] newColumn = new String[]{"Technical - Alice Pauline", "0", "0", "1", "0", "1", "0"};
+        addColumn(expectedSchedule, newColumn);
+
+        assertTrue(scheduleTest.addInterviewer(interviewer));
+        assertEquals(expectedSchedule, scheduleTest);
+    }
+
+    /**
+     * Add a column into the schedule.
+     */
+    private void addColumn(Schedule schedule, String[] newColumn) {
+        ObservableList<ObservableList<String>> table = schedule.getObservableList();
+        int numColumns = table.size();
+        IntStream.range(0, numColumns).forEach(i -> {
+            ObservableList<String> row = table.get(i);
+            row.add(newColumn[i]);
+        });
+    }
+
+    @Test
+    public void equals_differentSchedules_notEqual() {
+        Schedule filledSchedule = SampleSchedules.getSampleFilledSchedule();
+        Schedule availabilityTable = SampleSchedules.getSampleAvailabilityTable();
+        assertNotEquals(filledSchedule, availabilityTable);
+    }
+
+    @Test
+    public void cloneSchedule_nonEmptyFilledTable_success() {
+        Schedule schedule = SampleSchedules.getSampleFilledSchedule();
+        assertEquals(schedule, Schedule.cloneSchedule(schedule));
     }
 
     @Test
@@ -88,20 +146,5 @@ public class ScheduleTest {
         Random rand = new Random();
         IntStream.range(0, n).forEach(i -> list.add(String.valueOf(rand.nextInt(1000))));
         return list;
-    }
-
-    /**
-     * // TODO: Fill the javadoc up
-     * Test
-     * @param table test
-     * @return test
-     */
-    private LinkedList<LinkedList<String>> toTwoDimensionalLinkedList(String[][] table) {
-        LinkedList<LinkedList<String>> tableCopy = new LinkedList<>();
-        for (String[] row : table) {
-            LinkedList<String> rowCopy = new LinkedList<>(Arrays.asList(row));
-            tableCopy.add(rowCopy);
-        }
-        return tableCopy;
     }
 }
