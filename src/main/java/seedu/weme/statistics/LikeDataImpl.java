@@ -1,6 +1,7 @@
 package seedu.weme.statistics;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
@@ -16,7 +17,7 @@ public class LikeDataImpl {
         likeMap = FXCollections.observableMap(new HashMap<>());
     }
 
-    public void setLikeMap(HashMap<String, Integer> replacement) {
+    public void setLikeMap(ObservableMap<String, Integer> replacement) {
         this.likeMap = FXCollections.observableMap(replacement);
     }
 
@@ -37,11 +38,15 @@ public class LikeDataImpl {
         return likeMap.get(memeRef);
     }
 
-    public ObservableMap<String, Integer> getInMap() {
+    public ObservableMap<String, Integer> getInObservableMap() {
         return likeMap;
     }
 
     public void deleteLikesByMemeRef(String memeRef) {
         likeMap.remove(memeRef);
+    }
+
+    public Map<String, Integer> getInMap() {
+        return likeMap;
     }
 }

@@ -2,8 +2,10 @@ package seedu.weme.statistics;
 
 import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Map;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
 import seedu.weme.commons.core.LogsCenter;
@@ -20,19 +22,21 @@ public class LikeManager implements LikeData {
 
     private LikeDataImpl data;
 
-    public LikeManager(LikeDataImpl data) {
+    public LikeManager(LikeData data) {
         super();
         requireAllNonNull(data);
 
         logger.fine("Initializing with like data: " + data);
 
-        this.data = data;
+        this.data = new LikeDataImpl();
+        this.data.setLikeMap(data.getLikeData());
     }
 
     public LikeManager() {
-        this(new LikeDataImpl());
+        this.data = new LikeDataImpl();
     }
 
+    @Override
     public int getLikesByMeme(Meme meme) {
         String memeRef = meme.getFilePath().toString();
         return data.getLikesByMemeRef(memeRef);
@@ -41,21 +45,39 @@ public class LikeManager implements LikeData {
     /**
      * Returns an unmodifiable view of {@code LikeData}.
      */
+    @Override
     public ObservableMap<String, Integer> getLikeData() {
+        return data.getInObservableMap();
+    }
+
+    /**
+     * Returns {@code LikeData} in Map.
+     */
+    @Override
+    public Map<String, Integer> getLikeDataInMap() {
         return data.getInMap();
     }
 
     /**
-     * Increments likes of a meme by the Meme object.
+     * Replace the current like data with a new set of data.
      */
+    @Override
+    public void setLikeData(LikeData replacement) {
+        data.setLikeMap(replacement.getLikeData());
+    }
+
+    @Override
+    public void setLikeDataFromMap(Map<String, Integer> replacement) {
+        data.setLikeMap(FXCollections.observableMap(replacement));
+    }
+
+    @Override
     public void incrementLikesByMeme(Meme meme) {
         String memeRef = meme.getFilePath().toString();
         data.setLikesByMemeRef(memeRef, INCREMENT);
     }
 
-    /**
-     * Decrements likes of a meme by the Meme object.
-     */
+    @Override
     public void decrementLikesByMeme(Meme meme) {
         String memeRef = meme.getFilePath().toString();
         data.setLikesByMemeRef(memeRef, DECREMENT);
@@ -64,6 +86,7 @@ public class LikeManager implements LikeData {
     /**
      * Deletes like data of a meme when it gets deleted.
      */
+    @Override
     public void deleteLikesByMeme(Meme meme) {
         String memeRef = meme.getFilePath().toString();
         data.deleteLikesByMemeRef(memeRef);

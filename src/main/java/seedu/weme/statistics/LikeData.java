@@ -1,6 +1,9 @@
 package seedu.weme.statistics;
 
+import java.util.Map;
+
 import javafx.collections.ObservableMap;
+
 import seedu.weme.model.meme.Meme;
 
 /**
@@ -19,12 +22,22 @@ public interface LikeData {
     ObservableMap<String, Integer> getLikeData();
 
     /**
-     * Like a meme once.
+     * Replaces current like data with replacement.
+     */
+    void setLikeData(LikeData replacement);
+
+    /**
+     * Sets the current like data with Map of like data.
+     */
+    void setLikeDataFromMap(Map<String, Integer> replacement);
+
+    /**
+     * Likes a meme once.
      */
     void incrementLikesByMeme(Meme meme);
 
     /**
-     * Dislike a meme once.
+     * Dislikes a meme once.
      */
     void decrementLikesByMeme(Meme meme);
 
@@ -32,4 +45,6 @@ public interface LikeData {
      * Delete like data for a meme.
      */
     void deleteLikesByMeme(Meme meme);
+
+    Map<String, Integer> getLikeDataInMap();
 }

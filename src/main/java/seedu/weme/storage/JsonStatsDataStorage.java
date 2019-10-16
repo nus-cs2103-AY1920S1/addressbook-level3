@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.commons.exceptions.DataConversionException;
+import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.commons.util.FileUtil;
 import seedu.weme.commons.util.JsonUtil;
 import seedu.weme.statistics.StatsEngine;
@@ -44,7 +45,18 @@ public class JsonStatsDataStorage implements StatsDataStorage {
      */
     public Optional<StatsEngine> readStatsData(Path statsDataPath) throws DataConversionException {
         requireNonNull(statsDataPath);
-        return JsonUtil.readJsonFile(statsDataPath, StatsEngine.class);
+        Optional<JsonSerializableStatsData> jsonStatsData =
+                JsonUtil.readJsonFile(statsDataPath, JsonSerializableStatsData.class);
+        if (!jsonStatsData.isPresent()) {
+            return Optional.empty();
+        }
+
+        try {
+            return Optional.of(jsonStatsData.get().toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
     }
 
 
@@ -62,7 +74,7 @@ public class JsonStatsDataStorage implements StatsDataStorage {
         requireNonNull(statsEngine);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(statsEngine, filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableStatsData(statsEngine), filePath);
     }
 
 }
