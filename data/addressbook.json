@@ -1,51 +1,40 @@
 {
   "students" : [ {
-    "name" : "John Doe",
-    "phone" : "98765432",
-    "email" : "john_doe@gmail.com",
-    "parentPhone" : "92222222",
-    "address" : "Blk 123, National University of Singapore, S1234567",
-    "medicalCondition" : "NIL",
-    "tagged" : [ "englishrep" ]
-  }, {
-    "name" : "hello",
-    "phone" : "99999999",
-    "email" : "hello@gmail.com",
-    "parentPhone" : "93333333",
-    "address" : "hello Singapore",
+    "name" : "test5",
+    "phone" : "222222",
+    "email" : "test5@gmail.com",
+    "parentPhone" : "333333",
+    "address" : "test5",
     "medicalCondition" : "NIL",
     "tagged" : [ ]
   }, {
-    "name" : "test",
-    "phone" : "11111111",
-    "email" : "test@gmail.com",
-    "parentPhone" : "94444444",
-    "address" : "test Singapore",
-    "medicalCondition" : "NIL",
+    "name" : "test6",
+    "phone" : "222222",
+    "email" : "test6@gmail.com",
+    "parentPhone" : "333333",
+    "address" : "test6",
+    "medicalCondition" : "AIDS",
     "tagged" : [ ]
   }, {
-    "name" : "hellooo",
-    "phone" : "9999999",
-    "email" : "test@gmail.com",
-    "parentPhone" : "88888888",
-    "address" : "test",
-    "medicalCondition" : "sinus",
-    "tagged" : [ ]
-  }, {
-    "name" : "test1",
-    "phone" : "11111111",
-    "email" : "test1@gmail.com",
-    "parentPhone" : "22222222",
-    "address" : "test1",
+    "name" : "test7",
+    "phone" : "1231231",
+    "email" : "test7@gmail.com",
+    "parentPhone" : "1231231",
+    "address" : "test7",
     "medicalCondition" : "NIL",
     "tagged" : [ ]
+  } ],
+  "assignments" : [ {
+    "assignmentName" : "math",
+    "grades" : [ "20", "40", "30" ]
   }, {
-    "name" : "test2",
-    "phone" : "33333333",
-    "email" : "test2@gmail.com",
-    "parentPhone" : "44444444",
-    "address" : "test2",
-    "medicalCondition" : "NIL",
-    "tagged" : [ ]
+    "assignmentName" : "math test 2",
+    "grades" : [ ]
+  }, {
+    "assignmentName" : "homework 3",
+    "grades" : [ "50", "40", "30" ]
+  }, {
+    "assignmentName" : "english homework",
+    "grades" : [ ]
   } ]
 }
