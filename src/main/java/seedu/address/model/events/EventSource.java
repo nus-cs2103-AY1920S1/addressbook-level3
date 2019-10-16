@@ -32,6 +32,17 @@ public class EventSource {
     }
 
     /**
+     * Creates an EventSource.
+     * The description and start fields must be non null. The end field is optional.
+     */
+    public EventSource(String description, DateTime start, DateTime end) {
+        requireAllNonNull(description, start);
+        this.description = description;
+        this.start = start;
+        this.end = end;
+    }
+
+    /**
      * Returns a deep-copy of an EventSource.
      *
      * @param oldEventSource the eventSource to deep-copy.
