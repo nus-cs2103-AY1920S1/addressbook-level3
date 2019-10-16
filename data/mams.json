@@ -1,20 +1,54 @@
 {
-  "students": [
-    {
-      "name": "Paul",
-      "credits": "20",
-      "prevMods": "CS2202, CS5505",
-      "matricId": "A00192034Z",
-      "tagged": ["C123456", "C002923"]
-    },
-    {
-      "name": "Alex",
-      "credits": "20",
-      "prevMods": "CS2202, CS1111",
-      "matricId": "A220193040F",
-      "tagged": ["C123456", "C002923"]
-    }
-  ],
+  "students" : [ {
+    "name": "Paul",
+    "credits": "20",
+    "prevMods": "CS2202, CS5505",
+    "matricId": "A00192034Z",
+    "tagged": ["C123456", "C002923"]
+  }, {
+    "name": "Alex",
+    "credits": "20",
+    "prevMods": "CS2202, CS1111",
+    "matricId": "A220193040F",
+    "tagged": ["C123456", "C002923"]
+  }, {
+    "name" : "Alex Yeoh",
+    "credits" : "20",
+    "prevMods" : "CS2030, CS4040",
+    "matricId" : "A0180000R",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Bernice Yu",
+    "credits" : "20",
+    "prevMods" : "CS2030, CS4040",
+    "matricId" : "A01455353y",
+    "tagged" : [ "colleagues", "friends" ]
+  }, {
+    "name" : "Charlotte Oliveiro",
+    "credits" : "20",
+    "prevMods" : "CS2030, CS4040",
+    "matricId" : "A0199239U",
+    "tagged" : [ "neighbours" ]
+  }, {
+    "name" : "David Li",
+    "credits" : "20",
+    "prevMods" : "CS2030, CS4040",
+    "matricId" : "A01423223T",
+    "tagged" : [ "family" ]
+  }, {
+    "name" : "Irfan Ibrahim",
+    "credits" : "20",
+    "prevMods" : "CS2030, CS4040",
+    "matricId" : "A12039123S",
+    "tagged" : [ "classmates" ]
+  }, {
+    "name" : "Roy Balakrishnan",
+    "credits" : "20",
+    "prevMods" : "CS2030, CS4202",
+    "matricId" : "A015923848U",
+    "tagged" : [ "colleagues" ]
+  } ],
+
   "modules" : [ {
     "code" : "CS1010",
     "modulename": "Programming Methodology",
