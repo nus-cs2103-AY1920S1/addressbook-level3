@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.Scheduler;
 
 import java.util.concurrent.ScheduledExecutorService;
 import seedu.address.model.Lesson.Lesson;
