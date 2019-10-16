@@ -48,6 +48,7 @@ public class ModelManager implements Model {
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Deliveryman> filteredDeliverymen;
     private final FilteredList<Restaurant> filteredRestaurants;
+    private final UndoHistory<ReadOnlyAddressBook> undoHistory;
 
     private Context context;
 
@@ -77,6 +78,7 @@ public class ModelManager implements Model {
         filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
         filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
         filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
+        undoHistory = new UndoHistory<>(addressBook);
 
         context = Context.GLOBAL;
     }
@@ -315,6 +317,37 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedOrder);
 
         orderBook.setOrder(target, editedOrder);
+    }
+
+    //=========== Undo ================================================================================
+
+    @Override
+    public void notifyChange(String commandText) {
+        undoHistory.notifyChange(commandText, new AddressBook(addressBook));
+    }
+
+    @Override
+    public boolean hasUndo() {
+        return undoHistory.hasUndo();
+    }
+
+    @Override
+    public boolean hasRedo() {
+        return undoHistory.hasRedo();
+    }
+
+    @Override
+    public String undo() {
+        UndoHistory<ReadOnlyAddressBook>.State state = undoHistory.undo();
+        setAddressBook(state.getData());
+        return state.getSubsequentCause();
+    }
+
+    @Override
+    public String redo() {
+        UndoHistory<ReadOnlyAddressBook>.State state = undoHistory.redo();
+        setAddressBook(state.getData());
+        return state.getCause();
     }
 
     //=========== Filtered Person List Accessors =============================================================

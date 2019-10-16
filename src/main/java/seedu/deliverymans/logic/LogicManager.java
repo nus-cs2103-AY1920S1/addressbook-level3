@@ -47,6 +47,7 @@ public class LogicManager implements Logic {
         Command command = universalParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
+        model.notifyChange(commandText);
         try {
             storage.saveAddressBook(model.getAddressBook());
             storage.saveRestaurantDatabase(model.getRestaurantDatabase());

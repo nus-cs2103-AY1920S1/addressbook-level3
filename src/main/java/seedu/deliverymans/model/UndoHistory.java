@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.deliverymans.model;
 
 import java.util.ArrayList;
 import java.util.List;

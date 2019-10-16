@@ -1,9 +1,11 @@
-package seedu.address.logic.commands;
+package seedu.deliverymans.logic.commands.universal;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import seedu.deliverymans.logic.commands.Command;
+import seedu.deliverymans.logic.commands.CommandResult;
+import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.model.Model;
 
 /**
  * Redoes an action on the address book.
