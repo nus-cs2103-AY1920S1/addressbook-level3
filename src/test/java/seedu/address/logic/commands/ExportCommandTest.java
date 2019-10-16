@@ -12,6 +12,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalFlashCards.getTypicalAddressBook;
 
+import java.io.File;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
@@ -68,7 +70,9 @@ public class ExportCommandTest {
     public void execute_invalidFilePath_throwsException() {
         String expectedMessage = MESSAGE_EXPORT_IO_EXCEPTION;
         assertCommandFailure(invalidFilePathCommand, model, expectedMessage);
-        // TODO assert no file created
+        assertFalse(
+                isFilePresent(invalidFilePath)
+        );
     }
 
     @Test
@@ -78,7 +82,27 @@ public class ExportCommandTest {
                 firstFilePath
         );
 
+        deleteFileIfExists(firstFilePath);
         assertCommandSuccess(firstCommand, model, expectedMessage, model);
-        // TODO assert file created
+        assertTrue(isFilePresent(firstFilePath));
+        deleteFileIfExists(firstFilePath);
     }
+
+    private boolean isFilePresent(FilePath filePath) {
+        File file = new File(filePath.toString());
+        return file.exists();
+    }
+
+    private void deleteFile(FilePath filePath) {
+        File file = new File(filePath.toString());
+        file.delete();
+    }
+
+    private void deleteFileIfExists(FilePath filePath) {
+        if (isFilePresent(filePath)) {
+            deleteFile(filePath);
+        }
+    }
+
+
 }
