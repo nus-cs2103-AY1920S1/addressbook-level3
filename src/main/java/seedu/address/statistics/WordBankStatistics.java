@@ -99,6 +99,15 @@ public class WordBankStatistics {
         return null; //todo
     }
 
+    public void removeCardStatistics(String cardId) {
+        for (int i = 0; i < cardStats.size(); ++i) {
+            if (cardStats.get(i).getCardId().equals(cardId)) {
+                cardStats.remove(i);
+                return;
+            }
+        }
+    }
+
     /**
      * Create a new black statistics with the name {@code wbName}.
      */

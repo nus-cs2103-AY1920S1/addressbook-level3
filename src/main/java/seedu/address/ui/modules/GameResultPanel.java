@@ -1,9 +1,7 @@
 package seedu.address.ui.modules;
 
 import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.scene.chart.Axis;
-import javafx.scene.chart.Chart;
+import javafx.fxml.FXML;;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;

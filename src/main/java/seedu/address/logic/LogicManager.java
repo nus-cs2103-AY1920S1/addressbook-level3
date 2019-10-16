@@ -75,6 +75,11 @@ public class LogicManager implements Logic {
         this.mode = command.check(model, mode);
         commandResult = command.execute(model);
 
+        // todo need to save wordbankstatistics after deletion.
+        // todo possible solution -> just save on every command like how the word bank is saved.
+        // todo currently, on deletion, the statistics is deleted on the model, and will be saved only if
+        // todo a game is played with that word bank. If no game is played, and the app is closed, the statistics
+        // todo will stay there forever...
         /*
         Step 12.
         We save game here too.
