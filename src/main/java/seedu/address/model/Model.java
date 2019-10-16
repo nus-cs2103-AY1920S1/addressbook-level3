@@ -20,6 +20,7 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.DetailedModuleList;
 import seedu.address.model.module.Module;
@@ -111,7 +112,7 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the filtered person list
      */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Person> getObservablePersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -161,6 +162,11 @@ public interface Model {
      * Returns the list of GroupIds which person with PersonId is in.
      */
     ArrayList<GroupId> findGroupsOfPerson(PersonId personId);
+
+    /**
+     * Checks if current event of Person clashes with other events in the schedule.
+     */
+    boolean isEventClash(Name name, Event event);
 
     //=========== Group Accessors =============================================================
 
@@ -235,6 +241,11 @@ public interface Model {
      * Deletes all mappings with GroupId.
      */
     void deleteGroupFromMapping(GroupId groupId);
+
+    /**
+     * Finds the role of the specified mapping.
+     */
+    Role findRole(PersonId personId, GroupId groupId);
 
     //=========== UI Model =============================================================
 

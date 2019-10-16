@@ -13,23 +13,32 @@ public class DetailWindowDisplay {
     private DetailWindowDisplayType detailWindowDisplayType;
     private GroupDisplay groupDisplay;
 
+    private FreeSchedule freeSchedule;
+
     public DetailWindowDisplay(ArrayList<WeekSchedule> weekSchedules, DetailWindowDisplayType detailWindowDisplayType,
                                GroupDisplay groupDisplay) {
         this.detailWindowDisplayType = detailWindowDisplayType;
         this.weekSchedules = weekSchedules;
         this.groupDisplay = groupDisplay;
+
+        this.freeSchedule = new FreeSchedule(this.weekSchedules);
+
     }
 
     public DetailWindowDisplay(ArrayList<WeekSchedule> weekSchedules, DetailWindowDisplayType detailWindowDisplayType) {
         this.detailWindowDisplayType = detailWindowDisplayType;
         this.weekSchedules = weekSchedules;
         this.groupDisplay = null;
+
+        this.freeSchedule = new FreeSchedule(this.weekSchedules);
     }
 
     public DetailWindowDisplay() {
         this.weekSchedules = new ArrayList<>();
         this.detailWindowDisplayType = DetailWindowDisplayType.EMPTY;
         this.groupDisplay = null;
+
+        this.freeSchedule = null;
     }
 
     public DetailWindowDisplayType getDetailWindowDisplayType() {

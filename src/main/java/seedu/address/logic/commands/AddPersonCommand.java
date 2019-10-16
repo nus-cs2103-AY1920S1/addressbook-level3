@@ -48,7 +48,7 @@ public class AddPersonCommand extends Command {
             if (person != null) {
 
                 // update main window
-                model.updateDetailWindowDisplay(person.getName(), LocalDateTime.now(), DetailWindowDisplayType.EMPTY);
+                model.updateDetailWindowDisplay(person.getName(), LocalDateTime.now(), DetailWindowDisplayType.PERSON);
 
                 // update side panel
                 model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);

@@ -69,7 +69,7 @@ public class AddNusModsCommand extends Command {
         AcadYear acadYear = model.getDefaultAcadYear();
 
         // find person with name
-        ObservableList<Person> personList = model.getFilteredPersonList();
+        ObservableList<Person> personList = model.getObservablePersonList();
         Person person = null;
         for (Person p : personList) {
             if (p.getName().equals(name)) {

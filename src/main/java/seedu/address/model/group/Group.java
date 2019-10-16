@@ -7,19 +7,26 @@ public class Group {
     private static Integer counter = 0;
     private final GroupId groupId;
     private GroupName groupName;
+    private GroupDescription groupDescription;
     private GroupRemark groupRemark;
 
     public Group(GroupDescriptor groupDescriptor) {
         this.groupName = groupDescriptor.getGroupName();
         this.groupRemark = groupDescriptor.getGroupRemark();
+        this.groupDescription = groupDescriptor.getGroupDescription();
         this.groupId = new GroupId(counter);
         counter += 1;
     }
 
-    public Group(GroupId groupId, GroupName groupName, GroupRemark groupRemark) {
-        this.groupName = groupName;
-        this.groupRemark = groupRemark;
+    public Group(GroupId groupId,
+                 GroupName groupName,
+                 GroupDescription groupDescription,
+                 GroupRemark groupRemark) {
+
         this.groupId = groupId;
+        this.groupName = groupName;
+        this.groupDescription = groupDescription;
+        this.groupRemark = groupRemark;
     }
 
     public static void setCounter(int i) {
@@ -79,6 +86,8 @@ public class Group {
             return false;
         } else if (!other.getGroupName().equals(this.groupName)) {
             return false;
+        } else if (!other.getGroupDescription().equals(this.groupDescription)) {
+            return false;
         } else {
             return true;
         }
@@ -116,6 +125,14 @@ public class Group {
 
     public void setGroupName(GroupName groupName) {
         this.groupName = groupName;
+    }
+
+    public GroupDescription getGroupDescription() {
+        return groupDescription;
+    }
+
+    public void setGroupDescription(GroupDescription groupDescription) {
+        this.groupDescription = groupDescription;
     }
 
     public GroupId getGroupId() {

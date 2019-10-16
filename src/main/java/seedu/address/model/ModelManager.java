@@ -34,6 +34,7 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.DetailedModuleList;
 import seedu.address.model.module.Module;
@@ -47,6 +48,7 @@ import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
+import seedu.address.model.person.schedule.Schedule;
 import seedu.address.websocket.NusModsApi;
 import seedu.address.websocket.NusModsParser;
 
@@ -237,15 +239,6 @@ public class ModelManager implements Model {
 
     //=========== Filtered Person List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return timeBook.getUnmodifiablePersonList();
-    }
-
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
@@ -258,6 +251,11 @@ public class ModelManager implements Model {
     @Override
     public PersonList getPersonList() {
         return personList;
+    }
+
+    @Override
+    public ObservableList<Person> getObservablePersonList() {
+        return timeBook.getUnmodifiablePersonList();
     }
 
     @Override
@@ -311,6 +309,17 @@ public class ModelManager implements Model {
     @Override
     public ArrayList<GroupId> findGroupsOfPerson(PersonId personId) {
         return personToGroupMappingList.findGroupsOfPerson(personId);
+    }
+
+    @Override
+    public boolean isEventClash(Name name, Event event) {
+        Person person = findPerson(name);
+        Schedule schedule = person.getSchedule();
+        if (schedule.isClash(event)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //=========== Group Accessors =============================================================
@@ -399,6 +408,11 @@ public class ModelManager implements Model {
         personToGroupMappingList.deleteGroupFromMapping(groupId);
     }
 
+    @Override
+    public Role findRole(PersonId personId, GroupId groupId) {
+        return personToGroupMappingList.findRole(personId, groupId);
+    }
+
     //=========== UI Model =============================================================
 
     @Override
@@ -419,7 +433,7 @@ public class ModelManager implements Model {
     @Override
     public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type) {
         ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
-        WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, findPerson(name));
+        WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, findPerson(name), Role.emptyRole());
         weekSchedules.add(weekSchedule);
         DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
         updateDetailWindowDisplay(detailWindowDisplay);
@@ -428,12 +442,17 @@ public class ModelManager implements Model {
     @Override
     public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type) {
         Group group = groupList.findGroup(groupName);
+        GroupId groupId = group.getGroupId();
         GroupDisplay groupDisplay = new GroupDisplay(group);
         ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
         ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
         for (int i = 0; i < personIds.size(); i++) {
             Person person = findPerson(personIds.get(i));
-            WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person);
+            Role role = findRole(personIds.get(i), groupId);
+            if (role == null) {
+                role = Role.emptyRole();
+            }
+            WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person, role);
             weekSchedules.add(weekSchedule);
         }
         DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type, groupDisplay);
@@ -516,7 +535,7 @@ public class ModelManager implements Model {
     @Override
     public NusModsData getNusModsData() {
         return nusModsData;
-    };
+    }
 
     @Override
     public Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode) throws ModuleNotFoundException {
@@ -545,7 +564,7 @@ public class ModelManager implements Model {
         }
 
         return module;
-    };
+    }
 
     @Override
     public DetailedModuleList getDetailedModuleList() {

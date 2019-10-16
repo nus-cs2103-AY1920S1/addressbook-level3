@@ -38,6 +38,7 @@ public class Event {
 
     /**
      * Adds a timeslot to the Event.
+     *
      * @param timeslot to be added
      * @return boolean
      */
@@ -75,6 +76,7 @@ public class Event {
 
     /**
      * Compares and checks if it is equal to another Event.
+     *
      * @param otherEvent to be compared
      * @return boolean
      */
@@ -94,5 +96,23 @@ public class Event {
             }
             return true;
         }
+    }
+
+    /**
+     * Checks if Events contains timeslots that clashes with another event.
+     *
+     * @param other to be checked
+     * @return boolean
+     */
+    public boolean isClash(Event other) {
+        ArrayList<Timeslot> otherTimeslots = other.getTimeslots();
+        for (int i = 0; i < timeslots.size(); i++) {
+            for (int j = 0; j < otherTimeslots.size(); j++) {
+                if (timeslots.get(i).isClash(otherTimeslots.get(j))) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

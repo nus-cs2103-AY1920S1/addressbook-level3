@@ -61,7 +61,7 @@ public class AddNusModCommand extends Command {
         SemesterNo semesterNo = options.getSemesterNo().orElse(model.getDefaultSemesterNo());
 
         // find person with name
-        ObservableList<Person> personList = model.getFilteredPersonList();
+        ObservableList<Person> personList = model.getObservablePersonList();
         Person person = null;
         for (Person p : personList) {
             if (p.getName().equals(name)) {

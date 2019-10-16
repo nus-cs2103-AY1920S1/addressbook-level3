@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.mapping.Role;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.model.person.schedule.Timeslot;
@@ -49,6 +50,6 @@ public class ScheduleStub {
                 timeslot4, timeslot5)));
         schedule.addEvent(monday1pmTo3pm);
         p.setSchedule(schedule);
-        return new WeekSchedule("TestSchedule", LocalDateTime.now(), p);
+        return new WeekSchedule("TestSchedule", LocalDateTime.now(), p, Role.emptyRole());
     }
 }

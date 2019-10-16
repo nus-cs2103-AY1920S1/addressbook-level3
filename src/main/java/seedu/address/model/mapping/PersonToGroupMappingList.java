@@ -149,10 +149,27 @@ public class PersonToGroupMappingList {
 
     /**
      * Returns an unmodifiable observable list of mappings.
+     *
      * @return ObservableList
      */
     public ObservableList<PersonToGroupMapping> asUnmodifiableObservableList() {
         ObservableList<PersonToGroupMapping> observableList = FXCollections.observableArrayList(mappings);
         return FXCollections.unmodifiableObservableList(observableList);
+    }
+
+    /**
+     * Returns the role of the mapping.
+     *
+     * @param personId of the mapping
+     * @param groupId  of the mapping
+     * @return Role
+     */
+    public Role findRole(PersonId personId, GroupId groupId) {
+        for (int i = 0; i < mappings.size(); i++) {
+            if (mappings.get(i).getGroupId().equals(groupId) && mappings.get(i).getPersonId().equals(personId)) {
+                return mappings.get(i).getRole();
+            }
+        }
+        return null;
     }
 }
