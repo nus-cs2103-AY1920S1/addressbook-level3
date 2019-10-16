@@ -38,37 +38,41 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** Display reminders and follow-up motd */
+    private final boolean showMotd;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean addVisit, boolean deleteVisit,
-                         boolean profile, boolean exit) {
+                         boolean profile, boolean exit, boolean showMotd) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.addVisit = addVisit;
         this.deleteVisit = deleteVisit;
         this.profile = profile;
         this.exit = exit;
+        this.showMotd = showMotd;
     }
 
     public CommandResult(String feedbackToUser, int idx) {
-        this(feedbackToUser, false, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false, false);
         this.index = idx;
     }
 
     public CommandResult(String feedbackToUser, Person profilePerson) {
-        this(feedbackToUser, false, false, false, true, false);
+        this(feedbackToUser, false, false, false, true, false, false);
         this.profilePerson = profilePerson;
     }
 
     public CommandResult(String feedbackToUser, int idx, String date) {
-        this(feedbackToUser, false, true, false, false, false);
+        this(feedbackToUser, false, true, false, false, false, false);
         this.index = idx;
         this.date = date;
     }
 
     public CommandResult(String feedbackToUser, ObservableList<VisitReport> lst) {
-        this(feedbackToUser, false, false, true, false, false);
+        this(feedbackToUser, false, false, true, false, false, false);
         this.reports = lst;
     }
 
@@ -77,7 +81,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -98,6 +102,10 @@ public class CommandResult {
 
     public boolean isShowHelp() {
         return showHelp;
+    }
+
+    public boolean isShowMotd() {
+        return showMotd;
     }
 
     public boolean isExit() {
@@ -136,7 +144,8 @@ public class CommandResult {
                 && showHelp == otherCommandResult.showHelp
                 && addVisit == otherCommandResult.addVisit
                 && profile == otherCommandResult.profile
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && showMotd == otherCommandResult.showMotd;
     }
 
     @Override
