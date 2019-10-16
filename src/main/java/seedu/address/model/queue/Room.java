@@ -14,10 +14,12 @@ import seedu.address.model.common.ReferenceId;
 public class Room {
     private final ReferenceId doctor;
     private Optional<ReferenceId> patientCurrentlyBeingServed;
+    private boolean isResting;
 
     public Room(ReferenceId doctor, Optional<ReferenceId> patient) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = patient;
+        this.isResting = false;
     }
 
     public Room(ReferenceId doctor) {
@@ -55,6 +57,10 @@ public class Room {
         patientCurrentlyBeingServed = Optional.of(id);
     }
 
+    public void rest() {
+        isResting = false;
+    }
+
     /**
      * Returns true if both rooms occupied by the same staff and patient.
      * This defines a stronger notion of equality between two consultation rooms.
@@ -72,6 +78,7 @@ public class Room {
         Room o = (Room) other;
         return getDoctor().equals(o.getDoctor())
                 && getCurrentPatient().isPresent() == o.getCurrentPatient().isPresent()
+                && isResting == o.isResting
                 && (getCurrentPatient().isEmpty()
                     || getCurrentPatient().get().equals(o.getCurrentPatient().get()));
     }

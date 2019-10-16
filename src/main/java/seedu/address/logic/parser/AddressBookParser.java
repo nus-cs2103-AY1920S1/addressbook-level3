@@ -85,9 +85,6 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case NextCommand.COMMAND_WORD:
-            return new NextCommandParser().parse(arguments);
-
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand(commandHistory);
 
