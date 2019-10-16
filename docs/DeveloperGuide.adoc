@@ -304,8 +304,7 @@ faster than a typical mouse/GUI driven app.
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-Epic: As a admin, I want to be able to view module/student/appeal data.
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== Epic: As a admin, I want to be able to view module/student/appeal data.
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
@@ -341,8 +340,7 @@ in additional students
 my command (list or object view) shows up on |
 |=======================================================================
 
-Epic: As an admin, I want to be able to edit module/student/appeal data.
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== Epic: As an admin, I want to be able to edit module/student/appeal data.
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
@@ -366,8 +364,7 @@ appeals with one command
 appeal was not approve
 |=======================================================================
 
-Other User Stories
-^^^^^^^^^^^^^^^^^^
+=== Other User Stories
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
@@ -376,8 +373,7 @@ Other User Stories
 I forget how to use the App
 |=======================================================================
 
-User Stories up to v2.0 (coming soon!)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== User Stories up to v2.0 (coming soon!)
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
