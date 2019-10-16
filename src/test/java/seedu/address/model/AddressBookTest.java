@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.util.CollectionUtil.deepCopyOfObservableList;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
@@ -83,6 +85,24 @@ public class AddressBookTest {
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+    }
+
+    @Test
+    public void deepCopy() {
+        AddressBook copy = addressBook.deepCopy();
+
+        assertNotSame(copy, addressBook);
+        assertEquals(copy, addressBook);
+    }
+
+    @Test
+    public void deepCopy_changes_areIndependent() {
+        AddressBook copy = addressBook.deepCopy();
+        copy.addPerson(ALICE);
+
+        assertNotEquals(copy, addressBook);
+        assertTrue(copy.hasPerson(ALICE));
+        assertFalse(addressBook.hasPerson(ALICE));
     }
 
     /**

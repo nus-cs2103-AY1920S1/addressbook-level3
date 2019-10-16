@@ -77,6 +77,13 @@ public class HistoryManager {
         return FXCollections.unmodifiableObservableList(FXCollections.observableList(history));
     }
 
+    /**
+     * Returns the number of records in the history
+     */
+    public int size() {
+        return history.size();
+    }
+
     private Optional<HistoryRecord> getLastRecord() {
         return history.size() >= 1 ? Optional.of(history.get(history.size() - 1)) : Optional.empty();
     }
