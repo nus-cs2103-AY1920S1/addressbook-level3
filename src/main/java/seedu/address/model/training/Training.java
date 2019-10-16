@@ -1,6 +1,7 @@
 package seedu.address.model.training;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,13 +12,13 @@ import seedu.address.model.person.Person;
  * Guarantees: date and training attendance for the particular training
  */
 public class Training {
-    private String date;
+    private Date date;
     private HashMap<Person, Boolean> trainingAttendance;
-    public Training(String date, HashMap<Person, Boolean> trainingAttendance) {
+    public Training(Date date, HashMap<Person, Boolean> trainingAttendance) {
         this.date = date;
         this.trainingAttendance = trainingAttendance;
     }
-    public String getDate() {
+    public Date getDate() {
         return this.date;
     }
     public HashMap<Person, Boolean> getTrainingAttendance() {

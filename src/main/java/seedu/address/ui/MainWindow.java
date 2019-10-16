@@ -53,7 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private StackPane informationDisplayTest;
+    private StackPane featureBoxPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -124,11 +124,8 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-
-        //the argument will be from select command
-        InformationDisplay informationDisplay = new InformationDisplay(logic.getPerson());
-        informationDisplayTest.getChildren().add(informationDisplay.getRoot());
-
+        Calendar calendar = new Calendar();
+        featureBoxPlaceholder.getChildren().add(calendar.getRoot());
     }
 
     /**
@@ -186,6 +183,34 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            if (!(commandResult.getFeature() == null)) {
+                switch (commandResult.getFeature().toString()) {
+                case "calendar":
+                    Calendar calendar = new Calendar();
+                    featureBoxPlaceholder.getChildren().clear();
+                    featureBoxPlaceholder.getChildren().add(calendar.getRoot());
+                    break;
+                case "attendance":
+                    AttendancePanel attendance = new AttendancePanel();
+                    featureBoxPlaceholder.getChildren().clear();
+                    featureBoxPlaceholder.getChildren().add(attendance.getRoot());
+                    break;
+                case "performance":
+                    PerformancePanel performance = new PerformancePanel();
+                    featureBoxPlaceholder.getChildren().clear();
+                    featureBoxPlaceholder.getChildren().add(performance.getRoot());
+                    break;
+                default:
+                    break;
+                }
+            }
+          
+            if (!(commandResult.getPerson() == null)) {
+                InformationDisplay informationDisplay = new InformationDisplay(logic.getPerson());
+                featureBoxPlaceHolder.getChildren().clear();
+                featureBoxPlaceHolder.getChildren().add(informationDisplay.getRoot());
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -193,10 +218,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-            InformationDisplay informationDisplay = new InformationDisplay(logic.getPerson());
-            informationDisplayTest.getChildren().clear();
-            informationDisplayTest.getChildren().add(informationDisplay.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

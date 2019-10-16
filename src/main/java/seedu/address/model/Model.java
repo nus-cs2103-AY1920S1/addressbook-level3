@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.training.Training;
 
 /**
  * The API of the Model component.
@@ -80,6 +81,9 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Reorders the address book in alphabetical order according to person's name.
+     */
     void sortAddressBookByName();
 
     /** Returns an unmodifiable view of the filtered person list */
@@ -90,4 +94,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Add training.
+     */
+    void addTraining(Training training);
+
+    Attendance getAttendance();
 }

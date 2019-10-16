@@ -16,8 +16,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-
+import seedu.address.model.training.Training;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -25,16 +24,11 @@ import seedu.address.model.person.Phone;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private static final Person ALICE = new Person(new Name("Alice Pauline"), new Phone("94351253"),
-                                                   new Email("alice@example.com"),
-                                                   new Address("123, Jurong West Ave 6, #08-111"),
-                                                   getTagSet("friends"));
-
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
+    private final Attendance attendance;
     private final FilteredList<Person> filteredPersons;
-    private final Person[] selectedPerson;
-    private final int selectedPersonIndex = 0;
+    private final Person selectedPerson;
 
 
     /**
@@ -48,10 +42,8 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.attendance = new Attendance();
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        this.selectedPerson = new Person[1];
-        this.selectedPerson[selectedPersonIndex] = ALICE;
-
     }
 
     public ModelManager() {
@@ -131,11 +123,11 @@ public class ModelManager implements Model {
 
     @Override
     public Person selectPerson() {
-        return selectedPerson[selectedPersonIndex];
+        return selectedPerson;
     }
 
     public void storePerson(Person person) {
-        selectedPerson[selectedPersonIndex] = person;
+        selectedPerson = person;
     }
 
     public void sortAddressBookByName() {
@@ -178,4 +170,15 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    //=========== Attendance =================================================================================
+
+    @Override
+    public Attendance getAttendance() {
+        return this.attendance;
+    }
+
+    @Override
+    public void addTraining(Training training) {
+        this.attendance.addTraining(training);
+    }
 }
