@@ -3,6 +3,7 @@ package seedu.savenus.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.savenus.model.food.Food;
@@ -144,10 +145,12 @@ public class Menu implements ReadOnlyMenu {
     }
 
     /**
-     * Buy food (Adds food to user's {@code PurchaseHistory}).
+     * Remove food (Remove food in user's {@code PurchaseHistory}).
      */
     public void removePurchase(Purchase purchase) {
-        //TODO
+        List<Purchase> currentPurchaseHistory = getPurchaseHistory().stream().collect(Collectors.toList());
+        currentPurchaseHistory.remove(purchase);
+        setPurchaseHistory(currentPurchaseHistory);
     }
 
 

@@ -11,14 +11,22 @@ import java.time.temporal.ChronoUnit;
  */
 public class TimeFormatter {
     /**
-     * Format input duration into timeAgo format.
+     * Format input time and calculate the number of days until now.
      * i.e. 0 for same day, 1 for yesterday ...
      * @param inputTimeInLocalDateTime Input time
      */
     public static long getDaysAgo(LocalDateTime inputTimeInLocalDateTime) {
-        LocalDate now = LocalDateTime.now(ZoneId.systemDefault()).toLocalDate();
-        LocalDate inputTimeInLocalDate = inputTimeInLocalDateTime.toLocalDate();
-        return ChronoUnit.DAYS.between(inputTimeInLocalDate, now);
+        return getDaysAgo(inputTimeInLocalDateTime, LocalDateTime.now());
+    }
+
+    /**
+     * Format input times and compare them to get number of days between them.
+     * i.e. 0 for same day, 1 for yesterday ...
+     * @param startTimeInLocalDateTime Input time
+     */
+    public static long getDaysAgo(LocalDateTime startTimeInLocalDateTime, LocalDateTime endTimeInLocalDateTime) {
+        LocalDate inputTimeInLocalDate = startTimeInLocalDateTime.toLocalDate();
+        return ChronoUnit.DAYS.between(inputTimeInLocalDate, endTimeInLocalDateTime);
     }
 
     /**

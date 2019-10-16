@@ -138,7 +138,7 @@ public class ModelManager implements Model {
 
     @Override
     public void removePurchase(Purchase target) {
-        //TODO
+        menu.removePurchase(target);
     }
 
     //=========== Filtered Purchase List Accessors =============================================================

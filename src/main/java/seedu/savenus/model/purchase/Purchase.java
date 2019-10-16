@@ -1,8 +1,6 @@
 package seedu.savenus.model.purchase;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Objects;
 
 import seedu.savenus.model.food.Name;
@@ -39,13 +37,16 @@ public class Purchase {
         return foodPurchasedPrice;
     }
 
+    public TimeOfPurchase getTimeOfPurchase() {
+        return timeOfPurchase;
+    }
+
     public long getTimeOfPurchaseInMillisSinceEpoch() {
-        return timeOfPurchase.getTimeOfPurchaseInMillisSinceEpoch();
+        return getTimeOfPurchase().getTimeOfPurchaseInMillisSinceEpoch();
     }
 
     public LocalDateTime getTimeOfPurchaseInLocalDateTime() {
-        return LocalDateTime.ofInstant(
-                Instant.ofEpochMilli(getTimeOfPurchaseInMillisSinceEpoch()), ZoneId.systemDefault());
+        return getTimeOfPurchase().getTimeOfPurchaseInLocalDateTime();
     }
 
     /**
@@ -77,7 +78,7 @@ public class Purchase {
         Purchase otherPurchase = (Purchase) other;
         return otherPurchase.getPurchasedFoodName().equals(getPurchasedFoodName())
                 && otherPurchase.getPurchasedFoodPrice().equals(getPurchasedFoodPrice())
-                && otherPurchase.getTimeOfPurchaseInMillisSinceEpoch() == getTimeOfPurchaseInMillisSinceEpoch();
+                && otherPurchase.getTimeOfPurchase().equals(getTimeOfPurchase());
     }
 
     @Override
