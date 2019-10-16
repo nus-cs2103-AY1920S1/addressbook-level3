@@ -72,6 +72,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         CustomerDatabaseStorage customerDatabaseStorage =
                 new JsonCustomerDatabaseStorage(userPrefs.getCustomerDatabaseFilePath());
@@ -143,17 +144,16 @@ public class MainApp extends Application {
         try {
             deliverymenDatabaseOptional = storage.readDeliverymenDatabase();
             if (!deliverymenDatabaseOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample RestaurantDatabase");
+                logger.info("Data file not found. Will be starting with a sample DeliverymenDatabase");
             }
-            initialDeliverymenData =
-                    deliverymenDatabaseOptional.orElseGet(SampleDataUtil::getSampleDeliverymenDatabase);
+            initialDeliverymenData = deliverymenDatabaseOptional.orElseGet(SampleDataUtil::getSampleDeliverymenDatabase);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. "
-                    + "Will be starting with an empty RestaurantDatabase");
+                    + "Will be starting with an empty DeliverymenDatabase");
             initialDeliverymenData = new DeliverymenDatabase();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. "
-                    + "Will be starting with an empty RestaurantDatabase");
+                    + "Will be starting with an empty DeliverymenDatabase");
             initialDeliverymenData = new DeliverymenDatabase();
         }
 
