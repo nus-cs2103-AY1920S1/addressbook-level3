@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import static seedu.address.ui.CommandBox.ERROR_STYLE_CLASS;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
@@ -74,7 +75,7 @@ public class AutoCompleteTextField extends TextField {
      * @param searchWord The word being matched against.
      */
     private void populatePopup(List<String> searchResults, String searchWord) {
-        List<CustomMenuItem> menuItems = new LinkedList<>();
+        List<CustomMenuItem> menuItems = new ArrayList<>();
         int maxEntries = 5;
         int count = Math.min(searchResults.size(), maxEntries);
 
@@ -112,7 +113,7 @@ public class AutoCompleteTextField extends TextField {
         Text textBefore = new Text(text.substring(0, filterIndex));
         Text textAfter = new Text(text.substring(filterIndex + filter.length()));
         Text textFilter = new Text(text.substring(filterIndex, filterIndex + filter.length()));
-        textFilter.setFill(Color.ORANGE);
+        textFilter.setFill(Color.YELLOW);
         textFilter.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
         return new TextFlow(textBefore, textFilter, textAfter);
     }

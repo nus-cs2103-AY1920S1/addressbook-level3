@@ -12,7 +12,8 @@ public class CommandSuggestions {
             "delete-c", "delete-p", "delete-s",
             "edit-c", "edit-o", "edit-p", "edit-s",
             "switch-c", "switch-o", "switch-p", "switch-s",
-            "list", "cancel", "exit", "help"
+            "list", "cancel", "exit", "help",
+            "generate-s"
     );
 
     public static List<String> getSuggestions() {
