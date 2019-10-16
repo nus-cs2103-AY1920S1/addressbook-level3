@@ -18,7 +18,8 @@ import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 //Remove this line once stubbing not required
-import seedu.address.logic.parser.stub.*;
+import seedu.address.logic.parser.stub.DoneTaskCommandParserStub;
+import seedu.address.logic.parser.stub.SetDeadlineCommandParserStub;
 
 /**
  * Parses user input.
