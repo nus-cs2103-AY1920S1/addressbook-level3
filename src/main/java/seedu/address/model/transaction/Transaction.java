@@ -7,9 +7,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.Direction;
-import seedu.address.model.transaction.stub.Category;
-import seedu.address.model.transaction.stub.Description;
+import seedu.address.model.account.Account;
+import seedu.address.model.attributes.Category;
+import seedu.address.model.attributes.Description;
+import seedu.address.model.attributes.Direction;
 
 
 
@@ -22,6 +23,7 @@ public class Transaction {
     private final Date date;
     private final Amount amount;
     private final Direction direction;
+    private final Account account;
     private final Description description;
     private final Set<Category> categories = new HashSet<>();
 
@@ -29,11 +31,12 @@ public class Transaction {
      * Every field must be present and not null.
      */
     public Transaction(Date date, Amount amount, Direction direction, Description description,
-                       Set<Category> categories) {
-        requireAllNonNull(date, amount, direction, description, categories);
+                       Account account, Set<Category> categories) {
+        requireAllNonNull(date, amount, direction, categories);
         this.date = date;
         this.amount = amount;
         this.direction = direction;
+        this.account = account;
         this.description = description;
         this.categories.addAll(categories);
     }
@@ -44,6 +47,10 @@ public class Transaction {
 
     public Amount getAmount() {
         return amount;
+    }
+
+    public Account getAccount() {
+        return account;
     }
 
     public Direction getDirection() {
@@ -75,6 +82,7 @@ public class Transaction {
         return otherTransaction.getDate().equals(date)
                 && otherTransaction.getAmount().equals(amount)
                 && otherTransaction.getDirection().equals(direction)
+                && otherTransaction.getAccount().equals(account)
                 && otherTransaction.getDescription().equals(description)
                 && otherTransaction.getCategories().equals(categories);
 
@@ -82,7 +90,7 @@ public class Transaction {
 
     @Override
     public int hashCode() {
-        return Objects.hash(date, amount, direction, description, categories);
+        return Objects.hash(date, amount, direction, account, description, categories);
     }
 
     @Override
@@ -93,6 +101,8 @@ public class Transaction {
                 .append(direction.toString())
                 .append(" on ")
                 .append(getDate())
+                .append(" in account: ")
+                .append(getAccount())
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Categories: ");

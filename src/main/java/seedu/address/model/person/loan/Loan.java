@@ -4,7 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.Direction;
+import seedu.address.model.attributes.Direction;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.loan.stub.Date;
 import seedu.address.model.transaction.Amount;

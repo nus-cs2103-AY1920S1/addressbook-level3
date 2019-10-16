@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.UniqueAccountList;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * Wraps all data at the account-book level
@@ -90,6 +91,21 @@ public class AccountBook implements ReadOnlyAccountBook {
         accounts.remove(key);
     }
 
+    /**
+     * Returns an unmodifiable view of the transaction list.
+     */
+    public ObservableList<Transaction> getTransactionList() {
+        return accounts.getTransactionList();
+    }
+
+    //TODO implement addTransaction
+    public void addTransaction(Transaction toAdd) {
+    }
+
+    //TODO implement removeTransaction
+    public void removeTransaction(Transaction toAdd){
+
+    }
     //// util methods
 
     @Override
@@ -113,4 +129,5 @@ public class AccountBook implements ReadOnlyAccountBook {
     public int hashCode() {
         return accounts.hashCode();
     }
+
 }

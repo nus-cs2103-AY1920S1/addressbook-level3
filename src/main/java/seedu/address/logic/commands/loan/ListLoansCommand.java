@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.loancommands;
+package seedu.address.logic.commands.loan;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SORT;

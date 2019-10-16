@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.account.exception.AccountNotFoundException;
 import seedu.address.model.account.exception.DuplicateAccountException;
+import seedu.address.model.transaction.Transaction;
 
 
 /**
@@ -98,6 +99,13 @@ public class UniqueAccountList implements Iterable<Account> {
      */
     public ObservableList<Account> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * TODO: implement getTransactionList, right now only returns a new observableArrayList
+     */
+    public ObservableList<Transaction> getTransactionList() {
+        return FXCollections.observableArrayList();
     }
 
     @Override

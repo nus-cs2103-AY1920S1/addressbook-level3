@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.loancommands;
+package seedu.address.logic.commands.loan;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
@@ -11,9 +11,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.Direction;
 import seedu.address.model.LoansManager;
 import seedu.address.model.Model;
+import seedu.address.model.attributes.Direction;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.loan.Description;
 import seedu.address.model.person.loan.Loan;

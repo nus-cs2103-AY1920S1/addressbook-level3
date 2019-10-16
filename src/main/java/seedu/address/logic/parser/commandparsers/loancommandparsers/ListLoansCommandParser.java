@@ -1,6 +1,6 @@
 package seedu.address.logic.parser.commandparsers.loancommandparsers;
 
-import seedu.address.logic.commands.loancommands.ListLoansCommand;
+import seedu.address.logic.commands.loan.ListLoansCommand;
 import seedu.address.logic.parser.CommandParser;
 
 /**

@@ -1,6 +1,6 @@
 package seedu.address.logic.rules;
 
-import seedu.address.model.Direction;
+import seedu.address.model.attributes.Direction;
 import seedu.address.model.rule.expression.Attribute;
 import seedu.address.model.rule.expression.Operator;
 import seedu.address.model.rule.expression.Value;

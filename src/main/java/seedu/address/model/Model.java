@@ -5,8 +5,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * The API of the Model component.
@@ -19,6 +21,14 @@ public interface Model {
      * Returns the loans manager.
      */
     LoansManager getLoansManager();
+
+    /**
+     * Returns the accountBook
+     */
+    AccountBook getAccountBook();
+
+
+    void deleteTransaction(Transaction target);
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -90,4 +100,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns an unmodifiable view of the filtered transaction list
+     */
+    FilteredList<Transaction> getFilteredTransactions();
+
+
 }

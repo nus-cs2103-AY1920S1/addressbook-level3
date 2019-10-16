@@ -1,4 +1,4 @@
-package seedu.address.model.transaction.stub;
+package seedu.address.model.attributes;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;

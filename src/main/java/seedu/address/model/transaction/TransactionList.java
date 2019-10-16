@@ -26,7 +26,7 @@ public class TransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Adds a Transaction to the list.
+     * Adds a Transaction to the list. Multiple identical transactions are allowed.
      */
     public void add(Transaction toAdd) {
         requireNonNull(toAdd);

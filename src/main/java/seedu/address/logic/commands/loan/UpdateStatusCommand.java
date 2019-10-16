@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.loancommands;
+package seedu.address.logic.commands.loan;
 
 import java.util.ArrayList;
 import java.util.List;

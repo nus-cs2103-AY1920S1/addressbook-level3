@@ -9,14 +9,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.loancommands.AddLoanCommand;
+import seedu.address.logic.commands.loan.AddLoanCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.CommandParser;
 import seedu.address.logic.parser.CommandParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Direction;
+import seedu.address.model.attributes.Direction;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.loan.Description;

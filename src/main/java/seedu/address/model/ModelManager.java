@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,10 +22,11 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final LoansManager loansManager;
-
+    private final AccountBook accountBook;
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Transaction> filteredTransactions;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,6 +41,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.accountBook = new AccountBook();
+        filteredTransactions = new FilteredList<>(this.accountBook.getTransactionList());
     }
 
     public ModelManager() {
@@ -52,6 +56,23 @@ public class ModelManager implements Model {
         return loansManager;
     }
 
+    //=========== Account Book ===============================================================================
+
+    @Override
+    public AccountBook getAccountBook() {
+        //TODO return the AccountBook when it's added, for now just returns a new AccountBook
+        return new AccountBook();
+    }
+
+    @Override
+    public FilteredList<Transaction> getFilteredTransactions() {
+        return filteredTransactions;
+    }
+
+    @Override
+    public void deleteTransaction (Transaction target) {
+        accountBook.removeTransaction(target);
+    }
     //=========== UserPrefs ==================================================================================
 
     @Override
