@@ -41,6 +41,7 @@ import org.reactfx.Subscription;
 import javafx.beans.value.ChangeListener;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -54,13 +55,13 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
 
     // temporary static patterns before proper integration
     private static final Pattern ADD_COMMAND_PATTERN = Pattern.compile(
-            "((?<pream>^\\s*)(?<COMMAND>add))|"
+            "((?<preamble>^\\s*)(?<COMMAND>add))|"
                     + "(?<prefix1>(?:p)/)|"
                     + "(?<prefix2>(?:d)/)|"
                     + "(?<arg>\\S+)"
     );
     private static final Pattern BUDGET_COMMAND_PATTERN = Pattern.compile(
-            "((?<pream>^\\s*)(?<COMMAND>budget))|"
+            "((?<preamble>^\\s*)(?<COMMAND>budget))|"
                     + "(?<prefix1>(?:d)/)|"
                     + "(?<prefix2>(?:s)/)|"
                     + "(?<prefix3>(?:p)/)|"
@@ -78,18 +79,12 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
 
     private ChangeListener<String> autoFillAddCompulsoryFieldsListener;
 
+    private Subscription cleanupWhenNoLongerNeedIt;
+
     public SyntaxHighlightTextArea() {
         super();
 
-        enterKeyPressedHandler = new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode().equals(ENTER)) {
-                    // placeholder handle input
-                    clear();
-                }
-            }
-        };
+
 
         consumeKeyPress = InputMap.consume(EventPattern.anyOf(
                 // enter
@@ -138,7 +133,7 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
 
         autoFillAddCompulsoryFieldsListener = (obser, s, t1) -> {
             if (t1.trim().equals("add")) {
-                replaceText("add d/ <description> p/ <price>");
+                replaceText("add d/ description p/ price");
             }
         };
 
@@ -156,29 +151,41 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
         textProperty().addListener(autoFillAddCompulsoryFieldsListener);
 
         // key event handlers
-        addEventHandler(KeyEvent.KEY_PRESSED, enterKeyPressedHandler);
+        //addEventHandler(KeyEvent.KEY_PRESSED, enterKeyPressedHandler);
         addEventHandler(KeyEvent.KEY_PRESSED, disableAutoCompletionOnBackspaceDownHandler);
         addEventHandler(KeyEvent.KEY_RELEASED, enableAutoCompletionOnBackspaceReleasedHandler);
 
-        // copy from DEMO
-        Subscription cleanupWhenNoLongerNeedIt =
-                multiPlainChanges()
-                .successionEnds(Duration.ofMillis(200))
-                .subscribe(ignore -> {
-                    this.setStyleSpans(0, computeHighlighting(this.getText()));
-                });
         // when no longer need syntax highlighting and wish to clean up memory leaks
         // run: `cleanupWhenNoLongerNeedIt.unsubscribe();`
+    }
+
+    public void watch() {
+        cleanupWhenNoLongerNeedIt =
+                multiPlainChanges()
+                    .successionEnds(Duration.ofMillis(200))
+                        .subscribe(ignore -> {
+                            this.setStyleSpans(0, computeHighlighting(this.getText()));
+                        });
+    }
+
+    public void overrideStyle(String styleClass) {
+        StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
+        spansBuilder.add(Collections.singleton(styleClass), getLength());
+        setStyleSpans(0, spansBuilder.create());
+        if (cleanupWhenNoLongerNeedIt != null) {
+            cleanupWhenNoLongerNeedIt.unsubscribe();
+        }
     }
 
     /**
      * Import the css stylesheet containing the different styles for the syntax highlighter.
      */
-    public void importStyleSheet() {
-        this.getScene()
+    public void importStyleSheet(Scene scene) {
+        scene
                 .getStylesheets()
-                .add(SyntaxHighlightTextArea.class.getResource("/view/syntax-highlight.css")
+                .add(SyntaxHighlightTextArea.class.getResource("/view/syntax-highlighting.css")
                         .toExternalForm());
+        watch();
     }
 
     /**

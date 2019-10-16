@@ -20,7 +20,7 @@ public class SyntaxTextDemo extends Application {
         StackPane s = new StackPane(inlineCssTextArea);
 
         Scene scene = new Scene(s);
-        inlineCssTextArea.importStyleSheet();
+        inlineCssTextArea.importStyleSheet(scene);
 
         stage.setScene(scene);
         stage.show();

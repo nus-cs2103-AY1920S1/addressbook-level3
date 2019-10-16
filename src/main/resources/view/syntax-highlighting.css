@@ -1,0 +1,59 @@
+.keyword {
+    -fx-fill: brick;
+    -fx-font-weight: bold;
+    -rtfx-background-color: rgba(172, 78, 71, 0.48);
+
+}
+
+.error {
+    -fx-fill: black !important;
+    -rtfx-background-color: rgba(255, 0, 0, 0.51);
+}
+
+* {
+    -fx-font-size: 20px;
+}
+
+.style1 {
+    -fx-fill: #6a00b1;
+}
+
+.arg1 {
+    -fx-fill: white;
+    -rtfx-background-color: #6a00b1;
+
+}
+
+.style2 {
+    -fx-fill: #0c910b;
+}
+
+.arg2 {
+    -fx-fill: white;
+    -rtfx-background-color: #0c910b;
+
+}
+
+.style3 {
+    -fx-fill: #a24400;
+}
+
+.arg3 {
+    -fx-fill: white;
+    -rtfx-background-color: #a24400;
+
+}
+
+.style4 {
+    -fx-fill: #006961;
+}
+
+.arg4 {
+    -fx-fill: white;
+    -rtfx-background-color: #006961;
+
+}
+
+.paragraph-box:has-caret {
+    -fx-background-color: #f2f9fc;
+}
