@@ -5,7 +5,7 @@ public class EditFoodDescriptorTest {
    /* @Test
     public void equals() {
         // same values -> returns true
-        EditFoodDescriptor descriptorWithSameValues = new EditFoodDescriptor(DESC_AMY);
+        EditTemplateItemDescriptor descriptorWithSameValues = new EditTemplateItemDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -21,7 +21,7 @@ public class EditFoodDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditFoodDescriptor editedAmy = new EditFoodDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+        EditTemplateItemDescriptor editedAmy = new EditFoodDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
