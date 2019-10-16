@@ -8,6 +8,7 @@ import static seedu.billboard.logic.commands.CommandTestUtil.DATE_DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.billboard.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.billboard.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.billboard.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.billboard.logic.commands.CommandTestUtil.NAME_DESC_DINNER;
@@ -31,6 +32,7 @@ import org.junit.jupiter.api.Test;
 import seedu.billboard.logic.commands.AddCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.CreatedDateTime;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
@@ -104,6 +106,10 @@ public class AddCommandParserTest {
         // invalid amount
         assertParseFailure(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + INVALID_AMOUNT_DESC
                 + TAG_DESC_TAXES + TAG_DESC_DINNER, Amount.MESSAGE_CONSTRAINTS);
+
+        // invalid date
+        assertParseFailure(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + AMOUNT_DESC_TAXES
+                + INVALID_DATE_DESC + TAG_DESC_TAXES + TAG_DESC_DINNER, CreatedDateTime.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + AMOUNT_DESC_TAXES

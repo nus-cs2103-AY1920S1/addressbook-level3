@@ -3,6 +3,7 @@ package seedu.billboard.model.expense;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DATE_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
@@ -50,6 +51,10 @@ public class ExpenseTest {
 
         // different amount -> returns false
         editedBills = new ExpenseBuilder(BILLS).withAmount(VALID_AMOUNT_TAXES).build();
+        assertNotEquals(BILLS, editedBills);
+
+        // different date -> returns false
+        editedBills = new ExpenseBuilder(BILLS).withCreatedDateTime(VALID_DATE_TAXES).build();
         assertNotEquals(BILLS, editedBills);
 
         // different tags -> returns false

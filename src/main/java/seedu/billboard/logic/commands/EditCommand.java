@@ -2,6 +2,7 @@ package seedu.billboard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
@@ -39,6 +40,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DESCRIPTION + "buy tea "
@@ -75,9 +77,7 @@ public class EditCommand extends Command {
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
         Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
 
-        boolean b = !expenseToEdit.equals(editedExpense);
-        boolean b1 = model.hasExpense(editedExpense);
-        if (b && b1) {
+        if (!expenseToEdit.equals(editedExpense) && model.hasExpense(editedExpense)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
 
@@ -149,7 +149,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, description, amount, tags);
+            return CollectionUtil.isAnyNonNull(name, description, amount, created, tags);
         }
 
 

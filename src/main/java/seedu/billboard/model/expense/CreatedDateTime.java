@@ -74,7 +74,7 @@ public class CreatedDateTime {
         try {
             tryParse(test);
             return true;
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | DateTimeParseException e) {
             return false;
         }
     }

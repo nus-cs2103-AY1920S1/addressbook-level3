@@ -32,7 +32,7 @@ public class CreatedDateTimeTest {
         assertFalse(CreatedDateTime.isValidDate("31/1/2019 2401")); // correct format, non existent time
         assertFalse(CreatedDateTime.isValidDate("07/01/2019 12:34")); // slightly wrong format
 
-        // valid name
+        // valid date
         assertTrue(CreatedDateTime.isValidDate("23/12/2019 1234")); // normal date with time
         assertTrue(CreatedDateTime.isValidDate("23/12/2019")); // normal date no time
         assertTrue(CreatedDateTime.isValidDate("1/1/2019")); // date without leading zeros
