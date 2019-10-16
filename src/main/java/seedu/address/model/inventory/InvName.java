@@ -7,7 +7,7 @@ import seedu.address.model.task.Name;
 
 /**
  * Represents a Inventory's name in ProjectDashBoard.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidMemberName(String)}
  */
 public class InvName {
     public static final String MESSAGE_CONSTRAINTS =
@@ -28,7 +28,7 @@ public class InvName {
      */
     public InvName(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidMemberName(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
 
@@ -39,7 +39,7 @@ public class InvName {
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidMemberName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

@@ -139,6 +139,8 @@ public class ProjectDashboardTest {
         private final ObservableList<Task> tasks = FXCollections.observableArrayList();
         private final ObservableList<Member> members = FXCollections.observableArrayList();
         private final ObservableList<Inventory> inventories = FXCollections.observableArrayList();
+        private final ObservableList<Mapping> mappings = FXCollections.observableArrayList();
+
         private final ObservableList<Task> tasksNotStarted = FXCollections.observableArrayList();
         private final ObservableList<Task> tasksDoing = FXCollections.observableArrayList();
         private final ObservableList<Task> tasksDone = FXCollections.observableArrayList();
@@ -180,6 +182,11 @@ public class ProjectDashboardTest {
         @Override
         public ObservableList<Task> getTasksDone() {
             return tasksDone;
+        }
+
+        @Override
+        public ObservableList<Mapping> getMappingList() {
+            return mappings;
         }
     }
 

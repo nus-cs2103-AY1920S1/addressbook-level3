@@ -51,7 +51,7 @@ public class JsonAdaptedInventory {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "InvName"));
         }
-        if (!InvName.isValidName(name.toString())) {
+        if (!InvName.isValidMemberName(name.toString())) {
             throw new IllegalValueException(InvName.MESSAGE_CONSTRAINTS);
         }
         //if (task == null) {
@@ -62,7 +62,7 @@ public class JsonAdaptedInventory {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "price"));
         }
-        if (!Price.isValidName(price.getPrice())) {
+        if (!Price.isValidMemberName(price.getPrice())) {
             throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
         }
 
