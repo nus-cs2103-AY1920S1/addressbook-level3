@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Tracks tags and the number of expenses that uses them.
+ */
 public class TagCountManager {
     private Map<Tag, Integer> count = new HashMap<>();
 
