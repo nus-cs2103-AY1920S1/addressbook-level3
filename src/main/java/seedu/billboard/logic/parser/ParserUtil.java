@@ -13,6 +13,7 @@ import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.commons.util.StringUtil;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.CreatedDateTime;
 import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
@@ -135,6 +136,21 @@ public class ParserUtil {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
         return new Amount(trimmedAmount);
+    }
+
+    /**
+     * Parses a {@code String dateTime} into an {@code CreatedDateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dateTime} is invalid.
+     */
+    public static CreatedDateTime parseCreatedDateTime(String dateTime) throws ParseException {
+        requireNonNull(dateTime);
+        String trimmedDateTime = dateTime.trim();
+        if (!CreatedDateTime.isValidDate(trimmedDateTime)) {
+            throw new ParseException(CreatedDateTime.MESSAGE_CONSTRAINTS);
+        }
+        return new CreatedDateTime(trimmedDateTime);
     }
 
     /**

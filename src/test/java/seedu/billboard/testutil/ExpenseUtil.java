@@ -1,14 +1,17 @@
 package seedu.billboard.testutil;
 
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 import seedu.billboard.logic.commands.AddCommand;
 import seedu.billboard.logic.commands.EditCommand.EditExpenseDescriptor;
+import seedu.billboard.model.expense.CreatedDateTime;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
 
@@ -30,8 +33,12 @@ public class ExpenseUtil {
     public static String getExpenseDetails(Expense expense) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME).append(expense.getName().name).append(" ")
-            .append(PREFIX_DESCRIPTION).append(expense.getDescription().description).append(" ")
-            .append(PREFIX_AMOUNT).append(expense.getAmount().amount).append(" ");
+                .append(PREFIX_DESCRIPTION).append(expense.getDescription().description).append(" ")
+                .append(PREFIX_DATE)
+                .append(DateTimeFormatter.ofPattern(CreatedDateTime.ACCEPTABLE_PATTERNS.get(0))
+                        .format(expense.getCreated().dateTime))
+                .append(" ")
+                .append(PREFIX_AMOUNT).append(expense.getAmount().amount).append(" ");
 
         expense.getTags().forEach(
             s -> sb.append(PREFIX_TAG).append(s.tagName).append(" ")

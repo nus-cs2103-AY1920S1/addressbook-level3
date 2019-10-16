@@ -29,6 +29,15 @@ public class Amount {
         }
     }
 
+    /**
+     * Adds this amount to another amount.
+     * @param other Amount to be added.
+     * @return new Amount representing the combine total of the two amounts.
+     */
+    public Amount add(Amount other) {
+        return new Amount((amount + other.amount) + "");
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

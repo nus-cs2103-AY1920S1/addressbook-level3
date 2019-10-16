@@ -200,6 +200,7 @@ public class ModelManager implements Model {
         requireNonNull(toRetrieve);
         return billboard.retrieveTags(toRetrieve);
     }
+
     //=========== Filtered Expense List Accessors =============================================================
 
     /**
@@ -248,5 +249,4 @@ public class ModelManager implements Model {
                 && filteredExpense.equals(other.filteredExpense)
                 && filteredArchives.equals(other.filteredArchives);
     }
-
 }

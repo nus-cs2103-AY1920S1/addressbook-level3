@@ -58,7 +58,7 @@ public class AddTagCommand extends TagCommand {
         Set<Tag> toAdd = model.retrieveTags(tagNames);
         Set<Tag> mergedSet = getUniqueSet(currTags, toAdd);
         Expense editedExpense = new Expense(expenseToEdit.getName(), expenseToEdit.getDescription(),
-                expenseToEdit.getAmount(), mergedSet);
+                expenseToEdit.getAmount(), expenseToEdit.getCreated(), mergedSet);
 
         model.setExpense(expenseToEdit, editedExpense);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
