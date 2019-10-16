@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.sgm.model.food.Food;
@@ -115,4 +116,8 @@ public interface Model {
     void updateFilteredRecordList(Predicate<Record> predicate);
 
     ReadOnlyRecordBook getRecordBook();
+
+    boolean hasReminder(Reminder reminder);
+
+    void addReminder(Reminder reminder);
 }

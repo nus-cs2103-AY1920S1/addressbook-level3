@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.sgm.model.food.FilteredFoodMap;
@@ -111,6 +112,16 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyRecordBook getRecordBook() {
         return recordBook;
+    }
+
+    @Override
+    public boolean hasReminder(Reminder reminder) {
+        return false;
+    }
+
+    @Override
+    public void addReminder(Reminder reminder) {
+
     }
 
     @Override
