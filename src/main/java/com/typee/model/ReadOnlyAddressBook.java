@@ -1,6 +1,6 @@
 package com.typee.model;
 
-import com.typee.model.person.Person;
+import com.typee.model.engagement.Engagement;
 
 import javafx.collections.ObservableList;
 
@@ -10,9 +10,9 @@ import javafx.collections.ObservableList;
 public interface ReadOnlyAddressBook {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the list of engagements.
+     * This list will not contain any duplicate engagements.
      */
-    ObservableList<Person> getPersonList();
+    ObservableList<Engagement> getEngagementList();
 
 }

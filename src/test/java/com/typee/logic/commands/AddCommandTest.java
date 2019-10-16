@@ -1,31 +1,6 @@
 package com.typee.logic.commands;
 
-import static com.typee.testutil.Assert.assertThrows;
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Predicate;
-
-import org.junit.jupiter.api.Test;
-
-import com.typee.commons.core.GuiSettings;
-import com.typee.logic.commands.exceptions.CommandException;
-import com.typee.logic.commands.exceptions.NullRedoableActionException;
-import com.typee.logic.commands.exceptions.NullUndoableActionException;
-import com.typee.model.AddressBook;
-import com.typee.model.Model;
-import com.typee.model.ReadOnlyAddressBook;
-import com.typee.model.ReadOnlyUserPrefs;
-import com.typee.model.person.Person;
-import com.typee.testutil.PersonBuilder;
-
-import javafx.collections.ObservableList;
-
+/*
 public class AddCommandTest {
 
     @Test
@@ -77,9 +52,11 @@ public class AddCommandTest {
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
+ */
     /**
      * A default model stub that have all of the methods failing.
      */
+    /*
     private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -117,37 +94,37 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setHistoryManager(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyAddressBook getHistoryManager() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasEngagement(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteEngagement(Person target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setEngagement(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Person> getFilteredEngagementList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredAppointmentList(Predicate<Person> predicate) {
+        public void updateFilteredEngagementList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -157,7 +134,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void undoAppointmentList() throws NullUndoableActionException {
+        public void undoEngagementList() throws NullUndoableActionException {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -167,18 +144,21 @@ public class AddCommandTest {
         }
 
         @Override
-        public void redoAppointmentList() throws NullRedoableActionException {
+        public void redoEngagementList() throws NullRedoableActionException {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void saveAppointmentList() {
+        public void saveEngagementList() {
         }
     }
 
+
+     */
     /**
      * A Model stub that contains a single person.
      */
+    /*
     private class ModelStubWithPerson extends ModelStub {
         private final Person person;
 
@@ -188,20 +168,23 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasEngagement(Person person) {
             requireNonNull(person);
             return this.person.isSamePerson(person);
         }
     }
 
+
+     */
     /**
      * A Model stub that always accept the person being added.
      */
+    /*
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasEngagement(Person person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::isSamePerson);
         }
@@ -213,9 +196,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyAddressBook getHistoryManager() {
             return new AddressBook();
         }
     }
-
-}
+   */
+//}
