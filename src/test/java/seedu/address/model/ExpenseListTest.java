@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_RUM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CURRENCY_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ALCOHOL;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenses.FOOD;
@@ -46,8 +47,8 @@ public class ExpenseListTest {
     @Test
     public void resetData_withDuplicateExpenses_throwsDuplicateExpenseException() {
         // Two expenses with the same identity fields
-        Expense editedFood = new ExpenseBuilder(FOOD).withAmount(VALID_AMOUNT_RUM).withTags(VALID_TAG_ALCOHOL)
-                .build();
+        Expense editedFood = new ExpenseBuilder(FOOD).withAmount(VALID_AMOUNT_RUM)
+            .withTags(VALID_TAG_ALCOHOL).build();
         List<Expense> newExpenses = Arrays.asList(FOOD, editedFood);
         ExpenseListStub newData = new ExpenseListStub(newExpenses);
 
@@ -73,7 +74,8 @@ public class ExpenseListTest {
     @Test
     public void hasExpense_expenseWithSameIdentityFieldsInExpenseList_returnsTrue() {
         expenseList.addExpense(FOOD);
-        Expense editedFood = new ExpenseBuilder(FOOD).withAmount(VALID_AMOUNT_RUM).withTags(VALID_TAG_ALCOHOL)
+        Expense editedFood = new ExpenseBuilder(FOOD).withAmount(VALID_AMOUNT_RUM)
+            .withCurrency(VALID_CURRENCY_RUM).withTags(VALID_TAG_ALCOHOL)
                 .build();
         assertTrue(expenseList.hasExpense(editedFood));
     }

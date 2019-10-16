@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Amount;
+import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
@@ -70,6 +72,38 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String currency} into a {@code Currency}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code currency} is invalid.
+     */
+    public static Currency parseCurrency(String currency) throws ParseException {
+        requireNonNull(currency);
+        String trimmedCurrency = currency.trim();
+        if (!Currency.isValidCurrency(trimmedCurrency)) {
+            throw new ParseException(Currency.MESSAGE_CONSTRAINTS);
+        }
+        return new Currency(trimmedCurrency);
+    }
+
+    /**
+     * Parses a {@code ArgumentMultiMap argMultiMap} into an {@code Currency}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code currency} is invalid.
+     */
+    public static Currency parseCurrency(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> currencyField = argMultimap.getValue(PREFIX_CURRENCY);
+        String currency;
+        if (!currencyField.isPresent()) {
+            currency = "SGD";
+        } else {
+            currency = currencyField.get();
+        }
+        return parseCurrency(currency);
+    }
+
+    /**
      * Parses a {@code String date} into an {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -95,7 +129,7 @@ public class ParserUtil {
         String date;
         if (!dateField.isPresent()) {
             LocalDateTime currentDateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, H:mma");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy Hmm");
             date = currentDateTime.format(formatter);
         } else {
             date = dateField.get();

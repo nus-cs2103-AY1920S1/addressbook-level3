@@ -2,11 +2,13 @@
   "expenses": [ {
     "name": "coffee",
     "amount": "$23.50",
+    "currency": "SGD",
     "date": "13/10/2019",
     "tagged": [ "snack" ]
   }, {
     "name": "coffee",
     "amount": "$23.50",
+    "currency": "SGD",
     "date": "13/10/2019",
     "tagged": [ "teabreak" ]
   } ]

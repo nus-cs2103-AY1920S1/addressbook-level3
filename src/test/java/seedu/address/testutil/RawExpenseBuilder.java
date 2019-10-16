@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.expense.Amount;
+import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
@@ -17,16 +18,19 @@ public class RawExpenseBuilder {
 
     public static final String DEFAULT_NAME = "coffee";
     public static final String DEFAULT_AMOUNT = "$23.50";
+    public static final String DEFAULT_CURRENCY = "SGD";
     public static final String DEFAULT_DATE = "13/10/2019";
 
     private Name name;
     private Amount amount;
+    private Currency currency;
     private Date date;
     private Set<Tag> tags;
 
     public RawExpenseBuilder() {
         name = new Name(DEFAULT_NAME);
         amount = new Amount(DEFAULT_AMOUNT);
+        currency = new Currency(DEFAULT_CURRENCY);
         date = new Date(DEFAULT_DATE, false);
         tags = new HashSet<>();
     }
@@ -37,6 +41,7 @@ public class RawExpenseBuilder {
     public RawExpenseBuilder(Expense expenseToCopy) {
         name = expenseToCopy.getName();
         amount = expenseToCopy.getAmount();
+        currency = expenseToCopy.getCurrency();
         date = expenseToCopy.getDate();
         tags = new HashSet<>(expenseToCopy.getTags());
     }
@@ -66,6 +71,14 @@ public class RawExpenseBuilder {
     }
 
     /**
+     * Sets the {@code Currency} of the {@code Expense} that we are building.
+     */
+    public RawExpenseBuilder withCurrency(String currency) {
+        this.currency = new Currency(currency);
+        return this;
+    }
+
+    /**
      * Sets the {@code Date} of the {@code Expense} that we are building.
      */
     public RawExpenseBuilder withDate(String date) {
@@ -74,7 +87,7 @@ public class RawExpenseBuilder {
     }
 
     public Expense build() {
-        return new Expense(name, amount, date, tags);
+        return new Expense(name, amount, currency, date, tags);
     }
 
 }
