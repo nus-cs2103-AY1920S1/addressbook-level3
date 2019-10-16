@@ -146,6 +146,12 @@ public class MainWindow extends UiPart<Stage> {
         commandBox.enableSyntaxHightlightingForCommand("stats",
                 List.of(PREFIX_DESCRIPTION, PREFIX_START_DATE, PREFIX_END_DATE),
                 "stats sd/ <start_date> ed/ <end_date>");
+        commandBox.enableSyntaxHightlightingForCommand("undo",
+                Collections.emptyList(),
+                "undo");
+        commandBox.enableSyntaxHightlightingForCommand("redo",
+                Collections.emptyList(),
+                "redo");
 
         commandBox.enableSyntaxHighlighting();
 
