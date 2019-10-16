@@ -2,11 +2,8 @@ package seedu.address.ui.layouts;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import seedu.address.ui.UiPart;
-
-import javax.swing.plaf.synth.Region;
 
 public class TwoSplitColumnLayout extends UiPart<Node> {
 
@@ -22,11 +19,21 @@ public class TwoSplitColumnLayout extends UiPart<Node> {
         super(FXML);
     }
 
+    /**
+     * Adds node to the left pane of the layout.
+     *
+     * @param uiPartToAdd The {@code Node} to add.
+     */
     public void addToLeftPane(Node uiPartToAdd) {
         leftPane.getChildren().clear();
         leftPane.getChildren().add(uiPartToAdd);
     }
 
+    /**
+     * Adds node to the right pane of the layout.
+     *
+     * @param uiPartToAdd The {@code Node} to add.
+     */
     public void addToRightPane(Node uiPartToAdd) {
         rightPane.getChildren().clear();
         rightPane.getChildren().add(uiPartToAdd);

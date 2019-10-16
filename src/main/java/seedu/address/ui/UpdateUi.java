@@ -13,6 +13,12 @@ public class UpdateUi {
     }
 
     //Use string for now, eventually use mode.
+
+    /**
+     * Updates the mode in {@code MainWindow}.
+     *
+     * @param mode The mode to update to.
+     */
     public void updateMode(String mode) {
         String firstArg = mode.split(" ")[0];
         if (firstArg.equals("home")) {
@@ -24,6 +30,12 @@ public class UpdateUi {
         }
     }
 
+    /**
+     * Updates the {@code ModularDisplay} in {@code MainWindow}.
+     *
+     * @param command The command that triggers the update.
+     * @param modularDisplayPlaceholder {@code modularDisplayPlaceholder} in {@code MainWindow} that gets updated.
+     */
     public void updateModularDisplay(String command, StackPane modularDisplayPlaceholder) {
         String firstArg = command.split(" ")[0];
         if (firstArg.equals("load")) {

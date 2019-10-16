@@ -1,11 +1,11 @@
 package seedu.address.statistics;
 
-import seedu.address.model.card.Card;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import seedu.address.model.card.Card;
 
 /**
  * Represents the overall statistics of a word bank.

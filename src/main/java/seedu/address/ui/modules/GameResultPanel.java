@@ -1,7 +1,9 @@
 package seedu.address.ui.modules;
 
+import java.util.List;
+
 import javafx.collections.FXCollections;
-import javafx.fxml.FXML;;
+import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -21,7 +23,6 @@ import seedu.address.statistics.ScoreGrade;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.UiPart;
 
-import java.util.List;
 
 /**
  * Panel containing the game result.
@@ -132,8 +133,9 @@ public class GameResultPanel extends UiPart<Region> {
         xAxis.setTickLabelFormatter(new StringConverter<Number>() {
             @Override
             public String toString(Number object) {
-                if (object.intValue() != object.doubleValue() || object.intValue() % 5 != 0)
+                if (object.intValue() != object.doubleValue() || object.intValue() % 5 != 0) {
                     return "";
+                }
                 return "" + object.intValue();
             }
 
@@ -154,7 +156,7 @@ public class GameResultPanel extends UiPart<Region> {
         yAxis.setLowerBound(ScoreData.MIN_SCORE);
         yAxis.setTickUnit(10);
 
-        LineChart<Number,Number> progressChart = new LineChart<>(xAxis,yAxis);
+        LineChart<Number, Number> progressChart = new LineChart<>(xAxis, yAxis);
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
 
         List<ScoreData> scoreStats = wbStatistics.getScoreStats();
