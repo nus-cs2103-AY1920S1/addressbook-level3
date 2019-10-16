@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.person.Person;
 
 /**
@@ -53,6 +54,14 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
+     * Replaces file book data with the data in {@code fileBook}.
+     */
+    void setFileBook(ReadOnlyFileBook fileBook);
+
+    /** Returns the FileBook */
+    ReadOnlyFileBook getFileBook();
+
+    /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
@@ -76,6 +85,30 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Returns true if a file with the same identity as {@code file} exists in the file book.
+     */
+    boolean hasFile(EncryptedFile file);
+
+    /**
+     * Deletes the given file.
+     * The file must exist in the address book.
+     */
+    void deleteFile(EncryptedFile target);
+
+    /**
+     * Adds the given file.
+     * {@code person} must not already exist in the file book.
+     */
+    void addFile(EncryptedFile file);
+
+    /**
+     * Replaces the given file {@code target} with {@code editedFile}.
+     * {@code target} must exist in the file book.
+     * The file identity of {@code editedPerson} must not be the same as another existing file in the file book.
+     */
+    void setFile(EncryptedFile target, EncryptedFile editedFile);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -84,4 +117,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /** Returns an unmodifiable view of the filtered file list */
+    ObservableList<EncryptedFile> getFilteredFileList();
+
+    /**
+     * Updates the filter of the filtered file list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredFileList(Predicate<EncryptedFile> predicate);
 }

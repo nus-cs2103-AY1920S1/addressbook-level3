@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,25 +21,33 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final FileBook fileBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<EncryptedFile> filteredFiles;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyFileBook fileBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, fileBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with file book: " + fileBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.fileBook = new FileBook(fileBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredFiles = new FilteredList<>(this.fileBook.getFileList());
+    }
+
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+        this(addressBook, new FileBook(), userPrefs);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new FileBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -112,6 +121,42 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    //=========== FileBook ===================================================================================
+
+    @Override
+    public void setFileBook(ReadOnlyFileBook fileBook) {
+        this.fileBook.resetData(fileBook);
+    }
+
+    @Override
+    public ReadOnlyFileBook getFileBook() {
+        return fileBook;
+    }
+
+    @Override
+    public boolean hasFile(EncryptedFile file) {
+        requireNonNull(file);
+        return fileBook.hasFile(file);
+    }
+
+    @Override
+    public void deleteFile(EncryptedFile target) {
+        fileBook.removeFile(target);
+    }
+
+    @Override
+    public void addFile(EncryptedFile file) {
+        fileBook.addFile(file);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void setFile(EncryptedFile target, EncryptedFile editedFile) {
+        requireAllNonNull(target, editedFile);
+
+        fileBook.setFile(target, editedFile);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -127,6 +172,23 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered File List Accessors ===============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code EncryptedFile} backed by the internal list of
+     * {@code versionedFileBook}
+     */
+    @Override
+    public ObservableList<EncryptedFile> getFilteredFileList() {
+        return filteredFiles;
+    }
+
+    @Override
+    public void updateFilteredFileList(Predicate<EncryptedFile> predicate) {
+        requireNonNull(predicate);
+        filteredFiles.setPredicate(predicate);
     }
 
     @Override

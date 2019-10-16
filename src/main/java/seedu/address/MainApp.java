@@ -17,14 +17,18 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
+import seedu.address.model.FileBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.FileBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonFileBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -66,7 +70,9 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(userPrefs.getAddressBookFilePath(), password);
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, password);
+        FileBookStorage fileBookStroage =
+                new JsonFileBookStorage(userPrefs.getFileBookFilePath(), password);
+        storage = new StorageManager(addressBookStorage, fileBookStroage, userPrefsStorage, password);
 
         initLogging(config);
 
@@ -99,7 +105,23 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        Optional<ReadOnlyFileBook> fileBookOptional;
+        ReadOnlyFileBook initialFileData;
+        try {
+            fileBookOptional = storage.readFileBook();
+            if (!fileBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty FileBook");
+            }
+            initialFileData = fileBookOptional.orElseGet(FileBook::new);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty FileBook");
+            initialFileData = new FileBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty FileBook");
+            initialFileData = new FileBook();
+        }
+
+        return new ModelManager(initialData, initialFileData, userPrefs);
     }
 
     private void initLogging(Config config) {

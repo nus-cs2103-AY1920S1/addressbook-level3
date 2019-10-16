@@ -72,13 +72,22 @@ public class EncryptedFile {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getFileName())
-                .append(" Path: ")
-                .append(getFilePath())
-                .append(" Encrypted at: ")
-                .append(getEncryptedAt())
-                .append(" Tags: ");
+        builder.append(getFileName());
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    /**
+     * Returns true if both files have the same file name and path.
+     * This defines a weaker notion of equality between two persons.
+     */
+    public boolean isSameFile(EncryptedFile otherFile) {
+        if (otherFile == this) {
+            return true;
+        }
+
+        return otherFile != null
+                && otherFile.getFileName().equals(getFileName())
+                && (otherFile.getFilePath().equals(getFilePath()));
     }
 }

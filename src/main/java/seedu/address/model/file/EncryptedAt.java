@@ -9,6 +9,8 @@ import seedu.address.model.util.DateUtil;
  */
 public class EncryptedAt {
 
+    public static final String MESSAGE_CONSTRAINTS = "Encrypted at should be in the format of dd/MM/yyyy HHmm";
+
     public final Date value;
 
     /**

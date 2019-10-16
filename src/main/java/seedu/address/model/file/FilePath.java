@@ -5,6 +5,8 @@ package seedu.address.model.file;
  */
 public class FilePath {
 
+    public static final String MESSAGE_CONSTRAINTS = "File path should not be blank.";
+
     public final String value;
 
     /**
@@ -14,6 +16,13 @@ public class FilePath {
      */
     public FilePath(String fileName) {
         value = fileName;
+    }
+
+    /**
+     * Returns true if a given string is a valid file path.
+     */
+    public static boolean isValidFilePath(String test) {
+        return !("".equals(test.trim()));
     }
 
     @Override
