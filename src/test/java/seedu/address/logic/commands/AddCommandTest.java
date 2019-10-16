@@ -204,6 +204,11 @@ public class AddCommandTest {
         public int[] getStats() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void editStats(int type) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
