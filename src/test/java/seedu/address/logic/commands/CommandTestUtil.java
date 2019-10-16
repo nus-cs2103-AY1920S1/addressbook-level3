@@ -26,6 +26,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.body.BodyNameContainsKeywordsPredicate;
+import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -178,11 +182,20 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Person> expectedFilteredListPerson = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Body> expectedFilteredListBody = new ArrayList<>(actualModel.getFilteredBodyList());
+        List<Worker> expectedFilteredListWorker = new ArrayList<>(actualModel.getFilteredWorkerList());
+        List<Fridge> expectedFilteredListFridge = new ArrayList<>(actualModel.getFilteredFridgeList());
+        Body expectedSelectedBody = actualModel.getSelectedBody();
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedFilteredListPerson, actualModel.getFilteredPersonList());
+        assertEquals(expectedFilteredListBody, actualModel.getFilteredBodyList());
+        assertEquals(expectedFilteredListWorker, actualModel.getFilteredWorkerList());
+        assertEquals(expectedFilteredListFridge, actualModel.getFilteredFridgeList());
+        assertEquals(expectedSelectedBody, actualModel.getSelectedBody());
+
     }
 
     /**
@@ -217,4 +230,17 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredPersonList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the body at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showBodyAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBodyList().size());
+
+        Body body = model.getFilteredBodyList().get(targetIndex.getZeroBased());
+        final String[] splitName = body.getName().fullName.split("\\s+");
+        model.updateFilteredBodyList(new BodyNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredBodyList().size());
+    }
 }

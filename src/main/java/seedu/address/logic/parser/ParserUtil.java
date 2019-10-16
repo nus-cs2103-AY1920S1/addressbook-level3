@@ -261,7 +261,7 @@ public class ParserUtil {
         requireNonNull(status);
         String trimmedStatus = status.trim();
         if (status.isEmpty()) {
-            return null;
+            return BodyStatus.ARRIVED;
         }
         return BodyStatus.parseBodyStatus(trimmedStatus);
     }

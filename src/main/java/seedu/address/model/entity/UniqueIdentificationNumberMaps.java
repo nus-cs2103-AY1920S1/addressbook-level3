@@ -69,6 +69,7 @@ public class UniqueIdentificationNumberMaps {
      */
     private static Integer putBody(Body body) {
         Set<Integer> keys = uniqueBodyMap.keySet();
+        System.out.println(keys);
         int numOfKeys = keys.size();
         for (int id = 1; id <= numOfKeys; id++) {
             if (uniqueBodyMap.get(id) == null) {
