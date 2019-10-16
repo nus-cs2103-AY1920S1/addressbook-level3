@@ -14,7 +14,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATE_OF_BIRTH = new Prefix("/dob");
     public static final Prefix PREFIX_DATE_JOINED = new Prefix("/dateJoined");
     public static final Prefix PREFIX_DESIGNATION = new Prefix("/designation");
-    public static final Prefix PREFIX_EMPLOYMENT_STATUS = new Prefix("/employmentStatus"); // todo: change UG
+    public static final Prefix PREFIX_EMPLOYMENT_STATUS = new Prefix("/employmentStatus");
     public static final Prefix PREFIX_STATUS = new Prefix("/status");
     public static final Prefix PREFIX_DATE_OF_DEATH = new Prefix("/dod");
     public static final Prefix PREFIX_DATE_OF_ADMISSION = new Prefix("/doa");
