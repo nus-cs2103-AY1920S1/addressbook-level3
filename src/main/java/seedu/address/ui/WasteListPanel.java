@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.food.GroceryItem;
 
+
 /**
  * Panel for waste list.
  */

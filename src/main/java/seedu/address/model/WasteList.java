@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.waste.WasteMonth;
+import seedu.address.model.waste.WasteStatistic;
 
 /**
  * Wraps all data at the Waste List level
@@ -18,11 +19,13 @@ public class WasteList implements ReadOnlyWasteList {
 
     private static TreeMap<WasteMonth, WasteList> wasteArchive;
     private static WasteMonth currentWasteMonth;
-    private UniqueFoodList wasteList;
+    private final UniqueFoodList wasteList;
 
-    public WasteList() {
+    {
         wasteList = new UniqueFoodList();
     }
+
+    public WasteList() {}
 
     /**
      * Creates a WasteList using the Persons in the {@code toBeCopied}
@@ -53,9 +56,17 @@ public class WasteList implements ReadOnlyWasteList {
     //// Food-level operations
 
     /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    public boolean hasWasteItem(GroceryItem food) {
+        requireNonNull(food);
+        return wasteList.contains(food);
+    }
+
+    /**
      * Adds a grocery item to the waste list.
      */
-    public void addFoodItem(GroceryItem p) {
+    public void addWasteItem(GroceryItem p) {
         wasteList.add(p);
     }
 
@@ -68,6 +79,9 @@ public class WasteList implements ReadOnlyWasteList {
         return wasteList.asUnmodifiableObservableList();
     }
 
+    public WasteStatistic getWasteStatistic() {
+        return WasteStatistic.getWasteStatistic(this.wasteList);
+    }
 
     //// Waste List Archive operations
 
@@ -99,7 +113,7 @@ public class WasteList implements ReadOnlyWasteList {
             createNewWasteMonth(wm);
         }
         WasteList archivedWasteList = wasteArchive.get(wm);
-        archivedWasteList.addFoodItem(item);
+        archivedWasteList.addWasteItem(item);
     }
 
     /**
@@ -118,5 +132,22 @@ public class WasteList implements ReadOnlyWasteList {
      */
     public static WasteList getCurrentWasteList() {
         return wasteArchive.get(new WasteMonth(LocalDate.now()));
+    }
+
+    public static WasteList getWasteListByMonth(WasteMonth wm) {
+        return wasteArchive.get(wm);
+    }
+
+    public static WasteStatistic getCurrentMonthPredictedWasteStatistic() {
+        LocalDate today = LocalDate.now();
+        WasteStatistic currentMonthStatistic = getCurrentWasteList().getWasteStatistic();
+        WasteStatistic previousOneMonth = getWasteListByMonth(new WasteMonth(today.minusMonths(1)))
+                .getWasteStatistic();
+        WasteStatistic previousTwoMonth = getWasteListByMonth(new WasteMonth(today.minusMonths(2)))
+                .getWasteStatistic();
+        WasteStatistic previousThreeMonth = getWasteListByMonth(new WasteMonth(today.minusMonths(3)))
+                .getWasteStatistic();
+        return WasteStatistic.getPredictedWasteStatistic(currentMonthStatistic,
+                previousOneMonth, previousTwoMonth, previousThreeMonth);
     }
 }

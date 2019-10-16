@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.wastelist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.WasteList;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.storage.JsonAdaptedFood;
 
 /**
  * An Immutable WasteList that is serializable to JSON format.
@@ -48,7 +49,7 @@ public class JsonSerializableWasteList {
         WasteList wasteList = new WasteList();
         for (JsonAdaptedFood jsonAdaptedFood : this.wasteList) {
             GroceryItem food = jsonAdaptedFood.toModelType();
-            wasteList.addFoodItem(food);
+            wasteList.addWasteItem(food);
         }
         return wasteList;
     }

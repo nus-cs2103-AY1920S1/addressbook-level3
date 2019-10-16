@@ -7,6 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -19,10 +20,12 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.TemplateList;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
+import seedu.address.model.waste.WasteMonth;
 import seedu.address.testutil.TemplateItemBuilder;
 
 public class AddTemplateListCommandTest {
@@ -200,6 +203,56 @@ public class AddTemplateListCommandTest {
 
         @Override
         public void updateFilteredTemplateList(Predicate<UniqueTemplateItems> predicate) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public Path getWasteListFilePath(){
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void setWasteListFilePath(Path wasteListFilePath){
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void setWasteList(ReadOnlyWasteList wasteList){
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public ReadOnlyWasteList getWasteList() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public ReadOnlyWasteList getWasteListByMonth(WasteMonth wasteMonth) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void addWasteItem(GroceryItem toAdd) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public ObservableList<GroceryItem> getFilteredWasteItemList() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public ObservableList<GroceryItem> getFilteredWasteItemListByMonth(WasteMonth wasteMonth) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public Set<WasteMonth> getListOfWasteMonths() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void updateFilteredWasteItemList(WasteMonth wasteMonth) {
             throw new AssertionError("This method should not be called.");
         };
     }

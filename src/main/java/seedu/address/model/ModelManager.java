@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,6 +15,7 @@ import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.food.GroceryItem;
 import seedu.address.model.food.UniqueTemplateItems;
+import seedu.address.model.waste.WasteMonth;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -23,15 +25,17 @@ public class ModelManager implements Model {
 
     private final AddressBook groceryList;
     private final TemplateList templateList;
+    private final WasteList wasteList;
     private final UserPrefs userPrefs;
     private final FilteredList<GroceryItem> filteredGroceryItems;
     private final FilteredList<UniqueTemplateItems> filteredTemplateList;
+    private FilteredList<GroceryItem> filteredWasteItems;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook groceryList, ReadOnlyUserPrefs userPrefs,
-                        ReadOnlyTemplateList templateList) {
+                        ReadOnlyTemplateList templateList, ReadOnlyWasteList wasteList) {
         super();
         requireAllNonNull(groceryList, userPrefs, templateList);
 
@@ -40,13 +44,16 @@ public class ModelManager implements Model {
 
         this.groceryList = new AddressBook(groceryList);
         this.templateList = new TemplateList(templateList);
+        this.wasteList = new WasteList(wasteList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredGroceryItems = new FilteredList<GroceryItem>(this.groceryList.getPersonList());
         filteredTemplateList = new FilteredList<UniqueTemplateItems>(this.templateList.getTemplateList());
+        filteredWasteItems = new FilteredList<GroceryItem>(this.wasteList.getWasteList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new TemplateList());
+        this(new AddressBook(), new UserPrefs(), new TemplateList(),
+                new WasteList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -104,6 +111,17 @@ public class ModelManager implements Model {
     public void setTemplateListFilePath(Path templateListFilePath) {
         requireNonNull(templateListFilePath);
         userPrefs.setTemplateListFilePath(templateListFilePath);
+    }
+
+    @Override
+    public Path getWasteListFilePath() {
+        return userPrefs.getWasteListFilePath();
+    }
+
+    @Override
+    public void setWasteListFilePath(Path wasteListFilePath) {
+        requireAllNonNull(wasteListFilePath);
+        userPrefs.setWasteListFilePath(wasteListFilePath);
     }
     //=========== AddressBook ================================================================================
 
@@ -218,6 +236,60 @@ public class ModelManager implements Model {
         filteredTemplateList.setPredicate(predicate);
     }
 
+    //=========== WasteList ==================================================================================
+
+    @Override
+    public void setWasteList(ReadOnlyWasteList wasteList) {
+        this.wasteList.resetData(wasteList);
+    }
+
+    @Override
+    public ReadOnlyWasteList getWasteList() {
+        return wasteList;
+    }
+
+    @Override
+    public ReadOnlyWasteList getWasteListByMonth(WasteMonth wasteMonth) {
+        return WasteList.getWasteListByMonth(wasteMonth);
+    }
+
+    @Override
+    public void addWasteItem(GroceryItem food) {
+        wasteList.addWasteItem(food);
+        updateFilteredWasteItemList(WasteMonth.getCurrentWasteMonth());
+    }
+
+    //=========== Filtered Waste List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<GroceryItem> getFilteredWasteItemList() {
+        return filteredWasteItems;
+    }
+
+    @Override
+    public void updateFilteredWasteItemList(WasteMonth wasteMonth) {
+        requireNonNull(wasteMonth);
+        WasteList wasteListForMonth = WasteList.getWasteListByMonth(wasteMonth);
+        filteredWasteItems = new FilteredList<>(wasteListForMonth.getWasteList());
+    }
+
+    @Override
+    public ObservableList<GroceryItem> getFilteredWasteItemListByMonth(WasteMonth wasteMonth) {
+        ReadOnlyWasteList wasteListForMonth = WasteList.getWasteListByMonth(wasteMonth);
+        FilteredList<GroceryItem> monthWasteItems = new FilteredList<GroceryItem>(wasteListForMonth.getWasteList());
+        return monthWasteItems;
+    }
+
+    @Override
+    public Set<WasteMonth> getListOfWasteMonths() {
+        return WasteList.getWasteArchive().keySet();
+    }
+
+
     //=========== Common Accessors =============================================================
     @Override
     public boolean equals(Object obj) {
@@ -237,6 +309,7 @@ public class ModelManager implements Model {
                 && templateList.equals(other.templateList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredGroceryItems.equals(other.filteredGroceryItems)
-                && filteredTemplateList.equals(other.filteredTemplateList);
+                && filteredTemplateList.equals(other.filteredTemplateList)
+                && filteredWasteItems.equals(other.filteredWasteItems);
     }
 }

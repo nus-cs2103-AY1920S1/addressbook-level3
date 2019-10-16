@@ -1,11 +1,16 @@
 package seedu.address.logic.commands.wastelist;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.food.Amount.UNIT_KILOGRAM;
+import static seedu.address.model.food.Amount.UNIT_LITRE;
+import static seedu.address.model.food.Amount.UNIT_QUANTITY;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.WasteList;
+import seedu.address.model.waste.WasteStatistic;
 
 /**
  * Provides feedback to the user about user's current food waste
@@ -30,6 +35,11 @@ public class FeedbackWasteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        WasteStatistic predictedWastage = WasteList.getCurrentMonthPredictedWasteStatistic();
+        String feedbackMessage = "This month, your predicted food wastage will be \n"
+                + predictedWastage.getTotalWeight() + UNIT_KILOGRAM + ", "
+                + predictedWastage.getTotalVolume() + UNIT_LITRE + ", "
+                + predictedWastage.getTotalQuantity() + UNIT_QUANTITY;
         /*
         //Give feedback based on current month's waste
         model.
@@ -37,6 +47,6 @@ public class FeedbackWasteCommand extends Command {
         2. Compute current food waste, predicted food waste
         3. Compare with last month's statistics, remark if there is an increase or decrease in food waste.
          */
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(feedbackMessage);
     }
 }

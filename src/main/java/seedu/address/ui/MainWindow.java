@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private TemplateListPanel templateListPanel;
     private TemplateItemPanel templateItemPanel;
+    private WasteListPanel wasteListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -48,6 +49,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane templateListPanelPlaceholder;
+
+    @FXML
+    private StackPane wasteListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -115,8 +119,14 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredGroceryItemList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+
+
         templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
         templateListPanelPlaceholder.getChildren().add(templateListPanel.getRoot());
+
+        wasteListPanel = new WasteListPanel(logic.getFilteredWasteList());
+        wasteListPanelPlaceholder.getChildren().add(wasteListPanel.getRoot());
+
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -168,12 +178,31 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /*
+    @FXML
+    private void displayWasteListPanel() {
+        wasteListPanel = new WasteListPanel(logic.getFilteredWasteList());
+        wasteListPanelPlaceholder.getChildren().add(wasteListPanel.getRoot());
+    }
+
+    @FXML
+    private void displayTemplateListPanel() {
+        templateListPanel = new TemplateListPanel(logic.getFilteredTemplateList());
+        templateListPanelPlaceholder.getChildren().add(templateListPanel.getRoot());
+    }
+    */
+
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
 
     public TemplateListPanel getTemplateListPanel() {
         return templateListPanel;
+    }
+
+    public WasteListPanel getWasteListPanel() {
+        return wasteListPanel;
     }
 
     /**
@@ -193,6 +222,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isWastelistCommand()) {
+                //displayWasteListPanel();
+            } else if (commandResult.isTemplatelistCommand()) {
+                //displayTemplateListPanel();
             }
 
             return commandResult;

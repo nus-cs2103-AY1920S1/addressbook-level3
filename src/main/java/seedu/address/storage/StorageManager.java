@@ -10,7 +10,10 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWasteList;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.wastelist.WasteListStorage;
+
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -20,15 +23,17 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private TemplateListStorage templateListStorage;
+    private WasteListStorage wasteListStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          TemplateListStorage templateListStorage) {
+                          TemplateListStorage templateListStorage, WasteListStorage wasteListStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.templateListStorage = templateListStorage;
+        this.wasteListStorage = wasteListStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -106,6 +111,36 @@ public class StorageManager implements Storage {
     public void saveTemplateList(ReadOnlyTemplateList templateList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         templateListStorage.saveTemplateList(templateList, filePath);
+    }
+
+    // ================ WasteList methods ==============================
+
+    @Override
+    public Path getWasteListFilePath() {
+        return wasteListStorage.getWasteListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyWasteList> readWasteList() throws DataConversionException, IOException {
+        return readWasteList(wasteListStorage.getWasteListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyWasteList> readWasteList(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return wasteListStorage.readWasteList(filePath);
+    }
+
+    @Override
+    public void saveWasteList(ReadOnlyWasteList wasteList) throws IOException {
+        saveWasteList(wasteList, wasteListStorage.getWasteListFilePath());
+    }
+
+    @Override
+    public void saveWasteList(ReadOnlyWasteList wasteList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        wasteListStorage.saveWasteList(wasteList, filePath);
     }
 
 }

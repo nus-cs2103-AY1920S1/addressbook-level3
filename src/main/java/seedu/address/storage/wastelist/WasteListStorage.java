@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.wastelist;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -7,9 +7,6 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyWasteList;
 
-/**
- * Represents a storage for {@link seedu.address.model.WasteList}.
- */
 public interface WasteListStorage {
 
     /**
@@ -18,7 +15,7 @@ public interface WasteListStorage {
     Path getWasteListFilePath();
 
     /**
-     * Returns WasteList data as a {@link seedu.address.model.ReadOnlyWasteList}.
+     * Returns WasteList data as a {@link ReadOnlyWasteList}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -41,6 +38,4 @@ public interface WasteListStorage {
      * @see #saveWasteList(ReadOnlyWasteList)
      */
     void saveWasteList(ReadOnlyWasteList wasteList, Path filePath) throws IOException;
-
-
 }

@@ -33,6 +33,10 @@ public class GroceryItem extends Food {
         return Collections.unmodifiableSet(tags);
     }
 
+    public boolean isEmpty() {
+        return Amount.getValue(getAmount()) == 0;
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

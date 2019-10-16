@@ -44,20 +44,19 @@ public class WasteStatistic {
     /**
      * Predicts this month's current wastage statistic and returns a WasteStatistic object
      *
-     * @param wasteList Current month's waste list
+     * @param thisMonth WasteStatistic for the current month
      * @param previousOneMonth WasteStatistic for the previous month
      * @param previousTwoMonth WasteStatistic for the month which was two months before now
      * @param previousThreeMonth WasteStatistic for the month which was three months before now
      * @return The weighted waste statistics
      */
-    public WasteStatistic getPredictedWasteStatistic(UniqueFoodList wasteList,
-                                                     WasteStatistic previousOneMonth,
-                                                     WasteStatistic previousTwoMonth,
-                                                     WasteStatistic previousThreeMonth) {
-        WasteStatistic currentWasteStatistic = getWasteStatistic(wasteList);
-        float weight = currentWasteStatistic.getTotalWeight();
-        float volume = currentWasteStatistic.getTotalVolume();
-        float quantity = currentWasteStatistic.getTotalQuantity();
+    public static WasteStatistic getPredictedWasteStatistic(WasteStatistic thisMonth,
+                                                            WasteStatistic previousOneMonth,
+                                                            WasteStatistic previousTwoMonth,
+                                                            WasteStatistic previousThreeMonth) {
+        float weight = thisMonth.getTotalWeight();
+        float volume = thisMonth.getTotalVolume();
+        float quantity = thisMonth.getTotalQuantity();
 
         LocalDate today = LocalDate.now();
         int daysPassed = today.getDayOfMonth();
@@ -70,7 +69,7 @@ public class WasteStatistic {
                 previousTwoMonth, previousThreeMonth);
     }
 
-    private WasteStatistic getWeightedStatistics(WasteStatistic currentMonth, WasteStatistic previousOneMonth,
+    public static WasteStatistic getWeightedStatistics(WasteStatistic currentMonth, WasteStatistic previousOneMonth,
                                                  WasteStatistic previousTwoMonth, WasteStatistic previousThreeMonth) {
         float weightedWeight = WEIGHTS_CURRENT_MONTH * currentMonth.getTotalWeight()
                 + WEIGHTS_PREVIOUS_ONE_MONTH * previousOneMonth.getTotalWeight()

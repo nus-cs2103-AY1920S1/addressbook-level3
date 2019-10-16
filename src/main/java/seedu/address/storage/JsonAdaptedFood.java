@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Food}.
  */
-class JsonAdaptedFood {
+public class JsonAdaptedFood {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 

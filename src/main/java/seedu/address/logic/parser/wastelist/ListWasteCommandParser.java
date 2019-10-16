@@ -27,10 +27,8 @@ public class ListWasteCommandParser implements Parser<ListWasteCommand> {
         String trimmedArgs = userInput.trim();
 
         if (trimmedArgs.isEmpty()) {
-            LocalDate today = LocalDate.now();
-            int month = today.getMonthValue();
-            int year = today.getYear();
-            return new ListWasteCommand(new WasteMonth(month, year));
+            WasteMonth.getCurrentWasteMonth();
+            return new ListWasteCommand(WasteMonth.getCurrentWasteMonth());
         }
 
         ArgumentMultimap argMultimap =
