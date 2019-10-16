@@ -12,13 +12,13 @@ import seedu.address.model.diary.Title;
  */
 class JsonAdaptedPage {
 
-    private final Title pageTitle;
+    private final String pageTitle;
 
     /**
      * Constructs a {@code JsonAdaptedPage} with the given {@code pageTitle}.
      */
     @JsonCreator
-    public JsonAdaptedPage(Title pageTitle) {
+    public JsonAdaptedPage(String pageTitle) {
         this.pageTitle = pageTitle;
     }
 
@@ -26,12 +26,12 @@ class JsonAdaptedPage {
      * Converts a given {@code Page} into this class for Jackson use.
      */
     public JsonAdaptedPage(Page source) {
-        pageTitle = source.getTitle();
+        pageTitle = source.getTitle().toString();
     }
 
     @JsonValue
     public String getPageTitle() {
-        return pageTitle.toString();
+        return pageTitle;
     }
 
     /**
@@ -40,10 +40,10 @@ class JsonAdaptedPage {
      * @throws IllegalValueException if there were any data constraints violated in the adapted Page.
      */
     public Page toModelType() throws IllegalValueException {
-        if (!Title.isValidTitle(pageTitle.toString())) {
+        if (!Title.isValidTitle(pageTitle)) {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
-        return new Page(pageTitle);
+        return new Page(new Title(pageTitle));
     }
 
 }

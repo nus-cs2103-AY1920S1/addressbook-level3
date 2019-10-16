@@ -14,7 +14,14 @@ import seedu.address.logic.parser.DukeCooksParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyDiary;
+import seedu.address.model.ReadOnlyRecipeBook;
+import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.diary.Diary;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Recipe;
+import seedu.address.model.records.Record;
 import seedu.address.storage.Storage;
 
 /**
@@ -43,6 +50,10 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
+            storage.saveWorkoutPlanner(model.getWorkoutPlanner());
+            storage.saveUserProfile(model.getUserProfile());
+            storage.saveRecipeBook(model.getRecipeBook());
+            storage.saveHealthRecords(model.getHealthRecords());
             storage.saveDiary(model.getDiaryRecords());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -52,13 +63,63 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyWorkoutPlanner getDukeCooks() {
+        return model.getWorkoutPlanner();
+    }
+
+    @Override
+    public ReadOnlyRecipeBook getRecipeBook() {
+        return model.getRecipeBook();
+    }
+
+    @Override
+    public ReadOnlyUserProfile getUserProfile() {
+        return model.getUserProfile();
+    }
+
+    @Override
     public ReadOnlyDiary getDiaryRecords() {
         return model.getDiaryRecords();
     }
 
     @Override
+    public ObservableList<Exercise> getFilteredExerciseList() {
+        return model.getFilteredExerciseList();
+    }
+
+    @Override
+    public ObservableList<Recipe> getFilteredRecipeList() {
+        return model.getFilteredRecipeList();
+    }
+
+    @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        return model.getFilteredRecordList();
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return model.getFilteredPersonList();
+    }
+
+    @Override
     public ObservableList<Diary> getFilteredDiaryList() {
         return model.getFilteredDiaryList();
+    }
+
+    @Override
+    public Path getUserProfileFilePath() {
+        return model.getUserProfileFilePath();
+    }
+
+    @Override
+    public Path getHealthRecordsFilePath() {
+        return model.getHealthRecordsFilePath();
+    }
+
+    @Override
+    public Path getRecipesFilePath() {
+        return model.getRecipesFilePath();
     }
 
     @Override
@@ -74,5 +135,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public Path getDukeCooksFilePath() {
+        return model.getUserProfileFilePath();
     }
 }

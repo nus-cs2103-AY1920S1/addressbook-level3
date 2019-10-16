@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -42,13 +43,31 @@ public class DiaryWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane diaryListPanelPlaceholder;
+    private StackPane versatilePanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private Button home;
+
+    @FXML
+    private Button profile;
+
+    @FXML
+    private Button recipe;
+
+    @FXML
+    private Button exercise;
+
+    @FXML
+    private Button health;
+
+    @FXML
+    private Button diary;
 
     public DiaryWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -108,7 +127,7 @@ public class DiaryWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList());
-        diaryListPanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
+        versatilePanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -158,6 +177,68 @@ public class DiaryWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Switch to home page.
+     */
+    @FXML
+    private void switchHome() {
+        primaryStage.hide();
+        TempWindow tempWindow = new TempWindow(getPrimaryStage(), logic);
+        tempWindow.show();
+    }
+
+    /**
+     * Switch to profile page.
+     */
+    @FXML
+    private void switchProfile() {
+        primaryStage.hide();
+        UserProfileWindow userProfileWindow = new UserProfileWindow(getPrimaryStage(), logic);
+        userProfileWindow.show();
+        userProfileWindow.fillInnerParts();
+    }
+
+    /**
+     * Switch to recipe page.
+     */
+    @FXML
+    private void switchRecipe() {
+        primaryStage.hide();
+        RecipeBookWindow recipeBookWindow = new RecipeBookWindow(getPrimaryStage(), logic);
+        recipeBookWindow.show();
+        recipeBookWindow.fillInnerParts();
+    }
+
+    /**
+     * Switch to exercise page.
+     */
+    @FXML
+    private void switchExercise() {
+        primaryStage.hide();
+        WorkoutPlannerWindow workoutPlannerWindow = new WorkoutPlannerWindow(getPrimaryStage(), logic);
+        workoutPlannerWindow.show();
+        workoutPlannerWindow.fillInnerParts();
+    }
+
+    /**
+     * Switch to health page.
+     */
+    @FXML
+    private void switchHealth() {
+        primaryStage.hide();
+        HealthRecordsWindow healthWindow = new HealthRecordsWindow(getPrimaryStage(), logic);
+        healthWindow.show();
+        healthWindow.fillInnerParts();
+    }
+
+    /**
+     * Switch to diary page.
+     */
+    @FXML
+    private void switchDiary() {
+        // do nothing
     }
 
     public DiaryListPanel getDiaryListPanel() {

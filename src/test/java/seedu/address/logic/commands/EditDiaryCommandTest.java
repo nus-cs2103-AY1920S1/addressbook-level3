@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY_DIARY;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB_DIARY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -132,10 +132,10 @@ public class EditDiaryCommandTest {
 
     @Test
     public void equals() {
-        final EditDiaryCommand standardCommand = new EditDiaryCommand(INDEX_FIRST_DIARY, DESC_AMY);
+        final EditDiaryCommand standardCommand = new EditDiaryCommand(INDEX_FIRST_DIARY, DESC_AMY_DIARY);
 
         // same values -> returns true
-        EditDiaryDescriptor copyDescriptor = new EditDiaryDescriptor(DESC_AMY);
+        EditDiaryDescriptor copyDescriptor = new EditDiaryDescriptor(DESC_AMY_DIARY);
         EditDiaryCommand commandWithSameValues = new EditDiaryCommand(INDEX_FIRST_DIARY, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -146,10 +146,10 @@ public class EditDiaryCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditDiaryCommand(INDEX_SECOND_DIARY, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditDiaryCommand(INDEX_SECOND_DIARY, DESC_AMY_DIARY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditDiaryCommand(INDEX_FIRST_DIARY, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditDiaryCommand(INDEX_FIRST_DIARY, DESC_BOB_DIARY)));
     }
 
 }

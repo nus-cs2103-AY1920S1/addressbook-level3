@@ -29,7 +29,7 @@ public class AddDiaryCommandParser implements Parser<AddDiaryCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDiaryCommand.MESSAGE_USAGE));
         }
 
-        DiaryName diaryName = ParserUtil.parseName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
+        DiaryName diaryName = ParserUtil.parseDiaryName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
 
         Diary diary = new Diary(diaryName);
 

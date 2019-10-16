@@ -69,11 +69,11 @@ public class JsonUserPrefsStorageTest {
 
         assertEquals(expected, actual);
     }
-
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setDiaryFilePath(Paths.get("diary.json"));
+        userPrefs.setRecipesFilePath(Paths.get("recipes.json"));
+        //userPrefs.setUserProfileFilePath(Paths.get("data/userprofile.json"));
         return userPrefs;
     }
 

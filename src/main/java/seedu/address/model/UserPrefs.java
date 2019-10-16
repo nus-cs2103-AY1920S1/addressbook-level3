@@ -14,6 +14,10 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
+    private Path exercisesFilePath = Paths.get("data" , "exercises.json");
+    private Path userProfileFilePath = Paths.get("data" , "userprofile.json");
+    private Path healthRecordsFilePath = Paths.get("data", "healthrecords.json");
+    private Path recipesFilePath = Paths.get("data" , "recipes.json");
     private Path diaryFilePath = Paths.get("data" , "diary.json");
 
     /**
@@ -35,6 +39,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
+        setExercisesFilePath(newUserPrefs.getExercisesFilePath());
+        setUserProfileFilePath(newUserPrefs.getUserProfileFilePath());
+        setHealthRecordsFilePath(newUserPrefs.getHealthRecordsFilePath());
+        setRecipesFilePath(newUserPrefs.getRecipesFilePath());
         setDiaryFilePath(newUserPrefs.getDiaryFilePath());
     }
 
@@ -47,8 +55,44 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
+    public Path getExercisesFilePath() {
+        return exercisesFilePath;
+    }
+
+    public Path getUserProfileFilePath() {
+        return userProfileFilePath;
+    }
+
+    public Path getRecipesFilePath() {
+        return recipesFilePath;
+    }
+
     public Path getDiaryFilePath() {
         return diaryFilePath;
+    }
+
+    public Path getHealthRecordsFilePath() {
+        return healthRecordsFilePath;
+    }
+
+    public void setUserProfileFilePath(Path userProfileFilePath) {
+        requireNonNull(userProfileFilePath);
+        this.userProfileFilePath = userProfileFilePath;
+    }
+
+    public void setHealthRecordsFilePath(Path healthRecordsFilePath) {
+        requireNonNull(healthRecordsFilePath);
+        this.healthRecordsFilePath = healthRecordsFilePath;
+    }
+
+    public void setExercisesFilePath(Path exercisesFilePath) {
+        requireNonNull(exercisesFilePath);
+        this.exercisesFilePath = exercisesFilePath;
+    }
+
+    public void setRecipesFilePath(Path recipesFilePath) {
+        requireNonNull(recipesFilePath);
+        this.recipesFilePath = recipesFilePath;
     }
 
     public void setDiaryFilePath(Path diaryFilePath) {
@@ -68,18 +112,25 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
+                && exercisesFilePath.equals(o.exercisesFilePath)
+                && userProfileFilePath.equals(o.userProfileFilePath)
+                && recipesFilePath.equals(o.recipesFilePath)
                 && diaryFilePath.equals(o.diaryFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, diaryFilePath);
+        return Objects.hash(guiSettings, exercisesFilePath, userProfileFilePath, healthRecordsFilePath,
+                recipesFilePath, diaryFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
+        sb.append("\nLocal WorkoutPlanner data file location : " + exercisesFilePath);
+        sb.append("\nLocal UserPref data file location : " + userProfileFilePath);
+        sb.append("\nLocal RecipeBook data file location : " + recipesFilePath);
         sb.append("\nLocal data file location : " + diaryFilePath);
         return sb.toString();
     }
