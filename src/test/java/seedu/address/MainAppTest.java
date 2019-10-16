@@ -11,6 +11,7 @@ import org.testfx.api.FxToolkit;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
@@ -20,8 +21,9 @@ import javafx.stage.Stage;
 public class MainAppTest extends ApplicationTest {
 
     @BeforeEach
-    public void beforeAll() throws Exception {
+    public void beforeEach() throws Exception {
         launch(MainApp.class);
+        WaitForAsyncUtils.waitForFxEvents();
     }
 
     @Override
@@ -30,12 +32,13 @@ public class MainAppTest extends ApplicationTest {
     }
 
     @AfterEach
-    public void beforeEach() throws TimeoutException {
+    public void afterEach() throws TimeoutException {
         FxToolkit.hideStage();
         // release all keys
         release(new KeyCode[0]);
         // release all mouse buttons
         release(new MouseButton[0]);
+        WaitForAsyncUtils.waitForFxEvents();
     }
 
     @Test
