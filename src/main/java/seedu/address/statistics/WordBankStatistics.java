@@ -7,8 +7,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Represents the overall statistics of a word bank.
+ */
 public class WordBankStatistics {
-    private String wordBankName;
+
+    private final String wordBankName;
     private int gamesPlayed;
     private Optional<Double> fastestClear; // empty if never cleared
     private final List<CardStatistics> cardStats = new ArrayList<>();
@@ -26,6 +30,9 @@ public class WordBankStatistics {
         this.scoreStats.addAll(scoreStats);
     }
 
+    /**
+     * Updates this word bank statistics to include {@code gameStats}.
+     */
     public void update(GameStatistics gameStats) {
         ++gamesPlayed;
         if (gameStats.allCorrect()) {
@@ -54,11 +61,15 @@ public class WordBankStatistics {
         scoreStats.add(new ScoreData(gameStats.getScore()));
     }
 
+    /**
+     * Get the {@code CardStatistics} given the {@code cardId}.
+     */
     private Optional<CardStatistics> getRespectiveCardStats(String cardId) {
         return cardStats.stream()
                 .filter(x -> x.getCardId().equals(cardId))
                 .findFirst();
     }
+
     public String getWordBankName() {
         return wordBankName;
     }
@@ -88,6 +99,9 @@ public class WordBankStatistics {
         return null; //todo
     }
 
+    /**
+     * Create a new black statistics with the name {@code wbName}.
+     */
     public static WordBankStatistics getEmpty(String wbName) {
         return new WordBankStatistics(wbName,
                 0,

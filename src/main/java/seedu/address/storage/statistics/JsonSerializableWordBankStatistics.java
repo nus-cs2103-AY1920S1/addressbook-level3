@@ -60,7 +60,9 @@ public class JsonSerializableWordBankStatistics {
 
     }
 
-
+    /**
+     * Converts this into the {@code WordBankStatistics} object.
+     */
     public WordBankStatistics toModelType() {
         List<CardStatistics> cardStatistics = cardStats
                 .stream()

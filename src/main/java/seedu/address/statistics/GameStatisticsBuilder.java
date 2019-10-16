@@ -74,7 +74,7 @@ public class GameStatisticsBuilder {
                     return guess.isPresent() && guess.get().matches(x.getWord());
                 })
                 .count();
-        int score = (int) Math.round(((double) correctAnswer) / data.size() * 100);
+        int score = (int) Math.round(((double) correctAnswer) / data.size() * ScoreData.MAX_SCORE);
         return score;
     }
 
