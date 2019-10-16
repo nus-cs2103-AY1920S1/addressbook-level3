@@ -1,3 +1,5 @@
+//@@author shutingy-reused
+
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -8,12 +10,12 @@ import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
 
 
 /**
- * Finds and lists all persons in address book whose question contains any of the argument keywords.
+ * Finds and lists all flashcards in address book whose question contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCategoryCommand extends Command {
 
-    public static final String COMMAND_WORD = "findcat";
+    public static final String COMMAND_WORD = "findCat";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all flashcards which contain any of "
             + "the specified category keywords (case-insensitive) and displays them as a list with index numbers.\n"

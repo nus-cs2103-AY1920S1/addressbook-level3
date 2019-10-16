@@ -157,6 +157,7 @@ public class ModelManager implements Model {
         filteredFlashCards.setPredicate(predicate);
     }
 
+
     //=========== Filtered Deadline List Accessors =============================================================
 
     /**
@@ -174,6 +175,17 @@ public class ModelManager implements Model {
         filteredDeadlines.setPredicate(predicate);
     }
 
+    //@@author LeowWB
+    @Override
+    public ObservableList<FlashCard> getFilteredFlashCardListNoCommit(Predicate<FlashCard> predicate) {
+        requireNonNull(predicate);
+        FilteredList<FlashCard> simulatedList = new FilteredList<FlashCard>(filteredFlashCards);
+        simulatedList.setPredicate(predicate);
+        return simulatedList;
+    }
+
+
+    //@@author
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

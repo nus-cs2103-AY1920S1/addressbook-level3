@@ -54,7 +54,7 @@ public class FlashCardBuilder {
      * and set it to the {@code FlashCard} that we are building.
      */
     public FlashCardBuilder withCatgeories(String ... categories) {
-        this.categories = SampleDataUtil.getTagSet(categories);
+        this.categories = SampleDataUtil.getCategorySet(categories);
         return this;
     }
 
