@@ -36,6 +36,7 @@ public class EditInstallmentCommand extends Command {
             + PREFIX_MONEY + "13.50";
 
     public static final String MESSAGE_EDIT_INSTALLMENT_SUCCESS = "Edited installment: %1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_INSTALLMENT = "This installment already exists in your list.";
 
     public static final boolean HAS_INVERSE = false;
