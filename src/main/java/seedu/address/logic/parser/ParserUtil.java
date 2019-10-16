@@ -152,7 +152,7 @@ public class ParserUtil {
         if (!TimeInHalfHour.isValidTime(trimmedTime)) {
             throw new ParseException(TimeInHalfHour.MESSAGE_CONSTRAINTS);
         }
-        int hour = Integer.parseInt(time.substring(0,2));
+        int hour = Integer.parseInt(time.substring(0, 2));
         int min = Integer.parseInt(time.substring(2));
         return new TimeInHalfHour(hour, min);
     }

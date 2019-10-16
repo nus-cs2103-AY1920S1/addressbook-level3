@@ -1,5 +1,14 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.UnscheduleActivityCommand;
@@ -7,13 +16,6 @@ import seedu.address.logic.commands.UnscheduleCommand;
 import seedu.address.logic.commands.UnscheduleTimeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.day.time.TimeInHalfHour;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Stream;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Parses input arguments and creates a new AddCommand object

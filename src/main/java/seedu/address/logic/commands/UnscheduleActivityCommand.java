@@ -1,5 +1,13 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -7,14 +15,6 @@ import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
 /**
  * Unschedules an activity from the day by time.
@@ -37,7 +37,7 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
 
     /**
      * @param activityIndex of the contacts in the filtered contacts list to edit
-     * @param dayIndex of the contacts in the filtered contacts list to edit
+     * @param dayIndex      of the contacts in the filtered contacts list to edit
      */
     public UnscheduleActivityCommand(Index activityIndex, Index dayIndex) {
         requireNonNull(activityIndex);
@@ -76,9 +76,14 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
                 || (other instanceof UnscheduleActivityCommand // instanceof handles nulls
                 && this.dayIndex.equals(((UnscheduleActivityCommand) other).dayIndex)
                 && this.activityIndexToUnschedule.equals(((
-                        UnscheduleActivityCommand) other).activityIndexToUnschedule));
+                UnscheduleActivityCommand) other).activityIndexToUnschedule));
     }
 
+    /**
+     * Creates a new day without the activity that is unscheduled.
+     * @param dayToEdit of the contacts in the filtered contacts list to edit
+     * @param activityToUnschedule of the contacts in the filtered contacts list to edit
+     */
     private Day createUnscheduledActivityDay(Day dayToEdit, Activity activityToUnschedule) {
         List<ActivityWithTime> activitiesWithTime = dayToEdit.getActivitiesWithTime();
         List<ActivityWithTime> editedActivitiesWithTime = new ArrayList<>();

@@ -5,17 +5,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
 import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
 import seedu.address.model.day.time.TimeInHalfHour;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Unschedules an activity from the day by time.
@@ -78,6 +77,11 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
                 && this.startTime.equals(((UnscheduleTimeCommand) other).startTime));
     }
 
+    /**
+     * Creates a new day without the activity that is unscheduled.
+     * @param dayToEdit of the contacts in the filtered contacts list to edit
+     * @param startTime of the contacts in the filtered contacts list to edit
+     */
     private Day createUnscheduledActivityDay(Day dayToEdit, TimeInHalfHour startTime) {
         List<ActivityWithTime> activitiesWithTime = dayToEdit.getActivitiesWithTime();
         List<ActivityWithTime> editedActivitiesWithTime = new ArrayList<>();

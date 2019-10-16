@@ -9,8 +9,8 @@ import seedu.address.model.day.time.exceptions.TimeOutOfBoundsException;
  */
 public class TimeInHalfHour {
     public static final String VALIDATION_REGEX = "^[0-2][0-3][0,3][0]$";
-    public static final String MESSAGE_CONSTRAINTS = "Time should be 24-hour clock format and be in intervals of" +
-            " 30 minutes (for example: 2330).";
+    public static final String MESSAGE_CONSTRAINTS = "Time should be 24-hour clock format and be in intervals of"
+            + " 30 minutes (for example: 2330).";
 
     private final int hour;
     private final int minutes;
