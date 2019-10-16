@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyRecordBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RecordBook;
 import seedu.address.model.calendar.DateTime;
+import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Bmi;
@@ -188,6 +189,16 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyRecordBook getRecordBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasReminder(Reminder reminder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addReminder(Reminder reminder) {
             throw new AssertionError("This method should not be called.");
         }
 

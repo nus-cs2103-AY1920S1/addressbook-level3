@@ -14,6 +14,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_BMI_HEIGHT = new Prefix("h/");
     public static final Prefix PREFIX_BMI_WEIGHT = new Prefix("w/");
 
+    public static final Prefix PREFIX_CALENDAR_DESCRIPTION = new Prefix("d/");
+    public static final Prefix PREFIX_CALENDAR_REPETITION = new Prefix("r/");
+    public static final Prefix PREFIX_TIME_PERIOD = new Prefix("tp/");
+
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
