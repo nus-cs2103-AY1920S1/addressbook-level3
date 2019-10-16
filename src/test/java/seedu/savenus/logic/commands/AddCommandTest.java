@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -25,8 +26,11 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.ReadOnlyMenu;
 import seedu.savenus.model.ReadOnlyUserPrefs;
 import seedu.savenus.model.RecommendationSystem;
+import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.food.Location;
 import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.tag.Tag;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.testutil.FoodBuilder;
@@ -219,6 +223,26 @@ public class AddCommandTest {
         @Override
         public void setRecommendationSystemInUse(boolean inUse) {
             // Empty stub
+        }
+
+        @Override
+        public void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addDislikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearLikes() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearDislikes() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 
