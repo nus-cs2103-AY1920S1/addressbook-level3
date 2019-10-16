@@ -117,8 +117,8 @@ public class Trip {
                 && otherTrip.getStartDate().equals(getStartDate())
                 && otherTrip.getEndDate().equals(getEndDate())
                 && otherTrip.getDestination().equals(getDestination())
-                && otherTrip.getDayList().equals(getDayList())
-                && otherTrip.getExpenditureList().equals(getExpenditureList());
+                && otherTrip.getDayList().equals(getDayList());
+        //&& otherTrip.getExpenditureList().equals(getExpenditureList());
     }
 
     /**

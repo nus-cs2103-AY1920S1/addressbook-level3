@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.trip.Trip;
@@ -53,7 +53,7 @@ public class TravelPalTest {
     @Test
     public void resetData_withDuplicateTrips_throwsDuplicateTripException() {
         // Two trips with the same identity fields
-        Trip editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA)).build();
+        Trip editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Budget(VALID_TOTAL_BUDGET_AFRICA)).build();
         List<Trip> newTrips = Arrays.asList(TRIP_A, editedTripA);
         TravelPalStub newData = new TravelPalStub(newTrips);
 
@@ -92,7 +92,7 @@ public class TravelPalTest {
         assertDoesNotThrow(() -> {
             travelPal.addTrip(TRIP_A);
 
-            Trip editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA))
+            Trip editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Budget(VALID_TOTAL_BUDGET_AFRICA))
                     .build();
             assertTrue(travelPal.hasTrip(editedTripA));
         });

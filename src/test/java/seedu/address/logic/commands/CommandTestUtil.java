@@ -20,7 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.model.Model;
 import seedu.address.model.TravelPal;
-import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -137,7 +137,7 @@ public class CommandTestUtil {
 
         DESC_AFRICA = new EditTripFieldCommand.EditTripDescriptor();
         DESC_AFRICA.setName(new Name(VALID_NAME_AFRICA));
-        DESC_AFRICA.setBudget(new Expenditure(VALID_TOTAL_BUDGET_AFRICA));
+        DESC_AFRICA.setBudget(new Budget(VALID_TOTAL_BUDGET_AFRICA));
         DESC_AFRICA.setStartDate(LocalDateTime.parse(VALID_STARTDATE_AFRICA_2, DATE_TIME_FORMATTER));
         DESC_AFRICA.setDestination(new Location(VALID_DESTINATION_AFRICA));
         DESC_AFRICA.setEndDate(LocalDateTime.parse(VALID_ENDDATE_AFRICA_2, DATE_TIME_FORMATTER));
