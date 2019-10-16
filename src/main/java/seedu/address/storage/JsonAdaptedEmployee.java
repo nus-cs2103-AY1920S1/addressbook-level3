@@ -67,7 +67,7 @@ class JsonAdaptedEmployee {
         id = source.getEmployeeID().id;
         position = source.getEmployeePosition().fullPosition;
         gender = source.getEmployeeGender().gender;
-        joindate = source.getEmployeeJoinDate().joinDate.toString();
+        joindate = source.getEmployeeJoinDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
