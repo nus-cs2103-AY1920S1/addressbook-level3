@@ -3,14 +3,16 @@ package seedu.address.model.group;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 
-import java.util.ArrayList;
-
+/**
+ * Model that represents a group of students.
+ */
 public class Group {
     private String groupId;
     private UniqueStudentList studentList;
 
     /**
      * Creates a Group instance with the appropriate attributes.
+     *
      * @param groupId The identifier of the group, in String representation.
      */
     public Group(String groupId) {
@@ -20,6 +22,7 @@ public class Group {
 
     /**
      * Returns a String representation of the quiz identifier.
+     *
      * @return The String representation of the quiz identifier.
      */
     public String getGroupId() {
@@ -28,6 +31,7 @@ public class Group {
 
     /**
      * Adds a student to the student list of a group.
+     *
      * @param student The student to be added to the student list of the group.
      * @return True if the student is not a repeat, else false.
      */
@@ -37,8 +41,9 @@ public class Group {
 
     /**
      * Adds a student to the student list of a group.
+     *
      * @param groupIndexNumber The group index number to add the student to.
-     * @param student The student to be added to the student list of the group.
+     * @param student          The student to be added to the student list of the group.
      * @return True if the student is not a repeat, else false.
      */
     public boolean addStudent(int groupIndexNumber, Student student) {
@@ -47,6 +52,7 @@ public class Group {
 
     /**
      * Removes a student from the student list of a group.
+     *
      * @param groupIndexNumber The student to be removed from the student list of the group.
      * @return The removed question.
      */
@@ -56,10 +62,11 @@ public class Group {
 
     /**
      * Returns the students, formatted in String representation for writing to a text file.
+     *
      * @return The students, formatted in String representation for writing to the text file.
      */
     public String getStudentsFormatted() {
-       return studentList.getStudentList();
+        return studentList.getStudentList();
     }
 
 }

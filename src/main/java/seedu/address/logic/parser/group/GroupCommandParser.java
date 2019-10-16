@@ -1,19 +1,32 @@
 package seedu.address.logic.parser.group;
 
-import seedu.address.logic.commands.group.*;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP_INDEX_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LIST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE_MANUAL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
+
+import java.util.HashMap;
+import java.util.stream.Stream;
+
+import seedu.address.logic.commands.group.GroupAddStudentCommand;
+import seedu.address.logic.commands.group.GroupCommand;
+import seedu.address.logic.commands.group.GroupCreateManuallyCommand;
+import seedu.address.logic.commands.group.GroupGetStudentsCommand;
+import seedu.address.logic.commands.group.GroupRemoveStudentCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import java.util.HashMap;
-import java.util.stream.Stream;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-
+/**
+ * Parser to handle commands related to Group.
+ */
 public class GroupCommandParser implements Parser<GroupCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the QuizCommand

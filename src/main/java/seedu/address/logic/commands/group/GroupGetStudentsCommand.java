@@ -4,12 +4,16 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Represents a get students command, specific to a group.
+ */
 public class GroupGetStudentsCommand extends GroupCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets the students from a group\n"
             + "Parameters:\n"
-            + "groupId/ [GROUP_ID]\n"
-            + "Example: groupId/ G03\n\n";
+            + "groupID/ [GROUP_ID]\n"
+            + "Example: groupID/ G03\n"
+            + "Full Example: group groupID/G03 --> lists all students in G03 \n\n";
 
     private final String groupId;
 
@@ -39,7 +43,7 @@ public class GroupGetStudentsCommand extends GroupCommand {
      */
     private String generateSuccessMessage(String message) {
         System.out.println(message);
-        return "These are the students in " + groupId + " "
+        return "These are the students in " + groupId + "\n"
                 + message;
     }
 }

@@ -140,6 +140,7 @@ public interface Model {
     void setStudent(Student target, Student editedStudent);
     ObservableList<Student> getFilteredStudentList();
     void updateFilteredStudentList(Predicate<Student> predicate);
+    String getStudentSummary();
 
     //endregion
 

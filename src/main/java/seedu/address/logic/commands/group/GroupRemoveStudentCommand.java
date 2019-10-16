@@ -4,6 +4,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Represents an remove student command, specific to a group.
+ */
 public class GroupRemoveStudentCommand extends GroupCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes an existing student from an existing group\n"
@@ -11,7 +14,8 @@ public class GroupRemoveStudentCommand extends GroupCommand {
             + "groupId/ [GROUP_ID]\n"
             + "Example: groupId/ G03\n\n"
             + "groupIndexNumber/ [INDEX_NUMBER]\n"
-            + "Example: groupIndexNumber/ 2 (Specifies the student number in the group to remove)";
+            + "Example: groupIndexNumber/ 2 (Specifies the student number in the group to remove)\n"
+            + "Full Example: group groupID/G03 groupIndexNumber/1 --> removes student with index number 1 from G03";
 
     private final String groupId;
     private final int groupIndexNumber;
