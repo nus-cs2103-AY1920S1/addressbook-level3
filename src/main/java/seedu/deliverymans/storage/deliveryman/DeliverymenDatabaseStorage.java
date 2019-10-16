@@ -11,7 +11,7 @@ import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 /**
  * Represents a storage for {@link seedu.deliverymans.model.database.RestaurantDatabase}.
  */
-    public interface DeliverymenDatabaseStorage {
+public interface DeliverymenDatabaseStorage {
 
     /**
      * Returns the file path of the data file.
