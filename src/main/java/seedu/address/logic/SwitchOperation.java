@@ -82,13 +82,13 @@ public class SwitchOperation {
             quizUi.start(stages);
         } else if (args.equals("calendar")) {
             Config config = MainApp.getConfig();
-            seedu.address.storage.calendar.UserPrefsStorage userPrefsStorage =
+            seedu.address.storage.calendar.UserPrefsStorage userCalendarPrefsStorage =
                     new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-            userCalendarPrefs = initPrefs(userPrefsStorage);
+            userCalendarPrefs = initPrefs(userCalendarPrefsStorage);
             seedu.address.storage.calendar.AddressBookStorage addressBookStorage =
-                    new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+                    new JsonAddressBookStorage(userCalendarPrefs.getAddressBookFilePath());
             seedu.address.storage.calendar.Storage calendarStorage =
-                    new StorageManager(addressBookStorage, userPrefsStorage);
+                    new StorageManager(addressBookStorage, userCalendarPrefsStorage);
 
             calendarModel = initModelManager(calendarStorage, userCalendarPrefs);
             calendarLogic = new LogicManager(calendarModel, calendarStorage);
