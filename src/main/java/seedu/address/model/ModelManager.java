@@ -140,6 +140,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
+        requireAllNonNull(target, editedFlashcard);
+
+        addressBook.setFlashcard(target, editedFlashcard);
+    }
+
+    @Override
     public boolean hasNote(Note note) {
         requireNonNull(note);
         return addressBook.hasNote(note);
@@ -250,7 +257,7 @@ public class ModelManager implements Model {
         addressBook.removeFlashcard(target);
     }
 
-    //===================CheatSheetBook============================================================
+    //===================CheatSheet============================================================
 
     @Override
     public void addCheatSheet(CheatSheet cheatSheet) {

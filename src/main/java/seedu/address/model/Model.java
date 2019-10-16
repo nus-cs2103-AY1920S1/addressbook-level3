@@ -155,6 +155,14 @@ public interface Model {
      */
     void addFlashcard(Flashcard toAdd);
 
+    /**
+     * Replaces the given flashcard {@code target} with {@code editedFlashcard}.
+     * {@code target} must exist in the address book.
+     * The flashcard identity of {@code editedFlashcard} must not be the same as another existing flashcard in
+     * address book.
+     */
+    void setFlashcard(Flashcard target, Flashcard editedFlashcard);
+
     /** Returns an unmodifiable view of the filtered flashcard list */
     ObservableList<Flashcard> getFilteredFlashcardList();
 
