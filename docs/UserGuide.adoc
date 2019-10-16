@@ -149,7 +149,50 @@ Throughout the Bookings Manager, there will be many contacts which you will come
 
 * addcontact -id <id of trip> -booking <index of booking> - name [name of the contact] -number [contact number] -email [email address]
 
-=== Diary [coming in v2.0]
+=== Diary
+
+==== Diary Commands
+
+===== Creating a diary entry
+* create <day index>
+** Usage: creates a new diary entry for the specified day index. The entry for the day must not already exist.
+** Arguments:
+*** <day index> - integer day index of the nth day of the trip
+** Example: create 1
+
+===== Navigating to a diary entry
+* flip <day index>
+** Usage: Flips the diary to the day index specified.
+** Arguments:
+*** <day index> - integer day index of the nth day's diary entry of the trip to flip to
+** Example: flip 7
+
+===== Editing a diary entry
+* edit <initial edit box message>
+** Usage: Brings up the edit box, with the specified initial text. If no text is specified, then the text editor is populated with the currently viewed diary entry's text.
+** Arguments:
+*** <initial edit box message> - initial text to use in the edit box
+
+===== Commiting your edits
+* done
+** Usage: Commits the text currently in the edit box to the diary entry.
+** Example: done
+
+===== Adding a photo
+* addphoto fp/<file path to png or jpg image file> OR fc/<no arguments> (d/<description to be shown in the gallery> dts/<date time of photo>)
+** Arguments:
+*** fc/ - opens the OS file gui dialog to allow choosing an image, instead of using the file path
+*** <file path> - relative file path from the location of the application's jar file, or an absolute file path.
+*** Optional: <description> - description to be shown in the gallery, of maximum length 20. (uses the file name otherwise)
+*** Optional: <date time> - date time of the format d/M/yyyy HHmm (uses the file modification date otherwise)
+** Example: addphoto fp/snowymountains.jpg d/picturesque mountains
+
+===== Deleting a photo
+* delphoto <photo index>
+** Usage: Deletes the photo indicated by the specified index in the gallery.
+** Arguments:
+*** <photo index> - integer index of photo to delete
+** Example: delphoto 1
 
 === Pre-trip Inventory Manager [coming in v2.0]
 
