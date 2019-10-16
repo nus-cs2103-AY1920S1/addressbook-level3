@@ -53,8 +53,8 @@ public class MamsParser {
             return new HelpCommand();
         case ApproveCommand.COMMAND_WORD:
             return new ApproveCommandParser().parse(arguments);
-            case RejectCommand.COMMAND_WORD:
-                return new RejectCommandParser().parse(arguments);
+        case RejectCommand.COMMAND_WORD:
+            return new RejectCommandParser().parse(arguments);
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
