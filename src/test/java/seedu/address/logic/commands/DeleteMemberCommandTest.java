@@ -35,7 +35,7 @@ public class DeleteMemberCommandTest {
         DeleteMemberCommand deleteMemberCommand = new DeleteMemberCommand(ID_FIRST_MEMBER);
 
         for (int i = 0; i < lastShownList.size(); i++) {
-            if (lastShownList.get(i).getId() == ID_FIRST_MEMBER) {
+            if (lastShownList.get(i).getId().equals(ID_FIRST_MEMBER)) {
                 memberToDelete = lastShownList.get(i);
                 break;
             }
@@ -66,7 +66,7 @@ public class DeleteMemberCommandTest {
         DeleteMemberCommand deleteMemberCommand = new DeleteMemberCommand(ID_FIRST_MEMBER);
 
         for (int i = 0; i < lastShownList.size(); i++) {
-            if (lastShownList.get(i).getId() == ID_FIRST_MEMBER) {
+            if (lastShownList.get(i).getId().equals(ID_FIRST_MEMBER)) {
                 memberToDelete = lastShownList.get(i);
                 break;
             }

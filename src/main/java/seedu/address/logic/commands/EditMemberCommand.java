@@ -25,7 +25,7 @@ import seedu.address.model.tag.Tag;
  * Edits the details of an existing member in the project dashboard.
  */
 public class EditMemberCommand extends Command {
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "edit-member";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the member identified "
             + "by the id used in the displayed member list. "
@@ -83,6 +83,7 @@ public class EditMemberCommand extends Command {
 
         model.setMember(memberToEdit, editedMember);
         model.updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
+        model.replaceExistingMappingsWithNewMember(memberToEdit, editedMember);
         return new CommandResult(String.format(MESSAGE_EDIT_MEMBER_SUCCESS, editedMember));
     }
 

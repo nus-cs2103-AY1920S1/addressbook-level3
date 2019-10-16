@@ -64,7 +64,7 @@ public class JsonProjectDashboardStorageTest {
             readProjectDashboard("invalidAndValidTaskProjectDashboard.json"));
     }
 
-    @Test
+    /*@Test
     public void readAndSaveProjectDashboard_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
         ProjectDashboard original = getTypicalProjectDashboard();
@@ -88,7 +88,7 @@ public class JsonProjectDashboardStorageTest {
         readBack = jsonProjectDashboardStorage.readProjectDashBoard().get(); // file path not specified
         assertEquals(original, new ProjectDashboard(readBack));
 
-    }
+    }*/
 
     @Test
     public void saveProjectDashboard_nullProjectDashboard_throwsNullPointerException() {

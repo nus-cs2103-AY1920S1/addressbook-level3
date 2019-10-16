@@ -15,7 +15,7 @@ import seedu.address.model.member.MemberId;
  */
 public class DeleteMemberCommand extends Command {
 
-    public static final String COMMAND_WORD = "remove member";
+    public static final String COMMAND_WORD = "remove-member";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the member identified by the index used in the displayed task list.\n"
@@ -39,7 +39,7 @@ public class DeleteMemberCommand extends Command {
         Member memberToDelete = null;
 
         for (int i = 0; i < lastShownList.size(); i++) {
-            if (lastShownList.get(i).getId() == targetId) {
+            if (lastShownList.get(i).getId().equals(targetId)) {
                 contains = true;
                 memberToDelete = lastShownList.get(i);
                 break;

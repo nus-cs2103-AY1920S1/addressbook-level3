@@ -8,7 +8,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
-//import seedu.address.model.task.NameContainsKeywordsPredicate;
+import seedu.address.model.member.Member;
+import seedu.address.model.mapping.Mapping;
 
 /**
  * The API of the Model component.
@@ -86,6 +87,12 @@ public interface Model {
      */
     void setTask(Task target, Task editedTask);
 
+    ObservableList<Task> getFilteredTaskListNotStarted();
+
+    ObservableList<Task> getFilteredTaskListDoing();
+
+    ObservableList<Task> getFilteredTaskListDone();
+
     /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Task> getFilteredTasksList();
 
@@ -162,4 +169,19 @@ public interface Model {
      * The inventory must exist in the address book.
      */
     void deleteInventory(Inventory target);
+
+    void addMapping(Mapping mapping);
+
+    void deleteMapping(Mapping mapping);
+
+    boolean hasMapping(Mapping mapping);
+
+    ObservableList<Mapping> getFilteredMappingsList();
+
+    void updateFilteredMappingsList(Predicate<Mapping> predicate);
+
+    void replaceExistingMappingsWithNewMember(Member oldMember, Member newMember);
+
+    void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask);
+
 }
