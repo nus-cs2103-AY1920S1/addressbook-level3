@@ -20,7 +20,7 @@ import seedu.mark.model.tag.Tag;
  */
 public class AutotagCommandParser implements Parser<AutotagCommand> {
 
-    public static Predicate<Bookmark> DEFAULT_PREDICATE = bookmark -> true;
+    public static final Predicate<Bookmark> DEFAULT_PREDICATE = bookmark -> true;
 
     /**
      * Parses the given {@code String} of arguments in the context of the AutotagCommand
@@ -50,7 +50,8 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
             predicate = predicate.and(new UrlContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_URL)));
         }
 
-        // for not containing, just do new UrlContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_URL)).negate() to get that predicate
+        // for not containing, just do
+        // new UrlContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_URL)).negate() to get that predicate
 
         if (!hasConditions) {
             throw new ParseException(AutotagCommand.MESSAGE_NO_CONDITION_SPECIFIED);
