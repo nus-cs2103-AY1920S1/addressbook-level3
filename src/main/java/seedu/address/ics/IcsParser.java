@@ -51,6 +51,11 @@ public class IcsParser {
         return new IcsParser(path);
     }
 
+    /**
+     * Parses the Ics file.
+     * @return An ArrayList of EventSources provided by the Ics file.
+     * @throws IcsException
+     */
     public ArrayList<EventSource> parse() throws IcsException {
         ArrayList<EventSource> events = new ArrayList<>();
         try {

@@ -1,15 +1,18 @@
 package seedu.address.ics;
 
-import seedu.address.model.events.EventList;
-import seedu.address.model.events.EventSource;
-
-import java.io.IOException;
-import java.nio.file.Path;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.FileUtil.createIfMissing;
 import static seedu.address.commons.util.FileUtil.writeToFile;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
+import seedu.address.model.events.EventList;
+import seedu.address.model.events.EventSource;
+
+/**
+ * Class responsible for exporting Horo's tasks and events into an .ics file.
+ */
 public class IcsExporter {
     private EventList eventList;
 
@@ -28,6 +31,10 @@ public class IcsExporter {
         writeToFile(filePath, generateIcsFileContent());
     }
 
+    /**
+     * Generates the contents in the .ics file from the event list.
+     * @return The .ics file content to be exported.
+     */
     private String generateIcsFileContent() {
         StringBuilder stringBuilder = new StringBuilder("BEGIN:VCALENDAR");
         String prodId = "-//Horo//Exported Calendar// v1.0//EN";

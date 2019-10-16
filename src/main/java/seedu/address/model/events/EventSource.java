@@ -5,7 +5,6 @@ import static seedu.address.commons.util.IcsUtil.generateUid;
 import static seedu.address.commons.util.IcsUtil.toIcsTimeStamp;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -64,6 +63,9 @@ public class EventSource {
         return start;
     }
 
+    /**
+     * @return The String representation of the EventSource in the Ics file format.
+     */
     public String toIcsString() {
         DateTime now = DateTime.now();
         StringBuilder icsStringBuilder = new StringBuilder("BEGIN:VEVENT");

@@ -1,12 +1,12 @@
 package seedu.address.commons.util;
 
-import seedu.address.ics.IcsException;
-import seedu.address.model.events.DateTime;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.TimeZone;
+
+import seedu.address.ics.IcsException;
+import seedu.address.model.events.DateTime;
 
 /**
  * Helper functions for anything Ics related.
