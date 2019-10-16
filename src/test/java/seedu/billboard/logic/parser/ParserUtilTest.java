@@ -25,12 +25,14 @@ public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_AMOUNT = "test";
+    private static final String INVALID_ARCHIVE = "";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_DESC = "eating at macs";
     private static final String VALID_AMOUNT = "2";
+    private static final String VALID_ARCHIVE = "gorilla";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -215,5 +217,26 @@ public class ParserUtilTest {
         List<String> expectedTagNamesList = new ArrayList<>(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
 
         assertEquals(expectedTagNamesList, actualTagNamesList);
+    }
+
+    @Test
+    public void parseArchive_nullString_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseArchive((String) null));
+    }
+
+    @Test
+    public void parseArchive_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseArchive(INVALID_ARCHIVE));
+    }
+
+    @Test
+    public void parseArchive_validValueWithoutWhitespace_returnsTrue() throws Exception {
+        assertEquals(VALID_ARCHIVE, ParserUtil.parseArchive(VALID_ARCHIVE));
+    }
+
+    @Test
+    public void parseArchive_validValueWithWhitespace_returnsTrimmedName() throws Exception {
+        String nameWithWhitespace = WHITESPACE + VALID_ARCHIVE + WHITESPACE;
+        assertEquals(VALID_ARCHIVE, ParserUtil.parseArchive(VALID_ARCHIVE));
     }
 }

@@ -12,6 +12,7 @@ import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.model.Model;
@@ -23,8 +24,14 @@ import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalBillboard(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalBillboard(), new UserPrefs());
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalBillboard(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalBillboard(), new UserPrefs());
+    }
 
     @Test
     public void equals() {

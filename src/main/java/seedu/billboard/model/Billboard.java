@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
@@ -13,8 +14,8 @@ import seedu.billboard.model.tag.TagCountManager;
 import seedu.billboard.model.tag.UniqueTagList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSameRecord comparison)
+ * Wraps all data at the Billboard level
+ * Duplicates are allowed
  */
 public class Billboard implements ReadOnlyBillboard {
 
@@ -62,6 +63,21 @@ public class Billboard implements ReadOnlyBillboard {
         requireNonNull(newData);
 
         setExpenses(newData.getExpenses());
+    }
+
+    @Override
+    public List<Expense> filterArchiveExpenses() {
+        return expenses.asUnmodifiableObservableList()
+                .stream().filter(Expense::isArchived).collect(Collectors.toList());
+    }
+
+    @Override
+    public ReadOnlyBillboard removeArchiveExpenses() {
+        List<Expense> nonArchiveExpenses = expenses.asUnmodifiableObservableList()
+                .stream().filter(x -> !x.isArchived()).collect(Collectors.toList());
+        Billboard billboard = new Billboard();
+        billboard.setExpenses(nonArchiveExpenses);
+        return billboard;
     }
 
     //// expense-level operations
