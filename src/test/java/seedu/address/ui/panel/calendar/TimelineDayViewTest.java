@@ -20,6 +20,7 @@ import seedu.address.ui.UiParser;
 
 public class TimelineDayViewTest {
 
+    private static boolean threadFlag = true;
     private static List<EventSource> list = new ArrayList<>();
 
     private static LocalDate date1 = LocalDate.parse("2019-11-18");
@@ -35,7 +36,9 @@ public class TimelineDayViewTest {
     static void setUpTest() {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
-                Application.launch(MainApp.class, new String[0]);
+                while (threadFlag) {
+                    Application.launch(MainApp.class, new String[0]);
+                }
             }
         };
         t.setDaemon(true);
@@ -54,6 +57,7 @@ public class TimelineDayViewTest {
         } catch (Exception e) {
             fail();
         }
+        threadFlag = false;
 
     }
 

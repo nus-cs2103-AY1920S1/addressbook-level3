@@ -16,14 +16,17 @@ import seedu.address.ui.UiParser;
 
 public class CalendarPanelTest {
 
-    private LocalDate date = LocalDate.parse("2020-07-21");
-    private Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
+    private static boolean threadFlag = true;
+    private static LocalDate date = LocalDate.parse("2020-07-21");
+    private static Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
 
     @BeforeAll
     static void setUpTest() {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
-                Application.launch(MainApp.class, new String[0]);
+                while (threadFlag) {
+                    Application.launch(MainApp.class, new String[0]);
+                }
             }
         };
         t.setDaemon(true);
@@ -48,5 +51,6 @@ public class CalendarPanelTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+        threadFlag = false;
     }
 }

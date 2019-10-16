@@ -11,15 +11,20 @@ import seedu.address.MainApp;
 
 public class LogPanelTest {
 
+    private static boolean threadFlag = true;
+
     @BeforeAll
     static void setUpTest() {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
-                Application.launch(MainApp.class, new String[0]);
+                while (threadFlag) {
+                    Application.launch(MainApp.class, new String[0]);
+                }
             }
         };
         t.setDaemon(true);
         t.start();
+
     }
 
     @Test
@@ -30,6 +35,7 @@ public class LogPanelTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+        threadFlag = false;
     }
 
 }
