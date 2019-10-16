@@ -10,11 +10,16 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.WorkoutPlannerParser;
+import seedu.address.logic.parser.DukeCooksParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyRecipeBook;
+import seedu.address.model.ReadOnlyUserProfile;
 import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.exercise.Exercise;
+import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Recipe;
+import seedu.address.model.records.Record;
 import seedu.address.storage.Storage;
 
 /**
@@ -26,12 +31,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final WorkoutPlannerParser workoutPlannerParser;
+    private final DukeCooksParser dukeCooksParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        workoutPlannerParser = new WorkoutPlannerParser();
+        dukeCooksParser = new DukeCooksParser();
     }
 
     @Override
@@ -39,11 +44,14 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = workoutPlannerParser.parseCommand(commandText);
+        Command command = dukeCooksParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveDukeCooks(model.getDukeCooks());
+            storage.saveWorkoutPlanner(model.getWorkoutPlanner());
+            storage.saveUserProfile(model.getUserProfile());
+            storage.saveRecipeBook(model.getRecipeBook());
+            storage.saveHealthRecords(model.getHealthRecords());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -53,17 +61,52 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyWorkoutPlanner getDukeCooks() {
-        return model.getDukeCooks();
+        return model.getWorkoutPlanner();
     }
 
     @Override
-    public ObservableList<Exercise> getFilteredPersonList() {
+    public ReadOnlyRecipeBook getRecipeBook() {
+        return model.getRecipeBook();
+    }
+
+    @Override
+    public ReadOnlyUserProfile getUserProfile() {
+        return model.getUserProfile();
+    }
+
+
+    @Override
+    public ObservableList<Exercise> getFilteredExerciseList() {
         return model.getFilteredExerciseList();
     }
 
     @Override
-    public Path getDukeCooksFilePath() {
-        return model.getDukeCooksFilePath();
+    public ObservableList<Recipe> getFilteredRecipeList() {
+        return model.getFilteredRecipeList();
+    }
+
+    @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        return model.getFilteredRecordList();
+    }
+
+    @Override
+    public Path getUserProfileFilePath() {
+        return model.getUserProfileFilePath();
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return model.getFilteredPersonList();
+    }
+
+    @Override
+    public Path getHealthRecordsFilePath() {
+        return model.getHealthRecordsFilePath();
+    }
+
+    public Path getRecipesFilePath() {
+        return model.getRecipesFilePath();
     }
 
     @Override
@@ -74,5 +117,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public Path getDukeCooksFilePath() {
+        return model.getUserProfileFilePath();
     }
 }

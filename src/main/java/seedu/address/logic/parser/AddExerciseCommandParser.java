@@ -18,9 +18,9 @@ import seedu.address.logic.commands.AddExerciseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.details.Distance;
 import seedu.address.model.details.ExerciseDetail;
+import seedu.address.model.details.ExerciseWeight;
 import seedu.address.model.details.Repetitions;
 import seedu.address.model.details.Sets;
-import seedu.address.model.details.Weight;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.model.exercise.ExerciseName;
 import seedu.address.model.exercise.Intensity;
@@ -72,8 +72,9 @@ public class AddExerciseCommandParser implements Parser<AddExerciseCommand> {
         }
 
         if (!argMultimap.getValue(PREFIX_WEIGHT).isEmpty()) {
-            Weight weight = WorkoutPlannerParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
-            exerciseDetailList.add(weight);
+            ExerciseWeight exerciseWeight = WorkoutPlannerParserUtil
+                    .parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
+            exerciseDetailList.add(exerciseWeight);
         }
 
         Exercise exercise = new Exercise(exerciseName, musclesTrained, intensity, exerciseDetailList);

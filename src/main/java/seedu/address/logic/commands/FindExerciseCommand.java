@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.exercise.NameContainsKeywordsPredicate;
+import seedu.address.model.exercise.ExerciseNameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in Duke Cooks whose name contains any of the argument keywords.
@@ -19,9 +19,9 @@ public class FindExerciseCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " bench crunches run";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final ExerciseNameContainsKeywordsPredicate predicate;
 
-    public FindExerciseCommand(NameContainsKeywordsPredicate predicate) {
+    public FindExerciseCommand(ExerciseNameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

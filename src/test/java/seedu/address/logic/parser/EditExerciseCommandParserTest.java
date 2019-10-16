@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FOOD_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SETS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PUSHUP;
 import static seedu.address.logic.commands.CommandTestUtil.REPS_DESC_SIXTY;
@@ -63,7 +63,7 @@ public class EditExerciseCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, ExerciseName.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1" + INVALID_FOOD_NAME_DESC, ExerciseName.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_SETS_DESC, ExerciseDetail.MESSAGE_CONSTRAINTS); // invalid tag
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
@@ -76,7 +76,7 @@ public class EditExerciseCommandParserTest {
                 + SETS_DESC_FIVE + REPS_DESC_SIXTY, ExerciseDetail.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC,
+        assertParseFailure(parser, "1" + INVALID_FOOD_NAME_DESC,
                 ExerciseName.MESSAGE_CONSTRAINTS);
     }
 

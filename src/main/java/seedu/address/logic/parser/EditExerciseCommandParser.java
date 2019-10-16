@@ -19,9 +19,9 @@ import seedu.address.logic.commands.EditExerciseCommand.EditExerciseDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.details.Distance;
 import seedu.address.model.details.ExerciseDetail;
+import seedu.address.model.details.ExerciseWeight;
 import seedu.address.model.details.Repetitions;
 import seedu.address.model.details.Sets;
-import seedu.address.model.details.Weight;
 
 
 /**
@@ -94,10 +94,10 @@ public class EditExerciseCommandParser implements Parser<EditExerciseCommand> {
         });
 
         argMultimap.getValue(PREFIX_WEIGHT).ifPresent(value -> {
-            Weight weight;
+            ExerciseWeight exerciseWeight;
             try {
-                weight = WorkoutPlannerParserUtil.parseWeight(value);
-                exerciseDetails.add(weight);
+                exerciseWeight = WorkoutPlannerParserUtil.parseWeight(value);
+                exerciseDetails.add(exerciseWeight);
             } catch (ParseException e) {
                 e.printStackTrace();
             }

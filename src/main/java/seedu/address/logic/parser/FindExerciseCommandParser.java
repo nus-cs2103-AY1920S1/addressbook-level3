@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.address.logic.commands.FindExerciseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.exercise.NameContainsKeywordsPredicate;
+import seedu.address.model.exercise.ExerciseNameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -27,7 +27,7 @@ public class FindExerciseCommandParser implements Parser<FindExerciseCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindExerciseCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindExerciseCommand(new ExerciseNameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }

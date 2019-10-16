@@ -13,9 +13,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.WorkoutPlannerParserUtil;
 import seedu.address.model.details.Distance;
 import seedu.address.model.details.ExerciseDetail;
+import seedu.address.model.details.ExerciseWeight;
 import seedu.address.model.details.Repetitions;
 import seedu.address.model.details.Sets;
-import seedu.address.model.details.Weight;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.model.exercise.ExerciseName;
 import seedu.address.model.exercise.Intensity;
@@ -79,8 +79,8 @@ class JsonAdaptedExercise {
      */
 
     private JsonAdaptedExerciseDetail toAdaptedJson (ExerciseDetail detail) {
-        if (detail instanceof Weight) {
-            return new JsonAdaptedWeight((Weight) detail);
+        if (detail instanceof ExerciseWeight) {
+            return new JsonAdaptedWeight((ExerciseWeight) detail);
         } else if (detail instanceof Distance) {
             return new JsonAdaptedDistance((Distance) detail);
         } else if (detail instanceof Repetitions) {

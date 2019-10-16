@@ -27,22 +27,22 @@ public class JsonWorkoutPlannerStorage implements WorkoutPlannerStorage {
         this.filePath = filePath;
     }
 
-    public Path getDukeCooksFilePath() {
+    public Path getWorkoutPlannerFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyWorkoutPlanner> readDukeCooks() throws DataConversionException {
-        return readDukeCooks(filePath);
+    public Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner() throws DataConversionException {
+        return readWorkoutPlanner(filePath);
     }
 
     /**
-     * Similar to {@link #readDukeCooks()}.
+     * Similar to {@link #readWorkoutPlanner()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyWorkoutPlanner> readDukeCooks(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableExerciseCatalogue> jsonDukeCooks = JsonUtil.readJsonFile(
@@ -60,16 +60,16 @@ public class JsonWorkoutPlannerStorage implements WorkoutPlannerStorage {
     }
 
     @Override
-    public void saveDukeCooks(ReadOnlyWorkoutPlanner dukeCooks) throws IOException {
-        saveDukeCooks(dukeCooks, filePath);
+    public void saveWorkoutPlanner(ReadOnlyWorkoutPlanner dukeCooks) throws IOException {
+        saveWorkoutPlanner(dukeCooks, filePath);
     }
 
     /**
-     * Similar to {@link #saveDukeCooks(ReadOnlyWorkoutPlanner)}.
+     * Similar to {@link #saveWorkoutPlanner(ReadOnlyWorkoutPlanner)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveDukeCooks(ReadOnlyWorkoutPlanner dukeCooks, Path filePath) throws IOException {
+    public void saveWorkoutPlanner(ReadOnlyWorkoutPlanner dukeCooks, Path filePath) throws IOException {
         requireNonNull(dukeCooks);
         requireNonNull(filePath);
 

@@ -1,34 +1,34 @@
 package seedu.address.testutil;
 
-import seedu.address.model.WorkoutPlanner;
-import seedu.address.model.exercise.Exercise;
+import seedu.address.model.UserProfile;
+import seedu.address.model.person.Person;
 
 /**
- * A utility class to help with building DukeCooks objects.
+ * A utility class to help with building UserProfile objects.
  * Example usage: <br>
- *     {@code DukeCooks dc = new DukeCooksBuilder().withExercise("John", "Doe").build();}
+ *     {@code UserProfile dc = new DukeCooksBuilder().withPerson("John", "Doe").build();}
  */
 public class DukeCooksBuilder {
 
-    private WorkoutPlanner dukeCooks;
+    private UserProfile userProfile;
 
     public DukeCooksBuilder() {
-        dukeCooks = new WorkoutPlanner();
+        userProfile = new UserProfile();
     }
 
-    public DukeCooksBuilder(WorkoutPlanner dukeCooks) {
-        this.dukeCooks = dukeCooks;
+    public DukeCooksBuilder(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 
     /**
-     * Adds a new {@code Person} to the {@code DukeCooks} that we are building.
+     * Adds a new {@code Person} to the {@code UserProfile} that we are building.
      */
-    public DukeCooksBuilder withExercise(Exercise exercise) {
-        dukeCooks.addExercise(exercise);
+    public DukeCooksBuilder withPerson(Person person) {
+        userProfile.addPerson(person);
         return this;
     }
 
-    public WorkoutPlanner build() {
-        return dukeCooks;
+    public UserProfile build() {
+        return userProfile;
     }
 }

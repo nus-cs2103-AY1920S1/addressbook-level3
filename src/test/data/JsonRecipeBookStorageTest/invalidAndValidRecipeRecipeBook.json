@@ -1,0 +1,7 @@
+{
+  "recipes": [ {
+    "name": "Valid Recipe"
+  }, {
+    "name": "Recipe With invalid n@me"
+  } ]
+}

@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FOOD_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SETS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_PUSHUP;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_SITUP;
@@ -77,7 +77,7 @@ public class AddExerciseCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC
+        assertParseFailure(parser, INVALID_FOOD_NAME_DESC
                 + REPS_DESC_SIXTY + SETS_DESC_FIVE, ExerciseName.MESSAGE_CONSTRAINTS);
 
         // invalid tag
@@ -85,7 +85,7 @@ public class AddExerciseCommandParserTest {
                 + INVALID_SETS_DESC + VALID_SETS_FIVE, ExerciseDetail.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC,
+        assertParseFailure(parser, INVALID_FOOD_NAME_DESC,
                 ExerciseName.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble

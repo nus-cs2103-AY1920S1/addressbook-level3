@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExercises.ABS_ROLLOUT;
-import static seedu.address.testutil.TypicalExercises.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalExercises.getTypicalWorkoutPlanner;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -36,7 +36,7 @@ public class WorkoutPlannerTest {
 
     @Test
     public void resetData_withValidReadOnlyDukeCooks_replacesData() {
-        WorkoutPlanner newData = getTypicalDukeCooks();
+        WorkoutPlanner newData = getTypicalWorkoutPlanner();
         workoutPlanner.resetData(newData);
         assertEquals(newData, workoutPlanner);
     }

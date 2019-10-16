@@ -6,18 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ModelStub;
 import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.WorkoutPlanner;
 import seedu.address.model.exercise.Exercise;
@@ -76,80 +71,6 @@ public class AddExerciseCommandTest {
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setWorkoutPlannerUserPrefs(ReadOnlyUserPrefs workoutPlannerUserPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getWorkoutPlannerUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getDukeCooksFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setDukeCooksFilePath(Path dukeCooksFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addExercise(Exercise exercise) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setDukeCooks(ReadOnlyWorkoutPlanner dukeCooks) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyWorkoutPlanner getDukeCooks() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasExercise(Exercise exercise) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteExercise(Exercise target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setExercise(Exercise target, Exercise editedExercise) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Exercise> getFilteredExerciseList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
 
     /**
      * A Model stub that contains a single person.
@@ -188,7 +109,7 @@ public class AddExerciseCommandTest {
         }
 
         @Override
-        public ReadOnlyWorkoutPlanner getDukeCooks() {
+        public ReadOnlyWorkoutPlanner getWorkoutPlanner() {
             return new WorkoutPlanner();
         }
     }

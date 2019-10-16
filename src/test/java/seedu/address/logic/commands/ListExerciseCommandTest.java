@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExerciseAtIndex;
-import static seedu.address.testutil.TypicalExercises.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalExercises.getTypicalWorkoutPlanner;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.WorkoutPlannerUserPrefs;
+import seedu.address.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -22,8 +22,8 @@ public class ListExerciseCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalDukeCooks(), new WorkoutPlannerUserPrefs());
-        expectedModel = new ModelManager(model.getDukeCooks(), new WorkoutPlannerUserPrefs());
+        model = new ModelManager(getTypicalWorkoutPlanner(), new UserPrefs());
+        expectedModel = new ModelManager(model.getWorkoutPlanner(), new UserPrefs());
     }
 
     @Test

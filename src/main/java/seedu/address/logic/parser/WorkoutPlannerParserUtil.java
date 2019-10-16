@@ -7,9 +7,9 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.details.Distance;
 import seedu.address.model.details.ExerciseDetail;
+import seedu.address.model.details.ExerciseWeight;
 import seedu.address.model.details.Repetitions;
 import seedu.address.model.details.Sets;
-import seedu.address.model.details.Weight;
 import seedu.address.model.details.unit.DistanceUnit;
 import seedu.address.model.details.unit.WeightUnit;
 import seedu.address.model.exercise.ExerciseName;
@@ -105,7 +105,7 @@ public class WorkoutPlannerParserUtil {
      *
      * @throws ParseException if the given {@code weight} is invalid.
      */
-    public static Weight parseWeight(String weight) throws ParseException {
+    public static ExerciseWeight parseWeight(String weight) throws ParseException {
         requireNonNull(weight);
         String trimmedWeight = weight.trim();
         if (!ExerciseDetail.isValidExerciseDetail(trimmedWeight)) {
@@ -116,7 +116,7 @@ public class WorkoutPlannerParserUtil {
         WeightUnit unit = parseWeightUnit(unitString);
         float magnitude = Float.parseFloat(weightSplit[0]);
 
-        return new Weight(magnitude, unit);
+        return new ExerciseWeight(magnitude, unit);
     }
 
 

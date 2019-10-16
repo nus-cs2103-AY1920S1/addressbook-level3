@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalExercises.CURTSY_LUNGE;
 import static seedu.address.testutil.TypicalExercises.EXPLOSIVE_PUSHUP;
 import static seedu.address.testutil.TypicalExercises.FLYE;
-import static seedu.address.testutil.TypicalExercises.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalExercises.getTypicalWorkoutPlanner;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,22 +17,22 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.WorkoutPlannerUserPrefs;
-import seedu.address.model.exercise.NameContainsKeywordsPredicate;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.exercise.ExerciseNameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindExerciseCommandTest {
-    private Model model = new ModelManager(getTypicalDukeCooks(), new WorkoutPlannerUserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalDukeCooks(), new WorkoutPlannerUserPrefs());
+    private Model model = new ModelManager(getTypicalWorkoutPlanner(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalWorkoutPlanner(), new UserPrefs());
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        ExerciseNameContainsKeywordsPredicate firstPredicate =
+                new ExerciseNameContainsKeywordsPredicate(Collections.singletonList("first"));
+        ExerciseNameContainsKeywordsPredicate secondPredicate =
+                new ExerciseNameContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindExerciseCommand findFirstCommand = new FindExerciseCommand(firstPredicate);
         FindExerciseCommand findSecondCommand = new FindExerciseCommand(secondPredicate);
@@ -57,7 +57,7 @@ public class FindExerciseCommandTest {
     @Test
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        ExerciseNameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindExerciseCommand command = new FindExerciseCommand(predicate);
         expectedModel.updateFilteredExerciseList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -67,7 +67,7 @@ public class FindExerciseCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        ExerciseNameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindExerciseCommand command = new FindExerciseCommand(predicate);
         expectedModel.updateFilteredExerciseList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -77,7 +77,7 @@ public class FindExerciseCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private ExerciseNameContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new ExerciseNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

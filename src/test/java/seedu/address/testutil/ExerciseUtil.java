@@ -7,8 +7,8 @@ import seedu.address.logic.commands.EditExerciseCommand.EditExerciseDescriptor;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.details.Distance;
 import seedu.address.model.details.ExerciseDetail;
+import seedu.address.model.details.ExerciseWeight;
 import seedu.address.model.details.Repetitions;
-import seedu.address.model.details.Weight;
 import seedu.address.model.exercise.Exercise;
 
 /**
@@ -42,9 +42,9 @@ public class ExerciseUtil {
      * to details
      */
     private static void appendDetail(ExerciseDetail detail, StringBuilder sb) {
-        if (detail instanceof Weight) {
+        if (detail instanceof ExerciseWeight) {
             sb.append(CliSyntax.PREFIX_WEIGHT + detail
-                    .getMagnitude().toString() + " " + ((Weight) detail).getUnit().toString());
+                    .getMagnitude().toString() + " " + ((ExerciseWeight) detail).getUnit().toString());
         } else if (detail instanceof Distance) {
             sb.append(CliSyntax.PREFIX_DISTANCE + detail.getMagnitude().toString() + " "
                     + ((Distance) detail).getUnit().toString());

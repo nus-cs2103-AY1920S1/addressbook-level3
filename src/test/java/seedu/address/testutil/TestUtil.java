@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.exercise.Exercise;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * A utility class for test cases.
@@ -51,5 +52,12 @@ public class TestUtil {
      */
     public static Exercise getPerson(Model model, Index index) {
         return model.getFilteredExerciseList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the recipe in the {@code model}'s recipe list at {@code index}.
+     */
+    public static Recipe getRecipe(Model model, Index index) {
+        return model.getFilteredRecipeList().get(index.getZeroBased());
     }
 }

@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SETS_FIVE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExerciseAtIndex;
-import static seedu.address.testutil.TypicalExercises.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalExercises.getTypicalWorkoutPlanner;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
 
@@ -20,8 +20,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditExerciseCommand.EditExerciseDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.WorkoutPlanner;
-import seedu.address.model.WorkoutPlannerUserPrefs;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.testutil.EditExerciseDescriptorBuilder;
 import seedu.address.testutil.ExerciseBuilder;
@@ -31,7 +31,7 @@ import seedu.address.testutil.ExerciseBuilder;
  */
 public class EditExerciseCommandTest {
 
-    private Model model = new ModelManager(getTypicalDukeCooks(), new WorkoutPlannerUserPrefs());
+    private Model model = new ModelManager(getTypicalWorkoutPlanner(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -41,7 +41,7 @@ public class EditExerciseCommandTest {
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getDukeCooks()), new WorkoutPlannerUserPrefs());
+        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getWorkoutPlanner()), new UserPrefs());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editExerciseCommand, model, expectedMessage, expectedModel);
@@ -65,7 +65,7 @@ public class EditExerciseCommandTest {
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getDukeCooks()), new WorkoutPlannerUserPrefs());
+        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getWorkoutPlanner()), new UserPrefs());
         expectedModel.setExercise(lastExercise, editedExercise);
 
         assertCommandSuccess(editExerciseCommand, model, expectedMessage, expectedModel);
@@ -79,7 +79,7 @@ public class EditExerciseCommandTest {
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getDukeCooks()), new WorkoutPlannerUserPrefs());
+        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getWorkoutPlanner()), new UserPrefs());
 
         assertCommandSuccess(editExerciseCommand, model, expectedMessage, expectedModel);
     }
@@ -95,7 +95,7 @@ public class EditExerciseCommandTest {
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getDukeCooks()), new WorkoutPlannerUserPrefs());
+        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getWorkoutPlanner()), new UserPrefs());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editExerciseCommand, model, expectedMessage, expectedModel);
@@ -116,7 +116,7 @@ public class EditExerciseCommandTest {
         showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
 
         // edit exercise in filtered list into a duplicate in Duke Cooks
-        Exercise exerciseInList = model.getDukeCooks().getExerciseList().get(INDEX_SECOND_EXERCISE.getZeroBased());
+        Exercise exerciseInList = model.getWorkoutPlanner().getExerciseList().get(INDEX_SECOND_EXERCISE.getZeroBased());
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(INDEX_FIRST_EXERCISE,
                 new EditExerciseDescriptorBuilder(exerciseInList).build());
 
@@ -142,7 +142,7 @@ public class EditExerciseCommandTest {
         showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
         Index outOfBoundIndex = INDEX_SECOND_EXERCISE;
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getExerciseList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getWorkoutPlanner().getExerciseList().size());
 
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(outOfBoundIndex,
                 new EditExerciseDescriptorBuilder().withName(VALID_NAME_SITUP).build());

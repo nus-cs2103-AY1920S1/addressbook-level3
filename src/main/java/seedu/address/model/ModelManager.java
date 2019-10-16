@@ -12,6 +12,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.exercise.Exercise;
+import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Recipe;
+import seedu.address.model.records.Record;
 
 /**
  * Represents the in-memory model of Duke Cooks data.
@@ -19,100 +22,325 @@ import seedu.address.model.exercise.Exercise;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final WorkoutPlanner dukeCooks;
-    private final WorkoutPlannerUserPrefs workoutPlannerUserPrefs;
+    private final UserPrefs userPrefs;
+    private final UserProfile userProfile;
+    private final HealthRecords healthRecords;
+    private final RecipeBook recipeBook;
+    private final WorkoutPlanner workoutPlanner;
+    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Record> filteredRecords;
+    private final FilteredList<Recipe> filteredRecipes;
     private final FilteredList<Exercise> filteredExercises;
 
     /**
      * Initializes a ModelManager with the given dukeCooks and userPrefs.
      */
-    public ModelManager(ReadOnlyWorkoutPlanner dukeCooks, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyUserProfile dukeCooks, ReadOnlyHealthRecords healthRecords,
+                        ReadOnlyRecipeBook recipeBook, ReadOnlyWorkoutPlanner workoutPlanner,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(dukeCooks, userPrefs);
+        requireAllNonNull(dukeCooks, healthRecords, userPrefs, recipeBook);
 
-        logger.fine("Initializing with Duke Cooks: " + dukeCooks + " and user prefs " + userPrefs);
+        logger.fine("Initializing with Duke Cooks: " + dukeCooks
+                + "with Health Records: " + healthRecords
+                + "with Recipe Book: " + recipeBook
+                + "and user prefs " + userPrefs);
 
-        this.dukeCooks = new WorkoutPlanner(dukeCooks);
-        this.workoutPlannerUserPrefs = new WorkoutPlannerUserPrefs(userPrefs);
-        filteredExercises = new FilteredList<>(this.dukeCooks.getExerciseList());
+        this.userProfile = new UserProfile(dukeCooks);
+        this.healthRecords = new HealthRecords(healthRecords);
+        this.recipeBook = new RecipeBook(recipeBook);
+        this.userPrefs = new UserPrefs(userPrefs);
+        this.workoutPlanner = new WorkoutPlanner(workoutPlanner);
+        filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
+        filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
+        filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
+    }
+
+    /**
+     * Initializes a RecipeModelManager with the given userProfile and userPrefs.
+     */
+    public ModelManager(ReadOnlyWorkoutPlanner workoutPlanner, ReadOnlyUserPrefs userPrefs) {
+        super();
+        requireAllNonNull(workoutPlanner, userPrefs);
+
+        logger.fine("Initializing with Workout Planner: " + workoutPlanner
+                + "and user prefs " + userPrefs);
+
+        this.userProfile = null;
+        this.healthRecords = null;
+        this.recipeBook = null;
+        this.userPrefs = new UserPrefs(userPrefs);
+        this.workoutPlanner = new WorkoutPlanner(workoutPlanner);
+        filteredPersons = null;
+        filteredRecords = null;
+        filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredExercises = null;
     }
 
     public ModelManager() {
-        this(new WorkoutPlanner(), new WorkoutPlannerUserPrefs());
+        this(new UserProfile(), new HealthRecords(), new RecipeBook(),
+                new WorkoutPlanner(), new UserPrefs());
+    }
+
+    public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyUserPrefs userPrefs) {
+        super();
+        requireAllNonNull(recipeBook, userPrefs);
+
+        logger.fine("Initializing with Workout Planner: " + recipeBook
+                + "and user prefs " + userPrefs);
+
+        this.userProfile = null;
+        this.healthRecords = null;
+        this.recipeBook = new RecipeBook(recipeBook);
+        this.userPrefs = new UserPrefs(userPrefs);
+        this.workoutPlanner = null;
+        filteredPersons = null;
+        filteredRecords = null;
+        filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredExercises = null;
     }
 
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setWorkoutPlannerUserPrefs(ReadOnlyUserPrefs workoutPlannerUserPrefs) {
-        requireNonNull(workoutPlannerUserPrefs);
-        this.workoutPlannerUserPrefs.resetData(workoutPlannerUserPrefs);
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
-    public ReadOnlyUserPrefs getWorkoutPlannerUserPrefs() {
-        return workoutPlannerUserPrefs;
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
     public GuiSettings getGuiSettings() {
-        return workoutPlannerUserPrefs.getGuiSettings();
+        return userPrefs.getGuiSettings();
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
-        workoutPlannerUserPrefs.setGuiSettings(guiSettings);
+        userPrefs.setGuiSettings(guiSettings);
     }
 
     @Override
-    public Path getDukeCooksFilePath() {
-        return workoutPlannerUserPrefs.getExercisesFilePath();
+    public Path getUserProfileFilePath() {
+        return userPrefs.getUserProfileFilePath();
     }
 
     @Override
-    public void setDukeCooksFilePath(Path dukeCooksFilePath) {
+    public void setUserProfileFilePath(Path userProfileFilePath) {
+        requireNonNull(userProfileFilePath);
+        userPrefs.setUserProfileFilePath(userProfileFilePath);
+    }
+
+    @Override
+    public Path getHealthRecordsFilePath() {
+        return userPrefs.getHealthRecordsFilePath();
+    }
+
+    @Override
+    public void setHealthRecordsFilePath(Path healthRecordsFilePath) {
+        requireNonNull(healthRecordsFilePath);
+        userPrefs.setHealthRecordsFilePath(healthRecordsFilePath);
+    }
+
+    @Override
+    public Path getRecipesFilePath() {
+        return userPrefs.getRecipesFilePath();
+    }
+
+    @Override
+    public void setRecipesFilePath(Path recipesFilePath) {
+        requireNonNull(recipesFilePath);
+        userPrefs.setRecipesFilePath(recipesFilePath);
+    }
+
+    @Override
+    public Path getWorkoutPlannerFilePath() {
+        return userPrefs.getExercisesFilePath();
+    }
+
+    @Override
+    public void setWorkoutPlannerFilePath(Path dukeCooksFilePath) {
         requireNonNull(dukeCooksFilePath);
-        workoutPlannerUserPrefs.setExercisesFilePath(dukeCooksFilePath);
+        userPrefs.setExercisesFilePath(dukeCooksFilePath);
     }
 
-    //=========== DukeBooks ================================================================================
+    //=========== User Profile ================================================================================
 
     @Override
-    public void setDukeCooks(ReadOnlyWorkoutPlanner dukeCooks) {
-        this.dukeCooks.resetData(dukeCooks);
+    public void setUserProfile(ReadOnlyUserProfile userProfile) {
+        this.userProfile.resetData(userProfile);
     }
 
     @Override
-    public ReadOnlyWorkoutPlanner getDukeCooks() {
-        return dukeCooks;
+    public ReadOnlyUserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    @Override
+    public void addPerson(Person person) {
+        userProfile.addPerson(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void setPerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+        userProfile.setPerson(target, editedPerson);
+    }
+
+
+    //=========== Health Records ============================================================================
+
+    @Override
+    public void setHealthRecords(ReadOnlyHealthRecords healthRecords) {
+        this.healthRecords.resetData(healthRecords);
+    }
+
+    @Override
+    public ReadOnlyHealthRecords getHealthRecords() {
+        return healthRecords;
+    }
+
+    @Override
+    public void addRecord(Record record) {
+        healthRecords.addRecord(record);
+        updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
+    }
+
+    @Override
+    public void setRecord(Record target, Record editedRecord) {
+        requireAllNonNull(target, editedRecord);
+        healthRecords.setRecord(target, editedRecord);
+    }
+
+    //=========== Recipe Book ================================================================================
+
+    @Override
+    public void setRecipeBook(ReadOnlyRecipeBook recipeBook) {
+        this.recipeBook.resetData(recipeBook);
+    }
+
+    @Override
+    public ReadOnlyRecipeBook getRecipeBook() {
+        return recipeBook;
+    }
+
+    @Override
+    public boolean hasRecipe(Recipe recipe) {
+        requireNonNull(recipe);
+        return recipeBook.hasRecipe(recipe);
+    }
+
+    @Override
+    public void deleteRecipe(Recipe target) {
+        recipeBook.removeRecipe(target);
+    }
+
+    @Override
+    public void addRecipe(Recipe recipe) {
+        recipeBook.addRecipe(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+    }
+
+    @Override
+    public void setRecipe(Recipe target, Recipe editedRecipe) {
+        requireAllNonNull(target, editedRecipe);
+
+        recipeBook.setRecipe(target, editedRecipe);
+    }
+
+    //=========== Workout Planner ================================================================================
+
+    @Override
+    public void setWorkoutPlanner(ReadOnlyWorkoutPlanner workoutPlanner) {
+        this.workoutPlanner.resetData(workoutPlanner);
+    }
+
+    @Override
+    public ReadOnlyWorkoutPlanner getWorkoutPlanner() {
+        return workoutPlanner;
     }
 
     @Override
     public boolean hasExercise(Exercise exercise) {
         requireNonNull(exercise);
-        return dukeCooks.hasExercise(exercise);
-    }
-
-    @Override
-    public void deleteExercise(Exercise target) {
-        dukeCooks.removePerson(target);
+        return workoutPlanner.hasExercise(exercise);
     }
 
     @Override
     public void addExercise(Exercise exercise) {
-        dukeCooks.addExercise(exercise);
+        workoutPlanner.addExercise(exercise);
         updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISE);
+    }
+
+    @Override
+    public void deleteExercise(Exercise target) {
+        workoutPlanner.removePerson(target);
     }
 
     @Override
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireAllNonNull(target, editedExercise);
-
-        dukeCooks.setExercise(target, editedExercise);
+        workoutPlanner.setExercise(target, editedExercise);
     }
 
     //=========== Filtered Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedDukeCooks}
+     */
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return filteredPersons;
+    }
+
+    @Override
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Record List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Record} backed by the internal list of
+     * {@code versionedDukeCooks}
+     */
+    @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        return filteredRecords;
+    }
+
+    @Override
+    public void updateFilteredRecordList(Predicate<Record> predicate) {
+        requireNonNull(predicate);
+        filteredRecords.setPredicate(predicate);
+    }
+
+    //=========== Filtered Recipe List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Recipe} backed by the internal list of
+     * {@code versionedRecipeBook}
+     */
+    @Override
+    public ObservableList<Recipe> getFilteredRecipeList() {
+        return filteredRecipes;
+    }
+
+    @Override
+    public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
+        requireNonNull(predicate);
+        filteredRecipes.setPredicate(predicate);
+    }
+
+    //=========== Filtered Exercise List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -143,9 +371,11 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return dukeCooks.equals(other.dukeCooks)
-                && workoutPlannerUserPrefs.equals(other.workoutPlannerUserPrefs)
+        return userProfile.equals(other.userProfile)
+                && userPrefs.equals(other.userPrefs)
+                && filteredPersons.equals(other.filteredPersons)
                 && filteredExercises.equals(other.filteredExercises);
     }
+
 
 }

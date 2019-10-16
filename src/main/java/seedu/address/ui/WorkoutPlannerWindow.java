@@ -107,7 +107,7 @@ public class WorkoutPlannerWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        exerciseListPanel = new ExerciseListPanel(logic.getFilteredPersonList());
+        exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
         personListPanelPlaceholder.getChildren().add(exerciseListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -158,6 +158,68 @@ public class WorkoutPlannerWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Switch to home page.
+     */
+    @FXML
+    private void switchHome() {
+        primaryStage.hide();
+        TempWindow tempWindow = new TempWindow(getPrimaryStage(), logic);
+        tempWindow.show();
+    }
+
+    /**
+     * Switch to profile page.
+     */
+    @FXML
+    private void switchProfile() {
+        primaryStage.hide();
+        UserProfileWindow userProfileWindow = new UserProfileWindow(getPrimaryStage(), logic);
+        userProfileWindow.show();
+        userProfileWindow.fillInnerParts();
+    }
+
+    /**
+     * Switch to recipe page.
+     */
+    @FXML
+    private void switchRecipe() {
+        primaryStage.hide();
+        RecipeBookWindow recipeBookWindow = new RecipeBookWindow(getPrimaryStage(), logic);
+        recipeBookWindow.show();
+        recipeBookWindow.fillInnerParts();
+    }
+
+    /**
+     * Switch to exercise page.
+     */
+    @FXML
+    private void switchExercise() {
+        primaryStage.hide();
+        WorkoutPlannerWindow workoutPlannerWindow = new WorkoutPlannerWindow(getPrimaryStage(), logic);
+        workoutPlannerWindow.show();
+        workoutPlannerWindow.fillInnerParts();
+    }
+
+    /**
+     * Switch to health page.
+     */
+    @FXML
+    private void switchHealth() {
+        primaryStage.hide();
+        HealthRecordsWindow healthWindow = new HealthRecordsWindow(getPrimaryStage(), logic);
+        healthWindow.show();
+        healthWindow.fillInnerParts();
+    }
+
+    /**
+     * Switch to diary page.
+     */
+    @FXML
+    private void switchDiary() {
+        // switch to diary
     }
 
     public ExerciseListPanel getExerciseListPanel() {

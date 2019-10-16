@@ -7,12 +7,12 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.WorkoutPlannerParserUtil;
 import seedu.address.model.details.ExerciseDetail;
-import seedu.address.model.details.Weight;
+import seedu.address.model.details.ExerciseWeight;
 import seedu.address.model.details.unit.WeightUnit;
 
 
 /**
- * Jackson-friendly version of {@link Weight}.
+ * Jackson-friendly version of {@link ExerciseWeight}.
  */
 
 public class JsonAdaptedWeight<Float> extends JsonAdaptedExerciseDetail {
@@ -33,7 +33,7 @@ public class JsonAdaptedWeight<Float> extends JsonAdaptedExerciseDetail {
     /**
      * Converts a given {@code Weight} into this class for Jackson use.
      */
-    public JsonAdaptedWeight(Weight source) {
+    public JsonAdaptedWeight(ExerciseWeight source) {
         this.magnitude = source.getMagnitude();
         this.unit = source.getUnit().toJson();
     }
@@ -52,6 +52,6 @@ public class JsonAdaptedWeight<Float> extends JsonAdaptedExerciseDetail {
      */
     public ExerciseDetail toModelType() throws IllegalValueException {
         WeightUnit modelUnit = WorkoutPlannerParserUtil.parseWeightUnit(unit);
-        return new Weight((java.lang.Float) magnitude, modelUnit);
+        return new ExerciseWeight((java.lang.Float) magnitude, modelUnit);
     }
 }

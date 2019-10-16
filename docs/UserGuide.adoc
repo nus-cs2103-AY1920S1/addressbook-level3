@@ -144,29 +144,21 @@ Generates a shopping list for the specified meal plan. If `<shoplist exerciseNam
 Format: `mealplan <exerciseName> shoplist <shoplist exerciseName>`
 
 == Dashboard (Analytics + Suggestions)
-=== Get suggestions: `suggest`
+=== Get suggestions: `suggest` `[coming in v2.0]`
 Provides an overview analysis based on past records. Gives suggestions on things the user should do more or less on. +
 Format: `suggest`
 
-=== Get random food suggestions: `suggest food`
+=== Get random food suggestions: `suggest food` `[coming in v2.0]`
 Gives a random food suggestion for the user. +
 Format: `suggest food`
 
-=== Get new food suggestions: `suggest new food`
+=== Get new food suggestions: `suggest new food` `[coming in v2.0]`
 Gives a recommendation of a food item that is not logged by the user. +
 Format: `suggest new food`
 
-=== Get Statistics: `stats`
+=== Get Statistics: `stats` `[coming in v1.3]`
 Gives all the statistics available. +
 Format: `stats`
-
-=== Get food statistics: `stats food`
-Gives the statistics of food recorded. +
-Format: `stats food`
-
-=== Get exercise statistics: `stats exercise`
-Gives the statistics of exercise recorded. +
-Format: `stats exercise`
 
 == Health Records
 === View User Profile:  `view profile`
@@ -202,8 +194,8 @@ Examples:
 
 * `view health glucose 3 month` +
 Shows user’s blood sugar records of the past 3 months as of today.
-* `view health weight` +
-Shows user’s weight of the past *1* month as of today.
+* `view health exerciseWeight` +
+Shows user’s exerciseWeight of the past *1* month as of today.
 
 === Add Health Data:  `add health`
 Adds a health record of specified type with input value. +
@@ -245,7 +237,7 @@ Examples:
 * `edit health BP129391 133/80` +
 Edits the existing blood pressure record from today 9am to 133/80 mmHg.
 * `edit health W000123 50` +
-Edits weight record id of W000123 to 50kg.
+Edits exerciseWeight record id of W000123 to 50kg.
 
 === Delete Health Data:  `delete health`
 Deletes an existing health record of specified record ID. +
@@ -334,7 +326,7 @@ Generates a PDF copy of all the blood sugar and blood pressure records respectiv
 === Adding an exercise: `add exercise`
 Adds an exercise to exercise list. App will then prompt for the muscle type, level of intensity (out of 5), instructions as well as images of the steps (in directory form) (optional) in order.
 
-Once done you can add the recommended number of sets (optional), recommended number of repetitions (optional), recommended timing in minutes(optional), weight (optional) in the format: `s/SETS r/REPETITIONS w/WEIGHT t/TIMING` +
+Once done you can add the recommended number of sets (optional), recommended number of repetitions (optional), recommended timing in minutes(optional), exerciseWeight (optional) in the format: `s/SETS r/REPETITIONS w/WEIGHT t/TIMING` +
 Format: `add exercise <exerciseName>`
 
 Examples:
@@ -347,12 +339,12 @@ Output: _Muscle group(s) have been added! Now lets add intensity level out of 5!
 Output: _Now let’s add the instructions!_
 * `Lie down on an inclined bench` +
 Output: _Step 1 added! Type done when you’re done with all the instructions!_
-* `Push weight above head` +
+* `Push exerciseWeight above head` +
 Output: _Step 2 added! Type done when you’re done with all the instructions!_
 * `done` +
 Output: _Almost done! If you want to add an image please specify the folder! Otherwise type “/”._
 * `/` +
-Output: _If you want to specify your reps, sets and weight you may now do so. Otherwise type “/”._
+Output: _If you want to specify your reps, sets and exerciseWeight you may now do so. Otherwise type “/”._
 * `w/30kg r/5 s/5 t/1:00` +
 Output: _Nice exercise has been created!_
 
@@ -374,13 +366,13 @@ Tracks calorie burned per rep/set of the exercise in kcal. +
 Format: `calorie <index> <calories>`
 
 === Check History: `[coming in v2.0]`
-Checks the history of all the pass workouts as well as their statistics eg. weight used, number of times exercise is carried out, workouts that use this exercise.
+Checks the history of all the pass workouts as well as their statistics eg. exerciseWeight used, number of times exercise is carried out, workouts that use this exercise.
 
 === Preset Exercises: `[coming in v2.0]`
 If the list of exercises is empty, a list of preset exercises are generated.
 
 === Create Workout: `workout`
-Adds a workout to workout list. The app will then display a list of exercises to be added to the workout, you can then filter this by adding specifications such as muscle type. To add an exercise, simply specify the index on the current list that is displayed. If the exercise has a recommended number or reps, sets, weight and timing you will be asked whether to follow it. Otherwise you can specify what you wish. Once you have added all the exercises, you will then be asked to specify the amount of time for rest in between sets. +
+Adds a workout to workout list. The app will then display a list of exercises to be added to the workout, you can then filter this by adding specifications such as muscle type. To add an exercise, simply specify the index on the current list that is displayed. If the exercise has a recommended number or reps, sets, exerciseWeight and timing you will be asked whether to follow it. Otherwise you can specify what you wish. Once you have added all the exercises, you will then be asked to specify the amount of time for rest in between sets. +
 Format: `workout <exerciseName>`
 
 === List Workout: `list workout`
@@ -392,7 +384,7 @@ Deletes workout of specified index. +
 Format: `delete workout <index>`
 
 === Run Workout: `run`
-Runs a workout with a timer. Shows the details of the exercise: instructions, reps, sets, weight as well images if provided. After workout, stats will be automatically be updated and weights of workout will be increased accordingly. +
+Runs a workout with a timer. Shows the details of the exercise: instructions, reps, sets, exerciseWeight as well images if provided. After workout, stats will be automatically be updated and weights of workout will be increased accordingly. +
 Format: `run <index>`
 
 === Schedule Workout: `[coming in v1.3]`

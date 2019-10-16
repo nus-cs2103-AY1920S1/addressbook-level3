@@ -15,19 +15,32 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.model.HealthRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyHealthRecords;
+import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyUserProfile;
 import seedu.address.model.ReadOnlyWorkoutPlanner;
+import seedu.address.model.RecipeBook;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.UserProfile;
 import seedu.address.model.WorkoutPlanner;
-import seedu.address.model.WorkoutPlannerUserPrefs;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.util.SampleRecipeDataUtil;
+import seedu.address.storage.HealthRecordsStorage;
+import seedu.address.storage.JsonHealthRecordsStorage;
+import seedu.address.storage.JsonRecipeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserProfileStorage;
 import seedu.address.storage.JsonWorkoutPlannerStorage;
+import seedu.address.storage.RecipeBookStorage;
 import seedu.address.storage.Storage;
+import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.UserProfileStorage;
 import seedu.address.storage.WorkoutPlannerStorage;
-import seedu.address.storage.WorkoutPlannerStorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -55,14 +68,17 @@ public class MainApp extends Application {
         config = initConfig(appParameters.getConfigPath());
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-        WorkoutPlannerUserPrefs workoutPlannerUserPrefs = initPrefs(userPrefsStorage);
-        WorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(workoutPlannerUserPrefs
-                .getExercisesFilePath());
-        storage = new WorkoutPlannerStorageManager(workoutPlannerStorage, userPrefsStorage);
+        UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        RecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(userPrefs.getRecipesFilePath());
+        UserProfileStorage userProfileStorage = new JsonUserProfileStorage(userPrefs.getUserProfileFilePath());
+        HealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(userPrefs.getHealthRecordsFilePath());
+        WorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(userPrefs.getExercisesFilePath());
+        storage = new StorageManager(userProfileStorage, healthRecordsStorage, recipeBookStorage,
+                workoutPlannerStorage, userPrefsStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, workoutPlannerUserPrefs);
+        model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
 
@@ -75,14 +91,64 @@ public class MainApp extends Application {
      * or an empty dukeCooks will be used instead if errors occur when reading {@code storage}'s Duke Cooks.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyWorkoutPlanner> dukeCooksOptional;
-        ReadOnlyWorkoutPlanner initialData;
+        ReadOnlyUserProfile initialDukeCooks;
+        initialDukeCooks = initUserProfile(storage);
+
+        ReadOnlyRecipeBook initialRecipeBook;
+        initialRecipeBook = initRecipeBook(storage);
+
+        ReadOnlyHealthRecords initialHealthRecords;
+        initialHealthRecords = initHealthRecords(storage);
+
+        ReadOnlyWorkoutPlanner initialWorkoutPlanner;
+        initialWorkoutPlanner = initWorkoutPlanner(storage);
+
+        return new ModelManager(initialDukeCooks, initialHealthRecords, initialRecipeBook, initialWorkoutPlanner,
+                userPrefs);
+    }
+
+    /**
+     * Returns a {@code ReadOnlyUserProfile} with the data from {@code storage}'s UserProfile. <br>
+     * The data from the sample UserProfile will be used instead if {@code storage}'s persons is not found,
+     * or an empty DukeCook will be used instead if errors occur when reading {@code storage}'s UserProfile.
+     */
+    private ReadOnlyUserProfile initUserProfile(Storage storage) {
+        Optional<ReadOnlyUserProfile> dukeCooksOptional;
+        ReadOnlyUserProfile initialData;
+
         try {
-            dukeCooksOptional = storage.readDukeCooks();
+            dukeCooksOptional = storage.readUserProfile();
             if (!dukeCooksOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with sample UserProfile");
+            }
+            initialData = dukeCooksOptional.orElseGet(SampleDataUtil::getSampleUserProfile);
+            //initialData = recipeBookOptional.orElseGet(SampleRecipeDataUtil::getSampleRecipeBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
+            initialData = new UserProfile();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
+            initialData = new UserProfile();
+        }
+
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code ModelManager} with the data from {@code storage}'s duke cooks and {@code userPrefs}. <br>
+     * The data from the sample duke cooks will be used instead if {@code storage}'s Duke Cooks is not found,
+     * or an empty dukeCooks will be used instead if errors occur when reading {@code storage}'s Duke Cooks.
+     */
+    private ReadOnlyWorkoutPlanner initWorkoutPlanner(Storage storage) {
+        Optional<ReadOnlyWorkoutPlanner> workoutPlannerOptional;
+        ReadOnlyWorkoutPlanner initialData;
+
+        try {
+            workoutPlannerOptional = storage.readWorkoutPlanner();
+            if (!workoutPlannerOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with sample DukeCooks");
             }
-            initialData = dukeCooksOptional.orElseGet(SampleDataUtil::getSampleDukeCooks);
+            initialData = workoutPlannerOptional.orElseGet(SampleDataUtil::getSampleWorkoutPlanner);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
             initialData = new WorkoutPlanner();
@@ -91,7 +157,59 @@ public class MainApp extends Application {
             initialData = new WorkoutPlanner();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code ReadOnlyUserProfile} with the data from {@code storage}'s UserProfile. <br>
+     * The data from the sample UserProfile will be used instead if {@code storage}'s persons is not found,
+     * or an empty RecipeBook will be used instead if errors occur when reading {@code storage}'s RecipeBook.
+     */
+    private ReadOnlyRecipeBook initRecipeBook(Storage storage) {
+        Optional<ReadOnlyRecipeBook> recipeBookOptional;
+        ReadOnlyRecipeBook initialData;
+
+        try {
+            recipeBookOptional = storage.readRecipeBook();
+            if (!recipeBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with sample RecipeBook");
+            }
+            initialData = recipeBookOptional.orElseGet(SampleRecipeDataUtil::getSampleRecipeBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
+            initialData = new RecipeBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
+            initialData = new RecipeBook();
+        }
+
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code ReadOnlyHealthRecords} with the data from {@code storage}'s health records. <br>
+     * The data from the sample health records will be used instead if {@code storage}'s Health records is not found,
+     * or an empty healthRecords will be used instead if errors occur when reading {@code storage}'s Health Records.
+     */
+    private ReadOnlyHealthRecords initHealthRecords(Storage storage) {
+        Optional<ReadOnlyHealthRecords> healthRecordsOptional;
+        ReadOnlyHealthRecords initialData;
+
+        try {
+            healthRecordsOptional = storage.readHealthRecords();
+            if (!healthRecordsOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with sample Health Records");
+            }
+            initialData = healthRecordsOptional.orElseGet(SampleDataUtil::getSampleHealthRecords);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Health Records");
+            initialData = new HealthRecords();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty Health Records");
+            initialData = new HealthRecords();
+        }
+
+        return initialData;
     }
 
     private void initLogging(Config config) {
@@ -139,21 +257,21 @@ public class MainApp extends Application {
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
      */
-    protected WorkoutPlannerUserPrefs initPrefs(UserPrefsStorage storage) {
+    protected UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
-        WorkoutPlannerUserPrefs initializedPrefs;
+        UserPrefs initializedPrefs;
         try {
-            Optional<WorkoutPlannerUserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new WorkoutPlannerUserPrefs());
+            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
+            initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
                     + "Using default user prefs");
-            initializedPrefs = new WorkoutPlannerUserPrefs();
+            initializedPrefs = new UserPrefs();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
-            initializedPrefs = new WorkoutPlannerUserPrefs();
+            initializedPrefs = new UserPrefs();
         }
 
         //Update prefs file in case it was missing to begin with or there are new/unused fields
@@ -176,7 +294,7 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping Duke Cooks ] =============================");
         try {
-            storage.saveUserPrefs(model.getWorkoutPlannerUserPrefs());
+            storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

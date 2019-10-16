@@ -62,7 +62,7 @@ public class TypicalExercises {
     /**
      * Returns an {@code DukeCooks} with all the typical persons.
      */
-    public static WorkoutPlanner getTypicalDukeCooks() {
+    public static WorkoutPlanner getTypicalWorkoutPlanner() {
         WorkoutPlanner ab = new WorkoutPlanner();
         for (Exercise exercise : getTypicalPersons()) {
             ab.addExercise(exercise);

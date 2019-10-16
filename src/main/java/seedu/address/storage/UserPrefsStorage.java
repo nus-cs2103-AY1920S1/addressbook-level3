@@ -6,10 +6,10 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.WorkoutPlannerUserPrefs;
+import seedu.address.model.UserPrefs;
 
 /**
- * Represents a storage for {@link WorkoutPlannerUserPrefs}.
+ * Represents a storage for {@link UserPrefs}.
  */
 public interface UserPrefsStorage {
 
@@ -24,10 +24,10 @@ public interface UserPrefsStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<WorkoutPlannerUserPrefs> readUserPrefs() throws DataConversionException, IOException;
+    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link seedu.address.model.ReadOnlyUserPrefs} to the storage.
+     * Saves the given {@link ReadOnlyUserPrefs} to the storage.
      * @param userPrefs cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */

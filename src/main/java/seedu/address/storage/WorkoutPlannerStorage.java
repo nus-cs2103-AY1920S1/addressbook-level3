@@ -16,7 +16,7 @@ public interface WorkoutPlannerStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getDukeCooksFilePath();
+    Path getWorkoutPlannerFilePath();
 
     /**
      * Returns DukeCooks data as a {@link ReadOnlyWorkoutPlanner}.
@@ -24,23 +24,23 @@ public interface WorkoutPlannerStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyWorkoutPlanner> readDukeCooks() throws DataConversionException, IOException;
+    Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner() throws DataConversionException, IOException;
 
     /**
-     * @see #getDukeCooksFilePath()
+     * @see #getWorkoutPlannerFilePath()
      */
-    Optional<ReadOnlyWorkoutPlanner> readDukeCooks(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyWorkoutPlanner} to the storage.
      * @param dukeCooks cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveDukeCooks(ReadOnlyWorkoutPlanner dukeCooks) throws IOException;
+    void saveWorkoutPlanner(ReadOnlyWorkoutPlanner dukeCooks) throws IOException;
 
     /**
-     * @see #saveDukeCooks(ReadOnlyWorkoutPlanner)
+     * @see #saveWorkoutPlanner(ReadOnlyWorkoutPlanner)
      */
-    void saveDukeCooks(ReadOnlyWorkoutPlanner dukeCooks, Path filePath) throws IOException;
+    void saveWorkoutPlanner(ReadOnlyWorkoutPlanner dukeCooks, Path filePath) throws IOException;
 
 }

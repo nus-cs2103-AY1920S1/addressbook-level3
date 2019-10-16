@@ -14,7 +14,7 @@ import seedu.address.model.exercise.Exercise;
  * Panel containing the list of persons.
  */
 public class ExerciseListPanel extends UiPart<Region> {
-    private static final String FXML = "ExerciseListPanel.fxml";
+    private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ExerciseListPanel.class);
 
     @FXML

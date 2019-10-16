@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExerciseAtIndex;
-import static seedu.address.testutil.TypicalExercises.getTypicalDukeCooks;
+import static seedu.address.testutil.TypicalExercises.getTypicalWorkoutPlanner;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
 
@@ -15,7 +15,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.WorkoutPlannerUserPrefs;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.exercise.Exercise;
 
 /**
@@ -24,7 +24,7 @@ import seedu.address.model.exercise.Exercise;
  */
 public class DeleteExerciseCommandTest {
 
-    private Model model = new ModelManager(getTypicalDukeCooks(), new WorkoutPlannerUserPrefs());
+    private Model model = new ModelManager(getTypicalWorkoutPlanner(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +33,7 @@ public class DeleteExerciseCommandTest {
 
         String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getDukeCooks(), new WorkoutPlannerUserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getWorkoutPlanner(), new UserPrefs());
         expectedModel.deleteExercise(exerciseToDelete);
 
         assertCommandSuccess(deleteExerciseCommand, model, expectedMessage, expectedModel);
@@ -56,7 +56,7 @@ public class DeleteExerciseCommandTest {
 
         String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
 
-        Model expectedModel = new ModelManager(model.getDukeCooks(), new WorkoutPlannerUserPrefs());
+        Model expectedModel = new ModelManager(model.getWorkoutPlanner(), new UserPrefs());
         expectedModel.deleteExercise(exerciseToDelete);
         showNoPerson(expectedModel);
 
@@ -69,7 +69,7 @@ public class DeleteExerciseCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_EXERCISE;
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getDukeCooks().getExerciseList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getWorkoutPlanner().getExerciseList().size());
 
         DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(outOfBoundIndex);
 

@@ -21,7 +21,7 @@ public class JsonSerializableExerciseCatalogueTest {
         JsonSerializableExerciseCatalogue dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableExerciseCatalogue.class).get();
         WorkoutPlanner dukeCooksFromFile = dataFromFile.toModelType();
-        WorkoutPlanner typicalPersonsDukeCooks = TypicalExercises.getTypicalDukeCooks();
+        WorkoutPlanner typicalPersonsDukeCooks = TypicalExercises.getTypicalWorkoutPlanner();
         assertEquals(dukeCooksFromFile, typicalPersonsDukeCooks);
     }
 }

@@ -13,4 +13,10 @@ public interface ReadOnlyUserPrefs {
 
     Path getExercisesFilePath();
 
+    Path getRecipesFilePath();
+
+    Path getUserProfileFilePath();
+
+    Path getHealthRecordsFilePath();
+
 }

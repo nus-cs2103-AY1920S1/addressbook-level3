@@ -17,7 +17,7 @@ public class ClearExerciseCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setDukeCooks(new WorkoutPlanner());
+        model.setWorkoutPlanner(new WorkoutPlanner());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
