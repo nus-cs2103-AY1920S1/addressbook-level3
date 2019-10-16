@@ -4,15 +4,28 @@ import mams.model.module.Module;
 
 import java.util.ArrayList;
 
+import static mams.logic.parser.CliSyntax.PREFIX_APPEALID;
+import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
+import static mams.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+
 public abstract class ClashCommand extends Command {
 
     public static final String COMMAND_WORD = "clash";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Checks timetable clashes "
-            + "by the module codes or appeal number or student's matric number. \n";
+            + "by the 2 module codes or 1 appeal ID or 1 student matric number."
+            + "\nExample: " + COMMAND_WORD + " "
+            + PREFIX_MODULE_CODE + "CS1010 " + PREFIX_MODULE_CODE + "CS2030 "
+            + "\nor " + COMMAND_WORD + " "
+            + PREFIX_APPEALID + "c00001"
+            + "\nor " + COMMAND_WORD + " "
+            + PREFIX_MATRICID + "A0111234X";
+
 
     public static final String MESSAGE_CLASH_DETECTED = "Timetable clash detected: \n";
     public static final String MESSAGE_CLASH_NOT_DETECTED = "There is no timetable clash.";
     public static final String MESSAGE_INVALID_MODULE_CODE = "Please enter 2 valid module codes.";
+    public static final String MESSAGE_INVALID_MATRICID = "Please enter 1 valid Matric ID. ";
+    public static final String MESSAGE_INVALID_APPEALID = "Please enter 1 valid Appeal ID. ";
 
     ArrayList<Integer> clashingSlots;
 

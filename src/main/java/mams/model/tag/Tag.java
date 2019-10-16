@@ -59,4 +59,12 @@ public class Tag {
         return '[' + tagName + ']';
     }
 
+    /**
+     * Returns the tag name.
+     * @return string of tag name.
+     */
+    public String getTagName() {
+        return tagName;
+    }
+
 }
