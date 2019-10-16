@@ -154,16 +154,11 @@ public class ParserUtil {
         if (!TimeInHalfHour.isValidTime(trimmedTime)) {
             throw new ParseException(TimeInHalfHour.MESSAGE_CONSTRAINTS);
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> Add ScheduleActivityCommand
         int hour = Integer.parseInt(time.substring(0, 2));
         int min = Integer.parseInt(time.substring(2));
         return new TimeInHalfHour(hour, min);
     }
-<<<<<<< HEAD
-=======
+
 
     /**
      * Parses a {@code String duration} into an {@code Integer}.
@@ -181,5 +176,4 @@ public class ParserUtil {
         return new DurationInHalfHour(numberOfHalfHour);
     }
 
->>>>>>> Add ScheduleActivityCommand
 }
