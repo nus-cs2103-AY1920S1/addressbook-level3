@@ -2,6 +2,9 @@ package seedu.address.commons.util;
 
 import java.util.Random;
 
+/**
+ * Class that generates a valid Uid.
+ */
 public class UidGenerator {
 
     public static final String VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"

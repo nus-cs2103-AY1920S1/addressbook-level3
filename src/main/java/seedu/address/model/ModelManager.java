@@ -13,6 +13,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
+<<<<<<< HEAD
+=======
+import seedu.address.model.gamedifficulty.DifficultyEnum;
+>>>>>>> e7bed9c64da955e9713f3c29b34478153e1142ad
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
@@ -37,6 +41,7 @@ public class ModelManager implements Model {
 
     //Placeholder game model
     private Game game = null;
+    private DifficultyEnum difficulty;
 
     /**
      * Initializes a ModelManager with the given wordBank and userPrefs.
@@ -55,6 +60,9 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
         filteredWordBanks = new FilteredList<>(this.wordBankList.getWordBankList());
+
+        // Default Difficulty is always EASY.
+        this.difficulty = DifficultyEnum.EASY;
     }
 
     public ModelManager() {
@@ -68,6 +76,16 @@ public class ModelManager implements Model {
 
     public Game getGame() {
         return this.game;
+    }
+
+    @Override
+    public void setDifficulty(DifficultyEnum difficultyEnum) {
+        this.difficulty = difficultyEnum;
+    }
+
+    @Override
+    public DifficultyEnum getDifficulty() {
+        return difficulty;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -114,6 +132,9 @@ public class ModelManager implements Model {
         //        this.wordBank.resetData(wordBank);
     }
 
+    /**
+     * Clears the WordBank.
+     */
     public void clearWordBank() {
         wordBank.resetData(new WordBank(wordBank.getName()));
         filteredCards = new FilteredList<>(this.wordBank.getCardList());

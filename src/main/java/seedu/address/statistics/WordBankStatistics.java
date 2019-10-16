@@ -99,6 +99,11 @@ public class WordBankStatistics {
         return null; //todo
     }
 
+    /**
+     * Removes the statistics from a chosen card via its cardID.
+     *
+     * @param cardId The ID of the card to remove statistics from.
+     */
     public void removeCardStatistics(String cardId) {
         for (int i = 0; i < cardStats.size(); ++i) {
             if (cardStats.get(i).getCardId().equals(cardId)) {

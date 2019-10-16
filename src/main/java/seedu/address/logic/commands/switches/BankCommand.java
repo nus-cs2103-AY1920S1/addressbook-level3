@@ -37,7 +37,7 @@ public class BankCommand extends SwitchCommand {
         if (model.getWordBankList().getWordBank(this.name) == null) {
             return ModeEnum.LOAD;
         }
-        return ModeEnum.APP;
+        return ModeEnum.SETTINGS;
     }
 
     @Override

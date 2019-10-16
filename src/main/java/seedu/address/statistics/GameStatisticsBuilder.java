@@ -51,6 +51,11 @@ public class GameStatisticsBuilder {
         return data;
     }
 
+    /**
+     * Builds the resulting {@code GameStatistics} object.
+     *
+     * @return
+     */
     public GameStatistics build() {
         return new GameStatistics(title,
                 getScore(),

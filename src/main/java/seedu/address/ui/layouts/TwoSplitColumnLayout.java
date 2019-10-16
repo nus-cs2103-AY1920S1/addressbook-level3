@@ -5,6 +5,12 @@ import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import seedu.address.ui.UiPart;
 
+<<<<<<< HEAD
+=======
+/**
+ * Layout class to use in {@code ModularDisplay} split vertically.
+ */
+>>>>>>> e7bed9c64da955e9713f3c29b34478153e1142ad
 public class TwoSplitColumnLayout extends UiPart<Node> {
 
     private static final String FXML = "TwoSplitColumnLayout.fxml";

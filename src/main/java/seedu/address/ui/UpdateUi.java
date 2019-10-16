@@ -2,6 +2,10 @@ package seedu.address.ui;
 
 import javafx.scene.layout.StackPane;
 
+
+/**
+ * Class to handle updating of Ui.
+ */
 public class UpdateUi {
 
     private ModularDisplay modularDisplay;
@@ -13,7 +17,6 @@ public class UpdateUi {
     }
 
     //Use string for now, eventually use mode.
-
     /**
      * Updates the mode in {@code MainWindow}.
      *

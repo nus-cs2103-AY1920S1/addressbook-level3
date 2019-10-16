@@ -148,4 +148,9 @@ public class LogicManager implements Logic {
     public WordBankStatistics getWordBankStatistics() {
         return model.getWordBankStatistics();
     }
+
+    @Override
+    public long getTimeAllowedPerQuestion() {
+        return this.model.getDifficulty().getTimeAllowedPerQuestion();
+    }
 }

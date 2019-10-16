@@ -31,7 +31,7 @@ public class CardBoxPanel extends UiPart<Region> {
         List<Node> nodes = IntStream
                 .range(0, cardList.size())
                 .mapToObj(x -> {
-                    Node node =  new CardCard(cardList.get(x), x + 1).getRoot();
+                    Node node = new CardCard(cardList.get(x), x + 1).getRoot();
                     if (x % 2 == 0) {
                         node.setId("cardPaneEven"); // to set the colors of the boxes
                     } else {
