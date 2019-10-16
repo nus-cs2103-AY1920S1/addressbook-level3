@@ -1,10 +1,14 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.project.Project;
+
+import java.util.Comparator;
 
 /**
  * An UI component that displays information of a {@code Project}.
@@ -31,6 +35,8 @@ public class ProjectCard extends UiPart<Region> {
     private Label title;
     @FXML
     private Label description;
+    @FXML
+    private FlowPane meetings;
 
     public ProjectCard(Project project, int displayedIndex) {
         super(FXML);
@@ -38,6 +44,9 @@ public class ProjectCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         title.setText(project.getTitle().title);
         description.setText(project.getDescription().description);
+        project.getListOfMeeting().stream()
+                .sorted(Comparator.comparing(m -> m.getTime().getDate()))
+                .forEach(meeting -> meetings.getChildren().add(new Label(meeting.getDescription().description + " " + meeting.getTime().time)));
     }
 
     @Override

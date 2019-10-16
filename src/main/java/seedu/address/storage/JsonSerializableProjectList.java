@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ class JsonSerializableProjectList {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public ProjectList toModelType() throws IllegalValueException {
+    public ProjectList toModelType() throws IllegalValueException, ParseException {
         ProjectList projectList = new ProjectList();
         for (JsonAdaptedProject jsonAdaptedProject : projects) {
             Project project = jsonAdaptedProject.toModelType();
