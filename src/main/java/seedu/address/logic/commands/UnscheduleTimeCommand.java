@@ -10,11 +10,16 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.day.ActivityWithTime;
 
+import seedu.address.model.day.Day;
+import seedu.address.model.day.Itinerary;
+import seedu.address.model.day.time.TimeInHalfHour;
 import seedu.address.model.field.Name;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,36 +39,39 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
     public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity unscheduled: %1$s";
 
     private final Index dayIndex;
-    private final EditDayDescriptor editDayDescriptor;
+    private final TimeInHalfHour time;
 
     /**
      * @param dayIndex of the contacts in the filtered contacts list to edit
-     * @param editDayDescriptor details to edit the contacts with
+     * @param time details to edit the contacts with
      */
-    public UnscheduleTimeCommand(Index dayIndex, EditDayDescriptor editDayDescriptor) {
+    public UnscheduleTimeCommand(Index dayIndex, TimeInHalfHour time) {
         requireNonNull(dayIndex);
-        requireNonNull(editDayDescriptor);
+        requireNonNull(time);
         this.dayIndex = dayIndex;
-        this.editDayDescriptor = editDayDescriptor;
+        this.time = time;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Contact> lastShownList = model.getFilteredContactList();
+        Itinerary lastShownItinerary = model.getItinerary(); // last shown itinerary?
 
-        if (dayIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        if (dayIndex.getZeroBased() >= lastShownItinerary.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DAY_DISPLAYED_INDEX);
         }
 
-        Contact contactToEdit = lastShownList.get(dayIndex.getZeroBased());
-        Contact editedContact = createEditedContact(contactToEdit, editContactDescriptor);
+        List<Day> daysInItinerary = lastShownItinerary.getDays();
+        Day dayToEdit = daysInItinerary.get(dayIndex.getZeroBased());
+        Day editedDay = createUnscheduledActivityDay(dayToEdit, this.time);
+        List<Day> editedDays = new ArrayList<>(daysInItinerary);
+        editedDays.set(dayIndex.getZeroBased(), editedDay);
 
-        if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
+        if (!dayToEdit.isSameDay(editedDay) && model.has(editedContact)) {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
 
-        model.setContact(contactToEdit, editedContact);
+        model.setDays(editedDays);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         return new CommandResult(String.format(MESSAGE_UNSCHEDULE_TIME_SUCCESS, editedContact));
     }
@@ -71,62 +79,8 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddContactCommand // instanceof handles nulls
-                && toAdd.equals(((AddContactCommand) other).toAdd));
-    }
-
-    /**
-     * Stores the details to edit the contacts with. Each non-empty field value will replace the
-     * corresponding field value of the contacts.
-     */
-    public static class EditDayDescriptor {
-        private List<ActivityWithTime> activitiesInDay;
-
-        public EditDayDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditDayDescriptor(UnscheduleTimeCommand.EditDayDescriptor toCopy) {
-            setActivitiesInDay(toCopy.activitiesInDay);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
-        }
-
-        public void setActivitiesInDay(List<ActivityWithTime> activitiesInDay) {
-            this.activitiesInDay = activitiesInDay;
-        }
-
-        public Optional<Name> getActivitiesInDay() {
-            return Optional.ofNullable(name);
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditCommand.EditContactDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditCommand.EditContactDescriptor e = (EditCommand.EditContactDescriptor) other;
-
-            return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
-        }
+                || (other instanceof UnscheduleTimeCommand // instanceof handles nulls
+                && this.dayIndex.equals(((UnscheduleTimeCommand) other).dayIndex)
+                && this.time.equals(((UnscheduleTimeCommand) other).time));
     }
 }
