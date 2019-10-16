@@ -157,6 +157,13 @@ public class Budget {
         expenses.remove(toRemove);
     }
 
+    public void setExpense(Expense target, Expense editedExpense) {
+        if (expenses.contains(target)) {
+            int index = expenses.indexOf(target);
+            expenses.set(index, editedExpense);
+        }
+    }
+
     /**
      * Returns true if both budgets have the same description, amount, start date and period.
      */

@@ -138,6 +138,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedExpense);
 
         expenses.setExpense(target, editedExpense);
+        for (Budget budget : budgets) {
+            budget.setExpense(target, editedExpense);
+        }
     }
 
     /**
