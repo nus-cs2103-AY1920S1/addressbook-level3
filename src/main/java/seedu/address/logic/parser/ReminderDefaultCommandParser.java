@@ -6,33 +6,30 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ReminderCommand;
+import seedu.address.logic.commands.defaults.ReminderDefaultCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.food.NameContainsCloseExpiryDatePredicate;
 
 /**
- * Parses input arguments and creates a new ReminderCommand object
+ * Parses input arguments and creates a new ReminderDefaultCommand object
  */
-public class ReminderCommandParser {
-
+public class ReminderDefaultCommandParser {
     /**
-     * Parses the given {@code String} of arguments in the context of the ReminderCommand
-     * and returns a ReminderCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ReminderDefaultCommand
+     * and returns a ReminderDefaultCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public ReminderCommand parse(String args) throws ParseException {
+    public ReminderDefaultCommand parse(String args) throws ParseException {
         int r;
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_REMINDER);
 
-        if (args.equals("")) {
-            r = 3;
-        } else if (!arePrefixesPresent(argMultimap, PREFIX_REMINDER)
+        if (!arePrefixesPresent(argMultimap, PREFIX_REMINDER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE));
         } else {
             r = Integer.parseInt(argMultimap.getValue(PREFIX_REMINDER).get().trim());
         }
-        return new ReminderCommand(new NameContainsCloseExpiryDatePredicate(r));
+        return new ReminderDefaultCommand(String.valueOf(r));
     }
 
     /**
