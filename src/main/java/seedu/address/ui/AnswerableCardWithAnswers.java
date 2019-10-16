@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.Set;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -13,7 +14,7 @@ import seedu.address.model.answerable.Answerable;
 /**
  * An UI component that displays information of a {@code Answerable}.
  */
-public class AnswerableCard extends UiPart<Region> {
+public class AnswerableCardWithAnswers extends UiPart<Region> {
 
     private static final String FXML = "AnswerableListCard.fxml";
 
@@ -26,7 +27,15 @@ public class AnswerableCard extends UiPart<Region> {
      */
 
     public final Answerable answerable;
-    public static int questionNumbering;
+    public static Set<Answer> combinedAnswerSet ;
+
+    public static Set<Answer> getCombinedAnswerSet() {
+        return combinedAnswerSet;
+    }
+
+    public static void setCombinedAnswerSet(Set<Answer> combinedAnswerSet) {
+        AnswerableCardWithAnswers.combinedAnswerSet = combinedAnswerSet;
+    }
 
     @FXML
     private HBox cardPane;
@@ -45,10 +54,9 @@ public class AnswerableCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public AnswerableCard(Answerable answerable, int displayedIndex) {
+    public AnswerableCardWithAnswers(Answerable answerable, int displayedIndex) {
         super(FXML);
         this.answerable = answerable;
-
         id.setText(displayedIndex + ". ");
         question.setText(answerable.getQuestion().fullQuestion);
         difficulty.setText(answerable.getDifficulty().value);
@@ -60,6 +68,7 @@ public class AnswerableCard extends UiPart<Region> {
         answerable.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
     }
 
 
@@ -71,18 +80,25 @@ public class AnswerableCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AnswerableCard)) {
+        if (!(other instanceof AnswerableCardWithAnswers)) {
             return false;
         }
 
         // state check
-        AnswerableCard card = (AnswerableCard) other;
+        AnswerableCardWithAnswers card = (AnswerableCardWithAnswers) other;
         return id.getText().equals(card.id.getText())
                 && answerable.equals(card.answerable);
     }
-
-    private static String convert (Answer answer, Integer questionNumbering) {
-        String fullString = String.format("%s %s", questionNumbering, answer.toStringNoBraces());
-        return fullString;
-    }
 }
+
+//    public AnswerableCard(Answerable answerable, int displayedIndex) {
+//        super(FXML);
+//        this.answerable = answerable;
+//        id.setText(displayedIndex + ". ");
+//        question.setText(answerable.getQuestion().fullQuestion);
+//        difficulty.setText(answerable.getDifficulty().value);
+//        category.setText(answerable.getCategory().value);
+//        answerable.getTags().stream()
+//                .sorted(Comparator.comparing(tag -> tag.tagName))
+//                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+//    }
