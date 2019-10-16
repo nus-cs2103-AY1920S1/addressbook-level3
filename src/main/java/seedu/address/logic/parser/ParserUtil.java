@@ -1,12 +1,17 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.*;
@@ -14,6 +19,7 @@ import seedu.address.model.project.Description;
 import seedu.address.model.project.Time;
 import seedu.address.model.project.Title;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.timetable.TimeRange;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -173,5 +179,22 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code String timeRange} into a {@code TimeRange}.
+     */
+    public static TimeRange parseTimeRange(String timeRange) throws ParseException {
+        requireNonNull(timeRange);
+        String[] split = timeRange.trim().split(" ");
+        DayOfWeek dayStart = DayOfWeek.valueOf(split[0]);
+        DayOfWeek dayEnd = DayOfWeek.valueOf(split[1]);
+        LocalTime startTime = LocalTime.parse(split[2], DateTimeFormatter.ofPattern("HHmm"));
+        LocalTime endTime = LocalTime.parse(split[3], DateTimeFormatter.ofPattern("HHmm"));
+        try {
+            return new TimeRange(dayStart, dayEnd, startTime, endTime);
+        } catch (IllegalValueException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TimeRange.MESSAGE_CONSTRAINTS));
+        }
     }
 }
