@@ -207,4 +207,28 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses {@code Collection<String> categories} into a {@code Set<Category>}.
+     */
+    public static Set<Category> parseCategories(Collection<String> categories) throws ParseException {
+        requireNonNull(categories);
+        final Set<Category> categoriesSet = new HashSet<>();
+        for (String categoryName : categories) {
+            categoriesSet.add(parseCategory(categoryName));
+        }
+        return categoriesSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> locations} into a {@code Set<Location>}.
+     */
+    public static Set<Location> parseLocations(Collection<String> locations) throws ParseException {
+        requireNonNull(locations);
+        final Set<Location> locationsSet = new HashSet<>();
+        for (String locationName : locations) {
+            locationsSet.add(parseLocation(locationName));
+        }
+        return locationsSet;
+    }
 }
