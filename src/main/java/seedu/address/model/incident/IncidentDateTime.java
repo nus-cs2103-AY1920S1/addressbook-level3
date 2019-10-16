@@ -42,7 +42,7 @@ public class IncidentDateTime {
     }
 
     /**
-     * Returns true if a given string is a valid VehicleNumber.
+     * Returns true if a given string is a valid DateTime.
      */
     public static boolean isValidIncidentDateTime(String test) {
         // return test.matches(VALIDATION_REGEX);

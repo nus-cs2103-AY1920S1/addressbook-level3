@@ -9,7 +9,7 @@ import seedu.address.model.person.Phone;
 public class CallerNumber extends Phone {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Caller numbers should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Caller number should be of length 8, only contain numerical digits and should not be blank";
 
     /**
      * Constructs a {@code CallerNumber}.
@@ -21,6 +21,21 @@ public class CallerNumber extends Phone {
         // checkArgument(isValidCallerNumber(callerNumber), MESSAGE_CONSTRAINTS);
         // this.callerNumber = callerNumber;
         super(phone);
+    }
+
+    /**
+     * Checks if {@code caller} is a valid {@code CallerNumber}.
+     */
+    public static boolean isValidCaller(String caller) {
+        boolean correctLength = caller.length() == 8;
+        boolean isNumber;
+        try {
+            Integer.parseInt(caller);
+            isNumber = true;
+        } catch (NumberFormatException e) {
+            isNumber = false;
+        }
+        return correctLength & isNumber;
     }
 }
 

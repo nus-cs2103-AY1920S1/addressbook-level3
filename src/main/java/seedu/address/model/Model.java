@@ -15,6 +15,7 @@ import seedu.address.model.vehicle.Vehicle;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Incident> PREDICATE_SHOW_ALL_INCIDENTS = unused -> true;
 
     /**
      * Sets the {@code Person} that is logged into the {@code Session}.
@@ -70,6 +71,11 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a incident with the same details exists in the address book.
+     */
+    boolean hasIncident(Incident incident);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -88,6 +94,13 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Replaces the given incident {@code target} with {@code editedIncident}.
+     * {@code target} must exit in the address book.
+     * Incident details of {@code target} must not be the same as another existing incident in address book.
+     */
+    void setIncident(Incident target, Incident editedIncident);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -102,4 +115,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered Incidents list to filter by the give {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredIncidentList(Predicate<Incident> predicate);
 }
