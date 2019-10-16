@@ -1,5 +1,15 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
+
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -118,6 +128,33 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox.importSyntaxStyleSheet(getRoot().getScene());
+
+        // add supported commands (not all yet)
+        commandBox.enableSyntaxHightlightingForCommand("add",
+                List.of(PREFIX_PRICE, PREFIX_DESCRIPTION),
+                "add d/<description_here> p/ <price here>");
+        commandBox.enableSyntaxHightlightingForCommand("alias",
+                Collections.emptyList(),
+                "alias <alias_name> <input>");
+        commandBox.enableSyntaxHightlightingForCommand("budget",
+                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_START_DATE, PREFIX_PERIOD),
+                "budget d/ <description> p/ <amount> sd/ <start_date> pr/ <period>");
+        commandBox.enableSyntaxHightlightingForCommand("event",
+                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_TAG, PREFIX_TIMESTAMP),
+                "event d/ <description> p/ <amount> date/ <date>");
+        commandBox.enableSyntaxHightlightingForCommand("stats",
+                List.of(PREFIX_DESCRIPTION, PREFIX_START_DATE, PREFIX_END_DATE),
+                "stats sd/ <start_date> ed/ <end_date>");
+        commandBox.enableSyntaxHightlightingForCommand("undo",
+                Collections.emptyList(),
+                "undo");
+        commandBox.enableSyntaxHightlightingForCommand("redo",
+                Collections.emptyList(),
+                "redo");
+
+        commandBox.enableSyntaxHighlighting();
+
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
