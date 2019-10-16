@@ -51,7 +51,7 @@ public class Date {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Date // instanceof handles nulls
-                && value.toString().equals(((Date) other).value.toString())); // state check
+                && value.equals(((Date) other).value)); // state check
     }
 
     @Override
