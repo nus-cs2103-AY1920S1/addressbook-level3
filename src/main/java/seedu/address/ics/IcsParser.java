@@ -5,11 +5,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.TimeZone;
 
+import seedu.address.logic.parser.DateTimeParser;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
 
@@ -23,6 +22,7 @@ public class IcsParser {
     private static final String FILE_CANNOT_BE_FOUND = "Sorry, the file specified cannot be found!";
     private static final String INVALID_FILE_EXTENSION = "The file specified is not an ICS file!";
     private static final String FILE_IS_CORRUPTED = "The ICS file is corrupted!";
+    private static final String EVENT_DESC_CANNOT_BE_EMPTY = "The description of an event cannot be empty!";
 
     /**
      * This enum represents the different types of objects the IcsParser could be parsing at any given point in time.
@@ -47,11 +47,11 @@ public class IcsParser {
         return file;
     }
 
-    public static IcsParser parse(String path) throws IcsException {
+    public static IcsParser getParser(String path) throws IcsException {
         return new IcsParser(path);
     }
 
-    public ArrayList<EventSource> getEvents() throws IcsException {
+    public ArrayList<EventSource> parse() throws IcsException {
         ArrayList<EventSource> events = new ArrayList<>();
         try {
             ParseState currentlyParsing = ParseState.None;
@@ -62,7 +62,7 @@ public class IcsParser {
                 if (currentlyParsing == ParseState.Event) {
                     if (line.startsWith("END:VEVENT")) {
                         currentlyParsing = ParseState.None;
-                        EventSource eventSource = createEvent(stringBuilder.toString());
+                        EventSource eventSource = parseSingleEvent(stringBuilder.toString());
                         events.add(eventSource);
                     } else {
                         stringBuilder.append(line).append("\n");
@@ -94,11 +94,10 @@ public class IcsParser {
      */
     private DateTime parseTimeStamp(String timestamp) throws IcsException {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-            return new DateTime(sdf.parse(timestamp).toInstant());
+            DateTimeParser dateTimeParser = new DateTimeParser();
+            return dateTimeParser.parse(timestamp);
         } catch (ParseException e) {
-            throw new IcsException("The timestamp provided is invalid!");
+            throw new IcsException(e.getMessage());
         }
     }
 
@@ -109,25 +108,29 @@ public class IcsParser {
      * @return an EventSource object representing the data provided.
      * @throws IcsException Exception thrown when there was an issue while making the EventSource object.
      */
-    public EventSource createEvent(String segment) throws IcsException {
+    public EventSource parseSingleEvent(String segment) throws IcsException {
         String[] lines = segment.split("\\r?\\n");
         String description = "";
-        DateTime dateTime = null;
+        DateTime eventStart = null;
+        DateTime eventEnd = null;
         for (String line : lines) {
             if (line.startsWith("DESCRIPTION:")) {
                 description = line.replaceFirst("DESCRIPTION:", "");
+                if (description.equals("")) {
+                    throw new IcsException(EVENT_DESC_CANNOT_BE_EMPTY);
+                }
             } else if (line.startsWith("DTSTART:")) {
                 String timestamp = line.replaceFirst("DTSTART:", "");
-                dateTime = parseTimeStamp(timestamp);
-            } else if (line.equals("END:VCALENDAR")) {
-                if (description.equals("") || dateTime == null) {
-                    throw new IcsException(FILE_IS_CORRUPTED);
-                }
+                eventStart = parseTimeStamp(timestamp);
+            } else if (line.startsWith("DTEND:")) {
+                String timestamp = line.replaceFirst("DTEND:", "");
+                eventEnd = parseTimeStamp(timestamp);
+            } else if (line.equals("END:VCALENDAR") && !line.equals(lines[lines.length - 1])) {
+                throw new IcsException(FILE_IS_CORRUPTED);
             }
         }
-        if (description.equals("")) {
-            throw new IcsException("The description of an event cannot be empty!");
-        }
-        return new EventSource(description, dateTime);
+        return eventEnd == null
+                ? new EventSource(description, eventStart)
+                : new EventSource(description, eventStart, eventEnd);
     }
 }
