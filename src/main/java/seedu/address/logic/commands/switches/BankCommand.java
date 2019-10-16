@@ -14,7 +14,7 @@ import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
 
 /**
- * Terminates the program.
+ * Selects Bank and swtiches to APP mode if successful
  */
 public class BankCommand extends SwitchCommand {
 
@@ -23,16 +23,11 @@ public class BankCommand extends SwitchCommand {
     public static final String MESSAGE_LIST_ACKNOWLEDGEMENT = "Displaying available wordbanks\n Choose one";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Loads the bank identified by the index number.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Loads the bank identified by the name.\n"
+            + "Parameters: NAME\n"
+            + "Example: " + COMMAND_WORD + " addressbook";
 
-    private String name;
-    //    private final Index targetIndex;
-    //
-    //    public BankCommand(Index targetIndex) {
-    //        this.targetIndex = targetIndex;
-    //    }
+    private final String name;
 
     public BankCommand(String name) {
         this.name = name;
@@ -53,7 +48,7 @@ public class BankCommand extends SwitchCommand {
     public CommandResult execute(Model model) throws CommandException {
         WordBankList temp = model.getWordBankList();
         WordBankStatisticsList wbStatsList = model.getWordBankStatisticsList();
-        if (temp.getWordBank(name) == null) {
+        if (temp.getWordBank(this.name) == null) {
             throw new CommandException("Workbank does not exist");
         }
         model.setWordBank(temp.getWordBank(name));
