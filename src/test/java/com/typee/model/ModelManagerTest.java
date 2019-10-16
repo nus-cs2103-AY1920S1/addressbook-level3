@@ -1,6 +1,6 @@
 package com.typee.model;
 
-import static com.typee.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static com.typee.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 import static com.typee.testutil.Assert.assertThrows;
 import static com.typee.testutil.TypicalPersons.ALICE;
 import static com.typee.testutil.TypicalPersons.BENSON;
@@ -118,11 +118,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredAppointmentList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
