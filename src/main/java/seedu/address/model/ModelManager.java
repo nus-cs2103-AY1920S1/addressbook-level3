@@ -162,7 +162,6 @@ public class ModelManager implements Model {
         requireNonNull(incident);
         return addressBook.hasIncident(incident);
     }
-    
     @Override
     public void setIncident(Incident target, Incident editedIncident) {
         requireAllNonNull(target, editedIncident);
