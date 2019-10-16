@@ -20,7 +20,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.model.Model;
 import seedu.address.model.TravelPal;
-import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;

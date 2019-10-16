@@ -5,8 +5,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDateTime;
 
 import seedu.address.model.booking.Booking;
-import seedu.address.model.inventory.Inventory;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
