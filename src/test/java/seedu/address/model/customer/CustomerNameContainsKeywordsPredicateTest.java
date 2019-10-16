@@ -11,21 +11,21 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.CustomerBuilder;
 
-public class NameContainsKeywordsPredicateTest {
+public class CustomerNameContainsKeywordsPredicateTest {
 
     @Test
     public void equals() {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        NameContainsKeywordsPredicate firstPredicate = new NameContainsKeywordsPredicate(firstPredicateKeywordList);
-        NameContainsKeywordsPredicate secondPredicate = new NameContainsKeywordsPredicate(secondPredicateKeywordList);
+        CustomerNameContainsKeywordsPredicate firstPredicate = new CustomerNameContainsKeywordsPredicate(firstPredicateKeywordList);
+        CustomerNameContainsKeywordsPredicate secondPredicate = new CustomerNameContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        NameContainsKeywordsPredicate firstPredicateCopy = new NameContainsKeywordsPredicate(firstPredicateKeywordList);
+        CustomerNameContainsKeywordsPredicate firstPredicateCopy = new CustomerNameContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -41,34 +41,34 @@ public class NameContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        CustomerNameContainsKeywordsPredicate predicate = new CustomerNameContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new CustomerBuilder().withName("Alice Bob").build()));
 
         // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
+        predicate = new CustomerNameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
         assertTrue(predicate.test(new CustomerBuilder().withName("Alice Bob").build()));
 
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
+        predicate = new CustomerNameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
         assertTrue(predicate.test(new CustomerBuilder().withName("Alice Carol").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
+        predicate = new CustomerNameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
         assertTrue(predicate.test(new CustomerBuilder().withName("Alice Bob").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
+        CustomerNameContainsKeywordsPredicate predicate = new CustomerNameContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new CustomerBuilder().withName("Alice").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
+        predicate = new CustomerNameContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new CustomerBuilder().withName("Alice Bob").build()));
 
         // Keywords match phone and email, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345678", "alice@email.com", "Main", "Street"));
+        predicate = new CustomerNameContainsKeywordsPredicate(Arrays.asList("12345678", "alice@email.com", "Main", "Street"));
         assertFalse(predicate.test(new CustomerBuilder().withName("Alice").withContactNumber("12345678")
                 .withEmail("alice@email.com").build()));
     }

@@ -7,7 +7,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.model.Model;
-import seedu.address.model.customer.NameContainsKeywordsPredicate;
+import seedu.address.model.customer.CustomerNameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all customers in customer book whose name contains any of the argument keywords.
@@ -22,9 +22,9 @@ public class FindCustomerCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final CustomerNameContainsKeywordsPredicate predicate;
 
-    public FindCustomerCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCustomerCommand(CustomerNameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
