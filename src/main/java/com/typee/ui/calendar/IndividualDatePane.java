@@ -32,7 +32,7 @@ public class IndividualDatePane extends UiPart<Region> {
      * Returns the stackpane that represents this individual date pane.
      * @return The stackpane that represents this individual date pane.
      */
-    public StackPane getIndividualDatePane() {
+    public StackPane getIndividualDateStackPane() {
         return individualDatePane;
     }
 
