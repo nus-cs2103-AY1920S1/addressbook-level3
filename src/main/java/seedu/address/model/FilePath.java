@@ -22,7 +22,7 @@ public class FilePath {
      * Space is allowed.
      * FilePath is required to end with the String: ".docx"
      */
-    public static final String VALIDATION_REGEX = "[~\\w\\-!:\\[\\\\(\\)/\\\\ ]+\\.docx";
+    public static final String VALIDATION_REGEX = "[~\\w\\-!:\\[\\]()/\\\\ ]+\\.docx";
 
     public final String fullFilePath;
 
