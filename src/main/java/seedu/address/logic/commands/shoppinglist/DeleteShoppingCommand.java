@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.shoppingList;
+package seedu.address.logic.commands.shoppinglist;
 
 import static java.util.Objects.requireNonNull;
 

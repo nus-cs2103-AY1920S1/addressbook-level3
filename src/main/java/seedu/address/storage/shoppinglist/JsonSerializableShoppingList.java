@@ -1,4 +1,4 @@
-package seedu.address.storage.shoppingList;
+package seedu.address.storage.shoppinglist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyShoppingList;
 import seedu.address.model.ShoppingList;
 import seedu.address.model.food.ShoppingItem;
-import seedu.address.storage.shoppingList.JsonAdaptedShoppingItem;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.

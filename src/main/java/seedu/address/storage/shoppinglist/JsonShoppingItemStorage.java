@@ -1,4 +1,4 @@
-package seedu.address.storage.shoppingList;
+package seedu.address.storage.shoppinglist;
 
 import static java.util.Objects.requireNonNull;
 
@@ -12,7 +12,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyShoppingList;
 
 /**

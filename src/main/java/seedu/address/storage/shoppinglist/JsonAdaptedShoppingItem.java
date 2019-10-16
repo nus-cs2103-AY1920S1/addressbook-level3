@@ -1,17 +1,10 @@
-package seedu.address.storage.shoppingList;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+package seedu.address.storage.shoppinglist;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.food.*;
-import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Food}.

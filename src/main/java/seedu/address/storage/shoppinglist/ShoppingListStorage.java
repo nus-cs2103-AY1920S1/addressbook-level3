@@ -1,11 +1,10 @@
-package seedu.address.storage.shoppingList;
+package seedu.address.storage.shoppinglist;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyShoppingList;
 
 /**

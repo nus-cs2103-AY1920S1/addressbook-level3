@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.shoppingList;
+package seedu.address.logic.commands.shoppinglist;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;

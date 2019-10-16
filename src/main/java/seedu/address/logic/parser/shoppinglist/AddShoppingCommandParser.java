@@ -1,4 +1,4 @@
-package seedu.address.logic.parser.shoppingList;
+package seedu.address.logic.parser.shoppinglist;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.*;
@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.*;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.shoppingList.AddShoppingCommand;
+import seedu.address.logic.commands.shoppinglist.AddShoppingCommand;
 import seedu.address.logic.parser.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.food.*;
