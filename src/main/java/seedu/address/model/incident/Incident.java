@@ -56,7 +56,7 @@ public class Incident {
                 getTagSet("friends"), new Username("user1"), new Password("pass123"));
         this.incidentDateTime = incidentDateTime;
         this.id = id;
-        this.incidentDesc = new Description("Fluff description");
+        this.incidentDesc = new Description("Fluff description for search testing");
         this.location = location;
         this.callerNumber = new CallerNumber("98989898");
         //this.car = VehicleAssigner.assignVehicle(location);
@@ -85,7 +85,7 @@ public class Incident {
     public static Description promptForDescription() {
         System.out.println("Enter incident description now? y/n"); //change to GUI
         Scanner sc = new Scanner(System.in); //change to GUI
-        String desc = "Testing search function";
+        String desc = "";
         if (sc.next().equals("y")) {
             System.out.println("Please enter description:");
             desc = sc.nextLine();

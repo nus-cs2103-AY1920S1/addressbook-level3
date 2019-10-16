@@ -16,6 +16,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    /** {@code Predicate} that always evaluates to true */
+    Predicate<Incident> PREDICATE_SHOW_ALL_INCIDENTS = unused -> true;
+
     /**
      * Sets the {@code Person} that is logged into the {@code Session}.
      */
