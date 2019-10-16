@@ -18,7 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.category.Category;
 import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
 import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.util.FilePath;
+import seedu.address.model.FilePath;
 
 /**
  * Finds and lists all flashcards in address book whose question contains any of the argument keywords.

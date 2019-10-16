@@ -13,7 +13,7 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Question;
-import seedu.address.model.util.FilePath;
+import seedu.address.model.FilePath;
 
 public class ExportUtil {
 

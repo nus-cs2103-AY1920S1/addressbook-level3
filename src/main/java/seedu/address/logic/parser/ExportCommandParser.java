@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
-import seedu.address.model.util.FilePath;
+import seedu.address.model.FilePath;
 
 /**
  * Parses input arguments and creates a new AddCommand object

@@ -15,7 +15,7 @@ import seedu.address.model.deadline.Task;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Question;
 import seedu.address.model.flashcard.Rating;
-import seedu.address.model.util.FilePath;
+import seedu.address.model.FilePath;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
