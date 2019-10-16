@@ -13,6 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
+import seedu.address.model.day.time.TimeInHalfHour;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
 import seedu.address.model.tag.Tag;
@@ -139,4 +140,20 @@ public class ParserUtil {
         return Integer.parseInt(days);
     }
 
+    /**
+     * Parses a {@code String days} into an {@code Integer}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     */
+    public static TimeInHalfHour parseTimeInHalfHour(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!TimeInHalfHour.isValidTime(trimmedTime)) {
+            throw new ParseException(TimeInHalfHour.MESSAGE_CONSTRAINTS);
+        }
+        int hour = Integer.parseInt(time.substring(0, 2));
+        int min = Integer.parseInt(time.substring(2));
+        return new TimeInHalfHour(hour, min);
+    }
 }

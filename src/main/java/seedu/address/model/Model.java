@@ -166,6 +166,10 @@ public interface Model {
     void updateFilteredContactList(Predicate<Contact> predicate);
 
     // DAY METHODS
+    /**
+     * Returns true if a day with the same identity as {@code day} exists in the itinerary.
+     */
+    boolean hasDay(Day day);
 
     void deleteDay(Day target);
 

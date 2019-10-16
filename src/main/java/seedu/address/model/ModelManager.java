@@ -154,6 +154,12 @@ public class ModelManager implements Model {
 
     //=========== DAY ================================================================================
     @Override
+    public boolean hasDay(Day day) {
+        requireNonNull(day);
+        return planner.hasDay(day);
+    }
+
+    @Override
     public void deleteDay(Day target) {
         planner.removeDay(target);
     }
