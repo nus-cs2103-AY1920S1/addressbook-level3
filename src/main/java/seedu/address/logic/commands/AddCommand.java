@@ -27,7 +27,7 @@ import seedu.address.model.entity.Entity;
 /**
  * Adds a person to Mortago.
  */
-public class AddCommand extends Command {
+public class AddCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -71,6 +71,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New entity added: %1$s";
     public static final String MESSAGE_DUPLICATE_ENTITY = "This entity already exists in Mortago";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undid adding this entity: %1$s";
 
     private final Entity toAdd;
 
@@ -92,8 +93,32 @@ public class AddCommand extends Command {
         }
 
         model.addEntity(toAdd);
+        setUndoable();
+        model.addExecutedCommand(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
+
+    //@@author ambervoong
+    /**
+     * Undoes the effects of the AddCommand. Only can be executed if this command was previously executed before.
+     * @return result of undoing the command.
+     */
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        if (!(getCommandState().equals(UndoableCommandState.UNDOABLE))) {
+            throw new CommandException(MESSAGE_NOT_EXECUTED_BEFORE);
+        }
+        try {
+            model.deleteEntity(toAdd);
+        } catch (NullPointerException e) {
+            throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
+        }
+        setRedoable();
+        model.addUndoneCommand(this);
+
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
+    }
+    //@@author
 
     @Override
     public boolean equals(Object other) {

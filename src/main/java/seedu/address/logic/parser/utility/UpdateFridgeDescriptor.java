@@ -42,10 +42,9 @@ public class UpdateFridgeDescriptor implements UpdateEntityDescriptor {
         Body body = fridge.getBody();
         if (body != null) {
             this.bodyId = body.getIdNum();
-
         }
         this.fridgeStatus = fridge.getFridgeStatus();
-        this.newBody = fridge.getBody();
+        this.newBody = body;
     }
 
     @Override
@@ -58,7 +57,7 @@ public class UpdateFridgeDescriptor implements UpdateEntityDescriptor {
         assert entity != null;
         Fridge fridge = (Fridge) entity;
         fridge.setFridgeStatus(this.getFridgeStatus().orElse(fridge.getFridgeStatus()));
-        fridge.setBody(this.getNewBody().orElse(fridge.getBody()));
+        fridge.setBody(this.getNewBody().orElse(null));
         return entity;
     }
 

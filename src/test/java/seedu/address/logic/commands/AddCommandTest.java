@@ -84,6 +84,26 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
+        public void addExecutedCommand(UndoableCommand command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UndoableCommand getExecutedCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addUndoneCommand(UndoableCommand command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UndoableCommand getUndoneCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
@@ -243,6 +263,11 @@ public class AddCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public void addExecutedCommand(UndoableCommand command) {
+            return;
         }
     }
 
