@@ -3,7 +3,6 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.inventory.Inventory;
@@ -11,13 +10,11 @@ import seedu.address.model.inventory.UniqueInventoryList;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.UniqueMemberList;
 
+import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.UniqueMappingList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.member.Member;
-import seedu.address.model.member.UniqueMemberList;
-import seedu.address.model.mapping.Mapping;
-import seedu.address.model.mapping.UniqueMappingList;
 
 /**
  * Wraps all data at the address-book level
@@ -216,6 +213,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         requireNonNull(mapping);
         return mappings.contains(mapping);
     }
+
     @Override
     public String toString() {
         return tasks.asUnmodifiableObservableList().size() + " tasks";
