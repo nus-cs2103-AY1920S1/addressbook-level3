@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.student.exceptions.DuplicateAssignmentException;
 import seedu.address.model.student.exceptions.AssignmentNotFoundException;
+import seedu.address.model.student.exceptions.DuplicateAssignmentException;
 
 /**
  * A list of students that enforces uniqueness between its elements and does not allow nulls.

@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -74,7 +73,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return students.contains(student);
     }
 
-    public boolean hasAssignment(Assignment assignment){
+    /**
+     * Returns true if an assignment with the same identity as {@code assignment} exists in the classroom.
+     */
+    public boolean hasAssignment(Assignment assignment) {
         requireNonNull(assignment);
         return assignments.contains(assignment);
     }

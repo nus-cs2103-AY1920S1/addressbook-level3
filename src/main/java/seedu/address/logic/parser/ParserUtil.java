@@ -2,7 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -64,11 +68,18 @@ public class ParserUtil {
         return trimmedName;
     }
 
+    /**
+     * Parses a {@code String grades} into a {@code List<Integer>}.
+     * Leading and trailing whitespaces will be trimmed.
+     * String grades will be split by whitespace, converted to Integer and stored in List.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
     public static List<Integer> parseAssignmentGrades(String grades) throws ParseException {
         requireNonNull(grades);
         List<Integer> output = new ArrayList<>();
         String trimmedGrades = grades.trim();
-        String individualGrades[] = trimmedGrades.split(" ");
+        String[] individualGrades = trimmedGrades.split(" ");
         for (String grade: individualGrades) {
             Integer integerGrade = Integer.parseInt(grade);
             output.add(integerGrade);
