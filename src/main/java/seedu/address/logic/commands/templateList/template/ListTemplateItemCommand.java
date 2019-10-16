@@ -1,32 +1,26 @@
 package seedu.address.logic.commands.templateList.template;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 
-import javafx.collections.transformation.FilteredList;
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
-
-import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * Lists all template items in the template list to the user.
  */
 public class ListTemplateItemCommand extends Command {
 
-    Predicate<TemplateItem> PREDICATE_SHOW_ALL_TEMPLATES_ITEMS = unused -> true;
-
     public static final String COMMAND_WORD = "list";
     public static final String MESSAGE_SUCCESS = "Listed all template items";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists the template items in the specified " +
-            "template list\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists the template items in the specified "
+            + "template list\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 ";
 

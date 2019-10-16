@@ -71,14 +71,17 @@ public class DeleteTemplateListCommandTest {
     **/
     @Test
     public void equals() {
-        DeleteTemplateItemCommand deleteFirstCommand = new DeleteTemplateItemCommand(INDEX_FIRST_PERSON);
-        DeleteTemplateItemCommand deleteSecondCommand = new DeleteTemplateItemCommand(INDEX_SECOND_PERSON);
+        DeleteTemplateItemCommand deleteFirstCommand = new DeleteTemplateItemCommand(INDEX_FIRST_PERSON,
+                INDEX_SECOND_PERSON);
+        DeleteTemplateItemCommand deleteSecondCommand = new DeleteTemplateItemCommand(INDEX_SECOND_PERSON,
+                INDEX_FIRST_PERSON);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteTemplateItemCommand deleteFirstCommandCopy = new DeleteTemplateItemCommand(INDEX_FIRST_PERSON);
+        DeleteTemplateItemCommand deleteFirstCommandCopy = new DeleteTemplateItemCommand(INDEX_FIRST_PERSON,
+                INDEX_SECOND_PERSON);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

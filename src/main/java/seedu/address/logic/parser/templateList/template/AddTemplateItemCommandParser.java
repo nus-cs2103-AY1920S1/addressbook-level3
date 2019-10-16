@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -18,7 +17,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.food.Amount;
 import seedu.address.model.food.Name;
 import seedu.address.model.food.TemplateItem;
-import seedu.address.model.food.UniqueTemplateItems;
 
 /**
  * Parses input arguments and creates a new AddTemplateItemCommand object

@@ -4,10 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
@@ -20,7 +18,6 @@ import seedu.address.model.Model;
 import seedu.address.model.food.Name;
 import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
-import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing template item in the template list.

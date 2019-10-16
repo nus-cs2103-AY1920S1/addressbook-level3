@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITEM_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.util.stream.Stream;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.templateList.template.EditTemplateItemCommand;
 import seedu.address.logic.commands.templateList.template.EditTemplateItemCommand.EditTemplateItemDescriptor;
@@ -15,8 +17,6 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new EditTemplateItemCommand object
