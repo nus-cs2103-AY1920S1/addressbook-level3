@@ -255,6 +255,14 @@ public interface Model {
     void deleteDeliveryman(Deliveryman target);
 
     /**
+     * Replaces the given deliveryman {@code target} with {@code editedDeliveryman}.
+     * {@code target} must exist in the deliverymen database.
+     * The deliveryman identity of {@code editedDeliveryman} must not be the same as another existing deliveryman
+     * in the deliverymen database.
+     */
+    void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman);
+
+    /**
      * Updates the filter of the filtered order list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */

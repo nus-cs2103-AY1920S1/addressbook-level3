@@ -5,15 +5,19 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.addressbook.person.Remark;
+import seedu.deliverymans.model.database.DeliverymenDatabase;
 import seedu.deliverymans.model.database.OrderBook;
+import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
+import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.location.LocationMap;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
@@ -29,6 +33,7 @@ public class SampleDataUtil {
         };
     }
 
+    // Sample data for Restaurant side
     public static Restaurant[] getSampleRestaurants() {
         return new Restaurant[]{
             new Restaurant(new Name("KFC"), LocationMap.getLocation("Jurong").get(),
@@ -55,6 +60,17 @@ public class SampleDataUtil {
         };
     }
 
+    // Sample data for Deliveryman side
+    public static Deliveryman[] getSampleDeliverymen() {
+        return new Deliveryman[]{
+            new Deliveryman(new Name("Damith"), new Phone("99999999")),
+            new Deliveryman(new Name("Charlie Choong"), new Phone("98887146")),
+            new Deliveryman(new Name("Low ee ter"), new Phone("99367862")),
+            new Deliveryman(new Name("jun rong yuen"), new Phone("12345678")),
+        };
+    }
+
+    // Methods to get sample data
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
@@ -77,6 +93,14 @@ public class SampleDataUtil {
             sampleOb.addOrder(sampleOrder);
         }
         return sampleOb;
+    }
+
+    public static ReadOnlyDeliverymenDatabase getSampleDeliverymenDatabase() {
+        DeliverymenDatabase sampleDd = new DeliverymenDatabase();
+        for (Deliveryman sampleDeliveryman: getSampleDeliverymen()) {
+            sampleDd.addDeliveryman(sampleDeliveryman);
+        }
+        return sampleDd;
     }
 
     /**

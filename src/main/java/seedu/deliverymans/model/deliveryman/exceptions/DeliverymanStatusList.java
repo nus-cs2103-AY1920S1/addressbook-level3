@@ -35,4 +35,11 @@ public class DeliverymanStatusList extends UniqueDeliverymanList {
         return availableMen;
     }
 
+    /**
+     * Lists all the unavailable deliverymen.
+     */
+    public List<Deliveryman> listUnavailableMen() {
+        return unavailableMen;
+    }
+
 }

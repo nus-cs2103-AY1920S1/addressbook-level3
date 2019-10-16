@@ -264,6 +264,12 @@ public class ModelManager implements Model {
         return true;
     }
 
+    @Override
+    public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
+        requireAllNonNull(target, editedDeliveryman);
+
+        deliverymenDatabase.setDeliveryman(target, editedDeliveryman);
+    }
 
     //=========== Order Methods =============================================================
     @Override
