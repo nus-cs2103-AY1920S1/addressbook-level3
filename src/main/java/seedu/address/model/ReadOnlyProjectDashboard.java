@@ -36,4 +36,10 @@ public interface ReadOnlyProjectDashboard {
     List<Mapping> getMappingList();
 
 
+    ObservableList<Task> getTasksNotStarted();
+
+    ObservableList<Task> getTasksDoing();
+
+    ObservableList<Task> getTasksDone();
+
 }

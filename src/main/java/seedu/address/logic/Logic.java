@@ -30,8 +30,19 @@ public interface Logic {
      */
     ReadOnlyProjectDashboard getProjectDashboard();
 
+
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Task> getFilteredTaskList();
+
+    /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<Task> getFilteredTaskListNotStarted();
+
+    /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<Task> getFilteredTaskListDoing();
+
+
+    /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<Task> getFilteredTaskListDone();
 
     /**
      * Returns the user prefs' address book file path.
