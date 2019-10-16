@@ -1,6 +1,7 @@
 package seedu.address.model.day;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.activity.Activity;
@@ -12,14 +13,8 @@ import seedu.address.model.day.time.TimeInHalfHour;
  * Guarantees: {@code Timetable} is filled with {@code HalfHour}.
  */
 public class Timetable {
-    private static final int NUMBER_OF_HALF_HOUR_IN_A_DAY = 48;
+    protected static final int NUMBER_OF_HALF_HOUR_IN_A_DAY = 48;
     private TimeSlot[] timetable = new TimeSlot[NUMBER_OF_HALF_HOUR_IN_A_DAY];
-
-    public Timetable() {
-        for (int i = 0; i < NUMBER_OF_HALF_HOUR_IN_A_DAY; i++) {
-            timetable[i] = new TimeSlot();
-        }
-    }
 
     public Timetable(List<ActivityWithTime> activities) throws TimeSlotUnavailableException {
         for (ActivityWithTime a : activities) {
@@ -34,12 +29,12 @@ public class Timetable {
         // fill up remaining time slots with empty half hours
         for (int i = 0; i < NUMBER_OF_HALF_HOUR_IN_A_DAY; i++) {
             if (timetable[i] == null) {
-                timetable[i] = new TimeSlot();
+                timetable[i] = new TimeSlot(null);
             }
         }
     }
 
-    public Activity getActivityAtIndex(Index index) {
+    public Optional<Activity> getActivityAtIndex(Index index) {
         return timetable[index.getZeroBased()].getActivity();
     }
 
