@@ -9,7 +9,9 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.Stack;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -41,10 +43,15 @@ public class AddCommandTest {
         ModelStubAcceptingExpenseAdded modelStub = new ModelStubAcceptingExpenseAdded();
         Expense validExpense = new ExpenseBuilder().build();
 
+        List<Expense> expectedExpensesAdded = Arrays.asList(validExpense);
+        Stack<ModelStub> expectedPastModels = new Stack<>();
+        expectedPastModels.push(new ModelStubAcceptingExpenseAdded(modelStub));
+
         CommandResult commandResult = new AddCommand(validExpense).run(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validExpense), modelStub.expensesAdded);
+        assertEquals(expectedExpensesAdded, modelStub.expensesAdded);
+        assertEquals(expectedPastModels, modelStub.pastModels);
     }
 
     @Test
@@ -90,7 +97,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void fillModelData(Model model) {
+        public void resetData(Model model) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -105,7 +112,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean canRollback() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Optional<Model> rollbackModel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canMigrate() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -116,6 +133,16 @@ public class AddCommandTest {
 
         @Override
         public void addToHistory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addToPastHistory(Model model) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addToFutureHistory(Model model) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -268,7 +295,18 @@ public class AddCommandTest {
      * A Model stub that always accept the expense being added.
      */
     private class ModelStubAcceptingExpenseAdded extends ModelStub {
-        final ArrayList<Expense> expensesAdded = new ArrayList<>();
+        final ArrayList<Expense> expensesAdded;
+        final Stack<ModelStub> pastModels;
+
+        public ModelStubAcceptingExpenseAdded() {
+            expensesAdded = new ArrayList<>();
+            pastModels = new Stack<>();
+        }
+
+        public ModelStubAcceptingExpenseAdded(ModelStubAcceptingExpenseAdded model) {
+            expensesAdded = new ArrayList<>(model.expensesAdded);
+            pastModels = (Stack<ModelStub>) model.pastModels.clone();
+        }
 
         @Override
         public boolean hasExpense(Expense expense) {
@@ -283,8 +321,28 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addToHistory() {
+            pastModels.push(new ModelStubAcceptingExpenseAdded(this));
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+
+            if (!(obj instanceof ModelStubAcceptingExpenseAdded)) {
+                return false;
+            }
+
+            ModelStubAcceptingExpenseAdded other = (ModelStubAcceptingExpenseAdded) obj;
+            return expensesAdded.equals(other.expensesAdded)
+                    && pastModels.equals(other.pastModels);
         }
     }
 

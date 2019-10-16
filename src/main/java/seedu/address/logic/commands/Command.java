@@ -8,20 +8,6 @@ import seedu.address.model.Model;
  */
 public abstract class Command {
 
-    private boolean isUndoable;
-
-    public Command() {
-        this(false);
-    }
-
-    public Command(boolean isUndoable) {
-        this.isUndoable = isUndoable;
-    }
-
-    public boolean isUndoable() {
-        return isUndoable;
-    }
-
     /**
      * Validates the command parameters.
      * @throws CommandException If parameters are invalid.
@@ -48,4 +34,5 @@ public abstract class Command {
         validate(model);
         return execute(model);
     }
+
 }

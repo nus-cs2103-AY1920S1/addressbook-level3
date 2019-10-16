@@ -9,8 +9,7 @@ import seedu.address.model.Model;
 /**
  * Create an alias for common user input.
  */
-public class AliasCommand extends Command {
-
+public class AliasCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "alias";
 

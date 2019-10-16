@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.util.Optional;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -16,14 +14,17 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Undid the last undoable command. ";
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        Optional<Model> prevModel = model.rollbackModel();
-
-        if (prevModel.isEmpty()) {
+    protected void validate(Model model) throws CommandException {
+        if (!model.canRollback()) {
             throw new CommandException(MESSAGE_NO_MODEL);
         }
+    }
 
-        model.fillModelData(prevModel.get());
+    @Override
+    public CommandResult execute(Model model) {
+        // prevModel guaranteed to be present due to previous validation.
+        Model prevModel = model.rollbackModel().get();
+        model.resetData(prevModel);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

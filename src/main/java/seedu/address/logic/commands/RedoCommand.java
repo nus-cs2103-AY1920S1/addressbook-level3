@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.util.Optional;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -16,14 +14,17 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Redid the undoable command";
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        Optional<Model> nextModel = model.migrateModel();
-
-        if (nextModel.isEmpty()) {
+    protected void validate(Model model) throws CommandException {
+        if (!model.canMigrate()) {
             throw new CommandException(MESSAGE_NO_MODEL);
         }
+    }
 
-        model.fillModelData(nextModel.get());
+    @Override
+    public CommandResult execute(Model model) {
+        // nextModel is guaranteed to be present due to previous validation.
+        Model nextModel = model.migrateModel().get();
+        model.resetData(nextModel);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

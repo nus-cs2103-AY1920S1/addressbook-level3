@@ -12,25 +12,29 @@ public class ModelHistory implements ReadOnlyModelHistory {
     private Stack<Model> pastModels;
     private Stack<Model> futureModels;
 
+    public ModelHistory(Stack<Model> pastModels, Stack<Model> futureModels) {
+        setPastModels(pastModels);
+        setFutureModels(futureModels);
+    }
+
     public ModelHistory() {
-        this.pastModels = new Stack<>();
-        this.futureModels = new Stack<>();
+        this(new Stack<>(), new Stack<>());
     }
 
     /**
      * Copy constructor for ModelHistory.
      */
     public ModelHistory(ReadOnlyModelHistory history) {
-        this();
-        resetData(history);
+        this(history.getPastModels(), history.getFutureModels());
     }
 
     /**
      * Replaces model history data with the given history.
      */
     public void resetData(ReadOnlyModelHistory history) {
-        pastModels = (Stack<Model>) history.getPastModels().clone();
-        futureModels = (Stack<Model>) history.getFutureModels().clone();
+        requireNonNull(history);
+        setPastModels(history.getPastModels());
+        setFutureModels(history.getFutureModels());
     }
 
     @Override
@@ -43,8 +47,18 @@ public class ModelHistory implements ReadOnlyModelHistory {
         return futureModels;
     }
 
+    public void setPastModels(Stack<Model> pastModels) {
+        requireNonNull(pastModels);
+        this.pastModels = (Stack<Model>) pastModels.clone();
+    }
+
+    public void setFutureModels(Stack<Model> futureModels) {
+        requireNonNull(futureModels);
+        this.futureModels = (Stack<Model>) futureModels.clone();
+    }
+
     /**
-     * Adds a model to the past models history.
+     * Adds the copy of a model to the past models history.
      */
     public void addToPastModels(Model model) {
         requireNonNull(model);
@@ -52,7 +66,7 @@ public class ModelHistory implements ReadOnlyModelHistory {
     }
 
     /**
-     * Adds a model to the future models history.
+     * Adds the copy of a model to the future models history.
      */
     public void addToFutureModels(Model model) {
         requireNonNull(model);
@@ -67,10 +81,24 @@ public class ModelHistory implements ReadOnlyModelHistory {
     }
 
     /**
+     * Checks whether there are no past models.
+     */
+    public boolean isPastModelsEmpty() {
+        return pastModels.isEmpty();
+    }
+
+    /**
+     * Checks whether there are no future models.
+     */
+    public boolean isFutureModelsEmpty() {
+        return futureModels.isEmpty();
+    }
+
+    /**
      * Returns the previous model in history, if exists.
      */
     public Optional<Model> getPrevModel() {
-        if (pastModels.empty()) {
+        if (isPastModelsEmpty()) {
             return Optional.empty();
         }
 
@@ -82,11 +110,31 @@ public class ModelHistory implements ReadOnlyModelHistory {
      * Returns the next model in history, if exists.
      */
     public Optional<Model> getNextModel() {
-        if (futureModels.empty()) {
+        if (isFutureModelsEmpty()) {
             return Optional.empty();
         }
 
         Model nextModel = futureModels.pop();
         return Optional.of(nextModel);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof ModelHistory)) {
+            return false;
+        }
+
+        ModelHistory other = (ModelHistory) obj;
+        return pastModels.equals(other.pastModels)
+                && futureModels.equals(other.futureModels);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d past and %d future models", pastModels.size(), futureModels.size());
     }
 }

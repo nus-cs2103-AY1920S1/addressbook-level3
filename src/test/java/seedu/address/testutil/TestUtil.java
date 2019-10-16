@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Stack;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -51,5 +53,16 @@ public class TestUtil {
      */
     public static Expense getExpense(Model model, Index index) {
         return model.getFilteredExpenseList().get(index.getZeroBased());
+    }
+
+    /**
+     * Creates a {@code Model} stack populated by the copies of the {@code models} provided.
+     */
+    public static Stack<Model> makeModelStack(Model... models) {
+        Stack<Model> stack = new Stack<>();
+        for (Model model : models) {
+            stack.push(new ModelManager(model));
+        }
+        return stack;
     }
 }

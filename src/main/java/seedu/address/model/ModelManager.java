@@ -33,36 +33,37 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        super();
-        requireAllNonNull(addressBook, userPrefs);
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
+            ReadOnlyModelHistory modelHistory) {
+        requireAllNonNull(addressBook, userPrefs, modelHistory);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.modelHistory = new ModelHistory(modelHistory);
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
         filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
-        this.modelHistory = new ModelHistory();
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new ModelHistory());
     }
 
     /**
      * Copy constructor for ModelManager.
      */
     public ModelManager(Model model) {
-        this(model.getAddressBook(), model.getUserPrefs());
-        setModelHistory(model.getModelHistory());
+        this();
+        resetData(model);
     }
 
     @Override
-    public void fillModelData(Model model) {
+    public void resetData(Model model) {
         requireNonNull(model);
         setAddressBook(model.getAddressBook());
         setUserPrefs(model.getUserPrefs());
+        setModelHistory(model.getModelHistory());
 
         if (model.getFilteredEventPredicate() != null) {
             updateFilteredEventList(model.getFilteredEventPredicate());
@@ -91,27 +92,55 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addToHistory() {
+        modelHistory.addToPastModels(new ModelManager(this));
+        modelHistory.clearFutureModels();
+    }
+
+    @Override
+    public void addToPastHistory(Model model) {
+        requireNonNull(model);
+        modelHistory.addToPastModels(new ModelManager(model));
+    }
+
+    @Override
+    public void addToFutureHistory(Model model) {
+        requireNonNull(model);
+        modelHistory.addToFutureModels(new ModelManager(model));
+    }
+
+    @Override
+    public boolean canRollback() {
+        return !modelHistory.isPastModelsEmpty();
+    }
+
+    @Override
     public Optional<Model> rollbackModel() {
         Optional<Model> prevModel = modelHistory.getPrevModel();
-        if (prevModel.isPresent()) {
-            modelHistory.addToFutureModels(new ModelManager(this));
+        if (prevModel.isEmpty()) {
+            return Optional.empty();
         }
-        return prevModel;
+
+        Model pastModel = prevModel.get();
+        pastModel.addToFutureHistory(this);
+        return Optional.of(pastModel);
+    }
+
+    @Override
+    public boolean canMigrate() {
+        return !modelHistory.isFutureModelsEmpty();
     }
 
     @Override
     public Optional<Model> migrateModel() {
         Optional<Model> nextModel = modelHistory.getNextModel();
-        if (nextModel.isPresent()) {
-            modelHistory.addToPastModels(new ModelManager(this));
+        if (nextModel.isEmpty()) {
+            return Optional.empty();
         }
-        return nextModel;
-    }
 
-    @Override
-    public void addToHistory() {
-        modelHistory.addToPastModels(new ModelManager(this));
-        modelHistory.clearFutureModels();
+        Model futureModel = nextModel.get();
+        futureModel.addToPastHistory(this);
+        return Optional.of(futureModel);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -311,11 +340,7 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExpenses.equals(other.filteredExpenses)
-                && filteredEvents.equals(other.filteredEvents);
-    }
-
-    @Override
-    public String toString() {
-        return "Model with " + addressBook;
+                && filteredEvents.equals(other.filteredEvents)
+                && modelHistory.equals(other.modelHistory);
     }
 }

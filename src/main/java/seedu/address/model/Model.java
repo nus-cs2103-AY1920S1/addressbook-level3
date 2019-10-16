@@ -23,9 +23,11 @@ public interface Model {
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
     /**
-     * Fills model data to the given model.
+     * Resets data to the given model.
      */
-    void fillModelData(Model model);
+    void resetData(Model model);
+
+    // ======== MODEL HISTORY ===============
 
     /**
      * Returns the model history.
@@ -38,30 +40,52 @@ public interface Model {
     void setModelHistory(ReadOnlyModelHistory history);
 
     /**
+     * Adds the current model to the history.
+     */
+    void addToHistory();
+
+    /**
+     * Adds a to the past history.
+     */
+    void addToPastHistory(Model model);
+
+    /**
+     * Adds a to the future history.
+     */
+    void addToFutureHistory(Model model);
+
+    /**
+     * Checks whether model can be rolled-back.
+     */
+    boolean canRollback();
+
+    /**
      * Returns the rolled-back version of the model to the immediate previous state.
      */
     Optional<Model> rollbackModel();
+
+    /**
+     * Checks whether model can be migrated.
+     */
+    boolean canMigrate();
 
     /**
      * Returns the migrated version of the model to the immediate next state.
      */
     Optional<Model> migrateModel();
 
-    /**
-     * Adds the current model to the history.
-     */
-    void addToHistory();
-
+    // ======== USER PREFS ===============
     /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
 
-    // ======== GUI SETTINGS ===============
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+
+    // ======== GUI SETTINGS ===============
 
     /**
      * Returns the user prefs' GUI settings.
@@ -88,7 +112,6 @@ public interface Model {
      * Add a user defined alias to the user prefs' alias mappings.
      */
     void addUserAlias(Alias alias);
-
 
     // ======== ADDRESS BOOK SETTINGS ===============
     /**
