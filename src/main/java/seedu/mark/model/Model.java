@@ -7,6 +7,8 @@ import java.util.function.Predicate;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
+import seedu.mark.model.annotation.OfflineDocument;
+import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
@@ -147,4 +149,15 @@ public interface Model {
      * Saves the current Mark state for undo/redo.
      */
     void saveMark();
+
+    /**
+     * Returns a view of the annotated document.
+     */
+    ObservableList<Paragraph> getObservableDocument();
+
+    /**
+     * Updates the view of document to the document given.
+     * @param doc Document to update view and be shown.
+     */
+    void updateDocument(OfflineDocument doc);
 }

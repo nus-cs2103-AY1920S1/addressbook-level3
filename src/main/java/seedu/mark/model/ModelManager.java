@@ -9,10 +9,15 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
+import seedu.mark.model.annotation.OfflineDocument;
+import seedu.mark.model.annotation.Paragraph;
+import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
@@ -28,6 +33,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Bookmark> filteredBookmarks;
     private final SimpleObjectProperty<Url> currentUrl = new SimpleObjectProperty<>();
+    private final ObservableList<Paragraph> annotatedDocument;
 
     /**
      * Initializes a ModelManager with the given mark and userPrefs.
@@ -41,6 +47,17 @@ public class ModelManager implements Model {
         versionedMark = new VersionedMark(mark);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBookmarks = new FilteredList<>(versionedMark.getBookmarkList());
+        annotatedDocument = new SortedList<Paragraph>(
+                //TODO: change this to link to proper offline document
+                FXCollections.observableArrayList(
+                        new OfflineDocument("example doc",
+                                OfflineDocument.OFFLINE_DOC_EXAMPLE).getCollection()), (
+            Paragraph p1, Paragraph p2) -> {
+            ParagraphIdentifier pid1 = p1.getId();
+            ParagraphIdentifier pid2 = p2.getId();
+            return pid1.compareTo(pid2);
+        }
+        );
     }
 
     public ModelManager() {
@@ -222,6 +239,18 @@ public class ModelManager implements Model {
     @Override
     public void setCurrentUrl(Url url) {
         currentUrl.setValue(url);
+    }
+
+    //=========== Current offline ============================================================================
+
+    @Override
+    public ObservableList<Paragraph> getObservableDocument() {
+        return annotatedDocument;
+    }
+
+    @Override
+    public void updateDocument(OfflineDocument doc) {
+        //TODO: replace observable list with the updated paragraphs in doc (can be new bookmark doc too)
     }
 
     @Override
