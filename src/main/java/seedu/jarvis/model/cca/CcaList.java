@@ -86,6 +86,13 @@ public class CcaList {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CcaList // instanceof handles nulls
+                && internalCcaList.equals(((CcaList) other).internalCcaList));
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the ccas in the ccas list: ");

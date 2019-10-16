@@ -1,9 +1,9 @@
 package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.logic.parser.cca.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
-import static seedu.jarvis.logic.parser.cca.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
-import static seedu.jarvis.logic.parser.cca.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
 
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
