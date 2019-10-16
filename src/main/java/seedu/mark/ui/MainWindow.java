@@ -124,16 +124,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel(logic.getCurrentUrlProperty());
-        dashboardPanel = new DashboardPanel();
+        dashboardPanel = new DashboardPanel(logic);
         offlinePanel = new OfflinePanel(logic.getObservableDocument());
         mainViewAreaPlaceholder.getChildren().add(dashboardPanel.getRoot());
 
         bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList());
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());
-
-        FolderStructureTreeView folderStructureTreeView = new FolderStructureTreeView(
-                logic.getFolderStructure(), logic.getFilteredBookmarkList());
-        folderStructurePlaceholder.getChildren().add(folderStructureTreeView.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
