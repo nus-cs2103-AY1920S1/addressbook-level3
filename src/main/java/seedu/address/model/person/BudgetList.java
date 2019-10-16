@@ -19,8 +19,6 @@ import seedu.address.model.person.exceptions.EntryNotFoundException;
  * as to ensure that the person with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
- *
- * @see Person#isSamePerson(Person)
  */
 public class BudgetList implements Iterable<Budget> {
 

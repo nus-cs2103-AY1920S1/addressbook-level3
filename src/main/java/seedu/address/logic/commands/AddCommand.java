@@ -13,6 +13,7 @@ import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
+import seedu.address.model.person.Budget;
 
 
 /**
@@ -62,6 +63,9 @@ public class AddCommand extends Command {
             break;
         case "wish":
             model.addWish((Wish) toAdd);
+            break;
+        case "budget":
+            model.addBudget((Budget) toAdd);
             break;
         default:
             throw new CommandException("command not found");

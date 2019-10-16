@@ -69,6 +69,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void setWishes(List<Wish> wishes) { this.wishes.setEntries(wishes); }
 
+    public void setBudgets(List<Budget> budgets) { this.budgets.setEntries(budgets); }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -78,6 +80,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setExpenses(newData.getExpenseList());
         setIncomes(newData.getIncomeList());
         setWishes(newData.getWishList());
+        setBudgets(newData.getBudgetList());
     }
 
     //// person-level operations
@@ -123,6 +126,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addBudget(Budget budget) {
         entries.add(budget);
         budgets.add(budget);
+    }
 
     /**
      * Adds the specified Wish to the finance app.
@@ -177,6 +181,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given Budget {@code target} in the list with {@code editedBudget}.
+     * {@code target} must exist in the finance tracker.
+     * The budget identity of {@code editedEntry} must not be the same as another existing budget in the finance tracker.
+     */
+    public void setBudget(Budget target, Budget editedEntry) {
+        requireNonNull(editedEntry);
+        budgets.setBudget(target, editedEntry);
+        entries.setPerson(target, editedEntry);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
@@ -212,6 +227,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         entries.remove(key);
     }
 
+    /**
+     * Removes {@code key} from this {@code budgets}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeBudget(Budget key) {
+        budgets.remove(key);
+        entries.remove(key);
+    }
+
     //// util methods
 
     //// util methods
@@ -241,6 +265,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Wish> getWishList() {
         return wishes.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Budget> getBudgetList() {
+        return budgets.asUnmodifiableObservableList();
     }
 
     @Override

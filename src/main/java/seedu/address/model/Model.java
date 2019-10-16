@@ -9,6 +9,7 @@ import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
+import seedu.address.model.person.Budget;
 
 /**
  * The API of the Model component.
@@ -22,6 +23,8 @@ public interface Model {
     Predicate<Income> PREDICATE_SHOW_ALL_INCOMES = unused -> true;
 
     Predicate<Wish> PREDICATE_SHOW_ALL_WISHES = unused -> true;
+
+    Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -91,6 +94,12 @@ public interface Model {
     void deleteWish(Wish target);
 
     /**
+     * Deletes the given budget.
+     * The budget must exist in the address book.
+     */
+    void deleteBudget(Budget target);
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
@@ -101,6 +110,8 @@ public interface Model {
     public void addIncome(Income income);
 
     public void addWish(Wish wish);
+
+    public void addBudget(Budget budget);
 
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
@@ -121,6 +132,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Wish> getFilteredWishes();
 
+    /** Returns an unmodifiable view of the filtered budget list */
+    ObservableList<Budget> getFilteredBudgets();
+
     /**
      * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -132,4 +146,6 @@ public interface Model {
     void updateFilteredIncomes(Predicate<Income> predicate);
 
     void updateFilteredWishes(Predicate<Wish> predicate);
+
+    void updateFilteredBudgets(Predicate<Budget> predicate);
 }

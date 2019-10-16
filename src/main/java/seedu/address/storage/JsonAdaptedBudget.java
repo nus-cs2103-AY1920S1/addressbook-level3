@@ -14,16 +14,16 @@ import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Time;
-import seedu.address.model.person.Wish;
+import seedu.address.model.person.Budget;
 import seedu.address.model.tag.Tag;
 
 
 /**
  * Jackson-friendly version of {@link Entry}.
  */
-class JsonAdaptedWish {
+class JsonAdaptedBudget {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Wish's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Budget's %s field is missing!";
 
     private final String desc;
     private final String time;
@@ -31,11 +31,11 @@ class JsonAdaptedWish {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedBudget} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedWish(@JsonProperty("desc") String desc, @JsonProperty("amt") double amt,
-                             @JsonProperty("time") String time, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedBudget(@JsonProperty("desc") String desc, @JsonProperty("amt") double amt,
+                           @JsonProperty("time") String time, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.desc = desc;
         this.amt = amt;
         this.time = time;
@@ -46,9 +46,9 @@ class JsonAdaptedWish {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Budget} into this class for Jackson use.
      */
-    public JsonAdaptedWish(Wish source) {
+    public JsonAdaptedBudget(Budget source) {
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().value;
         time = source.getTime().fullTime;
@@ -58,11 +58,11 @@ class JsonAdaptedWish {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted budget object into the model's {@code Budget} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted budget.
      */
-    public Wish toModelType() throws IllegalValueException {
+    public Budget toModelType() throws IllegalValueException {
         final List<Tag> entryTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             entryTags.add(tag.toModelType());
@@ -82,7 +82,7 @@ class JsonAdaptedWish {
         final Amount modelAmt = new Amount(amt);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Wish(modelDesc, modelTime, modelAmt, modelTags);
+        return new Budget(modelDesc, modelTime, modelAmt, modelTags);
     }
 
 }

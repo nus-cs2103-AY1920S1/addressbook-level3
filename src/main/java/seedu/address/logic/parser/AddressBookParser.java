@@ -11,16 +11,20 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteWishCommand;
+import seedu.address.logic.commands.DeleteBudgetCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditExpenseCommand;
 import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.EditWishCommand;
+import seedu.address.logic.commands.EditBudgetCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindWishCommand;
+import seedu.address.logic.commands.FindBudgetCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.WishListCommand;
+import seedu.address.logic.commands.BudgetListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -65,11 +69,17 @@ public class AddressBookParser {
         case EditWishCommand.COMMAND_WORD:
             return new EditWishCommandParser().parse(arguments);
 
+        case EditBudgetCommand.COMMAND_WORD:
+            return new EditBudgetCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case DeleteWishCommand.COMMAND_WORD:
             return new DeleteWishCommandParser().parse(arguments);
+
+        case DeleteBudgetCommand.COMMAND_WORD:
+            return new DeleteBudgetCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -80,11 +90,17 @@ public class AddressBookParser {
         case FindWishCommand.COMMAND_WORD:
             return new FindWishCommandParser().parse(arguments);
 
+        case FindBudgetCommand.COMMAND_WORD:
+            return new FindBudgetCommandParser().parse(arguments);
+
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
         case WishListCommand.COMMAND_WORD:
             return new WishListCommand();
+
+        case BudgetListCommand.COMMAND_WORD:
+            return new BudgetListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -15,6 +15,7 @@ import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
+import seedu.address.model.person.Budget;
 
 
 /**
@@ -29,6 +30,7 @@ public class ModelManager implements Model {
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Income> filteredIncomes;
     private final FilteredList<Wish> filteredWishes;
+    private final FilteredList<Budget> filteredBudgets;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -45,6 +47,7 @@ public class ModelManager implements Model {
         filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
         filteredIncomes = new FilteredList<>(this.addressBook.getIncomeList());
         filteredWishes = new FilteredList<>(this.addressBook.getWishList());
+        filteredBudgets = new FilteredList<>(this.addressBook.getBudgetList());
     }
 
     public ModelManager() {
@@ -113,6 +116,8 @@ public class ModelManager implements Model {
             addressBook.removeIncome((Income) target);
         } else if (target instanceof Wish) {
             addressBook.removeWish((Wish) target);
+        } else if (target instanceof Budget){
+            addressBook.removeBudget((Budget) target);
         }
     }
 
@@ -135,6 +140,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteBudget(Budget target) {
+        addressBook.removeEntry(target);
+        addressBook.removeBudget(target);
+    }
+
+    @Override
     public void addEntry(Entry entry) {
         addressBook.addEntry(entry);
         if (entry instanceof Expense) {
@@ -143,6 +154,8 @@ public class ModelManager implements Model {
             addressBook.addIncome((Income) entry);
         } else if (entry instanceof Wish) {
             addressBook.addWish((Wish) entry);
+        } else if (entry instanceof Budget) {
+            addressBook.addBudget((Budget) entry);
         }
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
@@ -166,6 +179,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addBudget(Budget budget) {
+        addressBook.addBudget(budget);
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+    }
+
+    @Override
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
         addressBook.setEntry(target, editedEntry);
@@ -175,6 +194,8 @@ public class ModelManager implements Model {
             addressBook.setIncome((Income) target, (Income) editedEntry);
         } else if (target instanceof Wish) {
             addressBook.setWish((Wish) target, (Wish) editedEntry);
+        } else if (target instanceof Budget) {
+            addressBook.setBudget((Budget) target, (Budget) editedEntry);
         }
     }
 
@@ -205,6 +226,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Budget> getFilteredBudgets() {
+        return filteredBudgets;
+    }
+
+    @Override
     public void updateFilteredEntryList(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredEntries.setPredicate(predicate);
@@ -226,6 +252,12 @@ public class ModelManager implements Model {
     public void updateFilteredWishes(Predicate<Wish> predicate) {
         requireNonNull(predicate);
         filteredWishes.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredBudgets(Predicate<Budget> predicate) {
+        requireNonNull(predicate);
+        filteredBudgets.setPredicate(predicate);
     }
 
     @Override

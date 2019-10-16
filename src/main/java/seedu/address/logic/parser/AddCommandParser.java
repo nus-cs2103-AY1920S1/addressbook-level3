@@ -19,6 +19,7 @@ import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Time;
 import seedu.address.model.person.Wish;
+import seedu.address.model.person.Budget;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -53,6 +54,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             entry = new Income(name, time, amt, tagList);
         } else if (type.equalsIgnoreCase("Wish")) {
             entry = new Wish(name, time, amt, tagList);
+        } else if (type.equalsIgnoreCase("Budget")) {
+            entry = new Budget(name, time, amt, tagList);
         } else {
             entry = new Expense(name, time, amt, tagList);
         }*/
@@ -65,6 +68,9 @@ public class AddCommandParser implements Parser<AddCommand> {
             break;
         case "wish":
             entry = new Wish(desc, time, amt, tagList);
+            break;
+        case "budget":
+            entry = new Budget(desc, time, amt, tagList);
             break;
         default:
             throw new ParseException("invalid command");

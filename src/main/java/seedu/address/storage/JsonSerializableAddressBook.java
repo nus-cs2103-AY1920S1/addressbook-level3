@@ -14,6 +14,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
+import seedu.address.model.person.Budget;
 /**
  * An Immutable AddressBook that is serializable to JSON format.
  */
@@ -25,6 +26,7 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedExpense> expenses = new ArrayList<>();
     private final List<JsonAdaptedIncome> incomes = new ArrayList<>();
     private final List<JsonAdaptedWish> wishes = new ArrayList<>();
+    private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
@@ -43,6 +45,7 @@ class JsonSerializableAddressBook {
         expenses.addAll(source.getExpenseList().stream().map(JsonAdaptedExpense::new).collect(Collectors.toList()));
         incomes.addAll(source.getIncomeList().stream().map(JsonAdaptedIncome::new).collect(Collectors.toList()));
         wishes.addAll(source.getWishList().stream().map(JsonAdaptedWish::new).collect(Collectors.toList()));
+        budgets.addAll(source.getBudgetList().stream().map(JsonAdaptedBudget::new).collect(Collectors.toList()));
     }
 
     /**
@@ -63,6 +66,10 @@ class JsonSerializableAddressBook {
         for (JsonAdaptedWish JsonAdaptedWish: wishes) {
             Wish wish = JsonAdaptedWish.toModelType();
             addressBook.addWish(wish);
+        }
+        for (JsonAdaptedBudget JsonAdaptedBudget: budgets) {
+            Budget budget = JsonAdaptedBudget.toModelType();
+            addressBook.addBudget(budget);
         }
         return addressBook;
     }
