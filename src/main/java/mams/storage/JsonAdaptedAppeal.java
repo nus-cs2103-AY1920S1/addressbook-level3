@@ -138,19 +138,19 @@ public class JsonAdaptedAppeal {
         final String modelPreviousModule = previousModule;
 
         //New Module for swapping
-        if (!previousModule.isEmpty() && !Module.isValidModuleCode(previousModule)) {
+        if (!newModule.isEmpty() && !Module.isValidModuleCode(newModule)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
         }
         final String modelNewModule = newModule;
 
         //Module requested to be added
-        if (!previousModule.isEmpty() && !Module.isValidModuleCode(previousModule)) {
+        if (!moduleToAdd.isEmpty() && !Module.isValidModuleCode(moduleToAdd)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
         }
         final String modelModuleToAdd = moduleToAdd;
 
         //Module requested to be dropped
-        if (!previousModule.isEmpty() && !Module.isValidModuleCode(previousModule)) {
+        if (!moduleToDrop.isEmpty() && !Module.isValidModuleCode(moduleToDrop)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
         }
         final String modelModuleToDrop = moduleToDrop;

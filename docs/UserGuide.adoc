@@ -192,7 +192,7 @@ Examples:
 
 Sample output:
 
-`Session 2 of CS1010S added to student A0180000A`
+`CS1010S added to student A0180000A`
 
 * `addmod A0180001A CS1010S 2`
 
@@ -200,14 +200,14 @@ Sample output:
 
 * `Clash detected:`
 
-`Existing module: CS1020S Session 2: Monday 1400-1600`
+`Existing module: CS1020S: Monday 1400-1600`
 
-`Module to be added: CS1010S Session 2: Monday 1500-1700`
+`Module to be added: CS1010S: Monday 1500-1700`
 
 `Confirm addition? (y/n)`
 
 If (y):
-`Session 2 of CS1010S added to student A0180000A`
+`CS1010S added to student A0180000A`
 
 If (n):
 `Addition of module cancelled`
@@ -224,13 +224,13 @@ Examples:
 
 Sample output:
 
-`Session 2 of CS1010S removed from student A0180000A`
+`CS1010S removed from student A0180000A`
 
 * `removemod A0180001A CS1020S 2`
 
 Sample output:
 
-`Invalid operation. Module CS1010S session 2 does not exist in student
+`Invalid operation. Module CS1010S does not exist in student
 A0180001A's timetable`
 
 === Switching modules for students: `switchmod`
@@ -322,13 +322,13 @@ Shows if there are clashes in a student’s (preallocated) timetable.
 - e.g. `clash #301935`
 Shows if the module a student is requesting for clashes with his/her current existing modules.
 
-* **addmod** `addmod STUDENT_ID MODULE_CODE [SESSION_ID]`
-- e.g `addmod A0180000A CS2103 1`
-To add module CS2103, compulsory session 1, to student A0180000A
+* **addmod** `addmod STUDENT_ID MODULE_CODE`
+- e.g `addmod A0180000A CS2103`
+To add module CS2103 to student A0180000A
 
-* **removemod** `removemod STUDENT_ID MODULE_CODE [SESSION_ID]`
-- e.g `removemod A0180000A CS2103 1`
-To remove module CS2103, compulsory session 1, from student A0180000A
+* **removemod** `removemod STUDENT_ID MODULE_CODE`
+- e.g `removemod A0180000A CS2103`
+To remove module CS2103 from student A0180000A
 
 * **switchmod** `switchmod STUDENT_ID MODULE_CODE1 MODULE_CODE2`
 - e.g `switchmod A0180000A CS2103 CS2103T`

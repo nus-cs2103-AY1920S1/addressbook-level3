@@ -1,6 +1,7 @@
 package mams.model;
 
 import javafx.collections.ObservableList;
+import mams.model.appeal.Appeal;
 import mams.model.module.Module;
 import mams.model.student.Student;
 
@@ -21,4 +22,5 @@ public interface ReadOnlyMams {
      */
     ObservableList<Module> getModuleList();
 
+    ObservableList<Appeal> getAppealList();
 }

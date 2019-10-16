@@ -1,7 +1,7 @@
 [
     {
       "appealId": "C000000",
-      "aappealType": "Increase workload",
+      "appealType": "Increase workload",
       "academicYear": "AY19/20",
       "studentId": "A0180000",
       "studentWorkload": 24,
@@ -126,3 +126,4 @@
       "remark": ""
     }
   ]
+

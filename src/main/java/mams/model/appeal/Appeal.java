@@ -14,7 +14,7 @@ public class Appeal {
             "Appeals should start with 'C' followed by a 6 digit number";
 
     public static final String MESSAGE_CONSTRAINTS_APPEAL_TYPE =
-            "Appeals should be either add module, remove module or increase workload";
+            "Appeal type should be either add module, drop module or increase workload";
 
     /**
      * "C" followed by strictly 6 digits.
@@ -22,9 +22,10 @@ public class Appeal {
     public static final String VALIDATION_REGEX_APPEAL_CODE = "C\\d{6}$";
 
     /**
-     * "AY" followed by 4 numbers
+     * "AY" followed by strictly 4 digits
      */
-    public static final String VALIDATION_REGEX_ACADEMIC_YEAR = "AY\\d{4}$";
+    public static final String VALIDATION_REGEX_ACADEMIC_YEAR = "AY\\d{4}";
+
     /**
      * "AY" followed by 4 digit year
      */
@@ -45,9 +46,6 @@ public class Appeal {
     private final String result;
     private final String remark;
     private boolean isModified;
-
-
-
 
     /**
      * Constructor for Appeal object when it is loaded from file
@@ -77,7 +75,8 @@ public class Appeal {
                   boolean resolved,
                   String remark) {
 
-        CollectionUtil.requireAllNonNull(appealId, appealType, studentId, academicYear, appealDescription);
+        CollectionUtil.requireAllNonNull(appealId, appealType, studentId, academicYear,
+                studentWorkload, appealDescription);
         this.appealId = appealId;
         this.appealType = appealType;
         this.studentId = studentId;
@@ -91,10 +90,10 @@ public class Appeal {
         this.resolved = resolved;
         this.result = "Pending";
         this.remark = remark;
-        this.isModified = false; // to check if this is an already resolved appeal,
+        this.isModified = false;
+        // to check if this is an already resolved appeal,
         // since we are working with immutability.
         //  Only appeals that are not modified will be shown/added to file
-
     }
 
     /**
@@ -309,12 +308,10 @@ public class Appeal {
     public static boolean isValidAppealType(String test) {
         return test.equalsIgnoreCase("increase workload")
                 || test.equalsIgnoreCase("add module")
-                || test.equalsIgnoreCase("remove module");
+                || test.equalsIgnoreCase("drop module");
     }
 
     public static boolean isValidAcademicYear(String test) {
         return test.matches(VALIDATION_REGEX_ACADEMIC_YEAR);
     }
-
-
 }
