@@ -14,11 +14,11 @@ endif::[]
 
 == Site Map
 
-* <<docs/UserGuide#, User Guide>>
-* <<docs/DeveloperGuide#, Developer Guide>>
-* <<docs/LearningOutcomes#, Learning Outcomes>>
-* <<docs/AboutUs#, About Us>>
-* <<docs/ContactUs#, Contact Us>>
+* <<UserGuide#, User Guide>>
+* <<DeveloperGuide#, Developer Guide>>
+* <<LearningOutcomes#, Learning Outcomes>>
+* <<AboutUs#, About Us>>
+* <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 * AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org

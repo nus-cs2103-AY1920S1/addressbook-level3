@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.person.Person;
+import seedu.ezwatchlist.model.show.Show;
 
 /**
  * A utility class for test cases.
@@ -33,23 +33,23 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the person in the {@code model}'s person list.
+     * Returns the middle index of the show in the {@code model}'s show list.
      */
     public static Index getMidIndex(Model model) {
         return Index.fromOneBased(model.getFilteredShowList().size() / 2);
     }
 
     /**
-     * Returns the last index of the person in the {@code model}'s person list.
+     * Returns the last index of the show in the {@code model}'s show list.
      */
     public static Index getLastIndex(Model model) {
         return Index.fromOneBased(model.getFilteredShowList().size());
     }
 
     /**
-     * Returns the person in the {@code model}'s person list at {@code index}.
+     * Returns the Show in the {@code model}'s show list at {@code index}.
      */
-    public static Person getPerson(Model model, Index index) {
+    public static Show getShow(Model model, Index index) {
         return model.getFilteredShowList().get(index.getZeroBased());
     }
 }

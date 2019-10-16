@@ -3,11 +3,13 @@ package seedu.ezwatchlist.ui;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.ezwatchlist.model.show.Show;
+
 
 /**
  * An UI component that displays information of a {@code Show}.
@@ -33,6 +35,8 @@ public class ShowCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label type;
+    @FXML
     private Label dateOfRelease;
     @FXML
     private Label isWatched;
@@ -42,12 +46,15 @@ public class ShowCard extends UiPart<Region> {
     private Label runningTime;
     @FXML
     private FlowPane actors;
+    @FXML
+    private CheckBox watched;
 
     public ShowCard(Show show, int displayedIndex) {
         super(FXML);
         this.show = show;
         id.setText(displayedIndex + ". ");
         name.setText(show.getName().showName);
+        type.setText(show.type);
         dateOfRelease.setText(show.getDateOfRelease().value);
         isWatched.setText(Boolean.toString(show.isWatched().value));
         description.setText(show.getDescription().fullDescription);

@@ -52,6 +52,22 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String type} into a {@code type}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code type} is invalid.
+     */
+    public static String parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        /*
+        if (!type.isValidType(trimmedType)) {
+            throw new ParseException(Type.MESSAGE_CONSTRAINTS);
+        }*/
+        return type;
+    }
+
+    /**
      * Parses a {@code String date} into a {@code date}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -110,7 +126,7 @@ public class ParserUtil {
         }
         return new RunningTime(Integer.parseInt(trimmedRunningTime));
     }
-    
+
     /**
      * Parses a {@code String actor} into a {@code Actor}.
      * Leading and trailing whitespaces will be trimmed.
@@ -138,9 +154,4 @@ public class ParserUtil {
         return actorSet;
     }
 
-    public static String parseType(String type) {
-        requireNonNull(type);
-        String trimmedType = type.trim();
-        return type;
-    }
 }

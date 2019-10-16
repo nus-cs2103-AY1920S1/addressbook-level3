@@ -11,7 +11,7 @@ import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
 import seedu.ezwatchlist.model.person.Person;
-import seedu.ezwatchlist.testutil.PersonBuilder;
+import seedu.ezwatchlist.testutil.ShowBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.

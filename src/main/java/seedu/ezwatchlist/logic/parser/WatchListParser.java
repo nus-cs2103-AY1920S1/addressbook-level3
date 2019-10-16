@@ -6,15 +6,7 @@ import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.ezwatchlist.logic.commands.AddCommand;
-import seedu.ezwatchlist.logic.commands.ClearCommand;
-import seedu.ezwatchlist.logic.commands.Command;
-import seedu.ezwatchlist.logic.commands.DeleteCommand;
-import seedu.ezwatchlist.logic.commands.EditCommand;
-import seedu.ezwatchlist.logic.commands.ExitCommand;
-import seedu.ezwatchlist.logic.commands.SearchCommand;
-import seedu.ezwatchlist.logic.commands.HelpCommand;
-import seedu.ezwatchlist.logic.commands.ListCommand;
+import seedu.ezwatchlist.logic.commands.*;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 
 /**
@@ -55,6 +47,9 @@ public class WatchListParser {
 
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
+
+            case WatchCommand.COMMAND_WORD:
+                return new WatchCommandParser().parse(arguments);
 
             case SearchCommand.COMMAND_WORD:
                 return new SearchCommandParser().parse(arguments);
