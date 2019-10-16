@@ -36,7 +36,7 @@ public class ReminderAssociation {
      * Adds a reminder that opens the bookmark.
      *
      * @param bookmark The bookmark that the reminder opens.
-     * @param reminder the reminder that is added.
+     * @param reminder The reminder that opens the bookmark.
      */
     public void addReminder(Bookmark bookmark, Reminder reminder) {
         requireAllNonNull(bookmark, reminder);
