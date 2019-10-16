@@ -32,26 +32,28 @@ public class EditCommandParser {
             throw new ParseException(InventoryMessages.MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
         }
 
-        EditCommand.EditItemDescriptor editPersonDescriptor = new EditCommand.EditItemDescriptor();
+        EditCommand.EditItemDescriptor editItemDescriptor = new EditCommand.EditItemDescriptor();
+
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editPersonDescriptor.setDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+            editItemDescriptor.setDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         }
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-            editPersonDescriptor.setCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
+            editItemDescriptor.setCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
         }
         if (argMultimap.getValue(PREFIX_QUANTITY).isPresent()) {
-            editPersonDescriptor.setQuantity(Integer.parseInt(argMultimap.getValue(PREFIX_QUANTITY).get()));
+            editItemDescriptor.setQuantity(Integer.parseInt(argMultimap.getValue(PREFIX_QUANTITY).get()));
         }
         if (argMultimap.getValue(PREFIX_COST).isPresent()) {
-            editPersonDescriptor.setCost(Double.parseDouble(argMultimap.getValue(PREFIX_COST).get()));
+            editItemDescriptor.setCost(Double.parseDouble(argMultimap.getValue(PREFIX_COST).get()));
         }
         if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
-            editPersonDescriptor.setPrice(Double.parseDouble(argMultimap.getValue(PREFIX_PRICE).get()));
+            editItemDescriptor.setPrice(Double.parseDouble(argMultimap.getValue(PREFIX_PRICE).get()));
         }
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editItemDescriptor.isAnyFieldEdited()) {
             throw new ParseException(InventoryMessages.MESSAGE_NOT_EDITED);
         }
-        return new EditCommand(index, editPersonDescriptor);
+        System.out.println(editItemDescriptor.getPrice());
+        return new EditCommand(index, editItemDescriptor);
     }
 }
