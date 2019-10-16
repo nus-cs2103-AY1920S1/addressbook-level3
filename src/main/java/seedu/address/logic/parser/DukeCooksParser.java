@@ -6,19 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddExerciseCommand;
-import seedu.address.logic.commands.AddHealthCommand;
-import seedu.address.logic.commands.AddProfileCommand;
-import seedu.address.logic.commands.ClearExerciseCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteExerciseCommand;
-import seedu.address.logic.commands.EditExerciseCommand;
-import seedu.address.logic.commands.EditProfileCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindExerciseCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ListExerciseCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -83,6 +71,9 @@ public class DukeCooksParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case StatisticsCommand.COMMAND_WORD:
+            return new StatisticsCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
