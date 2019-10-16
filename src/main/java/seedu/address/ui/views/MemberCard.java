@@ -34,6 +34,8 @@ public class MemberCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
+    @FXML
+    private Label displayId;
 
     @FXML
     private FlowPane tags;
@@ -42,6 +44,7 @@ public class MemberCard extends UiPart<Region> {
         super(FXML);
         this.member = member;
         id.setText(displayedIndex + ". ");
+        displayId.setText(member.getId().getDisplayId());
         name.setText(member.getName().fullName);
         member.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
