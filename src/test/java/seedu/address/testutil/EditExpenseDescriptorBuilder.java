@@ -9,6 +9,7 @@ import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
+import seedu.address.model.expense.Timestamp;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,6 +35,7 @@ public class EditExpenseDescriptorBuilder {
         descriptor.setDescription(expense.getDescription());
         descriptor.setPrice(expense.getPrice());
         descriptor.setTags(expense.getTags());
+        descriptor.setTimestamp(expense.getTimestamp());
     }
 
     /**
@@ -59,6 +61,14 @@ public class EditExpenseDescriptorBuilder {
     public EditExpenseDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Timestamp} of the {@code EditExpenseDescriptor} that we are building.
+     */
+    public EditExpenseDescriptorBuilder withTimestamp(String rawTimestamp) {
+        descriptor.setTimestamp(Timestamp.createTimestampIfValid(rawTimestamp).get());
         return this;
     }
 

@@ -3,12 +3,14 @@
     "description" : "Jeans",
     "price" : "50",
     "tagged" : [ "Uniqlo" ],
-    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001"
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001",
+    "timestamp" : "01-12-2019"
   }, {
     "description" : "TShirt",
     "price" : "10",
     "tagged" : [ "HnM" ],
-    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001"
+    "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001",
+    "timestamp" : "02-12-2019"
   } ],
   "events" : []
 }

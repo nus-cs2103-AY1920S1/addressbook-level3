@@ -1,11 +1,13 @@
 package seedu.address.testutil;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
+import seedu.address.model.expense.Timestamp;
 import seedu.address.model.expense.UniqueIdentifier;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -18,17 +20,21 @@ public class ExpenseBuilder {
     public static final String DEFAULT_DESCRIPTION = "Alices Birthday";
     public static final String DEFAULT_PRICE = "20";
     public static final String DEFAULT_UNIQUE_IDENTIFIER = "Expense@00000000-0000-0000-0000-000000000001";
+    public static final String DEFAULT_TAGS = "AnniversaryAndHoliday";
+    public static final String DEFAULT_TIMESTAMP = "01-12-2019";
 
     private Description description;
     private Price price;
     private Set<Tag> tags;
     private UniqueIdentifier uniqueIdentifier;
+    private Timestamp timestamp;
 
     public ExpenseBuilder() {
         description = new Description(DEFAULT_DESCRIPTION);
         price = new Price(DEFAULT_PRICE);
-        tags = new HashSet<>();
+        tags = new HashSet<>(Arrays.asList(new Tag(DEFAULT_TAGS)));
         uniqueIdentifier = new UniqueIdentifier(DEFAULT_UNIQUE_IDENTIFIER);
+        timestamp = Timestamp.createTimestampIfValid(DEFAULT_TIMESTAMP).get();
     }
 
     /**
@@ -39,6 +45,7 @@ public class ExpenseBuilder {
         price = expenseToCopy.getPrice();
         tags = new HashSet<>(expenseToCopy.getTags());
         uniqueIdentifier = expenseToCopy.getUniqueIdentifier();
+        timestamp = expenseToCopy.getTimestamp();
     }
 
     /**
@@ -73,8 +80,16 @@ public class ExpenseBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Timestamp} of the {@code Expense} that we are building.
+     */
+    public ExpenseBuilder withTimestamp(String rawTimestamp) {
+        this.timestamp = Timestamp.createTimestampIfValid(rawTimestamp).get();
+        return this;
+    }
+
     public Expense build() {
-        return new Expense(description, price, tags, uniqueIdentifier);
+        return new Expense(description, price, tags, uniqueIdentifier, timestamp);
     }
 
 }

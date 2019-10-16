@@ -192,4 +192,6 @@ public interface Model {
     boolean hasEvent(Event event);
 
     void addEvent(Event event);
+
+    void deleteEvent(Event target);
 }

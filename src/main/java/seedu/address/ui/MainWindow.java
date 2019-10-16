@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -17,7 +16,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.expense.Reminder;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -199,13 +197,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void displayReminders() {
         // logger.info("Result: " + commandResult.getFeedbackToUser());
-        // should not be formatting Reminders to Strings here, fix later
-        List<Reminder> reminders = logic.getReminders();
-        StringBuilder remindersMessage = new StringBuilder("These are your upcoming events:");
-        for (Reminder reminder: reminders) {
-            remindersMessage.append("\n" + reminder.toString());
-        }
-        // resultDisplay.setFeedbackToUser("hi");
-        resultDisplay.setFeedbackToUser(remindersMessage.toString());
+        resultDisplay.setFeedbackToUser(logic.displayReminders());
     }
 }

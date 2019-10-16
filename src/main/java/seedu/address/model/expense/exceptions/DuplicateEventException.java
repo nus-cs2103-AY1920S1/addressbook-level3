@@ -1,7 +1,7 @@
 package seedu.address.model.expense.exceptions;
 
 /**
- * Signals that the operation will result in duplicate Expenses (Expenses are considered
+ * Signals that the operation will result in duplicate Events (Events are considered
  * duplicates if they have the same identity).
  */
 public class DuplicateEventException extends RuntimeException {

@@ -9,11 +9,11 @@ package seedu.address.model.expense;
  */
 public class Reminder {
     private Event event;
-    private String totalTimeDifference;
+    private long daysLeft;
 
-    public Reminder(Event event, String totalTimeDifference) {
+    public Reminder(Event event, long daysLeft) {
         this.event = event;
-        this.totalTimeDifference = totalTimeDifference;
+        this.daysLeft = daysLeft;
     }
 
     /**
@@ -24,8 +24,8 @@ public class Reminder {
     @Override
     public String toString() {
         return String.format(
-                "You have %s left to complete the task: %s!",
-                totalTimeDifference, event.getDescription());
+                "You have %d days left before this event: %s!",
+                daysLeft, event.getDescription());
     }
 
 }
