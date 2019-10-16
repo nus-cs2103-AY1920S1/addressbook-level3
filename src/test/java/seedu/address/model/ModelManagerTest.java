@@ -49,14 +49,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setCatalogFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setCatalogFilePath(Paths.get("catalog/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setCatalogFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setCatalogFilePath(Paths.get("new/catalog/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
