@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private VehicleListPanel vehicleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -127,7 +128,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -144,6 +145,18 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    /**
+     * Hides Vehicle & Incident Panels.
+     */
+    void initPreLogin() {
+        personListPanelPlaceholder.getParent().setVisible(true);
+        personListPanelPlaceholder.getParent().setManaged(true);
+        incidentListPanelPlaceholder.getParent().setVisible(false);
+        incidentListPanelPlaceholder.getParent().setManaged(false);
+        vehicleListPanelPlaceholder.getParent().setVisible(false);
+        vehicleListPanelPlaceholder.getParent().setManaged(false);
     }
 
     /**
@@ -174,6 +187,20 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Swaps the Persons view for Incidents and Vehicles.
+     */
+    @FXML
+    public void handleLogin() {
+        personListPanelPlaceholder.getParent().setVisible(false);
+        personListPanelPlaceholder.getParent().setManaged(false);
+        incidentListPanelPlaceholder.getParent().setVisible(true);
+        incidentListPanelPlaceholder.getParent().setManaged(true);
+        vehicleListPanelPlaceholder.getParent().setVisible(true);
+        vehicleListPanelPlaceholder.getParent().setManaged(true);
+        statusBarFooter.setLoginDetails(logic.getSession());
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -185,8 +212,6 @@ public class MainWindow extends UiPart<Stage> {
     public VehicleListPanel getVehicleListPanel() {
         return vehicleListPanel;
     }
-
-
 
     /**
      * Executes the command and returns the result.
@@ -205,6 +230,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isLogin()) {
+                handleLogin();
             }
 
             return commandResult;
