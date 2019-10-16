@@ -54,4 +54,42 @@ class TaskListTest {
         testList.add(todo);
         assertFalse(testList.hasTask(deadline));
     }
+
+    @Test
+    void isEqual_true() {
+        ArrayList<Task> tasksOne = new ArrayList<>();
+        tasksOne.add(new Todo("borrow book"));
+        tasksOne.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
+        tasksOne.add(new Todo("help"));
+
+        ArrayList<Task> tasksTwo = new ArrayList<>();
+        tasksTwo.add(new Todo("borrow book"));
+        tasksTwo.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
+        tasksTwo.add(new Todo("help"));
+
+        TaskList one = new TaskList(tasksOne);
+        TaskList two = new TaskList(tasksTwo);
+
+        assertTrue(one.isEqual(two));
+
+    }
+
+    @Test
+    void isEqual_false() {
+        ArrayList<Task> tasksOne = new ArrayList<>();
+        tasksOne.add(new Todo("borrow book"));
+        tasksOne.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
+        tasksOne.add(new Todo("help"));
+
+        ArrayList<Task> tasksTwo = new ArrayList<>();
+        tasksTwo.add(new Todo("borrow book"));
+        tasksTwo.add(new Deadline("hello", LocalDate.parse("10/10/2019", Task.getDateFormat())));
+        tasksTwo.add(new Todo("help me"));
+
+        TaskList one = new TaskList(tasksOne);
+        TaskList two = new TaskList(tasksTwo);
+
+        assertFalse(one.isEqual(two));
+
+    }
 }
