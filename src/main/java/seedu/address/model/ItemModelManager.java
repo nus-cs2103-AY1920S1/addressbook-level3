@@ -3,13 +3,16 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.core.item.Task;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.exceptions.IllegalListException;
+import seedu.address.model.item.ActiveRemindersList;
 import seedu.address.model.item.EventList;
 import seedu.address.model.item.ReminderList;
 import seedu.address.model.item.TaskList;
@@ -30,7 +33,14 @@ public class ItemModelManager implements ItemModel {
     private boolean priorityMode = false;
     private PriorityQueue<Item> sortedTask = null;
 
+    //Bryan Reminder
+    //These three lists must be synchronized
+    private ReminderList pastReminders;
+    private ActiveRemindersList activeReminders;
+    private ArrayList<Item> futureReminders;
+
     public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs, ElisaStateHistory elisaStateHistory) {
+
         this.taskList = new TaskList();
         this.eventList = new EventList();
         this.reminderList = new ReminderList();
@@ -39,11 +49,108 @@ public class ItemModelManager implements ItemModel {
         this.userPrefs = new UserPrefs(userPrefs);
         this.elisaStateHistory = elisaStateHistory;
 
+        //Bryan Reminder
+        pastReminders = new ReminderList();
+
+        activeReminders = new ActiveRemindersList(new ReminderList());
+        /*
+        activeReminders = new ListPropertyBase<Item>(new ReminderList()) {
+            @Override
+            public Object getBean() {
+                return null;
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            public synchronized Item popReminder() {
+                if(!isEmpty()) {
+                    return remove(0);
+                } else {
+                    //Should have this throw an exception
+                    return null;
+                }
+            }
+
+            public synchronized void addReminders(Collection<Item> reminders) {
+                for (Item item:reminders) {
+                    add(0, item);
+                }
+            }
+        };
+        */
+
+        futureReminders = new ArrayList<Item>();
+
+        //Bryan Reminder
+        pastReminders = new ReminderList();
+
+        activeReminders = new ActiveRemindersList(new ReminderList());
+        /*
+        activeReminders = new ListPropertyBase<Item>(new ReminderList()) {
+            @Override
+            public Object getBean() {
+                return null;
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            public synchronized Item popReminder() {
+                if(!isEmpty()) {
+                    return remove(0);
+                } else {
+                    //Should have this throw an exception
+                    return null;
+                }
+            }
+
+            public synchronized void addReminders(Collection<Item> reminders) {
+                for (Item item:reminders) {
+                    add(0, item);
+                }
+            }
+        };
+        */
+
+        futureReminders = new ArrayList<Item>();
+
         for (int i = 0; i < itemStorage.size(); i++) {
             addToSeparateList(itemStorage.get(i));
         }
 
         elisaStateHistory.pushCommand(new ElisaStateManager(getItemStorage(), getVisualList()).deepCopy());
+    }
+
+    /* Bryan Reminder
+     *
+     * Referenced: https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm
+     * for property naming conventions.
+     *
+     */
+
+    //Function to get property
+    @Override
+    public ActiveRemindersList getActiveReminderListProperty() {
+        return activeReminders;
+    }
+
+    //Function get property's value
+    public final ObservableList<Item> getActiveReminderList() {
+        return activeReminders.get();
+    }
+    //Function to edit property //which should trigger a change event
+    public final void addReminderToActive(Item item) {
+        activeReminders.add(item);
+    }
+
+    @Override
+    public final ArrayList<Item> getFutureRemindersList() {
+        return futureReminders;
     }
 
     @Override
@@ -98,6 +205,7 @@ public class ItemModelManager implements ItemModel {
      */
     public void addItem (Item item) {
         visualList.add(item);
+        //TODO: Shouldnt addToSeparateList be successful before we store the item?
         itemStorage.add(item);
         addToSeparateList(item);
     }
@@ -126,6 +234,7 @@ public class ItemModelManager implements ItemModel {
 
         if (item.hasReminder()) {
             reminderList.add(item);
+            futureReminders.add(item);
         }
     }
 
@@ -308,6 +417,15 @@ public class ItemModelManager implements ItemModel {
     }
 
     /**
+     * Checks if the item storage already contains this item.
+     * @param item to check
+     * @return true if the item storage contains this item, false otherwise
+     */
+    public boolean hasItem(Item item) {
+        return itemStorage.contains(item);
+    }
+
+    /**
      * Enable and disable the priority mode
      * @return a boolean value. If true, means priority mode is on, else returns false.
      * @throws IllegalListException if the visualList is not a task list.
@@ -369,5 +487,4 @@ public class ItemModelManager implements ItemModel {
 
         return item;
     }
-
 }

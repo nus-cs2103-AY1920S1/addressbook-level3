@@ -14,6 +14,7 @@ import seedu.address.commons.core.item.Item.ItemBuilder;
 import seedu.address.commons.core.item.ItemDescription;
 import seedu.address.commons.core.item.Reminder;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddReminderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
@@ -40,7 +41,6 @@ public class AddReminderCommandParser implements Parser<AddCommand> {
         ItemDescription description = ParserUtil.parseDescription(desc);
         // Reminder must be present.
         Reminder itemReminder = ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get()).get();
-        //Optional<Priority> priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse(null));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         ItemBuilder itemBuilder = new ItemBuilder();
@@ -55,7 +55,8 @@ public class AddReminderCommandParser implements Parser<AddCommand> {
             throw new ParseException(e.getMessage());
         }
 
-        return new AddCommand(newItem);
+        AddCommand addCommand = new AddReminderCommand(newItem);
+        return addCommand;
     }
 
 

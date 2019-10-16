@@ -1,11 +1,13 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.exceptions.IllegalListException;
+import seedu.address.model.item.ActiveRemindersList;
 import seedu.address.model.item.VisualizeList;
 
 /**
@@ -73,6 +75,8 @@ public interface ItemModel {
 
     public void sort();
 
+    public boolean hasItem(Item item);
+
     public void addToSeparateList(Item item);
 
     public void setState(ElisaState state);
@@ -90,4 +94,9 @@ public interface ItemModel {
     public Item markComplete(int index) throws IllegalListException;
 
     public void updateState();
+
+    //Bryan Reminder
+    ActiveRemindersList getActiveReminderListProperty();
+
+    ArrayList<Item> getFutureRemindersList();
 }
