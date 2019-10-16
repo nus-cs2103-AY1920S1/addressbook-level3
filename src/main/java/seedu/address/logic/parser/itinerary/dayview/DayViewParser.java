@@ -19,7 +19,7 @@ import seedu.address.logic.parser.sidebar.EnterTripManagerParser;
 /**
  * Parser class responsible for directing commands belonging to the day view.
  */
-public class DayViewParser implements PageParser {
+public class DayViewParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EnterCreateDayCommand.COMMAND_WORD + " "
             + DeleteDayCommand.COMMAND_WORD + " "

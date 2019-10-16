@@ -15,7 +15,7 @@ import seedu.address.logic.parser.contacts.ContactsParser;
 import seedu.address.logic.parser.diary.DiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.expense.ExpenseParser;
-import seedu.address.logic.parser.inventory.InventoryParser;
+import seedu.address.logic.parser.inventory.InventoryViewParser;
 import seedu.address.logic.parser.itinerary.dayview.DayViewParser;
 import seedu.address.logic.parser.itinerary.dayview.edit.EditDayParser;
 import seedu.address.logic.parser.itinerary.eventview.EventViewParser;
@@ -61,7 +61,7 @@ public class TravelPalParser {
         final String commandWord = matcher.group("commandWord").toUpperCase();
         final String arguments = matcher.group("arguments");
 
-        PageParser commonParser;
+        PageParser<Command> commonParser;
 
         try {
             Command commonCommand = new CommonParser().parse(commandWord, arguments);
@@ -90,7 +90,7 @@ public class TravelPalParser {
         case EVENT_PAGE:
             return new EventViewParser().parse(commandWord, arguments);
         case PRETRIP_INVENTORY:
-            return new InventoryParser().parse(commandWord, arguments);
+            return new InventoryViewParser().parse(commandWord, arguments);
         case EXPENSE_MANAGER:
             return new ExpenseParser().parse(commandWord, arguments);
         case DIARY:

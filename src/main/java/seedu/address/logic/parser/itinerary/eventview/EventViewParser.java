@@ -18,7 +18,7 @@ import seedu.address.logic.parser.sidebar.EnterTripManagerParser;
 /**
  * Placeholder javadoc.
  */
-public class EventViewParser implements PageParser {
+public class EventViewParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EnterCreateEventCommand.COMMAND_WORD + " "
             + DeleteEventCommand.COMMAND_WORD + " "

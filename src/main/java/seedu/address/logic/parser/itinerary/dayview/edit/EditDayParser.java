@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Placeholder javadoc.
  */
-public class EditDayParser implements PageParser {
+public class EditDayParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EditDayFieldCommand.COMMAND_WORD + " "
             + DoneEditDayCommand.COMMAND_WORD + " "
