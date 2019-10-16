@@ -1,37 +1,20 @@
 package seedu.address;
 
-import java.util.concurrent.TimeoutException;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
-import org.testfx.api.FxToolkit;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
 
 @ExtendWith(ApplicationExtension.class)
 public class MainAppTest extends ApplicationTest {
 
-    @BeforeAll
-    public static void setUpClass() throws TimeoutException {
-        FxToolkit.registerPrimaryStage();
-        FxToolkit.setupApplication(MainApp.class);
-    }
-
-    @AfterEach
-    public void afterEach() throws TimeoutException {
-        FxToolkit.cleanupStages();
-    }
-
     @Override
-    public void start(Stage stage) {
-        stage.show();
+    public void init() throws Exception {
+        this.launch(MainApp.class, "");
     }
 
     @Test
