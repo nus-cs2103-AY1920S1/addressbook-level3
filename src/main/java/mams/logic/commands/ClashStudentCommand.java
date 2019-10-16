@@ -3,7 +3,6 @@ package mams.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ public class ClashStudentCommand extends ClashCommand {
 
         // to get the student from student list.
         List<Student> studentInList = lastShownList.stream()
-                .filter(p -> p.getName().fullName.equals(matricId)).collect(Collectors.toList());
+                .filter(s -> s.getMatricId().toString().equalsIgnoreCase(matricId)).collect(Collectors.toList());
         Student studentToCheck = studentInList.get(0);
 
         // to get the student current modules.
@@ -63,20 +62,6 @@ public class ClashStudentCommand extends ClashCommand {
             return new CommandResult(MESSAGE_CLASH_NOT_DETECTED);
         }
 
-    }
-
-    /**
-     * Returns a temporary module object which stores the clashing time slots
-     * @return Returns a temporary module object which stores the clashing time slots
-     */
-    private Module generateTempMod() {
-        StringBuilder sb = new StringBuilder("");
-        for (int slot : clashingSlots) {
-            sb.append(slot).append(",");
-        }
-
-        return new Module("", "", "", "", sb.toString(),
-                "", new HashSet<Tag>());
     }
 
     @Override

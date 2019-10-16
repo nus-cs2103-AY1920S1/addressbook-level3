@@ -5,8 +5,10 @@ import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import mams.model.module.Module;
+import mams.model.tag.Tag;
 
 /**
  * Encapsulate a ClashCommand class to check clashes in timetable.
@@ -49,6 +51,20 @@ public abstract class ClashCommand extends Command {
             }
         }
         return clashingSlots;
+    }
+
+    /**
+     * Returns a temporary module object which stores the clashing time slots
+     * @return Returns a temporary module object which stores the clashing time slots
+     */
+    protected Module generateTempMod() {
+        StringBuilder sb = new StringBuilder("");
+        for (int slot : clashingSlots) {
+            sb.append(slot).append(",");
+        }
+
+        return new Module("", "", "", "", sb.toString(),
+                "", new HashSet<Tag>());
     }
 
     /**
