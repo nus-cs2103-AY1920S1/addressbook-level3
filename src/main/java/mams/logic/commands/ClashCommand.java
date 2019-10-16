@@ -1,13 +1,16 @@
 package mams.logic.commands;
 
-import mams.model.module.Module;
-
-import java.util.ArrayList;
-
 import static mams.logic.parser.CliSyntax.PREFIX_APPEALID;
 import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 
+import java.util.ArrayList;
+
+import mams.model.module.Module;
+
+/**
+ * Encapsulate a ClashCommand class to check clashes in timetable.
+ */
 public abstract class ClashCommand extends Command {
 
     public static final String COMMAND_WORD = "clash";
@@ -27,7 +30,7 @@ public abstract class ClashCommand extends Command {
     public static final String MESSAGE_INVALID_MATRICID = "Please enter 1 valid Matric ID. ";
     public static final String MESSAGE_INVALID_APPEALID = "Please enter 1 valid Appeal ID. ";
 
-    ArrayList<Integer> clashingSlots;
+    protected ArrayList<Integer> clashingSlots;
 
     /**
      * Returns an ArrayList of Integers that contains the clashing time slots.

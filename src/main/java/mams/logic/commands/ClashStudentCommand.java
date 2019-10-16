@@ -1,10 +1,6 @@
 package mams.logic.commands;
 
-import mams.logic.commands.exceptions.CommandException;
-import mams.model.Model;
-import mams.model.module.Module;
-import mams.model.student.Student;
-import mams.model.tag.Tag;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,17 +8,24 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static java.util.Objects.requireNonNull;
+import mams.logic.commands.exceptions.CommandException;
+import mams.model.Model;
+import mams.model.module.Module;
+import mams.model.student.Student;
+import mams.model.tag.Tag;
 
+/**
+ * Encapsulate a ClashStudentCommand to check timetable clashes within the student's current modules.
+ */
 public class ClashStudentCommand extends ClashCommand {
 
-    private final String matricID;
+    private final String matricId;
     private ArrayList<Module> currentModules;
 
-    public ClashStudentCommand(String matricID) {
-        requireNonNull(matricID);
+    public ClashStudentCommand(String matricId) {
+        requireNonNull(matricId);
 
-        this.matricID = matricID;
+        this.matricId = matricId;
         super.clashingSlots = new ArrayList<>();
         currentModules = new ArrayList<>();
     }
@@ -34,7 +37,7 @@ public class ClashStudentCommand extends ClashCommand {
 
         // to get the student from student list.
         List<Student> studentInList = lastShownList.stream()
-                .filter(p -> p.getName().fullName.equals(matricID)).collect(Collectors.toList());
+                .filter(p -> p.getName().fullName.equals(matricId)).collect(Collectors.toList());
         Student studentToCheck = studentInList.get(0);
 
         // to get the student current modules.
@@ -62,6 +65,10 @@ public class ClashStudentCommand extends ClashCommand {
 
     }
 
+    /**
+     * Returns a temporary module object which stores the clashing time slots
+     * @return Returns a temporary module object which stores the clashing time slots
+     */
     private Module generateTempMod() {
         StringBuilder sb = new StringBuilder("");
         for (int slot : clashingSlots) {
@@ -86,6 +93,6 @@ public class ClashStudentCommand extends ClashCommand {
 
         // state check
         ClashStudentCommand c = (ClashStudentCommand) other;
-        return matricID.equals(c.matricID);
+        return matricId.equals(c.matricId);
     }
 }

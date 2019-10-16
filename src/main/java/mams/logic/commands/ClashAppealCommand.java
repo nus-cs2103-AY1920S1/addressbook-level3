@@ -1,15 +1,17 @@
 package mams.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Model;
 import mams.model.module.Module;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Encapsulate a ClashAppealCommand Class to check timetable clashes in an appeal.
+ */
 public class ClashAppealCommand extends ClashCommand {
 
     private final String appeal;
@@ -28,7 +30,7 @@ public class ClashAppealCommand extends ClashCommand {
         List<Module> lastShownList = model.getFilteredModuleList();
 
         // todo: check whether the uniquemodulelist contains the two modules.
-            return new CommandResult(MESSAGE_CLASH_NOT_DETECTED);
+        return new CommandResult(MESSAGE_CLASH_NOT_DETECTED);
     }
 
     @Override

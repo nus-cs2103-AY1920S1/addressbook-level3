@@ -32,7 +32,7 @@ public class ClashCommandParser implements Parser<ClashCommand> {
                 && argMultimap.getValue(PREFIX_APPEALID).isEmpty()
                 && argMultimap.getValueSize(PREFIX_MODULE_CODE) != 2) {
             throw new ParseException(ClashCommand.MESSAGE_INVALID_MODULE_CODE);
-        } else if (argMultimap.getValueSize(PREFIX_MATRICID) == 1){
+        } else if (argMultimap.getValueSize(PREFIX_MATRICID) == 1) {
             return new ClashStudentCommand(argMultimap.getAllValues(PREFIX_MATRICID).get(0));
         } else if (argMultimap.getValue(PREFIX_MODULE_CODE).isEmpty()
                 && argMultimap.getValue(PREFIX_MATRICID).isPresent()
