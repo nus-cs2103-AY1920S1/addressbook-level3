@@ -1,19 +1,21 @@
 package seedu.address.testutil;
 
-import java.text.ParseException;
-import java.util.ArrayList;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TEST_PARAMETERS;
+
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.entity.body.Religion;
-import seedu.address.model.entity.body.Status;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 
 //@@author ambervoong
 /**
@@ -29,7 +31,7 @@ public class BodyBuilder {
     public static final Religion DEFAULT_RELIGION = Religion.NONRELIGIOUS;
     public static final String DEFAULT_CAUSE_OF_DEATH = "Heart Attack";
     public static final String DEFAULT_ORGANS_FOR_DONATION = "Liver Cornea Kidney";
-    public static final Status DEFAULT_STATUS = Status.ARRIVED;
+    public static final BodyStatus DEFAULT_BODY_STATUS = BodyStatus.ARRIVED;
     public static final int DEFAULT_FRIDGE_ID = 1;
     public static final String DEFAULT_DATE_OF_BIRTH = "12/12/2012";
     public static final String DEFAULT_DATE_OF_DEATH = "02/10/2019";
@@ -45,8 +47,8 @@ public class BodyBuilder {
     private Religion religion;
 
     private String causeOfDeath;
-    private ArrayList<String> organsForDonation;
-    private Status status;
+    private List<String> organsForDonation;
+    private BodyStatus bodyStatus;
     private IdentificationNumber fridgeId;
 
     private Date dateOfBirth;
@@ -56,7 +58,7 @@ public class BodyBuilder {
     // Next of kin details
     private Name nextOfKin;
     private String relationship;
-    private Phone kinPhoneNumber;
+    private PhoneNumber kinPhoneNumber;
 
 
     public BodyBuilder() {
@@ -65,13 +67,13 @@ public class BodyBuilder {
         nric = new Nric(DEFAULT_NRIC);
         religion = DEFAULT_RELIGION;
         causeOfDeath = DEFAULT_CAUSE_OF_DEATH;
-        organsForDonation = new ArrayList<>(Arrays.asList(DEFAULT_ORGANS_FOR_DONATION.split(" ")));
-        status = DEFAULT_STATUS;
+        organsForDonation = Arrays.asList(DEFAULT_ORGANS_FOR_DONATION.split(" "));
+        bodyStatus = DEFAULT_BODY_STATUS;
         fridgeId = IdentificationNumber.customGenerateId("F", DEFAULT_FRIDGE_ID);
 
         nextOfKin = new Name(DEFAULT_NEXT_OF_KIN);
         relationship = DEFAULT_RELATIONSHIP;
-        kinPhoneNumber = new Phone(DEFAULT_KIN_PHONE);
+        kinPhoneNumber = new PhoneNumber(DEFAULT_KIN_PHONE);
 
         try {
             dateOfBirth = ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH);
@@ -88,18 +90,18 @@ public class BodyBuilder {
     public BodyBuilder(Body bodyToCopy) {
         name = bodyToCopy.getName();
         sex = bodyToCopy.getSex();
-        nric = bodyToCopy.getNric();
-        religion = bodyToCopy.getReligion();
-        causeOfDeath = bodyToCopy.getCauseOfDeath();
-        organsForDonation = bodyToCopy.getOrgansForDonation();
-        status = bodyToCopy.getStatus();
-        fridgeId = bodyToCopy.getFridgeId();
-        nextOfKin = bodyToCopy.getNextOfKin();
-        relationship = bodyToCopy.getRelationship();
-        kinPhoneNumber = bodyToCopy.getKinPhoneNumber();
+        nric = bodyToCopy.getNric().orElse(null);
+        religion = bodyToCopy.getReligion().orElse(null);
+        causeOfDeath = bodyToCopy.getCauseOfDeath().orElse(null);
+        organsForDonation = bodyToCopy.getOrgansForDonation().orElse(null);
+        bodyStatus = bodyToCopy.getBodyStatus().orElse(null);
+        fridgeId = bodyToCopy.getFridgeId().orElse(null);
+        nextOfKin = bodyToCopy.getNextOfKin().orElse(null);
+        relationship = bodyToCopy.getRelationship().orElse(null);
+        kinPhoneNumber = bodyToCopy.getKinPhoneNumber().orElse(null);
 
         dateOfDeath = bodyToCopy.getDateOfDeath();
-        dateOfBirth = bodyToCopy.getDateOfBirth();
+        dateOfBirth = bodyToCopy.getDateOfBirth().orElse(null);
         dateOfAdmission = bodyToCopy.getDateOfAdmission();
     }
 
@@ -107,15 +109,19 @@ public class BodyBuilder {
      * Sets the {@code Name} of the {@code Body} that we are building.
      */
     public BodyBuilder withName(String name) {
-        this.name = new Name(name);
+        try {
+            this.name = ParserUtil.parseName(name);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
         return this;
     }
 
     /**
      * Sets the {@code sex} of the {@code Body} that we are building.
      */
-    public BodyBuilder withSex(Sex sex) {
-        this.sex = sex;
+    public BodyBuilder withSex(String sex) {
+        this.sex = Sex.valueOf(sex);
         return this;
     }
 
@@ -123,15 +129,11 @@ public class BodyBuilder {
      * Sets the {@code nric} of the {@code Body} that we are building.
      */
     public BodyBuilder withNric(String nric) {
-        this.nric = new Nric(nric);
-        return this;
-    }
-
-    /**
-     * Sets the {@code religion} of the {@code Body} that we are building.
-     */
-    public BodyBuilder withNric(Religion religion) {
-        this.religion = religion;
+        try {
+            this.nric = ParserUtil.parseNric(nric);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
         return this;
     }
 
@@ -139,31 +141,40 @@ public class BodyBuilder {
      * Sets the {@code causeOfDeath} of the {@code Body} that we are building.
      */
     public BodyBuilder withCauseOfDeath(String causeOfDeath) {
-        this.causeOfDeath = causeOfDeath;
+        this.causeOfDeath = ParserUtil.parseStringFields(causeOfDeath);
         return this;
     }
 
     /**
      * Sets the list of {@code organsForDonation} of the {@code Body} that we are building.
      */
-    public BodyBuilder withOrgansForDonation(ArrayList<String> organsForDonation) {
-        this.organsForDonation = organsForDonation;
+    public BodyBuilder withOrgansForDonation(String organsForDonation) {
+        this.organsForDonation = ParserUtil.parseOrgansForDonation(organsForDonation);
         return this;
     }
 
     /**
      * Sets the {@code status} of the {@code Body} that we are building.
      */
-    public BodyBuilder withStatus(Status status) {
-        this.status = status;
+    public BodyBuilder withStatus(String bodyStatus) {
+        try {
+            this.bodyStatus = ParserUtil.parseBodyStatus(bodyStatus);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
+
         return this;
     }
 
     /**
      * Sets the {@code fridgeId} of the {@code Body} that we are building.
      */
-    public BodyBuilder withFridgeId(int fridgeId) {
-        this.fridgeId = IdentificationNumber.customGenerateId("F", fridgeId);
+    public BodyBuilder withFridgeId(String fridgeId) {
+        try {
+            this.fridgeId = ParserUtil.parseIdentificationNumber(fridgeId);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
         return this;
     }
 
@@ -171,7 +182,11 @@ public class BodyBuilder {
      * Sets the {@code nextOfKin} of the {@code Body} that we are building.
      */
     public BodyBuilder withNextOfKin(String nextOfKin) {
-        this.nextOfKin = new Name(nextOfKin);
+        try {
+            this.nextOfKin = ParserUtil.parseName(nextOfKin);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
         return this;
     }
 
@@ -179,15 +194,19 @@ public class BodyBuilder {
      * Sets the next-of-kin {@code relationship} of the {@code Body} that we are building.
      */
     public BodyBuilder withRelationship(String relationship) {
-        this.relationship = relationship;
+        this.relationship = ParserUtil.parseStringFields(relationship);
         return this;
     }
 
     /**
      * Sets the {@code religion} of the {@code Body} that we are building.
      */
-    public BodyBuilder withReligion(Religion religion) {
-        this.religion = religion;
+    public BodyBuilder withReligion(String religion) {
+        try {
+            this.religion = ParserUtil.parseReligion(religion);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
         return this;
     }
 
@@ -195,7 +214,11 @@ public class BodyBuilder {
      * Sets the {@code kinPhoneNumber} of the {@code Body} that we are building.
      */
     public BodyBuilder withKinPhoneNumber(String kinPhoneNumber) {
-        this.kinPhoneNumber = new Phone(kinPhoneNumber);
+        try {
+            this.kinPhoneNumber = ParserUtil.parsePhoneNumber(kinPhoneNumber);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
+        }
         return this;
     }
 
@@ -241,6 +264,17 @@ public class BodyBuilder {
      */
     public Body build() {
         return new Body(true, 1, dateOfAdmission, name, sex, nric, religion, causeOfDeath,
-                organsForDonation, status, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship, kinPhoneNumber);
+                organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
+                kinPhoneNumber);
+    }
+
+    /**
+     * Creates a Body object using the parameters currently in this BodyBuilder object and a user-input custom ID.
+     * @return
+     */
+    public Body build(int id) {
+        return new Body(true, id, dateOfAdmission, name, sex, nric, religion, causeOfDeath,
+                organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
+                kinPhoneNumber);
     }
 }

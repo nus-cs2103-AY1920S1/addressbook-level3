@@ -16,7 +16,6 @@ import seedu.address.logic.Logic;
  * The manager of the UI component.
  */
 public class UiManager implements Ui {
-
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
@@ -82,5 +81,4 @@ public class UiManager implements Ui {
         Platform.exit();
         System.exit(1);
     }
-
 }
