@@ -55,6 +55,27 @@ public class Question {
         return other != null && other.getQuestionBody().equals(getQuestionBody());
     }
 
+    /**
+     * Returns true if both questions have the same identity and data fields.
+     * This defines a stronger notion of equality between two questions.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Question)) {
+            return false;
+        }
+
+        Question otherQuestion = (Question) other;
+        return otherQuestion.getQuestionBody().equals(getQuestionBody())
+                && otherQuestion.getAnswer().equals(getAnswer())
+                && otherQuestion.getSubject().equals(getSubject())
+                && otherQuestion.getDifficulty().equals(getDifficulty());
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(questionBody, answer, subject, difficulty);
