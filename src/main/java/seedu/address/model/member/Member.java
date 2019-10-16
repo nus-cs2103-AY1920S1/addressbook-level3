@@ -19,7 +19,6 @@ public class Member {
     // Identity fields
     private final MemberName name;
     private final MemberId id;
-    private ArrayList<Task> memberTasks = null;
 
     private final Set<Tag> tags = new HashSet<>();
 
@@ -41,21 +40,6 @@ public class Member {
     }
 
     // TODO add multiple constructors so that users can add additional info later
-    public void setTask(Task task) {
-        this.memberTasks.add(task);
-    }
-
-    public void removeTask(int taskId) {
-        this.memberTasks.remove(taskId);
-    }
-
-    public boolean hasTasks() {
-        return !memberTasks.isEmpty();
-    }
-
-    public ArrayList<Task> getMemberTasks() {
-        return this.memberTasks;
-    }
 
     public MemberId getId() {
         return id;
