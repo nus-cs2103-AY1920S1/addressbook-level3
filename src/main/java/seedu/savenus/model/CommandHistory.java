@@ -61,10 +61,7 @@ public class CommandHistory {
      */
     public void storeValidCommand(String command) {
         this.addCommandToHistory(command);
-        System.out.println("executed valid " + ": " + commandHistory.toString());
         currentCommandIndex = commandHistory.size();
-        System.out.println("curr list size: " + commandHistory.size());
-        System.out.println("curr index: " + currentCommandIndex);
     }
 
     /**
