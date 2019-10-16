@@ -133,7 +133,10 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
         // run: `cleanupWhenNoLongerNeedIt.unsubscribe();`
     }
 
-    public void watch() {
+    /**
+     * Enable syntax highlighting.
+     */
+    public void enableSyntaxHighlighting() {
         cleanupWhenNoLongerNeedIt =
                 multiPlainChanges()
                     .successionEnds(Duration.ofMillis(200))
@@ -142,6 +145,10 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
                         });
     }
 
+    /**
+     * Sets the style class of all the text to the style class provided.
+     * @param styleClass style class to apply to the text in the text area.
+     */
     public void overrideStyle(String styleClass) {
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
         spansBuilder.add(Collections.singleton(styleClass), getLength());
@@ -159,7 +166,7 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
                 .getStylesheets()
                 .add(SyntaxHighlightTextArea.class.getResource("/view/syntax-highlighting.css")
                         .toExternalForm());
-        watch();
+        enableSyntaxHighlighting();
     }
 
     /**
@@ -179,6 +186,13 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
         return Pattern.compile(String.format(INPUT_PATTERN_TEMPLATE, commandWord, prefixesPatterns.toString()));
     }
 
+    /**
+     * Add support for syntax highlighting and auto fill for the specified command.
+     *
+     * @param command The command word
+     * @param prefixes List of prefixes required in the command
+     * @param requiredSyntax Syntax for the autofill to replace text with
+     */
     public void createPattern(String command, List<Prefix> prefixes, String requiredSyntax) {
         Pattern p = compileCommandPattern(command, prefixes);
         stringPatternMap.put(command, p);
@@ -186,6 +200,10 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
         stringAutofillMap.put(command, requiredSyntax);
     }
 
+    /**
+     * Remove support for syntax highlighting and auto fill for the specified command.
+     * @param command
+     */
     public void removePattern(String command) {
         if (stringPatternMap.containsKey(command)) {
             stringPatternMap.remove(stringPatternMap.get(command));
@@ -204,7 +222,7 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
      */
     private StyleSpans<Collection<String>> computeHighlighting(String text) {
         String commandWordRegex = String.join("|", stringPatternMap.keySet());
-        Matcher m = Pattern.compile("^\\s*(?<COMMAND>"+ commandWordRegex+ ")\\s*$").matcher(text);
+        Matcher m = Pattern.compile("^\\s*(?<COMMAND>" + commandWordRegex + ")\\s*$").matcher(text);
 
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 

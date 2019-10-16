@@ -121,7 +121,6 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBox.importSyntaxStyleSheet(getRoot().getScene());
-        commandBox.addSyntax();
 
         // add supported commands (not complete)
         Prefix[] a = new Prefix[]{new Prefix("p/"), new Prefix("d/")};

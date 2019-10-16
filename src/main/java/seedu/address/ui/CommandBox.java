@@ -64,7 +64,7 @@ public class CommandBox extends UiPart<Region> {
      */
     private void setStyleToDefault() {
         // enable syntax highlighting
-        syntaxHighlightTextArea.watch();
+        syntaxHighlightTextArea.enableSyntaxHighlighting();
     }
 
     /**
