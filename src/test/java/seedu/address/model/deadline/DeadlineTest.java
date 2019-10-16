@@ -4,62 +4,57 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import static seedu.address.testutil.TypicalDeadlines.COMPLETE_CALENDAR;
+import static seedu.address.testutil.TypicalDeadlines.COMPLETE_SCHEDULER;
+import static seedu.address.testutil.TypicalDeadlines.VALID_DUEDATE_STR;
+import static seedu.address.testutil.TypicalDeadlines.VALID_TASK_STR;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.address.testutil.DeadlineBuilder;
+
 public class DeadlineTest {
-
-    private static final String VALID_TASK_STR = "Complete Deadline Scheduler.";
-    private static final String VALID_TASK_STR_2 = "Complete Calendar GUI.";
-    private static final String VALID_DUEDATE_STR = "01/10/2019";
-    private static final String VALID_DUEDATE_STR_2 = "11/10/2019";
-    private static final Task VALID_TASK = new Task(VALID_TASK_STR);
-    private static final DueDate VALID_DUEDATE = new DueDate(VALID_DUEDATE_STR);
-    private static final Task VALID_TASK_2 = new Task(VALID_TASK_STR_2);
-    private static final DueDate VALID_DUEDATE_2 = new DueDate(VALID_DUEDATE_STR_2);
-    private static final Deadline DEADLINE = new Deadline(VALID_TASK, VALID_DUEDATE);
-
 
     @Test
     public void isSameDeadline() {
         // same object -> returns true
-        assertTrue(DEADLINE.equals(DEADLINE));
+        assertTrue(COMPLETE_SCHEDULER.equals(COMPLETE_SCHEDULER));
 
 
         // null -> returns false
-        assertFalse(DEADLINE.equals(null));
+        assertFalse(COMPLETE_SCHEDULER.equals(null));
 
         // same deadline -> returns true
-        Deadline editedDeadline = new Deadline(VALID_TASK, VALID_DUEDATE);
-        assertTrue(DEADLINE.equals(editedDeadline));
+        Deadline editedDeadline = new DeadlineBuilder(COMPLETE_SCHEDULER).build();
+        assertTrue(COMPLETE_SCHEDULER.equals(editedDeadline));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Deadline deadline = new Deadline(VALID_TASK, VALID_DUEDATE);
-        assertTrue(DEADLINE.equals(deadline));
+        Deadline editedDeadline = new DeadlineBuilder(COMPLETE_CALENDAR).build();
+        assertTrue(COMPLETE_CALENDAR.equals(editedDeadline));
 
         // same object -> returns true
-        assertTrue(DEADLINE.equals(DEADLINE));
+        assertTrue(COMPLETE_CALENDAR.equals(COMPLETE_CALENDAR));
 
         // null -> returns false
-        assertFalse(DEADLINE.equals(null));
+        assertFalse(COMPLETE_CALENDAR.equals(null));
 
         // different type -> returns false
-        assertFalse(DEADLINE.equals(5));
+        assertFalse(COMPLETE_CALENDAR.equals(5));
 
         // different deadline -> returns false
-        // Revisit!
-        Deadline otherDeadline = new Deadline(VALID_TASK_2, VALID_DUEDATE_2);
-        assertFalse(deadline.equals(otherDeadline));
+        Deadline otherDeadline = new DeadlineBuilder(COMPLETE_SCHEDULER).build();
+        assertFalse(COMPLETE_CALENDAR.equals(otherDeadline));
 
         // different task -> returns false
-        Deadline editedDeadlineTask = new Deadline(VALID_TASK_2, VALID_DUEDATE_2);
-        assertNotEquals(DEADLINE.toString(), editedDeadlineTask.toString());
+        Deadline editedDeadlineTask = new DeadlineBuilder(COMPLETE_CALENDAR).withTask(VALID_TASK_STR).build();
+        assertNotEquals(COMPLETE_CALENDAR.toString(), editedDeadlineTask.toString());
 
         // different due date -> returns false
-        Deadline editedDeadlineDueDate = new Deadline(VALID_TASK, VALID_DUEDATE_2);
-        assertNotEquals(DEADLINE.toString(), editedDeadlineDueDate.toString());
+        Deadline editedDeadlineDueDate = new DeadlineBuilder(COMPLETE_CALENDAR).withDueDate(VALID_DUEDATE_STR).build();
+        assertNotEquals(COMPLETE_CALENDAR.toString(), editedDeadlineDueDate.toString());
 
     }
 }

@@ -1,82 +1,60 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import seedu.address.model.category.Category;
-import seedu.address.model.flashcard.Answer;
-import seedu.address.model.flashcard.FlashCard;
-import seedu.address.model.flashcard.Question;
-import seedu.address.model.flashcard.Rating;
+import seedu.address.model.deadline.Deadline;
+import seedu.address.model.deadline.DueDate;
+import seedu.address.model.deadline.Task;
 import seedu.address.model.util.SampleDataUtil;
+
 
 /**
  * A utility class to help with building FlashCard objects.
  */
-public class FlashCardBuilder {
+public class DeadlineBuilder {
 
-    public static final String DEFAULT_QUESTION = "1 + 1";
-    public static final String DEFAULT_ANSWER = "2";
-    public static final String DEFAULT_RATING = "good";
+    private static final String VALID_TASK_STR = "Complete Deadline Scheduler.";
+    private static final String VALID_TASK_STR_2 = "Complete Calendar GUI.";
+    private static final String VALID_DUEDATE_STR = "01/10/2019";
+    private static final String VALID_DUEDATE_STR_2 = "11/10/2019";
+    private static final Task VALID_TASK = new Task(VALID_TASK_STR);
+    private static final DueDate VALID_DUEDATE = new DueDate(VALID_DUEDATE_STR);
+    private static final Task VALID_TASK_2 = new Task(VALID_TASK_STR_2);
+    private static final DueDate VALID_DUEDATE_2 = new DueDate(VALID_DUEDATE_STR_2);
 
-    private Question question;
-    private Answer answer;
-    private Rating rating;
-    private Set<Category> categories;
+    private Task task;
+    private DueDate dueDate;
 
-    public FlashCardBuilder() {
-        question = new Question(DEFAULT_QUESTION);
-        answer = new Answer(DEFAULT_ANSWER);
-        rating = new Rating(DEFAULT_RATING);
-        categories = new HashSet<>();
+    public DeadlineBuilder() {
+        task = new Task(VALID_TASK_STR);
+        dueDate = new DueDate(VALID_DUEDATE_STR);
     }
 
     /**
      * Initializes the FlashCardBuilder with the data of {@code flashCardToCopy}.
      */
-    public FlashCardBuilder(FlashCard flashCardToCopy) {
-        question = flashCardToCopy.getQuestion();
-        answer = flashCardToCopy.getAnswer();
-        rating = flashCardToCopy.getRating();
-        categories = new HashSet<>(flashCardToCopy.getCategories());
+    public DeadlineBuilder(Deadline deadlineToCopy) {
+        task = deadlineToCopy.getTask();
+        dueDate = deadlineToCopy.getDueDate();
     }
 
     /**
      * Sets the {@code Question} of the {@code FlashCard} that we are building.
      */
-    public FlashCardBuilder withQuestion(String name) {
-        this.question = new Question(name);
-        return this;
-    }
-
-    /**
-     * Parses the {@code categories} into a {@code Set<Category>}
-     * and set it to the {@code FlashCard} that we are building.
-     */
-    public FlashCardBuilder withCatgeories(String ... categories) {
-        this.categories = SampleDataUtil.getTagSet(categories);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Rating} of the {@code FlashCard} that we are building.
-     */
-    public FlashCardBuilder withRating (String rating) {
-        this.rating = new Rating(rating);
+    public DeadlineBuilder withTask(String name) {
+        this.task = new Task(name);
         return this;
     }
 
     /**
      * Sets the {@code Answer} of the {@code FlashCard} that we are building.
      */
-    public FlashCardBuilder withAnswer(String answer) {
-        this.answer = new Answer(answer);
+    public DeadlineBuilder withDueDate(String date) {
+        this.dueDate = new DueDate(date);
         return this;
     }
 
 
-    public FlashCard build() {
-        return new FlashCard(question, answer, rating, categories);
+    public Deadline build() {
+        return new Deadline(task, dueDate);
     }
 
 }
