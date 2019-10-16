@@ -42,6 +42,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     @FXML
+    private StackPane resultDisplayPlaceHolder;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -113,6 +116,9 @@ public class MainWindow extends UiPart<Stage> {
         searchPanel = new SearchPanel(/*logic.getWatchedList()*/);
         statisticsPanel = new StatisticsPanel(/*logic.getWatchedList()*/);
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceHolder.getChildren().add(resultDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
