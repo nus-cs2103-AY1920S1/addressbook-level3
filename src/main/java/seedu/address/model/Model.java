@@ -169,4 +169,9 @@ public interface Model {
      * Clears the quiz question list.
      */
     void clearQuizQuestionList();
+
+    /**
+     * Returns an answer for question in quiz with specific {@code index}.
+     */
+    Answer showQuizAnswer(int index);
 }
