@@ -1,12 +1,14 @@
 package seedu.address.model.member;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents a Member's ID in the address book.
  * Guarantees: Field values are validated, immutable.
  */
 public class MemberId {
-    public static final String MESSAGE_CONSTRAINTS =
-            "Invalid member ID, please enter a alphanumeric code";
+    public static final String MESSAGE_CONSTRAINTS = "Invalid memberID, please enter a alphanumeric code";
 
     private String displayId;
 
@@ -16,11 +18,17 @@ public class MemberId {
      *
      * @param displayId an alternate name for the member ID
      */
-    MemberId(String displayId) {
+    public MemberId(String displayId) {
         this.displayId = displayId;
     }
 
-    public String getDisplayName() {
-        return this.displayId;
+    /**
+     * Default MemberId constructor for Json support
+     */
+    public MemberId() {}
+
+    @JsonValue
+    public String getDisplayId() {
+        return displayId;
     }
 }

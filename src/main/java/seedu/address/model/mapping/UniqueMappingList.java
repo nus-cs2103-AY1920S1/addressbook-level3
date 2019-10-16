@@ -1,4 +1,4 @@
-package seedu.address.model.member;
+package seedu.address.model.mapping;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,11 +8,11 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.member.exceptions.DuplicateMemberException;
-import seedu.address.model.member.exceptions.MemberNotFoundException;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 
 /**
- * A list of members that enforces uniqueness between its elements and does not allow nulls.
+ * A list of persons that enforces uniqueness between its elements and does not allow nulls.
  * A task is considered unique by comparing using {@code Task#isSameTask(Task)}. As such, adding and updating of
  * persons uses Task#isSameTask(Task) for equality so as to ensure that the task being added or updated is
  * unique in terms of identity in the UniqueTaskList. However, the removal of a task uses Task#equals(Object) so
@@ -20,29 +20,30 @@ import seedu.address.model.member.exceptions.MemberNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Member#isSameMember(Member)
+ * @see Task#isSameTask(Task)
  */
-public class UniqueMemberList implements Iterable<Member> {
-    private final ObservableList<Member> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Member> internalUnmodifiableList =
+public class UniqueMappingList implements Iterable<Mapping> {
+
+    private final ObservableList<Mapping> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Mapping> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
-    public boolean contains(Member toCheck) {
+    public boolean contains(Mapping toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameMember);
+        return internalList.stream().anyMatch(toCheck::isSameMapping);
     }
 
     /**
      * Adds a task to the list.
      * The task must not already exist in the list.
      */
-    public void add(Member toAdd) {
+    public void add(Mapping toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateMemberException();
+            throw new DuplicateMappingException();
         }
         internalList.add(toAdd);
     }
@@ -52,33 +53,33 @@ public class UniqueMemberList implements Iterable<Member> {
      * {@code target} must exist in the list.
      * The task identity of {@code editedTask} must not be the same as another existing task in the list.
      */
-    public void setMember(Member target, Member editedMember) {
-        requireAllNonNull(target, editedMember);
+    public void setMapping(Mapping target, Mapping editedMapping) {
+        requireAllNonNull(target, editedMapping);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new MemberNotFoundException();
+            throw new MappingNotFoundException();
         }
 
-        if (!target.isSameMember(editedMember) && contains(editedMember)) {
-            throw new DuplicateMemberException();
+        if (!target.isSameMapping(editedMapping) && contains(editedMapping)) {
+            throw new DuplicateMappingException();
         }
 
-        internalList.set(index, editedMember);
+        internalList.set(index, editedMapping);
     }
 
     /**
      * Removes the equivalent task from the list.
      * The task must exist in the list.
      */
-    public void remove(Member toRemove) {
+    public void remove(Mapping toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new MemberNotFoundException();
+            throw new MappingNotFoundException();
         }
     }
 
-    public void setMembers(UniqueMemberList replacement) {
+    public void setMappings(UniqueMappingList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -87,32 +88,32 @@ public class UniqueMemberList implements Iterable<Member> {
      * Replaces the contents of this list with {@code tasks}.
      * {@code tasks} must not contain duplicate tasks.
      */
-    public void setMembers(List<Member> members) {
-        requireAllNonNull(members);
-        if (!membersAreUnique(members)) {
-            throw new DuplicateMemberException();
+    public void setMappings(List<Mapping> mappings) {
+        requireAllNonNull(mappings);
+        if (!mappingsAreUnique(mappings)) {
+            throw new DuplicateMappingException();
         }
 
-        internalList.setAll(members);
+        internalList.setAll(mappings);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Member> asUnmodifiableObservableList() {
+    public ObservableList<Mapping> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Member> iterator() {
+    public Iterator<Mapping> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueMemberList // instanceof handles nulls
-                && internalList.equals(((UniqueMemberList) other).internalList));
+                || (other instanceof UniqueMappingList // instanceof handles nulls
+                        && internalList.equals(((UniqueMappingList) other).internalList));
     }
 
     @Override
@@ -123,10 +124,10 @@ public class UniqueMemberList implements Iterable<Member> {
     /**
      * Returns true if {@code tasks} contains only unique tasks.
      */
-    private boolean membersAreUnique(List<Member> members) {
-        for (int i = 0; i < members.size() - 1; i++) {
-            for (int j = i + 1; j < members.size(); j++) {
-                if (members.get(i).isSameMember(members.get(j))) {
+    private boolean mappingsAreUnique(List<Mapping> mappings) {
+        for (int i = 0; i < mappings.size() - 1; i++) {
+            for (int j = i + 1; j < mappings.size(); j++) {
+                if (mappings.get(i).isSameMapping(mappings.get(j))) {
                     return false;
                 }
             }

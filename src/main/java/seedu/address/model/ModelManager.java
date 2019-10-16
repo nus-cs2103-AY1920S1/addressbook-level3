@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.task.Task;
 import seedu.address.model.member.Member;
+import seedu.address.model.mapping.Mapping;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -23,6 +24,8 @@ public class ModelManager implements Model {
     private final ProjectDashboard projectDashboard;
     private final UserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Member> filteredMembers;
+    private final FilteredList<Mapping> filteredMappings;
 
     /**
      * Initializes a ModelManager with the given projectDashboard and userPrefs.
@@ -36,6 +39,8 @@ public class ModelManager implements Model {
         this.projectDashboard = new ProjectDashboard(projectDashboard);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.projectDashboard.getTaskList());
+        filteredMembers = new FilteredList<>(this.projectDashboard.getMemberList());
+        filteredMappings = new FilteredList<>(this.projectDashboard.getMappingList());
     }
 
     public ModelManager() {
@@ -119,15 +124,29 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteMember(Member member) {
+        projectDashboard.removeMember(member);
+    }
+
+    @Override
     public boolean hasMember(Member member) {
         return projectDashboard.hasMember(member);
     }
 
     @Override
-    public void mapMemberTask(Member member, Task task) {
-        requireAllNonNull(member, task);
+    public void addMapping(Mapping mapping) {
+        projectDashboard.addMapping(mapping);
+    }
 
-        projectDashboard.mapMemberTask(member, task);
+    @Override
+    public void deleteMapping(Mapping mapping) {
+        projectDashboard.removeMapping(mapping);
+    }
+
+    @Override
+    public boolean hasMapping(Mapping mapping) {
+        requireNonNull(mapping);
+        return projectDashboard.hasMapping(mapping);
     }
 
     //=========== Filtered Task List Accessors =============================================================
@@ -145,6 +164,29 @@ public class ModelManager implements Model {
     public void updateFilteredTasksList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Member> getFilteredMembersList() {
+        return filteredMembers;
+    }
+
+    @Override
+    public void updateFilteredMembersList(Predicate<Member> predicate) {
+        requireNonNull(predicate);
+        filteredMembers.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Mapping> getFilteredMappingsList() {
+        return filteredMappings;
+    }
+
+
+    @Override
+    public void updateFilteredMappingsList(Predicate<Mapping> predicate) {
+        requireNonNull(predicate);
+        filteredMappings.setPredicate(predicate);
     }
 
     @Override

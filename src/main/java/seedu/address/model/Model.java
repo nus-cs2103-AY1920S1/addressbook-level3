@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.task.Task;
 import seedu.address.model.member.Member;
+import seedu.address.model.mapping.Mapping;
 
 /**
  * The API of the Model component.
@@ -77,12 +78,6 @@ public interface Model {
      */
     void setTask(Task target, Task editedTask);
 
-    void addMember(Member member);
-
-    boolean hasMember(Member member);
-
-    void mapMemberTask(Member member, Task task);
-
     /** Returns an unmodifiable view of the filtered task list */
     ObservableList<Task> getFilteredTasksList();
 
@@ -91,4 +86,24 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTasksList(Predicate<Task> predicate);
+
+    void addMember(Member member);
+
+    void deleteMember(Member member);
+
+    boolean hasMember(Member member);
+
+    ObservableList<Member> getFilteredMembersList();
+
+    void updateFilteredMembersList(Predicate<Member> predicate);
+
+    void addMapping(Mapping mapping);
+
+    void deleteMapping(Mapping mapping);
+
+    boolean hasMapping(Mapping mapping);
+
+    ObservableList<Mapping> getFilteredMappingsList();
+
+    void updateFilteredMappingsList(Predicate<Mapping> predicate);
 }

@@ -2,11 +2,11 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 
-import java.util.HashMap;
-import java.util.HashSet;
-
 import seedu.address.model.task.Task;
 import seedu.address.model.member.Member;
+import seedu.address.model.mapping.Mapping;
+
+import java.util.List;
 
 /**
  * Unmodifiable view of an address book
@@ -21,9 +21,7 @@ public interface ReadOnlyProjectDashboard {
 
     ObservableList<Member> getMemberList();
 
-    //Make observable HashMap/ HashSet
-    HashMap<Member, HashSet<Task>> getMemberTaskMapping();
+    List<Mapping> getMappingList();
 
-    HashMap<Task, HashSet<Member>> getTaskMemberMapping();
 
 }

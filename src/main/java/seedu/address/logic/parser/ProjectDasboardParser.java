@@ -20,6 +20,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import java.util.HashSet;
+
 //Remove this line once stubbing not required
 import seedu.address.logic.parser.stub.*;
 
