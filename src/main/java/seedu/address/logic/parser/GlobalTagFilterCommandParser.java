@@ -25,7 +25,7 @@ public class GlobalTagFilterCommandParser implements Parser<GlobalTagFilterComma
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterPersonByTagCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, GlobalTagFilterCommand.MESSAGE_USAGE));
         }
 
         String[] tagKeywords = trimmedArgs.split("\\s+");

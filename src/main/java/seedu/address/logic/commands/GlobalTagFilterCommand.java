@@ -14,9 +14,9 @@ public class GlobalTagFilterCommand extends Command {
     public static final String COMMAND_WORD = GLOBAL_TAG_FILTER;
 
     public static final String MESSAGE_USAGE = "filters every studyBuddy item by a tag." +
-            "example usage : globaltagfilter cs2100";
+            "\nexample usage : globaltagfilter cs2100";
 
-    public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter all by tag(s) : ";
+    public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter the whole StudyBuddy by tag(s) : ";
 
     private String[] tagKeywords;
 
@@ -42,7 +42,7 @@ public class GlobalTagFilterCommand extends Command {
             sb.append("\n");
         }
         return new CommandResult( FILTER_TAG_MESSAGE_SUCCESS
-                + "\n" + sb.toString()
-                + FilterByTagCommand.displayTagKeywords(tagKeywords));
+                + "\n" + FilterByTagCommand.displayTagKeywords(tagKeywords)
+                + "\n" + sb.toString());
     }
 }

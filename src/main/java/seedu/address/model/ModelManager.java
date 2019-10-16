@@ -299,9 +299,19 @@ public class ModelManager implements Model {
     @Override
     public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
         ArrayList<StudyBuddyItem> taggedItems = new ArrayList<>();
+        for (Flashcard fc : addressBook.getFlashcardList()) {
+            if (predicate.test(fc)) {
+                taggedItems.add(fc);
+            }
+        }
         for (CheatSheet cs : addressBook.getCheatSheetList()) {
             if (predicate.test(cs)) {
                 taggedItems.add(cs);
+            }
+        }
+        for (Note n : addressBook.getNoteList()) {
+            if (predicate.test(n)) {
+                taggedItems.add(n);
             }
         }
         return taggedItems;
