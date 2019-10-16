@@ -314,5 +314,4 @@ public class Appeal {
     public static boolean isValidAcademicYear(String test) {
         return test.matches(VALIDATION_REGEX_ACADEMIC_YEAR);
     }
-
 }
