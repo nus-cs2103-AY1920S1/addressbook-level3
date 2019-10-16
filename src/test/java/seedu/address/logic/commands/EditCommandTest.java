@@ -28,7 +28,7 @@ public class EditCommandTest {
     /*@Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         GroceryItem editedFood = new GroceryItemBuilder().build();
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder(editedFood).build();
+        EditTemplateItemDescriptor descriptor = new EditFoodDescriptorBuilder(editedFood).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFood);
@@ -48,7 +48,7 @@ public class EditCommandTest {
         GroceryItem editedFood = personInList.withName(VALID_NAME_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditTemplateItemDescriptor descriptor = new EditFoodDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
@@ -62,7 +62,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditFoodDescriptor());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditTemplateItemDescriptor());
         Food editedFood = model.getFilteredGroceryItemList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFood);
@@ -92,7 +92,7 @@ public class EditCommandTest {
     /*@Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Food firstFood = model.getFilteredGroceryItemList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder(firstFood).build();
+        EditTemplateItemDescriptor descriptor = new EditFoodDescriptorBuilder(firstFood).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
@@ -141,7 +141,7 @@ public class EditCommandTest {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
-        EditFoodDescriptor copyDescriptor = new EditFoodDescriptor(DESC_AMY);
+        EditTemplateItemDescriptor copyDescriptor = new EditTemplateItemDescriptor(DESC_AMY);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
