@@ -62,7 +62,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editIncident.setCaller(ParserUtil.parseCaller(argMultimap.getValue(PREFIX_CALLER).get()));
         }
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
-            editIncident.setDistrict(ParserUtil.parseDistrict(argMultimap.getValue(PREFIX_LOCATION).get()));
+            editIncident.setDistrict(ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
         }
         if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {
             editIncident.setDateTime(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get()));
