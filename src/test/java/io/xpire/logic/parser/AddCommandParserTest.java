@@ -31,6 +31,11 @@ public class AddCommandParserTest {
         CommandParserTestUtil.assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_NAME_APPLE
                 + "|" + VALID_EXPIRY_DATE_APPLE + "|" + VALID_QUANTITY_APPLE,
                 new AddCommand(expectedItem));
+
+        //no whitespace preamble
+        CommandParserTestUtil.assertParseSuccess(parser, VALID_NAME_APPLE
+                        + "|" + VALID_EXPIRY_DATE_APPLE + "|" + VALID_QUANTITY_APPLE,
+                new AddCommand(expectedItem));
     }
 
     @Test
@@ -43,12 +48,21 @@ public class AddCommandParserTest {
     }
 
     @Test
-    public void parse_compulsoryFieldMissing_failure() {
+    public void parse_invalidInput_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing bars
         CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + VALID_EXPIRY_DATE_APPLE,
                 expectedMessage);
+
+        // trailing bars
+        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "|||||"
+                        + VALID_EXPIRY_DATE_APPLE + "||||||" + VALID_QUANTITY_APPLE, expectedMessage);
+
+        // invalid separator
+        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_APPLE + "&"
+                + VALID_EXPIRY_DATE_APPLE + "&" + VALID_QUANTITY_APPLE, expectedMessage);
+
     }
 
     @Test
