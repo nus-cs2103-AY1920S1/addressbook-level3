@@ -126,7 +126,9 @@ public class ModelManager implements Model {
     public boolean hasDeadline(Deadline deadline) {
         requireNonNull(deadline);
         return addressBook.hasDeadline(deadline);
+    }
 
+    @Override
     public void editStats(int type) {
         if (type == 0) {
             addressBook.addGood();
@@ -142,12 +144,6 @@ public class ModelManager implements Model {
     @Override
     public int[] getStats() {
         return addressBook.getStats();
-    }
-
-    @Override
-    public void addFlashCard(FlashCard flashCard) {
-        addressBook.addFlashcard(flashCard);
-        updateFilteredFlashCardList(PREDICATE_SHOW_ALL_FLASHCARDS);
     }
 
     @Override
