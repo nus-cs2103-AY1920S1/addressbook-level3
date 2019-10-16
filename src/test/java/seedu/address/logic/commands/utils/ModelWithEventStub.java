@@ -18,12 +18,12 @@ public class ModelWithEventStub extends ModelStub {
     @Override
     public boolean hasEvent(Event pereventson) {
         requireNonNull(event);
-        return this.event.isSameEvent(event);
+        return this.event.isSameAs(event);
     }
 
     @Override
     public boolean hasExactEvent(Event pereventson) {
         requireNonNull(event);
-        return this.event.isSameEvent(event);
+        return this.event.isSameAs(event);
     }
 }
