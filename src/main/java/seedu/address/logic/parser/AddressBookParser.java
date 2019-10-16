@@ -24,6 +24,8 @@ import seedu.address.logic.commands.FindQuestionCommand;
 import seedu.address.logic.commands.HelpCommand;
 
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RateQuestionCommand;
+import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.commands.StatsCommand;
 
@@ -41,6 +43,8 @@ public class AddressBookParser {
 
     //@@author keiteo
     private boolean isRunningFlashcardTest = false;
+
+    private boolean isAwaitingAnswer = false;
 
     /**
      * Parses user input into command for execution.
@@ -68,21 +72,28 @@ public class AddressBookParser {
         isRunningFlashcardTest = false;
     }
 
-    /** Parses for test specific commands. */
+    public void setAwaitingAnswer(boolean isAwaitingAnswer) {
+        this.isAwaitingAnswer = isAwaitingAnswer;
+    }
+
+    /** Parses test specific commands. */
     private Command parseTestCommand(Matcher matcher) throws ParseException {
 
         final String commandWord = matcher.group("commandWord");
-        switch (commandWord) {
-        // TODO: add more commands for correct/wrong etc
-        case EndTestCommand.COMMAND_WORD:
+        if (commandWord.equals(EndTestCommand.COMMAND_WORD)) {
             return new EndTestCommand(this);
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_TEST_COMMAND);
         }
+        if (commandWord.equals(ShowAnswerCommand.COMMAND_WORD) && isAwaitingAnswer) {
+            return new ShowAnswerCommand(this);
+        }
+        if (commandWord.equals(RateQuestionCommand.COMMAND_WORD) && !isAwaitingAnswer) {
+            return new RateQuestionCommand(this);
+        }
+        throw new ParseException(MESSAGE_UNKNOWN_TEST_COMMAND);
     }
 
     //@@author
-    /** Parses for normal commands. */
+    /** Parses commands outside test mode i.e. list, add etc. */
     private Command parseNormalCommand(Matcher matcher) throws ParseException {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");

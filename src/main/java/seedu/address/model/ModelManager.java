@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<FlashCard> filteredFlashCards;
     private final FilteredList<Deadline> filteredDeadlines;
+    private FlashCardTestModel flashCardTestModel;
 
 
     /**
@@ -175,7 +177,6 @@ public class ModelManager implements Model {
         filteredFlashCards.setPredicate(predicate);
     }
 
-
     //=========== Filtered Deadline List Accessors =============================================================
 
     /**
@@ -191,6 +192,33 @@ public class ModelManager implements Model {
     public void updateFilteredDeadlineList(Predicate<Deadline> predicate) {
         requireNonNull(predicate);
         filteredDeadlines.setPredicate(predicate);
+
+    //@@author keiteo
+    @Override
+    public ObservableList<FlashCard> getFlashCardList() {
+        return addressBook.getFlashcardList();
+    }
+
+    //=========== FlashCardTestModel ================================================================================
+    @Override
+    public void initializeTestModel(List<FlashCard> testList) {
+        flashCardTestModel = new FlashCardTestModel(testList);
+    }
+
+    @Override
+    public boolean hasTestFlashCard() {
+        return !flashCardTestModel.isEmpty();
+    }
+
+    @Override
+    public String getTestQuestion() {
+        return flashCardTestModel.getQuestion();
+    }
+
+    @Override
+    public String getTestAnswer() {
+        return flashCardTestModel.getAnswer();
+
     }
 
     //@@author LeowWB
