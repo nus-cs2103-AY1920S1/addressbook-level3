@@ -1,4 +1,4 @@
-package seedu.jarvis.logic.commands.finance;
+package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,25 +8,22 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
+import seedu.jarvis.model.cca.CcaList;
 import seedu.jarvis.model.cca.CcaTracker;
-import seedu.jarvis.model.course.Course;
-import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.installment.Installment;
@@ -35,60 +32,63 @@ import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
-import seedu.jarvis.testutil.PurchaseBuilder;
+import seedu.jarvis.testutil.cca.CcaBuilder;
 
-public class PaidCommandTest {
+/**
+ * AddCcaCommandTest basically checks just 3 scenarios - adding null, adding a new {@code Cca} and adding
+ * a duplicate {@code Cca}.
+ * Since this test is not an integration test, we can just use a model stub.
+ */
+public class AddCcaCommandTest {
 
-    /**
-     * Verifies that checking {@code PaidCommand} for the availability of inverse execution returns true.
-     */
-    @BeforeEach
-    public void hasInverseExecution() {
-        Purchase validPurchase = new PurchaseBuilder().build();
-        PaidCommand paidCommand = new PaidCommand(validPurchase);
-        assertTrue(paidCommand.hasInverseExecution());
+    @Test
+    public void constructor_nullCca_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddCcaCommand(null));
     }
 
     @Test
-    public void constructor_nullPurchase_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new PaidCommand(null));
+    public void execute_ccaAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingCcaAdded modelStub = new ModelStubAcceptingCcaAdded();
+        Cca validCca = new CcaBuilder().build();
+
+        CommandResult commandResult = new AddCcaCommand(validCca).execute(modelStub);
+
+        assertEquals(String.format(AddCcaCommand.MESSAGE_SUCCESS, validCca), commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_purchaseAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPurchaseAdded modelStub = new ModelStubAcceptingPurchaseAdded();
-        Purchase validPurchase = new PurchaseBuilder().build();
+    public void execute_duplicateCca_throwsCommandException() {
+        Cca validCca = new CcaBuilder().build();
+        AddCcaCommand addCcaCommand = new AddCcaCommand(validCca);
+        ModelStub modelStub = new ModelStubWithCca(validCca);
 
-        CommandResult commandResult = new PaidCommand(validPurchase).execute(modelStub);
-
-        assertEquals(String.format(PaidCommand.MESSAGE_SUCCESS, validPurchase), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPurchase), modelStub.purchasesAdded);
+        assertThrows(CommandException.class,
+                AddCcaCommand.MESSAGE_DUPLICATE_CCA, () -> addCcaCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Purchase movie = new PurchaseBuilder().withDescription("movie ticket").build();
-        Purchase karaoke = new PurchaseBuilder().withDescription("karaoke night").build();
-        PaidCommand addMovieCommand = new PaidCommand(movie);
-        PaidCommand addKaraokeCommand = new PaidCommand(karaoke);
+        Cca canoeing = new CcaBuilder().withName("Canoeing").build();
+        Cca guitarEnsemble = new CcaBuilder().withName("Guitar ensemble").build();
+        AddCcaCommand addCanoeingCommand = new AddCcaCommand((canoeing));
+        AddCcaCommand addGuitarCommand = new AddCcaCommand((guitarEnsemble));
 
         // same object -> returns true
-        assertTrue(addMovieCommand.equals(addMovieCommand));
+        assertTrue(addCanoeingCommand.equals(addCanoeingCommand));
 
         // same values -> returns true
-        PaidCommand addMovieCommandCopy = new PaidCommand(movie);
-        assertTrue(addMovieCommand.equals(addMovieCommandCopy));
+        AddCcaCommand addCanoeingCommandCopy = new AddCcaCommand(canoeing);
+        assertTrue(addCanoeingCommand.equals(addCanoeingCommandCopy));
 
         // different types -> returns false
-        assertFalse(addMovieCommand.equals(1));
+        assertFalse(addCanoeingCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addMovieCommand.equals(null));
+        assertFalse(addCanoeingCommand.equals(null));
 
-        // different purchase -> returns false
-        assertFalse(addMovieCommand.equals(addKaraokeCommand));
+        // different person -> returns false
+        assertFalse(addCanoeingCommand.equals(addGuitarCommand));
     }
-
 
     /**
      * A default model stub that have all of the methods failing.
@@ -118,6 +118,7 @@ public class PaidCommandTest {
         public Path getAddressBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
+
 
         @Override
         public void setAddressBookFilePath(Path addressBookFilePath) {
@@ -239,6 +240,7 @@ public class PaidCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+
         @Override
         public void deletePurchase(int itemNumber) {
             throw new AssertionError("This method should not be called.");
@@ -285,11 +287,6 @@ public class PaidCommandTest {
         }
 
         @Override
-        public ObservableList<Purchase> getFilteredPurchaseList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Purchase> getPurchasesList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -300,7 +297,23 @@ public class PaidCommandTest {
         }
 
         @Override
-        public void contains(Cca cca) {
+        public ObservableList<Purchase> getFilteredPurchaseList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public TaskList getTasks() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public void addTask(Task t) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTask(Task t) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -321,46 +334,26 @@ public class PaidCommandTest {
 
         @Override
         public boolean hasCca(Cca cca) {
-            return false;
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void contains(Cca cca) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public CcaTracker getCcaTracker() {
-            return null;
-        }
-
-        @Override
-        public TaskList getTasks() {
-            return null;
-        }
-
-        @Override
-        public void addTask(Task t) {
             throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasTask(Task t) {
-            return false;
         }
 
         @Override
         public Planner getPlanner() {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void resetData(Planner planner) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void lookUpCourse(Course code) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public CoursePlanner getCoursePlanner() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -373,43 +366,37 @@ public class PaidCommandTest {
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPurchase extends PaidCommandTest.ModelStub {
-        private final Purchase purchase;
+    private class ModelStubWithCca extends ModelStub {
+        private final Cca cca;
 
-        ModelStubWithPurchase(Purchase purchase) {
-            requireNonNull(purchase);
-            this.purchase = purchase;
+        ModelStubWithCca(Cca cca) {
+            requireNonNull(cca);
+            this.cca = cca;
         }
 
         @Override
-        public boolean hasPurchase(Purchase purchase) {
-            requireNonNull(purchase);
-            return this.purchase.isSamePurchase(purchase);
+        public boolean hasCca(Cca cca) {
+            requireNonNull(cca);
+            return this.cca.isSameCca(cca);
         }
     }
 
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPurchaseAdded extends PaidCommandTest.ModelStub {
-        final ArrayList<Purchase> purchasesAdded = new ArrayList<>();
+    private class ModelStubAcceptingCcaAdded extends ModelStub {
+        private final CcaList ccaList = new CcaList();
 
         @Override
-        public boolean hasPurchase(Purchase purchase) {
-            requireNonNull(purchase);
-            return purchasesAdded.stream().anyMatch(purchase::isSamePurchase);
+        public boolean hasCca(Cca cca) {
+            requireNonNull(cca);
+            return ccaList.contains(cca);
         }
 
         @Override
-        public void addPurchase(Purchase purchase) {
-            requireNonNull(purchase);
-            purchasesAdded.add(purchase);
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public void addCca(Cca cca) {
+            requireNonNull(cca);
+            ccaList.addCca(cca);
         }
     }
-
 }

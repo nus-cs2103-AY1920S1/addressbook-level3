@@ -64,4 +64,14 @@ public class Planner {
         requireNonNull(planner);
         this.taskList = new TaskList(planner.getTasks().getTasks());
     }
+
+    /**
+     * Checks if one planner is equal to the other
+     * @param other the planner to be compared against
+     * @return true if both planners are equal, false if they are not
+     */
+    public boolean isEqual(Planner other) {
+        requireNonNull(other);
+        return this.taskList.isEqual(other.getTasks());
+    }
 }

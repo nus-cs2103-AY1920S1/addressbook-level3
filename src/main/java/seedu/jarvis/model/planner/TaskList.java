@@ -48,4 +48,25 @@ public class TaskList {
         }
         return false;
     }
+
+    /**
+     * Checks if one TaskList is equal to the other TaskList
+     * @param other the TaskList to be compared to
+     * @return true if both TaskLists are equal, false if they are not
+     */
+    public boolean isEqual(TaskList other) {
+        ArrayList<Task> otherTasks = other.getTasks();
+        if (otherTasks.size() != tasks.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (!tasks.get(i).isEqual(otherTasks.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }
