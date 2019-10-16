@@ -125,8 +125,7 @@ public class TaskList implements Iterable<Task> {
         if (index == -1) {
             throw new TaskNotFoundException();
         }
-
-        internalList.get(index).markAsDone();
+        setTask(taskDone, taskDone.markAsDone());
     }
 
     public void clear() {
