@@ -33,6 +33,7 @@ public class Mams implements ReadOnlyMams {
         students = new UniqueStudentList();
         modules = new UniqueModuleList();
         appeals = new UniqueAppealList();
+        // todo: add own object to test.
     }
 
     public Mams() {}

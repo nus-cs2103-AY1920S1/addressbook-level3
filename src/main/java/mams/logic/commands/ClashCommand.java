@@ -38,6 +38,7 @@ public class ClashCommand extends Command {
         requireNonNull(model);
         List<Module> lastShownList = model.getFilteredModuleList();
 
+        // todo: check whether the uniquemodulelist contains the two modules.
         List<Module> modulesToCheckListA = lastShownList.stream()
                 .filter(m -> m.getModuleCode().equals(moduleA)).collect(Collectors.toList());
         Module moduleToCheckA = modulesToCheckListA.get(0);
