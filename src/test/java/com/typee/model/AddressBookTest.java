@@ -23,7 +23,7 @@ import javafx.collections.ObservableList;
 
 public class AddressBookTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final AddressBook addressBook = new HistoryManager(new AddressBook());
 
     @Test
     public void constructor() {
