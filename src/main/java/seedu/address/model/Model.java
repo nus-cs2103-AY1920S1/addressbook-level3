@@ -1,12 +1,15 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.visit.Visit;
 
 /**
  * The API of the Model component.
@@ -52,6 +55,22 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    /**
+     * Record ongoing visit of person in the model.
+     * This will be saved until the visit is finished.
+     */
+    void setCurrentPersonAndVisit(Person person, Visit visit);
+
+    /**
+     * Set the ongoing visit of person in the model to null.
+     */
+    void unsetCurrentPersonAndVisit();
+
+    /**
+     * Get optional pair of current person and visit if there is an ongoing visit.
+     */
+    Optional<Pair<Person, Visit>> getCurrentPersonAndVisit();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

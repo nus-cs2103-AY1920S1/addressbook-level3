@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Set;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.visit.Visit;
+import seedu.address.model.visit.exceptions.VisitNotFoundException;
 import seedu.address.model.visittodo.VisitTodo;
 
 /**
@@ -154,4 +156,29 @@ public class Person {
         return builder.toString();
     }
 
+    /**
+     * Return index of visit from the visit list.
+     */
+    public int indexOfVisit(Visit visit) {
+        requireNonNull(visit);
+        return visits.indexOf(visit);
+    }
+
+    /**
+     * Add visit to patient's visit list.
+     */
+    public void addVisit(Visit visit) {
+        visits.add(visit);
+    }
+
+    /**
+     * Get visit by index from the visit list.
+     * Throws VisitNotFound Exception if visit not found.
+     */
+    public Visit getVisitByIndex(int value) {
+        if (value >= 0 && value < visits.size()) {
+            return visits.get(value);
+        }
+        throw new VisitNotFoundException();
+    }
 }

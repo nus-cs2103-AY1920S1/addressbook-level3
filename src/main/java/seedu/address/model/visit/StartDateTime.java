@@ -1,5 +1,7 @@
 package seedu.address.model.visit;
 
+import java.util.Date;
+
 /**
  * Represents a Visit's end time in the application.
  * Guarantees: immutable; is valid as declared in {@link #isValidDateTime(String)}
@@ -15,6 +17,15 @@ public class StartDateTime extends DateTime {
      */
     public StartDateTime(String dateTime) {
         super(dateTime);
+    }
+
+    /**
+     * Constructs a {@code DateTime}.
+     *
+     * @param date A valid Date.
+     */
+    public StartDateTime(Date date) {
+        super(date);
     }
 
     /**

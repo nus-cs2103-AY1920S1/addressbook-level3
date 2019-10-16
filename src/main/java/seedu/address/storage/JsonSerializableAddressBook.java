@@ -51,9 +51,9 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
-        Pair<Integer, Integer> indexPairOfOngoingVisit = source.getIndexPairOfOngoingVisit();
-        this.currentPatientIndex = indexPairOfOngoingVisit.getKey();
-        this.currentVisitIndex = indexPairOfOngoingVisit.getValue();
+        Pair<Integer, Integer> indexPairOfCurrentPersonAndVisit = source.getIndexPairOfCurrentPatientAndVisit();
+        this.currentPatientIndex = indexPairOfCurrentPersonAndVisit.getKey();
+        this.currentVisitIndex = indexPairOfCurrentPersonAndVisit.getValue();
     }
 
     /**

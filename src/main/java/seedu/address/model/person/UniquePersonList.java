@@ -49,6 +49,14 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Returns the index of a person from the list.
+     */
+    public int indexOf(Person toFind) {
+        requireNonNull(toFind);
+        return internalList.indexOf(toFind);
+    }
+
+    /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
@@ -133,5 +141,16 @@ public class UniquePersonList implements Iterable<Person> {
             }
         }
         return true;
+    }
+
+    /**
+     * Get a person by index.
+     * Throws a Person Not Found Exception if person not found at index.
+     */
+    public Person getByIndex(int key) {
+        if (key >= 0 && key < internalList.size()) {
+            return internalList.get(key);
+        }
+        throw new PersonNotFoundException();
     }
 }

@@ -20,5 +20,5 @@ public interface ReadOnlyAddressBook {
      * PatientIndex and AppointmentIndex respectively to indicate the ongoing visit.
      * If there is no ongoing visit, returns {@Code new Pair<>(-1,-1)}.
      */
-    Pair<Integer, Integer> getIndexPairOfOngoingVisit();
+    Pair<Integer, Integer> getIndexPairOfCurrentPatientAndVisit();
 }

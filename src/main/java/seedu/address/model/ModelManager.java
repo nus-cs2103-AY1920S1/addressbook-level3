@@ -4,14 +4,17 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.visit.Visit;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -89,6 +92,25 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+
+    /**
+     * Record ongoing visit of person in the model.
+     * This will be saved until the visit is finished.
+     */
+    @Override
+    public void setCurrentPersonAndVisit(Person person, Visit visit) {
+        addressBook.setCurrentPersonAndVisit(person, visit);
+    }
+
+    @Override
+    public void unsetCurrentPersonAndVisit() {
+        addressBook.unsetCurrentPersonAndVisit();
+    }
+
+    @Override
+    public Optional<Pair<Person, Visit>> getCurrentPersonAndVisit() {
+        return addressBook.getCurrentPersonAndVisit();
     }
 
     @Override

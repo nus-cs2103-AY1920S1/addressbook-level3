@@ -24,12 +24,22 @@ public class DateTime {
     /**
      * Constructs a {@code DateTime}.
      *
-     * @param dateTime A valid dateTime address.
+     * @param dateTime A valid dateTime string.
      */
     public DateTime(String dateTime) {
         requireNonNull(dateTime);
         checkArgument(isValidDateTime(dateTime), MESSAGE_CONSTRAINTS_BODY);
         this.dateTime = parseDateTime(dateTime);
+    }
+
+    /**
+     * Constructs a {@code DateTime}.
+     *
+     * @param date A valid Date.
+     */
+    public DateTime(Date date) {
+        requireNonNull(date);
+        this.dateTime = date;
     }
 
     /**

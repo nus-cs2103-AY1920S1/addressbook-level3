@@ -1,13 +1,16 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.visit.Visit;
 
 /**
  * Wraps all data at the address-book level
@@ -15,8 +18,10 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private static final Pair<Integer, Integer> NO_CURRENT_PERSON_AND_VISIT = new Pair<>(-1, -1);
+
     private final UniquePersonList persons;
-    private Pair<Integer, Integer> indexPairOfOngoingVisit = new Pair<>(-1, -1);
+    private Pair<Integer, Integer> indexPairOfCurrentPersonAndVisit = NO_CURRENT_PERSON_AND_VISIT;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -56,7 +61,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
-        setIndexPairOfOngoingVisit(newData.getIndexPairOfOngoingVisit());
+        setIndexPairOfOngoingVisit(newData.getIndexPairOfCurrentPatientAndVisit());
+    }
+
+    /**
+     * Record ongoing visit of person.
+     * This will be saved until the visit is finished.
+     */
+    public void setCurrentPersonAndVisit(Person person, Visit visit) {
+        requireAllNonNull(person, visit);
+        setIndexPairOfOngoingVisit(new Pair<>(persons.indexOf(person), person.indexOfVisit(visit)));
     }
 
     //// person-level operations
@@ -67,6 +81,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
+    }
+
+    /**
+     * Returns index of person.
+     */
+    public int indexOfPerson(Person person) {
+        requireNonNull(person);
+        return persons.indexOf(person);
     }
 
     /**
@@ -96,8 +118,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
-    public void setIndexPairOfOngoingVisit(Pair<Integer, Integer> indexPairOfOngoingVisit) {
-        this.indexPairOfOngoingVisit = indexPairOfOngoingVisit;
+    public void setIndexPairOfOngoingVisit(Pair<Integer, Integer> indexPairOfCurrentPersonAndVisit) {
+        this.indexPairOfCurrentPersonAndVisit = indexPairOfCurrentPersonAndVisit;
     }
 
     //// util methods
@@ -114,8 +136,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public Pair<Integer, Integer> getIndexPairOfOngoingVisit() {
-        return indexPairOfOngoingVisit;
+    public Pair<Integer, Integer> getIndexPairOfCurrentPatientAndVisit() {
+        return indexPairOfCurrentPersonAndVisit;
     }
 
     @Override
@@ -128,5 +150,26 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    /**
+     * Get optional pair of current person and visit if there is an ongoing visit.
+     */
+    public Optional<Pair<Person, Visit>> getCurrentPersonAndVisit() {
+        if (indexPairOfCurrentPersonAndVisit.getKey() != -1
+                && indexPairOfCurrentPersonAndVisit.getValue() != -1) {
+            Person person = persons.getByIndex(indexPairOfCurrentPersonAndVisit.getKey());
+            Visit visit = person.getVisitByIndex(indexPairOfCurrentPersonAndVisit.getValue());
+            return Optional.of(new Pair<>(person, visit));
+        }
+
+        return Optional.empty();
+    }
+
+    /**
+     * Unset current person and visit
+     */
+    public void unsetCurrentPersonAndVisit() {
+        this.indexPairOfCurrentPersonAndVisit = NO_CURRENT_PERSON_AND_VISIT;
     }
 }
