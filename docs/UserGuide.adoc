@@ -144,14 +144,18 @@ Format: `difficulty d/DIFFICULTY`
 Views the list of questions of a specified subject with a specific difficulty. +
 Format: `difficulty -s s/SUBJECT d/DIFFICULTY`
 
-=== Test mode
+=== Quiz mode
 
 There is a built-in Test mode in NUStudy for you to take a revision test based on questions and answers input by you.
 
-==== Enter test mode : `test`
+==== Enter quiz mode : `quiz`
 
-Enters test mode for you to answer questions. +
-Format: `test [n/NUMBER_OF_QUESTIONS] [d/DIFFICULTY] [s/SUBJECT]`
+Enters quiz mode for you to answer questions. +
+Format: `quiz [n/NUMBER_OF_QUESTIONS] [d/DIFFICULTY] [s/SUBJECT]`
+
+==== Answer the quiz question : `type answer` +
+Answers the specified question. +
+Format: `INDEX : ANSWER`
 
 ==== Change the difficulty: : `change -dif`
 
@@ -177,8 +181,8 @@ Format: `skip`
 
 ==== Show an answer : `show`
 
-Shows an answer for this question. +
-Format: `show`
+Shows an answer for a question with specific index. +
+Format: `show INDEX`
 
 ==== Mark a question: `mark`
 
