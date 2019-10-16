@@ -24,12 +24,8 @@ public class BankCommand extends SwitchCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    private static String name;
-//    private final Index targetIndex;
-//
-//    public BankCommand(Index targetIndex) {
-//        this.targetIndex = targetIndex;
-//    }
+    private final String name;
+
 
     public BankCommand(String name) {
         this.name = name;
