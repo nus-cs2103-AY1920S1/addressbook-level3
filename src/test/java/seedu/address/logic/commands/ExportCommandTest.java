@@ -2,13 +2,20 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_EXPORT_IO_EXCEPTION;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILE_PATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTORY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_LOCATION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILE_PATH_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILE_PATH_2;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.testutil.TypicalFlashCards.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.category.Category;
 import seedu.address.model.util.FilePath;
 
@@ -16,9 +23,13 @@ import seedu.address.model.util.FilePath;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class ExportCommandTest {
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
     private FilePath firstFilePath = new FilePath(VALID_FILE_PATH_1);
     private FilePath secondFilePath = new FilePath(VALID_FILE_PATH_2);
     private FilePath thirdFilePath = new FilePath(VALID_FILE_PATH_2);
+    private FilePath invalidFilePath = new FilePath(INVALID_FILE_PATH);
     private Category firstCategory = new Category(VALID_CATEGORY_HISTORY);
     private Category secondCategory = new Category(VALID_CATEGORY_LOCATION);
     private Category thirdCategory = new Category(VALID_CATEGORY_LOCATION);
@@ -27,6 +38,8 @@ public class ExportCommandTest {
     private ExportCommand secondCommand = new ExportCommand(secondCategory, secondFilePath);
     private ExportCommand thirdCommand = new ExportCommand(thirdCategory, thirdFilePath);
     private ExportCommand fourthCommand = new ExportCommand(firstCategory, secondFilePath);
+
+    private ExportCommand invalidFilePathCommand = new ExportCommand(firstCategory, invalidFilePath);
 
     @Test
     public void equals() {
@@ -49,4 +62,13 @@ public class ExportCommandTest {
         // returns false if both fields not the same
         assertFalse(firstCommand.equals(secondCommand));
     }
+
+    @Test
+    public void execute_invalidFilePath_exceptionThrown() {
+        String expectedMessage = MESSAGE_EXPORT_IO_EXCEPTION;
+        assertCommandFailure(invalidFilePathCommand, model, expectedMessage);
+        // TODO assert no file created
+    }
+
+    // TODO test for success
 }
