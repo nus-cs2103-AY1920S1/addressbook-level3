@@ -5,20 +5,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REFERENCEID;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.AckAppCommand;
-import seedu.address.logic.commands.AddAppCommand;
-import seedu.address.logic.commands.CancelAppCommand;
-import seedu.address.logic.commands.UnAckApptCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.common.ReferenceId;
 import seedu.address.model.events.Appointment;
-import seedu.address.model.events.ContainsKeywordsPredicate;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.Status;
 import seedu.address.model.events.Timing;
-
-import java.util.Arrays;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -49,7 +43,6 @@ public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> 
 
             if (!model.hasPerson(referenceId)) {
                 throw new ParseException(MESSAGE_INVALID_REFERENCEID);
-//                throw new ParseException("something is wrong here");
             }
 
             updateToPatientList(referenceId);
@@ -57,9 +50,8 @@ public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> 
                 throw new ParseException(MESSAGE_NOTING_ACK);
             } else if (filterEventList.get(0).getStatus().isAcked()) {
                 throw new ParseException(AckAppCommand.MESSAGE_DUPLICATE_ACKED);
-            }else{
+            } else {
                 Event unAck = filterEventList.get(0);
-//                model.deleteEvent(unAck);
 
                 Timing timing = unAck.getEventTiming();
                 Status status = new Status(Status.AppointmentStatuses.ACKNOWLEDGED);
@@ -72,9 +64,7 @@ public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> 
     }
 
     private void updateToPatientList(ReferenceId referenceId) {
-        String[] nameKeywords = referenceId.toString().split("\\s+");
-        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(Arrays.asList(nameKeywords));
-        model.updateFilteredEventList(predicate);
+        model.updateFilteredEventList(referenceId);
         filterEventList = model.getFilteredEventList();
     }
 }
