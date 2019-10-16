@@ -10,7 +10,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -27,6 +26,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
+import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.loan.Loan;
 import seedu.address.testutil.BookBuilder;
 
@@ -218,7 +218,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Optional<Borrower> getServingBorrower() {
+        public Borrower getServingBorrower() {
             throw new AssertionError(" This method should not be called.");
         }
 
@@ -239,6 +239,21 @@ public class AddCommandTest {
 
         @Override
         public void resetGenerator() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setServingBorrower(BorrowerId borrowerId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasBorrowerId(BorrowerId borrowerId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void exitsServeMode() {
             throw new AssertionError("This method should not be called.");
         }
     }

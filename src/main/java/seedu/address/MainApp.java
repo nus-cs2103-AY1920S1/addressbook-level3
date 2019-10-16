@@ -112,7 +112,7 @@ public class MainApp extends Application {
         }
 
         try {
-            catalogOptional = storage.readCatalog();
+            catalogOptional = storage.readCatalog(initialLoanRecords);
             if (!catalogOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Catalog");
             }
@@ -126,7 +126,7 @@ public class MainApp extends Application {
         }
 
         try {
-            borrowerRecordsOptional = storage.readBorrowerRecords();
+            borrowerRecordsOptional = storage.readBorrowerRecords(initialLoanRecords);
             if (!borrowerRecordsOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample BorrowerRecords");
             }
@@ -139,8 +139,7 @@ public class MainApp extends Application {
             initialBorrowerRecords = new BorrowerRecords();
         }
 
-        return new ModelManager(initialCatalog, initialLoanRecords, initialBorrowerRecords, userPrefs
-        );
+        return new ModelManager(initialCatalog, initialLoanRecords, initialBorrowerRecords, userPrefs);
     }
 
     private void initLogging(Config config) {
