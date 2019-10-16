@@ -54,7 +54,7 @@ public class StorageManager {
         Item i = null;
         if (stringArr.length == 5) {
             i = new Item(stringArr[1], stringArr[2], Integer.parseInt(stringArr[3]),
-                    Double.parseDouble(stringArr[4]), 0, Integer.parseInt(stringArr[0]));
+                    Double.parseDouble(stringArr[4]), Integer.parseInt(stringArr[0]));
         } else if (stringArr.length == 6) {
             i = new Item(stringArr[1], stringArr[2], Integer.parseInt(stringArr[3]),
                     Double.parseDouble(stringArr[4]), Double.parseDouble(stringArr[5]),
