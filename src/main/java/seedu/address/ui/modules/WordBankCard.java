@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.ui.UiPart;
 

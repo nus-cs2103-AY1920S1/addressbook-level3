@@ -10,7 +10,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
-import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.statistics.WordBankStatisticsStorage;
 
@@ -87,7 +86,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<WordBankStatistics> readWordBankStatistics(Path filePath) throws DataConversionException, IOException {
+    public Optional<WordBankStatistics> readWordBankStatistics(Path filePath)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return wbStatsStorage.readWordBankStatistics(filePath);
     }
@@ -115,6 +115,6 @@ public class StorageManager implements Storage {
      * @param wbPath The path of the wordbank
      */
     public static Path getWbStatsStoragePath(Path wbPath) {
-        return Path.of(wbPath.getParent().toString(),"wbstats", wbPath.getFileName().toString());
+        return Path.of(wbPath.getParent().toString(), "wbstats", wbPath.getFileName().toString());
     }
 }

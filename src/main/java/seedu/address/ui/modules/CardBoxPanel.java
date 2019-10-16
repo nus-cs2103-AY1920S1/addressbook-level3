@@ -1,5 +1,10 @@
 package seedu.address.ui.modules;
 
+import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -9,10 +14,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 import seedu.address.ui.UiPart;
 
-import java.util.List;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Panel containing the list of cards.
@@ -30,7 +31,7 @@ public class CardBoxPanel extends UiPart<Region> {
         List<Node> nodes = IntStream
                 .range(0, cardList.size())
                 .mapToObj(x -> {
-                    Node node =  new CardCard(cardList.get(x), x + 1).getRoot();
+                    Node node = new CardCard(cardList.get(x), x + 1).getRoot();
                     if (x % 2 == 0) {
                         node.setId("cardPaneEven"); // to set the colors of the boxes
                     } else {

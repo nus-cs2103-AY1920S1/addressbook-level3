@@ -1,15 +1,16 @@
 package seedu.address.ui;
 
-import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import seedu.address.gamemanager.GameManager;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
 import seedu.address.ui.layouts.TwoSplitRowLayout;
-import seedu.address.ui.modules.*;
-
-import java.util.Stack;
+import seedu.address.ui.modules.BankLabelPanel;
+import seedu.address.ui.modules.CardListPanel;
+import seedu.address.ui.modules.GameResultPanel;
+import seedu.address.ui.modules.LoadBankPanel;
+import seedu.address.ui.modules.TitleScreenPanel;
 
 /**
  * Displays the screen for Dukemon.
@@ -56,6 +57,11 @@ public class ModularDisplay {
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
     }
 
+    /**
+     * Changes to the bank preview screen where the user can see the cards in his word bank.
+     *
+     * @param paneToDisplay The view to change.
+     */
     public void swapToBankDisplay(StackPane paneToDisplay) {
         //I'm gonna need a way to get current wb name from gameManager as well.
         bankLabelPanel = new BankLabelPanel("HELLO");

@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.storage.JsonAddressBookStorage;
 
@@ -122,7 +121,7 @@ public class WordBankList implements ReadOnlyWordBankList {
     }
 
     @Override
-//    public WordBank getWordBank(Index index) {
+    //    public WordBank getWordBank(Index index) {
     public WordBank getWordBank(String name) {
         for (WordBank wb : wordBankList) {
             if (wb.getName().equals(name)) {
@@ -130,7 +129,7 @@ public class WordBankList implements ReadOnlyWordBankList {
             }
         }
         return null;
-//        return wordBankList.get(index);
+        //        return wordBankList.get(index);
     }
 
     @Override
