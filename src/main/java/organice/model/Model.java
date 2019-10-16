@@ -15,6 +15,15 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true if person is a doctor */
+    Predicate<Person> PREDICATE_SHOW_ALL_DOCTORS = person -> person.getType().isDoctor();
+
+    /** {@code Predicate} that always evaluate to true  if person is a donor */
+    Predicate<Person> PREDICATE_SHOW_ALL_DONORS = person -> person.getType().isDonor();
+
+    /** {@code Predicate} that always evaluate to true if person is a patient */
+    Predicate<Person> PREDICATE_SHOW_ALL_PATIENTS = person -> person.getType().isPatient();
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
