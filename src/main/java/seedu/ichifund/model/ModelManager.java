@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.commons.core.LogsCenter;
 import seedu.ichifund.model.budget.Budget;
-import seedu.ichifund.model.context.Context;
 import seedu.ichifund.model.context.TransactionContext;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
@@ -31,7 +30,7 @@ public class ModelManager implements Model {
     private final FilteredList<Repeater> filteredRepeaters;
     private final FilteredList<Budget> filteredBudgets;
 
-    private Context<Transaction> transactionContext;
+    private TransactionContext transactionContext;
 
     /**
      * Initializes a ModelManager with the given fundBook and userPrefs.
@@ -220,12 +219,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Context<Transaction> getTransactionContext() {
+    public TransactionContext getTransactionContext() {
         return transactionContext;
     }
 
     @Override
-    public void setTransactionContext(Context<Transaction> transactionContext) {
+    public void setTransactionContext(TransactionContext transactionContext) {
         this.transactionContext = transactionContext;
         updateFilteredTransactionList(transactionContext.getPredicate());
     }
