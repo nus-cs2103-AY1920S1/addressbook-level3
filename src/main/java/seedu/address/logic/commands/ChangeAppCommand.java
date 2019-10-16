@@ -22,7 +22,6 @@ public class ChangeAppCommand extends ReversibleCommand {
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_START + "PREFIX_EVENT "
             + PREFIX_END + "PREFIX_EVENT \n"
-            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_START + "01/11/19 1800 "
             + PREFIX_END + "01/11/19 1900";
@@ -30,40 +29,39 @@ public class ChangeAppCommand extends ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "this appointmeent's timing has been changed: %1$s";
     public static final String MESSAGE_TIMING_NOTNEW = "please a new timing for the appointment to chaneg.";
 
-    private final Event source;
-    private final Event dest;
+    private final Event eventToEdit;
+    private final Event editedEvent;
 
 
     /**
      * Creates an ChangeAppCommand to add the specified {@code Person}
      */
-    public ChangeAppCommand(Event source, Event dest) {
-        requireNonNull(source);
-        requireNonNull(dest);
-        this.source = source;
-        this.dest = dest;
+    public ChangeAppCommand(Event eventToEdit, Event editedEvent) {
+        requireNonNull(eventToEdit);
+        requireNonNull(editedEvent);
+        this.eventToEdit = eventToEdit;
+        this.editedEvent = editedEvent;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasEvent(dest)) {
+        if (model.hasExactEvent(editedEvent)) {
             throw new CommandException(MESSAGE_TIMING_NOTNEW);
         }
 
-        model.deleteEvent(source);
+        model.setEvent(eventToEdit, editedEvent);
 
-        model.addEvent(dest);
-        model.displayApprovedAndAckedPatientEvent(dest.getPersonId());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, dest));
+        model.updateFilteredEventList(editedEvent.getPersonId());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ChangeAppCommand // instanceof handles nulls
-                && dest.equals(((ChangeAppCommand) other).dest));
+                && editedEvent.equals(((ChangeAppCommand) other).editedEvent));
     }
 
 }

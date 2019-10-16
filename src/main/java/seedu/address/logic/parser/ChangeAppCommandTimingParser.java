@@ -2,11 +2,8 @@ package seedu.address.logic.parser;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AckAppCommand;
 import seedu.address.logic.commands.ChangeAppCommand;
-import seedu.address.logic.commands.ChangeAppTimingCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Appointment;
@@ -44,8 +41,7 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_START, PREFIX_END) || argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeAppTimingCommand.MESSAGE_USAGE));
-//            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "something here is wrong"));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeAppCommand.MESSAGE_USAGE));
         }
 
         try {
@@ -66,7 +62,7 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
 
         } catch (ParseException e) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeAppTimingCommand.MESSAGE_USAGE), e);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeAppCommand.MESSAGE_USAGE), e);
         }
     }
 

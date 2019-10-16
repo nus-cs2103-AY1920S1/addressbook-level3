@@ -24,33 +24,33 @@ public class AckAppCommand extends ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "this appointmeent has been acked: %1$s";
     public static final String MESSAGE_DUPLICATE_ACKED = "the upcoming appointment has been acked already.";
 
-    private final Event source;
-    private final Event dest;
+    private final Event eventToEdit;
+    private final Event editedEvent;
 
 
     /**
      * Creates an AckAppCommand to add the specified {@code Person}
      */
-    public AckAppCommand(Event source, Event dest) {
-        requireNonNull(source);
-        requireNonNull(dest);
-        this.source = source;
-        this.dest = dest;
+    public AckAppCommand(Event eventToEdit, Event editedEvent) {
+        requireNonNull(eventToEdit);
+        requireNonNull(editedEvent);
+        this.eventToEdit = eventToEdit;
+        this.editedEvent = editedEvent;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.deleteEvent(source);
+        model.deleteEvent(eventToEdit);
 
-        if (model.hasEvent(dest)) {
+        if (model.hasExactEvent(editedEvent)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACKED);
         }
 
-        model.addEvent(dest);
-        model.displayApprovedAndAckedPatientEvent(dest.getPersonId());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, dest));
+        model.addEvent(editedEvent);
+        model.displayApprovedAndAckedPatientEvent(editedEvent.getPersonId());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
 
     }
 
@@ -58,7 +58,7 @@ public class AckAppCommand extends ReversibleCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AckAppCommand // instanceof handles nulls
-                && dest.equals(((AckAppCommand) other).dest));
+                && editedEvent.equals(((AckAppCommand) other).editedEvent));
     }
 
 }

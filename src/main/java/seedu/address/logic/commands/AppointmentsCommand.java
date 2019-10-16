@@ -3,8 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Date;
-import java.util.List;
-
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
@@ -27,12 +25,7 @@ public class AppointmentsCommand extends NonActionableCommand {
             + "Optional parameters: KEYWORD \n"
             + "Example: " + COMMAND_WORD + " 001A";
 
-//    private final ContainsKeywordsPredicate predicate;
     private final ReferenceId referenceId;
-
-//    public AppointmentsCommand(ContainsKeywordsPredicate predicate) {
-//        this.predicate = predicate;
-//    }
 
     public AppointmentsCommand(ReferenceId referenceId) {
         this.referenceId = referenceId;
@@ -49,8 +42,6 @@ public class AppointmentsCommand extends NonActionableCommand {
         if(referenceId==null){
             model.updateFilteredEventList();
         }else{
-            //todo on tuesday
-            //extra condition to make sure all event is also be APPROVED
             model.updateFilteredEventList(referenceId);
         }
 
@@ -74,11 +65,4 @@ public class AppointmentsCommand extends NonActionableCommand {
             }
         }
     }
-//
-//    @Override
-//    public boolean equals(Object other) {
-//        return other == this // short circuit if same object
-//                || (other instanceof AppointmentsCommand // instanceof handles nulls
-//                && predicate.equals(((AppointmentsCommand) other).predicate)); // state check
-//    }
 }

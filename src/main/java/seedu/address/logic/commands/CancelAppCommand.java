@@ -17,8 +17,7 @@ public class CancelAppCommand extends ReversibleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Cancels appointment from the schedule. "
             + "Parameters: INDEX (positive integer)\n"
             + "need to go to patient's appointment list first\n"
-            + "Example: " + "appoinments 001A \n"
-            + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1";
     public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "Appointment cancelled: %1$s";
 
     private final Event toDelete;
@@ -39,6 +38,7 @@ public class CancelAppCommand extends ReversibleCommand {
 
 
         model.deleteEvent(toDelete);
+        model.updateFilteredEventList(toDelete.getPersonId());
         return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, toDelete));
     }
 

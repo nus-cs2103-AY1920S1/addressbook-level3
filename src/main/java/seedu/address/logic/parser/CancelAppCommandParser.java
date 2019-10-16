@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.CancelAppCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -47,6 +48,6 @@ public class CancelAppCommandParser implements Parser<ReversibleActionPairComman
         }
         Event eventToDelete = ParserUtil.getEntryFromList(lastShownList, index);
         return new ReversibleActionPairCommand(new CancelAppCommand(eventToDelete),
-                new CancelAppCommand(eventToDelete));
+                new AddAppCommand(eventToDelete));
     }
 }
