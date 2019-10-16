@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.util.Pair;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.PersonHasOngoingVisitException;
 import seedu.address.model.visit.Visit;
 
 /**
@@ -111,11 +112,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code AddressBook}. Also updates currentPersonAndVisit if needed.
+     * {@code key} must exist in the address book and must not have an ongoing visit.
      */
     public void removePerson(Person key) {
-        persons.remove(key);
+        requireNonNull(key);
+        if (!indexPairOfCurrentPersonAndVisit.equals(NO_CURRENT_PERSON_AND_VISIT)) {
+            Optional<Pair<Person, Visit>> optionalPair = getCurrentPersonAndVisit();
+            assert optionalPair.isPresent();
+            Person currentPerson = optionalPair.get().getKey();
+            if (currentPerson.equals(key)) {
+                throw new PersonHasOngoingVisitException();
+            } else {
+                persons.remove(key);
+                //Update
+                int indexOfCurrentPerson = indexOfPerson(currentPerson);
+                setIndexPairOfOngoingVisit(new Pair<>(indexOfCurrentPerson,
+                        indexPairOfCurrentPersonAndVisit.getValue()));
+            }
+        } else {
+            persons.remove(key);
+        }
     }
 
     public void setIndexPairOfOngoingVisit(Pair<Integer, Integer> indexPairOfCurrentPersonAndVisit) {

@@ -85,11 +85,12 @@ public class Visit {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Start Time: ")
                 .append(getStartDateTime())
-                .append(" End Time: ")
-                .append(getEndDateTime())
+                .append(" End Time: ");
+        Optional<EndDateTime> endDateTime = getEndDateTime();
+        builder.append(endDateTime.equals(Optional.empty()) ? "Ongoing" : endDateTime)
                 .append(" Tags: ");
         getVisitTasks().forEach(builder::append);
-        builder.append("Remarks")
+        builder.append(" Remarks")
                 .append(getRemark());
         return builder.toString();
     }

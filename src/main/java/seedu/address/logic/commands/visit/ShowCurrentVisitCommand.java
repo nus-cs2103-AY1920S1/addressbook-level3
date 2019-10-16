@@ -19,19 +19,21 @@ import seedu.address.model.visit.Visit;
 public class ShowCurrentVisitCommand extends Command implements MutatorCommand {
 
     public static final String COMMAND_WORD = "visit-now-show";
-    public static final String MESSAGE_SUCCESS = "Showed current visit";
+    public static final String MESSAGE_SUCCESS = "Showed current visit:%1$s. Current patient: %2$s";
     public static final String MESSAGE_FAILURE = "There is no ongoing visit to show.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Optional<Pair<Person, Visit>> currentPersonVisitPair = model.getCurrentPersonAndVisit();
-        if (currentPersonVisitPair.isEmpty()) {
+        Optional<Pair<Person, Visit>> optionalCurrentPersonVisitPair = model.getCurrentPersonAndVisit();
+        if (optionalCurrentPersonVisitPair.isEmpty()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
+        Pair<Person, Visit> currentPersonVisitPair = optionalCurrentPersonVisitPair.get();
 
         //Todo: Display UI for ongoing visit
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                currentPersonVisitPair.getValue(), currentPersonVisitPair.getKey()));
     }
 }

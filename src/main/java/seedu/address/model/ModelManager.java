@@ -114,6 +114,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean personHasOngoingVisit(Person personToDelete) {
+        requireNonNull(personToDelete);
+        Optional<Pair<Person, Visit>> pair = getCurrentPersonAndVisit();
+        if (pair.isPresent()) {
+            return personToDelete.equals(pair.get().getKey());
+        }
+        return false;
+    }
+
+    @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);

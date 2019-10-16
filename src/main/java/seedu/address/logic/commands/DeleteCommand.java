@@ -23,6 +23,8 @@ public class DeleteCommand extends Command implements MutatorCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_INVALID_PERSON_HAS_ONGOING_VISIT =
+            "Person still has an ongoing visit. Please finish the visit before executing this operation.";
 
     private final Index targetIndex;
 
@@ -40,6 +42,9 @@ public class DeleteCommand extends Command implements MutatorCommand {
         }
 
         Person personToDelete = fullPatientList.get(targetIndex.getZeroBased());
+        if (model.personHasOngoingVisit(personToDelete)) {
+            throw new CommandException(MESSAGE_INVALID_PERSON_HAS_ONGOING_VISIT);
+        }
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }

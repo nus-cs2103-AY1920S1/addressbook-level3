@@ -73,6 +73,13 @@ public interface Model {
     Optional<Pair<Person, Visit>> getCurrentPersonAndVisit();
 
     /**
+     * Return true if the person has an ongoing visit.
+     * Note: The current implementation only checks if this person is the one being tracked using the
+     * currentPersonAndVisit.
+     */
+    boolean personHasOngoingVisit(Person personToDelete);
+
+    /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
