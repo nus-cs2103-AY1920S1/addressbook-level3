@@ -35,7 +35,7 @@ public class JsonAdaptedAppealTest {
     @Test
     public void toModelType_invalidAppealId_throwsIllegalValueException() {
         JsonAdaptedAppeal appeal =
-                new JsonAdaptedAppeal( INVALID_APPEAL_ID, VALID_APPEAL_TYPE,
+                new JsonAdaptedAppeal(INVALID_APPEAL_ID, VALID_APPEAL_TYPE,
                         VALID_STUDENT_ID, VALID_ACADEMIC_YEAR,
                         VALID_WORKLOAD, VALID_DESCRIPTION,
                         VALID_MODULES, VALID_MODULES,
