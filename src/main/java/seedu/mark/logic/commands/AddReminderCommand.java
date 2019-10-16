@@ -27,7 +27,7 @@ public class AddReminderCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a reminder to Mark "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TIME + "TIME "
-            + "[" + PREFIX_NOTE + "NOTE] "
+            + "[" + PREFIX_NOTE + "NOTE] \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TIME + "07/01/2020 1300 "
             + PREFIX_NOTE + "Check the schedule ";
