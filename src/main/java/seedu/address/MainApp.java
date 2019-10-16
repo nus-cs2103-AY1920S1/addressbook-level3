@@ -25,6 +25,8 @@ import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.statistic.Statistic;
+import seedu.address.statistic.StatisticManager;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.CustomerBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -53,6 +55,7 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
+    protected Statistic statistic;
     protected Config config;
 
     @Override
@@ -73,11 +76,10 @@ public class MainApp extends Application {
                 userPrefsStorage);
 
         initLogging(config);
-
+        //create statistic manager;
+        statistic = new StatisticManager();
         model = initModelManager(storage, userPrefs);
-
-        logic = new LogicManager(model, storage);
-
+        logic = new LogicManager(model, storage, statistic);
         ui = new UiManager(logic);
     }
 

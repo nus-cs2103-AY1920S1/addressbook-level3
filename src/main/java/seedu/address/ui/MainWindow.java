@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -13,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
@@ -43,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TabPanel tabPanel;
+    private StatisticsWindow statsWindow;
 
     //real panels
     private CustomerListPanel customerListPanel;
@@ -185,22 +188,47 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * handle StatisticsWindow and create a new one based on user input
+     */
+    @FXML
+    private void handleStats(StatsPayload statsPayload) {
+        //calculate stats with input to logic manager
+        switch (statsPayload.getStatisticType()) {
+        case PROFIT:
+            String totalProfitResult = this.logic.calculateTotalProfit(statsPayload);
+            this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit");
+            this.statsWindow.show();
+            break;
+        case REVENUE:
+            String totalRevenueResult = this.logic.calculateTotalRevenue(statsPayload);
+            this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue");
+            this.statsWindow.show();
+            break;
+        case COST:
+            String totalCostResult = this.logic.calculateTotalCost(statsPayload);
+            this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost");
+            this.statsWindow.show();
+            break;
+        default:
+            throw new EnumNotPresentException("Enum not present in stat command");
+        }
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException,
-            ParseException, EnumNotPresentException {
+            ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
             //retrieve the type that the command works on here;
-            List<UiChange> uiChanges = commandResult.getUiChange();
-            performUiChanges(uiChanges);
+            performUiChanges(commandResult);
             return commandResult;
-        } catch (CommandException | ParseException | EnumNotPresentException e) {
+        } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
@@ -208,11 +236,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * checks which panel the command acts on and switches it
-     * @param input type of panel the result works on
+     * checks which Uichange the command acts on and switches it
      */
-    private void performUiChanges(List<UiChange> input) throws EnumNotPresentException {
-        for (UiChange type : input) {
+    private void performUiChanges(CommandResult input) {
+        List<UiChange> listOfUiChange = input.getUiChange();
+        for (UiChange type : listOfUiChange) {
             switch (type) {
             case CUSTOMER:
                 this.showCustomerPanel();
@@ -228,6 +256,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case HELP:
                 this.handleHelp();
+                break;
+            case STATS:
+                this.handleStats(input.getPayloadObject());
                 break;
             case EXIT:
                 this.handleExit();
