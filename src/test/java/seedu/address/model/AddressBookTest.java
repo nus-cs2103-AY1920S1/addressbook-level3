@@ -16,10 +16,14 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
@@ -85,6 +89,25 @@ public class AddressBookTest {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
     }
 
+    @Test
+    public void addListener_withInvalidationListener_listenerAdded() {
+        SimpleIntegerProperty counter = new SimpleIntegerProperty();
+        InvalidationListener listener = observable -> counter.set(counter.get() + 1);
+        addressBook.addListener(listener);
+        addressBook.addEntity(ALICE);
+        assertEquals(1, counter.get());
+    }
+
+    @Test
+    public void removeListener_withInvalidationListener_listenerRemoved() {
+        SimpleIntegerProperty counter = new SimpleIntegerProperty();
+        InvalidationListener listener = observable -> counter.set(counter.get() + 1);
+        addressBook.addListener(listener);
+        addressBook.removeListener(listener);
+        addressBook.addEntity(ALICE);
+        assertEquals(0, counter.get());
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
@@ -92,14 +115,11 @@ public class AddressBookTest {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Worker> workers = FXCollections.observableArrayList();
         private final ObservableList<Body> bodies = FXCollections.observableArrayList();
+        private final ObservableList<Notif> notifs = FXCollections.observableArrayList();
+        private final ObservableList<Fridge> fridges = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
-        }
-
-        @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
         }
 
         @Override
@@ -110,6 +130,31 @@ public class AddressBookTest {
         @Override
         public ObservableList<Body> getBodyList() {
             return bodies;
+        }
+
+        @Override
+        public ObservableList<Fridge> getFridgeList() {
+            return fridges;
+        }
+
+        @Override
+        public ObservableList<Person> getPersonList() {
+            return persons;
+        }
+
+        @Override
+        public void addListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Notif> getNotifList() {
+            return notifs;
         }
     }
 

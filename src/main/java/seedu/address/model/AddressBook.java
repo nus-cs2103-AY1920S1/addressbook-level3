@@ -4,20 +4,26 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueEntityLists;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameEntity comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueEntityLists entities;
+    private final UniqueNotifsList notifs;
+    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -28,12 +34,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         entities = new UniqueEntityLists();
+        notifs = new UniqueNotifsList();
     }
 
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Entities in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -48,6 +55,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(List<Person> persons) {
         this.entities.setPersons(persons);
+        indicateModified();
     }
 
     /**
@@ -56,6 +64,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setWorkers(List<Worker> workers) {
         this.entities.setWorkers(workers);
+        indicateModified();
     }
 
     /**
@@ -64,6 +73,35 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setBodies(List<Body> bodies) {
         this.entities.setBodies(bodies);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the contents of the fridges list with {@code fridges}.
+     * {@code fridges} must not contain duplicate fridges.
+     */
+    public void setFridges(List<Fridge> fridges) {
+        this.entities.setFridges(fridges);
+        indicateModified();
+    }
+
+
+    /**
+     * Replaces the contents of the person list with {@code entities}.
+     * {@code entities} must not contain duplicate entities.
+     */
+    public void setNotif(List<Notif> notifs) {
+        this.notifs.setNotifs(notifs);
+    }
+
+    /**
+     * Replaces the given notif {@code target} in the list with {@code editedNotif}.
+     * {@code target} must exist in Mortago.
+     * The notif identity of {@code editedNotif} must not be the same as another existing notif in Mortago.
+     */
+    public void setNotif(Notif target, Notif editedNotif) {
+        requireNonNull(editedNotif);
+        notifs.setNotif(target, editedNotif);
     }
 
     /**
@@ -75,6 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setWorkers(newData.getWorkerList());
         setBodies(newData.getBodyList());
+        setFridges(newData.getFridgeList());
     }
 
     //// person-level operations
@@ -93,6 +132,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addEntity(Entity e) {
         entities.add(e);
+        indicateModified();
     }
 
     /**
@@ -104,6 +144,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedEntity);
 
         entities.setEntity(target, editedEntity);
+        indicateModified();
     }
 
     /**
@@ -112,13 +153,60 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeEntity(Entity key) {
         entities.remove(key);
+        indicateModified();
     }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        invalidationListenerManager.addListener(listener);
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        invalidationListenerManager.removeListener(listener);
+    }
+
+    /**
+     * Notifies listeners that t
+     * he address book has been modified.
+     */
+    protected void indicateModified() {
+        invalidationListenerManager.callListeners(this);
+    }
+
+
+    /**
+     * Returns true if a notif with the same identity as {@code notif} exists in Mortago.
+     */
+    public boolean hasNotif(Notif notif) {
+        requireNonNull(notif);
+        return notifs.contains(notif);
+    }
+
+    /**
+     * Adds a notif to Mortago.
+     * The notif must not already exist in Mortago.
+     */
+    public void addNotif(Notif n) {
+        notifs.add(n);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeNotif(Notif key) {
+        notifs.remove(key);
+    }
+
 
     //// util methods
 
     @Override
     public String toString() {
-        return entities.asUnmodifiableObservableListPerson().size() + " entities";
+        return entities.asUnmodifiableObservableListWorker().size() + " workers\n"
+                + entities.asUnmodifiableObservableListBody().size() + " bodies\n"
+                + entities.asUnmodifiableObservableListFridge().size() + " fridges";
         // TODO: refine later
     }
 
@@ -135,6 +223,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Body> getBodyList() {
         return entities.asUnmodifiableObservableListBody();
+    }
+
+    @Override
+    public ObservableList<Notif> getNotifList() {
+        return notifs.asUnmodifiableObservableListNotif();
+    }
+
+    public ObservableList<Fridge> getFridgeList() {
+        return entities.asUnmodifiableObservableListFridge();
     }
 
     @Override

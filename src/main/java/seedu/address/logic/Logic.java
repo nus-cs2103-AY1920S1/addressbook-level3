@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
@@ -9,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Person;
 
@@ -41,6 +43,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of bodies */
     ObservableList<Body> getFilteredBodyList();
 
+    /** Returns an unmodifiable view of the filtered list of bodies */
+    ObservableList<Fridge> getFilteredFridgeList();
+
     /**
      * Returns the user prefs' address book file path.
      */
@@ -55,4 +60,22 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    //@@ shaoyi1997-reused
+    //Reused from SE-EDU Address Book Level 4
+    /**
+     * Selected body in the filtered body list.
+     * null if no body is selected.
+     *
+     * @see seedu.address.model.Model#selectedPersonProperty()
+     */
+    ReadOnlyProperty<Body> selectedBodyProperty();
+
+    /**
+     * Sets the selected person in the filtered person list.
+     *
+     * @see seedu.address.model.Model#setSelectedPerson(Person)
+     */
+    void setSelectedBody(Body body);
+    //@@ shaoyi1997-reused
 }

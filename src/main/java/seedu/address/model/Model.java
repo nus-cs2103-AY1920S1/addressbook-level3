@@ -3,11 +3,15 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 import seedu.address.model.person.Person;
 
 /**
@@ -18,9 +22,35 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Body> PREDICATE_SHOW_ALL_BODIES = unused -> true;
     Predicate<Worker> PREDICATE_SHOW_ALL_WORKERS = unused -> true;
+    Predicate<Notif> PREDICATE_SHOW_ALL_NOTIFS = unused -> true;
+    Predicate<Worker> PREDICATE_SHOW_ALL_FRIDGES = unused -> true;
 
     /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
+     * Adds an executed command to the model's command history.
+     * @param command a command that was executed.
+     */
+    void addExecutedCommand(UndoableCommand command);
+
+    /**
+     * Gets the last executed UndoableCommand.
+     * @return the last executed command.
+     */
+    UndoableCommand getExecutedCommand();
+
+    /**
+     * Adds an undone UndoableCommand.
+     * @param command an UndoableCommand that was undone.
+     */
+    void addUndoneCommand(UndoableCommand command);
+
+    /**
+     * Gets the last undone UndoableCommand.
+     * @returnthe last undone command.
+     */
+    UndoableCommand getUndoneCommand();
+
+    /**
+     * * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
@@ -81,6 +111,31 @@ public interface Model {
      */
     void setEntity(Entity target, Entity editedEntity);
 
+    /**
+     * Returns true if a notif with the same identity as {@code notif} exists in Mortago.
+     */
+    boolean hasNotif(Notif notif);
+
+    /**
+     * Deletes the given notif.
+     * The notif must exist in Mortago.
+     */
+    void deleteNotif(Notif target);
+
+    /**
+     * Adds the given notif.
+     * {@code notif} must not already exist in Mortago.
+     */
+    void addNotif(Notif notif);
+
+    /**
+     * Replaces the given notif {@code target} with {@code editedNotif}.
+     * {@code target} must exist in Mortago.
+     * The notif identity of {@code editedNotif} must not be the same as another existing notif in Mortago.
+     */
+    void setNotif(Notif target, Notif editedNotif);
+
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -91,10 +146,13 @@ public interface Model {
     ObservableList<Body> getFilteredBodyList();
 
     /** Returns an unmodifiable view of the filtered list of fridges */
-    // ObservableList<Fridge> getFilteredFridgeList();
+    ObservableList<Fridge> getFilteredFridgeList();
 
     /** Returns an unmodifiable view of the filtered list of entities */
     ObservableList<? extends Entity> getFilteredEntityList(String entityType);
+
+    /** Returns an unmodifiable view of the filtered list of notifs */
+    ObservableList<Notif> getFilteredNotifList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -113,4 +171,36 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBodyList(Predicate<Body> predicate);
+
+    /**
+     * Updates the filter of the filtered notif list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredNotifList(Predicate<Notif> predicate);
+
+    /**
+     * Updates the filter of the filtered fridge list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredFridgeList(Predicate<Fridge> predicate);
+
+    //@@ shaoyi1997-reused
+    //Reused from SE-EDU Address Book Level 4
+    /**
+     * Selected person in the filtered body list.
+     * null if no body is selected.
+     */
+    ReadOnlyProperty<Body> selectedBodyProperty();
+
+    /**
+     * Returns the selected body in the filtered body list.
+     * null if no body is selected.
+     */
+    Body getSelectedBody();
+
+    /**
+     * Sets the selected body in the filtered body list.
+     */
+    void setSelectedBody(Body body);
+    //@@ shaoyi1997-reused
 }

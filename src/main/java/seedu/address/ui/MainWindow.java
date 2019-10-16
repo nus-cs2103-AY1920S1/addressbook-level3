@@ -34,11 +34,10 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
-    private WorkerListPanel workerListPanel;
-    private BodyListPanel bodyListPanel;
     private LineChartPanel lineChartPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private BodyMasterDetailPane bodyMasterDetailPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -50,12 +49,6 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
-    private StackPane workerListPanelPlaceholder;
-
-    @FXML
-    private StackPane bodyListPanelPlaceholder;
-
-    @FXML
     private StackPane lineChartPanelPlaceholder;
 
     @FXML
@@ -63,6 +56,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane bodyMasterListPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -124,23 +120,22 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        workerListPanel = new WorkerListPanel(logic.getFilteredWorkerList());
-        workerListPanelPlaceholder.getChildren().add(workerListPanel.getRoot());
-
-        bodyListPanel = new BodyListPanel(logic.getFilteredBodyList());
-        bodyListPanelPlaceholder.getChildren().add(bodyListPanel.getRoot());
-
         lineChartPanel = new LineChartPanel(logic.getAddressBook().getBodyList());
         lineChartPanelPlaceholder.getChildren().add(lineChartPanel.getLineChart());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        bodyMasterDetailPane = new BodyMasterDetailPane(new BodyTableView(logic.getFilteredBodyList(),
+                logic.selectedBodyProperty(), logic::setSelectedBody),
+                        new BodyCardSelected(logic.selectedBodyProperty()));
+        bodyMasterListPlaceholder.getChildren().add(bodyMasterDetailPane.getRoot());
     }
 
     /**
