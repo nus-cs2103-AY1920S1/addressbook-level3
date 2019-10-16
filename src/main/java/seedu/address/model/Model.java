@@ -73,11 +73,6 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
-     * Returns true if a incident with the same details exists in the address book.
-     */
-    boolean hasIncident(Incident incident);
-
-    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
