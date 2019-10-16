@@ -118,6 +118,31 @@ public class UiUtil {
     }
 
     /**
+     * Redirects {@link KeyEvent#KEY_PRESSED} events from {@code eventSource} to {@code eventTarget}
+     * if it is in the {@code keyCodes} and matches the {@code additionalConditions}.
+     *
+     * @param eventSource          The {@link Node} where the original {@link KeyEvent#KEY_PRESSED} events will occur.
+     * @param eventTarget          The {@link Node} where the {@link KeyEvent#KEY_PRESSED} events will be redirected to.
+     * @param keyCodes             The {@link KeyCode}s that will be redirected to the {@code eventTarget}.
+     * @param additionalConditions Additional conditions to check if a {@link KeyEvent} should be redirected to
+     *                             the {@code eventTarget}.
+     */
+    public static void redirectKeyCodeEvents(final Node eventSource, final Node eventTarget,
+                                             final Collection<KeyCode> keyCodes,
+                                             final Predicate<KeyEvent> additionalConditions) {
+        requireAllNonNull(eventSource, eventTarget, keyCodes);
+
+        addKeyCodeListener(eventSource, keyCodes, keyEvent -> {
+            if (!additionalConditions.test(keyEvent)) {
+                return;
+            }
+
+            keyEvent.consume();
+            eventTarget.fireEvent(keyEvent);
+        });
+    }
+
+    /**
      * Schedules the {@code keyEventConsumer} code to run when a {@link KeyEvent#KEY_PRESSED} event happens on the
      * {@code node} and the key pressed is in the {@code interestedKeyCodes}.
      *
