@@ -1,32 +1,35 @@
 package seedu.mark.logic.commands;
 
-import javafx.collections.ObservableList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static seedu.mark.testutil.Assert.assertThrows;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
+import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
+
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
+import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
-import seedu.mark.model.UserPrefs;
-import seedu.mark.model.Mark;
 import seedu.mark.model.ModelStub;
 import seedu.mark.model.ReadOnlyMark;
+import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.reminder.Note;
 import seedu.mark.model.reminder.Reminder;
 import seedu.mark.storage.StorageStub;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.mark.testutil.Assert.assertThrows;
-import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
-import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
-
 class AddReminderCommandTest {
     private Model model = new ModelManager(getTypicalMark(), new UserPrefs());
 
-    ModelStubAcceptingReminderAdded modelStub = new ModelStubAcceptingReminderAdded();
+    private ModelStubAcceptingReminderAdded modelStub = new ModelStubAcceptingReminderAdded();
 
     @Test
     public void constructor_nullBookmark_throwsNullPointerException() {

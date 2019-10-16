@@ -1,21 +1,11 @@
 package seedu.mark.logic.parser;
 
-import java.time.LocalDateTime;
-
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_TIME_READ;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TIME_OPEN;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_NOTE_OPEN;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_NOTE_READ;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
-import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_BOOKMARK;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.commons.core.index.Index;
-import seedu.mark.model.reminder.Note;
 import seedu.mark.logic.commands.AddReminderCommand;
 
 

@@ -2,7 +2,14 @@ package seedu.mark.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.mark.logic.parser.CliSyntax.*;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_FOLDER;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOTE;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_PARENT_FOLDER;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 

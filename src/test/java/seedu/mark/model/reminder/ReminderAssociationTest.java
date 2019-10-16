@@ -1,16 +1,22 @@
 package seedu.mark.model.reminder;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static seedu.mark.testutil.Assert.assertThrows;
+import static seedu.mark.testutil.TypicalBookmarks.ALICE;
+import static seedu.mark.testutil.TypicalReminders.OPEN;
+import static seedu.mark.testutil.TypicalReminders.READ;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.mark.model.bookmark.exceptions.BookmarkContainNoReminderException;
 import seedu.mark.model.bookmark.exceptions.ExistReminderException;
 import seedu.mark.model.bookmark.exceptions.ReminderNotFoundException;
 import seedu.mark.testutil.ReminderBuilder;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.mark.testutil.Assert.assertThrows;
-import static seedu.mark.testutil.TypicalBookmarks.ALICE;
-import static seedu.mark.testutil.TypicalReminders.OPEN;
-import static seedu.mark.testutil.TypicalReminders.READ;
+
 
 class ReminderAssociationTest {
     //TODO: Change test method name
@@ -56,7 +62,7 @@ class ReminderAssociationTest {
     }
 
     @Test
-    public void setBookmark_ExistReminderOfSpecifiedBookmark_setReminder() {
+    public void setBookmark_existReminderOfSpecifiedBookmark_setReminder() {
         association.addReminder(ALICE, OPEN);
         Reminder reminder = new ReminderBuilder().withNote("Read").build();
         association.setReminder(OPEN, reminder);
