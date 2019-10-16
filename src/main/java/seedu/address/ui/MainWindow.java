@@ -27,6 +27,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+
+
     private Stage primaryStage;
     private Logic logic;
 
@@ -201,6 +203,12 @@ public class MainWindow extends UiPart<Stage> {
                 default:
                     break;
                 }
+            }
+          
+            if (!(commandResult.getPerson() == null)) {
+                InformationDisplay informationDisplay = new InformationDisplay(logic.getPerson());
+                featureBoxPlaceHolder.getChildren().clear();
+                featureBoxPlaceHolder.getChildren().add(informationDisplay.getRoot());
             }
 
             if (commandResult.isShowHelp()) {
