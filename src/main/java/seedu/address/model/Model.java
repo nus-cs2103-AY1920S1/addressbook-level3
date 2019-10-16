@@ -15,7 +15,6 @@ import seedu.address.model.vehicle.Vehicle;
 public interface Model {
     /** {@code Predicate} for persons that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Incident> PREDICATE_SHOW_ALL_INCIDENTS = unused -> true;
 
     /** {@code Predicate} for incidents that always evaluate to true */
     Predicate<Incident> PREDICATE_SHOW_ALL_INCIDENTS = unused -> true;
