@@ -9,11 +9,7 @@ import java.util.List;
 
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
-<<<<<<< HEAD
-import io.xpire.logic.parser.CliSyntax;
 import io.xpire.logic.parser.exceptions.ParseException;
-=======
->>>>>>> daafe1b34526766956433eff202cce80de0f54ff
 import io.xpire.model.Model;
 import io.xpire.model.Xpire;
 import io.xpire.model.item.ContainsKeywordsPredicate;

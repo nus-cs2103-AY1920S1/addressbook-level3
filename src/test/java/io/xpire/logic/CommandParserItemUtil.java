@@ -12,6 +12,7 @@ public class CommandParserItemUtil {
     public static final String VALID_NAME_EGGS = "Eggs";
     public static final String VALID_NAME_FAKECRABSTICK = "Fake Crab Stick";
     public static final String VALID_NAME_JELLY = "Jelly";
+    public static final String VALID_NAME_LIME = "Lime";
     public static final String VALID_NAME_KIWI = "Kiwi";
 
     public static final String VALID_EXPIRY_DATE_APPLE = "01/02/2020";
@@ -21,6 +22,7 @@ public class CommandParserItemUtil {
     public static final String VALID_EXPIRY_DATE_EGGS = "1/2/2020";
     public static final String VALID_EXPIRY_DATE_FAKECRABSTICK = "15/12/2019";
     public static final String VALID_EXPIRY_DATE_JELLY = "1/2/2020";
+    public static final String VALID_EXPIRY_DATE_LIME = "1/2/2020";
     public static final String VALID_EXPIRY_DATE_KIWI = "1/2/2020";
 
     public static final String VALID_QUANTITY_APPLE = "1";
@@ -29,13 +31,15 @@ public class CommandParserItemUtil {
     public static final String VALID_QUANTITY_DUCK = "1";
     public static final String VALID_QUANTITY_EGGS = "1";
     public static final String VALID_QUANTITY_FAKECRABSTICK = "1";
-
     public static final String VALID_QUANTITY_JELLY = "4";
+    public static final String VALID_QUANTITY_LIME = "4";
     public static final String VALID_QUANTITY_KIWI = "1";
+
     public static final String VALID_TAG_FRUIT = "Fruit";
     public static final String VALID_TAG_DRINK = "Drink";
     public static final String VALID_TAG_FRIDGE = "Fridge";
     public static final String VALID_TAG_PROTEIN = "Protein";
+    public static final String VALID_TAG_LIME = "Citrus";
 
     public static final String VALID_REMINDER_THRESHOLD_APPLE = "0";
     public static final String VALID_REMINDER_THRESHOLD_BANANA = "0";
@@ -44,6 +48,7 @@ public class CommandParserItemUtil {
     public static final String VALID_REMINDER_THRESHOLD_EGGS = "7";
     public static final String VALID_REMINDER_THRESHOLD_FAKECRABSTICK = "0";
     public static final String VALID_REMINDER_THRESHOLD_JELLY = "3";
+    public static final String VALID_REMINDER_THRESHOLD_LIME = "2";
     public static final String VALID_REMINDER_THRESHOLD_KIWI = "0";
 
     public static final String INVALID_NAME = "@pple";

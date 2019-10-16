@@ -49,7 +49,6 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     /**
      * Returns true if given argument is of type integer.
      */
-
     private boolean isIntegerType(String arg) {
         try {
             Integer.parseInt(arg);

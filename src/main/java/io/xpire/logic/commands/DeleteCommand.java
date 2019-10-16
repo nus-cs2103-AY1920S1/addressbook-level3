@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE =
-            "Two formats available for " + COMMAND_WORD + ":\n"
+            "Three formats available for " + COMMAND_WORD + ":\n"
             + "1) Deletes the item identified by the index number.\n"
             + "Format: delete|<index> (index must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + "|1" + "\n"
@@ -44,7 +44,8 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_TAGS_FAILURE = "Did not manage to delete any tags.\n"
             + "You have specified tag(s) that are not found in item: %s";
     public static final String MESSAGE_DELETE_QUANTITY_SUCCESS = "Reduced quantity by %s from item: %s";
-    public static final String MESSAGE_DELETE_QUANTITY_FAILURE = "Invalid quantity specified.";
+    public static final String MESSAGE_DELETE_QUANTITY_FAILURE = "Invalid quantity specified. \n"
+            + "Quantity must be positive and less than item's quantity.";
     public static final String MESSAGE_DELETE_FAILURE = "Did not manage to delete anything";
 
     private final Index targetIndex;
@@ -137,8 +138,12 @@ public class DeleteCommand extends Command {
      * @return
      * @throws ParseException
      */
-    private Item reduceItemQuantity(Item targetItem, Quantity reduceByQuantity) throws ParseException {
+    private Item reduceItemQuantity(Item targetItem, Quantity reduceByQuantity) throws CommandException,
+                                                                                       ParseException {
         Quantity originalQuantity = targetItem.getQuantity();
+        if (originalQuantity.isLessThan(reduceByQuantity)) {
+            throw new CommandException(MESSAGE_DELETE_QUANTITY_FAILURE);
+        }
         Quantity updatedQuantity = originalQuantity.deductQuantity(reduceByQuantity);
         targetItem.setQuantity(updatedQuantity);
         return targetItem;

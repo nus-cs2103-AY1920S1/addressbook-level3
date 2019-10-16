@@ -37,9 +37,10 @@ public class TypicalItems {
                                                      .withReminderThreshold("7")
                                                      .build();
 
-    //with a recent expiry date and name with multiple words
+    //with a recent expiry date, quantity and name with multiple words
     public static final Item FAKECRABSTICK = new ItemBuilder().withName("Fake Crab Stick")
                                                               .withExpiryDate("15/12/2019")
+                                                              .withQuantity("1")
                                                               .build();
 
     //with all fields (tags, reminder threshold, quantity)
@@ -49,6 +50,16 @@ public class TypicalItems {
                                                         .withTags("Fridge")
                                                         .withReminderThreshold("3")
                                                         .build();
+
+    //with all fields (tags, reminder threshold, quantity)
+    public static final Item LIME = new ItemBuilder().withName("Lime")
+                                                        .withExpiryDate("01/02/2020")
+                                                        .withQuantity("4")
+                                                        .withTags("Citrus")
+                                                        .withReminderThreshold("2")
+                                                        .build();
+
+
     //To-add item
     public static final Item KIWI = new ItemBuilder().withName("Kiwi")
                                                      .withExpiryDate("01/02/2020")
@@ -69,6 +80,6 @@ public class TypicalItems {
     }
 
     public static List<Item> getTypicalItems() {
-        return new ArrayList<>(Arrays.asList(APPLE, BANANA, CORN, DUCK, EGGS, FAKECRABSTICK, JELLY));
+        return new ArrayList<>(Arrays.asList(APPLE, BANANA, CORN, DUCK, EGGS, FAKECRABSTICK, JELLY, LIME));
     }
 }

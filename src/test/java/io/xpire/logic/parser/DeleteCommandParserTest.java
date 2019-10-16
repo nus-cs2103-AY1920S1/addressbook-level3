@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import org.junit.jupiter.api.Test;
 
 import io.xpire.logic.commands.DeleteCommand;
+import io.xpire.model.item.Quantity;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
@@ -28,12 +29,18 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
+
         assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_ITEM));
+
+        //trailing bars and arguments behind trailing bars will be trimmed
+        assertParseSuccess(parser, "1||||||1", new DeleteCommand(INDEX_FIRST_ITEM));
+
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -55,5 +62,19 @@ public class DeleteCommandParserTest {
     public void parse_deleteBlankTagMode_throwsParseException() {
         assertParseFailure(parser, "1|#", Tag.MESSAGE_CONSTRAINTS);
     }
+
+    @Test
+    public void parse_deleteValidQuantity_returnsDeleteCommand() {
+        Quantity validQuantity = new Quantity("1");
+        assertParseSuccess(parser, "1|1", new DeleteCommand(INDEX_FIRST_ITEM, validQuantity));
+    }
+
+    @Test
+    public void parse_deleteInvalidQuantity_throwsParseException() {
+        //invalid Quantity
+        assertParseFailure(parser, "1|-2", Quantity.MESSAGE_CONSTRAINTS);
+    }
+
+
 
 }

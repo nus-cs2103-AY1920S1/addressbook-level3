@@ -47,7 +47,7 @@ public class AddCommandTest {
         Item validItem = new ItemBuilder().build();
         AddCommand addCommand = new AddCommand(validItem);
         ModelStub modelStub = new ModelStubWithItem(validItem);
-
+        //duplicate items cannot be added to the list
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_ITEM, () -> addCommand.execute(modelStub));
     }
 
