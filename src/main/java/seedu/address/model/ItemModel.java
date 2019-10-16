@@ -73,7 +73,6 @@ public interface ItemModel {
 
     public void sort();
 
-<<<<<<< HEAD
     public void addToSeparateList(Item item);
 
     public void setState(ElisaState state);
