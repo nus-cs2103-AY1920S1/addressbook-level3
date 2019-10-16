@@ -10,14 +10,14 @@ import javafx.collections.ObservableMap;
  */
 public class LikeDataImpl {
 
-    private HashMap<String, Integer> likeMap;
+    private ObservableMap<String, Integer> likeMap;
 
     public LikeDataImpl() {
-        likeMap = new HashMap<>();
+        likeMap = FXCollections.observableMap(new HashMap<>());
     }
 
-    public void setLikeMap(HashMap<String, Integer> likeMap) {
-        this.likeMap = likeMap;
+    public void setLikeMap(HashMap<String, Integer> replacement) {
+        this.likeMap = FXCollections.observableMap(replacement);
     }
 
     public void setLikesByMemeRef(String memeRef, int change) {
@@ -38,7 +38,7 @@ public class LikeDataImpl {
     }
 
     public ObservableMap<String, Integer> getInMap() {
-        return FXCollections.observableMap(likeMap);
+        return likeMap;
     }
 
     public void deleteLikesByMemeRef(String memeRef) {

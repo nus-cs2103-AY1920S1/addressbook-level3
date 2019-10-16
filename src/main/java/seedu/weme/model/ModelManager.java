@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyMapWrapper;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
@@ -50,7 +51,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredMemes = new FilteredList<>(this.memeBook.getMemeList());
         this.likeData = likeData;
-        this.observableLikeData = new ReadOnlyMapWrapper<String, Integer>(likeData.getLikeDataMap());
+        this.observableLikeData = FXCollections.observableMap(likeData.getLikeDataMap());
     }
 
     public ModelManager() {
