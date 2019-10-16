@@ -37,7 +37,7 @@ public class DeleteCommandTest {
 
         // Delete Body
         model.addEntity(ALICE);
-        Body bodyToDelete = model.getFilteredBodyList().get(FIRST_BODY_ID_NUM.getIdNum());
+        Body bodyToDelete = model.getFilteredBodyList().get(FIRST_BODY_ID_NUM.getIdNum() - 1);
         DeleteCommand deleteBodyCommand = new DeleteCommand(FIRST_BODY_ID_NUM);
 
         String expectedBodyMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTITY_SUCCESS, bodyToDelete);
@@ -49,7 +49,7 @@ public class DeleteCommandTest {
 
         // Delete Worker
         model.addEntity(CLARA);
-        Worker workerToDelete = model.getFilteredWorkerList().get(FIRST_WORKER_ID_NUM.getIdNum());
+        Worker workerToDelete = model.getFilteredWorkerList().get(FIRST_WORKER_ID_NUM.getIdNum() - 1);
         DeleteCommand deleteWorkerCommand = new DeleteCommand(FIRST_WORKER_ID_NUM);
 
         String expectedWorkerMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTITY_SUCCESS, workerToDelete);
@@ -67,14 +67,14 @@ public class DeleteCommandTest {
 
         // Delete Body
         IdentificationNumber outOfBoundBodyIndex = IdentificationNumber.customGenerateId("B",
-                model.getFilteredEntityList("B").size() + 1);
+                model.getFilteredEntityList("B").size() + 2);
         DeleteCommand deleteBodyCommand = new DeleteCommand(outOfBoundBodyIndex);
 
         assertDeleteCommandFailure(deleteBodyCommand, model, Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX, "B");
 
         // Delete Worker
         IdentificationNumber outOfBoundWorkerIndex = IdentificationNumber.customGenerateId("W",
-                model.getFilteredEntityList("W").size() + 1);
+                model.getFilteredEntityList("W").size() + 2);
         DeleteCommand deleteWorkerCommand = new DeleteCommand(outOfBoundWorkerIndex);
 
         assertDeleteCommandFailure(deleteWorkerCommand, model, Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX, "W");

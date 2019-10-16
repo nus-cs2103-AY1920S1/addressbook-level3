@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.FridgeBuilder.DEFAULT_BODY;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalBodies.BOB;
+import static seedu.address.testutil.TypicalBodies.JOHN;
 import static seedu.address.testutil.TypicalFridges.ALICE_FRIDGE;
 import static seedu.address.testutil.TypicalFridges.BOB_FRIDGE;
 import static seedu.address.testutil.TypicalFridges.EMPTY_FRIDGE;
@@ -13,28 +14,11 @@ import static seedu.address.testutil.TypicalFridges.EMPTY_FRIDGE;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.entity.IdentificationNumber;
-import seedu.address.testutil.BodyBuilder;
 import seedu.address.testutil.FridgeBuilder;
 
 //@@author arjavibahety
 public class FridgeTest {
 
-    @Test
-    public void isSameFridge() {
-        // same object -> returns true
-        assertTrue(ALICE_FRIDGE.isSameFridge(ALICE_FRIDGE));
-        assertTrue(EMPTY_FRIDGE.isSameFridge(EMPTY_FRIDGE));
-
-        // null -> returns false
-        assertFalse(ALICE_FRIDGE.isSameFridge(null));
-        assertFalse(EMPTY_FRIDGE.isSameFridge(null));
-
-        // different fridges entirely -> returns false
-        assertFalse(ALICE_FRIDGE.isSameFridge(BOB_FRIDGE));
-        assertFalse(EMPTY_FRIDGE.isSameFridge(BOB_FRIDGE));
-    }
-
-    //@@author ambervoong
     @Test
     public void isSameEntity() {
         // same object -> returns true
@@ -48,11 +32,7 @@ public class FridgeTest {
         // different fridges entirely -> returns false
         assertFalse(ALICE_FRIDGE.isSameEntity(BOB_FRIDGE));
         assertFalse(EMPTY_FRIDGE.isSameEntity(BOB_FRIDGE));
-
-        // different type
-        assertFalse(ALICE_FRIDGE.isSameEntity(new BodyBuilder().build()));
     }
-    //@@author
 
     @Test
     public void equals() {
@@ -82,7 +62,7 @@ public class FridgeTest {
     @Test
     void getFridgeIdNum() {
         assertEquals(IdentificationNumber.customGenerateId("F", 1),
-                EMPTY_FRIDGE.getFridgeIdNum());
+                EMPTY_FRIDGE.getIdNum());
     }
 
     @Test
@@ -120,4 +100,15 @@ public class FridgeTest {
 
     }
 
+    @Test
+    void toString_occupiedFridge() {
+        Fridge occupiedFridge = new Fridge(true);
+        occupiedFridge.setBody(JOHN);
+        assertEquals(" Fridge ID: F01 Status: OCCUPIED Body: " + JOHN, occupiedFridge.toString());
+    }
+
+    @Test
+    void toString_emptyFridge() {
+        assertEquals(" Fridge ID: F01 Status: UNOCCUPIED", EMPTY_FRIDGE.toString());
+    }
 }
