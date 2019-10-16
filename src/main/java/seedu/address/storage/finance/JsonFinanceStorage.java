@@ -28,22 +28,22 @@ public class JsonFinanceStorage implements FinanceStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getFinanceLogFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyFinanceLog> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyFinanceLog> readFinanceLog() throws DataConversionException {
+        return readFinanceLog(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readFinanceLog()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyFinanceLog> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyFinanceLog> readFinanceLog(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
@@ -61,21 +61,21 @@ public class JsonFinanceStorage implements FinanceStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyFinanceLog addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveFinanceLog(ReadOnlyFinanceLog financeLog) throws IOException {
+        saveFinanceLog(financeLog, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyFinanceLog)}.
+     * Similar to {@link #saveFinanceLog(ReadOnlyFinanceLog)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyFinanceLog addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveFinanceLog(ReadOnlyFinanceLog financeLog, Path filePath) throws IOException {
+        requireNonNull(financeLog);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(financeLog), filePath);
     }
 
 }

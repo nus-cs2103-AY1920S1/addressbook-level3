@@ -22,12 +22,12 @@ public interface Storage extends FinanceStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getFinanceLogFilePath();
 
     @Override
-    Optional<ReadOnlyFinanceLog> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyFinanceLog> readFinanceLog() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyFinanceLog addressBook) throws IOException;
+    void saveFinanceLog(ReadOnlyFinanceLog financeLog) throws IOException;
 
 }

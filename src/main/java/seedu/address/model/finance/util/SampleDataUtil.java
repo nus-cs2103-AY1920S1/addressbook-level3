@@ -40,7 +40,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyFinanceLog getSampleAddressBook() {
+    public static ReadOnlyFinanceLog getSampleFinanceLog() {
         FinanceLog sampleAb = new FinanceLog();
         for (LogEntry sampleLogEntry : getSamplePersons()) {
             sampleAb.addLogEntry(sampleLogEntry);

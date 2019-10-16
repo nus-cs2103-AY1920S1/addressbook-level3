@@ -48,7 +48,7 @@ public class LogicFinanceManager implements Logic {
         try {
             //We can deduce that the previous line of code modifies model in some way
             // since it's being stored here.
-            storage.saveAddressBook(model.getFinanceLog());
+            storage.saveFinanceLog(model.getFinanceLog());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

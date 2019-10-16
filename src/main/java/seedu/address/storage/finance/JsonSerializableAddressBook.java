@@ -22,13 +22,13 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedLogEntry> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedLogEntry> persons) {
         this.persons.addAll(persons);
     }
 
@@ -39,7 +39,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyFinanceLog source) {
         persons.addAll(source.getLogEntryList()
-                .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+                .stream().map(JsonAdaptedLogEntry::new).collect(Collectors.toList()));
     }
 
     /**
@@ -49,8 +49,8 @@ class JsonSerializableAddressBook {
      */
     public FinanceLog toModelType() throws IllegalValueException {
         FinanceLog addressBook = new FinanceLog();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            LogEntry logEntry = jsonAdaptedPerson.toModelType();
+        for (JsonAdaptedLogEntry jsonAdaptedLogEntry : persons) {
+            LogEntry logEntry = jsonAdaptedLogEntry.toModelType();
             if (addressBook.hasLogEntry(logEntry)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }

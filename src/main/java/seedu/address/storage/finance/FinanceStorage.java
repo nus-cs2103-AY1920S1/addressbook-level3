@@ -16,7 +16,7 @@ public interface FinanceStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getFinanceLogFilePath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyFinanceLog}.
@@ -24,23 +24,23 @@ public interface FinanceStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyFinanceLog> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyFinanceLog> readFinanceLog() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getFinanceLogFilePath()
      */
-    Optional<ReadOnlyFinanceLog> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyFinanceLog> readFinanceLog(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyFinanceLog} to the storage.
-     * @param addressBook cannot be null.
+     * @param financeLog cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyFinanceLog addressBook) throws IOException;
+    void saveFinanceLog(ReadOnlyFinanceLog financeLog) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyFinanceLog)
+     * @see #saveFinanceLog(ReadOnlyFinanceLog)
      */
-    void saveAddressBook(ReadOnlyFinanceLog addressBook, Path filePath) throws IOException;
+    void saveFinanceLog(ReadOnlyFinanceLog financeLog, Path filePath) throws IOException;
 
 }
