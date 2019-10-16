@@ -88,7 +88,7 @@ public class FinSecParser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new HelpCommandParser().parse(arguments);
 
         case CheckCommand.COMMAND_WORD:
             return new CheckCommandParser().parse(arguments);

@@ -24,7 +24,7 @@ public class HelpCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions. "
             + "Parameters: cmd/COMMAND type/TYPE\n"
-            + "Example: " + COMMAND_WORD + " cmd/add type/guide       "
+            + "Example: " + COMMAND_WORD + " cmd/add_claim type/guide       "
             + "For more details, press F1 for list of available Commands and Types";
 
     private static String helpMessage = "Opened help window.";
@@ -50,14 +50,6 @@ public class HelpCommand extends Command {
     private void resetCommandAndTypeValues() {
         type = null;
         command = null;
-    }
-
-    /**
-     * Gets the help message
-     */
-
-    public static String getHelpMessage() {
-        return helpMessage;
     }
 
     @Override
