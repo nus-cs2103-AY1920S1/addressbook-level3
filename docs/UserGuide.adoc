@@ -131,16 +131,16 @@ Event Format Format: `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY t
 Employee Edit Examples:
 
 * `edit_em 1 no/91234567 e/johndoe@example.com` +
-Edits the employeePhone number and employeeEmail employeeAddress of the 1st employee to be `91234567` and `johndoe@example.com` respectively.
+Edits the employeePhone number and employeeEmail address of the 1st employee to be `91234567` and `johndoe@example.com` respectively.
 * `edit_em 2 n/Betsy Crower t/` +
-Edits the employeeName of the 2nd employee to be `Betsy Crower` and clears all existing tags.
+Edits the name of the 2nd employee to be `Betsy Crower` and clears all existing tags.
 
 Event Edit Examples:
 
 * `edit_ev 1 on/16092019` +
 Edits the start date of the 1st event to be on the 16th September, 2019.
 * `edit_ev 2 n/Concert t/` +
-Edits the employeeName of the 2nd event to be `Concert` and clears all existing tags.
+Edits the name of the 2nd event to be `Concert` and clears all existing tags.
 
 ==== Fetch Full Details of Entity: `fetch_em | fetch_ev`
 
@@ -173,7 +173,7 @@ Event Format: `find_ev KEYWORD [MORE_KEYWORDS]`
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the employeeName of the entity is searched.
+* Only the name of the entity is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Entities matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
@@ -393,7 +393,7 @@ Format: `generate_stats`
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from the employeeAddress book.
+Clears all entries from the address book.
 
 Format: `clear`
 
