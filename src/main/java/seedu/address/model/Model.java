@@ -173,4 +173,9 @@ public interface Model {
     ObservableList<Mapping> getFilteredMappingsList();
 
     void updateFilteredMappingsList(Predicate<Mapping> predicate);
+
+    void replaceExistingMappingsWithNewMember(Member oldMember, Member newMember);
+
+    void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask);
+
 }

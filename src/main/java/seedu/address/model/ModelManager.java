@@ -259,6 +259,26 @@ public class ModelManager implements Model {
         return projectDashboard.hasMapping(mapping);
     }
 
+    public void replaceExistingMappingsWithNewMember(Member oldMember, Member newMember) {
+        for (int i = 0; i < filteredMappings.size(); i++) {
+            if (filteredMappings.get(i).getMember().equals(oldMember)) {
+                Task taskInvolved = filteredMappings.get(i).getTask();
+                filteredMappings.remove(filteredMappings.get(i));
+                filteredMappings.add(new Mapping(newMember, taskInvolved));
+            }
+        }
+    }
+
+    public void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask) {
+        for (int i = 0; i < filteredMappings.size(); i++) {
+            if (filteredMappings.get(i).getTask().equals(oldTask)) {
+                Member memberInvolved = filteredMappings.get(i).getMember();
+                filteredMappings.remove(filteredMappings.get(i));
+                filteredMappings.add(new Mapping(memberInvolved, newTask));
+            }
+        }
+    }
+
     //=========== Filtered Mapping List Accessors =============================================================
 
     @Override
