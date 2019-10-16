@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.logic.commands.game.GuessCommand;
 import seedu.address.logic.commands.settings.DifficultyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.game.Guess;
 import seedu.address.model.gamedifficulty.DifficultyEnum;
 
 /**

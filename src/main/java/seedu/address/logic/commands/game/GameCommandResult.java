@@ -1,10 +1,10 @@
 package seedu.address.logic.commands.game;
 
+import java.util.Optional;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.card.Card;
 import seedu.address.statistics.GameDataPoint;
-
-import java.util.Optional;
 
 /**
  * Represents the command result returned by a game command.

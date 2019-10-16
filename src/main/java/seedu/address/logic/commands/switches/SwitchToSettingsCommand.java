@@ -23,7 +23,7 @@ public class SwitchToSettingsCommand extends SwitchCommand {
         DifficultyEnum difficulty = model.getDifficulty();
         return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT
                 + "\nCurrent Difficulty is: " + difficulty
-                + " (" + (difficulty.getTimeAllowedPerQuestion() * 1.0) /1000 + " seconds)");
+                + " (" + (difficulty.getTimeAllowedPerQuestion() * 1.0) / 1000 + " seconds)");
     }
 
     @Override

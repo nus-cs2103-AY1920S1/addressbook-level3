@@ -1,11 +1,11 @@
 package seedu.address.statistics;
 
-import seedu.address.model.card.Card;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import seedu.address.model.card.Card;
 
 /**
  * Represents the overall statistics of a word bank.
@@ -99,6 +99,11 @@ public class WordBankStatistics {
         return null; //todo
     }
 
+    /**
+     * Removes the statistics from a chosen card via its cardID.
+     *
+     * @param cardId The ID of the card to remove statistics from.
+     */
     public void removeCardStatistics(String cardId) {
         for (int i = 0; i < cardStats.size(); ++i) {
             if (cardStats.get(i).getCardId().equals(cardId)) {

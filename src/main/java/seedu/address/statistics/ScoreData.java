@@ -28,6 +28,13 @@ public class ScoreData {
         return Integer.toString(score);
     }
 
+    /**
+     * Takes the maximum of the two scores.
+     *
+     * @param data1 First score to compare.
+     * @param data2 Second score to compare
+     * @return The {@code ScoreData} that is more.
+     */
     public static ScoreData max(ScoreData data1, ScoreData data2) {
         return data1.score > data2.score
                 ? data1

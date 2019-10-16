@@ -1,6 +1,7 @@
 package seedu.address.storage.statistics;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.statistics.CardStatistics;
 
 /**
@@ -34,4 +35,5 @@ public class JsonAdaptedCardStatistics {
     public CardStatistics toModelType() {
         return new CardStatistics(cardId, numShown, numCorrect);
     }
+
 }

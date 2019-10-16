@@ -3,7 +3,6 @@ package seedu.address.model.wordbank;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;

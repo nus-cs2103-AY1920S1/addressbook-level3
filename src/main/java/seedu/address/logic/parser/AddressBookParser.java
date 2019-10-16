@@ -19,7 +19,11 @@ import seedu.address.logic.commands.game.GuessCommand;
 import seedu.address.logic.commands.game.SkipCommand;
 import seedu.address.logic.commands.game.StopCommand;
 import seedu.address.logic.commands.settings.DifficultyCommand;
-import seedu.address.logic.commands.switches.*;
+import seedu.address.logic.commands.switches.BankCommand;
+import seedu.address.logic.commands.switches.HomeCommand;
+import seedu.address.logic.commands.switches.LoadScreenCommand;
+import seedu.address.logic.commands.switches.StartCommand;
+import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

@@ -5,11 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEANING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
-import static seedu.address.testutil.Assert.assertThrows;
+//import static seedu.address.testutil.Assert.assertThrows;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
+
 import java.util.Arrays;
-import java.util.List;
+//import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.app.EditCommand;
@@ -17,7 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.WordContainsKeywordsPredicate;
-import seedu.address.model.wordbank.WordBank;
+//import seedu.address.model.wordbank.WordBank;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 
 /**
@@ -94,16 +95,16 @@ public class CommandTestUtil {
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the address book, filtered card list and selected person in {@code actualModel} remain unchanged
      */
-    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
-        // we are unable to defensively copy the model for comparison later, so we can
-        // only do so by copying its components.
-        WordBank expectedWordBank = new WordBank(actualModel.getWordBank());
-        List<Card> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCardList());
-
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedWordBank, actualModel.getWordBank());
-        assertEquals(expectedFilteredList, actualModel.getFilteredCardList());
-    }
+    //    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
+    //        // we are unable to defensively copy the model for comparison later, so we can
+    //        // only do so by copying its components.
+    //        WordBank expectedWordBank = new WordBank(actualModel.getWordBank());
+    //        List<Card> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCardList());
+    //
+    //        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+    //        assertEquals(expectedWordBank, actualModel.getWordBank());
+    //        assertEquals(expectedFilteredList, actualModel.getFilteredCardList());
+    //    }
 
     /**
      * Updates {@code model}'s filtered list to show only the card at the given {@code targetIndex} in the

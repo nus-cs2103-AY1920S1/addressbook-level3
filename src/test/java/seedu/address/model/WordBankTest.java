@@ -112,9 +112,14 @@ public class WordBankTest {
         }
 
         @Override
-        public String getId() {
-            return "sample-id";
+        public String getName() {
+            return null;
         }
+
+        //        @Override
+        //        public String getId() {
+        //            return "sample-id";
+        //        }
     }
 
 }

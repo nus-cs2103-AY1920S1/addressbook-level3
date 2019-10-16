@@ -1,8 +1,8 @@
 package seedu.address.statistics;
 
-import seedu.address.model.card.Card;
-
 import java.util.List;
+
+import seedu.address.model.card.Card;
 
 /**
  * Represents the statistics of a single game.
