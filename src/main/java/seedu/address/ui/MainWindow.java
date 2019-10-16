@@ -15,8 +15,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ElisaStateManager;
-
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
  * and space where other JavaFX elements can be placed.
@@ -193,15 +191,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isSwitchViews()) {
                 handleSwitchView(commandResult.getTargetView().trim());
             }
-
-            if (commandResult.isUndo()) {
-                logic.getModel().setState((ElisaStateManager)
-                        logic.getModel().getElisaStateHistory().peekCommand().deepCopy());
-            } else {
-                logic.getModel().getElisaStateHistory().pushCommand(logic.getModel().getState().deepCopy());
-            }
-
-            logic.getModel().updateModelLists();
 
             taskListPanel = new TaskListPanel(logic.getVisualList());
             taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());

@@ -50,6 +50,17 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
+        if (commandResult.isUndo()) {
+            model.setToCurrState();
+        } else if (commandResult.isSwitchViews()) {
+            /*switching view is not counted as a change in state,
+            hence this block is left blank*/
+        } else {
+            model.updateState();
+        }
+
+        model.updateModelLists();
+
         return commandResult;
     }
 

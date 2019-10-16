@@ -130,9 +130,14 @@ public class ItemModelManager implements ItemModel {
     }
 
     @Override
-    public void setState(ElisaStateManager state) {
+    public void setState(ElisaState state) {
         setItemStorage(state.getStorage().deepCopy());
         setVisualizeList(state.getVisualizeList().deepCopy());
+    }
+
+    @Override
+    public void setToCurrState() {
+        setState(elisaStateHistory.peekCommand().deepCopy());
     }
 
     @Override
@@ -152,6 +157,11 @@ public class ItemModelManager implements ItemModel {
         for (int i = 0; i < itemStorage.size(); i++) {
             addToSeparateList(itemStorage.get(i));
         }
+    }
+
+    @Override
+    public void updateState() {
+        elisaStateHistory.pushCommand(getState().deepCopy());
     }
 
     /**
@@ -285,9 +295,9 @@ public class ItemModelManager implements ItemModel {
      * Clears the 3 lists for re-populating
      * */
     public void emptyLists() {
-        this.taskList = new TaskList();
-        this.eventList = new EventList();
-        this.reminderList = new ReminderList();
+        this.taskList.clear();
+        this.eventList.clear();
+        this.reminderList.clear();
     }
 
     /**

@@ -75,7 +75,9 @@ public interface ItemModel {
 
     public void addToSeparateList(Item item);
 
-    public void setState(ElisaStateManager state);
+    public void setState(ElisaState state);
+
+    public void setToCurrState();
 
     public ElisaState getState();
 
@@ -86,4 +88,6 @@ public interface ItemModel {
     public boolean togglePriorityMode() throws IllegalListException;
 
     public Item markComplete(int index) throws IllegalListException;
+
+    public void updateState();
 }
