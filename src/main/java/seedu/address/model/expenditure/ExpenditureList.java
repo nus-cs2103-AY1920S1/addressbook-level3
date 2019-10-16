@@ -3,7 +3,10 @@ package seedu.address.model.expenditure;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.expenditure.exceptions.DuplicateExpenditureException;
 import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 import java.util.Iterator;
 import java.util.List;
@@ -18,11 +21,21 @@ public class ExpenditureList implements Iterable<Expenditure> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
+     * Returns true if the list contains an equivalent person as the given argument.
+     */
+    public boolean contains(Expenditure toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameExpenditure);
+    }
+    /**
      * Adds an expenditure to the list.
      * The expenditure must not already exist in the list.
      */
     public void add(Expenditure toAdd) {
         requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateExpenditureException();
+        }
         internalList.add(toAdd);
     }
 
@@ -38,12 +51,17 @@ public class ExpenditureList implements Iterable<Expenditure> {
         if (index == -1) {
             throw new ExpenditureNotFoundException();
         }
-
+        if (!target.isSameExpenditure(edited) && contains(edited)) {
+            throw new DuplicateExpenditureException();
+        }
         internalList.set(index, edited);
     }
 
     public void set(List<Expenditure> occurrences) {
         requireAllNonNull(occurrences);
+        if (!expendituresAreUnique(occurrences)) {
+            throw new DuplicateExpenditureException();
+        }
         internalList.setAll(occurrences);
     }
 
@@ -90,6 +108,20 @@ public class ExpenditureList implements Iterable<Expenditure> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    /**
+     * Returns true if the list contains only unique expenditures.
+     */
+    private boolean expendituresAreUnique(List<Expenditure> occurrence) {
+        for (int i = 0; i < occurrence.size() - 1; i++) {
+            for (int j = i + 1; j < occurrence.size(); j++) {
+                if (occurrence.get(i).isSameExpenditure(occurrence.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

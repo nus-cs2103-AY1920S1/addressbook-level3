@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
@@ -24,7 +25,7 @@ public class JsonAdaptedEvent {
     private final LocalDateTime endTime;
     private final String destination;
     //private final Optional<Booking> booking;
-    private final Optional<Double> totalBudget;
+    private final Optional<JsonAdaptedExpenditure> expenditure;
     //private final Optional<Inventory> inventory;
 
     /**
@@ -35,7 +36,7 @@ public class JsonAdaptedEvent {
             @JsonProperty("startTime") LocalDateTime from,
             @JsonProperty("endTime") LocalDateTime to,
             @JsonProperty("destination") String destination,
-            @JsonProperty("totalBudget") Optional<Double> totalBudget
+            @JsonProperty("expenditure") Optional<JsonAdaptedExpenditure> expenditure
     //, @JsonProperty("booking")Optional<Booking> booking,
     // @JsonProperty("inventory")Optional<Inventory> inventory
     ) {
@@ -43,7 +44,7 @@ public class JsonAdaptedEvent {
         this.startTime = from;
         this.endTime = to;
         this.destination = destination;
-        this.totalBudget = totalBudget;
+        this.expenditure = expenditure;
     }
 
     /**
@@ -54,10 +55,10 @@ public class JsonAdaptedEvent {
         this.startTime = source.getStartDate();
         this.endTime = source.getEndDate();
         this.destination = source.getDestination().value;
-        if (source.getTotalBudget().isPresent()) {
-            this.totalBudget = Optional.of(source.getTotalBudget().get().value);
+        if (source.getExpenditure().isPresent()) {
+            this.expenditure = Optional.of(new JsonAdaptedExpenditure(source.getExpenditure().get()));
         } else {
-            this.totalBudget = Optional.empty();
+            this.expenditure = Optional.empty();
         }
     }
 
@@ -108,16 +109,17 @@ public class JsonAdaptedEvent {
         final Location modelDestination = new Location(destination);
 
         //No check for TotalBudget (defaults endTime 0)
-        final Optional<Budget> modelTotalBudget;
+        final Optional<Expenditure> modelExpenditure;
 
-        if (totalBudget.isPresent()) {
-            modelTotalBudget = Optional.of(new Budget(totalBudget.get()));
+        if (expenditure.isPresent()) {
+
+            modelExpenditure = Optional.of(expenditure.get().toModelType());
         } else {
-            modelTotalBudget = Optional.empty();
+            modelExpenditure = Optional.empty();
         }
 
 
-        return new Event(modelName, modelStartTime, modelEndTime, modelTotalBudget, modelDestination);
+        return new Event(modelName, modelStartTime, modelEndTime, modelExpenditure, modelDestination);
     }
 }
 

@@ -62,4 +62,47 @@ public class Expenditure {
         return isRemovable;
     }
 
+
+    /**
+     * Check if two expenditures are the same
+     *
+     * @param otherExpenditure The other expenditure to check.
+     * @return Boolean of whether the expenditures are the same.
+     */
+    public boolean isSameExpenditure(Expenditure otherExpenditure) {
+        if (otherExpenditure == this) {
+            return true;
+        } else {
+            return otherExpenditure.getName().equals(getName())
+                    && otherExpenditure.getDayNumber().equals(getDayNumber())
+                    && otherExpenditure.getBudget().equals(getBudget());
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Expenditure)) {
+            return false;
+        }
+
+        Expenditure otherExpenditure = (Expenditure) other;
+        return otherExpenditure.getName().equals(getName())
+                && otherExpenditure.getDayNumber().equals(getDayNumber())
+                && otherExpenditure.getBudget().equals(getBudget());
+    }
+
+    /**
+     * Checks whether this expenditure clashes with another.
+     *
+     * @param other The other expenditure instance to check.
+     * @return Boolean of whether the expenditures clash.
+     */
+    public boolean isClashingWith(Expenditure other) {
+        return (this.getName().equals(other.getName()));
+    }
+
 }

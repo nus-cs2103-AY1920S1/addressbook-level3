@@ -7,6 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
+import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.model.itinerary.event.exceptions.ClashingEventException;
 import seedu.address.model.itinerary.event.exceptions.EventNotFoundException;
@@ -42,12 +43,18 @@ public class DoneEditEventCommand extends Command {
             if (eventToEdit == null) {
                 //buildEvent() requires compulsory fields to be non null, failing which
                 //NullPointerException is caught below
-                eventToAdd = editEventDescriptor.buildEvent();
+                eventToAdd = editEventDescriptor.buildEvent(model);
                 model.getPageStatus().getDay().getEventList().add(eventToAdd);
+                if(eventToAdd.getExpenditure().isPresent()){
+                    model.getPageStatus().getTrip().getExpenditureList().add(eventToAdd.getExpenditure().get());
+                }
             } else {
                 //edit the current "selected" event
-                eventToAdd = editEventDescriptor.buildEvent(eventToEdit);
+                eventToAdd = editEventDescriptor.buildEvent(eventToEdit, model);
                 model.getPageStatus().getDay().getEventList().set(eventToEdit, eventToAdd);
+                if(eventToAdd.getExpenditure().isPresent()){
+                    model.getPageStatus().getTrip().getExpenditureList().add(eventToAdd.getExpenditure().get());
+                }
             }
 
             model.setPageStatus(model.getPageStatus()
@@ -60,6 +67,8 @@ public class DoneEditEventCommand extends Command {
             throw new CommandException(MESSAGE_NOT_EDITED);
         } catch (ClashingEventException ex) {
             throw new CommandException(MESSAGE_CLASHING_EVENT);
+        } catch (ExpenditureNotFoundException e) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
         }
     }
 
