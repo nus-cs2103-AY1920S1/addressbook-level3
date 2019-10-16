@@ -14,7 +14,7 @@ import seedu.address.model.expense.Expense;
  */
 public class ExpenseCard extends UiPart<Region> {
 
-    private static final String FXML = "ExpenseListCard.fxml";
+    private static final String FXML = "ExpenseCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
