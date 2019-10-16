@@ -16,11 +16,8 @@ public class ReminderDefaultCommand extends Command {
     public static final String COMMAND_WORD = "remDefault";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Change default reminder setting to food expiring within r days "
-            + "Parameters: "
-            + PREFIX_REMINDER + "REMINDER \n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_REMINDER + "3";
+            + ": Change default reminder setting to food expiring within r days " + "Parameters: "
+            + PREFIX_REMINDER + "REMINDER \n" + "Example: " + COMMAND_WORD + " " + PREFIX_REMINDER + "3";
 
     public static final String MESSAGE_SUCCESS = "Default number of days for reminder: %1$s";
 
