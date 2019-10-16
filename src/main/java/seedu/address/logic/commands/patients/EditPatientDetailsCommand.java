@@ -65,7 +65,7 @@ public class EditPatientDetailsCommand extends ReversibleCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        if (model.hasPerson(editedPerson) && !personToEdit.isSamePerson(editedPerson)) {
+        if (model.hasPerson(editedPerson) && !personToEdit.isSameAs(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
