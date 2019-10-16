@@ -37,7 +37,7 @@ public class ModularDisplay {
      * @param paneToDisplay The view to change.
      */
     public void displayTitle(StackPane paneToDisplay) {
-        paneToDisplay.getChildren().add(titleScreenPanel.getRoot());
+        paneToDisplay.getChildren().add(loadBankPanel.getRoot());
     }
 
     /**

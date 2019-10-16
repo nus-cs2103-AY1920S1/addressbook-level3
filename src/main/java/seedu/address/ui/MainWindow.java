@@ -226,7 +226,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandText.equals("load")) {
                 modularDisplay.swapToBanks(modularDisplayPlaceholder);
             } else if (commandText.matches("bank [a-zA-Z0-9_]")) {
-                modularDisplay.swapToHome(modularDisplayPlaceholder);
+                modularDisplay.swapToList(modularDisplayPlaceholder);
             } else if (commandText.equals("list")) {
                 modularDisplay.swapToList(modularDisplayPlaceholder);
             } else if (commandText.equals("help")) {

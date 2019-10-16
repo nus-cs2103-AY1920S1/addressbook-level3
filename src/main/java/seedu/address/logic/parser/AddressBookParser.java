@@ -91,7 +91,7 @@ public class AddressBookParser {
             return new LoadScreenCommand();
 
         case StartCommand.COMMAND_WORD:
-            return new StartCommandParser().parse(arguments);
+            return new StartCommand();
 
         case GuessCommand.COMMAND_WORD:
             return new GuessCommandParser().parse(arguments);
