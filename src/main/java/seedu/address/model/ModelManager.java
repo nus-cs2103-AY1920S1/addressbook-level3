@@ -126,6 +126,28 @@ public class ModelManager implements Model {
     public boolean hasDeadline(Deadline deadline) {
         requireNonNull(deadline);
         return addressBook.hasDeadline(deadline);
+
+    public void editStats(int type) {
+        if (type == 0) {
+            addressBook.addGood();
+        }
+        if (type == 1) {
+            addressBook.addHard();
+        }
+        if (type == 2) {
+            addressBook.addEasy();
+        }
+    }
+
+    @Override
+    public int[] getStats() {
+        return addressBook.getStats();
+    }
+
+    @Override
+    public void addFlashCard(FlashCard flashCard) {
+        addressBook.addFlashcard(flashCard);
+        updateFilteredFlashCardList(PREDICATE_SHOW_ALL_FLASHCARDS);
     }
 
     @Override
