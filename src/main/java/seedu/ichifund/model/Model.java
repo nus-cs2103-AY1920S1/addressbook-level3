@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.model.budget.Budget;
+import seedu.ichifund.model.context.Context;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.transaction.Transaction;
@@ -116,6 +117,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTransactionList(Predicate<Transaction> predicate);
+
+    Context<Transaction> getTransactionContext();
+
+    void setTransactionContext(Context<Transaction> transactionContext);
 
     /**
      * Returns true if a repeater with the same identity as {@code repeater} exists in the fund book.
