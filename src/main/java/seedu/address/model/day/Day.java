@@ -37,7 +37,7 @@ public class Day {
      * Gets all the activities present in {@code Day} and wraps them in ActivityWithTime.
      * @return list of {@code ActivityWithTime} present in {@code Day}
      */
-    public List<ActivityWithTime> getActivitiesWithTimeFromDay() {
+    public List<ActivityWithTime> getActivitiesWithTime() {
         List<ActivityWithTime> activitiesForDay = new ArrayList<>();
         Activity prevActivity = null;
         ActivityWithTime currActivityWithTime = null;
