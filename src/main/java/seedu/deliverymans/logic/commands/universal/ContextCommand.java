@@ -1,9 +1,9 @@
 package seedu.deliverymans.logic.commands.universal;
 
-import seedu.address.model.Model;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.parser.universal.Context;
+import seedu.deliverymans.model.Model;
 
 /**
  * (to be added)
@@ -18,6 +18,7 @@ public class ContextCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(String.format(MESSAGE_SUCCESS, context.toLowerCaseString()));
+        model.setContext(context);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, context.toLowerCaseString()), context);
     }
 }

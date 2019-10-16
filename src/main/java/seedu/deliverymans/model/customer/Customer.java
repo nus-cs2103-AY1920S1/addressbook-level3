@@ -9,16 +9,17 @@ import java.util.Set;
 
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
-import seedu.deliverymans.model.Email;
-import seedu.deliverymans.model.Order;
-import seedu.address.model.tag.Tag;
+import seedu.deliverymans.model.Tag;
+import seedu.deliverymans.model.order.Order;
 
+/**
+ * Represents a Customer in the system.
+ */
 public class Customer {
 
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final Email email;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -27,11 +28,10 @@ public class Customer {
     /**
      * Every field must be present and not null.
      */
-    public Customer(Name name, Phone phone, Email email, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, tags);
+    public Customer(Name name, Phone phone, Set<Tag> tags) {
+        requireAllNonNull(name, tags);
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.tags.addAll(tags);
     }
 
@@ -41,10 +41,6 @@ public class Customer {
 
     public Phone getPhone() {
         return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     /**
@@ -70,7 +66,7 @@ public class Customer {
 
         return otherCustomer != null
                 && otherCustomer.getName().equals(getName())
-                && (otherCustomer.getPhone().equals(getPhone()) || otherCustomer.getEmail().equals(getEmail()));
+                && otherCustomer.getPhone().equals(getPhone());
     }
 
     /**
@@ -90,14 +86,13 @@ public class Customer {
         Customer otherCustomer = (Customer) other;
         return otherCustomer.getName().equals(getName())
                 && otherCustomer.getPhone().equals(getPhone())
-                && otherCustomer.getEmail().equals(getEmail())
                 && otherCustomer.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags);
+        return Objects.hash(name, phone, tags);
     }
 
     @Override
@@ -105,9 +100,7 @@ public class Customer {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(getPhone().toString())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

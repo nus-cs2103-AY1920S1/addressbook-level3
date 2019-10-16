@@ -7,11 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.deliverymans.logic.commands.Command;
+import seedu.deliverymans.logic.commands.customer.AddCommand;
 import seedu.deliverymans.logic.commands.customer.DeleteCommand;
 import seedu.deliverymans.logic.commands.customer.EditCommand;
 import seedu.deliverymans.logic.commands.customer.HistoryCommand;
 import seedu.deliverymans.logic.commands.customer.ListCommand;
-import seedu.deliverymans.logic.commands.customer.OrderCommand;
 import seedu.deliverymans.logic.commands.customer.SortCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
@@ -42,9 +42,11 @@ public class CustomerParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        // case add??
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommand(arguments);
+            return new DeleteCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
@@ -53,10 +55,7 @@ public class CustomerParser {
             return new HistoryCommand(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand(arguments);
-
-        case OrderCommand.COMMAND_WORD:
-            return new OrderCommandParser().parse(arguments);
+            return new ListCommand();
 
         case SortCommand.COMMAND_WORD:
             return new SortCommand(arguments);
