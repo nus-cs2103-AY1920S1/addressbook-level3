@@ -13,7 +13,7 @@ import seedu.address.model.expense.Expense;
 /**
  * Deletes a expense identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "delete";
 

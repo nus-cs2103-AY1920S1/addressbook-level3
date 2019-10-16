@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.Period;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -28,6 +29,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
+    private final ModelHistory modelHistory;
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Event> filteredEvents;
     private StringBuilder statsBuilder;
@@ -35,29 +37,117 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        super();
-        requireAllNonNull(addressBook, userPrefs);
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
+            ReadOnlyModelHistory modelHistory) {
+        requireAllNonNull(addressBook, userPrefs, modelHistory);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.modelHistory = new ModelHistory(modelHistory);
         filteredEvents = new FilteredList<>(this.addressBook.getEventList());
         filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new ModelHistory());
+    }
+
+    /**
+     * Copy constructor for ModelManager.
+     */
+    public ModelManager(Model model) {
+        this();
+        resetData(model);
+    }
+
+    @Override
+    public void resetData(Model model) {
+        requireNonNull(model);
+        setAddressBook(model.getAddressBook());
+        setUserPrefs(model.getUserPrefs());
+        setModelHistory(model.getModelHistory());
+
+        if (model.getFilteredEventPredicate() != null) {
+            updateFilteredEventList(model.getFilteredEventPredicate());
+        } else {
+            updateFilteredEventList(model.PREDICATE_SHOW_ALL_EVENTS);
+        }
+
+        if (model.getFilteredExpensePredicate() != null) {
+            updateFilteredExpenseList(model.getFilteredExpensePredicate());
+        } else {
+            updateFilteredExpenseList(model.PREDICATE_SHOW_ALL_EXPENSES);
+        }
+    }
+
+    //=========== ModelHistory ==================================================================================
+
+    @Override
+    public ReadOnlyModelHistory getModelHistory() {
+        return modelHistory;
+    }
+
+    @Override
+    public void setModelHistory(ReadOnlyModelHistory modelHistory) {
+        requireNonNull(modelHistory);
+        this.modelHistory.resetData(modelHistory);
+    }
+
+    @Override
+    public void addToHistory() {
+        modelHistory.addToPastModels(new ModelManager(this));
+        modelHistory.clearFutureModels();
+    }
+
+    @Override
+    public void addToPastHistory(Model model) {
+        requireNonNull(model);
+        modelHistory.addToPastModels(new ModelManager(model));
+    }
+
+    @Override
+    public void addToFutureHistory(Model model) {
+        requireNonNull(model);
+        modelHistory.addToFutureModels(new ModelManager(model));
+    }
+
+    @Override
+    public boolean canRollback() {
+        return !modelHistory.isPastModelsEmpty();
+    }
+
+    @Override
+    public Optional<Model> rollbackModel() {
+        Optional<Model> prevModel = modelHistory.getPrevModel();
+        if (prevModel.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Model pastModel = prevModel.get();
+        pastModel.addToFutureHistory(this);
+        return Optional.of(pastModel);
+    }
+
+    @Override
+    public boolean canMigrate() {
+        return !modelHistory.isFutureModelsEmpty();
+    }
+
+    @Override
+    public Optional<Model> migrateModel() {
+        Optional<Model> nextModel = modelHistory.getNextModel();
+        if (nextModel.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Model futureModel = nextModel.get();
+        futureModel.addToPastHistory(this);
+        return Optional.of(futureModel);
     }
 
     //=========== UserPrefs ==================================================================================
-
-    @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
-    }
 
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
@@ -65,14 +155,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public GuiSettings getGuiSettings() {
-        return userPrefs.getGuiSettings();
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
-        requireNonNull(guiSettings);
-        userPrefs.setGuiSettings(guiSettings);
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -85,6 +170,8 @@ public class ModelManager implements Model {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
+
+    //=========== AliasSettings ==============================================================================
 
     @Override
     public AliasMappings getAliasMappings() {
@@ -102,16 +189,30 @@ public class ModelManager implements Model {
         userPrefs.addUserAlias(alias);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== GuiSettings ===============================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public GuiSettings getGuiSettings() {
+        return userPrefs.getGuiSettings();
     }
+
+    @Override
+    public void setGuiSettings(GuiSettings guiSettings) {
+        requireNonNull(guiSettings);
+        userPrefs.setGuiSettings(guiSettings);
+    }
+
+    //=========== Expense ================================================================================
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+
+    @Override
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        requireNonNull(addressBook);
+        this.addressBook.resetData(addressBook);
     }
 
     @Override
@@ -138,6 +239,8 @@ public class ModelManager implements Model {
         addressBook.setExpense(target, editedExpense);
     }
 
+    //=========== Budget ================================================================================
+
     @Override
     public boolean hasBudget(Budget budget) {
         requireNonNull(budget);
@@ -153,6 +256,8 @@ public class ModelManager implements Model {
     public void setPrimary(Budget budget) {
         addressBook.setPrimary(budget);
     }
+
+    //=========== Event ================================================================================
 
     @Override
     public boolean hasEvent(Event event) {
@@ -203,10 +308,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredExpenseList(Predicate<Expense> predicate) {
+    public Predicate<? super Expense> getFilteredExpensePredicate() {
+        return filteredExpenses.getPredicate();
+    }
+
+    @Override
+    public void updateFilteredExpenseList(Predicate<? super Expense> predicate) {
         requireNonNull(predicate);
         filteredExpenses.setPredicate(predicate);
     }
+
+    //=========== Filtered Event List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
@@ -218,7 +330,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredEventList(Predicate<Event> predicate) {
+    public Predicate<? super Event> getFilteredEventPredicate() {
+        return filteredEvents.getPredicate();
+    }
+
+    @Override
+    public void updateFilteredEventList(Predicate<? super Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
     }
@@ -240,7 +357,7 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExpenses.equals(other.filteredExpenses)
-                && filteredEvents.equals(other.filteredEvents);
+                && filteredEvents.equals(other.filteredEvents)
+                && modelHistory.equals(other.modelHistory);
     }
-
 }

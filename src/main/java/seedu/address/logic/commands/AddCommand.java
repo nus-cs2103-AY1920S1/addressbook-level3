@@ -12,7 +12,7 @@ import seedu.address.model.expense.Expense;
 /**
  * Adds a expense to the address book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
 

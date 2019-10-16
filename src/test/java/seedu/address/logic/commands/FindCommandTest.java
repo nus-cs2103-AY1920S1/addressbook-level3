@@ -16,6 +16,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
+import seedu.address.model.ModelHistory;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.expense.DescriptionContainsKeywordsPredicate;
@@ -24,8 +25,8 @@ import seedu.address.model.expense.DescriptionContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModelHistory());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModelHistory());
 
     @Test
     public void equals() {
@@ -59,6 +60,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 0);
         DescriptionContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
+        expectedModel.addToHistory();
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredExpenseList());
@@ -69,6 +71,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
         DescriptionContainsKeywordsPredicate predicate = preparePredicate("the Chicken Movie");
         FindCommand command = new FindCommand(predicate);
+        expectedModel.addToHistory();
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CHICKEN_RICE, ENTERTAINMENT, FASHION), model.getFilteredExpenseList());
