@@ -3,6 +3,8 @@ package seedu.address.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.Description;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.Title;
 import seedu.address.model.person.Address;
@@ -26,6 +28,8 @@ class JsonAdaptedNote {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Note's %s field is missing!";
 
     private final String title;
+    private final String description;
+    private final String content;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -33,8 +37,12 @@ class JsonAdaptedNote {
      */
     @JsonCreator
     public JsonAdaptedNote(@JsonProperty("title") String title,
-                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                           @JsonProperty("description") String description,
+                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                           @JsonProperty("content") String content) {
         this.title = title;
+        this.description = description;
+        this.content = content;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -45,6 +53,8 @@ class JsonAdaptedNote {
      */
     public JsonAdaptedNote(Note source) {
         title = source.getTitle().title;
+        description = source.getDescription().description;
+        content = source.getContent().content;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -67,10 +77,26 @@ class JsonAdaptedNote {
         if (!Title.isValidTitle(title)) {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+        }
+        if (!Description.isValidDescription(description)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        }
+        if (content == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Content.class.getSimpleName()));
+        }
+        if (!Content.isValidContent(content)) {
+            throw new IllegalValueException(Content.MESSAGE_CONSTRAINTS);
+        }
+
         final Title modelTitle = new Title(title);
+        final Description modelDescription = new Description(description);
+        final Content modelContent = new Content(content);
+
 
         final Set<Tag> modelTags = new HashSet<>(noteTags);
-        return new Note(modelTitle, modelTags);
+        return new Note(modelTitle, modelDescription, modelTags, modelContent);
     }
 
 }

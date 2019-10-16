@@ -18,6 +18,8 @@ public class Note {
 
     // Identity fields
     private final Title title;
+    private final Description description;
+    private final Content content;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -25,9 +27,11 @@ public class Note {
     /**
      * Every field must be present and not null.
      */
-    public Note(Title title, Set<Tag> tags) {
+    public Note(Title title, Description description, Set<Tag> tags, Content content) {
         requireAllNonNull(title, tags);
         this.title = title;
+        this.description = description;
+        this.content = content;
         this.tags.addAll(tags);
     }
 
@@ -35,6 +39,13 @@ public class Note {
         return title;
     }
 
+    public Description getDescription() {
+        return description;
+    }
+
+    public Content getContent(){
+        return content;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -54,7 +65,10 @@ public class Note {
         }
 
         return otherNote != null
-                && otherNote.getTitle().equals(getTitle());
+                && otherNote.getTitle().equals(getTitle())
+                && otherNote.getDescription().equals(getDescription())
+                && otherNote.getContent().equals(getContent());
+
 
     }
 
@@ -74,19 +88,23 @@ public class Note {
 
         Note otherNote = (Note) other;
         return otherNote.getTitle().equals(getTitle())
-                && otherNote.getTags().equals(getTags());
+                && otherNote.getTags().equals(getTags())
+                && otherNote.getDescription().equals(getDescription())
+                && otherNote.getContent().equals(getContent());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, tags);
+        return Objects.hash(title, description, tags, content);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
+                .append(getDescription())
+                .append(getContent())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

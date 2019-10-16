@@ -18,7 +18,7 @@ public class DeleteCardCommandParser implements Parser<DeleteCardCommand> {
      */
     public DeleteCardCommand parse(String args) throws ParseException {
         try {
-            Description description = ParserUtil.parseDescription(args);
+            Description description = ParserUtil.parseCardDescription(args);
             return new DeleteCardCommand(description);
         } catch (ParseException pe) {
             throw new ParseException(

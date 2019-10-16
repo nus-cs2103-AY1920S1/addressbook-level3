@@ -8,6 +8,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.NoteBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyNoteBook;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.Description;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.Title;
 import seedu.address.model.person.Address;
@@ -45,7 +47,8 @@ public class SampleDataUtil {
     }
     public static Note[] getSampleNotes() {
         return new Note[] {
-                new Note(new Title("Note Test"),getTagSet("test"))
+                new Note(new Title("Sample Note"), new Description("Sample Description"),
+                        getTagSet("SampleTag"), new Content("Sample Content"))
         };
     }
 

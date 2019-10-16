@@ -15,7 +15,7 @@ import java.util.Comparator;
  */
 public class NoteCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "NoteListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -32,6 +32,10 @@ public class NoteCard extends UiPart<Region> {
     @FXML
     private Label title;
     @FXML
+    private Label description;
+    @FXML
+    private Label content;
+    @FXML
     private Label id;
     @FXML
     private FlowPane tags;
@@ -40,6 +44,8 @@ public class NoteCard extends UiPart<Region> {
         super(FXML);
         this.note = note;
         title.setText(note.getTitle().title);
+        description.setText(note.getDescription().description);
+        content.setText(note.getContent().content);
         id.setText(displayedIndex + ". ");
         note.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import java.io.PrintWriter;
+
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
@@ -15,5 +17,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_CVC = new Prefix("v/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_TITLE = new Prefix("ti/");
+    public static final Prefix PREFIX_CONTENT = new Prefix("c/");
+
 
 }
