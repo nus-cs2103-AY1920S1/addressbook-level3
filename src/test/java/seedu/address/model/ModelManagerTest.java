@@ -23,7 +23,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.customer.CustomerNameContainsKeywordsPredicate;
+import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
 import seedu.address.testutil.CustomerBookBuilder;
 import seedu.address.testutil.OrderBookBuilder;
 import seedu.address.testutil.PhoneBookBuilder;

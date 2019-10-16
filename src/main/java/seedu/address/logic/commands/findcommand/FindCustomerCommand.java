@@ -7,7 +7,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.model.Model;
-import seedu.address.model.customer.CustomerNameContainsKeywordsPredicate;
+import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all customers in customer book whose name contains any of the argument keywords.
