@@ -18,8 +18,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
+ * can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private AchievementsCache achievementsCache;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -69,12 +70,25 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
+    public ResultDisplay getResultDisplay() {
+        return resultDisplay;
+    }
+
+    public AchievementsCache getAchievementsCache() {
+        return achievementsCache;
+    }
+
+    public void setAchievementsCache(AchievementsCache achievementsCache) {
+        this.achievementsCache = achievementsCache;
+    }
+
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -144,8 +158,44 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Switches this window to the MainWindow.
+     */
+    @FXML
+    public void switchToBioWindow(String feedbackToUser) {
+        hide();
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+        logic.setGuiSettings(guiSettings);
+        BioWindow bioWindow = new BioWindow(primaryStage, logic);
+        bioWindow.show();
+        bioWindow.setAchievementsCache(achievementsCache);
+        bioWindow.fillInnerParts();
+        bioWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
+    }
+
+    /**
+     * Switches this window to the AchievementsWindow.
+     */
+    @FXML
+    public void switchToAchvmWindow(String feedbackToUser) {
+        hide();
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+        logic.setGuiSettings(guiSettings);
+        AchievementsWindow achievementsWindow = new AchievementsWindow(primaryStage, logic);
+        achievementsWindow.show();
+        achievementsWindow.setAchievementsCache(achievementsCache);
+        achievementsWindow.fillInnerParts();
+        achievementsWindow.getResultDisplay().setFeedbackToUser(feedbackToUser);
+    }
+
     void show() {
         primaryStage.show();
+    }
+
+    public void hide() {
+        getRoot().hide();
     }
 
     /**
@@ -171,7 +221,14 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+
             CommandResult commandResult = logic.execute(commandText);
+            if (commandResult.isShowBio()) {
+                switchToBioWindow(commandResult.getFeedbackToUser());
+            } else if (commandResult.isShowAchvm()) {
+                switchToAchvmWindow(commandResult.getFeedbackToUser());
+            }
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
