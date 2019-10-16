@@ -4,9 +4,6 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 /**
  * Represents the Event Starting Date.
  */
@@ -23,7 +20,6 @@ public class EventEndDate {
      * @param endDate A valid end date.
      */
     public EventEndDate(LocalDate endDate) {
-        requireNonNull(endDate);
         this.endDate = endDate;
     }
 
