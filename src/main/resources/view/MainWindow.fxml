@@ -75,7 +75,7 @@
                           <tabs>
                             <Tab fx:id="T" text="(T)ask">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
+                                <AnchorPane minHeight="0.0" minWidth="0.0">
                                        <children>
                                          <StackPane fx:id="taskListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" AnchorPane.bottomAnchor="0.8000000000000682" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.6000000000000227" AnchorPane.topAnchor="0.0" />
                                        </children>
@@ -84,27 +84,27 @@
                             </Tab>
                               <Tab fx:id="E" text="(E)vent">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
+                                    <AnchorPane>
                                        <children>
-                                          <StackPane fx:id="eventListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" />
+                                          <StackPane fx:id="eventListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" AnchorPane.bottomAnchor="0.8000000000000682" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.6000000000000227" AnchorPane.topAnchor="0.0" />
                                        </children>
                                     </AnchorPane>
                                  </content>
                               </Tab>
                               <Tab fx:id="R" text="(R)eminder">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
+                                    <AnchorPane>
                                        <children>
-                                          <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" />
+                                          <StackPane fx:id="reminderListPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" AnchorPane.bottomAnchor="0.8000000000000682" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.6000000000000227" AnchorPane.topAnchor="0.0" />
                                        </children>
                                     </AnchorPane>
                                  </content>
                               </Tab>
                               <Tab fx:id="C" text="(C)alendar">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="577.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0">
                                        <children>
-                                          <StackPane fx:id="calendarPanelPlaceholder" prefHeight="550.0" prefWidth="578.0">
+                                          <StackPane fx:id="calendarPanelPlaceholder" prefHeight="550.0" prefWidth="578.0" AnchorPane.bottomAnchor="23.200000000000045" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="19.200000000000045" AnchorPane.topAnchor="0.0">
                                              <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </padding>

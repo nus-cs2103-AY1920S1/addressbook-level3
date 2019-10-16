@@ -71,7 +71,8 @@ public class MainWindow extends UiPart<Stage> {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
                         try {
-                            executeCommand("show " + t1.getId());
+                            logic.execute("show " + t1.getId());
+                            updatePanels();
                         } catch (CommandException e) {
                             e.printStackTrace();
                         } catch (ParseException e) {
@@ -91,14 +92,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        taskListPanel = new TaskListPanel(logic.getVisualList());
-        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
-
-        eventListPanel = new EventListPanel(logic.getVisualList());
-        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
-
-        reminderListPanel = new ReminderListPanel(logic.getVisualList());
-        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        updatePanels();
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -159,6 +153,17 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    public void updatePanels() {
+        taskListPanel = new TaskListPanel(logic.getVisualList());
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        eventListPanel = new EventListPanel(logic.getVisualList());
+        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+
+        reminderListPanel = new ReminderListPanel(logic.getVisualList());
+        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+    }
+
     public TaskListPanel getTaskListPanel() {
         return taskListPanel;
     }
@@ -192,14 +197,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleSwitchView(commandResult.getTargetView().trim());
             }
 
-            taskListPanel = new TaskListPanel(logic.getVisualList());
-            taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
-
-            eventListPanel = new EventListPanel(logic.getVisualList());
-            eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
-
-            reminderListPanel = new ReminderListPanel(logic.getVisualList());
-            reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+            updatePanels();
 
             return commandResult;
         } catch (CommandException | ParseException e) {

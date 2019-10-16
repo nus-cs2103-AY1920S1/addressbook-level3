@@ -1,11 +1,15 @@
 package seedu.address.ui;
 
+import java.awt.*;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+
 
 /**
  * This class is the Ui for UserDialogBox
@@ -25,8 +29,7 @@ class ElisaDialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setText(text);
-    }
+        dialog.setText(text); }
 
     static ElisaDialogBox getElisaDialog(String text) {
         return new ElisaDialogBox(text);
