@@ -1,8 +1,8 @@
 package com.typee.model;
 
 import static com.typee.testutil.Assert.assertThrows;
-import static com.typee.testutil.TypicalPersons.ALICE;
-import static com.typee.testutil.TypicalPersons.getTypicalAddressBook;
+//import static com.typee.testutil.TypicalPersons.ALICE;
+//import static com.typee.testutil.TypicalPersons.getTypicalAddressBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,6 +23,7 @@ import javafx.collections.ObservableList;
 
 public class AddressBookTest {
 
+    /*
     private final AddressBook addressBook = new HistoryManager(new AddressBook());
 
     @Test
@@ -80,9 +81,12 @@ public class AddressBookTest {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getEngagementList().remove(0));
     }
 
+
+     */
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
+    /*
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
@@ -95,5 +99,7 @@ public class AddressBookTest {
             return persons;
         }
     }
+
+     */
 
 }

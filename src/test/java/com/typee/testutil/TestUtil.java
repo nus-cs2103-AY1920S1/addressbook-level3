@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 
 import com.typee.commons.core.index.Index;
 import com.typee.model.Model;
+import com.typee.model.engagement.Engagement;
 import com.typee.model.person.Person;
 
 /**
@@ -49,7 +50,7 @@ public class TestUtil {
     /**
      * Returns the person in the {@code model}'s person list at {@code index}.
      */
-    public static Person getPerson(Model model, Index index) {
+    public static Engagement getPerson(Model model, Index index) {
         return model.getFilteredEngagementList().get(index.getZeroBased());
     }
 }

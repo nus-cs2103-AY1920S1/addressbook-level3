@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
 
         Engagement engagementToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEngagement(engagementToDelete);
-        model.saveAppointmentList();
+        model.saveEngagementList();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, engagementToDelete));
     }
 

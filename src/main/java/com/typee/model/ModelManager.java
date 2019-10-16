@@ -139,7 +139,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void undoAppointmentList() throws NullUndoableActionException {
+    public void undoEngagementList() throws NullUndoableActionException {
         historyManager.undo();
     }
 
@@ -151,12 +151,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void redoAppointmentList() throws NullRedoableActionException {
+    public void redoEngagementList() throws NullRedoableActionException {
         historyManager.redo();
     }
 
     @Override
-    public void saveAppointmentList() {
+    public void saveEngagementList() {
         historyManager.saveState();
     }
 

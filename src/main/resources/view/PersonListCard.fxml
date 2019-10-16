@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefHeight="105.0" prefWidth="303.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -21,24 +21,38 @@
       </padding>
          <HBox prefHeight="15.0" prefWidth="129.0">
             <children>
-               <Label fx:id="type" prefHeight="17.0" prefWidth="74.0" styleClass="cell_big_label" text="\$type" />
-               <Label fx:id="locationOfEngagement" prefHeight="17.0" prefWidth="85.0" styleClass="cell_small_label" text="\$locationOfEngagement" />
+           <Label fx:id="id" prefHeight="17.0" prefWidth="18.0" styleClass="cell_big_label" text="\$id">
+             <minWidth>
+               <!-- Ensures that the label text is never truncated -->
+               <Region fx:constant="USE_PREF_SIZE" />
+             </minWidth>
+           </Label>
+               <Label fx:id="type" maxWidth="1.7976931348623157E308" prefHeight="17.0" styleClass="cell_big_label" text="\$type" />
+               <Label styleClass="cell_big_label" text=" at " />
+               <Label fx:id="locationOfEngagement" prefHeight="17.0" prefWidth="123.0" styleClass="cell_big_label" text="\$locationOfEngagement" />
             </children>
          </HBox>
-      <HBox alignment="CENTER_LEFT" spacing="5">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="startTime" prefHeight="17.0" prefWidth="56.0" styleClass="cell_big_label" text="\$start" />
-            <Label fx:id="endTime" prefHeight="17.0" prefWidth="61.0" text="\$end" />
-      </HBox>
+         <HBox prefHeight="100.0" prefWidth="200.0">
+            <children>
+           <Label fx:id="startTime" prefHeight="17.0" styleClass="cell_small_label" text="\$start" />
+               <Label prefHeight="17.0" prefWidth="19.0" styleClass="cell_small_label" text=" to " />
+               <Label fx:id="endTime" prefHeight="17.0" styleClass="cell_small_label" text="\$end" />
+            </children>
+         </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="attendees" styleClass="cell_small_label" text="\$attendees" />
-      <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
-         <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
+         <HBox prefHeight="18.0" prefWidth="195.0">
+            <children>
+               <Label styleClass="cell_small_label" text="Attendees: " />
+            <Label fx:id="attendees" prefHeight="17.0" prefWidth="221.0" styleClass="cell_small_label" text="\$attendees" />
+            </children>
+         </HBox>
+      <Label fx:id="description" prefHeight="17.0" prefWidth="283.0" styleClass="cell_small_label" text="\$description" />
+         <HBox prefHeight="100.0" prefWidth="200.0">
+            <children>
+               <Label styleClass="cell_small_label" text="Priority: " />
+               <Label fx:id="priority" prefHeight="17.0" prefWidth="49.0" styleClass="cell_small_label" text="\$priority" />
+            </children>
+         </HBox>
     </VBox>
       <rowConstraints>
          <RowConstraints />

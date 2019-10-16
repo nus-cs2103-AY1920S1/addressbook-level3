@@ -1,9 +1,8 @@
 package com.typee.logic.commands;
 
-import static com.typee.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static com.typee.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static com.typee.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static com.typee.testutil.TypicalPersons.getTypicalAddressBook;
+//import static com.typee.testutil.TypicalPersons.getTypicalAddressBook;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -22,6 +21,7 @@ import com.typee.model.person.Person;
  */
 public class DeleteCommandTest {
 
+    /*
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
@@ -32,12 +32,9 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getHistoryManager(), new UserPrefs());
-<<<<<<< HEAD
+
         expectedModel.deleteEngagement(personToDelete);
-=======
-        expectedModel.deletePerson(personToDelete);
-        expectedModel.saveAppointmentList();
->>>>>>> 95a35944eea68dec37a5a185a16f207c3884228f
+        expectedModel.saveEngagementList();
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -50,40 +47,18 @@ public class DeleteCommandTest {
         CommandTestUtil.assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-<<<<<<< HEAD
     @Test
     public void execute_validIndexFilteredList_success() {
         CommandTestUtil.showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
-        Person personToDelete = model.getFilteredEngagementList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
-
-        Model expectedModel = new ModelManager(model.getHistoryManager(), new UserPrefs());
-        expectedModel.deleteEngagement(personToDelete);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deletePerson(personToDelete);
+        expectedModel.saveEngagementList();
         showNoPerson(expectedModel);
-
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
-=======
-    //    @Test
-    //    public void execute_validIndexFilteredList_success() {
-    //        CommandTestUtil.showPersonAtIndex(model, INDEX_FIRST_PERSON);
-    //
-    //        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-    //        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-    //
-    //        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
-    //
-    //        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-    //        expectedModel.deletePerson(personToDelete);
-    //        expectedModel.saveAppointmentList();
-    //        showNoPerson(expectedModel);
-    //
-    //        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    //    }
->>>>>>> 95a35944eea68dec37a5a185a16f207c3884228f
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
@@ -120,16 +95,16 @@ public class DeleteCommandTest {
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
+
+     */
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
+    /*
     private void showNoPerson(Model model) {
-<<<<<<< HEAD
-        model.updateFilteredEngagementList(p -> false);
-=======
-        model.updateFilteredEngagementList(p -> false);
->>>>>>> 95a35944eea68dec37a5a185a16f207c3884228f
 
+        model.updateFilteredEngagementList(p -> false);
         assertTrue(model.getFilteredEngagementList().isEmpty());
     }
+     */
 }

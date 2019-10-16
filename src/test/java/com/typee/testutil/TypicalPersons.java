@@ -14,6 +14,7 @@ import com.typee.model.person.Person;
  */
 public class TypicalPersons {
 
+    /*
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").build();
@@ -35,9 +36,12 @@ public class TypicalPersons {
     private TypicalPersons() {
     } // prevents instantiation
 
+
+     */
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
+    /*
     public static HistoryManager getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Person person : getTypicalPersons()) {
@@ -50,4 +54,6 @@ public class TypicalPersons {
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
+
+     */
 }

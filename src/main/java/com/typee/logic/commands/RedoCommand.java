@@ -23,7 +23,7 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.redoAppointmentList();
+        model.redoEngagementList();
         model.updateFilteredEngagementList(Model.PREDICATE_SHOW_ALL_ENGAGEMENTS);
         return new CommandResult(MESSAGE_SUCCESS);
     }

@@ -2,8 +2,8 @@ package com.typee.model;
 
 import static com.typee.model.Model.PREDICATE_SHOW_ALL_ENGAGEMENTS;
 import static com.typee.testutil.Assert.assertThrows;
-import static com.typee.testutil.TypicalPersons.ALICE;
-import static com.typee.testutil.TypicalPersons.BENSON;
+//import static com.typee.testutil.TypicalPersons.ALICE;
+//import static com.typee.testutil.TypicalPersons.BENSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,6 +20,7 @@ import com.typee.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
 
+    /*
     private ModelManager modelManager = new ModelManager();
 
     @Test
@@ -118,23 +119,16 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-<<<<<<< HEAD
-        modelManager.updateFilteredEngagementList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredEngagementList(PREDICATE_SHOW_ALL_PERSONS);
-=======
         modelManager.updateFilteredEngagementList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredEngagementList(PREDICATE_SHOW_ALL_ENGAGEMENTS);
->>>>>>> 95a35944eea68dec37a5a185a16f207c3884228f
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
+     */
 }

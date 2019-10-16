@@ -94,11 +94,11 @@ public interface Model {
 
     boolean hasNoUndoableCommand();
 
-    void undoAppointmentList() throws NullUndoableActionException;
+    void undoEngagementList() throws NullUndoableActionException;
 
     boolean hasNoRedoableCommand();
 
-    void saveAppointmentList();
+    void saveEngagementList();
 
-    void redoAppointmentList() throws NullRedoableActionException;
+    void redoEngagementList() throws NullRedoableActionException;
 }

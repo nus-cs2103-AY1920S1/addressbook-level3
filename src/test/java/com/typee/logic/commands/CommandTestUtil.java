@@ -21,7 +21,7 @@ import com.typee.testutil.EditPersonDescriptorBuilder;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
-
+    /*
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -51,11 +51,14 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
     }
 
+
+     */
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
+    /*
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
                                             Model expectedModel) {
         try {
@@ -67,22 +70,28 @@ public class CommandTestUtil {
         }
     }
 
+
+     */
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * Convenience wrapper to
      * that takes a string {@code expectedMessage}.
      */
+    /*
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                             Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
+
+     */
     /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
      */
+     /*
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
@@ -94,22 +103,21 @@ public class CommandTestUtil {
         assertEquals(expectedFilteredList, actualModel.getFilteredEngagementList());
     }
 
+    */
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
+    /*
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredEngagementList().size());
 
         Person person = model.getFilteredEngagementList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
-<<<<<<< HEAD
         model.updateFilteredEngagementList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-=======
-        model.updateFilteredEngagementList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
->>>>>>> 95a35944eea68dec37a5a185a16f207c3884228f
 
         assertEquals(1, model.getFilteredEngagementList().size());
     }
+     */
 
 }

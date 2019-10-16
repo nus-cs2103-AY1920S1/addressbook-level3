@@ -26,6 +26,7 @@ import com.typee.testutil.PersonBuilder;
 
 import javafx.collections.ObservableList;
 
+/*
 public class AddCommandTest {
 
     @Test
@@ -77,9 +78,11 @@ public class AddCommandTest {
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
+ */
     /**
      * A default model stub that have all of the methods failing.
      */
+    /*
     private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -157,7 +160,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void undoAppointmentList() throws NullUndoableActionException {
+        public void undoEngagementList() throws NullUndoableActionException {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -167,18 +170,21 @@ public class AddCommandTest {
         }
 
         @Override
-        public void redoAppointmentList() throws NullRedoableActionException {
+        public void redoEngagementList() throws NullRedoableActionException {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void saveAppointmentList() {
+        public void saveEngagementList() {
         }
     }
 
+
+     */
     /**
      * A Model stub that contains a single person.
      */
+    /*
     private class ModelStubWithPerson extends ModelStub {
         private final Person person;
 
@@ -194,9 +200,12 @@ public class AddCommandTest {
         }
     }
 
+
+     */
     /**
      * A Model stub that always accept the person being added.
      */
+    /*
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
@@ -217,5 +226,5 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
-}
+   */
+//}
