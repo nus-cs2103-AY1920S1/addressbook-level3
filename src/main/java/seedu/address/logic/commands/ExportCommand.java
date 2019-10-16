@@ -72,10 +72,11 @@ public class ExportCommand extends Command {
     }
 
     public static ObservableList<FlashCard> getFlashCardsByCategory(Model model, Category category) {
-        model.updateFilteredFlashCardList(
-                categoryToPredicate(category)
+        return model.getFilteredFlashCardListNoCommit(
+                categoryToPredicate(
+                        category
+                )
         );
-        return model.getFilteredFlashCardList();
     }
 
     public static CategoryContainsAnyKeywordsPredicate categoryToPredicate(Category category) {
