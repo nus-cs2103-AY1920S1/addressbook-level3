@@ -1,16 +1,17 @@
 package seedu.address.storage.statistics;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import seedu.address.statistics.CardStatistics;
-import seedu.address.statistics.ScoreData;
-import seedu.address.statistics.WordBankStatistics;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+import seedu.address.statistics.CardStatistics;
+import seedu.address.statistics.ScoreData;
+import seedu.address.statistics.WordBankStatistics;
 
 /**
  * A Word Bank Statistics class that is serializable to JSON format.

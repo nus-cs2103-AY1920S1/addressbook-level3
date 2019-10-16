@@ -1,11 +1,11 @@
 package seedu.address.storage.statistics;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.statistics.WordBankStatistics;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.statistics.WordBankStatistics;
 
 /**
  * Represents a storage for {@link WordBankStatistics}.

@@ -13,9 +13,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Game;
-import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
 
@@ -110,8 +110,8 @@ public class ModelManager implements Model {
     @Override
     public void setWordBank(ReadOnlyWordBank wordBank) {
         this.wordBank = (WordBank) wordBank;
-            filteredCards = new FilteredList<>(this.wordBank.getCardList());
-            //        this.wordBank.resetData(wordBank);
+        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        //        this.wordBank.resetData(wordBank);
     }
 
     public void clearWordBank() {
@@ -180,7 +180,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         System.out.println("++++++++++");
         System.out.println(wordBank.getName());
-        for(Card c : filteredCards) {
+        for (Card c : filteredCards) {
             System.out.println(c);
         }
         filteredCards.setPredicate(predicate);

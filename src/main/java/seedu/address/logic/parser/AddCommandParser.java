@@ -1,14 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEANING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.commons.util.UidGenerator;
 import seedu.address.logic.commands.app.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;

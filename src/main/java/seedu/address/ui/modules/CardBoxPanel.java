@@ -1,5 +1,10 @@
 package seedu.address.ui.modules;
 
+import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -9,10 +14,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 import seedu.address.ui.UiPart;
 
-import java.util.List;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Panel containing the list of cards.

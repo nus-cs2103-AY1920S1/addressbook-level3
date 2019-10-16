@@ -1,7 +1,6 @@
 package seedu.address.model.wordbanklist;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.wordbank.WordBank;
 
 /**
@@ -15,7 +14,7 @@ public interface ReadOnlyWordBankList {
      */
     ObservableList<WordBank> getWordBankList();
 
-//    WordBank getWordBank(Index index);
+    //    WordBank getWordBank(Index index);
     WordBank getWordBank(String name);
 
     int size();
