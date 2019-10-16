@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.logic.commands.templateList.template.AddTemplateItemCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -88,6 +89,16 @@ public class AddTemplateListCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public IFridgeSettings getIFridgeSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setIFridgeSettings(IFridgeSettings iFridgeSettings) {
             throw new AssertionError("This method should not be called.");
         }
 
