@@ -18,19 +18,11 @@ public class LikeCommand extends PreferenceCommand {
 
     public static final String COMMAND_WORD = "like";
 
-    private final Set<Category> categoryList;
-    private final Set<Tag> tagList;
-    private final Set<Location> locationList;
-
     /**
      * Creates an LikeCommand to add the user's recommendations
      */
     public LikeCommand(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList) {
         super(categoryList, tagList, locationList);
-
-        this.categoryList = categoryList;
-        this.tagList = tagList;
-        this.locationList = locationList;
     }
 
     @Override

@@ -5,7 +5,6 @@ import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,9 +30,9 @@ public class PreferenceCommand extends Command {
     public static final String DUPLICATE_FOUND_IN_OPPOSITE_LIST = "Duplicate entry found in opposing list!\n"
             + "Entries cannot exist in both liked and disliked sets at the same time!";
 
-    private final Set<Category> categoryList;
-    private final Set<Tag> tagList;
-    private final Set<Location> locationList;
+    public final Set<Category> categoryList;
+    public final Set<Tag> tagList;
+    public final Set<Location> locationList;
 
     /**
      * Creates an PreferenceCommand to add the user's recommendations
@@ -89,20 +88,35 @@ public class PreferenceCommand extends Command {
             result.append(" Disliked: ");
         }
 
-        String addedItems = "Categories: " + Arrays.toString(categoryList.toArray())
-                + " Tags: " + Arrays.toString(tagList.toArray())
-                + " Locations: " + Arrays.toString(locationList.toArray()) + "\n";
+        String addedItems = "Categories: " + categoryList.stream()
+                    .map(c -> c.category).collect(Collectors.joining(", "))
+                + " | Tags: " + tagList.stream()
+                    .map(t -> t.tagName).collect(Collectors.joining(", "))
+                + " | Locations: " + locationList.stream()
+                    .map(l -> l.location).collect(Collectors.joining(", ")) + "\n";
 
         result.append(addedItems);
 
         String currentItems = "Current likes:"
-                + " Categories: " + Arrays.toString(recommendationSystem.getLikedCategories().toArray())
-                + " Tags: " + Arrays.toString(recommendationSystem.getLikedTags().toArray())
-                + " Locations: " + Arrays.toString(recommendationSystem.getLikedLocations().toArray())
+                + " Categories: " + recommendationSystem.getLikedCategories()
+                    .stream().map(c -> c.category)
+                    .collect(Collectors.joining(", "))
+                + " | Tags: " + recommendationSystem.getLikedTags()
+                    .stream().map(t -> t.tagName)
+                    .collect(Collectors.joining(", "))
+                + " | Locations: " + recommendationSystem.getLikedLocations()
+                    .stream().map(l -> l.location)
+                    .collect(Collectors.joining(", "))
                 + "\nCurrent dislikes:"
-                + " Categories: " + Arrays.toString(recommendationSystem.getDislikedCategories().toArray())
-                + " Tags: " + Arrays.toString(recommendationSystem.getDislikedTags().toArray())
-                + " Locations: " + Arrays.toString(recommendationSystem.getDislikedLocations().toArray());
+                + " Categories: " + recommendationSystem.getDislikedCategories()
+                    .stream().map(c -> c.category)
+                    .collect(Collectors.joining(", "))
+                + " | Tags: " + recommendationSystem.getDislikedTags()
+                    .stream().map(t -> t.tagName)
+                    .collect(Collectors.joining(", "))
+                + " | Locations: " + recommendationSystem.getDislikedLocations()
+                    .stream().map(l -> l.location)
+                    .collect(Collectors.joining(", "));
 
         result.append(currentItems);
 

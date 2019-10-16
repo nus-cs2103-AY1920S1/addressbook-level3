@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -124,7 +123,9 @@ public class PreferenceCommandTest {
         CommandResult result = new LikeCommand(testCategory, new HashSet<>(), new HashSet<>()).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(LikeCommand.MESSAGE_SUCCESS));
-        assertTrue(result.getFeedbackToUser().contains(Arrays.toString(testCategory.toArray())));
+        for (Category c : testCategory) {
+            assertTrue(result.getFeedbackToUser().contains(c.category));
+        }
     }
 
     @Test
@@ -132,7 +133,9 @@ public class PreferenceCommandTest {
         CommandResult result = new DislikeCommand(testCategory, new HashSet<>(), new HashSet<>()).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(DislikeCommand.MESSAGE_SUCCESS));
-        assertTrue(result.getFeedbackToUser().contains(Arrays.toString(testCategory.toArray())));
+        for (Category c : testCategory) {
+            assertTrue(result.getFeedbackToUser().contains(c.category));
+        }
     }
 
     @Test
@@ -140,7 +143,9 @@ public class PreferenceCommandTest {
         CommandResult result = new LikeCommand(new HashSet<>(), testTag, new HashSet<>()).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(LikeCommand.MESSAGE_SUCCESS));
-        assertTrue(result.getFeedbackToUser().contains(Arrays.toString(testTag.toArray())));
+        for (Tag t : testTag) {
+            assertTrue(result.getFeedbackToUser().contains(t.tagName));
+        }
     }
 
     @Test
@@ -148,7 +153,9 @@ public class PreferenceCommandTest {
         CommandResult result = new DislikeCommand(new HashSet<>(), testTag, new HashSet<>()).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(DislikeCommand.MESSAGE_SUCCESS));
-        assertTrue(result.getFeedbackToUser().contains(Arrays.toString(testTag.toArray())));
+        for (Tag t : testTag) {
+            assertTrue(result.getFeedbackToUser().contains(t.tagName));
+        }
     }
 
     @Test
@@ -156,7 +163,9 @@ public class PreferenceCommandTest {
         CommandResult result = new LikeCommand(new HashSet<>(), new HashSet<>(), testLocation).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(LikeCommand.MESSAGE_SUCCESS));
-        assertTrue(result.getFeedbackToUser().contains(Arrays.toString(testLocation.toArray())));
+        for (Location l : testLocation) {
+            assertTrue(result.getFeedbackToUser().contains(l.location));
+        }
     }
 
     @Test
@@ -164,7 +173,9 @@ public class PreferenceCommandTest {
         CommandResult result = new DislikeCommand(new HashSet<>(), new HashSet<>(), testLocation).execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(DislikeCommand.MESSAGE_SUCCESS));
-        assertTrue(result.getFeedbackToUser().contains(Arrays.toString(testLocation.toArray())));
+        for (Location l : testLocation) {
+            assertTrue(result.getFeedbackToUser().contains(l.location));
+        }
     }
 
     @Test

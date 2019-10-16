@@ -27,7 +27,7 @@ public class PreferenceCommandParser implements Parser<PreferenceCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * Parses the given {@code String} of arguments in the context of the PreferenceCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -53,8 +53,7 @@ public class PreferenceCommandParser implements Parser<PreferenceCommand> {
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Returns true if any of the prefixes contains values in the given {@code ArgumentMultimap}.
      */
     private static boolean areAnyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
