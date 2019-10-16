@@ -19,12 +19,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.model.finance.Model;
-import seedu.address.model.finance.logEntry.Address;
-import seedu.address.model.finance.logEntry.Amount;
-import seedu.address.model.finance.logEntry.Email;
-import seedu.address.model.finance.logEntry.LogEntry;
-import seedu.address.model.finance.logEntry.Phone;
 import seedu.address.model.finance.attributes.Tag;
+import seedu.address.model.finance.logentry.Address;
+import seedu.address.model.finance.logentry.Amount;
+import seedu.address.model.finance.logentry.Email;
+import seedu.address.model.finance.logentry.LogEntry;
+import seedu.address.model.finance.logentry.Phone;
 
 
 /**

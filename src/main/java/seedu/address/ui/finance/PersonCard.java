@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.finance.logEntry.LogEntry;
+import seedu.address.model.finance.logentry.LogEntry;
 
 
 /**

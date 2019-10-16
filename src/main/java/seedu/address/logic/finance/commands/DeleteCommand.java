@@ -8,7 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.model.finance.Model;
-import seedu.address.model.finance.logEntry.LogEntry;
+import seedu.address.model.finance.logentry.LogEntry;
 
 
 /**

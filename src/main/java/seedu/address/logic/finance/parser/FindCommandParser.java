@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.address.logic.finance.commands.FindCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
-import seedu.address.model.finance.logEntry.NameContainsKeywordsPredicate;
+import seedu.address.model.finance.logentry.NameContainsKeywordsPredicate;
 
 
 /**

@@ -9,13 +9,13 @@ import static seedu.address.logic.finance.parser.CliSyntax.PREFIX_TRANSACTION_ME
 
 import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.model.finance.Model;
-import seedu.address.model.finance.logEntry.LogEntry;
+import seedu.address.model.finance.logentry.LogEntry;
 
 
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class SpendCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
@@ -42,7 +42,7 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(LogEntry logEntry) {
+    public SpendCommand(LogEntry logEntry) {
         requireNonNull(logEntry);
         toAdd = logEntry;
     }
@@ -62,7 +62,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof SpendCommand // instanceof handles nulls
+                && toAdd.equals(((SpendCommand) other).toAdd));
     }
 }

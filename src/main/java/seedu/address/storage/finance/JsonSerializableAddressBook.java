@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.FinanceLog;
 import seedu.address.model.finance.ReadOnlyFinanceLog;
-import seedu.address.model.finance.logEntry.LogEntry;
+import seedu.address.model.finance.logentry.LogEntry;
 
 
 /**

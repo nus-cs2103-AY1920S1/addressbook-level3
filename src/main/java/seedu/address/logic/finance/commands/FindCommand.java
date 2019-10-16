@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.finance.Model;
-import seedu.address.model.finance.logEntry.NameContainsKeywordsPredicate;
+import seedu.address.model.finance.logentry.NameContainsKeywordsPredicate;
 
 
 /**

@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.finance.logEntry.LogEntry;
-import seedu.address.model.finance.logEntry.LogEntryList;
+import seedu.address.model.finance.logentry.LogEntry;
+import seedu.address.model.finance.logentry.LogEntryList;
 
 
 /**

@@ -14,7 +14,7 @@ import seedu.address.logic.finance.parser.FinanceLogParser;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.Model;
 import seedu.address.model.finance.ReadOnlyFinanceLog;
-import seedu.address.model.finance.logEntry.LogEntry;
+import seedu.address.model.finance.logentry.LogEntry;
 import seedu.address.storage.finance.Storage;
 
 

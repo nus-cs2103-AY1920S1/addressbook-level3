@@ -10,33 +10,33 @@ import static seedu.address.logic.finance.parser.CliSyntax.PREFIX_TRANSACTION_ME
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.finance.commands.AddCommand;
+import seedu.address.logic.finance.commands.SpendCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
-import seedu.address.model.finance.logEntry.Address;
-import seedu.address.model.finance.logEntry.Amount;
-import seedu.address.model.finance.logEntry.Email;
-import seedu.address.model.finance.logEntry.LogEntry;
-import seedu.address.model.finance.logEntry.Phone;
+import seedu.address.model.finance.logentry.Address;
+import seedu.address.model.finance.logentry.Amount;
+import seedu.address.model.finance.logentry.Email;
+import seedu.address.model.finance.logentry.LogEntry;
+import seedu.address.model.finance.logentry.Phone;
 import seedu.address.model.finance.attributes.Tag;
 
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddCommandParser implements Parser<SpendCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public SpendCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DAY, PREFIX_ITEM, PREFIX_CATEGORY, PREFIX_PLACE, PREFIX_TRANSACTION_METHOD);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DAY, PREFIX_PLACE, PREFIX_ITEM, PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SpendCommand.MESSAGE_USAGE));
         }
 
         Amount amount = ParserUtil.parseName(argMultimap.getValue(PREFIX_DAY).get());
@@ -47,7 +47,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         LogEntry logEntry = new LogEntry(amount, phone, email, address, tagList);
 
-        return new AddCommand(logEntry);
+        return new SpendCommand(logEntry);
     }
 
     /**
