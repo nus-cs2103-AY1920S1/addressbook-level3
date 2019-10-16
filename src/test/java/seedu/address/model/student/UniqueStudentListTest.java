@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.student.exceptions.DuplicateStudentException;
-import seedu.address.model.student.exceptions.StudentNotFoundException;
+import seedu.address.model.student.exceptions.AssignmentNotFoundException;
+import seedu.address.model.student.exceptions.DuplicateAssignmentException;
 import seedu.address.testutil.StudentBuilder;
 
 public class UniqueStudentListTest {
@@ -55,7 +55,7 @@ public class UniqueStudentListTest {
     @Test
     public void add_duplicateStudent_throwsDuplicateStudentException() {
         uniqueStudentList.add(ALICE);
-        assertThrows(DuplicateStudentException.class, () -> uniqueStudentList.add(ALICE));
+        assertThrows(DuplicateAssignmentException.class, () -> uniqueStudentList.add(ALICE));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class UniqueStudentListTest {
 
     @Test
     public void setStudent_targetStudentNotInList_throwsStudentNotFoundException() {
-        assertThrows(StudentNotFoundException.class, () -> uniqueStudentList.setStudent(ALICE, ALICE));
+        assertThrows(AssignmentNotFoundException.class, () -> uniqueStudentList.setStudent(ALICE, ALICE));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class UniqueStudentListTest {
     public void setStudent_editedStudentHasNonUniqueIdentity_throwsDuplicateStudentException() {
         uniqueStudentList.add(ALICE);
         uniqueStudentList.add(BOB);
-        assertThrows(DuplicateStudentException.class, () -> uniqueStudentList.setStudent(ALICE, BOB));
+        assertThrows(DuplicateAssignmentException.class, () -> uniqueStudentList.setStudent(ALICE, BOB));
     }
 
     @Test
@@ -116,7 +116,7 @@ public class UniqueStudentListTest {
 
     @Test
     public void remove_studentDoesNotExist_throwsStudentNotFoundException() {
-        assertThrows(StudentNotFoundException.class, () -> uniqueStudentList.remove(ALICE));
+        assertThrows(AssignmentNotFoundException.class, () -> uniqueStudentList.remove(ALICE));
     }
 
     @Test
@@ -159,7 +159,8 @@ public class UniqueStudentListTest {
     @Test
     public void setStudents_listWithDuplicateStudents_throwsDuplicateStudentException() {
         List<Student> listWithDuplicateStudents = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateStudentException.class, () -> uniqueStudentList.setStudents(listWithDuplicateStudents));
+        assertThrows(
+                DuplicateAssignmentException.class, () -> uniqueStudentList.setStudents(listWithDuplicateStudents));
     }
 
     @Test
