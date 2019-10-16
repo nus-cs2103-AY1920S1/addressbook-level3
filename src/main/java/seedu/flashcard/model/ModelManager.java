@@ -51,6 +51,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Set<Tag> getAllSystemTags() {
+        return flashcardList.getAllFlashcardTags();
+    }
+
+    @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
@@ -119,6 +124,16 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Flashcard> getFilteredFlashcardList() {
         return filteredFlashcards;
+    }
+
+    @Override
+    public boolean systemHasTag(Tag tag) {
+        return flashcardList.flashcardsHasTag(tag);
+    }
+
+    @Override
+    public void systemRemoveTag(Tag tag) {
+        flashcardList.flashcardsRemoveTag(tag);
     }
 
     @Override

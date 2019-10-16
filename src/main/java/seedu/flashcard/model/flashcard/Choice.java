@@ -40,7 +40,7 @@ public class Choice {
 
     @Override
     public String toString() {
-        return '[' + choice + ']';
+        return '[' + choice + ']' + '\n';
     }
 
 }

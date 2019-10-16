@@ -3,10 +3,12 @@ package seedu.flashcard.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.UniqueFlashcardList;
+import seedu.flashcard.model.tag.Tag;
 
 /**
  * Wraps all data at the flashcard list level
@@ -72,6 +74,27 @@ public class FlashcardList implements ReadOnlyFlashcardList {
      */
     public void removeFlashcard(Flashcard key) {
         flashcards.remove(key);
+    }
+
+    /**
+     * Gets all the tags evert appeared in the system.
+     */
+    public Set<Tag> getAllFlashcardTags() {
+        return flashcards.getAllTags();
+    }
+
+    /**
+     * returns true if the given tag ever appears in the flashcard list
+     */
+    public boolean flashcardsHasTag(Tag tag) {
+        return flashcards.anyFlashcardHasTag(tag);
+    }
+
+    /**
+     * Removes the given tag from all flashcards.
+     */
+    public void flashcardsRemoveTag(Tag tag) {
+        flashcards.removeTag(tag);
     }
 
     @Override

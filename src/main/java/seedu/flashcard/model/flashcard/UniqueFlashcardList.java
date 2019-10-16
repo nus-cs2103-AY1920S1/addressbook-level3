@@ -3,13 +3,16 @@ package seedu.flashcard.model.flashcard;
 import static java.util.Objects.requireNonNull;
 import static seedu.flashcard.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.flashcard.model.flashcard.exceptions.CardNotFoundException;
 import seedu.flashcard.model.flashcard.exceptions.DuplicateCardException;
+import seedu.flashcard.model.tag.Tag;
 
 /**
  * A list of flashcards that enforces uniqueness between its elements and does not allow nulls.
@@ -102,6 +105,39 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
      */
     public ObservableList<Flashcard> asUnimodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Returns all tags appeared in the system.
+     */
+    public Set<Tag> getAllTags() {
+        Set<Tag> allTags = new HashSet<Tag>();
+        for (Flashcard flashcard : internalList) {
+            allTags.addAll(flashcard.getTags());
+        }
+        return allTags;
+    }
+
+    /**
+     * Returns true if the given tag has ever appeared in the flashcard list.
+     */
+    public boolean anyFlashcardHasTag(Tag tag) {
+        for (Flashcard flashcard : internalList) {
+            if (flashcard.hasTag(tag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Remove the given tag from all the flashcard in the system
+     * @param tag
+     */
+    public void removeTag(Tag tag) {
+        for (Flashcard flashcard : internalList) {
+            flashcard.removeTag(tag);
+        }
     }
 
     @Override

@@ -62,6 +62,13 @@ public class Flashcard {
     }
 
     /**
+     * Returns true if this flashcard has the following tag.
+     */
+    public boolean hasTag(Tag tag) {
+        return getTags().contains(tag);
+    }
+
+    /**
      * Returns an immutable choice set, which throws {@code UnsupportedOperationException}
      * if modification is attempted
      */
@@ -82,7 +89,14 @@ public class Flashcard {
     }
 
     /**
-     * Returns true if this flashcard has any one of the choices in the given choice sets.
+     * Removes the tag from this flashcard.
+     */
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
+    }
+
+    /**
+     * Returns true if any choices is from the choice list
      */
     public boolean hasAnyChoice(Set<Choice> choices) {
         for (Choice choice : choices) {
@@ -130,6 +144,8 @@ public class Flashcard {
                 .append(getDefinition())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Choices: \n");
+        getChoices().forEach(builder::append);
         return builder.toString();
     }
 

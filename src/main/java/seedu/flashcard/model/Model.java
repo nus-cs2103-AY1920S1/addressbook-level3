@@ -26,6 +26,11 @@ public interface Model {
     Predicate<Flashcard> getHasTagPredicate(Set<Tag> tag);
 
     /**
+     * Get the set of all tags in the system.
+     */
+    Set<Tag> getAllSystemTags();
+
+    /**
      * Replaces user prefs data with the data in {@code userPrefs}
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
@@ -91,6 +96,16 @@ public interface Model {
      * Returns an unmodifiable view of the filtered flashcard list
      */
     ObservableList<Flashcard> getFilteredFlashcardList();
+
+    /**
+     * Returns true if the given tag ever appeared in the system.
+     */
+    boolean systemHasTag(Tag tag);
+
+    /**
+     * Removes the given tag from all flashcards in the system.
+     */
+    void systemRemoveTag(Tag tag);
 
     /**
      * Updates the filter of the filtered flashcard list to filter by the given {@code predicate}
