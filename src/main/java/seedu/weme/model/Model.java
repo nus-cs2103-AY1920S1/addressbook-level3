@@ -3,6 +3,7 @@ package seedu.weme.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.Meme;
@@ -88,11 +89,5 @@ public interface Model {
     /**
      * Returns the context of the model.
      */
-    ModelContext getContext();
-
-    /**
-     * Sets the context of the model.
-     * @param context Context to set.
-     */
-    void setContext(ModelContext context);
+    SimpleObjectProperty<ModelContext> getContext();
 }

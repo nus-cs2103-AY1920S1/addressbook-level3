@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.commons.core.LogsCenter;
@@ -40,7 +41,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
 
-        ModelContext currentContext = model.getContext();
+        ModelContext currentContext = model.getContext().getValue();
         WemeParser wemeParser = ParserUtil.forContext(currentContext);
         Command command = wemeParser.parseCommand(commandText);
         commandResult = command.execute(model);
@@ -52,6 +53,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public SimpleObjectProperty<ModelContext> getContext() {
+        return model.getContext();
     }
 
     @Override

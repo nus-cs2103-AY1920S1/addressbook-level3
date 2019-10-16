@@ -1,5 +1,7 @@
 package seedu.weme.ui;
 
+import static seedu.weme.logic.parser.ParserUtil.MESSAGE_INVALID_CONTEXT;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -16,6 +18,7 @@ import seedu.weme.logic.Logic;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.logic.parser.exceptions.ParseException;
+import seedu.weme.model.ModelContext;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,21 +34,30 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private MemeGridPanel memeGridPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
-    @FXML
-    private StackPane commandBoxPlaceholder;
+    // App content for different tabs
+    private StackPane memesPanel;
+    private StackPane templatesPanel;
+    private StackPane archivePanel;
+    private StackPane statisticsPanel;
+    private StackPane storagePanel;
 
     @FXML
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane memeGridPanelPlaceholder;
+    private StackPane commandBoxPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane tabBarPlaceholder;
+
+    @FXML
+    private StackPane appContentPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -75,6 +87,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -107,17 +120,77 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList());
-        memeGridPanelPlaceholder.getChildren().add(memeGridPanel.getRoot());
+        fillPeripherals();
+        fillAppContent();
+        listenToContextChange();
+    }
+
+    /**
+     * Fills up peripheral components.
+     */
+    private void fillPeripherals() {
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        TabBar tabBar = new TabBar(logic.getContext());
+        tabBarPlaceholder.getChildren().add(tabBar.getRoot());
+
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getMemeBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+    }
+    /**
+     * Fills up main app content.
+     */
+    private void fillAppContent() {
+        memesPanel = new StackPane();
+        templatesPanel = new StackPane();
+        archivePanel = new StackPane();
+        statisticsPanel = new StackPane();
+        storagePanel = new StackPane();
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        MemeGridPanel memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList());
+        memesPanel.getChildren().add(memeGridPanel.getRoot());
+
+        // TODO: Fill in other panels here
+    }
+
+    /**
+     * Attaches listener on ModelContext that changes app content accordingly.
+     */
+    private void listenToContextChange() {
+        setAppContent(logic.getContext().getValue()); // Set initial content
+        logic.getContext().addListener((observable, oldValue, newValue) -> setAppContent(newValue));
+    }
+
+    /**
+     * Sets app content based on ModelContext.
+     *
+     * @param context the current {@code ModelContext}
+     */
+    private void setAppContent(ModelContext context) {
+        appContentPlaceholder.getChildren().clear();
+        switch (context) {
+        case CONTEXT_MEMES:
+            appContentPlaceholder.getChildren().add(memesPanel);
+            break;
+        case CONTEXT_TEMPLATES:
+            appContentPlaceholder.getChildren().add(templatesPanel);
+            break;
+        case CONTEXT_ARCHIVE:
+            appContentPlaceholder.getChildren().add(archivePanel);
+            break;
+        case CONTEXT_STATISTICS:
+            appContentPlaceholder.getChildren().add(statisticsPanel);
+            break;
+        case CONTEXT_STORAGE:
+            appContentPlaceholder.getChildren().add(storagePanel);
+            break;
+        default:
+            throw new IllegalArgumentException(MESSAGE_INVALID_CONTEXT);
+        }
     }
 
     /**
@@ -158,10 +231,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public MemeGridPanel getMemeGridPanel() {
-        return memeGridPanel;
     }
 
     /**

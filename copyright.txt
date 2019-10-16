@@ -7,3 +7,10 @@ Copyright by Susumu Yoshida - http://www.mcdodesign.com/
 Copyright by Jan Jan Kovařík - http://glyphicons.com/
 - calendar.png
 - edit.png
+
+Copyright by Icons8 - https://icons8.com/
+- doge_tab.png
+- template_tab.png
+- archive_tab.png
+- statistics_tab.png
+- storage_tab.png

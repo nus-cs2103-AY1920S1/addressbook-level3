@@ -6,13 +6,13 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Weme" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="Weme" minWidth="450" minHeight="675" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/weme.png" />
   </icons>
@@ -46,12 +46,18 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="memeGrid" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="memeGridPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+        <HBox VBox.vgrow="ALWAYS">
+          <StackPane fx:id="tabBarPlaceholder" styleClass="pane-with-border" minHeight="300" minWidth="120" prefWidth="120" maxWidth="120" HBox.hgrow="NEVER">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+          </StackPane>
+          <StackPane fx:id="appContentPlaceholder" styleClass="pane-with-border" minWidth="250" prefWidth="250" HBox.hgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+          </StackPane>
+        </HBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
