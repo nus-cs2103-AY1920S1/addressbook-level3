@@ -102,10 +102,10 @@ public class AddressBookParser {
             return new AddAppCommandParser(model).parse(arguments);
 
         case AppointmentsCommand.COMMAND_WORD:
-            return new AppointmentsCommandParser().parse(arguments);
+            return new AppointmentsCommandParser(model).parse(arguments);
 
-        case AckAppCommand.COMMAND_WORD:
-            return new AckAppCommandParser().parse(arguments);
+//        case AckAppCommand.COMMAND_WORD:
+//            return new AckAppCommandParser().parse(arguments);
 
         case CancelAppCommand.COMMAND_WORD:
             return new CancelAppCommandParser(model).parse(arguments);
