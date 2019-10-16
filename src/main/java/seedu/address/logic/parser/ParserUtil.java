@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
+import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -116,6 +117,72 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String caller} into a {@code CallerNumber}.
+     * Leading and trailing white spaces will be trimmed.
+     *
+     * throws ParseException if the given {@code caller} is invalid.
+     */
+    public static CallerNumber parseCallerNumber(String caller) throws ParseException {
+        requireNonNull(caller);
+        String trimmedCaller = caller.trim();
+        if (!CallerNumber.isValidCaller(trimmedCaller)) {
+            throw new ParseException(CallerNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new CallerNumber(trimmedCaller);
+    }
+
+    /**
+     * Parses a {@code String district} into a {@code District}.
+     * Leading and trailing white spaces will be trimmed.
+     * User input should be a number.
+     *
+     * throws ParseException if the given {@code district} is invalid.
+     */
+    public static District parseLocation(String district) throws ParseException {
+        requireNonNull(district);
+        String trimmedDistrict = district.trim();
+        try {
+            int dist = Integer.parseInt(trimmedDistrict);
+            if (!District.isValidDistrict(dist)) {
+                throw new ParseException(District.MESSAGE_CONSTRAINTS);
+            }
+            return new District(dist);
+        } catch (NumberFormatException e) {
+            throw new ParseException(District.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code Description}.
+     * Leading and trailing white spaces will be trimmed.
+     * Will not be checked for validity as Description can vary widely
+     * and does not have a fixed input format.
+     */
+    public static Description parseDescription(String description) {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        return new Description(description);
+    }
+
+    /**
+     * Parses a {@code String dateTime} into a {@code IncidentDateTime}.
+     * Leading and trailing white spaces will be trimmed.
+     *
+     * throws ParseException if the give {@code dateTime} is not valid.
+     */
+    public static IncidentDateTime parseDateTime(String dateTime) throws ParseException {
+        requireNonNull(dateTime);
+        String trimmedDateTime = dateTime.trim();
+        if (!IncidentDateTime.isValidIncidentDateTime(dateTime)) {
+            throw new ParseException(IncidentDateTime.MESSAGE_CONSTRAINTS);
+        }
+        return new IncidentDateTime(dateTime);
+
+    }
+
+
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -142,51 +209,7 @@ public class ParserUtil {
         return tagSet;
     }
 
-    /**
-     * Parses a {@code String callerNumber} into a {@code CallerNumber}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code callerNumber} is invalid.
-     */
-    public static CallerNumber parseCallerNumber(String callerNumber) throws ParseException {
-        requireNonNull(callerNumber);
-        String trimmedCallerNumber = callerNumber.trim();
-        if (!CallerNumber.isValidPhone(trimmedCallerNumber)) {
-            throw new ParseException(CallerNumber.MESSAGE_CONSTRAINTS);
-        }
-        return new CallerNumber(trimmedCallerNumber);
-    }
 
-    /**
-     * Parses a {@code String location} into a {@code District}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code location} is invalid.
-     */
-    public static District parseLocation(String location) throws ParseException {
-        requireNonNull(location);
-        String trimmedLocation = location.trim();
-        Integer trimmedLocationIndex = Integer.parseInt((trimmedLocation));
-        if (!District.isValidDistrict(trimmedLocationIndex)) {
-            throw new ParseException(CallerNumber.MESSAGE_CONSTRAINTS);
-        }
-        return new District(trimmedLocationIndex);
-    }
-
-    /**
-     * Parses a {@code String description} into a {@code Description}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code description} is invalid.
-     */
-    public static Description parseDescription(String description) throws ParseException {
-        requireNonNull(description);
-        String trimmedDescription = description.trim();
-        if (!Description.isValidDescription(trimmedDescription)) {
-            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
-        }
-        return new Description(trimmedDescription);
-    }
 
     /**
      * Parses a {@code String incident id keyword} into an {@code IncidentId}.
@@ -199,4 +222,5 @@ public class ParserUtil {
         String trimmedId = id.trim();
         return new IncidentId(trimmedId);
     }
+
 }

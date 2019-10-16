@@ -130,6 +130,7 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -153,12 +154,19 @@ public class ModelManager implements Model {
         filteredIncidents.setPredicate(predicate);
     }
 
+
     //=========== Incidents ================================================================================
 
     @Override
     public boolean hasIncident(Incident incident) {
         requireNonNull(incident);
         return addressBook.hasIncident(incident);
+    }
+    @Override
+    public void setIncident(Incident target, Incident editedIncident) {
+        requireAllNonNull(target, editedIncident);
+        addressBook.setIncident(target, editedIncident);
+
     }
 
     @Override

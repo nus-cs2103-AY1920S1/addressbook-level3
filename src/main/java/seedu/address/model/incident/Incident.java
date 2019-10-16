@@ -63,6 +63,16 @@ public class Incident {
         //this.car = VehicleAssigner.assignVehicle(location);
     }
 
+    public Incident(District district, IncidentDateTime incidentDateTime, CallerNumber callerNumber, Description desc) {
+        this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                getTagSet("friends"), new Username("user1"), new Password("pass123"));
+        this.incidentDateTime = incidentDateTime;
+        this.location = district;
+        this.callerNumber = callerNumber;
+        this.incidentDesc = desc;
+        this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
+    }
+
 
     /**
      * static method to prompt operator for incident location
@@ -107,7 +117,7 @@ public class Incident {
         return this.callerNumber;
     }
 
-    public District getLocation() {
+    public District getDistrict() {
         return this.location;
     }
 
@@ -156,4 +166,5 @@ public class Incident {
         return otherIncident.getIncidentId().equals(getIncidentId())
                 && otherIncident.getDesc().equals(getDesc());
     }
+
 }
