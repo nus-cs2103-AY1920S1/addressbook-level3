@@ -8,6 +8,7 @@ import seedu.address.logic.commands.sidebar.EnterItineraryPageCommand;
 import seedu.address.logic.commands.sidebar.EnterTripManagerCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.inventory.InventoryViewParser;
 import seedu.address.logic.parser.itinerary.dayview.EnterDayParser;
 import seedu.address.logic.parser.sidebar.EnterDayPageParser;
 import seedu.address.logic.parser.sidebar.EnterItineraryPageParser;
@@ -16,7 +17,7 @@ import seedu.address.logic.parser.sidebar.EnterTripManagerParser;
 /**
  * Parses the commands related to the itinerary view page.
  */
-public class ItineraryViewParser implements PageParser {
+public class ItineraryViewParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EnterTripManagerCommand.COMMAND_WORD + " "
             + EnterDayPageCommand.COMMAND_WORD + " "
@@ -39,6 +40,8 @@ public class ItineraryViewParser implements PageParser {
             return new EnterItineraryPageParser().parse(arguments);
         case GOTO:
             return new EnterDayParser().parse(arguments);
+        case INVENTORY:
+            return new InventoryViewParser().parse(command, arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }

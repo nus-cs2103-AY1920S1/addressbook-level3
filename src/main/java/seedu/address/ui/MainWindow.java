@@ -26,6 +26,7 @@ import seedu.address.ui.components.CommandBox;
 import seedu.address.ui.components.ResultDisplay;
 import seedu.address.ui.components.StatusBarFooter;
 import seedu.address.ui.diary.DiaryPage;
+import seedu.address.ui.inventory.InventoryPage;
 import seedu.address.ui.itinerary.DaysPage;
 import seedu.address.ui.itinerary.EditDayPage;
 import seedu.address.ui.itinerary.EditEventPage;
@@ -228,6 +229,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case ITINERARY:
             newPage = new ItineraryPage(this, logic, model);
+            break;
+        case PRETRIP_INVENTORY:
+            newPage = new InventoryPage(this, logic, model);
             break;
         case DIARY:
             newPage = new DiaryPage(this, logic, model);

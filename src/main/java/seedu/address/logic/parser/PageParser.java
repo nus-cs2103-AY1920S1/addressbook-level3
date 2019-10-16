@@ -6,7 +6,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Represents a categorical Parser that is able to parse user input into a {@code Command} of type {@code T}.
  */
-public interface PageParser {
+public interface PageParser<E extends Command> {
 
     /**
      * Parses {@code command} into an exact, non-categorical {@code Parser}

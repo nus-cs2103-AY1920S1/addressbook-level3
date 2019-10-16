@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * The page parser for parsing the edit trip page commands.
  */
-public class EditTripParser implements PageParser {
+public class EditTripParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EditTripFieldCommand.COMMAND_WORD + " "
             + DoneEditTripCommand.COMMAND_WORD + " "

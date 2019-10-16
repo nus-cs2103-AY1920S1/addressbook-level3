@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses commands that work regardless of the current page of the application.
  */
-public class CommonParser implements PageParser {
+public class CommonParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EnterPrefsCommand.COMMAND_WORD;
 

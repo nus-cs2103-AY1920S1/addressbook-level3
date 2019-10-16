@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses commands related to the preferences page.
  */
-public class PreferencesParser implements PageParser {
+public class PreferencesParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + EditPrefsFieldCommand.COMMAND_WORD + " "
             + DoneEditPrefsCommand.COMMAND_WORD + " "
