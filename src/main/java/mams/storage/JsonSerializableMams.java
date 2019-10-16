@@ -53,6 +53,7 @@ class JsonSerializableMams {
     public JsonSerializableMams(ReadOnlyMams source) {
         students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
         modules.addAll(source.getModuleList().stream().map(JsonAdaptedModule::new).collect(Collectors.toList()));
+        appeals.addAll(source.getAppealList().stream().map(JsonAdaptedAppeal::new).collect(Collectors.toList()));
     }
 
     /**
