@@ -11,7 +11,6 @@ import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
 
-
 //@@author ambervoong
 /**
  * Represents a Body in Mortago.
