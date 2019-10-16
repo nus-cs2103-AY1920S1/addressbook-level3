@@ -8,7 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deadline.Deadline;
 
-//@author dalsontws
+//@@author dalsontws
 /**
  * Shows the details of upcoming deadlines.
  */

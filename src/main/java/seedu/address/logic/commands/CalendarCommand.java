@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import seedu.address.model.Model;
 import seedu.address.ui.calendar.FullCalendarView;
 
-//@author dalsontws
+//@@author dalsontws
 /**
  * Format full help instructions for every command for display.
  */

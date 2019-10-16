@@ -13,7 +13,7 @@ import seedu.address.model.deadline.exceptions.DeadlineNotFoundException;
 import seedu.address.model.deadline.exceptions.DuplicateDeadlineException;
 import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
 
-//@author dalsontws
+//@@author dalsontws
 /**
  * A list of Deadlines that enforces uniqueness between its elements and does not allow nulls.
  * A Deadline is considered unique by comparing using {@code Deadline#equals(Deadline)}.

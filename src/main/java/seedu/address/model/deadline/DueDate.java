@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-//@author dalsontws
+//@@author dalsontws
 /**
  * Represents a Deadline's Due Date in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}

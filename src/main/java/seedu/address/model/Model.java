@@ -117,14 +117,16 @@ public interface Model {
     void setDeadline(Deadline target, Deadline editedDeadline);
 
     /** Returns an unmodifiable view of the filtered deadline list */
+    //@@author dalsontws
     ObservableList<Deadline> getFilteredDeadlineList();
 
     /**
      * Updates the filter of the filtered flashCard list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
+    //@@author dalsontws
     void updateFilteredDeadlineList(Predicate<Deadline> predicate);
-  
+    /**
      * Simulates updating the filter of the filtered flashCard list to filter by the given {@code predicate}.
      * Does not actually result in any change to the flashCard list stored within this model.
      * Returns the simulated list.
