@@ -1,14 +1,11 @@
 package seedu.ezwatchlist.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX;
 import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.WATCHED_DESC_AMY;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.*;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
-import static seedu.ezwatchlist.testutil.TypicalPersons.AMY;
+import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -24,13 +21,13 @@ import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
-import seedu.ezwatchlist.model.ReadOnlyAddressBook;
+import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.UserPrefs;
-import seedu.ezwatchlist.model.person.Person;
-import seedu.ezwatchlist.storage.JsonAddressBookStorage;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.storage.JsonWatchListStorage;
 import seedu.ezwatchlist.storage.JsonUserPrefsStorage;
 import seedu.ezwatchlist.storage.StorageManager;
-import seedu.ezwatchlist.testutil.PersonBuilder;
+import seedu.ezwatchlist.testutil.ShowBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -43,10 +40,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonWatchListStorage watchListStorage =
+                new JsonWatchListStorage(temporaryFolder.resolve("watchList.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(watchListStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -59,7 +56,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
     }
 
     @Test
@@ -70,27 +67,27 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonWatchListIoExceptionThrowingStub
+        JsonWatchListStorage watchListStorage =
+                new JsonWatchListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionWatchList.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(watchListStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + DATE_DESC_AMY + WATCHED_DESC_AMY
-                + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + "movie" + DESCRIPTION_DESC_AMY + WATCHED_DESC_AMY
+                + DATE_DESC_AMY + RUNNING_TIME_DESC_AMY + ACTOR_DESC_AMY;
+        Show expectedShow = new ShowBuilder(AVENGERSENDGAME).withActors().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
+        expectedModel.addShow(expectedShow);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    public void getFilteredShowList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredShowList().remove(0));
     }
 
     /**
@@ -129,7 +126,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getWatchList(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -149,13 +146,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonWatchListIoExceptionThrowingStub extends JsonWatchListStorage {
+        private JsonWatchListIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveWatchList(ReadOnlyWatchList watchList, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
