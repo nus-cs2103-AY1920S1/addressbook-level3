@@ -1,22 +1,12 @@
 package seedu.address.ui;
 
-import static javafx.scene.input.KeyCode.A;
 import static javafx.scene.input.KeyCode.BACK_SPACE;
 import static javafx.scene.input.KeyCode.C;
-import static javafx.scene.input.KeyCode.DOWN;
 import static javafx.scene.input.KeyCode.ENTER;
-import static javafx.scene.input.KeyCode.KP_DOWN;
-import static javafx.scene.input.KeyCode.KP_LEFT;
-import static javafx.scene.input.KeyCode.KP_RIGHT;
-import static javafx.scene.input.KeyCode.KP_UP;
-import static javafx.scene.input.KeyCode.LEFT;
-import static javafx.scene.input.KeyCode.RIGHT;
-import static javafx.scene.input.KeyCode.UP;
 import static javafx.scene.input.KeyCode.V;
 import static javafx.scene.input.KeyCode.X;
 import static javafx.scene.input.KeyCode.Y;
 import static javafx.scene.input.KeyCombination.SHIFT_ANY;
-import static javafx.scene.input.KeyCombination.SHIFT_DOWN;
 import static javafx.scene.input.KeyCombination.SHORTCUT_ANY;
 import static javafx.scene.input.KeyCombination.SHORTCUT_DOWN;
 import static org.fxmisc.wellbehaved.event.EventPattern.eventType;
@@ -26,7 +16,9 @@ import static org.fxmisc.wellbehaved.event.EventPattern.mousePressed;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,24 +46,15 @@ import seedu.address.logic.parser.Prefix;
 public class SyntaxHighlightTextArea extends StyleClassedTextArea {
 
     // temporary static patterns before proper integration
-    private static final Pattern ADD_COMMAND_PATTERN = Pattern.compile(
-            "((?<preamble>^\\s*)(?<COMMAND>add))|"
-                    + "(?<prefix1>(?:p)/)|"
-                    + "(?<prefix2>(?:d)/)|"
-                    + "(?<arg>\\S+)"
-    );
-    private static final Pattern BUDGET_COMMAND_PATTERN = Pattern.compile(
-            "((?<preamble>^\\s*)(?<COMMAND>budget))|"
-                    + "(?<prefix1>(?:d)/)|"
-                    + "(?<prefix2>(?:s)/)|"
-                    + "(?<prefix3>(?:p)/)|"
-                    + "(?<prefix4>(?:pr)/)|"
-                    + "(?<arg>\\S+)"
-    );
+    private static final String INPUT_PATTERN_TEMPLATE = "((?<preamble>^\\s*)(?<COMMAND>%s))|%s(?<arg>\\S+)";
+
+    private Map<String, Pattern> stringPatternMap;
+
+    private Map<String, Integer> stringIntMap;
+
+    private Map<String, String> stringAutofillMap;
 
     private InputMap<Event> consumeKeyPress;
-
-    private EventHandler<KeyEvent> enterKeyPressedHandler;
 
     private EventHandler<KeyEvent> disableAutoCompletionOnBackspaceDownHandler;
 
@@ -84,23 +67,14 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
     public SyntaxHighlightTextArea() {
         super();
 
-
+        stringPatternMap = new HashMap<>();
+        stringIntMap = new HashMap<>();
+        stringAutofillMap = new HashMap<>();
 
         consumeKeyPress = InputMap.consume(EventPattern.anyOf(
                 // enter
                 keyPressed(ENTER, SHIFT_ANY, SHORTCUT_ANY),
-                // arrow key select
-                keyPressed(LEFT, SHIFT_DOWN, SHORTCUT_ANY),
-                keyPressed(KP_LEFT, SHIFT_DOWN, SHORTCUT_ANY),
-                keyPressed(UP, SHIFT_DOWN, SHORTCUT_ANY),
-                keyPressed(KP_UP, SHIFT_DOWN, SHORTCUT_ANY),
-                keyPressed(DOWN, SHIFT_DOWN, SHORTCUT_ANY),
-                keyPressed(KP_DOWN, SHIFT_DOWN, SHORTCUT_ANY),
-                keyPressed(RIGHT, SHIFT_DOWN, SHORTCUT_ANY),
-                keyPressed(KP_RIGHT, SHIFT_DOWN, SHORTCUT_ANY),
-                // select all
-                keyPressed(A, SHIFT_ANY, SHORTCUT_DOWN),
-                // paste cut copy
+                // disable paste cut copy
                 keyPressed(C, SHIFT_ANY, SHORTCUT_DOWN),
                 keyPressed(X, SHIFT_ANY, SHORTCUT_DOWN),
                 keyPressed(V, SHIFT_ANY, SHORTCUT_DOWN),
@@ -132,8 +106,8 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
         };
 
         autoFillAddCompulsoryFieldsListener = (obser, s, t1) -> {
-            if (t1.trim().equals("add")) {
-                replaceText("add d/ description p/ price");
+            if (stringAutofillMap.containsKey(t1.trim())) {
+                replaceText(stringAutofillMap.get(t1.trim()));
             }
         };
 
@@ -189,16 +163,6 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
     }
 
     /**
-     * Returns the text in the text area and clears it.
-     * @return
-     */
-    public String flush() {
-        String value = getText();
-        replaceText("");
-        return value;
-    }
-
-    /**
      * Compile pattern for a command input syntax used for matching during syntax highlighting.
      * @param commandWord The command word of the command.
      * @param prefixes The list of prefixes of the command.
@@ -212,9 +176,22 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
             prefixesPatterns.append(String.format("(?<prefix%s>%s)|", count, prefix.getPrefix()));
         }
 
-        return Pattern.compile(String.format(
-                "((?<preamble>^\\s*)(?<COMMAND>%s))|%s(?<arg>\\S+)",
-                commandWord, prefixesPatterns.toString()));
+        return Pattern.compile(String.format(INPUT_PATTERN_TEMPLATE, commandWord, prefixesPatterns.toString()));
+    }
+
+    public void createPattern(String command, List<Prefix> prefixes, String requiredSyntax) {
+        Pattern p = compileCommandPattern(command, prefixes);
+        stringPatternMap.put(command, p);
+        stringIntMap.put(command, prefixes.size());
+        stringAutofillMap.put(command, requiredSyntax);
+    }
+
+    public void removePattern(String command) {
+        if (stringPatternMap.containsKey(command)) {
+            stringPatternMap.remove(stringPatternMap.get(command));
+            stringIntMap.remove(stringIntMap.get(command));
+            stringAutofillMap.remove(stringAutofillMap.get(command));
+        }
     }
 
     /**
@@ -226,20 +203,14 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
      * @return the StyleSpans to apply rich text formatting to the text area.
      */
     private StyleSpans<Collection<String>> computeHighlighting(String text) {
-        Matcher m = Pattern.compile("^\\s*(?<command>\\S+)").matcher(text);
+        String commandWordRegex = String.join("|", stringPatternMap.keySet());
+        Matcher m = Pattern.compile("^\\s*(?<COMMAND>"+ commandWordRegex+ ")\\s*$").matcher(text);
 
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 
         if (m.find()) {
-            Pattern p =
-                m.group("command").equals("add") ? ADD_COMMAND_PATTERN
-                        : m.group("command").equals("budget") ? BUDGET_COMMAND_PATTERN
-                        : null;
-
-            int prefixCount =
-                    m.group("command").equals("add") ? 2
-                            : m.group("command").equals("budget") ? 4
-                            : 0;
+            Pattern p = stringPatternMap.get(m.group("COMMAND"));
+            int prefixCount = stringIntMap.get(m.group("COMMAND"));
 
             if (p == null) {
                 spansBuilder.add(Collections.emptyList(), text.length());
@@ -249,6 +220,7 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
             }
         }
 
+        // if not a command
         spansBuilder.add(Collections.emptyList(), text.length());
         return spansBuilder.create();
     }
@@ -262,7 +234,7 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
      * @return the StyleSpans to apply rich text formatting to the text area.
      */
     private StyleSpans<Collection<String>> computeHighlighting(String text, Pattern pattern, int prefixcount) {
-        // pattern2 should be a list of elements in the command
+        // pattern should match the command word
         Matcher matcher = pattern.matcher(text);
         int lastKwEnd = 0;
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
@@ -271,11 +243,13 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
         int offset = 0;
         while (matcher.find()) {
 
+            // highlight command word
             String styleClass = null;
             if (matcher.group("COMMAND") != null) {
                 command = matcher.group("COMMAND");
+                // compute the whitespaces before the command word to be unstyled
                 offset = matcher.group("preamble").length();
-                styleClass = "keyword";
+                styleClass = "command-word";
             } else {
                 if (command == null) {
                     break;
@@ -301,7 +275,6 @@ public class SyntaxHighlightTextArea extends StyleClassedTextArea {
             spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start() - offset);
             offset = 0;
             lastKwEnd = matcher.end();
-
         }
 
         spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
