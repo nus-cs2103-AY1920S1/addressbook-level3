@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_LOCATI
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILE_PATH_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILE_PATH_2;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalFlashCards.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -70,5 +71,14 @@ public class ExportCommandTest {
         // TODO assert no file created
     }
 
-    // TODO test for success
+    @Test
+    public void execute_validInput_fileCreated() {
+        String expectedMessage = String.format(
+                ExportCommand.MESSAGE_EXPORT_SUCCESS,
+                firstFilePath
+        );
+
+        assertCommandSuccess(firstCommand, model, expectedMessage, model);
+        // TODO assert file created
+    }
 }
