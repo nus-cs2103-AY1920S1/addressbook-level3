@@ -34,7 +34,6 @@
         </MenuBar>
             <HBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
                <children>
-      
               <VBox fx:id="personList" maxHeight="1.7976931348623157E308" maxWidth="350.0" minWidth="120.0" prefWidth="120.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                 <padding>
                   <Insets bottom="10" left="10" right="10" top="10" />
@@ -43,13 +42,11 @@
               </VBox>
                   <VBox maxHeight="1.7976931348623157E308" prefWidth="400.0" HBox.hgrow="ALWAYS">
                      <children>
-            
                           <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
                       <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
                       </padding>
                     </StackPane>
-            
                     <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
                       <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
