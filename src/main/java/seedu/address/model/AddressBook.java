@@ -221,6 +221,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         quizResults.add(quizResult);
     }
 
+    public boolean hasQuizResult(QuizResult quizResult) {
+        return quizResults.contains(quizResult);
+    }
+
     // util methods
 
     @Override

@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
+import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.task.Task;
 
 /**
@@ -21,18 +22,22 @@ import seedu.address.model.task.Task;
 class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_TITLE = "Lecture note list contains duplicate titles.";
     public static final String MESSAGE_DUPLICATE_TASK = "Task list contains duplicate tasks.";
+    public static final String MESSAGE_DUPLICATE_RESULT = "Quiz result contains duplicate results.";
 
     private final List<JsonAdaptedNote> notes = new ArrayList<>();
     private final List<JsonAdaptedTaskForNote> tasks = new ArrayList<>();
+    private final List<JsonAdaptedQuizResult> quizResults = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given lecture notes.
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("notes") List<JsonAdaptedNote> notes,
-                                       @JsonProperty("tasks") List<JsonAdaptedTaskForNote> tasks) {
+                                       @JsonProperty("tasks") List<JsonAdaptedTaskForNote> tasks,
+                                       @JsonProperty("quizResults") List<JsonAdaptedQuizResult> quizResults) {
         this.notes.addAll(notes);
         this.tasks.addAll(tasks);
+        this.quizResults.addAll(quizResults);
     }
 
     /**
@@ -43,6 +48,7 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         notes.addAll(source.getNoteList().stream().map(JsonAdaptedNote::new).collect(Collectors.toList()));
         tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTaskForNote::new).collect(Collectors.toList()));
+        quizResults.addAll(source.getQuizResultList().stream().map(JsonAdaptedQuizResult::new).collect(Collectors.toList()));
     }
 
     /**
@@ -66,6 +72,14 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
             }
             addressBook.addTask(task);
+        }
+
+        for (JsonAdaptedQuizResult jsonAdaptedQuizResult : quizResults) {
+            QuizResult quizResult = jsonAdaptedQuizResult.toModelType();
+            if (addressBook.hasQuizResult(quizResult)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_RESULT);
+            }
+            addressBook.addQuizResult(quizResult);
         }
         return addressBook;
     }
