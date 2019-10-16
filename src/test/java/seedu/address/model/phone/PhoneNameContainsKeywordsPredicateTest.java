@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.phone.predicates.PhoneNameContainsKeywordsPredicate;
 import seedu.address.testutil.PhoneBuilder;
 
 class PhoneNameContainsKeywordsPredicateTest {
