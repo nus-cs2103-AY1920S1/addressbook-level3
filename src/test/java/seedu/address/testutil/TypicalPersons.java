@@ -47,8 +47,8 @@ public class TypicalPersons {
             .withSubject("CS2103T").withDifficulty("easy").build();
 
     public static final QuizResult ALICE_RESULT = new QuizResultBuilder().withAnswer("Coupling")
-            .withQuestionBody("(  ) is a measure of the degree of dependence between components, classes, methods, " +
-                    "etc.").withQuizTime("2019/10/10 12:00").withResult("true").build();
+            .withQuestionBody("(  ) is a measure of the degree of dependence between components, classes, methods, "
+                    + "etc.").withQuizTime("2019/10/10 12:00").withResult("true").build();
 
     // Manually added
     public static final Note HOON = new PersonBuilder().withTitle("Hoon Meier")

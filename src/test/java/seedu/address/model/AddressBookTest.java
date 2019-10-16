@@ -19,9 +19,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.note.Note;
 import seedu.address.model.note.exceptions.DuplicateTitleException;
 import seedu.address.model.question.Question;
