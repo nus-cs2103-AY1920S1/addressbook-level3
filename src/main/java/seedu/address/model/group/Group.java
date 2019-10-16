@@ -3,8 +3,9 @@ package seedu.address.model.group;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 
-import java.util.ArrayList;
-
+/**
+ * Model that represents a group of students.
+ */
 public class Group {
     private String groupId;
     private UniqueStudentList studentList;

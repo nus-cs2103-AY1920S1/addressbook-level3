@@ -1,13 +1,16 @@
 package seedu.address.logic.commands.group;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-public class GroupCreateManuallyCommand extends GroupCommand{
+/**
+ * Represents an group create command (manual).
+ */
+public class GroupCreateManuallyCommand extends GroupCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a group manually.\n"
             + "Parameters:\n"
@@ -24,6 +27,7 @@ public class GroupCreateManuallyCommand extends GroupCommand{
 
     /**
      * Creates a QuizCreateManuallyCommand instance with the appropriate attributes.
+     *
      * @param fields The fields to be edited, including quizID and questions.
      */
     public GroupCreateManuallyCommand(HashMap<String, String> fields) {
@@ -42,6 +46,7 @@ public class GroupCreateManuallyCommand extends GroupCommand{
 
     /**
      * Executes the user command.
+     *
      * @param model {@code Model} which the command should operate on.
      * @return The result of the command.
      * @throws CommandException
@@ -54,6 +59,7 @@ public class GroupCreateManuallyCommand extends GroupCommand{
 
     /**
      * Generates a command execution success message.
+     *
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {

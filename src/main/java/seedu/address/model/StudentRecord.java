@@ -22,12 +22,12 @@ public class StudentRecord implements ReadOnlyStudentRecord {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         students = new UniqueStudentList();
     }
 
-    public StudentRecord() {}
+    public StudentRecord() {
+    }
 
     /**
      * Creates an AddressBook using the Students in the {@code toBeCopied}
@@ -108,7 +108,9 @@ public class StudentRecord implements ReadOnlyStudentRecord {
     }
 
 
-    public String getStudentSummary() {return students.getStudentList();}
+    public String getStudentSummary() {
+        return students.getStudentList();
+    }
 
     @Override
     public boolean equals(Object other) {

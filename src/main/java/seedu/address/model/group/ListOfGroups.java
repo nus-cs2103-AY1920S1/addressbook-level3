@@ -2,6 +2,9 @@ package seedu.address.model.group;
 
 import java.util.ArrayList;
 
+/**
+ * Model that represents a list of groups.
+ */
 public class ListOfGroups {
 
     private ArrayList<Group> groups;

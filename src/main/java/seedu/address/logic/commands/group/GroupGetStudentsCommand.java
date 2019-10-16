@@ -4,6 +4,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Represents a get students command, specific to a group.
+ */
 public class GroupGetStudentsCommand extends GroupCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets the students from a group\n"

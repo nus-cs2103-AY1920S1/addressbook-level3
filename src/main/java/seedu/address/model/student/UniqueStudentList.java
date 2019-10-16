@@ -18,7 +18,7 @@ import seedu.address.model.student.exceptions.StudentNotFoundException;
  * updating of Students uses Student#isSameStudent(Student) for equality so as to ensure that the
  * Student being added or updated is unique in terms of identity in the UniqueStudentList. However, the removal of
  * a Student uses Student#equals(Object) so as to ensure that the Student with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Student#isSameStudent(Student)
@@ -50,12 +50,19 @@ public class UniqueStudentList implements Iterable<Student> {
         return true;
     }
 
+    /**
+     * Adds a Student to the list, given a group index number.
+     *
+     * @param groupIndexNumber index number of student in the group.
+     * @param toAdd            student to add.
+     * @return true if student is successfully added to the group.
+     */
     public boolean add(int groupIndexNumber, Student toAdd) {
         int indexNumber = groupIndexNumber - 1;
         if (contains(toAdd)) {
             return false;
         }
-        internalList.add(indexNumber,toAdd);
+        internalList.add(indexNumber, toAdd);
         return true;
     }
 
@@ -128,7 +135,7 @@ public class UniqueStudentList implements Iterable<Student> {
     public String getStudentList() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < internalList.size(); i++) {
-            sb.append(i+1);
+            sb.append(i + 1);
             sb.append(". ");
             sb.append(internalList.get(i));
             sb.append("\n");
@@ -152,7 +159,7 @@ public class UniqueStudentList implements Iterable<Student> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueStudentList // instanceof handles nulls
-                        && internalList.equals(((UniqueStudentList) other).internalList));
+                && internalList.equals(((UniqueStudentList) other).internalList));
     }
 
     @Override

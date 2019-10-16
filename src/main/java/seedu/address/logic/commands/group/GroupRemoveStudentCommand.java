@@ -4,6 +4,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Represents an remove student command, specific to a group.
+ */
 public class GroupRemoveStudentCommand extends GroupCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes an existing student from an existing group\n"
