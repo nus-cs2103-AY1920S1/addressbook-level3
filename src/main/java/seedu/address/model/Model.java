@@ -22,6 +22,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
+    Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -187,41 +188,42 @@ public interface Model {
     // NOTE
 
     /**
-     * Returns the AddressBook
+     * Returns the NoteBook
      */
     ReadOnlyNoteBook getNoteBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a note with the same identity as {@code note} exists in the note book.
      */
     boolean hasNote(Note note);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given note.
+     * The note must exist in the Note book.
      */
     void deleteNote(Note target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Updates the given note.
+     * The note must exist in the Note book.
      */
+
     void addNote(Note note);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given note {@code target} with {@code editedNote}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The note identity of {@code editedNote} must not be the same as another existing note in the note book.
      */
     void setNote(Note target, Note editedNote);
 
     /**
-     * Returns an unmodifiable view of the filtered person list
+     * Returns an unmodifiable view of the filtered note list
      */
     ObservableList<Note> getFilteredNoteList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered note list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */

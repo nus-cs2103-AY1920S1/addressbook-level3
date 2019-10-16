@@ -102,9 +102,9 @@ public class Note {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getTitle())
-                .append(getDescription())
-                .append(getContent())
+        builder.append(getTitle() + " ")
+                .append(getDescription()+ " ")
+                .append(getContent()+ " ")
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

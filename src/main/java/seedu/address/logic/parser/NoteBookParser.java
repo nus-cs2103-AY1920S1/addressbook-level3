@@ -5,11 +5,14 @@ import seedu.address.logic.commands.AddNotesCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteNoteCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditNoteCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ReadNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.regex.Matcher;
@@ -48,12 +51,15 @@ public class NoteBookParser {
         case AddNotesCommand.COMMAND_WORD:
             return new AddNoteCommandParser().parse(arguments);
 
-//        case EditCommand.COMMAND_WORD:
-//            return new EditCommandParser().parse(arguments);
+        case EditNoteCommand.COMMAND_WORD:
+            return new EditNoteCommandParser().parse(arguments);
 //
-        case DeleteCommand.COMMAND_WORD:
+        case DeleteNoteCommand.COMMAND_WORD:
             return new DeleteNoteCommandParser().parse(arguments);
-//
+
+        case ReadNoteCommand.COMMAND_WORD:
+            return new ReadNoteCommandParser().parse(arguments);
+
 //        case ClearCommand.COMMAND_WORD:
 //            return new ClearCommand();
 //
@@ -63,11 +69,11 @@ public class NoteBookParser {
 //        case ListCommand.COMMAND_WORD:
 //            return new ListCommand();
 //
-//        case ExitCommand.COMMAND_WORD:
-//            return new ExitCommand();
-//
-//        case HelpCommand.COMMAND_WORD:
-//            return new HelpCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
