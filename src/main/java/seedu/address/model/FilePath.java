@@ -15,10 +15,12 @@ public class FilePath {
             "File path can take any value, as long as it is a valid file path.";
 
     /*
-     * The first character of the question must not be a whitespace
-     * otherwise " " (a blank string) becomes a valid input.
+     * The following characters are allowed (in addition to alphanumeric):
+     * ~\/-!:[]()
+     * Space is allowed.
+     * FilePath is required to end with the String: ".docx"
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "[~\\w\\-!:\\[\\\\(\\)/\\\\ ]+\\.docx";
 
     public final String fullFilePath;
 
@@ -37,8 +39,7 @@ public class FilePath {
      * Returns true if a given string is a valid question.
      */
     public static boolean isValidFilePath(String test) {
-        return true;
-        //TODO test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX);
     }
 
 
