@@ -3,8 +3,14 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
-import seedu.address.model.incident.IncidentContainsKeywordsPredicate;
+import seedu.address.model.incident.Description;
+import seedu.address.model.incident.DescriptionKeywordsPredicate;
+import seedu.address.model.incident.IdKeywordsPredicate;
+import seedu.address.model.incident.Incident;
+
+import java.util.function.Predicate;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
@@ -17,7 +23,7 @@ public class SearchIncidentsCommand extends Command {
 
     public static final String COMMAND_WORD = "search";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all incidents for which IDs match or "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all incidents for which IDs match exactly or "
             + "description contains any of the specified keywords (case-insensitive) and displays them as a list "
             + "with index numbers.\n"
             + "Parameters: "
@@ -27,18 +33,24 @@ public class SearchIncidentsCommand extends Command {
             + PREFIX_DESC + "arson";
 
 
-    private final IncidentContainsKeywordsPredicate predicate;
+    private final Prefix keywordsType;
+    private final Predicate<Incident> predicate;
 
-    public SearchIncidentsCommand(IncidentContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
+    public SearchIncidentsCommand(DescriptionKeywordsPredicate descriptionPredicate) {
+        this.keywordsType = PREFIX_DESC;
+        this.predicate = descriptionPredicate;
+    }
+
+    public SearchIncidentsCommand(IdKeywordsPredicate idPredicate) {
+        this.keywordsType = PREFIX_ID;
+        this.predicate = idPredicate;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredIncidentList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_INCIDENTS_LISTED_OVERVIEW, model.getFilteredIncidentList().size()));
+        return new CommandResult(((IdKeywordsPredicate)predicate).getPredicate());
     }
 
     @Override
