@@ -9,7 +9,7 @@ import java.util.Map;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AliasCommand;
-import seedu.address.logic.commands.BudgetCommand;
+import seedu.address.logic.commands.AddBudgetCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -70,7 +70,7 @@ public class AliasMappings implements Serializable {
             // fallthrough
         case AliasCommand.COMMAND_WORD:
             // fallthrough
-        case BudgetCommand.COMMAND_WORD:
+        case AddBudgetCommand.COMMAND_WORD:
             // fallthrough
         case EditCommand.COMMAND_WORD:
             // fallthrough

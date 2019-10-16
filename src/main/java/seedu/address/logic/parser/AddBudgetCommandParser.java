@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import java.time.Period;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.BudgetCommand;
+import seedu.address.logic.commands.AddBudgetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Description;
@@ -19,20 +19,20 @@ import seedu.address.model.expense.Timestamp;
 /**
  * Parses input arguments and creates a new BudgetCommand object
  */
-public class BudgetCommandParser implements Parser<BudgetCommand> {
+public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the BudgetCommand
      * and returns a BudgetCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public BudgetCommand parse(String args) throws ParseException {
+    public AddBudgetCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_START_DATE, PREFIX_PERIOD, PREFIX_PRICE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_START_DATE, PREFIX_PERIOD, PREFIX_PRICE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBudgetCommand.MESSAGE_USAGE));
         }
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
@@ -42,7 +42,7 @@ public class BudgetCommandParser implements Parser<BudgetCommand> {
 
         Budget budget = new Budget(description, amount, startDate, period);
 
-        return new BudgetCommand(budget);
+        return new AddBudgetCommand(budget);
     }
 
     /**
