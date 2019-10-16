@@ -1,6 +1,5 @@
 package seedu.address.model.project;
 
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +16,7 @@ public class Project {
     private final Title title;
     private final Description description;
     private final Set<Task> tasks = new HashSet<>();
+    private Set<Meeting> meeting = new HashSet<>();
 
     public Project(Title name, Description description, Set<Task> tasks) {
         requireAllNonNull(name, description);
@@ -25,9 +25,25 @@ public class Project {
         this.tasks.addAll(tasks);
     }
 
-    public Title getTitle() { return title; }
+    public Title getTitle() {
+        return title;
+    }
 
-    public Description getDescription() { return description; }
+    public Description getDescription() {
+        return description;
+    }
+
+    public Set<Meeting> getListOfMeeting() {
+        return meeting;
+    }
+
+    public void setListOfMeeting(Set<Meeting> meetings) {
+        this.meeting.addAll(meetings);
+    }
+
+    public void addNewMeeting(Meeting meeting) {
+        this.meeting.add(meeting);
+    }
 
     public Set<Task> getTasks() {
         return Collections.unmodifiableSet(tasks);

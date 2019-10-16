@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -66,6 +65,28 @@ public class ParserUtil {
         return new Title(trimmedTitle);
     }
 
+    public static Time parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!Time.isValidTime(trimmedTime)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+        try {
+            return new Time(trimmedTime);
+        } catch (Exception e) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    public static Description parseMeetingDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDesc = description.trim();
+        if (!Description.isValidDescription(trimmedDesc)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDesc);
+    }
+
     /**
      * Parses a {@code String description} into a {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
@@ -126,15 +147,6 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
-    public static Remark parseRemark(String remark) throws ParseException {
-        requireNonNull(remark);
-        String trimmedEmail = remark.trim();
-        if (!Remark.isValidRemark(trimmedEmail)) {
-            throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
-        }
-        return new Remark(trimmedEmail);
-    }
-
 
     /**
      * Parses a {@code String tag} into a {@code Tag}.
@@ -161,24 +173,5 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
-    }
-
-    /**
-     * Parses a {@code String description} into a {@code Description}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code description} is invalid.
-     */
-    public static Time parseTime(String time) throws ParseException {
-        requireNonNull(time);
-        String trimmedTime = time.trim();
-        if (!Time.isValidTime(trimmedTime)) {
-            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
-        }
-        try {
-            return new Time(trimmedTime);
-        } catch (Exception e) {
-            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
-        }
     }
 }

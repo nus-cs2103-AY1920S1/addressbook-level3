@@ -22,8 +22,12 @@ public class Time {
     public Time(String time) throws ParseException {
         requireAllNonNull(time);
         this.time = time;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hhmm");
         this.date = formatter.parse(time);
+    }
+
+    public Date getDate() {
+        return this.date;
     }
 
     public static boolean isValidTime(String test) {

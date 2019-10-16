@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.project.Meeting;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Description;
 import seedu.address.model.project.Task;
 import seedu.address.model.project.Title;
-import seedu.address.model.tag.Tag;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -27,17 +27,21 @@ class JsonAdaptedProject {
     private final String title;
     private final String description;
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
+    private final List<JsonAdaptedMeeting> meetingList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedProject} with the given project details.
      */
     @JsonCreator
     public JsonAdaptedProject(@JsonProperty("title") String title, @JsonProperty("description") String description,
-                              @JsonProperty("tasks") List<JsonAdaptedTask> tasks) {
+                              @JsonProperty("tasks") List<JsonAdaptedTask> tasks, @JsonProperty("meetingList") List<JsonAdaptedMeeting> meetingList) {
         this.title = title;
         this.description = description;
         if (tasks != null) {
             this.tasks.addAll(tasks);
+        }
+        if (meetingList != null) {
+            this.meetingList.addAll(meetingList);
         }
     }
 
@@ -49,6 +53,9 @@ class JsonAdaptedProject {
         description = source.getDescription().description;
         tasks.addAll(source.getTasks().stream()
                 .map(JsonAdaptedTask::new)
+                .collect(Collectors.toList()));
+        meetingList.addAll(source.getListOfMeeting().stream()
+                .map(JsonAdaptedMeeting::new)
                 .collect(Collectors.toList()));
     }
 
@@ -74,7 +81,19 @@ class JsonAdaptedProject {
         }
         final Description modelDescription = new Description(description);
         final Set<Task> modelTasks = new HashSet<>(taskList);
-        return new Project(modelTitle, modelDescription, modelTasks);
+
+        //need to convert the List<JsonAdaptedMeeting> to List<Meeting> then put it in the Set<Meeting> and set it to the given project.
+        final List<Meeting> meetings = new ArrayList<>();
+        for (JsonAdaptedMeeting meeting : meetingList) {
+            meetings.add(meeting.toModelType());
+        }
+
+        Project project = new Project(modelTitle, modelDescription, modelTasks);
+
+        Set<Meeting> meetingsList = new HashSet<>(meetings);
+        project.setListOfMeeting(meetingsList);
+
+        return project;
     }
 
 }
