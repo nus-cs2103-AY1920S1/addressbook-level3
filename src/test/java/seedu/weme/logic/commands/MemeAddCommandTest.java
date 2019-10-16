@@ -154,6 +154,11 @@ public class MemeAddCommandTest {
         }
 
         @Override
+        public void setContext(ModelContext context) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public SimpleObjectProperty<ModelContext> getContext() {
             throw new AssertionError("This method should not be called.");
         }
@@ -173,35 +178,6 @@ public class MemeAddCommandTest {
             throw new AssertionError("This method should not be called");
         }
 
-        @Override
-        public LikeData getLikeData() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public ObservableMap<String, Integer> getObservableLikeData() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public void deleteLikesByMeme(Meme meme) {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public LikeData getLikeData() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public ObservableMap<String, Integer> getObservableLikeData() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public void deleteLikesByMeme(Meme meme) {
-            throw new AssertionError("This method should not be called");
-        }
     }
 
     /**

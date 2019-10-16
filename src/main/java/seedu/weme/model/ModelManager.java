@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyMapWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,10 +29,6 @@ public class ModelManager implements Model {
     private final FilteredList<Meme> filteredMemes;
     private final LikeData likeData;
     private final ObservableMap<String, Integer> observableLikeData;
-
-    // ModelContext determines which parser to use at any point of time.
-    private ModelContext context = ModelContext.CONTEXT_MEMES;
-    private final LikeData likeData;
 
     // ModelContext determines which parser to use at any point of time.
     private SimpleObjectProperty<ModelContext> context = new SimpleObjectProperty<>(ModelContext.CONTEXT_MEMES);
@@ -153,36 +148,6 @@ public class ModelManager implements Model {
 
     public void setContext(ModelContext context) {
         this.context.set(context);
-    }
-
-    @Override
-    public LikeData getLikeData() {
-        return this.likeData;
-    }
-
-    @Override
-    public ObservableMap<String, Integer> getObservableLikeData() {
-        return observableLikeData;
-    }
-
-    @Override
-    public void deleteLikesByMeme(Meme meme) {
-        likeData.deleteLikesByMeme(meme);
-    }
-
-    @Override
-    public LikeData getLikeData() {
-        return this.likeData;
-    }
-
-    @Override
-    public ObservableMap<String, Integer> getObservableLikeData() {
-        return observableLikeData;
-    }
-
-    @Override
-    public void deleteLikesByMeme(Meme meme) {
-        likeData.deleteLikesByMeme(meme);
     }
 
     @Override

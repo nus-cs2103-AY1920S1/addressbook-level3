@@ -2,7 +2,6 @@ package seedu.weme.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableMap;
 import org.controlsfx.control.GridCell;
 import org.controlsfx.control.GridView;
 
