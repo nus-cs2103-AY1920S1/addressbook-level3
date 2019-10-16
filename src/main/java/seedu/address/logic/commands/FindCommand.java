@@ -26,7 +26,12 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    protected void validate(Model model) {
+        // No validation necessary.
+    }
+
+    @Override
+    protected CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredExpenseList(predicate);
         return new CommandResult(
