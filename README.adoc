@@ -1,7 +1,7 @@
 ++++
 <h1 align="center">
   <br>
-  <a href="https://roc.ms/visitapp"><img src="docs/images/icons/LogoTitle.png" alt="VISIT" width="400"></a>
+  <a href="https://roc.ms/visitapp"><img src="https://github.com/AY1920S1-CS2103T-F12-2/main/raw/master/docs/images/icons/LogoTitle.png" alt="VISIT" width="400"></a>
   <br>
   VISIT
   <br>
@@ -24,7 +24,7 @@
 </p>
 
 <p align="center">
-<img src="docs/images/Ui.png" alt="Ui.png" width="900">
+<img src="https://github.com/AY1920S1-CS2103T-F12-2/main/raw/master/docs/images/Ui.png" alt="Ui.png" width="900">
 </p>
 
 ++++
@@ -65,7 +65,7 @@ $ find John Tim Betsy
 $ profile 1
 ----
 
-For other commands, check out our User Guide at <<docs/UserGuide#, here>>!
+For other commands, check out our User Guide at <</AY1920S1-CS2103T-F12-2/main/blob/master/docs/UserGuide#, here>>!
 
 == Download
 
@@ -73,10 +73,10 @@ You can https://github.com/AY1920S1-CS2103T-F12-2/main/releases[download] the la
 
 == Site Map
 
-* <<docs/AboutUs#, About Us>>
-* <<docs/ContactUs#, Contact Us>>
-* <<docs/UserGuide#, User Guide>>
-* <<docs/DeveloperGuide#, Developer Guide>>
+* <</AY1920S1-CS2103T-F12-2/main/blob/master/docs/AboutUs#, About Us>>
+* <</AY1920S1-CS2103T-F12-2/main/blob/master/docs/ContactUs#, Contact Us>>
+* <</AY1920S1-CS2103T-F12-2/main/blob/master/docs/UserGuide#, User Guide>>
+* <</AY1920S1-CS2103T-F12-2/main/blob/master/docs/DeveloperGuide#, Developer Guide>>
 
 == Acknowledgements
 
