@@ -61,6 +61,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public StringBuilder getBasicStatistics() {
+        return model.getStatistic();
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
     }
@@ -84,4 +89,6 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+
 }

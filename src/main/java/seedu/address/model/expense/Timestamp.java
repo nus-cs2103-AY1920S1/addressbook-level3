@@ -19,15 +19,15 @@ public class Timestamp implements Comparable<Timestamp> {
 
     public static final int CURRENT_YEAR = LocalDate.now().getYear();
 
-    public static final String MESSAGE_CONSTRAINTS_DATE =
-            "Timestamps must be in the format dd-MM[-yyyy]";
-
     public static final String MESSAGE_CONSTRAINTS_PERIOD =
             "Input period is not week/month/year";
 
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM[-yyyy]");
+    public static final String MESSAGE_CONSTRAINTS_DATE =
+            "Timestamps must be in the format dd-MM[-yyyy]";
 
     private static final DateTimeFormatter FORMATTER_WITH_YEAR = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+    private static final int MONTH_CHANGE = 1;
 
     private static final DateTimeFormatter FORMATTER_WITHOUT_YEAR =
             new DateTimeFormatterBuilder()
@@ -35,14 +35,14 @@ public class Timestamp implements Comparable<Timestamp> {
                     .parseDefaulting(ChronoField.YEAR, CURRENT_YEAR)
                     .toFormatter(Locale.ENGLISH);
 
-    private static final int MONTH_CHANGE = 1;
-
     public final LocalDate timestamp;
 
     public Timestamp(LocalDate timestamp) {
         requireAllNonNull(timestamp);
         this.timestamp = timestamp;
     }
+
+
 
     /**
      * Constructs a Timestamp from a raw date String,

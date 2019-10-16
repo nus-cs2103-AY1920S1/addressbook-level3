@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.Period;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Timestamp;
 
 /**
  * The API of the Model component.
@@ -135,4 +137,10 @@ public interface Model {
     void addEvent(Event event);
 
     void deleteEvent(Event target);
+
+    String calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period);
+
+    boolean hasStatistic();
+
+    StringBuilder getStatistic();
 }

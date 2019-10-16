@@ -199,4 +199,5 @@ public class MainWindow extends UiPart<Stage> {
         // logger.info("Result: " + commandResult.getFeedbackToUser());
         resultDisplay.setFeedbackToUser(logic.displayReminders());
     }
+
 }
