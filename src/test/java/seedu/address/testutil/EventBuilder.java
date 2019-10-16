@@ -52,7 +52,7 @@ class EventBuilder {
                 .setStartDate(event.getStartDate())
                 .setEndDate(event.getEndDate())
                 .setLocation(event.getDestination())
-                .setTotalBudget(event.getTotalBudget().get())
+                .setTotalBudget(event.getExpenditure().get())
                 .setInventory(event.getInventory().get())
                 .setBooking(event.getBooking().get());
     }
