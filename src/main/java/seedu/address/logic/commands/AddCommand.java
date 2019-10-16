@@ -38,7 +38,6 @@ public abstract class AddCommand extends Command {
         toAdd = item;
     }
 
-    @Override
     public abstract CommandResult execute(ItemModel model) throws CommandException;
 
     @Override
