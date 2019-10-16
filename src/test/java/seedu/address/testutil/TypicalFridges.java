@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.AddressBook;
 import seedu.address.model.entity.fridge.Fridge;
 
 //@author arjavibahety
@@ -23,5 +24,5 @@ public class TypicalFridges {
 
     public static List<Fridge> getTypicalFridges() {
         return new ArrayList<>(Arrays.asList(EMPTY_FRIDGE, ALICE_FRIDGE, BOB_FRIDGE));
-    }
+  }
 }
