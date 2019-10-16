@@ -49,6 +49,7 @@ public class Activity {
     public Optional<Contact> getContact() {
         return Optional.ofNullable(contact);
     }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

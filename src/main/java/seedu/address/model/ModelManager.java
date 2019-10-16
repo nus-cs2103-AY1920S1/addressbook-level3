@@ -15,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.accommodation.Accommodation;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
 import seedu.address.model.day.Itinerary;
 

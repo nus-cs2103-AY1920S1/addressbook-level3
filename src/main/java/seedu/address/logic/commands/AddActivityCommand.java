@@ -8,6 +8,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.field.ContactContainsNumberPredicate;
+
+import java.util.List;
 
 /**
  * Adds an activity to the itinerary.
@@ -48,7 +52,18 @@ public class AddActivityCommand extends AddCommand {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
         }
 
-        model.addActivity(toAdd);
+        if (toAdd.getContact().isPresent()) {
+            model.updateFilteredContactList(new ContactContainsNumberPredicate(toAdd.getContact().get().getPhone()));
+            List<Contact> sameNumberContacts = model.getFilteredContactList();
+            if (!sameNumberContacts.isEmpty()) {
+                model.addActivity(new Activity(toAdd.getName(), toAdd.getAddress(), sameNumberContacts.get(0),
+                        toAdd.getTags()));
+            } else {
+                model.addActivity(toAdd);
+            }
+        } else {
+            model.addActivity(toAdd);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

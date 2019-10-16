@@ -189,7 +189,7 @@ public class Planner implements ReadOnlyPlanner {
     //// contacts-level operations
 
     /**
-     * Returns true if a contacts with the same identity as {@code contacts} exists in the address book.
+     * Returns true if a contacts with the same identity as {@code contacts} exists in the contact list.
      */
     public boolean hasContact(Contact contact) {
         requireNonNull(contact);
