@@ -13,14 +13,16 @@ public class Slot {
     public static final String VALIDATION_REGEX = "Placeholder";
     // TODO: Abstract out to DateTime class
     // The plan is for users to input DD/MM/YY HH:MM for both start and end
+    public final String date;
     public final String start;
     public final String end;
 
-    public Slot(String start, String end) {
+    public Slot(String date, String start, String end) {
         requireNonNull(start, end);
         // TODO: Argument checking
         // checkArgument(isValidSlot(start), MESSAGE_CONSTRAINTS);
         // checkArgument(isValidSlot(end), MESSAGE_CONSTRAINTS);
+        this.date = date;
         this.start = start;
         this.end = end;
     }
@@ -32,9 +34,13 @@ public class Slot {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getTiming() {
+        return String.format("%s - %s", start, end);
+    }
+
     @Override
     public String toString() {
-        return start + " - " + end;
+        return String.format("%s %s", date, getTiming());
     }
 
     @Override

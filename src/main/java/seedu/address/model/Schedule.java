@@ -53,7 +53,7 @@ public class Schedule {
                     String[] times = timeSlot.split("-");
                     String start = times[0].trim();
                     String end = times[1].trim();
-                    slots.add(new Slot(start, end));
+                    slots.add(new Slot(date, start, end));
                 }
             }
         }

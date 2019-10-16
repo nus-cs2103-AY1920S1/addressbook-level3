@@ -91,9 +91,10 @@ public class ModelManager implements Model {
      * Replaces schedule data with the data in {@code schedule}.
      */
     @Override
-    public void setSchedulesList(LinkedList<Schedule> schedulesList) {
+    public void setSchedulesList(LinkedList<Schedule> list) {
         schedulesList.clear();
-        schedulesList.addAll(schedulesList);
+        schedulesList.addAll(cloneSchedulesList(list));
+        logger.fine("Schedules list is reset");
     }
 
     /** Returns the schedulesList **/
@@ -155,12 +156,12 @@ public class ModelManager implements Model {
     /**
      * Returns the deep copy of the schedules list given.
      *
-     * @param schedulesList the list of schedules to be copied.
+     * @param list the list of schedules to be copied.
      * @return the deep copy of the schedules list given.
      */
-    private static List<Schedule> cloneSchedulesList(List<Schedule> schedulesList) {
+    private static List<Schedule> cloneSchedulesList(List<Schedule> list) {
         List<Schedule> listClone = new LinkedList<>();
-        for (Schedule schedule : schedulesList) {
+        for (Schedule schedule : list) {
             listClone.add(Schedule.cloneSchedule(schedule));
         }
         return listClone;
