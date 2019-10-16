@@ -70,7 +70,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonBillboardIoExceptionThrowingStub
+        // Setup LogicManager with JsonBillboardIoExceptionThrowingStub and JsonArchiveIoExceptionThrowingStub
         JsonBillboardStorage billboardStorage =
                 new JsonBillboardIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
@@ -159,4 +159,5 @@ public class LogicManagerTest {
             throw DUMMY_IO_EXCEPTION;
         }
     }
+
 }

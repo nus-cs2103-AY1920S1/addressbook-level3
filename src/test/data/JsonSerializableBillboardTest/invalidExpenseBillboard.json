@@ -4,6 +4,7 @@
     "description" : null,
     "amount" : "blah",
     "created" : "bluh",
-    "tagged" : [ "leisure" ]
+    "tagged" : [ "leisure" ],
+    "archiveName" : ""
   } ]
 }

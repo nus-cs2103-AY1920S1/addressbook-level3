@@ -11,19 +11,29 @@ import seedu.billboard.commons.core.LogsCenter;
 import seedu.billboard.model.expense.Expense;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of expenses.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class ExpenseListPanel extends UiPart<Region> {
+    private static final String FXML = "ExpenseListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ExpenseListPanel.class);
 
     @FXML
-    private ListView<Expense> personListView;
+    private ListView<Expense> expenseListView;
 
-    public PersonListPanel(ObservableList<Expense> expenseList) {
+    public ExpenseListPanel(ObservableList<Expense> expenseList) {
         super(FXML);
-        personListView.setItems(expenseList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        expenseListView.setItems(expenseList);
+        expenseListView.setCellFactory(listView -> new PersonListViewCell());
+    }
+
+    /**
+     * Changes the list of expenses being displayed on the panel.
+     *
+     * @param expenseList New list of expenses to be displayed on the panel.
+     */
+    public void setExpenseListView(ObservableList<Expense> expenseList) {
+        expenseListView.setItems(expenseList);
+        expenseListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**

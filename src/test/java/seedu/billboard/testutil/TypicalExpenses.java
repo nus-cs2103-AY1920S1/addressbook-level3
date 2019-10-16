@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.billboard.model.ArchiveWrapper;
 import seedu.billboard.model.Billboard;
+import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 
 /**
@@ -57,6 +59,28 @@ public class TypicalExpenses {
             .withCreatedDateTime("31/12/2019 2359")
             .build();
 
+    // Manually added - for archive testing
+    public static final Expense IPHONE11 = new ExpenseBuilder().withName("iphone 11")
+            .withDescription("iphone 11 pro 132312321GB memory")
+            .withAmount("10000")
+            .withArchiveName("luxury")
+            .build();
+    public static final Expense GUCCI_SLIDES = new ExpenseBuilder().withName("Gucci slides")
+            .withDescription("bought them cos I got sick of my slippers")
+            .withAmount("299.99")
+            .withArchiveName("luxury")
+            .build();
+    public static final Expense KPOP_LIGHT_STICK = new ExpenseBuilder().withName("Kpop lightstick")
+            .withDescription("bought at kpoop concert")
+            .withAmount("70")
+            .withArchiveName("hobbies")
+            .build();
+    public static final Expense FOOTBALL = new ExpenseBuilder().withName("Nike football")
+            .withDescription("To play with")
+            .withAmount("39.99")
+            .withArchiveName("hobbies")
+            .build();
+
     // Manually added - Expense's details found in {@code CommandTestUtil}
     public static final Expense DINNER = new ExpenseBuilder().withName(VALID_NAME_DINNER)
             .withDescription(VALID_DESCRIPTION_DINNER)
@@ -86,7 +110,39 @@ public class TypicalExpenses {
         return bb;
     }
 
+    public static Billboard getTypicalBillboardWithArchiveExpenses() {
+        Billboard bb = new Billboard();
+        for (Expense expense : getTypicalExpensesWithArchiveExpenses()) {
+            bb.addExpense(expense);
+        }
+        return bb;
+    }
+
+    public static ArchiveWrapper getTypicalArchiveWrapper() {
+        ArchiveWrapper aw = new ArchiveWrapper(new ArrayList<>());
+
+        for (Expense expense : getTypicalArchiveExpenses()) {
+            String archiveName = expense.getArchiveName();
+
+            if (!aw.hasArchive(archiveName)) {
+                aw.addArchive(new Archive(archiveName, new ArrayList<>()));
+            }
+            aw.addArchiveExpense(archiveName, expense);
+        }
+
+        return aw;
+    }
+
     public static List<Expense> getTypicalExpenses() {
         return new ArrayList<>(Arrays.asList(BILLS, FOOD, GROCERIES, MOVIE));
+    }
+
+    public static List<Expense> getTypicalExpensesWithArchiveExpenses() {
+        return new ArrayList<>(Arrays.asList(BILLS, FOOD, GROCERIES, MOVIE,
+                IPHONE11, GUCCI_SLIDES, KPOP_LIGHT_STICK, FOOTBALL));
+    }
+
+    public static List<Expense> getTypicalArchiveExpenses() {
+        return new ArrayList<>(Arrays.asList(IPHONE11, GUCCI_SLIDES, KPOP_LIGHT_STICK, FOOTBALL));
     }
 }

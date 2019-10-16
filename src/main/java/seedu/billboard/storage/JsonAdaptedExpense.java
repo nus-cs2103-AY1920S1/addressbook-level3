@@ -33,15 +33,18 @@ class JsonAdaptedExpense {
     private final String amount;
     private final String created;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String archiveName;
 
     /**
      * Constructs a {@code JsonAdaptedExpense} with the given expense details.
      */
     @JsonCreator
-    public JsonAdaptedExpense(@JsonProperty("name") String name, @JsonProperty("description") String description,
+    public JsonAdaptedExpense(@JsonProperty("name") String name,
+                              @JsonProperty("description") String description,
                               @JsonProperty("amount") String amount,
                               @JsonProperty("created") String created,
-                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                              @JsonProperty("archive") String archiveName) {
         this.name = name;
         this.description = description;
         this.amount = amount;
@@ -49,6 +52,7 @@ class JsonAdaptedExpense {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.archiveName = archiveName;
     }
 
     /**
@@ -62,6 +66,7 @@ class JsonAdaptedExpense {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        archiveName = source.getArchiveName();
     }
 
     /**
@@ -112,8 +117,15 @@ class JsonAdaptedExpense {
         }
         final CreatedDateTime modelCreated = new CreatedDateTime(dateTime);
 
+        if (archiveName == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    "Archive name"));
+        }
+        final String modelArchiveName = archiveName;
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Expense(modelName, modelDescription, modelAmount, modelCreated, modelTags);
+
+        return new Expense(modelName, modelDescription, modelAmount, modelCreated, modelTags, modelArchiveName);
     }
 
 }

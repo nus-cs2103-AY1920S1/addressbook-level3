@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
+import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
 
@@ -36,6 +37,10 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    public Billboard getCombinedBillboard();
+
+    // ================ Billboard methods ==============================
 
     /**
      * Returns the user prefs' address book file path.
@@ -89,4 +94,56 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredExpenses(Predicate<Expense> predicate);
+
+    // ================ Archive methods ==============================
+
+    /**
+     * Returns a list of all existing archive names.
+     */
+    List<String> getArchiveNames();
+
+    /**
+     * Replaces archive data with the data in {@code billboard}.
+     */
+    void setArchives(ReadOnlyArchiveWrapper archives);
+
+    /** Returns the archive */
+    ReadOnlyArchiveWrapper getArchives();
+
+    /**
+     * Returns true if an expense with the same identity as {@code expense} exists in the given archive.
+     */
+    boolean hasArchiveExpense(String archiveName, Expense expense);
+
+    /**
+     * Returns true if an archive with the same name as {@code archiveName} exists in the archives.
+     */
+    boolean hasArchive(String archive);
+
+    /**
+     * Deletes the given expense in the given archive.
+     * The given {@code archiveName} must exist.
+     */
+    void deleteArchiveExpense(String archiveName, Expense target);
+
+    /**
+     * Adds the given expense into the given archive.
+     * The given {@code archiveName} must exist.
+     */
+    void addArchiveExpense(String archiveName, Expense expense);
+
+    /**
+     * Adds the given expense into the given archive.
+     * The given {@code archiveName} must exist.
+     */
+    void addArchive(Archive archive);
+
+    /** Returns an unmodifiable view of the filtered archive expense list */
+    ObservableList<Expense> getFilteredArchiveExpenses(String archiveName);
+
+    /**
+     * Updates the filter of the filtered archive expense list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredArchiveExpenses(String archiveName, Predicate<Expense> predicate);
 }

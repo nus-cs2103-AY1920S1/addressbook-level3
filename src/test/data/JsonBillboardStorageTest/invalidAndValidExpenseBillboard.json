@@ -4,7 +4,8 @@
     "description" : "tickets to joker",
     "amount" : "10.00",
     "created" : "12/31/2019 1234",
-    "tagged" : [ "leisure" ]
+    "tagged" : [ "leisure" ],
+    "archiveName" : ""
   }, {
     "name": "Expense With Invalid Amount Field",
     "description" : "toast with frens",

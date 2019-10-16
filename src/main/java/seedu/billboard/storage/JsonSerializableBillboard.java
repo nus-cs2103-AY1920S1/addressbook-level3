@@ -16,7 +16,7 @@ import seedu.billboard.model.expense.Expense;
 /**
  * An Immutable Billboard that is serializable to JSON format.
  */
-@JsonRootName(value = "billboard")
+@JsonRootName(value = "expenses")
 class JsonSerializableBillboard {
 
     public static final String MESSAGE_DUPLICATE_EXPENSE = "Expenses list contains duplicate expense(s).";
@@ -41,20 +41,20 @@ class JsonSerializableBillboard {
     }
 
     /**
-     * Converts this address book into the model's {@code Billboard} object.
+     * Converts this Billboard into the model's {@code Billboard} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public Billboard toModelType() throws IllegalValueException {
-        Billboard addressBook = new Billboard();
+        Billboard billboard = new Billboard();
         for (JsonAdaptedExpense jsonAdaptedExpense : expenses) {
             Expense expense = jsonAdaptedExpense.toModelType();
-            if (addressBook.hasExpense(expense)) {
+            if (billboard.hasExpense(expense)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EXPENSE);
             }
-            addressBook.addExpense(expense);
+            billboard.addExpense(expense);
         }
-        return addressBook;
+        return billboard;
     }
 
 }

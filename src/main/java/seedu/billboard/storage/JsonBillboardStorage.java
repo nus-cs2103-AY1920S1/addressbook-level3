@@ -33,7 +33,7 @@ public class JsonBillboardStorage implements BillboardStorage {
 
     @Override
     public Optional<ReadOnlyBillboard> readBillboard() throws DataConversionException {
-        return readBillboard(filePath);
+        return readBillboard(getBillboardFilePath());
     }
 
     /**
@@ -45,14 +45,14 @@ public class JsonBillboardStorage implements BillboardStorage {
     public Optional<ReadOnlyBillboard> readBillboard(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableBillboard> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableBillboard> jsonBillboard = JsonUtil.readJsonFile(
                 filePath, JsonSerializableBillboard.class);
-        if (jsonAddressBook.isEmpty()) {
+        if (jsonBillboard.isEmpty()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonBillboard.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,8 +60,8 @@ public class JsonBillboardStorage implements BillboardStorage {
     }
 
     @Override
-    public void saveBillboard(ReadOnlyBillboard addressBook) throws IOException {
-        saveBillboard(addressBook, filePath);
+    public void saveBillboard(ReadOnlyBillboard billboard) throws IOException {
+        saveBillboard(billboard, getBillboardFilePath());
     }
 
     /**
@@ -69,12 +69,12 @@ public class JsonBillboardStorage implements BillboardStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveBillboard(ReadOnlyBillboard addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveBillboard(ReadOnlyBillboard billboard, Path filePath) throws IOException {
+        requireNonNull(billboard);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableBillboard(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableBillboard(billboard), filePath);
     }
 
 }

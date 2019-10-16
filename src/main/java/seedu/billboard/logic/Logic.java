@@ -7,6 +7,7 @@ import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.logic.parser.exceptions.ParseException;
+import seedu.billboard.model.ReadOnlyArchiveWrapper;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.expense.Expense;
 
@@ -47,4 +48,15 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the archive.
+     *
+     * @see seedu.billboard.model.Model#getArchives()
+     */
+    ReadOnlyArchiveWrapper getArchive();
+
+    /** Returns an unmodifiable view of the filtered list of archive expenses */
+    ObservableList<Expense> getFilteredArchiveExpenseList(String archiveName);
+
 }

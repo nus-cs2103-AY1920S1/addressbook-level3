@@ -23,6 +23,8 @@ public class Expense {
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
+    private String archiveName;
+
     /**
      * Every field must be present and not null.
      */
@@ -33,6 +35,16 @@ public class Expense {
         this.amount = amount;
         this.created = created;
         this.tags.addAll(tags);
+        this.archiveName = "";
+    }
+
+    public Expense(Name name, Description description, Amount amount, Set<Tag> tags, String archiveName) {
+        requireAllNonNull(name, description, amount);
+        this.name = name;
+        this.description = description;
+        this.amount = amount;
+        this.tags.addAll(tags);
+        this.archiveName = archiveName;
     }
 
     public Name getName() {
@@ -49,6 +61,18 @@ public class Expense {
 
     public CreatedDateTime getCreated() {
         return created;
+    }
+
+    public String getArchiveName() {
+        return archiveName;
+    }
+
+    public boolean isArchived() {
+        return !archiveName.equals("");
+    }
+
+    public void archiveTo(String archiveName) {
+        this.archiveName = archiveName;
     }
 
     /**
