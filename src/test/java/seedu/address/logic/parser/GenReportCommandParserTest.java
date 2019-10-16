@@ -16,7 +16,7 @@ public class GenReportCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsGenReportCommand() {
-        assertParseSuccess(parser, "B0",
+        assertParseSuccess(parser, "B1",
                 new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum())));
     }
 
