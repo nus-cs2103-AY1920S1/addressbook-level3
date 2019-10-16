@@ -13,6 +13,7 @@ import javafx.scene.layout.Region;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
 
+
 /**
  * Panel containing the list of memes.
  */
@@ -39,7 +40,6 @@ public class MemeGridPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Meme meme, boolean empty) {
             super.updateItem(meme, empty);
-
             if (empty || meme == null) {
                 setGraphic(null);
                 setText(null);

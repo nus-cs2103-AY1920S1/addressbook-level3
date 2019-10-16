@@ -21,7 +21,7 @@ import seedu.weme.statistics.LikeManager;
 /**
  * Contains integration tests (interaction with the Model) for {@code MemeFindCommand}.
  */
-public class FindCommandTest {
+public class MemeFindCommandTest {
     private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new LikeManager());
     private Model expectedModel = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new LikeManager());
 
