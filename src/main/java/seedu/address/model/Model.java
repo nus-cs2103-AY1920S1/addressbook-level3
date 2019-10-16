@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -197,4 +198,6 @@ public interface Model {
      * {@code cheatSheet} must exist in the cheatSheet book.
      */
     void deleteCheatSheet(CheatSheet cheatSheet);
+
+    public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate);
 }

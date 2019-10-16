@@ -21,6 +21,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCheatSheetByTagCommand;
 import seedu.address.logic.commands.FilterFlashcardByTagCommand;
 import seedu.address.logic.commands.FilterNoteByTagCommand;
+import seedu.address.logic.commands.GlobalTagFilterCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListTagCommand;
@@ -75,6 +76,9 @@ public class AddressBookParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case GlobalTagFilterCommand.COMMAND_WORD:
+            return new GlobalTagFilterCommandParser().parse(arguments);
 
         default:
 

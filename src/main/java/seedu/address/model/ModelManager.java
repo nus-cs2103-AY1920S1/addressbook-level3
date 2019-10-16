@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -276,8 +278,6 @@ public class ModelManager implements Model {
         addressBook.deleteCheatSheet(cheatSheet);
     }
 
-
-
     //=========== Filtered CheatSheet List Accessors =============================================================
 
     /**
@@ -293,5 +293,17 @@ public class ModelManager implements Model {
     public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate) {
         requireNonNull(predicate);
         filteredCheatSheets.setPredicate(predicate);
+    }
+
+    //========================GLOBAL COLLECT TAGGED ITEMS======================================
+    @Override
+    public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
+        ArrayList<StudyBuddyItem> taggedItems = new ArrayList<>();
+        for (CheatSheet cs : addressBook.getCheatSheetList()) {
+            if (predicate.test(cs)) {
+                taggedItems.add(cs);
+            }
+        }
+        return taggedItems;
     }
 }

@@ -1,13 +1,15 @@
 package seedu.address.logic.commands;
 
 import seedu.address.model.Model;
+import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.StudyBuddyItemContainsTagPredicate;
-import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
+
+import java.util.ArrayList;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.GLOBAL_TAG_FILTER;
 
-public class GlobalTagFilterCommand {
+public class GlobalTagFilterCommand extends Command {
 
     public static final String COMMAND_WORD = GLOBAL_TAG_FILTER;
 
@@ -33,7 +35,14 @@ public class GlobalTagFilterCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-
-        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS + FilterByTagCommand.displayTagKeywords(tagKeywords));
+        ArrayList<StudyBuddyItem> tagListResult = model.collectTaggedItems(tagPredicate);
+        StringBuilder sb = new StringBuilder("");
+        for (StudyBuddyItem sbi : tagListResult) {
+            sb.append(sbi.toString());
+            sb.append("\n");
+        }
+        return new CommandResult( FILTER_TAG_MESSAGE_SUCCESS
+                + "\n" + sb.toString()
+                + FilterByTagCommand.displayTagKeywords(tagKeywords));
     }
 }
