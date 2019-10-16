@@ -17,10 +17,10 @@ public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Selects a person by their name and display"
-            + "their personal information.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Selects a person by their position in the list"
+            + "and displays their personal information.\n"
             + "Parameters : NAME\n"
-            + "Example: " + COMMAND_WORD + "Erwin Chan Guo Xin";
+            + "Example: " + COMMAND_WORD + "3";
 
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Person selected!";
 
