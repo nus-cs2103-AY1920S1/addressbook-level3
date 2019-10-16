@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showDiaryAtIndex;
-import static seedu.address.testutil.TypicalDiaries.getTypicalDiaries;
+import static seedu.address.testutil.TypicalDiaries.getTypicalDiaryRecords;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DIARY;
 
@@ -20,7 +20,6 @@ import seedu.address.logic.commands.EditDiaryCommand.EditDiaryDescriptor;
 import seedu.address.model.DiaryRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.diary.Diary;
 import seedu.address.testutil.DiaryBuilder;
@@ -32,7 +31,7 @@ import seedu.address.testutil.EditDiaryDescriptorBuilder;
  */
 public class EditDiaryCommandTest {
 
-    private Model model = new ModelManager((ReadOnlyDiary) getTypicalDiaries(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalDiaryRecords(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -63,18 +62,6 @@ public class EditDiaryCommandTest {
 
         Model expectedModel = new ModelManager(new DiaryRecords(model.getDiaryRecords()), new UserPrefs());
         expectedModel.setDiary(lastDiary, editedDiary);
-
-        assertCommandSuccess(editDiaryCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditDiaryCommand editDiaryCommand = new EditDiaryCommand(INDEX_FIRST_DIARY, new EditDiaryDescriptor());
-        Diary editedDiary = model.getFilteredDiaryList().get(INDEX_FIRST_DIARY.getZeroBased());
-
-        String expectedMessage = String.format(EditDiaryCommand.MESSAGE_EDIT_DIARY_SUCCESS, editedDiary);
-
-        Model expectedModel = new ModelManager(new DiaryRecords(model.getDiaryRecords()), new UserPrefs());
 
         assertCommandSuccess(editDiaryCommand, model, expectedMessage, expectedModel);
     }

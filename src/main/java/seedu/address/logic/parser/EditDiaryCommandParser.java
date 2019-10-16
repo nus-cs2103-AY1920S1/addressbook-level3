@@ -2,11 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditDiaryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.diary.DiaryName;
 
 /**
  * Parses input arguments and creates a new EditDiaryCommand object
@@ -20,18 +20,21 @@ public class EditDiaryCommandParser implements Parser<EditDiaryCommand> {
      */
     public EditDiaryCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        String[] argsArr = args.trim().split(" ", 2);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_DIARY_NAME);
 
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(argsArr[0]);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDiaryCommand.MESSAGE_USAGE), pe);
         }
 
         EditDiaryCommand.EditDiaryDescriptor editDiaryDescriptor = new EditDiaryCommand.EditDiaryDescriptor();
-        editDiaryDescriptor.setDiaryName(new DiaryName(argsArr[1]));
+        if (argMultimap.getValue(PREFIX_DIARY_NAME).isPresent()) {
+            editDiaryDescriptor.setDiaryName(ParserUtil.parseName(argMultimap.getValue(PREFIX_DIARY_NAME).get()));
+        }
 
         if (!editDiaryDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditDiaryCommand.MESSAGE_NOT_EDITED);

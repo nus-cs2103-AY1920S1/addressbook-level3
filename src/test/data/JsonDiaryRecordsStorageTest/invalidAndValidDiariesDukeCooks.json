@@ -1,0 +1,7 @@
+{
+  "diaries": [ {
+    "name": "Valid diary name"
+  }, {
+    "name": "Diary With invalid n@me"
+  } ]
+}

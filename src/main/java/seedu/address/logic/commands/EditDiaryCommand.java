@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 
 import java.util.List;
@@ -25,8 +26,9 @@ public class EditDiaryCommand extends Command {
             + "by the index number used in the displayed diary list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + "NAME] "
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "[" + PREFIX_DIARY_NAME + "NAME] "
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_DIARY_NAME + "newDiaryName";
 
     public static final String MESSAGE_EDIT_DIARY_SUCCESS = "Edited Diary: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

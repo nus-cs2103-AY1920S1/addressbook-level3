@@ -3,7 +3,6 @@ package seedu.address.model.person;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalDiaries.ALL_MEAT;
 import static seedu.address.testutil.TypicalDiaries.BOB_DIARY;
 
@@ -13,12 +12,6 @@ import seedu.address.model.diary.Diary;
 import seedu.address.testutil.DiaryBuilder;
 
 public class DiaryTest {
-
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Diary diary = new DiaryBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> diary.getPages().remove(0));
-    }
 
     @Test
     public void isSameDiary() {
