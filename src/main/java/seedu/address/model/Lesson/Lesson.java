@@ -25,16 +25,15 @@ public class Lesson {
         return isRepeat;
     }
 
-//    public boolean isSameLesson(Lesson otherLesson) {
-//        if (otherLesson == this) {
-//            return true;
-//        }
-//
-//        return otherLesson != null
-//                && otherLesson.getTime().equals(this.getTime())
-//                && otherLesson.getName().equals(this.getName())
-//                && otherLesson.getIsRepeat().equals(this.getIsRepeat());
-//    }
+    public boolean isSameLesson(Lesson otherLesson) {
+        if (otherLesson == this) {
+            return true;
+        }
+
+        return otherLesson != null
+                && otherLesson.getTime().equals(this.getTime())
+                && otherLesson.getName().equals(this.getName());
+    }
 
     @Override
     public boolean equals(Object other) {
