@@ -3,6 +3,9 @@ package seedu.address.storage.statistics;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.statistics.CardStatistics;
 
+/**
+ * Jackson-friendly version of {@link CardStatistics}.
+ */
 public class JsonAdaptedCardStatistics {
     private final String cardId;
     private final int numShown;
@@ -25,6 +28,9 @@ public class JsonAdaptedCardStatistics {
         this.cardId = source.getCardId();
     }
 
+    /**
+     * Converts this Jackson-friendly adapted object into the {@link CardStatistics} object.
+     */
     public CardStatistics toModelType() {
         return new CardStatistics(cardId, numShown, numCorrect);
     }

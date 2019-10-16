@@ -2,11 +2,8 @@ package seedu.address.storage.statistics;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.wordbank.ReadOnlyWordBank;
-import seedu.address.model.wordbank.WordBank;
 import seedu.address.statistics.WordBankStatistics;
 
 import java.io.File;
@@ -21,6 +18,9 @@ import java.util.logging.Logger;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * A class to access {@code WordBankStatistics} data stored as a json file on the hard disk.
+ */
 public class JsonWordBankStatisticsStorage implements WordBankStatisticsStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonWordBankStatisticsStorage.class);
@@ -85,6 +85,9 @@ public class JsonWordBankStatisticsStorage implements WordBankStatisticsStorage 
         JsonUtil.saveJsonFile(new JsonSerializableWordBankStatistics(statistics), filePath);
     }
 
+    /**
+     * Returns all the word bank statistics in the given directory.
+     */
     public Optional<List<WordBankStatistics>> getWordBankStatisticsList() {
         List<WordBankStatistics> wordBankStatsList = new ArrayList<>();
         String pathString = "data/wbstats/";
@@ -94,11 +97,11 @@ public class JsonWordBankStatisticsStorage implements WordBankStatisticsStorage 
             return Optional.empty();
         }
 
-        for (int i = 0; i < pathArray.length; i++) {
-            if (!pathArray[i].endsWith(".json")) {
+        for (String s : pathArray) {
+            if (!s.endsWith(".json")) {
                 continue;
             }
-            String wordBankPathString = "data/wbstats/" + pathArray[i];
+            String wordBankPathString = "data/wbstats/" + s;
             Path wordBankPath = Paths.get(wordBankPathString);
             try {
                 Optional<WordBankStatistics> optionalWbStats = readWordBankStatistics(wordBankPath);
@@ -108,7 +111,6 @@ public class JsonWordBankStatisticsStorage implements WordBankStatisticsStorage 
                 wordBankStatsList.add(wbStats);
             } catch (DataConversionException e) {
                 e.printStackTrace();
-                return Optional.empty();
             }
         }
         return Optional.of(wordBankStatsList);

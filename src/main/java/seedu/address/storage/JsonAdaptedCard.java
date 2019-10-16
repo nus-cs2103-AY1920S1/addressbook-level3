@@ -84,7 +84,12 @@ class JsonAdaptedCard {
         final Meaning modelMeaning = new Meaning(description);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Card(modelWord, modelMeaning, modelTags, id);
+
+        if (id == null) {
+            return Card.createNewCard(modelWord, modelMeaning, modelTags);
+        } else {
+            return new Card(modelWord, modelMeaning, modelTags, id);
+        }
     }
 
 }
