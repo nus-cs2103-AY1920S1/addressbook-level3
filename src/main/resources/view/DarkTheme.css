@@ -1,5 +1,6 @@
+/** Constants **/
 @font-face {
-    font-family: Roboto;
+    font-family: Roboto Regular;
     src: url("Roboto-Regular.ttf");
 }
 
@@ -8,38 +9,42 @@
     src: url("Roboto-Thin.ttf");
 }
 
+@font-face {
+    font-family: Roboto Medium;
+    src: url("Roboto-Medium.ttf");
+}
+
 .root {
-    -fx-font-family: "Roboto";
+    /** Colors **/
+    -backgroundColor: #121212;  /** Default Dark **/
+    -surfaceColor: #1E1E1E;     /** Lighter Dark **/
+    -topColor: #383838;         /** Lightest Dark **/
+    -primaryColor: #262833;     /** Dark tinted blue **/
+    -logBoxColor: #7E8CE0;      /** Light Purple Blue **/
+    -errorColor: #CF6679;       /** Red Error **/
+    -lineColor: #FF7597;        /** Some Redish Pink **/
+    -eventCardColor1: #FFAF5F;
+    -eventCardColor2: #4ACFAC;
+    -eventCardColor3: #36C7D0;
+    -eventCardColor4: #FFA48E;
+    -white: #FFFFFF;
+    -black: #000000;
 }
 
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #2E2E2E; /* Used in the default.html file */
+    -fx-background-color: #121212;
+    background-color: #121212;
 }
 
 .label {
-    -fx-font-family: "Roboto";
-    -fx-text-fill: white;
+    -fx-font-family: "Roboto Regular";
+    -fx-text-fill: -white;
     -fx-opacity: 0.9;
-}
-
-.label-bright {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Roboto";
-    -fx-text-fill: white;
-    -fx-opacity: 1;
-}
-
-.label-header {
-    -fx-font-size: 32pt;
-    -fx-font-family: "Roboto";
-    -fx-text-fill: white;
-    -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Roboto";
+    -fx-font-family: "Roboto Regular";
 }
 
 .tab-pane {
@@ -79,7 +84,7 @@
 
 .table-view .column-header .label {
     -fx-font-size: 20pt;
-    -fx-font-family: "Roboto";
+    -fx-font-family: -regularFont;
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
@@ -90,8 +95,8 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: transparent transparent transparent #4d4d4d;
+    -fx-background-color: #1F1F1F;
+    -fx-padding: 0 0.15em 0 0.15em;
 }
 
 .split-pane {
@@ -127,81 +132,15 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Roboto Thin";
+    -fx-font-family: -thinFont;
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-    /*-fx-font-family: "Segoe UI";*/
+    -fx-font-family: "Roboto Regular";
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
-}
-
-.stack-pane {
-    -fx-background-color: derive(#1d1d1d, 20%);
-}
-
-.pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
-}
-
-.status-bar {
-    -fx-background-color: derive(#1d1d1d, 30%);
-}
-
-.status-bar .label {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Roboto Thin";
-    -fx-font-style: italic;
-    -fx-text-fill: white;
-    -fx-padding: 4px;
-    -fx-pref-height: 30px;
-}
-
-.status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
-    -fx-border-width: 1px;
-}
-
-.status-bar-with-border .label {
-    -fx-text-fill: white;
-}
-
-.grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
-    -fx-border-width: 1px;
-}
-
-.grid-pane .stack-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-}
-
-.context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
-}
-
-.context-menu .label {
-    -fx-text-fill: white;
-}
-
-.menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
-}
-
-.menu-bar .label {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Roboto Thin";
-    -fx-text-fill: white;
-    -fx-opacity: 0.9;
-}
-
-.menu .left-container {
-    -fx-background-color: black;
 }
 
 /*
@@ -215,7 +154,7 @@
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: #1d1d1d;
-    -fx-font-family: "Roboto", Helvetica, Arial, sans-serif;
+    -fx-font-family: "Roboto Regular", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
@@ -304,10 +243,6 @@
     -fx-padding: 8 1 8 1;
 }
 
-#scrollLog .corner {
-    -fx-background-color: transparent ;
-}
-
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -319,35 +254,129 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #262626;
+    -fx-background-color: transparent #1F1F1F;
     -fx-background-insets: 0;
     -fx-background-radius: 12;
     -fx-border-insets: 0;
     -fx-border-width: 1;
-    -fx-font-family: "Roboto";
+    -fx-font-family: -regularFont;
     -fx-font-size: 13pt;
     -fx-text-fill: white;
 }
+/** For Main Window **/
+#viewTitlePane {
+    -fx-background-color: -surfaceColor;
+}
+
+#popUp {
+    -fx-font-family: "Roboto Regular";
+    -fx-font-size: 11pt;
+    -fx-text-fill: -primaryColor;
+    -fx-background-color: -logBoxColor;
+    -fx-background-radius: 8;
+}
+
+#gridManager {
+    -fx-background-color: -backgroundColor;
+}
+
+/** For LogPanel **/
+#logPanelBase, #scrollLog, #boxLog {
+    -fx-background-color: -surfaceColor;
+}
+
+#logPanelBase, #scrollLog {
+    -fx-background-radius: 8;
+}
+
+#scrollLog .corner {
+    -fx-background-color: transparent ;
+}
 
 #box {
-    -fx-font-family: "Roboto";
+    -fx-font-family: "Roboto Regular";
+    -fx-font-size: 11pt;
+    -fx-text-fill: -primaryColor;
+    -fx-background-color: -logBoxColor;
+    -fx-background-radius: 8;
+    -fx-background-insets: 0-10;
+}
+
+/** For CalendarPanel **/
+#calendarDay {
+    -fx-font-family: "Roboto Medium";
+    -fx-font-size: 11pt;
+    -fx-text-fill: -white;
+}
+
+#calendarCircle {
+    -fx-opacity: 0;
+    -fx-fill: -white;
+}
+
+#calendarBase {
+    -fx-background-color: -surfaceColor;
+}
+
+#monday, #tuesday, #wednesday, #thursday, #friday, #saturday, #sunday {
+    -fx-font-family: "Roboto Medium";
     -fx-font-size: 11pt;
 }
 
-#filterField, #listPanel, #personWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+#monthYearTitle {
+    -fx-font-family: "Roboto Medium";
+    -fx-font-size: 14pt
 }
 
-#tags {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
+/** For Timeline **/
+#timelineBase, #timelineScrollPane, #timelineBox {
+    -fx-background-color: -surfaceColor;
 }
 
-#tags .label {
-    -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-font-size: 11;
+#timelineBase, #timelineScrollPane {
+    -fx-background-radius: 8;
 }
+
+#detailsBase {
+    -fx-background-color: -backgroundColor;
+}
+
+#timelineGrid {
+    -fx-background-color: -surfaceColor;
+}
+
+#timelineTitle {
+    -fx-font-family: "Roboto Medium";
+    -fx-font-size: 16pt;
+    -fx-font-underline: true;
+}
+
+
+#line0, #line1, #line2, #line3, #line4, #line5,
+#line6, #line7, #line8, #line9, #line10, #line11,
+#line12, #line13, #line14, #line15, #line16, #line17,
+#line18, #line19, #line20, #line21, #line22, #line23 {
+    -fx-background-color: -lineColor;
+    -fx-opacity: 0.6;
+}
+
+/** For Event Card **/
+#eventCardBase {
+    -fx-background-color: -eventCardColor1;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
+}
+
+#eventCardName {
+    -fx-font-family: "Roboto Medium";
+    -fx-text-fill: -primaryColor;
+    -fx-font-size: 14pt;
+}
+
+#eventCardDate {
+    -fx-font-family: "Roboto Regular";
+    -fx-text-fill: -primaryColor;
+    -fx-font-size: 10pt;
+}
+
+
