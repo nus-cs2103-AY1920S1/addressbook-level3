@@ -1,4 +1,4 @@
-package seedu.address.ui.panel.calendar;
+package seedu.address.ui;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -12,16 +12,21 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 
 import seedu.address.MainApp;
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
-import seedu.address.ui.UiParser;
+import seedu.address.ui.panel.calendar.CalendarPanel;
+import seedu.address.ui.panel.calendar.TimelineDayView;
+import seedu.address.ui.panel.log.LogPanel;
 
-public class TimelineDayViewTest {
+public class UiTest {
 
-    private static boolean threadFlag = true;
     private static List<EventSource> list = new ArrayList<>();
+
+    private static LocalDate date = LocalDate.parse("2020-07-21");
+    private static Instant instant = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
 
     private static LocalDate date1 = LocalDate.parse("2019-11-18");
     private static Instant instant1 = date1.atStartOfDay(ZoneId.systemDefault()).toInstant();
@@ -32,13 +37,12 @@ public class TimelineDayViewTest {
     private static LocalDate date3 = LocalDate.parse("2001-01-01");
     private static Instant instant3 = date3.atStartOfDay(ZoneId.systemDefault()).toInstant();
 
+
     @BeforeAll
     static void setUpTest() {
         Thread t = new Thread("JavaFX Init Thread") {
             public void run() {
-                while (threadFlag) {
-                    Application.launch(MainApp.class, new String[0]);
-                }
+                Application.launch(MainApp.class, new String[0]);
             }
         };
         t.setDaemon(true);
@@ -49,6 +53,40 @@ public class TimelineDayViewTest {
         list.add(new EventSource("Test 3", new DateTime(instant3)));
     }
 
+    /******************* For LogBox *************************/
+    @Test
+    void createLogBoxTest() {
+        try {
+            LogPanel logPanel = new LogPanel();
+            logPanel.createLogBox("Feedback to the user", "-primaryColor");
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    /******************* For CalendarPanel *************************/
+
+    @Test
+    void changeTimelineDateTest() {
+        CalendarPanel calendarPanel = new CalendarPanel(new UiParser());
+        try {
+            calendarPanel.changeTimelineDate(instant);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    void changeCalendarScreenDate() {
+        CalendarPanel calendarPanel = new CalendarPanel(new UiParser());
+        try {
+            calendarPanel.changeCalendarScreenDate(instant);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    /******************* For TimelineDayView *************************/
     @Test
     void eventChangeTest() {
         try {
@@ -57,8 +95,6 @@ public class TimelineDayViewTest {
         } catch (Exception e) {
             fail();
         }
-        threadFlag = false;
-
+        Platform.exit();
     }
-
 }
