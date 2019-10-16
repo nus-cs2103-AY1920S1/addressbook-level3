@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="900" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="660.0" minWidth="900" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -24,7 +24,7 @@
       </stylesheets>
 
       <VBox>
-            <HBox>
+            <HBox VBox.vgrow="NEVER">
                <children>
               <MenuBar fx:id="menuBar" prefHeight="35.0" prefWidth="400.0">
                 <Menu mnemonicParsing="false" text="File">
@@ -54,7 +54,7 @@
           </padding>
         </StackPane>
             <StackPane fx:id="modularDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
-            <HBox>
+            <HBox fillHeight="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="status-bar" stylesheets="@DarkTheme.css" VBox.vgrow="NEVER">
                <children>
               <StackPane fx:id="statusbarPlaceholder" HBox.hgrow="ALWAYS" />
                   <StackPane fx:id="currentModePlaceholder" HBox.hgrow="ALWAYS" />
