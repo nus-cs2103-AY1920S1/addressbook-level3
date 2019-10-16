@@ -33,7 +33,7 @@ public abstract class Reminder {
 
     @Override
     public String toString() {
-        return "Reminder: " + message;
+        return "(" + isActivated + ") " + message;
     }
 
     abstract boolean isSameReminder(Reminder reminder);

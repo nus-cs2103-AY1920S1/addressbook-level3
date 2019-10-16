@@ -193,6 +193,8 @@ public class ModelManager implements Model {
     @Override
     public void addExpenseReminder(ExpenseReminder expenseReminder) {
         addressBook.addExpenseReminder(expenseReminder);
+        expenseTrackers.track(filteredExpenses);
+        addressBook.updateExpenseReminders();
     }
 
     @Override
@@ -214,6 +216,8 @@ public class ModelManager implements Model {
     public void setExpenseReminder(ExpenseReminder target, ExpenseReminder editedEntry) {
         requireAllNonNull(target, editedEntry);
         addressBook.setExpenseReminder(target, editedEntry);
+        expenseTrackers.track(filteredExpenses);
+        addressBook.updateExpenseReminders();
     }
 
     //=========== Filtered Person List Accessors =============================================================
