@@ -4,8 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import seedu.address.commons.core.UserSettings;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FINE_INCREMENT_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_PERIOD_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RENEW_PERIOD_1;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
@@ -70,6 +74,18 @@ public class ModelManagerTest {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
+    }
+
+    @Test
+    public void setUserSettings_nullUserSettings_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setUserSettings(null));
+    }
+
+    @Test
+    public void setUserSettings_validUserSettings_setsUserSettings() {
+        UserSettings userSettings = new UserSettings(10, 10, 10);
+        modelManager.setUserSettings(userSettings);
+        assertEquals(userSettings, modelManager.getUserSettings());
     }
 
     @Test

@@ -3,10 +3,6 @@ package seedu.address.commons.core;
 import java.io.Serializable;
 import java.util.Objects;
 
-import seedu.address.model.usersettings.FineIncrement;
-import seedu.address.model.usersettings.LoanPeriod;
-import seedu.address.model.usersettings.RenewPeriod;
-
 /**
  * A Serializable class that contains the User settings.
  */

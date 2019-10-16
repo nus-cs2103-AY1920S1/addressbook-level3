@@ -4,17 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.address.commons.core.UserSettings;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
+import seedu.address.logic.commands.SetCommand;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.testutil.Assert.assertThrows;
+import seedu.address.testutil.SetUserSettingsDescriptorBuilder;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
 import org.junit.jupiter.api.Test;
@@ -43,6 +46,8 @@ import seedu.address.model.borrower.BorrowerIdGenerator;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
 import seedu.address.testutil.EditBookDescriptorBuilder;
+import seedu.address.testutil.UserSettingsBuilder;
+import seedu.address.testutil.UserSettingsUtil;
 
 public class CatalogParserTest {
 
@@ -143,6 +148,15 @@ public class CatalogParserTest {
     public void parseCommand_done() throws Exception {
         assertTrue(parser.parseCommand(DoneCommand.COMMAND_WORD) instanceof DoneCommand);
         assertTrue(parser.parseCommand(DoneCommand.COMMAND_WORD + " 3") instanceof DoneCommand);
+    }
+
+    @Test
+    public void parseCommand_set() throws Exception {
+        UserSettings userSettings = new UserSettingsBuilder().build();
+        SetCommand.SetUserSettingsDescriptor descriptor = new SetUserSettingsDescriptorBuilder(userSettings).build();
+        SetCommand command = (SetCommand) parser.parseCommand(SetCommand.COMMAND_WORD + " "
+                + UserSettingsUtil.getSetUserSettingsDescriptorDetails(descriptor));
+        assertEquals(new SetCommand(descriptor), command);
     }
 
     @Test

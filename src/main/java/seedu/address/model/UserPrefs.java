@@ -91,18 +91,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.borrowerRecordsFilePath = borrowerRecordsFilePath;
     }
 
-    public int getLoanPeriod() {
-        return userSettings.getLoanPeriod();
-    }
-
-    public int getRenewPeriod() {
-        return userSettings.getRenewPeriod();
-    }
-
-    public int getFineIncrement() {
-        return userSettings.getFineIncrement();
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {

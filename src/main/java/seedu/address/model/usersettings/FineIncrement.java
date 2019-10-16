@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class FineIncrement {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Fine amount should be positive and should not exceed Integer.MAX_VALUE cents.";
+            "Fine increment should be positive and should not exceed Integer.MAX_VALUE cents.";
     public static final String VALIDATION_REGEX = "\\d+";
     public final int fineIncrement;
 
