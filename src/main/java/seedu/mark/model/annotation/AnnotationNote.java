@@ -11,7 +11,7 @@ public class AnnotationNote {
     /** Note content.*/
     private String content;
 
-    private AnnotationNote(String content) {
+    public AnnotationNote(String content) {
         this.content = content;
     }
 
