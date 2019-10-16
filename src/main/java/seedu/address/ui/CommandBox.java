@@ -99,16 +99,23 @@ public class CommandBox extends UiPart<Region> {
                 }
                 autoCompletePanel.setSelected(newIndex);
                 break;
-            case SHIFT:
+            case RIGHT:
                 try {
-                    commandTextField.setText(autoCompletePanel.getSelected().getSuggestedWord());
+                    /*String newText = commandTextField.getText() + " " + autoCompletePanel.getSelected().getSuggestedWord();
+                    commandTextField.setText(newText);
                     commandTextField.positionCaret(commandTextField.getText().length());
+
+                    // Update listview to change current list
+                    autoCompletePanel.updateListView(newText);*/
+
                 } catch (NullPointerException e) {
                     logger.info("Nothing is selected thus shift key does not work");
                 }
                 break;
             default:
-                autoCompletePanel.updateListView(commandTextField.getText() + event.getText());
+                String newText = commandTextField.getText() + event.getText();
+                // Update listview to update current list
+                autoCompletePanel.updateListView(newText);
             }
         });
     }
