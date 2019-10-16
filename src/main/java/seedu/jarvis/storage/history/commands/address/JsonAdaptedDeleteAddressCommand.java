@@ -6,13 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
-import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.storage.address.JsonAdaptedPerson;
 import seedu.jarvis.storage.commons.core.JsonAdaptedIndex;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
-
-import java.util.Optional;
 
 /**
  * Jackson-friendly version of {@link DeleteAddressCommand}.

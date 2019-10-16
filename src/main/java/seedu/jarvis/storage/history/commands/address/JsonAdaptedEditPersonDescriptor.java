@@ -1,7 +1,14 @@
 package seedu.jarvis.storage.history.commands.address;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
 import seedu.jarvis.model.address.person.Address;
@@ -10,12 +17,6 @@ import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
 import seedu.jarvis.model.address.tag.Tag;
 import seedu.jarvis.storage.address.JsonAdaptedTag;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link EditPersonDescriptor}

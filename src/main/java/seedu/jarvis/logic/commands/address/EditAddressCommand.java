@@ -12,6 +12,7 @@ import static seedu.jarvis.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -247,7 +248,9 @@ public class EditAddressCommand extends Command {
         // state check
         EditAddressCommand e = (EditAddressCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editPersonDescriptor.equals(e.editPersonDescriptor)
+                && Objects.equals(originalPerson, e.originalPerson)
+                && Objects.equals(editedPerson, e.editedPerson);
     }
 
     /**
