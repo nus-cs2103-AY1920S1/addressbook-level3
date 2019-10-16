@@ -37,7 +37,8 @@ public class ExportCommand extends Command {
             + PREFIX_FILE_PATH + "C:\\Users\\damithc\\Documents\\CS2105_Cheat_Sheet.docx";
 
     public static final String IO_EXCEPTION_MESSAGE = "There was an error in writing to the file. "
-            + "Please try again later, or write to a different file.";
+            + "Please try writing to a different file, and ensure that your file path does not contain "
+            + "any illegal characters.";
 
     private final Category category;
     private final FilePath filePath;
