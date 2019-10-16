@@ -159,6 +159,7 @@ public class ModelManager implements Model {
     public void deleteBudget(Budget target) {
         addressBook.removeEntry(target);
         addressBook.removeBudget(target);
+    }
 
     @Override
     public void deleteExpenseReminder(ExpenseReminder target) {
@@ -206,6 +207,7 @@ public class ModelManager implements Model {
     public void addBudget(Budget budget) {
         addressBook.addBudget(budget);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+    }
 
     @Override
     public void addExpenseReminder(ExpenseReminder expenseReminder) {
@@ -268,6 +270,7 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Budget> getFilteredBudgets() {
         return filteredBudgets;
+    }
       
     @Override  
     public ObservableList<ExpenseReminder> getFilteredExpenseReminders() {
@@ -302,6 +305,7 @@ public class ModelManager implements Model {
     public void updateFilteredBudgets(Predicate<Budget> predicate) {
         requireNonNull(predicate);
         filteredBudgets.setPredicate(predicate);
+    }
 
     @Override
     public void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate) {
