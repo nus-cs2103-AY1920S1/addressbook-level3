@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -271,6 +272,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteEvent(Event event) {
         appointmentBook.removeEvent(event);
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
@@ -302,6 +304,69 @@ public class ModelManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+    }
+
+
+    @Override
+    public void updateFilteredEventList(ReferenceId referenceId) {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        Predicate<Event> byApproved = Event -> (Event.getStatus().isApproved()
+                && Event.getPersonId().equals(referenceId));
+        filteredEvents.setPredicate(byApproved);
+    }
+
+    @Override
+    public void updateFilteredEventList() {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        Predicate<Event> byApproved = Event -> Event.getStatus().isApproved();
+        filteredEvents.setPredicate(byApproved);
+    }
+
+    @Override
+    public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        Predicate<Event> byApproved = Event -> ((Event.getStatus().isApproved() || Event.getStatus().isAcked())
+                && Event.getPersonId().equals(referenceId));
+        filteredEvents.setPredicate(byApproved);
+    }
+
+    /**
+     * Returns an boolean, check whether current displaying appointments are belong to the same patient.
+     */
+    @Override
+    public Boolean isPatientList() {
+        requireNonNull(filteredEvents);
+        boolean res = true;
+        ReferenceId id = filteredEvents.get(0).getPersonId();
+        for (Event e : filteredEvents) {
+            if (!id.equals(e.getPersonId())) {
+                res = false;
+                break;
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public void updateToMissedEventList() {
+        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        Date current = new Date();
+        Predicate<Event> byMissed = Event -> (Event.getStatus().isMissed())
+                || (!Event.getStatus().isSettled() && (Event.getEventTiming().getEndTime().getTime().before(current)));
+        filteredEvents.setPredicate(byMissed);
+    }
+
+    @Override
+    public Boolean isMissedList() {
+        requireNonNull(filteredEvents);
+        boolean res = true;
+        for (Event e : filteredEvents) {
+            if (!e.getStatus().isMissed()) {
+                res = false;
+                break;
+            }
+        }
+        return res;
     }
 
 
