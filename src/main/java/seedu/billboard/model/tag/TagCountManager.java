@@ -2,7 +2,9 @@ package seedu.billboard.model.tag;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -66,4 +68,44 @@ public class TagCountManager {
             incrementCount(tag);
         }
     }
+    /**
+     * Decrease count of tag given in the argument.
+     * @param tag whose count to be decreased.
+     */
+    public void decreaseCount(Tag tag) {
+        requireNonNull(tag);
+        int current = count.get(tag);
+        count.replace(tag, current - 1);
+    }
+
+    /**
+     * Decrease count of all tags specified in argument.
+     * @param tags whose count to be decreased.
+     */
+    public void decreaseAllCount(List<Tag> tags) {
+        requireNonNull(tags);
+        for (Tag tag : tags) {
+            decreaseCount(tag);
+        }
+    }
+
+    /**
+     * Removes all tags whose count = 0 and returns a list of tags removed.
+     * @return list of tags removed.
+     */
+    public List<Tag> removeAll() {
+        List<Tag> toReturn = new ArrayList<Tag>();
+        Iterator it = count.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            Integer num = (Integer) pair.getValue();
+            if (num == 0) {
+                toReturn.add((Tag) pair.getKey());
+                it.remove();
+            }
+        }
+        return toReturn;
+    }
+
+
 }

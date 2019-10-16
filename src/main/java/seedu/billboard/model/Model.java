@@ -92,6 +92,13 @@ public interface Model {
     Set<Tag> retrieveTags(List<String> toRetrieve);
 
     /**
+     * Decrease count of tags removed from an expense.
+     * Also removes tags whose count is 0.
+     * @param toDecrease tags to decrease count from.
+     */
+    void decreaseCount(List<Tag> toDecrease);
+
+    /**
      * Increment counts of tags.
      * @param toIncrement tags whose count are to be incremented.
      */

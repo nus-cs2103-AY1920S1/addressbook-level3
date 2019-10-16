@@ -80,10 +80,25 @@ public class UniqueTagList {
         return Collections.unmodifiableSet(toReturn);
     }
 
-    /*
+    /**
+     * Removes mapping of specified tag name and its corresponding tag.
+     * Tag name must exist in the list.
+     * @param tagName to be removed
+     */
     public void remove(String tagName) {
         requireNonNull(tagName);
         tagList.remove(tagName);
     }
+
+    /**
+     * Removes mapping of all tags specified in argument.
+     * @param tags to be removed.
      */
+    public void removeAll(List<Tag> tags) {
+        requireNonNull(tags);
+        for (Tag tag : tags) {
+            remove(tag.tagName);
+        }
+    }
+
 }

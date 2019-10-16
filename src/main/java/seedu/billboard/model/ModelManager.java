@@ -206,6 +206,12 @@ public class ModelManager implements Model {
         requireNonNull(toIncrement);
         billboard.incrementCount(toIncrement);
     }
+
+    @Override
+    public void decreaseCount(List<Tag> toDecrease) {
+        requireNonNull(toDecrease);
+        billboard.decreaseCount(toDecrease);
+    }
     //=========== Filtered Expense List Accessors =============================================================
 
     /**

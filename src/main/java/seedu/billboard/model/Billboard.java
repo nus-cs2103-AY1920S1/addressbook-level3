@@ -134,6 +134,16 @@ public class Billboard implements ReadOnlyBillboard {
         count.incrementAllCount(toIncrement);
     }
 
+    /**
+     * Decrease count of tags removed from an expense.
+     * Also removes tags whose count is 0.
+     */
+    public void decreaseCount(List<Tag> toDecrease) {
+        count.decreaseAllCount(toDecrease);
+        List<Tag> toRemove = count.removeAll();
+        tags.removeAll(toRemove);
+    }
+
     //// util methods
 
     @Override
