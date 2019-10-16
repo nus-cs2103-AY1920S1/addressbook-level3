@@ -9,7 +9,7 @@ import static seedu.ichifund.commons.util.AppUtil.checkArgument;
  * Represents a Year in a Date in IchiFund.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Year {
+public class Year implements Comparable<Year> {
     public static final String MESSAGE_CONSTRAINTS =
             "Year should only contain years from 2000 to 9999";
     public static final String VALIDATION_REGEX = "[2-9]\\d\\d\\d";
@@ -62,5 +62,11 @@ public class Year {
     @Override
     public int hashCode() {
         return toString().hashCode();
+    }
+
+    @Override
+    public int compareTo(Year other) {
+        // Later years are given priority
+        return other.yearNumber - yearNumber;
     }
 }

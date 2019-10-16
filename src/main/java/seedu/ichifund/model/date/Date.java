@@ -12,7 +12,6 @@ public class Date implements Comparable<Date> {
     public static final String MESSAGE_CONSTRAINTS =
             "Day should match with month and year.";
 
-    private java.util.Date date;
     private Day day;
     private Month month;
     private Year year;
@@ -76,7 +75,13 @@ public class Date implements Comparable<Date> {
 
     @Override
     public int compareTo(Date other) {
-        return this.date.compareTo(other.date);
+        if (getYear().equals(other.getYear()) && getMonth().equals(other.getMonth())) {
+            return getDay().compareTo(other.getDay());
+        } else if (getYear().equals(other.getYear())) {
+            return getMonth().compareTo(other.getMonth());
+        } else {
+            return getYear().compareTo(other.getYear());
+        }
     }
 
     @Override
@@ -86,6 +91,6 @@ public class Date implements Comparable<Date> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(day, month, year, date);
+        return Objects.hash(day, month, year);
     }
 }
