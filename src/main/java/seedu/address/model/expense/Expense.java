@@ -37,6 +37,15 @@ public class Expense {
         this.date = LocalDate.now();
     }
 
+    public Expense(Description description, Price price, Set<Tag> tags, LocalDate date, UniqueIdentifier uniqueIdentifier) {
+        requireAllNonNull(description, price, tags, uniqueIdentifier);
+        this.description = description;
+        this.price = price;
+        this.uniqueIdentifier = uniqueIdentifier;
+        this.tags.addAll(tags);
+        this.date = date;
+    }
+
     public Description getDescription() {
         return description;
     }
@@ -92,6 +101,7 @@ public class Expense {
         return otherExpense.getUniqueIdentifier().equals(getUniqueIdentifier())
                 && otherExpense.getDescription().equals(getDescription())
                 && otherExpense.getPrice().equals(getPrice())
+                && otherExpense.getDate().equals(getDate())
                 && otherExpense.getTags().equals(getTags());
     }
 
@@ -108,6 +118,8 @@ public class Expense {
                 .append(getDescription())
                 .append(" Price: ")
                 .append(getPrice())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" [Tags: ");
         getTags().forEach(builder::append);
         builder.append("]");

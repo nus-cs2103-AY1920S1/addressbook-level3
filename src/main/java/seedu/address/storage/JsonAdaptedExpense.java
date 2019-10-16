@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,9 +11,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
+import seedu.address.model.expense.Timestamp;
 import seedu.address.model.expense.UniqueIdentifier;
 import seedu.address.model.tag.Tag;
 
@@ -26,6 +29,7 @@ class JsonAdaptedExpense {
     private final String description;
     private final String price;
     private final String uniqueIdentifier;
+    private final String date;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -35,9 +39,11 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(@JsonProperty("description") String description,
                               @JsonProperty("price") String price,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                              @JsonProperty("date") String date,
                               @JsonProperty("uniqueIdentifier") String uniqueIdentifier) {
         this.description = description;
         this.price = price;
+        this.date = date;
         this.uniqueIdentifier = uniqueIdentifier;
 
         if (tagged != null) {
@@ -54,6 +60,7 @@ class JsonAdaptedExpense {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        date = ParserUtil.formatDate(source.getDate());
         uniqueIdentifier = source.getUniqueIdentifier().value;
     }
 
@@ -86,6 +93,14 @@ class JsonAdaptedExpense {
         }
         final Price modelPrice = new Price(price);
 
+        if (date == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
+        }
+        if (!Timestamp.isValidTimestamp(date)) {
+            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
+        }
+        final LocalDate modelDate = ParserUtil.parseDate(date);
 
         if (uniqueIdentifier == null) {
             throw new IllegalValueException(
@@ -97,7 +112,7 @@ class JsonAdaptedExpense {
         final UniqueIdentifier modelUniqueIdentifier = new UniqueIdentifier(uniqueIdentifier);
 
         final Set<Tag> modelTags = new HashSet<>(expenseTags);
-        return new Expense(modelDescription, modelPrice, modelTags, modelUniqueIdentifier);
+        return new Expense(modelDescription, modelPrice, modelTags, modelDate, modelUniqueIdentifier);
     }
 
 }

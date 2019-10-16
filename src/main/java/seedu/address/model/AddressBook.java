@@ -117,13 +117,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
         Budget primaryBudget = budgets.getPrimaryBudget();
         if (primaryBudget != null) {
-        //    return;
-        //} else {
-       // boolean expenseDateWithinBudget = p.getDate().isBefore(primaryBudget.getEndDate())
-         //       && (p.getDate().isAfter(primaryBudget.getStartDate())
-           //         || p.getDate().isEqual(primaryBudget.getStartDate()));
-        //if (expenseDateWithinBudget) {
-            primaryBudget.addExpense(p);
+            //    return;
+            //} else {
+            boolean expenseDateWithinBudget = p.getDate().isBefore(primaryBudget.getEndDate())
+                    && (p.getDate().isAfter(primaryBudget.getStartDate())
+                    || p.getDate().isEqual(primaryBudget.getStartDate()));
+            if (expenseDateWithinBudget) {
+                primaryBudget.addExpense(p);
+            }
         }
     }
 
@@ -145,6 +146,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
+        for (Budget budget : budgets) {
+            budget.removeIdentical(key);
+        }
     }
 
     /**
