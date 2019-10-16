@@ -41,6 +41,13 @@ public class ExportUtil {
         }
     }
 
+    /**
+     * Adds a String representation of the given FlashCard to the given XWPFDocument.
+     * Also handles related concerns (such as formatting and line breaks).
+     *
+     * @param card The FlashCard to add to the XWPFDocument.
+     * @param doc The XWPFDocument to which the FlashCard will be added.
+     */
     private static void addFlashCardToDocument(FlashCard card, XWPFDocument doc) {
         Question question = card.getQuestion();
         Answer answer = card.getAnswer();
