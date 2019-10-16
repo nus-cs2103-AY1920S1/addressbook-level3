@@ -40,13 +40,19 @@ public class BankCommand extends SwitchCommand {
         if (mode != ModeEnum.LOAD) {
             throw new CommandException("Load word bank first!");
         }
+        if (model.getWordBankList().getWordBank(this.name) == null) {
+            return ModeEnum.LOAD;
+        }
         return ModeEnum.APP;
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         WordBankList temp = model.getWordBankList();
         System.out.println("~~~~~~~" +this.name);
+        if (temp.getWordBank(this.name) == null) {
+            throw new CommandException("Workbank does not exist");
+        }
         model.setWordBank(temp.getWordBank(this.name));
         return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT , false, false);
     }
