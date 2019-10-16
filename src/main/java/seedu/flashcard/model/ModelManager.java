@@ -127,6 +127,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean systemHasTag(Tag tag) {
+        return flashcardList.flashcardsHasTag(tag);
+    }
+
+    @Override
+    public void systemRemoveTag(Tag tag) {
+        flashcardList.flashcardsRemoveTag(tag);
+    }
+
+    @Override
     public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
         requireNonNull(predicate);
         filteredFlashcards.setPredicate(predicate);

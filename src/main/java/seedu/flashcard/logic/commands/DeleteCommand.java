@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_INVALID_FLASHCARD_INDEX = "The index you entered is invalid!";
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "The card has been deleted!";
+    public static final String MESSAGE_DELETE_FLASHCARD_SUCCESS = "The card has been deleted!";
     private final Index targetIndex;
 
     public DeleteCommand(Index targetIndex) {
@@ -47,7 +47,7 @@ public class DeleteCommand extends Command {
 
         Flashcard cardToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteFlashcard(cardToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, cardToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, cardToDelete));
     }
 
     @Override

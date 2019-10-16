@@ -50,6 +50,13 @@ public class Flashcard {
     }
 
     /**
+     * Returns true if this flashcard has the following tag.
+     */
+    public boolean hasTag(Tag tag) {
+        return getTags().contains(tag);
+    }
+
+    /**
      * Returns true if this flashcard has any one of the tags in the given tag sets.
      */
     public boolean hasAnyTag(Set<Tag> tags) {
@@ -59,6 +66,13 @@ public class Flashcard {
             }
         }
         return false;
+    }
+
+    /**
+     * Removes the tag from this flashcard.
+     */
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
     }
 
     /**

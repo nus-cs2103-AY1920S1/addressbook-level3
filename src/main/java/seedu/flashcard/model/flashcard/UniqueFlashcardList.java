@@ -108,7 +108,7 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
     }
 
     /**
-     * Returns all tags appeared in the system
+     * Returns all tags appeared in the system.
      */
     public Set<Tag> getAllTags() {
         Set<Tag> allTags = new HashSet<Tag>();
@@ -116,6 +116,28 @@ public class UniqueFlashcardList implements Iterable<Flashcard> {
             allTags.addAll(flashcard.getTags());
         }
         return allTags;
+    }
+
+    /**
+     * Returns true if the given tag has ever appeared in the flashcard list.
+     */
+    public boolean anyFlashcardHasTag(Tag tag) {
+        for (Flashcard flashcard : internalList) {
+            if (flashcard.hasTag(tag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Remove the given tag from all the flashcard in the system
+     * @param tag
+     */
+    public void removeTag(Tag tag) {
+        for (Flashcard flashcard : internalList) {
+            flashcard.removeTag(tag);
+        }
     }
 
     @Override

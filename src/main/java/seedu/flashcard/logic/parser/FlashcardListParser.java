@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.flashcard.logic.commands.AddCommand;
 import seedu.flashcard.logic.commands.Command;
 import seedu.flashcard.logic.commands.DeleteCommand;
+import seedu.flashcard.logic.commands.DeleteTagCommand;
 import seedu.flashcard.logic.commands.EditCommand;
 import seedu.flashcard.logic.commands.ExitCommand;
 import seedu.flashcard.logic.commands.FindCommand;
@@ -70,6 +71,9 @@ public class FlashcardListParser {
 
         case ListTagCommand.COMMAND_WORD:
             return new ListTagCommand();
+
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKOWN_COMMAND);

@@ -98,6 +98,16 @@ public interface Model {
     ObservableList<Flashcard> getFilteredFlashcardList();
 
     /**
+     * Returns true if the given tag ever appeared in the system.
+     */
+    boolean systemHasTag(Tag tag);
+
+    /**
+     * Removes the given tag from all flashcards in the system.
+     */
+    void systemRemoveTag(Tag tag);
+
+    /**
      * Updates the filter of the filtered flashcard list to filter by the given {@code predicate}
      * @throws NullPointerException is {@code predicate} is null
      */

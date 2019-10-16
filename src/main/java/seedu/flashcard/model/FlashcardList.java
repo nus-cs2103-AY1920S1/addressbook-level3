@@ -82,6 +82,20 @@ public class FlashcardList implements ReadOnlyFlashcardList {
         return flashcards.getAllTags();
     }
 
+    /**
+     * returns true if the given tag ever appears in the flashcard list
+     */
+    public boolean flashcardsHasTag(Tag tag) {
+        return flashcards.anyFlashcardHasTag(tag);
+    }
+
+    /**
+     * Removes the given tag from all flashcards.
+     */
+    public void flashcardsRemoveTag(Tag tag) {
+        flashcards.removeTag(tag);
+    }
+
     @Override
     public ObservableList<Flashcard> getFlashcardList() {
         return flashcards.asUnimodifiableObservableList();
