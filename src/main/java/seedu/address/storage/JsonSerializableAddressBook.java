@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import javafx.util.Pair;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -22,13 +23,25 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
-
+    private final int currentPatientIndex;
+    private final int currentVisitIndex;
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(
+            @JsonProperty("persons") List<JsonAdaptedPerson> persons,
+            @JsonProperty("currentPatientIndex") Integer currentPatientIndex,
+            @JsonProperty("currentVisitIndex") Integer currentVisitIndex) {
         this.persons.addAll(persons);
+        if (currentPatientIndex == null) {
+            currentPatientIndex = -1;
+        }
+        if (currentVisitIndex == null) {
+            currentVisitIndex = -1;
+        }
+        this.currentPatientIndex = currentPatientIndex;
+        this.currentVisitIndex = currentVisitIndex;
     }
 
     /**
@@ -38,6 +51,9 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        Pair<Integer, Integer> indexPairOfOngoingVisit = source.getIndexPairOfOngoingVisit();
+        this.currentPatientIndex = indexPairOfOngoingVisit.getKey();
+        this.currentVisitIndex = indexPairOfOngoingVisit.getValue();
     }
 
     /**
@@ -54,6 +70,12 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+
+        addressBook.setIndexPairOfOngoingVisit(new Pair<>(
+                currentPatientIndex,
+                currentVisitIndex
+        ));
+
         return addressBook;
     }
 
