@@ -1,5 +1,14 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -16,7 +25,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -122,12 +130,24 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBox.importSyntaxStyleSheet(getRoot().getScene());
 
-        // add supported commands (not complete)
-        Prefix[] a = new Prefix[]{new Prefix("p/"), new Prefix("d/")};
-        Prefix[] b = new Prefix[]{new Prefix("d/"), new Prefix("p/"), new Prefix("s/"), new Prefix("pr/")};
+        // add supported commands (not all yet)
+        commandBox.enableSyntaxHightlightingForCommand("add",
+                List.of(PREFIX_PRICE, PREFIX_DESCRIPTION),
+                "add d/<description_here> p/ <price here>");
+        commandBox.enableSyntaxHightlightingForCommand("alias",
+                Collections.emptyList(),
+                "alias <alias_name> <input>");
+        commandBox.enableSyntaxHightlightingForCommand("budget",
+                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_START_DATE, PREFIX_PERIOD),
+                "budget d/ <description> p/ <amount> sd/ <start_date> pr/ <period>");
+        commandBox.enableSyntaxHightlightingForCommand("event",
+                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_TAG, PREFIX_TIMESTAMP),
+                "event d/ <description> p/ <amount> date/ <date>");
+        commandBox.enableSyntaxHightlightingForCommand("stats",
+                List.of(PREFIX_DESCRIPTION, PREFIX_START_DATE, PREFIX_END_DATE),
+                "stats sd/ <start_date> ed/ <end_date>");
 
-        commandBox.addSyntax("add", List.of(a), "add d/<description_here> p/ <price here>");
-        commandBox.addSyntax("budget", List.of(b), "budget d/ <description> p/ <amount> s/ <start date> pr/ <period>");
+        commandBox.enableSyntaxHighlighting();
 
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
