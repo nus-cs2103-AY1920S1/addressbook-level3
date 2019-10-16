@@ -59,14 +59,14 @@ public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> 
                 throw new ParseException(AckAppCommand.MESSAGE_DUPLICATE_ACKED);
             }else{
                 Event unAck = filterEventList.get(0);
-                model.deleteEvent(unAck);
+//                model.deleteEvent(unAck);
 
                 Timing timing = unAck.getEventTiming();
                 Status status = new Status(Status.AppointmentStatuses.ACKNOWLEDGED);
                 Event toAck = new Appointment(referenceId, timing, status);
 
-                return new ReversibleActionPairCommand(new AckAppCommand(toAck),
-                        new UnAckApptCommand(unAck));
+                return new ReversibleActionPairCommand(new AckAppCommand(unAck, toAck),
+                        new AckAppCommand(toAck, unAck));
             }
         }
     }
