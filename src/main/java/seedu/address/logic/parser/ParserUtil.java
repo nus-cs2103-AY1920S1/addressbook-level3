@@ -95,7 +95,7 @@ public class ParserUtil {
         String date;
         if (!dateField.isPresent()) {
             LocalDateTime currentDateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, H:mma");
             date = currentDateTime.format(formatter);
         } else {
             date = dateField.get();
