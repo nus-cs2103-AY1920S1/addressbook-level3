@@ -17,7 +17,7 @@ public class TypicalAppeals {
             "", "", "CS2100",
             "", false, "");
     public static final Appeal APPEAL2 = new Appeal("C000002" ,
-            "remove module", "A0180001A", "AY2019",
+            "drop module", "A0180001A", "AY2019",
             20, "I want to take another module",
             "", "", "",
             "CS2103", false, "");
