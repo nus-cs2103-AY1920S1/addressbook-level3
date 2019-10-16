@@ -28,6 +28,8 @@
                 <Label fx:id="moduleCode" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <FlowPane fx:id="tags" />
+            <Label fx:id="moduleName" styleClass="cell_small_label" text="\$moduleName" />
+            <Label fx:id="lecturerName" styleClass="cell_small_label" text="\$lecturerName" />
             <Label fx:id="timeSlot" styleClass="cell_small_label" text="\$timeSlot" />
             <Label fx:id="quota" styleClass="cell_small_label" text="\$quota" />
             <Label fx:id="prerequisites" styleClass="cell_small_label" text="\$prerequisite" />
