@@ -6,6 +6,9 @@ import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.feature.Feature;
 
+/**
+ * Parses input arguments and creates a new ViewCommand object
+ */
 public class ViewCommandParser implements Parser<ViewCommand> {
 
     /**

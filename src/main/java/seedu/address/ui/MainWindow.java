@@ -198,6 +198,8 @@ public class MainWindow extends UiPart<Stage> {
                     featureBoxPlaceholder.getChildren().clear();
                     featureBoxPlaceholder.getChildren().add(performance.getRoot());
                     break;
+                default:
+                    break;
                 }
             }
 
