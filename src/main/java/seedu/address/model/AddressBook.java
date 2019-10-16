@@ -144,17 +144,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         deadlines.remove(key);
     }
 
-    public void addGood(){
-        stats[0]++ ;
+    public void addGood() {
+        stats[0]++;
     }
-    public void addHard(){
-        stats[1]++ ;
+    public void addHard() {
+        stats[1]++;
     }
-    public void addEasy(){
-        stats[2]++ ;
+    public void addEasy() {
+        stats[2]++;
     }
 
-    public int[] getStats(){
+    public int[] getStats() {
         return stats;
     }
 
