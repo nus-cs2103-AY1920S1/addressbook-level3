@@ -29,8 +29,13 @@ public class UserViewUpdate {
         assert !(preamble.isEmpty());
 
         switch(preamble) {
+
         case "list":
             paneToRender = userViewMain.loadTasks();
+            break;
+
+        case "home":
+            paneToRender = userViewMain.loadDashboard();
             break;
 
         default:
