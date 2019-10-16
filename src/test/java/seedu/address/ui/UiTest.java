@@ -49,11 +49,15 @@ public class UiTest {
         };
         t.setDaemon(true);
         t.start();
+        threadFlag = true;
     }
 
     /******************* For LogBox *************************/
     @Test
     void createLogBoxTest() {
+        if(!threadFlag) {
+            setUpTest();
+        }
         try {
             LogPanel logPanel = new LogPanel();
             logPanel.createLogBox("Feedback to the user", "-primaryColor");
@@ -61,13 +65,21 @@ public class UiTest {
             fail(e.getMessage());
         }
         Platform.exit();
-        Thread.currentThread().interrupt();
+        try {
+            Thread.currentThread().interrupt();
+        } catch (Exception e) {
+            // Do nothing
+        }
+        threadFlag = false;
     }
 
     /******************* For CalendarPanel *************************/
 
     @Test
     void changeTimelineDateTest() {
+        if(!threadFlag) {
+            setUpTest();
+        }
         CalendarPanel calendarPanel = new CalendarPanel(new UiParser());
         try {
             calendarPanel.changeTimelineDate(instant);
@@ -75,11 +87,19 @@ public class UiTest {
             fail(e.getMessage());
         }
         Platform.exit();
-        Thread.currentThread().interrupt();
+        try {
+            Thread.currentThread().interrupt();
+        } catch (Exception e) {
+            // Do nothing
+        }
+        threadFlag = false;
     }
 
     @Test
     void changeCalendarScreenDate() {
+        if(!threadFlag) {
+            setUpTest();
+        }
         CalendarPanel calendarPanel = new CalendarPanel(new UiParser());
         try {
             calendarPanel.changeCalendarScreenDate(instant);
@@ -87,12 +107,20 @@ public class UiTest {
             fail(e.getMessage());
         }
         Platform.exit();
-        Thread.currentThread().interrupt();
+        try {
+            Thread.currentThread().interrupt();
+        } catch (Exception e) {
+            // Do nothing
+        }
+        threadFlag = false;
     }
 
     /******************* For TimelineDayView *************************/
     @Test
     void eventChangeTest() {
+        if(!threadFlag) {
+            setUpTest();
+        }
         try {
             list.add(new EventSource("Test 1", new DateTime(instant1)));
             list.add(new EventSource("Test 2", new DateTime(instant2)));
@@ -103,6 +131,11 @@ public class UiTest {
             fail();
         }
         Platform.exit();
-        Thread.currentThread().interrupt();
+        try {
+            Thread.currentThread().interrupt();
+        } catch (Exception e) {
+            // Do nothing
+        }
+        threadFlag = false;
     }
 }
