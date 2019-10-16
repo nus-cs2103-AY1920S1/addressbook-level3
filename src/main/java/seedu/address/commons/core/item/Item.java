@@ -213,22 +213,24 @@ public class Item {
                 .append(itemDescription.toString());
 
         if (getTask().isPresent()) {
-            builder.append("\nTask: ")
-                    .append(getTask().toString());
+            builder.append("\n\nTask Details: ")
+                    .append(getTask().get().toString());
         }
 
         if (getEvent().isPresent()) {
-            builder.append("\nEvent: ")
-                    .append(getEvent().toString());
+            builder.append("\n\nEvent Details: ")
+                    .append(getEvent().get().toString());
         }
 
         if (getReminder().isPresent()) {
-            builder.append("\nReminder: ")
-                    .append(getReminder().toString());
+            builder.append("\n\nReminder Details: ")
+                    .append(getReminder().get().toString());
         }
 
-        builder.append("\nTags: ");
-        getTags().forEach(builder::append);
+        if (tags.size() > 0) {
+            builder.append("\nTags: ");
+            getTags().forEach(builder::append);
+        }
 
         return builder.toString();
     }
