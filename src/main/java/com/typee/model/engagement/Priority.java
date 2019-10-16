@@ -41,7 +41,6 @@ public enum Priority {
 
     /**
      * Returns the constraints that a {@code String} representing a {@code Priority} should adhere to.
-     * 
      * @return constraint message.
      */
     public static String getMessageConstraints() {

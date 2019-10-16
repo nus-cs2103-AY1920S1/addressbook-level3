@@ -101,7 +101,7 @@ public class ModelManager implements Model {
         historyManager.removeEngagement(target);
     }
 
-    //@Override
+    @Override
     public void addEngagement(Engagement engagement) {
         historyManager.addEngagement(engagement);
         updateFilteredEngagementList(PREDICATE_SHOW_ALL_ENGAGEMENTS);

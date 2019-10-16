@@ -55,9 +55,11 @@ public class Location {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) { // short-circuit
+        // short-circuit
+        if (this == o) {
             return true;
-        } else if (o instanceof Location) { // check if objects represent same locations.
+        } else if (o instanceof Location) {
+            // check if objects represent the same locations.
             return location.equalsIgnoreCase(((Location) o).location);
         } else {
             return false;

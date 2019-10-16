@@ -13,6 +13,16 @@ public abstract class Engagement {
     protected String description;
     protected Priority priority;
 
+    /**
+     * Constructs an engagement.
+     *
+     * @param start start time of the engagement.
+     * @param end end time of the engagement.
+     * @param attendees list of people attending.
+     * @param location location of the engagement.
+     * @param description description of the engagement.
+     * @param priority priority level of the engagement.
+     */
     protected Engagement(LocalDateTime start, LocalDateTime end,
                          AttendeeList attendees, Location location, String description, Priority priority) {
         this.startTime = start;
@@ -23,6 +33,18 @@ public abstract class Engagement {
         this.priority = priority;
     }
 
+    /**
+     * Returns a {@code Meeting}, {@code Interview}, or {@code Appointment} with the given fields.
+     * @param type type of engagement.
+     * @param start start time.
+     * @param end end time.
+     * @param attendees list of people attending.
+     * @param location location of engagement.
+     * @param description description of the engagement.
+     * @param priority priority level of the engagement.
+     *
+     * @return an {@code Engagement} with the corresponding fields.
+     */
     public static Engagement of(EngagementType type,
                                 LocalDateTime start, LocalDateTime end,
                                 AttendeeList attendees, Location location, String description,
@@ -84,6 +106,12 @@ public abstract class Engagement {
         this.priority = priority;
     }
 
+    /**
+     * Checks if this {@code Engagement} clashes with another one.
+     *
+     * @param engagement the {@code Engagement} to check for a clash.
+     * @return true if there is a clash.
+     */
     public boolean isSameEngagement(Engagement engagement) {
         return engagement.endTime.equals(endTime)
                 && engagement.startTime.equals(startTime)

@@ -2,6 +2,9 @@ package com.typee.model.engagement;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents an {@code Appointment}.
+ */
 public class Appointment extends Engagement {
     protected Appointment(LocalDateTime start, LocalDateTime end,
                       AttendeeList attendees, Location location, String description, Priority priority) {
