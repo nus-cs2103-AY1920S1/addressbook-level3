@@ -1,9 +1,12 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VALUE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GI;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUGAR;
 
 import java.util.stream.Stream;
 
@@ -37,21 +40,20 @@ public class AddFoodCommandParser implements Parser<AddFoodCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddFoodCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FOOD, PREFIX_FOOD_TYPE, PREFIX_VALUE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FOOD, PREFIX_FOOD_TYPE, PREFIX_CALORIE,
+            PREFIX_GI, PREFIX_SUGAR, PREFIX_FAT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_FOOD, PREFIX_FOOD_TYPE, PREFIX_VALUE)
-            || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_FOOD, PREFIX_FOOD_TYPE, PREFIX_CALORIE, PREFIX_GI, PREFIX_SUGAR,
+            PREFIX_FAT) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFoodCommand.MESSAGE_USAGE));
         }
 
         FoodName name = ParserUtil.parseFoodName(argMultimap.getValue(PREFIX_FOOD).get());
-        //TODO: Throw exception
         FoodType foodType = FoodType.getFrom(argMultimap.getValue(PREFIX_FOOD_TYPE).get());
-        String[] values = argMultimap.getValue(PREFIX_VALUE).get().trim().split(" ");
-        Calorie calorie = new Calorie(values[0]);
-        Gi gi = new Gi(values[1]);
-        Sugar sugar = new Sugar(values[2]);
-        Fat fat = new Fat(values[3]);
+        Calorie calorie = ParserUtil.parseCalorieValue(argMultimap.getValue(PREFIX_CALORIE).get());
+        Gi gi = ParserUtil.parseGiValue(argMultimap.getValue(PREFIX_GI).get());
+        Sugar sugar = ParserUtil.parseSugarValue(argMultimap.getValue(PREFIX_SUGAR).get());
+        Fat fat = ParserUtil.parseFatValue(argMultimap.getValue(PREFIX_FAT).get());
         Food newFood = new Food(name, calorie, gi, sugar, fat, foodType);
 
         return new AddFoodCommand(newFood);

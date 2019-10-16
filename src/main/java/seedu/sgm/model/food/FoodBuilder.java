@@ -1,5 +1,7 @@
 package seedu.sgm.model.food;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * A utility class to help with building Food objects.
  */
@@ -28,7 +30,10 @@ public class FoodBuilder {
         this.gi = new Gi(DEFAULT_GI);
         this.sugar = new Sugar(DEFAULT_SUGAR);
         this.fat = new Fat(DEFAULT_FAT);
-        this.foodType = FoodType.getFrom(DEFAULT_TYPE);
+        try {
+            this.foodType = FoodType.getFrom(DEFAULT_TYPE);
+        } catch (ParseException pe) {
+        }
     }
 
     /**
@@ -87,7 +92,9 @@ public class FoodBuilder {
      * Sets the {@code Fat} of the {@code Food} that we are building.
      */
     public FoodBuilder withFoodType(String foodType) {
-        this.foodType = FoodType.getFrom(foodType);
+        try {
+            this.foodType = FoodType.getFrom(foodType);
+        } catch (ParseException pe) {}
         return this;
     }
 

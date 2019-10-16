@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.ABBR_SNACK;
 import static seedu.address.logic.parser.CliSyntax.ABBR_STARCHY_VEGETABLE;
 import static seedu.address.logic.parser.CliSyntax.FLAG_SIGNAL;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * Represents all useful food types for categorizing food recommendations.
  */
@@ -19,7 +21,7 @@ public enum FoodType {
     SNACK,
     MEAL;
 
-    public static FoodType getFrom(String shortHandType) {
+    public static FoodType getFrom(String shortHandType) throws ParseException{
         switch (shortHandType.toLowerCase()) {
         case ABBR_NON_STARCHY_VEGETABLE:
         case FLAG_SIGNAL + ABBR_NON_STARCHY_VEGETABLE:
@@ -40,7 +42,7 @@ public enum FoodType {
         case FLAG_SIGNAL + ABBR_MEAL:
             return MEAL;
         default:
-            return null;
+            throw new ParseException("Invalid food type");
         }
     }
 
