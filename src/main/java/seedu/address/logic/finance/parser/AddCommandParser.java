@@ -17,7 +17,7 @@ import seedu.address.model.finance.logEntry.Amount;
 import seedu.address.model.finance.logEntry.Email;
 import seedu.address.model.finance.logEntry.LogEntry;
 import seedu.address.model.finance.logEntry.Phone;
-import seedu.address.model.finance.tag.Tag;
+import seedu.address.model.finance.attributes.Tag;
 
 
 /**

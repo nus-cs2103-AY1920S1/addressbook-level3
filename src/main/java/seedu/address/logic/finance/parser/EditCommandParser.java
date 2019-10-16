@@ -17,7 +17,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.finance.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.finance.commands.EditCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
-import seedu.address.model.finance.tag.Tag;
+import seedu.address.model.finance.attributes.Tag;
 
 
 /**

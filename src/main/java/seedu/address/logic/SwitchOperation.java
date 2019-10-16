@@ -261,20 +261,20 @@ public class SwitchOperation {
      */
     private seedu.address.model.finance.Model initModelManager(seedu.address.storage.finance.Storage storage,
                                                             seedu.address.model.finance.ReadOnlyUserPrefs userPrefs) {
-        Optional<seedu.address.model.finance.ReadOnlyAddressBook> addressBookOptional;
-        seedu.address.model.finance.ReadOnlyAddressBook initialData;
+        Optional<seedu.address.model.finance.ReadOnlyFinanceLog> addressBookOptional;
+        seedu.address.model.finance.ReadOnlyFinanceLog initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readFinanceLog();
             if (!addressBookOptional.isPresent()) {
-                System.out.println("Data file not found. Will be starting with a sample AddressBook");
+                System.out.println("Data file not found. Will be starting with a sample FinanceLog");
             }
             initialData = addressBookOptional
-                    .orElseGet(seedu.address.model.finance.util.SampleDataUtil::getSampleAddressBook);
+                    .orElseGet(seedu.address.model.finance.util.SampleDataUtil::getSampleFinanceLog);
         } catch (DataConversionException e) {
-            System.out.println("Data file not in the correct format. Will be starting with an empty AddressBook");
+            System.out.println("Data file not in the correct format. Will be starting with an empty FinanceLog");
             initialData = new seedu.address.model.finance.FinanceLog();
         } catch (IOException e) {
-            System.out.println("Problem while reading from the file. Will be starting with an empty AddressBook");
+            System.out.println("Problem while reading from the file. Will be starting with an empty FinanceLog");
             initialData = new FinanceLog();
         }
         return new ModelFinanceManager(initialData, userPrefs);
