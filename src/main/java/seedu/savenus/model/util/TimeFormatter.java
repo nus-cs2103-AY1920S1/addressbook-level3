@@ -1,42 +1,58 @@
 package seedu.savenus.model.util;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
- * Adapted from Riccardo Casatta for the idea/implementation for this class
- * https://stackoverflow.com/a/23215152/11925699
+ * Time Formatter class to format {@code LocalDateTime} input into user-readable strings.
  */
 public class TimeFormatter {
-    // Convert TimeUnits to milliseconds
-    public static final List<Long> TIMES = Arrays.asList(
-            TimeUnit.DAYS.toMillis(365),
-            TimeUnit.DAYS.toMillis(30),
-            TimeUnit.DAYS.toMillis(1));
+    /**
+     * Format input time and calculate the number of days until now.
+     * i.e. 0 for same day, 1 for yesterday ...
+     * @param inputTimeInLocalDateTime Input time
+     */
+    public static long getDaysAgo(LocalDateTime inputTimeInLocalDateTime) {
+        return getDaysAgo(inputTimeInLocalDateTime, LocalDateTime.now());
+    }
 
-    // Map times to its corresponding string
-    public static final List<String> TIMES_STRING = Arrays.asList(
-            "year", "month", "day", "hour");
+    /**
+     * Format input times and compare them to get number of days between them.
+     * i.e. 0 for same day, 1 for yesterday ...
+     * @param startTimeInLocalDateTime Input time
+     */
+    public static long getDaysAgo(LocalDateTime startTimeInLocalDateTime, LocalDateTime endTimeInLocalDateTime) {
+        LocalDate inputTimeInLocalDate = startTimeInLocalDateTime.toLocalDate();
+        return ChronoUnit.DAYS.between(inputTimeInLocalDate, endTimeInLocalDateTime);
+    }
 
     /**
      * Format input duration into timeAgo format.
-     * @param durationInMillis Input duration
+     * i.e. 0 for same month, 1 for last month ...
+     * @param inputTimeInLocalDateTime Input time
      */
-    public static String format(long durationInMillis) {
-        StringBuffer res = new StringBuffer();
-        // Find the largest unit of time
-        for (int i = 0; i < TimeFormatter.TIMES.size(); i++) {
-            Long current = TimeFormatter.TIMES.get(i);
-            long temp = durationInMillis / current;
-            if (temp > 0) {
-                res.append(temp).append(" ").append(TimeFormatter.TIMES_STRING.get(i))
-                    .append(temp != 1 ? "s" : "").append(" ago");
-                break;
-            }
-        }
-        return "".equals(res.toString())
-            ? "today"
-            : res.toString();
+    public static long getMonthsAgo(LocalDateTime inputTimeInLocalDateTime) {
+        LocalDate now = LocalDateTime.now(ZoneId.systemDefault()).toLocalDate();
+        LocalDate inputTimeInLocalDate = inputTimeInLocalDateTime.toLocalDate();
+        return ChronoUnit.MONTHS.between(inputTimeInLocalDate, now);
+    }
+
+    /**
+     * Format to KK:mm a.
+     * @param inputTimeInLocalDateTime
+     */
+    public static String format12HourClock(LocalDateTime inputTimeInLocalDateTime) {
+        return inputTimeInLocalDateTime.format(DateTimeFormatter.ofPattern("KK:mm a"));
+    }
+
+    /**
+     * Format to EEE, dd MMM.
+     * @param inputTimeInLocalDateTime
+     */
+    public static String formatDayPlusDate(LocalDateTime inputTimeInLocalDateTime) {
+        return inputTimeInLocalDateTime.format(DateTimeFormatter.ofPattern("EEE, dd MMM"));
     }
 }
