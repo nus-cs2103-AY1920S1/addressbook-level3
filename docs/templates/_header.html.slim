@@ -10,8 +10,6 @@
   #site-header
     nav.navbar.navbar-light.bg-light
       .container
-        - if attr? 'site-name'
-            a.navbar-brand href=(site_url 'index.html') ='VISIT'
         ul.navbar-nav
           li.nav-item
             =nav_link('UserGuide', 'UserGuide.html', 'User Guide')
