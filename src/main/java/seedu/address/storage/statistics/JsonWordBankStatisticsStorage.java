@@ -3,11 +3,18 @@ package seedu.address.storage.statistics;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.statistics.WordBankStatistics;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -70,5 +77,31 @@ public class JsonWordBankStatisticsStorage implements WordBankStatisticsStorage 
         requireAllNonNull(statistics, filePath);
 
         JsonUtil.saveJsonFile(new JsonSerializableWordBankStatistics(statistics), filePath);
+    }
+
+    public Optional<List<WordBankStatistics>> getWordBankStatisticsList() {
+        List<WordBankStatistics> wordBankStatsList = new ArrayList<>();
+        String pathString = "data/wbstats/";
+        File dataDirectory = new File(pathString);
+        String[] pathArray = dataDirectory.list();
+
+        for (int i = 0; i < pathArray.length; i++) {
+            if (!pathArray[i].endsWith(".json")) {
+                continue;
+            }
+            String wordBankPathString = "data/wbstats/" + pathArray[i];
+            Path wordBankPath = Paths.get(wordBankPathString);
+            try {
+                Optional<WordBankStatistics> optionalWbStats = readWordBankStatistics(wordBankPath);
+                String wbName = FileUtil.getJustFileName(wordBankPath.toString());
+                WordBankStatistics wbStats = optionalWbStats
+                        .orElse(WordBankStatistics.getEmpty(wbName));
+                wordBankStatsList.add(wbStats);
+            } catch (DataConversionException e) {
+                e.printStackTrace();
+                return Optional.empty();
+            }
+        }
+        return Optional.of(wordBankStatsList);
     }
 }

@@ -3,18 +3,15 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModeEnum;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.load.BankCommandResult;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -24,7 +21,6 @@ import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
 
 import static java.util.Objects.requireNonNull;
 
@@ -41,11 +37,6 @@ public class LogicManager implements Logic {
 
     private boolean gameStarted;
     private ModeEnum mode;
-
-    /** temporary, will change when there is a better way to implement changing wordbanks **/
-    private WordBankStatistics currWbStats;
-    private Path currWbStatsPath;
-
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -83,31 +74,6 @@ public class LogicManager implements Logic {
         /* Checks if command entered in wrong mode */
         this.mode = command.check(model, mode);
         commandResult = command.execute(model);
-
-        // load the bank statistics on bank command
-        // todo very messy... similar to the link below. Change when there is a better way to load wordbanks.
-        // todo preferably, use the given storage class, since it is only used to save and not read currently.
-        /** {@link seedu.address.logic.commands.switches.StartCommand#execute(Model)} **/
-
-        if (commandResult instanceof BankCommandResult) {
-            BankCommandResult bankCommandResult = (BankCommandResult) commandResult;
-            String wbName = bankCommandResult.getSelectedWordBankName();
-            String pathString = "data/" + wbName + ".json";
-            Path filePath = Paths.get(pathString);
-            currWbStatsPath = StorageManager.getWbStatsStoragePath(filePath);
-            try {
-                Optional<WordBankStatistics> optionalWbStats =  storage.readWordBankStatistics(currWbStatsPath);
-                if (optionalWbStats.isPresent()) {
-                    currWbStats = optionalWbStats.get();
-                } else {
-                    logger.fine("Cannot find wordbank statistics for [" + wbName + "]\n"
-                        + "Proceeding with a blank statistics");
-                    currWbStats = WordBankStatistics.getEmpty(wbName);
-                }
-            } catch (IOException | DataConversionException e) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + e, e);
-            }
-        }
 
         /*
         Step 12.
@@ -162,9 +128,11 @@ public class LogicManager implements Logic {
     @Override
     public void saveUpdatedWbStatistics(GameStatistics gameStatistics) throws CommandException {
         try {
-            requireNonNull(currWbStatsPath);
+            requireNonNull(model.getWordBankStatistics());
+            WordBankStatistics currWbStats = model.getWordBankStatistics();
             currWbStats.update(gameStatistics);
-            storage.saveWordBankStatistics(currWbStats, currWbStatsPath);
+            storage.saveWordBankStatistics(currWbStats,
+                    Path.of("data/wbstats/" + currWbStats.getWordBankName() + ".json"));
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -172,6 +140,6 @@ public class LogicManager implements Logic {
 
     @Override
     public WordBankStatistics getWordBankStatistics() {
-        return currWbStats;
+        return model.getWordBankStatistics();
     }
 }

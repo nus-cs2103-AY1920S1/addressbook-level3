@@ -97,6 +97,17 @@ public class WordBankStatistics {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof WordBankStatistics)) {
+            return false;
+        }
+        return this.wordBankName.equals(((WordBankStatistics) obj).wordBankName);
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         return sb.append(wordBankName)

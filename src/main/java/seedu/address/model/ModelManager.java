@@ -16,6 +16,7 @@ import seedu.address.model.game.Game;
 import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
 
 /**
@@ -26,6 +27,10 @@ public class ModelManager implements Model {
 
     private WordBank wordBank;
     private final WordBankList wordBankList;
+
+    private WordBankStatistics wordBankStatistics;
+    private final WordBankStatisticsList wordBankStatisticsList;
+
     private final UserPrefs userPrefs;
     private FilteredList<Card> filteredCards;
     private final FilteredList<WordBank> filteredWordBanks;
@@ -43,8 +48,9 @@ public class ModelManager implements Model {
         logger.fine("Initializing with word bank: " + wordBank + " and user prefs " + userPrefs);
 
         this.wordBank = new WordBank(wordBank, wordBank.getName());
-//        this.wordBank = null;
         this.wordBankList = new WordBankList();
+
+        this.wordBankStatisticsList = new WordBankStatisticsList();
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
@@ -141,7 +147,6 @@ public class ModelManager implements Model {
     @Override
     public void setCard(Card target, Card editedCard) {
         requireAllNonNull(target, editedCard);
-
         wordBank.setCard(target, editedCard);
     }
 
@@ -182,6 +187,28 @@ public class ModelManager implements Model {
         filteredCards.setPredicate(predicate);
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
         System.out.println("++++++++++");
+    }
+
+    //=========== WordBankStatistics methods =============================================================
+
+    @Override
+    public WordBankStatisticsList getWordBankStatisticsList() {
+        return wordBankStatisticsList;
+    }
+
+    @Override
+    public WordBankStatistics getWordBankStatistics() {
+        return this.wordBankStatistics;
+    }
+
+    @Override
+    public void setWordBankStatistics(WordBankStatistics wordBankStats) {
+        this.wordBankStatistics = wordBankStats;
+    }
+
+    @Override
+    public void clearWordBankStatistics() {
+        this.wordBankStatistics = null;
     }
 
     @Override

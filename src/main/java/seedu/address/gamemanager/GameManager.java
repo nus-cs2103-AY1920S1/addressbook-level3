@@ -18,6 +18,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.GameStatisticsBuilder;
+import seedu.address.statistics.WordBankStatistics;
 
 /**
  * Class that wraps around the entire apps logic and the GameTimer. This is done to separate all logic
@@ -98,7 +99,6 @@ public class GameManager {
             Platform.runLater(() -> setAndRunGameTimer());
         }
 
-
         return commandResult;
     }
 
@@ -112,6 +112,10 @@ public class GameManager {
 
     public void initGameStatistics(String title) {
         gameStatisticsBuilder = new GameStatisticsBuilder(title);
+    }
+
+    public WordBankStatistics getWordBankStatistics() {
+        return logic.getWordBankStatistics();
     }
 
     public ObservableList<Card> getFilteredPersonList() {
