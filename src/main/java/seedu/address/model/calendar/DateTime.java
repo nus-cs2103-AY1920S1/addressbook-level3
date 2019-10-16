@@ -40,6 +40,15 @@ public class DateTime {
     }
 
     /**
+     * Returns true if time are same.
+     * @param dateTime the dateTime to be compared with.
+     * @return true if time are same.
+     */
+    public boolean isSameTime(DateTime dateTime) {
+        return this.time.equals(dateTime.getTime());
+    }
+
+    /**
      * Returns true if both date and time are same.
      */
     @Override

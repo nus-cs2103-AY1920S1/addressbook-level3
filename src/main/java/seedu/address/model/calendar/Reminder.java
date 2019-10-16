@@ -19,6 +19,20 @@ public class Reminder extends CalendarEntry {
     }
 
     /**
+     * Returns true if both reminders have the same description, date and time;
+     * This defines a weaker notion of equality between two reminders.
+     */
+    public boolean isSameReminder(Reminder otherReminder) {
+        if (otherReminder == this) {
+            return true;
+        }
+
+        return otherReminder != null
+                && otherReminder.getDescription().equals(getDescription())
+                && otherReminder.getDateTime().equals(getDateTime());
+    }
+
+    /**
      * Returns true if both reminders have the same description, dateTime and repetition.
      */
     @Override
