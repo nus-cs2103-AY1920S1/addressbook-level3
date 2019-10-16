@@ -30,8 +30,8 @@ public class UniqueRoomList implements Iterable<Room> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a room to the list.
+     * The room must not already exist in the list.
      */
     public void add(Room toAdd) {
         requireNonNull(toAdd);
@@ -39,6 +39,18 @@ public class UniqueRoomList implements Iterable<Room> {
             throw new DuplicateEntryException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Adds a room to the list based on the index given.
+     * The room must not already exist in the list.
+     */
+    public void add(Room toAdd, int index) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateEntryException();
+        }
+        internalList.add(index, toAdd);
     }
 
     public Room get(int index) {
@@ -91,7 +103,7 @@ public class UniqueRoomList implements Iterable<Room> {
      */
     public void setPersons(List<Room> persons) {
         requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
+        if (!roomsAreUnique(persons)) {
             throw new DuplicateEntryException();
         }
 
@@ -125,7 +137,7 @@ public class UniqueRoomList implements Iterable<Room> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean personsAreUnique(List<Room> rooms) {
+    private boolean roomsAreUnique(List<Room> rooms) {
         for (int i = 0; i < rooms.size() - 1; i++) {
             for (int j = i + 1; j < rooms.size(); j++) {
                 if (rooms.get(i).equals(rooms.get(j))) {
