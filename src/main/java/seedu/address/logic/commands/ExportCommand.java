@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.ExportUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -36,10 +37,6 @@ public class ExportCommand extends Command {
             + PREFIX_CATEGORY + "CS2105 "
             + PREFIX_FILE_PATH + "C:\\Users\\damithc\\Documents\\CS2105_Cheat_Sheet.docx";
 
-    public static final String IO_EXCEPTION_MESSAGE = "There was an error in writing to the file. "
-            + "Please try writing to a different file, and ensure that your file path does not contain "
-            + "any illegal characters.";
-
     private final Category category;
     private final FilePath filePath;
 
@@ -58,7 +55,7 @@ public class ExportCommand extends Command {
                     this.filePath
             );
         } catch (IOException e) {
-            throw new CommandException(IO_EXCEPTION_MESSAGE);
+            throw new CommandException(Messages.MESSAGE_EXPORT_IO_EXCEPTION);
         }
 
         return new CommandResult("Export was successful! You can find your file at "
