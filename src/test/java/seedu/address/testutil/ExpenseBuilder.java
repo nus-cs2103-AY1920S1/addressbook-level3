@@ -89,7 +89,7 @@ public class ExpenseBuilder {
     }
 
     public Expense build() {
-        return new Expense(description, price, tags, uniqueIdentifier, timestamp);
+        return new Expense(description, price, tags, timestamp, uniqueIdentifier);
     }
 
 }

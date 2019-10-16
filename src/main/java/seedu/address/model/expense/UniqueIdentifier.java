@@ -13,7 +13,7 @@ public class UniqueIdentifier {
 
     public static final String MESSAGE_CONSTRAINTS =
             "A unique identifier should begin with the prefix \'Expense@\', followed by a 36 character"
-            + " Universally Unique Identifier which consits of a sequence of up of hex digits (4 chars each)"
+            + " Universally Unique Identifier which consists of a sequence of up of hex digits (4 chars each)"
             + " and 4 “-” symbols. More specifically a sequence of <8 hex digits>, <4 hex digit>,"
             + " <4 hex digits>, <4 hex digits>, and <12 hex digits> with a dash in between each.";
 

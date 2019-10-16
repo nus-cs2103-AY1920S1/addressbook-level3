@@ -25,6 +25,8 @@ public class Timestamp implements Comparable<Timestamp> {
     public static final String MESSAGE_CONSTRAINTS_PERIOD =
             "Input period is not week/month/year";
 
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM[-yyyy]");
+
     private static final DateTimeFormatter FORMATTER_WITH_YEAR = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private static final DateTimeFormatter FORMATTER_WITHOUT_YEAR =
@@ -88,6 +90,10 @@ public class Timestamp implements Comparable<Timestamp> {
 
     public Timestamp plus(Period period) {
         return new Timestamp(timestamp.plus(period));
+    }
+
+    public Timestamp plusDays(long numDays) {
+        return new Timestamp(timestamp.plusDays(numDays));
     }
 
     public boolean isEqual(Timestamp startDate) {

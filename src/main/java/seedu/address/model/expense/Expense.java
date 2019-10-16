@@ -2,7 +2,6 @@ package seedu.address.model.expense;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -34,11 +33,11 @@ public class Expense {
         this.price = price;
         this.uniqueIdentifier = uniqueIdentifier;
         this.tags.addAll(tags);
-        this.timestamp = new Timestamp(LocalDate.now());
+        this.timestamp = Timestamp.getCurrentTimestamp();
     }
 
-    public Expense(Description description, Price price, Set<Tag> tags,
-                   UniqueIdentifier uniqueIdentifier, Timestamp timestamp) {
+    public Expense(Description description, Price price, Set<Tag> tags, Timestamp timestamp,
+                   UniqueIdentifier uniqueIdentifier) {
         requireAllNonNull(description, price, tags, uniqueIdentifier);
         this.description = description;
         this.price = price;
@@ -102,6 +101,7 @@ public class Expense {
         return otherExpense.getUniqueIdentifier().equals(getUniqueIdentifier())
                 && otherExpense.getDescription().equals(getDescription())
                 && otherExpense.getPrice().equals(getPrice())
+                && otherExpense.getTimestamp().equals(getTimestamp())
                 && otherExpense.getTags().equals(getTags());
     }
 
@@ -118,6 +118,8 @@ public class Expense {
                 .append(getDescription())
                 .append(" Price: ")
                 .append(getPrice())
+                .append(" Date: ")
+                .append(getTimestamp())
                 .append(" [Tags: ");
         getTags().forEach(builder::append);
         builder.append("]");
@@ -125,5 +127,4 @@ public class Expense {
                 .append(getTimestamp());
         return builder.toString();
     }
-
 }

@@ -67,6 +67,8 @@ public class MainApp extends Application {
 
         timekeeper = new Timekeeper(model);
 
+        timekeeper.refreshBudgets();
+
         logic = new LogicManager(model, storage, timekeeper);
 
         ui = new UiManager(logic);

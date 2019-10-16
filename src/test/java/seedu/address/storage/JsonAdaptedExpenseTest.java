@@ -96,7 +96,7 @@ public class JsonAdaptedExpenseTest {
     public void toModelType_nullUniqueIdentifier_throwsIllegalValueException() {
         JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(VALID_DESCRIPTION, VALID_PRICE,
-                        VALID_TAGS, null, VALID_TIMESTAMP);
+                        VALID_TAGS, VALID_TIMESTAMP, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, UniqueIdentifier.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
@@ -105,7 +105,7 @@ public class JsonAdaptedExpenseTest {
     public void toModelType_invalidTimestamp_throwsIllegalValueException() {
         JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(VALID_DESCRIPTION, VALID_PRICE,
-                        VALID_TAGS, VALID_UNIQUE_IDENTIFIER, INVALID_TIMESTAMP);
+                        VALID_TAGS, INVALID_TIMESTAMP, VALID_UNIQUE_IDENTIFIER);
         String expectedMessage = Timestamp.MESSAGE_CONSTRAINTS_DATE;
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }

@@ -38,12 +38,12 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(@JsonProperty("description") String description,
                               @JsonProperty("price") String price,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                              @JsonProperty("uniqueIdentifier") String uniqueIdentifier,
-                              @JsonProperty("timestamp") String rawTimestamp) {
+                              @JsonProperty("timestamp") String rawTimestamp,
+                              @JsonProperty("uniqueIdentifier") String uniqueIdentifier) {
         this.description = description;
         this.price = price;
-        this.uniqueIdentifier = uniqueIdentifier;
         this.rawTimestamp = rawTimestamp;
+        this.uniqueIdentifier = uniqueIdentifier;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -115,7 +115,7 @@ class JsonAdaptedExpense {
         }
         final Timestamp modelTimestamp = potentialTimestamp.get();
 
-        return new Expense(modelDescription, modelPrice, modelTags, modelUniqueIdentifier, modelTimestamp);
+        return new Expense(modelDescription, modelPrice, modelTags, modelTimestamp, modelUniqueIdentifier);
     }
 
 }

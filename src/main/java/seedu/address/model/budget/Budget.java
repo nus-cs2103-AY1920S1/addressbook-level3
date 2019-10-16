@@ -2,11 +2,14 @@ package seedu.address.model.budget;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
@@ -17,14 +20,24 @@ import seedu.address.model.expense.Timestamp;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Budget {
+
+    private static final Description DEFAULT_BUDGET_DESCRIPTION = new Description("Default Budget");
+    //private static final Price DEFAULT_BUDGET_AMOUNT = new Price(Double.toString(Double.MAX_VALUE));
+    private static final Price DEFAULT_BUDGET_AMOUNT = new Price("100000000000");
+    //private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.MIN;
+    private static final Timestamp DEFAULT_BUDGET_START_DATE = new Timestamp(LocalDate.of(2000, 1, 1));
+    //private static final Period DEFAULT_BUDGET_PERIOD = Period.between(LocalDate.MIN, LocalDate.MAX);
+    private static final Period DEFAULT_BUDGET_PERIOD = Period.ofYears(999);
+    private static final Percentage IS_NEAR_THRESHOLD = new Percentage(90);
+
     private final Description description;
-    private final Timestamp startDate;
-    private final Timestamp endDate;
-    private final Period period;
     private final Price amount;
+    private Timestamp startDate;
+    private Timestamp endDate;
+    private final Period period;
     private final List<Expense> expenses;
     private boolean isPrimary;
-
+    private Percentage proportionUsed;
 
     public Budget(Description description, Price amount, Timestamp startDate, Period period) {
         requireAllNonNull(description, startDate, period, amount);
@@ -35,6 +48,19 @@ public class Budget {
         this.endDate = startDate.plus(period);
         this.expenses = new ArrayList<>();
         this.isPrimary = false;
+        this.proportionUsed = new Percentage(0);
+    }
+
+    public Budget(Description description, Price amount, Timestamp startDate, Period period, List<Expense> expenses) {
+        requireAllNonNull(description, amount, startDate, period, expenses);
+        this.description = description;
+        this.amount = amount;
+        this.startDate = startDate;
+        this.period = period;
+        this.endDate = startDate.plus(period);
+        this.isPrimary = false;
+        this.proportionUsed = new Percentage(0);
+        this.expenses = expenses;
     }
 
     public Description getDescription() {
@@ -66,14 +92,60 @@ public class Budget {
     }
 
     /**
-     * Checks whether the budget is exceeded.
+     * Dummy.
+     * @return Dummy.
      */
-    public boolean isExceeded() {
+    public static Budget createDefaultBudget() {
+        return new Budget(DEFAULT_BUDGET_DESCRIPTION,
+                DEFAULT_BUDGET_AMOUNT,
+                DEFAULT_BUDGET_START_DATE,
+                DEFAULT_BUDGET_PERIOD);
+    }
+
+    public double getExpenseSum() {
         double sum = 0;
         for (int i = 0; i < expenses.size(); i++) {
             sum = sum + expenses.get(i).getPrice().getAsDouble();
         }
-        return sum > amount.getAsDouble();
+        return sum;
+    }
+
+    public Percentage getProportionUsed() {
+        return Percentage.calculate(getExpenseSum(), amount.getAsDouble());
+    }
+
+    public boolean isNear() {
+        return getProportionUsed().reach(IS_NEAR_THRESHOLD);
+    }
+
+    /**
+     * Checks whether the budget is exceeded.
+     */
+    public boolean isExceeded() {
+        return getExpenseSum() > amount.getAsDouble();
+    }
+
+    /**
+     * dummy.
+     * @param date
+     * @return
+     */
+    public boolean expired(Timestamp date) {
+        return endDate.isBefore(date);
+    }
+
+    /**
+     * dymmy.
+     * @param date
+     */
+    public void refresh(Timestamp date) {
+        assert endDate.isBefore(date) : "Budget is refreshed only when expired";
+        long daysDiff = ChronoUnit.DAYS.between(endDate.getTimestamp(), date.getTimestamp());
+        int periodDays = period.getDays();
+        long cycles = daysDiff / periodDays;
+        long offset = cycles * periodDays;
+        startDate = endDate.plusDays(offset);
+        endDate = startDate.plus(period);
     }
 
     public boolean isPrimary() {
@@ -86,6 +158,28 @@ public class Budget {
 
     public void setNotPrimary() {
         isPrimary = false;
+    }
+
+    /**
+     * Dummy.
+     * @param otherExpense
+     */
+    public void removeIdentical(Expense otherExpense) {
+        Expense toRemove = null;
+        for (Expense expense : expenses) {
+            if (expense.isSameExpense(otherExpense)) {
+                toRemove = expense;
+                break;
+            }
+        }
+        expenses.remove(toRemove);
+    }
+
+    public void setExpense(Expense target, Expense editedExpense) {
+        if (expenses.contains(target)) {
+            int index = expenses.indexOf(target);
+            expenses.set(index, editedExpense);
+        }
     }
 
     /**
@@ -137,11 +231,11 @@ public class Budget {
                 .append(" Amount: ")
                 .append(getAmount())
                 .append(" Period: ")
-                .append(getPeriod())
+                .append(ParserUtil.formatPeriod(getPeriod()))
                 .append(" Start date: ")
-                .append(getStartDate())
+                .append(startDate)
                 .append(" End date: ")
-                .append(getEndDate())
+                .append(endDate)
                 .append("||");
         return builder.toString();
     }

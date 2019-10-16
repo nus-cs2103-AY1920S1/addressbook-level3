@@ -8,23 +8,27 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Reminder;
+import seedu.address.model.expense.Timestamp;
 
 /**
  * Handles all comparisons between system time and the time fields of Expenses, Events and Budgets.
  */
 public class Timekeeper {
-    public static final LocalDate SYSTEM_DATE = LocalDate.now();
+    public static final Timestamp SYSTEM_DATE = new Timestamp(LocalDate.now());
     public static final long LOWER_THRESHOLD = 0;
     public static final long UPPER_THRESHOLD = 7;
     private Model model;
     private ObservableList<Event> events;
     private List<Reminder> reminders = new ArrayList<>();
+    private ObservableList<Budget> budgets;
 
     public Timekeeper(Model model) {
         this.model = model;
         events = model.getFilteredEventList();
+        budgets = model.getAddressBook().getBudgetList();
         filterOutdatedEvents();
         getReminders();
     }
@@ -36,7 +40,7 @@ public class Timekeeper {
         List<Event> toBeRemoved = new ArrayList<>();
         for (Event event : events) {
             LocalDate timestamp = event.getTimestamp().timestamp;
-            long daysLeft = SYSTEM_DATE.until(timestamp, ChronoUnit.DAYS);
+            long daysLeft = SYSTEM_DATE.getTimestamp().until(timestamp, ChronoUnit.DAYS);
             if (isOutdated(daysLeft)) {
                 toBeRemoved.add(event);
             }
@@ -74,6 +78,18 @@ public class Timekeeper {
     }
 
     /**
+     * Dummy.
+     *
+     */
+    public void refreshBudgets() {
+        for (Budget budget : budgets) {
+            if (budget.expired(SYSTEM_DATE)) {
+                budget.refresh(SYSTEM_DATE);
+            }
+        }
+    }
+
+    /**
      * Given an Event, create an Optional Reminder which will contain a Reminder
      * if the Event is upcoming.
      *
@@ -83,7 +99,7 @@ public class Timekeeper {
     private static Optional<Reminder> createReminderIfValid(Event event) {
         LocalDate timestamp = event.getTimestamp().timestamp;
 
-        long daysLeft = SYSTEM_DATE.until(timestamp, ChronoUnit.DAYS);
+        long daysLeft = SYSTEM_DATE.getTimestamp().until(timestamp, ChronoUnit.DAYS);
 
         return (isUrgent(daysLeft)) ? Optional.of(new Reminder(event, daysLeft)) : Optional.empty();
     }
