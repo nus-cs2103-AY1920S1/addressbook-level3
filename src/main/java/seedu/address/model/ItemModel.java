@@ -92,6 +92,7 @@ public interface ItemModel {
     public Item markComplete(int index) throws IllegalListException;
 
     public void updateState();
+
     //Bryan Reminder
     ActiveRemindersList getActiveReminderListProperty();
 

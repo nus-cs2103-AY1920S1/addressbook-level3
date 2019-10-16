@@ -242,6 +242,16 @@ public class Item {
                 .append(itemDescription.toString())
                 .append("\nReminder! ")
                 .append(getReminder().get().toString());
+
+        return builder.toString();
+    }
+
+    public String getReminderMessage() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Description: ")
+                .append(itemDescription.toString())
+                .append(" Reminder: ")
+                .append(getReminder().toString());
         return builder.toString();
     }
 
