@@ -116,6 +116,9 @@ public class OfflineDocument {
         loadDocumentIntoParagraphs(doc);
     }
 
+    public String getCacheVersion() {
+        return cacheVersion;
+    }
     /**
      * Loads Readability4J-parsed html document into their respective paragraphs.
      * Document is fresh from saved cache; no annotations are present.

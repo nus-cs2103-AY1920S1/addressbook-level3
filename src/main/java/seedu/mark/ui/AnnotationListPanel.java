@@ -15,7 +15,6 @@ import seedu.mark.model.annotation.Paragraph;
  */
 public class AnnotationListPanel extends UiPart<Region> {
     private static final String FXML = "AnnotationListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(AnnotationListPanel.class);
 
     @FXML
     private ListView<Paragraph> annotationListView;

@@ -16,7 +16,6 @@ import seedu.mark.model.annotation.Paragraph;
 public class OfflinePanel extends UiPart<Region> {
 
     private static final String FXML = "OfflinePanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(getClass());
 
     private AnnotationListPanel annotationListPanel;
 

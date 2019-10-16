@@ -23,11 +23,11 @@ public class PhantomParagraph implements Paragraph {
     }
 
     public void addAnnotation(Highlight colour) {
-        return;
+        //TODO: phantom paragraph implmentation
     }
 
     public void addAnnotation(Highlight colour, AnnotationNote note) {
-        return;
+        //TODO:
     }
 
     @Override
