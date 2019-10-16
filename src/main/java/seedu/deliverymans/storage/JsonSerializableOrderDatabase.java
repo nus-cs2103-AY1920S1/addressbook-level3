@@ -16,8 +16,8 @@ import seedu.deliverymans.model.order.Order;
 /**
  * An Immutable AddressBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableOrderBook {
+@JsonRootName(value = "orderdatabase")
+class JsonSerializableOrderDatabase {
 
     public static final String MESSAGE_DUPLICATE_ORDER = "Orders list contains duplicate order(s).";
 
@@ -27,7 +27,7 @@ class JsonSerializableOrderBook {
      * Constructs a {@code JsonSerializableOrderBook} with the given orders.
      */
     @JsonCreator
-    public JsonSerializableOrderBook(@JsonProperty("orders") List<JsonAdaptedOrder> orders) {
+    public JsonSerializableOrderDatabase(@JsonProperty("orders") List<JsonAdaptedOrder> orders) {
         this.orders.addAll(orders);
     }
 
@@ -36,7 +36,7 @@ class JsonSerializableOrderBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableOrderBook}.
      */
-    public JsonSerializableOrderBook(ReadOnlyOrderBook source) {
+    public JsonSerializableOrderDatabase(ReadOnlyOrderBook source) {
         orders.addAll(source.getOrderList().stream().map(JsonAdaptedOrder::new).collect(Collectors.toList()));
     }
 
