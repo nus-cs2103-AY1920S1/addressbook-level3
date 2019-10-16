@@ -3,6 +3,7 @@ package seedu.address.model.project;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import seedu.address.model.finance.Finance;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -15,14 +16,16 @@ public class Project {
     // Identity fields
     private final Title title;
     private final Description description;
+    private final Finance finance;
     private final Set<Task> tasks = new HashSet<>();
     private Set<Meeting> meeting = new HashSet<>();
 
-    public Project(Title name, Description description, Set<Task> tasks) {
+    public Project(Title name, Description description, Set<Task> tasks, Finance finance) {
         requireAllNonNull(name, description);
         this.description = description;
         this.title = name;
         this.tasks.addAll(tasks);
+        this.finance = finance;
     }
 
     public Title getTitle() {
@@ -53,6 +56,9 @@ public class Project {
         return tasks.contains(task);
     }
 
+    public Finance getFinance() {
+        return finance;
+    }
 
     public boolean isSameProject(Project project) {
         return this.title.equals(project.getTitle().title);

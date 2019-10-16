@@ -47,6 +47,16 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /**
+     * Checks if the user performed checkout command before.
+     */
+    boolean isCheckedOut();
+
+    /**
+     * Give an error message to prompt the user to checkout to a project.
+     */
+    String checkoutConstrain();
+
     //=========== AddressBook ================================================================================
     /**
      * Returns the user prefs' address book file path.

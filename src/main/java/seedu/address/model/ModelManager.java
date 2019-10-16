@@ -28,7 +28,7 @@ public class ModelManager implements Model {
     private final FilteredList<Project> filteredProjects;
 
     // this is the current branch
-    private Project workingProject;
+    private Optional<Project> workingProject = Optional.empty();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -56,18 +56,29 @@ public class ModelManager implements Model {
      * @param project
      */
     public void setWorkingProject(Project project) {
-        this.workingProject = project;
+        this.workingProject = Optional.of(project);
     }
 
     /**
      * @return An Optional object containing the working project.
      */
     public Optional<Project> getWorkingProject() {
-        if (workingProject == null) {
+        if (workingProject.isEmpty()) {
             return Optional.empty();
         } else {
-            return Optional.of(workingProject);
+            return workingProject;
         }
+    }
+
+    /**
+     * @return If the user checkout to a project.
+     */
+    public boolean isCheckedOut() {
+        return workingProject.isPresent();
+    }
+
+    public String checkoutConstrain() {
+        return "Please checkout to a project before proceeding";
     }
     //=========== UserPrefs ==================================================================================
 

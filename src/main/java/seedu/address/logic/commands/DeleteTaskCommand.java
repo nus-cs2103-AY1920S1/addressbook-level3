@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.finance.Finance;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
 
@@ -52,8 +53,9 @@ public class DeleteTaskCommand extends Command {
         taskList.addAll(taskToEdit);
         Task task = taskList.remove(index.getZeroBased());
         newTaskList.addAll(taskList);
+        Finance finance = projectToEdit.getFinance();
 
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), newTaskList);
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), newTaskList, finance);
 
 
         model.setProject(projectToEdit, editedProject);

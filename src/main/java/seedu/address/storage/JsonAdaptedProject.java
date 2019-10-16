@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.project.Meeting;
+import seedu.address.model.finance.Finance;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Description;
 import seedu.address.model.project.Task;
@@ -28,13 +29,15 @@ class JsonAdaptedProject {
     private final String description;
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
     private final List<JsonAdaptedMeeting> meetingList = new ArrayList<>();
+    private final JsonAdaptedFinance finance;
 
     /**
      * Constructs a {@code JsonAdaptedProject} with the given project details.
      */
     @JsonCreator
     public JsonAdaptedProject(@JsonProperty("title") String title, @JsonProperty("description") String description,
-                              @JsonProperty("tasks") List<JsonAdaptedTask> tasks, @JsonProperty("meetingList") List<JsonAdaptedMeeting> meetingList) {
+                              @JsonProperty("tasks") List<JsonAdaptedTask> tasks, @JsonProperty("meetingList") List<JsonAdaptedMeeting> meetingList,
+                              @JsonProperty("finance") JsonAdaptedFinance finance) {
         this.title = title;
         this.description = description;
         if (tasks != null) {
@@ -43,8 +46,8 @@ class JsonAdaptedProject {
         if (meetingList != null) {
             this.meetingList.addAll(meetingList);
         }
+        this.finance = finance;
     }
-
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
@@ -57,6 +60,7 @@ class JsonAdaptedProject {
         meetingList.addAll(source.getListOfMeeting().stream()
                 .map(JsonAdaptedMeeting::new)
                 .collect(Collectors.toList()));
+        finance = new JsonAdaptedFinance(source.getFinance());
     }
 
     /**
@@ -87,8 +91,9 @@ class JsonAdaptedProject {
         for (JsonAdaptedMeeting meeting : meetingList) {
             meetings.add(meeting.toModelType());
         }
+        final Finance modelFinance = finance.toModelType();
 
-        Project project = new Project(modelTitle, modelDescription, modelTasks);
+        Project project = new Project(modelTitle, modelDescription, modelTasks, modelFinance);
 
         Set<Meeting> meetingsList = new HashSet<>(meetings);
         project.setListOfMeeting(meetingsList);

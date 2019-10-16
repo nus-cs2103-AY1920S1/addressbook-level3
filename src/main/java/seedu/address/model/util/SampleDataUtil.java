@@ -12,7 +12,7 @@ import seedu.address.model.ReadOnlyProjectList;
 import seedu.address.model.person.*;
 import seedu.address.model.project.*;
 import seedu.address.model.tag.Tag;
-
+import seedu.address.model.finance.Finance;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -80,15 +80,15 @@ public class SampleDataUtil {
             return new Project[]{
                 new Project(new Title("CS2103T"), new Description("The mod that takes most time"),
                             getTaskSet(new Task(new Description("Finish GUI"), new Time("04/04/1997 1600"), false),
-                                    new Task(new Description("Finish Parser"), new Time("04/04/1997 1600"), true))),
+                                    new Task(new Description("Finish Parser"), new Time("04/04/1997 1600"), true)), new Finance()),
                 new Project(new Title("GER1000"), new Description("Free and easy"),
-                            getTaskSet(new Task(new Description("Finish Quiz 10"), new Time("04/04/1997 1600"), false))),
+                            getTaskSet(new Task(new Description("Finish Quiz 10"), new Time("04/04/1997 1600"), false)), new Finance()),
             };
         } catch (ParseException e) {
             return new Project[]{
                 new Project(new Title("CS2103T"),
                             new Description("The mod that takes most time"),
-                            getTaskSet(new Task(new Description("Finish GUI"), false)))
+                            getTaskSet(new Task(new Description("Finish GUI"), false)), new Finance())
             };
         }
     }

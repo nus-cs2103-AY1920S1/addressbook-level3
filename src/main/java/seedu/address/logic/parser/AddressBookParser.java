@@ -45,6 +45,12 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
+        case AddBudgetCommand.COMMAND_WORD:
+            return new AddBudgetCommandParser().parse(arguments);
+
+        case AddSpendingCommand.COMMAND_WORD:
+            return new AddSpendingCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
@@ -62,6 +68,9 @@ public class AddressBookParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case ListBudgetCommand.COMMAND_WORD:
+            return new ListBudgetCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

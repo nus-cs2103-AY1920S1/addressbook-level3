@@ -44,7 +44,7 @@ public class AddTaskCommand extends Command {
         Set<Task> newTaskList = new HashSet<>();
         newTaskList.addAll(taskToEdit);
         newTaskList.add(task);
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), newTaskList);
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), newTaskList, projectToEdit.getFinance());
 
         if (projectToEdit.hasTask(task)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
