@@ -11,8 +11,8 @@ import java.util.List;
 
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.Model;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * Lists all persons in the address book to the user.
