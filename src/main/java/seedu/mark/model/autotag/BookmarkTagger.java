@@ -43,6 +43,6 @@ public class BookmarkTagger {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof BookmarkTagger // instanceof handles nulls
-                && tagToApply.equals(((BookmarkTagger) other).getTagToApply())); // state check
+                && getTagToApply().equals(((BookmarkTagger) other).getTagToApply())); // state check
     }
 }
