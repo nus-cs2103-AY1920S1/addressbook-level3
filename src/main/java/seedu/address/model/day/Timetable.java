@@ -13,7 +13,7 @@ import seedu.address.model.day.time.TimeInHalfHour;
  * Guarantees: {@code Timetable} is filled with {@code HalfHour}.
  */
 public class Timetable {
-    private static final int NUMBER_OF_HALF_HOUR_IN_A_DAY = 48;
+    protected static final int NUMBER_OF_HALF_HOUR_IN_A_DAY = 48;
     private TimeSlot[] timetable = new TimeSlot[NUMBER_OF_HALF_HOUR_IN_A_DAY];
 
     public Timetable(List<ActivityWithTime> activities) throws TimeSlotUnavailableException {
