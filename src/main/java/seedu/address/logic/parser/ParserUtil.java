@@ -12,6 +12,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.IncidentDateTime;
+=======
+import seedu.address.model.incident.IncidentId;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Password;
@@ -208,5 +210,43 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a {@code String callerNumber} into a {@code CallerNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code callerNumber} is invalid.
+     */
+    public static CallerNumber parseCallerNumber(String callerNumber) throws ParseException {
+        requireNonNull(callerNumber);
+        String trimmedCallerNumber = callerNumber.trim();
+        if (!CallerNumber.isValidPhone(callerNumber)) {
+            throw new ParseException(CallerNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new CallerNumber(trimmedCallerNumber);
+    }
+
+    /**
+     * Parses a {@code String description keyword} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description keyword} is invalid.
+     */
+    public static Description parseDescription(String description) {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String incident id keyword} into an {@code IncidentId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code incident id keyword} is invalid.
+     */
+    public static IncidentId parseId(String id) throws ParseException {
+        requireNonNull(id);
+        String trimmedId = id.trim();
+        return new IncidentId(trimmedId);
+    }
 
 }

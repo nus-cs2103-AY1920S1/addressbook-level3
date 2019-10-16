@@ -55,8 +55,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Person getLoggedInPerson() {
-        return session.getLoggedInPerson();
+    public Session getSession() {
+        return session;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -167,6 +167,20 @@ public class ModelManager implements Model {
     }
 
 
+    //=========== Incidents ================================================================================
+
+    @Override
+    public boolean hasIncident(Incident incident) {
+        requireNonNull(incident);
+        return addressBook.hasIncident(incident);
+    }
+
+    @Override
+    public void addIncident(Incident incident) {
+        addressBook.addIncident(incident);
+        updateFilteredIncidentList(PREDICATE_SHOW_ALL_INCIDENTS);
+    }
+
     //=========== Filtered Incident List Accessors =============================================================
 
     /**
@@ -177,6 +191,13 @@ public class ModelManager implements Model {
     public ObservableList<Incident> getFilteredIncidentList() {
         return filteredIncidents;
     }
+
+    /*
+    @Override
+    public void updateFilteredIncidentList(Predicate<Incident> predicate) {
+        requireNonNull(predicate);
+        filteredIncidents.setPredicate(predicate);
+    }*/
 
     //=========== Filtered Vehicle List Accessors =============================================================
 

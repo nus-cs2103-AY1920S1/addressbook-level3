@@ -20,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.Session;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.Vehicle;
@@ -91,7 +92,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Person getLoggedInPerson() {
+        public Session getSession() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -160,6 +161,22 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        /*
+        @Override
+        public void updateFilteredIncidentList(Predicate<Incident> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }*/
+
+        @Override
+        public boolean hasIncident(Incident incident) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addIncident(Incident incident) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void updateFilteredIncidentList(Predicate<Incident> predicate) {
             throw new AssertionError("This method should not be called.");
@@ -176,6 +193,11 @@ public class AddCommandTest {
         }
         @Override
         public void setIncident(Incident target, Incident editedIncident) {
+            throw new AssertionError("This method should not be called.");
+        }
+      
+        @Override
+        public void updateFilteredIncidentList(Predicate<Incident> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

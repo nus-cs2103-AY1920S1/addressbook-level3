@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.Date;
+
 import seedu.address.model.person.Person;
 
 /**
@@ -7,13 +9,20 @@ import seedu.address.model.person.Person;
  */
 public class Session implements ReadOnlySession {
     private final Person person;
+    private final Date loginTime;
 
     public Session(Person person) {
         this.person = person;
+        loginTime = new Date();
     }
 
     @Override
     public Person getLoggedInPerson() {
         return person;
+    }
+
+    @Override
+    public Date getLoginTime() {
+        return loginTime;
     }
 }

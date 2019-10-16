@@ -34,9 +34,9 @@ public class Incident {
 
     /**
      * Creates a new Incident report, fields will be filled in through prompts in the GUI.
-     * @param caller is the phone number of the caller that reported the incident.
+     * @param callerNumber is the phone number of the caller that reported the incident.
      */
-    public Incident(String caller) {
+    public Incident(CallerNumber callerNumber) {
         //this.operator = autofilled on sign in
         // TODO: autofill operator upon sign in. Currently dummy data
         this.operator = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
@@ -45,7 +45,7 @@ public class Incident {
         this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
         this.incidentDesc = promptForDescription();
         this.location = promptForLocation();
-        this.callerNumber = new CallerNumber(caller);
+        this.callerNumber = callerNumber; // changed by Atharv - incident constructor takes in CallerNumber, not String
         //this.car = VehicleAssigner.assignVehicle(location);
     }
 
@@ -56,7 +56,7 @@ public class Incident {
                 getTagSet("friends"), new Username("user1"), new Password("pass123"));
         this.incidentDateTime = incidentDateTime;
         this.id = id;
-        this.incidentDesc = new Description("Fluff description");
+        this.incidentDesc = new Description("Fluff description for search testing arson fire fires");
         this.location = location;
         this.callerNumber = new CallerNumber("98989898");
         //this.car = VehicleAssigner.assignVehicle(location);
