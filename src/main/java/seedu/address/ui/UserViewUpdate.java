@@ -30,6 +30,10 @@ public class UserViewUpdate {
 
         switch(preamble) {
 
+        case "list-members":
+            paneToRender = userViewMain.loadMembers();
+            break;
+
         case "list":
             paneToRender = userViewMain.loadTasks();
             break;

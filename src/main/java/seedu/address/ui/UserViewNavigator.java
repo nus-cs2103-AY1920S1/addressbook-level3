@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import seedu.address.logic.Logic;
+import seedu.address.ui.views.MemberListPanel;
 import seedu.address.ui.views.ProjectDashboardView;
 import seedu.address.ui.views.TaskListPanel;
 
@@ -14,10 +15,6 @@ public class UserViewNavigator {
 
     /** The main application layout controller. */
     private static UserViewController userViewController;
-
-    /** The views to switch between **/
-    private ProjectDashboardView projectDashboardView;
-    private TaskListPanel taskListPanel;
 
     /**
      * Stores the main controller for later use in navigation tasks.
@@ -34,7 +31,8 @@ public class UserViewNavigator {
      * @param logic to access the task data
      */
     public void loadDashboard(Logic logic) {
-        projectDashboardView = new ProjectDashboardView(logic.getFilteredTaskListNotStarted(),
+        /** The views to switch between **/
+        ProjectDashboardView projectDashboardView = new ProjectDashboardView(logic.getFilteredTaskListNotStarted(),
                 logic.getFilteredTaskListDoing(), logic.getFilteredTaskListDone());
         userViewController.setUserView(projectDashboardView);
     }
@@ -44,8 +42,17 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadTaskListView(Logic logic) {
-        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         userViewController.setUserView(taskListPanel);
+    }
+
+    /**
+     * Relays to controller to swap current user view with task list.
+     * @param logic to access task data
+     */
+    public void loadMemberListView(Logic logic) {
+        MemberListPanel memberListPanel = new MemberListPanel(logic.getProjectDashboard().getMemberList());
+        userViewController.setUserView(memberListPanel);
     }
 
 }
