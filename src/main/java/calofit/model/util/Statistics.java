@@ -54,9 +54,11 @@ public class Statistics {
                 if (currentCalories < minimum) {
                     minimum = currentCalories;
                 }
-                average = (average + currentCalories) / (i + 1);
+                average += currentCalories;
             }
         }
+
+        average = average / meals.size();
 
         return new Statistics(maximum, minimum, average);
     }
