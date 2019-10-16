@@ -59,7 +59,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setPassword(ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get()));
         } */
         if (argMultimap.getValue(PREFIX_CALLER).isPresent()) {
-            editIncident.setCaller(ParserUtil.parseCaller(argMultimap.getValue(PREFIX_CALLER).get()));
+            editIncident.setCaller(ParserUtil.parseCallerNumber(argMultimap.getValue(PREFIX_CALLER).get()));
         }
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
             editIncident.setDistrict(ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
