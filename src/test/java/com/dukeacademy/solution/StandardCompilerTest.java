@@ -35,6 +35,15 @@ class StandardCompilerTest {
             + "\t}"
             + "\n}");
 
+    private UserProgram validProgram1 = new UserProgram("ValidTest1", "public class ValidTest1 {\n"
+            + "\tclass NestedClass {\n"
+            + "\t\tprivate int x = 0;\n"
+            + "\t}\n"
+            + "\tpublic static void main(String args[]) {"
+            + "\t\tSystem.out.println(\"Hello world\");"
+            + "\t}"
+            + "\n}");
+
     private UserProgram invalidProgram = new UserProgram("InvalidTest", "FooBar");
 
     @BeforeEach
@@ -55,6 +64,17 @@ class StandardCompilerTest {
 
         assertTrue(validJavaFilePath.toFile().exists());
         assertTrue(validClassFilePath.toFile().exists());
+
+        JavaFile validJavaFile1 = this.createJavaFile(validProgram1);
+        standardCompiler.compileJavaFile(validJavaFile1);
+
+        Path validJavaFilePath1 = environmentPath.resolve(validProgram1.getClassName() + ".java");
+        Path validClassFilePath1 = environmentPath.resolve(validProgram1.getClassName() + ".class");
+        Path validClassFilePath2 = environmentPath.resolve("ValidTest1$NestedClass.class");
+
+        assertTrue(validJavaFilePath1.toFile().exists());
+        assertTrue(validClassFilePath1.toFile().exists());
+        assertTrue(validClassFilePath2.toFile().exists());
 
         JavaFile invalidJavaFile = this.createJavaFile(invalidProgram);
         assertThrows(CompilerFileContentException.class, () -> standardCompiler.compileJavaFile(invalidJavaFile));

@@ -1,0 +1,15 @@
+public class Nested {
+    class InsideNested {
+        public int x = 1;
+    }
+
+    public static void main(String[] args) {
+        Nested nested = new Nested();
+        nested.printX();
+    }
+
+    public void printX() {
+        InsideNested inside = new InsideNested();
+        System.out.println(inside.x);
+    }
+}

@@ -84,6 +84,26 @@ class TestExecutorTest {
     }
 
     @Test
+    public void runTestCaseNestedClass() throws IOException, TestExecutorException {
+        System.out.println("Running program that contains nested class against test cases...\n");
+
+        Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "nested");
+        List<TestCase> testCases = this.loadTestCases(rootFolder);
+
+        Path program = rootFolder.resolve("nested.txt");
+        String sourceCode = Files.readString(program);
+        UserProgram userProgram = new UserProgram("Nested", sourceCode);
+
+        TestExecutorResult result = executor.runTestCases(testCases, userProgram);
+        assertEquals(5, result.getNumPassed());
+        assertTrue(result.getCompileError().isEmpty());
+
+        List<TestCaseResult> testCaseResults = result.getResults();
+        assertEquals(testCases.size(), testCaseResults.size());
+        assertTrue(matchTestCaseAndResults(testCases, testCaseResults));
+    }
+
+    @Test
     public void runIncorrectProgram() throws IOException, TestExecutorException {
         System.out.println("Running incorrect program against test cases...\n");
 
