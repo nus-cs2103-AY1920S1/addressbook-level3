@@ -1,9 +1,0 @@
-{
-  "persons" : [ {
-    "name" : "CS2109 Assignment 8",
-    "phone" : "2 August 2019",
-    "email" : "Submit to Luminus",
-    "address" : "NUS",
-    "tagged" : [ "CS2109", "IMPORTANT" ]
-  } ]
-}
