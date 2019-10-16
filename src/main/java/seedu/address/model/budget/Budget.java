@@ -1,12 +1,13 @@
 package seedu.address.model.budget;
 
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.Status;
 import seedu.address.model.income.Income;
 
-import java.text.NumberFormat;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Represents the current budget of the user.
@@ -40,11 +41,19 @@ public class Budget {
         checkIfOverBudget(budgetAmount);
     }
 
+    /**
+     * Calculates total income for users.
+     */
+
     private void calculateTotalIncome() {
         for (Income income : incomeList) {
             totalIncome += Double.parseDouble(income.getAmount().value);
         }
     }
+
+    /**
+     * Calculates total approved expenses for users.
+     */
 
     private void calculateTotalExpenses() {
         for (Claim claim : claimList) {

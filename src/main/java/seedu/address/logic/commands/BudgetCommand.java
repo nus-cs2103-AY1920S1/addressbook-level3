@@ -1,10 +1,11 @@
 package seedu.address.logic.commands;
 
+import java.util.List;
+
 import seedu.address.model.Model;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;
-import java.util.List;
 
 /**
  * Calculates current budget for users.
