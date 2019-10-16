@@ -41,7 +41,8 @@ public class CreateStudyPlanCommand extends Command {
         requireNonNull(model);
 
         ModulesInfo modulesInfo = model.getModulesInfo();
-        StudyPlan studyPlanToAdd = new StudyPlan(new Title(studyPlanName), modulesInfo);
+        StudyPlan studyPlanToAdd = new StudyPlan(new Title(studyPlanName), modulesInfo,
+                model.getModulePlanner().getCurrentSemester());
 
         if (model.hasStudyPlan(studyPlanToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDYPLAN);

@@ -15,6 +15,9 @@ import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
 
+/**
+ * Removes a tag from all modules. Only user-created tags can be removed.
+ */
 public class RemoveTagFromAllCommand extends Command {
 
     public static final String COMMAND_WORD = "removeall";
