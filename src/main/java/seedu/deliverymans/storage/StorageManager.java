@@ -25,8 +25,8 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
-    private DeliverymenDatabaseStorage deliverymenDatabaseStorage;
     private CustomerDatabaseStorage customerDatabaseStorage;
+    private DeliverymenDatabaseStorage deliverymenDatabaseStorage;
     private RestaurantDatabaseStorage restaurantDatabaseStorage;
     private OrderBookStorage orderBookStorage;
     private UserPrefsStorage userPrefsStorage;
@@ -40,9 +40,9 @@ public class StorageManager implements Storage {
         super();
         this.addressBookStorage = addressBookStorage;
         this.customerDatabaseStorage = customerDatabaseStorage;
+        this.deliverymenDatabaseStorage = deliverymenDatabaseStorage;
         this.restaurantDatabaseStorage = restaurantDatabaseStorage;
         this.orderBookStorage = orderBookStorage;
-        this.deliverymenDatabaseStorage = deliverymenDatabaseStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
