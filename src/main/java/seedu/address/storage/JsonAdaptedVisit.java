@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.visit.EndDateTime;
+import seedu.address.model.datetime.EndDateTime;
 import seedu.address.model.visit.Remark;
-import seedu.address.model.visit.StartDateTime;
+import seedu.address.model.datetime.StartDateTime;
 import seedu.address.model.visit.Visit;
 import seedu.address.model.visittask.VisitTask;
 
@@ -94,7 +94,7 @@ class JsonAdaptedVisit {
             modelEndDateTime = new EndDateTime(endDateTime);
 
             //Other constraints e.g. EndDateTime cannot be earlier than startDateTime
-            if (modelEndDateTime.dateTime.before(modelStartDateTime.dateTime)) {
+            if (modelEndDateTime.dateTime.isBefore(modelStartDateTime.dateTime)) {
                 throw new IllegalValueException(END_DATE_EARLIER_THAN_START_DATE);
             }
         }

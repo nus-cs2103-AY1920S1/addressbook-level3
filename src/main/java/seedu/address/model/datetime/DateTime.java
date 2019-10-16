@@ -1,10 +1,12 @@
-package seedu.address.model.visit;
+package seedu.address.model.datetime;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDateTime;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -19,7 +21,7 @@ public class DateTime {
     static final SimpleDateFormat DATE_DISPLAY_FORMATTER = new SimpleDateFormat("dd-MM-yyyy HHmm");
     static final SimpleDateFormat DATE_PARSER_VALIDATOR = new SimpleDateFormat("dd-MM-yyyy HHmm");
 
-    public final Date dateTime;
+    public final LocalDateTime dateTime;
 
     /**
      * Constructs a {@code DateTime}.
@@ -37,14 +39,8 @@ public class DateTime {
      * which will throw an IllegalArgumentException.
      * @return StartDateTIme
      */
-    public static Date parseDateTime(String value) {
-        try {
-            return DATE_PARSER_VALIDATOR.parse(value);
-        } catch (ParseException e) {
-            // This should not happen as we have already validated the value above
-            checkArgument(isValidDateTime(value), MESSAGE_CONSTRAINTS_BODY);
-            return null;
-        }
+    public static LocalDateTime parseDateTime(String value) {
+        return LocalDateTime.parse(value, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
     }
 
     /**
