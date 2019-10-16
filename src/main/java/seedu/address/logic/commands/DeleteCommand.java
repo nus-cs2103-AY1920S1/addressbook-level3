@@ -38,9 +38,8 @@ public class DeleteCommand extends UndoableCommand {
 
     private final Index targetIndexNum;
     private final String entityType;
-  
+
     private Entity entityToDelete;
-    private boolean isRedoable = false;
 
     public DeleteCommand(Index targetIndexNum, String entityType) {
         this.targetIndexNum = targetIndexNum;
@@ -53,12 +52,12 @@ public class DeleteCommand extends UndoableCommand {
         IdentificationNumber targetIdNum = IdentificationNumber.customGenerateId(entityType,
                 targetIndexNum.getZeroBased());
 
-        Entity entityToDelete = null;
+        entityToDelete = null;
 
         if (entityType.equals("B")) {
             List<Body> lastShownList = model.getFilteredBodyList();
             for (Body body : lastShownList) {
-                if (body.getBodyIdNum().equals(targetIdNum)) {
+                if (body.getIdNum().equals(targetIdNum)) {
                     entityToDelete = body;
                     break;
                 }
@@ -66,7 +65,7 @@ public class DeleteCommand extends UndoableCommand {
         } else if (entityType.equals("W")) {
             List<Worker> lastShownList = model.getFilteredWorkerList();
             for (Worker worker : lastShownList) {
-                if (worker.getWorkerIdNum().equals(targetIdNum)) {
+                if (worker.getIdNum().equals(targetIdNum)) {
                     entityToDelete = worker;
                     break;
                 }
@@ -74,7 +73,7 @@ public class DeleteCommand extends UndoableCommand {
         } else if (entityType.equals("F")) {
             List<Fridge> lastShownList = model.getFilteredFridgeList();
             for (Fridge fridge : lastShownList) {
-                if (fridge.getFridgeIdNum().equals(targetIdNum)) {
+                if (fridge.getIdNum().equals(targetIdNum)) {
                     entityToDelete = fridge;
                     break;
                 }
@@ -85,10 +84,8 @@ public class DeleteCommand extends UndoableCommand {
 
         if (entityToDelete != null) {
             model.deleteEntity(entityToDelete);
-            model.deleteEntity(entityToDelete);
             targetIdNum.removeMapping();
             setUndoable();
-            isRedoable = true;
             model.addExecutedCommand(this);
             return new CommandResult(String.format(MESSAGE_DELETE_ENTITY_SUCCESS, entityToDelete));
         } else {

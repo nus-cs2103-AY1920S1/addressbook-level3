@@ -43,7 +43,7 @@ public class UniqueEntityLists {
     private final ObservableList<Fridge> internalListFridge = FXCollections.observableArrayList();
     private final ObservableList<Fridge> internalUnmodifiableListFridge =
         FXCollections.unmodifiableObservableList(internalListFridge);
-  
+
     /**
      * Returns true if the respective list contains an equivalent entity as the given argument.
      */

@@ -107,7 +107,7 @@ public class UpdateCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         Fridge otherFridge = new FridgeBuilder().build();
         otherFridge.setFridgeStatus(FridgeStatus.OCCUPIED);
-        expectedModel.addEntity(otherFridge);
+        //expectedModel.addEntity(otherFridge);
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, fridge);
 

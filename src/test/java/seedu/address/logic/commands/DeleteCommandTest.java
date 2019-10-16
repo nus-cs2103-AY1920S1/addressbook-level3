@@ -53,7 +53,7 @@ public class DeleteCommandTest {
         model.addEntity(ALICE);
         List<Body> bodyList = model.getFilteredBodyList();
         for (Body body : bodyList) {
-            if (body.getBodyIdNum().equals(FIRST_BODY_ID_NUM)) {
+            if (body.getIdNum().equals(FIRST_BODY_ID_NUM)) {
                 DeleteCommand deleteBodyCommand = new DeleteCommand(
                         Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "b");
 
@@ -72,7 +72,7 @@ public class DeleteCommandTest {
         model.addEntity(CLARA);
         List<Worker> workerList = model.getFilteredWorkerList();
         for (Worker worker : workerList) {
-            if (worker.getWorkerIdNum().equals(FIRST_WORKER_ID_NUM)) {
+            if (worker.getIdNum().equals(FIRST_WORKER_ID_NUM)) {
                 DeleteCommand deleteWorkerCommand = new DeleteCommand(
                         Index.fromZeroBased(FIRST_WORKER_ID_NUM.getIdNum()), "w");
 
@@ -90,7 +90,7 @@ public class DeleteCommandTest {
         model.addEntity(ALICE_FRIDGE);
         List<Fridge> fridgeList = model.getFilteredFridgeList();
         for (Fridge fridge : fridgeList) {
-            if (fridge.getFridgeIdNum().equals(FIRST_FRIDGE_ID_NUM)) {
+            if (fridge.getIdNum().equals(FIRST_FRIDGE_ID_NUM)) {
                 DeleteCommand deleteWorkerCommand = new DeleteCommand(
                         Index.fromZeroBased(FIRST_FRIDGE_ID_NUM.getIdNum()), "f");
 

@@ -149,11 +149,6 @@ public class AddressBookTest {
         public void removeListener(InvalidationListener listener) {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public ObservableList<Fridge> getFridgeList() {
-            return fridges;
-        }
     }
 
 }

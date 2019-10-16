@@ -96,7 +96,7 @@ public class IdentificationNumber {
         }
         return false;
     }
-  
+
     public int getIdNum() {
         return idNum;
     }
