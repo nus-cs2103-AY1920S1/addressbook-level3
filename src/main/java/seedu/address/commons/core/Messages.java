@@ -10,5 +10,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX = "The flashcard index provided is invalid";
     public static final String MESSAGE_FLASHCARD_LISTED_OVERVIEW = "%1$d  flash cards listed!";
     public static final String MESSAGE_UNKNOWN_TEST_COMMAND = "Unknown test command";
-
+    public static final String MESSAGE_EXPORT_IO_EXCEPTION = "There was an error in writing to the file.\n"
+            + "Please ensure your file path doesn't contain any illegal characters.";
 }

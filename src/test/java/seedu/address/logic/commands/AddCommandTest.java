@@ -213,6 +213,8 @@ public class AddCommandTest {
         @Override
         public void updateFilteredDeadlineList(Predicate<Deadline> predicate) {
 
+        public ObservableList<FlashCard> getFilteredFlashCardListNoCommit(Predicate<FlashCard> predicate) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 
