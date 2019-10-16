@@ -21,19 +21,20 @@ public class ResultDisplay extends UiPart<Region> {
 
     public ResultDisplay() {
         super(FXML);
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         dialogContainer.getChildren().addAll(
-                DialogBox.getElisaDialog(feedbackToUser)
+                ElisaDialogBox.getElisaDialog(feedbackToUser)
         );
     }
 
     public void setMessageFromUser(String messageFromUser) {
         requireNonNull(messageFromUser);
         dialogContainer.getChildren().add(
-                DialogBox.getUserDialog(messageFromUser)
+                UserDialogBox.getUserDialog(messageFromUser)
         );
     }
 

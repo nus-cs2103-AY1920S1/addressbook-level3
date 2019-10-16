@@ -34,7 +34,7 @@ public class EventListPanel extends UiPart<Region> {
         protected void updateItem(Item item, boolean empty) {
             super.updateItem(item, empty);
 
-            if (empty || item == null) {
+            if (empty || item == null || !item.hasEvent()) {
                 setGraphic(null);
                 setText(null);
             } else {

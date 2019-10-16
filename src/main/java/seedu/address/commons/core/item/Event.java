@@ -82,13 +82,13 @@ public class Event {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Start DateTime: ")
+        builder.append("\nStart DateTime: ")
                 .append(getStartDateTime().toString())
-                .append(" End DateTime: ")
+                .append("\nEnd DateTime: ")
                 .append(getEndDateTime().toString())
-                .append(" Duration: ")
+                .append("\nDuration: ")
                 .append(getDuration().toString())
-                .append(" Priority: ")
+                .append("\nPriority: ")
                 .append(getPriority().toString());
         return builder.toString();
     }
