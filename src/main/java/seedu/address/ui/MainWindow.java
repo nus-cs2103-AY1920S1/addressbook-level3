@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private NoteListPanel noteListPanel;
     private TaskListPanel taskListPanel;
+    private QuizQuestionListPanel quizQuestionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatsChart statsChart;
@@ -50,6 +51,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane taskListPanelPlaceholder;
+
+    @FXML
+    private StackPane quizQuestionListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -83,6 +87,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -120,6 +125,9 @@ public class MainWindow extends UiPart<Stage> {
 
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        quizQuestionListPanel = new QuizQuestionListPanel(logic.getFilteredQuizQuestionList());
+        quizQuestionListPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -218,6 +226,10 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            //if (commandResult.isQuiz()) {
+            //
+            //}
 
             if (commandResult.isShowStats()) {
                 showStats();

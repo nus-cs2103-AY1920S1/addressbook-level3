@@ -110,6 +110,10 @@ public class UniqueQuestionList implements Iterable<Question> {
         return internalList.get(index);
     }
 
+    public int getSize() {
+        return internalList.size();
+    }
+
     @Override
     public Iterator<Question> iterator() {
         return internalList.iterator();

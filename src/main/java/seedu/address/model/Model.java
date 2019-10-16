@@ -22,12 +22,16 @@ public interface Model {
      */
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
 
-    /** {@code Predicate} that always evaluate to false */
+    /**
+     * {@code Predicate} that always evaluate to false
+     */
     Predicate<Note> PREDICATE_SHOW_NO_NOTES = unused -> false;
 
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Question> PREDICATE_SHOW_ALL_QUESTIONS = unused -> true;
 
     /**
@@ -152,21 +156,34 @@ public interface Model {
      */
     void setQuestion(Question target, Question editedQuestion);
 
-    /** Returns an unmodifiable view of the filtered question list */
+    /**
+     * Returns an unmodifiable view of the filtered question list
+     */
     ObservableList<Question> getFilteredQuestionList();
 
     /**
      * Updates the filter of the filtered question list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredQuestionList(Predicate<Question> predicate);
 
     /**
-     * Sets the question list in quiz with specific {@code subject} and {@code difficulty}.
+     * Returns a question list with specific {@code numOfQuestions}, {@code subject} and {@code difficulty}.
      */
-    void setQuizQuestionList(int numOfQuestions, Subject subject, Difficulty difficulty);
+    ObservableList<Question> getQuizQuestions(int numOfQuestions, Subject subject, Difficulty difficulty);
+
+    /**
+     * Sets the question list in quiz as {@code quizQuestionList}.
+     */
+    void setQuizQuestionList(ObservableList<Question> quizQuestionList);
 
     void setTask(Task target, Task editedTask);
+
+    /**
+     * Returns an unmodifiable view of the filtered quiz question list.
+     */
+    ObservableList<Question> getFilteredQuizQuestionList();
 
     /**
      * Checks the an answer input by user and return the boolean value as the result.
