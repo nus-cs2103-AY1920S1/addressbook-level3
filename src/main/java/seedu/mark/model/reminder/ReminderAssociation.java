@@ -17,8 +17,9 @@ import seedu.mark.model.bookmark.exceptions.ReminderNotFoundException;
  * Represents the association between bookmarks and reminders.
  */
 public class ReminderAssociation {
-    private static final Comparator<Reminder> comparator = (Reminder a, Reminder b)
-            -> (a.getRemindTime().isBefore(b.getRemindTime())) ? -1 : 1;
+    private static final Comparator<Reminder> comparator = (Reminder a, Reminder b) -> {
+        return a.getRemindTime().isBefore(b.getRemindTime()) ? -1 : 1;
+    };
     //TODO: One bookmark may has multiple reminder in next version.
     private ObservableMap<Bookmark, Reminder> association = FXCollections.observableHashMap();
 

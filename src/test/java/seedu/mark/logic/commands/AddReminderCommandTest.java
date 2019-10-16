@@ -58,8 +58,6 @@ class AddReminderCommandTest {
         LocalDateTime time = LocalDateTime.now();
         Note note = new Note("Open");
 
-        Bookmark validBookmark = model.getFilteredBookmarkList().get(0);
-
         AddReminderCommand addReminderCommand = new AddReminderCommand(INDEX_FIRST_BOOKMARK, note, time);
 
         assertThrows(CommandException.class, addReminderCommand.MESSAGE_DUPLICATE_REMINDER, () ->

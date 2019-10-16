@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.testutil.Assert.assertThrows;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -18,7 +17,6 @@ import seedu.mark.model.Mark;
 import seedu.mark.model.ModelStub;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.reminder.Note;
 import seedu.mark.storage.StorageStub;
 import seedu.mark.testutil.BookmarkBuilder;
 
@@ -33,8 +31,6 @@ public class AddCommandTest {
     public void execute_bookmarkAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded();
         Bookmark validBookmark = new BookmarkBuilder().build();
-        LocalDateTime time = LocalDateTime.now();
-        Note note = new Note("Open");
 
         CommandResult commandResult = new AddCommand(validBookmark)
                 .execute(modelStub, new StorageStub());
