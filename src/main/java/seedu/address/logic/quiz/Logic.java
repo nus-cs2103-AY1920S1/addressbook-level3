@@ -9,7 +9,7 @@ import seedu.address.logic.quiz.commands.CommandResult;
 import seedu.address.logic.quiz.commands.exceptions.CommandException;
 import seedu.address.logic.quiz.parser.exceptions.ParseException;
 import seedu.address.model.quiz.ReadOnlyAddressBook;
-import seedu.address.model.quiz.person.Person;
+import seedu.address.model.quiz.person.Question;
 
 
 /**
@@ -28,12 +28,12 @@ public interface Logic {
     /**
      * Returns the AddressBook.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.quiz.Model#getAddressBook()
      */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of questions */
+    ObservableList<Question> getFilteredQuestionList();
 
     /**
      * Returns the user prefs' address book file path.
