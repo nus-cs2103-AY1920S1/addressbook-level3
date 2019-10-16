@@ -55,7 +55,7 @@ public class UiTest {
     /******************* For LogBox *************************/
     @Test
     void createLogBoxTest() {
-        if(!threadFlag) {
+        if (!threadFlag) {
             setUpTest();
         }
         try {
@@ -77,7 +77,7 @@ public class UiTest {
 
     @Test
     void changeTimelineDateTest() {
-        if(!threadFlag) {
+        if (!threadFlag) {
             setUpTest();
         }
         CalendarPanel calendarPanel = new CalendarPanel(new UiParser());
@@ -97,7 +97,7 @@ public class UiTest {
 
     @Test
     void changeCalendarScreenDate() {
-        if(!threadFlag) {
+        if (!threadFlag) {
             setUpTest();
         }
         CalendarPanel calendarPanel = new CalendarPanel(new UiParser());
@@ -118,7 +118,7 @@ public class UiTest {
     /******************* For TimelineDayView *************************/
     @Test
     void eventChangeTest() {
-        if(!threadFlag) {
+        if (!threadFlag) {
             setUpTest();
         }
         try {
