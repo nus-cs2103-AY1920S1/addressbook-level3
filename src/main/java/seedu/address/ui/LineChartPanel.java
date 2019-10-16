@@ -59,11 +59,11 @@ public class LineChartPanel extends UiPart<Region> {
         yAxis.setLabel("Number");
 
         //creating the line chart with two axis created above
-        lineChart.setTitle("Bodies Admitted");
+        lineChart.setTitle("Statistics");
         lineChart.setAnimated(false);
 
         //defining a series to display data
-        series.setName("Data Series");
+        series.setName("Bodies admitted");
 
         // add series to chart
         lineChart.getData().add(series);
