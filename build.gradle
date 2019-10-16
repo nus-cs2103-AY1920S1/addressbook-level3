@@ -1,3 +1,4 @@
+//test
 // Gradle Configuration File
 // For more details take a look at the Java Quickstart chapter in the Gradle
 // user guide available at http://gradle.org/docs/5.2.1/userguide/tutorial_java_projects.html
@@ -133,8 +134,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'guitTrip()',
+        'site-githuburl': 'https://ay1920s1-cs2103-t16-4.github.io/main/',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 

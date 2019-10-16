@@ -13,6 +13,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
+import seedu.address.model.person.Income;
+import seedu.address.model.person.Wish;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,7 +25,10 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Expense> filteredEntries;
+    private final FilteredList<Entry> filteredEntries;
+    private final FilteredList<Expense> filteredExpenses;
+    private final FilteredList<Income> filteredIncomes;
+    private final FilteredList<Wish> filteredWishes;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,7 +41,10 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredEntries = new FilteredList<>(this.addressBook.getExpenseList());
+        filteredEntries = new FilteredList<>(this.addressBook.getEntryList());
+        filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
+        filteredIncomes = new FilteredList<>(this.addressBook.getIncomeList());
+        filteredWishes = new FilteredList<>(this.addressBook.getWishList());
     }
 
     public ModelManager() {
@@ -98,11 +107,43 @@ public class ModelManager implements Model {
     @Override
     public void deleteEntry(Entry target) {
         addressBook.removeEntry(target);
+        if (target instanceof Expense) {
+            addressBook.removeExpense((Expense) target);
+        } else if (target instanceof Income) {
+            addressBook.removeIncome((Income) target);
+        } else if (target instanceof Wish) {
+            addressBook.removeWish((Wish) target);
+        }
+    }
+
+    @Override
+    public void deleteExpense(Expense target) {
+        addressBook.removeEntry(target);
+        addressBook.removeExpense(target);
+    }
+
+    @Override
+    public void deleteIncome(Income target) {
+        addressBook.removeEntry(target);
+        addressBook.removeIncome(target);
+    }
+
+    @Override
+    public void deleteWish(Wish target) {
+        addressBook.removeEntry(target);
+        addressBook.removeWish(target);
     }
 
     @Override
     public void addEntry(Entry entry) {
         addressBook.addEntry(entry);
+        if (entry instanceof Expense) {
+            addressBook.addExpense((Expense) entry);
+        } else if (entry instanceof Income) {
+            addressBook.addIncome((Income) entry);
+        } else if (entry instanceof Wish) {
+            addressBook.addWish((Wish) entry);
+        }
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
@@ -113,27 +154,78 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addIncome(Income income) {
+        addressBook.addIncome(income);
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+    }
+
+    @Override
+    public void addWish(Wish wish) {
+        addressBook.addWish(wish);
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+    }
+
+    @Override
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
-
         addressBook.setEntry(target, editedEntry);
+        if (target instanceof Expense) {
+            addressBook.setExpense((Expense) target, (Expense) editedEntry);
+        } else if (target instanceof Income) {
+            addressBook.setIncome((Income) target, (Income) editedEntry);
+        } else if (target instanceof Wish) {
+            addressBook.setWish((Wish) target, (Wish) editedEntry);
+        }
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Entry} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Expense> getFilteredEntryList() {
+    public ObservableList<Entry> getFilteredEntryList() {
         return filteredEntries;
+    }
+
+    @Override
+    public ObservableList<Expense> getFilteredExpenses() {
+        return filteredExpenses;
+    }
+
+    @Override
+    public ObservableList<Income> getFilteredIncomes() {
+        return filteredIncomes;
+    }
+
+    @Override
+    public ObservableList<Wish> getFilteredWishes() {
+        return filteredWishes;
     }
 
     @Override
     public void updateFilteredEntryList(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredEntries.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredExpenses(Predicate<Expense> predicate) {
+        requireNonNull(predicate);
+        filteredExpenses.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredIncomes(Predicate<Income> predicate) {
+        requireNonNull(predicate);
+        filteredIncomes.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredWishes(Predicate<Wish> predicate) {
+        requireNonNull(predicate);
+        filteredWishes.setPredicate(predicate);
     }
 
     @Override
