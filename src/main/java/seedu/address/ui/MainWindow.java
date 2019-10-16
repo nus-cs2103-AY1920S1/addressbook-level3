@@ -123,8 +123,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        modularDisplay.displayTitle(modularDisplayPlaceholder);
-
+        modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -226,14 +225,14 @@ public class MainWindow extends UiPart<Stage> {
             //So is this. Todo: Compile both the above and below into a new "UpdateUI" class.
             if (commandText.equals("load")) {
                 modularDisplay.swapToBanks(modularDisplayPlaceholder);
-            } else if (commandText.matches("bank [a-zA-Z0-9_]")) {
-                modularDisplay.swapToList(modularDisplayPlaceholder);
+            } else if (commandText.matches("bank [a-zA-Z0-9_/s]")) {
+                modularDisplay.swapToBankDisplay(modularDisplayPlaceholder);
             } else if (commandText.equals("list")) {
                 modularDisplay.swapToList(modularDisplayPlaceholder);
             } else if (commandText.equals("help")) {
                 //modularDisplay.swapToBanks(modularDisplayPlaceholder);
             } else {
-                modularDisplay.swapToHome(modularDisplayPlaceholder);
+                modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
             }
 
             if (commandResult.isShowHelp()) {

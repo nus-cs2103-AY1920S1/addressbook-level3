@@ -1,22 +1,28 @@
 package seedu.address.ui;
 
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import seedu.address.gamemanager.GameManager;
 import seedu.address.statistics.GameStatistics;
-import seedu.address.statistics.GameStatisticsBuilder;
 import seedu.address.statistics.WordBankStatistics;
-import seedu.address.ui.modules.GameResultPanel;
-import seedu.address.ui.modules.CardListPanel;
-import seedu.address.ui.modules.LoadBankPanel;
-import seedu.address.ui.modules.TitleScreenPanel;
+import seedu.address.ui.layouts.TwoSplitColumnLayout;
+import seedu.address.ui.layouts.TwoSplitRowLayout;
+import seedu.address.ui.modules.*;
+
+import java.util.Stack;
 
 /**
  * Displays the screen for Dukemon.
  */
 public class ModularDisplay {
 
-    //private final LoadBankPanel loadBankPanel;
+    //Layouts for non single-pane displays
+    private TwoSplitColumnLayout twoSplitColumnLayout;
+    private TwoSplitRowLayout twoSplitRowLayout;
+
+    //Modules
     private CardListPanel cardListPanel;
+    private BankLabelPanel bankLabelPanel;
     private final LoadBankPanel loadBankPanel;
     private final TitleScreenPanel titleScreenPanel;
     private final GameManager gameManager;
@@ -34,12 +40,34 @@ public class ModularDisplay {
     }
 
     /**
-     * Initially displays title.
+     * Initially displays loading.
      *
      * @param paneToDisplay The view to change.
      */
-    public void displayTitle(StackPane paneToDisplay) {
-        paneToDisplay.getChildren().add(loadBankPanel.getRoot());
+    public void swapToLoadDisplay(StackPane paneToDisplay) {
+        TitleScreenPanel globalStatsPlaceholder = new TitleScreenPanel();
+        twoSplitRowLayout = new TwoSplitRowLayout();
+        twoSplitColumnLayout = new TwoSplitColumnLayout();
+
+        twoSplitRowLayout.addToTopPane(titleScreenPanel.getRoot());
+        twoSplitRowLayout.addToBottomPane(globalStatsPlaceholder.getRoot());
+        twoSplitColumnLayout.addToLeftPane(twoSplitRowLayout.getRoot());
+        twoSplitColumnLayout.addToRightPane(loadBankPanel.getRoot());
+        paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
+    }
+
+    public void swapToBankDisplay(StackPane paneToDisplay) {
+        //I'm gonna need a way to get current wb name from gameManager as well.
+        bankLabelPanel = new BankLabelPanel("HELLO");
+        TitleScreenPanel localStatsPlaceholder = new TitleScreenPanel();
+        twoSplitRowLayout = new TwoSplitRowLayout();
+        twoSplitColumnLayout = new TwoSplitColumnLayout();
+
+        twoSplitRowLayout.addToTopPane(bankLabelPanel.getRoot());
+        twoSplitRowLayout.addToBottomPane(localStatsPlaceholder.getRoot());
+        twoSplitColumnLayout.addToLeftPane(twoSplitRowLayout.getRoot());
+        twoSplitColumnLayout.addToRightPane(cardListPanel.getRoot());
+        paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
     }
 
     /**

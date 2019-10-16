@@ -3,9 +3,10 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+
+<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <items>
-      <StackPane fx:id="leftPane" prefHeight="150.0" prefWidth="200.0" />
-      <StackPane fx:id="rightPane" prefHeight="150.0" prefWidth="200.0" />
+      <StackPane fx:id="leftPane" />
+      <StackPane fx:id="rightPane" />
    </items>
 </SplitPane>
