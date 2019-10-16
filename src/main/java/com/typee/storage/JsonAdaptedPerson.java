@@ -76,10 +76,21 @@ class JsonAdaptedPerson {
                 modelLocation, modelDescription, modelPriority);
     }
 
+    /**
+     * Returns the description of an {@code Engagement} following validation.
+     *
+     * @return description.
+     */
     private String validateAndGetDescription() {
         return description;
     }
 
+    /**
+     * Returns the {@code Priority} of an {@code Engagement} following validation.
+     *
+     * @return the {@code Priority}
+     * @throws IllegalValueException if the json's priority field is invalid.
+     */
     private Priority validateAndGetPriority() throws IllegalValueException {
         if (priority == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -91,6 +102,12 @@ class JsonAdaptedPerson {
         return Priority.of(priority);
     }
 
+    /**
+     * Returns the {@code AttendeeList} of an {@code Engagement} following validation.
+     *
+     * @return the {@code AttendeeList}
+     * @throws IllegalValueException if the json's attendees field is invalid.
+     */
     private AttendeeList validateAndGetAttendees() throws IllegalValueException {
         if (attendees == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -103,6 +120,12 @@ class JsonAdaptedPerson {
         return AttendeeList.getListGivenValidInput(attendees);
     }
 
+    /**
+     * Returns the {@code Location} of an {@code Engagement} following validation.
+     *
+     * @return the {@code Location} of the {@code Engagement}.
+     * @throws IllegalValueException if the json's location field is invalid.
+     */
     private Location validateAndGetLocation() throws IllegalValueException {
         if (location == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -114,6 +137,12 @@ class JsonAdaptedPerson {
         return new Location(location);
     }
 
+    /**
+     * Returns the {@code EngagementType} of an {@code Engagement} following validation.
+     *
+     * @return the {@code EngagementType}
+     * @throws IllegalValueException if the json's engagementType field is invalid.
+     */
     private EngagementType validateAndGetEngagementType() throws IllegalValueException {
         if (engagementType == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
