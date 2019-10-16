@@ -1,5 +1,8 @@
 package seedu.address.model.budget;
 
+/**
+ * dummy.
+ */
 public class Percentage {
     private final int proportion;
 

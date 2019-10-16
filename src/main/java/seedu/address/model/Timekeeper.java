@@ -37,7 +37,11 @@ public class Timekeeper {
         return reminders;
     }
 
-   public void refreshBudgets() {
+    /**
+     * Dummy.
+     *
+     */
+    public void refreshBudgets() {
         for (Budget budget : budgets) {
             if (budget.expired(SYSTEM_DATE)) {
                 budget.refresh(SYSTEM_DATE);

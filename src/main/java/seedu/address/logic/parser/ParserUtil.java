@@ -140,6 +140,11 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Dummy.
+     * @param date
+     * @return dummy.
+     */
     public static String formatDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
         return date.format(formatter);
@@ -167,6 +172,11 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Dummy.
+     * @param period
+     * @return dummy.
+     */
     public static String formatPeriod(Period period) {
         String periodString = period.toString();
         switch (periodString) {

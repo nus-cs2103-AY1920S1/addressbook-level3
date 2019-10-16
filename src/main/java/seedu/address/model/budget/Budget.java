@@ -19,14 +19,6 @@ import seedu.address.model.expense.Price;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Budget {
-    private final Description description;
-    private final Price amount;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private final Period period;
-    private final List<Expense> expenses;
-    private boolean isPrimary;
-    private Percentage proportionUsed;
 
     private static final Description DEFAULT_BUDGET_DESCRIPTION = new Description("Default Budget");
     //private static final Price DEFAULT_BUDGET_AMOUNT = new Price(Double.toString(Double.MAX_VALUE));
@@ -37,6 +29,14 @@ public class Budget {
     private static final Period DEFAULT_BUDGET_PERIOD = Period.ofYears(999);
     private static final Percentage IS_NEAR_THRESHOLD = new Percentage(90);
 
+    private final Description description;
+    private final Price amount;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private final Period period;
+    private final List<Expense> expenses;
+    private boolean isPrimary;
+    private Percentage proportionUsed;
 
     public Budget(Description description, Price amount, LocalDate startDate, Period period) {
         requireAllNonNull(description, amount, startDate, period);
@@ -90,8 +90,12 @@ public class Budget {
         expenses.add(e);
     }
 
+    /**
+     * Dummy.
+     * @return Dummy.
+     */
     public static Budget createDefaultBudget() {
-       return new Budget(DEFAULT_BUDGET_DESCRIPTION,
+        return new Budget(DEFAULT_BUDGET_DESCRIPTION,
                DEFAULT_BUDGET_AMOUNT,
                DEFAULT_BUDGET_START_DATE,
                DEFAULT_BUDGET_PERIOD);
@@ -120,10 +124,19 @@ public class Budget {
         return getExpenseSum() > amount.getAsDouble();
     }
 
+    /**
+     * dummy.
+     * @param date
+     * @return
+     */
     public boolean expired(LocalDate date) {
         return endDate.isBefore(date);
     }
 
+    /**
+     * dymmy.
+     * @param date
+     */
     public void refresh(LocalDate date) {
         assert endDate.isBefore(date) : "Budget is refreshed only when expired";
         long daysDiff = ChronoUnit.DAYS.between(endDate, date);
@@ -146,6 +159,10 @@ public class Budget {
         isPrimary = false;
     }
 
+    /**
+     * Dummy.
+     * @param otherExpense
+     */
     public void removeIdentical(Expense otherExpense) {
         Expense toRemove = null;
         for (Expense expense : expenses) {

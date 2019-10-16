@@ -37,7 +37,8 @@ public class Expense {
         this.date = LocalDate.now();
     }
 
-    public Expense(Description description, Price price, Set<Tag> tags, LocalDate date, UniqueIdentifier uniqueIdentifier) {
+    public Expense(Description description, Price price, Set<Tag> tags, LocalDate date,
+                   UniqueIdentifier uniqueIdentifier) {
         requireAllNonNull(description, price, tags, uniqueIdentifier);
         this.description = description;
         this.price = price;

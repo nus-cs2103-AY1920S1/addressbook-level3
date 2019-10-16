@@ -42,7 +42,7 @@ public class Timestamp {
             LocalDate.parse(test, DATE_TIME_FORMATTER);
             return true;
         } catch (DateTimeParseException e) {
-                return false;
+            return false;
         }
     }
 
