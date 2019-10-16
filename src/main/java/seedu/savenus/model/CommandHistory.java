@@ -12,13 +12,6 @@ public class CommandHistory {
     private int currentCommandIndex = -1;
 
     /**
-     * Get the list of commands that have been typed.
-     */
-    public static List<String> getCommandHistory() {
-        return commandHistory;
-    }
-
-    /**
      * Add Command to history.
      * @param command Command to be added to history
      */
@@ -58,7 +51,7 @@ public class CommandHistory {
      * Used to get the command history.
      * @return List of command history.
      */
-    public List<String> getCommandHistory() {
+    public static List<String> getCommandHistory() {
         return commandHistory;
     }
 
