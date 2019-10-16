@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.incident.DescriptionKeywordsPredicate;
 import seedu.address.model.incident.IdKeywordsPredicate;
@@ -30,7 +29,7 @@ public class SearchIncidentsCommand extends Command {
             + PREFIX_DESC + "KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESC + "arson";
-    
+
     private final Predicate<Incident> predicate;
 
     public SearchIncidentsCommand(DescriptionKeywordsPredicate descriptionPredicate) {
