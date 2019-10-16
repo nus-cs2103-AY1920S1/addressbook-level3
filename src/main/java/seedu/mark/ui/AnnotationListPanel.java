@@ -10,6 +10,9 @@ import javafx.scene.layout.Region;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.annotation.Paragraph;
 
+/**
+ * Manages Ui showing annotations of offline documents.
+ */
 public class AnnotationListPanel extends UiPart<Region> {
     private static final String FXML = "AnnotationListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(AnnotationListPanel.class);
@@ -23,6 +26,9 @@ public class AnnotationListPanel extends UiPart<Region> {
         annotationListView.setCellFactory(listView -> new AnnotationListViewCell());
     }
 
+    /**
+     * A list view cell for showing the annotations of the currently showing document.
+     */
     class AnnotationListViewCell extends ListCell<Paragraph> {
         @Override
         protected void updateItem(Paragraph paragraph, boolean empty) {

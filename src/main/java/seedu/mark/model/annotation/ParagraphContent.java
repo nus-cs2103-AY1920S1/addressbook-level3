@@ -2,6 +2,10 @@ package seedu.mark.model.annotation;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents the contents of an offline document paragraph.
+ * Content supports only {@code String} at status quo.
+ */
 public class ParagraphContent {
 
     private String content;

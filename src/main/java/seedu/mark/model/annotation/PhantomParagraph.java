@@ -4,6 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.mark.commons.core.index.Index;
 
+/**
+ * Represents a paragraph that does not exist in the original website.
+ * This paragraph adopts stray notes for the time that they remain stray.
+ */
 public class PhantomParagraph implements Paragraph {
 
     /** Paragraph identifier.*/

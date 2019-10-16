@@ -63,6 +63,11 @@ public class ParagraphIdentifier implements Comparable<ParagraphIdentifier> {
      */
     public static enum ParagraphType {
         EXIST, STRAY;
+
+        /**
+         * Converts the paragraph type into a single character for easy reference.
+         * @return "p" if is true paragraph, else "s" if is phantom
+         */
         public String convert() {
             if (this == EXIST) {
                 return "P";

@@ -1,9 +1,9 @@
 package seedu.mark.model.annotation;
 
-import static java.util.Objects.requireNonNull;
-
-import seedu.mark.commons.core.index.Index;
-
+/**
+ * An interface for Paragraphs of offline documents.
+ * Paragraphs are to support annotations: highlights and notes.
+ */
 public interface Paragraph {
 
     public ParagraphIdentifier getId();

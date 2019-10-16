@@ -1,13 +1,14 @@
 package seedu.mark.model.annotation;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.mark.commons.core.index.Index;
 
 class ParagraphIdentifierTest {
-    Index index = Index.fromOneBased(1);
-    Index index2 = Index.fromOneBased(2);
+    private Index index = Index.fromOneBased(1);
+    private Index index2 = Index.fromOneBased(2);
 
     @Test
     public void equals_check() {

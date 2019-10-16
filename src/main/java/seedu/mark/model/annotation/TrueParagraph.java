@@ -31,11 +31,20 @@ public class TrueParagraph implements Paragraph {
         note = null;
     }
 
+    /**
+     * Adds an annotation with only the highlight.
+     * @param colour The higlight to colour the paragraph
+     */
     public void addAnnotation(Highlight colour) {
         requireNonNull(colour);
         this.colour = colour;
     }
 
+    /**
+     * Adds an annotation with both highlight and note.
+     * @param colour The highlight to colour the paragraph
+     * @param note The note to annotate the paragraph with
+     */
     public void addAnnotation(Highlight colour, AnnotationNote note) {
         requireNonNull(note);
         addAnnotation(colour);

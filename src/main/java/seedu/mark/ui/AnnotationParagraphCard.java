@@ -2,7 +2,6 @@ package seedu.mark.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.mark.model.annotation.Paragraph;
