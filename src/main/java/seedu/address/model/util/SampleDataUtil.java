@@ -7,7 +7,11 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import seedu.address.model.*;
+import seedu.address.model.CustomerBook;
+import seedu.address.model.OrderBook;
+import seedu.address.model.PhoneBook;
+import seedu.address.model.ReadOnlyDataBook;
+import seedu.address.model.ScheduleBook;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.CustomerName;
@@ -126,9 +130,9 @@ public class SampleDataUtil {
 
     public static Schedule[] getSampleSchedule() {
         return new Schedule[] {
-                new Schedule(UUID.randomUUID(), Calendar.getInstance(), new Venue("Kovan"),
+            new Schedule(UUID.randomUUID(), Calendar.getInstance(), new Venue("Kovan"),
                         getTagSet("Rush")),
-                new Schedule(UUID.randomUUID(), Calendar.getInstance(), new Venue("Orchard"),
+            new Schedule(UUID.randomUUID(), Calendar.getInstance(), new Venue("Orchard"),
                         getTagSet("Office"))
         };
     }

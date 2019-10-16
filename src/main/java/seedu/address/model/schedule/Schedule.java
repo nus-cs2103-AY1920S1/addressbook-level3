@@ -2,7 +2,6 @@ package seedu.address.model.schedule;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
