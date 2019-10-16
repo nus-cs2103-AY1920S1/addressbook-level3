@@ -40,7 +40,7 @@ public class InfoCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
         }
         Book target = lastShownList.get(index.getZeroBased());
-        predicate.addSerialNumber(getSerialNumberAsString(target));
+        predicate.setSerialNumber(getSerialNumberAsString(target));
         model.updateFilteredBookList(predicate);
         return new CommandResult(
                 String.format(MESSAGE_BOOK_INFO, getTitleFromBook(target)));

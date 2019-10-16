@@ -24,23 +24,23 @@ public class SampleDataUtil {
         SerialNumberGenerator.setCatalog(new Catalog());
         return new Book[] {
             new Book(new Title("Harry Botter"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("J K Rowling"), null, getGenreSet("Fiction")),
+                    new Author("J K Rowling"), null, getGenreSet("FICTION")),
             new Book(new Title("Legend of the Condor Heroes"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("Jin Yong"), null, getGenreSet("Fiction", "History")),
+                    new Author("Jin Yong"), null, getGenreSet("FICTION", "HISTORY")),
             new Book(new Title("Animal the Farm"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("George Orwell"), null, getGenreSet("Fiction")),
+                    new Author("George Orwell"), null, getGenreSet("FICTION")),
             new Book(new Title("Harry Botter and the Full Blood Prince"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("J K Rowling"), null, getGenreSet("Fiction", "Action")),
-            new Book(new Title("Mans Search for Munning"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("Viktor Frankel"), null, getGenreSet("Non-fiction", "Biography")),
+                    new Author("J K Rowling"), null, getGenreSet("FICTION", "ACTION")),
+            new Book(new Title("Man's Search for Munning"), SerialNumberGenerator.generateSerialNumber(),
+                    new Author("Viktor Frankel"), null, getGenreSet("NON-FICTION", "BIOGRAPHY")),
             new Book(new Title("Stefe Jobz"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("Walter Izakson"), null, getGenreSet("Non-fiction", "Biography")),
+                    new Author("Walter Izakson"), null, getGenreSet("NON-FICTION", "BIOGRAPHY")),
             new Book(new Title("Behaves"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("Robert Sapoloksy"), null, getGenreSet("Non-fiction", "Popular-Science", "Psychology")),
+                    new Author("Robert Sapoloksy"), null, getGenreSet("NON-FICTION", "POPULAR-SCIENCE", "PSYCHOLOGY")),
             new Book(new Title("A Brief History of Space"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("Stephen Birding"), null, getGenreSet("Non-fiction", "Popular-Science")),
+                    new Author("Stephen Birding"), null, getGenreSet("NON-FICTION", "POPULAR-SCIENCE")),
             new Book(new Title("Painting with Bobby Ross"), SerialNumberGenerator.generateSerialNumber(),
-                    new Author("Bobby Ross"), null, getGenreSet("Non-fiction", "Art", "How-to")),
+                    new Author("Bobby Ross"), null, getGenreSet("NON-FICTION", "ART", "HOW-TO")),
         };
     }
 
@@ -51,15 +51,17 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a genre set containing the list of strings given.
+     * Returns a genre set containing the list of strings given,
+     * after formatting the strings to UPPERCASE
      */
     public static Set<Genre> getGenreSet(String... strings) {
         return Arrays.stream(strings)
+                .map(genreName -> genreName.trim().toUpperCase())
                 .map(Genre::new)
                 .collect(Collectors.toSet());
     }
 
-    // TODO ZY
+    // Technically not needed
     public static ReadOnlyLoanRecords getSampleLoanRecords() {
         LoanRecords loanRecords = new LoanRecords();
         return loanRecords;

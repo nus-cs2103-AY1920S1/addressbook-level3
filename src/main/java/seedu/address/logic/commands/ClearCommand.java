@@ -2,11 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.Catalog;
 import seedu.address.model.Model;
 
 /**
- * Clears the address book.
+ * Displays all books - clears the search filter
  */
 public class ClearCommand extends Command {
 
@@ -17,7 +16,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setCatalog(new Catalog());
+        model.resetFilteredBookList();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

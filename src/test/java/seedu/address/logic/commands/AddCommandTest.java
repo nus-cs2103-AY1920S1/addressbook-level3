@@ -166,9 +166,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void resetFilteredBookList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredBookList(Predicate<Book> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+
 
         @Override
         public Path getLoanRecordsFilePath() {
@@ -242,6 +249,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasBorrowerId(BorrowerId borrowerId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void exitsServeMode() {
             throw new AssertionError("This method should not be called.");
         }
     }

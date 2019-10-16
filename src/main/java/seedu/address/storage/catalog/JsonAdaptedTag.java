@@ -25,7 +25,7 @@ public class JsonAdaptedTag {
      * Converts a given {@code Genre} into this class for Jackson use.
      */
     public JsonAdaptedTag(Genre source) {
-        tagName = source.tagName;
+        tagName = source.genreName;
     }
 
     @JsonValue

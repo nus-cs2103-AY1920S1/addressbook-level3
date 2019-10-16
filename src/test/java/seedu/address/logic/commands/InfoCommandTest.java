@@ -30,7 +30,7 @@ class InfoCommandTest {
 
         Model expectedModel = new ModelManager(
                 new Catalog(model.getCatalog()), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
-        BookPredicate predicate = new BookPredicate().addTitle(target.getTitle().toString());
+        BookPredicate predicate = new BookPredicate().setTitle(target.getTitle().toString());
         expectedModel.updateFilteredBookList(predicate);
 
         assertCommandSuccess(infoCommand, model, expectedMessage, expectedModel);

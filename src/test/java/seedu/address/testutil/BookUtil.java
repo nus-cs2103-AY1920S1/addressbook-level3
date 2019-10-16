@@ -41,7 +41,7 @@ public class BookUtil {
         sb.append(PREFIX_SERIAL_NUMBER + book.getSerialNumber().value + " ");
         sb.append(PREFIX_AUTHOR + book.getAuthor().value + " ");
         book.getGenres().stream().forEach(
-            s -> sb.append(PREFIX_GENRE + s.tagName + " ")
+            s -> sb.append(PREFIX_GENRE + s.genreName + " ")
         );
         return sb.toString();
     }
@@ -60,7 +60,7 @@ public class BookUtil {
             if (genres.isEmpty()) {
                 sb.append(PREFIX_GENRE);
             } else {
-                genres.forEach(s -> sb.append(PREFIX_GENRE).append(s.tagName).append(" "));
+                genres.forEach(s -> sb.append(PREFIX_GENRE).append(s.genreName).append(" "));
             }
         }
         return sb.toString();

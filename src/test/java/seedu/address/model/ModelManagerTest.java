@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
-
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_ID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
@@ -14,24 +14,20 @@ import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-//import java.util.List;
-//import java.util.stream.Collectors;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 
-//import seedu.address.commons.util.DateUtil;
-//import seedu.address.model.book.Book;
-
+import seedu.address.commons.util.DateUtil;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookPredicate;
-
-//import seedu.address.model.borrower.BorrowerId;
-//import seedu.address.model.loan.Loan;
-//import seedu.address.testutil.BookBuilder;
-
+import seedu.address.model.borrower.BorrowerId;
+import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanId;
+import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.CatalogBuilder;
 
 public class ModelManagerTest {
@@ -96,8 +92,8 @@ public class ModelManagerTest {
     @Test
     public void setLoanRecordsFilePath_validPath_setsLoanRecordsFilePath() {
         Path path = Paths.get("loan/record/file/path");
-        modelManager.setCatalogFilePath(path);
-        assertEquals(path, modelManager.getCatalogFilePath());
+        modelManager.setLoanRecordsFilePath(path);
+        assertEquals(path, modelManager.getLoanRecordsFilePath());
     }
 
     @Test
@@ -134,54 +130,57 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredBookList().remove(0));
     }
 
-    //    @Test
-    //    public void getOverdueBooks_success() {
-    //        modelManager = new ModelManager();
-    //
-    //        Book toBeLoaned = new BookBuilder(BOOK_1).build();
-    //        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
-    //        Loan loan = new Loan(
-    //                toBeLoaned.getSerialNumber(),
-    //                currentBorrowerId,
-    //                DateUtil.getTodayMinusDays(31),
-    //                DateUtil.getTodayMinusDays(1));
-    //        Book loanedBook = new BookBuilder(BOOK_1).withLoan(loan).build();
-    //        modelManager.addBook(loanedBook);
-    //        modelManager.addBook(BOOK_2);
-    //        List<Book> overdueBooks = modelManager.getOverdueBooks();
-    //        List<Book> expectedBooks = modelManager.getCatalog()
-    //                .getBookList()
-    //                .stream()
-    //                .filter(book -> book.equals(BOOK_1))
-    //                .collect(Collectors.toList());
-    //        assertEquals(overdueBooks, expectedBooks);
-    //    }
-    //
-    //    @Test
-    //    public void getOverdueBooks_noOverdueBooks_returnEmptyList() {
-    //        modelManager = new ModelManager();
-    //
-    //        // Book on loan but not overdue
-    //        Book toBeLoaned = new BookBuilder(BOOK_1).build();
-    //        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
-    //        Loan loan = new Loan(
-    //                toBeLoaned.getSerialNumber(),
-    //                currentBorrowerId,
-    //                DateUtil.getTodayDate(),
-    //                DateUtil.getTodayPlusDays(30));
-    //        modelManager.addLoan(loan);
-    //        Book loanedBook = new BookBuilder(BOOK_1).withLoan(loan).build();
-    //        modelManager.addBook(loanedBook);
-    //        modelManager.addBook(BOOK_2);
-    //        List<Book> overdueBooks = modelManager.getOverdueBooks();
-    //        assertTrue(overdueBooks.isEmpty());
-    //
-    //        // No books on loan
-    //        modelManager.deleteBook(loanedBook);
-    //        modelManager.addBook(BOOK_1);
-    //        overdueBooks = modelManager.getOverdueBooks();
-    //        assertTrue(overdueBooks.isEmpty());
-    //    }
+    @Test
+    public void getOverdueBooks_success() {
+        modelManager = new ModelManager();
+
+        LoanId loanId = new LoanId(VALID_LOAN_ID);
+        Book toBeLoaned = new BookBuilder(BOOK_1).build();
+        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
+        Loan loan = new Loan(loanId, toBeLoaned.getSerialNumber(), currentBorrowerId,
+                DateUtil.getTodayMinusDays(31), DateUtil.getTodayMinusDays(1));
+        Book loanedBook = new BookBuilder(BOOK_1).withLoan(loan).build();
+        modelManager.addBook(loanedBook);
+        modelManager.addBook(BOOK_2);
+        List<Book> overdueBooks = modelManager.getOverdueBooks();
+        List<Book> expectedBooks = modelManager.getCatalog()
+                .getBookList()
+                .stream()
+                .filter(book -> book.equals(BOOK_1))
+                .collect(Collectors.toList());
+        assertEquals(overdueBooks, expectedBooks);
+    }
+
+    @Test
+    public void getOverdueBooks_noOverdueBooks_returnEmptyList() {
+        modelManager = new ModelManager();
+
+        // Book on loan but not overdue
+        LoanId loanId = new LoanId(VALID_LOAN_ID);
+        Book toBeLoaned = new BookBuilder(BOOK_1).build();
+        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
+        Loan loan = new Loan(loanId, toBeLoaned.getSerialNumber(), currentBorrowerId,
+                DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(30));
+        modelManager.addLoan(loan);
+        Book loanedBook = new BookBuilder(BOOK_1).withLoan(loan).build();
+        modelManager.addBook(loanedBook);
+        modelManager.addBook(BOOK_2);
+        List<Book> overdueBooks = modelManager.getOverdueBooks();
+        assertTrue(overdueBooks.isEmpty());
+
+        // No books on loan
+        modelManager.deleteBook(loanedBook);
+        modelManager.addBook(BOOK_1);
+        overdueBooks = modelManager.getOverdueBooks();
+        assertTrue(overdueBooks.isEmpty());
+    }
+
+    @Test
+    public void getServingBorrower_notInServeMode_throwsAssertionError() {
+        modelManager = new ModelManager();
+
+        assertThrows(AssertionError.class, () -> modelManager.getServingBorrower());
+    }
 
     @Test
     public void equals() {
@@ -215,7 +214,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String keywords = BOOK_1.getTitle().value;
-        modelManager.updateFilteredBookList(new BookPredicate().addTitle(keywords));
+        modelManager.updateFilteredBookList(new BookPredicate().setTitle(keywords));
         assertFalse(modelManager.equals(new ModelManager(differentCatalog, loanRecords, borrowerRecords, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

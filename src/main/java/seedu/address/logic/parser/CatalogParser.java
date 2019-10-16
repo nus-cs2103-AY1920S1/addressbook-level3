@@ -10,6 +10,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -17,6 +18,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InfoCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoanCommand;
+import seedu.address.logic.commands.RegisterCommand;
+import seedu.address.logic.commands.ServeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -75,6 +78,15 @@ public class CatalogParser {
 
         case InfoCommand.COMMAND_WORD:
             return new InfoCommandParser().parse(arguments);
+
+        case RegisterCommand.COMMAND_WORD:
+            return new RegisterCommandParser().parse(arguments);
+
+        case ServeCommand.COMMAND_WORD:
+            return new ServeCommandParser().parse(arguments);
+
+        case DoneCommand.COMMAND_WORD:
+            return new DoneCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
