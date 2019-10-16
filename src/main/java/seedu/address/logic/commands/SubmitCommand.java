@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
-import javafx.collections.ObservableList;
+
 import java.util.Comparator;
 import java.util.Iterator;
+
+import javafx.collections.ObservableList;
 
 import seedu.address.model.Model;
 import seedu.address.model.incident.Incident;
