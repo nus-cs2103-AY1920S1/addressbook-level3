@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.student.exceptions.DuplicateAssignmentException;
 import seedu.address.model.student.exceptions.AssignmentNotFoundException;
+import seedu.address.model.student.exceptions.DuplicateAssignmentException;
 import seedu.address.testutil.StudentBuilder;
 
 public class UniqueStudentListTest {
@@ -159,7 +159,8 @@ public class UniqueStudentListTest {
     @Test
     public void setStudents_listWithDuplicateStudents_throwsDuplicateStudentException() {
         List<Student> listWithDuplicateStudents = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateAssignmentException.class, () -> uniqueStudentList.setStudents(listWithDuplicateStudents));
+        assertThrows(
+                DuplicateAssignmentException.class, () -> uniqueStudentList.setStudents(listWithDuplicateStudents));
     }
 
     @Test

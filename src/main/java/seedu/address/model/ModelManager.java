@@ -37,7 +37,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
-	    filteredAssignments = new FilteredList<>(this.addressBook.getAssignmentList());
+        filteredAssignments = new FilteredList<>(this.addressBook.getAssignmentList());
 
     }
 
@@ -100,8 +100,8 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasAssignment(Assignment assignment) {
-    	requireNonNull(assignment);
-    	return addressBook.hasAssignment(assignment);
+        requireNonNull(assignment);
+        return addressBook.hasAssignment(assignment);
     }
 
     @Override
@@ -109,10 +109,10 @@ public class ModelManager implements Model {
         addressBook.removeStudent(target);
     }
 
-	@Override
-	public void deleteAssignment(Assignment target) {
-		addressBook.removeAssignment(target);
-	}
+    @Override
+    public void deleteAssignment(Assignment target) {
+        addressBook.removeAssignment(target);
+    }
 
     @Override
     public void addStudent(Student student) {
@@ -120,11 +120,11 @@ public class ModelManager implements Model {
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
-	@Override
-	public void addAssignment(Assignment assignment) {
-		addressBook.addAssignment(assignment);
-		updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-	}
+    @Override
+    public void addAssignment(Assignment assignment) {
+        addressBook.addAssignment(assignment);
+        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
+    }
 
     @Override
     public void setStudent(Student target, Student editedStudent) {
@@ -133,12 +133,12 @@ public class ModelManager implements Model {
         addressBook.setStudent(target, editedStudent);
     }
 
-	@Override
-	public void setAssignment(Assignment target, Assignment editedAssignment) {
-		requireAllNonNull(target, editedAssignment);
+    @Override
+    public void setAssignment(Assignment target, Assignment editedAssignment) {
+        requireAllNonNull(target, editedAssignment);
 
-		addressBook.setAssignment(target, editedAssignment);
-	}
+        addressBook.setAssignment(target, editedAssignment);
+    }
 
     //=========== Filtered Student List Accessors =============================================================
 
@@ -151,10 +151,10 @@ public class ModelManager implements Model {
         return filteredStudents;
     }
 
-	@Override
-	public ObservableList<Assignment> getFilteredAssignmentList() {
-		return filteredAssignments;
-	}
+    @Override
+    public ObservableList<Assignment> getFilteredAssignmentList() {
+        return filteredAssignments;
+    }
 
     @Override
     public void updateFilteredStudentList(Predicate<Student> predicate) {
@@ -162,11 +162,11 @@ public class ModelManager implements Model {
         filteredStudents.setPredicate(predicate);
     }
 
-	@Override
-	public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
-		requireNonNull(predicate);
-		filteredAssignments.setPredicate(predicate);
-	}
+    @Override
+    public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
+        requireNonNull(predicate);
+        filteredAssignments.setPredicate(predicate);
+    }
 
     @Override
     public boolean equals(Object obj) {
