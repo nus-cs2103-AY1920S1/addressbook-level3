@@ -19,7 +19,8 @@ public class PhoneContainsKeywordsPredicate implements Predicate<Order> {
     @Override
     public boolean test(Order order) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(order.getPhone().getSerialNumber().toString(), keyword)
+                .anyMatch(keyword ->
+                        StringUtil.containsWordIgnoreCase(order.getPhone().getSerialNumber().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getBrand().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getCapacity().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(order.getPhone().getColour().toString(), keyword)

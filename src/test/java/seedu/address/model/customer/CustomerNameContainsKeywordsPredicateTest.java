@@ -19,14 +19,17 @@ public class CustomerNameContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        CustomerNameContainsKeywordsPredicate firstPredicate = new CustomerNameContainsKeywordsPredicate(firstPredicateKeywordList);
-        CustomerNameContainsKeywordsPredicate secondPredicate = new CustomerNameContainsKeywordsPredicate(secondPredicateKeywordList);
+        CustomerNameContainsKeywordsPredicate firstPredicate =
+                new CustomerNameContainsKeywordsPredicate(firstPredicateKeywordList);
+        CustomerNameContainsKeywordsPredicate secondPredicate =
+                new CustomerNameContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        CustomerNameContainsKeywordsPredicate firstPredicateCopy = new CustomerNameContainsKeywordsPredicate(firstPredicateKeywordList);
+        CustomerNameContainsKeywordsPredicate firstPredicateCopy =
+                new CustomerNameContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -42,7 +45,8 @@ public class CustomerNameContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        CustomerNameContainsKeywordsPredicate predicate = new CustomerNameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        CustomerNameContainsKeywordsPredicate predicate =
+                new CustomerNameContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new CustomerBuilder().withName("Alice Bob").build()));
 
         // Multiple keywords
@@ -61,7 +65,8 @@ public class CustomerNameContainsKeywordsPredicateTest {
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
-        CustomerNameContainsKeywordsPredicate predicate = new CustomerNameContainsKeywordsPredicate(Collections.emptyList());
+        CustomerNameContainsKeywordsPredicate predicate =
+                new CustomerNameContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new CustomerBuilder().withName("Alice").build()));
 
         // Non-matching keyword
@@ -69,7 +74,9 @@ public class CustomerNameContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new CustomerBuilder().withName("Alice Bob").build()));
 
         // Keywords match phone and email, but does not match name
-        predicate = new CustomerNameContainsKeywordsPredicate(Arrays.asList("12345678", "alice@email.com", "Main", "Street"));
+        predicate =
+                new CustomerNameContainsKeywordsPredicate(
+                        Arrays.asList("12345678", "alice@email.com", "Main", "Street"));
         assertFalse(predicate.test(new CustomerBuilder().withName("Alice").withContactNumber("12345678")
                 .withEmail("alice@email.com").build()));
     }

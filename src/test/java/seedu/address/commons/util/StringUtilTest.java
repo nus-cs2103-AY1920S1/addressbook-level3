@@ -56,7 +56,8 @@ public class StringUtilTest {
 
     @Test
     public void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> StringUtil.containsExactWordIgnoreCase("typical sentence", null));
+        assertThrows(NullPointerException.class, ()
+            -> StringUtil.containsExactWordIgnoreCase("typical sentence", null));
     }
 
     @Test
@@ -73,7 +74,8 @@ public class StringUtilTest {
 
     @Test
     public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> StringUtil.containsExactWordIgnoreCase(null, "abc"));
+        assertThrows(NullPointerException.class, ()
+            -> StringUtil.containsExactWordIgnoreCase(null, "abc"));
     }
 
     /*
@@ -109,8 +111,11 @@ public class StringUtilTest {
         assertFalse(StringUtil.containsExactWordIgnoreCase("    ", "123"));
 
         // Matches a partial word only
-        assertFalse(StringUtil.containsExactWordIgnoreCase("aaa bbb ccc", "bb")); // Sentence word bigger than query word
-        assertFalse(StringUtil.containsExactWordIgnoreCase("aaa bbb ccc", "bbbb")); // Query word bigger than sentence word
+        assertFalse(StringUtil.containsExactWordIgnoreCase("aaa bbb ccc", "bb"));
+        // Sentence word bigger than query word
+
+        assertFalse(StringUtil.containsExactWordIgnoreCase("aaa bbb ccc", "bbbb"));
+        // Query word bigger than sentence word
 
         // Matches word in the sentence, different upper/lower case letters
         assertTrue(StringUtil.containsExactWordIgnoreCase("aaa bBb ccc", "Bbb")); // First word (boundary case)

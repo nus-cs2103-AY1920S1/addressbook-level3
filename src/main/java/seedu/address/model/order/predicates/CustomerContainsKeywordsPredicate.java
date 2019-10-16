@@ -19,10 +19,10 @@ public class CustomerContainsKeywordsPredicate implements Predicate<Order> {
     @Override
     public boolean test(Order order) {
         return keywords.stream()
-                .anyMatch(
-                 keyword -> StringUtil.containsWordIgnoreCase(order.getCustomer().getCustomerName().toString(), keyword)
-                        || StringUtil.containsWordIgnoreCase(order.getCustomer().getContactNumber().toString(), keyword)
-                        || StringUtil.containsWordIgnoreCase(order.getCustomer().getEmail().toString(), keyword));
+                .anyMatch(keyword ->
+                    StringUtil.containsWordIgnoreCase(order.getCustomer().getCustomerName().toString(), keyword)
+                    || StringUtil.containsWordIgnoreCase(order.getCustomer().getContactNumber().toString(), keyword)
+                    || StringUtil.containsWordIgnoreCase(order.getCustomer().getEmail().toString(), keyword));
     }
 
     @Override
