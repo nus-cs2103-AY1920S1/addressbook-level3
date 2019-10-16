@@ -1,20 +1,18 @@
 package seedu.mark.logic.parser;
 
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.mark.logic.parser.AutotagCommandParser.DEFAULT_PREDICATE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.logic.commands.AutotagCommand;
-import seedu.mark.logic.parser.AutotagCommandParser.BookmarkPredicateBuilder;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
-import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
 import seedu.mark.model.predicates.UrlContainsKeywordsPredicate;
 import seedu.mark.model.tag.Tag;
@@ -62,10 +60,8 @@ public class AutotagCommandParserTest {
 
         NameContainsKeywordsPredicate namePredicate = new NameContainsKeywordsPredicate(Arrays.asList(VALID_NAME_1));
         UrlContainsKeywordsPredicate urlPredicate = new UrlContainsKeywordsPredicate(Arrays.asList(VALID_URL_1));
-        Predicate<Bookmark> overallPredicate =
-                new BookmarkPredicateBuilder().addCondition(namePredicate).addCondition(urlPredicate).build();
         AutotagCommand expectedCommand =
-                new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG), overallPredicate));
+                new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG), DEFAULT_PREDICATE.and(namePredicate).and(urlPredicate)));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -76,10 +72,8 @@ public class AutotagCommandParserTest {
         String userInput = VALID_TAG + URL_DESC_1;
 
         UrlContainsKeywordsPredicate urlPredicate = new UrlContainsKeywordsPredicate(Arrays.asList(VALID_URL_1));
-        Predicate<Bookmark> overallPredicate =
-                new BookmarkPredicateBuilder().addCondition(urlPredicate).build();
         AutotagCommand expectedCommand =
-                new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG), overallPredicate));
+                new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG), DEFAULT_PREDICATE.and(urlPredicate)));
 
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -87,8 +81,7 @@ public class AutotagCommandParserTest {
         userInput = VALID_TAG + NAME_DESC_1;
 
         NameContainsKeywordsPredicate namePredicate = new NameContainsKeywordsPredicate(Arrays.asList(VALID_NAME_1));
-        overallPredicate = new BookmarkPredicateBuilder().addCondition(namePredicate).build();
-        expectedCommand = new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG), overallPredicate));
+        expectedCommand = new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG), DEFAULT_PREDICATE.and(namePredicate)));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -99,10 +92,8 @@ public class AutotagCommandParserTest {
 
         NameContainsKeywordsPredicate namePredicate =
                 new NameContainsKeywordsPredicate(Arrays.asList(VALID_NAME_1, VALID_NAME_2));
-        Predicate<Bookmark> overallPredicate =
-                new BookmarkPredicateBuilder().addCondition(namePredicate).build();
         AutotagCommand expectedCommand =
-                new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG), overallPredicate));
+                new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG), DEFAULT_PREDICATE.and(namePredicate)));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
