@@ -150,7 +150,6 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered budget list */
     ObservableList<Budget> getFilteredBudgets();
-  
     /** Returns an unmodifiable view of the filtered expense reminder list */
     ObservableList<ExpenseReminder> getFilteredExpenseReminders();
 
