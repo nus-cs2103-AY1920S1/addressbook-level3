@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.finance.Model;
-import seedu.address.model.finance.person.NameContainsKeywordsPredicate;
+import seedu.address.model.finance.logEntry.NameContainsKeywordsPredicate;
 
 
 /**
@@ -29,9 +29,9 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+        model.updateFilteredLogEntryList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredLogEntryList().size()));
     }
 
     @Override

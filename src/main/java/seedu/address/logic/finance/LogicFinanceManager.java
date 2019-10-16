@@ -10,16 +10,16 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.finance.commands.Command;
 import seedu.address.logic.finance.commands.CommandResult;
 import seedu.address.logic.finance.commands.exceptions.CommandException;
-import seedu.address.logic.finance.parser.AddressBookParser;
+import seedu.address.logic.finance.parser.FinanceLogParser;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.Model;
-import seedu.address.model.finance.ReadOnlyAddressBook;
-import seedu.address.model.finance.person.Person;
+import seedu.address.model.finance.ReadOnlyFinanceLog;
+import seedu.address.model.finance.logEntry.LogEntry;
 import seedu.address.storage.finance.Storage;
 
 
 /**
- * The main LogicManager of the app.
+ * The LogicManager for finance feature of the app.
  */
 public class LogicFinanceManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
@@ -27,12 +27,12 @@ public class LogicFinanceManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final FinanceLogParser financeLogParser;
 
     public LogicFinanceManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        financeLogParser = new FinanceLogParser();
     }
 
     @Override
@@ -42,13 +42,13 @@ public class LogicFinanceManager implements Logic {
 
         CommandResult commandResult;
         //Parse user input from String to a Command
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = financeLogParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
             //We can deduce that the previous line of code modifies model in some way
             // since it's being stored here.
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAddressBook(model.getFinanceLog());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -57,18 +57,18 @@ public class LogicFinanceManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyFinanceLog getAddressBook() {
+        return model.getFinanceLog();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<LogEntry> getFilteredPersonList() {
+        return model.getFilteredLogEntryList();
     }
 
     @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+        return model.getFinanceLogFilePath();
     }
 
     @Override

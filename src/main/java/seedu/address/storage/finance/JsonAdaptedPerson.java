@@ -10,16 +10,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.finance.person.Address;
-import seedu.address.model.finance.person.Email;
-import seedu.address.model.finance.person.Name;
-import seedu.address.model.finance.person.Person;
-import seedu.address.model.finance.person.Phone;
+import seedu.address.model.finance.logEntry.Address;
+import seedu.address.model.finance.logEntry.Name;
+import seedu.address.model.finance.logEntry.Email;
+import seedu.address.model.finance.logEntry.LogEntry;
+import seedu.address.model.finance.logEntry.Phone;
 import seedu.address.model.finance.tag.Tag;
 
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link LogEntry}.
  */
 class JsonAdaptedPerson {
 
@@ -50,7 +50,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Person source) {
+    public JsonAdaptedPerson(LogEntry source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -65,7 +65,7 @@ class JsonAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
-    public Person toModelType() throws IllegalValueException {
+    public LogEntry toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -104,7 +104,7 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new LogEntry(modelName, modelPhone, modelEmail, modelAddress, modelTags);
     }
 
 }

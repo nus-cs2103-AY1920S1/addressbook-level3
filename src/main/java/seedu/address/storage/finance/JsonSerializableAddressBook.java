@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.FinanceLog;
-import seedu.address.model.finance.ReadOnlyAddressBook;
-import seedu.address.model.finance.person.Person;
+import seedu.address.model.finance.ReadOnlyFinanceLog;
+import seedu.address.model.finance.logEntry.LogEntry;
 
 
 /**
@@ -37,8 +37,8 @@ class JsonSerializableAddressBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList()
+    public JsonSerializableAddressBook(ReadOnlyFinanceLog source) {
+        persons.addAll(source.getLogEntryList()
                 .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
@@ -50,11 +50,11 @@ class JsonSerializableAddressBook {
     public FinanceLog toModelType() throws IllegalValueException {
         FinanceLog addressBook = new FinanceLog();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
+            LogEntry logEntry = jsonAdaptedPerson.toModelType();
+            if (addressBook.hasLogEntry(logEntry)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            addressBook.addLogEntry(logEntry);
         }
         return addressBook;
     }

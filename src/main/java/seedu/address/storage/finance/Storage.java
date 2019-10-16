@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.finance.ReadOnlyAddressBook;
+import seedu.address.model.finance.ReadOnlyFinanceLog;
 import seedu.address.model.finance.ReadOnlyUserPrefs;
 import seedu.address.model.finance.UserPrefs;
 
@@ -25,9 +25,9 @@ public interface Storage extends FinanceStorage, UserPrefsStorage {
     Path getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyFinanceLog> readAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyFinanceLog addressBook) throws IOException;
 
 }

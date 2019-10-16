@@ -1,4 +1,4 @@
-package seedu.address.model.finance.person;
+package seedu.address.model.finance.logEntry;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -11,10 +11,10 @@ import seedu.address.model.finance.tag.Tag;
 
 
 /**
- * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents an entry in the finance log.
+ * Guarantees: details are present and not null, field values are validated, mutable.
  */
-public class Person {
+public class LogEntry {
 
     // Identity fields
     private final Name name;
@@ -28,7 +28,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public LogEntry(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -65,14 +65,14 @@ public class Person {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSamePerson(LogEntry otherLogEntry) {
+        if (otherLogEntry == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        return otherLogEntry != null
+                && otherLogEntry.getName().equals(getName())
+                && (otherLogEntry.getPhone().equals(getPhone()) || otherLogEntry.getEmail().equals(getEmail()));
     }
 
     /**
@@ -85,16 +85,16 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof LogEntry)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        LogEntry otherLogEntry = (LogEntry) other;
+        return otherLogEntry.getName().equals(getName())
+                && otherLogEntry.getPhone().equals(getPhone())
+                && otherLogEntry.getEmail().equals(getEmail())
+                && otherLogEntry.getAddress().equals(getAddress())
+                && otherLogEntry.getTags().equals(getTags());
     }
 
     @Override

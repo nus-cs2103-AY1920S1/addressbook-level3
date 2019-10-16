@@ -36,7 +36,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getFinanceLogFilePath());
+        setFinanceLogFilePath(newUserPrefs.getFinanceLogFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -52,9 +52,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return financeLogFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.financeLogFilePath = addressBookFilePath;
+    public void setFinanceLogFilePath(Path financeLogFilePath) {
+        requireNonNull(financeLogFilePath);
+        this.financeLogFilePath = financeLogFilePath;
     }
 
     @Override

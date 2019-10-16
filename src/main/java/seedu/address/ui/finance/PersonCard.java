@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.finance.person.Person;
+import seedu.address.model.finance.logEntry.LogEntry;
 
 
 /**
@@ -25,7 +25,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final LogEntry logEntry;
 
     @FXML
     private HBox cardPane;
@@ -42,15 +42,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(LogEntry logEntry, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.logEntry = logEntry;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().stream()
+        name.setText(logEntry.getName().fullName);
+        phone.setText(logEntry.getPhone().value);
+        address.setText(logEntry.getAddress().value);
+        email.setText(logEntry.getEmail().value);
+        logEntry.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -70,6 +70,6 @@ public class PersonCard extends UiPart<Region> {
         // state check
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && logEntry.equals(card.logEntry);
     }
 }
