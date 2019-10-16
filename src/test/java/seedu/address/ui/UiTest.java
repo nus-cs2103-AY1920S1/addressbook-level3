@@ -23,6 +23,8 @@ import seedu.address.ui.panel.log.LogPanel;
 
 public class UiTest {
 
+    private static boolean threadFlag = true;
+
     private static List<EventSource> list = new ArrayList<>();
 
     private static LocalDate date = LocalDate.parse("2020-07-21");
@@ -47,10 +49,6 @@ public class UiTest {
         };
         t.setDaemon(true);
         t.start();
-
-        list.add(new EventSource("Test 1", new DateTime(instant1)));
-        list.add(new EventSource("Test 2", new DateTime(instant2)));
-        list.add(new EventSource("Test 3", new DateTime(instant3)));
     }
 
     /******************* For LogBox *************************/
@@ -62,6 +60,8 @@ public class UiTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+        Platform.exit();
+        Thread.currentThread().interrupt();
     }
 
     /******************* For CalendarPanel *************************/
@@ -74,6 +74,8 @@ public class UiTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+        Platform.exit();
+        Thread.currentThread().interrupt();
     }
 
     @Test
@@ -84,17 +86,23 @@ public class UiTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+        Platform.exit();
+        Thread.currentThread().interrupt();
     }
 
     /******************* For TimelineDayView *************************/
     @Test
     void eventChangeTest() {
         try {
+            list.add(new EventSource("Test 1", new DateTime(instant1)));
+            list.add(new EventSource("Test 2", new DateTime(instant2)));
+            list.add(new EventSource("Test 3", new DateTime(instant3)));
             TimelineDayView timelineDayView = new TimelineDayView(1, 1, 2001, new UiParser());
             timelineDayView.eventChange(list);
         } catch (Exception e) {
             fail();
         }
         Platform.exit();
+        Thread.currentThread().interrupt();
     }
 }
