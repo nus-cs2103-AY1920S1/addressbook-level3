@@ -16,7 +16,7 @@ public class TypicalEvents {
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends").build();*/
-    public static final Event AAA = new EventBuilder().build();
+    public static final Event A = new EventBuilder().build();
 
 
     private TypicalEvents() {} // prevents instantiation
@@ -33,6 +33,6 @@ public class TypicalEvents {
     }
 
     public static List<Event> getTypicalEvent() {
-        return new ArrayList<>(Arrays.asList(AAA));
+        return new ArrayList<>(Arrays.asList(A));
     }
 }

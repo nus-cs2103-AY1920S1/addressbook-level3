@@ -17,12 +17,12 @@ import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Event objects.
  */
 public class EventBuilder {
 
     public static final String DEFAULT_ID = "000";
-    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NAME = "Party";
     public static final String DEFAULT_VENUE = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_DATE = "11/11/2019";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -47,6 +47,7 @@ public class EventBuilder {
         endDate = new EventEndDate(LocalDate.parse(DEFAULT_DATE, FORMATTER));
         tags = new HashSet<>();
     }
+
 
     /**
      * Initializes the PersonBuilder with the data of {@code personToCopy}.
