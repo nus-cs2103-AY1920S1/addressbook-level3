@@ -28,11 +28,9 @@ public class AddModCommand extends Command {
     public static final String COMMAND_WORD = "addmod";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to a student in MAMS"
-            + "Session ID is optional"
             + "Parameters: "
             + "MATRIC_ID"
-            + "MODULE_CODE"
-            + "[SESSION_ID]";
+            + "MODULE_CODE";
 
     //TODO: message for success. userguide?
     public static final String MESSAGE_EDIT_STUDENT_MODULE_SUCCESS = "Edited Student: %1$s";

@@ -15,12 +15,6 @@ import mams.model.student.Student;
 public class StudentCard extends UiPart<Region> {
 
     private static final String FXML = "StudentListCard.fxml";
-<<<<<<< HEAD
-=======
-    private static final String CREDITS_LABEL_PREFIX = "Credit(s) Workload: ";
-    private static final String MATRIC_LABEL_PREFIX = "Matric No.: ";
-    private static final String PREVMODS_LABEL_PREFIX = "PrevMods: ";
->>>>>>> 634e3461f07135e6052f17daa75bf642b7bdb8d8
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -55,7 +49,7 @@ public class StudentCard extends UiPart<Region> {
         credits.setText(student.getCredits().value);
         matricId.setText(student.getMatricId().value);
         prevMods.setText(student.getPrevMods().value);
-        student.getTags().stream()
+        student.getCurrentAppeals().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

@@ -131,8 +131,15 @@
 .label.cell_small_label {
     -fx-font-family: "Roboto Mono for Powerline";
     -fx-font-size: 13px;
-    -fx-text-fill: #4FF77A;
     -fx-tile-alignment: CENTER;
+}
+
+.cell_small_label.green-text-label {
+    -fx-text-fill: #4FF77A;
+}
+
+.cell_small_label.yellow-text-label {
+    -fx-text-fill: #EFF88B;
 }
 
 .label.prefix-label {
@@ -372,7 +379,7 @@
 
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: red;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
