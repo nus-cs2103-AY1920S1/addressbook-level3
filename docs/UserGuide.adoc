@@ -190,14 +190,17 @@ if the changes are finalised. Press the Enter key to confirm the changes.
 
 === Listing persons : `list`
 
-Shows a list of all doctors, donors, or patients in ORGANice, depending on the type of person specified.
-Format: `list t/**TYPE**`
+Shows a list of all doctors, donors, or patients in ORGANice, depending on the type of person specified. Shows all
+persons in ORGANice if no type is specified
+
+Format: `list`
+
+Optional parameters: Type parameter - `t/TYPE`
 
 Examples:
 
+* `list`
 * `list t/patient`
-* `list t/doctor`
-* `list t/donor`
 
 === Editing a person : `edit`
 
@@ -267,7 +270,7 @@ procedure for kidney matching.
 This command displays a list of patient-donor pairs that passes both the blood type and tissue
 typing tests. +
 
-To get a list of patients and their number of matches, the format is: `match all/`
+To get a list of patients and their number of matches, the format is: `match ic/all`
 
 To get a list of potential matches a patient has with a donor, the format is: `match ic/**NRIC**`
 
