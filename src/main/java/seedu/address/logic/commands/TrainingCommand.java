@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -47,7 +48,7 @@ public class TrainingCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         // Check if indexes are valid
-        for(Index index: indexList) {
+        for (Index index: indexList) {
             if (index.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
@@ -57,19 +58,19 @@ public class TrainingCommand extends Command {
 
         HashMap<Person, Boolean> trainingAttendance = new HashMap<>();
         // Set all people in the address book to did not attend
-        for(Person person: allPeople) {
+        for (Person person: allPeople) {
             trainingAttendance.put(person, false);
         }
 
         // Filter indexes from the lastShownList
         List<Person> attendedPersons = new LinkedList<>();
-        for(Index index: indexList) {
+        for (Index index: indexList) {
             Person personWhoAttended = lastShownList.get(index.getZeroBased());
             attendedPersons.add(personWhoAttended);
         }
 
         // Change the value in trainingAttendance of these people to true
-        for(Person person: attendedPersons) {
+        for (Person person: attendedPersons) {
             trainingAttendance.put(person, true);
         }
 
