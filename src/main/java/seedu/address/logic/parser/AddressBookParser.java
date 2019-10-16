@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AckAppCommand;
 import seedu.address.logic.commands.AddAppCommand;
+import seedu.address.logic.commands.AddConsultationRoomCommand;
 import seedu.address.logic.commands.AppointmentsCommand;
 import seedu.address.logic.commands.CancelAppCommand;
 import seedu.address.logic.commands.ChangeAppCommand;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MissAppCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RemoveRoomCommand;
 import seedu.address.logic.commands.SettleAppCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.common.Command;
@@ -118,6 +120,12 @@ public class AddressBookParser {
 
         case SettleAppCommand.COMMAND_WORD:
             return new SettleAppCommandParser(model).parse(arguments);
+
+        case AddConsultationRoomCommand.COMMAND_WORD:
+            return new AddConsultationRoomCommandParser().parse(arguments);
+
+        case RemoveRoomCommand.COMMAND_WORD:
+            return new RemoveRoomCommandParser(model).parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

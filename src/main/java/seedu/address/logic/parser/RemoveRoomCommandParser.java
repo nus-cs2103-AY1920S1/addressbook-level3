@@ -5,22 +5,24 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DequeueCommand;
-import seedu.address.logic.commands.UndoDequeueCommand;
+
+import seedu.address.logic.commands.RemoveRoomCommand;
+import seedu.address.logic.commands.UndoRemoveRoomCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.Model;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.queue.Room;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */
-public class DequeueCommandParser implements Parser<ReversibleActionPairCommand> {
+public class RemoveRoomCommandParser implements Parser<ReversibleActionPairCommand> {
 
-    private List<ReferenceId> lastShownList;
+    private List<Room> lastShownList;
 
-    public DequeueCommandParser(Model model) {
-        this.lastShownList = model.getQueueList();
+    public RemoveRoomCommandParser(Model model) {
+        this.lastShownList = model.getConsultationRoomList();
     }
 
     /**
@@ -32,13 +34,13 @@ public class DequeueCommandParser implements Parser<ReversibleActionPairCommand>
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
-            ReferenceId personToDequeue = ParserUtil.getEntryFromList(lastShownList, index);
-            DequeueCommand dequeueCommand = new DequeueCommand(personToDequeue);
-            return new ReversibleActionPairCommand(dequeueCommand,
-                    new UndoDequeueCommand(personToDequeue, index.getZeroBased()));
+            Room roomToRemove = ParserUtil.getEntryFromList(lastShownList, index);
+            RemoveRoomCommand removeRoomCommand = new RemoveRoomCommand(roomToRemove.getDoctor());
+            return new ReversibleActionPairCommand(removeRoomCommand,
+                    new UndoRemoveRoomCommand(roomToRemove.getDoctor(), index.getZeroBased()));
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DequeueCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveRoomCommand.MESSAGE_USAGE), pe);
         }
     }
 
