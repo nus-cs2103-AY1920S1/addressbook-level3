@@ -14,7 +14,7 @@ import seedu.address.model.phone.PhoneNameContainsKeywordsPredicate;
  */
 public class FindPhoneCommand extends Command {
 
-    public static final String COMMAND_WORD = "find -p";
+    public static final String COMMAND_WORD = "find-p";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all phone whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

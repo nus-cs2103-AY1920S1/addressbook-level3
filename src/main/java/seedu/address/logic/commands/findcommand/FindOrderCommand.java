@@ -15,7 +15,7 @@ import seedu.address.model.order.IdContainsKeywordsPredicate;
  */
 public class FindOrderCommand extends Command {
 
-    public static final String COMMAND_WORD = "find -o";
+    public static final String COMMAND_WORD = "find-o";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all Order whose ID matches the input "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
