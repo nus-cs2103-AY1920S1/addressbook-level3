@@ -73,6 +73,7 @@ public class Trip {
 
     public InventoryList getInventoryList() {
         return inventoryList;
+    }
 
     public Diary getDiary() {
         return diary;
