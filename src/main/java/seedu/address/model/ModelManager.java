@@ -159,6 +159,11 @@ public class ModelManager implements Model {
     //=========== Attendance =================================================================================
 
     @Override
+    public Attendance getAttendance() {
+        return this.attendance;
+    }
+
+    @Override
     public void addTraining(Training training) {
         this.attendance.addTraining(training);
     }

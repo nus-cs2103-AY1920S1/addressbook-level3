@@ -27,8 +27,8 @@ public class TrainingCommand extends Command {
 
     public static final String TRAINING_ADD_SUCCESS = "Training successfully added.";
 
-    public Date date;
-    public List<Index> indexList;
+    private Date date;
+    private List<Index> indexList;
 
     public TrainingCommand(List<Index> indexList) {
         this.date = new Date();

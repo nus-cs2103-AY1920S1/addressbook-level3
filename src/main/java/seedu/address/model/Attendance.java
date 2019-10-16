@@ -46,7 +46,7 @@ public class Attendance {
             }
         }
         result = ((double) attended / (attended + missed));
-        return result * 100 + "%";
+        return String.format("%d/%d (%.2f%%)", attended, attended + missed, result * 100);
     }
     /**
      * Prints out the list of athlete with their attendance in the given date
