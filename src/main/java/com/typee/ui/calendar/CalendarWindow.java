@@ -33,6 +33,9 @@ public class CalendarWindow extends UiPart<Region> {
     @FXML
     private GridPane dateDisplayGrid;
 
+    @FXML
+    private Text calendarTitle;
+
     private List<StackPane> allCalendarDays;
     private YearMonth currentDisplayedYearMonth;
 
@@ -86,6 +89,8 @@ public class CalendarWindow extends UiPart<Region> {
             individualDateStackPane.getChildren().add(dateText);
             calendarDate = calendarDate.plusDays(1);
         }
+        calendarTitle.setText(currentDisplayedYearMonth.getMonth().toString() + " "
+                + currentDisplayedYearMonth.getYear());
     }
 
     /**
