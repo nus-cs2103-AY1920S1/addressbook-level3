@@ -13,7 +13,7 @@
     "question" : "What is internet",
     "answer" : "The Internet is a network of connected computing devices",
     "rating" : "good",
-    "categories" : [ "EDIT" ]
+    "categories" : [ "CS2105" ]
   }, {
     "question" : "How is data transmitted through net?",
     "answer" : "Circuit switching / Packet switching",
@@ -29,11 +29,6 @@
     "answer" : "L (bit) / R (bits.sec)",
     "rating" : "good",
     "categories" : [ ]
-  }, {
-    "question" : "asb",
-    "answer" : "asd",
-    "rating" : "good",
-    "categories" : [ ]
-  } ],
+  }],
   "deadlines" : [ ]
 }
