@@ -22,9 +22,9 @@ import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
-import seedu.address.model.module.DetailedModuleList;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleId;
+import seedu.address.model.module.ModuleList;
 import seedu.address.model.module.SemesterNo;
 import seedu.address.model.module.Venue;
 import seedu.address.model.person.Name;
@@ -306,21 +306,21 @@ public interface Model {
     NusModsData getNusModsData();
 
     /**
-     * Returns a module for the academic year and module code.
-     * Tries to find the module from 3 sources in the order:
-     *      1. Model.NusModsData.DetailedModuleList (in-memory)
-     *      2. Json Files
+     * Returns a module for the given ModuleId (academic year and module code).
+     * Tries to find the module from the 3 sources in order:
+     *      1. Model.NusModsData.ModuleList (in-memory)
+     *      2. Cache Folder
      *      3. NusModsApi
      */
-    Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode);
+    Module findModule(ModuleId id);
 
     String getAcadSemStartDateString(AcadYear acadYear, SemesterNo semesterNo);
 
     List<String> getHolidayDateStrings();
 
-    DetailedModuleList getDetailedModuleList();
+    ModuleList getModuleList();
 
-    void addDetailedModule(Module module);
+    void addModule(Module module);
 
     //=========== GoogleMaps ================================================================================
 

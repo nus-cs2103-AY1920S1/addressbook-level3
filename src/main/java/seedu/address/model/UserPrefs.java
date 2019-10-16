@@ -20,10 +20,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data", "addressbook.json");
     private Path timeBookFilePath = Paths.get("data", "timebook.json");
-    private Path condensedModuleListFilePath = Paths.get("data", "condensed_module_list.json");
-    private Path detailedModuleListFilePath = Paths.get("data", "detailed_module_list.json");
-    private Path academicCalendarFilePath = Paths.get("data", "academic_calendar.json");
-    private Path holidaysFilePath = Paths.get("data", "holidays.json");
+    private Path cacheFolderPath = Paths.get("data", "cache");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -92,36 +89,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.timeBookFilePath = timeBookFilePath;
     }
 
-    public Path getCondensedModuleListFilePath() {
-        return condensedModuleListFilePath;
+    public Path getCacheFolderPath() {
+        return cacheFolderPath;
     }
 
-    public void setCondensedModuleListFilePath(Path condensedModuleListFilePath) {
-        this.condensedModuleListFilePath = condensedModuleListFilePath;
-    }
-
-    public Path getDetailedModuleListFilePath() {
-        return detailedModuleListFilePath;
-    }
-
-    public void setDetailedModuleListFilePath(Path detailedModuleListFilePath) {
-        this.detailedModuleListFilePath = detailedModuleListFilePath;
-    }
-
-    public Path getAcademicCalendarFilePath() {
-        return academicCalendarFilePath;
-    }
-
-    public void setAcademicCalendarFilePath(Path academicCalendarFilePath) {
-        this.academicCalendarFilePath = academicCalendarFilePath;
-    }
-
-    public Path getHolidaysFilePath() {
-        return holidaysFilePath;
-    }
-
-    public void setHolidaysFilePath(Path holidaysFilePath) {
-        this.holidaysFilePath = holidaysFilePath;
+    public void setCacheFolderPath(Path cacheFolderPath) {
+        this.cacheFolderPath = cacheFolderPath;
     }
 
     @Override
@@ -139,17 +112,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
                 && guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
                 && timeBookFilePath.equals(o.timeBookFilePath)
-                && condensedModuleListFilePath.equals(o.condensedModuleListFilePath)
-                && detailedModuleListFilePath.equals(o.detailedModuleListFilePath)
-                && academicCalendarFilePath.equals(o.academicCalendarFilePath)
-                && holidaysFilePath.equals(o.holidaysFilePath);
+                && cacheFolderPath.equals(o.cacheFolderPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appSettings, guiSettings, addressBookFilePath,
-                timeBookFilePath, condensedModuleListFilePath, detailedModuleListFilePath,
-                academicCalendarFilePath, holidaysFilePath);
+        return Objects.hash(appSettings, guiSettings, addressBookFilePath, timeBookFilePath, cacheFolderPath);
     }
 
     @Override
@@ -159,10 +127,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nGui Settings : " + guiSettings);
         sb.append("\nAddressBook file location: " + addressBookFilePath);
         sb.append("\nTimeBook file location : " + timeBookFilePath);
-        sb.append("\nCondensedModuleList file location : " + condensedModuleListFilePath);
-        sb.append("\nDetailedModuleList file location : " + detailedModuleListFilePath);
-        sb.append("\nAcademicCalendar file location : " + academicCalendarFilePath);
-        sb.append("\nHolidays file location : " + holidaysFilePath);
+        sb.append("\nCache folder location : " + cacheFolderPath);
         return sb.toString();
     }
 

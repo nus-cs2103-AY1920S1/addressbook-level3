@@ -11,14 +11,11 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import org.json.simple.JSONObject;
-
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.SimpleJsonUtil;
 import seedu.address.logic.internal.gmaps.ClosestLocation;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
@@ -36,9 +33,9 @@ import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
-import seedu.address.model.module.DetailedModuleList;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleId;
+import seedu.address.model.module.ModuleList;
 import seedu.address.model.module.SemesterNo;
 import seedu.address.model.module.Venue;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
@@ -49,8 +46,7 @@ import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
-import seedu.address.websocket.NusModsApi;
-import seedu.address.websocket.NusModsParser;
+import seedu.address.websocket.Cache;
 
 
 /**
@@ -538,42 +534,28 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode) throws ModuleNotFoundException {
+    public Module findModule(ModuleId moduleId) throws ModuleNotFoundException {
         Module module;
-
         try {
-            module = nusModsData.getDetailedModuleList().findModule(acadYear, moduleCode);
+            module = nusModsData.getModuleList().findModule(moduleId);
         } catch (ModuleNotFoundException ex1) {
-            try {
-                //TODO: just remove this layer altogether, module list should be small enough to keep in-memory
-                Path path = this.userPrefs.getDetailedModuleListFilePath();
-                String key = acadYear.toString() + " " + moduleCode.toString();
-                Optional<JSONObject> objOptional = SimpleJsonUtil.readJsonFile(path, JSONObject.class);
-                if (objOptional.isEmpty()) {
-                    throw new ModuleNotFoundException();
-                }
-                module = NusModsParser.parseModule(objOptional.get());
-            } catch (ModuleNotFoundException ex2) {
-                Optional<JSONObject> moduleObj = new NusModsApi(acadYear).getModule(moduleCode);
-                if (moduleObj.isEmpty()) {
-                    throw new ModuleNotFoundException();
-                }
-                module = NusModsParser.parseModule(moduleObj.get());
-                nusModsData.addDetailedModule(module);
+            Optional<Module> moduleOptional = Cache.loadModule(moduleId);
+            if (moduleOptional.isEmpty()) {
+                throw new ModuleNotFoundException();
             }
+            module = moduleOptional.get();
         }
-
         return module;
     }
 
     @Override
-    public DetailedModuleList getDetailedModuleList() {
-        return nusModsData.getDetailedModuleList();
+    public ModuleList getModuleList() {
+        return nusModsData.getModuleList();
     }
 
     @Override
-    public void addDetailedModule(Module module) {
-        nusModsData.addDetailedModule(module);
+    public void addModule(Module module) {
+        nusModsData.addModule(module);
     }
 
     public String getAcadSemStartDateString(AcadYear acadYear, SemesterNo semesterNo) {

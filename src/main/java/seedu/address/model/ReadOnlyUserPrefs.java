@@ -18,12 +18,5 @@ public interface ReadOnlyUserPrefs {
 
     Path getTimeBookFilePath();
 
-    Path getCondensedModuleListFilePath();
-
-    Path getDetailedModuleListFilePath();
-
-    Path getAcademicCalendarFilePath();
-
-    Path getHolidaysFilePath();
-
+    Path getCacheFolderPath();
 }

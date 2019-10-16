@@ -9,10 +9,10 @@ import seedu.address.model.module.exceptions.ModuleNotFoundException;
 /**
  * List of Modules.
  */
-public class DetailedModuleList {
+public class ModuleList {
     private ArrayList<Module> modules;
 
-    public DetailedModuleList() {
+    public ModuleList() {
         this.modules = new ArrayList<>();
     }
 
@@ -23,13 +23,12 @@ public class DetailedModuleList {
     /**
      * Finds a module using the academic year and module code, and returns the module.
      *
-     * @param acadYear academic year
-     * @param code of the module to find
+     * @param id a composite identifier based on academic year and module code.
      * @return module found
      */
-    public Module findModule(AcadYear acadYear, ModuleCode code) {
+    public Module findModule(ModuleId id) {
         for (Module module : modules) {
-            if (module.getAcadYear().equals(acadYear) && module.getModuleCode().equals(code)) {
+            if (module.getModuleId().equals(id)) {
                 return module;
             }
         }
