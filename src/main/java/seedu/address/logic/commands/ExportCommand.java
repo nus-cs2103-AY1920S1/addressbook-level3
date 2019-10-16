@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -90,9 +90,8 @@ public class ExportCommand extends Command {
     }
 
     public static List<String> categoryToKeywordList(Category category) {
-        String categoryKeywordArray[] = new String[1];
-        categoryKeywordArray[0] = category.categoryName;
-        List<String> categoryKeywordList = Arrays.asList(categoryKeywordArray);
+        String categoryName = category.categoryName;
+        List<String> categoryKeywordList = Collections.singletonList(categoryName);
         return categoryKeywordList;
     }
 }
