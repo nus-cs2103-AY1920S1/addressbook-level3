@@ -24,6 +24,9 @@ public class JsonHistoryManagerStorageTest {
     @TempDir
     public Path testFolder;
 
+    /**
+     * Saves {@code historyManager} at the specified {@code filePath}.
+     */
     private void saveAddressBook(HistoryManager historyManager, String filePath) {
         try {
             new JsonHistoryManagerStorage(Paths.get(filePath))
@@ -33,11 +36,17 @@ public class JsonHistoryManagerStorageTest {
         }
     }
 
+    /**
+     * Gets an {@code Optional} of {@code HistoryManager} from reading the file at the given path.
+     */
     private Optional<HistoryManager> readHistoryManager(String filePath) throws Exception {
         return new JsonHistoryManagerStorage(Paths.get(filePath)).readHistoryManager(
                 addToTestDataPathIfNotNull(filePath));
     }
 
+    /**
+     * Gets the {@code Path} from a given {@code String} path.
+     */
     private Path addToTestDataPathIfNotNull(String filePath) {
         return filePath != null ? TEST_DATA_FOLDER.resolve(filePath) : null;
     }
