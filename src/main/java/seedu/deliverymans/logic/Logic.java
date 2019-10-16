@@ -13,6 +13,7 @@ import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
+import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -49,6 +50,11 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of customers */
     ObservableList<Customer> getFilteredCustomerList();
+
+    //=========== Deliveryman =============================================================
+
+    /** Returns an unmodifiable view of the filtered list of deliverymen */
+    ObservableList<Deliveryman> getFilteredDeliverymenList();
 
     //=========== Restaurant =============================================================
     /**
@@ -91,4 +97,5 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
 }

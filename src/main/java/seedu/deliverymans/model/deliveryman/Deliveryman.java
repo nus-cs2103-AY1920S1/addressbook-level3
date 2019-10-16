@@ -80,4 +80,13 @@ public class Deliveryman {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, phone);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Phone: ")
+                .append(getPhone().toString());
+        return builder.toString();
+    }
 }

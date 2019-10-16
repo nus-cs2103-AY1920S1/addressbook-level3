@@ -33,7 +33,8 @@ public class StorageManager implements Storage {
 
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, CustomerDatabaseStorage customerDatabaseStorage,
+    public StorageManager(AddressBookStorage addressBookStorage,
+                          CustomerDatabaseStorage customerDatabaseStorage,
                           DeliverymenDatabaseStorage deliverymenDatabaseStorage,
                           RestaurantDatabaseStorage restaurantDatabaseStorage,
                           OrderBookStorage orderBookStorage, UserPrefsStorage userPrefsStorage) {

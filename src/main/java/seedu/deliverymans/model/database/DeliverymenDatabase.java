@@ -13,8 +13,9 @@ import seedu.deliverymans.model.deliveryman.exceptions.DeliverymanStatusList;
  * To be added
  */
 public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
+
     private final UniqueDeliverymanList deliverymen;
-    private DeliverymanStatusList statusList;
+    private DeliverymanStatusList statusList; // to be implemented
 
     {
         deliverymen = new UniqueDeliverymanList();
@@ -70,8 +71,8 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     /**
      * Replaces the given deliveryman {@code target} in the list with {@code editedDeliveryman}.
      * {@code target} must exist in the deliveryman database.
-     * The customer identity of {@code editedCustomer} must not be the same as another existing customer in the customer
-     * database.
+     * The customer identity of {@code editedDeliveryman} must not be the same as another existing deliveryman in the
+     * delvierymen database.
      */
     public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
         requireNonNull(editedDeliveryman);
@@ -79,8 +80,8 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     }
 
     /**
-     * Removes {@code key} from this {@code CustomerDatabase}.
-     * {@code key} must exist in the customer database.
+     * Removes {@code key} from this {@code DeliverymenDatabase}.
+     * {@code key} must exist in the deliverymen database.
      */
     public void removeDeliveryman(Deliveryman key) {
         deliverymen.remove(key);
