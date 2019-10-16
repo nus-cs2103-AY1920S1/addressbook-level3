@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import mams.commons.exceptions.IllegalValueException;
 import mams.model.Mams;
 import mams.model.ReadOnlyMams;
+import mams.model.appeal.Appeal;
 import mams.model.module.Module;
 import mams.model.student.Student;
 
@@ -23,25 +24,25 @@ class JsonSerializableMams {
 
     public static final String MESSAGE_DUPLICATE_STUDENT = "Students list contains duplicate student(s).";
     public static final String MESSAGE_DUPLICATE_MODULE = "Modules list contains duplicate module(s).";
+    public static final String MESSAGE_DUPLICATE_APPEALS = "Appeals list contains duplicate appeal(s)";
 
     private final List<JsonAdaptedStudent> students = new ArrayList<>();
+
+    private final List<JsonAdaptedAppeal> appeals = new ArrayList<>();
+
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
+
 
     /**
      * Constructs a {@code JsonSerializableMams} with the given students and modules.
-     */
-    /*@JsonCreator
-    public JsonSerializableMams(@JsonProperty("students") List<JsonAdaptedStudent> students,
-                                @JsonProperty("modules") List<JsonAdaptedModule> modules) {
-        this.students.addAll(students);
-        this.modules.addAll(modules);
-    }*/
-
+    */
     @JsonCreator
     public JsonSerializableMams(@JsonProperty("students") List<JsonAdaptedStudent> students,
-                                @JsonProperty("modules") List<JsonAdaptedModule> modules) {
+                                @JsonProperty("modules") List<JsonAdaptedModule> modules,
+                                @JsonProperty("appeals") List<JsonAdaptedAppeal> appeals) {
         this.modules.addAll(modules);
         this.students.addAll(students);
+        this.appeals.addAll(appeals);
     }
 
     /**
@@ -76,6 +77,13 @@ class JsonSerializableMams {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_STUDENT);
             }
             mams.addStudent(student);
+        }
+        for (JsonAdaptedAppeal jsonAdaptedAppeal: appeals) {
+            Appeal appeal = jsonAdaptedAppeal.toModelType();
+            if (mams.hasAppeal((appeal))) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_STUDENT);
+            }
+            mams.addAppeal(appeal);
         }
         return mams;
     }

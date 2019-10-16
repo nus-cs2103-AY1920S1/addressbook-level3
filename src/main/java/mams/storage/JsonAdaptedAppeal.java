@@ -91,7 +91,7 @@ public class JsonAdaptedAppeal {
 
         //Appeal Id
         if (appealId == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Appeal_Id"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "appealId"));
         }
         if (!Appeal.isValidAppealId(appealId)) {
             throw new IllegalValueException(Appeal.MESSAGE_CONSTRAINTS_APPEAL_ID);
@@ -120,8 +120,8 @@ public class JsonAdaptedAppeal {
         if (academicYear == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Academic year"));
         }
-        if (!Appeal.isValidAppealId(academicYear)) {
-            throw new IllegalValueException(Appeal.MESSAGE_CONSTRAINTS_ACADEMIC_YEAR);
+        if (!Appeal.isValidAcademicYear(academicYear)) {
+            throw new IllegalValueException(Appeal.MESSAGE_CONSTRAINTS_ACADEMICYEAR);
         }
         final String modelAcademicYear = academicYear;
 
@@ -132,25 +132,25 @@ public class JsonAdaptedAppeal {
         final String modelAppealDescription = appealDescription;
 
         //Previous module for swapping
-        if (!Module.isValidModuleCode(previousModule)) {
+        if (!previousModule.isEmpty() && !Module.isValidModuleCode(previousModule)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
         }
         final String modelPreviousModule = previousModule;
 
         //New Module for swapping
-        if (!Module.isValidModuleCode(newModule)) {
+        if (!newModule.isEmpty() && !Module.isValidModuleCode(newModule)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
         }
         final String modelNewModule = newModule;
 
         //Module requested to be added
-        if (!Module.isValidModuleCode(moduleToAdd)) {
+        if (!moduleToAdd.isEmpty() && !Module.isValidModuleCode(moduleToAdd)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
         }
         final String modelModuleToAdd = moduleToAdd;
 
         //Module requested to be dropped
-        if (!Module.isValidModuleCode(moduleToDrop)) {
+        if (!moduleToDrop.isEmpty() && !Module.isValidModuleCode(moduleToDrop)) {
             throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS_MODULE_CODE);
         }
         final String modelModuleToDrop = moduleToDrop;
