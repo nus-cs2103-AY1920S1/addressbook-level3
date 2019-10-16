@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
+//@@author dalsontws
 /**
  * Represents a Deadline's Due Date in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
@@ -18,13 +18,13 @@ public class DueDate {
             + "E.g.: 12/01/2019.";
 
     //private static LocalDate today = LocalDate.now();
-    private static String dateStr;
-    private static LocalDate localDate;
+    private final String dateStr;
+    private final LocalDate localDate;
 
     /**
      * Constructs a {@code Question}.
      *
-     * @param deadline A valid question.
+     * @param deadline A valid DueDate.
      */
     public DueDate(String deadline) {
         this.dateStr = deadline;

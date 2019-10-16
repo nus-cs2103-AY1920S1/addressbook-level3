@@ -3,7 +3,7 @@
     "question" : "What is pointer in C ?",
     "answer" : "A pointer variable stores the address of a memory location",
     "rating" : "easy",
-    "categories" : [ "CS2100", "pointer", "C" ]
+    "categories" : [ "CS2100", "C", "POINTER" ]
   }, {
     "question" : "How to declare a pointer in C ?",
     "answer" : "& + variable name",
@@ -30,6 +30,11 @@
     "rating" : "good",
     "categories" : [ ]
   } ],
-  "deadlines" : [ ]
-
+  "deadlines" : [ {
+    "task" : "CS2103 Final Project Submission",
+    "date" : "10/11/2019"
+  }, {
+    "task" : "CS2101 User Guide Submission",
+    "date" : "12/11/2019"
+  } ]
 }

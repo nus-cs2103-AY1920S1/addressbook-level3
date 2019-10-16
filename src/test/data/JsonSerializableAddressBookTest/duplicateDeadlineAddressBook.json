@@ -4,12 +4,11 @@
     "answer": "2",
     "rating": "good",
     "categories": [ "math" ]
-  }, {
-    "question": "1 + 1",
-    "answer": "2",
-    "rating": "easy"
   } ],
   "deadlines" : [ {
+    "task" : "Homework",
+    "date" : "10/12/2019"
+  }, {
     "task" : "Homework",
     "date" : "10/12/2019"
   } ]

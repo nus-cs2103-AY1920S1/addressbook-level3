@@ -3,9 +3,10 @@ package seedu.address.model.deadline;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author dalsontws
 /**
- * Represents a FlashCard's Question in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidQuestion(String)}
+ * Represents a Deadline's Question in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidTask(String)}
  */
 public class Task {
 
@@ -21,9 +22,9 @@ public class Task {
     public final String fullTask;
 
     /**
-     * Constructs a {@code Question}.
+     * Constructs a {@code Task}.
      *
-     * @param task A valid question.
+     * @param task A valid Task.
      */
     public Task(String task) {
         requireNonNull(task);
@@ -37,7 +38,6 @@ public class Task {
     public static boolean isValidTask(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {

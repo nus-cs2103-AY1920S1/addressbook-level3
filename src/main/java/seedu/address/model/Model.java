@@ -16,6 +16,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<FlashCard> PREDICATE_SHOW_ALL_FLASHCARDS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Deadline> PREDICATE_SHOW_ALL_DEADLINES = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -100,8 +103,6 @@ public interface Model {
      */
     void addFlashCard(FlashCard flashCard);
 
-
-
     /**
      * Replaces the given flashCard {@code target} with {@code editedFlashCard}.
      * {@code target} must exist in the address book.
@@ -132,6 +133,24 @@ public interface Model {
 
     String getTestAnswer();
 
+    /**
+     * Replaces the given flashCard {@code target} with {@code editedFlashCard}.
+     * {@code target} must exist in the address book.
+     * The flashCard identity of {@code editedFlashCard}
+     * must not be the same as another existing flashCard in the address book.
+     */
+    void setDeadline(Deadline target, Deadline editedDeadline);
+
+    /** Returns an unmodifiable view of the filtered deadline list */
+    //@@author dalsontws
+    ObservableList<Deadline> getFilteredDeadlineList();
+
+    /**
+     * Updates the filter of the filtered flashCard list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    //@@author dalsontws
+    void updateFilteredDeadlineList(Predicate<Deadline> predicate);
     /**
      * Simulates updating the filter of the filtered flashCard list to filter by the given {@code predicate}.
      * Does not actually result in any change to the flashCard list stored within this model.

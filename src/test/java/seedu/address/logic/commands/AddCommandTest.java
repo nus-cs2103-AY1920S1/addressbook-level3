@@ -202,6 +202,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setDeadline(Deadline target, Deadline editedDeadline) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Deadline> getFilteredDeadlineList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredDeadlineList(Predicate<Deadline> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public int[] getStats() {
             throw new AssertionError("This method should not be called.");
         }
