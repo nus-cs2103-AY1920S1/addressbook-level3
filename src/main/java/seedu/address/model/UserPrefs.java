@@ -18,6 +18,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path customerBookFilePath = Paths.get("data" , "customerbook.json");
     private Path phoneBookFilePath = Paths.get("data" , "phonebook.json");
     private Path scheduleBookFilePath = Paths.get("data" , "schedulebook.json");
+    private Path orderBookFilePath = Paths.get("data" , "orderbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -86,6 +87,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.scheduleBookFilePath = scheduleBookFilePath;
     }
 
+    public Path getOrderBookFilePath() {
+        return orderBookFilePath;
+    }
+
+    public void setOrderBookFilePath(Path orderBookFilePath) {
+        requireNonNull(orderBookFilePath);
+        this.orderBookFilePath = orderBookFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -101,7 +111,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
                 && addressBookFilePath.equals(o.addressBookFilePath)
                 && customerBookFilePath.equals(o.customerBookFilePath)
                 && phoneBookFilePath.equals(o.phoneBookFilePath)
-                && scheduleBookFilePath.equals(o.scheduleBookFilePath);
+                && scheduleBookFilePath.equals(o.scheduleBookFilePath)
+                && orderBookFilePath.equals(o.orderBookFilePath);
     }
 
     @Override
@@ -117,6 +128,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nCustomer data file location : " + customerBookFilePath);
         sb.append("\nPhone data file location : " + phoneBookFilePath);
         sb.append("\nSchedule data file location : " + scheduleBookFilePath);
+        sb.append("\nOrder data file location : " + orderBookFilePath);
         return sb.toString();
     }
 
