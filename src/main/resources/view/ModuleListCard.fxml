@@ -3,12 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ProgressBar?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -27,12 +27,25 @@
                 </Label>
                 <Label fx:id="moduleCode" text="\$first" styleClass="cell_big_label" />
             </HBox>
-            <FlowPane fx:id="tags" />
-            <Label fx:id="moduleName" styleClass="cell_small_label" text="\$moduleName" />
-            <Label fx:id="lecturerName" styleClass="cell_small_label" text="\$lecturerName" />
-            <Label fx:id="timeSlot" styleClass="cell_small_label" text="\$timeSlot" />
-            <Label fx:id="quota" styleClass="cell_small_label" text="\$quota" />
-            <Label fx:id="prerequisites" styleClass="cell_small_label" text="\$prerequisite" />
+            <Label fx:id="moduleName" styleClass="cell_small_label, green-text-label" text="\$moduleName" />
+            <Label fx:id="timeSlot" styleClass="cell_small_label, yellow-text-label" text="\$timeSlot" />
+            <HBox spacing="3">
+                <padding>
+                    <Insets top="1" bottom="1" />
+                </padding>
+                <Label fx:id="lecturerNamePrefix" styleClass="prefix-label, prefix_sky_blue" text="Coordinator" />
+                <Label fx:id="lecturerName" styleClass="cell_small_label" text="\$lecturerName" />
+            </HBox>
+            <HBox spacing="3">
+                <padding>
+                    <Insets top="1" bottom="1" />
+                </padding>
+                <Label fx:id="quotaPrefix" styleClass="prefix-label, prefix_sky_blue" text="Quota" />
+                <ProgressBar fx:id="quotaBar" />
+                <Label fx:id="enrolment" styleClass="cell_small_label" text="\$enrolment" />
+                <Label styleClass="cell_small_label" text="/" />
+                <Label fx:id="quota" styleClass="cell_small_label" text="\$quota" />
+            </HBox>
         </VBox>
     </GridPane>
 </HBox>

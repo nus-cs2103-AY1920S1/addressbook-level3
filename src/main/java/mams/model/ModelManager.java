@@ -16,7 +16,7 @@ import mams.model.module.Module;
 import mams.model.student.Student;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the MAMS data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -34,7 +34,7 @@ public class ModelManager implements Model {
         super();
         CollectionUtil.requireAllNonNull(mams, userPrefs);
 
-        logger.fine("Initializing with address book: " + mams + " and user prefs " + userPrefs);
+        logger.fine("Initializing with MAMS: " + mams + " and user prefs " + userPrefs);
 
         this.mams = new Mams(mams);
         this.userPrefs = new UserPrefs(userPrefs);

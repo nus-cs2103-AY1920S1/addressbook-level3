@@ -172,8 +172,12 @@ public class Module {
         return timeSlot;
     }
 
-    public String getQuota() {
-        return quota;
+    public int getQuota() {
+        return Integer.parseInt(quota);
+    }
+
+    public int getCurrentEnrolment() {
+        return students.size();
     }
 
     public int[] getTimeSlotToIntArray() {
@@ -372,10 +376,8 @@ public class Module {
      */
     public String quotaToString() {
         final StringBuilder builder = new StringBuilder();
-        String currentNumber = Integer.toString(students.size());
 
-        builder.append("Quota: ")
-                .append(currentNumber)
+        builder.append(getCurrentEnrolment())
                 .append("/")
                 .append(getQuota());
 

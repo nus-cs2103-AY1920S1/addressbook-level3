@@ -57,7 +57,7 @@ class JsonSerializableMams {
     }
 
     /**
-     * Converts this address book into the model's {@code Mams} object.
+     * Converts this MAMS into the model's {@code Mams} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

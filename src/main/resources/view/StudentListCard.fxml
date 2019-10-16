@@ -28,9 +28,27 @@
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="credits" styleClass="cell_small_label" text="\$credits" />
-      <Label fx:id="matricId" styleClass="cell_small_label" text="\$matricId" />
-      <Label fx:id="prevMods" styleClass="cell_small_label" text="\$prevMods" wrapText = "true"/>
+      <HBox spacing="3">
+        <padding>
+          <Insets top="1" bottom="1" />
+        </padding>
+        <Label fx:id="matricPrefix" styleClass="prefix-label, prefix_purple" text="Matric. No" />
+        <Label fx:id="matricId" styleClass="cell_small_label" text="\$matricId" />
+      </HBox>
+      <HBox spacing="3">
+        <padding>
+          <Insets top="1" bottom="1" />
+        </padding>
+        <Label fx:id="creditsPrefix" styleClass="prefix-label,  prefix_purple" text="Credits" />
+        <Label fx:id="credits" styleClass="cell_small_label" text="\$credits" />
+      </HBox>
+      <HBox spacing="3">
+        <padding>
+          <Insets top="1" bottom="1" />
+        </padding>
+        <Label fx:id="prevModsPrefix" styleClass="prefix-label, prefix_purple" text="Modules Taken" />
+        <Label fx:id="prevMods" styleClass="cell_small_label" text="\$prevMods" />
+      </HBox>
     </VBox>
   </GridPane>
 </HBox>
