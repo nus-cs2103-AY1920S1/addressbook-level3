@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.training.Training;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,6 +22,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
+    private final Attendance attendance;
     private final FilteredList<Person> filteredPersons;
 
     /**
@@ -34,6 +36,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.attendance = new Attendance();
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
@@ -151,5 +154,17 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+    }
+
+    //=========== Attendance =================================================================================
+
+    @Override
+    public Attendance getAttendance() {
+        return this.attendance;
+    }
+
+    @Override
+    public void addTraining(Training training) {
+        this.attendance.addTraining(training);
     }
 }
