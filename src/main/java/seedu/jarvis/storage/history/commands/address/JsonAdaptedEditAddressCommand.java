@@ -2,6 +2,7 @@ package seedu.jarvis.storage.history.commands.address;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.EditAddressCommand;
@@ -56,12 +57,8 @@ public class JsonAdaptedEditAddressCommand {
         EditAddressCommand editAddressCommand = (EditAddressCommand) command;
         index = new JsonAdaptedIndex(editAddressCommand.getIndex());
         editPersonDescriptor = new JsonAdaptedEditPersonDescriptor(editAddressCommand.getEditPersonDescriptor());
-        originalPerson = editAddressCommand.getOriginalPerson() != null
-                ? new JsonAdaptedPerson(editAddressCommand.getOriginalPerson())
-                : null;
-        editedPerson =editAddressCommand.getEditedPerson() != null
-                ? new JsonAdaptedPerson(editAddressCommand.getEditedPerson())
-                : null;
+        originalPerson = editAddressCommand.getOriginalPerson().map(JsonAdaptedPerson::new).orElse(null);
+        editedPerson = editAddressCommand.getEditedPerson().map(JsonAdaptedPerson::new).orElse(null);
     }
 
     /**

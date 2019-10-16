@@ -125,19 +125,19 @@ public class EditAddressCommand extends Command {
     /**
      * Gets the original {@code Person} before the edit, which is null if the edit has not been made.
      *
-     * @return {@code Person} before the edit, or null if the person has not been edited.
+     * @return {@code Optional} of {@code Person} before the edit, or empty if the person has not been edited.
      */
-    public Person getOriginalPerson() {
-        return originalPerson;
+    public Optional<Person> getOriginalPerson() {
+        return Optional.ofNullable(originalPerson);
     }
 
     /**
      * Gets the edited {@code Person}, which is null if the person has not been edited.
      *
-     * @return Edited {@code Person}, which is null if the person has not been edited.
+     * @return {@code Optional} of edited {@code Person}, which is empty if the person has not been edited.
      */
-    public Person getEditedPerson() {
-        return editedPerson;
+    public Optional<Person> getEditedPerson() {
+        return Optional.ofNullable(editedPerson);
     }
 
     /**
