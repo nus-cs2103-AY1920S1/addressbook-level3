@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonComparator;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -91,6 +92,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    /**
+     * Sorts list of persons by name in alphabetical order ignoring case.
+     */
+    public void sortByName() {
+        persons.sortByName(new PersonComparator());
     }
 
     //// util methods
