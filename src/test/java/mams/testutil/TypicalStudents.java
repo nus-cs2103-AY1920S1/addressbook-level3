@@ -8,6 +8,7 @@ import mams.logic.commands.CommandTestUtil;
 import mams.model.Mams;
 import mams.model.student.Student;
 
+
 /**
  * A utility class containing a list of {@code Student} objects to be used in tests.
  */
@@ -68,4 +69,5 @@ public class TypicalStudents {
     public static List<Student> getTypicalStudents() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
+
 }

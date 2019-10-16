@@ -80,6 +80,7 @@ public class Mams implements ReadOnlyMams {
 
         setStudents(newData.getStudentList());
         setModules(newData.getModuleList());
+        setAppeals(newData.getAppealList());
     }
 
     //// student-level operations
