@@ -26,8 +26,26 @@ public class Mapping {
         return member;
     }
 
+    public boolean hasMember(Member otherMember) {
+        if (otherMember == member) {
+            return true;
+        }
+
+        return otherMember != null
+                && member.equals(otherMember);
+    }
+
     public Task getTask() {
         return task;
+    }
+
+    public boolean hasTask(Task otherTask) {
+        if (otherTask == task) {
+            return true;
+        }
+
+        return otherTask != null
+                && task.equals(otherTask);
     }
 
     /**

@@ -8,6 +8,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_URGENCY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasksMembers.ORDER_SHIRTS;
 import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
+import static seedu.address.testutil.TypicalTasksMembers.GET_SPONSORS;
+import static seedu.address.testutil.TypicalTasksMembers.ORDER_SHIRTS;
+import static seedu.address.testutil.TypicalTasksMembers.RECRUIT_MEMBERS;
+import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,6 +26,7 @@ import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskStatus;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.testutil.TaskBuilder;
 
@@ -86,6 +91,47 @@ public class ProjectDashboardTest {
         assertThrows(UnsupportedOperationException.class, () -> projectDashboard.getTaskList().remove(0));
     }
 
+    @Test
+    public void addTaskNotStarted_splitTasksBasedOnTaskStatus_presentInExpectedLists() {
+        projectDashboard.addTask(ORDER_SHIRTS);
+        assertTrue(projectDashboard.getTaskList().contains(ORDER_SHIRTS));
+        assertTrue(projectDashboard.getTasksNotStarted().contains(ORDER_SHIRTS));
+        assertFalse(projectDashboard.getTasksDoing().contains(ORDER_SHIRTS));
+        assertFalse(projectDashboard.getTasksDone().contains(ORDER_SHIRTS));
+    }
+
+    @Test
+    public void removeTaskDoing_splitTasksBasedOnTask_expectedTasksPresentInExpectedLists() {
+        projectDashboard.addTask(GET_SPONSORS);
+        projectDashboard.removeTask(GET_SPONSORS);
+        assertFalse(projectDashboard.getTaskList().contains(GET_SPONSORS));
+        assertFalse(projectDashboard.getTasksNotStarted().contains(GET_SPONSORS));
+        assertFalse(projectDashboard.getTasksDoing().contains(GET_SPONSORS));
+        assertFalse(projectDashboard.getTasksDone().contains(GET_SPONSORS));
+    }
+
+    @Test
+    public void overloadDashboardWithDifferentTasks_splitTasksBasedOnStatus_expectedTasksPresentInExpectedLists() {
+        projectDashboard.addTask(ORDER_SHIRTS);
+        projectDashboard.addTask(GET_SPONSORS);
+        assertTrue(projectDashboard.getTasksDone().isEmpty());
+
+        projectDashboard.removeTask(ORDER_SHIRTS);
+        projectDashboard.setTask(GET_SPONSORS, RECRUIT_MEMBERS);
+        assertTrue(projectDashboard.getTasksDoing().isEmpty());
+        assertTrue(projectDashboard.getTasksDone().contains(RECRUIT_MEMBERS));
+
+        projectDashboard.addTask(ORDER_SHIRTS);
+        assertTrue(projectDashboard.getTaskList().contains(RECRUIT_MEMBERS));
+        assertTrue(projectDashboard.getTasksNotStarted().contains(ORDER_SHIRTS));
+
+        ProjectDashboard newData = getTypicalProjectDashboard();
+        projectDashboard.resetData(newData);
+        assertEquals(newData, projectDashboard);
+        assertFalse(projectDashboard.getTasksNotStarted().isEmpty());
+    }
+
+
     /**
      * A stub ReadOnlyProjectDashboard whose tasks list can violate interface constraints.
      */
@@ -95,6 +141,9 @@ public class ProjectDashboardTest {
         private final ObservableList<Inventory> inventories = FXCollections.observableArrayList();
         private final ObservableList<Mapping> mappings = FXCollections.observableArrayList();
 
+        private final ObservableList<Task> tasksNotStarted = FXCollections.observableArrayList();
+        private final ObservableList<Task> tasksDoing = FXCollections.observableArrayList();
+        private final ObservableList<Task> tasksDone = FXCollections.observableArrayList();
 
         ProjectDashboardStub(Collection<Task> tasks) {
             this.tasks.setAll(tasks);
@@ -113,6 +162,21 @@ public class ProjectDashboardTest {
         @Override
         public ObservableList<Inventory> getInventoryList() {
             return inventories;
+        }
+
+        @Override
+        public ObservableList<Task> getTasksNotStarted() {
+            return tasksNotStarted;
+        }
+
+        @Override
+        public ObservableList<Task> getTasksDoing() {
+            return tasksDoing;
+        }
+
+        @Override
+        public ObservableList<Task> getTasksDone() {
+            return tasksDone;
         }
 
         @Override

@@ -8,6 +8,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -30,8 +31,12 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
-    // Independent Ui parts residing in this Ui container
-    private TaskListPanel taskListPanel;
+    // Interface between main stage, user view's controller and the command parser (which switches the user view using
+    // it's controller!
+    private UserViewMain userViewMain;
+    private UserViewUpdate userViewUpdate;
+
+    // static Ui parts
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -42,7 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane taskListPanelPlaceholder;
+    private StackPane userNavigableView;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -61,6 +66,10 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
+
+        userViewMain = new UserViewMain(logic);
+
+        userViewUpdate = new UserViewUpdate(userNavigableView, userViewMain);
 
         helpWindow = new HelpWindow();
     }
@@ -105,10 +114,11 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Fills up all the placeholders of this window.
+     * By default, the project dashboard is shown
      */
     void fillInnerParts() {
-        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
-        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+        Pane defaultPane = userViewMain.loadDashboard();
+        userNavigableView.getChildren().add(defaultPane);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -160,12 +170,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public TaskListPanel getTaskListPanel() {
-        return taskListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
+     * Updates user view upon execution of command.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
@@ -182,6 +189,8 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            userViewUpdate.parseUserCommand(commandText);
 
             return commandResult;
         } catch (CommandException | ParseException e) {

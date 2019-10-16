@@ -62,6 +62,21 @@ public class LogicManager implements Logic {
     }
 
     @Override
+   public ObservableList<Task> getFilteredTaskListNotStarted() {
+        return model.getFilteredTaskListNotStarted();
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskListDoing() {
+        return model.getFilteredTaskListDoing();
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskListDone() {
+        return model.getFilteredTaskListDone();
+    }
+
+    @Override
     public Path getProjectDashboardFilePath() {
         return model.getProjectDashboardFilePath();
     }
