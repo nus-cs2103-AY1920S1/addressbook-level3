@@ -81,7 +81,7 @@ public class ModuleInfo {
      * Returns a String displaying all information about the module, in a human-readable format.
      */
     public String getInformation() {
-        return this.code + ": " + this.name + (this.isCore ? "(Core module)" : "") + "\n"
+        return this.code + ": " + this.name + (this.isCore ? " (Core module)" : "") + "\n"
                 + this.mc + " MCs, " + (this.su ? "" : "not ") + "S/U-able" + "\n"
                 + this.description;
     }

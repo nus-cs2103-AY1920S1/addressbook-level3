@@ -148,6 +148,11 @@ public interface Model {
     boolean semesterHasModule(String moduleCode, SemesterName semesterName);
 
     /**
+     * Updates the prerequisites.
+     */
+    void updatePrereqs();
+
+    /**
      * Adds specified module to specified semester
      */
     void addModule(String moduleCode, SemesterName sem);
