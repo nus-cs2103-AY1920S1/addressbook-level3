@@ -21,7 +21,7 @@ public class TabCommand extends Command {
             + "Parameter: INDEX or KEYWORD\n"
             + "Example: " + COMMAND_WORD + " 1 \n";
 
-    public static final String MESSAGE_SWITCH_ACKNOWLEDGEMENT = "Switching view to %1$s tab.";
+    public static final String MESSAGE_SWITCH_ACKNOWLEDGEMENT = "Switching view to tab: %1$s.";
     public static final String MESSAGE_INVALID_INDEX = "Tab index should be 1, 2, or 3.";
     public static final String MESSAGE_INVALID_KEYWORD = "Tab keyword should be dash, on, or off.";
 

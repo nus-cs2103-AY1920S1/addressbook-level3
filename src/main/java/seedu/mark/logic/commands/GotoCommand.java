@@ -8,7 +8,6 @@ import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
-import seedu.mark.logic.commands.results.TabCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.storage.Storage;
@@ -45,8 +44,7 @@ public class GotoCommand extends Command {
         Bookmark bookmarkToOpen = lastShownList.get(targetIndex.getZeroBased());
         model.setCurrentUrl(bookmarkToOpen.getUrl());
 
-        return new TabCommandResult(String.format(MESSAGE_GOTO_BOOKMARK_ACKNOWLEDGEMENT, bookmarkToOpen),
-                TabCommand.Tab.ONLINE);
+        return new CommandResult(String.format(MESSAGE_GOTO_BOOKMARK_ACKNOWLEDGEMENT, bookmarkToOpen));
     }
 
     @Override
