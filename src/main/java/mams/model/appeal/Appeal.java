@@ -47,9 +47,6 @@ public class Appeal {
     private final String remark;
     private boolean isModified;
 
-
-
-
     /**
      * Constructor for Appeal object when it is loaded from file
      * @param appealId
@@ -79,7 +76,7 @@ public class Appeal {
                   String remark) {
 
         CollectionUtil.requireAllNonNull(appealId, appealType, studentId, academicYear,
-                studentWorkload, appealDescription );
+                studentWorkload, appealDescription);
         this.appealId = appealId;
         this.appealType = appealType;
         this.studentId = studentId;
@@ -93,10 +90,10 @@ public class Appeal {
         this.resolved = resolved;
         this.result = "Pending";
         this.remark = remark;
-        this.isModified = false; // to check if this is an already resolved appeal,
+        this.isModified = false;
+        // to check if this is an already resolved appeal,
         // since we are working with immutability.
         //  Only appeals that are not modified will be shown/added to file
-
     }
 
     /**
