@@ -1,21 +1,13 @@
 package seedu.deliverymans.storage.deliveryman;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
-import seedu.deliverymans.model.Tag;
-import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.storage.JsonAdaptedTag;
+
 
 /**
  * Jackson-friendly version of {@link Deliveryman}.

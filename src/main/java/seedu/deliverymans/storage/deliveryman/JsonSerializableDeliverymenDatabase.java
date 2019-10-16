@@ -9,13 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
-import seedu.deliverymans.model.customer.Customer;
-import seedu.deliverymans.model.database.CustomerDatabase;
 import seedu.deliverymans.model.database.DeliverymenDatabase;
-import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.storage.customer.JsonAdaptedCustomer;
 
 /**
  * An Immutable CustomerDatabase that is serializable to JSON format.
