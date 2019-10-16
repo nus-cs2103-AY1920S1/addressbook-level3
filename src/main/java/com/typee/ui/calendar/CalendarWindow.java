@@ -8,7 +8,6 @@ import com.typee.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 
 /**
  * The calendar window.
@@ -16,12 +15,11 @@ import javafx.scene.layout.StackPane;
  */
 public class CalendarWindow extends UiPart<Region> {
 
-    private final Logger logger = LogsCenter.getLogger(getClass());
-
+    public static final String FXML = "CalendarWindow.fxml";
     private static final int MAXIMUM_NUMBER_OF_DAYS_PER_MONTH = 5;
     private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
 
-    public static final String FXML = "CalendarWindow.fxml";
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private GridPane dateDisplayGrid;
