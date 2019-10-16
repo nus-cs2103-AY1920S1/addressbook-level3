@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -31,7 +31,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CALLER, PREFIX_DISTRICT, PREFIX_DATETIME, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_CALLER, PREFIX_LOCATION, PREFIX_DATETIME, PREFIX_DESCRIPTION);
 
         Index index;
 
@@ -61,8 +61,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_CALLER).isPresent()) {
             editIncident.setCaller(ParserUtil.parseCaller(argMultimap.getValue(PREFIX_CALLER).get()));
         }
-        if (argMultimap.getValue(PREFIX_DISTRICT).isPresent()) {
-            editIncident.setDistrict(ParserUtil.parseDistrict(argMultimap.getValue(PREFIX_DISTRICT).get()));
+        if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
+            editIncident.setDistrict(ParserUtil.parseDistrict(argMultimap.getValue(PREFIX_LOCATION).get()));
         }
         if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {
             editIncident.setDateTime(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get()));
