@@ -30,12 +30,6 @@ public class StartQuizCommand extends Command{
     private static final String MESSAGE_SUCCESS = "Starting Quiz!";
 
     private static Object currentIteratedAnswerable;
-    private final String startQuizkeyword;
-
-    public StartQuizCommand(String startQuizKeywords) {
-        this.startQuizkeyword = startQuizKeywords;
-    }
-
 
     @Override
     public CommandResult execute(Model model) throws ParseException {
@@ -50,8 +44,8 @@ public class StartQuizCommand extends Command{
         *  This will allow us to show individual Answerables.
         *  Instead of the whole list.
          */
-        model.getFilteredAnswerableList().sort(startQuizkeyword);
-        model.showAnswerable();
+//        model.getFilteredAnswerableList().sort(startQuizkeyword);
+//        model.showAnswerable();
 
         for (Answerable iteratedAnswerable : currentList) {
             System.out.println(iteratedAnswerable);
