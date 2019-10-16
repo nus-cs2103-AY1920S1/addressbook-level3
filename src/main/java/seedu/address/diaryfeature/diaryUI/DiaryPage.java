@@ -10,6 +10,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.diaryfeature.diaryCommands.DiaryCommand;
+import seedu.address.diaryfeature.diaryModel.DiaryList;
+import seedu.address.diaryfeature.diaryModel.DiaryObject;
 import seedu.address.diaryfeature.diaryParser.DiaryParser;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.ui.CommandBox;
@@ -22,6 +24,8 @@ public class DiaryPage extends UiPart<VBox> implements Page {
 
     private final static PageType pageType = PageType.DIARY;
     private static final String FXML = "DiaryPage.fxml";
+    private DiaryList holder;
+
 
 
     // Independent Ui parts residing in this Ui container
@@ -38,18 +42,15 @@ public class DiaryPage extends UiPart<VBox> implements Page {
     @FXML
     private StackPane commandBoxPlaceholder;
 
-    @FXML
-    private MenuItem helpMenuItem;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    @FXML
-    private StackPane statusbarPlaceholder;
 
     public DiaryPage() {
         super(FXML, new VBox());
         diaryScene = new Scene(diaryPane);
+        holder = new DiaryList();
         fillInnerParts();
     }
 
@@ -59,6 +60,7 @@ public class DiaryPage extends UiPart<VBox> implements Page {
     private void fillInnerParts() {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -71,8 +73,9 @@ public class DiaryPage extends UiPart<VBox> implements Page {
      */
     private CommandResult executeCommand(String input)  {
             DiaryParser myParser = new DiaryParser();
-            DiaryCommand command = myParser.parse(input);
-            CommandResult commandResult = command.executeCommand();
+            DiaryCommand result = myParser.parse(input);
+            result.setReference(holder);
+            CommandResult commandResult = result.executeCommand();
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

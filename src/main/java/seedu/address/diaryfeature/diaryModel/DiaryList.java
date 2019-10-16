@@ -13,6 +13,7 @@ public class DiaryList {
      */
     public DiaryList() {
         myContainer = new LinkedList<>();
+        myContainer.add(new DiaryObject("placemat"));
     }
 
     /**
@@ -35,5 +36,14 @@ public class DiaryList {
         DiaryObject deleted = myContainer.remove(x-1);
         return deleted;
     }
+
+    public String getEntriesAsString() {
+        String diaryEntries = "";
+        for(DiaryObject curr: myContainer) {
+            diaryEntries += (curr + "\n");
+        }
+        return diaryEntries;
+    }
+
 
 }
