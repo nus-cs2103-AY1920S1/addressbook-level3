@@ -56,15 +56,18 @@ public class ParserUtil {
     public static Calorie parseCalorie(String calories) throws ParseException {
         requireNonNull(calories);
         String trimmedCalorie = calories.trim();
+
         if (!Calorie.isValidCalorie(trimmedCalorie)) {
             throw new ParseException(Calorie.MESSAGE_CONSTRAINTS);
         }
         int value;
+
         try {
             value = Integer.parseInt(trimmedCalorie);
         } catch (NumberFormatException e) {
             throw new ParseException(Calorie.MESSAGE_CONSTRAINTS);
         }
+
         return new Calorie(value);
     }
 

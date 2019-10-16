@@ -38,7 +38,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (argMultimap.getValue(PREFIX_CALORIES).isPresent()) {
             calories = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIES).get());
         } else {
-            calories = ParserUtil.parseCalorie("700");
+            calories = Calorie.UNKNOWN_CALORIE;
         }
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
