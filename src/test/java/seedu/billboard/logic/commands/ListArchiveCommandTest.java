@@ -1,18 +1,20 @@
 package seedu.billboard.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.billboard.testutil.Assert.assertThrows;
+import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboardWithArchiveExpenses;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.billboard.commons.core.Messages;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.UserPrefs;
-
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.billboard.logic.commands.CommandTestUtil.*;
-import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboardWithArchiveExpenses;
 
 public class ListArchiveCommandTest {
 
@@ -43,7 +45,7 @@ public class ListArchiveCommandTest {
     @Test
     public void equals() {
         ListArchiveCommand firstListArchiveCommand = new ListArchiveCommand(VALID_ARCHIVE_TAXES);
-        ListArchiveCommand secondListArchiveCommand= new ListArchiveCommand(VALID_ARCHIVE_DINNER);
+        ListArchiveCommand secondListArchiveCommand = new ListArchiveCommand(VALID_ARCHIVE_DINNER);
 
         // same object -> returns true
         assertEquals(firstListArchiveCommand, firstListArchiveCommand);

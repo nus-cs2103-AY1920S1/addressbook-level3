@@ -1,14 +1,15 @@
 package seedu.billboard.logic.commands;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.billboard.model.Model;
-import seedu.billboard.model.ModelManager;
-import seedu.billboard.model.UserPrefs;
-
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboardWithArchiveExpenses;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.billboard.model.Model;
+import seedu.billboard.model.ModelManager;
+import seedu.billboard.model.UserPrefs;
 
 public class ListArchiveNamesCommandTest {
     private Model withArchivesModel;
@@ -28,14 +29,16 @@ public class ListArchiveNamesCommandTest {
     public void execute_listArchiveNames_success() {
         String expectedFeedback = "Here are the existing archive(s):\n[hobbies],\n[luxury]";
         CommandResult expectedCommandResult = new CommandResult(expectedFeedback);
-        assertCommandSuccess(new ListArchiveNamesCommand(), withArchivesModel, expectedCommandResult, withArchivesExpectedModel);
+        assertCommandSuccess(new ListArchiveNamesCommand(),
+                withArchivesModel, expectedCommandResult, withArchivesExpectedModel);
     }
 
     @Test
     public void execute_noArchivesToList_success() {
         String expectedFeedback = "There are no existing archives";
         CommandResult expectedCommandResult = new CommandResult(expectedFeedback);
-        assertCommandSuccess(new ListArchiveNamesCommand(), noArchivesModel, expectedCommandResult, noArchivesExpectedModel);
+        assertCommandSuccess(new ListArchiveNamesCommand(),
+                noArchivesModel, expectedCommandResult, noArchivesExpectedModel);
     }
 
 }

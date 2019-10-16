@@ -1,15 +1,15 @@
 package seedu.billboard.model;
 
-import javafx.collections.ObservableList;
-import seedu.billboard.model.archive.Archive;
-import seedu.billboard.model.expense.Expense;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
+import seedu.billboard.model.archive.Archive;
+import seedu.billboard.model.expense.Expense;
 
 /**
  * Wraps all data at the archive level
@@ -27,7 +27,7 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
         requireNonNull(unfilteredExpenses);
 
         HashMap<String, List<Expense>> filterArchives = new HashMap<>();
-        for(Expense archivedExpense : unfilteredExpenses) {
+        for (Expense archivedExpense : unfilteredExpenses) {
             String archiveName = archivedExpense.getArchiveName();
             if (!filterArchives.containsKey(archiveName)) {
                 filterArchives.put(archiveName, new ArrayList<>());
@@ -36,7 +36,7 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
         }
 
         Set<String> archiveNames = filterArchives.keySet();
-        for(String archiveName : archiveNames) {
+        for (String archiveName : archiveNames) {
             Archive archive = new Archive(archiveName, filterArchives.get(archiveName));
             archiveList.put(archiveName, archive);
         }
@@ -70,6 +70,9 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
         return archiveList.keySet();
     }
 
+    /**
+     * Checks if the archiveWrapper has an archive with hte given archiveName.
+     */
     public boolean hasArchive(String archiveName) {
         requireNonNull(archiveName);
         Set<String> archiveNames = getArchiveNames();
@@ -145,9 +148,9 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
     public List<Expense> getExpenseList() {
         List<Expense> expenses = new ArrayList<>();
         List<Archive> archives = getArchiveList();
-        for(Archive archive : archives) {
+        for (Archive archive : archives) {
             List<Expense> toBeCopied = archive.asUnmodifiableObservableList();
-            for(Expense expense : toBeCopied) {
+            for (Expense expense : toBeCopied) {
                 expenses.add(expense);
             }
         }

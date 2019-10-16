@@ -1,16 +1,16 @@
 package seedu.billboard.logic.commands;
 
-import seedu.billboard.logic.commands.exceptions.CommandException;
-import seedu.billboard.model.Model;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import seedu.billboard.logic.commands.exceptions.CommandException;
+import seedu.billboard.model.Model;
 
 /**
  * Lists all existing archive names to the user.
  */
-public class ListArchiveNamesCommand extends Command{
+public class ListArchiveNamesCommand extends Command {
 
     public static final String COMMAND_WORD = "list-arc-names";
 
@@ -23,7 +23,7 @@ public class ListArchiveNamesCommand extends Command{
             feedback = "There are no existing archives";
         } else {
             feedback = "Here are the existing archive(s):\n";
-            for(int i = 0; i < archiveNames.size(); i++) {
+            for (int i = 0; i < archiveNames.size(); i++) {
                 feedback += "[" + archiveNames.get(i) + "]";
                 if (i != archiveNames.size() - 1) {
                     feedback += ",\n";

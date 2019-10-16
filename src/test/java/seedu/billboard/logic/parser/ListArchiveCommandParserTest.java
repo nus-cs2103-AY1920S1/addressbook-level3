@@ -1,10 +1,10 @@
 package seedu.billboard.logic.parser;
 
+import static seedu.billboard.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
-import seedu.billboard.logic.commands.ListArchiveCommand;
 
-import static seedu.billboard.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import seedu.billboard.logic.commands.ListArchiveCommand;
 
 public class ListArchiveCommandParserTest {
 

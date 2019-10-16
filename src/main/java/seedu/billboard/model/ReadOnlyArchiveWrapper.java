@@ -1,10 +1,10 @@
 package seedu.billboard.model;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
-
-import java.util.List;
 
 /**
  * Unmodifiable view of the archives

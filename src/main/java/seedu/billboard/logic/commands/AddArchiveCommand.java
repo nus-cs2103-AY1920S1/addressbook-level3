@@ -1,17 +1,17 @@
 package seedu.billboard.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.billboard.commons.core.Messages;
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Adds an expense to an existing archive.
@@ -27,7 +27,8 @@ public class AddArchiveCommand extends Command {
             + "Example: " + COMMAND_WORD + " 2 arc/Groceries";
 
     public static final String MESSAGE_SUCCESS_EXISTING_ARCHIVE = "[%1$s] added to [%2$s] archive";
-    public static final String MESSAGE_SUCCESS_CREATE_ARCHIVE = "[%1$s] archive created: [%2$s] added to [%3$s] archive";
+    public static final String MESSAGE_SUCCESS_CREATE_ARCHIVE =
+            "[%1$s] archive created: [%2$s] added to [%3$s] archive";
 
     private final String archiveName;
     private final Index targetIndex;
@@ -56,7 +57,7 @@ public class AddArchiveCommand extends Command {
         model.deleteExpense(expenseToArchive);
         expenseToArchive.archiveTo(archiveName);
 
-        if(!model.hasArchive(archiveName)) {
+        if (!model.hasArchive(archiveName)) {
             model.addArchive(new Archive(archiveName, new ArrayList<>()));
             model.addArchiveExpense(archiveName, expenseToArchive);
 
@@ -65,7 +66,8 @@ public class AddArchiveCommand extends Command {
         }
 
         model.addArchiveExpense(archiveName, expenseToArchive);
-        return new CommandResult(String.format(MESSAGE_SUCCESS_EXISTING_ARCHIVE, expenseToArchive.getName(), archiveName));
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS_EXISTING_ARCHIVE, expenseToArchive.getName(), archiveName));
     }
 
     @Override

@@ -18,7 +18,7 @@ public class ExpenseBuilder {
     public static final String DEFAULT_NAME = "pay school fees";
     public static final String DEFAULT_DESCRIPTION = "this is a description.";
     public static final String DEFAULT_AMOUNT = "4.20";
-    public static final String DEFAULT_ARCHIVE_NAME ="";
+    public static final String DEFAULT_ARCHIVE_NAME = "";
 
     private Name name;
     private Description description;

@@ -7,7 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_TAXES;
 import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalExpenses.*;
+import static seedu.billboard.testutil.TypicalExpenses.BILLS;
+import static seedu.billboard.testutil.TypicalExpenses.FOOD;
+import static seedu.billboard.testutil.TypicalExpenses.IPHONE11;
+import static seedu.billboard.testutil.TypicalExpenses.KPOP_LIGHT_STICK;
+import static seedu.billboard.testutil.TypicalExpenses.TAXES;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -38,7 +42,8 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new Billboard(), new Billboard(modelManager.getBillboard()));
-        assertEquals(new ArchiveWrapper(new ArrayList<>()), new ArchiveWrapper(modelManager.getArchives().getExpenseList()));
+        assertEquals(new ArchiveWrapper(new ArrayList<>()),
+                new ArchiveWrapper(modelManager.getArchives().getExpenseList()));
     }
 
     // user prefs/gui settings tests ===============================================
@@ -188,7 +193,8 @@ public class ModelManagerTest {
     @Test
     public void getFilteredArchiveExpenses_modifyList_throwsUnsupportedOperationException() {
         modelManager.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>()));
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredArchiveExpenses(VALID_ARCHIVE_TAXES).remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredArchiveExpenses
+                (VALID_ARCHIVE_TAXES).remove(0));
     }
 
     @Test

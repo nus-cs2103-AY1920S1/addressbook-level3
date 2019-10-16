@@ -107,6 +107,12 @@ public class ParserUtil {
         return new Amount(trimmedAmount);
     }
 
+    /**
+     * Parses a {@code String archive} into an {@code String trimmedArchive}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code archive} is invalid.
+     */
     public static String parseArchive(String archive) throws ParseException {
         requireNonNull(archive);
         String trimmedArchive = archive.trim();

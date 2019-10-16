@@ -9,7 +9,6 @@ import static seedu.billboard.logic.commands.CommandTestUtil.VALID_NAME_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_TAXES;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -109,7 +108,7 @@ public class TypicalExpenses {
     public static ArchiveWrapper getTypicalArchiveWrapper() {
         ArchiveWrapper aw = new ArchiveWrapper(new ArrayList<>());
 
-        for(Expense expense : getTypicalArchiveExpenses()) {
+        for (Expense expense : getTypicalArchiveExpenses()) {
             String archiveName = expense.getArchiveName();
 
             if (!aw.hasArchive(archiveName)) {

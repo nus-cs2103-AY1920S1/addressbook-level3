@@ -16,7 +16,12 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.logic.commands.exceptions.CommandException;
-import seedu.billboard.model.*;
+
+import seedu.billboard.model.Billboard;
+import seedu.billboard.model.Model;
+import seedu.billboard.model.ReadOnlyArchiveWrapper;
+import seedu.billboard.model.ReadOnlyBillboard;
+import seedu.billboard.model.ReadOnlyUserPrefs;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.testutil.ExpenseBuilder;

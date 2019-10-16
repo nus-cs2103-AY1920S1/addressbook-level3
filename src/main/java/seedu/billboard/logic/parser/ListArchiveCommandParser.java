@@ -1,12 +1,11 @@
 package seedu.billboard.logic.parser;
 
 import seedu.billboard.logic.commands.ListArchiveCommand;
-import seedu.billboard.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new ListArchiveCommand object
  */
-public class ListArchiveCommandParser implements Parser<ListArchiveCommand>{
+public class ListArchiveCommandParser implements Parser<ListArchiveCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ListArchiveCommand

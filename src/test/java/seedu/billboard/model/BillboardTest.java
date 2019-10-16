@@ -4,10 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.testutil.Assert.assertThrows;
+import static seedu.billboard.testutil.TypicalExpenses.BILLS;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalArchiveExpenses;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboardWithArchiveExpenses;
-import static seedu.billboard.testutil.TypicalExpenses.BILLS;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,13 +23,6 @@ import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.exceptions.DuplicateExpenseException;
 import seedu.billboard.testutil.ExpenseBuilder;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 
 public class BillboardTest {
 
@@ -63,7 +62,7 @@ public class BillboardTest {
 
 
     @Test
-    public void filterArchiveExpenses_ArchiveExpenses_success() {
+    public void filterArchiveExpenses_archiveExpenses_success() {
         Billboard newData = getTypicalBillboardWithArchiveExpenses();
         billboard.resetData(newData);
         List<Expense> archivesExpenses = billboard.filterArchiveExpenses();
@@ -79,7 +78,7 @@ public class BillboardTest {
     }
 
     @Test
-    public void removeArchiveExpenses_ArchiveExpensesRemoved_success() {
+    public void removeArchiveExpenses_archiveExpensesRemoved_success() {
         Billboard newData = getTypicalBillboardWithArchiveExpenses();
         billboard.resetData(newData);
         ReadOnlyBillboard noArchiveExpensesBillboard = billboard.removeArchiveExpenses();

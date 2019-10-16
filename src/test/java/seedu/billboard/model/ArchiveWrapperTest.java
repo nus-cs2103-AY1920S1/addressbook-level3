@@ -1,21 +1,21 @@
 package seedu.billboard.model;
 
-import org.junit.jupiter.api.Test;
-import seedu.billboard.model.archive.Archive;
-import seedu.billboard.testutil.Assert;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_TAXES;
+import static seedu.billboard.testutil.Assert.assertThrows;
+import static seedu.billboard.testutil.TypicalExpenses.TAXES;
+import static seedu.billboard.testutil.TypicalExpenses.getTypicalArchiveExpenses;
+import static seedu.billboard.testutil.TypicalExpenses.getTypicalArchiveWrapper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_TAXES;
-import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalExpenses.getTypicalArchiveExpenses;
-import static seedu.billboard.testutil.TypicalExpenses.getTypicalArchiveWrapper;
-import static seedu.billboard.testutil.TypicalExpenses.TAXES;
+import seedu.billboard.model.archive.Archive;
+import seedu.billboard.testutil.Assert;
 
 public class ArchiveWrapperTest {
 
@@ -46,12 +46,12 @@ public class ArchiveWrapperTest {
     }
 
     @Test
-    public void hasArchive_ArchiveNotInArchiveWrapper_returnsFalse() {
+    public void hasArchive_archiveNotInArchiveWrapper_returnsFalse() {
         assertFalse(archiveWrapper.hasArchive(VALID_ARCHIVE_TAXES));
     }
 
     @Test
-    public void hasArchive_ArchiveInArchiveWrapper_returnsTrue() {
+    public void hasArchive_archiveInArchiveWrapper_returnsTrue() {
         archiveWrapper.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>()));
         assertTrue(archiveWrapper.hasArchive(VALID_ARCHIVE_TAXES));
     }
@@ -100,7 +100,8 @@ public class ArchiveWrapperTest {
     public void getArchiveExpenseList_modifyList_throwsUnsupportedOperationException() {
         archiveWrapper.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>()));
         archiveWrapper.addArchiveExpense(VALID_ARCHIVE_TAXES, TAXES);
-        assertThrows(UnsupportedOperationException.class, () -> archiveWrapper.getArchiveExpenses(VALID_ARCHIVE_TAXES).remove(0));
+        assertThrows(UnsupportedOperationException.class, () ->
+                archiveWrapper.getArchiveExpenses(VALID_ARCHIVE_TAXES).remove(0));
     }
 
     @Test
@@ -109,7 +110,7 @@ public class ArchiveWrapperTest {
     }
 
     @Test
-    public void getExpenseList_NonEmptyArchives_success() {
+    public void getExpenseList_nonEmptyArchives_success() {
         assertEquals(getTypicalArchiveWrapper().getExpenseList(), archiveWrapper.getExpenseList());
     }
 

@@ -1,12 +1,12 @@
 package seedu.billboard.model.archive;
 
-import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.expense.ExpenseList;
+import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 import java.util.Objects;
 
-import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.ExpenseList;
 
 /**
  * Represents an archive in Billboard

@@ -1,7 +1,21 @@
 package seedu.billboard.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_TAXES;
+import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.billboard.testutil.Assert.assertThrows;
+import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboardWithArchiveExpenses;
+import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
+import static seedu.billboard.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.billboard.commons.core.Messages;
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.model.Model;
@@ -9,16 +23,6 @@ import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.billboard.logic.commands.CommandTestUtil.*;
-import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboardWithArchiveExpenses;
-import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
-import static seedu.billboard.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -59,7 +63,7 @@ public class AddArchiveCommandTest {
         ModelManager expectedModel = new ModelManager(model.getCombinedBillboard(), new UserPrefs());
         expectedModel.deleteExpense(expenseToArchive);
         expenseToArchive.archiveTo(VALID_ARCHIVE_TAXES);
-        if(!expectedModel.hasArchive(VALID_ARCHIVE_TAXES)) {
+        if (!expectedModel.hasArchive(VALID_ARCHIVE_TAXES)) {
             expectedModel.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>()));
         }
         expectedModel.addArchiveExpense(VALID_ARCHIVE_TAXES, expenseToArchive);
@@ -94,7 +98,7 @@ public class AddArchiveCommandTest {
     @Test
     public void equals() {
         AddArchiveCommand firstAddArchiveCommand = new AddArchiveCommand(VALID_ARCHIVE_TAXES, INDEX_FIRST_EXPENSE);
-        AddArchiveCommand secondAddArchiveCommand= new AddArchiveCommand(VALID_ARCHIVE_DINNER, INDEX_SECOND_EXPENSE);
+        AddArchiveCommand secondAddArchiveCommand = new AddArchiveCommand(VALID_ARCHIVE_DINNER, INDEX_SECOND_EXPENSE);
 
         // same object -> returns true
         assertEquals(firstAddArchiveCommand, firstAddArchiveCommand);

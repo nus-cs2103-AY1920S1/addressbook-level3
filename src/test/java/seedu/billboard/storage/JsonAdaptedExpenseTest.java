@@ -46,7 +46,8 @@ public class JsonAdaptedExpenseTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedExpense expense = new JsonAdaptedExpense(null, VALID_DESCRIPTION, VALID_AMOUNT, VALID_TAGS, VALID_ARCHIVE);
+        JsonAdaptedExpense expense = new JsonAdaptedExpense(null, VALID_DESCRIPTION,
+                VALID_AMOUNT, VALID_TAGS, VALID_ARCHIVE);
 
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
@@ -70,7 +71,8 @@ public class JsonAdaptedExpenseTest {
 
     @Test
     public void toModelType_nullAmount_throwsIllegalValueException() {
-        JsonAdaptedExpense expense = new JsonAdaptedExpense(VALID_NAME, VALID_DESCRIPTION, null, VALID_TAGS, VALID_ARCHIVE);
+        JsonAdaptedExpense expense = new JsonAdaptedExpense(VALID_NAME, VALID_DESCRIPTION, null,
+                VALID_TAGS, VALID_ARCHIVE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
 

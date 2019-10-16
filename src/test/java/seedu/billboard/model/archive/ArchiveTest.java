@@ -1,19 +1,24 @@
 package seedu.billboard.model.archive;
 
-import org.junit.jupiter.api.Test;
-import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.expense.exceptions.DuplicateExpenseException;
-import seedu.billboard.model.expense.exceptions.ExpenseNotFoundException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_DINNER;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_TAXES;
+import static seedu.billboard.testutil.Assert.assertThrows;
+import static seedu.billboard.testutil.TypicalExpenses.BILLS;
+import static seedu.billboard.testutil.TypicalExpenses.TAXES;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.billboard.logic.commands.CommandTestUtil.*;
-import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalExpenses.BILLS;
-import static seedu.billboard.testutil.TypicalExpenses.TAXES;
+import org.junit.jupiter.api.Test;
+
+import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.exceptions.DuplicateExpenseException;
+import seedu.billboard.model.expense.exceptions.ExpenseNotFoundException;
+
 
 public class ArchiveTest {
 
@@ -35,7 +40,7 @@ public class ArchiveTest {
     }
 
     @Test
-    public void getArchiveName_CorrectArchiveNameReturned_success() {
+    public void getArchiveName_correctArchiveNameReturned_success() {
         assertEquals(VALID_ARCHIVE_TAXES, archive.getArchiveName());
     }
 
@@ -45,7 +50,7 @@ public class ArchiveTest {
     }
 
     @Test
-    public void toString_CorrectStringReturned_success() {
+    public void toString_correctStringReturned_success() {
         assertEquals("Archive name: " + VALID_ARCHIVE_TAXES, archive.toString());
     }
 
@@ -55,7 +60,7 @@ public class ArchiveTest {
     }
 
     @Test
-    public void equals_SameArchive_success() {
+    public void equals_sameArchive_success() {
         assertEquals(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>()), archive);
     }
 
@@ -136,7 +141,7 @@ public class ArchiveTest {
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-                -> archive.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> archive
+                .asUnmodifiableObservableList().remove(0));
     }
 }
