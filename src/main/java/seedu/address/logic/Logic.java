@@ -4,10 +4,12 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.util.StatsPayload;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
@@ -33,6 +35,20 @@ public interface Logic {
      * @see seedu.address.model.Model#getAddressBook()
      */
     ReadOnlyAddressBook getAddressBook();
+
+    /**
+     * Returns the OrderBook.
+     *
+     * @see seedu.address.model.Model#getOrderBook()
+     */
+    ReadOnlyDataBook<Order> getOrderBook();
+
+    /**
+     * Returns the PhoneBook.
+     *
+     * @see seedu.address.model.Model#getPhoneBook()
+     */
+    ReadOnlyDataBook<Phone> getPhoneBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -63,4 +79,20 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Gets logic to calculate total profit based on user input
+     */
+    String calculateTotalProfit(StatsPayload statsPayload);
+
+    /**
+     * Gets logic to calculate Total Revenue based on user input
+     */
+    String calculateTotalRevenue(StatsPayload statsPayload);
+
+
+    /**
+     * Gets logic to calculate total profit based on user input
+     */
+    String calculateTotalCost(StatsPayload statsPayload);
 }

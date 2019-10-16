@@ -16,6 +16,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path customerBookFilePath = Paths.get("data" , "customerbook.json");
+    private Path phoneBookFilePath = Paths.get("data" , "phonebook.json");
+    private Path scheduleBookFilePath = Paths.get("data" , "schedulebook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -66,6 +68,24 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.customerBookFilePath = customerBookFilePath;
     }
 
+    public Path getPhoneBookFilePath() {
+        return phoneBookFilePath;
+    }
+
+    public void setPhoneBookFilePath(Path phoneBookFilePath) {
+        requireNonNull(phoneBookFilePath);
+        this.phoneBookFilePath = phoneBookFilePath;
+    }
+
+    public Path getScheduleBookFilePath() {
+        return scheduleBookFilePath;
+    }
+
+    public void setScheduleBookFilePath(Path scheduleBookFilePath) {
+        requireNonNull(scheduleBookFilePath);
+        this.scheduleBookFilePath = scheduleBookFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -78,7 +98,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && addressBookFilePath.equals(o.addressBookFilePath)
+                && customerBookFilePath.equals(o.customerBookFilePath)
+                && phoneBookFilePath.equals(o.phoneBookFilePath)
+                && scheduleBookFilePath.equals(o.scheduleBookFilePath);
     }
 
     @Override
@@ -91,6 +114,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nCustomer data file location : " + customerBookFilePath);
+        sb.append("\nPhone data file location : " + phoneBookFilePath);
+        sb.append("\nSchedule data file location : " + scheduleBookFilePath);
         return sb.toString();
     }
 

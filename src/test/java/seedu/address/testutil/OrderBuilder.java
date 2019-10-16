@@ -26,7 +26,7 @@ public class OrderBuilder {
     private static final Customer DEFAULT_CUSTOMER = CUSTOMERONE;
     private static final Phone DEFAULT_PHONE = IPHONEONE;
     private static final String DEFAULT_PRICE = "$1212";
-    private static final Status DEFAULT_STATUS = Status.UNSCHEDULED;
+    private static final Status DEFAULT_STATUS = Status.COMPLETED;
     private static final Optional<Schedule> DEFAULT_SCHEDULE = Optional.empty();
 
     private UUID id;
@@ -38,9 +38,9 @@ public class OrderBuilder {
     private Set<Tag> tags;
 
     public OrderBuilder() {
-        id = DEFAULT_UUID;
-        customer = DEFAULT_CUSTOMER;
-        phone = DEFAULT_PHONE;
+        id = UUID.randomUUID();
+        customer = new CustomerBuilder(CUSTOMERONE).build();
+        phone = new PhoneBuilder(IPHONEONE).build();
         price = new Price(DEFAULT_PRICE);
         status = DEFAULT_STATUS;
         schedule = DEFAULT_SCHEDULE;
