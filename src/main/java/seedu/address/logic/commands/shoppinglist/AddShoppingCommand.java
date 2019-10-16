@@ -26,7 +26,7 @@ public class AddShoppingCommand extends Command {
             + PREFIX_AMOUNT + "300g";
 
     public static final String MESSAGE_SUCCESS = "New shopping item added: %1$s";
-    public static final String MESSAGE_DUPLICATE_SHOPPING_ITEM = "This shopping item already exists in the shopping list";
+    public static final String MESSAGE_DUPLICATE_SHOPPING_ITEM = "This shopping item already exists in shopping list";
 
     private final ShoppingItem toAdd;
 

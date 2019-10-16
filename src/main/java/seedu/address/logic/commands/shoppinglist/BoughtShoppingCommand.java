@@ -11,7 +11,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.food.*;
+import seedu.address.model.food.Amount;
+import seedu.address.model.food.ExpiryDate;
+import seedu.address.model.food.ShoppingItem;
 
 /**
  * Edits the details of an existing shopping Item in the shopping list.
@@ -69,12 +71,13 @@ public class BoughtShoppingCommand extends Command {
      * Creates and returns a {@code ShoppingItem} with the details of {@code shoppingItemToEdit}
      * edited with {@code boughtShoppingItemDescriptor}.
      */
-    private static ShoppingItem createBoughtFood(ShoppingItem shoppingItemToEdit,
+    private static ShoppingItem createBoughtShoppingItem(ShoppingItem shoppingItemToEdit,
                                                  BoughtShoppingItemDescriptor boughtShoppingItemDescriptor) {
         assert shoppingItemToEdit != null;
 
         Amount updatedAmount = boughtShoppingItemDescriptor.getAmount().orElse(shoppingItemToEdit.getAmount());
-        ExpiryDate updatedExpiryDate = boughtShoppingItemDescriptor.getExpiryDate().orElse(shoppingItemToEdit.getExpiryDate());
+        ExpiryDate updatedExpiryDate = boughtShoppingItemDescriptor.getExpiryDate()
+                .orElse(shoppingItemToEdit.getExpiryDate());
         return new ShoppingItem(shoppingItemToEdit.getName(), updatedAmount, updatedExpiryDate);
     }
 
