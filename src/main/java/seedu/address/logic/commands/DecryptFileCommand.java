@@ -2,10 +2,13 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.EncryptionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.file.EncryptedFile;
@@ -22,7 +25,8 @@ public class DecryptFileCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_FILE_SUCCESS = "Decrypted file: %1$s";
+    public static final String MESSAGE_DELETE_FILE_SUCCESS = "File decrypted: %1$s";
+    public static final String MESSAGE_DELETE_FILE_FAILURE = "File decryption failed.";
 
     private final Index targetIndex;
     private final String password;
@@ -42,6 +46,16 @@ public class DecryptFileCommand extends Command {
         }
 
         EncryptedFile fileToDecrypt = lastShownList.get(targetIndex.getZeroBased());
+
+        try {
+            EncryptionUtil.decryptFile(fileToDecrypt.getEncryptedPath(), password);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new CommandException(MESSAGE_DELETE_FILE_FAILURE);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+            throw new CommandException(MESSAGE_DELETE_FILE_FAILURE);
+        }
         model.deleteFile(fileToDecrypt);
         return new CommandResult(String.format(MESSAGE_DELETE_FILE_SUCCESS, fileToDecrypt));
     }

@@ -2,6 +2,7 @@ package seedu.address.model.file;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -45,6 +46,20 @@ public class EncryptedFile {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns the full path of the file in string.
+     */
+    public String getFullPath() {
+        return Paths.get(getFilePath().value + "/" + getFileName()).toString();
+    }
+
+    /**
+     * Returns the full path of the encrypted file in string.
+     */
+    public String getEncryptedPath() {
+        return Paths.get(getFilePath().value + "/[LOCKED] " + getFileName()).toString();
     }
 
     @Override

@@ -3,6 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
+import seedu.address.commons.util.EncryptionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.file.EncryptedFile;
@@ -20,6 +24,7 @@ public class EncryptFileCommand extends Command {
             + "Example: " + COMMAND_WORD + " ~/Desktop/sample.txt";
 
     public static final String MESSAGE_SUCCESS = "File encrypted: %1$s";
+    public static final String MESSAGE_FAILURE = "File encryption failed.";
     public static final String MESSAGE_DUPLICATE_FILE = "This file is already encrypted.";
 
     private final EncryptedFile toAdd;
@@ -42,6 +47,13 @@ public class EncryptFileCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_FILE);
         }
 
+        try {
+            EncryptionUtil.encryptFile(toAdd.getFullPath(), password);
+        } catch (IOException e) {
+            throw new CommandException(MESSAGE_FAILURE);
+        } catch (GeneralSecurityException e) {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
         model.addFile(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
