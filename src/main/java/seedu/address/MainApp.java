@@ -17,19 +17,25 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ScheduleBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.order.Order;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.statistic.Statistic;
+import seedu.address.statistic.StatisticManager;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.CustomerBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCustomerBookStorage;
+import seedu.address.storage.JsonPhoneBookStorage;
+import seedu.address.storage.JsonScheduleBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.PhoneBookStorage;
+import seedu.address.storage.ScheduleBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -49,6 +55,7 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
+    protected Statistic statistic;
     protected Config config;
 
     @Override
@@ -63,14 +70,16 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         CustomerBookStorage customerBookStorage = new JsonCustomerBookStorage(userPrefs.getCustomerBookFilePath());
-        storage = new StorageManager(addressBookStorage, customerBookStorage, userPrefsStorage);
+        PhoneBookStorage phoneBookStorage = new JsonPhoneBookStorage(userPrefs.getPhoneBookFilePath());
+        ScheduleBookStorage scheduleBookStorage = new JsonScheduleBookStorage(userPrefs.getScheduleBookFilePath());
+        storage = new StorageManager(addressBookStorage, customerBookStorage, phoneBookStorage, scheduleBookStorage,
+                userPrefsStorage);
 
         initLogging(config);
-
+        //create statistic manager;
+        statistic = new StatisticManager();
         model = initModelManager(storage, userPrefs);
-
-        logic = new LogicManager(model, storage);
-
+        logic = new LogicManager(model, storage, statistic);
         ui = new UiManager(logic);
     }
 
@@ -98,7 +107,8 @@ public class MainApp extends Application {
 
         ReadOnlyDataBook<Customer> customerBook = SampleDataUtil.getSampleCustomerBook();
         ReadOnlyDataBook<Phone> phoneBook = SampleDataUtil.getSamplePhoneBook();
-        return new ModelManager(customerBook, phoneBook, new OrderBook(), new ScheduleBook(), userPrefs);
+        ReadOnlyDataBook<Order> orderBook = SampleDataUtil.getSampleOrderBook();
+        return new ModelManager(customerBook, phoneBook, orderBook, new ScheduleBook(), userPrefs);
 
     }
 

@@ -4,22 +4,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import seedu.address.ui.panels.CalendarPanel;
 import seedu.address.ui.panels.CustomerListPanel;
 import seedu.address.ui.panels.OrderListPanel;
 import seedu.address.ui.panels.PhoneListPanel;
-import seedu.address.ui.panels.ScheduleListPanel;
 
 /**
  * class containing TabPane class
  */
 public class TabPanel extends UiPart<Region> {
     private static final String FXML = "TabPanel.fxml";
-
-    //private PersonListPanel personListPanel;
-    private CustomerListPanel customerListPanel;
-    private PhoneListPanel phoneListPanel;
-    private OrderListPanel orderlistPanel;
-    private ScheduleListPanel scheduleListPanel;
 
     @FXML
     private StackPane phoneListPanelPlaceholder;
@@ -29,8 +23,9 @@ public class TabPanel extends UiPart<Region> {
 
     @FXML
     private StackPane orderListPanelPlaceholder;
+
     @FXML
-    private StackPane scheduleListPanelPlaceholder;
+    private StackPane calendarPanelPlaceHolder;
 
     @FXML
     private TabPane tabPanel;
@@ -38,20 +33,15 @@ public class TabPanel extends UiPart<Region> {
     public TabPanel(CustomerListPanel customerListPanel,
                     PhoneListPanel phoneListPanel,
                     OrderListPanel orderlistPanel,
-                    ScheduleListPanel scheduleListPanel) {
+                    CalendarPanel calendarPanel) {
         super(FXML);
-        customerListPanel = customerListPanel;
         customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
 
-        phoneListPanel = phoneListPanel;
         phoneListPanelPlaceholder.getChildren().add(phoneListPanel.getRoot());
 
-        orderlistPanel = orderlistPanel;
         orderListPanelPlaceholder.getChildren().add(orderlistPanel.getRoot());
 
-        scheduleListPanel = scheduleListPanel;
-        scheduleListPanelPlaceholder.getChildren().add(scheduleListPanel.getRoot());
-
+        calendarPanelPlaceHolder.getChildren().add(calendarPanel.getAgenda());
 
         tabPanel.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
     }

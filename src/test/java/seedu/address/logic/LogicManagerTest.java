@@ -8,7 +8,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 //import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 //import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
-//import static seedu.address.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -25,20 +24,24 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-//import seedu.address.model.person.Person;
+import seedu.address.statistic.Statistic;
+import seedu.address.statistic.StatisticManager;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCustomerBookStorage;
+import seedu.address.storage.JsonPhoneBookStorage;
+import seedu.address.storage.JsonScheduleBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-//import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
+
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     @TempDir
     public Path temporaryFolder;
 
     private Model model = new ModelManager();
+    private Statistic statistic = new StatisticManager();
     private Logic logic;
 
     @BeforeEach
@@ -47,9 +50,15 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonCustomerBookStorage customerBookStorage =
                 new JsonCustomerBookStorage(temporaryFolder.resolve("customerBook.json"));
+        JsonPhoneBookStorage phoneBookStorage =
+                new JsonPhoneBookStorage(temporaryFolder.resolve("phoneBook.json"));
+        JsonScheduleBookStorage scheduleBookStorage =
+                new JsonScheduleBookStorage(temporaryFolder.resolve("scheduleBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, customerBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        StorageManager storage = new StorageManager(addressBookStorage, customerBookStorage, phoneBookStorage,
+                scheduleBookStorage, userPrefsStorage);
+        logic = new LogicManager(model, storage, statistic);
+        logic = new LogicManager(model, storage, new StatisticManager());
     }
 
     @Test

@@ -9,12 +9,17 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StatsParseUtil;
 import seedu.address.commons.util.StringUtil;
+
+import seedu.address.logic.commands.statisticcommand.StatisticType;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.CustomerName;
 import seedu.address.model.customer.Email;
+import seedu.address.model.order.Price;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -27,6 +32,7 @@ import seedu.address.model.phone.PhoneName;
 import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -300,7 +306,75 @@ public class ParserUtil {
         }
         return new SerialNumber(trimmedSerialNumber);
     }
+    /**
+     * Parses a {@Code String statsInput} into {@Code statisticType}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@Code statsInput} is invalid.
+     */
+    public static StatisticType parseStatsType(String statsInput) throws ParseException {
+        requireNonNull(statsInput);
+        String trimmedStatsType = statsInput.trim();
+        if (!StatsParseUtil.isValidStatType(trimmedStatsType)) {
+            throw new ParseException(Messages.STATS_MESSAGE_CONSTRAINTS);
+        }
+        switch (trimmedStatsType) {
+        case "PROFIT":
+            return StatisticType.PROFIT;
+        case "COST":
+            return StatisticType.COST;
+        case "REVENUE":
+            return StatisticType.REVENUE;
+        default:
+            throw new ParseException("Invalid type of Statistics. Only possible ones include:\n"
+                    + "PROFIT, COST, REVENUE");
+        }
+    }
 
+
+    //@@author QiuJiaaa -reused
+    // reused from the parse Calendar method with minor modifications
+    /**
+     *Parse a {@Code String calendar} into a {@Code calendar}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Calendar parseDateCalendar(String calendar) throws ParseException {
+        requireNonNull(calendar);
+        String trimmedDate = calendar.trim();
+        String[] stringCalendar = trimmedDate.split("\\.");
+        if (stringCalendar.length != 3) {
+            throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS);
+        }
+        int[] input = new int[3];
+        LocalDateTime localDateTime;
+        try {
+            for (int index = 0; index < 3; index++) {
+                input[index] = Integer.parseInt(stringCalendar[index]);
+                //offset for month
+            }
+            localDateTime = LocalDateTime.of(input[0], input[1], input[2], 0, 0);
+        } catch (NumberFormatException | DateTimeException e) {
+            throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS);
+        }
+        //@@author
+        //offset month as Calendar takes in 0-based month
+        int offsetMonth = input[1] - 1;
+        return new Calendar.Builder().setDate(input[0], offsetMonth, input[2]).build();
+    }
+
+    /**
+     * Parses a {@code String price} into a {@code price}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code price} is invalid.
+     */
+    public static Price parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
+            throw new ParseException(Price.MESSAGE_CONSTRAINTS);
+        }
+        return new Price(trimmedPrice);
+    }
     /**
      * Parses a {@code String calendar} into a {@code Calendar}.
      * Leading and trailing whitespaces will be trimmed.
