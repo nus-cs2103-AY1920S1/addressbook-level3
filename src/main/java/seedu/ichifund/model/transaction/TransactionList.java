@@ -5,6 +5,7 @@ import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -79,6 +80,14 @@ public class TransactionList implements Iterable<Transaction> {
     @Override
     public Iterator<Transaction> iterator() {
         return internalList.iterator();
+    }
+
+    public Optional<Transaction> getLatestTransaction() {
+        if (internalList.size() == 0) {
+            return Optional.empty();
+        } else {
+            return Optional.of(internalList.sorted().get(0));
+        }
     }
 
     @Override

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.ichifund.model.budget.Budget;
@@ -157,6 +158,10 @@ public class FundBook implements ReadOnlyFundBook {
      */
     public void removeTransaction(Transaction key) {
         transactions.remove(key);
+    }
+
+    public Optional<Transaction> getLatestTransaction() {
+        return transactions.getLatestTransaction();
     }
 
     //// repeater-level operations
