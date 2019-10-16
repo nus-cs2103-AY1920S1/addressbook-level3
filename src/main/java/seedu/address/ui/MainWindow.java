@@ -2,8 +2,10 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -11,6 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.item.Item;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -71,7 +74,8 @@ public class MainWindow extends UiPart<Stage> {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
                         try {
-                            executeCommand("show " + t1.getId());
+                            logic.execute("show " + t1.getId());
+                            updatePanels();
                         } catch (CommandException e) {
                             e.printStackTrace();
                         } catch (ParseException e) {
@@ -91,17 +95,28 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        taskListPanel = new TaskListPanel(logic.getVisualList());
-        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
-
-        eventListPanel = new EventListPanel(logic.getVisualList());
-        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
-
-        reminderListPanel = new ReminderListPanel(logic.getVisualList());
-        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        updatePanels();
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        //Get property.addListener
+        logic.getActiveRemindersListProperty().addListener(new ListChangeListener<Item>() {
+            @Override
+            public void onChanged(Change<? extends Item> c) {
+                System.out.println("Change Detected");
+                while (c.next()) {
+                    for (Item newItem : c.getAddedSubList()) {
+                        Platform.runLater(() -> {
+                            resultDisplay.setFeedbackToUser(newItem.getReminderMessage());
+                        });
+                    }
+                }
+            }
+        });
+        //to listen for change in active
+        //while !active.isEmpty()
+        //resultDisplay.setFeedbackToUser(property.popReminder.getReminderMessage);
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -159,6 +174,20 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Updates the panels to display the correct list of item.
+     */
+    public void updatePanels() {
+        taskListPanel = new TaskListPanel(logic.getVisualList());
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        eventListPanel = new EventListPanel(logic.getVisualList());
+        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+
+        reminderListPanel = new ReminderListPanel(logic.getVisualList());
+        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+    }
+
     public TaskListPanel getTaskListPanel() {
         return taskListPanel;
     }
@@ -192,14 +221,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleSwitchView(commandResult.getTargetView().trim());
             }
 
-            taskListPanel = new TaskListPanel(logic.getVisualList());
-            taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
-
-            eventListPanel = new EventListPanel(logic.getVisualList());
-            eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
-
-            reminderListPanel = new ReminderListPanel(logic.getVisualList());
-            reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+            updatePanels();
 
             return commandResult;
         } catch (CommandException | ParseException e) {

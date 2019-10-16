@@ -209,6 +209,7 @@ public class Item {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
+
         builder.append("\nDescription: ")
                 .append(itemDescription.toString());
 
@@ -231,6 +232,16 @@ public class Item {
             builder.append("\nTags: ");
             getTags().forEach(builder::append);
         }
+
+        return builder.toString();
+    }
+
+    public String getReminderMessage() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Description: ")
+                .append(itemDescription.toString())
+                .append("\nReminder! ")
+                .append(getReminder().get().toString());
 
         return builder.toString();
     }
