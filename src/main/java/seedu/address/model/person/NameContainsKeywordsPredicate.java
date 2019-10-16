@@ -1,3 +1,4 @@
+
 package seedu.address.model.person;
 
 import java.util.List;
@@ -29,3 +30,4 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
     }
 
 }
+

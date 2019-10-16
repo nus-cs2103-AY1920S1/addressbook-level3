@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.diary.Diary;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
@@ -35,6 +36,8 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    // ==================================== User Profile ============================================================
+
     @Override
     public Path getUserProfileFilePath() {
         throw new AssertionError(
@@ -47,6 +50,39 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setUserProfile(ReadOnlyUserProfile userProfile) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyUserProfile getUserProfile() {
+        throw new AssertionError(
+                "This method should not be called.");
+    }
+
+    @Override
+    public void addPerson(Person person) {
+        throw new AssertionError(
+                "This method should not be called.");
+    }
+
+    @Override
+    public void setPerson(Person target, Person editedPerson) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    // ======================================= Health Records ==============================================
+    @Override
     public Path getHealthRecordsFilePath() {
         throw new AssertionError(
                 "This method should not be called.");
@@ -57,6 +93,39 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public void setHealthRecords(ReadOnlyHealthRecords healthRecords) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyHealthRecords getHealthRecords() {
+        throw new AssertionError(
+                "This method should not be called.");
+    }
+
+    @Override
+    public void addRecord(Record record) {
+        throw new AssertionError(
+                "This method should not be called.");
+    }
+
+    @Override
+    public void setRecord(Record target, Record editedRecord) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredRecordList(Predicate<Record> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    // ======================================= Recipe Book ==============================================
     @Override
     public Path getRecipesFilePath() {
         throw new AssertionError("This method should not be called.");
@@ -74,16 +143,6 @@ public class ModelStub implements Model {
 
     @Override
     public void setRecipeBook(ReadOnlyRecipeBook recipeBook) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public Path getWorkoutPlannerFilePath() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setWorkoutPlannerFilePath(Path workoutPlannerFilePath) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -117,67 +176,14 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    // ======================================= Workout Planner ==============================================
     @Override
-    public void addPerson(Person person) {
-        throw new AssertionError(
-                "This method should not be called.");
-    }
-
-    @Override
-    public void addRecord(Record record) {
-        throw new AssertionError(
-                "This method should not be called.");
-    }
-
-    @Override
-    public void setUserProfile(ReadOnlyUserProfile userProfile) {
+    public Path getWorkoutPlannerFilePath() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setHealthRecords(ReadOnlyHealthRecords healthRecords) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public ReadOnlyUserProfile getUserProfile() {
-        throw new AssertionError(
-                "This method should not be called.");
-    }
-
-    @Override
-    public ReadOnlyHealthRecords getHealthRecords() {
-        throw new AssertionError(
-                "This method should not be called.");
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setRecord(Record target, Record editedRecord) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public ObservableList<Record> getFilteredRecordList() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void updateFilteredRecordList(Predicate<Record> predicate) {
+    public void setWorkoutPlannerFilePath(Path workoutPlannerFilePath) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -218,6 +224,58 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    // ======================================= Diary Records ==============================================
+
+    @Override
+    public void setDiaryFilePath(Path diaryFilePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Path getDiaryFilePath() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addDiary(Diary diary) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteDiary(Diary diary) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasDiary(Diary diary) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyDiary getDiaryRecords() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setDiary(Diary target, Diary editedDiary) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setDiaryRecords(ReadOnlyDiary diaryRecords) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Diary> getFilteredDiaryList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredDiaryList(Predicate<Diary> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 }

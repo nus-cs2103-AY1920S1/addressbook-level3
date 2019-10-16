@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CARBS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FATS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
@@ -27,6 +28,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.RecipeBook;
 import seedu.address.model.WorkoutPlanner;
+import seedu.address.model.diary.Diary;
+import seedu.address.model.diary.DiaryNameContainsKeywordsPredicate;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.model.exercise.ExerciseNameContainsKeywordsPredicate;
 import seedu.address.model.exercise.Intensity;
@@ -36,6 +39,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
+import seedu.address.testutil.EditDiaryDescriptorBuilder;
 import seedu.address.testutil.EditExerciseDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditRecipeDescriptorBuilder;
@@ -59,6 +63,8 @@ public class CommandTestUtil {
     public static final String VALID_PROTEIN_BURGER = "28";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_NAME_AMY_DIARY = "Amy Diary";
+    public static final String VALID_NAME_BOB_DIARY = "Bob Diary";
     public static final String VALID_BLOODTYPE = "A+";
     public static final String VALID_GENDER = "male";
     public static final String VALID_DOB = "30/08/1995";
@@ -76,6 +82,8 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_AMY_DIARY = " " + PREFIX_DIARY_NAME + VALID_NAME_AMY_DIARY;
+    public static final String NAME_DESC_BOB_DIARY = " " + PREFIX_DIARY_NAME + VALID_NAME_BOB_DIARY;
     public static final String BLOODTYPE_DESC = " " + PREFIX_BLOODTYPE + VALID_BLOODTYPE;
     public static final String GENDER_DESC = " " + PREFIX_GENDER + VALID_GENDER;
     public static final String DOB_DESC = " " + PREFIX_DOB + VALID_DOB;
@@ -121,6 +129,8 @@ public class CommandTestUtil {
     public static final EditRecipeCommand.EditRecipeDescriptor DESC_BURGER;
     public static final EditProfileCommand.EditPersonDescriptor DESC_AMY;
     public static final EditProfileCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditDiaryCommand.EditDiaryDescriptor DESC_AMY_DIARY;
+    public static final EditDiaryCommand.EditDiaryDescriptor DESC_BOB_DIARY;
 
     static {
         DESC_PUSHUP = new EditExerciseDescriptorBuilder().withName(VALID_NAME_PUSHUP)
@@ -133,6 +143,8 @@ public class CommandTestUtil {
                 .withMedicalHistories(VALID_HISTORY_STROKE).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withMedicalHistories(VALID_HISTORY_DENGUE, VALID_HISTORY_STROKE).build();
+        DESC_AMY_DIARY = new EditDiaryDescriptorBuilder().withName(VALID_NAME_AMY_DIARY).build();
+        DESC_BOB_DIARY = new EditDiaryDescriptorBuilder().withName(VALID_NAME_BOB_DIARY).build();
         DESC_FISH = new EditRecipeDescriptorBuilder().withName(VALID_NAME_FISH)
                 .withIngredients(VALID_INGREDIENT_FISH)
                 .withCalories(VALID_CALORIES_FISH).withCarbs(VALID_CARBS_FISH)
@@ -244,5 +256,19 @@ public class CommandTestUtil {
         model.updateFilteredRecipeList(new RecipeNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredRecipeList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the diary at the given {@code targetIndex} in the
+     * {@code model}'s Duke Cooks.
+     */
+    public static void showDiaryAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDiaryList().size());
+
+        Diary diary = model.getFilteredDiaryList().get(targetIndex.getZeroBased());
+        final String[] splitName = diary.getDiaryName().fullName.split("\\s+");
+        model.updateFilteredDiaryList(new DiaryNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredDiaryList().size());
     }
 }

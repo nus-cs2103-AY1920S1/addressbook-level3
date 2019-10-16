@@ -13,7 +13,7 @@ import seedu.address.model.recipe.Recipe;
 /**
  * Deletes a recipe identified using it's displayed index from Duke Cooks.
  */
-public class DeleteRecipeCommand extends seedu.address.logic.commands.DeleteCommand {
+public class DeleteRecipeCommand extends DeleteCommand {
 
     public static final String VARIANT_WORD = "recipe";
 

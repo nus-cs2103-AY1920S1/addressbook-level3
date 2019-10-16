@@ -19,4 +19,6 @@ public interface ReadOnlyUserPrefs {
 
     Path getHealthRecordsFilePath();
 
+    Path getDiaryFilePath();
+
 }

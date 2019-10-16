@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
+import seedu.address.model.diary.Diary;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.model.recipe.Recipe;
 
@@ -59,5 +60,12 @@ public class TestUtil {
      */
     public static Recipe getRecipe(Model model, Index index) {
         return model.getFilteredRecipeList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the diary in the {@code model}'s diary list at {@code index}.
+     */
+    public static Diary getDiary(Model model, Index index) {
+        return model.getFilteredDiaryList().get(index.getZeroBased());
     }
 }

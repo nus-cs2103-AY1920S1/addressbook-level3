@@ -10,6 +10,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Name;
+import seedu.address.model.diary.DiaryName;
+import seedu.address.model.diary.Title;
 import seedu.address.model.medical.MedicalHistory;
 import seedu.address.model.person.BloodType;
 import seedu.address.model.person.DoB;
@@ -59,6 +61,36 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code DiaryName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static DiaryName parseDiaryName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!DiaryName.isValidName(trimmedName)) {
+            throw new ParseException(DiaryName.MESSAGE_CONSTRAINTS);
+        }
+        return new DiaryName(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String title} into a {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Title(trimmedTitle);
     }
 
     /**

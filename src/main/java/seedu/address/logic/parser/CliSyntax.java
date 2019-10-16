@@ -34,4 +34,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_VALUE = new Prefix("val/");
     public static final Prefix PREFIX_DATETIME = new Prefix("dt/");
 
+    /* Prefix definitions */
+    public static final Prefix PREFIX_DIARY_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_PAGE_NUMBER = new Prefix("num/");
+    public static final Prefix PREFIX_PAGE_TITLE = new Prefix("t/");
 }

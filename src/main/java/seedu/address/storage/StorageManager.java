@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.ReadOnlyHealthRecords;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -24,17 +25,19 @@ public class StorageManager implements Storage {
     private HealthRecordsStorage healthRecordsStorage;
     private RecipeBookStorage recipeBookStorage;
     private WorkoutPlannerStorage workoutPlannerStorage;
+    private DiaryStorage diaryStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(UserProfileStorage userProfileStorage, HealthRecordsStorage healthRecordsStorage,
                           RecipeBookStorage recipeBookStorage, WorkoutPlannerStorage workoutPlannerStorage,
-                          UserPrefsStorage userPrefsStorage) {
+                          DiaryStorage diaryStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.userProfileStorage = userProfileStorage;
         this.healthRecordsStorage = healthRecordsStorage;
         this.recipeBookStorage = recipeBookStorage;
         this.workoutPlannerStorage = workoutPlannerStorage;
+        this.diaryStorage = diaryStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -173,5 +176,35 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         workoutPlannerStorage.saveWorkoutPlanner(workoutPlanner, filePath);
     }
+
+    // ================ DiaryRecords methods ==============================
+
+    @Override
+    public Path getDiaryFilePath() {
+        return diaryStorage.getDiaryFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyDiary> readDiary() throws DataConversionException, IOException {
+        return readDiary(diaryStorage.getDiaryFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyDiary> readDiary(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return diaryStorage.readDiary(filePath);
+    }
+
+    @Override
+    public void saveDiary(ReadOnlyDiary diary) throws IOException {
+        saveDiary(diary, diaryStorage.getDiaryFilePath());
+    }
+
+    @Override
+    public void saveDiary(ReadOnlyDiary diary, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        diaryStorage.saveDiary(diary, filePath);
+    }
+
 
 }
