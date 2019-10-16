@@ -64,6 +64,12 @@ public class LogicManager implements Logic {
             Command command = quizParser.parseCommand(commandText);
             commandResult = command.execute(model);
 
+            try {
+                storage.saveAddressBook(model.getAddressBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+
             return commandResult;
         }
     }

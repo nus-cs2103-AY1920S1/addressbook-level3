@@ -44,6 +44,7 @@ public class QuizCheckAnswer extends Command {
         boolean result = model.checkQuizAnswer(index, answer);
         QuestionBody questionBody = model.getFilteredQuizQuestionList().get(index).getQuestionBody();
         QuizResult quizResult = new QuizResult(answer, questionBody, getQuizTime(), result);
+        model.addQuizResult(quizResult);
 
         if (result) {
             return new CommandResult(ANSWER_CORRECT);
