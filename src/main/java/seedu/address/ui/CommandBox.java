@@ -32,7 +32,7 @@ public class CommandBox extends UiPart<Region> {
      * Handles the Enter button pressed event.
      */
     @FXML
-    private void handleCommandEntered() {
+    protected void handleCommandEntered() {
         try {
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");

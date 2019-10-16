@@ -20,6 +20,7 @@ import seedu.address.commons.util.SimpleJsonUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.internal.gmaps.ClosestLocation;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -123,7 +124,9 @@ public class MainApp extends Application {
 
         NusModsData nusModsData = initNusModsData(storage, userPrefs);
 
-        return new ModelManager(initialData, timeBook, nusModsData, userPrefs);
+        ClosestLocation closestLocation = new ClosestLocation();
+
+        return new ModelManager(initialData, timeBook, nusModsData, userPrefs, closestLocation);
     }
 
     /**
