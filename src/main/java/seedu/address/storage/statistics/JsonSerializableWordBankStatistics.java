@@ -25,14 +25,14 @@ public class JsonSerializableWordBankStatistics {
     private final int gamesPlayed;
     private final Double fastestClear;
     private final List<JsonAdaptedCardStatistics> cardStats = new ArrayList<>();
-    private final List<JsonAdaptedScoreData> scoreStats = new ArrayList<>();
+    private final List<Integer> scoreStats = new ArrayList<>();
 
     @JsonCreator
     public JsonSerializableWordBankStatistics(@JsonProperty("name") String wordBankName,
                                               @JsonProperty("gamesPlayed") int gamesPlayed,
                                               @JsonProperty("fastestClear") Double fastestClear,
                                               @JsonProperty("cardStats") List<JsonAdaptedCardStatistics> cardStats,
-                                              @JsonProperty("scoreStats") List<JsonAdaptedScoreData> scoreStats) {
+                                              @JsonProperty("scoreStats") List<Integer> scoreStats) {
         this.wordBankName = wordBankName;
         this.gamesPlayed = gamesPlayed;
         this.fastestClear = fastestClear;
@@ -48,9 +48,9 @@ public class JsonSerializableWordBankStatistics {
                 .stream()
                 .map(JsonAdaptedCardStatistics::new)
                 .collect(Collectors.toList());
-        List<JsonAdaptedScoreData> scoreDataList = wbStats.getScoreStats()
+        List<Integer> scoreDataList = wbStats.getScoreStats()
                 .stream()
-                .map(JsonAdaptedScoreData::new)
+                .map(ScoreData::getScore)
                 .collect(Collectors.toList());
         this.cardStats.addAll(cardStatsList);
         this.scoreStats.addAll(scoreDataList);
@@ -64,7 +64,7 @@ public class JsonSerializableWordBankStatistics {
                 .collect(Collectors.toList());
         List<ScoreData> scoreStatistics = scoreStats
                 .stream()
-                .map(JsonAdaptedScoreData::toModelType)
+                .map(ScoreData::new)
                 .collect(Collectors.toList());
         return new WordBankStatistics(wordBankName,
                 gamesPlayed,
