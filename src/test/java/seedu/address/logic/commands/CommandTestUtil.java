@@ -213,7 +213,7 @@ public class CommandTestUtil {
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredEntityList(entityType));
+        assertEquals(expectedFilteredList, actualModel.getFilteredEntityList(entityType.toUpperCase()));
     }
 
     /**

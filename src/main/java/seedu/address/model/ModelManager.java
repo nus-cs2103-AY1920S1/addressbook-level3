@@ -39,7 +39,6 @@ public class ModelManager implements Model {
     private final FilteredList<Fridge> filteredFridges;
     private final SimpleObjectProperty<Body> selectedBody = new SimpleObjectProperty<>();
 
-
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */

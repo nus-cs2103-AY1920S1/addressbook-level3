@@ -76,12 +76,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the contents of the fridges list with {@code fridges}.
-     * {@code bodies} must not contain duplicate bodies.
+     * {@code fridges} must not contain duplicate fridges.
      */
     public void setFridges(List<Fridge> fridges) {
         this.entities.setFridges(fridges);
         indicateModified();
     }
+
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.

@@ -194,17 +194,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateFilteredFridgeList(Predicate<Fridge> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<? extends Entity> getFilteredEntityList(String entityType) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<Fridge> getFilteredFridgeList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredFridgeList(Predicate<Fridge> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
