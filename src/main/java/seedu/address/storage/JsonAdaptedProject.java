@@ -26,7 +26,6 @@ class JsonAdaptedProject {
     private final String title;
     private final String description;
     private final List<JsonAdaptedMeeting> meetingList = new ArrayList<>();
-    ;
 
     /**
      * Constructs a {@code JsonAdaptedProject} with the given project details.
