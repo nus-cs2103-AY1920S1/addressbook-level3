@@ -19,7 +19,7 @@ public class ColourContainsKeywordsPredicate implements Predicate<Phone> {
     @Override
     public boolean test(Phone phone) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(phone.getColour().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(phone.getColour().toString(), keyword));
     }
 
     @Override

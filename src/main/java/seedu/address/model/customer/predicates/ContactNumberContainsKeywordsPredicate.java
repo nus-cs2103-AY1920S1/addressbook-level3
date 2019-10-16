@@ -19,7 +19,7 @@ public class ContactNumberContainsKeywordsPredicate implements Predicate<Custome
     @Override
     public boolean test(Customer customer) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(customer.getContactNumber().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(customer.getContactNumber().toString(), keyword));
     }
 
     @Override

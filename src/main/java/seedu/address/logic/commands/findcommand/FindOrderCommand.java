@@ -7,7 +7,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.model.Model;
-import seedu.address.model.order.IdContainsKeywordsPredicate;
+import seedu.address.model.order.predicates.IdContainsKeywordsPredicate;
 
 /**
  * Finds and lists all orders in order book whose id contains any of the argument keywords.

@@ -19,7 +19,7 @@ public class CapacityContainsKeywordsPredicate implements Predicate<Phone> {
     @Override
     public boolean test(Phone phone) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(phone.getCapacity().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(phone.getCapacity().toString(), keyword));
     }
 
     @Override

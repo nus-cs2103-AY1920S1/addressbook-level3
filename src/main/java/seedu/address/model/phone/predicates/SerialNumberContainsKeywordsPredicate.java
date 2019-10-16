@@ -19,7 +19,7 @@ public class SerialNumberContainsKeywordsPredicate implements Predicate<Phone> {
     @Override
     public boolean test(Phone phone) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(phone.getSerialNumber().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(phone.getSerialNumber().toString(), keyword));
     }
 
     @Override

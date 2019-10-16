@@ -19,7 +19,7 @@ public class BrandContainsKeywordsPredicate implements Predicate<Phone> {
     @Override
     public boolean test(Phone phone) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(phone.getBrand().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(phone.getBrand().toString(), keyword));
     }
 
     @Override
