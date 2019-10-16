@@ -17,10 +17,6 @@ public class SelectiveBookmarkTagger extends BookmarkTagger {
         this.predicate = predicate;
     }
 
-    private Predicate<Bookmark> getPredicate() {
-        return this.predicate;
-    }
-
     /**
      * Tests the given {@code Bookmark} and tags it only if it matches this
      * {@code SelectiveBookmarkTagger}'s {@code predicate}.
@@ -31,14 +27,6 @@ public class SelectiveBookmarkTagger extends BookmarkTagger {
      */
     public Bookmark applyTagSelectively(Bookmark bookmark) {
         return predicate.test(bookmark) ? super.applyTag(bookmark) : bookmark;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof SelectiveBookmarkTagger // instanceof handles nulls
-                && getTagToApply().equals(((SelectiveBookmarkTagger) other).getTagToApply())
-                && getPredicate().equals(((SelectiveBookmarkTagger) other).getPredicate())); // state check
     }
 
     @Override

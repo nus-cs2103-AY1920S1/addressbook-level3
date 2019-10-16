@@ -26,23 +26,4 @@ class SelectiveBookmarkTaggerTest { // TODO: write tests
     public void applyTagSelectively() {
     }
     */
-
-    @Test
-    public void equals() {
-        // same object -> returns true
-        SelectiveBookmarkTagger tagger = new SelectiveBookmarkTagger(SAMPLE_TAG, SAMPLE_PREDICATE);
-        assertTrue(tagger.equals(tagger));
-
-        // same values -> returns true
-        assertTrue(tagger.equals(new SelectiveBookmarkTagger(SAMPLE_TAG, SAMPLE_PREDICATE)));
-
-        // null -> returns false
-        assertFalse(tagger.equals(null));
-
-        // different tag -> returns false
-        assertFalse(tagger.equals(new SelectiveBookmarkTagger(SAMPLE_TAG_2, SAMPLE_PREDICATE)));
-
-        // different predicate -> returns false
-        assertFalse(tagger.equals(new SelectiveBookmarkTagger(SAMPLE_TAG, SAMPLE_PREDICATE_2)));
-    }
 }
