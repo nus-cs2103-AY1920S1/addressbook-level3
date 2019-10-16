@@ -295,4 +295,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeTask(Task toRemove) {
         tasks.remove(toRemove);
     }
+
+    public void markTaskAsDone(Task taskDone) {
+        tasks.markTaskAsDone(taskDone);
+    }
+
+    public void clearTaskList() {
+        tasks.clear();
+    }
 }

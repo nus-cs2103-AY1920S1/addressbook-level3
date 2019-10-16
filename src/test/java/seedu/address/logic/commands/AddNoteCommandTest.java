@@ -244,9 +244,19 @@ public class AddNoteCommandTest {
         public ObservableList<Question> getQuizQuestions(int numOfQuestions, Subject subject, Difficulty difficulty) {
             throw new AssertionError("This method should not be called.");
         }
+      
+        @Override
+        public void markTaskAsDone(Task taskDone) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void setQuizQuestionList(ObservableList<Question> quizQuestionList) {
+            throw new AssertionError("This method should not be called.");
+        }
+      
+        @Override      
+        public void clearTaskList() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -226,40 +226,39 @@ Format: `overview -q [dt/START_DATE] [dt/END_DATE]`
 
 === Revision tasks
 
-==== View revision tasks: `rv list`
+==== View revision tasks: `rlist`
 Displays the revision task list +
-Format: `rv list [n/NOTE_SET] [dt/DATE]`
+Format: `rlist`
 
-==== Add revision task: `rv add`
+==== Add revision task: `radd`
 Adds an item (to-do) to the current revision task list +
 Format: +
-`rv add ns/NOTE_SET dt/START_DATE dt/START_TIME` +
-`rv add qs/QUESTION_SET dt/START_DATE dt/START_TIME`
+`radd t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
 
-==== Remove revision task: `rv delete`
+==== Remove revision task: `rdelete`
 Removes the specified revision task from current list +
-Format: `rv delete INDEX`
+Format: `rdelete INDEX`
 
-==== Clear current revision plan: `rv clear`
+==== Clear current revision plan: `rclear`
 Deletes all revision tasks
-Format: `rv clear`
+Format: `rclear`
 
-==== Edit revision task: `rv edit`
+==== Edit revision task: `redit`
 Edits the specified revision task
-Format: `rv edit INDEX`
+Format: `redit INDEX`
 
-==== Label the revision task as important: `rv impt`
-Format: `rv impt INDEX`
+==== Label the revision task as important: `rimpt`
+Format: `rimpt INDEX`
 
-==== Mark the revision task as done: `rv done`
-Format: `rv done INDEX`
+==== Mark the revision task as done: `rdone`
+Format: `rdone INDEX`
 
-==== View incomplete revision task: `rv ndone`
+==== View incomplete revision task: `rndone`
 Displays the list of revision tasks that are yet to be completed
-Format: `rv ndone`
+Format: `rndone`
 
-==== View overdue revision tasks: `rv overdue`
-Format: `rv overdue`
+==== View overdue revision tasks: `overdue`
+Format: `roverdue`
 
 ==== Enable push notification: `notify -e`
 Format: `notify -e [-A] [INDEX]`

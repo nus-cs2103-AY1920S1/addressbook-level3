@@ -259,6 +259,11 @@ public class ModelManager implements Model {
         addressBook.setTask(target, editedTask);
     }
 
+    @Override
+    public void markTaskAsDone(Task taskDone) {
+        addressBook.markTaskAsDone(taskDone);
+    }
+
     /**
      * Returns an unmodifiable view of the list of {@code Task}s backed by the internal list of
      * {@code versionedAddressBook}
@@ -272,6 +277,11 @@ public class ModelManager implements Model {
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
+    }
+
+    @Override
+    public void clearTaskList() {
+        addressBook.clearTaskList();
     }
 
     @Override

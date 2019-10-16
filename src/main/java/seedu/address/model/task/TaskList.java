@@ -112,4 +112,24 @@ public class TaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+    /**
+     * Marks the selected task as done.
+     *
+     * @param taskDone The task to be marked as done.
+     */
+    public void markTaskAsDone(Task taskDone) {
+        requireNonNull(taskDone);
+
+        int index = internalList.indexOf(taskDone);
+        if (index == -1) {
+            throw new TaskNotFoundException();
+        }
+
+        internalList.get(index).markAsDone();
+    }
+
+    public void clear() {
+        internalList.clear();
+    }
 }
