@@ -24,18 +24,18 @@ class JsonAdaptedCustomer {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Customer's %s field is missing!";
 
-    private final CustomerName customerName;
-    private final ContactNumber contactNumber;
-    private final Email email;
+    private final String customerName;
+    private final String contactNumber;
+    private final String email;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedCustomer} with the given customer details.
      */
     @JsonCreator
-    public JsonAdaptedCustomer(@JsonProperty("customerName") CustomerName customerName,
-                               @JsonProperty("contactNumber") ContactNumber contactNumber,
-                             @JsonProperty("email") Email email,
+    public JsonAdaptedCustomer(@JsonProperty("customerName") String customerName,
+                               @JsonProperty("contactNumber") String contactNumber,
+                             @JsonProperty("email") String email,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.customerName = customerName;
         this.contactNumber = contactNumber;
@@ -49,9 +49,9 @@ class JsonAdaptedCustomer {
      * Converts a given {@code Customer} into this class for Jackson use.
      */
     public JsonAdaptedCustomer(Customer source) {
-        customerName = source.getCustomerName();
-        contactNumber = source.getContactNumber();
-        email = source.getEmail();
+        customerName = source.getCustomerName().fullName;
+        contactNumber = source.getContactNumber().value;
+        email = source.getEmail().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -72,27 +72,27 @@ class JsonAdaptedCustomer {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     CustomerName.class.getSimpleName()));
         }
-        if (!CustomerName.isValidCustomerName(customerName.toString())) {
+        if (!CustomerName.isValidCustomerName(customerName)) {
             throw new IllegalValueException(CustomerName.MESSAGE_CONSTRAINTS);
         }
-        final CustomerName modelCustomerName = new CustomerName(customerName.toString());
+        final CustomerName modelCustomerName = new CustomerName(customerName);
 
         if (contactNumber == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ContactNumber.class.getSimpleName()));
         }
-        if (!ContactNumber.isValidContactNumber(contactNumber.toString())) {
+        if (!ContactNumber.isValidContactNumber(contactNumber)) {
             throw new IllegalValueException(ContactNumber.MESSAGE_CONSTRAINTS);
         }
-        final ContactNumber modelContactNumber = new ContactNumber(contactNumber.toString());
+        final ContactNumber modelContactNumber = new ContactNumber(contactNumber);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email.toString())) {
+        if (!Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email.toString());
+        final Email modelEmail = new Email(email);
 
         final Set<Tag> modelTags = new HashSet<>(customerTags);
         return new Customer(modelCustomerName, modelContactNumber, modelEmail, modelTags);
