@@ -31,7 +31,10 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
+
     private GameManager gameManager;
+    //Secondary parser for updating the Ui.
+    private UpdateUi updateUi;
 
     // Independent Ui parts residing in this Ui container
     private TimerDisplay timerDisplay;
@@ -72,6 +75,7 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.gameManager = gameManager;
         this.modularDisplay = new ModularDisplay(gameManager);
+        this.updateUi = new UpdateUi(modularDisplay, currentModeFooter);
 
         // Configure the UI
         setWindowDefaultSize(gameManager.getGuiSettings());
@@ -216,25 +220,9 @@ public class MainWindow extends UiPart<Stage> {
 
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            //This is temporary. Todo: Make a separate class to handle switching and ui updates.
-            if (commandText.equals("home")) {
-                currentModeFooter.changeMode("home");
-            } else if (commandText.matches("start [1-9]")) {
-                currentModeFooter.changeMode("game");
-            }
-
-            //So is this. Todo: Compile both the above and below into a new "UpdateUI" class.
-            if (commandText.equals("load")) {
-                modularDisplay.swapToBanks(modularDisplayPlaceholder);
-            } else if (commandText.matches("bank [a-zA-Z0-9_/s]")) {
-                modularDisplay.swapToBankDisplay(modularDisplayPlaceholder);
-            } else if (commandText.equals("list")) {
-                modularDisplay.swapToList(modularDisplayPlaceholder);
-            } else if (commandText.equals("help")) {
-                //modularDisplay.swapToBanks(modularDisplayPlaceholder);
-            } else {
-                modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
-            }
+            //Updates the Ui.
+            updateUi.updateMode(commandText);
+            updateUi.updateModularDisplay(commandText, modularDisplayPlaceholder);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
