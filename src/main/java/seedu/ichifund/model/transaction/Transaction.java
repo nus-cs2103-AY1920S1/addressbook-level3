@@ -14,7 +14,7 @@ import seedu.ichifund.model.date.Year;
  * Represents a Transaction in IchiFund.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Transaction {
+public class Transaction implements Comparable<Transaction> {
     private final Description description;
     private final Amount amount;
     private final Category category;
@@ -109,4 +109,13 @@ public class Transaction {
         return builder.toString();
     }
 
+    @Override
+    public int compareTo(Transaction other) {
+        int dateComparison = getDate().compareTo(other.getDate());
+        if (dateComparison != 0) {
+            return dateComparison;
+        } else {
+            return getDescription().compareTo(other.getDescription());
+        }
+    }
 }
