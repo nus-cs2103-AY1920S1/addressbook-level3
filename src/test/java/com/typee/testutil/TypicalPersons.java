@@ -1,18 +1,11 @@
 package com.typee.testutil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import com.typee.logic.commands.CommandTestUtil;
-import com.typee.model.AddressBook;
-import com.typee.model.person.Person;
-
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
 public class TypicalPersons {
 
+    /*
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").build();
@@ -34,18 +27,24 @@ public class TypicalPersons {
     private TypicalPersons() {
     } // prevents instantiation
 
+
+     */
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
+    /*
+    public static HistoryManager getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+            ab.addEngagement(person);
         }
-        return ab;
+        HistoryManager hm = new HistoryManager(ab);
+        return hm;
     }
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
+
+     */
 }

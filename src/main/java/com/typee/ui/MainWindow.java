@@ -132,7 +132,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() throws DataConversionException {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic.getFilteredEngagementList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         //adding tab panel holder
