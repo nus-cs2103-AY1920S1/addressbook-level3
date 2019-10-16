@@ -67,38 +67,16 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         }
     }
 
-    @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
-    }
-
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
+     * Similar to {@link #readAddressBook()}.
      *
-     * @param filePath location of the data. Cannot be null.
+     * @param flashcardFilePath location of the data. Cannot be null.
+     * @param cheatSheetFilePath location of the data. Cannot be null.
+     * @param noteFilePath location of the data. Cannot be null.
+     * @throws DataConversionException if the file is not in the correct format.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
-        requireNonNull(filePath);
-
-        FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
-    }
-
-    //============== flashcard tools
-    @Override
-    public Path getFlashcardFilePath() {
-        return this.filePath;
-    }
-
-    //============== cheatsheet tools
-    @Override
-    public Path getCheatSheetFilePath() {
-        return this.filePath;
-    }
-
-    //TO DELETE
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path flashcardFilePath, Path noteFilePath, Path cheatSheetFilePath) throws DataConversionException {
+    public Optional<ReadOnlyAddressBook> readAddressBook(Path flashcardFilePath, Path noteFilePath,
+                                                         Path cheatSheetFilePath) throws DataConversionException {
         requireNonNull(flashcardFilePath);
         requireNonNull(noteFilePath);
         requireNonNull(cheatSheetFilePath);
@@ -123,6 +101,24 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         }
     }
 
+    @Override
+    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        saveAddressBook(addressBook, filePath);
+    }
+
+    /**
+     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     */
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        requireNonNull(addressBook);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+    }
+
     /**
      * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
      *
@@ -130,8 +126,8 @@ public class JsonAddressBookStorage implements AddressBookStorage {
      * @param noteFilePath location of the data. Cannot be null.
      * @param cheatSheetFilePath location of the data. Cannot be null.
      */
-    //TO DELETE
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path flashcardFilePath, Path noteFilePath, Path cheatSheetFilePath) throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path flashcardFilePath,
+                                Path noteFilePath, Path cheatSheetFilePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(flashcardFilePath);
         requireNonNull(noteFilePath);
@@ -144,4 +140,17 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         JsonUtil.saveJsonFile(new JsonSerializableFlashcard(addressBook), cheatSheetFilePath);
         //Add one more for note
     }
+
+    //============== flashcard tools
+    @Override
+    public Path getFlashcardFilePath() {
+        return this.filePath;
+    }
+
+    //============== cheatsheet tools
+    @Override
+    public Path getCheatSheetFilePath() {
+        return this.filePath;
+    }
+
 }

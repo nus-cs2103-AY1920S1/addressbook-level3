@@ -7,12 +7,12 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CHEATSHEETS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
+import java.util.List;
+
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
-
-import java.util.List;
+import seedu.address.model.Model;
 
 /**
  * Lists all persons in the address book to the user.

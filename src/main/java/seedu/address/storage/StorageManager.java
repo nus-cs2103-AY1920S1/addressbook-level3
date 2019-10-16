@@ -56,20 +56,24 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<ReadOnlyAddressBook> readAddressBook(Path flashcardFilePath, Path noteFilePath,
-                                                         Path cheatsheetFilePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from files: " + flashcardFilePath + ", " + noteFilePath + ", " + cheatsheetFilePath);
+                                                         Path cheatsheetFilePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from files: " + flashcardFilePath
+                + ", " + noteFilePath + ", " + cheatsheetFilePath);
         return addressBookStorage.readAddressBook(flashcardFilePath, noteFilePath, cheatsheetFilePath);
     }
 
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getFlashcardFilePath(), getNoteFilePath(), getCheatSheetFilePath());
+        saveAddressBook(addressBook, addressBookStorage.getFlashcardFilePath(),
+                getNoteFilePath(), getCheatSheetFilePath());
     }
 
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path flashcardFilePath, Path noteFilePath,
                                 Path cheatsheetFilePath) throws IOException {
-        logger.fine("Attempting to write to data files: " + flashcardFilePath + ", " + noteFilePath + ", " + cheatsheetFilePath);
+        logger.fine("Attempting to write to data files: " + flashcardFilePath
+                + ", " + noteFilePath + ", " + cheatsheetFilePath);
         addressBookStorage.saveAddressBook(addressBook, flashcardFilePath, noteFilePath, cheatsheetFilePath);
     }
 

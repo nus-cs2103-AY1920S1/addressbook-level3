@@ -63,7 +63,8 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
      * @param cheatSheetFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path flashcardFilePath, Path noteFilePath, Path cheatSheetFilePath) throws DataConversionException {
+    public Optional<ReadOnlyAddressBook> readAddressBook(Path flashcardFilePath, Path noteFilePath,
+                                                         Path cheatSheetFilePath) throws DataConversionException {
         requireNonNull(flashcardFilePath);
         requireNonNull(noteFilePath);
         requireNonNull(cheatSheetFilePath);
@@ -100,7 +101,8 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
      * @param noteFilePath location of the data. Cannot be null.
      * @param cheatSheetFilePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path flashcardFilePath, Path noteFilePath, Path cheatSheetFilePath) throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path flashcardFilePath,
+                                Path noteFilePath, Path cheatSheetFilePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(flashcardFilePath);
         requireNonNull(noteFilePath);
