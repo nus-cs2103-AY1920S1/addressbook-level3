@@ -73,6 +73,7 @@ public interface ItemModel {
 
     public void sort();
 
+<<<<<<< HEAD
     public void addToSeparateList(Item item);
 
     public void setState(ElisaState state);
@@ -90,4 +91,6 @@ public interface ItemModel {
     public Item markComplete(int index) throws IllegalListException;
 
     public void updateState();
+
+    public boolean hasItem(Item item);
 }

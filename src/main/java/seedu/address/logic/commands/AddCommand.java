@@ -26,7 +26,7 @@ public class AddCommand extends Command {
             + "<Optional> " + PREFIX_TAG + "Tag ";
 
     public static final String MESSAGE_SUCCESS = "New Item added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the List";
+    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists.";
 
     private static String itemType;
 
@@ -52,13 +52,13 @@ public class AddCommand extends Command {
     public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
 
-        /*
+        // Check if item already exists, else, add it to the model.
         if (model.hasItem(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_ITEM);
+        } else {
+            model.addItem(toAdd);
         }
-        */
 
-        model.addItem(toAdd);
         // Notify Ui to change the view the that of the newly added item.
         try {
             model.setVisualList(itemType);

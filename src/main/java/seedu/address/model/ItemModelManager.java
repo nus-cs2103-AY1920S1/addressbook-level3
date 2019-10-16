@@ -308,6 +308,7 @@ public class ItemModelManager implements ItemModel {
     }
 
     /**
+<<<<<<< HEAD
      * Enable and disable the priority mode
      * @return a boolean value. If true, means priority mode is on, else returns false.
      * @throws IllegalListException if the visualList is not a task list.
@@ -370,4 +371,12 @@ public class ItemModelManager implements ItemModel {
         return item;
     }
 
+    /**
+     * Checks if the item storage already contains this item.
+     * @param item to check
+     * @return true if the item storage contains this item, false otherwise
+     */
+    public boolean hasItem(Item item) {
+        return itemStorage.contains(item);
+    }
 }
