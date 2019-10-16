@@ -15,6 +15,7 @@ import seedu.address.commons.core.item.Item;
 import seedu.address.commons.core.item.Reminder;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -119,7 +120,8 @@ public class LogicManager implements Logic {
 
         if (commandResult.isUndo()) {
             model.setToCurrState();
-        } else if (commandResult.isSwitchViews()) {
+        } else if (command instanceof ShowCommand) {
+        //} else if (commandResult.isSwitchViews()) {
             /*switching view is not counted as a change in state,
             hence this block is left blank*/
         } else {

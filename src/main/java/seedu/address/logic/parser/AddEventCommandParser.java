@@ -17,6 +17,7 @@ import seedu.address.commons.core.item.ItemDescription;
 import seedu.address.commons.core.item.Priority;
 import seedu.address.commons.core.item.Reminder;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
@@ -67,7 +68,8 @@ public class AddEventCommandParser implements Parser<AddCommand> {
             throw new ParseException(e.getMessage());
         }
 
-        return new AddCommand(newItem);
+        AddCommand addCommand = new AddEventCommand(newItem);
+        return addCommand;
     }
 
 
