@@ -10,12 +10,13 @@ import java.util.Objects;
  */
 public class GuiSettings implements Serializable {
 
-    private static final double DEFAULT_HEIGHT = 600;
+    private static final double DEFAULT_HEIGHT = 940;
     private static final double DEFAULT_WIDTH = 740;
 
     private final double windowWidth;
     private final double windowHeight;
     private final Point windowCoordinates;
+    private final String font = "Segoe UI";
 
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;

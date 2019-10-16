@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
+import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
 import seedu.address.model.person.Budget;
@@ -24,7 +25,11 @@ public interface Model {
 
     Predicate<Wish> PREDICATE_SHOW_ALL_WISHES = unused -> true;
 
+
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
+
+    Predicate<ExpenseReminder> PREDICATE_SHOW_ALL_EXPENSE_REMINDERS = unused -> true;
+
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -69,6 +74,8 @@ public interface Model {
      */
     boolean hasEntry(Entry entry);
 
+    boolean hasExpenseReminder(ExpenseReminder reminder);
+
     /**
      * Deletes the given entry.
      * The entry must exist in the address book.
@@ -93,6 +100,8 @@ public interface Model {
      */
     void deleteWish(Wish target);
 
+    void deleteExpenseReminder(ExpenseReminder target);
+
     /**
      * Deletes the given budget.
      * The budget must exist in the address book.
@@ -105,13 +114,17 @@ public interface Model {
      */
     void addEntry(Entry entry);
 
-    public void addExpense(Expense expense);
+    void addExpense(Expense expense);
 
-    public void addIncome(Income income);
+    void addIncome(Income income);
 
-    public void addWish(Wish wish);
+    void addWish(Wish wish);
 
-    public void addBudget(Budget budget);
+
+    void addBudget(Budget budget);
+
+
+    void addExpenseReminder(ExpenseReminder expenseReminder);
 
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
@@ -119,6 +132,8 @@ public interface Model {
      * The entry identity of {@code editedEntry} must not be the same as another existing entry in the address book.
      */
     void setEntry(Entry target, Entry editedEntry);
+
+    void setExpenseReminder(ExpenseReminder target, ExpenseReminder editedEntry);
 
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Entry> getFilteredEntryList();
@@ -132,8 +147,12 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Wish> getFilteredWishes();
 
+
     /** Returns an unmodifiable view of the filtered budget list */
     ObservableList<Budget> getFilteredBudgets();
+  
+    /** Returns an unmodifiable view of the filtered expense reminder list */
+    ObservableList<ExpenseReminder> getFilteredExpenseReminders();
 
     /**
      * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
@@ -160,4 +179,6 @@ public interface Model {
 
     //Restores the model's address book to its previously undone state.
     //void redoAddressBook();
+
+    public void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate);
 }
