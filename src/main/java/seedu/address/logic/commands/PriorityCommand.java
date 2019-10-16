@@ -16,7 +16,7 @@ public class PriorityCommand extends Command {
     @Override
     public CommandResult execute(ItemModel model) {
         try {
-            boolean status = model.togglePriority();
+            boolean status = model.togglePriorityMode();
             return new CommandResult((status ? PRIORITY_MODE_ON : PRIORITY_MODE_OFF));
         } catch (IllegalListException e) {
             return new CommandResult(PRIORITY_MODE_ERROR);

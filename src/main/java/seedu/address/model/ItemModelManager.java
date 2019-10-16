@@ -254,21 +254,17 @@ public class ItemModelManager implements ItemModel {
         this.visualList = visualList.sort();
     }
 
-    private void togglePriorityMode() {
-        priorityMode = !priorityMode;
-    }
-
     /**
      * Enable and disable the priority mode
      * @return a boolean value. If true, means priority mode is on, else returns false.
      * @throws IllegalListException if the visualList is not a task list.
      */
-    public boolean togglePriority() throws IllegalListException {
+    public boolean togglePriorityMode() throws IllegalListException {
         if (!(visualList instanceof TaskList)) {
             throw new IllegalListException();
         }
 
-        togglePriorityMode();
+        priorityMode = !priorityMode;
         if (!priorityMode) {
             sortedTask = null;
             this.visualList = taskList;
@@ -301,7 +297,7 @@ public class ItemModelManager implements ItemModel {
      * @return the item that is marked as done.
      * @throws IllegalListException if the operation is not done on a task list.
      */
-    public Item done(int index) throws IllegalListException {
+    public Item markComplete(int index) throws IllegalListException {
         Item item;
         if (!(visualList instanceof TaskList)) {
             throw new IllegalListException();

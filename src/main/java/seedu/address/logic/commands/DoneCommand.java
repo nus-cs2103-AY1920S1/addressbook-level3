@@ -41,7 +41,7 @@ public class DoneCommand extends Command {
         }
 
         try {
-            Item itemDone = model.done(targetIndex.getZeroBased());
+            Item itemDone = model.markComplete(targetIndex.getZeroBased());
             return new CommandResult(String.format(MESSAGE_COMPLETE_ITEM_SUCCESS, itemDone));
         } catch (IllegalListException e) {
             throw new CommandException("Done can only be done on the task list.");

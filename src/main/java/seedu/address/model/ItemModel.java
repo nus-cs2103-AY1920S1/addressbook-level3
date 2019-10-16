@@ -69,7 +69,7 @@ public interface ItemModel {
 
     public void sort();
 
-    public boolean togglePriority() throws IllegalListException;
+    public boolean togglePriorityMode() throws IllegalListException;
 
-    public Item done(int index) throws IllegalListException;
+    public Item markComplete(int index) throws IllegalListException;
 }
