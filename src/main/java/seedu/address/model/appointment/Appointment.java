@@ -60,7 +60,8 @@ public class Appointment {
     }
 
     /**
-     * Returns true if both appointments of the same date and time have at least one other identity field that is the same.
+     * Returns true if both appointments of the same date and time have at least one other identity field that is the
+     * same.
      * This defines a weaker notion of equality between two appointments.
      */
     public boolean isSameAppointment(Appointment otherAppointment) {
@@ -70,7 +71,8 @@ public class Appointment {
 
         return otherAppointment != null
                 && otherAppointment.getStartDateTime().equals(getStartDateTime())
-                && (otherAppointment.getEndDateTime().equals(getEndDateTime()) || otherAppointment.getFrequency().equals(getFrequency()));
+                && (otherAppointment.getEndDateTime().equals(getEndDateTime())
+                    || otherAppointment.getFrequency().equals(getFrequency()));
     }
 
     /**

@@ -4,15 +4,18 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents the frequency of a recurring appointment
+ */
 public class RecurringDateTime {
+
+    public static final String MESSAGE_CONSTRAINTS = "Recurring " + DateTime.MESSAGE_CONSTRAINTS_BODY;
 
     private final long days;
     private final long months;
     private final long years;
     private final long hours;
     private final long minutes;
-
-    public static final String MESSAGE_CONSTRAINTS = "Recurring " + DateTime.MESSAGE_CONSTRAINTS_BODY;
 
     /**
      * Constructs an {@code RecurringDateTime}.

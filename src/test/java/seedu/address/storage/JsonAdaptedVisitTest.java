@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.visit.EndDateTime;
-import seedu.address.model.visit.StartDateTime;
+import seedu.address.model.datetime.EndDateTime;
+import seedu.address.model.datetime.StartDateTime;
 import seedu.address.model.visit.Visit;
 
 public class JsonAdaptedVisitTest {
