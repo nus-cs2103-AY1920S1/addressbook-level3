@@ -71,13 +71,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getMemeBookFilePath() {
-        return userPrefs.getMemeBookFilePath();
+        return userPrefs.getDataFilePath();
     }
 
     @Override
     public void setMemeBookFilePath(Path memeBookFilePath) {
         requireNonNull(memeBookFilePath);
-        userPrefs.setMemeBookFilePath(memeBookFilePath);
+        userPrefs.setDataFilePath(memeBookFilePath);
     }
 
     //=========== MemeBook ================================================================================

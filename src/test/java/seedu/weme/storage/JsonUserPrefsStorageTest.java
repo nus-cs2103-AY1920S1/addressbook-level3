@@ -73,7 +73,9 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setMemeBookFilePath(Paths.get("weme.json"));
+        userPrefs.setDataFilePath(Paths.get("data", "weme.json"));
+        userPrefs.setMemeImagePath(Paths.get("data", "memes"));
+        userPrefs.setTemplateImagePath(Paths.get("data", "templates"));
         return userPrefs;
     }
 

@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setMemeBookFilePath(Paths.get("weme/book/file/path"));
+        userPrefs.setDataFilePath(Paths.get("weme/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setMemeBookFilePath(Paths.get("new/weme/book/file/path"));
+        userPrefs.setDataFilePath(Paths.get("new/weme/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -126,7 +126,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setMemeBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setDataFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(memeBook, differentUserPrefs)));
     }
 }

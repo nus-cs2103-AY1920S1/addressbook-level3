@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        MemeBookStorage memeBookStorage = new JsonMemeBookStorage(userPrefs.getMemeBookFilePath());
+        MemeBookStorage memeBookStorage = new JsonMemeBookStorage(userPrefs.getDataFilePath());
         storage = new StorageManager(memeBookStorage, userPrefsStorage);
 
         initLogging(config);
