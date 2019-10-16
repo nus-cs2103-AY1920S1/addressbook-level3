@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import io.xpire.commons.core.Messages;
+import io.xpire.commons.util.StringUtil;
 import io.xpire.logic.commands.SearchCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ContainsKeywordsPredicate;
@@ -24,6 +25,9 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         List<String> keywords = Arrays.stream(trimmedArgs.split("\\|"))
                 .map(String::trim)
                 .filter(keyword -> !keyword.isEmpty())
+                .map(keyword -> keyword.startsWith("#")
+                ? "#" + StringUtil.convertToSentenceCase(keyword.substring(1))
+                : keyword.toLowerCase())
                 .collect(Collectors.toList());
         if (keywords.isEmpty()) {
             throw new ParseException(

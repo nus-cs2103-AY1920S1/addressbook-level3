@@ -97,7 +97,7 @@ public class ParserUtil {
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
-        String sentenceCaseTag = parseTagsToSentenceCase(trimmedTag);
+        String sentenceCaseTag = StringUtil.convertToSentenceCase(trimmedTag);
         return new Tag(sentenceCaseTag);
     }
 
@@ -144,16 +144,6 @@ public class ParserUtil {
             throw new ParseException(ReminderThreshold.MESSAGE_CONSTRAINTS);
         }
         return new ReminderThreshold(trimmedReminderThreshold);
-    }
-
-    /**
-     * Parses tags to sentence-case (first character upper-case, the rest lower-case)
-     *
-     * @param tag Tag to be parsed.
-     * @return Parsed tag in sentence-case.
-     */
-    public static String parseTagsToSentenceCase(String tag) {
-        return Character.toUpperCase(tag.charAt(0)) + tag.substring(1).toLowerCase();
     }
 
     /**

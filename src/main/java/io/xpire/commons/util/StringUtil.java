@@ -75,4 +75,28 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Converts string to sentence-case (first character upper-case, the rest lower-case).
+     *
+     * @param string String to be converted.
+     * @return new String in sentence case.
+     */
+    public static String convertToSentenceCase(String string) {
+        requireNonNull(string);
+        String newString;
+        switch (string.length()) {
+        case 0:
+            newString = "";
+            break;
+        case 1:
+            newString = string.toUpperCase();
+            break;
+        default:
+            newString = Character.toUpperCase(string.charAt(0)) + string.substring(1).toLowerCase();
+        }
+        return newString;
+    }
+
+
 }

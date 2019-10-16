@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import io.xpire.logic.parser.ParserUtil;
+import io.xpire.commons.util.StringUtil;
 import io.xpire.model.ReadOnlyXpire;
 import io.xpire.model.Xpire;
 import io.xpire.model.item.ExpiryDate;
@@ -40,7 +40,7 @@ public class SampleDataUtil {
      */
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(ParserUtil::parseTagsToSentenceCase)
+                .map(StringUtil::convertToSentenceCase)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
