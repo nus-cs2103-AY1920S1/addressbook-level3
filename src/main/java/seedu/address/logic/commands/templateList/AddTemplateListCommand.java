@@ -23,7 +23,7 @@ public class AddTemplateListCommand extends Command {
             + PREFIX_NAME + "Weekly Necessities ";
 
     public static final String MESSAGE_SUCCESS = "New template added into template: %1$s";
-    public static final String MESSAGE_DUPLICATE_FOOD = "This template already exists in the template list";
+    public static final String MESSAGE_DUPLICATE_TEMPLATE = "This template already exists in the template list";
 
     private final UniqueTemplateItems toAdd;
 
@@ -39,14 +39,12 @@ public class AddTemplateListCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        /**if (model.hasTemplateItem(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_FOOD);
+        if (model.hasTemplate(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TEMPLATE);
         }
 
-        model.addTemplateItem(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));*/
-
-        return new CommandResult("Method not implemented yet");
+        model.addTemplate(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

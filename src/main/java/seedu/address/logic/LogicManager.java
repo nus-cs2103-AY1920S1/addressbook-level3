@@ -15,7 +15,9 @@ import seedu.address.logic.parser.IfridgeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.food.GroceryItem;
+import seedu.address.model.food.UniqueTemplateItems;
 import seedu.address.storage.Storage;
 
 /**
@@ -45,6 +47,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getGroceryList());
+            storage.saveTemplateList(model.getTemplateList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -65,6 +68,21 @@ public class LogicManager implements Logic {
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public ReadOnlyTemplateList getTemplateList() {
+        return model.getTemplateList();
+    }
+
+    @Override
+    public ObservableList<UniqueTemplateItems> getFilteredTemplateList() {
+        return model.getFilteredTemplateList();
+    }
+
+    @Override
+    public Path getTemplateListFilePath() {
+        return model.getTemplateListFilePath();
     }
 
     @Override

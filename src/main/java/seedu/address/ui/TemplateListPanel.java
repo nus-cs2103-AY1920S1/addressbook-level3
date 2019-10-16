@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.food.TemplateItem;
+import seedu.address.model.food.UniqueTemplateItems;
 
 
 /**
@@ -20,27 +20,27 @@ public class TemplateListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(TemplateListPanel.class);
 
     @FXML
-    private ListView<TemplateItem> templateListView;
+    private ListView<UniqueTemplateItems> templateListView;
 
-    public TemplateListPanel(ObservableList<TemplateItem> templateItemList) {
+    public TemplateListPanel(ObservableList<UniqueTemplateItems> templateList) {
         super(FXML);
-        templateListView.setItems(templateItemList);
+        templateListView.setItems(templateList);
         templateListView.setCellFactory(listView -> new TemplateListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code TemplateItem} using a {@code TemplateItemCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Template} using a {@code TemplateListCard}.
      */
-    class TemplateListViewCell extends ListCell<TemplateItem> {
+    class TemplateListViewCell extends ListCell<UniqueTemplateItems> {
         @Override
-        protected void updateItem(TemplateItem templateItem, boolean empty) {
-            super.updateItem(templateItem, empty);
+        protected void updateItem(UniqueTemplateItems template, boolean empty) {
+            super.updateItem(template, empty);
 
-            if (empty || templateItem == null) {
+            if (empty || template == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new TemplateItemCard(templateItem, getIndex() + 1).getRoot());
+                setGraphic(new TemplateListCard(template, getIndex() + 1).getRoot());
             }
         }
     }

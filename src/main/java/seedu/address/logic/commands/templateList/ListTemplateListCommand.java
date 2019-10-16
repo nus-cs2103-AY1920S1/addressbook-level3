@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.templateList;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -18,8 +19,7 @@ public class ListTemplateListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        //model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
-        //return new CommandResult(MESSAGE_SUCCESS);
-        return new CommandResult("Method not implemented yet.");
+        model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

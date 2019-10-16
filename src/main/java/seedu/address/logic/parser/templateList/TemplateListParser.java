@@ -13,8 +13,8 @@ import seedu.address.logic.commands.templateList.ClearTemplateListCommand;
 import seedu.address.logic.commands.templateList.DeleteTemplateListCommand;
 import seedu.address.logic.commands.templateList.EditTemplateListCommand;
 import seedu.address.logic.commands.templateList.ListTemplateListCommand;
-
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.templateList.template.TemplateItemParser;
 
 /**
  * Parses user input.
@@ -24,6 +24,7 @@ public class TemplateListParser {
     /**
      * Used for initial separation of command word and args.
      */
+    public static final String LIST_TYPE_WORD = "tlist";
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
@@ -42,7 +43,6 @@ public class TemplateListParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
         case AddTemplateListCommand.COMMAND_WORD:
             return new AddTemplateListCommandParser().parse(arguments);
 
@@ -57,6 +57,9 @@ public class TemplateListParser {
 
         case ListTemplateListCommand.COMMAND_WORD:
             return new ListTemplateListCommand();
+
+        case TemplateItemParser.LIST_TYPE_WORD:
+            return new TemplateListParser().parseCommand(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

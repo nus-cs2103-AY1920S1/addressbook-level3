@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTemplateList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -18,13 +19,16 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private TemplateListStorage templateListStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          TemplateListStorage templateListStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.templateListStorage = templateListStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -72,6 +76,36 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+    // ================ TemplateList methods ==============================
+
+    @Override
+    public Path getTemplateListFilePath() {
+        return templateListStorage.getTemplateListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyTemplateList> readTemplateList() throws DataConversionException, IOException {
+        return readTemplateList(templateListStorage.getTemplateListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyTemplateList> readTemplateList(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return templateListStorage.readTemplateList(filePath);
+    }
+
+    @Override
+    public void saveTemplateList(ReadOnlyTemplateList templateList) throws IOException {
+        saveTemplateList(templateList, templateListStorage.getTemplateListFilePath());
+    }
+
+    @Override
+    public void saveTemplateList(ReadOnlyTemplateList templateList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        templateListStorage.saveTemplateList(templateList, filePath);
     }
 
 }

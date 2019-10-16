@@ -27,8 +27,8 @@ class JsonAdaptedTemplate {
      * Constructs a {@code JsonAdaptedTemplateItem} with the given template item details and given template items.
      */
     @JsonCreator
-    public JsonAdaptedTemplate(
-            @JsonProperty("name") String name, @JsonProperty("template") List<JsonAdaptedTemplateItem> templateItems) {
+    public JsonAdaptedTemplate(@JsonProperty("name") String name, @JsonProperty("templateItems")
+                                List<JsonAdaptedTemplateItem> templateItems) {
         this.name = name;
         this.templateItems.addAll(templateItems);
     }

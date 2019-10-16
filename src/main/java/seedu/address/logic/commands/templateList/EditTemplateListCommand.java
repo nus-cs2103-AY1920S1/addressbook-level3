@@ -2,9 +2,12 @@ package seedu.address.logic.commands.templateList;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 
+import java.util.List;
 import java.util.Optional;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
@@ -49,19 +52,18 @@ public class EditTemplateListCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        /**List<UniqueTemplateItems> lastShownList = model.getFilteredTemplateList();
+        List<UniqueTemplateItems> lastShownList = model.getFilteredTemplateList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FOOD_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
         }
 
         UniqueTemplateItems templateToEdit = lastShownList.get(index.getZeroBased());
         UniqueTemplateItems editedTemplate = createEditedTemplate(templateToEdit, editTemplateListDescriptor);
 
         model.setTemplate(templateToEdit, editedTemplate);
-        model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_FOODS);
-        return new CommandResult(String.format(MESSAGE_EDIT_TEMPLATE_SUCCESS, editedTemplate));**/
-        return new CommandResult("Method not implemented yet.");
+        model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
+        return new CommandResult(String.format(MESSAGE_EDIT_TEMPLATE_SUCCESS, editedTemplate));
     }
 
     /**
