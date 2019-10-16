@@ -151,6 +151,9 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        //Assigns only after initialisation.
+        this.updateUi = new UpdateUi(modularDisplay, currentModeFooter);
     }
 
     /**
