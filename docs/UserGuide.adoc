@@ -155,7 +155,7 @@ Format: `quiz [n/NUMBER_OF_QUESTIONS] [d/DIFFICULTY] [s/SUBJECT]`
 
 ==== Answer the quiz question : `type answer` +
 Answers the specified question. +
-Format: `INDEX : ANSWER`
+Format: `INDEX:ANSWER`
 
 ==== Change the difficulty: : `change -dif`
 

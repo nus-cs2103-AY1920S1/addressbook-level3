@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -176,15 +178,17 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public ObservableList<Question> getQuizQuestions(int numOfQuestions, Subject subject, Difficulty difficulty) {
         ObservableList<Question> quizQuestions = FXCollections.observableArrayList();
+        List<Question> filteredQuestions = getQuestionList()
+                .stream()
+                .filter(question -> subject.equals(question.getSubject()) && difficulty.equals(question.getDifficulty()))
+                .collect(Collectors.toList());
 
-        for (int i = 0; i < questions.getSize(); i++) {
-            Question question = questions.get(i);
-            if (question.getSubject().equals(subject) && question.getDifficulty().equals(difficulty)) {
-                quizQuestions.add(question);
-            }
-            if (quizQuestions.size() == numOfQuestions) {
-                break;
-            }
+        Random random = new Random();
+        for (int i = 0; i < numOfQuestions; i++) {
+            int randomIndex = random.nextInt(filteredQuestions.size());
+            Question question = filteredQuestions.get(randomIndex);
+            quizQuestions.add(question);
+            filteredQuestions.remove(randomIndex);
         }
         return quizQuestions;
     }

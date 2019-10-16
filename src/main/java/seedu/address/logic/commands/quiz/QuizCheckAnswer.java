@@ -3,7 +3,6 @@ package seedu.address.logic.commands.quiz;
 import static java.util.Objects.requireNonNull;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import seedu.address.logic.commands.Command;
@@ -42,10 +41,9 @@ public class QuizCheckAnswer extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        QuestionBody questionBody = model.getFilteredQuizQuestionList().get(index).getQuestionBody();
         boolean result = model.checkQuizAnswer(index, answer);
+        QuestionBody questionBody = model.getFilteredQuizQuestionList().get(index).getQuestionBody();
         QuizResult quizResult = new QuizResult(answer, questionBody, getQuizTime(), result);
-
 
         if (result) {
             return new CommandResult(ANSWER_CORRECT);
