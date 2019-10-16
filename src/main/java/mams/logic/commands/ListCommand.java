@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import mams.model.Model;
 
 /**
- * Lists all students in the address book to the user.
+ * Lists all students in the MAMS to the user.
  */
 public class ListCommand extends Command {
 

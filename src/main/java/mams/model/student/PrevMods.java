@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import mams.commons.util.AppUtil;
 
 /**
- * Represents a Student's prevMods in the address book.
+ * Represents a Student's prevMods in MAMS.
  * Guarantees: immutable; is valid as declared in {@link #isValidPrevMods(String)}
  */
 public class PrevMods {

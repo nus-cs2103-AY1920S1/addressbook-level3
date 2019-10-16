@@ -6,7 +6,7 @@ import mams.model.module.Module;
 import mams.model.student.Student;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of MAMS
  */
 public interface ReadOnlyMams {
 
