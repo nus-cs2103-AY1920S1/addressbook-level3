@@ -28,7 +28,7 @@ public class FlashCardTestListBuilder {
             String answer = Integer.toString(i + constant);
             String tag = tagList[i % 3];
             testList.add(new FlashCard(new Question(question), new Answer(answer), new Rating("good"),
-                    SampleDataUtil.getTagSet(tag)));
+                    SampleDataUtil.getCategorySet(tag)));
         }
         return testList;
     }

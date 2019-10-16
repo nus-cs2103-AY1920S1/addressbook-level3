@@ -16,32 +16,29 @@ import seedu.address.model.flashcard.Rating;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static FlashCard[] getSamplePersons() {
+    public static FlashCard[] getSampleFlashcards() {
         return new FlashCard[] {
-            new FlashCard(new Question("Alex Yeoh"), new Answer("87438807"),
+            new FlashCard(new Question("1+1"), new Answer("2"),
+                new Rating("easy"),
+                getCategorySet("math")),
+            new FlashCard(new Question("cell"), new Answer("smallest life unit"),
+                new Rating("easy"),
+                getCategorySet("Bio")),
+            new FlashCard(new Question("111*111 "), new Answer("12321"),
+                new Rating("easy"),
+                getCategorySet("math")),
+            new FlashCard(new Question("HTTP"), new Answer("HyperText transfer Protocol"),
                 new Rating("good"),
-                getTagSet("friends")),
-            new FlashCard(new Question("Bernice Yu"), new Answer("99272758"),
-                new Rating("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new FlashCard(new Question("Charlotte Oliveiro"), new Answer("93210283"),
-                new Rating("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new FlashCard(new Question("David Li"), new Answer("91031282"),
-                new Rating("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new FlashCard(new Question("Irfan Ibrahim"), new Answer("92492021"),
-                new Rating("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new FlashCard(new Question("Roy Balakrishnan"), new Answer("92624417"),
-                new Rating("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+                getCategorySet("cs")),
+            new FlashCard(new Question("Where is NUS"), new Answer("Singapore"),
+                new Rating("easy"),
+                getCategorySet("general"))
         };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (FlashCard sampleFlashCard : getSamplePersons()) {
+        for (FlashCard sampleFlashCard : getSampleFlashcards()) {
             sampleAb.addFlashcard(sampleFlashCard);
         }
         return sampleAb;
@@ -50,7 +47,7 @@ public class SampleDataUtil {
     /**
      * Returns a category set containing the list of strings given.
      */
-    public static Set<Category> getTagSet(String... strings) {
+    public static Set<Category> getCategorySet(String... strings) {
         return Arrays.stream(strings)
                 .map(Category::new)
                 .collect(Collectors.toSet());
