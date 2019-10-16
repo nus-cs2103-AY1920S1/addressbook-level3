@@ -30,18 +30,14 @@ public class SearchIncidentsCommand extends Command {
             + PREFIX_DESC + "KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESC + "arson";
-
-
-    private final Prefix keywordsType;
+    
     private final Predicate<Incident> predicate;
 
     public SearchIncidentsCommand(DescriptionKeywordsPredicate descriptionPredicate) {
-        this.keywordsType = PREFIX_DESC;
         this.predicate = descriptionPredicate;
     }
 
     public SearchIncidentsCommand(IdKeywordsPredicate idPredicate) {
-        this.keywordsType = PREFIX_ID;
         this.predicate = idPredicate;
     }
 
