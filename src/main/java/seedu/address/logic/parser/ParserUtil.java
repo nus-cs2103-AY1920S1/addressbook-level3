@@ -116,7 +116,7 @@ public class ParserUtil {
         requireNonNull(subject);
         String trimmedSubject = subject.trim();
         if (!Subject.isValidSubject(trimmedSubject)) {
-            throw new ParseException(Subject.MESSAGE_CONSTRAINT);
+            throw new ParseException(Subject.MESSAGE_CONSTRAINTS);
         }
         return new Subject(trimmedSubject);
     }
@@ -131,7 +131,7 @@ public class ParserUtil {
         requireNonNull(difficulty);
         String trimmedDifficulty = difficulty.trim();
         if (!Difficulty.isValidDifficulty(trimmedDifficulty)) {
-            throw new ParseException(Difficulty.MESSAGE_CONSTRAINT);
+            throw new ParseException(Difficulty.MESSAGE_CONSTRAINTS);
         }
         return new Difficulty((trimmedDifficulty));
     }

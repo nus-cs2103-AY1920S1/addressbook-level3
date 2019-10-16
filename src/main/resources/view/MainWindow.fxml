@@ -61,6 +61,14 @@
             <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
+
+          <VBox fx:id="questionList" styleClass="pane-with-border" minWidth="440" prefWidth="440" VBox.vgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="questionListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
           <VBox fx:id="quizQuestionList" styleClass="pane-with-border" minWidth="440" prefWidth="440" VBox.vgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
