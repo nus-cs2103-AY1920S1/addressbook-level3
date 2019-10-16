@@ -46,15 +46,7 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
         }
 
         EditOrderCommand.EditOrderDescriptor editOrderDescriptor = new EditOrderCommand.EditOrderDescriptor();
-//        if (argMultimap.getValue(PREFIX_ORDER).isPresent()) {
-//            editOrderDescriptor.setOrderName(ParserUtil.parseName(argMultimap.getValue(PREFIX_ORDER).get()));
-//        }
-//        if (argMultimap.getValue(PREFIX_CUSTOMER).isPresent()) {
-//            editOrderDescriptor.setCustomer(ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_CUSTOMER).get()));
-//        }
-//        if (argMultimap.getValue(PREFIX_RESTAURANT).isPresent()) {
-//            editOrderDescriptor.setRestaurant(ParserUtil.parseRestaurant(argMultimap.getValue(PREFIX_RESTAURANT).get()));
-//        }
+        
         parseFoodForEdit(argMultimap.getAllValues(PREFIX_FOOD)).ifPresent(editOrderDescriptor::setFoods);
 
         if (!editOrderDescriptor.isAnyFieldEdited()) {

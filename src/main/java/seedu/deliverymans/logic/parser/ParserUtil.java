@@ -12,7 +12,6 @@ import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
-import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.location.LocationMap;
 
@@ -108,31 +107,4 @@ public class ParserUtil {
         }
         return tagSet;
     }
-
-//    /**
-//     * Parses a {@code String tag} into a {@code Tag}.
-//     * Leading and trailing whitespaces will be trimmed.
-//     *
-//     * @throws ParseException if the given {@code tag} is invalid.
-//     */
-//    public static Tag parseFood(String food) throws ParseException {
-//        requireNonNull(food);
-//        String trimmedTag = food.trim();
-//        if (!Tag.isValidTagName(trimmedTag)) {
-//            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-//        }
-//        return new Food(trimmedTag);
-//    }
-//
-//    /**
-//     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-//     */
-//    public static Set<Food> parseFoods(Collection<String> tags) throws ParseException {
-//        requireNonNull(tags);
-//        final Set<Food> tagSet = new HashSet<>();
-//        for (String tagName : tags) {
-//            tagSet.add(parseFood(tagName));
-//        }
-//        return tagSet;
-//    }
 }

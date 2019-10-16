@@ -59,7 +59,8 @@ class JsonAdaptedOrder {
         final Name modelName = new Name(customer);
 
         if (restaurant == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Restaurant.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Restaurant.class.getSimpleName()));
         }
         if (!Phone.isValidPhone(restaurant)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
@@ -67,7 +68,8 @@ class JsonAdaptedOrder {
         final Phone modelPhone = new Phone(restaurant);
 
         if (deliveryman == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Deliveryman.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Deliveryman.class.getSimpleName()));
         }
         if (!Email.isValidEmail(deliveryman)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
