@@ -2,6 +2,9 @@ package seedu.address.ui;
 
 import java.io.InputStream;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,9 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
