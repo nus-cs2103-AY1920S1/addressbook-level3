@@ -58,7 +58,7 @@ public class ProjectDashboardParser {
             return new DoingTaskCommandParser().parse(arguments);
 
         case SetDeadlineCommand.COMMAND_WORD:
-            return new SetDeadlineCommandParserStub().parse(arguments);
+            return new SetDeadlineCommandParser().parse(arguments);
 
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParserStub().parse(arguments);

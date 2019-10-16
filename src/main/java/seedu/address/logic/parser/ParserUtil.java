@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +27,6 @@ import seedu.address.model.task.TaskStatus;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -137,7 +139,7 @@ public class ParserUtil {
     public static MemberName parseMemberName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!MemberName.isValidName(trimmedName)) {
+        if (!MemberName.isValidMemberName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new MemberName(trimmedName);
@@ -157,5 +159,17 @@ public class ParserUtil {
         }
 
         return new MemberId(trimmedId);
+    }
+    /**
+     * Parses {@code dateTime} into an {@code DateTime} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws DateTimeParseException if the input string is not in the valid format. 
+     */
+    public static LocalDateTime parseDate(String dateTime) throws DateTimeParseException {
+        requireNonNull(dateTime);
+        String trimmedDate = dateTime.trim();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return LocalDateTime.parse(trimmedDate, formatter);
     }
 }
