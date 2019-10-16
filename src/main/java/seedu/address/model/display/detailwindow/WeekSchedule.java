@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import seedu.address.model.display.sidepanel.PersonDisplay;
+import seedu.address.model.mapping.Role;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
@@ -27,9 +29,12 @@ public class WeekSchedule {
 
     private PersonDisplay personDisplay;
 
+    private Role role;
+
     private HashMap<DayOfWeek, ArrayList<DayTimeslot>> weekSchedule;
 
-    public WeekSchedule(String weekScheduleName, LocalDateTime now, Person person) {
+    public WeekSchedule(String weekScheduleName, LocalDateTime now, Person person, Role role) {
+        this.role = role;
 
         this.weekScheduleName = weekScheduleName;
         LocalDate currentDate = now.toLocalDate();
@@ -63,6 +68,9 @@ public class WeekSchedule {
                             currentVenue
                     );
                     weekSchedule.get(currentStartTime.getDayOfWeek()).add(timeslot);
+                    weekSchedule.get(currentStartTime.getDayOfWeek()).sort(
+                            Comparator.comparing(DayTimeslot::getStartTime)
+                    );
                 }
             }
         }
@@ -71,6 +79,10 @@ public class WeekSchedule {
 
     public PersonDisplay getPersonDisplay() {
         return this.personDisplay;
+    }
+
+    public Role getRole() {
+        return this.role;
     }
 
     public String getWeekScheduleName() {

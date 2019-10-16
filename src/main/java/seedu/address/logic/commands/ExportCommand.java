@@ -37,7 +37,7 @@ public class ExportCommand<T> extends Command {
         //Does nothing to the model.
         requireNonNull(model);
         if (name instanceof Name) {
-            ObservableList<Person> personList = model.getFilteredPersonList();
+            ObservableList<Person> personList = model.getObservablePersonList();
 
             Optional<Person> person = Optional.empty();
             for (Person p : personList) {

@@ -20,11 +20,13 @@ import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
-import seedu.address.model.module.DetailedModuleList;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleId;
+import seedu.address.model.module.ModuleList;
 import seedu.address.model.module.SemesterNo;
+import seedu.address.model.module.Venue;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
@@ -110,7 +112,7 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the filtered person list
      */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Person> getObservablePersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -160,6 +162,11 @@ public interface Model {
      * Returns the list of GroupIds which person with PersonId is in.
      */
     ArrayList<GroupId> findGroupsOfPerson(PersonId personId);
+
+    /**
+     * Checks if current event of Person clashes with other events in the schedule.
+     */
+    boolean isEventClash(Name name, Event event);
 
     //=========== Group Accessors =============================================================
 
@@ -235,6 +242,11 @@ public interface Model {
      */
     void deleteGroupFromMapping(GroupId groupId);
 
+    /**
+     * Finds the role of the specified mapping.
+     */
+    Role findRole(PersonId personId, GroupId groupId);
+
     //=========== UI Model =============================================================
 
     /**
@@ -294,21 +306,36 @@ public interface Model {
     NusModsData getNusModsData();
 
     /**
-     * Returns a module for the academic year and module code.
-     * Tries to find the module from 3 sources in the order:
-     *      1. Model.NusModsData.DetailedModuleList (in-memory)
-     *      2. Json Files
+     * Returns a module for the given ModuleId (academic year and module code).
+     * Tries to find the module from the 3 sources in order:
+     *      1. Model.NusModsData.ModuleList (in-memory)
+     *      2. Cache Folder
      *      3. NusModsApi
      */
-    Module findModuleFromAllSources(AcadYear acadYear, ModuleCode moduleCode);
+    Module findModule(ModuleId id);
 
     String getAcadSemStartDateString(AcadYear acadYear, SemesterNo semesterNo);
 
     List<String> getHolidayDateStrings();
 
-    DetailedModuleList getDetailedModuleList();
+    ModuleList getModuleList();
 
-    void addDetailedModule(Module module);
+    void addModule(Module module);
+
+    //=========== GoogleMaps ================================================================================
+
+    /**
+     * Returns the common closest location.
+     * @param venues ArrayList of venues object
+     * @return
+     */
+    String getClosestLocationVenues(ArrayList<Venue> venues);
+    /**
+     * Returns the common closest location.
+     * @param venues ArrayList of string object
+     * @return
+     */
+    String getClosestLocationString(ArrayList<String> venues);
 
     //=========== Others =============================================================
 

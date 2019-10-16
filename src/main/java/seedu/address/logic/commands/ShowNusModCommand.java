@@ -12,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleId;
 import seedu.address.model.module.SemesterNo;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 
@@ -41,9 +42,10 @@ public class ShowNusModCommand extends Command {
 
         AcadYear acadYear = options.getAcadYear().orElse(model.getDefaultAcadYear());
         SemesterNo semesterNo = options.getSemesterNo().orElse(model.getDefaultSemesterNo());
+        ModuleId moduleId = new ModuleId(acadYear, moduleCode);
 
         try {
-            Module module = model.findModuleFromAllSources(acadYear, moduleCode);
+            Module module = model.findModule(moduleId);
             String result = module.toString() + "\n";
             result += module.getDescription().toString() + "\n";
             result += module.getSemester(semesterNo).toString();

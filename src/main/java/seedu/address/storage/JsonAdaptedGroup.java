@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.GroupDescription;
 import seedu.address.model.group.GroupId;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.GroupRemark;
@@ -17,6 +18,7 @@ public class JsonAdaptedGroup {
 
     private final String groupId;
     private final String groupName;
+    private final String groupDescription;
     private final String groupRemark;
 
     /**
@@ -25,10 +27,12 @@ public class JsonAdaptedGroup {
     @JsonCreator
     public JsonAdaptedGroup(@JsonProperty("groupId") String groupId,
                             @JsonProperty("groupName") String groupName,
+                            @JsonProperty("groupDescription") String groupDescription,
                             @JsonProperty("groupRemark") String groupRemark) {
 
         this.groupId = groupId;
         this.groupName = groupName;
+        this.groupDescription = groupDescription;
         this.groupRemark = groupRemark;
     }
 
@@ -38,6 +42,7 @@ public class JsonAdaptedGroup {
     public JsonAdaptedGroup(Group source) {
         this.groupId = source.getGroupId().toString();
         this.groupName = source.getGroupName().toString();
+        this.groupDescription = source.getGroupDescription().toString();
         this.groupRemark = source.getGroupRemark().toString();
     }
 
@@ -60,14 +65,19 @@ public class JsonAdaptedGroup {
         }
         final GroupName modelGroupName = new GroupName(groupName);
 
+        if (groupDescription == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    GroupDescription.class.getSimpleName()));
+        }
+        final GroupDescription modelGroupDescription = new GroupDescription(groupDescription);
+
         if (groupRemark == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     GroupRemark.class.getSimpleName()));
         }
         final GroupRemark modelGroupRemark = new GroupRemark(groupRemark);
 
-        return new Group(modelGroupId, modelGroupName, modelGroupRemark);
-
+        return new Group(modelGroupId, modelGroupName, modelGroupDescription, modelGroupRemark);
     }
 
 }

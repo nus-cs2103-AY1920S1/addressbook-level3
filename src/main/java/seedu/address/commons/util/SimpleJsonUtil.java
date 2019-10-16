@@ -25,9 +25,8 @@ public class SimpleJsonUtil {
      * Returns the Json object from the given file or {@code Optional.empty()} object if the file is not found.
      * If any values are missing from the file, default values will be used, as long as the file is a valid json file.
      * @param filePath cannot be null.
-     * @param classOfObjectToDeserialize class of object to deserialize.
      */
-    public static <T> Optional<T> readJsonFile(Path filePath, Class<T> classOfObjectToDeserialize) {
+    public static Optional<Object> readJsonFile(Path filePath) {
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {
@@ -35,11 +34,11 @@ public class SimpleJsonUtil {
             return Optional.empty();
         }
 
-        T jsonFile;
+        Object jsonFile;
 
         try {
             JSONParser parser = new JSONParser();
-            jsonFile = (T) parser.parse(FileUtil.readFromFile(filePath));
+            jsonFile = parser.parse(FileUtil.readFromFile(filePath));
         } catch (IOException | ParseException e) {
             logger.warning("Error reading from json file " + filePath + ": " + e);
             return Optional.empty();
@@ -55,7 +54,7 @@ public class SimpleJsonUtil {
      * @param filePath cannot be null
      * @throws IOException if there was an error during writing to the file
      */
-    public static <T> void saveJsonFile(JSONAware jsonFile, Path filePath) throws IOException {
+    public static void saveJsonFile(JSONAware jsonFile, Path filePath) throws IOException {
         requireNonNull(filePath);
         requireNonNull(jsonFile);
 

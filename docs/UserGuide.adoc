@@ -56,28 +56,38 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a person: `addperson`
 
 Adds a person to the timebook +
 Format: `add-person -n NAME -e EMAIL [-c NUS_MOD_LINK]`
 
 Examples:
 
-* `add-person -n Catherine -e catherineCanCook@imail.com`
-* `add-person -n John Doe -e JohnDoe@imail.com -c 23F6B742CE`
+* `addperson n/ Catherine em/ catherineCanCook@imail.com`
+* `addperson n/ John Doe em/ JohnDoe@imail.com c/ 23F6B742CE`
+
+=== Adding a person: `addgroup`
+
+Adds a group to the address book +
+Format: `addgroup g/GROUP_NAME [r/GROUP_REMARK]`
+
+Examples:
+
+* `addgroup g/CS2103 r/Project Group`
+* `addgroup g/Friends`
 
 === Listing all persons : `list`
 
 Shows a list of all persons in the timebook. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Editing a person : `editperson`
 
 Edits an existing person in the timebook. +
 Format: `edit INDEX [-n NAME] [-p PHONE] [-em EMAIL] [-a ADDRESS] [-t TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the person specified by `PERSON_NAME`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -91,42 +101,77 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 -n Betsy Crower -t` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Editing a group : `editgroup`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Edits an existing group in the address book. +
+Format: `editgroup -ed GROUP_NAME [-g GROUP_NAME] [-r GROUP_REMARK]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Edits the group specified by `GROUP_NAME`.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `editgroup -ed CS2103 -g CS3203 -rProject Discussion Group` +
+Edits the group specified by group name 'CS2103' with group name 'CS3203' and group remark `Project Discussion Group` respectively.
+
+
+=== Locating persons by name: `findperson`
+
+Finds the person whose name contains the given keyword. +
+Format: `findperson n/NAME`
+
+****
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Shows the groups that this person is in.
+****
+
+=== Locating persons by name: `findgroup`
+
+Finds the group whose name contains the given keyword. +
+Format: `findgroup g/GROUP_NAME`
+
+****
+* Only the group name is searched.
+* Only full words will be matched
+* Shows the members inside the group.
+****
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting a person : `deleteperson`
 
 Deletes the specified person from TimeBook. +
 Format: `delete-person -n NAME`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the person specified by 'NAME'
+* Deletes all mappings of this person in groups.
 ****
 
 Examples:
 
 * `delete-person -n Benedict` +
 Deletes the 2nd person in TimeBook.
+* `deleteperson n/ Benedict` +
+Deletes the 'Benedict' in the timebook.
+
+=== Deleting a group : `deletegroup`
+
+Deletes the specified group from the timebook. +
+Format: `deletegroup g/ GROUP_NAME`
+
+****
+* Deletes the group specified by 'GROUP_NAME'
+* Deletes all mappings of persons to this group.
+****
+
+Examples:
+
+* `deletegroup g/CS2103` +
+Deletes the 'CS2103' in the timebook.
 
 // end::delete[]
 === Clearing all entries : `clear`
@@ -181,26 +226,22 @@ Examples:
 
 * `delete-schedule -n John`
 
-=== Edit person’s details: `edit-person`
+=== Add to Group: `addtogroup`
 
-Edits a person’s details by overwriting in TimeBook +
+Adds a person specified by 'NAME' into a group specified by 'GROUP_NAME' in TimeBook.
 Format:
 
-* `edit-person -n NAME [-e EMAIL_ADDRESS] [-c NUS_MOD_LINK]` +
+* `addtogroup' n/NAME g/GROUP_NAME
 
 Examples:
 
-* `edit-person -n John -e JDoe@imail.com`
-* `edit-person -n Jake -c 23F6B742CE -e contact@jake.com`
+* `addtogroup n/John g/CS2103
 
-
-=== Group friends: `group`
-
-Adds members into a group and creates the group if it doesn’t already exist +
+=== Group: 'group'
+Creates a group and adds all members into the group +
 Format:
 
-* `group -g GROUP_NAME [-m NAME]...` +
-
+* `group -g GROUP_NAME [-m MEMBERS]`
 
 Examples:
 
@@ -215,28 +256,6 @@ Format:
 * `show -g TimeBook` +
 * `show -g CS2030 T2`
 
-=== Group: 'group'
-Creates a group and adds all members into the group +
-Format:
-
-* `group -g GROUP_NAME [-m MEMBERS]`
-
-Examples:
-
-* `group -g TimeBook -m Catherine -m John Doe`
-* `group -g CS2030 T2 -m Amanda -m Catherine`
-
-=== Delete group: `delete-group`
-
-Deletes a group in TimeBook +
-Format:
-
-* `delete-group -g GROUP_NAME`
-
-Examples:
-
-* `delete-group -g CS2030 T2`
-
 === Show person: `show`
 
 Shows a person’s details along with their schedule +
@@ -244,11 +263,15 @@ Format:
 
 * `show -n NAME` +
 
+=== Delete schedule: `deleteschedule`
+Delete all schedule data of the specified person from TimeBook +
+Format:
+
+* `deleteschedule -n NAME` +
 
 Examples:
 
-* `show -n Catherine`
-* `show -n Jake`
+* `delete-schedule -n John`
 
 === Export VR(Virtual Representation): `export`
 

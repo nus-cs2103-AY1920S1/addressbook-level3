@@ -15,8 +15,10 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.group.GroupDescription;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.GroupRemark;
+import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.LessonNo;
 import seedu.address.model.module.ModuleCode;
@@ -214,6 +216,20 @@ public class ParserUtil {
     }
 
     /**
+     * Parse a String role, and trims the String.
+     *
+     * @param role String to be trimmed
+     * @return Trimmed String
+     * @throws ParseException null
+     */
+    public static Role parseRole(String role) throws ParseException {
+        requireNonNull(role);
+        String trimmedRole = role.trim();
+
+        return new Role(trimmedRole);
+    }
+
+    /**
      * Parse a String remark, and trims the String.
      *
      * @param remark String to be trimmed
@@ -225,6 +241,20 @@ public class ParserUtil {
         String trimmedRemark = remark.trim();
 
         return new GroupRemark(trimmedRemark);
+    }
+
+    /**
+     * Parse a String description, and trims the String.
+     *
+     * @param description String to be trimmed
+     * @return Trimmed String
+     * @throws ParseException null
+     */
+    public static GroupDescription parseGroupDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+
+        return new GroupDescription(trimmedDescription);
     }
 
     /**
