@@ -21,6 +21,7 @@ import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
@@ -142,6 +143,21 @@ public class AddTaskCommandTest {
         }
 
         @Override
+        public ObservableList<Task> getFilteredTaskListNotStarted() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTaskListDoing() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTaskListDone() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Task> getFilteredTasksList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -208,6 +224,31 @@ public class AddTaskCommandTest {
 
         @Override
         public void deleteInventory(Inventory target) {
+
+        }
+
+        @Override
+        public void addMapping(Mapping mapping) {
+
+        }
+
+        @Override
+        public void deleteMapping(Mapping mapping) {
+
+        }
+
+        @Override
+        public boolean hasMapping(Mapping mapping) {
+            return false;
+        }
+
+        @Override
+        public ObservableList<Mapping> getFilteredMappingsList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredMappingsList(Predicate<Mapping> predicate) {
 
         }
     }
