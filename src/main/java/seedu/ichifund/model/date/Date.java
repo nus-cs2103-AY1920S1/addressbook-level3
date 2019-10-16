@@ -43,7 +43,7 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Returns true if a given {@code Date} is a valid date.
+     * Returns true if the {@code Date} constructed from a {@code Day}, {@code Month} and {@code Year} is a valid date.
      */
     public static boolean isValidDate(Day day, Month month, Year year) {
         int dayNumber = day.getDayNumber();
