@@ -17,6 +17,17 @@ public class StudentListCommand extends StudentCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(model.getStudentSummary());
+        return new CommandResult(generateSuccessMessage(model.getStudentSummary()));
+    }
+
+    /**
+     * Generates a command execution success message.
+     * @param message The relevant message from the model.
+     * @return The String representation of a success message.
+     */
+    private String generateSuccessMessage(String message) {
+        System.out.println(message);
+        return "This is the list of students: " + "\n"
+                + message;
     }
 }

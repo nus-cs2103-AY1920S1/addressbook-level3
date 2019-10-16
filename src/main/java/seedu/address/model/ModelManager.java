@@ -244,7 +244,7 @@ public class ModelManager implements Model {
 
         ArrayList<Student> students = new ArrayList<>();
         for (Integer i : studentNumbers) {
-            students.add(filteredStudents.get(i+1));
+            students.add(filteredStudents.get(i-1));
         }
 
         for (Student s : students) {

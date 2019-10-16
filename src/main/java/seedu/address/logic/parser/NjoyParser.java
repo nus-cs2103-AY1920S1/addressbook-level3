@@ -19,6 +19,7 @@ import seedu.address.logic.commands.quiz.QuizCommand;
 import seedu.address.logic.commands.student.StudentCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.group.GroupCommandParser;
 import seedu.address.logic.parser.note.NoteCommandParser;
 import seedu.address.logic.parser.question.QuestionCommandParser;
 import seedu.address.logic.parser.quiz.QuizCommandParser;
@@ -53,6 +54,9 @@ public class NjoyParser {
 
         case QuizCommand.COMMAND_WORD:
             return new QuizCommandParser().parse(arguments);
+
+        case GroupCommand.COMMAND_WORD:
+            return new GroupCommandParser().parse(arguments);
 
         case QuestionCommand.COMMAND_WORD:
             return new QuestionCommandParser().parse(arguments);

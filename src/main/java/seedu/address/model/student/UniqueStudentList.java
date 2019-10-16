@@ -127,7 +127,6 @@ public class UniqueStudentList implements Iterable<Student> {
 
     public String getStudentList() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Here is the list of students : \n");
         for (int i = 0; i < internalList.size(); i++) {
             sb.append(i+1);
             sb.append(". ");

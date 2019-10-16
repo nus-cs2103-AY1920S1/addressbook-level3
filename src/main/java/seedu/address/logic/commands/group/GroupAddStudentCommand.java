@@ -11,12 +11,14 @@ public class GroupAddStudentCommand extends GroupCommand{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an existing student to an existing group\n"
             + "Parameters:\n"
-            + "groupId/ [GROUP_ID]\n"
-            + "Example: groupId/G03\n\n"
+            + "groupID/ [GROUP_ID]\n"
+            + "Example: groupID/G03\n\n"
             + "studentNumber/ [STUDENT_NUMBER]\n"
             + "Example: studentNumber/31 (Specifies the 31st student in the student list)\n\n"
             + "groupIndexNumber/ [INDEX_NUMBER]\n"
-            + "Example: groupIndexNumber/ 2 (Specifies the index number in the group to add to)";
+            + "Example: groupIndexNumber/ 2 (Specifies the index number in the group to add to)\n"
+            + "Full Example: group groupID/G03 studentNumber/1 groupIndexNumber/2 --> adds Student 1 to G03 assigning group" +
+            " index number 2 \n\n";
 
     private final String groupId;
     private final int studentNumber;

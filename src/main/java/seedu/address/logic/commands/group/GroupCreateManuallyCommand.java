@@ -13,10 +13,11 @@ public class GroupCreateManuallyCommand extends GroupCommand{
             + "Parameters:\n"
             + "manual/\n"
             + "Example: manual/\n\n"
-            + "groupId/ [GROUP_ID]\n"
-            + "Example: groupId/ G03\n\n"
+            + "groupID/ [GROUP_ID]\n"
+            + "Example: groupID/ G03\n\n"
             + "studentNumber/ [STUDENT_NUMBER]\n"
-            + "Example: studentNumber/ 1 3 5 (Adds students 1, 3 and 5 in the student list to the group)\n\n";
+            + "Example: studentNumber/ 1 3 5 (Adds students 1, 3 and 5 in the student list to the group)\n"
+            + "Full Example: group manual/ groupID/G01 studentNumber/1 2 3 --> adds student 1,2 and 3 to group G01\n\n";
 
     private final String groupId;
     private final ArrayList<Integer> studentNumbers;
