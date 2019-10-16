@@ -34,6 +34,9 @@ public class CommandTestUtil {
     public static final String VALID_RATING_2 = "easy";
     public static final String VALID_CATEGORY_HISTORY = "history";
     public static final String VALID_CATEGORY_LOCATION = "location";
+    public static final String VALID_FILE_PATH_1 = "cheat_sheet.docx";
+    public static final String VALID_FILE_PATH_2 = "cs2105.docx";
+    public static final String INVALID_FILE_PATH = "f***";
 
     public static final String QUESTION_DESC_1 =
             " " + PREFIX_QUESTION + VALID_QUESTION_1;

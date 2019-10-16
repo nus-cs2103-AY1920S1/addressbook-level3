@@ -201,6 +201,15 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public int[] getStats() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void editStats(int type) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         //@@author keiteo-reused
         @Override
         public void initializeTestModel(List<FlashCard> testList) {
@@ -224,6 +233,12 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<FlashCard> getFlashCardList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        //@@author LeowWB
+        public ObservableList<FlashCard> getFilteredFlashCardListNoCommit(Predicate<FlashCard> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
