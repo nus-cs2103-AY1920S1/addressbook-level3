@@ -158,6 +158,10 @@ Format: ``removeSchoolBreak [date] [name]`` or ``removeSchoolBreak [start date] 
 Removes a school break from your calendar. +
 Format: ``removeHoliday [date] [name]``
 
+*Showing a monthly view of your calendar: ``show``* +
+Shows a monthly view of your calendar. If year is not specified, the current year will be used. +
+Format: ``show [month] <year>``
+
 *Suggesting a period of time to travel: ``suggest``* +
 Suggests when you can travel for a specified number of days within a time frame (as determined by the start and end dates). +
 Format: ``suggest [start date] [end date] [number of days]``
