@@ -15,9 +15,10 @@ public interface ReadOnlyUserPrefs {
 
     Path getCustomerDatabaseFilePath();
 
+    Path getDeliverymenDatabaseFilePath();
+
     Path getRestaurantDatabaseFilePath();
 
     Path getOrderBookFilePath();
 
-    Path getDeliverymenDatabaseFilePath();
 }

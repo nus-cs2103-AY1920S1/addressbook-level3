@@ -73,7 +73,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
 
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        AddressBookStorage addressBookStorage =
+                new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         CustomerDatabaseStorage customerDatabaseStorage =
                 new JsonCustomerDatabaseStorage(userPrefs.getCustomerDatabaseFilePath());
         RestaurantDatabaseStorage restaurantDatabaseStorage =
@@ -81,6 +82,7 @@ public class MainApp extends Application {
         OrderDatabaseStorage orderDatabaseStorage = new JsonOrderDatabaseStorage(userPrefs.getOrderBookFilePath());
         DeliverymenDatabaseStorage deliverymenDatabaseStorage =
                 new JsonDeliverymenDatabaseStorage(userPrefs.getDeliverymenDatabaseFilePath());
+
         storage = new StorageManager(addressBookStorage, customerDatabaseStorage, deliverymenDatabaseStorage,
                 restaurantDatabaseStorage, orderDatabaseStorage, userPrefsStorage);
 
@@ -107,8 +109,8 @@ public class MainApp extends Application {
 
         ReadOnlyAddressBook initialAddressData;
         ReadOnlyCustomerDatabase initialCustomerData;
-        ReadOnlyRestaurantDatabase initialRestaurantData;
         ReadOnlyDeliverymenDatabase initialDeliverymenData;
+        ReadOnlyRestaurantDatabase initialRestaurantData;
         ReadOnlyOrderBook initialOrderData;
 
         try {

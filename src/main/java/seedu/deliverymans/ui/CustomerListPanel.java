@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.model.customer.Customer;
 
@@ -32,14 +31,14 @@ public class CustomerListPanel extends UiPart<Region> {
      */
     class CustomerListViewCell extends ListCell<Customer> {
         @Override
-        protected void updateItem(Customer customemr, boolean empty) {
-            super.updateItem(customemr, empty);
+        protected void updateItem(Customer customer, boolean empty) {
+            super.updateItem(customer, empty);
 
-            if (empty || customemr == null) {
+            if (empty || customer == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new CustomerCard(customemr, getIndex() + 1).getRoot());
+                setGraphic(new CustomerCard(customer, getIndex() + 1).getRoot());
             }
         }
     }
