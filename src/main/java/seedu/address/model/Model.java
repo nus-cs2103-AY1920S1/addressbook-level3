@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -16,6 +17,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<FlashCard> PREDICATE_SHOW_ALL_FLASHCARDS = unused -> true;
     Predicate<Category> PREDICATE_SHOW_ALL_CATEGORIES = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Deadline> PREDICATE_SHOW_ALL_DEADLINES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -57,13 +61,15 @@ public interface Model {
 
     /**
      * Returns true if a flashCard with the same identity as {@code flashCard} exists in the address book.
-     */
+     */ 
+    //@@author shutingy
     boolean hasFlashcard(FlashCard flashCard);
 
     /**
      * Deletes the given flashCard.
      * The flashCard must exist in the address book.
      */
+    //@@author shutingy -reused
     void deleteFlashCard(FlashCard target);
 
     /**
@@ -84,12 +90,23 @@ public interface Model {
     void deleteDeadline(Deadline deadline);
 
     /**
+     * Updates the Statistics.
+     * type 0,1 & 2 to edit number of Good, Hard & Easy qns completed during the test.
+     */
+    void editStats(int type);
+
+    /**
+     * returns the Statistics.
+     * type 0,1 & 2 to edit number of Good, Hard & Easy qns completed during the test.
+     */
+    int[] getStats();
+
+    /**
      * Adds the given flashCard.
      * {@code flashCard} must not already exist in the address book.
      */
+    //@@author shutingy -reused
     void addFlashCard(FlashCard flashCard);
-
-
 
     /**
      * Replaces the given flashCard {@code target} with {@code editedFlashCard}.
@@ -97,6 +114,7 @@ public interface Model {
      * The flashCard identity of {@code editedFlashCard}
      * must not be the same as another existing flashCard in the address book.
      */
+    //@@author shutingy -reused
     void setFlashCard(FlashCard target, FlashCard editedFlashCard);
 
 
@@ -108,8 +126,46 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFlashCardList(Predicate<FlashCard> predicate);
-
+    //@@author shutingy -reused
     ObservableList<Category> getCategoryList();
-
+    //@@author shutingy -reused
     void updateFilteredCategoryList(Predicate<Category> predicate);
+    
+    //@@author keiteo
+    ObservableList<FlashCard> getFlashCardList();
+    
+    void initializeTestModel(List<FlashCard> testList);
+
+    boolean hasTestFlashCard();
+
+    String getTestQuestion();
+
+    String getTestAnswer();
+
+    /**
+     * Replaces the given flashCard {@code target} with {@code editedFlashCard}.
+     * {@code target} must exist in the address book.
+     * The flashCard identity of {@code editedFlashCard}
+     * must not be the same as another existing flashCard in the address book.
+     */
+    void setDeadline(Deadline target, Deadline editedDeadline);
+
+    /** Returns an unmodifiable view of the filtered deadline list */
+    //@@author dalsontws
+    ObservableList<Deadline> getFilteredDeadlineList();
+
+    /**
+     * Updates the filter of the filtered flashCard list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    //@@author dalsontws
+    void updateFilteredDeadlineList(Predicate<Deadline> predicate);
+    /**
+     * Simulates updating the filter of the filtered flashCard list to filter by the given {@code predicate}.
+     * Does not actually result in any change to the flashCard list stored within this model.
+     * Returns the simulated list.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    //@@author LeowWB
+    ObservableList<FlashCard> getFilteredFlashCardListNoCommit(Predicate<FlashCard> predicate);
 }

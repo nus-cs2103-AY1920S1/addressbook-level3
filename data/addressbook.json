@@ -29,6 +29,12 @@
     "answer" : "L (bit) / R (bits.sec)",
     "rating" : "good",
     "categories" : [ ]
-  }],
-  "deadlines" : [ ]
+  } ],
+  "deadlines" : [ {
+    "task" : "CS2103 Final Project Submission",
+    "date" : "10/11/2019"
+  }, {
+    "task" : "CS2101 User Guide Submission",
+    "date" : "12/11/2019"
+  } ]
 }

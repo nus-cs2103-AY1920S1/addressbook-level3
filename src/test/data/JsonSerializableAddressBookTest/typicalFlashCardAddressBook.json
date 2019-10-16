@@ -32,5 +32,12 @@
     "question" : "What is a Protocol",
     "answer": "Protocols define format and order of messages exchanged and the action taken after messages are sent or received",
     "rating": "easy"
+  } ],
+  "deadlines" : [ {
+    "task" : "Submit User Guide for Software Engineering",
+    "date" : "10/12/2019"
+  }, {
+    "task" : "Finish up on implementation of Schedule Feature",
+    "date" : "09/11/2019"
   } ]
 }

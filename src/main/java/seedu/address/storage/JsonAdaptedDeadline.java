@@ -8,7 +8,7 @@ import seedu.address.model.deadline.Deadline;
 import seedu.address.model.deadline.DueDate;
 import seedu.address.model.deadline.Task;
 
-
+//@author dalsontws
 /**
  * Jackson-friendly version of {@link Deadline}.
  */
@@ -30,7 +30,7 @@ class JsonAdaptedDeadline {
     }
 
     /**
-     * Converts a given {@code FlashCard} into this class for Jackson use.
+     * Converts a given {@code Deadline} into this class for Jackson use.
      */
     public JsonAdaptedDeadline(Deadline source) {
         task = source.getTask().fullTask;
@@ -38,7 +38,7 @@ class JsonAdaptedDeadline {
     }
 
     /**
-     * Converts this Jackson-friendly adapted flashCard object into the model's {@code FlashCard} object.
+     * Converts this Jackson-friendly adapted deadline object into the model's {@code Deadline} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted flashCard.
      */

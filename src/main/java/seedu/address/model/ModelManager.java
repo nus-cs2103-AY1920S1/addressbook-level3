@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -26,6 +27,7 @@ public class ModelManager implements Model {
     private final FilteredList<FlashCard> filteredFlashCards;
     private final FilteredList<Deadline> filteredDeadlines;
     private final FilteredList<Category> categoryList;
+    private FlashCardTestModel flashCardTestModel;
 
 
     /**
@@ -107,27 +109,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addDeadline(Deadline deadline) {
-        addressBook.addDeadline(deadline);
-    }
-
-    @Override
-    public boolean hasDeadline(Deadline deadline) {
-        return false;
-    }
-
-    @Override
-    public void deleteDeadline(Deadline deadline) {
-        addressBook.removeDeadline(deadline);
-    }
-
-    @Override
     public void addFlashCard(FlashCard flashCard) {
         addressBook.addFlashcard(flashCard);
         updateFilteredFlashCardList(PREDICATE_SHOW_ALL_FLASHCARDS);
-        updateFilteredCategoryList(PREDICATE_SHOW_ALL_CATEGORIES);
     }
-
 
     @Override
     public void setFlashCard(FlashCard target, FlashCard editedFlashCard) {
@@ -135,6 +120,55 @@ public class ModelManager implements Model {
 
         addressBook.setFlashcard(target, editedFlashCard);
     }
+
+    @Override
+    public void addDeadline(Deadline deadline) {
+        addressBook.addDeadline(deadline);
+        updateFilteredDeadlineList(PREDICATE_SHOW_ALL_DEADLINES);
+    }
+
+    @Override
+    public boolean hasDeadline(Deadline deadline) {
+        requireNonNull(deadline);
+        return addressBook.hasDeadline(deadline);
+    }
+
+    @Override
+    public void editStats(int type) {
+        if (type == 0) {
+            addressBook.addGood();
+        }
+        if (type == 1) {
+            addressBook.addHard();
+        }
+        if (type == 2) {
+            addressBook.addEasy();
+        }
+    }
+    //@@author shutingy
+    @Override
+    public void addFlashCard(FlashCard flashCard) {
+        addressBook.addFlashcard(flashCard);
+        updateFilteredFlashCardList(PREDICATE_SHOW_ALL_FLASHCARDS);
+        updateFilteredCategoryList(PREDICATE_SHOW_ALL_CATEGORIES);
+    }
+  
+    public int[] getStats() {
+        return addressBook.getStats();
+    }
+
+
+    @Override
+    public void deleteDeadline(Deadline target) {
+        addressBook.removeDeadline(target);
+    }
+
+    @Override
+    public void setDeadline(Deadline target, Deadline editedDeadline) {
+        requireAllNonNull(target, editedDeadline);
+        addressBook.setDeadline(target, editedDeadline);
+    }
+
 
     //=========== Filtered FlashCard List Accessors =============================================================
 
@@ -153,11 +187,68 @@ public class ModelManager implements Model {
         filteredFlashCards.setPredicate(predicate);
     }
 
+    //=========== Filtered Deadline List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Deadline} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Deadline> getFilteredDeadlineList() {
+        return filteredDeadlines;
+    }
+
+    @Override
+    public void updateFilteredDeadlineList(Predicate<Deadline> predicate) {
+        requireNonNull(predicate);
+        filteredDeadlines.setPredicate(predicate);
+    }
+
+    //@@author keiteo
+    @Override
+    public ObservableList<FlashCard> getFlashCardList() {
+        return addressBook.getFlashcardList();
+    }
+
+    //=========== FlashCardTestModel ================================================================================
+    @Override
+    public void initializeTestModel(List<FlashCard> testList) {
+        flashCardTestModel = new FlashCardTestModel(testList);
+    }
+
+    @Override
+    public boolean hasTestFlashCard() {
+        return !flashCardTestModel.isEmpty();
+    }
+
+    @Override
+    public String getTestQuestion() {
+        return flashCardTestModel.getQuestion();
+    }
+
+    @Override
+    public String getTestAnswer() {
+        return flashCardTestModel.getAnswer();
+
+    }
+
+    //@@author LeowWB
+    @Override
+    public ObservableList<FlashCard> getFilteredFlashCardListNoCommit(Predicate<FlashCard> predicate) {
+        requireNonNull(predicate);
+        FilteredList<FlashCard> simulatedList = new FilteredList<FlashCard>(filteredFlashCards);
+        simulatedList.setPredicate(predicate);
+        return simulatedList;
+    }
+
+
+    //@@author shutingy
     @Override
     public ObservableList<Category> getCategoryList() {
         return categoryList;
     }
-
+  
+    //@@author shutingy
     @Override
     public void updateFilteredCategoryList(Predicate<Category> predicate) {
         requireNonNull(predicate);
@@ -180,7 +271,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredFlashCards.equals(other.filteredFlashCards);
+                && filteredFlashCards.equals(other.filteredFlashCards)
+                && categoryList.equals(other.categoryList)
+                && filteredDeadlines.equals(other.filteredDeadlines);
     }
 
 }

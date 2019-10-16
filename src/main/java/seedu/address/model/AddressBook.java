@@ -22,6 +22,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueFlashCardList flashCards;
     private final UniqueDeadlineList deadlines;
     private final UniqueCategoryList categories;
+    private final int[] stats;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -34,6 +35,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         flashCards = new UniqueFlashCardList();
         deadlines = new UniqueDeadlineList();
         categories = new UniqueCategoryList();
+        stats = new int[3]; //good,hard,easy
     }
 
     public AddressBook() {}
@@ -107,7 +109,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The flashCard identity of {@code editedFlashCard} must not be the same as another existing
      * flashCard in the address book.
      */
-
     public void addDeadline(Deadline d) {
         deadlines.add(d);
     }
@@ -178,7 +179,41 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     // Deadline methods
 
+    /**
+     * Replaces the given deadline {@code target} in the list with {@code editedDeadline}.
+     * {@code target} must exist in the address book.
+     * The deadline identity of {@code editedFlashCard} must not be the same as another existing
+     * deadline in the address book.
+     */
+    public void setDeadline(Deadline target, Deadline editedDeadline) {
+        requireNonNull(editedDeadline);
+        deadlines.setDeadline(target, editedDeadline);
+    }
 
+    public void setDeadlines(List<Deadline> deadlines) {
+        this.deadlines.setDeadlines(deadlines);
+    }
 
+    /**
+     * Returns true if a deadline with the same identity as {@code deadline} exists in the address book.
+     */
+    public boolean hasDeadline(Deadline deadline) {
+        requireNonNull(deadline);
+        return deadlines.contains(deadline);
+    }
+
+    public void addGood() {
+        stats[0]++;
+    }
+    public void addHard() {
+        stats[1]++;
+    }
+    public void addEasy() {
+        stats[2]++;
+    }
+
+    public int[] getStats() {
+        return stats;
+    }
 
 }

@@ -4,7 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-
+//@@author dalsontws
 /**
  * Represents a FlashCard in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -13,6 +13,7 @@ public class Deadline {
 
     public static final String MESSAGE_CONSTRAINTS = "Deadlines are of dd/MM/yyyy Format.";
 
+    // TODO: for comparison of deadlines for each flashcard
     //public static LocalDate today = LocalDate.now();
     //public static String dateStr;
     //public static LocalDate localDate;
@@ -28,13 +29,16 @@ public class Deadline {
     }
 
     public Task getTask() {
-        return this.task;
+        return task;
     }
 
     public DueDate getDueDate() {
-        return this.dueDate;
+        return dueDate;
     }
 
+    /**
+     * Returns true if both Deadlines have the same task and due date fields.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -45,9 +49,9 @@ public class Deadline {
             return false;
         }
 
-        Deadline otherFlashCard = (Deadline) other;
-        return otherFlashCard.getTask().equals(getTask())
-                && otherFlashCard.getDueDate().equals(getDueDate());
+        Deadline otherDeadline = (Deadline) other;
+        return otherDeadline != null
+                && otherDeadline.toString().equals(this.toString());
     }
 
     @Override

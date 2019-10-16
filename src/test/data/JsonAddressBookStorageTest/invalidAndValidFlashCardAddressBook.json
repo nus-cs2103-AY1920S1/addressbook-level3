@@ -7,5 +7,9 @@
     "question": "FlashCard With Invalid Answer Field",
     "answer": " ",
     "rating": "hard"
+  } ],
+  "deadlines" : [ {
+    "task" : "Valid Task",
+    "date" : "10/10/2019"
   } ]
 }

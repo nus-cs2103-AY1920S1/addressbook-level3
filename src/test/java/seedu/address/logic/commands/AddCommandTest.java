@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -200,18 +201,77 @@ public class AddCommandTest {
         public void updateFilteredFlashCardList(Predicate<FlashCard> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-
+      
+        //@@author shutingy
         @Override
         public ObservableList<Category> getCategoryList() {
             throw new AssertionError("This method should not be called.");
         }
-
+        
+        //@@author shutingy
         @Override
         public void updateFilteredCategoryList(Predicate<Category> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+        
+        @Override
+        public void setDeadline(Deadline target, Deadline editedDeadline) {
+            throw new AssertionError("This method should not be called.");
+        }
+     
+        @Override
+        public ObservableList<Deadline> getFilteredDeadlineList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredDeadlineList(Predicate<Deadline> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int[] getStats() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void editStats(int type) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //@@author keiteo-reused
+        @Override
+        public void initializeTestModel(List<FlashCard> testList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTestFlashCard() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getTestQuestion() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getTestAnswer() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<FlashCard> getFlashCardList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        //@@author LeowWB
+        public ObservableList<FlashCard> getFilteredFlashCardListNoCommit(Predicate<FlashCard> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
+    //@@author
     /**
      * A Model stub that contains a single flashCard.
      */
@@ -253,5 +313,4 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
 }
