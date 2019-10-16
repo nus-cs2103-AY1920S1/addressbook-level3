@@ -12,7 +12,7 @@ class OfflineDocumentTest {
     @Test
     public void test_parseDoc() {
         //TODO: write tests
-        assertEquals(true,true);
+        assertEquals(true, true);
     }
 
 }
