@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.entity.Entity;
@@ -121,4 +122,24 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFridgeList(Predicate<Fridge> predicate);
+
+    //@@ shaoyi1997-reused
+    //Reused from SE-EDU Address Book Level 4
+    /**
+     * Selected person in the filtered body list.
+     * null if no body is selected.
+     */
+    ReadOnlyProperty<Body> selectedBodyProperty();
+
+    /**
+     * Returns the selected body in the filtered body list.
+     * null if no body is selected.
+     */
+    Body getSelectedBody();
+
+    /**
+     * Sets the selected body in the filtered body list.
+     */
+    void setSelectedBody(Body body);
+    //@@ shaoyi1997-reused
 }

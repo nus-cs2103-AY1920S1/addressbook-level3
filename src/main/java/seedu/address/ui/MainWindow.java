@@ -123,7 +123,8 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        bodyMasterDetailPane = new BodyMasterDetailPane(new BodyTableView(logic.getFilteredBodyList()));
+        bodyMasterDetailPane = new BodyMasterDetailPane(new BodyTableView(logic.getFilteredBodyList(),
+                logic.selectedBodyProperty(), logic::setSelectedBody));
         bodyMasterListPlaceholder.getChildren().add(bodyMasterDetailPane.getRoot());
     }
 

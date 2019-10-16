@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -184,6 +185,21 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredFridgeList(Predicate<Fridge> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Body> selectedBodyProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Body getSelectedBody() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedBody(Body body) {
             throw new AssertionError("This method should not be called.");
         }
     }

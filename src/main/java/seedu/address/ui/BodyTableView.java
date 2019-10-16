@@ -4,24 +4,20 @@ import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CLAIMED;
 import static seedu.address.model.entity.body.BodyStatus.PENDING_POLICE_REPORT;
 
+import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Text;
-import javafx.util.Callback;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
@@ -35,10 +31,36 @@ public class BodyTableView extends UiPart<Region> {
     @FXML
     private TableView<Body> bodyTableView;
 
-    public BodyTableView (ObservableList<Body> bodyList) {
+    public BodyTableView (ObservableList<Body> bodyList, ObservableValue<Body> selectedBody,
+            Consumer<Body> onSelectedBodyChange) {
         super(FXML);
         setColumns();
         bodyTableView.setItems(bodyList);
+
+        //@@ shaoyi1997-reused
+        //Reused from SE-EDU Address Book Level 4
+        bodyTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selection in body table view changed to : '" + newValue + "'");
+            onSelectedBodyChange.accept(newValue);
+        });
+        selectedBody.addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selected body changed to: " + newValue);
+
+            // Don't modify selection if we are already selecting the selected person,
+            // otherwise we would have an infinite loop.
+            if (Objects.equals(bodyTableView.getSelectionModel().getSelectedItem(), newValue)) {
+                return;
+            }
+
+            if (newValue == null) {
+                bodyTableView.getSelectionModel().clearSelection();
+            } else {
+                int index = bodyTableView.getItems().indexOf(newValue);
+                bodyTableView.scrollTo(index);
+                bodyTableView.getSelectionModel().clearAndSelect(index);
+            }
+        });
+        //@@author shaoyi1997
     }
 
     private void setColumns() {
