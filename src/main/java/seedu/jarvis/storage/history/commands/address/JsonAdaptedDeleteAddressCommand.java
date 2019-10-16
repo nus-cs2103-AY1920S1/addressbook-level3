@@ -12,28 +12,25 @@ import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
- * Jackson-friendly version of {@link JsonAdaptedDeleteAddressCommand}.
+ * Jackson-friendly version of {@link DeleteAddressCommand}.
  */
 public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand {
-    public static final String MESSAGE_INVALID_COMMAND = "this command is not a DeleteAddressCommand.";
+    public static final String MESSAGE_INVALID_COMMAND = "This command is not a DeleteAddressCommand.";
     private final JsonAdaptedIndex targetIndex;
     private final JsonAdaptedPerson deletedPerson;
 
     /**
      * Constructs a {@code JsonAdaptedDeleteAddressCommand} with the given {@code Index} of the person to delete, and
      * {@code JsonAdaptedPerson} that was deleted.
+     *
+     * @param targetIndex {@code Index} of the {@code Person} to be deleted.
+     * @param deletedPerson {@code Person} that was deleted, which may be null.
      */
     @JsonCreator
     public JsonAdaptedDeleteAddressCommand(@JsonProperty("targetIndex") JsonAdaptedIndex targetIndex,
                                            @JsonProperty("deletedPerson") JsonAdaptedPerson deletedPerson) {
         this.targetIndex = targetIndex;
         this.deletedPerson = deletedPerson;
-    }
-
-    @JsonCreator
-    public JsonAdaptedDeleteAddressCommand(@JsonProperty("targetIndex") JsonAdaptedIndex targetIndex) {
-        this.targetIndex = targetIndex;
-        deletedPerson = null;
     }
 
     /**
@@ -65,6 +62,6 @@ public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand {
     public Command toModelType() throws IllegalValueException {
         return deletedPerson != null
                 ? new DeleteAddressCommand(targetIndex.toModelType(), deletedPerson.toModelType())
-                : new DeleteAddressCommand(targetIndex.toModelType(), null);
+                : new DeleteAddressCommand(targetIndex.toModelType());
     }
 }

@@ -1,6 +1,7 @@
 package seedu.jarvis.logic.commands.address;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_ADDRESS;
 import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_EMAIL;
 import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_NAME;
@@ -69,15 +70,28 @@ public class EditAddressCommand extends Command {
     private Person editedPerson;
 
     /**
+     * Constructs a {@code EditPersonCommand}.
+     *
+     * @param index of the person in the filtered person list to edit
+     * @param editPersonDescriptor details to edit the person with
+     * @param originalPerson original person before the edit, null if edit has not been made.
+     * @param editedPerson edited person after the edit, null if edit has not been made.
+     */
+    public EditAddressCommand(Index index, EditPersonDescriptor editPersonDescriptor, Person originalPerson,
+                              Person editedPerson) {
+        requireAllNonNull(index, editPersonDescriptor);
+        this.index = index;
+        this.editPersonDescriptor = editPersonDescriptor;
+        this.originalPerson = originalPerson;
+        this.editedPerson = editedPerson;
+    }
+
+    /**
      * @param index of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
     public EditAddressCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
-
-        this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this(index, editPersonDescriptor, null, null);
     }
 
     /**
@@ -88,6 +102,42 @@ public class EditAddressCommand extends Command {
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
+    }
+
+    /**
+     * Gets the {@code Index} of the person to be edited.
+     *
+     * @return {@code Index} of person to be edited.
+     */
+    public Index getIndex() {
+        return index;
+    }
+
+    /**
+     * Gets the {@code EditPersonDescriptor} of the person.
+     *
+     * @return {@code EditPersonDescriptor} of the person.
+     */
+    public EditPersonDescriptor getEditPersonDescriptor() {
+        return editPersonDescriptor;
+    }
+
+    /**
+     * Gets the original {@code Person} before the edit, which is null if the edit has not been made.
+     *
+     * @return {@code Person} before the edit, or null if the person has not been edited.
+     */
+    public Person getOriginalPerson() {
+        return originalPerson;
+    }
+
+    /**
+     * Gets the edited {@code Person}, which is null if the person has not been edited.
+     *
+     * @return Edited {@code Person}, which is null if the person has not been edited.
+     */
+    public Person getEditedPerson() {
+        return editedPerson;
     }
 
     /**
