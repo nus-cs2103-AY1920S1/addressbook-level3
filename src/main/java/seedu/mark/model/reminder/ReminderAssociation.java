@@ -35,7 +35,7 @@ public class ReminderAssociation {
     /**
      * Adds a reminder that opens the bookmark.
      *
-     * @param bookmark the bookmark that is opened by the reminder.
+     * @param bookmark The bookmark that the reminder opens.
      * @param reminder the reminder that is added.
      */
     public void addReminder(Bookmark bookmark, Reminder reminder) {
