@@ -3,10 +3,13 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.PriorityQueue;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
+import seedu.address.commons.core.item.Task;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.exceptions.IllegalListException;
 import seedu.address.model.item.EventList;
 import seedu.address.model.item.ReminderList;
 import seedu.address.model.item.TaskList;
@@ -23,6 +26,8 @@ public class ItemModelManager implements ItemModel {
     private VisualizeList visualList;
     private final UserPrefs userPrefs;
     private ItemStorage itemStorage;
+    private boolean priorityMode = false;
+    private PriorityQueue<Item> sortedTask = null;
 
     public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs) {
         this.taskList = new TaskList();
@@ -88,6 +93,7 @@ public class ItemModelManager implements ItemModel {
      * @param item the item to be added to the program
      */
     public void addItem (Item item) {
+        visualList.add(item);
         itemStorage.add(item);
         addToSeparateList(item);
     }
@@ -150,6 +156,9 @@ public class ItemModelManager implements ItemModel {
         taskList.remove(item);
         eventList.remove(item);
         reminderList.remove(item);
+        if (priorityMode) {
+            getNextTask();
+        }
         return item;
     }
 
@@ -164,6 +173,10 @@ public class ItemModelManager implements ItemModel {
     public void setVisualList(String listString) throws IllegalValueException {
         switch(listString) {
         case "T":
+            if (priorityMode) {
+                setVisualList(getNextTask());
+                break;
+            }
             setVisualList(taskList);
             break;
         case "E":
@@ -205,6 +218,12 @@ public class ItemModelManager implements ItemModel {
         if ((index = reminderList.indexOf(item)) >= 0) {
             reminderList.setItem(index, newItem);
         }
+
+        if (priorityMode) {
+            sortedTask.remove(item);
+            sortedTask.offer(newItem);
+            visualList = getNextTask();
+        }
     }
 
     /**
@@ -234,4 +253,68 @@ public class ItemModelManager implements ItemModel {
     public void sort() {
         this.visualList = visualList.sort();
     }
+
+    /**
+     * Enable and disable the priority mode
+     * @return a boolean value. If true, means priority mode is on, else returns false.
+     * @throws IllegalListException if the visualList is not a task list.
+     */
+    public boolean togglePriorityMode() throws IllegalListException {
+        if (!(visualList instanceof TaskList)) {
+            throw new IllegalListException();
+        }
+
+        priorityMode = !priorityMode;
+        if (!priorityMode) {
+            sortedTask = null;
+            this.visualList = taskList;
+        } else {
+            sortedTask = new PriorityQueue<>((item1, item2) -> {
+                Task task1 = item1.getTask().get();
+                Task task2 = item2.getTask().get();
+                return task1.getPriority().compareTo(task2.getPriority());
+            });
+            for (int i = 0; i < taskList.size(); i++) {
+                Item item = taskList.get(i);
+                if (!item.getTask().get().isComplete()) {
+                    sortedTask.add(item);
+                }
+            }
+            this.visualList = getNextTask();
+        }
+        return priorityMode;
+    }
+
+    private VisualizeList getNextTask() {
+        TaskList result = new TaskList();
+        result.add(sortedTask.peek());
+        return result;
+    }
+
+    /**
+     * Mark an item with a task as done.
+     * @param index the index of the item to be marked as done.
+     * @return the item that is marked as done.
+     * @throws IllegalListException if the operation is not done on a task list.
+     */
+    public Item markComplete(int index) throws IllegalListException {
+        Item item;
+        if (!(visualList instanceof TaskList)) {
+            throw new IllegalListException();
+        } else {
+            item = visualList.get(index);
+            Task task = item.getTask().get();
+            Task newTask = task.markComplete();
+            Item newItem = item.changeTask(newTask);
+            replaceItem(item, newItem);
+        }
+
+        if (priorityMode) {
+            sortedTask.poll();
+            this.visualList = getNextTask();
+        }
+
+        return item;
+    }
+
 }
