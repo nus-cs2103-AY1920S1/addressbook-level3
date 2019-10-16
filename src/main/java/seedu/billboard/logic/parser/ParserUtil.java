@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.billboard.commons.core.Messages;
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.commons.util.StringUtil;
 import seedu.billboard.logic.parser.exceptions.ParseException;
@@ -134,5 +135,20 @@ public class ParserUtil {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
         return new Amount(trimmedAmount);
+    }
+
+    /**
+     * Parses a {@code String archive} into an {@code String trimmedArchive}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code archive} is invalid.
+     */
+    public static String parseArchive(String archive) throws ParseException {
+        requireNonNull(archive);
+        String trimmedArchive = archive.trim();
+        if (trimmedArchive.equals("")) {
+            throw new ParseException(Messages.MESSAGE_INVALID_ARCHIVE_NAME);
+        }
+        return trimmedArchive;
     }
 }

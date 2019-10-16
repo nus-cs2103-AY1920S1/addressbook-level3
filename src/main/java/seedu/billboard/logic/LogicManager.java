@@ -13,6 +13,7 @@ import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.logic.parser.BillboardParser;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.Model;
+import seedu.billboard.model.ReadOnlyArchiveWrapper;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.storage.Storage;
@@ -43,7 +44,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveBillboard(model.getBillboard());
+            storage.saveBillboard(model.getCombinedBillboard());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -75,4 +76,15 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+    @Override
+    public ReadOnlyArchiveWrapper getArchive() {
+        return model.getArchives();
+    }
+
+    @Override
+    public ObservableList<Expense> getFilteredArchiveExpenseList(String archiveName) {
+        return model.getFilteredArchiveExpenses(archiveName);
+    }
+
 }

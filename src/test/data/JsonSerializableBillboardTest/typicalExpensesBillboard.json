@@ -4,21 +4,25 @@
     "name" : "monthly bills",
     "description" : "pay phone company",
     "amount" : "350.25",
-    "tagged" : [ "bills" ]
+    "tagged" : [ "bills" ],
+    "archiveName" : ""
   }, {
     "name" : "monday breakfast food",
     "description" : "toast with frens",
     "amount" : "4.20",
-    "tagged" : [ "monday", "friends" ]
+    "tagged" : [ "monday", "friends" ],
+    "archiveName" : ""
   }, {
     "name" : "groceries",
     "description" : "bought from fairprice",
     "amount" : "23.50",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "archiveName" : ""
   }, {
     "name" : "movie tickets",
     "description" : "tickets to joker",
     "amount" : "10.00",
-    "tagged" : [ "leisure" ]
+    "tagged" : [ "leisure" ],
+    "archiveName" : ""
   } ]
 }

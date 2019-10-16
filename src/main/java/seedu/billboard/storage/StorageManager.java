@@ -64,14 +64,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveBillboard(ReadOnlyBillboard addressBook) throws IOException {
-        saveBillboard(addressBook, billboardStorage.getBillboardFilePath());
+    public void saveBillboard(ReadOnlyBillboard billboard) throws IOException {
+        saveBillboard(billboard, billboardStorage.getBillboardFilePath());
     }
 
     @Override
-    public void saveBillboard(ReadOnlyBillboard addressBook, Path filePath) throws IOException {
+    public void saveBillboard(ReadOnlyBillboard billboard, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        billboardStorage.saveBillboard(addressBook, filePath);
+        billboardStorage.saveBillboard(billboard, filePath);
     }
 
 }

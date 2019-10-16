@@ -4,32 +4,49 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_TAXES;
 import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import static seedu.billboard.testutil.Assert.assertThrows;
 import static seedu.billboard.testutil.TypicalExpenses.BILLS;
 import static seedu.billboard.testutil.TypicalExpenses.FOOD;
+import static seedu.billboard.testutil.TypicalExpenses.IPHONE11;
+import static seedu.billboard.testutil.TypicalExpenses.KPOP_LIGHT_STICK;
+import static seedu.billboard.testutil.TypicalExpenses.TAXES;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.commons.core.GuiSettings;
+import seedu.billboard.model.archive.Archive;
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 import seedu.billboard.testutil.BillboardBuilder;
 
 public class ModelManagerTest {
 
-    private ModelManager modelManager = new ModelManager();
+    private ModelManager modelManager;
+
+    @BeforeEach
+    public void setUp() {
+        modelManager = new ModelManager();
+    }
 
     @Test
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new Billboard(), new Billboard(modelManager.getBillboard()));
+        //assertEquals(new ArchiveWrapper(new ArrayList<>()),
+        //        new ArchiveWrapper(modelManager.getArchives().getExpenseList()));
     }
 
+    // user prefs/gui settings tests ===============================================
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
@@ -61,6 +78,7 @@ public class ModelManagerTest {
         assertEquals(guiSettings, modelManager.getGuiSettings());
     }
 
+    // Billboard tests ===============================================
     @Test
     public void setBillboardFilePath_nullPath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setBillboardFilePath(null));
@@ -94,9 +112,102 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredExpenses().remove(0));
     }
 
+    // ArchiveWrapper tests ===============================================
+    @Test
+    public void getArchiveNames_noArchiveNames_success() {
+        assertEquals(new ArrayList<>(), modelManager.getArchiveNames());
+    }
+
+    @Test
+    public void getArchiveNames_nonEmptyArchiveNames_success() {
+        modelManager.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>()));
+        List<String> expectedArchiveNameList = new ArrayList<>();
+        expectedArchiveNameList.add(VALID_ARCHIVE_TAXES);
+        assertEquals(expectedArchiveNameList, modelManager.getArchiveNames());
+    }
+
+    @Test
+    public void setArchives_nullArchiveWrapper_nullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setArchives(null));
+    }
+
+    @Test
+    public void getArchives_noArchives_success() {
+        assertEquals(new ArchiveWrapper(new ArrayList<>()), modelManager.getArchives());
+    }
+
+    @Test
+    public void hasArchiveExpense_nullExpense_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasArchiveExpense(VALID_ARCHIVE_TAXES, null));
+    }
+
+    @Test
+    public void hasArchiveExpense_nullArchiveName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasArchiveExpense(null, TAXES));
+    }
+
+    @Test
+    public void hasArchiveExpense_nonExistentArchive_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasArchiveExpense(VALID_ARCHIVE_TAXES, TAXES));
+    }
+
+    @Test
+    public void hasArchiveExpense_expenseNotInArchive_returnsFalse() {
+        modelManager.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>()));
+        assertFalse(modelManager.hasArchiveExpense(VALID_ARCHIVE_TAXES, TAXES));
+    }
+
+    @Test
+    public void hasArchiveExpense_expenseInArchive_returnsTrue() {
+        List<Expense> expenseList = new ArrayList<>();
+        expenseList.add(TAXES);
+        modelManager.addArchive(new Archive(VALID_ARCHIVE_TAXES, expenseList));
+        assertTrue(modelManager.hasArchiveExpense(VALID_ARCHIVE_TAXES, TAXES));
+    }
+
+    @Test
+    public void hasArchive_nullArchive_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasArchive(null));
+    }
+
+    @Test
+    public void deleteArchiveExpense_nullExpense_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.deleteArchiveExpense(VALID_ARCHIVE_TAXES, null));
+    }
+
+    @Test
+    public void deleteArchiveExpense_nullArchiveName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.deleteArchiveExpense(null, TAXES));
+    }
+
+    @Test
+    public void addArchiveExpense_nullExpense_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.addArchiveExpense(VALID_ARCHIVE_TAXES, null));
+    }
+
+    @Test
+    public void addArchiveExpense_nullArchiveName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.addArchiveExpense(null, TAXES));
+    }
+
+    @Test
+    public void getFilteredArchiveExpenses_modifyList_throwsUnsupportedOperationException() {
+        modelManager.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>()));
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredArchiveExpenses
+                (VALID_ARCHIVE_TAXES).remove(0));
+    }
+
+    @Test
+    public void getCombinedBillboard_validBillboardArchiveWrapper_success() {
+        Billboard billboard = new Billboard();
+        assertEquals(billboard, modelManager.getCombinedBillboard());
+    }
+
+    // Other tests ===============================================
     @Test
     public void equals() {
-        Billboard billboard = new BillboardBuilder().withExpense(BILLS).withExpense(FOOD).build();
+        Billboard billboard = new BillboardBuilder().withExpense(BILLS).withExpense(FOOD)
+                .withExpense(IPHONE11).withExpense(KPOP_LIGHT_STICK).build();
         Billboard differentBillboard = new Billboard();
         UserPrefs userPrefs = new UserPrefs();
 

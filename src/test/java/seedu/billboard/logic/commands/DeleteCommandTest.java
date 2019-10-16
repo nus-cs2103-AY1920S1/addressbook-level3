@@ -10,6 +10,7 @@ import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import static seedu.billboard.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.commons.core.Messages;
@@ -25,7 +26,12 @@ import seedu.billboard.model.expense.Expense;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalBillboard(), new UserPrefs());
+    private Model model;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalBillboard(), new UserPrefs());
+    }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
