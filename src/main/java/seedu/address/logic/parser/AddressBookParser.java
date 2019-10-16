@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.calendar.commands.CalendarCommand;
 import seedu.address.logic.commands.*;
+import seedu.address.itinerary.commands.ItineraryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
