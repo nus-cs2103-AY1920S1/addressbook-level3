@@ -18,6 +18,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.incident.Incident;
+import seedu.address.model.incident.IncidentDateTime;
+import seedu.address.model.incident.IncidentId;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.Availability;
 import seedu.address.model.vehicle.District;
@@ -79,6 +82,8 @@ public class TypicalEntities {
         }
         ab.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
                 new District(16), new Availability("BUSY")));
+        ab.addIncident(new Incident(new IncidentId(3, 2018), new District(3),
+                new IncidentDateTime("2018-03-03T10:15:30"), "Alex Yeoh"));
         return ab;
     }
 

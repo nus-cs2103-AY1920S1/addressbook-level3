@@ -10,12 +10,15 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.incident.CallerNumber;
+import seedu.address.model.incident.Description;
+import seedu.address.model.incident.IncidentId;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Password;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Username;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vehicle.District;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -148,9 +151,52 @@ public class ParserUtil {
     public static CallerNumber parseCallerNumber(String callerNumber) throws ParseException {
         requireNonNull(callerNumber);
         String trimmedCallerNumber = callerNumber.trim();
-        if (!CallerNumber.isValidPhone(callerNumber)) {
+        if (!CallerNumber.isValidPhone(trimmedCallerNumber)) {
             throw new ParseException(CallerNumber.MESSAGE_CONSTRAINTS);
         }
         return new CallerNumber(trimmedCallerNumber);
+    }
+
+    /**
+     * Parses a {@code String location} into a {@code District}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code location} is invalid.
+     */
+    public static District parseLocation(String location) throws ParseException {
+        requireNonNull(location);
+        String trimmedLocation = location.trim();
+        Integer trimmedLocationIndex = Integer.parseInt((trimmedLocation));
+        if (!District.isValidDistrict(trimmedLocationIndex)) {
+            throw new ParseException(CallerNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new District(trimmedLocationIndex);
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String incident id keyword} into an {@code IncidentId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code incident id keyword} is invalid.
+     */
+    public static IncidentId parseId(String id) throws ParseException {
+        requireNonNull(id);
+        String trimmedId = id.trim();
+        return new IncidentId(trimmedId);
     }
 }
