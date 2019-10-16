@@ -63,18 +63,18 @@ Format: `add-person -n NAME -e EMAIL [-c NUS_MOD_LINK]`
 
 Examples:
 
-* `addperson n/ Catherine em/ catherineCanCook@imail.com`
-* `addperson n/ John Doe em/ JohnDoe@imail.com c/ 23F6B742CE`
+* `addperson -n Catherine -em catherineCanCook@imail.com`
+* `addperson -n John Doe -em JohnDoe@imail.com -c 23F6B742CE`
 
 === Adding a person: `addgroup`
 
 Adds a group to the address book +
-Format: `addgroup g/GROUP_NAME [r/GROUP_REMARK]`
+Format: `addgroup -g GROUP_NAME [-r GROUP_REMARK]`
 
 Examples:
 
-* `addgroup g/CS2103 r/Project Group`
-* `addgroup g/Friends`
+* `addgroup -g CS2103 -r Project Group`
+* `addgroup -g Friends`
 
 === Listing all persons : `list`
 
@@ -114,14 +114,14 @@ Format: `editgroup -ed GROUP_NAME [-g GROUP_NAME] [-r GROUP_REMARK]`
 
 Examples:
 
-* `editgroup -ed CS2103 -g CS3203 -rProject Discussion Group` +
+* `editgroup -ed CS2103 -g CS3203 -r Project Discussion Group` +
 Edits the group specified by group name 'CS2103' with group name 'CS3203' and group remark `Project Discussion Group` respectively.
 
 
 === Locating persons by name: `findperson`
 
 Finds the person whose name contains the given keyword. +
-Format: `findperson n/NAME`
+Format: `findperson -n NAME`
 
 ****
 * Only the name is searched.
@@ -132,7 +132,7 @@ Format: `findperson n/NAME`
 === Locating persons by name: `findgroup`
 
 Finds the group whose name contains the given keyword. +
-Format: `findgroup g/GROUP_NAME`
+Format: `findgroup -g GROUP_NAME`
 
 ****
 * Only the group name is searched.
@@ -155,13 +155,13 @@ Examples:
 
 * `delete-person -n Benedict` +
 Deletes the 2nd person in TimeBook.
-* `deleteperson n/ Benedict` +
+* `deleteperson -n Benedict` +
 Deletes the 'Benedict' in the timebook.
 
 === Deleting a group : `deletegroup`
 
 Deletes the specified group from the timebook. +
-Format: `deletegroup g/ GROUP_NAME`
+Format: `deletegroup -g GROUP_NAME`
 
 ****
 * Deletes the group specified by 'GROUP_NAME'
@@ -170,7 +170,7 @@ Format: `deletegroup g/ GROUP_NAME`
 
 Examples:
 
-* `deletegroup g/CS2103` +
+* `deletegroup -g CS2103` +
 Deletes the 'CS2103' in the timebook.
 
 // end::delete[]
@@ -231,11 +231,11 @@ Examples:
 Adds a person specified by 'NAME' into a group specified by 'GROUP_NAME' in TimeBook.
 Format:
 
-* `addtogroup' n/NAME g/GROUP_NAME
+* `addtogroup' -n NAME -g GROUP_NAME
 
 Examples:
 
-* `addtogroup n/John g/CS2103
+* `addtogroup -n John -g CS2103
 
 === Group: 'group'
 Creates a group and adds all members into the group +
