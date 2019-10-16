@@ -41,7 +41,8 @@ public class UnregisterPatientCommandParser implements Parser<ReversibleActionPa
         }
 
         Person personToDelete = ParserUtil.getEntryFromList(lastShownList, index);
-        return new ReversibleActionPairCommand(new UnregisterPatientCommand(personToDelete),
+        return new ReversibleActionPairCommand(
+            new UnregisterPatientCommand(personToDelete),
             new RegisterPatientCommand(personToDelete));
     }
 

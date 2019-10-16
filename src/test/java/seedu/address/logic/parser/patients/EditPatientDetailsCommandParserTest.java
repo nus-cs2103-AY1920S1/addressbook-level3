@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.patients;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -33,6 +34,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 
 import org.junit.jupiter.api.Test;
@@ -253,6 +255,10 @@ public class EditPatientDetailsCommandParserTest {
     public void parse_resetTags_success() {
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
+
+        assertEquals(model.getFilteredPersonList().get(0), ALICE);
+        assertEquals(model.getFilteredPersonList().get(1), BENSON);
+        assertEquals(model.getFilteredPersonList().get(2), CARL);
 
         Person editedPerson = new PersonBuilder(CARL).withTags().build();
         assertParseSuccess(parser, userInput,
