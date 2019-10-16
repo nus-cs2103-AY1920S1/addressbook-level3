@@ -24,7 +24,7 @@ class JsonAdaptedTemplate {
     private final List<JsonAdaptedTemplateItem> templateItems = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedTemplateItem} with the given template item details and given template items.
+     * Constructs a {@code JsonAdaptedTemplate} with the given template details and given template items.
      */
     @JsonCreator
     public JsonAdaptedTemplate(@JsonProperty("name") String name, @JsonProperty("templateItems")
