@@ -18,7 +18,7 @@ Class ReadOnlyUserPrefs
 Package Person {
 Class Person
 Class Address
-Class Email
+Class PrevMods
 Class Name
 Class Credits
 Class UniquePersonList
@@ -44,13 +44,13 @@ AddressBook *--> "1" UniquePersonList
 UniquePersonList o--> "*" Person
 Person *--> Name
 Person *--> Credits
-Person *--> Email
+Person *--> PrevMods
 Person *--> Address
 Person *--> "*" Tag
 
 Name -[hidden]right-> Credits
 Credits -[hidden]right-> Address
-Address -[hidden]right-> Email
+Address -[hidden]right-> PrevMods
 
 ModelManager -->"1" Person : filtered list
 @enduml
