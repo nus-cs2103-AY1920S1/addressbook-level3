@@ -47,6 +47,7 @@ public class StartCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
         List<FlashCard> testList = searchTag(model);
         model.initializeTestModel(testList);
         if (!model.hasTestFlashCard()) {

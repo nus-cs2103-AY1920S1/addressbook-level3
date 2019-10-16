@@ -1,3 +1,5 @@
+//@@author shutingy-reused
+
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -9,7 +11,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.model.flashcard.QuestionContainsAnyKeywordsPredicate;
+import seedu.address.model.flashcard.QuestionOrAnswerContainsAnyKeywordsPredicate;
 
 public class FindCommandParserTest {
 
@@ -24,7 +26,7 @@ public class FindCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
-                new FindCommand(new QuestionContainsAnyKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+                new FindCommand(new QuestionOrAnswerContainsAnyKeywordsPredicate(Arrays.asList("Alice", "Bob")));
         assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
 
         // multiple whitespaces between keywords
