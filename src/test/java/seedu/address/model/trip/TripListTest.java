@@ -15,7 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.itinerary.Budget;
+import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.trip.exceptions.DuplicateTripException;
 import seedu.address.model.trip.exceptions.TripNotFoundException;
 import seedu.address.testutil.TripBuilder;
@@ -47,7 +47,7 @@ public class TripListTest {
         TripList tripList = new TripList();
         assertDoesNotThrow(() -> {
             tripList.add(TRIP_A);
-            Trip editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Budget("10"))
+            Trip editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Expenditure("10"))
                     .build();
             assertTrue(tripList.contains(editedTripA));
         });
@@ -104,7 +104,7 @@ public class TripListTest {
         assertDoesNotThrow(() -> {
             tripList.add(TRIP_A);
             Trip editedTrip = TripBuilder.of(TRIP_A)
-                    .setTotalBudget(new Budget("100"))
+                    .setTotalBudget(new Expenditure("100"))
                     .build();
             tripList.set(TRIP_A, editedTrip);
             TripList expectedUniqueTripList = new TripList();

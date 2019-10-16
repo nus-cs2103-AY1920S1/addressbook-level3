@@ -52,7 +52,7 @@ class EventBuilder {
                 .setStartDate(event.getStartDate())
                 .setEndDate(event.getEndDate())
                 .setLocation(event.getDestination())
-                .setExpenditure(event.getExpenditure().get())
+                .setTotalBudget(event.getTotalBudget().get())
                 .setInventory(event.getInventory().get())
                 .setBooking(event.getBooking().get());
     }
@@ -77,7 +77,7 @@ class EventBuilder {
         return this;
     }
 
-    public EventBuilder setExpenditure(Expenditure totalBudget) {
+    public EventBuilder setTotalBudget(Expenditure totalBudget) {
         this.totalBudget = totalBudget;
         return this;
     }
