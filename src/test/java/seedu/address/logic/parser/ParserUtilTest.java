@@ -19,6 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Nric;
+import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -246,4 +247,20 @@ public class ParserUtilTest {
         assertEquals(expectedListOfOrgans, ParserUtil.parseOrgansForDonation(VALID_ORGANS_FOR_DONATION));
 
     }
+
+    //@@author ambervoong
+    @Test
+    public void parseFridgeStatus_validString_returnFridgeStatus () throws ParseException {
+        assertEquals(FridgeStatus.OCCUPIED, ParserUtil.parseFridgeStatus("occupied"));
+        assertEquals(FridgeStatus.UNOCCUPIED, ParserUtil.parseFridgeStatus("unoccupied"));
+        assertEquals(FridgeStatus.UNOCCUPIED, ParserUtil.parseFridgeStatus("Unoccupied"));
+        assertEquals(FridgeStatus.UNOCCUPIED, ParserUtil.parseFridgeStatus("unoccUPied"));
+    }
+
+    @Test
+    public void parseFridgeStatus_invalidString_throwParseException () throws ParseException {
+        assertThrows(ParseException.class, () -> ParserUtil.parseFridgeStatus("melonelon"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseFridgeStatus(""));
+    }
+    //@@author
 }

@@ -16,7 +16,7 @@ html lang=(attr :lang, 'en' unless attr? :nolang)
     = styles_and_scripts
     - unless (docinfo_content = docinfo).empty?
       =docinfo_content
-  body(
+  bodyId(
     id=id
     class=[(attr :doctype), ("#{attr 'toc-class'} toc-#{attr 'toc-position', 'left'}" if (attr? 'toc-class') && (attr? :toc) && (attr? 'toc-placement', 'auto'))]
     style=style_value(max_width: (attr 'max-width')))

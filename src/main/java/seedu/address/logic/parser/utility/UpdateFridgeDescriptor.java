@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.fridge.FridgeStatus;
@@ -16,8 +17,9 @@ import seedu.address.model.entity.fridge.FridgeStatus;
  */
 public class UpdateFridgeDescriptor implements UpdateEntityDescriptor {
 
-    private Body body;
+    private IdentificationNumber bodyId;
     private FridgeStatus fridgeStatus;
+    private Body newBody;
 
     public UpdateFridgeDescriptor() {
     }
@@ -26,8 +28,9 @@ public class UpdateFridgeDescriptor implements UpdateEntityDescriptor {
      * Makes a copy of an existing UpdateFridgeDescriptor.
      */
     public UpdateFridgeDescriptor(UpdateFridgeDescriptor toCopy) {
-        setBody(toCopy.body);
+        setBodyId(toCopy.bodyId);
         setFridgeStatus(toCopy.fridgeStatus);
+        setNewBody(toCopy.newBody);
     }
 
     /**
@@ -36,31 +39,36 @@ public class UpdateFridgeDescriptor implements UpdateEntityDescriptor {
      * @returns UpdateFridgeDescriptor that contains the fridge's current fields.
      */
     public UpdateFridgeDescriptor(Fridge fridge) {
-        this.body = fridge.getBody();
+        Body body = fridge.getBody();
+        if (body != null) {
+            this.bodyId = body.getIdNum();
+
+        }
         this.fridgeStatus = fridge.getFridgeStatus();
+        this.newBody = fridge.getBody();
     }
 
     @Override
     public boolean isAnyFieldEdited() {
-        return CollectionUtil.isAnyNonNull(body, fridgeStatus);
+        return CollectionUtil.isAnyNonNull(bodyId, fridgeStatus, newBody);
     }
 
     @Override
     public Entity apply(Entity entity) {
         assert entity != null;
         Fridge fridge = (Fridge) entity;
-        fridge.setBody(this.getBody().orElse(fridge.getBody()));
         fridge.setFridgeStatus(this.getFridgeStatus().orElse(fridge.getFridgeStatus()));
+        fridge.setBody(this.getNewBody().orElse(fridge.getBody()));
         return entity;
     }
 
     // Getters and Setters
-    public Optional<Body> getBody() {
-        return Optional.ofNullable(body);
+    public Optional<IdentificationNumber> getBodyId() {
+        return Optional.ofNullable(bodyId);
     }
 
-    public void setBody(Body body) {
-        this.body = body;
+    public void setBodyId(IdentificationNumber bodyId) {
+        this.bodyId = bodyId;
     }
 
     public Optional<FridgeStatus> getFridgeStatus() {
@@ -69,6 +77,14 @@ public class UpdateFridgeDescriptor implements UpdateEntityDescriptor {
 
     public void setFridgeStatus(FridgeStatus fridgeStatus) {
         this.fridgeStatus = fridgeStatus;
+    }
+
+    public Optional<Body> getNewBody() {
+        return Optional.ofNullable(newBody);
+    }
+
+    public void setNewBody(Body newBody) {
+        this.newBody = newBody;
     }
 
     @Override
@@ -80,12 +96,12 @@ public class UpdateFridgeDescriptor implements UpdateEntityDescriptor {
             return false;
         }
         UpdateFridgeDescriptor that = (UpdateFridgeDescriptor) o;
-        return getBody().equals(that.getBody())
+        return getBodyId().equals(that.getBodyId())
                 && getFridgeStatus().equals(that.getFridgeStatus());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getBody(), getFridgeStatus());
+        return Objects.hash(getBodyId(), getFridgeStatus());
     }
 }
