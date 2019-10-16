@@ -234,12 +234,13 @@ public class UniqueEntityLists {
                 || (other instanceof UniqueEntityLists // instanceof handles nulls
                 && (internalListPerson.equals(((UniqueEntityLists) other).internalListPerson))
                 && (internalListWorker.equals(((UniqueEntityLists) other).internalListWorker))
-                && internalListBody.equals(((UniqueEntityLists) other).internalListBody));
+                && internalListBody.equals(((UniqueEntityLists) other).internalListBody))
+                && internalListFridge.equals(((UniqueEntityLists) other).internalListFridge);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(internalListBody, internalListWorker, internalListPerson);
+        return Objects.hash(internalListBody, internalListWorker, internalListPerson, internalListFridge);
     }
 
     /**

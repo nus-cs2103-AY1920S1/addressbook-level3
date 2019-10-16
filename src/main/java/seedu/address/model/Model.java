@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
@@ -23,7 +24,31 @@ public interface Model {
     Predicate<Worker> PREDICATE_SHOW_ALL_FRIDGES = unused -> true;
 
     /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
+     * Adds an executed command to the model's command history.
+     * @param command a command that was executed.
+     */
+    void addExecutedCommand(UndoableCommand command);
+
+    /**
+     * Gets the last executed UndoableCommand.
+     * @return the last executed command.
+     */
+    UndoableCommand getExecutedCommand();
+
+    /**
+     * Adds an undone UndoableCommand.
+     * @param command an UndoableCommand that was undone.
+     */
+    void addUndoneCommand(UndoableCommand command);
+
+    /**
+     * Gets the last undone UndoableCommand.
+     * @returnthe last undone command.
+     */
+    UndoableCommand getUndoneCommand();
+
+    /**
+     * * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 

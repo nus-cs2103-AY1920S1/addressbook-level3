@@ -59,7 +59,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete F10";
+        String deleteCommand = "delete -b 99999";
         assertCommandException(deleteCommand, MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
     }
 
