@@ -50,7 +50,12 @@
     "password": "password",
     "tagged" : [ ]
   } ],
-  "incidents": [],
+  "incidents": [  {
+    "incidentId" : " 302018003",
+    "districtNum" : 6,
+    "dateTime" : "2018-03-03T10:15:30",
+    "operator" : "Alex Yeoh"
+  } ],
   "vehicles": [ {
     "vehicleType": "Patrol Car",
     "vehicleNumber": "SBH3100F",
