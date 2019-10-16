@@ -33,7 +33,7 @@ public class EditDiaryCommandParser implements Parser<EditDiaryCommand> {
 
         EditDiaryCommand.EditDiaryDescriptor editDiaryDescriptor = new EditDiaryCommand.EditDiaryDescriptor();
         if (argMultimap.getValue(PREFIX_DIARY_NAME).isPresent()) {
-            editDiaryDescriptor.setDiaryName(ParserUtil.parseName(argMultimap.getValue(PREFIX_DIARY_NAME).get()));
+            editDiaryDescriptor.setDiaryName(ParserUtil.parseDiaryName(argMultimap.getValue(PREFIX_DIARY_NAME).get()));
         }
 
         if (!editDiaryDescriptor.isAnyFieldEdited()) {

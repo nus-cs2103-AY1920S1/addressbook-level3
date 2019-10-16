@@ -1,10 +1,19 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DIARY_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.BLOODTYPE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.DOB_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.HEIGHT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.WEIGHT_DESC;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalExercises.PUSHUP;
+import static seedu.address.testutil.TypicalProfiles.AMY;
 import static seedu.address.testutil.TypicalDiaries.AMY_DIARY;
 
 import java.io.IOException;
@@ -15,19 +24,33 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.AddDiaryCommand;
+import seedu.address.logic.commands.AddProfileCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListExerciseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyRecipeBook;
+import seedu.address.model.ReadOnlyUserProfile;
+import seedu.address.model.ReadOnlyWorkoutPlanner;
 import seedu.address.model.ReadOnlyDiary;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.diary.Diary;
-import seedu.address.storage.JsonDiaryStorage;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.person.Person;
+import seedu.address.storage.JsonHealthRecordsStorage;
+import seedu.address.storage.JsonRecipeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserProfileStorage;
+import seedu.address.storage.JsonWorkoutPlannerStorage;
+import seedu.address.storage.JsonDiaryStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.ExerciseBuilder;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.DiaryBuilder;
+
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -40,10 +63,20 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonDiaryStorage dukeCooksStorage =
-                new JsonDiaryStorage(temporaryFolder.resolve("dukecooks.json"));
+        JsonRecipeBookStorage recipeBookStorage =
+                new JsonRecipeBookStorage(temporaryFolder.resolve("recipes.json"));
+        JsonUserProfileStorage userProfileStorage =
+                new JsonUserProfileStorage(temporaryFolder.resolve("dukecooks.json"));
+        JsonHealthRecordsStorage healthRecordsStorage =
+                new JsonHealthRecordsStorage(temporaryFolder.resolve("healthrecords.json"));
+        JsonWorkoutPlannerStorage workoutPlannerStorage =
+                new JsonWorkoutPlannerStorage(temporaryFolder.resolve("exercises.json"));
+        JsonDiaryStorage diaryStorage =
+                new JsonDiaryStorage(temporaryFolder.resolve("diary.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
+        //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(userProfileStorage, healthRecordsStorage,
+                recipeBookStorage, workoutPlannerStorage, diaryStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -54,39 +87,79 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_recipeCommandExecutionError_throwsCommandException() {
+        String deleteCommand = "delete recipe 9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+    }
+
+    @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "deleteDiary 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_DIARY_DISPLAYED_INDEX);
+        String deleteCommand = "delete 9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String helpCommand = HelpCommand.COMMAND_WORD;
-        assertCommandSuccess(helpCommand, HelpCommand.SHOWING_HELP_MESSAGE, model);
+        String listCommand = ListCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+    }
+
+    @Test
+    public void execute_validExerciseCommand_success() throws Exception {
+        String listCommand = ListExerciseCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListExerciseCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
+        // Setup LogicManager with JsonRecipeBookIoExceptionThrowingStub
+        JsonRecipeBookStorage recipeBookStorage =
+                new JsonRecipeBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionRecipeBook.json"));
+        // Setup LogicManager with JsonUserProfileIoExceptionThrowingStub
+        JsonUserProfileStorage userProfileStorage =
+                new JsonUserProfileIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
+        // Setup LogicManager with JsonDukeCooksIoExceptionThrowingStub
+        JsonWorkoutPlannerStorage workoutPlannerStorage =
+                new JsonWorkoutPlannerIoExceptionThrowingStub(temporaryFolder
+                        .resolve("ioExceptionWorkoutPlanner.json"));
         // Setup LogicManager with JsonDiaryIoExceptionThrowingStub
-        JsonDiaryStorage dukeCooksStorage =
-                new JsonDiaryIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
+        JsonDiaryStorage diaryStorage =
+                new JsonDiaryIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDiary.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(dukeCooksStorage, userPrefsStorage);
+        //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(userProfileStorage, null,
+                recipeBookStorage, workoutPlannerStorage, diaryStorage, userPrefsStorage);
+        new JsonUserPrefsStorage(temporaryFolder
+                .resolve("ioExceptionUserPrefs.json"));
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddDiaryCommand.COMMAND_WORD + NAME_DESC_AMY;
-        Diary expectedDiary = new DiaryBuilder(AMY_DIARY).build();
+        //String addCommand = AddRecipeCommand.COMMAND_WORD + " " + AddRecipeCommand.VARIANT_WORD + " " + NAME_DESC_FISH
+        //        + INGREDIENT_DESC_FISH + CALORIES_DESC_FISH + CARBS_DESC_FISH + FATS_DESC_FISH + PROTEIN_DESC_FISH;
+        //Recipe expectedRecipe = new RecipeBuilder(FISH).build();
+        String addCommand = AddProfileCommand.COMMAND_WORD + NAME_DESC_AMY + DOB_DESC + GENDER_DESC
+                + BLOODTYPE_DESC + HEIGHT_DESC + WEIGHT_DESC;
+        Person expectedPerson = new PersonBuilder(AMY).withMedicalHistories().build();
+        Exercise expectedExercise = new ExerciseBuilder(PUSHUP)
+                .withDetails(null, null, null, null, null, null)
+                .build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addDiary(expectedDiary);
+        expectedModel.addPerson(expectedPerson);
+        //expectedModel.addRecipe(expectedRecipe);
+        expectedModel.addExercise(expectedExercise);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
-    public void getFilteredDiaryList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredDiaryList().remove(0));
+    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredExerciseList().remove(0));
+    }
+
+    @Test
+    public void getFilteredRecipeList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredRecipeList().remove(0));
     }
 
     /**
@@ -125,7 +198,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getDiaryRecords(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getUserProfile(), model.getHealthRecords(),
+                model.getRecipeBook(), model.getWorkoutPlanner(), model.getDiaryRecords(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -140,6 +214,49 @@ public class LogicManagerTest {
             String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonUserProfileIoExceptionThrowingStub extends JsonUserProfileStorage {
+        private JsonUserProfileIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveUserProfile(ReadOnlyUserProfile dukeCooks, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+    * A stub class to throw an {@code IOException} when the save method is called.
+    */
+    private static class JsonWorkoutPlannerIoExceptionThrowingStub extends JsonWorkoutPlannerStorage {
+
+        private JsonWorkoutPlannerIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveWorkoutPlanner(ReadOnlyWorkoutPlanner dukeCooks, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonRecipeBookIoExceptionThrowingStub extends JsonRecipeBookStorage {
+        private JsonRecipeBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveRecipeBook(ReadOnlyRecipeBook recipeBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
     }
 
     /**

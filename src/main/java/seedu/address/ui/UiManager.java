@@ -23,6 +23,9 @@ public class UiManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic logic;
+    private WorkoutPlannerWindow workoutPlannerWindow;
+    private TempWindow tempWindow;
+    private RecipeBookWindow recipeBookWindow;
     private DiaryWindow diaryWindow;
 
     public UiManager(Logic logic) {
@@ -38,9 +41,11 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            diaryWindow = new DiaryWindow(primaryStage, logic);
-            diaryWindow.show(); //This should be called before creating other UI parts
-            diaryWindow.fillInnerParts();
+            tempWindow = new TempWindow(primaryStage, logic);
+            tempWindow.show(); //This should be called before creating other UI parts
+            //recipeBookWindow = new RecipeBookWindow(primaryStage, logic);
+            //recipeBookWindow.show(); //This should be called before creating other UI parts
+            //recipeBookWindow.fillInnerParts();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -53,7 +58,8 @@ public class UiManager implements Ui {
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(diaryWindow.getPrimaryStage(), type, title, headerText, contentText);
+        showAlertDialogAndWait(tempWindow.getPrimaryStage(), type, title, headerText, contentText);
+        //showAlertDialogAndWait(recipeBookWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
     /**

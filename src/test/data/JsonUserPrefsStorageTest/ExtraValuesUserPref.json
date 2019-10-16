@@ -9,5 +9,5 @@
       "z" : 99
     }
   },
-  "diaryFilePath" : "diary.json"
+  "recipesFilePath" : "recipes.json"
 }

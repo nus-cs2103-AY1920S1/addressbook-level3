@@ -13,6 +13,18 @@ public class UserPrefsTest {
     }
 
     @Test
+    public void setDukeCooksFilePath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        assertThrows(NullPointerException.class, () -> userPrefs.setUserProfileFilePath(null));
+    }
+
+    @Test
+    public void setRecipesFilePath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        assertThrows(NullPointerException.class, () -> userPrefs.setRecipesFilePath(null));
+    }
+
+    @Test
     public void setDiaryFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
         assertThrows(NullPointerException.class, () -> userPrefs.setDiaryFilePath(null));

@@ -24,7 +24,7 @@ public class AddPageCommandParser implements Parser<AddPageCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DIARY_NAME, PREFIX_PAGE_TITLE);
 
-        DiaryName diaryName = ParserUtil.parseName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
+        DiaryName diaryName = ParserUtil.parseDiaryName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_PAGE_TITLE).get());
 
         Page pageToAdd = new Page(title);

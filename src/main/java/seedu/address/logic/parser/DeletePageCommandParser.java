@@ -31,7 +31,7 @@ public class DeletePageCommandParser implements Parser<DeletePageCommand> {
         }
         try {
             Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PAGE_NUMBER).get());
-            DiaryName diaryName = ParserUtil.parseName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
+            DiaryName diaryName = ParserUtil.parseDiaryName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
             return new DeletePageCommand(index, diaryName);
         } catch (ParseException pe) {
             throw new ParseException(
