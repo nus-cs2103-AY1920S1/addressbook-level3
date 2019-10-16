@@ -23,6 +23,9 @@ import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 
+/**
+ * Table View for list of bodies.
+ */
 public class BodyTableView extends UiPart<Region> {
 
     private static final String FXML = "BodyTableView.fxml";
@@ -76,7 +79,7 @@ public class BodyTableView extends UiPart<Region> {
 
         TableColumn<Body, BodyStatus> bodyStatus = new TableColumn<>("Body Status");
         bodyStatus.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getBodyStatus().get()));
-        bodyStatus.setCellFactory(tableColumn -> new bodyStatusTableCell());
+        bodyStatus.setCellFactory(tableColumn -> new BodyStatusTableCell());
         bodyStatus.setStyle("-justify-self: center");
 
         bodyTableView.getColumns().addAll(name, id, dateOfAdmission, bodyStatus);
@@ -85,7 +88,7 @@ public class BodyTableView extends UiPart<Region> {
     /**
      * Custom {@code TableCell} that displays the graphics of a {@code Body}.
      */
-    class bodyStatusTableCell extends TableCell<Body, BodyStatus> {
+    class BodyStatusTableCell extends TableCell<Body, BodyStatus> {
         @Override
         protected void updateItem(BodyStatus bodyStatus, boolean empty) {
             super.updateItem(bodyStatus, empty);
