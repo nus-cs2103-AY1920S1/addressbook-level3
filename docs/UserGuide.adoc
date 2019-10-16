@@ -95,7 +95,15 @@ For food with the same expiry dates, it will be automatically sorted by their al
 For same name *and* same expiry dates, it will be displayed based on the order they are added into the grocery list.
 
 ==== Display settings
-`display merged` - display grocery list of food objects, where food objects with the same name and expiry dates are merged.
+Supports list display in merged or unmerged form.
+
+`list d/TYPE` - display grocery list of food objects, where food objects with the same name and expiry dates are merged or not.
+`listDefault d/TYPE` - change default display method when list method is called every time the app is launched.
+
+Examples:
+
+* `list d/merge`
+* `listDefault d/unmerge`
 
 ==== Waste list clearing
 Clearing of waste list is done automatically at the start of every month.

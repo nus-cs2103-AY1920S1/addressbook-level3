@@ -2,9 +2,15 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -13,6 +19,7 @@ import seedu.address.model.food.Amount;
 import seedu.address.model.food.ExpiryDate;
 import seedu.address.model.food.Name;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.waste.WasteMonth;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -104,5 +111,22 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a String object into a WasteMonth object
+     */
+    public static WasteMonth parseWasteMonth(String date) throws ParseException {
+        requireNonNull(date);
+        try {
+            Parser dateParser = new Parser();
+            DateGroup dateGroup = dateParser.parse(date).get(0);
+            Date dateInDateFormat = dateGroup.getDates().get(0);
+            LocalDate dateInLocalDateFormat = dateInDateFormat.toInstant()
+                    .atZone(ZoneId.systemDefault()).toLocalDate();
+            return new WasteMonth(dateInLocalDateFormat.getMonthValue(), dateInLocalDateFormat.getYear());
+        } catch (Exception e) {
+            throw new ParseException(WasteMonth.MESSAGE_CONSTRAINTS);
+        }
     }
 }

@@ -15,21 +15,23 @@ import seedu.address.model.food.NameContainsCloseExpiryDatePredicate;
 public class ReminderCommandParser {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns a FindCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ReminderCommand
+     * and returns a ReminderCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ReminderCommand parse(String args) throws ParseException {
+        int r;
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_REMINDER);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_REMINDER)
+        if (args.equals("")) {
+            r = 3;
+        } else if (!arePrefixesPresent(argMultimap, PREFIX_REMINDER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE));
+        } else {
+            r = Integer.parseInt(argMultimap.getValue(PREFIX_REMINDER).get().trim());
         }
-
-        int r = Integer.parseInt(argMultimap.getValue(PREFIX_REMINDER).get().trim());
-
         return new ReminderCommand(new NameContainsCloseExpiryDatePredicate(r));
     }
 

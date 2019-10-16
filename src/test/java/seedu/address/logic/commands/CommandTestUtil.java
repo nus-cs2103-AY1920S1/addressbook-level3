@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -12,11 +13,13 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.templateList.template.EditTemplateItemCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditFoodDescriptorBuilder;
+import seedu.address.testutil.EditTemplateItemDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -34,23 +37,32 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String AMOUNT_DESC_AMY = " " + PREFIX_AMOUNT + VALID_AMOUNT_AMY;
+    public static final String AMOUNT_DESC_BOB = " " + PREFIX_AMOUNT + VALID_AMOUNT_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "300D"; // 'D' is not a valid unit
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditFoodDescriptor DESC_AMY;
     public static final EditCommand.EditFoodDescriptor DESC_BOB;
+    public static final EditTemplateItemCommand.EditTemplateItemDescriptor DESC_TEMP_AMY;
+    public static final EditTemplateItemCommand.EditTemplateItemDescriptor DESC_TEMP_BOB;
 
     static {
         DESC_AMY = new EditFoodDescriptorBuilder().withName(VALID_NAME_AMY).withAmount(VALID_AMOUNT_AMY)
                 .withExpiryDate(VALID_EXPIRY_DATE_AMY).withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditFoodDescriptorBuilder().withName(VALID_NAME_BOB).withAmount(VALID_AMOUNT_BOB)
                 .withExpiryDate(VALID_EXPIRY_DATE_AMY).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_TEMP_AMY = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_AMY)
+                .withAmount(VALID_AMOUNT_AMY).build();
+        DESC_TEMP_BOB = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_BOB)
+                .withAmount(VALID_AMOUNT_BOB).build();
     }
 
     /**

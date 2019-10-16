@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.model.food.GroceryItem;
 
 /**
@@ -33,6 +34,16 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the user prefs' iFridge settings.
+     */
+    IFridgeSettings getIFridgeSettings();
+
+    /**
+     * Sets the user prefs' GUI settings.
+     */
+    void setIFridgeSettings(IFridgeSettings iFridgeSettings);
 
     /**
      * Returns the user prefs' address book file path.
@@ -84,4 +95,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredGroceryItemList(Predicate<GroceryItem> predicate);
+
+    /**
+     * Returns true if a TemplateItem with the same identity as {@code TemplateItem} exists in the template list.
+     */
+    //boolean hasTemplateItem(TemplateItem toAdd);
+
+    /**
+     * Adds the given food item into template.
+     * {@code TemplateItem} must not already exist in the template list.
+     */
+    //void addTemplateItem(TemplateItem toAdd);
 }

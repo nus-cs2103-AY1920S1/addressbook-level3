@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -74,5 +75,15 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public IFridgeSettings getIFridgeSettings() {
+        return model.getIFridgeSettings();
+    }
+
+    @Override
+    public void setIFridgeSettings(IFridgeSettings iFridgeSettings) {
+        model.setIFridgeSettings(iFridgeSettings);
     }
 }

@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.food.GroceryItem;
 
@@ -63,6 +64,17 @@ public class ModelManager implements Model {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public IFridgeSettings getIFridgeSettings() {
+        return userPrefs.getIFridgeSettings();
+    }
+
+    @Override
+    public void setIFridgeSettings(IFridgeSettings iFridgeSettings) {
+        requireNonNull(iFridgeSettings);
+        userPrefs.setIFridgeSettings(iFridgeSettings);
     }
 
     @Override
