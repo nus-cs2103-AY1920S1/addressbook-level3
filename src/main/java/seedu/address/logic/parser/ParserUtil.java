@@ -15,9 +15,9 @@ import com.joestelmach.natty.Parser;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.food.Name;
 import seedu.address.model.food.Amount;
 import seedu.address.model.food.ExpiryDate;
-import seedu.address.model.food.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.waste.WasteMonth;
 
