@@ -271,8 +271,7 @@ public class ModelManager implements Model {
     public ObservableList<Budget> getFilteredBudgets() {
         return filteredBudgets;
     }
-      
-    @Override  
+    @Override
     public ObservableList<ExpenseReminder> getFilteredExpenseReminders() {
         return filteredExpenseReminders;
     }
