@@ -252,4 +252,19 @@ public interface Model {
 
     /** Returns the PasswordBook */
     PasswordBook getPasswordBook();
+
+    /**
+     * Returns true if a password with the same identity as {@code password} exists in the password book.
+     */
+    boolean hasPassword(Password password);
+
+    /**
+     * Sets the user prefs' password book file path.
+     */
+    void setPasswordBookFilePath(Path passwordBookFilePath);
+
+    /**
+     * Returns the user prefs' password book file path.
+     */
+    Path getPasswordBookFilePath();
 }

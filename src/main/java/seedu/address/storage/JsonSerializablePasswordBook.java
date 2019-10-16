@@ -19,6 +19,8 @@ import seedu.address.model.password.Password;
  */
 @JsonRootName(value = "passwordbook")
 class JsonSerializablePasswordBook {
+    public static final String MESSAGE_DUPLICATE_PERSON = "Password list contains duplicate password(s).";
+
     private final List<JsonAdaptedPassword> passwords = new ArrayList<>();
 
     /**
@@ -47,9 +49,9 @@ class JsonSerializablePasswordBook {
         PasswordBook passwordBook = new PasswordBook();
         for (JsonAdaptedPassword jsonAdaptedPassword : passwords) {
             Password password = jsonAdaptedPassword.toModelType();
-            //if (addressBook.hasPerson(person)) {
-            //    throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            //}
+            if (passwordBook.hasPassword(password)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
             passwordBook.addPassword(password);
         }
         return passwordBook;

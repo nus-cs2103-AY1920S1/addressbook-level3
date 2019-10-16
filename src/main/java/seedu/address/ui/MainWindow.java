@@ -171,7 +171,8 @@ public class MainWindow extends UiPart<Stage> {
      * Handle UI changes on mode change.
      */
     void handleModeChange() {
-
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPasswordBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         objectListPanelPlaceholder.getChildren().clear();
         fillInnerPartsWithMode();
     }

@@ -304,6 +304,23 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPassword(Password password) {
+        requireNonNull(password);
+        return passwordBook.hasPassword(password);
+    }
+
+    @Override
+    public void setPasswordBookFilePath(Path passwordBookFilePath) {
+        requireNonNull(passwordBookFilePath);
+        userPrefs.setAddressBookFilePath(passwordBookFilePath);
+    }
+
+    @Override
+    public Path getPasswordBookFilePath() {
+        return userPrefs.getPasswordBookFilePath();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORDVALUE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -19,10 +20,13 @@ public class AddPasswordCommand extends Command {
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_USERNAME + "USERNAME "
             + PREFIX_PASSWORDVALUE + "PASSWORD "
+            + PREFIX_TAG + "TAG "
             + "Some example ...";
 
     //TODO: NOT TO SHOW THE PASSWORD BUT MAYBE 1 letter + asterixs.
-    public static final String MESSAGE_SUCCESS = "New person added: %1";
+    public static final String MESSAGE_SUCCESS = "New password added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PASSWORD = "This password already exists in the password book";
+
     private final Password toAddPassword;
 
     public AddPasswordCommand(Password password) {
@@ -34,11 +38,18 @@ public class AddPasswordCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        //if (model.hasPerson(toAdd)) {
-        //    throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        //}
+        if (model.hasPassword(toAddPassword)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PASSWORD);
+        }
 
         model.addPassword(toAddPassword);
-        return new CommandResult(String.format("Good!", toAddPassword));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAddPassword));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddPasswordCommand // instanceof handles nulls
+                && toAddPassword.equals(((AddPasswordCommand) other).toAddPassword));
     }
 }

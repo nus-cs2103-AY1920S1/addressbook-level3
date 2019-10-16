@@ -3,8 +3,10 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORDVALUE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddPasswordCommand;
@@ -13,6 +15,7 @@ import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommandPassword object
@@ -25,7 +28,7 @@ public class AddPasswordCommandParser implements Parser<AddPasswordCommand> {
      */
     public AddPasswordCommand parse(String userInput) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(userInput, PREFIX_DESCRIPTION, PREFIX_USERNAME, PREFIX_PASSWORDVALUE);
+                ArgumentTokenizer.tokenize(userInput, PREFIX_DESCRIPTION, PREFIX_USERNAME, PREFIX_PASSWORDVALUE, PREFIX_TAG);
         if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_USERNAME, PREFIX_PASSWORDVALUE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPasswordCommand.MESSAGE_USAGE));
@@ -34,8 +37,9 @@ public class AddPasswordCommandParser implements Parser<AddPasswordCommand> {
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
         PasswordValue passwordValue = ParserUtil.parsePasswordValue(argMultimap.getValue(PREFIX_PASSWORDVALUE).get());
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Password password = new Password(description, username, passwordValue);
+        Password password = new Password(description, username, passwordValue, tagList);
         return new AddPasswordCommand(password);
     }
 

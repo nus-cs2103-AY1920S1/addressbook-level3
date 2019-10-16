@@ -15,7 +15,8 @@ public class Username {
             + "3) Should not be empty \n"
             + "4) Be at least 2 characters long";
     //TODO: Check regex if its correct.
-    private static final String VALIDATION_REGEX = "^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
+    //private static final String VALIDATION_REGEX = "^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
+    private static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String value;
 

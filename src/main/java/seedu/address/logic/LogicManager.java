@@ -24,6 +24,7 @@ import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.note.Note;
+import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
@@ -179,6 +180,16 @@ public class LogicManager implements Logic {
         return mode;
     }
 
+    public ReadOnlyPasswordBook getPasswordBook() {
+        return model.getPasswordBook();
+    }
+
+    @Override
+    public Path getPasswordBookFilePath() {
+        return model.getPasswordBookFilePath();
+    }
+
+    @Override
     public ObservableList<Password> getFilteredPasswordList() {
         return model.getFilteredPasswordList();
     }

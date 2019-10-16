@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class PasswordValue {
     public static final String MESSAGE_CONSTRAINTS = "PasswordValue can take any values, and it should not be blank";
 
-    private static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    private static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;
 
