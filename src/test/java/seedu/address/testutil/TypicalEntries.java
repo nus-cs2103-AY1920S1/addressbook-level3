@@ -12,9 +12,9 @@ import seedu.address.model.person.Entry;
  */
 public class TypicalEntries {
 
-    public static final Entry FOOD_EXPENSE = new EntryBuilder().withDesc("pgp mala").withTime(2019-09-09).withAmt(5.50)
+    public static final Entry FOOD_EXPENSE = new EntryBuilder().withDesc("pgp mala").withTime("2019-09-09").withAmt(5.50)
             .withTags("food").build();
-    public static final Entry CLOTHING_EXPENSE = new EntryBuilder().withDesc("cotton on jeans on sale").withTime(2019-09-09).withAmt(14.90)
+    public static final Entry CLOTHING_EXPENSE = new EntryBuilder().withDesc("cotton on jeans on sale").withTime("2019-09-09").withAmt(14.90)
             .withTags("want", "clothes").build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
