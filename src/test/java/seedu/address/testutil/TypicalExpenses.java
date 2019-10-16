@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_VODKA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CURRENCY_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CURRENCY_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_VODKA;
@@ -57,7 +58,7 @@ public class TypicalExpenses {
         .withCurrency(VALID_CURRENCY_VODKA).withAmount(VALID_AMOUNT_VODKA)
         .withDate(VALID_DATE_VODKA).withTags(VALID_TAG_ALCOHOL).build();
     public static final Expense RUM = new ExpenseBuilder().withName(VALID_NAME_RUM)
-        .withCurrency(VALID_CURRENCY_VODKA).withAmount(VALID_AMOUNT_RUM)
+        .withCurrency(VALID_CURRENCY_RUM).withAmount(VALID_AMOUNT_RUM)
         .withDate(VALID_DATE_RUM).withTags(VALID_TAG_DRINKS, VALID_TAG_ALCOHOL)
         .build();
 

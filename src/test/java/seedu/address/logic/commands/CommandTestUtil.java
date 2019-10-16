@@ -31,7 +31,7 @@ public class CommandTestUtil {
     public static final String VALID_AMOUNT_VODKA = "$30";
     public static final String VALID_AMOUNT_RUM = "$200";
     public static final String VALID_CURRENCY_VODKA = "SGD";
-    public static final String VALID_CURRENCY_RUM = "SGD";
+    public static final String VALID_CURRENCY_RUM = "USD";
     public static final String VALID_DATE_VODKA = "13/10/2019";
     public static final String VALID_DATE_RUM = "09/05/2019";
     public static final String VALID_TAG_ALCOHOL = "alcohol";

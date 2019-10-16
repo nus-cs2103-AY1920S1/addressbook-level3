@@ -3,9 +3,6 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_RUM;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CURRENCY_RUM;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ALCOHOL;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenses.FOOD;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
@@ -47,8 +44,7 @@ public class ExpenseListTest {
     @Test
     public void resetData_withDuplicateExpenses_throwsDuplicateExpenseException() {
         // Two expenses with the same identity fields
-        Expense editedFood = new ExpenseBuilder(FOOD).withAmount(VALID_AMOUNT_RUM)
-            .withTags(VALID_TAG_ALCOHOL).build();
+        Expense editedFood = new ExpenseBuilder(FOOD).withTags("RUM").build();
         List<Expense> newExpenses = Arrays.asList(FOOD, editedFood);
         ExpenseListStub newData = new ExpenseListStub(newExpenses);
 
@@ -72,15 +68,6 @@ public class ExpenseListTest {
     }
 
     @Test
-    public void hasExpense_expenseWithSameIdentityFieldsInExpenseList_returnsTrue() {
-        expenseList.addExpense(FOOD);
-        Expense editedFood = new ExpenseBuilder(FOOD).withAmount(VALID_AMOUNT_RUM)
-            .withCurrency(VALID_CURRENCY_RUM).withTags(VALID_TAG_ALCOHOL)
-                .build();
-        assertTrue(expenseList.hasExpense(editedFood));
-    }
-
-    @Test
     public void getExpenseList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> expenseList.getExpenseList().remove(0));
     }
@@ -89,6 +76,7 @@ public class ExpenseListTest {
      * A stub ReadOnlyExpenseList whose expenses list can violate interface constraints.
      */
     private static class ExpenseListStub implements ReadOnlyExpenseList {
+
         private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
 
         ExpenseListStub(Collection<Expense> expenses) {
@@ -100,5 +88,4 @@ public class ExpenseListTest {
             return expenses;
         }
     }
-
 }

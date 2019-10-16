@@ -42,7 +42,7 @@ public class UniqueExpenseListTest {
     @Test
     public void contains_expenseWithSameIdentityFieldsInList_returnsTrue() {
         uniqueExpenseList.add(FOOD);
-        Expense editedFood = new ExpenseBuilder(FOOD).withAmount(VALID_AMOUNT_RUM).withTags(VALID_TAG_ALCOHOL)
+        Expense editedFood = new ExpenseBuilder(FOOD).withTags(VALID_TAG_ALCOHOL)
                 .build();
         assertTrue(uniqueExpenseList.contains(editedFood));
     }

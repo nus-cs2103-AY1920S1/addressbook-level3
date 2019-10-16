@@ -71,8 +71,9 @@ public class Expense {
 
         return otherExpense != null
             && otherExpense.getName().equals(getName())
-            && (otherExpense.getAmount().equals(getAmount())
-            || (otherExpense.getCurrency().equals(getCurrency()) || otherExpense.getDate().equals(getDate())));
+            && otherExpense.getAmount().equals(getAmount())
+            && otherExpense.getCurrency().equals(getCurrency())
+            && otherExpense.getDate().equals(getDate());
     }
 
     /**

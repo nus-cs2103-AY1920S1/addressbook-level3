@@ -34,21 +34,25 @@ public class ExpenseTest {
         // different amount and date -> returns false
         Expense editedFood = new ExpenseBuilder(FOOD).withAmount(VALID_AMOUNT_RUM)
             .withCurrency(VALID_CURRENCY_RUM).withDate(VALID_DATE_RUM).build();
-        //        assertFalse(FOOD.isSameExpense(editedFood));
+        assertFalse(FOOD.isSameExpense(editedFood));
 
         // different name -> returns false
         editedFood = new ExpenseBuilder(FOOD).withName(VALID_NAME_RUM).build();
         assertFalse(FOOD.isSameExpense(editedFood));
 
-        // same name, same amount, different attributes -> returns true
-        editedFood = new ExpenseBuilder(FOOD).withDate(VALID_DATE_RUM)
-                .withTags(VALID_TAG_ALCOHOL).build();
-        assertTrue(FOOD.isSameExpense(editedFood));
+        // different currency -> returns false
+        editedFood = new ExpenseBuilder(FOOD).withCurrency(VALID_CURRENCY_RUM).build();
+        assertFalse(FOOD.isSameExpense(editedFood));
 
-        // same name, same date, different attributes -> returns true
+        // same name, same amount, different attributes -> returns false
+        editedFood = new ExpenseBuilder(FOOD).withDate(VALID_DATE_RUM)
+            .withTags(VALID_TAG_ALCOHOL).build();
+        assertFalse(FOOD.isSameExpense(editedFood));
+
+        // same name, same date, different attributes -> returns false
         editedFood = new ExpenseBuilder(FOOD).withAmount(VALID_AMOUNT_RUM)
-                .withTags(VALID_TAG_ALCOHOL).build();
-        assertTrue(FOOD.isSameExpense(editedFood));
+            .withTags(VALID_TAG_ALCOHOL).build();
+        assertFalse(FOOD.isSameExpense(editedFood));
 
         // same name, same amount, same date, different attributes -> returns true
         editedFood = new ExpenseBuilder(FOOD).withTags(VALID_TAG_ALCOHOL).build();

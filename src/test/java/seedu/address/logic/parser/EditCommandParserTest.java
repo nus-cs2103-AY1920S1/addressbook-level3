@@ -3,8 +3,12 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_VODKA;
+import static seedu.address.logic.commands.CommandTestUtil.CURRENCY_DESC_RUM;
+import static seedu.address.logic.commands.CommandTestUtil.CURRENCY_DESC_VODKA;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_CURRENCY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -13,13 +17,18 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_ALCOHOL;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_DRINKS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_VODKA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CURRENCY_RUM;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CURRENCY_VODKA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_VODKA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ALCOHOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DRINKS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_EXPENSE;
 
 import org.junit.jupiter.api.Test;
@@ -28,6 +37,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
 import seedu.address.model.expense.Amount;
+import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
@@ -73,6 +83,7 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_AMOUNT_DESC, Amount.MESSAGE_CONSTRAINTS); // invalid amount
+        assertParseFailure(parser, "1" + INVALID_CURRENCY_DESC, Currency.MESSAGE_CONSTRAINTS); // invalid currency
         assertParseFailure(parser, "1" + INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS); // invalid date
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
@@ -94,19 +105,19 @@ public class EditCommandParserTest {
             Name.MESSAGE_CONSTRAINTS);
     }
 
-    //    @Test
-    //    public void parse_allFieldsSpecified_success() {
-    //        Index targetIndex = INDEX_SECOND_EXPENSE;
-    //        String userInput = targetIndex.getOneBased() + AMOUNT_DESC_RUM + CURRENCY_DESC_VODKA + TAG_DESC_ALCOHOL
-    //                + DATE_DESC_VODKA + NAME_DESC_VODKA + TAG_DESC_DRINKS;
-    //
-    //        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_VODKA)
-    //                .withCurrency(VALID_CURRENCY_RUM).withAmount(VALID_AMOUNT_RUM).withDate(VALID_DATE_VODKA)
-    //                .withTags(VALID_TAG_ALCOHOL, VALID_TAG_DRINKS).build();
-    //        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-    //
-    //        assertParseSuccess(parser, userInput, expectedCommand);
-    //    }
+    @Test
+    public void parse_allFieldsSpecified_success() {
+        Index targetIndex = INDEX_SECOND_EXPENSE;
+        String userInput = targetIndex.getOneBased() + AMOUNT_DESC_RUM + CURRENCY_DESC_VODKA + TAG_DESC_ALCOHOL
+            + DATE_DESC_VODKA + NAME_DESC_VODKA + TAG_DESC_DRINKS;
+
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_VODKA)
+            .withCurrency(VALID_CURRENCY_VODKA).withAmount(VALID_AMOUNT_RUM).withDate(VALID_DATE_VODKA)
+            .withTags(VALID_TAG_ALCOHOL, VALID_TAG_DRINKS).build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
 
     @Test
     public void parse_someFieldsSpecified_success() {
@@ -135,11 +146,11 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        //        // currency
-        //        userInput = targetIndex.getOneBased() + CURRENCY_DESC_VODKA;
-        //        descriptor = new EditExpenseDescriptorBuilder().withCurrency(VALID_CURRENCY_VODKA).build();
-        //        expectedCommand = new EditCommand(targetIndex, descriptor);
-        //        assertParseSuccess(parser, userInput, expectedCommand);
+        // currency
+        userInput = targetIndex.getOneBased() + CURRENCY_DESC_VODKA;
+        descriptor = new EditExpenseDescriptorBuilder().withCurrency(VALID_CURRENCY_VODKA).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
 
         // date
         userInput = targetIndex.getOneBased() + DATE_DESC_VODKA;
@@ -154,39 +165,39 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
-    //    @Test
-    //    public void parse_multipleRepeatedFields_acceptsLast() {
-    //        Index targetIndex = INDEX_FIRST_EXPENSE;
-    //        String userInput = targetIndex.getOneBased() + AMOUNT_DESC_VODKA + DATE_DESC_VODKA
-    //                + TAG_DESC_DRINKS + AMOUNT_DESC_VODKA + DATE_DESC_VODKA + TAG_DESC_DRINKS
-    //                + AMOUNT_DESC_RUM + DATE_DESC_RUM + TAG_DESC_ALCOHOL + CURRENCY_DESC_VODKA;
-    //
-    //        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withCurrency(VALID_CURRENCY_RUM)
-    //                .withAmount(VALID_AMOUNT_RUM).withDate(VALID_DATE_RUM)
-    //                .withTags(VALID_TAG_DRINKS, VALID_TAG_ALCOHOL).build();
-    //        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-    //
-    //        assertParseSuccess(parser, userInput, expectedCommand);
-    //    }
+    @Test
+    public void parse_multipleRepeatedFields_acceptsLast() {
+        Index targetIndex = INDEX_FIRST_EXPENSE;
+        String userInput = targetIndex.getOneBased() + AMOUNT_DESC_RUM + DATE_DESC_VODKA
+            + TAG_DESC_DRINKS + AMOUNT_DESC_VODKA + DATE_DESC_VODKA + TAG_DESC_DRINKS
+            + AMOUNT_DESC_RUM + DATE_DESC_RUM + TAG_DESC_ALCOHOL + CURRENCY_DESC_RUM;
 
-    //    @Test
-    //    public void parse_invalidValueFollowedByValidValue_success() {
-    //        // no other valid values specified
-    //        Index targetIndex = INDEX_FIRST_EXPENSE;
-    //        String userInput = targetIndex.getOneBased() + INVALID_AMOUNT_DESC + CURRENCY_DESC_RUM + AMOUNT_DESC_RUM;
-    //        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withCurrency(VALID_CURRENCY_RUM)
-    //                .withAmount(VALID_AMOUNT_RUM).build();
-    //        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-    //        assertParseSuccess(parser, userInput, expectedCommand);
-    //
-    //        // other valid values specified
-    //        userInput = targetIndex.getOneBased() + DATE_DESC_RUM + INVALID_AMOUNT_DESC
-    //                + AMOUNT_DESC_RUM;
-    //        descriptor = new EditExpenseDescriptorBuilder().withCurrency(VALID_CURRENCY_RUM)
-    //            .withAmount(VALID_AMOUNT_RUM).withDate(VALID_DATE_RUM).build();
-    //        expectedCommand = new EditCommand(targetIndex, descriptor);
-    //        assertParseSuccess(parser, userInput, expectedCommand);
-    //    }
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withCurrency(VALID_CURRENCY_RUM)
+            .withAmount(VALID_AMOUNT_RUM).withDate(VALID_DATE_RUM)
+            .withTags(VALID_TAG_DRINKS, VALID_TAG_ALCOHOL).build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_invalidValueFollowedByValidValue_success() {
+        // no other valid values specified
+        Index targetIndex = INDEX_FIRST_EXPENSE;
+        String userInput = targetIndex.getOneBased() + INVALID_AMOUNT_DESC + AMOUNT_DESC_RUM;
+        EditExpenseDescriptor descriptor =
+            new EditExpenseDescriptorBuilder().withAmount(VALID_AMOUNT_RUM).build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // other valid values specified
+        userInput =
+            targetIndex.getOneBased() + DATE_DESC_RUM + INVALID_AMOUNT_DESC + CURRENCY_DESC_VODKA + AMOUNT_DESC_RUM;
+        descriptor = new EditExpenseDescriptorBuilder().withCurrency(VALID_CURRENCY_VODKA)
+            .withAmount(VALID_AMOUNT_RUM).withDate(VALID_DATE_RUM).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
 
     @Test
     public void parse_resetTags_success() {
