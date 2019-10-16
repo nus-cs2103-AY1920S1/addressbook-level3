@@ -350,3 +350,49 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+
+
+
+.chart {
+    -fx-padding: 10px;
+}
+.chart-content {
+}
+
+.chart-title {
+  -fx-text-fill: white;
+  -fx-font-size: 1.6em;
+}
+
+.axis-label {
+  -fx-text-fill: white;
+}
+
+.chart-legend {
+   -fx-background-color: transparent;
+   -fx-padding: 20px;
+}
+
+.chart-legend-item-symbol{
+   -fx-background-radius: 50%;
+}
+
+.chart-legend-item{
+    -fx-text-fill: white;
+}
+
+.chart-plot-background {
+    -fx-background-color: #383838;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: grey;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: grey;
+}
+.chart-alternative-row-fill {
+    -fx-fill: #white;
+    -fx-stroke: #2B3941;
+    -fx-stroke-width: 0;
+}

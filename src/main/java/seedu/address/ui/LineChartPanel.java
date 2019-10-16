@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class LineChartPanel extends UiPart<Region> {
         this.bodyList = bodyList;
     }
 
-    public LineChart getLineChart() {
+    public LineChart getLineChart() throws ParseException {
         initialiseTreeMap();
         initialiseLineChart();
         updateSeries();
@@ -78,11 +79,19 @@ public class LineChartPanel extends UiPart<Region> {
         bodyList.addListener((ListChangeListener<Body>) c -> {
             while (c.next()) {
                 if (c.wasAdded()) {
-                    updateBodyAdded(c);
+                    try {
+                        updateBodyAdded(c);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     updateSeries();
                 }
                 if (c.wasRemoved()) {
-                    updateBodyRemoved(c);
+                    try {
+                        updateBodyRemoved(c);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     updateSeries();
                 }
             }
@@ -92,12 +101,13 @@ public class LineChartPanel extends UiPart<Region> {
     /**
      * Initialises the tree map to include the latest 10 days.
      */
-    private void initialiseTreeMap() {
+    private void initialiseTreeMap() throws ParseException {
         // Fill in the missing dates
         Date now = new Date();
         Date tenDaysAgo = new Date(now.getTime() - (10 * DAY_IN_MS));
         for (Date date = now; date.after(tenDaysAgo); date = new Date(date.getTime() - DAY_IN_MS)) {
-            freqByDate.putIfAbsent(date, 0);
+            Date noTimeDate = formatDateNoTime(date);
+            freqByDate.putIfAbsent(noTimeDate, 0);
         }
     }
 
@@ -106,11 +116,12 @@ public class LineChartPanel extends UiPart<Region> {
      * will increase by one.
      * @param c Change in the ObservableList of bodies.
      */
-    private void updateBodyAdded(ListChangeListener.Change<? extends Body> c) {
-        Date now = c.getAddedSubList().get(0).getDateOfAdmission();
-        Number oldFreq = freqByDate.getOrDefault(now, 0);
+    private void updateBodyAdded(ListChangeListener.Change<? extends Body> c) throws ParseException {
+        Date date = c.getAddedSubList().get(0).getDateOfAdmission();
+        Date noTimeDate = formatDateNoTime(date);
+        Number oldFreq = freqByDate.getOrDefault(noTimeDate, 0);
         int newFreq = oldFreq.intValue() + 1;
-        freqByDate.put(now, newFreq);
+        freqByDate.put(noTimeDate, newFreq);
     }
 
     /**
@@ -118,11 +129,12 @@ public class LineChartPanel extends UiPart<Region> {
      * will decrease by one.
      * @param c Change in the ObservableList of bodies.
      */
-    private void updateBodyRemoved(ListChangeListener.Change<? extends Body> c) {
-        Date now = c.getRemoved().get(0).getDateOfAdmission();
-        Number oldFreq = freqByDate.getOrDefault(now, 0);
+    private void updateBodyRemoved(ListChangeListener.Change<? extends Body> c) throws ParseException {
+        Date date = c.getRemoved().get(0).getDateOfAdmission();
+        Date noTimeDate = formatDateNoTime(date);
+        Number oldFreq = freqByDate.getOrDefault(noTimeDate, 0);
         int newFreq = oldFreq.intValue() - 1;
-        freqByDate.put(now, newFreq);
+        freqByDate.put(noTimeDate, newFreq);
     }
 
     /**
@@ -138,6 +150,10 @@ public class LineChartPanel extends UiPart<Region> {
                 series.getData().remove(0);
             }
         });
+    }
+
+    private Date formatDateNoTime(Date date) throws ParseException {
+        return simpleDateFormat.parse(simpleDateFormat.format(date));
     }
 
 }
