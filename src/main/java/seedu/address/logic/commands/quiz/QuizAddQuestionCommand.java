@@ -51,7 +51,7 @@ public class QuizAddQuestionCommand extends QuizCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {
-        return "Added question: " + questionNumber + " to quiz: " + quizQuestionNumber;
+        return "Added question: " + questionNumber + " to quiz: " + quizId;
     }
 
     @Override
