@@ -14,21 +14,29 @@ public class CommandResult {
     private final boolean switchViews;
     private final String targetView;
 
-    /** Help information should be shown to the user. */
+    private final boolean undo;
+
+    /**
+     * Help information should be shown to the user.
+     */
     private final boolean showHelp;
 
-    /** The application should exit. */
+    /**
+     * The application should exit.
+     */
     private final boolean exit;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean sViews, String targetView) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean sViews,
+                         String targetView, boolean undo) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.switchViews = sViews;
         this.targetView = targetView;
+        this.undo = undo;
     }
 
     /**
@@ -36,15 +44,19 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, null);
+        this(feedbackToUser, false, false, false, null, false);
     }
 
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, false, null);
+        this(feedbackToUser, showHelp, exit, false, null, false);
+    }
+
+    public CommandResult(String feedbackToUser, boolean undo) {
+        this(feedbackToUser, false, false, false, null, undo);
     }
 
     public CommandResult(String feedbackToUser, String targetView) {
-        this(feedbackToUser, false, false, true, targetView);
+        this(feedbackToUser, false, false, true, targetView, false);
     }
 
     public String getFeedbackToUser() {
@@ -61,6 +73,10 @@ public class CommandResult {
 
     public boolean isSwitchViews() {
         return switchViews;
+    }
+
+    public boolean isUndo() {
+        return undo;
     }
 
     public String getTargetView() {

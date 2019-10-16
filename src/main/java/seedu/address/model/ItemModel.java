@@ -65,11 +65,29 @@ public interface ItemModel {
 
     public void clear();
 
+    public void emptyLists();
+
     public VisualizeList findItem(String[] searchStrings);
 
+    public void setVisualizeList(VisualizeList list);
+
     public void sort();
+
+    public void addToSeparateList(Item item);
+
+    public void setState(ElisaState state);
+
+    public void setToCurrState();
+
+    public ElisaState getState();
+
+    public ElisaStateHistory getElisaStateHistory();
+
+    public void updateModelLists();
 
     public boolean togglePriorityMode() throws IllegalListException;
 
     public Item markComplete(int index) throws IllegalListException;
+
+    public void updateState();
 }
