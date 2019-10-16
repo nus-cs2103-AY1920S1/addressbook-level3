@@ -109,10 +109,6 @@ public interface Model {
      */
     void updateFilteredFlashCardList(Predicate<FlashCard> predicate);
 
-
-
-    void deleteCategory(Category category);
-
     ObservableList<Category> getCategoryList();
 
     void updateFilteredCategoryList(Predicate<Category> predicate);

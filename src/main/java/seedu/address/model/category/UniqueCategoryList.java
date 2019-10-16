@@ -4,13 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.address.model.category.exceptions.DuplicateCategoryException;
 
 /**
  * A list of categories that enforces uniqueness between its elements and does not allow nulls.
@@ -68,22 +66,24 @@ public class UniqueCategoryList implements Iterable<Category> {
      */
     public void remove(Category toRemove) {
         requireNonNull(toRemove);
-        if (categoryMap.get(toRemove) == 1) {
+        if (canRemove(toRemove)) {
             categoryMap.remove(toRemove);
             internalList.remove(toRemove);
         } else {
             categoryMap.put(toRemove, categoryMap.get(toRemove) - 1);
         }
     }
+
     public void remove(Set<Category> categorySet) {
         categorySet.forEach(category -> remove(category));
     }
-    /*
-    public void setCategories(UniqueCategoryList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
+
+    /**
+     * Return true if the {@code toRemove} is last occurrence
+     */
+    private boolean canRemove(Category toRemove) {
+        return categoryMap.get(toRemove) == 1;
     }
-    */
 
     /**
      *  clear the entire list and map
@@ -91,31 +91,6 @@ public class UniqueCategoryList implements Iterable<Category> {
     public void clear() {
         categoryMap.clear();
         internalList.clear();
-    }
-    /**
-     * Replaces the contents of this list with {@code categories}.
-     * {@code categories} must not contain duplicate categories.
-     */
-
-    public void setCategories(List<Category> categories) {
-        requireNonNull(categories);
-        if (!categoriesAreUnique(categories)) {
-            throw new DuplicateCategoryException();
-        }
-        internalList.setAll(categories);
-    }
-    /**
-     * Returns true if {@code category} contains only unique categories.
-     */
-    private boolean categoriesAreUnique(List<Category> categories) {
-        for (int i = 0; i < categories.size() - 1; i++) {
-            for (int j = i + 1; j < categories.size(); j++) {
-                if (categories.get(i).equals(categories.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     /**

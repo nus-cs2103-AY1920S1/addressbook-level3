@@ -78,7 +78,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setFlashCards(newData.getFlashcardList());
         setDeadlines(newData.getDeadlineList());
-        //setCategories(newData.getCategoryList());
     }
 
     //// flashCard-level operations

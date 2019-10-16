@@ -202,11 +202,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deleteCategory(Category category) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Category> getCategoryList() {
             throw new AssertionError("This method should not be called.");
         }

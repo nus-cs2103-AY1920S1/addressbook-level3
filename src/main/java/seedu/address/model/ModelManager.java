@@ -153,13 +153,6 @@ public class ModelManager implements Model {
         filteredFlashCards.setPredicate(predicate);
     }
 
-
-
-    @Override
-    public void deleteCategory(Category category) {
-
-    }
-
     @Override
     public ObservableList<Category> getCategoryList() {
         return categoryList;
