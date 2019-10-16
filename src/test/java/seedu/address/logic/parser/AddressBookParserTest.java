@@ -70,8 +70,8 @@ public class AddressBookParserTest {
         Incident incident = new IncidentBuilder().build();
         EditIncident editor = new EditIncidentBuilder().build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_ENTITY.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_ENTITY, descriptor), command);
+                + INDEX_FIRST_ENTITY.getOneBased() + " " + IncidentUtil.getEditIncidentDetails(editor));
+        assertEquals(new EditCommand(INDEX_FIRST_ENTITY, editor), command);
     }
 
     @Test
