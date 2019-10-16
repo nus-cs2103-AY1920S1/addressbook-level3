@@ -54,11 +54,12 @@ class AddReminderCommandTest {
 
 
     @Test
-    public void execute_duplicateBookmark_throwsCommandException() {
+    public void execute_duplicateBookmark_throwsCommandException() throws CommandException {
         LocalDateTime time = LocalDateTime.now();
         Note note = new Note("Open");
 
         AddReminderCommand addReminderCommand = new AddReminderCommand(INDEX_FIRST_BOOKMARK, note, time);
+        addReminderCommand.execute(modelStub, new StorageStub());
 
         assertThrows(CommandException.class, addReminderCommand.MESSAGE_DUPLICATE_REMINDER, () ->
                 addReminderCommand.execute(modelStub, new StorageStub()));

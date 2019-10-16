@@ -24,7 +24,7 @@ class ReminderAssociationTest {
 
     @Test
     public void contains_nullBookmark_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> association.isBookmarkHasReminder(null));
+        assertFalse(association.isBookmarkHasReminder(null));
     }
 
     @Test
@@ -84,7 +84,7 @@ class ReminderAssociationTest {
     @Test
     public void remove_notExistReminderofSepcifiedBookmark_throwsBookmarkContainNoReminderException() {
         association.addReminder(ALICE, OPEN);
-        Reminder reminder = new ReminderBuilder().withNote("Read").build();
+        Reminder reminder = new ReminderBuilder().withBookmark(ALICE).withNote("Read").build();
         assertThrows(BookmarkContainNoReminderException.class, () -> association.deleteReminder(reminder));
     }
 
