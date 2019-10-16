@@ -254,6 +254,10 @@ public class AddNoteCommandTest {
         public ObservableList<Question> getFilteredQuizQuestionList() {
             throw new AssertionError("This method should not be called.");
         }
+
+        public Answer showQuizAnswer(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

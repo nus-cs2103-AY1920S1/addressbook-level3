@@ -24,13 +24,24 @@ public class QuizQuestionList implements Iterable<Question> {
         internalList.setAll(quizQuestionList);
     }
 
+    public Question get(int index) {
+        return internalList.get(index);
+    }
+
+    /**
+     * Returns an answer for the question in quiz with specific {@code index}.
+     */
+    public Answer showAnswer(int index) {
+        return get(index).getAnswer();
+    }
+
     /**
      * Checks if the answer input by user is correct and return a boolean value to show the result.
      */
     public boolean checkQuizAnswer(int index, Answer answer) {
         requireAllNonNull(answer);
 
-        return internalList.get(index - 1).getAnswer().equals(answer);
+        return get(index - 1).getAnswer().equals(answer);
     }
 
     /**
