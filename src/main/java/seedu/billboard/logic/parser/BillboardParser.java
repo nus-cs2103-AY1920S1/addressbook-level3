@@ -18,6 +18,7 @@ import seedu.billboard.logic.commands.HelpCommand;
 import seedu.billboard.logic.commands.ListArchiveCommand;
 import seedu.billboard.logic.commands.ListArchiveNamesCommand;
 import seedu.billboard.logic.commands.ListCommand;
+import seedu.billboard.logic.commands.TagCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 
 /**
@@ -79,6 +80,9 @@ public class BillboardParser {
 
         case ListArchiveNamesCommand.COMMAND_WORD:
             return new ListArchiveNamesCommand();
+
+        case TagCommand.COMMAND_WORD:
+            return new TagCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

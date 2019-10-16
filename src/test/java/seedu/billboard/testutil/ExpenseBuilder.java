@@ -62,6 +62,19 @@ public class ExpenseBuilder {
     }
 
     /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and merge it with the existing tag set to create a new
+     * set to set it to the {@code Expense} that we are building
+     */
+    public ExpenseBuilder withExistingTags(String ... tags) {
+        Set<Tag> toSet = new HashSet<>();
+        Set<Tag> toAdd = SampleDataUtil.getTagSet(tags);
+        toSet.addAll(this.tags);
+        toSet.addAll(toAdd);
+        this.tags = toSet;
+        return this;
+    }
+
+    /**
      * Sets the {@code Description} of the {@code Expense} that we are building.
      */
     public ExpenseBuilder withDescription(String description) {

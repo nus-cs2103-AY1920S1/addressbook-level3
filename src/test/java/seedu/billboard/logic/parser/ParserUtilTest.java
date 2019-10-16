@@ -6,9 +6,11 @@ import static seedu.billboard.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.billboard.testutil.Assert.assertThrows;
 import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -149,6 +151,29 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseTagName_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTagName(null));
+    }
+
+    @Test
+    public void parseTagName_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTagName(INVALID_TAG));
+    }
+
+    @Test
+    public void parseTagName_validValueWithoutWhitespace_returnsString() throws Exception {
+        String expectedTagName = VALID_TAG_1.trim();
+        assertEquals(expectedTagName, ParserUtil.parseTagName(VALID_TAG_1));
+    }
+
+    @Test
+    public void parseTagName_validValueWithWhitespace_returnsTrimmedString() throws Exception {
+        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
+        String expectedTagName = tagWithWhitespace.trim();
+        assertEquals(expectedTagName, ParserUtil.parseTagName(tagWithWhitespace));
+    }
+
+    @Test
     public void parseTags_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(null));
     }
@@ -172,13 +197,36 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseArchive_null_throwsNullPointerException() {
+    public void parseTagNames_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTagNames(null));
+    }
+
+    @Test
+    public void parseTagNames_collectionWithInvalidTags_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTagNames(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
+    }
+
+    @Test
+    public void parseTagNames_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseTagNames(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseTagNames_collectionWithValidTags_returnsTagNamesList() throws Exception {
+        List<String> actualTagNamesList = ParserUtil.parseTagNames(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
+        List<String> expectedTagNamesList = new ArrayList<>(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
+
+        assertEquals(expectedTagNamesList, actualTagNamesList);
+    }
+
+    @Test
+    public void parseArchive_nullString_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseArchive((String) null));
     }
 
     @Test
     public void parseArchive_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseArchive(WHITESPACE));
+        assertThrows(ParseException.class, () -> ParserUtil.parseArchive(INVALID_ARCHIVE));
     }
 
     @Test

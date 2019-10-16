@@ -17,6 +17,7 @@ import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.LogsCenter;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the Billboard and Archive data.
@@ -193,7 +194,12 @@ public class ModelManager implements Model {
                 new FilteredList<>(this.archives.getArchiveExpenses(archiveName)));
     }
 
-
+    //==========Tag methods===================================================================================
+    @Override
+    public Set<Tag> retrieveTags(List<String> toRetrieve) {
+        requireNonNull(toRetrieve);
+        return billboard.retrieveTags(toRetrieve);
+    }
     //=========== Filtered Expense List Accessors =============================================================
 
     /**

@@ -2,12 +2,14 @@ package seedu.billboard.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -81,6 +83,8 @@ public interface Model {
      * The expense {@code editedExpense} must not be the same as another existing expense in the address book.
      */
     void setExpense(Expense target, Expense editedExpense);
+
+    Set<Tag> retrieveTags(List<String> toRetrieve);
 
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenses();
