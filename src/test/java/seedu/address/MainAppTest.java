@@ -1,20 +1,20 @@
 package seedu.address;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.ApplicationTest;
+import org.testfx.framework.junit5.Init;
 
 import javafx.scene.input.KeyCode;
 
 @ExtendWith(ApplicationExtension.class)
 public class MainAppTest extends ApplicationTest {
 
-    @BeforeEach
-    public void beforeEach() throws Exception {
+    @Init
+    public void init() throws Exception {
         ApplicationTest.launch(MainApp.class);
     }
 
