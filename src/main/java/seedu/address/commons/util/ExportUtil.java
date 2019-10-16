@@ -31,13 +31,7 @@ public class ExportUtil {
         XWPFDocument doc = new XWPFDocument();
 
         for (FlashCard card : cards) {
-            Question question = card.getQuestion();
-            Answer answer = card.getAnswer();
-            XWPFParagraph paragraph = doc.createParagraph();
-
-            addRun(paragraph, question.toString(), true);
-            addLineBreak(paragraph);
-            addRun(paragraph, answer.toString(), false);
+            addFlashCardToDocument(card, doc);
         }
 
         try {
@@ -45,6 +39,16 @@ public class ExportUtil {
         } catch (IOException e) {
             throw e;
         }
+    }
+
+    private static void addFlashCardToDocument(FlashCard card, XWPFDocument doc) {
+        Question question = card.getQuestion();
+        Answer answer = card.getAnswer();
+        XWPFParagraph paragraph = doc.createParagraph();
+
+        addRun(paragraph, question.toString(), true);
+        addLineBreak(paragraph);
+        addRun(paragraph, answer.toString(), false);
     }
 
     private static void addRun(XWPFParagraph paragraph, String text, boolean isBold) {
