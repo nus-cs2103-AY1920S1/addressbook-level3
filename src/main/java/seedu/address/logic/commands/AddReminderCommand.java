@@ -1,11 +1,14 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.item.Item;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ItemModel;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Adds a Reminder to the item model.
+ */
 public class AddReminderCommand extends AddCommand {
 
     public static final String SHOW_REMINDER_VIEW = "R";
