@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.inventory.Inventory;
@@ -12,6 +13,10 @@ import seedu.address.model.member.UniqueMemberList;
 
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.member.Member;
+import seedu.address.model.member.UniqueMemberList;
+import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.UniqueMappingList;
 
 /**
  * Wraps all data at the address-book level
@@ -22,6 +27,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     private final UniqueTaskList tasks;
     private final UniqueMemberList members;
     private final UniqueInventoryList inventories;
+    private final UniqueMappingList mappings;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -34,6 +40,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         tasks = new UniqueTaskList();
         members = new UniqueMemberList();
         inventories = new UniqueInventoryList();
+        mappings = new UniqueMappingList();
     }
 
     public ProjectDashboard() {}
@@ -57,6 +64,16 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         this.tasks.setTasks(tasks);
     }
 
+    public void setMembers(List<Member> members) {
+        this.members.setMembers(members);
+    }
+
+    public void setMappings(List<Mapping> mappings) {
+        for (Mapping mapping : mappings) {
+            this.mappings.add(mapping);
+        }
+    }
+
     /**
      * Resets the existing data of this {@code ProjectDashboard} with {@code newData}.
      * Replaces the contents of the inventory list with {@code inventories}.
@@ -67,7 +84,6 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     /**
      * Resets the existing data of this {@code ProjectDashboard} with {@code newData}.
->>>>>>> expenses1:src/main/java/seedu/address/model/AddressBook.java
      */
     public void resetData(ReadOnlyProjectDashboard newData) {
         requireNonNull(newData);
@@ -75,26 +91,11 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         setTasks(newData.getTaskList());
         setInventories(newData.getInventoryList());
         setMembers(newData.getMemberList());
+        setMappings(newData.getMappingList());
     }
 
 
     //// task-level operations
-
-    /**
-     * Returns true if a task with the same identity as {@code task} exists in the address book.
-     */
-    public boolean hasTask(Task task) {
-        requireNonNull(task);
-        return tasks.contains(task);
-    }
-
-    /**
-     * Adds a task to the address book.
-     * The task must not already exist in the address book.
-     */
-    public void addTask(Task p) {
-        tasks.add(p);
-    }
 
     /**
      * Replaces the given task {@code target} in the list with {@code editedTask}.
@@ -108,6 +109,14 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     }
 
     /**
+     * Adds a task to the address book.
+     * The task must not already exist in the address book.
+     */
+    public void addTask(Task p) {
+        tasks.add(p);
+    }
+
+    /**
      * Removes {@code key} from this {@code ProjectDashboard}.
      * {@code key} must exist in the address book.
      */
@@ -115,7 +124,13 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         tasks.remove(key);
     }
 
-
+    /**
+     * Returns true if a task with the same identity as {@code task} exists in the address book.
+     */
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return tasks.contains(task);
+    }
 
     //// inventory-level operations
     /**
@@ -142,9 +157,20 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         inventories.remove(target);
     }
 
-
     //// util methods
 
+    public void addMapping(Mapping mapping) {
+        mappings.add(mapping);
+    }
+
+    public void removeMapping(Mapping mapping) {
+        mappings.remove(mapping);
+    }
+
+    public boolean hasMapping(Mapping mapping) {
+        requireNonNull(mapping);
+        return mappings.contains(mapping);
+    }
     @Override
     public String toString() {
         return tasks.asUnmodifiableObservableList().size() + " tasks";
@@ -162,6 +188,11 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     }
 
     @Override
+    public ObservableList<Mapping> getMappingList() {
+        return mappings.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ProjectDashboard // instanceof handles nulls
@@ -174,15 +205,6 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     }*/
 
     //// list overwrite operations
-
-    /**
-     * Replaces the contents of the task list with {@code tasks}.
-     * {@code tasks} must not contain duplicate tasks.
-     */
-    public void setMembers(List<Member> members) {
-        this.members.setMembers(members);
-    }
-
 
     //// member-level operations
 
