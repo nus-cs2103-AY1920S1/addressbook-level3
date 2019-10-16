@@ -63,9 +63,9 @@ class JsonAdaptedFlashcard {
      * @throws IllegalValueException if there were any data constraints violated in the adapted flashCard.
      */
     public FlashCard toModelType() throws IllegalValueException {
-        final List<Category> personCategories = new ArrayList<>();
+        final List<Category> flashCardCategories = new ArrayList<>();
         for (JsonAdaptedCategory category : categories) {
-            personCategories.add(category.toModelType());
+            flashCardCategories.add(category.toModelType());
         }
 
         if (question == null) {
@@ -94,7 +94,7 @@ class JsonAdaptedFlashcard {
         }
         final Rating modelRating = new Rating(rating);
 
-        final Set<Category> modelCategories = new HashSet<>(personCategories);
+        final Set<Category> modelCategories = new HashSet<>(flashCardCategories);
         return new FlashCard(modelQuestion, modelAnswer, modelRating, modelCategories);
     }
 

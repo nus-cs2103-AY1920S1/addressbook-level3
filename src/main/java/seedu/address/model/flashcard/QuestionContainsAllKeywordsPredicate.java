@@ -1,3 +1,4 @@
+//@@author ShuTingY
 package seedu.address.model.flashcard;
 
 import java.util.List;
