@@ -98,6 +98,18 @@ public interface Model {
      */
     void setFoodList(UniqueFoodList newFoodList);
 
+    boolean hasFood(Food food);
+
+    /**
+     * Deletes the given food. The food must exist in the recommendations.
+     */
+    void deleteFood(Food food);
+
+    /**
+     * Adds the given food. {@code food} must not already exist in the recommendations.
+     */
+    void addFood(Food food);
+
     /**
      * Returns the a list of foods.
      */

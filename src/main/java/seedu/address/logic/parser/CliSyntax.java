@@ -14,6 +14,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_FOOD = new Prefix("f/");
+    public static final Prefix PREFIX_FOOD_TYPE = new Prefix("ft/");
+    public static final Prefix PREFIX_VALUE = new Prefix("v/");
 
     public static final String ABBR_NON_STARCHY_VEGETABLE = "nsv";
     public static final String ABBR_STARCHY_VEGETABLE = "sv";

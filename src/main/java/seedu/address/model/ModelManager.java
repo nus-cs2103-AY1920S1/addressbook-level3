@@ -160,6 +160,23 @@ public class ModelManager implements Model {
 
     //addFood() Function
 
+
+    @Override
+    public boolean hasFood(Food food) {
+        requireNonNull(food);
+        return foodList.contains(food);
+    }
+
+    @Override
+    public void deleteFood(Food food) {
+        foodList.remove(food);
+    }
+
+    @Override
+    public void addFood(Food food) {
+        foodList.add(food);
+    }
+
     @Override
     public void setFoodList(UniqueFoodList uniqueFoodLists) {
         requireAllNonNull(uniqueFoodLists);
