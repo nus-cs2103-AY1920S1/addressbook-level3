@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.net.SecureCacheResponse;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expense.Amount;
+import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
@@ -25,6 +27,7 @@ class JsonAdaptedExpense {
 
     private final String name;
     private final String amount;
+    private final String currency;
     private final String date;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -33,10 +36,11 @@ class JsonAdaptedExpense {
      */
     @JsonCreator
     public JsonAdaptedExpense(@JsonProperty("name") String name, @JsonProperty("amount") String amount,
-                              @JsonProperty("date") String date,
+                              @JsonProperty("currency") String currency, @JsonProperty("date") String date,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.amount = amount;
+        this.currency = currency;
         this.date = date;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -49,6 +53,7 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(Expense source) {
         name = source.getName().fullName;
         amount = source.getAmount().value;
+        currency = source.getCurrency().value;
         date = source.getDate().rawValue;
         tagged.addAll(source.getTags().stream()
             .map(JsonAdaptedTag::new)
@@ -82,6 +87,14 @@ class JsonAdaptedExpense {
         }
         final Amount modelAmount = new Amount(amount);
 
+        if (currency == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Currency.class.getSimpleName()));
+        }
+        if (!Currency.isValidCurrency(currency)) {
+            throw new IllegalValueException(Currency.MESSAGE_CONSTRAINTS);
+        }
+        final Currency modelCurrency = new Currency(currency);
+
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
@@ -91,6 +104,6 @@ class JsonAdaptedExpense {
         final Date modelDate = new Date(date);
 
         final Set<Tag> modelTags = new HashSet<>(expenseTags);
-        return new Expense(modelName, modelAmount, modelDate, modelTags);
+        return new Expense(modelName, modelAmount, modelCurrency, modelDate, modelTags);
     }
 }

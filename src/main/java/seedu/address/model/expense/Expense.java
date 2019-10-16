@@ -18,6 +18,7 @@ public class Expense {
     // Identity fields
     private final Name name;
     private final Amount amount;
+    private final Currency currency;
 
     // Data Fields
     private final Date date;
@@ -26,10 +27,11 @@ public class Expense {
     /**
      * Every field must be present and not null.
      */
-    public Expense(Name name, Amount amount, Date date, Set<Tag> tags) {
-        requireAllNonNull(name, amount, date, tags);
+    public Expense(Name name, Amount amount, Currency currency, Date date, Set<Tag> tags) {
+        requireAllNonNull(name, amount, currency, date, tags);
         this.name = name;
         this.amount = amount;
+        this.currency = currency;
         this.date = date;
         this.tags.addAll(tags);
     }
@@ -40,6 +42,10 @@ public class Expense {
 
     public Amount getAmount() {
         return amount;
+    }
+
+    public Currency getCurrency() {
+        return currency;
     }
 
     public Date getDate() {
@@ -65,7 +71,8 @@ public class Expense {
 
         return otherExpense != null
             && otherExpense.getName().equals(getName())
-            && (otherExpense.getAmount().equals(getAmount()) || otherExpense.getDate().equals(getDate()));
+            && (otherExpense.getAmount().equals(getAmount())
+            || (otherExpense.getCurrency().equals(getCurrency()) || otherExpense.getDate().equals(getDate())));
     }
 
     /**
@@ -85,6 +92,7 @@ public class Expense {
         Expense otherExpense = (Expense) other;
         return otherExpense.getName().equals(getName())
             && otherExpense.getAmount().equals(getAmount())
+            && otherExpense.getCurrency().equals(getCurrency())
             && otherExpense.getDate().equals(getDate())
             && otherExpense.getTags().equals(getTags());
     }
@@ -92,7 +100,7 @@ public class Expense {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, amount, date, tags);
+        return Objects.hash(name, amount, currency, date, tags);
     }
 
     @Override
@@ -102,6 +110,7 @@ public class Expense {
             .append(getName())
             .append(" ")
             .append(getAmount())
+            .append(" " + getCurrency())
             .append("\n")
             .append(getDate())
             .append("\n");

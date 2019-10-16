@@ -8,6 +8,7 @@ public class CliSyntax {
     /* Prefix definitions */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_AMOUNT = new Prefix("a/");
+    public static final Prefix PREFIX_CURRENCY = new Prefix("c/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 

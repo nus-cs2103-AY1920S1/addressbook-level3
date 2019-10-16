@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -19,6 +20,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.expense.Amount;
+import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
@@ -37,6 +39,7 @@ public class EditCommand extends Command {
         + "Parameters: INDEX (must be a positive integer) "
         + "[" + PREFIX_NAME + "NAME] "
         + "[" + PREFIX_AMOUNT + "AMOUNT] "
+        + "[" + PREFIX_CURRENCY + "CURRENCY] "
         + "[" + PREFIX_DATE + "DATE] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
@@ -92,10 +95,11 @@ public class EditCommand extends Command {
 
         Name updatedName = editExpenseDescriptor.getName().orElse(expenseToEdit.getName());
         Amount updatedAmount = editExpenseDescriptor.getAmount().orElse(expenseToEdit.getAmount());
+        Currency updatedCurrency = editExpenseDescriptor.getCurrency().orElse(expenseToEdit.getCurrency());
         Date updatedDate = editExpenseDescriptor.getDate().orElse(expenseToEdit.getDate());
         Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
 
-        return new Expense(updatedName, updatedAmount, updatedDate, updatedTags);
+        return new Expense(updatedName, updatedAmount, updatedCurrency, updatedDate, updatedTags);
     }
 
     @Override
@@ -124,6 +128,7 @@ public class EditCommand extends Command {
 
         private Name name;
         private Amount amount;
+        private Currency currency;
         private Date date;
         private Set<Tag> tags;
 
@@ -137,6 +142,7 @@ public class EditCommand extends Command {
         public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
             setName(toCopy.name);
             setAmount(toCopy.amount);
+            setCurrency(toCopy.currency);
             setDate(toCopy.date);
             setTags(toCopy.tags);
         }
@@ -162,6 +168,14 @@ public class EditCommand extends Command {
 
         public Optional<Amount> getAmount() {
             return Optional.ofNullable(amount);
+        }
+
+        public void setCurrency(Currency currency) {
+            this.currency = currency;
+        }
+
+        public Optional<Currency> getCurrency() {
+            return Optional.ofNullable(currency);
         }
 
         public void setDate(Date date) {
@@ -206,6 +220,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                 && getAmount().equals(e.getAmount())
+                && getCurrency().equals(e.getCurrency())
                 && getDate().equals(e.getDate())
                 && getTags().equals(e.getTags());
         }

@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -29,6 +30,8 @@ public class CommandTestUtil {
     public static final String VALID_NAME_RUM = "Ron Zacapa";
     public static final String VALID_AMOUNT_VODKA = "$30";
     public static final String VALID_AMOUNT_RUM = "$200";
+    public static final String VALID_CURRENCY_VODKA = "SGD";
+    public static final String VALID_CURRENCY_RUM = "SGD";
     public static final String VALID_DATE_VODKA = "13/10/2019";
     public static final String VALID_DATE_RUM = "09/05/2019";
     public static final String VALID_TAG_ALCOHOL = "alcohol";
@@ -38,6 +41,8 @@ public class CommandTestUtil {
     public static final String NAME_DESC_RUM = " " + PREFIX_NAME + VALID_NAME_RUM;
     public static final String AMOUNT_DESC_VODKA = " " + PREFIX_AMOUNT + VALID_AMOUNT_VODKA;
     public static final String AMOUNT_DESC_RUM = " " + PREFIX_AMOUNT + VALID_AMOUNT_RUM;
+    public static final String CURRENCY_DESC_VODKA = " " + PREFIX_CURRENCY + VALID_CURRENCY_VODKA;
+    public static final String CURRENCY_DESC_RUM = " " + PREFIX_CURRENCY + VALID_CURRENCY_RUM;
     public static final String DATE_DESC_VODKA = " " + PREFIX_DATE + VALID_DATE_VODKA;
     public static final String DATE_DESC_RUM = " " + PREFIX_DATE + VALID_DATE_RUM;
     public static final String TAG_DESC_DRINKS = " " + PREFIX_TAG + VALID_TAG_DRINKS;
@@ -45,6 +50,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " "; // empty string not allowed in name
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "911a"; // character not allowed in amounts
+    public static final String INVALID_CURRENCY_DESC = " " + PREFIX_CURRENCY + "X12"; // number not allowed in amounts
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "13/12/19"; // year must be of format yyyy
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "alcohol*"; // '*' not allowed in tags
 
@@ -56,10 +62,10 @@ public class CommandTestUtil {
 
     static {
         DESC_VODKA = new EditExpenseDescriptorBuilder().withName(VALID_NAME_VODKA)
-                .withAmount(VALID_AMOUNT_VODKA).withDate(VALID_DATE_VODKA)
+                .withCurrency(VALID_CURRENCY_VODKA).withAmount(VALID_AMOUNT_VODKA).withDate(VALID_DATE_VODKA)
                 .withTags(VALID_TAG_DRINKS).build();
         DESC_RUM = new EditExpenseDescriptorBuilder().withName(VALID_NAME_RUM)
-                .withAmount(VALID_AMOUNT_RUM).withDate(VALID_DATE_RUM)
+                .withCurrency(VALID_CURRENCY_RUM).withAmount(VALID_AMOUNT_RUM).withDate(VALID_DATE_RUM)
                 .withTags(VALID_TAG_ALCOHOL, VALID_TAG_DRINKS).build();
     }
 
