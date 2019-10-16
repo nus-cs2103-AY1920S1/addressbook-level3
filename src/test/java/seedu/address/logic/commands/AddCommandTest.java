@@ -199,6 +199,11 @@ public class AddCommandTest {
         public void updateFilteredFlashCardList(Predicate<FlashCard> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void getStats() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
