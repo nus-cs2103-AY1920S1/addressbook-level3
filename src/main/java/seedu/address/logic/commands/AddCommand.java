@@ -23,6 +23,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 
 /**
  * Adds a person to Mortago.
@@ -87,6 +88,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasEntity(toAdd)) {
+            toAdd.getIdNum().removeMapping();
             throw new CommandException(MESSAGE_DUPLICATE_ENTITY);
         }
 

@@ -2,12 +2,8 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import org.controlsfx.control.MasterDetailPane;
-import org.controlsfx.control.PropertySheet;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -38,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private BodyTableView bodyTableView;
+    private BodyMasterDetailPane bodyMasterDetailPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -56,7 +52,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private MasterDetailPane bodyMasterListPlaceholder;
+    private StackPane bodyMasterListPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -127,9 +123,8 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        bodyTableView = new BodyTableView(logic.getFilteredBodyList());
-        bodyMasterListPlaceholder.setMasterNode(bodyTableView.getRoot());
-        bodyMasterListPlaceholder.setDetailNode(new PropertySheet());
+        bodyMasterDetailPane = new BodyMasterDetailPane(new BodyTableView(logic.getFilteredBodyList()));
+        bodyMasterListPlaceholder.getChildren().add(bodyMasterDetailPane.getRoot());
     }
 
     /**

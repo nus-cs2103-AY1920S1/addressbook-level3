@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
-<?import org.controlsfx.control.MasterDetailPane?>
 
 <fx:root minHeight="650.0" minWidth="1250.0" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
@@ -47,13 +46,17 @@
         </StackPane>
             <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-              <VBox fx:id="personList" minWidth="60.0" prefHeight="100.0" prefWidth="60.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+              <VBox fx:id="personList" maxWidth="200.0" minWidth="200.0" prefHeight="100.0" prefWidth="200.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                 <padding>
                   <Insets bottom="10" left="10" right="10" top="10" />
                 </padding>
                 <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
               </VBox>
-                  <MasterDetailPane fx:id="bodyMasterListPlaceholder" detailSide="BOTTOM" dividerPosition="0.2" HBox.hgrow="ALWAYS" />
+                  <StackPane fx:id="bodyMasterListPlaceholder" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="5" left="10" right="10" top="5" />
+                     </padding>
+                  </StackPane>
                </children>
             </HBox>
 

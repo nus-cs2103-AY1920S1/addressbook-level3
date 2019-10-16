@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
+import static seedu.address.model.entity.body.BodyStatus.CLAIMED;
+import static seedu.address.model.entity.body.BodyStatus.PENDING_POLICE_REPORT;
+
 import java.util.logging.Logger;
 
 import javafx.beans.Observable;
@@ -8,6 +12,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -19,6 +25,7 @@ import javafx.util.Callback;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
+import seedu.address.model.entity.body.BodyStatus;
 
 public class BodyTableView extends UiPart<Region> {
 
@@ -45,24 +52,39 @@ public class BodyTableView extends UiPart<Region> {
         TableColumn<Body, String> dateOfAdmission = new TableColumn<>("Date Of Admission");
         dateOfAdmission.setCellValueFactory(new PropertyValueFactory("dateOfAdmission"));
 
-        bodyTableView.getColumns().addAll(name, id, dateOfAdmission);
+        TableColumn<Body, BodyStatus> bodyStatus = new TableColumn<>("Body Status");
+        bodyStatus.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getBodyStatus().get()));
+        bodyStatus.setCellFactory(tableColumn -> new bodyStatusTableCell());
+        bodyStatus.setStyle("-justify-self: center");
+
+        bodyTableView.getColumns().addAll(name, id, dateOfAdmission, bodyStatus);
     }
 
     /**
      * Custom {@code TableCell} that displays the graphics of a {@code Body}.
      */
-    class BodyTableCell extends TableCell<Body, IdentificationNumber> {
+    class bodyStatusTableCell extends TableCell<Body, BodyStatus> {
         @Override
-        protected void updateItem(IdentificationNumber id, boolean empty) {
-            super.updateItem(id, empty);
+        protected void updateItem(BodyStatus bodyStatus, boolean empty) {
+            super.updateItem(bodyStatus, empty);
 
-            if (empty || id == null) {
+            if (empty || bodyStatus == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                Text idText = new Text();
-                idText.setText(id.toString());
-                setGraphic(idText);
+                Label label = new Label();
+                String bodyStatusString = bodyStatus.toString();
+                label.setText(bodyStatusString);
+                if (bodyStatusString.equals(ARRIVED.toString())) {
+                    label.getStyleClass().add("bodyStatusLabelArrived");
+                } else if (bodyStatusString.equals(CLAIMED.toString())) {
+                    label.getStyleClass().add("bodyStatusLabelClaimed");
+                } else if (bodyStatusString.equals(PENDING_POLICE_REPORT.toString())) {
+                    label.getStyleClass().add("bodyStatusLabelPendingPoliceReport");
+                } else {
+                    label.getStyleClass().add("bodyStatusLabelPending");
+                }
+                setGraphic(label);
             }
         }
     }
