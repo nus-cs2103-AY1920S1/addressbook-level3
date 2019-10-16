@@ -447,6 +447,12 @@ Format: `assign /bodyId bodyId /staffId workerId /task taskDescription`
 
 Example:
 
+==== View admission statistics
+View a line-chart of the number of bodies admitted to the morgue over the past 10 days.
+
+The line-chart is on the main page of the application and is automatically updated.
+No user command is needed to display it.
+
 * `assign /bodyId 2 /staffId 1 /task send blood sample to lab for analysis` +
 Assigns worker with staff ID W00001 to body with ID B00000002 with a task description.
 
