@@ -27,8 +27,8 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
             + ": Unschedules an activity by a time occupied by the activity on a certain day. "
             + "Parameters: "
-            + PREFIX_DAY + "DAY "
-            + PREFIX_START_TIME + "TIME";
+            + PREFIX_START_TIME + "TIME "
+            + PREFIX_DAY + "DAY";
 
     public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity unscheduled: %1$s";
     public static final String MESSAGE_DUPLICATE_DAY = "This day already exists in the planner.";
@@ -40,7 +40,7 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
      * @param dayIndex of the contacts in the filtered contacts list to edit
      * @param startTime details to edit the contacts with
      */
-    public UnscheduleTimeCommand(Index dayIndex, TimeInHalfHour startTime) {
+    public UnscheduleTimeCommand(TimeInHalfHour startTime, Index dayIndex) {
         requireNonNull(dayIndex);
         requireNonNull(startTime);
         this.dayIndex = dayIndex;
