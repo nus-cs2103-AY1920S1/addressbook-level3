@@ -130,7 +130,8 @@ public class ModelManager implements Model {
             addressBook.addEasy();
         }
     }
-
+    
+    @Override
     public int[] getStats() {
         return addressBook.getStats();
     }
