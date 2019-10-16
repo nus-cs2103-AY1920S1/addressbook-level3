@@ -41,7 +41,7 @@ public class IncidentCard extends UiPart<Region> {
         this.incident = incident;
         id.setText(displayedIndex + ". ");
         incidentId.setText("Incident ID: " + incident.getIncidentId().getId());
-        incidentlocation.setText("District: " + String.valueOf(incident.getLocation().districtNum));
+        incidentlocation.setText("District: " + String.valueOf(incident.getDistrict().districtNum));
         dateTime.setText("DateTime of Report: " + incident.getDateTime().toString());
         operator.setText("Operator on Call: " + incident.getOperator().getName().toString());
     }
