@@ -14,7 +14,7 @@ import seedu.address.model.events.Event;
  * Acknowledge a person to the address book.
  */
 public class ChangeAppCommand extends ReversibleCommand {
-    public static final String COMMAND_WORD = "changeAppt";
+    public static final String COMMAND_WORD = "changeappt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": change the appointment date "
             + "by the index number used in the displayed patient's list. "

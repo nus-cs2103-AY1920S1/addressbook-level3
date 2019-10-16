@@ -11,7 +11,7 @@ import seedu.address.model.Model;
  * mark a appointment's status as MISSED for a patient.
  */
 public class MissAppCommand extends NonActionableCommand {
-    public static final String COMMAND_WORD = "missAppt";
+    public static final String COMMAND_WORD = "missappt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all the missed appointment before today "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

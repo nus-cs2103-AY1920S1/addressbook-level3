@@ -14,7 +14,7 @@ import seedu.address.model.events.Event;
  * cancel a appointments for a patient.
  */
 public class CancelAppCommand extends ReversibleCommand {
-    public static final String COMMAND_WORD = "cancelAppt";
+    public static final String COMMAND_WORD = "cancelappt";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Cancels appointment from the schedule. "
             + "Parameters: INDEX (positive integer)\n"
             + "need to go to patient's appointment list first\n"

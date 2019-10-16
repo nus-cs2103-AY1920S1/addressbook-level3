@@ -13,7 +13,7 @@ import seedu.address.model.events.Event;
  * mark a appointment's status as SETTLED for a patient.
  */
 public class SettleAppCommand extends ReversibleCommand {
-    public static final String COMMAND_WORD = "settleAppt";
+    public static final String COMMAND_WORD = "settleappt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": settle a missed appointment. "
             + "by the index number used in the displayed missed appointment's list. \n"

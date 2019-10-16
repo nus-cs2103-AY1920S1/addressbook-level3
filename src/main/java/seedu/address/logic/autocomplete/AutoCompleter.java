@@ -8,18 +8,18 @@ import java.util.List;
  */
 public class AutoCompleter {
     private static final String[] SUPPORTED_COMMANDS = {
-            "ackAppt",
-            "addAppt",
+            "ackappt",
+            "addappt",
             "add",
             "addRoom",
             "appointments",
             "cancel",
-            "changeAppt",
+            "changeappt",
             "dequeue",
             "doctors",
             "exit",
             "help",
-            "missAppt",
+            "missappt",
             "enqueue",
             "offduty",
             "onduty",
@@ -30,8 +30,8 @@ public class AutoCompleter {
             "settleAppt",
             "update",
             "undo",
-            "changeAppt",
-            "cancelAppt"
+            "changeappt",
+            "cancelappt"
     };
     private Trie trie = new Trie(SUPPORTED_COMMANDS);
     private String currentQuery;

@@ -13,7 +13,7 @@ import seedu.address.model.events.Event;
  * Acknowledge a person to the address book.
  */
 public class AckAppCommand extends ReversibleCommand {
-    public static final String COMMAND_WORD = "ackAppt";
+    public static final String COMMAND_WORD = "ackappt";
 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Ack a appointment to the address book. "
