@@ -144,6 +144,8 @@ public class Flashcard {
                 .append(getDefinition())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Choices: \n");
+        getChoices().forEach(builder::append);
         return builder.toString();
     }
 
