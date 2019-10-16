@@ -22,11 +22,13 @@ public abstract class UndoableCommand extends Command {
     public static final String MESSAGE_NOT_EXECUTED_BEFORE = "Command cannot be undone before it is "
             + "successfully executed.";
     public static final String MESSAGE_NOT_UNDONE_BEFORE = "Command cannot be redone before it is successfully undone!";
-
+    public static final String MESSAGE_UNDO_FAIL = "Command cannot be undone before it is successfully executed.";
+    public static final String MESSAGE_REDO_FAIL = "Command cannot be redone before it is successfully undone!";
 
     private UndoableCommandState commandState = UndoableCommandState.PRE_EXECUTION;
 
     public abstract CommandResult undo(Model model) throws CommandException;
+
 
     /**
      * Re-executes the command that was previously undone.
