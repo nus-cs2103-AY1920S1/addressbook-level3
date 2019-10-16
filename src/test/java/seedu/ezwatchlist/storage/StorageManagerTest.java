@@ -2,7 +2,7 @@ package seedu.ezwatchlist.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.ezwatchlist.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import java.nio.file.Path;
 
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.ezwatchlist.commons.core.GuiSettings;
-import seedu.ezwatchlist.model.AddressBook;
-import seedu.ezwatchlist.model.ReadOnlyAddressBook;
+import seedu.ezwatchlist.model.WatchList;
+import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonWatchListStorage watchListStorage = new JsonWatchListStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(watchListStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void watchListReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonWatchListStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonWatchListStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        WatchList original = getTypicalWatchList();
+        storageManager.saveWatchList(original);
+        ReadOnlyWatchList retrieved = storageManager.readWatchList().get();
+        assertEquals(original, new WatchList(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getWatchListFilePath() {
+        assertNotNull(storageManager.getWatchListFilePath());
     }
 
 }

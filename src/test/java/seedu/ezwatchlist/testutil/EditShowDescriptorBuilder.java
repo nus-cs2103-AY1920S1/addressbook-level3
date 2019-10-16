@@ -78,7 +78,7 @@ public class EditShowDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code actors} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code actors} into a {@code Set<Tag>} and set it to the {@code EditShowDescriptor}
      * that we are building.
      */
     public EditShowDescriptorBuilder withActors(String... actors) {
