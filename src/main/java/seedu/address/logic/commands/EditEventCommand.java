@@ -151,7 +151,7 @@ public class EditEventCommand extends Command {
         private EventStartDate startDate;
         private EventEndDate endDate;
         private EventManpowerAllocatedList manpowerAllocatedList;
-        private Set<Tag> tags = new HashSet<>();
+        private Set<Tag> tags;
 
         public EditEventDescriptor() {}
 
