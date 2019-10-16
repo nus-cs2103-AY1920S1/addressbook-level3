@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -31,7 +31,7 @@ public class SpendingUtil {
     public static String getSpendingDetails(Spending spending) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + spending.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + spending.getPhone().value + " ");
+        sb.append(PREFIX_DATE + spending.getDate().value + " ");
         sb.append(PREFIX_EMAIL + spending.getEmail().value + " ");
         sb.append(PREFIX_COST + spending.getCost().value + " ");
         spending.getTags().stream().forEach(
@@ -46,7 +46,7 @@ public class SpendingUtil {
     public static String getEditSpendingDescriptorDetails(EditSpendingDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE).append(date.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getCost().ifPresent(cost -> sb.append(PREFIX_COST).append(cost.value).append(" "));
         if (descriptor.getTags().isPresent()) {

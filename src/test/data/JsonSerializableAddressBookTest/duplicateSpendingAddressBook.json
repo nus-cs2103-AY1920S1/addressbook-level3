@@ -1,13 +1,13 @@
 {
   "spendings": [ {
     "name": "Alice Pauline",
-    "phone": "94351253",
+    "date": "1/1/2019",
     "email": "alice@example.com",
     "cost": "123",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
-    "phone": "94351253",
+    "date": "1/1/2019",
     "email": "pauline@example.com",
     "cost": "4"
   } ]

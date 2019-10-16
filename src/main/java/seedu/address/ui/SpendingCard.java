@@ -33,7 +33,7 @@ public class SpendingCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label date;
     @FXML
     private Label cost;
     @FXML
@@ -46,7 +46,7 @@ public class SpendingCard extends UiPart<Region> {
         this.spending = spending;
         id.setText(displayedIndex + ". ");
         name.setText(spending.getName().fullName);
-        phone.setText(spending.getPhone().value);
+        date.setText(spending.getDate().value);
         cost.setText(spending.getCost().value);
         email.setText(spending.getEmail().value);
         spending.getTags().stream()

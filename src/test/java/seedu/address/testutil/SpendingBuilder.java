@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.spending.Cost;
+import seedu.address.model.spending.Date;
 import seedu.address.model.spending.Email;
 import seedu.address.model.spending.Name;
-import seedu.address.model.spending.Phone;
 import seedu.address.model.spending.Spending;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -17,19 +17,19 @@ import seedu.address.model.util.SampleDataUtil;
 public class SpendingBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_DATE = "25/12/2019";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_COST = "123";
 
     private Name name;
-    private Phone phone;
+    private Date date;
     private Email email;
     private Cost cost;
     private Set<Tag> tags;
 
     public SpendingBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        date = new Date(DEFAULT_DATE);
         email = new Email(DEFAULT_EMAIL);
         cost = new Cost(DEFAULT_COST);
         tags = new HashSet<>();
@@ -40,7 +40,7 @@ public class SpendingBuilder {
      */
     public SpendingBuilder(Spending spendingToCopy) {
         name = spendingToCopy.getName();
-        phone = spendingToCopy.getPhone();
+        date = spendingToCopy.getDate();
         email = spendingToCopy.getEmail();
         cost = spendingToCopy.getCost();
         tags = new HashSet<>(spendingToCopy.getTags());
@@ -63,10 +63,10 @@ public class SpendingBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Spending} that we are building.
+     * Sets the {@code Date} of the {@code Spending} that we are building.
      */
-    public SpendingBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public SpendingBuilder withDate(String date) {
+        this.date = new Date(date);
         return this;
     }
 
@@ -87,7 +87,7 @@ public class SpendingBuilder {
     }
 
     public Spending build() {
-        return new Spending(name, phone, email, cost, tags);
+        return new Spending(name, date, email, cost, tags);
     }
 
 }
