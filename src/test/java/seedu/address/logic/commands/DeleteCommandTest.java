@@ -7,21 +7,15 @@ import static seedu.address.logic.commands.CommandTestUtil.assertDeleteCommandFa
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_UNDO_SUCCESS;
 import static seedu.address.logic.commands.UndoableCommand.MESSAGE_NOT_EXECUTED_BEFORE;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBodies.ALICE;
-import static seedu.address.testutil.TypicalBodies.BOB;
-import static seedu.address.testutil.TypicalFridges.ALICE_FRIDGE;
-import static seedu.address.testutil.TypicalFridges.BOB_FRIDGE;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_BODY_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_FRIDGE_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_WORKER_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.SECOND_BODY_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.SECOND_FRIDGE_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.SECOND_WORKER_ID_NUM;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_BODY;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_DELETE_COMMAND;
-import static seedu.address.testutil.TypicalWorkers.BENSON;
-import static seedu.address.testutil.TypicalWorkers.CLARA;
 
 import java.util.List;
 
@@ -37,6 +31,7 @@ import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.testutil.TypicalPersons;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -50,13 +45,11 @@ public class DeleteCommandTest {
     public void execute_validIndexUnfilteredList_success() {
 
         // Delete Body
-        model.addEntity(ALICE);
         List<Body> bodyList = model.getFilteredBodyList();
         for (Body body : bodyList) {
             if (body.getIdNum().equals(FIRST_BODY_ID_NUM)) {
                 DeleteCommand deleteBodyCommand = new DeleteCommand(
                         Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "b");
-
                 String expectedBodyMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTITY_SUCCESS, body);
 
                 ModelManager expectedBodyModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -69,13 +62,11 @@ public class DeleteCommandTest {
 
 
         // Delete Worker
-        model.addEntity(CLARA);
         List<Worker> workerList = model.getFilteredWorkerList();
         for (Worker worker : workerList) {
             if (worker.getIdNum().equals(FIRST_WORKER_ID_NUM)) {
                 DeleteCommand deleteWorkerCommand = new DeleteCommand(
                         Index.fromZeroBased(FIRST_WORKER_ID_NUM.getIdNum()), "w");
-
                 String expectedWorkerMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTITY_SUCCESS, worker);
 
                 ModelManager expectedWorkerModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -87,22 +78,21 @@ public class DeleteCommandTest {
         }
 
         // Delete Fridge
-        model.addEntity(ALICE_FRIDGE);
         List<Fridge> fridgeList = model.getFilteredFridgeList();
         for (Fridge fridge : fridgeList) {
             if (fridge.getIdNum().equals(FIRST_FRIDGE_ID_NUM)) {
-                DeleteCommand deleteWorkerCommand = new DeleteCommand(
+                DeleteCommand deleteFridgeCommand = new DeleteCommand(
                         Index.fromZeroBased(FIRST_FRIDGE_ID_NUM.getIdNum()), "f");
-
                 String expectedFridgeMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTITY_SUCCESS, fridge);
 
                 ModelManager expectedFridgeModel = new ModelManager(model.getAddressBook(), new UserPrefs());
                 expectedFridgeModel.deleteEntity(fridge);
 
-                assertCommandSuccess(deleteWorkerCommand, model, expectedFridgeMessage, expectedFridgeModel);
+                assertCommandSuccess(deleteFridgeCommand, model, expectedFridgeMessage, expectedFridgeModel);
                 break;
             }
         }
+
     }
 
     @Test
@@ -172,11 +162,11 @@ public class DeleteCommandTest {
     @Test
     public void undo_previouslyExecuted_success() throws CommandException {
         UndoableCommand deleteCommand = TYPICAL_DELETE_COMMAND;
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
         model.addEntity(TYPICAL_BODY);
         deleteCommand.execute(model);
 
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
         expectedModel.addEntity(TYPICAL_BODY);
         expectedModel.addExecutedCommand(deleteCommand);
 
@@ -190,7 +180,7 @@ public class DeleteCommandTest {
     public void undo_notExecutedBefore_undoFailureException() {
         UndoableCommand deleteCommand = TYPICAL_DELETE_COMMAND;
 
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
         assertThrows(CommandException.class, MESSAGE_NOT_EXECUTED_BEFORE, () -> deleteCommand.undo(model));
     }
 
@@ -201,13 +191,12 @@ public class DeleteCommandTest {
     public void equals() {
 
         // BODY
-
-        model.addEntity(ALICE);
-        model.addEntity(BOB);
-        DeleteCommand deleteFirstBodyCommand = new DeleteCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()),
-                "b");
-        DeleteCommand deleteSecondBodyCommand = new DeleteCommand(Index.fromZeroBased(SECOND_BODY_ID_NUM.getIdNum()),
-                "b");
+        // model.addEntity(ALICE);
+        // model.addEntity(BOB);
+        DeleteCommand deleteFirstBodyCommand = new DeleteCommand(
+                Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "b");
+        DeleteCommand deleteSecondBodyCommand = new DeleteCommand(
+                Index.fromZeroBased(SECOND_BODY_ID_NUM.getIdNum()), "b");
 
         // same object -> returns true
         assertTrue(deleteFirstBodyCommand.equals(deleteFirstBodyCommand));
@@ -228,13 +217,12 @@ public class DeleteCommandTest {
 
 
         // WORKER
-
-        model.addEntity(CLARA);
-        model.addEntity(BENSON);
-        DeleteCommand deleteFirstWorkerCommand =
-                new DeleteCommand(Index.fromZeroBased(FIRST_WORKER_ID_NUM.getIdNum()), "w");
-        DeleteCommand deleteSecondWorkerCommand =
-                new DeleteCommand(Index.fromZeroBased(SECOND_WORKER_ID_NUM.getIdNum()), "w");
+        // model.addEntity(CLARA);
+        // model.addEntity(BENSON);
+        DeleteCommand deleteFirstWorkerCommand = new DeleteCommand(
+                Index.fromZeroBased(FIRST_WORKER_ID_NUM.getIdNum()), "w");
+        DeleteCommand deleteSecondWorkerCommand = new DeleteCommand(
+                Index.fromZeroBased(SECOND_WORKER_ID_NUM.getIdNum()), "w");
 
         // same object -> returns true
         assertTrue(deleteFirstWorkerCommand.equals(deleteFirstWorkerCommand));
@@ -254,19 +242,17 @@ public class DeleteCommandTest {
         assertFalse(deleteFirstWorkerCommand.equals(deleteSecondWorkerCommand));
 
         // todo FRIDGE
-        model.addEntity(ALICE_FRIDGE);
-        model.addEntity(BOB_FRIDGE);
         DeleteCommand deleteFirstFridgeCommand =
-                new DeleteCommand(Index.fromZeroBased(FIRST_FRIDGE_ID_NUM.getIdNum()), "w");
+                new DeleteCommand(Index.fromZeroBased(FIRST_FRIDGE_ID_NUM.getIdNum()), "f");
         DeleteCommand deleteSecondFridgeCommand =
-                new DeleteCommand(Index.fromZeroBased(SECOND_FRIDGE_ID_NUM.getIdNum()), "w");
+                new DeleteCommand(Index.fromZeroBased(SECOND_FRIDGE_ID_NUM.getIdNum()), "f");
 
         // same object -> returns true
         assertTrue(deleteFirstFridgeCommand.equals(deleteFirstFridgeCommand));
 
         // same values -> returns true
         DeleteCommand deleteFirstFridgeCommandCopy =
-                new DeleteCommand(Index.fromZeroBased(FIRST_FRIDGE_ID_NUM.getIdNum()), "w");
+                new DeleteCommand(Index.fromZeroBased(FIRST_FRIDGE_ID_NUM.getIdNum()), "f");
         assertTrue(deleteFirstFridgeCommand.equals(deleteFirstFridgeCommandCopy));
 
         // different types -> returns false

@@ -11,6 +11,7 @@ import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueEntityLists;
 
@@ -21,8 +22,8 @@ import seedu.address.model.person.UniqueEntityLists;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueEntityLists entities;
+    private final UniqueNotifsList notifs;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
-
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -33,6 +34,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         entities = new UniqueEntityLists();
+        notifs = new UniqueNotifsList();
     }
 
     public AddressBook() {}
@@ -83,6 +85,24 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+
+    /**
+     * Replaces the contents of the person list with {@code entities}.
+     * {@code entities} must not contain duplicate entities.
+     */
+    public void setNotif(List<Notif> notifs) {
+        this.notifs.setNotifs(notifs);
+    }
+
+    /**
+     * Replaces the given notif {@code target} in the list with {@code editedNotif}.
+     * {@code target} must exist in Mortago.
+     * The notif identity of {@code editedNotif} must not be the same as another existing notif in Mortago.
+     */
+    public void setNotif(Notif target, Notif editedNotif) {
+        requireNonNull(editedNotif);
+        notifs.setNotif(target, editedNotif);
+    }
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
@@ -154,6 +174,32 @@ public class AddressBook implements ReadOnlyAddressBook {
         invalidationListenerManager.callListeners(this);
     }
 
+
+    /**
+     * Returns true if a notif with the same identity as {@code notif} exists in Mortago.
+     */
+    public boolean hasNotif(Notif notif) {
+        requireNonNull(notif);
+        return notifs.contains(notif);
+    }
+
+    /**
+     * Adds a notif to Mortago.
+     * The notif must not already exist in Mortago.
+     */
+    public void addNotif(Notif n) {
+        notifs.add(n);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeNotif(Notif key) {
+        notifs.remove(key);
+    }
+
+
     //// util methods
 
     @Override
@@ -180,6 +226,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Notif> getNotifList() {
+        return notifs.asUnmodifiableObservableListNotif();
+    }
+
     public ObservableList<Fridge> getFridgeList() {
         return entities.asUnmodifiableObservableListFridge();
     }

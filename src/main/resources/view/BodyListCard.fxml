@@ -29,6 +29,7 @@
       </HBox>
       <Label fx:id="bodyId" styleClass="cell_small_label" text="\$bodyId" />
       <Label fx:id="dateOfAdmission" styleClass="cell_small_label" text="\$dateOfAdmission" />
+      <Label fx:id="bodyStatus" styleClass="cell_small_label" text="\$bodyStatus" />
     </VBox>
       <rowConstraints>
          <RowConstraints />

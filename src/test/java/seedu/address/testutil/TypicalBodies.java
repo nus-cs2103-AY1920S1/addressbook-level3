@@ -13,9 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
 import seedu.address.model.entity.body.Body;
-import seedu.address.model.entity.worker.Worker;
 
 //@@author ambervoong
 /**
@@ -66,22 +64,6 @@ public class TypicalBodies {
     private TypicalBodies() {
     } // prevents instantiation
 
-    /**
-    * Returns an {@code AddressBook} with all the typical persons.
-    */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
-
-        for (Body body : getTypicalBodies()) {
-            ab.addEntity(body);
-        }
-
-        for (Worker worker : TypicalWorkers.getTypicalWorkers()) {
-            ab.addEntity(worker);
-        }
-
-        return ab;
-    }
 
     public static List<Body> getTypicalBodies() {
         return new ArrayList<>(Arrays.asList(ALICE, BOB));

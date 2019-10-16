@@ -20,9 +20,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
+import java.util.concurrent.TimeUnit;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.notif.Notif;
 
 /**
  * Adds a person to Mortago.
@@ -93,6 +97,11 @@ public class AddCommand extends UndoableCommand {
         }
 
         model.addEntity(toAdd);
+
+        if (toAdd instanceof Body) {
+            NotifCommand notifCommand = new NotifCommand(new Notif((Body) toAdd), 5, TimeUnit.SECONDS);
+            notifCommand.execute(model);
+        }
         setUndoable();
         model.addExecutedCommand(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

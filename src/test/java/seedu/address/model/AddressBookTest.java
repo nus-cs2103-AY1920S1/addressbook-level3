@@ -23,6 +23,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
@@ -114,6 +115,7 @@ public class AddressBookTest {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Worker> workers = FXCollections.observableArrayList();
         private final ObservableList<Body> bodies = FXCollections.observableArrayList();
+        private final ObservableList<Notif> notifs = FXCollections.observableArrayList();
         private final ObservableList<Fridge> fridges = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons) {
@@ -148,6 +150,11 @@ public class AddressBookTest {
         @Override
         public void removeListener(InvalidationListener listener) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Notif> getNotifList() {
+            return notifs;
         }
     }
 
