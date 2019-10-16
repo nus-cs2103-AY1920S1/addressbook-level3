@@ -1,20 +1,12 @@
 package seedu.address.ui;
 
-import static seedu.address.model.util.SampleDataUtil.getTagSet;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-
-// to be removed
 
 /**
  * An UI component that displays information of a {@code Person} when selected.

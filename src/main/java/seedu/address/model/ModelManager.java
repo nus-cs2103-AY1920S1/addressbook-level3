@@ -12,11 +12,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,15 +25,17 @@ import seedu.address.model.person.Name;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private static final Person ALICE = new Person(new Name("Alice Pauline"), new Phone("94351253"),
+                                                   new Email("alice@example.com"),
+                                                   new Address("123, Jurong West Ave 6, #08-111"),
+                                                   getTagSet("friends"));
+
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final Person[] selectedPerson;
     private final int selectedPersonIndex = 0;
-    private static final Person ALICE = new Person(new Name("Alice Pauline"), new Phone("94351253"),
-                                                   new Email("alice@example.com"),
-                                                   new Address("123, Jurong West Ave 6, #08-111"),
-                                                   getTagSet("friends"));
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -128,7 +131,7 @@ public class ModelManager implements Model {
 
     @Override
     public Person selectPerson() {
-            return selectedPerson[selectedPersonIndex];
+        return selectedPerson[selectedPersonIndex];
 
     }
 
