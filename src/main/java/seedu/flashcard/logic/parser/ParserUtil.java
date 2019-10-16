@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.commons.util.StringUtil;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
+import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.Word;
@@ -87,6 +88,15 @@ public class ParserUtil {
             throw new ParseException(Definition.MESSAGE_CONSTRAINTS);
         }
         return new Definition(trimmedDefinition);
+    }
+
+    public static Answer parseAnswer(String answer) throws ParseException {
+        requireNonNull(answer);
+        String trimmedAnswer = answer.trim();
+        if (!Answer.isValidAnswer(trimmedAnswer)) {
+            throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
+        }
+        return new Answer(trimmedAnswer);
     }
 
     /**

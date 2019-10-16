@@ -2,6 +2,7 @@ package seedu.flashcard.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
@@ -48,13 +49,18 @@ public class EditCommandParser implements Parser<EditCommand> {
             editFlashcardDescriptor.setWord(ParserUtil.parseWord(argMultimap.getValue(PREFIX_WORD).get()));
         }
 
-        parseChoicesForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editFlashcardDescriptor::setChoices);
-
         if (argMultimap.getValue(PREFIX_DEFINITION).isPresent()) {
             editFlashcardDescriptor.setDefinition(ParserUtil
                     .parseDefinition(argMultimap.getValue(PREFIX_DEFINITION).get()));
         }
+
+        if (argMultimap.getValue(PREFIX_ANSWER).isPresent()) {
+            editFlashcardDescriptor.setAnswer(ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get()));
+        }
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editFlashcardDescriptor::setTags);
+
+        parseChoicesForEdit(argMultimap.getAllValues(PREFIX_CHOICE)).ifPresent(editFlashcardDescriptor::setChoices);
 
         if (!editFlashcardDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

@@ -5,7 +5,7 @@ import static seedu.flashcard.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a choice in the flashcard list.
- * Guarantees: immutable; name is valid as declared in {@link #isValidChoice(String)}
+ * Guarantees: immutable; choice is valid as declared in {@link #isValidChoice(String)}
  */
 public class Choice {
     public static final String MESSAGE_CONSTRAINTS = "Choice can take any values, and it should not be blank";
@@ -20,7 +20,7 @@ public class Choice {
     }
 
     /**
-     * Returns true if a given string is a valid definition.
+     * Returns true if a given string is a valid choice.
      */
     public static boolean isValidChoice(String test) {
         return test.matches(VALIDATION_REGEX);
