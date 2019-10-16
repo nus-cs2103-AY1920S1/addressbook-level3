@@ -13,10 +13,10 @@ import seedu.address.model.vehicle.Vehicle;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /** {@code Predicate} for persons that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
-    /** {@code Predicate} that always evaluates to true */
+    /** {@code Predicate} for incidents that always evaluate to true */
     Predicate<Incident> PREDICATE_SHOW_ALL_INCIDENTS = unused -> true;
 
     /**
@@ -93,6 +93,17 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /**
+     * Returns true if an incident with the same identity as {@code incident} exists in the address book.
+     */
+    boolean hasIncident(Incident incident);
+
+    /**
+     * Adds the given incident.
+     * {@code incident} must not already exist in the address book.
+     */
+    void addIncident(Incident incident);
 
     /** Returns an unmodifiable view of the filtered incident list */
     ObservableList<Incident> getFilteredIncidentList();

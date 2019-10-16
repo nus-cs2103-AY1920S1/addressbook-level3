@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.IncidentId;
 import seedu.address.model.person.Email;
@@ -138,6 +139,21 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String callerNumber} into a {@code CallerNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code callerNumber} is invalid.
+     */
+    public static CallerNumber parseCallerNumber(String callerNumber) throws ParseException {
+        requireNonNull(callerNumber);
+        String trimmedCallerNumber = callerNumber.trim();
+        if (!CallerNumber.isValidPhone(callerNumber)) {
+            throw new ParseException(CallerNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new CallerNumber(trimmedCallerNumber);
     }
 
     /**
