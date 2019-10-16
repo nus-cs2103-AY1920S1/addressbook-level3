@@ -90,7 +90,10 @@ public class UpdateCommand extends UndoableCommand {
 
     private Entity entity;
     private UpdateEntityDescriptor originalEntityDescriptor;
+
+    //@@author arjavibahety
     private boolean updateFromNotif;
+    //@@author
 
     /**
      * Creates an UpdateCommand to update one or more fields in the specified {@code Body},
@@ -149,10 +152,12 @@ public class UpdateCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
 
+        //@@author arjavibahety
         if (!updateFromNotif) {
             setUndoable();
             model.addExecutedCommand(this);
         }
+        //@@author
 
         return new CommandResult(String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, entity));
     }
@@ -228,9 +233,11 @@ public class UpdateCommand extends UndoableCommand {
         throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
     }
 
+    //@@author arjavibahety
     public void setUpdateFromNotif(boolean updateFromNotif) {
         this.updateFromNotif = updateFromNotif;
     }
+    //@@
 
     @Override
     public boolean equals(Object other) {
