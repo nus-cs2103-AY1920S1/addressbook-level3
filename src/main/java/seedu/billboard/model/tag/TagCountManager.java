@@ -34,6 +34,7 @@ public class TagCountManager {
      * @param tags to be checked.
      */
     public void addNewTags(List<Tag> tags) {
+        requireNonNull(tags);
         for (Tag tag : tags) {
             if (!contains(tag)) {
                 add(tag);
@@ -46,6 +47,7 @@ public class TagCountManager {
      * @param tag whose count to be incremented.
      */
     public void incrementCount(Tag tag) {
+        requireNonNull(tag);
         int current = count.get(tag);
         count.replace(tag, current + 1);
     }
@@ -55,6 +57,7 @@ public class TagCountManager {
      * @param tags whose count to be incremented.
      */
     public void incrementAllCount(List<Tag> tags) {
+        requireNonNull(tags);
         addNewTags(tags);
         for (Tag tag : tags) {
             incrementCount(tag);
