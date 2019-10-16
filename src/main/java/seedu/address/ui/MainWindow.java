@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -13,7 +14,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.semester.Semester;
-import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.studyplan.StudyPlan;
 
 /**
@@ -32,6 +32,9 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private SemesterListPanel semesterListPanel;
     private ResultDisplay resultDisplay;
+
+    @FXML
+    private Label title;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -70,11 +73,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         StudyPlan sp = logic.getActiveStudyPlan();
-        UniqueSemesterList u = sp.getSemesters();
-        ObservableList<Semester> ol = u.asUnmodifiableObservableList();
-        // logic.getActiveStudyPlan().getSemesters().asUnmodifiableObservableList();
-        semesterListPanel = new SemesterListPanel(ol);
+        ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
+        semesterListPanel = new SemesterListPanel(semesters);
         semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+        title.setText(sp.getTitle().toString());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
