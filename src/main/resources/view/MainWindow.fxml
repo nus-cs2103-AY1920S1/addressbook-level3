@@ -17,7 +17,7 @@
 
 <!--onCloseRequest="#handleExit"-->
 
-<fx:root minHeight="660.0" minWidth="920.0" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="660.0" minWidth="920.0" title="treasurerPro (tP)" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
