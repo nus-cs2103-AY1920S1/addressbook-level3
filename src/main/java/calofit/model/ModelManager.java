@@ -170,7 +170,7 @@ public class ModelManager implements Model {
 
     @Override
     public void updateStatistics() {
-        this.statistics = Statistics.generateStatistics(this.mealLog);
+        this.statistics = Statistics.generateStatistics(this.mealLog, this.getCalorieBudget());
     }
 
     @Override
