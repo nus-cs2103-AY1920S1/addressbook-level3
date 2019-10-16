@@ -2,6 +2,8 @@ package seedu.ezwatchlist.ui;
 
 import java.util.Comparator;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -39,8 +41,6 @@ public class ShowCard extends UiPart<Region> {
     @FXML
     private Label dateOfRelease;
     @FXML
-    private Label isWatched;
-    @FXML
     private Label description;
     @FXML
     private Label runningTime;
@@ -56,12 +56,15 @@ public class ShowCard extends UiPart<Region> {
         name.setText(show.getName().showName);
         type.setText(show.type);
         dateOfRelease.setText(show.getDateOfRelease().value);
-        isWatched.setText(Boolean.toString(show.isWatched().value));
         description.setText(show.getDescription().fullDescription);
         runningTime.setText(Integer.toString(show.getRunningTime().value));
         show.getActors().stream()
                 .sorted(Comparator.comparing(actor -> actor.actorName))
                 .forEach(actor -> actors.getChildren().add(new Label(actor.actorName)));
+
+        //sets the checkbox selected value to be equal to the watched value of the show
+        watched.setSelected(show.isWatched().value);
+        watched.selectedProperty().addListener(new NonChangeableCheckBox());
     }
 
     @Override
@@ -80,5 +83,17 @@ public class ShowCard extends UiPart<Region> {
         ShowCard card = (ShowCard) other;
         return id.getText().equals(card.id.getText())
                 && show.equals(card.show);
+    }
+
+    /**
+     * This class prevents the user from marking the checkbox by clicking
+     *
+     * @author AxxG "How to make checkbox or combobox readonly in JavaFX"
+     */
+    class NonChangeableCheckBox implements ChangeListener<Boolean> {
+        @Override
+        public void changed(ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) {
+            watched.setSelected(show.isWatched().value);
+        }
     }
 }
