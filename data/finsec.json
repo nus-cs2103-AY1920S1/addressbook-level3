@@ -1,0 +1,40 @@
+{
+  "contacts" : [ {
+    "name" : "joshua",
+    "phone" : "98345732",
+    "email" : "joshu5797@gmail.com",
+    "address" : "blah blah",
+    "tagged" : [ ]
+  }, {
+    "name" : "caesar",
+    "phone" : "9999",
+    "email" : "cz@gmail.com",
+    "address" : "asdgsdf",
+    "tagged" : [ ]
+  } ],
+  "incomes" : [ {
+    "description" : "blach",
+    "amount" : "1234",
+    "date" : "11-11-2019",
+    "name" : "joshua",
+    "phone" : "98279212",
+    "tagged" : [ ]
+  } ],
+  "claims" : [ {
+    "description" : "afnjdsvf",
+    "amount" : "1234",
+    "date" : "11-11-2019",
+    "name" : "joshua",
+    "phone" : "12342456",
+    "tagged" : [ ],
+    "status" : "PENDING"
+  }, {
+    "description" : "alsjkvs",
+    "amount" : "1234",
+    "date" : "11-11-2019",
+    "name" : "joshua",
+    "phone" : "0912",
+    "tagged" : [ ],
+    "status" : "PENDING"
+  } ]
+}
