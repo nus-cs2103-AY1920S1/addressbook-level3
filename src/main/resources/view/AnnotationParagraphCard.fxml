@@ -14,18 +14,19 @@
         <padding>
             <Insets top="5" right="5" bottom="5" left="15" />
         </padding>
-        <VBox maxWidth="100" prefWidth="50">
+        <VBox maxWidth="100" prefWidth="50" HBox.hgrow="NEVER">
             <Label fx:id="id" styleClass="cell_small_label" />
         </VBox>
-        <HBox spacing="5" alignment="CENTER_LEFT">
-            <Label fx:id="para" styleClass="cell_big_label" wrapText="true">
+        <HBox spacing="5" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS"
+            maxWidth="500" minWidth="400" prefWidth="500">
+            <Label fx:id="para" styleClass="cell_big_label" wrapText="true" textOverrun="CLIP">
                 <minWidth>
                     <!-- Ensures that the label text is never truncated -->
                     <Region fx:constant="USE_PREF_SIZE" />
                 </minWidth>
             </Label>
         </HBox>
-        <VBox>
+        <VBox minWidth="100" HBox.hgrow="NEVER">
             <Label fx:id="note" styleClass="cell_small_label" wrapText="true" />
         </VBox>
 

@@ -54,7 +54,7 @@ public class ParagraphIdentifier implements Comparable<ParagraphIdentifier> {
 
     @Override
     public String toString() {
-        return String.format("%s%d", type, index.getOneBased());
+        return String.format("%s%d", type.convert(), index.getOneBased());
     }
 
     /**
@@ -63,5 +63,11 @@ public class ParagraphIdentifier implements Comparable<ParagraphIdentifier> {
      */
     public static enum ParagraphType {
         EXIST, STRAY;
+        public String convert() {
+            if (this == EXIST) {
+                return "P";
+            }
+            return "S";
+        }
     }
 }

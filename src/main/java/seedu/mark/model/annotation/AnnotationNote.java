@@ -29,4 +29,11 @@ public class AnnotationNote {
         return content;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof AnnotationNote
+                && ((AnnotationNote) other).content.equals(this.content));
+    }
+
 }
