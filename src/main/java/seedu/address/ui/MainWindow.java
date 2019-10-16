@@ -24,7 +24,7 @@ import seedu.address.model.ReadOnlyAddressBook;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow2.fxml";
+    private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -34,9 +34,6 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
-    private FridgeListPanel fridgeListPanel;
-    private WorkerListPanel workerListPanel;
-    private BodyListPanel bodyListPanel;
     private LineChartPanel lineChartPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -50,15 +47,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
-
-    @FXML
-    private StackPane fridgeListPanelPlaceholder;
-
-    @FXML
-    private StackPane workerListPanelPlaceholder;
-
-    @FXML
-    private StackPane bodyListPanelPlaceholder;
 
     @FXML
     private StackPane lineChartPanelPlaceholder;
@@ -131,15 +119,6 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        fridgeListPanel = new FridgeListPanel(logic.getFilteredFridgeList());
-        fridgeListPanelPlaceholder.getChildren().add(fridgeListPanel.getRoot());
-
-        workerListPanel = new WorkerListPanel(logic.getFilteredWorkerList());
-        workerListPanelPlaceholder.getChildren().add(workerListPanel.getRoot());
-
-        bodyListPanel = new BodyListPanel(logic.getFilteredBodyList());
-        bodyListPanelPlaceholder.getChildren().add(bodyListPanel.getRoot());
 
         lineChartPanel = new LineChartPanel(logic.getAddressBook().getBodyList());
         lineChartPanelPlaceholder.getChildren().add(lineChartPanel.getLineChart());
