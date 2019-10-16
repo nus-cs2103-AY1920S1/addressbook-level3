@@ -142,7 +142,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        //=============Flashcard stuff===============================================
+        //=============Person stuff===============================================
 
         @Override
         public boolean hasPerson(Person person) {
@@ -173,7 +173,7 @@ public class AddCommandTest {
 
         @Override
         public void addFlashcard(Flashcard flashcard) {
-            // To be implemented
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -183,16 +183,21 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deleteFlashcard(Flashcard flashcard) {
-            // To be implemented
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasFlashcard(Flashcard flashcard) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
             throw new AssertionError("This method should not be called.");
         }
 

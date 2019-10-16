@@ -220,6 +220,10 @@ public class AddNoteCommandTest {
         public void deleteFlashcard(Flashcard flashcard) {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
