@@ -89,65 +89,73 @@ public class Date {
         LocalTime newTime;
         LocalDate newDate;
         LocalDateTime newDateTime;
+        String datePattern = "dd MMM yyyy";
+        String dateTimePattern = "dd MMM yyyy, H:mma";
         if (date.matches(HMM_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("Hmm");
             newTime = LocalTime.parse(date, formatter);
-            return newTime.format(DateTimeFormatter.ofPattern("H:mma"));
+            return appendDate(newTime).format(DateTimeFormatter.ofPattern(dateTimePattern));
         } else if (date.matches(HHMM_REGEX)) {
-            formatter = DateTimeFormatter.ofPattern("HHmm");
+            formatter = DateTimeFormatter.ofPattern("Hmm");
             newTime = LocalTime.parse(date, formatter);
-            return newTime.format(DateTimeFormatter.ofPattern("HH:mma"));
+            return appendDate(newTime).format(DateTimeFormatter.ofPattern(dateTimePattern));
         } else if (date.matches(DMYYYY_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
             newDate = LocalDate.parse(date, formatter);
-            return newDate.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));
+            return newDate.format(DateTimeFormatter.ofPattern(datePattern));
         } else if (date.matches(DMMYYYY_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
             newDate = LocalDate.parse(date, formatter);
-            return newDate.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));
+            return newDate.format(DateTimeFormatter.ofPattern(datePattern));
         } else if (date.matches(DDMYYYY_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("dd/M/yyyy");
             newDate = LocalDate.parse(date, formatter);
-            return newDate.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));
+            return newDate.format(DateTimeFormatter.ofPattern(datePattern));
         } else if (date.matches(DDMMYYYY_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             newDate = LocalDate.parse(date, formatter);
-            return newDate.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"));
+            return newDate.format(DateTimeFormatter.ofPattern(datePattern));
         } else if (date.matches(DMYYYYHMM_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("d/M/yyyy Hmm");
             newDateTime = LocalDateTime.parse(date, formatter);
-            return newDateTime.format(DateTimeFormatter.ofPattern("MMM dd H:mma, yyyy"));
+            return newDateTime.format(DateTimeFormatter.ofPattern(dateTimePattern));
         } else if (date.matches(DMMYYYYHMM_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("d/MM/yyyy Hmm");
             newDateTime = LocalDateTime.parse(date, formatter);
-            return newDateTime.format(DateTimeFormatter.ofPattern("MMM dd H:mma, yyyy"));
+            return newDateTime.format(DateTimeFormatter.ofPattern(dateTimePattern));
         } else if (date.matches(DDMYYYYHMM_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("dd/M/yyyy Hmm");
             newDateTime = LocalDateTime.parse(date, formatter);
-            return newDateTime.format(DateTimeFormatter.ofPattern("MMM dd H:mma, yyyy"));
+            return newDateTime.format(DateTimeFormatter.ofPattern(dateTimePattern));
         } else if (date.matches(DDMMYYYYHMM_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy Hmm");
             newDateTime = LocalDateTime.parse(date, formatter);
-            return newDateTime.format(DateTimeFormatter.ofPattern("MMM dd H:mma, yyyy"));
+            return newDateTime.format(DateTimeFormatter.ofPattern(dateTimePattern));
         } else if (date.matches(DMYYYYHHMM_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             newDateTime = LocalDateTime.parse(date, formatter);
-            return newDateTime.format(DateTimeFormatter.ofPattern("MMM dd H:mma, yyyy"));
+            return newDateTime.format(DateTimeFormatter.ofPattern(dateTimePattern));
         } else if (date.matches(DMMYYYYHHMM_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
             newDateTime = LocalDateTime.parse(date, formatter);
-            return newDateTime.format(DateTimeFormatter.ofPattern("MMM dd H:mma, yyyy"));
+            return newDateTime.format(DateTimeFormatter.ofPattern(dateTimePattern));
         } else if (date.matches(DDMYYYYHHMM_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("dd/M/yyyy HHmm");
             newDateTime = LocalDateTime.parse(date, formatter);
-            return newDateTime.format(DateTimeFormatter.ofPattern("MMM dd H:mma, yyyy"));
+            return newDateTime.format(DateTimeFormatter.ofPattern(dateTimePattern));
         } else if (date.matches(DDMMYYYYHHMM_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             newDateTime = LocalDateTime.parse(date, formatter);
-            return newDateTime.format(DateTimeFormatter.ofPattern("MMM dd H:mma, yyyy"));
+            return newDateTime.format(DateTimeFormatter.ofPattern(dateTimePattern));
         } else {
             return date;
         }
+    }
+
+    private static LocalDateTime appendDate(LocalTime time) {
+        LocalDate localDate = LocalDate.now();
+        LocalTime localTime = LocalTime.of(time.getHour(), time.getMinute());
+        return LocalDateTime.of(localDate, localTime);
     }
 
     @Override

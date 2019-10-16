@@ -98,12 +98,13 @@ public class Expense {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-            .append(" Amount: ")
+        builder.append("\n")
+            .append(getName())
+            .append(" ")
             .append(getAmount())
-            .append(" Date: ")
+            .append("\n")
             .append(getDate())
-            .append(" Tags: ");
+            .append("\n");
         getTags().forEach(builder::append);
         return builder.toString();
     }
