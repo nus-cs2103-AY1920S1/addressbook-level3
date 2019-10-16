@@ -2,17 +2,22 @@ package seedu.savenus.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
-import static seedu.savenus.testutil.TypicalMenu.getPoorMenu;
+import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.savenus.commons.core.Messages;
-import seedu.savenus.model.Model;
-import seedu.savenus.model.ModelManager;
-import seedu.savenus.model.UserPrefs;
+import seedu.savenus.logic.commands.exceptions.CommandException;
+import seedu.savenus.model.Menu;
+import seedu.savenus.model.food.Name;
+import seedu.savenus.model.food.Price;
+import seedu.savenus.model.purchase.Purchase;
+import seedu.savenus.model.purchase.TimeOfPurchase;
+import seedu.savenus.model.wallet.Wallet;
+
+import java.util.List;
 
 
 /**
@@ -20,16 +25,42 @@ import seedu.savenus.model.UserPrefs;
  * {@code BuyCommand}.
  */
 public class BuyCommandTest {
-    // Model
-    private Model poorModel = new ModelManager(getPoorMenu(), new UserPrefs());
 
+    // Test Wallet payment
     @Test
-    public void execute_notEnoughFunds_success() {
+    public void payFoodPrice_notEnoughFunds_success() {
+        Wallet modelWallet = new Wallet("5", "100");
+        Price expensiveFoodPrice = new Price("10");
 
-        BuyCommand buyCommand = new BuyCommand(INDEX_FIRST_FOOD);
-        String expectedMessage = Messages.MESSAGE_INSUFFICIENT_FUNDS;
+        assertThrows(CommandException.class, () -> modelWallet.pay(expensiveFoodPrice));
+    }
 
-        assertCommandFailure(buyCommand, poorModel, expectedMessage);
+    // Test Wallet payment
+    @Test
+    public void payFoodPrice_enoughFunds_success() {
+        Wallet modelWallet = new Wallet("5", "100");
+        Price cheapFoodPrice = new Price("2");
+        try {
+            modelWallet.pay(cheapFoodPrice);
+        } catch (Exception e) {
+            return;
+        }
+        assertTrue(modelWallet.equals(new Wallet("3","100")));
+    }
+
+    // Test adding purchase to purchase history
+    @Test
+    public void addPurchase_success() {
+        Menu testMenu1 = new Menu(getTypicalMenu());
+        Menu testMenu2 = new Menu(getTypicalMenu());
+        Purchase testPurchase = new Purchase(new Name("testFoodName"), new Price("2"));
+        testMenu1.addPurchase(testPurchase);
+        testMenu2.setPurchaseHistory(List.of(
+                new Purchase(new Name("Ji Fan"), new Price("3.99"), new TimeOfPurchase("1570976664361")),
+                new Purchase(new Name("Wagyu steak"), new Price("50.00"), new TimeOfPurchase("1570976665687")),
+                testPurchase
+        ));
+        assertTrue(testMenu1.equals(testMenu2));
     }
 
     @Test
