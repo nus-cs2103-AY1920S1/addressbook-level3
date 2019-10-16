@@ -1,10 +1,18 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -17,10 +25,6 @@ import seedu.address.model.record.Record;
 import seedu.address.testutil.ReminderBuilder;
 import seedu.sgm.model.food.Food;
 import seedu.sgm.model.food.FoodMap;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Predicate;
 
 class ReminderCommandTest {
     @Test
