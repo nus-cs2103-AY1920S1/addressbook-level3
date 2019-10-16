@@ -8,14 +8,17 @@ import seedu.deliverymans.commons.exceptions.DataConversionException;
 import seedu.deliverymans.model.ReadOnlyUserPrefs;
 import seedu.deliverymans.model.UserPrefs;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
+import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
+import seedu.deliverymans.storage.customer.CustomerDatabaseStorage;
 import seedu.deliverymans.storage.restaurant.RestaurantDatabaseStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, RestaurantDatabaseStorage, OrderBookStorage, UserPrefsStorage {
+public interface Storage extends AddressBookStorage, CustomerDatabaseStorage, RestaurantDatabaseStorage,
+        OrderBookStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -27,6 +30,9 @@ public interface Storage extends AddressBookStorage, RestaurantDatabaseStorage, 
     Path getAddressBookFilePath();
 
     @Override
+    Path getCustomerDatabaseFilePath();
+
+    @Override
     Path getRestaurantDatabaseFilePath();
 
     @Override
@@ -34,6 +40,12 @@ public interface Storage extends AddressBookStorage, RestaurantDatabaseStorage, 
 
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+
+    @Override
+    Optional<ReadOnlyCustomerDatabase> readCustomerDatabase() throws DataConversionException, IOException;
+
+    @Override
+    void saveCustomerDatabase(ReadOnlyCustomerDatabase customerDatabase) throws IOException;
 
     @Override
     Optional<ReadOnlyRestaurantDatabase> readRestaurantDatabase() throws DataConversionException, IOException;

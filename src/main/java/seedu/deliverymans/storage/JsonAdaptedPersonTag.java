@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
-import seedu.deliverymans.model.Tag;
+import seedu.deliverymans.model.addressbook.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Tag}.
  */
-public class JsonAdaptedTag {
+public class JsonAdaptedPersonTag {
 
     private final String tagName;
 
@@ -17,14 +17,14 @@ public class JsonAdaptedTag {
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedTag(String tagName) {
+    public JsonAdaptedPersonTag(String tagName) {
         this.tagName = tagName;
     }
 
     /**
      * Converts a given {@code Tag} into this class for Jackson use.
      */
-    public JsonAdaptedTag(Tag source) {
+    public JsonAdaptedPersonTag(Tag source) {
         tagName = source.tagName;
     }
 
