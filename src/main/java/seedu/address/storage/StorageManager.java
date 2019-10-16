@@ -12,6 +12,7 @@ import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.order.Order;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 
@@ -25,17 +26,19 @@ public class StorageManager implements Storage {
     private CustomerBookStorage customerBookStorage;
     private PhoneBookStorage phoneBookStorage;
     private ScheduleBookStorage scheduleBookStorage;
+    private OrderBookStorage orderBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, CustomerBookStorage customerBookStorage,
                           PhoneBookStorage phoneBookStorage, ScheduleBookStorage scheduleBookStorage,
-                          UserPrefsStorage userPrefsStorage) {
+                          OrderBookStorage orderBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.customerBookStorage = customerBookStorage;
         this.phoneBookStorage = phoneBookStorage;
         this.scheduleBookStorage = scheduleBookStorage;
+        this.orderBookStorage = orderBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -174,5 +177,35 @@ public class StorageManager implements Storage {
     public void saveScheduleBook(ReadOnlyDataBook<Schedule> scheduleBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         scheduleBookStorage.saveScheduleBook(scheduleBook, filePath);
+    }
+
+    // ================ OrderBook methods ==============================
+
+    @Override
+    public Path getOrderBookFilePath() {
+        return orderBookStorage.getOrderBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyDataBook<Order>> readOrderBook() throws DataConversionException, IOException {
+        return readOrderBook(orderBookStorage.getOrderBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyDataBook<Order>> readOrderBook(Path filePath) throws DataConversionException,
+            IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return orderBookStorage.readOrderBook(filePath);
+    }
+
+    @Override
+    public void saveOrderBook(ReadOnlyDataBook<Order> orderBook) throws IOException {
+        saveOrderBook(orderBook, orderBookStorage.getOrderBookFilePath());
+    }
+
+    @Override
+    public void saveOrderBook(ReadOnlyDataBook<Order> orderBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        orderBookStorage.saveOrderBook(orderBook, filePath);
     }
 }
