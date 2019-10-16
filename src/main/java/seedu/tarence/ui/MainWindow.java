@@ -1,5 +1,8 @@
 package seedu.tarence.ui;
 
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -94,9 +97,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
 
-        attendancePlaceholder.setPlaceholder(new Label("Welcome to T.A.rence \uD83D\uDE0A!\n"
-                + "To see all user commands, type \"help\"")
-        );
+        attendancePlaceholder.setPlaceholder(getPlaceHolderLabel());
     }
 
     public Stage getPrimaryStage() {
@@ -259,6 +260,18 @@ public class MainWindow extends UiPart<Stage> {
 
     void show() {
         primaryStage.show();
+    }
+
+    private Label getPlaceHolderLabel() {
+        String defaultMessage = "Welcome to T.A.rence \uD83D\uDE0A\n"
+                + "To see all user commands, type \"help\"\n"
+                + "To view a class attendance, type:\n"
+                + " displayAttendance "
+                + PREFIX_TUTORIAL_NAME + "TUTORIAL_NAME "
+                + PREFIX_MODULE + "MODULE_CODE \n";
+
+        Label placeholder = new Label(defaultMessage);
+        return placeholder;
     }
 
     /**

@@ -15,7 +15,7 @@
 
 <?import javafx.scene.control.TableView?>
 
-<fx:root minHeight="600" minWidth="960" onCloseRequest="#handleExit" title="T.A.rence" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="650" minWidth="960" onCloseRequest="#handleExit" title="T.A.rence" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/TArenceicon.png" />
     </icons>
