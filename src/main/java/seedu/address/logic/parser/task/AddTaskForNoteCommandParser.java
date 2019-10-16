@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddTaskForNoteCommand;
+import seedu.address.logic.commands.task.AddTaskForNoteCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
