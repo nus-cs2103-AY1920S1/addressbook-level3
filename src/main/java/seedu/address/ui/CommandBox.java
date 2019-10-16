@@ -75,8 +75,26 @@ public class CommandBox extends UiPart<Region> {
         syntaxHighlightTextArea.overrideStyle(ERROR_STYLE_CLASS);
     }
 
-    public void addSyntax(String com, List<Prefix> pre, String syntax) {
+    /**
+     * Adds a command to enable syntax highlighting for
+     * @param com The command word of the command
+     * @param pre The prefix of the command
+     * @param syntax The minimum syntax required
+     */
+    public void enableSyntaxHightlightingForCommand(String com, List<Prefix> pre, String syntax) {
         syntaxHighlightTextArea.createPattern(com, pre, syntax);
+    }
+
+    /**
+     * Disable syntax highlighting for the specified command.
+     * @param command The command word of the command.
+     */
+    public void disableSyntaxHighlightingForCommand(String command) {
+        syntaxHighlightTextArea.removePattern(command);
+    }
+
+    public void enableSyntaxHighlighting() {
+        syntaxHighlightTextArea.enableSyntaxHighlighting();
     }
 
 
