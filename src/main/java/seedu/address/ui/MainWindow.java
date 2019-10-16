@@ -9,6 +9,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,6 +17,12 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Amount;
+import seedu.address.model.person.Description;
+import seedu.address.model.person.Time;
+import seedu.address.model.person.Wish;
+import seedu.address.model.person.WishList;
+import seedu.address.model.tag.Tag;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -49,6 +56,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private VBox wishesPlaceHolder;
+
+    @FXML
+    private VBox budgetsPlaceHolder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -118,6 +131,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        /*wishesPlaceHolder = new WishListPanel(new WishList().add(new Wish(
+                new Description("sneakers"), (new Time("13:00")), new Amount(200), new Set<Tag>(new Tag("shoes")))));*/
     }
 
     /**

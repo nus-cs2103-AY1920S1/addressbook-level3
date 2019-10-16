@@ -50,6 +50,7 @@ public class EntryCard extends UiPart<Region> {
         String descWithType = "[" + type + "] " + entry.getDesc().fullDesc;
         desc.setText(descWithType);
 
+       // desc.setFont(Font.font("Century Gothic"));
         /*if (type.equals("expense")) {
             entry = (Expense) entry;
         } else if (type.equals("income")) {

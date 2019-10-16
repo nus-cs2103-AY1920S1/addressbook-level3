@@ -16,6 +16,7 @@ public class GuiSettings implements Serializable {
     private final double windowWidth;
     private final double windowHeight;
     private final Point windowCoordinates;
+    private final String font = "Segoe UI";
 
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
