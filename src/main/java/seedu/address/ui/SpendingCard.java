@@ -47,7 +47,7 @@ public class SpendingCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(spending.getName().fullName);
         date.setText(spending.getDate().value);
-        cost.setText(spending.getCost().value);
+        cost.setText("$" + spending.getCost().value);
         email.setText(spending.getEmail().value);
         spending.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
