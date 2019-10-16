@@ -13,6 +13,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.phone.Phone;
+import seedu.address.model.schedule.Schedule;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -23,15 +24,18 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private CustomerBookStorage customerBookStorage;
     private PhoneBookStorage phoneBookStorage;
+    private ScheduleBookStorage scheduleBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, CustomerBookStorage customerBookStorage,
-                          PhoneBookStorage phoneBookStorage, UserPrefsStorage userPrefsStorage) {
+                          PhoneBookStorage phoneBookStorage, ScheduleBookStorage scheduleBookStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.customerBookStorage = customerBookStorage;
         this.phoneBookStorage = phoneBookStorage;
+        this.scheduleBookStorage = scheduleBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -140,5 +144,35 @@ public class StorageManager implements Storage {
     public void savePhoneBook(ReadOnlyDataBook<Phone> phoneBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         phoneBookStorage.savePhoneBook(phoneBook, filePath);
+    }
+
+    // ================ ScheduleBook methods ==============================
+
+    @Override
+    public Path getScheduleBookFilePath() {
+        return scheduleBookStorage.getScheduleBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyDataBook<Schedule>> readScheduleBook() throws DataConversionException, IOException {
+        return readScheduleBook(scheduleBookStorage.getScheduleBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyDataBook<Schedule>> readScheduleBook(Path filePath) throws DataConversionException,
+            IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return scheduleBookStorage.readScheduleBook(filePath);
+    }
+
+    @Override
+    public void saveScheduleBook(ReadOnlyDataBook<Schedule> scheduleBook) throws IOException {
+        saveScheduleBook(scheduleBook, scheduleBookStorage.getScheduleBookFilePath());
+    }
+
+    @Override
+    public void saveScheduleBook(ReadOnlyDataBook<Schedule> scheduleBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        scheduleBookStorage.saveScheduleBook(scheduleBook, filePath);
     }
 }

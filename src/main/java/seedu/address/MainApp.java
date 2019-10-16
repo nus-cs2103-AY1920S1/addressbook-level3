@@ -32,8 +32,10 @@ import seedu.address.storage.CustomerBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCustomerBookStorage;
 import seedu.address.storage.JsonPhoneBookStorage;
+import seedu.address.storage.JsonScheduleBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.PhoneBookStorage;
+import seedu.address.storage.ScheduleBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -69,7 +71,9 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         CustomerBookStorage customerBookStorage = new JsonCustomerBookStorage(userPrefs.getCustomerBookFilePath());
         PhoneBookStorage phoneBookStorage = new JsonPhoneBookStorage(userPrefs.getPhoneBookFilePath());
-        storage = new StorageManager(addressBookStorage, customerBookStorage, phoneBookStorage, userPrefsStorage);
+        ScheduleBookStorage scheduleBookStorage = new JsonScheduleBookStorage(userPrefs.getScheduleBookFilePath());
+        storage = new StorageManager(addressBookStorage, customerBookStorage, phoneBookStorage, scheduleBookStorage,
+                userPrefsStorage);
 
         initLogging(config);
         //create statistic manager;

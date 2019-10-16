@@ -146,8 +146,9 @@ public class SampleDataUtil {
                         Capacity.SIZE_128GB, new Colour("Jet Black"), new Cost("$1100"),
                         getTagSet("New")),
                    new Price("$1000"),
-                   Status.COMPLETED,
-                   Optional.of(sampleSchedule()), getTagSet("Urgent")),
+                    Status.COMPLETED,
+                    Optional.of(sampleSchedule()),
+                   getTagSet("Urgent")),
             new Order(UUID.randomUUID(),
                   new Customer(new CustomerName("Alex Yeoh"), new ContactNumber("87438807"),
                         new Email("alexyeoh@example.com"), getTagSet("friends")),
@@ -156,7 +157,7 @@ public class SampleDataUtil {
                         Capacity.SIZE_64GB, new Colour("White"), new Cost("$400"),
                         getTagSet("Used")),
                   new Price("$1500"),
-                  Status.COMPLETED,
+                    Status.UNSCHEDULED,
                     Optional.of(sampleSchedule()), getTagSet("New")),
             new Order(UUID.randomUUID(),
                   new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
@@ -166,7 +167,7 @@ public class SampleDataUtil {
                         Capacity.SIZE_256GB, new Colour("Black"), new Cost("$1000"),
                         getTagSet("New")),
                   new Price("$1200"),
-                  Status.COMPLETED,
+                    Status.UNSCHEDULED,
                     Optional.of(sampleSchedule()), getTagSet("New"))
 
         };

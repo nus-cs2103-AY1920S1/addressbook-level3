@@ -17,4 +17,6 @@ public interface ReadOnlyUserPrefs {
 
     Path getPhoneBookFilePath();
 
+    Path getScheduleBookFilePath();
+
 }

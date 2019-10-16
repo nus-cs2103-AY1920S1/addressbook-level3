@@ -24,10 +24,12 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.statistic.Statistic;
 import seedu.address.statistic.StatisticManager;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCustomerBookStorage;
 import seedu.address.storage.JsonPhoneBookStorage;
+import seedu.address.storage.JsonScheduleBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 
@@ -39,6 +41,7 @@ public class LogicManagerTest {
     public Path temporaryFolder;
 
     private Model model = new ModelManager();
+    private Statistic statistic = new StatisticManager();
     private Logic logic;
 
     @BeforeEach
@@ -49,10 +52,12 @@ public class LogicManagerTest {
                 new JsonCustomerBookStorage(temporaryFolder.resolve("customerBook.json"));
         JsonPhoneBookStorage phoneBookStorage =
                 new JsonPhoneBookStorage(temporaryFolder.resolve("phoneBook.json"));
+        JsonScheduleBookStorage scheduleBookStorage =
+                new JsonScheduleBookStorage(temporaryFolder.resolve("scheduleBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage,
-                customerBookStorage, phoneBookStorage,
-                userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, customerBookStorage, phoneBookStorage,
+                scheduleBookStorage, userPrefsStorage);
+        logic = new LogicManager(model, storage, statistic);
         logic = new LogicManager(model, storage, new StatisticManager());
     }
 
