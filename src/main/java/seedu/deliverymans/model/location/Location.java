@@ -26,4 +26,9 @@ public class Location {
     int getY() {
         return y;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
