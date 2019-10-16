@@ -26,6 +26,8 @@
           </minWidth>
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="expiryDate" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="amount" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <FlowPane fx:id="tags" />
     </VBox>
