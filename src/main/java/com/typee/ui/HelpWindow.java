@@ -1,14 +1,15 @@
 package com.typee.ui;
 
+import java.util.logging.Logger;
+
+import com.typee.commons.core.LogsCenter;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
-
-import com.typee.commons.core.LogsCenter;
-import java.util.logging.Logger;
 
 /**
  * Controller for a help page

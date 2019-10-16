@@ -2,21 +2,23 @@ package com.typee.model.person;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.Iterator;
+import java.util.List;
 
 import com.typee.commons.util.CollectionUtil;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.person.exceptions.DuplicatePersonException;
 import com.typee.model.person.exceptions.PersonNotFoundException;
-import java.util.Iterator;
-import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
  * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
  * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniqueEngagementList. However, the removal of a person uses Person#equals(Object) so
+ * unique in terms of identity in the UniqueEngagementList.
+ * However, the removal of a person uses Person#equals(Object) so
  * as to ensure that the person with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.

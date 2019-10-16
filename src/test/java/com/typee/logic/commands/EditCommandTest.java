@@ -36,12 +36,8 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getHistoryManager()), new UserPrefs());
-<<<<<<< HEAD
         expectedModel.setEngagement(model.getFilteredEngagementList().get(0), editedPerson);
-=======
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
         expectedModel.saveAppointmentList();
->>>>>>> 95a35944eea68dec37a5a185a16f207c3884228f
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

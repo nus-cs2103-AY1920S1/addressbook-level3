@@ -1,8 +1,9 @@
 package com.typee.model.person;
 
-import com.typee.commons.util.StringUtil;
 import java.util.List;
 import java.util.function.Predicate;
+
+import com.typee.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.

@@ -1,6 +1,8 @@
 package com.typee.logic;
 
-import javafx.collections.ObservableList;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.commons.core.LogsCenter;
@@ -15,9 +17,8 @@ import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.engagement.Engagement;
 import com.typee.storage.Storage;
 import com.typee.ui.Tab;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
+
+import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.

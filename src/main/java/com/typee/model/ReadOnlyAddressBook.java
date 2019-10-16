@@ -1,8 +1,8 @@
 package com.typee.model;
 
-import javafx.collections.ObservableList;
-
 import com.typee.model.engagement.Engagement;
+
+import javafx.collections.ObservableList;
 
 /**
  * Unmodifiable view of an address book

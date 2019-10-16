@@ -1,16 +1,12 @@
 package com.typee.model;
 
-import javafx.collections.ObservableList;
-
-import com.typee.commons.core.GuiSettings;
-
-import com.typee.model.engagement.Engagement;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import com.typee.commons.core.GuiSettings;
 import com.typee.logic.commands.exceptions.NullRedoableActionException;
 import com.typee.logic.commands.exceptions.NullUndoableActionException;
-import com.typee.model.person.Person;
+import com.typee.model.engagement.Engagement;
 
 import javafx.collections.ObservableList;
 

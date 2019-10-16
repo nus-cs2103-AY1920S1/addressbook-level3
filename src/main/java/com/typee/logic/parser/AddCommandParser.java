@@ -8,6 +8,12 @@ import static com.typee.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static com.typee.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static com.typee.logic.parser.CliSyntax.PREFIX_START_TIME;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.AddCommand;
 import com.typee.logic.parser.exceptions.ParseException;
@@ -17,11 +23,6 @@ import com.typee.model.engagement.EngagementType;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
 import com.typee.model.person.Person;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -54,6 +55,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         return new AddCommand(engagement);
     }
 
+    /**
+     * Returns true if the arguments don't correspond to the add command's parameters.
+     *
+     * @param argMultimap user input arguments mapped by their prefixes.
+     * @return true if the command entered is invalid.
+     */
     private boolean isInvalidMultimap(ArgumentMultimap argMultimap) {
         return (!arePrefixesPresent(argMultimap, PREFIX_ENGAGEMENT_TYPE,
                 PREFIX_START_TIME, PREFIX_END_TIME,
@@ -61,12 +68,24 @@ public class AddCommandParser implements Parser<AddCommand> {
                 || !argMultimap.getPreamble().isEmpty());
     }
 
+    /**
+     * Maps the user entered arguments to their corresponding prefixes.
+     *
+     * @param args user input
+     * @return {@code ArgumentMultimap} containing a mapping of prefixes to actual arguments.
+     */
     private ArgumentMultimap getArgumentMultimap(String args) {
         return ArgumentTokenizer.tokenize(args, PREFIX_ENGAGEMENT_TYPE,
                 PREFIX_START_TIME, PREFIX_END_TIME,
                 PREFIX_ATTENDEES, PREFIX_DESCRIPTION, PREFIX_LOCATION, PREFIX_PRIORITY);
     }
 
+    /**
+     * Parses a {@code String} representing a list of attendees into an {@code AttendeeList}.
+     *
+     * @param attendees string representing list of attendees.
+     * @return corresponding {@code AttendeeList}.
+     */
     private AttendeeList parseAttendees(String attendees) {
         List<Person> attendeesList = Arrays.stream(attendees.split(","))
                 .map(name -> name.trim())

@@ -1,7 +1,9 @@
 package com.typee;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 import com.typee.commons.core.Config;
 import com.typee.commons.core.LogsCenter;
@@ -28,10 +30,9 @@ import com.typee.storage.TypeeStorage;
 import com.typee.storage.UserPrefsStorage;
 import com.typee.ui.Ui;
 import com.typee.ui.UiManager;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * Runs the application.

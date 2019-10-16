@@ -2,11 +2,12 @@ package com.typee.model;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.collections.ObservableList;
+import java.util.List;
 
 import com.typee.model.engagement.Engagement;
 import com.typee.model.person.UniqueEngagementList;
-import java.util.List;
+
+import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the address-book level

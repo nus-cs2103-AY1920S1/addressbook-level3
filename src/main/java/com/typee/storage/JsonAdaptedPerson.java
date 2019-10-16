@@ -1,5 +1,7 @@
 package com.typee.storage;
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.typee.commons.exceptions.IllegalValueException;
@@ -9,7 +11,6 @@ import com.typee.model.engagement.EngagementType;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
 import com.typee.model.person.Person;
-import java.time.LocalDateTime;
 
 /**
  * Jackson-friendly version of {@link Person}.

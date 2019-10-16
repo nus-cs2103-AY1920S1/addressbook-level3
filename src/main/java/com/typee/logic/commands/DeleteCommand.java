@@ -2,12 +2,13 @@ package com.typee.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import com.typee.commons.core.Messages;
 import com.typee.commons.core.index.Index;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.Model;
 import com.typee.model.engagement.Engagement;
-import java.util.List;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.

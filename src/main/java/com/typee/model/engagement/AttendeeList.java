@@ -1,10 +1,11 @@
 package com.typee.model.engagement;
 
-import com.typee.model.person.Name;
-import com.typee.model.person.Person;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.typee.model.person.Name;
+import com.typee.model.person.Person;
 
 public class AttendeeList {
 

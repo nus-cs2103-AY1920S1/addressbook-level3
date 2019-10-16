@@ -1,11 +1,11 @@
 package com.typee.ui;
 
+import com.typee.model.engagement.Engagement;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-
-import com.typee.model.engagement.Engagement;
 
 /**
  * An UI component that displays information of a {@code Person}.

@@ -2,11 +2,12 @@ package com.typee.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.fxml.FXMLLoader;
-
-import com.typee.MainApp;
 import java.io.IOException;
 import java.net.URL;
+
+import com.typee.MainApp;
+
+import javafx.fxml.FXMLLoader;
 
 /**
  * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.

@@ -2,6 +2,14 @@ package com.typee.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,13 +25,6 @@ import com.fasterxml.jackson.databind.type.SimpleType;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.exceptions.DataConversionException;
 import com.typee.ui.Tab;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Converts a Java object instance to JSON and vice versa

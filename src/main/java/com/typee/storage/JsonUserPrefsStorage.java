@@ -1,12 +1,13 @@
 package com.typee.storage;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+
 import com.typee.commons.exceptions.DataConversionException;
 import com.typee.commons.util.JsonUtil;
 import com.typee.model.ReadOnlyUserPrefs;
 import com.typee.model.UserPrefs;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file

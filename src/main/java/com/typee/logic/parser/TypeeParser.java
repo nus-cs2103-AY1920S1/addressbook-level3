@@ -1,5 +1,8 @@
 package com.typee.logic.parser;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.ClearCommand;
@@ -14,8 +17,6 @@ import com.typee.logic.commands.RedoCommand;
 import com.typee.logic.commands.TabCommand;
 import com.typee.logic.commands.UndoCommand;
 import com.typee.logic.parser.exceptions.ParseException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Parses user input.

@@ -1,10 +1,11 @@
 package com.typee.logic.parser;
 
+import java.util.Arrays;
+
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.FindCommand;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.person.NameContainsKeywordsPredicate;
-import java.util.Arrays;
 
 /**
  * Parses input arguments and creates a new FindCommand object

@@ -3,6 +3,9 @@ package com.typee.logic.commands;
 import static com.typee.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.typee.commons.core.Messages;
 import com.typee.commons.core.index.Index;
 import com.typee.commons.util.CollectionUtil;
@@ -10,8 +13,6 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.Model;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.person.Name;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -62,7 +63,7 @@ public class EditCommand extends Command {
         }
 
         model.setEngagement(engagementToEdit, editedEngagement);
-        model.updateFilteredEngagementList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredEngagementList(Model.PREDICATE_SHOW_ALL_ENGAGEMENTS);
         model.saveAppointmentList();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedEngagement));
     }

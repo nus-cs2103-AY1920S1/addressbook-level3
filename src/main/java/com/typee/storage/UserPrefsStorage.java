@@ -1,11 +1,12 @@
 package com.typee.storage;
 
-import com.typee.commons.exceptions.DataConversionException;
-import com.typee.model.ReadOnlyUserPrefs;
-import com.typee.model.UserPrefs;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import com.typee.commons.exceptions.DataConversionException;
+import com.typee.model.ReadOnlyUserPrefs;
+import com.typee.model.UserPrefs;
 
 /**
  * Represents a storage for {@link UserPrefs}.

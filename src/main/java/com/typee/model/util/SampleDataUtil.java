@@ -1,5 +1,8 @@
 package com.typee.model.util;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
+
 import com.typee.model.AddressBook;
 import com.typee.model.ReadOnlyAddressBook;
 import com.typee.model.engagement.AttendeeList;
@@ -9,8 +12,6 @@ import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
 import com.typee.model.person.Name;
 import com.typee.model.person.Person;
-import java.time.LocalDateTime;
-import java.util.Arrays;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.

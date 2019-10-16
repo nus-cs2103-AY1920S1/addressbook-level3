@@ -1,10 +1,11 @@
 package com.typee.commons.util;
 
-import com.typee.commons.core.Config;
-import com.typee.commons.exceptions.DataConversionException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import com.typee.commons.core.Config;
+import com.typee.commons.exceptions.DataConversionException;
 
 /**
  * A class for accessing the Config File.

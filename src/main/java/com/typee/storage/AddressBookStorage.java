@@ -1,11 +1,12 @@
 package com.typee.storage;
 
-import com.typee.commons.exceptions.DataConversionException;
-import com.typee.model.AddressBook;
-import com.typee.model.ReadOnlyAddressBook;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import com.typee.commons.exceptions.DataConversionException;
+import com.typee.model.AddressBook;
+import com.typee.model.ReadOnlyAddressBook;
 
 /**
  * Represents a storage for {@link AddressBook}.
