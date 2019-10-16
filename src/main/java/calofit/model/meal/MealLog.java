@@ -15,11 +15,18 @@ public class MealLog {
     private ObservableList<Meal> observableMeals = FXCollections.observableList(mealLog);
     private ObservableList<Meal> readOnlyMeals = FXCollections.unmodifiableObservableList(observableMeals);
     private ObservableList<Meal> todayMeals = observableMeals.filtered(MealLog::isMealToday);
+    private ObservableList<Meal> currentMonthMeals = observableMeals.filtered(MealLog::isMealThisMonth);
 
     private static boolean isMealToday(Meal meal) {
         return meal.getTimestamp()
             .getDateTime().toLocalDate()
             .equals(LocalDate.now());
+    }
+
+    private static boolean isMealThisMonth(Meal meal) {
+        return meal.getTimestamp()
+                .getDateTime().toLocalDate().getMonth()
+                .equals(LocalDate.now().getMonth());
     }
     /**
      * Get a list of meals eaten by the user.
@@ -49,5 +56,9 @@ public class MealLog {
 
     public ObservableList<Meal> getTodayMeals() {
         return todayMeals;
+    }
+
+    public ObservableList<Meal> getCurrentMonthMeals() {
+        return currentMonthMeals;
     }
 }
