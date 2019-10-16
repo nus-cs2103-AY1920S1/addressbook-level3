@@ -73,7 +73,7 @@ public class Day {
 
     // Optional field getters
     public Optional<Description> getDescription() {
-        return Optional.of(description);
+        return Optional.ofNullable(description);
     }
 
     public Optional<Expenditure> getTotalBudget() {

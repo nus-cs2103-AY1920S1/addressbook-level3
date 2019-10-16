@@ -5,17 +5,20 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.common.EnterPrefsCommand;
 import seedu.address.logic.commands.trips.EnterCreateTripCommand;
+import seedu.address.logic.commands.trips.EnterTripCommand;
 import seedu.address.model.Model;
 import seedu.address.model.trip.Trip;
 import seedu.address.ui.MainWindow;
@@ -61,6 +64,14 @@ public class TripsPage extends Page<AnchorPane> {
                             1, 1,
                             HPos.CENTER, VPos.CENTER);
 
+                    tripCard.getRoot().addEventFilter(MouseEvent.MOUSE_CLICKED,
+                            new EventHandler<MouseEvent>() {
+                                @Override
+                                public void handle(MouseEvent event) {
+                                    mainWindow.executeGuiCommand(EnterTripCommand.COMMAND_WORD
+                                            + " " + index.getOneBased());
+                                }
+                            });
                     return tripCard.getRoot();
                 }).collect(Collectors.toList());
 

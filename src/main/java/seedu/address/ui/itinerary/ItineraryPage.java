@@ -1,5 +1,6 @@
 package seedu.address.ui.itinerary;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -28,6 +29,9 @@ import seedu.address.ui.template.PageWithSidebar;
 public class ItineraryPage extends PageWithSidebar<AnchorPane> {
     private static final String FXML = "itinerary/ItineraryPage.fxml";
 
+    private final String dateFormat = "d/M/y";
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(dateFormat);
+
     @FXML
     private HBox dayButtonsContainer;
 
@@ -54,10 +58,12 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
     @Override
     public void fillPage() {
         nameLabel.setText(model.getPageStatus().getTrip().getName().toString());
-        startDateLabel.setText(model.getPageStatus().getTrip().getStartDate().toString());
-        endDateLabel.setText(model.getPageStatus().getTrip().getEndDate().toString());
-        //destinationLabel.setText(model.getPageStatus().getTrip().getDestination().toString());
-        totalBudgetLabel.setText(model.getPageStatus().getTrip().getBudget().toString());
+        startDateLabel.setText("Arrival: " + model.getPageStatus()
+                .getTrip().getStartDate().format(dateFormatter).toString());
+        endDateLabel.setText("Departure: " + model
+                .getPageStatus().getTrip().getEndDate().format(dateFormatter).toString());
+        destinationLabel.setText("Destination: " + model.getPageStatus().getTrip().getDestination().toString());
+        totalBudgetLabel.setText("Total Budget: " + model.getPageStatus().getTrip().getBudget().toString());
 
         List<Day> days = model.getPageStatus().getTrip().getDayList().internalUnmodifiableList;
 
