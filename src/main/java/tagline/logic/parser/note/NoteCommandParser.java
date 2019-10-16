@@ -1,4 +1,4 @@
-package tagline.logic.parser;
+package tagline.logic.parser.note;
 
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -7,26 +7,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import tagline.logic.commands.Command;
-import tagline.logic.commands.ExitCommand;
 import tagline.logic.commands.HelpCommand;
-import tagline.logic.commands.contact.ContactCommand;
-import tagline.logic.commands.note.NoteCommand;
-import tagline.logic.parser.contact.ContactCommandParser;
+import tagline.logic.commands.note.CreateNoteCommand;
 import tagline.logic.parser.exceptions.ParseException;
-import tagline.logic.parser.note.NoteCommandParser;
 
 /**
- * Parses user input.
+ * Parses user input for note commands.
  */
-public class TaglineParser {
-
+public class NoteCommandParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?s)(?<commandKey>\\S+)(?<commandStr>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?s)(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
-     * Parses user input into command for execution.
+     * Parses user input into note command for execution.
      *
      * @param userInput full user input string
      * @return the command based on the user input
@@ -38,25 +33,15 @@ public class TaglineParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandKey = matcher.group("commandKey");
-        final String commandStr = matcher.group("commandStr");
-        switch (commandKey) {
+        final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
+        switch (commandWord) {
 
-        case ContactCommand.COMMAND_KEY:
-            return new ContactCommandParser().parseCommand(commandStr);
-
-        case NoteCommand.COMMAND_KEY:
-            return new NoteCommandParser().parseCommand(commandStr);
-
-        case ExitCommand.COMMAND_KEY:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_KEY:
-            return new HelpCommand();
+        case CreateNoteCommand.COMMAND_WORD:
+            return new CreateNoteParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }

@@ -12,6 +12,9 @@ import javafx.collections.transformation.FilteredList;
 import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
 import tagline.model.contact.Contact;
+import tagline.model.note.Note;
+import tagline.model.note.NoteModel;
+import tagline.model.note.NoteModelManager;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +25,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Contact> filteredContacts;
+    private final NoteModel noteModel;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +39,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredContacts = new FilteredList<>(this.addressBook.getContactList());
+
+        noteModel = new NoteModelManager();
     }
 
     public ModelManager() {
@@ -110,6 +116,19 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedContact);
 
         addressBook.setContact(target, editedContact);
+    }
+
+    //=========== NoteBook ================================================================================
+
+    @Override
+    public boolean hasNote(Note note) {
+        requireNonNull(note);
+        return noteModel.hasNote(note);
+    }
+
+    @Override
+    public void addNote(Note note) {
+        noteModel.addNote(note);
     }
 
     //=========== Filtered Contact List Accessors =============================================================
