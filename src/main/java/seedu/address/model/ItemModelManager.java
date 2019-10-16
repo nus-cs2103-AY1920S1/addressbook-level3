@@ -451,6 +451,11 @@ public class ItemModelManager implements ItemModel {
                     sortedTask.add(item);
                 }
             }
+            System.out.println(sortedTask.size());
+            if (sortedTask.size() == 0) {
+                priorityMode = false;
+                return priorityMode;
+            }
             this.visualList = getNextTask();
         }
         return priorityMode;
@@ -458,6 +463,15 @@ public class ItemModelManager implements ItemModel {
 
     private VisualizeList getNextTask() {
         TaskList result = new TaskList();
+        if (sortedTask.peek().getTask().get().isComplete()) {
+            sortedTask.poll();
+        }
+
+        if (sortedTask.size() == 0) {
+            priorityMode = false;
+            return taskList;
+        }
+
         result.add(sortedTask.peek());
         return result;
     }
@@ -478,11 +492,6 @@ public class ItemModelManager implements ItemModel {
             Task newTask = task.markComplete();
             Item newItem = item.changeTask(newTask);
             replaceItem(item, newItem);
-        }
-
-        if (priorityMode) {
-            sortedTask.poll();
-            this.visualList = getNextTask();
         }
 
         return item;
