@@ -32,12 +32,14 @@ import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.util.SampleDataUtil;
 import seedu.deliverymans.storage.AddressBookStorage;
 import seedu.deliverymans.storage.JsonAddressBookStorage;
+import seedu.deliverymans.storage.deliveryman.JsonDeliverymenDatabaseStorage;
 import seedu.deliverymans.storage.JsonOrderBookStorage;
 import seedu.deliverymans.storage.JsonUserPrefsStorage;
 import seedu.deliverymans.storage.OrderBookStorage;
 import seedu.deliverymans.storage.Storage;
 import seedu.deliverymans.storage.StorageManager;
 import seedu.deliverymans.storage.UserPrefsStorage;
+import seedu.deliverymans.storage.deliveryman.DeliverymenDatabaseStorage;
 import seedu.deliverymans.storage.restaurant.JsonRestaurantDatabaseStorage;
 import seedu.deliverymans.storage.restaurant.RestaurantDatabaseStorage;
 import seedu.deliverymans.ui.Ui;
@@ -72,7 +74,10 @@ public class MainApp extends Application {
         RestaurantDatabaseStorage restaurantDatabaseStorage =
                 new JsonRestaurantDatabaseStorage(userPrefs.getRestaurantDatabaseFilePath());
         OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
-        storage = new StorageManager(addressBookStorage, restaurantDatabaseStorage, orderBookStorage, userPrefsStorage);
+        DeliverymenDatabaseStorage deliverymenDatabaseStorage =
+                new JsonDeliverymenDatabaseStorage(userPrefs.getDeliverymenDatabaseFilePath());
+        storage = new StorageManager(addressBookStorage, restaurantDatabaseStorage, orderBookStorage,
+                deliverymenDatabaseStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -122,7 +127,8 @@ public class MainApp extends Application {
             if (!deliverymenDatabaseOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample RestaurantDatabase");
             }
-            initialDeliverymenData = deliverymenDatabaseOptional.orElseGet(SampleDataUtil::getSampleDeliverymenDatabase);
+            initialDeliverymenData =
+                    deliverymenDatabaseOptional.orElseGet(SampleDataUtil::getSampleDeliverymenDatabase);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. "
                     + "Will be starting with an empty RestaurantDatabase");

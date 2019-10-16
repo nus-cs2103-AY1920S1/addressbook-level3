@@ -14,9 +14,9 @@ public class DeliverymanStatusList extends UniqueDeliverymanList {
     private UniqueDeliverymanList internalList;
 
     // List is not viable option. But used for now.
-    List<Deliveryman> availableMen;
-    List<Deliveryman> unavailableMen;
-    List<Deliveryman> deliveringMen;
+    private List<Deliveryman> availableMen;
+    private List<Deliveryman> unavailableMen;
+    private List<Deliveryman> deliveringMen;
 
     public DeliverymanStatusList(UniqueDeliverymanList unmodifiableList) {
         internalList = unmodifiableList;

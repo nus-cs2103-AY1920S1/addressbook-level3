@@ -10,8 +10,11 @@ import seedu.deliverymans.commons.exceptions.DataConversionException;
 import seedu.deliverymans.model.ReadOnlyUserPrefs;
 import seedu.deliverymans.model.UserPrefs;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
+import seedu.deliverymans.model.database.DeliverymenDatabase;
+import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
+import seedu.deliverymans.storage.deliveryman.DeliverymenDatabaseStorage;
 import seedu.deliverymans.storage.restaurant.RestaurantDatabaseStorage;
 
 /**
@@ -21,17 +24,20 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private DeliverymenDatabaseStorage deliverymenDatabaseStorage;
     private RestaurantDatabaseStorage restaurantDatabaseStorage;
     private OrderBookStorage orderBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, RestaurantDatabaseStorage restaurantDatabaseStorage,
-                          OrderBookStorage orderBookStorage, UserPrefsStorage userPrefsStorage) {
+                          OrderBookStorage orderBookStorage, DeliverymenDatabaseStorage deliverymenDatabaseStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.restaurantDatabaseStorage = restaurantDatabaseStorage;
         this.orderBookStorage = orderBookStorage;
+        this.deliverymenDatabaseStorage = deliverymenDatabaseStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -139,5 +145,36 @@ public class StorageManager implements Storage {
     public void saveOrderBook(ReadOnlyOrderBook orderBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         orderBookStorage.saveOrderBook(orderBook, filePath);
+    }
+
+    // ================ DeliverymenDatabase methods ==============================
+
+    @Override
+    public Path getDeliverymenDatabaseFilePath() {
+        return deliverymenDatabaseStorage.getDeliverymenDatabaseFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyDeliverymenDatabase> readDeliverymenDatabase() throws DataConversionException, IOException {
+        return readDeliverymenDatabase(deliverymenDatabaseStorage.getDeliverymenDatabaseFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyDeliverymenDatabase> readDeliverymenDatabase(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return deliverymenDatabaseStorage.readDeliverymenDatabase(filePath);
+    }
+
+    @Override
+    public void saveDeliverymenDatabase(ReadOnlyDeliverymenDatabase deliverymenDatabase) throws IOException {
+        saveDeliverymenDatabase(deliverymenDatabase, deliverymenDatabaseStorage.getDeliverymenDatabaseFilePath());
+    }
+
+    @Override
+    public void saveDeliverymenDatabase(ReadOnlyDeliverymenDatabase deliverymenDatabase, Path filePath)
+            throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        deliverymenDatabaseStorage.saveDeliverymenDatabase(deliverymenDatabase, filePath);
     }
 }
