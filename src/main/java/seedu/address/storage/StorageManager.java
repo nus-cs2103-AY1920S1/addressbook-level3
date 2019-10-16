@@ -8,10 +8,10 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.CardBook;
-import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
+import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -191,23 +191,23 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<PasswordBook> readPasswordBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyPasswordBook> readPasswordBook() throws DataConversionException, IOException {
         return readPasswordBook(passwordBookStorage.getPasswordBookFilePath());
     }
 
     @Override
-    public Optional<PasswordBook> readPasswordBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyPasswordBook> readPasswordBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return passwordBookStorage.readPasswordBook(filePath);
     }
 
     @Override
-    public void savePasswordBook(PasswordBook passwordBook) throws IOException {
+    public void savePasswordBook(ReadOnlyPasswordBook passwordBook) throws IOException {
         savePasswordBook(passwordBook, passwordBookStorage.getPasswordBookFilePath());
     }
 
     @Override
-    public void savePasswordBook(PasswordBook passwordBook, Path filePath) throws IOException {
+    public void savePasswordBook(ReadOnlyPasswordBook passwordBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         passwordBookStorage.savePasswordBook(passwordBook, filePath);
     }

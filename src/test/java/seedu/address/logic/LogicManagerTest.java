@@ -25,9 +25,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CardBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyNoteBook;
+import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -209,7 +209,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void savePasswordBook(PasswordBook passwordBook, Path filePath) throws IOException {
+        public void savePasswordBook(ReadOnlyPasswordBook passwordBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

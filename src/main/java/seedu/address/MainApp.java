@@ -25,6 +25,7 @@ import seedu.address.model.NoteBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
+import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.PasswordBook;
@@ -126,7 +127,6 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty file");
             initialAddressData = new AddressBook();
         }
-
         ReadOnlyFileBook initialDataFile = initFileBook(storage);
         ReadOnlyNoteBook initialNoteData = initNoteBook(storage);
         PasswordBook initialDataPassword = initPasswordBook(storage);
@@ -185,9 +185,9 @@ public class MainApp extends Application {
      * The data from the sample password book will be used instead if {@code storage}'s password book is not found,
      * or an empty password book will be used instead if errors occur when reading {@code storage}'s password book.
      */
-    private PasswordBook initPasswordBook(Storage storage) {
-        Optional<PasswordBook> passwordBookOptional;
-        PasswordBook initialDataPassword = SampleDataPasswordUtil.getSamplePasswordBook();
+    private ReadOnlyPasswordBook initPasswordBook(Storage storage) {
+        Optional<ReadOnlyPasswordBook> passwordBookOptional;
+        ReadOnlyPasswordBook initialDataPassword = SampleDataPasswordUtil.getSamplePasswordBook();
         try {
             passwordBookOptional = storage.readPasswordBook();
             if (!passwordBookOptional.isPresent()) {

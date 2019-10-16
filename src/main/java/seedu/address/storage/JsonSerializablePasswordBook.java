@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.PasswordBook;
+import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.password.Password;
 
 
@@ -33,7 +34,7 @@ class JsonSerializablePasswordBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializablePasswordBook}.
      */
-    public JsonSerializablePasswordBook(PasswordBook source) {
+    public JsonSerializablePasswordBook(ReadOnlyPasswordBook source) {
         passwords.addAll(source.getPasswordList().stream().map(JsonAdaptedPassword::new).collect(Collectors.toList()));
     }
 

@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -24,12 +25,12 @@ public class Password {
     /**
      * Every field must be present and not null.
      */
-    public Password(Description description, Username username, PasswordValue passwordValue) {
+    public Password(Description description, Username username, PasswordValue passwordValue, Set<Tag> tags) {
         requireAllNonNull(description, username, passwordValue);
         this.description = description;
         this.username = username;
         this.passwordValue = passwordValue;
-        //this.tags.addAll(tags);
+        this.tags.addAll(tags);
     }
 
     public Description getDescription() {
@@ -44,6 +45,10 @@ public class Password {
         return passwordValue;
     }
 
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
@@ -72,5 +77,33 @@ public class Password {
 
         return otherPassword != null
                 && otherPassword.getDescription().equals(getDescription());
+    }
+
+    /**
+     * Returns true if both persons have the same identity and data fields.
+     * This defines a stronger notion of equality between two persons.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Password)) {
+            return false;
+        }
+
+        Password otherPerson = (Password) other;
+        return otherPerson.getDescription().equals(getDescription())
+                && otherPerson.getUsername().equals(getUsername())
+                && otherPerson.getPasswordValue().equals(getPasswordValue())
+                && otherPerson.getTags().equals(getTags());
+    }
+
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(description, username, passwordValue, tags);
     }
 }

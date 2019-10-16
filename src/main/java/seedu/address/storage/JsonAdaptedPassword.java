@@ -1,6 +1,10 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,6 +14,7 @@ import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
+import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Password}.
@@ -20,7 +25,7 @@ class JsonAdaptedPassword {
     private final String description;
     private final String username;
     private final String passwordValue;
-    //private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPassword} with the given person details.
@@ -33,9 +38,9 @@ class JsonAdaptedPassword {
         this.description = description;
         this.username = username;
         this.passwordValue = passwordValue;
-        //if (tagged != null) {
-        //this.tagged.addAll(tagged);
-        //}
+        if (tagged != null) {
+            this.tagged.addAll(tagged);
+        }
     }
 
     /**
@@ -45,9 +50,9 @@ class JsonAdaptedPassword {
         description = password.getDescription().value;
         username = password.getUsername().value;
         passwordValue = password.getPasswordValue().value;
-        //tagged.addAll(source.getTags().stream()
-        //        .map(JsonAdaptedTag::new)
-        //       .collect(Collectors.toList()));
+        tagged.addAll(password.getTags().stream()
+                .map(JsonAdaptedTag::new)
+               .collect(Collectors.toList()));
     }
 
     /**
@@ -56,18 +61,15 @@ class JsonAdaptedPassword {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Password toModelType() throws IllegalValueException {
-        //final List<Tag> personTags = new ArrayList<>();
-        //for (JsonAdaptedTag tag : tagged) {
-        //   personTags.add(tag.toModelType());
-        //}
+        final List<Tag> passwordTags = new ArrayList<>();
+        for (JsonAdaptedTag tag : tagged) {
+            passwordTags.add(tag.toModelType());
+        }
 
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Description.class.getSimpleName()));
         }
-        //if (!Name.isValidName(name)) {
-        //    throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        //}
         final Description modelDescription = new Description(description);
 
         if (username == null) {
@@ -83,13 +85,10 @@ class JsonAdaptedPassword {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     PasswordValue.class.getSimpleName()));
         }
-        //if (!Email.isValidEmail(email)) {
-        //   throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        //}
         final PasswordValue modelPasswordValue = new PasswordValue(passwordValue);
 
-        //final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Password(modelDescription, modelUserName, modelPasswordValue);
+        final Set<Tag> modelTags = new HashSet<>(passwordTags);
+        return new Password(modelDescription, modelUserName, modelPasswordValue, modelTags);
     }
 
 }

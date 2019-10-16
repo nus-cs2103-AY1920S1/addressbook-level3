@@ -60,7 +60,6 @@ public class ModelManager implements Model {
         filteredCards = new FilteredList<>(this.cardBook.getCardList());
         filteredNotes = new FilteredList<>(this.noteBook.getNoteList());
         filteredPasswords = new FilteredList<>(this.passwordBook.getPasswordList());
-
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {

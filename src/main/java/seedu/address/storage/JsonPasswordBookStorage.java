@@ -14,7 +14,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.PasswordBook;
+import seedu.address.model.ReadOnlyPasswordBook;
 
 /**
  * A class to access PasswordBook data stored as a json file on the hard disk.
@@ -36,12 +36,12 @@ public class JsonPasswordBookStorage implements PasswordBookStorage {
     }
 
     @Override
-    public Optional<PasswordBook> readPasswordBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyPasswordBook> readPasswordBook() throws DataConversionException, IOException {
         return readPasswordBook(filePath);
     }
 
     @Override
-    public Optional<PasswordBook> readPasswordBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyPasswordBook> readPasswordBook(Path filePath) throws DataConversionException, IOException {
         requireNonNull(filePath, password);
 
         Optional<JsonSerializablePasswordBook> jsonPasswordBook;
@@ -60,12 +60,12 @@ public class JsonPasswordBookStorage implements PasswordBookStorage {
     }
 
     @Override
-    public void savePasswordBook(PasswordBook passwordBook) throws IOException {
+    public void savePasswordBook(ReadOnlyPasswordBook passwordBook) throws IOException {
         savePasswordBook(passwordBook, filePath);
     }
 
     @Override
-    public void savePasswordBook(PasswordBook passwordBook, Path filePath) throws IOException {
+    public void savePasswordBook(ReadOnlyPasswordBook passwordBook, Path filePath) throws IOException {
         requireAllNonNull(filePath, passwordBook, password);
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveEncryptedJsonFile(new JsonSerializablePasswordBook(passwordBook), filePath, password);

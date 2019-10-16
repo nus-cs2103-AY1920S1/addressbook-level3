@@ -10,6 +10,8 @@ import seedu.address.model.PasswordBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -67,9 +69,9 @@ public interface Storage extends AddressBookStorage, FileBookStorage, CardBookSt
     Path getPasswordBookFilePath();
 
     @Override
-    Optional<PasswordBook> readPasswordBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyPasswordBook> readPasswordBook() throws DataConversionException, IOException;
 
     @Override
-    void savePasswordBook(PasswordBook passwordBook) throws IOException;
+    void savePasswordBook(ReadOnlyPasswordBook passwordBook) throws IOException;
 
 }
