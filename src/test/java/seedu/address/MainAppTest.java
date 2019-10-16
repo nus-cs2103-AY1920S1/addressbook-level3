@@ -3,12 +3,14 @@ package seedu.address;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
+import org.testfx.api.FxToolkit;
 import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.framework.junit5.Init;
 
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 
 @ExtendWith(ApplicationExtension.class)
 public class MainAppTest extends ApplicationTest {
@@ -16,6 +18,11 @@ public class MainAppTest extends ApplicationTest {
     @Init
     public void init() throws Exception {
         ApplicationTest.launch(MainApp.class);
+    }
+
+    @Override
+    public void start(Stage stage) {
+        stage.show();
     }
 
     @Test
