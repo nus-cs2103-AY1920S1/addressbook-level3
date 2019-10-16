@@ -41,7 +41,7 @@ public class GenReportCommand extends Command {
         List<Body> lastShownList = model.getFilteredBodyList();
 
         for (Body body : lastShownList) {
-            if (body.getBodyIdNum().equals(targetIdNum)) {
+            if (body.getIdNum().equals(targetIdNum)) {
                 bodyToGenReport = body;
             }
         }

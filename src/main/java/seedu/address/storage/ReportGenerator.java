@@ -25,7 +25,7 @@ public class ReportGenerator {
         Document document = new Document();
         try {
             PdfWriter writer = PdfWriter.getInstance(document,
-                    new FileOutputStream(String.format("Report %s.pdf", body.getBodyIdNum())));
+                    new FileOutputStream(String.format("Report %s.pdf", body.getIdNum())));
             document.open();
             document.add(new Paragraph("A Mortago report document."));
             document.close();

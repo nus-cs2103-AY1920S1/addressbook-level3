@@ -33,7 +33,7 @@ public class GenReportCommandTest {
         model.addEntity(ALICE);
         List<Body> bodyList = model.getFilteredBodyList();
         for (Body body : bodyList) {
-            if (body.getBodyIdNum().equals(FIRST_BODY_ID_NUM)) {
+            if (body.getIdNum().equals(FIRST_BODY_ID_NUM)) {
                 GenReportCommand genReportCommand =
                         new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()));
 

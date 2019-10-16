@@ -15,4 +15,5 @@ public class Messages {
     public static final String MESSAGE_WORKERS_LISTED_OVERVIEW = "%1$d workers listed!";
     public static final String MESSAGE_INVALID_ENTITY_DISPLAYED_ID = "The identification number provided is invalid "
             + "for the selected type of entity.";
+    public static final String MESSAGE_INVALID_TEST_PARAMETERS = "Test parameters are invalid";
 }

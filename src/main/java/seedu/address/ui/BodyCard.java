@@ -39,7 +39,7 @@ public class BodyCard extends UiPart<Region> {
         this.body = body;
         id.setText(displayedIndex + ". ");
         name.setText(body.getName().fullName);
-        bodyId.setText(body.getBodyIdNum().toString());
+        bodyId.setText(body.getIdNum().toString());
         dateOfAdmission.setText(body.getDateOfAdmission().toString());
     }
 
