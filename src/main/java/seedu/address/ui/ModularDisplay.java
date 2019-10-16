@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import seedu.address.gamemanager.GameManager;
 import seedu.address.statistics.GameStatistics;
@@ -8,8 +7,6 @@ import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
 import seedu.address.ui.layouts.TwoSplitRowLayout;
 import seedu.address.ui.modules.*;
-
-import java.util.Stack;
 
 /**
  * Displays the screen for Dukemon.

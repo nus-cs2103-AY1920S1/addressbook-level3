@@ -19,6 +19,8 @@ public class UpdateUi {
             currentModeFooter.changeMode("home");
         } else if (firstArg.equals("start")) {
             currentModeFooter.changeMode("game");
+        } else if (firstArg.equals("load")) {
+            currentModeFooter.changeMode("load");
         }
     }
 
