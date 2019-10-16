@@ -246,15 +246,6 @@ public class Item {
         return builder.toString();
     }
 
-    public String getReminderMessage() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Description: ")
-                .append(itemDescription.toString())
-                .append(" Reminder: ")
-                .append(getReminder().toString());
-        return builder.toString();
-    }
-
     /**
      * Builder class for Item.
      */

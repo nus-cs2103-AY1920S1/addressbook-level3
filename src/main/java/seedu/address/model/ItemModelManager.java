@@ -3,8 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
-import java.util.PriorityQueue;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -41,13 +41,6 @@ public class ItemModelManager implements ItemModel {
 
     public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs, ElisaStateHistory elisaStateHistory) {
 
-    //Bryan Reminder
-    //These three lists must be synchronized
-    private ReminderList pastReminders;
-    private ActiveRemindersList activeReminders;
-    private ArrayList<Item> futureReminders;
-
-    public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs) {
         this.taskList = new TaskList();
         this.eventList = new EventList();
         this.reminderList = new ReminderList();
@@ -131,33 +124,6 @@ public class ItemModelManager implements ItemModel {
         }
 
         elisaStateHistory.pushCommand(new ElisaStateManager(getItemStorage(), getVisualList()).deepCopy());
-    }
-
-    /* Bryan Reminder
-     *
-     * Referenced: https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm
-     * for property naming conventions.
-     *
-     */
-
-    //Function to get property
-    @Override
-    public ActiveRemindersList getActiveReminderListProperty() {
-        return activeReminders;
-    }
-
-    //Function get property's value
-    public final ObservableList<Item> getActiveReminderList() {
-        return activeReminders.get();
-    }
-    //Function to edit property //which should trigger a change event
-    public final void addReminderToActive(Item item) {
-        activeReminders.add(item);
-    }
-
-    @Override
-    public final ArrayList<Item> getFutureRemindersList() {
-        return futureReminders;
     }
 
     /* Bryan Reminder
