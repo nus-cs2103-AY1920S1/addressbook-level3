@@ -8,7 +8,7 @@ import seedu.deliverymans.commons.exceptions.DataConversionException;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 
 /**
- * Represents a storage for {@link seedu.address.model.AddressBook}.
+ * Represents a storage for {@link seedu.deliverymans.model.addressbook.AddressBook}.
  */
 public interface AddressBookStorage {
 

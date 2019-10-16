@@ -19,7 +19,7 @@ import seedu.deliverymans.logic.parser.ArgumentTokenizer;
 import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.deliverymans.model.addressbook.tag.Tag;
+import seedu.deliverymans.model.Tag;
 
 
 /**

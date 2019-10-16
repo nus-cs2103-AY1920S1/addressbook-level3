@@ -12,7 +12,7 @@ import seedu.deliverymans.commons.exceptions.DataConversionException;
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.commons.util.FileUtil;
 import seedu.deliverymans.commons.util.JsonUtil;
-import seedu.deliverymans.model.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.

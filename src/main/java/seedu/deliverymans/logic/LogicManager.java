@@ -13,11 +13,13 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.UniversalParser;
 import seedu.deliverymans.model.Model;
-import seedu.deliverymans.model.ReadOnlyOrderBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.order.Order;
+import seedu.deliverymans.model.restaurant.Restaurant;
 import seedu.deliverymans.storage.Storage;
 
 /**
@@ -47,6 +49,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getAddressBook());
+            storage.saveRestaurantDatabase(model.getRestaurantDatabase());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -54,6 +57,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    //=========== AddressBook =============================================================
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
@@ -65,15 +69,32 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Customer> getFilteredCustomerList() {
-        return model.getFilteredCustomerList();
-    }
-
-    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }
 
+    //=========== Customer =============================================================
+    @Override
+    public ObservableList<Customer> getFilteredCustomerList() {
+        return model.getFilteredCustomerList();
+    }
+    //=========== Restaurant =============================================================
+    @Override
+    public ReadOnlyRestaurantDatabase getRestaurantDatabase() {
+        return model.getRestaurantDatabase();
+    }
+
+    @Override
+    public ObservableList<Restaurant> getFilteredRestaurantList() {
+        return model.getFilteredRestaurantList();
+    }
+
+    @Override
+    public Path getRestaurantDatabaseFilePath() {
+        return model.getRestaurantDatabaseFilePath();
+    }
+
+    //=========== Order =============================================================
     @Override
     public ReadOnlyOrderBook getOrderBook() {
         return model.getOrderBook();

@@ -7,11 +7,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.deliverymans.logic.commands.Command;
+import seedu.deliverymans.logic.commands.restaurant.AddCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
 /**
- * (to be added)
+ * Parses user input in restaurant context
  */
 public class RestaurantParser {
     /**
@@ -36,6 +37,10 @@ public class RestaurantParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

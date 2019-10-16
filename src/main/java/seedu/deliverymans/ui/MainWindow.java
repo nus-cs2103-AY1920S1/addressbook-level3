@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private CustomerListPanel customerListPanel;
+    private RestaurantListPanel restaurantListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -175,8 +176,8 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case RESTAURANT:
             // using personListPanel as placeholder for restaurant list
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
+            listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
             break;
         case DELIVERYMEN:
             // to be implemented with deliverymen list

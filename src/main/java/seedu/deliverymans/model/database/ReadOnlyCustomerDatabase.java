@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.deliverymans.model.customer.Customer;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of a customer database
  */
 
 public interface ReadOnlyCustomerDatabase {

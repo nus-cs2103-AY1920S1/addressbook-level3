@@ -21,7 +21,7 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
-import seedu.deliverymans.model.addressbook.tag.Tag;
+import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.customer.Customer;
 
 /**
