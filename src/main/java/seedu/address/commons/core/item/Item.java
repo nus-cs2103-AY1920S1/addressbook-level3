@@ -240,19 +240,19 @@ public class Item {
         public ItemBuilder() {}
 
         public ItemBuilder setTask(Task task) {
-            requireNonNull(task);
+            //requireNonNull(task);
             this.task = task;
             return this;
         }
 
         public ItemBuilder setEvent(Event event) {
-            requireNonNull(event);
+            //requireNonNull(event);
             this.event = event;
             return this;
         }
 
         public ItemBuilder setReminder(Reminder reminder) {
-            requireNonNull(reminder);
+            //requireNonNull(reminder);
             this.reminder = reminder;
             return this;
         }
