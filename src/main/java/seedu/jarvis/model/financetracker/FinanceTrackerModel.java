@@ -72,6 +72,14 @@ public interface FinanceTrackerModel {
     void editInstallmentByValue(int installmentNumber, String description, double value);
 
     /**
+     * Replaces the person {@code target} in the list with {@code editedInstallment}.
+     * {@code target} must exist in the list.
+     * The person identity of {@code editedInstallment} must not be the same as another existing installment in the
+     * list.
+     */
+    void setInstallment(Installment target, Installment editedInstallment);
+
+    /**
      * Retrieves list of all installments
      *
      * @return InstallmentList

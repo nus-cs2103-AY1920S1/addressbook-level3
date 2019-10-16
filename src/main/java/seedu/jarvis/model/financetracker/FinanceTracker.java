@@ -161,7 +161,7 @@ public class FinanceTracker {
     }
 
     /**
-     * Deletes instalment.
+     * Edits instalment. todo change javadocs for all edit methods
      *
      * @param installmentNumber of instalment to be deleted
      * @param description to be edited
@@ -169,6 +169,16 @@ public class FinanceTracker {
      */
     public void editInstallment(int installmentNumber, String description, double value) {
         installmentList.editInstallment(installmentNumber, description, value);
+    }
+
+    /**
+     * Replaces the person {@code target} in the list with {@code editedInstallment}.
+     * {@code target} must exist in the list.
+     * The person identity of {@code editedInstallment} must not be the same as another existing installment in the
+     * list.
+     */
+    public void setInstallment(Installment target, Installment editedInstallment) {
+        installmentList.setInstallment(target, editedInstallment);
     }
 
     /**

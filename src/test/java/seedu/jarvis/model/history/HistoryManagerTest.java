@@ -513,6 +513,11 @@ public class HistoryManagerTest {
         }
 
         @Override
+        public void setInstallment(Installment target, Installment editedInstallment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPurchase(Purchase purchase) {
             throw new AssertionError("This method should not be called.");
         }

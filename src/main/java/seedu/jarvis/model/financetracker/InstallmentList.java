@@ -1,10 +1,12 @@
 package seedu.jarvis.model.financetracker;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 
 import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.model.address.person.exceptions.DuplicateInstallmentException;
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.financetracker.installment.Installment;
 
@@ -107,6 +109,36 @@ public class InstallmentList {
             totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
         }
     }
+
+    /**
+     * Replaces the person {@code target} in the list with {@code editedInstallment}.
+     * {@code target} must exist in the list.
+     * The person identity of {@code editedInstallment} must not be the same as another existing installment in the
+     * list.
+     */
+    public void setInstallment(Installment target, Installment editedInstallment) {
+        requireAllNonNull(target, editedInstallment);
+
+        int index = allInstallments.indexOf(target);
+        if (index == -1) {
+            throw new InstallmentNotFoundException();
+        }
+
+        if (!target.isSameInstallment(editedInstallment) && contains(editedInstallment)) {
+            throw new DuplicateInstallmentException();
+        }
+
+        allInstallments.set(index, editedInstallment);
+    }
+
+    /**
+     * Returns true if the list contains an equivalent installment as the given argument.
+     */
+    private boolean contains(Installment toCheck) {
+        requireNonNull(toCheck);
+        return allInstallments.stream().anyMatch(toCheck::isSameInstallment);
+    }
+
 
     /**
      * Deletes instalment from the list of instalments based on the instalment number.

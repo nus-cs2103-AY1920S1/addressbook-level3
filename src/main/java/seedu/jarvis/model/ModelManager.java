@@ -287,6 +287,11 @@ public class ModelManager implements Model {
         financeTracker.editInstallment(installmentNumber, description, value);
     }
 
+    @Override
+    public void setInstallment(Installment target, Installment editedInstallment) {
+        financeTracker.setInstallment(target, editedInstallment);
+    }
+
     /**
      * Retrieves list of all installments
      *
