@@ -23,8 +23,8 @@ public class SearchIncidentsCommand extends Command {
 
     public static final String COMMAND_WORD = "search";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all incidents for which IDs match exactly or "
-            + "description contains any of the specified keywords (case-insensitive) and displays them as a list "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all incidents for which IDs match exactly "
+            + "or description contains any of the specified keywords (case-insensitive) and displays them as a list "
             + "with index numbers.\n"
             + "Parameters: "
             + PREFIX_ID + "ID OR "
@@ -50,7 +50,8 @@ public class SearchIncidentsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredIncidentList(predicate);
-        return new CommandResult(((IdKeywordsPredicate)predicate).getPredicate());
+        return new CommandResult(
+                String.format(Messages.MESSAGE_INCIDENTS_LISTED_OVERVIEW, model.getFilteredIncidentList().size()));
     }
 
     @Override

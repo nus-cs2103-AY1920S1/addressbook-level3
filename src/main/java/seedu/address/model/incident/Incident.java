@@ -56,7 +56,7 @@ public class Incident {
                 getTagSet("friends"), new Username("user1"), new Password("pass123"));
         this.incidentDateTime = incidentDateTime;
         this.id = id;
-        this.incidentDesc = new Description("Fluff description for search testing arson");
+        this.incidentDesc = new Description("Fluff description for search testing arson fire fires");
         this.location = location;
         this.callerNumber = new CallerNumber("98989898");
         //this.car = VehicleAssigner.assignVehicle(location);
