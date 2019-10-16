@@ -4,13 +4,14 @@ import static java.util.Objects.requireNonNull;
 
 import static mams.logic.parser.CliSyntax.PREFIX_REASON;
 
+import java.util.List;
+
 import mams.model.Model;
 import mams.model.appeal.Appeal;
 import mams.commons.core.Messages;
+
 import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
-import java.util.List;
-
 /**
  * Edits the details of an existing student in MAMS.
  */
