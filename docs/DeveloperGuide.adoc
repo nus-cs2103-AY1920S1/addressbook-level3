@@ -423,22 +423,22 @@ Use case ends.
 
 *Extensions*
 
-* 2a. Actor inputs invalid format
+* 2a. User inputs invalid format
 +
 
 ** 2a1. ClerkPro requests for correct input format +
 
-** 2a2. Actor inputs correct format +
+** 2a2. User inputs correct format +
 +
 
 Steps 2a1-2a2 are repeated until the appointment has the correct format +
 
 Use case resumes at step 2
 
-* 2b. Actor inputs a appointment which is conflicted with other appointments
+* 2b. User inputs a appointment which is conflicted with other appointments
 +
 
-** 2b1. Actor ask patient to make provide a new appointment date  +
+** 2b1. User ask patient to make provide a new appointment date  +
 
 ** 2b2. patient give a new appointment date +
 +
@@ -453,10 +453,9 @@ Pre-condition: Patient’s appointment exists
 
 *MSS*
 
-1.  Patient wants to Change a current appointment date
-2.  User checks whether the current appointment can be changed.
-3.  User checks and updates appointment's appointment time slots.
-4.  ClerkPro updates the appointment date of the patient.
+1.  User checks whether the current appointment can be changed.
+2.  User checks and updates appointment's appointment time slots.
+3.  ClerkPro updates the appointment date of the patient.
 
 Use case ends.
 
@@ -466,14 +465,14 @@ Use case ends.
 
 ** 3a1. ClerkPro requests for correct input format +
 
-** 3a2. Actor inputs correct format +
+** 3a2. User inputs correct format +
 +
 Steps 2a1-2a2 are repeated until the appointment has the correct format +
 
 
 * 3b. Appointment date is conflict with other appointments +
 
-** 3b1. Actor ask patient to make a new appointment  +
+** 3b1. User ask patient to make a new appointment  +
 
 ** 3b2. patient change appointment to another date +
 +
@@ -486,7 +485,7 @@ Use case resumes at step 3
 
 *MSS*
 
-1.  Actor requests to find patient's appointment list
+1.  User requests to find patient's appointment list
 2.  System retrieve and display patient's appointments
 
 Use case ends.
