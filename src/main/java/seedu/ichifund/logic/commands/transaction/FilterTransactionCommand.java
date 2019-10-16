@@ -5,14 +5,16 @@ import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
-import java.util.function.Predicate;
+import java.util.Optional;
 
 import seedu.ichifund.commons.core.Messages;
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.Model;
-import seedu.ichifund.model.transaction.Transaction;
+import seedu.ichifund.model.date.Month;
+import seedu.ichifund.model.date.Year;
+import seedu.ichifund.model.transaction.Category;
 
 /**
  * Filters the list of transaction in IchiFund by Year, Month, and optionally Category.
@@ -32,16 +34,25 @@ public class FilterTransactionCommand extends Command {
             + PREFIX_YEAR + "2019 "
             + PREFIX_CATEGORY + "food ";
 
-    private final Predicate<Transaction> predicate;
+    private final Month month;
+    private final Year year;
+    private final Optional<Category> category;
 
-    public FilterTransactionCommand(Predicate<Transaction> predicate) {
-        this.predicate = predicate;
+    public FilterTransactionCommand(Month month, Year year, Optional<Category> category) {
+        this.month = month;
+        this.year = year;
+        this.category = category;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredTransactionList(predicate);
+        model.setTransactionContext(
+                model.getTransactionContext()
+                        .getUpdatedContext(month)
+                        .getUpdatedContext(year)
+                        .getUpdatedContext(category)
+        );
         return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
                         model.getFilteredTransactionList().size()));
@@ -51,6 +62,8 @@ public class FilterTransactionCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FilterTransactionCommand // instanceof handles nulls
-                && predicate.equals(((FilterTransactionCommand) other).predicate)); // state check
+                && month.equals(((FilterTransactionCommand) other).month)
+                && year.equals(((FilterTransactionCommand) other).year)
+                && category.equals(((FilterTransactionCommand) other).category)); // state check
     }
 }
