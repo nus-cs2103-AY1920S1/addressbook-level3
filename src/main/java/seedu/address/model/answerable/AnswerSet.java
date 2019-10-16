@@ -1,9 +1,6 @@
 package seedu.address.model.answerable;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class AnswerSet {
 
@@ -12,6 +9,8 @@ public class AnswerSet {
 
     public Set<Answer> correctAnswerSet;
     public Set<Answer> wrongAnswerSet;
+    //Just added a set which includes both correct and wrong answers
+    public Set<Answer> combinedAnswerSet;
 
     /**
      * Default Constructor for Answer.
@@ -19,11 +18,13 @@ public class AnswerSet {
     public AnswerSet() {
         this.correctAnswerSet = new HashSet<>();
         this.wrongAnswerSet = new HashSet<>();
+        this.combinedAnswerSet = new HashSet<>();
     }
 
     public AnswerSet(Set<Answer> correctAnswerSet, Set<Answer> wrongAnswerSet) {
         this.correctAnswerSet = correctAnswerSet;
         this.wrongAnswerSet = wrongAnswerSet;
+        this.combinedAnswerSet = mergeSet(correctAnswerSet, wrongAnswerSet);
     }
 
     public boolean isCorrect(String answer) {
@@ -37,6 +38,10 @@ public class AnswerSet {
 
     public Set<Answer> getWrongAnswerSet() {
         return wrongAnswerSet;
+    }
+
+    public Set<Answer> getCombinedAnswerSet() {
+        return combinedAnswerSet;
     }
 
     public void setCorrectAnswerSet(Set<Answer> correctAnswerSet) {
@@ -70,6 +75,17 @@ public class AnswerSet {
         AnswerSet otherAnswerSet = (AnswerSet) other;
         return otherAnswerSet.getCorrectAnswerSet().equals(getCorrectAnswerSet())
                 && otherAnswerSet.getWrongAnswerSet().equals(getWrongAnswerSet());
+    }
+
+    /**
+    * Method to combine both the correct and wrong answer sets together.
+     */
+    public static <T> Set<T> mergeSet(Set<T> a, Set<T> b)
+    {
+        return new HashSet<T>() {{
+            addAll(a);
+            addAll(b);
+        } };
     }
 
     @Override

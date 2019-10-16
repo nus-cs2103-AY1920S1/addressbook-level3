@@ -57,4 +57,6 @@ public class Answer {
         return '[' + answer + ']';
     }
 
+    public String toStringNoBraces() {return answer;}
+
 }
