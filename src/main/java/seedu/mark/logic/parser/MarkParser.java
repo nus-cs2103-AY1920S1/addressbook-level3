@@ -98,7 +98,7 @@ public class MarkParser {
             return new AddFolderCommandParser().parse(arguments);
 
         case AddReminderCommand.COMMAND_WORD:
-            return new AddReminderParser().parse(arguments);
+            return new AddReminderCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

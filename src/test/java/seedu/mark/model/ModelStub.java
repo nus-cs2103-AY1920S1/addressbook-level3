@@ -12,11 +12,12 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.Reminder;
 
 /**
  * A default model stub that have all of the methods failing.
  */
-public class ModelStub implements Model {
+ public class ModelStub implements Model {
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError("This method should not be called.");
@@ -145,5 +146,30 @@ public class ModelStub implements Model {
     @Override
     public void saveMark() {
         throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addReminder(Bookmark bookmark, Reminder reminder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void removeReminder(Reminder reminder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void editReminder(Reminder targetReminder, Reminder editedReminder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean isBookmarkHasReminder(Bookmark bookmark) {
+        return false;
+    }
+
+    @Override
+    public ObservableList<Reminder> getReminders() {
+        return null;
     }
 }

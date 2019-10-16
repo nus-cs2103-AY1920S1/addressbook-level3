@@ -16,7 +16,7 @@ import seedu.mark.model.reminder.Note;
 /**
  * Parses input arguments and creates a new AddReminderCommand object
  */
-public class AddReminderParser implements Parser<AddReminderCommand> {
+public class AddReminderCommandParser implements Parser<AddReminderCommand> {
     @Override
     public AddReminderCommand parse(String args) throws ParseException {
         requireNonNull(args);
