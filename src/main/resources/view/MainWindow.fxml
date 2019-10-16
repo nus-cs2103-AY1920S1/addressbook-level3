@@ -24,7 +24,7 @@
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+        <MenuBar fx:id="menuBar" prefHeight="7.0" prefWidth="200.0" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
@@ -46,31 +46,24 @@
         </StackPane>
             <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-              <VBox fx:id="personList" minWidth="113.0" prefHeight="100.0" prefWidth="113.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+              <VBox fx:id="personList" maxWidth="200.0" minWidth="200.0" prefHeight="100.0" prefWidth="200.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                 <padding>
                   <Insets bottom="10" left="10" right="10" top="10" />
                 </padding>
                 <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
               </VBox>
-                  <VBox fx:id="workerList" minWidth="113.0" prefHeight="100.0" prefWidth="113.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+                  <StackPane fx:id="bodyMasterListPlaceholder" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                      <padding>
-                        <Insets bottom="10" left="10" right="10" top="10" />
+                        <Insets bottom="5" left="10" right="10" top="5" />
                      </padding>
-                     <children>
-                        <StackPane fx:id="workerListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
-                  <VBox fx:id="bodyList" minWidth="113.0" prefHeight="100.0" prefWidth="113.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
-                     <padding>
-                        <Insets bottom="10" left="10" right="10" top="10" />
-                     </padding>
-                     <children>
-                        <StackPane fx:id="bodyListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
+                  </StackPane>
                </children>
             </HBox>
-
+          <StackPane fx:id="lineChartPanelPlaceholder" maxHeight="300.0" prefHeight="300.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+              <padding>
+                  <Insets bottom="5" left="10" right="10" top="5" />
+              </padding>
+          </StackPane>
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>

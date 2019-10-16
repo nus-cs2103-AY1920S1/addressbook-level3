@@ -15,7 +15,6 @@ import seedu.address.model.entity.exceptions.EntityNotFoundException;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Lists of entities that enforces uniqueness between its elements and does not allow nulls.
@@ -43,8 +42,8 @@ public class UniqueEntityLists {
 
     private final ObservableList<Fridge> internalListFridge = FXCollections.observableArrayList();
     private final ObservableList<Fridge> internalUnmodifiableListFridge =
-            FXCollections.unmodifiableObservableList(internalListFridge);
-
+        FXCollections.unmodifiableObservableList(internalListFridge);
+  
     /**
      * Returns true if the respective list contains an equivalent entity as the given argument.
      */
@@ -92,7 +91,7 @@ public class UniqueEntityLists {
         requireAllNonNull(target, editedEntity);
 
         if (!target.isSameEntity(editedEntity) && contains(editedEntity)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEntityException();
         }
 
         int index;
@@ -137,7 +136,7 @@ public class UniqueEntityLists {
             isRemoved = internalListPerson.remove((Person) toRemove);
         }
         if (!isRemoved) {
-            throw new PersonNotFoundException();
+            throw new EntityNotFoundException();
         }
     }
 

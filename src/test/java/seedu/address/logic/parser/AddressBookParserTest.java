@@ -26,6 +26,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListBodyCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListWorkerCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
@@ -92,7 +94,19 @@ public class AddressBookParserTest {
                 + PREFIX_FLAG + "b "
                 + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                 + PREFIX_SEX + " male");
-        assertEquals(new UpdateCommand(body.getBodyIdNum(), descriptor), command);
+        assertEquals(new UpdateCommand(body.getIdNum(), descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_undo() throws Exception {
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 1") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_redo() throws Exception {
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " 1") instanceof RedoCommand);
     }
     //@@author
 

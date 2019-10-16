@@ -18,7 +18,7 @@ import seedu.address.model.entity.worker.Worker;
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -34,9 +34,13 @@ public class DeleteCommand extends Command {
             + "5";
 
     public static final String MESSAGE_DELETE_ENTITY_SUCCESS = "Deleted Entity: %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undid deleting this entity: %1$s";
 
     private final Index targetIndexNum;
     private final String entityType;
+  
+    private Entity entityToDelete;
+    private boolean isRedoable = false;
 
     public DeleteCommand(Index targetIndexNum, String entityType) {
         this.targetIndexNum = targetIndexNum;
@@ -81,11 +85,40 @@ public class DeleteCommand extends Command {
 
         if (entityToDelete != null) {
             model.deleteEntity(entityToDelete);
+            model.deleteEntity(entityToDelete);
+            targetIdNum.removeMapping();
+            setUndoable();
+            isRedoable = true;
+            model.addExecutedCommand(this);
             return new CommandResult(String.format(MESSAGE_DELETE_ENTITY_SUCCESS, entityToDelete));
         } else {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
         }
     }
+
+    //@@author ambervoong
+    /**
+     * Undoes the effects of the DeleteCommand. Only can be executed if this command was previously executed before.
+     * @return result of undoing the command.
+     */
+    @Override
+    public CommandResult undo(Model model) throws CommandException {
+        if (!(getCommandState().equals(UndoableCommandState.UNDOABLE))) {
+            throw new CommandException(MESSAGE_NOT_EXECUTED_BEFORE);
+        }
+
+        try {
+            model.addEntity(entityToDelete);
+        } catch (NullPointerException e) {
+            throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
+        }
+
+        setRedoable();
+        model.addUndoneCommand(this);
+
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, entityToDelete));
+    }
+    //@@author
 
     @Override
     public boolean equals (Object other) {
