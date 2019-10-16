@@ -12,7 +12,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.IncidentDateTime;
-=======
 import seedu.address.model.incident.IncidentId;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
