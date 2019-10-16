@@ -67,7 +67,7 @@ public class ReminderAssociation {
     }
 
     /**
-     * Replaces the bookmark {@code targetReminder} in the map with {@code editedReminder}.
+     * Replaces the bookmark's reminder {@code targetReminder} in the map with {@code editedReminder}.
      * {@code targetReminder} must exist in the map.
      */
     public void setReminder(Reminder targetReminder, Reminder editedReminder) {

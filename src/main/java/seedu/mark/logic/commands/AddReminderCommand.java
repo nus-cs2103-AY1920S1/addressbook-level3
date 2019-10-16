@@ -24,7 +24,7 @@ import seedu.mark.storage.Storage;
 public class AddReminderCommand extends Command {
     public static final String COMMAND_WORD = "reminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a reminder to Mark "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a reminder to Mark.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TIME + "TIME "
             + "[" + PREFIX_NOTE + "NOTE] \n"
