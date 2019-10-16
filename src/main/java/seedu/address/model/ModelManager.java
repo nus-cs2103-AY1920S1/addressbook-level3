@@ -202,6 +202,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedProject);
 
         projectList.setProject(target, editedProject);
+        setWorkingProject(editedProject);
     }
 
     //=========== Filtered Project List Accessors =============================================================

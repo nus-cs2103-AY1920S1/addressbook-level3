@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's remark in the address book.
@@ -8,6 +9,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class Remark {
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "Remark should not be null";
     public final String value;
 
     /**
@@ -17,7 +20,15 @@ public class Remark {
      */
     public Remark(String remark) {
         requireNonNull(remark);
-        value = remark;
+        checkArgument(isValidRemark(remark), MESSAGE_CONSTRAINTS);
+        this.value = remark;
+    }
+
+    /**
+     * Returns true if a given string is a valid remark.
+     */
+    public static boolean isValidRemark(String test) {
+        return true;
     }
 
     @Override
@@ -28,7 +39,7 @@ public class Remark {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Remark // instanceof handles nulls
+                || (other instanceof Phone // instanceof handles nulls
                 && value.equals(((Remark) other).value)); // state check
     }
 
