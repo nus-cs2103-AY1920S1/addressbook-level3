@@ -11,6 +11,7 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+
 /**
  * I just copied from UniquePeronList
  */
@@ -77,16 +78,16 @@ public class UniqueProjectList implements Iterable<Project> {
     }
 
     /**
-     * Replaces the contents of this list with {@code Projects}.
-     * {@code Projects} must not contain duplicate Projects.
+     * Replaces the contents of this list with {@code projects}.
+     * {@code projects} must not contain duplicate projects.
      */
-    public void setProjects(List<Project> Projects) {
-        requireAllNonNull(Projects);
-        if (!ProjectsAreUnique(Projects)) {
+    public void setProjects(List<Project> projects) {
+        requireAllNonNull(projects);
+        if (!projectsAreUnique(projects)) {
             throw new DuplicateProjectException();
         }
 
-        internalList.setAll(Projects);
+        internalList.setAll(projects);
     }
 
     public void deleteMember(String member) {
@@ -120,12 +121,12 @@ public class UniqueProjectList implements Iterable<Project> {
     }
 
     /**
-     * Returns true if {@code Projects} contains only unique Projects.
+     * Returns true if {@code projects} contains only unique projects.
      */
-    private boolean ProjectsAreUnique(List<Project> Projects) {
-        for (int i = 0; i < Projects.size() - 1; i++) {
-            for (int j = i + 1; j < Projects.size(); j++) {
-                if (Projects.get(i).isSameProject(Projects.get(j))) {
+    private boolean projectsAreUnique(List<Project> projects) {
+        for (int i = 0; i < projects.size() - 1; i++) {
+            for (int j = i + 1; j < projects.size(); j++) {
+                if (projects.get(i).isSameProject(projects.get(j))) {
                     return false;
                 }
             }

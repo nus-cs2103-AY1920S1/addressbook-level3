@@ -1,18 +1,20 @@
 package seedu.address.storage;
 
+
+import static java.util.Objects.requireNonNull;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.text.ParseException;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyProjectList;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * A class to access ProjectList data stored as a json file on the hard disk.
@@ -53,7 +55,7 @@ public class JsonProjectListStorage implements ProjectListStorage {
 
         try {
             return Optional.of(jsonProjectList.get().toModelType());
-        } catch (IllegalValueException ive) {
+        } catch (IllegalValueException | ParseException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }

@@ -39,6 +39,9 @@ public class AddressBookParser {
         case AddProjectCommand.COMMAND_WORD:
             return new AddProjectCommandParser().parse(arguments);
 
+        case AddProjectMeetingCommand.COMMAND_WORD:
+            return new AddProjectMeetingCommandParser().parse(arguments);
+
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
@@ -54,6 +57,9 @@ public class AddressBookParser {
         case RemoveMemberCommand.COMMAND_WORD:
             return new RemoveMemberCommandParser().parse(arguments);
 
+        case DeleteTaskCommand.COMMAND_WORD:
+            return new DeleteTaskCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -68,6 +74,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddTaskCommand.COMMAND_WORD:
+            return new AddTaskCommandParser().parse(arguments);
 
         case CheckoutCommand.COMMAND_WORD:
             return new CheckoutCommandParser().parse(arguments);

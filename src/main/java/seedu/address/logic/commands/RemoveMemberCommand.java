@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 public class RemoveMemberCommand extends Command {
     public static final String COMMAND_WORD = "removeMember";
 
-    public static final  String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes the member from the working project.\n"
             + "Parameters: n/NAME"
             + "Example: " + COMMAND_WORD + " n/John doe";

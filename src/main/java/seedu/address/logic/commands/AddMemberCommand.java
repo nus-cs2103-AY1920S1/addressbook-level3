@@ -19,9 +19,9 @@ public class AddMemberCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the working project "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + "[" +PREFIX_PHONE + "PHONE " + "]"
-            + "[" +PREFIX_EMAIL + "EMAIL " + "]"
-            + "[" +PREFIX_ADDRESS + "ADDRESS " + "]"
+            + "[" + PREFIX_PHONE + "PHONE " + "]"
+            + "[" + PREFIX_EMAIL + "EMAIL " + "]"
+            + "[" + PREFIX_ADDRESS + "ADDRESS " + "]"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
@@ -83,16 +83,15 @@ public class AddMemberCommand extends Command {
         Name name = newMemberDescriptor.getName();
         Phone phone = newMemberDescriptor.getPhone();
         Email email = newMemberDescriptor.getEmail();
-        Address address= newMemberDescriptor.getAddress();
+        Address address = newMemberDescriptor.getAddress();
         Set<Tag> tags;
         if (newMemberDescriptor.getTags().isEmpty()) {
             tags = new HashSet<Tag>();
         } else {
             tags = newMemberDescriptor.getTags().get();
         }
-        Remark remark = new Remark("");
 
-        return new Person(name, phone, email, address, remark,tags);
+        return new Person(name, phone, email, address, tags);
     }
 
     public static class NewMemberDescriptor {

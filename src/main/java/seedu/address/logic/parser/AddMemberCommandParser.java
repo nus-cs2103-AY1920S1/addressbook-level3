@@ -29,7 +29,7 @@ public class AddMemberCommandParser implements Parser<AddMemberCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if(!argMultimap.getValue(PREFIX_NAME).isPresent()) {
+        if (!argMultimap.getValue(PREFIX_NAME).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMemberCommand.MESSAGE_USAGE));
         }
 
@@ -48,7 +48,7 @@ public class AddMemberCommandParser implements Parser<AddMemberCommand> {
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(newMemberDescriptor::setTags);
 
-        return new AddMemberCommand( newMemberDescriptor);
+        return new AddMemberCommand(newMemberDescriptor);
     }
 
     /**

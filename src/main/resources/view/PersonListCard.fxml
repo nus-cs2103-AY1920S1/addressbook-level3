@@ -33,11 +33,13 @@
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-      <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" />
-      <Label fx:id="projectHeader" styleClass="cell_big_label" textFill="WHITE" text="\$projectHeader">
+      <Label fx:id="projectHeader" styleClass="cell_big_label" text="\$projectHeader" textFill="WHITE">
             <font>
                <Font name="System Bold" size="50.0" />
             </font>
+            <padding>
+               <Insets top="5.0" />
+            </padding>
       </Label>
       <FlowPane fx:id="projects" />
     </VBox>

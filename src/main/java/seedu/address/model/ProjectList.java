@@ -59,11 +59,11 @@ public class ProjectList implements ReadOnlyProjectList {
     //// Project-level operations
 
     /**
-     * Returns true if a Project with the same identity as {@code Project} exists in the address book.
+     * Returns true if a Project with the same identity as {@code project} exists in the address book.
      */
-    public boolean hasProject(Project Project) {
-        requireNonNull(Project);
-        return projects.contains(Project);
+    public boolean hasProject(Project project) {
+        requireNonNull(project);
+        return projects.contains(project);
     }
 
     /**
