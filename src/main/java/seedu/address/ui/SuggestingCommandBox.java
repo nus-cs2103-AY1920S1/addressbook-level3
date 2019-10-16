@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.EnumSet;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -8,12 +9,14 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.binding.BooleanExpression;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Popup;
 import javafx.stage.Window;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.CommandHistory;
 import seedu.address.logic.parser.SuggestingCommandUtil;
 
 /**
@@ -24,6 +27,8 @@ public class SuggestingCommandBox extends CommandBox {
     private final ListView<String> listView = new ListView<>();
     private final ObservableList<String> commandSuggestions;
     private final FilteredList<String> filteredCommandSuggestions;
+    private final CommandHistory commandHistory = new CommandHistory();
+    private SuggestionMode suggestionMode = SuggestionMode.COMMAND_SUGGESTION;
 
     public SuggestingCommandBox(CommandExecutor commandExecutor) {
         super(commandExecutor);
@@ -32,6 +37,7 @@ public class SuggestingCommandBox extends CommandBox {
 
         setupListView();
         setupPopup();
+        setupHistoryNavigation();
     }
 
     private void setupPopup() {
@@ -117,11 +123,7 @@ public class SuggestingCommandBox extends CommandBox {
         listView.setFocusTraversable(false);
         listView.setItems(filteredCommandSuggestions);
         listView.prefWidthProperty().bind(commandTextField.widthProperty());
-        UiUtil.redirectKeyCodeEvents(commandTextField, listView,
-                KeyCode.UP,
-                KeyCode.DOWN,
-                KeyCode.TAB
-        );
+        UiUtil.redirectKeyCodeEvents(commandTextField, listView, KeyCode.TAB);
 
         final var listSelection = listView.getSelectionModel();
 
@@ -159,5 +161,67 @@ public class SuggestingCommandBox extends CommandBox {
                 filteredCommandSuggestions.setPredicate(fuzzyMatcher);
             }
         });
+    }
+
+    private void setupHistoryNavigation() {
+        final EnumSet<KeyCode> commandHistoryNavigationKeys = EnumSet.of(KeyCode.UP, KeyCode.DOWN);
+
+        // Redirect the UP/DOWN keypresses to the listView only when there is a command in the commandTextField
+        UiUtil.redirectKeyCodeEvents(commandTextField, listView, commandHistoryNavigationKeys, (keyEvent) -> {
+            if (commandTextField.getText().isEmpty()) {
+                suggestionMode = SuggestionMode.HISTORY_COMMAND_NAVIGATION;
+                return false;
+            }
+            return true;
+        });
+
+        /*
+         When an UP/DOWN keypress is triggered on the commandTextField and is not redirected,
+         go through the user's past commands
+        */
+        UiUtil.addKeyCodeListener(commandTextField, commandHistoryNavigationKeys, keyEvent -> {
+            if (commandTextField.getText().isEmpty()) {
+                commandHistory.resetHistoryPointer();
+            } else if (suggestionMode == SuggestionMode.COMMAND_SUGGESTION) {
+                return;
+            }
+
+            final KeyCode userDirection = keyEvent.getCode();
+            String commandText = null;
+
+            switch (userDirection) {
+            case UP:
+                commandText = commandHistory.getPreviousCommand();
+                break;
+            case DOWN:
+                commandText = commandHistory.getNextCommand();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected KeyCode: " + userDirection);
+            }
+
+            if (null != commandText) {
+                commandTextField.setText(commandText);
+                commandTextField.positionCaret(commandText.length());
+            }
+        });
+    }
+
+    @FXML
+    @Override
+    protected void handleCommandEntered() {
+        final String userInput = commandTextField.getText();
+        commandHistory.add(0, userInput);
+        suggestionMode = SuggestionMode.COMMAND_SUGGESTION;
+        commandHistory.resetHistoryPointer();
+
+        super.handleCommandEntered();
+    }
+
+    /**
+     * Suggestion Modes of the SuggestingCommandBox class
+     */
+    enum SuggestionMode {
+        COMMAND_SUGGESTION, HISTORY_COMMAND_NAVIGATION
     }
 }
