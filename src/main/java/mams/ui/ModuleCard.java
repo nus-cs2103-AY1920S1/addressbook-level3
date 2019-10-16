@@ -43,7 +43,7 @@ public class ModuleCard extends UiPart<Region> {
         moduleCode.setText(module.getModuleCode());
         moduleName.setText(module.getModuleName());
         lecturerName.setText(module.getLecturerName());
-        timeSlot.setText(module.timeSlotsToString());
+        timeSlot.setText(module.getModuleTimeTableToString());
         enrolment.setText(Integer.toString(module.getCurrentEnrolment()));
         quota.setText(Integer.toString(module.getQuota()));
         double percentageFilled = (double) module.getCurrentEnrolment() / module.getQuota();
