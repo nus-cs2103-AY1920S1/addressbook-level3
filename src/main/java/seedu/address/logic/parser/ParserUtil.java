@@ -56,8 +56,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String invname} into a {@code InvName}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String invname} into a {@code InvName}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -169,7 +169,7 @@ public class ParserUtil {
         requireNonNull(dateTime);
         String trimmedDate = dateTime.trim();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d HH:mm");
         return LocalDateTime.parse(trimmedDate, formatter);
     }
 }
