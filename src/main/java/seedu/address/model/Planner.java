@@ -225,6 +225,13 @@ public class Planner implements ReadOnlyPlanner {
     }
 
     //// For DAY list overwrite operations
+    /**
+     * Returns true if a contacts with the same identity as {@code contacts} exists in the address book.
+     */
+    public boolean hasDay(Day day) {
+        requireNonNull(day);
+        return days.contains(day);
+    }
 
     /**
      * Replaces the contents of the contacts list with {@code persons}.
