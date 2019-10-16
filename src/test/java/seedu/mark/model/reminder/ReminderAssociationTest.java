@@ -82,10 +82,10 @@ class ReminderAssociationTest {
     }
 
     @Test
-    public void remove_notExistReminderofSepcifiedBookmark_throwsBookmarkContainNoReminderException() {
+    public void remove_notExistReminderofSepcifiedBookmark_throwsReminderNotFoundException() {
         association.addReminder(ALICE, OPEN);
         Reminder reminder = new ReminderBuilder().withBookmark(ALICE).withNote("Read").build();
-        assertThrows(BookmarkContainNoReminderException.class, () -> association.deleteReminder(reminder));
+        assertThrows(ReminderNotFoundException.class, () -> association.deleteReminder(reminder));
     }
 
     @Test
