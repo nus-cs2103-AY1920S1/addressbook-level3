@@ -10,6 +10,8 @@ import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseList;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.IncomeList;
+import seedu.address.model.person.Budget;
+import seedu.address.model.person.BudgetList;
 import seedu.address.model.person.UniqueEntryList;
 
 /**
@@ -21,6 +23,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueEntryList entries;
     private final ExpenseList expenses;
     private final IncomeList incomes;
+    private final BudgetList budgets;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -33,6 +36,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         expenses = new ExpenseList();
         entries = new UniqueEntryList();
         incomes = new IncomeList();
+        budgets = new BudgetList();
     }
 
     public AddressBook() {}
@@ -97,6 +101,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addIncome(Income income) {
         entries.add(income);
         incomes.add(income);
+    }
+
+    /**
+     * Adds the specified Income to the finance app.
+     * @param budget the specified Income to be added.
+     */
+    public void addBudget(Budget budget) {
+        entries.add(budget);
+        budgets.add(budget);
     }
 
     /**
