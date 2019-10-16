@@ -53,6 +53,7 @@ public class AddAppCommand extends ReversibleCommand {
         }
 
         model.addEvent(toAdd);
+        model.updateFilteredEventList(toAdd.getPersonId());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
