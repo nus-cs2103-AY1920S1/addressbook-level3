@@ -21,7 +21,7 @@ public class GenReportCommandParser implements Parser<GenReportCommand> {
     public GenReportCommand parse(String args) throws ParseException {
         requireNonNull(args);
         try {
-            if (args.trim().length() < 2) {
+            if (args.trim().length() < 2 || args.trim().charAt(0) != 'B') {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
             }
             String index = args.trim().substring(1);

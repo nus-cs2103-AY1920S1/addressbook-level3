@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX;
 
 import java.util.List;
 
@@ -44,7 +45,9 @@ public class GenReportCommand extends Command {
                 bodyToGenReport = body;
             }
         }
-
+        if (bodyToGenReport == null) {
+            throw new CommandException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
+        }
         ReportGenerator.generate(bodyToGenReport);
         return new CommandResult(String.format(MESSAGE_GENREPORT_SUCCESS, targetIdNum));
     }
