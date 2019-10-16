@@ -37,6 +37,9 @@ public class ExportCommand extends Command {
             + PREFIX_CATEGORY + "CS2105 "
             + PREFIX_FILE_PATH + "C:\\Users\\damithc\\Documents\\CS2105_Cheat_Sheet.docx";
 
+    public static final String MESSAGE_EXPORT_SUCCESS = "Export was successful! You can find your file at "
+            + "the following path:\n%s";
+
     private final Category category;
     private final FilePath filePath;
 
@@ -58,9 +61,12 @@ public class ExportCommand extends Command {
             throw new CommandException(Messages.MESSAGE_EXPORT_IO_EXCEPTION);
         }
 
-        return new CommandResult("Export was successful! You can find your file at "
-                + "the following path:\n"
-                + this.filePath);
+        return new CommandResult(
+                String.format(
+                        MESSAGE_EXPORT_SUCCESS,
+                        filePath.toString()
+                )
+        );
     }
 
     @Override
