@@ -33,9 +33,16 @@ public class QuestionDeleteCommand extends QuestionCommand {
     /**
      * Generates a command execution success message.
      *
-     * @param question that has been added.
+     * @param question that has been deleted.
      */
     private String generateSuccessMessage(Question question) {
         return "Deleted question: " + question;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof QuestionDeleteCommand // instanceof handles nulls
+            && index.equals(((QuestionDeleteCommand) other).index)); // state check
     }
 }

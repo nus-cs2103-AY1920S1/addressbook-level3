@@ -11,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
+import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.student.Student;
 
 /**
@@ -108,6 +109,27 @@ public interface Model {
     void setStudentRecord(ReadOnlyStudentRecord studentRecord);
 
     ReadOnlyStudentRecord getStudentRecord();
+
+    //endregion
+
+    //region SavedQuestions
+    /**
+     * Returns the user prefs' questions file path.
+     */
+    Path getSavedQuestionsFilePath();
+
+    /**
+     * Sets the user prefs' questions file path.
+     */
+    void setSavedQuestionsFilePath(Path savedQuestionsFilePath);
+
+    /**
+     * Replaces questions data with the data in {@code savedQuestions}.
+     */
+    void setSavedQuestions(ReadOnlyQuestions savedQuestions);
+
+    /** Returns the saved questions */
+    ReadOnlyQuestions getSavedQuestions();
 
     //endregion
 

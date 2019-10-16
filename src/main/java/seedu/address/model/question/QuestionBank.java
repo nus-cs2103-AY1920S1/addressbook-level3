@@ -1,21 +1,35 @@
 package seedu.address.model.question;
 
-import java.util.ArrayList;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Iterator;
+import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 
 /**
  * Stores questions and provides functionality to manage them.
  */
-public class QuestionBank {
+public class QuestionBank implements Iterable<Question> {
 
-    private ArrayList<Question> questions;
+    private final ObservableList<Question> questions = FXCollections.observableArrayList();
+    private final ObservableList<Question> questionsUnmodifiableList =
+        FXCollections.unmodifiableObservableList(questions);
 
     /**
-     * Creates a new QuestionList object.
+     * Replaces the contents of this list with {@code Students}. {@code Students} must not contain
+     * duplicate Students.
      */
-    public QuestionBank() {
-        questions = new ArrayList<>();
+    public void setQuestions(List<Question> questions) {
+        requireAllNonNull(questions);
+        if (!isRepeated(questions)) {
+            //throw new DuplicateStudentException();
+        }
+
+        this.questions.setAll(questions);
     }
 
     /**
@@ -41,6 +55,18 @@ public class QuestionBank {
     }
 
     /**
+     * Deletes the question object from the list.
+     *
+     * @param question object.
+     */
+    public void deleteQuestion(Question question) {
+        requireNonNull(question);
+        if (!questions.remove(question)) {
+            //throw new StudentNotFoundException();
+        }
+    }
+
+    /**
      * Returns the question object.
      *
      * @param index of the question in the list.
@@ -61,19 +87,42 @@ public class QuestionBank {
     }
 
     /**
+     * Sets the question object in the list using a specified question object.
+     *
+     * @param target         of the question in the list.
+     * @param editedQuestion to replace target.
+     */
+    public void setQuestion(Question target, Question editedQuestion) {
+        requireAllNonNull(target, editedQuestion);
+
+        int index = questions.indexOf(target);
+        if (index == -1) {
+            //throw new StudentNotFoundException();
+        }
+
+        if (!target.isSameQuestion(editedQuestion) && contains(editedQuestion)) {
+            //throw new DuplicateStudentException();
+        }
+
+        questions.set(index, editedQuestion);
+    }
+
+    /**
      * Returns all the questions in a question bank in an ArrayList representation.
+     *
      * @return All the questions in the question bank in an ArrayList representation.
      */
-    public ArrayList<Question> getAllQuestions() {
+    public ObservableList<Question> getAllQuestions() {
         return questions;
     }
 
     /**
-     * Returns all the McqQuestions in a question bank in an ArrayList representation.
-     * @return All the McqQuestions in the question bank in an ArrayList representation.
+     * Returns all the McqQuestions in a question bank in an ObservableList representation.
+     *
+     * @return mcq questions
      */
-    public ArrayList<Question> getMcqQuestions() {
-        ArrayList<Question> mcqQuestions = new ArrayList<>();
+    public ObservableList<Question> getMcqQuestions() {
+        ObservableList<Question> mcqQuestions = FXCollections.observableArrayList();
         for (Question q : questions) {
             if (q instanceof McqQuestion) {
                 mcqQuestions.add(q);
@@ -84,10 +133,11 @@ public class QuestionBank {
 
     /**
      * Returns all the OpenEndedQuestions in a question bank in an ArrayList representation.
-     * @return All the OpenEndedQuestions in the question bank in an ArrayList representation.
+     *
+     * @return open ended questions
      */
-    public ArrayList<Question> getOpenEndedQuestions() {
-        ArrayList<Question> openEndedQuestions = new ArrayList<>();
+    public ObservableList<Question> getOpenEndedQuestions() {
+        ObservableList<Question> openEndedQuestions = FXCollections.observableArrayList();
         for (Question q : questions) {
             if (q instanceof OpenEndedQuestion) {
                 openEndedQuestions.add(q);
@@ -118,17 +168,53 @@ public class QuestionBank {
 
     /**
      * Returns true if a question has been repeated, else false.
+     *
      * @param question The question to be checked.
      * @return True if the question has been repeated, else false.
      */
     private boolean isRepeated(Question question) {
-        String otherQuestion = question.question;
         for (Question q : questions) {
-            String currentQuestion = q.question;
-            if (currentQuestion.equals(otherQuestion)) {
+            if (q.isSameQuestion(question)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Returns true if a question has been repeated, else false.
+     *
+     * @param questions the list of questions to check.
+     * @return True if the question has been repeated, else false.
+     */
+    private boolean isRepeated(List<Question> questions) {
+        for (int i = 0; i < questions.size() - 1; i++) {
+            for (int j = i + 1; j < questions.size(); j++) {
+                if (questions.get(i).isSameQuestion(questions.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns true if the list contains an equivalent Student as the given argument.
+     */
+    public boolean contains(Question toCheck) {
+        requireNonNull(toCheck);
+        return questions.stream().anyMatch(toCheck::isSameQuestion);
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Question> asUnmodifiableObservableList() {
+        return questionsUnmodifiableList;
+    }
+
+    @Override
+    public Iterator<Question> iterator() {
+        return questions.iterator();
     }
 }

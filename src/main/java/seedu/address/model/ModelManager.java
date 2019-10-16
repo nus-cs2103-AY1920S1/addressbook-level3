@@ -19,7 +19,8 @@ import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteList;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
-import seedu.address.model.question.QuestionBank;
+import seedu.address.model.question.ReadOnlyQuestions;
+import seedu.address.model.question.SavedQuestions;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizBank;
 import seedu.address.model.student.Student;
@@ -35,12 +36,12 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final QuestionBank questionBank;
     private final QuizBank quizBank;
     private final ListOfGroups groupList;
     private final NoteList notes;
     private final UserPrefs userPrefs;
     private final StudentRecord studentRecord;
+    private final SavedQuestions savedQuestions;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Student> filteredStudents;
 
@@ -48,8 +49,9 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook,
-                        ReadOnlyStudentRecord studentRecord,
-                        ReadOnlyUserPrefs userPrefs) {
+        ReadOnlyStudentRecord studentRecord,
+        ReadOnlyQuestions savedQuestions,
+        ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -57,18 +59,18 @@ public class ModelManager implements Model {
             "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.questionBank = new QuestionBank();
         this.quizBank = new QuizBank();
         this.groupList = new ListOfGroups();
         this.notes = new NoteList();
         this.userPrefs = new UserPrefs(userPrefs);
         this.studentRecord = new StudentRecord(studentRecord);
+        this.savedQuestions = new SavedQuestions(savedQuestions);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredStudents = new FilteredList<>(this.studentRecord.getStudentList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new StudentRecord(), new UserPrefs());
+        this(new AddressBook(), new StudentRecord(), new SavedQuestions(), new UserPrefs());
     }
 
     //region PREFERENCES & SETTINGS
@@ -122,6 +124,7 @@ public class ModelManager implements Model {
     //endregion
 
     //region FilteredPerson List Accessors
+
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
@@ -185,6 +188,7 @@ public class ModelManager implements Model {
     public ReadOnlyStudentRecord getStudentRecord() {
         return studentRecord;
     }
+
     //endregion
 
     //region FilteredStudent List Accessors
@@ -290,29 +294,52 @@ public class ModelManager implements Model {
 
     @Override
     public void addQuestion(Question question) {
-        questionBank.addQuestion(question);
+        savedQuestions.addQuestion(question);
     }
 
     @Override
     public Question deleteQuestion(Index index) {
-        return questionBank.deleteQuestion(index);
+        return savedQuestions.deleteQuestion(index);
     }
 
     @Override
     public Question getQuestion(Index index) {
-        return questionBank.getQuestion(index);
+        return savedQuestions.getQuestion(index);
     }
 
     @Override
     public void setQuestion(Index index, Question question) {
-        questionBank.setQuestion(index, question);
+        savedQuestions.setQuestion(index, question);
     }
 
     @Override
     public String getQuestionsSummary() {
-        return questionBank.getQuestionsSummary();
+        return savedQuestions.getQuestionsSummary();
     }
 
+    //endregion
+
+    //region SavedQuestions
+    @Override
+    public void setSavedQuestionsFilePath(Path savedQuestionsFilePath) {
+        requireNonNull(savedQuestionsFilePath);
+        userPrefs.setSavedQuestionsFilePath(savedQuestionsFilePath);
+    }
+
+    @Override
+    public Path getSavedQuestionsFilePath() {
+        return userPrefs.getSavedQuestionsFilePath();
+    }
+
+    @Override
+    public void setSavedQuestions(ReadOnlyQuestions savedQuestions) {
+        this.savedQuestions.resetData(savedQuestions);
+    }
+
+    @Override
+    public ReadOnlyQuestions getSavedQuestions() {
+        return savedQuestions;
+    }
     //endregion
 
     //region Quizzes
@@ -323,7 +350,7 @@ public class ModelManager implements Model {
 
         ArrayList<Question> questions = new ArrayList<>();
         for (Integer i : questionNumbers) {
-            questions.add(questionBank.getQuestion(Index.fromOneBased(i)));
+            questions.add(savedQuestions.getQuestion(Index.fromOneBased(i)));
         }
 
         for (Question q : questions) {
@@ -340,13 +367,13 @@ public class ModelManager implements Model {
         ArrayList<Question> relevantQuestions = new ArrayList<>();
         switch (type) {
         case "mcq":
-            relevantQuestions = questionBank.getMcqQuestions();
+            //relevantQuestions = savedQuestions.getMcqQuestions();
             break;
         case "open":
-            relevantQuestions = questionBank.getOpenEndedQuestions();
+            //relevantQuestions = savedQuestions.getOpenEndedQuestions();
             break;
         case "all":
-            relevantQuestions = questionBank.getAllQuestions();
+            //relevantQuestions = savedQuestions.getAllQuestions();
             break;
         default:
             break;
@@ -377,7 +404,7 @@ public class ModelManager implements Model {
     @Override
     public boolean addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber) {
         int questionIndex = questionNumber - 1;
-        Question question = questionBank.getQuestion(Index.fromZeroBased(questionIndex));
+        Question question = savedQuestions.getQuestion(Index.fromZeroBased(questionIndex));
 
         int quizIndex = quizBank.getQuizIndex(quizId);
         if (quizIndex != -1) {
