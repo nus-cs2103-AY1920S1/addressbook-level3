@@ -74,25 +74,29 @@ public class ParserUtil {
      *
      * @return Author object from remark string
      */
-    public static Author parseAuthor(String author) {
+    public static Author parseAuthor(String author) throws ParseException {
         requireNonNull(author);
         String trimmedAuthor = author.trim();
+        if (!Author.isValidAuthor(trimmedAuthor)) {
+            throw new ParseException(Author.MESSAGE_CONSTRAINTS);
+        }
         return new Author(trimmedAuthor);
     }
 
     /**
      * Parses a {@code String genre} into a {@code Genre}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed, and genre will be converted to UPPERCASE
      *
      * @throws ParseException if the given {@code genre} is invalid.
      */
     public static Genre parseGenre(String genre) throws ParseException {
         requireNonNull(genre);
-        String trimmedTag = genre.trim();
-        if (!Genre.isValidGenreName(trimmedTag)) {
+        String trimmedGenre = genre.trim();
+        String uppercaseGenre = trimmedGenre.toUpperCase();
+        if (!Genre.isValidGenreName(uppercaseGenre)) {
             throw new ParseException(Genre.MESSAGE_CONSTRAINTS);
         }
-        return new Genre(trimmedTag);
+        return new Genre(uppercaseGenre);
     }
 
     /**
@@ -101,8 +105,8 @@ public class ParserUtil {
     public static Set<Genre> parseGenres(Collection<String> genres) throws ParseException {
         requireNonNull(genres);
         final Set<Genre> genreSet = new HashSet<>();
-        for (String tagName : genres) {
-            genreSet.add(parseGenre(tagName));
+        for (String genreName : genres) {
+            genreSet.add(parseGenre(genreName));
         }
         return genreSet;
     }

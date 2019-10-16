@@ -215,6 +215,10 @@ public class ModelManager implements Model {
         filteredBooks.setPredicate(predicate);
     }
 
+    public void resetFilteredBookList() {
+        filteredBooks.setPredicate(x -> true);
+    }
+
     @Override
     public Model excludeBookBeingReplaced(Book toBeReplaced) {
         Catalog tempCatalog = new Catalog(this.getCatalog());

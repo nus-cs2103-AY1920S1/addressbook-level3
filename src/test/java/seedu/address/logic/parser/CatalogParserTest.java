@@ -98,10 +98,10 @@ public class CatalogParserTest {
         Book book = new BookBuilder().build();
         FindCommand command = (FindCommand) parser.parseCommand(BookUtil.getFindCommand(book));
         assertEquals(new FindCommand(new BookPredicate()
-            .addTitle(book.getTitle().value)
-            .addAuthor(book.getAuthor().value)
-            .addSerialNumber(book.getSerialNumber().value)
-            .addGenres(book.getGenres())), command);
+            .setTitle(book.getTitle().value)
+            .setAuthor(book.getAuthor().value)
+            .setSerialNumber(book.getSerialNumber().value)
+            .setGenres(book.getGenres())), command);
     }
 
     @Test

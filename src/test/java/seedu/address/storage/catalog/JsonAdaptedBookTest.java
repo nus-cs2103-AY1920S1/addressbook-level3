@@ -17,7 +17,7 @@ import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
 
 public class JsonAdaptedBookTest {
-    private static final String INVALID_TITLE = "R@chel";
+    private static final String INVALID_TITLE = "&HarryBotter";
     private static final String INVALID_SERIAL_NUMBER = "+651234a";
     private static final String INVALID_GENRE = "#friend";
     private static final String NO_LOAN = null;
