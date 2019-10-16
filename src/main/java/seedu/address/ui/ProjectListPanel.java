@@ -10,6 +10,8 @@ import seedu.address.model.project.Project;
 
 import java.util.logging.Logger;
 
+
+
 /**
  * Panel containing the list of projects.
  */

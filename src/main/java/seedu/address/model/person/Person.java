@@ -1,12 +1,8 @@
 package seedu.address.model.person;
 
-import seedu.address.model.project.UniqueProjectList;
 import seedu.address.model.tag.Tag;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -25,7 +21,7 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final Remark remark;
-    private final UniqueProjectList projectList = new UniqueProjectList();
+    private final List<String> projects = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -68,8 +64,8 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
-    public UniqueProjectList getProjectList() {
-        return this.projectList;
+    public List<String> getProjects() {
+        return this.projects;
     }
 
     /**

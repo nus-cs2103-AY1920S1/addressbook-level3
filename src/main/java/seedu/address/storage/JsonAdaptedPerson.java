@@ -2,9 +2,9 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.*;
-import seedu.address.model.project.Project;
 import seedu.address.model.tag.Tag;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final String remark;
-    private final List<JsonAdaptedProject> projects = new ArrayList<>();
+    private final List<String> projects = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -35,7 +35,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("remark") String remark,
-            @JsonProperty("projects") List<JsonAdaptedProject> projects) {
+            @JsonProperty("projects") List<String> projects) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -61,9 +61,7 @@ class JsonAdaptedPerson {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        /*projects.addAll(source.getProjectList().asUnmodifiableObservableList().stream()
-                .map(JsonAdaptedProject::new)
-                .collect(Collectors.toList()));*/
+        projects.addAll(source.getProjects());
 
     }
 
@@ -117,15 +115,14 @@ class JsonAdaptedPerson {
         }
         final Remark modelRemark = new Remark(remark);
 
-        final List<Project> modelProjectList = new ArrayList();
-        for (JsonAdaptedProject project : projects) {
-            modelProjectList.add(project.toModelType());
+        final List<String> modelProjectList = new ArrayList();
+        for (String project : projects) {
+            modelProjectList.add(project);
         }
 
-        /*Person person = new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
-        person.getProjectList().setProjects(modelProjectList);
-        return person;*/
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+        Person person = new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+        person.getProjects().addAll(modelProjectList);
+        return person;
     }
 
 }

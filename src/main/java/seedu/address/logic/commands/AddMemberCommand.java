@@ -55,6 +55,7 @@ public class AddMemberCommand extends Command {
         Project editedProject = projectToEdit.clone();
 
         Person personToAdd = createNewMember(toAdd);
+        personToAdd.getProjects().add(editedProject.getTitle().toString());
         List<String> memberListToEdit = projectToEdit.getMembers();
 
         if (model.hasPerson(personToAdd)) {
@@ -64,10 +65,6 @@ public class AddMemberCommand extends Command {
         if (projectToEdit.hasMember(personToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-
-        /*/Adding project to person
-        UniqueProjectList projectList = personToAdd.getProjectList();
-        projectList.add(projectToEdit);*/
 
         //Adding person to address book and project
         model.addPerson(personToAdd);
