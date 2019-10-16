@@ -9,7 +9,7 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.Model;
 import com.typee.model.ReadOnlyAddressBook;
-import com.typee.model.person.Person;
+import com.typee.model.engagement.Engagement;
 import com.typee.ui.Tab;
 
 import javafx.collections.ObservableList;
@@ -30,12 +30,12 @@ public interface Logic {
     /**
      * Returns the AddressBook.
      *
-     * @see Model#getAddressBook()
+     * @see Model#getHistoryManager()
      */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of engagements */
+    ObservableList<Engagement> getFilteredEngagementList();
 
     /** Returns an unmodifiable view of tabs in Typee */
     ObservableList<Tab> getTabList() throws DataConversionException;
