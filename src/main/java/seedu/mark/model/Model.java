@@ -13,6 +13,7 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.Reminder;
 
 /**
  * The API of the Model component.
@@ -151,6 +152,34 @@ public interface Model {
     void saveMark();
 
     /**
+     * Adds a reminder that opens a specific bookmark.
+     */
+    void addReminder(Bookmark bookmark, Reminder reminder);
+
+    /**
+     * Removes a specific reminder.
+     */
+    void removeReminder(Reminder reminder);
+
+    /**
+     * Edits a specific reminder.
+     */
+    void editReminder(Reminder targetReminder, Reminder editedReminder);
+
+    /**
+     * Checks if the bookmark already has reminder.
+     *
+     * @param bookmark the bookmark to check.
+     * @return whether the bookmark already has a reminder.
+     */
+    boolean isBookmarkHasReminder(Bookmark bookmark);
+
+    /**
+     * Gets all reminders in ascending time order.
+     */
+    ObservableList<Reminder> getReminders();
+
+    /**
      * Returns a view of the annotated document.
      */
     ObservableList<Paragraph> getObservableDocument();
@@ -160,4 +189,5 @@ public interface Model {
      * @param doc Document to update view and be shown.
      */
     void updateDocument(OfflineDocument doc);
+
 }

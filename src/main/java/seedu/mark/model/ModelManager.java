@@ -22,6 +22,7 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.Reminder;
 
 /**
  * Represents the in-memory model of the Mark data.
@@ -273,5 +274,55 @@ public class ModelManager implements Model {
                 && (currentUrl.getValue() == null
                     ? other.currentUrl.getValue() == null
                     : currentUrl.getValue().equals(other.currentUrl.getValue()));
+    }
+
+    //=========== Reminder =================================================================================
+
+    /**
+     * Adds a reminder that opens a specific bookmark.
+     *
+     * @param bookmark the bookmark to be opened.
+     * @param reminder the reminder that is added.
+     */
+    public void addReminder(Bookmark bookmark, Reminder reminder) {
+        versionedMark.addReminder(bookmark, reminder);
+    }
+
+    /**
+     * Removes a specific reminder.
+     *
+     * @param reminder the reminder to be removed.
+     */
+    public void removeReminder(Reminder reminder) {
+        versionedMark.removeReminder(reminder);
+    }
+
+    /**
+     * Edits a specific reminder.
+     *
+     * @param targetReminder the reminder to be edited.
+     * @param editedReminder the edited reminder.
+     */
+    public void editReminder(Reminder targetReminder, Reminder editedReminder) {
+        versionedMark.editReminder(targetReminder, editedReminder);
+    }
+
+    /**
+     * Checks if the bookmark already has reminder.
+     *
+     * @param bookmark the bookmark to check.
+     * @return whether the bookmark already has a reminder.
+     */
+    public boolean isBookmarkHasReminder(Bookmark bookmark) {
+        return versionedMark.isBookmarkHasReminder(bookmark);
+    }
+
+    /**
+     * Gets all reminders in ascending time order.
+     *
+     * @return a list of all reminders in ascending time order.
+     */
+    public ObservableList<Reminder> getReminders() {
+        return versionedMark.getReminders();
     }
 }

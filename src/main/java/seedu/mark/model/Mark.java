@@ -7,11 +7,14 @@ import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.UniqueBookmarkList;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.reminder.Reminder;
+import seedu.mark.model.reminder.ReminderAssociation;
 
 /**
  * Wraps all data at the bookmark-manager level
@@ -23,9 +26,12 @@ public class Mark implements ReadOnlyMark {
 
     private final FolderStructure folderStructure;
 
+    private final ReminderAssociation reminderAssociation;
+
     public Mark() {
         bookmarks = new UniqueBookmarkList();
         folderStructure = new FolderStructure(Folder.ROOT_FOLDER, new ArrayList<>());
+        reminderAssociation = new ReminderAssociation();
     }
 
     /**
@@ -114,6 +120,55 @@ public class Mark implements ReadOnlyMark {
         this.folderStructure.addFolder(folder, parentFolder);
     }
 
+    //// reminder operations
+
+    /**
+     * Replaces the association of reminder association with the specified {@code association}.
+     *
+     * @param association the specified association that is used.
+     */
+    public void setReminderAssociation(ObservableMap<Bookmark, Reminder> association) {
+        this.reminderAssociation.setAssociation(association);
+    }
+
+    /**
+     * Gets a list of all reminders in time ascending order.
+     *
+     * @return a list of reminder in time ascending order.
+     */
+    public ObservableList<Reminder> getReminders() {
+        return this.reminderAssociation.getReminderList();
+    }
+
+    /**
+     * Adds a reminder that opens a specific bookmark.
+     *
+     * @param bookmark the bookmark that is opened by the reminder.
+     * @param reminder the reminder to be added.
+     */
+    public void addReminder(Bookmark bookmark, Reminder reminder) {
+        this.reminderAssociation.addReminder(bookmark, reminder);
+    }
+
+    /**
+     * Removes a specific reminder.
+     *
+     * @param reminder the reminder to be removed.
+     */
+    public void removeReminder(Reminder reminder) {
+        this.reminderAssociation.deleteReminder(reminder);
+    }
+
+    /**
+     * Edits a specific reminder.
+     *
+     * @param targetReminder the reminder to be edited.
+     * @param replaceReminder the edited reminder.
+     */
+    public void editReminder(Reminder targetReminder, Reminder replaceReminder) {
+        this.reminderAssociation.setReminder(targetReminder, replaceReminder);
+    }
+
     //// util methods
 
     @Override
@@ -132,6 +187,11 @@ public class Mark implements ReadOnlyMark {
         return folderStructure;
     }
 
+    @Override
+    public ReminderAssociation getReminderAssociation() {
+        return reminderAssociation;
+    }
+
 
     public boolean hasFolder(Folder folder) {
         return getFolderStructure().hasFolder(folder);
@@ -143,6 +203,16 @@ public class Mark implements ReadOnlyMark {
                 || (other instanceof Mark // instanceof handles nulls
                 && bookmarks.equals(((Mark) other).bookmarks)
                 && folderStructure.equals(((Mark) other).folderStructure));
+    }
+
+    /**
+     * Checks if the bookmark already has reminder.
+     *
+     * @param bookmark the bookmark to check.
+     * @return whether the bookmark already has a reminder.
+     */
+    public boolean isBookmarkHasReminder(Bookmark bookmark) {
+        return reminderAssociation.isBookmarkHasReminder(bookmark);
     }
 
     @Override
