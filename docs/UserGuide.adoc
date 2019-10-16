@@ -43,7 +43,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 
-* *`list`* : lists all contacts
+* *`list -b`* : lists all bodies
 * *`workers`* : switches to the workers tab
 * **`add -w`**`/firstName John /lastName Doe /dob 17-05-1980` :
 adds a worker named John Doe (with his date of birth) to the management system.
@@ -458,7 +458,7 @@ Format: `genReport bodyID`
 
 Example:
 
-* `genReport 123` +
+* `genReport B123` +
 Outputs the report PDF for body ID B00000123
 
 ==== View past individual reports: `report`
@@ -468,7 +468,7 @@ Format: `report bodyID`
 
 Example:
 
-* `report 1` +
+* `report B1` +
 Outputs the past report of body ID B00000001
 
 ==== View past reports: `reports`
