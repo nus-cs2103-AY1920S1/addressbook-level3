@@ -35,11 +35,18 @@ public class GroupDetailsView extends UiPart<Region> {
         ArrayList<String> names = detailWindowDisplay.getWeekSchedules().stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getName().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<String> emails = detailWindowDisplay.getWeekSchedules().stream()
+                .map(wkSch -> wkSch.getPersonDisplay().getEmail().toString())
+                .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<String> roles = detailWindowDisplay.getWeekSchedules().stream()
+                .map(wkSch -> wkSch.getRole().toString())
+                .collect(Collectors.toCollection(ArrayList::new));
+
         ArrayList<String> colors = ColorGenerator.generateColorList(detailWindowDisplay.getWeekSchedules().size());
         ScheduleView scheduleView = new ScheduleView(detailWindowDisplay.getWeekSchedules(), colors);
         GroupDetailCard groupCard = new GroupDetailCard(detailWindowDisplay.getGroupDisplay());
         groupDetailCard.getChildren().add(groupCard.getRoot());
-        groupMembersList.getChildren().add(new MemberList(names, colors).getRoot());
+        groupMembersList.getChildren().add(new MemberList(names, emails, roles, colors).getRoot());
         groupSchedule.getChildren().add(scheduleView.getRoot());
     }
 

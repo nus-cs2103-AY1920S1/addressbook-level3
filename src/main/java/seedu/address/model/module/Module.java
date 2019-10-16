@@ -10,18 +10,15 @@ import seedu.address.model.module.exceptions.SemesterNotFoundException;
  * The module details
  */
 public class Module {
-    private final ModuleCode moduleCode;
+    private final ModuleId moduleId;
     private final Title title;
     private final Description description;
-    private final AcadYear acadYear;
     private final List<Semester> semesterData = new ArrayList<>();
 
-    public Module(ModuleCode moduleCode, Title title, Description description,
-                  AcadYear acadYear, List<Semester> semesterData) {
-        this.moduleCode = moduleCode;
+    public Module(ModuleId moduleId, Title title, Description description, List<Semester> semesterData) {
+        this.moduleId = moduleId;
         this.title = title;
         this.description = description;
-        this.acadYear = acadYear;
         this.semesterData.addAll(semesterData);
     }
 
@@ -33,12 +30,16 @@ public class Module {
         return description;
     }
 
+    public ModuleId getModuleId() {
+        return moduleId;
+    }
+
     public ModuleCode getModuleCode() {
-        return moduleCode;
+        return moduleId.getModuleCode();
     }
 
     public AcadYear getAcadYear() {
-        return acadYear;
+        return moduleId.getAcadYear();
     }
 
     public List<Semester> getSemesterData() {
@@ -56,7 +57,7 @@ public class Module {
 
     @Override
     public String toString() {
-        return "AY" + acadYear + " " + moduleCode + " " + title;
+        return "AY" + moduleId + " " + title;
     }
 
     /**
@@ -67,8 +68,7 @@ public class Module {
             return true;
         } else if (other == null) {
             return false;
-        } else if (other.getAcadYear().equals(this.getAcadYear())
-            && other.getModuleCode().equals(this.getModuleCode())) {
+        } else if (other.getModuleId().equals(this.getModuleId())) {
             return true;
         } else {
             return false;
@@ -77,6 +77,6 @@ public class Module {
 
     @Override
     public int hashCode() {
-        return Objects.hash(moduleCode, title, description, acadYear, semesterData);
+        return Objects.hash(moduleId, title, description, semesterData);
     }
 }

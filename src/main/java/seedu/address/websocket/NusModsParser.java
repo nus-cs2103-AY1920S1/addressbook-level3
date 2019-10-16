@@ -22,6 +22,7 @@ import seedu.address.model.module.LessonNo;
 import seedu.address.model.module.LessonType;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleId;
 import seedu.address.model.module.Semester;
 import seedu.address.model.module.SemesterNo;
 import seedu.address.model.module.StartTime;
@@ -43,10 +44,12 @@ public class NusModsParser {
     public static Module parseModule(JSONObject obj) {
         requireNonNull(obj);
 
+        AcadYear acadYear = new AcadYear(obj.getOrDefault("acadYear", "").toString());
         ModuleCode moduleCode = new ModuleCode(obj.getOrDefault("moduleCode", "").toString());
+        ModuleId moduleId = new ModuleId(acadYear, moduleCode);
+
         Title title = new Title(obj.getOrDefault("title", "").toString());
         Description description = new Description(obj.getOrDefault("description", "").toString());
-        AcadYear acadYear = new AcadYear(obj.getOrDefault("acadYear", "").toString());
 
         List<Semester> semesterData = new ArrayList<>();
         if (obj.containsKey("semesterData")) {
@@ -56,7 +59,7 @@ public class NusModsParser {
             }
         }
 
-        return new Module(moduleCode, title, description, acadYear, semesterData);
+        return new Module(moduleId, title, description, semesterData);
     }
 
     /**

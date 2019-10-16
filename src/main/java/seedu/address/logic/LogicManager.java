@@ -80,10 +80,10 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<PersonDisplay> getFilteredPersonDisplayList() {
-        ObservableList<Person> persons = model.getFilteredPersonList();
+        ObservableList<Person> persons = model.getObservablePersonList();
         return FXCollections.observableList(persons.stream()
-                        .map(person -> new PersonDisplay((Person) person))
-                        .collect(Collectors.toCollection(ArrayList::new)));
+                .map(person -> new PersonDisplay((Person) person))
+                .collect(Collectors.toCollection(ArrayList::new)));
     }
 
     @Override
@@ -121,7 +121,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+        return model.getObservablePersonList();
     }
 
     @Override

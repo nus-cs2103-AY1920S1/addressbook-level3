@@ -58,7 +58,7 @@ public class EditGroupCommand extends Command {
         } else {
 
             // update main window display
-            model.updateDetailWindowDisplay(group.getGroupName(), LocalDateTime.now(), DetailWindowDisplayType.EMPTY);
+            model.updateDetailWindowDisplay(group.getGroupName(), LocalDateTime.now(), DetailWindowDisplayType.GROUP);
 
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);

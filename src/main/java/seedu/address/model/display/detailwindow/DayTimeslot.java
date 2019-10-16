@@ -40,6 +40,20 @@ public class DayTimeslot {
         return venue;
     }
 
+    /**
+     * Checks if there is a clash between the timeslot and given time.
+     *
+     * @param time to check for clash
+     * @return boolean
+     */
+    public boolean isClash(LocalTime time) {
+        if (time.isBefore(startTime) || time.isAfter(endTime)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @Override
     public String toString() {
         String output = "";

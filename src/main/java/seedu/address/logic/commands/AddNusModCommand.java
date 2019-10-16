@@ -18,6 +18,7 @@ import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.LessonNo;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleId;
 import seedu.address.model.module.SemesterNo;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.person.Name;
@@ -61,7 +62,7 @@ public class AddNusModCommand extends Command {
         SemesterNo semesterNo = options.getSemesterNo().orElse(model.getDefaultSemesterNo());
 
         // find person with name
-        ObservableList<Person> personList = model.getFilteredPersonList();
+        ObservableList<Person> personList = model.getObservablePersonList();
         Person person = null;
         for (Person p : personList) {
             if (p.getName().equals(name)) {
@@ -78,9 +79,10 @@ public class AddNusModCommand extends Command {
 
         Event event;
         Module module;
+        ModuleId moduleId = new ModuleId(acadYear, moduleCode);
 
         try {
-            module = model.findModuleFromAllSources(acadYear, moduleCode);
+            module = model.findModule(moduleId);
             event = AddNusModsCommand.createEvent(module, startAcadSemDateString, semesterNo,
                     this.lessonNoList, holidayDateStrings);
         } catch (ModuleNotFoundException e) {

@@ -12,6 +12,7 @@ import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.PersonToGroupMapping;
+import seedu.address.model.mapping.Role;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
@@ -30,10 +31,12 @@ public class AddToGroupCommand extends Command {
 
     public final Name name;
     public final GroupName groupName;
+    public final Role role;
 
-    public AddToGroupCommand(Name name, GroupName groupName) {
+    public AddToGroupCommand(Name name, GroupName groupName, Role role) {
         this.name = name;
         this.groupName = groupName;
+        this.role = role;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class AddToGroupCommand extends Command {
             Person person = model.findPerson(name);
             Group group = model.findGroup(groupName);
 
-            PersonToGroupMapping mapping = new PersonToGroupMapping(person.getPersonId(), group.getGroupId());
+            PersonToGroupMapping mapping = new PersonToGroupMapping(person.getPersonId(), group.getGroupId(), role);
 
             if (model.addPersonToGroupMapping(mapping)) {
 

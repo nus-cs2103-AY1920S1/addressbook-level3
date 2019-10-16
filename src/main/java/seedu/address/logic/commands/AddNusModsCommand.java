@@ -22,6 +22,7 @@ import seedu.address.model.module.Lesson;
 import seedu.address.model.module.LessonNo;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleId;
 import seedu.address.model.module.NusModsShareLink;
 import seedu.address.model.module.SemesterNo;
 import seedu.address.model.module.Weeks;
@@ -69,7 +70,7 @@ public class AddNusModsCommand extends Command {
         AcadYear acadYear = model.getDefaultAcadYear();
 
         // find person with name
-        ObservableList<Person> personList = model.getFilteredPersonList();
+        ObservableList<Person> personList = model.getObservablePersonList();
         Person person = null;
         for (Person p : personList) {
             if (p.getName().equals(name)) {
@@ -90,8 +91,9 @@ public class AddNusModsCommand extends Command {
         ArrayList<Event> eventsToAdd = new ArrayList<>();
         for (Map.Entry<ModuleCode, List<LessonNo>> entry : link.moduleLessonsMap.entrySet()) {
             ModuleCode moduleCode = entry.getKey();
+            ModuleId moduleId = new ModuleId(acadYear, moduleCode);
             try {
-                Module module = model.findModuleFromAllSources(acadYear, moduleCode);
+                Module module = model.findModule(moduleId);
                 Event e = createEvent(module, startAcadSemDateString, link.semesterNo,
                         entry.getValue(), holidayDateStrings);
                 eventsToAdd.add(e);

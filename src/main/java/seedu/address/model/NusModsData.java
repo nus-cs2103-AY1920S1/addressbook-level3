@@ -1,51 +1,41 @@
 package seedu.address.model;
 
 import seedu.address.model.module.AcadCalendar;
-import seedu.address.model.module.DetailedModuleList;
 import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.ModuleCondensedList;
+import seedu.address.model.module.ModuleList;
 
 /**
  * Contains all the information the app needs from NUSMods such as modules, academic calendar, holidays, etc.
  */
 public class NusModsData {
 
-    private ModuleCondensedList moduleCondensedList;
-    private DetailedModuleList detailedModuleList;
+    private ModuleList moduleList;
     private AcadCalendar acadCalendar;
     private Holidays holidays;
 
     public NusModsData() {
-        this.detailedModuleList = new DetailedModuleList();
+        this.moduleList = new ModuleList();
     }
 
-    public NusModsData(DetailedModuleList detailedModuleList) {
-        this.detailedModuleList = detailedModuleList;
+    public NusModsData(ModuleList moduleList) {
+        this.moduleList = moduleList;
     }
 
-    public ModuleCondensedList getModuleCondensedList() {
-        return moduleCondensedList;
+    public ModuleList getModuleList() {
+        return moduleList;
     }
 
-    public void setModuleCondensedList(ModuleCondensedList moduleCondensedList) {
-        this.moduleCondensedList = moduleCondensedList;
-    }
-
-    public DetailedModuleList getDetailedModuleList() {
-        return detailedModuleList;
-    }
-
-    public void setDetailedModuleList(DetailedModuleList detailedModuleList) {
-        this.detailedModuleList = detailedModuleList;
+    public void setModuleList(ModuleList moduleList) {
+        this.moduleList = moduleList;
     }
 
     public AcadCalendar getAcadCalendar() {
         return acadCalendar;
     }
 
-    public void addDetailedModule(Module module) {
-        detailedModuleList.addModule(module);
+    public void addModule(Module module) {
+        moduleList.addModule(module);
     }
 
     public void setAcadCalendar(AcadCalendar acadCalendar) {

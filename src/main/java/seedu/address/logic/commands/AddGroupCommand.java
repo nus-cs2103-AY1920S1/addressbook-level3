@@ -40,7 +40,7 @@ public class AddGroupCommand extends Command {
         if (group != null) {
 
             // updates main window
-            model.updateDetailWindowDisplay(group.getGroupName(), LocalDateTime.now(), DetailWindowDisplayType.EMPTY);
+            model.updateDetailWindowDisplay(group.getGroupName(), LocalDateTime.now(), DetailWindowDisplayType.GROUP);
 
             // updates side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
