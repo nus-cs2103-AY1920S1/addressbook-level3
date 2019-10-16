@@ -192,6 +192,7 @@ public class ModelManager implements Model {
     public void updateFilteredDeadlineList(Predicate<Deadline> predicate) {
         requireNonNull(predicate);
         filteredDeadlines.setPredicate(predicate);
+    }
 
     //@@author keiteo
     @Override
