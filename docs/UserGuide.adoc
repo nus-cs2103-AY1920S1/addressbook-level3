@@ -143,11 +143,11 @@ Deletes the book with serial number `sn/B00422`.
 ==== Registering a new borrower: `register`
 
 Registers a new borrower to the library records. A unique ID associated with the borrower will automatically be generated and displayed. Borrowers are expected to know his ID in order for loans to be processed+
-Format: `register u/NAME p/PHONE_NUMBER e/EMAIL`
+Format: `register n/NAME p/PHONE_NUMBER e/EMAIL`
 
 Example:
 
-* `register u/matt p/83938249 e/matt@damon.com`
+* `register n/matt p/83938249 e/matt@damon.com`
 
 ==== Undoing: `undo`
 
@@ -205,7 +205,7 @@ Format: `done`
 ==== Editing a borrower: `edit`
 
 Edit borrower’s particulars. +
-Format: `edit { [u/NAME] [p/PHONE_NUMBER] [e/email] }`
+Format: `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }`
 
 ****
 * Edits the currently serving borrower's particulars.
@@ -293,8 +293,8 @@ e.g. `find t/Animal Farm a/George Orwell`, `find g/mystery g/children -available
 * *Add a book* : `add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]` +
 e.g. `add t/Harry Botter and the Baby's Potty a/Reali Jolking sn/B02010 g/children`
 * *Delete a book* : `delete INDEX` or `delete sn/BOOK_SN`
-* *Register a borrower* : `register u/NAME p/PHONE_NUMBER e/EMAIL` +
-e.g. `register u/matt p/83938249 e/matt@damon.com`
+* *Register a borrower* : `register n/NAME p/PHONE_NUMBER e/EMAIL` +
+e.g. `register n/matt p/83938249 e/matt@damon.com`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Toggle night mode*: `toggleui`
@@ -309,7 +309,7 @@ e.g. `register u/matt p/83938249 e/matt@damon.com`
 * *Serve mode* : `serve id/BORROWER_ID` +
 e.g. `serve id/K0001`
 * *Exit serve mode* : `done`
-* *Edit a borrower's particulars* : `edit { [u/NAME] [p/PHONE_NUMBER] [e/email] }` +
+* *Edit a borrower's particulars* : `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }` +
 e.g. `edit p/91234567 e/jane@austen.com`
 * *Loan book(s)* : `loan sn/BOOK_SN...` +
 e.g. `loan sn/B00201 sn/B02929 sn/B00203`
