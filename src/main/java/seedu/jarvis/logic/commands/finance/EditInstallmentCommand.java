@@ -59,6 +59,11 @@ public class EditInstallmentCommand extends Command {
         this.editInstallmentDescriptor = editInstallmentDescriptor;
     }
 
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
+
     /**
      * Returns whether the command has an inverse execution.
      * If the command has no inverse execution, then calling {@code executeInverse}

@@ -1,4 +1,4 @@
-package seedu.jarvis.testutil;
+package seedu.jarvis.testutil.finance;
 
 import seedu.jarvis.model.financetracker.Purchase;
 
