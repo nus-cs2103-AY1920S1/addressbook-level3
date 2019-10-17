@@ -7,5 +7,7 @@ public interface CoursePlannerModel {
     /**
      * Looks up a course.
      */
-    void lookUpCourse(Course course);
+    void lookUpCourse(Course code);
+
+    CoursePlanner getCoursePlanner();
 }
