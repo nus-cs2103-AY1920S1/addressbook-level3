@@ -2,6 +2,9 @@ package seedu.address.model.cap.person;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a Faculty of a module in the CAP log.
+ */
 public class Faculty {
 
     private final String faculty;

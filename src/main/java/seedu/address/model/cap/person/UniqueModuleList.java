@@ -92,7 +92,7 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public void setModules(List<Module> modules) {
         requireAllNonNull(modules);
-        if (!ModulesAreUnique(modules)) {
+        if (!modulesAreUnique(modules)) {
             throw new DuplicateModuleException();
         }
 
@@ -126,7 +126,7 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean ModulesAreUnique(List<Module> modules) {
+    private boolean modulesAreUnique(List<Module> modules) {
         for (int i = 0; i < modules.size() - 1; i++) {
             for (int j = i + 1; j < modules.size(); j++) {
                 if (modules.get(i).isSameModule(modules.get(j))) {

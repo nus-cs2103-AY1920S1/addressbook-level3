@@ -14,8 +14,8 @@ import seedu.address.logic.cap.parser.CapLogParser;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
 import seedu.address.model.cap.Model;
 import seedu.address.model.cap.ReadOnlyModulo;
-import seedu.address.storage.cap.Storage;
 import seedu.address.model.common.Module;
+import seedu.address.storage.cap.Storage;
 
 /**
  * The main LogicManager of the app.

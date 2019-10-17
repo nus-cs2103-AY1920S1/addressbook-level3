@@ -24,10 +24,10 @@ import seedu.address.model.quiz.ModelQuizManager;
 import seedu.address.storage.calendar.JsonAddressBookStorage;
 import seedu.address.storage.calendar.JsonUserPrefsStorage;
 import seedu.address.storage.calendar.StorageManager;
-import seedu.address.storage.cap.CapStorageManager;
-import seedu.address.storage.cap.JsonCapUserPrefsStorage;
-import seedu.address.storage.cap.JsonCapStorage;
 import seedu.address.storage.cap.CapStorage;
+import seedu.address.storage.cap.CapStorageManager;
+import seedu.address.storage.cap.JsonCapStorage;
+import seedu.address.storage.cap.JsonCapUserPrefsStorage;
 import seedu.address.storage.finance.FinanceStorageManager;
 import seedu.address.storage.finance.JsonFinanceStorage;
 import seedu.address.storage.finance.JsonFinanceUserPrefsStorage;
@@ -80,7 +80,8 @@ public class SwitchOperation {
             UserPrefsStorage userPrefsStorage = new JsonQuizUserPrefsStorage(config.getUserPrefsFilePath());
             userPrefs = initPrefs(userPrefsStorage);
             AddressBookStorage addressBookStorage = new JsonQuizAddressBookStorage(userPrefs.getAddressBookFilePath());
-            seedu.address.storage.quiz.Storage quizStorage = new StorageQuizManager(addressBookStorage, userPrefsStorage);
+            seedu.address.storage.quiz.Storage quizStorage = new StorageQuizManager(addressBookStorage,
+                    userPrefsStorage);
 
             quizModel = initModelManager(quizStorage, userPrefs);
             quizLogic = new LogicQuizManager(quizModel, quizStorage);
@@ -94,8 +95,8 @@ public class SwitchOperation {
             userCalendarPrefs = initPrefs(userPrefsStorage);
             seedu.address.storage.calendar.AddressBookStorage addressBookStorage =
                     new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-            seedu.address.storage.calendar.Storage calendarStorage =
-                    new StorageManager(addressBookStorage, userPrefsStorage);
+            seedu.address.storage.calendar.Storage calendarStorage = new StorageManager(addressBookStorage,
+                    userPrefsStorage);
 
             calendarModel = initModelManager(calendarStorage, userCalendarPrefs);
             calendarLogic = new LogicManager(calendarModel, calendarStorage);
@@ -147,8 +148,8 @@ public class SwitchOperation {
             Optional<seedu.address.model.quiz.UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new seedu.address.model.quiz.UserPrefs());
         } catch (DataConversionException e) {
-            System.out.println("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
+            System.out.println("UserPrefs file at " + prefsFilePath + " is not in the correct format. " + "Using "
+                    + "default user prefs");
             initializedPrefs = new seedu.address.model.quiz.UserPrefs();
         } catch (IOException e) {
             System.out.println("Problem while reading from the file. Will be starting with an empty AddressBook");

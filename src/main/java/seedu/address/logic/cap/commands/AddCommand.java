@@ -2,11 +2,12 @@ package seedu.address.logic.cap.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_CREDIT;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_FACULTY;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TITLE;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_CREDIT;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_FACULTY;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_DESCRIPTION;
+
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.model.cap.Model;
 import seedu.address.model.common.Module;
@@ -18,7 +19,8 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a person to the address book. "
             + "Parameters: "
             + PREFIX_MODULE_CODE + "MODULE CODE "
             + PREFIX_TITLE + "TITLE "

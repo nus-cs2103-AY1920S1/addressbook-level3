@@ -1,6 +1,7 @@
 package seedu.address.logic.cap.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.model.cap.Model.PREDICATE_SHOW_ALL_MODULES;
 
 import seedu.address.model.cap.Model;

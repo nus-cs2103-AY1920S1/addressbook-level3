@@ -2,6 +2,10 @@ package seedu.address.model.cap.person;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a Description of a module in the CAP log.
+ * Guarantees: immutable.
+ */
 public class Description {
 
     private final String description;

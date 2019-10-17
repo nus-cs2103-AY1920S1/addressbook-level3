@@ -16,7 +16,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.model.cap.Model;
-import seedu.address.model.cap.person.*;
+import seedu.address.model.cap.person.Credit;
+import seedu.address.model.cap.person.Description;
+import seedu.address.model.cap.person.Faculty;
+import seedu.address.model.cap.person.ModuleCode;
+import seedu.address.model.cap.person.Title;
 import seedu.address.model.common.Module;
 
 /**
@@ -26,7 +30,8 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -65,7 +70,7 @@ public class EditCommand extends Command {
         }
 
         Module moduleToEdit = lastShownList.get(index.getZeroBased());
-        Module editedModule= createEditedModule(moduleToEdit, editPersonDescriptor);
+        Module editedModule = createEditedModule(moduleToEdit, editPersonDescriptor);
 
         if (!moduleToEdit.isSameModule(editedModule) && model.hasModule(editedModule)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);

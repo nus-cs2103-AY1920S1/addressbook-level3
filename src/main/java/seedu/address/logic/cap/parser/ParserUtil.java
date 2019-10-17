@@ -5,7 +5,11 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.cap.person.*;
+import seedu.address.model.cap.person.Credit;
+import seedu.address.model.cap.person.Description;
+import seedu.address.model.cap.person.Faculty;
+import seedu.address.model.cap.person.ModuleCode;
+import seedu.address.model.cap.person.Title;
 
 
 /**

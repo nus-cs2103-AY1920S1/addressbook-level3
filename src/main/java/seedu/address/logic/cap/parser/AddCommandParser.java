@@ -1,21 +1,21 @@
 package seedu.address.logic.cap.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_CREDIT;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_FACULTY;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TITLE;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_CREDIT;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_FACULTY;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import java.util.stream.Stream;
 
+import seedu.address.logic.cap.commands.AddCommand;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
+import seedu.address.model.cap.person.Credit;
+import seedu.address.model.cap.person.Description;
+import seedu.address.model.cap.person.Faculty;
 import seedu.address.model.cap.person.ModuleCode;
 import seedu.address.model.cap.person.Title;
-import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Faculty;
-import seedu.address.model.cap.person.Description;
-import seedu.address.logic.cap.commands.AddCommand;
 import seedu.address.model.common.Module;
 
 
@@ -32,7 +32,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE, PREFIX_TITLE, PREFIX_CREDIT, PREFIX_FACULTY, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE, PREFIX_TITLE,
+                        PREFIX_CREDIT, PREFIX_FACULTY, PREFIX_DESCRIPTION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE, PREFIX_TITLE, PREFIX_CREDIT)
                 || !argMultimap.getPreamble().isEmpty()) {
