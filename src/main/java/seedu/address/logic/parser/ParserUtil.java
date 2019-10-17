@@ -188,6 +188,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String amount} into an {@code Amount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid.
+     */
+    public static Amount parseAmount(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if (!Amount.isValidAmount(trimmedAmount)) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+        return new Amount(trimmedAmount);
+    }
+
+    /**
      * Parses a {@code String date} into an {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -245,20 +260,5 @@ public class ParserUtil {
             throw new ParseException(Week.MESSAGE_CONSTRAINTS);
         }
         return new Week(trimmedWeek);
-    }
-
-    /**
-     * Parses a {@code String amount} into an {@code Amount}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code amount} is invalid.
-     */
-    public static Amount parseAmount(String amount) throws ParseException {
-        requireNonNull(amount);
-        String trimmedAmount = amount.trim();
-        if (!Amount.isValidAmount(trimmedAmount)) {
-            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
-        }
-        return new Amount(trimmedAmount);
     }
 }
