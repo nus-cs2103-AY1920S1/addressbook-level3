@@ -5,6 +5,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Question;
+import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.task.Task;
 
 /**
@@ -27,6 +28,11 @@ public interface ReadOnlyAddressBook {
      * Returns an unmodifiable view of the quiz question list.
      */
     ObservableList<Question> getQuizQuestionList();
+
+    /**
+     * Returns an unmodifiable view of the quiz result list.
+     */
+    ObservableList<QuizResult> getQuizResultList();
 
     /**
      * Returns an unmodifiable view of the task list.

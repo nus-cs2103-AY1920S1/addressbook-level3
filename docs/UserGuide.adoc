@@ -156,7 +156,7 @@ Format: `quiz [n/NUMBER_OF_QUESTIONS] [d/DIFFICULTY] [s/SUBJECT]`
 
 ==== Answer the quiz question : `type answer` +
 Answers the specified question. +
-Format: `INDEX : ANSWER`
+Format: `INDEX:ANSWER`
 
 ==== Change the difficulty: : `change -dif`
 
@@ -175,11 +175,6 @@ Format: +
 Changes the subject of questions. +
 Format: `change -s SUBJECT [MORE_SUBJECTS]`
 
-====  Skip a question : `skip`
-
-Skips current question and goto the next one. +
-Format: `skip`
-
 ==== Show an answer : `show`
 
 Shows an answer for a question with specific index. +
@@ -192,7 +187,7 @@ Format: `mark`
 
 ==== Exit test mode : `quit`
 
-Exits from the test mode. +
+Exits from the quiz mode. +
 Format: `quit`
 
 === Get statistics
