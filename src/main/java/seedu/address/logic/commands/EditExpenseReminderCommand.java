@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSE_REMINDERS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,68 +17,65 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.Time;
+import seedu.address.model.person.ExpenseContainsTagPredicate;
+import seedu.address.model.person.ExpenseReminder;
+import seedu.address.model.person.ExpenseTracker;
 import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing person in the address book.
  */
-public class EditCommand extends Command {
+public class EditExpenseReminderCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "editExpenseReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Expense identified "
+            + "by the index number used in the displayed Expenses list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TYPE + " "
-            + "[" + PREFIX_DESC + "DESCRIPTION] "
-            + "[" + PREFIX_TIME + "TIME] "
-            + "[" + PREFIX_AMOUNT + "AMOUNT] "
+            + PREFIX_DESC + "REMINDER_MESSAGE"
+            + PREFIX_AMOUNT + "QUOTA "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "5.60";
 
-    public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Entry: %1$s";
+    public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Expense Reminder: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the finance app.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the address book.";
 
     private final Index index;
-    private final EditEntryDescriptor editEntryDescriptor;
+    private final EditReminderDescriptor editReminderDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editEntryDescriptor details to edit the person with
+     * @param index of the expenseReminder in the filtered expense reminder list to edit
+     * @param editReminderDescriptor details to edit the person with
      */
-    public EditCommand(Index index, EditEntryDescriptor editEntryDescriptor) {
+    public EditExpenseReminderCommand(Index index, EditReminderDescriptor editReminderDescriptor) {
         requireNonNull(index);
-        requireNonNull(editEntryDescriptor);
+        requireNonNull(editReminderDescriptor);
 
         this.index = index;
-        this.editEntryDescriptor = new EditEntryDescriptor(editEntryDescriptor);
+        this.editReminderDescriptor = new EditReminderDescriptor(editReminderDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Entry> lastShownList = model.getFilteredEntryList();
+        List<ExpenseReminder> lastShownList = model.getFilteredExpenseReminders();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Entry entryToEdit = lastShownList.get(index.getZeroBased());
-        Entry editedEntry = createEditedEntry(entryToEdit, editEntryDescriptor);
+        ExpenseReminder entryToEdit = lastShownList.get(index.getZeroBased());
+        ExpenseReminder editedEntry = createEditedExpenseReminder(entryToEdit, editReminderDescriptor);
 
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+        if (!entryToEdit.isSameReminder(editedEntry) && model.hasExpenseReminder(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setEntry(entryToEdit, editedEntry);
-        model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        model.setExpenseReminder(entryToEdit, editedEntry);
+        model.updateFilteredExpenseReminders(PREDICATE_SHOW_ALL_EXPENSE_REMINDERS);
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 
@@ -88,14 +83,15 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Entry createEditedEntry(Entry entryToEdit, EditEntryDescriptor editEntryDescriptor) {
-        assert entryToEdit != null;
-
-        Description updatedDesc = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
-        Amount updatedAmount = editEntryDescriptor.getAmount().orElse(entryToEdit.getAmount());
-        Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(entryToEdit.getTags());
-
-        return new Entry(updatedDesc, updatedAmount, updatedTags);
+    private static ExpenseReminder createEditedExpenseReminder(ExpenseReminder expenseToEdit,
+                                                               EditReminderDescriptor editEntryDescriptor) {
+        assert expenseToEdit != null;
+        String updatedMessage = editEntryDescriptor.getDesc().orElse(expenseToEdit.getMessage());
+        Long updatedAmount = editEntryDescriptor.getAmount().orElse(expenseToEdit.getQuota());
+        Set<Tag> updatedTags = editEntryDescriptor.getTags()
+                .orElse(expenseToEdit.getTracker().getPredicate().getTags());
+        ExpenseTracker tracker = new ExpenseTracker(new ExpenseContainsTagPredicate(updatedTags));
+        return new ExpenseReminder(updatedMessage, updatedAmount, tracker);
     }
 
     @Override
@@ -106,33 +102,32 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditExpenseReminderCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditExpenseReminderCommand e = (EditExpenseReminderCommand) other;
         return index.equals(e.index)
-                && editEntryDescriptor.equals(e.editEntryDescriptor);
+                && editReminderDescriptor.equals(e.editReminderDescriptor);
     }
 
     /**
      * Stores the details to edit the person with. Each non-empty field value will replace the
      * corresponding field value of the person.
      */
-    public static class EditEntryDescriptor {
-        private Description desc;
-        private Time time;
-        private Amount amt;
+    public static class EditReminderDescriptor {
+        private String desc;
+        private Long amt;
         private Set<Tag> tags;
 
-        public EditEntryDescriptor() {}
+        public EditReminderDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditEntryDescriptor(EditEntryDescriptor toCopy) {
+        public EditReminderDescriptor(EditReminderDescriptor toCopy) {
             setDesc(toCopy.desc);
             setAmount(toCopy.amt);
             setTags(toCopy.tags);
@@ -145,29 +140,23 @@ public class EditCommand extends Command {
             return CollectionUtil.isAnyNonNull(desc, amt, tags);
         }
 
-        public void setDesc(Description desc) {
+        public void setDesc(String desc) {
             this.desc = desc;
         }
 
-        public Optional<Description> getDesc() {
+        public Optional<String> getDesc() {
             return Optional.ofNullable(desc);
         }
 
-        public void setTime(Time time) {
-            this.time = time;
-        }
 
-        public Optional<Time> getTime() {
-            return Optional.ofNullable(time);
-        }
-
-        public void setAmount(Amount amt) {
+        public void setAmount(Long amt) {
             this.amt = amt;
         }
 
-        public Optional<Amount> getAmount() {
+        public Optional<Long> getAmount() {
             return Optional.ofNullable(amt);
         }
+
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -194,15 +183,14 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditEntryDescriptor)) {
+            if (!(other instanceof EditReminderDescriptor)) {
                 return false;
             }
 
             // state check
-            EditEntryDescriptor e = (EditEntryDescriptor) other;
+            EditReminderDescriptor e = (EditReminderDescriptor) other;
 
             return getDesc().equals(e.getDesc())
-                    && getTime().equals(e.getTime())
                     && getAmount().equals(e.getAmount())
                     && getTags().equals(e.getTags());
         }

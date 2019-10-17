@@ -70,11 +70,6 @@ public class AddCommand extends Command {
             throw new CommandException("command not found");
         }
 
-        /*if (toAdd.getType().equalsIgnoreCase("Expense")) {
-
-        } else {
-            model.addEntry(toAdd);
-        }*/
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

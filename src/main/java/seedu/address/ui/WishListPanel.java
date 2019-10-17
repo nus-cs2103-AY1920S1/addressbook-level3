@@ -8,30 +8,30 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Entry;
+import seedu.address.model.person.Wish;
 
 /**
- * Panel containing the list of entries.
+ * Side panel for wishes in wishlist.
  */
-public class EntryListPanel extends UiPart<Region> {
-    private static final String FXML = "EntryListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(EntryListPanel.class);
+public class WishListPanel extends UiPart<Region> {
+    private static final String FXML = "WishListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(WishListPanel.class);
 
     @FXML
-    private ListView<Entry> entryListView;
+    private ListView<Wish> wishListView;
 
-    public EntryListPanel(ObservableList<Entry> entryList) {
+    public WishListPanel(ObservableList<Wish> wishList) {
         super(FXML);
-        entryListView.setItems(entryList);
-        entryListView.setCellFactory(listView -> new EntryListViewCell());
+        wishListView.setItems(wishList);
+        wishListView.setCellFactory(listView -> new WishListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class EntryListViewCell extends ListCell<Entry> {
+    class WishListViewCell extends ListCell<Wish> {
         @Override
-        protected void updateItem(Entry entry, boolean empty) {
+        protected void updateItem(Wish entry, boolean empty) {
             super.updateItem(entry, empty);
 
             if (empty || entry == null) {
@@ -43,5 +43,4 @@ public class EntryListPanel extends UiPart<Region> {
             }
         }
     }
-
 }
