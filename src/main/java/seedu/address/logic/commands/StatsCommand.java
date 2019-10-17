@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.model.Model;
-import seedu.address.model.budget.Budget;
 import seedu.address.model.spending.Spending;
 
 /**
