@@ -1,6 +1,6 @@
-package seedu.address.diaryfeature.diarycommands;
+package seedu.address.diaryfeature.diaryCommands;
 
-import seedu.address.diaryfeature.diarymain.DiaryObject;
+import seedu.address.diaryfeature.diaryModel.DiaryObject;
 import seedu.address.logic.commands.CommandResult;
 
 public class DeleteDiaryEntryCommand extends DiaryCommand {
