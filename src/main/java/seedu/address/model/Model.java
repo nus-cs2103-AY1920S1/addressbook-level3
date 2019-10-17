@@ -152,6 +152,6 @@ public interface Model {
 
     void exitsServeMode();
 
-    public List<Book> getBorrowerBooks();
+    List<Book> getBorrowerBooks();
 
 }
