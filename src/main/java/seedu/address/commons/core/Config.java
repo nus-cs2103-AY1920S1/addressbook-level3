@@ -16,6 +16,7 @@ public class Config {
     private Level logLevel = Level.INFO;
     private Path calendarUserPrefsFilePath = Paths.get("calendarpreferences.json");
     private Path financeUserPrefsFilePath = Paths.get("financepreferences.json");
+    private Path capUserPrefsFilePath = Paths.get("capmodulelog.json");
 
     public Level getLogLevel() {
         return logLevel;
@@ -35,6 +36,10 @@ public class Config {
 
     public void setCalendarUserPrefsFilePath(Path calendarUserPrefsFilePath) {
         this.calendarUserPrefsFilePath = calendarUserPrefsFilePath;
+    }
+
+    public Path getCapUserPrefsFilePath() {
+        return capUserPrefsFilePath;
     }
 
     @Override
