@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.statistics;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -6,6 +6,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import seedu.address.ui.UiPart;
 
 /**
  * A UI component that displays statistics.

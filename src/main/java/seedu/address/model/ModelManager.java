@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -20,7 +19,7 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
-import seedu.address.model.quiz.TempQnsModel;
+import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -36,6 +35,7 @@ public class ModelManager implements Model {
     private final FilteredList<Question> filteredQuizQuestions;
     private final FilteredList<QuizResult> filteredQuizResults;
     private final FilteredList<Task> filteredTasks;
+    private ObservableList<TempStatsQnsModel> statsQnsList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -131,7 +131,6 @@ public class ModelManager implements Model {
         addressBook.setNote(target, editedNote);
     }
 
-
     // question
     @Override
     public boolean hasQuestion(Question question) {
@@ -188,6 +187,13 @@ public class ModelManager implements Model {
         requireNonNull(answer);
 
         return addressBook.checkQuizAnswer(index, answer);
+    }
+
+    @Override
+    public void addQuizResult(QuizResult quizResult) {
+        requireNonNull(quizResult);
+
+        addressBook.addQuizResult(quizResult);
     }
 
     @Override
@@ -319,28 +325,33 @@ public class ModelManager implements Model {
     }*/
 
     @Override
+    public ObservableList<TempStatsQnsModel> getStatsQnsList() {
+        return statsQnsList;
+    }
+
+    @Override
     public int getTotalQuestionsDone() {
-        return this.addressBook.getTotalQuestionsDone();
+        return addressBook.getTotalQuestionsDone();
     }
 
     @Override
     public int getTotalQuestionsCorrect() {
-        return this.addressBook.getTotalQuestionsCorrect();
+        return addressBook.getTotalQuestionsCorrect();
     }
 
     @Override
     public int getTotalQuestionsIncorrect() {
-        return this.addressBook.getTotalQuestionsIncorrect();
+        return addressBook.getTotalQuestionsIncorrect();
     }
 
     @Override
-    public List<TempQnsModel> getCorrectQns() {
-        return this.addressBook.getCorrectQns();
+    public void setCorrectQnsList() {
+        statsQnsList = addressBook.getCorrectQns();
     }
 
     @Override
-    public List<TempQnsModel> getIncorrectQns() {
-        return this.addressBook.getIncorrectQns();
+    public void setIncorrectQnsList() {
+        statsQnsList = addressBook.getIncorrectQns();
     }
 
     @Override

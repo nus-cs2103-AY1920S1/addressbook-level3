@@ -19,7 +19,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.statistics.Type;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.statistics.StatsChart;
+import seedu.address.ui.statistics.StatsQnsList;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -41,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatsChart statsChart;
+    private StatsQnsList statsQnsList;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -180,18 +184,30 @@ public class MainWindow extends UiPart<Stage> {
      * in each slice of the chart when the mouse hovers over it.
      */
     @FXML
-    private void showStats() {
+    private void showStats(Type type) throws ParseException {
         mainPanel.setVisible(false);
         stats.setVisible(true);
-        statsChart = new StatsChart(logic.getStatsChartData(), logic.getTotalQuestionsDone());
-        statsPanelPlaceholder.getChildren().add(statsChart.getRoot());
-        statsChart.getChart().getData().forEach(data -> {
-            String value = "" + (int) data.getPieValue();
-            Tooltip toolTip = new Tooltip(value);
-            toolTip.setStyle("-fx-font-size: 20");
-            toolTip.setShowDelay(Duration.seconds(0));
-            Tooltip.install(data.getNode(), toolTip);
-        });
+        switch (type) {
+        case CHART:
+            statsChart = new StatsChart(logic.getStatsChartData(), logic.getTotalQuestionsDone());
+            statsPanelPlaceholder.getChildren().add(statsChart.getRoot());
+            statsChart.getChart().getData().forEach(data -> {
+                String value = "" + (int) data.getPieValue();
+                Tooltip toolTip = new Tooltip(value);
+                toolTip.setStyle("-fx-font-size: 20");
+                toolTip.setShowDelay(Duration.seconds(0));
+                Tooltip.install(data.getNode(), toolTip);
+            });
+            break;
+        case QUESTIONS:
+            statsPanelPlaceholder.getChildren().clear();
+            statsQnsList = new StatsQnsList(logic.getStatsQnsList());
+            statsPanelPlaceholder.getChildren().add(statsQnsList.getLabel());
+            break;
+        default:
+            throw new ParseException("Invalid type: " + type);
+        }
+
     }
 
     /**
@@ -231,7 +247,7 @@ public class MainWindow extends UiPart<Stage> {
             //}
 
             if (commandResult.isShowStats()) {
-                showStats();
+                showStats(commandResult.getType());
             } else {
                 removeStats();
             }

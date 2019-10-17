@@ -18,6 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Question;
+import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
@@ -43,29 +44,28 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
-        if (!isQuiz) {
-            logger.info("----------------[USER COMMAND][" + commandText + "]");
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
+        CommandResult commandResult;
 
-            CommandResult commandResult;
+        if (!isQuiz) {
             Command command = addressBookParser.parseCommand(commandText);
             commandResult = command.execute(model);
 
-            try {
-                storage.saveAddressBook(model.getAddressBook());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            if (commandResult.isShowStats()) {
+                return commandResult;
             }
-
-            return commandResult;
         } else {
-            logger.info("----------------[USER INPUT][" + commandText + "]");
-
-            CommandResult commandResult;
             Command command = quizParser.parseCommand(commandText);
             commandResult = command.execute(model);
-
-            return commandResult;
         }
+
+        try {
+            storage.saveAddressBook(model.getAddressBook());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
+        return commandResult;
     }
 
     @Override
@@ -81,6 +81,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<PieChart.Data> getStatsChartData() {
         return model.getStatsChartData();
+    }
+
+    @Override
+    public ObservableList<TempStatsQnsModel> getStatsQnsList() {
+        return model.getStatsQnsList();
     }
 
     @Override

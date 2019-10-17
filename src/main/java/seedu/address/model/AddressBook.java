@@ -17,7 +17,7 @@ import seedu.address.model.question.UniqueQuestionList;
 import seedu.address.model.quiz.QuizQuestionList;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.quiz.QuizResultList;
-import seedu.address.model.quiz.TempQnsModel;
+import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
@@ -218,6 +218,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         quiz.clearQuizQuestionList();
     }
 
+    public void addQuizResult(QuizResult quizResult) {
+        quizResults.add(quizResult);
+    }
+
+    public boolean hasQuizResult(QuizResult quizResult) {
+        return quizResults.contains(quizResult);
+    }
+
     // util methods
 
     @Override
@@ -246,14 +254,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return quizResults.asUnmodifiableObservableList();
     }
 
-    public void addQuizResult(QuizResult quizResult) {
-        quizResults.add(quizResult);
-    }
-
-    public boolean hasQuizResult(QuizResult quizResult) {
-        return quizResults.contains(quizResult);
-    }
-
     public int getTotalQuestionsDone() {
         return quizResults.getTotalQuestionsDone();
     }
@@ -266,11 +266,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         return quizResults.getTotalQuestionsIncorrect();
     }
 
-    public List<TempQnsModel> getCorrectQns() {
+    public ObservableList<TempStatsQnsModel> getCorrectQns() {
+        System.out.println("getting correct qns");
         return quizResults.getCorrectQns();
     }
 
-    public List<TempQnsModel> getIncorrectQns() {
+    public ObservableList<TempStatsQnsModel> getIncorrectQns() {
         return quizResults.getIncorrectQns();
     }
 

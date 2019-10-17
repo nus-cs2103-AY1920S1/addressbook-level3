@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -13,7 +12,7 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
-import seedu.address.model.quiz.TempQnsModel;
+import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -194,6 +193,8 @@ public interface Model {
      */
     boolean checkQuizAnswer(int index, Answer answer);
 
+    void addQuizResult(QuizResult quizResult);
+
     /**
      * Clears the quiz question list.
      */
@@ -226,15 +227,17 @@ public interface Model {
     /**
      * Returns an unmodifiable view of a list correct questions.
      */
-    List<TempQnsModel> getCorrectQns();
+    void setCorrectQnsList();
 
     /**
      * Returns an unmodifiable view of a list incorrect questions.
      */
-    List<TempQnsModel> getIncorrectQns();
+    void setIncorrectQnsList();
 
     /**
      * Returns an unmodifiable view of the pie chart data.
      */
     ObservableList<PieChart.Data> getStatsChartData();
+
+    ObservableList<TempStatsQnsModel> getStatsQnsList();
 }

@@ -13,7 +13,7 @@ import seedu.address.model.question.Answer;
  */
 public class QuizAnswerParser implements Parser<QuizCheckAnswer> {
     private static final String ANSWER_INVALID_FORMAT = "Invalid answer format! \n%1$s";
-    private static final String SHOW_ANSWER_FORMAT = "Format: INDEX : ANSWER\n" + "Example: 1 : abstraction";
+    private static final String SHOW_ANSWER_FORMAT = "Format: INDEX:ANSWER\n" + "Example: 1:abstraction";
 
     /**
      * Used for initial separation of question index and answer.
@@ -32,7 +32,7 @@ public class QuizAnswerParser implements Parser<QuizCheckAnswer> {
 
         final String index = matcher.group("index");
         final String stringAnswer = matcher.group("answer");
-        final int intIndex = Integer.parseInt(index);
+        final int intIndex = Integer.parseInt(index) - 1;
         final Answer answer = new Answer(stringAnswer);
 
         return new QuizCheckAnswer(intIndex, answer);

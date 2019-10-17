@@ -2,12 +2,11 @@ package seedu.address.model.quiz;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.statistics.TempStatsQnsModel;
 
 /**
  * Represents a quiz result list.
@@ -16,8 +15,10 @@ public class QuizResultList implements Iterable<QuizResult> {
     private final ObservableList<QuizResult> internalList = FXCollections.observableArrayList();
     private final ObservableList<QuizResult> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-    private final List<TempQnsModel> correctQns = new ArrayList<>(); //will be changed to <Question> later
-    private final List<TempQnsModel> incorrectQns = new ArrayList<>(); // same as above
+    //will be changed to <Question> later
+    private final ObservableList<TempStatsQnsModel> correctQns = FXCollections.observableArrayList();
+    private final ObservableList<TempStatsQnsModel> incorrectQns = FXCollections.observableArrayList();
+
     private int totalQuestionsCorrect = 0;
     private int totalQuestionsIncorrect = 0;
 
@@ -28,10 +29,10 @@ public class QuizResultList implements Iterable<QuizResult> {
         requireNonNull(quizResult);
         if (quizResult.getResult()) {
             totalQuestionsCorrect++;
-            correctQns.add(new TempQnsModel(quizResult.getQuestionBody(), quizResult.getAnswer()));
+            correctQns.add(new TempStatsQnsModel(quizResult.getQuestionBody(), quizResult.getAnswer()));
         } else {
             totalQuestionsIncorrect++;
-            incorrectQns.add(new TempQnsModel(quizResult.getQuestionBody(), quizResult.getAnswer()));
+            incorrectQns.add(new TempStatsQnsModel(quizResult.getQuestionBody(), quizResult.getAnswer()));
         }
         internalList.add(quizResult);
     }
@@ -52,11 +53,11 @@ public class QuizResultList implements Iterable<QuizResult> {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<QuizResult> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
+        return internalList;
     }
 
     public int getTotalQuestionsDone() {
-        return internalUnmodifiableList.size();
+        return internalList.size();
     }
 
     public int getTotalQuestionsCorrect() {
@@ -67,12 +68,12 @@ public class QuizResultList implements Iterable<QuizResult> {
         return totalQuestionsIncorrect;
     }
 
-    public List<TempQnsModel> getCorrectQns() {
-        return correctQns;
+    public ObservableList<TempStatsQnsModel> getCorrectQns() {
+        return FXCollections.unmodifiableObservableList(correctQns);
     }
 
-    public List<TempQnsModel> getIncorrectQns() {
-        return incorrectQns;
+    public ObservableList<TempStatsQnsModel> getIncorrectQns() {
+        return FXCollections.unmodifiableObservableList(incorrectQns);
     }
 
     @Override

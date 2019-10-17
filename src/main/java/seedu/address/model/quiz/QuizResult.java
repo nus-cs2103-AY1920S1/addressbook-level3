@@ -55,4 +55,9 @@ public class QuizResult {
     public int hashCode() {
         return Objects.hash(answer, questionBody, quizTime, result);
     }
+
+    @Override
+    public String toString() {
+        return answer.toString() + " " + questionBody.toString();
+    }
 }

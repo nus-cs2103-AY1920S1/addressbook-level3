@@ -41,7 +41,7 @@ public class QuizQuestionList implements Iterable<Question> {
     public boolean checkQuizAnswer(int index, Answer answer) {
         requireAllNonNull(answer);
 
-        return get(index - 1).getAnswer().equals(answer);
+        return get(index).getAnswer().equals(answer);
     }
 
     /**

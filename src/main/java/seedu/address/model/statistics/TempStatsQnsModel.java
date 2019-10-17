@@ -1,4 +1,4 @@
-package seedu.address.model.quiz;
+package seedu.address.model.statistics;
 
 import seedu.address.model.question.Answer;
 import seedu.address.model.question.QuestionBody;
@@ -7,11 +7,11 @@ import seedu.address.model.question.QuestionBody;
  * Basic question model derived from quiz results.
  * This class is temporary.
  */
-public class TempQnsModel {
+public class TempStatsQnsModel {
     private QuestionBody question;
     private Answer answer;
 
-    public TempQnsModel(QuestionBody question, Answer answer) {
+    public TempStatsQnsModel(QuestionBody question, Answer answer) {
         this.question = question;
         this.answer = answer;
     }
@@ -22,5 +22,10 @@ public class TempQnsModel {
 
     public String getAnswer() {
         return answer.toString();
+    }
+
+    @Override
+    public String toString() {
+        return question + "\n   " + answer + "\n";
     }
 }

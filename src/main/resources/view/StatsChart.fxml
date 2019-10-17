@@ -10,11 +10,11 @@
     <content>
         <AnchorPane styleClass="stats-pane-color">
             <children>
-                <PieChart fx:id="pc" styleClass="chart-pie-label">
+                <PieChart fx:id="pc" styleClass="chart-pie-label" AnchorPane.rightAnchor="10.0" />
+                <Label fx:id="overview" styleClass="label-bright" text="Label">
                <padding>
-                  <Insets left="20.0" />
-               </padding></PieChart>
-                <Label fx:id="overview" styleClass="label-bright" text="Label" />
+                  <Insets top="20.0" />
+               </padding></Label>
             </children></AnchorPane>
     </content>
 </ScrollPane>
