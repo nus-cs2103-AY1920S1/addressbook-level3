@@ -17,6 +17,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
+import seedu.address.model.CardBook;
 import seedu.address.model.FileBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -26,8 +27,10 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.CardBookStorage;
 import seedu.address.storage.FileBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonCardBookStorage;
 import seedu.address.storage.JsonFileBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
@@ -72,7 +75,9 @@ public class MainApp extends Application {
                 new JsonAddressBookStorage(userPrefs.getAddressBookFilePath(), password);
         FileBookStorage fileBookStorage =
                 new JsonFileBookStorage(userPrefs.getFileBookFilePath(), password);
-        storage = new StorageManager(addressBookStorage, fileBookStorage, userPrefsStorage, password);
+        CardBookStorage cardBookStorage =
+                new JsonCardBookStorage(userPrefs.getCardBookFilePath(), password);
+        storage = new StorageManager(addressBookStorage, fileBookStorage, cardBookStorage, userPrefsStorage, password);
 
         initLogging(config);
 
@@ -106,7 +111,7 @@ public class MainApp extends Application {
         }
 
         ReadOnlyFileBook initialDataFile = initFileBook(storage);
-        return new ModelManager(initialData, initialDataFile, userPrefs);
+        return new ModelManager(initialData, initialDataFile, new CardBook(), userPrefs);
     }
 
     /**

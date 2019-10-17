@@ -11,11 +11,14 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.CardBookParser;
 import seedu.address.logic.parser.FileBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CardBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
+import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
@@ -31,6 +34,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final FileBookParser fileBookParser;
+    private final CardBookParser cardBookParser;
 
     private String mode;
 
@@ -39,6 +43,7 @@ public class LogicManager implements Logic {
         this.storage = storage;
         addressBookParser = new AddressBookParser();
         fileBookParser = new FileBookParser(storage.getStoragePassword());
+        cardBookParser = new CardBookParser();
         mode = "home";
     }
 
@@ -52,6 +57,9 @@ public class LogicManager implements Logic {
         case "file":
             command = fileBookParser.parseCommand(commandText);
             break;
+        case "card":
+            command = cardBookParser.parseCommand(commandText);
+            break;
         default:
             command = addressBookParser.parseCommand(commandText);
             break;
@@ -63,6 +71,9 @@ public class LogicManager implements Logic {
             switch (mode) {
             case "file":
                 storage.saveFileBook(model.getFileBook());
+                break;
+            case "card":
+                // storage.saveCardBook(model.getCardBook());
                 break;
             default:
                 storage.saveAddressBook(model.getAddressBook());
@@ -98,6 +109,21 @@ public class LogicManager implements Logic {
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public CardBook getCardBook() {
+        return model.getCardBook();
+    }
+
+    @Override
+    public ObservableList<Card> getFilteredCardList() {
+        return model.getFilteredCardList();
+    }
+
+    @Override
+    public Path getCardBookFilePath() {
+        return model.getCardBookFilePath();
     }
 
     @Override

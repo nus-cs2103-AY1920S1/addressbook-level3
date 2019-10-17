@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.person.Person;
 
@@ -22,30 +23,40 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final FileBook fileBook;
+    private final CardBook cardBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<EncryptedFile> filteredFiles;
+    private final FilteredList<Card> filteredCards;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyFileBook fileBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyFileBook fileBook,
+                        CardBook cardBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, fileBook, userPrefs);
+        requireAllNonNull(addressBook, fileBook, cardBook, userPrefs);
+
+        logger.fine("Initializing with address book: " + addressBook
+                + "and file book: " + fileBook
+                + "and card book: " + cardBook
+                + " and user prefs: " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.fileBook = new FileBook(fileBook);
+        this.cardBook = new CardBook(cardBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredFiles = new FilteredList<>(this.fileBook.getFileList());
+        filteredCards = new FilteredList<>(this.cardBook.getCardList());
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        this(addressBook, new FileBook(), userPrefs);
+        this(addressBook, new FileBook(), new CardBook(), userPrefs);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new FileBook(), new UserPrefs());
+        this(new AddressBook(), new FileBook(), new CardBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -81,6 +92,17 @@ public class ModelManager implements Model {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public Path getCardBookFilePath() {
+        return userPrefs.getCardBookFilePath();
+    }
+
+    @Override
+    public void setCardBookFilePath(Path cardBookFilePath) {
+        requireNonNull(cardBookFilePath);
+        userPrefs.setCardBookFilePath(cardBookFilePath);
     }
 
     //=========== AddressBook ================================================================================
@@ -155,6 +177,35 @@ public class ModelManager implements Model {
         fileBook.setFile(target, editedFile);
     }
 
+    //=========== Card =====================================================================================
+
+    @Override
+    public void setCardBook(CardBook cardBook) {
+        this.cardBook.resetData(cardBook);
+    }
+
+    @Override
+    public CardBook getCardBook() {
+        return cardBook;
+    }
+
+    @Override
+    public boolean hasCard(Card card) {
+        requireNonNull(card);
+        return cardBook.hasCard(card);
+    }
+
+    @Override
+    public void deleteCard(Card target) {
+        cardBook.removeCard(target);
+    }
+
+    @Override
+    public void addCard(Card card) {
+        cardBook.addCard(card);
+        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -189,6 +240,23 @@ public class ModelManager implements Model {
         filteredFiles.setPredicate(predicate);
     }
 
+    //=========== Filtered Card List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
+     * {@code versionedCardBook}
+     */
+    @Override
+    public ObservableList<Card> getFilteredCardList() {
+        return filteredCards;
+    }
+
+    @Override
+    public void updateFilteredCardList(Predicate<Card> predicate) {
+        requireNonNull(predicate);
+        filteredCards.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -205,7 +273,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredFiles.equals(other.filteredFiles)
+                && filteredCards.equals(other.filteredCards);
     }
 
 }

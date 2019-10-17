@@ -10,6 +10,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.card.CardNumber;
+import seedu.address.model.card.Cvc;
+import seedu.address.model.card.Description;
 import seedu.address.model.file.FileName;
 import seedu.address.model.file.FilePath;
 import seedu.address.model.person.Address;
@@ -96,6 +99,51 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String cardNumber} into a {@code CardNumber}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code cardNumber} is invalid.
+     */
+    public static CardNumber parseCardNumber(String cardNumber) throws ParseException {
+        requireNonNull(cardNumber);
+        String trimmedCardNumber = cardNumber.trim();
+        if (!CardNumber.isValidCardNumber(trimmedCardNumber)) {
+            throw new ParseException(CardNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new CardNumber(trimmedCardNumber);
+    }
+
+    /**
+     * Parses a {@code String cvc} into a {@code Cvc}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code cvc} is invalid.
+     */
+    public static Cvc parseCvc(String cvc) throws ParseException {
+        requireNonNull(cvc);
+        String trimmedCvc = cvc.trim();
+        if (!Cvc.isValidCvc(trimmedCvc)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Cvc(trimmedCvc);
     }
 
     /**

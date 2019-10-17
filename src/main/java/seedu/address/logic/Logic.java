@@ -7,8 +7,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CardBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFileBook;
+import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.person.Person;
 
@@ -51,6 +53,21 @@ public interface Logic {
     Path getAddressBookFilePath();
 
     /**
+     * Returns the CardBook.
+     *
+     * @see seedu.address.model.Model#getCardBook()
+     */
+    CardBook getCardBook();
+
+    /** Returns an unmodifiable view of the filtered list of cards */
+    ObservableList<Card> getFilteredCardList();
+
+    /**
+     * Returns the user prefs' card book file path.
+     */
+    Path getCardBookFilePath();
+    /**
+     *
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();

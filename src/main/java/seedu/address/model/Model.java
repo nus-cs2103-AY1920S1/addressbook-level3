@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.person.Person;
 
@@ -14,6 +15,9 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -126,4 +130,49 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFileList(Predicate<EncryptedFile> predicate);
+
+    /**
+     * Returns the user prefs' card book file path.
+     */
+    Path getCardBookFilePath();
+
+    /**
+     * Sets the user prefs' card book file path.
+     */
+    void setCardBookFilePath(Path cardBookFilePath);
+
+    /**
+     * Replaces card book data with the data in {@code cardBook}.
+     */
+    void setCardBook(CardBook cardBook);
+
+    /** Returns the AddressBook */
+    CardBook getCardBook();
+
+    /**
+     * Returns true if a card with the same identity as {@code card} exists in the card book.
+     */
+    boolean hasCard(Card card);
+
+    /**
+     * Deletes the given card.
+     * The card must exist in the card book.
+     */
+    void deleteCard(Card target);
+
+    /**
+     * Adds the given card.
+     * {@code card} must not already exist in the app.
+     */
+    void addCard(Card card);
+
+    /** Returns an unmodifiable view of the filtered card list */
+    ObservableList<Card> getFilteredCardList();
+
+    /**
+     * Updates the filter of the filtered card list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredCardList(Predicate<Card> predicate);
+
 }

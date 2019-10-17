@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private FileListPanel fileListPanel;
+    private CardListPanel cardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -44,6 +45,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane cardListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -129,9 +133,14 @@ public class MainWindow extends UiPart<Stage> {
             fileListPanel = new FileListPanel(logic.getFilteredFileList());
             personListPanelPlaceholder.getChildren().add(fileListPanel.getRoot());
             break;
+        case "card":
+            cardListPanel = new CardListPanel(logic.getFilteredCardList());
+            cardListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
+            break;
         default:
             personListPanel = new PersonListPanel(logic.getFilteredPersonList());
             personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            break;
         }
     }
 
@@ -216,6 +225,9 @@ public class MainWindow extends UiPart<Stage> {
                     break;
                 case "note":
                     logic.setMode("note");
+                    break;
+                case "card":
+                    logic.setMode("card");
                     break;
                 default:
                     logic.setMode("home");
