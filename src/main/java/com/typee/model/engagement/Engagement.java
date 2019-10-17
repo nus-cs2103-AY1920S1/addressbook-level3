@@ -1,5 +1,6 @@
 package com.typee.model.engagement;
 
+import java.nio.charset.IllegalCharsetNameException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -7,6 +8,9 @@ import java.util.Objects;
  * Represents a generalization of meetings, interviews and appointments.
  */
 public abstract class Engagement {
+
+    public static final String MESSAGE_INVALID_TIME = "The end time has to occur after the start time.";
+
     protected LocalDateTime startTime;
     protected LocalDateTime endTime;
     protected AttendeeList attendees;
@@ -45,11 +49,33 @@ public abstract class Engagement {
      * @param priority priority level of the engagement.
      *
      * @return an {@code Engagement} with the corresponding fields.
+     * @throws InvalidTimeException if {@code LocalDateTime startTime} occurs
+     * after or during {@code LocalDateTime endTime}.
      */
     public static Engagement of(EngagementType type,
                                 LocalDateTime start, LocalDateTime end,
                                 AttendeeList attendees, Location location, String description,
-                                Priority priority) {
+                                Priority priority) throws InvalidTimeException {
+        if (isStartAfterEnd(start, end)) {
+            throw new InvalidTimeException(MESSAGE_INVALID_TIME);
+        }
+
+        return makeEngagement(type, start, end, attendees, location, description, priority);
+    }
+
+    /**
+     * Returns a {@code Meeting}, {@code Interview}, or {@code Appointment} with the given fields.
+     * @param type type of engagement.
+     * @param start start time.
+     * @param end end time.
+     * @param attendees list of people attending.
+     * @param location location of engagement.
+     * @param description description of the engagement.
+     * @param priority priority level of the engagement.
+     *
+     * @return an {@code Engagement} with the corresponding fields.
+     */
+    private static Engagement makeEngagement(EngagementType type, LocalDateTime start, LocalDateTime end, AttendeeList attendees, Location location, String description, Priority priority) {
         if (type.name().equalsIgnoreCase("meeting")) {
             return new Meeting(start, end, attendees, location, description, priority);
         } else if (type.name().equalsIgnoreCase("interview")) {
@@ -57,6 +83,14 @@ public abstract class Engagement {
         } else {
             return new Appointment(start, end, attendees, location, description, priority);
         }
+    }
+
+    /**
+     * Checks if the start time occurs after or during the end time.
+     * @return true if the start time is during or after the end time.
+     */
+    private static boolean isStartAfterEnd(LocalDateTime startTime, LocalDateTime endTime) {
+        return startTime.isAfter(endTime) || startTime.isEqual(endTime);
     }
 
     public LocalDateTime getStartTime() {
