@@ -25,7 +25,7 @@ public class Main {
     public static void main(String[] args) {
 
         // Comment/uncomment the lines to execute either Xpire or login page.
-        //Application.launch(MainApp.class, args);
-        Application.launch(Login.class, args);
+        Application.launch(MainApp.class, args);
+        //Application.launch(Login.class, args);
     }
 }
