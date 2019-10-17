@@ -13,7 +13,7 @@ import seedu.jarvis.model.financetracker.purchase.Purchase;
 /**
  * Adds a purchase to the finance tracker.
  */
-public class PaidCommand extends Command {
+public class SetPaidCommand extends Command {
 
     public static final String COMMAND_WORD = "add-paid";
 
@@ -37,7 +37,7 @@ public class PaidCommand extends Command {
     /**
      * Creates a {@code PaidCommand} to add the specified (@code Purchase}.
      */
-    public PaidCommand(Purchase purchase) {
+    public SetPaidCommand(Purchase purchase) {
         requireNonNull(purchase);
         toAdd = purchase;
     }
@@ -85,7 +85,7 @@ public class PaidCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof PaidCommand // instanceof handles nulls
-                && toAdd.equals(((PaidCommand) other).toAdd));
+                || (other instanceof SetPaidCommand // instanceof handles nulls
+                && toAdd.equals(((SetPaidCommand) other).toAdd));
     }
 }

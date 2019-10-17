@@ -53,8 +53,12 @@ public class PurchaseList {
     //=========== Getter Methods ==================================================================================
 
     public Purchase getPurchase(int purchaseIndex) {
-        Index index = Index.fromOneBased(purchaseIndex);
-        return allPurchases.get(index.getZeroBased());
+        try {
+            Index index = Index.fromOneBased(purchaseIndex);
+            return allPurchases.get(index.getZeroBased());
+        } catch (IndexOutOfBoundsException e) {
+            throw new PurchaseNotFoundException();
+        }
     }
 
     public int getNumPurchases() {
@@ -82,12 +86,12 @@ public class PurchaseList {
      * @param purchaseIndex
      * @return Purchase that was just deleted from the user's list of purchases
      */
-    public Purchase deletePurchase(int purchaseIndex) {
-        if (purchaseIndex < 1) {
-            throw new PurchaseNotFoundException();
-        } else {
+    public Purchase deletePurchase(int purchaseIndex) throws PurchaseNotFoundException {
+        try {
             Index index = Index.fromOneBased(purchaseIndex);
             return allPurchases.remove(index.getZeroBased());
+        } catch (IndexOutOfBoundsException e) {
+            throw new PurchaseNotFoundException();
         }
     }
 

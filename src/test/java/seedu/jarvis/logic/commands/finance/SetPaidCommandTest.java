@@ -39,7 +39,7 @@ import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
-public class PaidCommandTest {
+public class SetPaidCommandTest {
 
     /**
      * Verifies that checking {@code PaidCommand} for the availability of inverse execution returns true.
@@ -47,13 +47,13 @@ public class PaidCommandTest {
     @BeforeEach
     public void hasInverseExecution() {
         Purchase validPurchase = new PurchaseBuilder().build();
-        PaidCommand paidCommand = new PaidCommand(validPurchase);
+        SetPaidCommand paidCommand = new SetPaidCommand(validPurchase);
         assertTrue(paidCommand.hasInverseExecution());
     }
 
     @Test
     public void constructor_nullPurchase_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new PaidCommand(null));
+        assertThrows(NullPointerException.class, () -> new SetPaidCommand(null));
     }
 
     @Test
@@ -61,9 +61,9 @@ public class PaidCommandTest {
         ModelStubAcceptingPurchaseAdded modelStub = new ModelStubAcceptingPurchaseAdded();
         Purchase validPurchase = new PurchaseBuilder().build();
 
-        CommandResult commandResult = new PaidCommand(validPurchase).execute(modelStub);
+        CommandResult commandResult = new SetPaidCommand(validPurchase).execute(modelStub);
 
-        assertEquals(String.format(PaidCommand.MESSAGE_SUCCESS, validPurchase), commandResult.getFeedbackToUser());
+        assertEquals(String.format(SetPaidCommand.MESSAGE_SUCCESS, validPurchase), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPurchase), modelStub.purchasesAdded);
     }
 
@@ -71,14 +71,14 @@ public class PaidCommandTest {
     public void equals() {
         Purchase movie = new PurchaseBuilder().withDescription("movie ticket").build();
         Purchase karaoke = new PurchaseBuilder().withDescription("karaoke night").build();
-        PaidCommand addMovieCommand = new PaidCommand(movie);
-        PaidCommand addKaraokeCommand = new PaidCommand(karaoke);
+        SetPaidCommand addMovieCommand = new SetPaidCommand(movie);
+        SetPaidCommand addKaraokeCommand = new SetPaidCommand(karaoke);
 
         // same object -> returns true
         assertTrue(addMovieCommand.equals(addMovieCommand));
 
         // same values -> returns true
-        PaidCommand addMovieCommandCopy = new PaidCommand(movie);
+        SetPaidCommand addMovieCommandCopy = new SetPaidCommand(movie);
         assertTrue(addMovieCommand.equals(addMovieCommandCopy));
 
         // different types -> returns false
@@ -282,6 +282,11 @@ public class PaidCommandTest {
         }
 
         @Override
+        public ArrayList<Purchase> getPurchaseList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setMonthlyLimit(double value) {
             throw new AssertionError("This method should not be called.");
         }
@@ -375,7 +380,7 @@ public class PaidCommandTest {
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPurchase extends PaidCommandTest.ModelStub {
+    private class ModelStubWithPurchase extends SetPaidCommandTest.ModelStub {
         private final Purchase purchase;
 
         ModelStubWithPurchase(Purchase purchase) {
@@ -393,7 +398,7 @@ public class PaidCommandTest {
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPurchaseAdded extends PaidCommandTest.ModelStub {
+    private class ModelStubAcceptingPurchaseAdded extends SetPaidCommandTest.ModelStub {
         final ArrayList<Purchase> purchasesAdded = new ArrayList<>();
 
         @Override

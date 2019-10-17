@@ -285,6 +285,11 @@ public class AddCcaCommandTest {
         }
 
         @Override
+        public ArrayList<Purchase> getPurchaseList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setMonthlyLimit(double value) {
             throw new AssertionError("This method should not be called.");
         }

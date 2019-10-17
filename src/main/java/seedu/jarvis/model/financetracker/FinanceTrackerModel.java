@@ -82,9 +82,16 @@ public interface FinanceTrackerModel {
     /**
      * Retrieves list of all installments
      *
-     * @return InstallmentList
+     * @return ArrayList
      */
     ArrayList<Installment> getInstallmentList();
+
+    /**
+     * Retrieves list of all purchases
+     *
+     * @return ArrayList
+     */
+    ArrayList<Purchase> getPurchaseList();
 
     /**
      * Sets the monthly limit for spending.

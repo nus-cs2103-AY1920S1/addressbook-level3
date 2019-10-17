@@ -24,6 +24,7 @@ import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
+import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.model.history.HistoryManager;
@@ -240,7 +241,7 @@ public class ModelManager implements Model {
      * @param itemNumber
      */
     @Override
-    public void deletePurchase(int itemNumber) {
+    public void deletePurchase(int itemNumber) throws PurchaseNotFoundException {
         financeTracker.deleteSinglePurchase(itemNumber);
     }
 
@@ -301,11 +302,21 @@ public class ModelManager implements Model {
     /**
      * Retrieves list of all installments
      *
-     * @return InstallmentList
+     * @return ArrayList
      */
     @Override
     public ArrayList<Installment> getInstallmentList() {
         return financeTracker.getInstallmentList();
+    }
+
+    /**
+     * Retrieves list of all installments
+     *
+     * @return ArrayList
+     */
+    @Override
+    public ArrayList<Purchase> getPurchaseList() {
+        return financeTracker.getPurchaseList();
     }
 
     /**

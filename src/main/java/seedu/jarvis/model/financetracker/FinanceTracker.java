@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.financetracker.exceptions.NegativeLimitException;
+import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.purchase.Purchase;
 
@@ -87,12 +88,12 @@ public class FinanceTracker {
         return monthlyLimit;
     }
 
-    public PurchaseList getPurchaseList() {
-        return purchaseList;
-    }
-
     public ArrayList<Installment> getInstallmentList() {
         return installmentList.getAllInstallments();
+    }
+
+    public ArrayList<Purchase> getPurchaseList() {
+        return purchaseList.getAllPurchases();
     }
 
     //=========== Purchase List Command Methods =======================================================================
@@ -111,7 +112,7 @@ public class FinanceTracker {
      *
      * @param itemNumber of payment to be deleted
      */
-    public Purchase deleteSinglePurchase(int itemNumber) {
+    public Purchase deleteSinglePurchase(int itemNumber) throws PurchaseNotFoundException {
         return purchaseList.deletePurchase(itemNumber);
     }
 
