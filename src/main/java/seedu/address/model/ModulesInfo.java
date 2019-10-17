@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -46,37 +45,6 @@ public class ModulesInfo {
      */
     public ModuleInfo find(String moduleCode) {
         return this.mapModulesInfo.get(moduleCode);
-    }
-
-    /**
-     * Returns true if the module with the given module code can have its prerequisites fulfilled by taking
-     * modules in {@code prevSemModuleCodes} in previous semesters.
-     */
-    public boolean verify(String moduleCode, List<String> prevSemModuleCodes) {
-        ModuleInfo moduleInfo = this.find(moduleCode);
-        if (moduleInfo == null) {
-            return false;
-        }
-        return moduleInfo.verify(prevSemModuleCodes);
-    }
-
-    /**
-     * Returns a list of all focus area names. Does not differentiate between electives and primaries.
-     * This method call could be expensive, so it's not meant to be called many times.
-     */
-    public HashSet<String> getFocusAreaNames() {
-        HashSet<String> set = new HashSet<>();
-        for (ModuleInfo moduleInfo : this.modulesInfo) {
-            List<String> focusPrimaries = moduleInfo.getFocusPrimaries();
-            List<String> focusElectives = moduleInfo.getFocusElectives();
-            for (String focusPrimary : focusPrimaries) {
-                set.add(focusPrimary);
-            }
-            for (String focusElective : focusElectives) {
-                set.add(focusElective);
-            }
-        }
-        return set;
     }
 
     @Override
