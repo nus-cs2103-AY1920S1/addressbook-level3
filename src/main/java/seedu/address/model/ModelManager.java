@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -159,6 +160,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addTask(Task task) {
+
+    }
+
+    @Override
+    public ReadOnlyCalendar getCalendar() {
+        return null;
+    }
+  
     public ObservableList<Earnings> getFilteredEarningsList() {
         return filteredEarnings;
     }
