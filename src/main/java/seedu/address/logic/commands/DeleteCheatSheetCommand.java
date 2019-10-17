@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.DELETE;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import seedu.address.model.cheatsheet.CheatSheet;
  * Deletes a cheatsheet identified using it's displayed index from the address book.
  */
 public class DeleteCheatSheetCommand extends Command {
-    public static final String COMMAND_WORD = "deletecs";
+    public static final String COMMAND_WORD = DELETE;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the cheatsheet identified by the index number used in the displayed cheatsheet list.\n"

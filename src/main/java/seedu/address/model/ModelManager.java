@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,10 +14,12 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 
+import seedu.address.logic.FunctionMode;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -30,6 +33,7 @@ public class ModelManager implements Model {
     private final FilteredList<Flashcard> filteredFlashcards;
     private final FilteredList<Note> filteredNotes;
     private final FilteredList<CheatSheet> filteredCheatSheets;
+    private final FilteredList<Tag> filteredTags;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -46,6 +50,7 @@ public class ModelManager implements Model {
         filteredFlashcards = new FilteredList<>(this.addressBook.getFlashcardList());
         filteredNotes = new FilteredList<>(this.addressBook.getNoteList());
         filteredCheatSheets = new FilteredList<>(this.addressBook.getCheatSheetList());
+        filteredTags = new FilteredList<>(this.addressBook.getTagList());
     }
 
     public ModelManager() {
@@ -99,6 +104,7 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
+
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -136,6 +142,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
+        requireAllNonNull(target, editedFlashcard);
+
+        addressBook.setFlashcard(target, editedFlashcard);
+    }
+
+    @Override
     public boolean hasNote(Note note) {
         requireNonNull(note);
         return addressBook.hasNote(note);
@@ -157,6 +170,19 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedNote);
 
         addressBook.setNote(target, editedNote);
+    }
+
+    //=========== Filtered Tag List Accessors =============================================================
+
+    @Override
+    public ObservableList<Tag> getFilteredTagList() {
+        return filteredTags;
+    }
+
+    @Override
+    public void updateFilteredTagList(Predicate<Tag> predicate) {
+        requireNonNull(predicate);
+        filteredTags.setPredicate(predicate);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -233,6 +259,62 @@ public class ModelManager implements Model {
         addressBook.removeFlashcard(target);
     }
 
+    /**
+     * Formats string for output
+     * @return String formatted flashcard display
+     */
+    public String formatOutputListString(FunctionMode mode) {
+        String msg = "";
+
+        switch (mode) {
+        case CHEATSHEET:
+            msg = formatList(filteredCheatSheets);
+            break;
+
+        case FLASHCARD:
+            msg = formatList(filteredFlashcards);
+            break;
+
+        case NOTE:
+            msg = formatList(filteredNotes);
+            break;
+
+        default:
+            // error?
+        }
+
+        return msg;
+    }
+
+    /**
+     * Formats string for output.
+     * @param object the filteredlist to read
+     * @param <T> the different features: cheatsheet, flashcard, notes
+     * @return list of all the objects
+     */
+    public <T> String formatList(FilteredList<T> object) {
+        int size = object.size();
+
+        if (size == 0) {
+            return "[Empty list]";
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 1; i <= size; i++) {
+            T feature = object.get(i - 1);
+            sb.append(i)
+                    .append(". ")
+                    .append(feature.toString());
+
+            if (i != size) {
+                sb.append("\n");
+            }
+        }
+
+        return sb.toString();
+    }
+
     //===================CheatSheetBook============================================================
 
     @Override
@@ -258,6 +340,7 @@ public class ModelManager implements Model {
     public void deleteCheatSheet(CheatSheet cheatSheet) {
         addressBook.deleteCheatSheet(cheatSheet);
     }
+
     //=========== Filtered CheatSheet List Accessors =============================================================
 
     /**
@@ -273,5 +356,27 @@ public class ModelManager implements Model {
     public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate) {
         requireNonNull(predicate);
         filteredCheatSheets.setPredicate(predicate);
+    }
+
+    //========================GLOBAL COLLECT TAGGED ITEMS======================================
+    @Override
+    public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
+        ArrayList<StudyBuddyItem> taggedItems = new ArrayList<>();
+        for (Flashcard fc : addressBook.getFlashcardList()) {
+            if (predicate.test(fc)) {
+                taggedItems.add(fc);
+            }
+        }
+        for (CheatSheet cs : addressBook.getCheatSheetList()) {
+            if (predicate.test(cs)) {
+                taggedItems.add(cs);
+            }
+        }
+        for (Note n : addressBook.getNoteList()) {
+            if (predicate.test(n)) {
+                taggedItems.add(n);
+            }
+        }
+        return taggedItems;
     }
 }

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.ADD;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
@@ -16,7 +17,7 @@ import seedu.address.model.flashcard.Flashcard;
  */
 public class AddFlashcardCommand extends Command {
 
-    public static final String COMMAND_WORD = "add_flashcard";
+    public static final String COMMAND_WORD = ADD;
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new flashcard "
             + "from the question, answer and title provided. "
             + "Flashcard will be assigned a unique id when created.\n"

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.VIEW;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,7 @@ import seedu.address.model.flashcard.Flashcard;
  */
 public class ViewFlashcardCommand extends Command {
 
-    public static final String COMMAND_WORD = "view_flashcard";
+    public static final String COMMAND_WORD = VIEW;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Displays a flashcard.\n"

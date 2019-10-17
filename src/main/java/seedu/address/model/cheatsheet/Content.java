@@ -8,12 +8,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidContent(String)}
  */
 public class Content {
-
     public static final String MESSAGE_CONSTRAINTS = "Cheatsheet contents should not be blank. "
             + "For flashcard's components, images are not supported in the cheatsheet.";
     public static final String VALIDATION_REGEX = "\\S.*"; //"\\p{Alnum}+";
+    private static int COUNTER = 1;
 
     public final String content;
+    public final int index;
+
 
     /**
      * Constructs a {@code Content}.
@@ -24,6 +26,7 @@ public class Content {
         requireNonNull(content);
         checkArgument(isValidContent(content), MESSAGE_CONSTRAINTS);
         this.content = content;
+        this.index = COUNTER++;
     }
 
     public Content(String question, String answer) {
@@ -31,9 +34,9 @@ public class Content {
         checkArgument(isValidContent(question), MESSAGE_CONSTRAINTS);
         checkArgument(isValidContent(answer), MESSAGE_CONSTRAINTS);
         this.content = "Question: " + question
-                + "\nAnswer: " + answer;
+                + "; Answer: " + answer;
 
-        System.out.println(this.content);
+        this.index = COUNTER++;
     }
 
     /**
@@ -50,6 +53,14 @@ public class Content {
                 && content.equals(((Content) other).content)); // state check
     }
 
+    public static void resetCounter() {
+        COUNTER = 1;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
     @Override
     public int hashCode() {
         return content.hashCode();
@@ -59,7 +70,7 @@ public class Content {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + content + ']';
+        return "[ " + index + ". " + content + " ]";
     }
 
 }

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.ADD;
 import static seedu.address.logic.commands.EditCheatSheetCommand.createEditedCheatSheet;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -24,7 +25,7 @@ import seedu.address.model.tag.Tag;
  * Adds a cheatsheet to the address book.
  */
 public class AddCheatSheetCommand extends Command {
-    public static final String COMMAND_WORD = "addcs";
+    public static final String COMMAND_WORD = ADD;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a cheatsheet. "
             + "Parameters: "
@@ -58,7 +59,10 @@ public class AddCheatSheetCommand extends Command {
         model.addCheatSheet(toAdd);
         EditCheatSheetCommand.EditCheatSheetDescriptor edit = new EditCheatSheetCommand.EditCheatSheetDescriptor();
         edit.setContents(getRelevantContents(toAdd.getTags(), model));
-        CheatSheet editedCheatSheet = createEditedCheatSheet(toAdd, edit);
+        CheatSheet editedCheatSheet = createEditedCheatSheet(toAdd, edit, true);
+
+
+
         model.setCheatSheet(toAdd, editedCheatSheet);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedCheatSheet));
@@ -75,6 +79,7 @@ public class AddCheatSheetCommand extends Command {
      * Retrieves all the notes with the relevant tags
      */
     public Set<Content> getRelevantContents(Set<Tag> tags, Model model) {
+        Content.resetCounter();
         Set<Content> contentList = new HashSet<>();
 
         // get all notes

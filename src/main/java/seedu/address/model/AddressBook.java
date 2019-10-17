@@ -14,6 +14,8 @@ import seedu.address.model.note.Note;
 import seedu.address.model.note.UniqueNoteList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Wraps all data at the address-book level
@@ -28,6 +30,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueFlashcardList flashcards;
 
     private final UniqueNoteList notes;
+
+    private final UniqueTagList tags;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -44,6 +48,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         notes = new UniqueNoteList();
 
         cheatSheets = new UniqueCheatSheetList();
+
+        tags = new UniqueTagList();
     }
 
     public AddressBook() {}
@@ -64,6 +70,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setNotes(newData.getNoteList());
+        setFlashcards(newData.getFlashcardList());
+        setCheatSheets(newData.getCheatSheetList());
     }
 
     @Override
@@ -82,6 +90,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    //=============================Tag tools====================================================
+    @Override
+    public ObservableList<Tag> getTagList() {
+        return tags.asUnmodifiableObservableList();
     }
 
     //=============================Person tools====================================================
@@ -163,6 +177,26 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public ObservableList<Flashcard> getFlashcardList() {
         return flashcards.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Replaces the contents of the flashcards list with {@code flashcards}.
+     * {@code flashcards} must not contain duplicate flashcards.
+     */
+    public void setFlashcards(List<Flashcard> flashcards) {
+        this.flashcards.setFlashcards(flashcards);
+    }
+
+    /**
+     * Replaces the given flashcard {@code target} in the list with {@code editedFlashcard}.
+     * {@code target} must exist in the address book.
+     * The flashcard identity of {@code editedFlashcard} must not be the same as another existing flashcard in the
+     * address book.
+     */
+    public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
+        requireNonNull(editedFlashcard);
+
+        flashcards.setFlashcard(target, editedFlashcard);
     }
 
     //=============================Note tools====================================================

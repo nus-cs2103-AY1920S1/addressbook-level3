@@ -1,11 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.EDIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CHEATSHEETS;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +29,7 @@ import seedu.address.model.tag.Tag;
  */
 public class EditCheatSheetCommand extends Command {
 
-    public static final String COMMAND_WORD = "editcs";
+    public static final String COMMAND_WORD = EDIT;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the cheatsheet identified "
             + "by the index number used in the displayed person list. "
@@ -68,7 +70,7 @@ public class EditCheatSheetCommand extends Command {
         }
 
         CheatSheet cheatSheetToEdit = lastShownList.get(index.getZeroBased());
-        CheatSheet editedCheatSheet = createEditedCheatSheet(cheatSheetToEdit, editCheatSheetDescriptor);
+        CheatSheet editedCheatSheet = createEditedCheatSheet(cheatSheetToEdit, editCheatSheetDescriptor, false);
 
         if (!cheatSheetToEdit.isSameCheatSheet(editedCheatSheet) && model.hasCheatSheet(editedCheatSheet)) {
             throw new CommandException(MESSAGE_DUPLICATE_CHEATSHEET);
@@ -84,14 +86,47 @@ public class EditCheatSheetCommand extends Command {
      * edited with {@code editPersonDescriptor}.
      */
     public static CheatSheet createEditedCheatSheet(CheatSheet cheatSheetToEdit,
-                                                 EditCheatSheetDescriptor editCheatSheetDescriptor) {
+                                                 EditCheatSheetDescriptor editCheatSheetDescriptor, boolean isAdd) {
         assert cheatSheetToEdit != null;
 
         Title updatedTitle = editCheatSheetDescriptor.getTitle().orElse(cheatSheetToEdit.getTitle());
-        Set<Content> updatedContents = editCheatSheetDescriptor.getContents().orElse(cheatSheetToEdit.getContents());
         Set<Tag> updatedTags = editCheatSheetDescriptor.getTags().orElse(cheatSheetToEdit.getTags());
+        Set<Content> updatedContents;
+
+        if (isAdd) {
+            updatedContents = editCheatSheetDescriptor.getContents().orElse(cheatSheetToEdit.getContents());
+        } else {
+            updatedContents = updateContents(cheatSheetToEdit, editCheatSheetDescriptor.getIndexes());
+            if (updatedContents == null || updatedContents.isEmpty()) {
+                updatedContents = cheatSheetToEdit.getContents();
+            }
+        }
+
 
         return new CheatSheet(updatedTitle, updatedContents, updatedTags);
+    }
+
+    /**
+     * Retrieves all the content that were not chosen to remove
+     * @param cheatSheetToEdit the cheatsheet to be edited
+     * @param indexes the indexes of the contents to be removed
+     * @return set of contents with indicated contents removed
+     */
+    private static Set<Content> updateContents(CheatSheet cheatSheetToEdit, ArrayList<Integer> indexes) {
+        Set<Content> contentList = new HashSet<>();
+
+        if (indexes == null || indexes.isEmpty()) {
+            return null;
+        }
+
+        for (Content c: cheatSheetToEdit.getContents()) {
+            // ignores all invalid indexes
+            if (!indexes.contains(c.getIndex())) {
+                contentList.add(c);
+            }
+        }
+
+        return contentList;
     }
 
     @Override
@@ -118,8 +153,9 @@ public class EditCheatSheetCommand extends Command {
      */
     public static class EditCheatSheetDescriptor {
         private Title title;
-        private Set<Content> contents;
+        private ArrayList<Integer> indexes;
         private Set<Tag> tags;
+        private Set<Content> contents;
 
         public EditCheatSheetDescriptor() {}
 
@@ -131,13 +167,14 @@ public class EditCheatSheetCommand extends Command {
             setTitle(toCopy.title);
             setContents(toCopy.contents);
             setTags(toCopy.tags);
+            setIndexes(toCopy.indexes);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, contents, tags);
+            return CollectionUtil.isAnyNonNull(title, contents, tags, indexes);
         }
 
         public void setTitle(Title title) {
@@ -156,6 +193,10 @@ public class EditCheatSheetCommand extends Command {
             this.contents = (contents != null) ? new HashSet<>(contents) : null;
         }
 
+        public void setIndexes(ArrayList<Integer> indexes) {
+            this.indexes = indexes;
+        }
+
         /**
          * Returns an unmodifiable content set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
@@ -165,6 +206,9 @@ public class EditCheatSheetCommand extends Command {
             return (contents != null) ? Optional.of(Collections.unmodifiableSet(contents)) : Optional.empty();
         }
 
+        public ArrayList<Integer> getIndexes() {
+            return indexes;
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
