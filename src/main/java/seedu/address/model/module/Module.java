@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import seedu.address.model.Color;
+import seedu.address.model.PrereqTree;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
@@ -21,19 +22,24 @@ public class Module implements Cloneable {
     private final ModuleCode moduleCode;
     private int mcCount;
     private Color color;
+    private boolean prereqsSatisfied;
 
     // Data fields
+    private PrereqTree prereqTree;
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Module(Name name, ModuleCode moduleCode, int mcCount, Color color, UniqueTagList tags) {
+    public Module(Name name, ModuleCode moduleCode, int mcCount, Color color, PrereqTree prereqTree,
+                  UniqueTagList tags) {
         requireAllNonNull(name, moduleCode, mcCount, color, tags);
         this.name = name;
         this.moduleCode = moduleCode;
         this.mcCount = mcCount;
         this.color = color;
+        this.prereqsSatisfied = false;
+        this.prereqTree = prereqTree;
         this.tags = tags;
     }
 
@@ -102,6 +108,14 @@ public class Module implements Cloneable {
         return color;
     }
 
+    public boolean getPrereqsSatisfied() {
+        return this.prereqsSatisfied;
+    }
+
+    public String getPrereqString() {
+        return (this.prereqTree == null) ? "" : this.prereqTree.toString();
+    }
+
     /**
      * Deletes the specified user tag to the module if the module has it.
      *
@@ -126,6 +140,19 @@ public class Module implements Cloneable {
      */
     public UniqueTagList getTags() {
         return tags;
+    }
+
+    /**
+     * This method verifies previous semester codes against the prerequisite tree, and updates its
+     * {@code prereqsSatisfied} property accordingly.
+     * @param prevSemCodes Codes of modules taken in previous semesters
+     */
+    public void verify(List<String> prevSemCodes) {
+        if (this.prereqTree == null) {
+            this.prereqsSatisfied = true;
+        } else {
+            this.prereqsSatisfied = this.prereqTree.verify(prevSemCodes);
+        }
     }
 
     /**
@@ -158,6 +185,8 @@ public class Module implements Cloneable {
                 .append(getModuleCode())
                 .append(" MCs: ")
                 .append(getMcCount())
+                .append(" Prereqs satisfied: ")
+                .append(getPrereqsSatisfied())
                 .append(" Tags: ");
         if (getTags() != null) {
             getTags().forEach(builder::append);

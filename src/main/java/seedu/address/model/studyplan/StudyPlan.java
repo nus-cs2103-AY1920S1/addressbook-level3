@@ -1,5 +1,6 @@
 package seedu.address.model.studyplan;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import seedu.address.model.Color;
 import seedu.address.model.ModuleInfo;
 import seedu.address.model.ModulesInfo;
+import seedu.address.model.PrereqTree;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.Name;
@@ -147,7 +149,8 @@ public class StudyPlan implements Cloneable {
         Name name = new Name(moduleInfo.getName());
         ModuleCode moduleCode = new ModuleCode(moduleInfo.getCode());
         int mcCount = moduleInfo.getMc();
-        return new Module(name, moduleCode, mcCount, Color.RED, moduleTagList);
+        PrereqTree prereqTree = moduleInfo.getPrereqTree();
+        return new Module(name, moduleCode, mcCount, Color.RED, prereqTree, moduleTagList);
     }
 
     /**
@@ -259,6 +262,23 @@ public class StudyPlan implements Cloneable {
      */
     public boolean isSameStudyPlan(StudyPlan other) {
         return this.index == other.index;
+    }
+
+    /**
+     * Updates the prerequisites of all modules in the study plan.
+     * This method should be called every time there is a change in its modules.
+     */
+    public void updatePrereqs() {
+        ArrayList<String> prevSemCodes = new ArrayList<>();
+        for (Semester sem : semesters) {
+            ArrayList<String> thisSemCodes = new ArrayList<>();
+            for (Module mod : sem.getModules()) {
+                String moduleCode = mod.getModuleCode().toString();
+                thisSemCodes.add(moduleCode);
+                mod.verify(prevSemCodes);
+            }
+            prevSemCodes.addAll(thisSemCodes);
+        }
     }
 
     /**

@@ -26,6 +26,10 @@ public class SemesterListPanel extends UiPart<Region> {
         semesterListView.setCellFactory(listView -> new SemesterListViewCell());
     }
 
+    public void refresh() {
+        semesterListView.refresh();
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
@@ -38,7 +42,7 @@ public class SemesterListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new SemesterCard(semester, getIndex() + 1).getRoot());
+                setGraphic(new SemesterCard(semester).getRoot());
             }
         }
     }

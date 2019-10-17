@@ -81,9 +81,6 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        //        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        //        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
@@ -129,6 +126,16 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            semesterListPanel.refresh();
+
+            if (commandResult.isChangesActiveStudyPlan()) {
+                StudyPlan sp = logic.getActiveStudyPlan();
+                ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
+                semesterListPanel = new SemesterListPanel(semesters);
+                semesterListPanelPlaceholder.getChildren().removeAll();
+                semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+                title.setText(sp.getTitle().toString());
+            }
 
             if (commandResult.isExit()) {
                 handleExit();
