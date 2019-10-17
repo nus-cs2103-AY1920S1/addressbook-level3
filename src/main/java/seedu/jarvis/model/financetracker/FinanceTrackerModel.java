@@ -29,7 +29,13 @@ public interface FinanceTrackerModel {
 
     Purchase getPurchase(int paymentIndex);
 
-    Installment getInstallment(int instalIndex);
+    /**
+     * Retrieves list of all purchases
+     *
+     * @return ArrayList
+     */
+    ArrayList<Purchase> getPurchaseList();
+
     /**
      * Adds single use payment.
      *
@@ -44,7 +50,14 @@ public interface FinanceTrackerModel {
      */
     void deletePurchase(int itemNumber);
 
-    boolean hasPurchase(Purchase purchase);
+    Installment getInstallment(int instalIndex);
+
+    /**
+     * Retrieves list of all installments
+     *
+     * @return ArrayList
+     */
+    ArrayList<Installment> getInstallmentList();
 
     /**
      * Adds instalment.
@@ -60,29 +73,21 @@ public interface FinanceTrackerModel {
      */
     Installment deleteInstallment(int instalNumber);
 
+    /**
+     * Checks for the existence of the same installment in the finance tracker.
+     *
+     * @param installment to be checked
+     * @return boolean
+     */
     boolean hasInstallment(Installment installment);
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedInstallment}.
+     * Replaces the installment {@code target} in the list with {@code editedInstallment}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedInstallment} must not be the same as another existing installment in the
+     * The identity of {@code editedInstallment} must not be the same as another existing installment in the
      * list.
      */
     void setInstallment(Installment target, Installment editedInstallment);
-
-    /**
-     * Retrieves list of all installments
-     *
-     * @return ArrayList
-     */
-    ArrayList<Installment> getInstallmentList();
-
-    /**
-     * Retrieves list of all purchases
-     *
-     * @return ArrayList
-     */
-    ArrayList<Purchase> getPurchaseList();
 
     /**
      * Sets the monthly limit for spending.

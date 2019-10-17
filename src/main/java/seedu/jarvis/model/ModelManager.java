@@ -246,18 +246,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Checks for the existence of the same purchase. Purchases are allowed to be duplicated, thus method always returns
-     * false.
-     *
-     * @param purchase to be added
-     * @return boolean that is always false
-     */
-    @Override
-    public boolean hasPurchase(Purchase purchase) {
-        return false;
-    }
-
-    /**
      * Adds installment.
      *
      * @param installment
