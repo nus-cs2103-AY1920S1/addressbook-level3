@@ -70,6 +70,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setNotes(newData.getNoteList());
+        setFlashcards(newData.getFlashcardList());
+        setCheatSheets(newData.getCheatSheetList());
     }
 
     @Override
@@ -175,6 +177,26 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public ObservableList<Flashcard> getFlashcardList() {
         return flashcards.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Replaces the contents of the flashcards list with {@code flashcards}.
+     * {@code flashcards} must not contain duplicate flashcards.
+     */
+    public void setFlashcards(List<Flashcard> flashcards) {
+        this.flashcards.setFlashcards(flashcards);
+    }
+
+    /**
+     * Replaces the given flashcard {@code target} in the list with {@code editedFlashcard}.
+     * {@code target} must exist in the address book.
+     * The flashcard identity of {@code editedFlashcard} must not be the same as another existing flashcard in the
+     * address book.
+     */
+    public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
+        requireNonNull(editedFlashcard);
+
+        flashcards.setFlashcard(target, editedFlashcard);
     }
 
     //=============================Note tools====================================================

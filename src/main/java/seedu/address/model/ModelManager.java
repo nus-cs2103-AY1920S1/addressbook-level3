@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -15,7 +15,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 
 import seedu.address.logic.FunctionMode;
-import seedu.address.logic.LogicManager;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
@@ -140,6 +139,13 @@ public class ModelManager implements Model {
     public void addFlashcard(Flashcard flashcard) {
         addressBook.addFlashcard(flashcard);
         updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
+    }
+
+    @Override
+    public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
+        requireAllNonNull(target, editedFlashcard);
+
+        addressBook.setFlashcard(target, editedFlashcard);
     }
 
     @Override
@@ -287,7 +293,7 @@ public class ModelManager implements Model {
             return "[Empty list]";
         }
 
-        return msg.toString();
+        return msg;
     }
 
     public <T> String formatList(FilteredList<T> object, int size) {
@@ -333,8 +339,6 @@ public class ModelManager implements Model {
         addressBook.deleteCheatSheet(cheatSheet);
     }
 
-
-
     //=========== Filtered CheatSheet List Accessors =============================================================
 
     /**
@@ -350,5 +354,27 @@ public class ModelManager implements Model {
     public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate) {
         requireNonNull(predicate);
         filteredCheatSheets.setPredicate(predicate);
+    }
+
+    //========================GLOBAL COLLECT TAGGED ITEMS======================================
+    @Override
+    public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
+        ArrayList<StudyBuddyItem> taggedItems = new ArrayList<>();
+        for (Flashcard fc : addressBook.getFlashcardList()) {
+            if (predicate.test(fc)) {
+                taggedItems.add(fc);
+            }
+        }
+        for (CheatSheet cs : addressBook.getCheatSheetList()) {
+            if (predicate.test(cs)) {
+                taggedItems.add(cs);
+            }
+        }
+        for (Note n : addressBook.getNoteList()) {
+            if (predicate.test(n)) {
+                taggedItems.add(n);
+            }
+        }
+        return taggedItems;
     }
 }

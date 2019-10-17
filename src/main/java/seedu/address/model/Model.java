@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -157,6 +158,14 @@ public interface Model {
      */
     void addFlashcard(Flashcard toAdd);
 
+    /**
+     * Replaces the given flashcard {@code target} with {@code editedFlashcard}.
+     * {@code target} must exist in the address book.
+     * The flashcard identity of {@code editedFlashcard} must not be the same as another existing flashcard in
+     * address book.
+     */
+    void setFlashcard(Flashcard target, Flashcard editedFlashcard);
+
     /** Returns an unmodifiable view of the filtered flashcard list */
     ObservableList<Flashcard> getFilteredFlashcardList();
 
@@ -207,4 +216,6 @@ public interface Model {
      * {@code cheatSheet} must exist in the cheatSheet book.
      */
     void deleteCheatSheet(CheatSheet cheatSheet);
+
+    public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate);
 }

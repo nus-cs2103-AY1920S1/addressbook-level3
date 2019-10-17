@@ -20,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
@@ -220,6 +221,10 @@ public class AddNoteCommandTest {
         public void deleteFlashcard(Flashcard flashcard) {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
@@ -258,6 +263,11 @@ public class AddNoteCommandTest {
 
         @Override
         public ObservableList<Flashcard> getFilteredFlashcardList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
