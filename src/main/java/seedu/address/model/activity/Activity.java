@@ -105,6 +105,10 @@ public class Activity {
         builder.append(getName())
                 .append(" Location: ")
                 .append(getAddress())
+                .append(" Phone Number: ")
+                .append(getContact().isPresent()
+                        ? getContact().get().getPhone()
+                        : "")
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

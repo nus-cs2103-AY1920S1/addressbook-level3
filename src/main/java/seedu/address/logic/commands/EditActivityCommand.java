@@ -90,7 +90,7 @@ public class EditActivityCommand extends EditCommand {
         Name updatedName = editActivityDescriptor.getName().orElse(activityToEdit.getName());
         Address updatedAddress = editActivityDescriptor.getAddress().orElse(activityToEdit.getAddress());
         Contact updatedContact = editActivityDescriptor.getPhone().isPresent()
-                ? new Contact(updatedName, editActivityDescriptor.getPhone().get(), null, null, null)
+                ? new Contact(updatedName, editActivityDescriptor.getPhone().get(), null, null, new HashSet<>())
                 : activityToEdit.getContact().isPresent()
                     ? activityToEdit.getContact().get()
                     : null;
