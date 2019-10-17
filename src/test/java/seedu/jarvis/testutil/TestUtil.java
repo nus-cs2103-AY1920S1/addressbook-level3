@@ -52,6 +52,4 @@ public class TestUtil {
     public static Person getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
     }
-
-
 }
