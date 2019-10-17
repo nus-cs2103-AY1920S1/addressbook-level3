@@ -15,7 +15,7 @@ import seedu.address.logic.commands.BudgetCommand;
 import seedu.address.logic.commands.CheckCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.EditClaimCommand;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditIncomeCommand;
@@ -72,7 +72,7 @@ public class FinSecParser {
         case EditIncomeCommand.COMMAND_WORD:
             return new EditIncomeCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case DeleteContactCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:

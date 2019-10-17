@@ -14,9 +14,9 @@ import seedu.address.storage.SuggestionsStorage;
 /**
  * Deletes a contact identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteContactCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "delete_contact";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeleteContactCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -50,7 +50,7 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof DeleteContactCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteContactCommand) other).targetIndex)); // state check
     }
 }
