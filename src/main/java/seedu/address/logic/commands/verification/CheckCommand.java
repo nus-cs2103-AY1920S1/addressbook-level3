@@ -23,7 +23,7 @@ public class CheckCommand extends Command {
 
     public CheckCommand(String moduleCode) {
         requireAllNonNull(moduleCode);
-        this.moduleCode = moduleCode;
+        this.moduleCode = moduleCode.toUpperCase();
     }
 
     @Override

@@ -159,6 +159,11 @@ public class ModelManager implements Model {
         return modulePlanner.getModulesInfo();
     }
 
+    @Override
+    public void updatePrereqs() {
+        this.modulePlanner.updatePrereqs();
+    }
+
     //=========== Filtered StudyPlan List Accessors =============================================================
 
     /**

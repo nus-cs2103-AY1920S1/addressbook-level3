@@ -37,8 +37,11 @@ public class PrereqNode extends PrereqTree {
 
     @Override
     public String toString() {
-        return "(" + (this.operator == AND ? "AND" : "OR") + " "
-                + children.stream().map(x -> x.toString()).collect(Collectors.joining(" ")) + ")";
+        String delimiter = this.operator == AND ? " and " : " or ";
+        return children
+                .stream()
+                .map(x -> (x instanceof PrereqNode) ? "(" + x.toString() + ")" : x.toString())
+                .collect(Collectors.joining(delimiter));
     }
 
     @Override
