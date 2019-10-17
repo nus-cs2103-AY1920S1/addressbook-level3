@@ -1,11 +1,14 @@
 package mams.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import mams.commons.core.Messages;
 import mams.model.Model;
 import mams.model.module.ModuleContainsKeywordsPredicate;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Encapsulates a FindModCommand class for find keywords in module list.
+ */
 public class FindModCommand extends FindCommand {
 
     private ModuleContainsKeywordsPredicate modulePredicate;

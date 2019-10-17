@@ -1,8 +1,8 @@
 package mams.logic.commands;
 
 import static mams.logic.parser.CliSyntax.PREFIX_APPEALID;
-import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.ArrayList;
 import java.util.HashSet;

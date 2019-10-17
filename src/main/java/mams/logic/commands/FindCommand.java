@@ -1,11 +1,6 @@
 package mams.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
-import mams.commons.core.Messages;
 import mams.model.Model;
-import mams.model.module.ModuleContainsKeywordsPredicate;
-import mams.model.student.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all students in MAMS whose name contains any of the argument keywords.
@@ -23,5 +18,5 @@ public abstract class FindCommand extends Command {
 
 
     @Override
-    abstract public CommandResult execute(Model model);
+    public abstract CommandResult execute(Model model);
 }

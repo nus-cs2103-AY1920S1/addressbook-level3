@@ -1,10 +1,13 @@
 package mams.model.module;
 
-import mams.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
 
+import mams.commons.util.StringUtil;
+
+/**
+ * Tests that a {@code Module}'s {@code code} matches any of the keywords given.
+ */
 public class ModuleContainsKeywordsPredicate implements Predicate<Module> {
 
     private final List<String> keywords;

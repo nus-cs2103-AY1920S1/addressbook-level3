@@ -3,9 +3,9 @@ package mams.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import static mams.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 import static mams.logic.parser.CliSyntax.PREFIX_NAME;
 import static mams.logic.parser.CliSyntax.PREFIX_PREVMODS;
+import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 import static mams.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;

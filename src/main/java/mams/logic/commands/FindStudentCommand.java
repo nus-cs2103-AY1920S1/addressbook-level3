@@ -1,11 +1,15 @@
 package mams.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import mams.commons.core.Messages;
 import mams.model.Model;
 import mams.model.student.NameContainsKeywordsPredicate;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Finds and lists all students in MAMS whose name contains any of the argument keywords.
+ * Keyword matching is case insensitive.
+ */
 public class FindStudentCommand extends FindCommand {
 
     private NameContainsKeywordsPredicate studentPredicate;
@@ -19,9 +23,9 @@ public class FindStudentCommand extends FindCommand {
         requireNonNull(model);
 
         if (!studentPredicate.isEmpty()) {
-         model.updateFilteredStudentList(studentPredicate);
-         return new CommandResult(
-         String.format(Messages.MESSAGE_STUDENTS_LISTED_OVERVIEW, model.getFilteredStudentList().size()));
+            model.updateFilteredStudentList(studentPredicate);
+            return new CommandResult(
+                    String.format(Messages.MESSAGE_STUDENTS_LISTED_OVERVIEW, model.getFilteredStudentList().size()));
         } else {
             return new CommandResult("error");
         }
