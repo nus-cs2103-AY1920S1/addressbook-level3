@@ -1,4 +1,4 @@
-package seedu.address.logic.parser.grocerylist;
+package seedu.address.logic.parser.defaults;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LIST;
