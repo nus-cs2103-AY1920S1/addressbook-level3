@@ -199,6 +199,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         }
     }
 
+    // TODO let user choose when to get reminders
     /**
      * Utility method to split tasks by their deadline, for Ui purposes.
      * Called by getter methods in {@code ModelManager}

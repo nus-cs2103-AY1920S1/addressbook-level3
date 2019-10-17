@@ -94,6 +94,7 @@ public class ProjectDashboardTest {
     @Test
     public void addTaskNotStarted_splitTasksBasedOnTaskStatus_presentInExpectedLists() {
         projectDashboard.addTask(ORDER_SHIRTS);
+        projectDashboard.splitTasksBasedOnStatus();
         assertTrue(projectDashboard.getTaskList().contains(ORDER_SHIRTS));
         assertTrue(projectDashboard.getTasksNotStarted().contains(ORDER_SHIRTS));
         assertFalse(projectDashboard.getTasksDoing().contains(ORDER_SHIRTS));
@@ -101,9 +102,10 @@ public class ProjectDashboardTest {
     }
 
     @Test
-    public void removeTaskDoing_splitTasksBasedOnTask_expectedTasksPresentInExpectedLists() {
+    public void removeTaskDoing_splitTasksBasedOnTaskStatus_expectedTasksPresentInExpectedLists() {
         projectDashboard.addTask(GET_SPONSORS);
         projectDashboard.removeTask(GET_SPONSORS);
+        projectDashboard.splitTasksBasedOnStatus();
         assertFalse(projectDashboard.getTaskList().contains(GET_SPONSORS));
         assertFalse(projectDashboard.getTasksNotStarted().contains(GET_SPONSORS));
         assertFalse(projectDashboard.getTasksDoing().contains(GET_SPONSORS));
@@ -114,23 +116,26 @@ public class ProjectDashboardTest {
     public void overloadDashboardWithDifferentTasks_splitTasksBasedOnStatus_expectedTasksPresentInExpectedLists() {
         projectDashboard.addTask(ORDER_SHIRTS);
         projectDashboard.addTask(GET_SPONSORS);
+        projectDashboard.splitTasksBasedOnStatus();
         assertTrue(projectDashboard.getTasksDone().isEmpty());
 
         projectDashboard.removeTask(ORDER_SHIRTS);
         projectDashboard.setTask(GET_SPONSORS, RECRUIT_MEMBERS);
+        projectDashboard.splitTasksBasedOnStatus();
         assertTrue(projectDashboard.getTasksDoing().isEmpty());
         assertTrue(projectDashboard.getTasksDone().contains(RECRUIT_MEMBERS));
 
         projectDashboard.addTask(ORDER_SHIRTS);
+        projectDashboard.splitTasksBasedOnStatus();
         assertTrue(projectDashboard.getTaskList().contains(RECRUIT_MEMBERS));
         assertTrue(projectDashboard.getTasksNotStarted().contains(ORDER_SHIRTS));
 
         ProjectDashboard newData = getTypicalProjectDashboard();
         projectDashboard.resetData(newData);
         assertEquals(newData, projectDashboard);
+        projectDashboard.splitTasksBasedOnStatus();
         assertFalse(projectDashboard.getTasksNotStarted().isEmpty());
     }
-
 
     /**
      * A stub ReadOnlyProjectDashboard whose tasks list can violate interface constraints.
