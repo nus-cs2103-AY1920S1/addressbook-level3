@@ -28,9 +28,10 @@ public class Quantity {
      * @param quantity A valid input quantity, i.e. positive integer.
      */
     public Quantity(String quantity) {
-        requireNonNull(quantity);
-        AppUtil.checkArgument(isValidInputQuantity(quantity), MESSAGE_CONSTRAINTS);
-        this.quantity = Integer.parseInt(quantity);
+        String trimmedQuantity = quantity.trim();
+        requireNonNull(trimmedQuantity);
+        AppUtil.checkArgument(isValidInputQuantity(trimmedQuantity), MESSAGE_CONSTRAINTS);
+        this.quantity = Integer.parseInt(trimmedQuantity);
     }
 
     /**
@@ -40,9 +41,10 @@ public class Quantity {
      */
     public Quantity(String quantity, boolean internalCall) {
         requireNonNull(quantity);
+        String trimmedQuantity = quantity.trim();
         if (internalCall) {
-            AppUtil.checkArgument(isValidQuantity(quantity), INTERNAL_MESSAGE_CONSTRAINTS);
-            this.quantity = Integer.parseInt(quantity);
+            AppUtil.checkArgument(isValidQuantity(trimmedQuantity), INTERNAL_MESSAGE_CONSTRAINTS);
+            this.quantity = Integer.parseInt(trimmedQuantity);
         }
     }
 

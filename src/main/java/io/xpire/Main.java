@@ -19,7 +19,13 @@ import javafx.application.Application;
  * to be the entry point of the application, we avoid this issue.
  */
 public class Main {
+    /**
+     * Entry point.
+     */
     public static void main(String[] args) {
-        Application.launch(MainApp.class, args);
+
+        // Comment/uncomment the lines to execute either Xpire or login page.
+        //Application.launch(MainApp.class, args);
+        Application.launch(Login.class, args);
     }
 }

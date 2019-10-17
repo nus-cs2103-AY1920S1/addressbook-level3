@@ -11,9 +11,9 @@ import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRUIT;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
+import static io.xpire.testutil.TypicalIndexes.INDEX_FIFTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
-import static io.xpire.testutil.TypicalIndexes.INDEX_SEVENTH_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -98,8 +98,8 @@ public class TagCommandTest {
     //add tags to an already tagged item should add on more tags
     @Test
     public void execute_addMoreTags_success() {
-        Item itemToTag = model.getFilteredItemList().get(INDEX_SEVENTH_ITEM.getZeroBased());
-        TagCommand tagCommand = new TagCommand(INDEX_SEVENTH_ITEM, new String[]{VALID_TAG_FRUIT});
+        Item itemToTag = model.getFilteredItemList().get(INDEX_FIFTH_ITEM.getZeroBased());
+        TagCommand tagCommand = new TagCommand(INDEX_FIFTH_ITEM, new String[]{VALID_TAG_FRUIT});
 
         ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
         Item expectedItem = new ItemBuilder().withName(VALID_NAME_JELLY)
@@ -116,8 +116,8 @@ public class TagCommandTest {
     //adding tags that already exist should not add duplicates or edit the existing tags
     @Test
     public void execute_addDuplicateTags_success() {
-        Item itemToTag = model.getFilteredItemList().get(INDEX_SEVENTH_ITEM.getZeroBased());
-        TagCommand tagCommand = new TagCommand(INDEX_SEVENTH_ITEM, new String[]{VALID_TAG_FRIDGE});
+        Item itemToTag = model.getFilteredItemList().get(INDEX_FIFTH_ITEM.getZeroBased());
+        TagCommand tagCommand = new TagCommand(INDEX_FIFTH_ITEM, new String[]{VALID_TAG_FRIDGE});
 
         ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
         Item expectedItem = new ItemBuilder().withName(VALID_NAME_JELLY)
