@@ -17,6 +17,11 @@ public class Location implements Field {
 
     public final String location;
 
+    // Needed for Jackson
+    public Location() {
+        location = DEFAULT_VALUE;
+    }
+
     /**
      * Constructs a {@code Location}.
      *

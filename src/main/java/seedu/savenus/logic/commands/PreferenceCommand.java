@@ -10,9 +10,10 @@ import java.util.stream.Collectors;
 
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
-import seedu.savenus.model.RecommendationSystem;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Location;
+import seedu.savenus.model.recommend.RecommendationSystem;
+import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.tag.Tag;
 
 /**
@@ -65,12 +66,13 @@ public class PreferenceCommand extends Command {
         StringBuilder result = new StringBuilder();
 
         RecommendationSystem recommendationSystem = model.getRecommendationSystem();
+        UserRecommendations userRecommendations = recommendationSystem.getUserRecommendations();
 
         if (isLike) {
             // Throws a command exception if any of the likes are in dislikes or vice versa
-            if (recommendationSystem.getDislikedCategories().stream().anyMatch(categoryList::contains)
-                    || recommendationSystem.getDislikedLocations().stream().anyMatch(locationList::contains)
-                    || recommendationSystem.getDislikedTags().stream().anyMatch(tagList::contains)) {
+            if (userRecommendations.getDislikedCategories().stream().anyMatch(categoryList::contains)
+                    || userRecommendations.getDislikedLocations().stream().anyMatch(locationList::contains)
+                    || userRecommendations.getDislikedTags().stream().anyMatch(tagList::contains)) {
                 throw new CommandException(DUPLICATE_FOUND_IN_OPPOSITE_LIST);
             }
 
@@ -78,9 +80,9 @@ public class PreferenceCommand extends Command {
             result.append(" Liked: ");
         } else {
             // Throws a command exception if any of the likes are in dislikes or vice versa
-            if (recommendationSystem.getLikedCategories().stream().anyMatch(categoryList::contains)
-                    || recommendationSystem.getLikedLocations().stream().anyMatch(locationList::contains)
-                    || recommendationSystem.getLikedTags().stream().anyMatch(tagList::contains)) {
+            if (userRecommendations.getLikedCategories().stream().anyMatch(categoryList::contains)
+                    || userRecommendations.getLikedLocations().stream().anyMatch(locationList::contains)
+                    || userRecommendations.getLikedTags().stream().anyMatch(tagList::contains)) {
                 throw new CommandException(DUPLICATE_FOUND_IN_OPPOSITE_LIST);
             }
 
@@ -98,23 +100,23 @@ public class PreferenceCommand extends Command {
         result.append(addedItems);
 
         String currentItems = "Current likes:"
-                + " Categories: " + recommendationSystem.getLikedCategories()
+                + " Categories: " + userRecommendations.getLikedCategories()
                     .stream().map(c -> c.category)
                     .collect(Collectors.joining(", "))
-                + " | Tags: " + recommendationSystem.getLikedTags()
+                + " | Tags: " + userRecommendations.getLikedTags()
                     .stream().map(t -> t.tagName)
                     .collect(Collectors.joining(", "))
-                + " | Locations: " + recommendationSystem.getLikedLocations()
+                + " | Locations: " + userRecommendations.getLikedLocations()
                     .stream().map(l -> l.location)
                     .collect(Collectors.joining(", "))
                 + "\nCurrent dislikes:"
-                + " Categories: " + recommendationSystem.getDislikedCategories()
+                + " Categories: " + userRecommendations.getDislikedCategories()
                     .stream().map(c -> c.category)
                     .collect(Collectors.joining(", "))
-                + " | Tags: " + recommendationSystem.getDislikedTags()
+                + " | Tags: " + userRecommendations.getDislikedTags()
                     .stream().map(t -> t.tagName)
                     .collect(Collectors.joining(", "))
-                + " | Locations: " + recommendationSystem.getDislikedLocations()
+                + " | Locations: " + userRecommendations.getDislikedLocations()
                     .stream().map(l -> l.location)
                     .collect(Collectors.joining(", "));
 
