@@ -1,0 +1,10 @@
+.result_window {
+    -fx-background-image:url('C:\Users\User\Desktop\folders\schoolwork\Y2S1\CS2103\TP\main repo\main\src\main\resources\images\result_background.png');
+    -fx-background-size: 100% 100%;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 10pt;
+    -fx-text-fill: white;
+}
+
+.text-area {
+}
