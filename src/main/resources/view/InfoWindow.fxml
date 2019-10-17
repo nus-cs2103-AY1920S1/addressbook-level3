@@ -47,7 +47,7 @@
                      <Font name="Courier New" size="20.0" />
                   </font>
                </Label>
-               <Button mnemonicParsing="false" onAction="#closeWindow" text="Epic!">
+               <Button mnemonicParsing="false" onAction="#closeWindow" text="Close">
                   <font>
                      <Font name="Arial Black" size="36.0" />
                   </font>

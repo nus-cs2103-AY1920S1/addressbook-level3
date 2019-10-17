@@ -172,7 +172,11 @@ public interface Model {
     void setRecommendationSystemInUse(boolean inUse);
 
     /**
-     * Updates the user's liked categories, tags and locations.
+     * Get a history of the list of commands
+     */
+    List<String> getCommandHistory();
+
+    /** Updates the user's liked categories, tags and locations.
      * @throws NullPointerException if {@code categoryList}, {@code tagList} or {@code locationList} is null.
      */
     void addLikes(Set<Category> categoryList, Set<Tag> tagList, Set<Location> locationList);

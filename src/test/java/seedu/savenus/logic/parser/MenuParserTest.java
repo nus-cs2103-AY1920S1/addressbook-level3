@@ -19,12 +19,15 @@ import seedu.savenus.logic.commands.AddCommand;
 import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.commands.BuyCommand;
 import seedu.savenus.logic.commands.ClearCommand;
+import seedu.savenus.logic.commands.CollapseCommand;
 import seedu.savenus.logic.commands.DefaultCommand;
 import seedu.savenus.logic.commands.DeleteCommand;
+import seedu.savenus.logic.commands.DislikeCommand;
 import seedu.savenus.logic.commands.EditCommand;
 import seedu.savenus.logic.commands.ExitCommand;
 import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.commands.HelpCommand;
+import seedu.savenus.logic.commands.LikeCommand;
 import seedu.savenus.logic.commands.ListCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.SortCommand;
@@ -119,6 +122,26 @@ public class MenuParserTest {
     @Test
     public void parseCommand_recommend() throws Exception {
         assertTrue(parser.parseCommand(RecommendCommand.COMMAND_WORD) instanceof RecommendCommand);
+    }
+
+    @Test
+    public void parseCommand_like() throws ParseException {
+        assertTrue(
+                parser.parseCommand(LikeCommand.COMMAND_WORD + " c/Chinese")
+                        instanceof LikeCommand);
+    }
+
+    @Test
+    public void parseCommand_dislike() throws ParseException {
+        assertTrue(
+                parser.parseCommand(DislikeCommand.COMMAND_WORD + " c/Chinese")
+                     instanceof DislikeCommand);
+    }
+
+    @Test
+    public void parseCommand_collapse() throws ParseException {
+        assertTrue(
+                parser.parseCommand(CollapseCommand.COMMAND_WORD) instanceof CollapseCommand);
     }
 
     @Test
