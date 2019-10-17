@@ -1,9 +1,12 @@
 package seedu.address.model.person;
 
+import java.time.Duration;
+import java.util.Iterator;
 import java.util.NavigableSet;
+import java.util.Optional;
 import java.util.TreeSet;
 
-import seedu.address.model.Duration;
+import seedu.address.model.EventTime;
 import seedu.address.model.person.exceptions.SchedulingException;
 
 
@@ -18,8 +21,8 @@ public class Schedule {
     private static final String START_WORK_TIME = "0900";
     private static final String END_WORK_TIME = "1800";
 
-    private NavigableSet<Duration> schedule;
-    private Duration workingHours;
+    private NavigableSet<EventTime> schedule;
+    private EventTime workingHours;
 
 
     /**
@@ -27,62 +30,106 @@ public class Schedule {
      */
     public Schedule() {
         this.schedule = new TreeSet<>();
-        this.workingHours = Duration.parse(START_WORK_TIME, END_WORK_TIME);
+        this.workingHours = EventTime.parse(START_WORK_TIME, END_WORK_TIME);
+
+        EventTime beforeWorkingHours = EventTime.parse("0000", START_WORK_TIME);
+        EventTime afterWorkingHours = EventTime.parse(END_WORK_TIME, "2359");
+        schedule.add(beforeWorkingHours);
+        schedule.add(afterWorkingHours);
     }
 
     /**
      * Blocks off the owner's schedule with the given duration.
      *
-     * @param duration incoming task
+     * @param eventTime incoming task
      * @throws SchedulingException when the duration is outside working hours, or conflicts with the existing schedule
      */
-    public void add(Duration duration) throws SchedulingException {
-        if (!isInWorkingHours(duration)) {
+    public void add(EventTime eventTime) throws SchedulingException {
+        if (!isInWorkingHours(eventTime)) {
             throw new SchedulingException(MESSAGE_OUTSIDE_WORKING_HOURS);
         }
 
-        if (!isAvailable(duration)) {
+        if (!isAvailable(eventTime)) {
             throw new SchedulingException(MESSAGE_SCHEDULE_CONFLICT);
         }
 
-        if (!schedule.add(duration)) {
+        if (!schedule.add(eventTime)) {
             throw new SchedulingException("An unknown error has occurred.");
         }
+    }
+
+    // check within
+
+    /**
+     * Finds the earliest available EventTime has the same length of proposed, and fits in the schedule.
+     *
+     * @param proposed a proposed time slot
+     * @return Optional of the earliest EventTime that can fit in the schedule; if the proposed time is already the
+     * earliest, return an Optional of the proposed time; if no slot available, return an empty Optional.
+     */
+    public Optional<EventTime> findFirstAvailableSlot(EventTime proposed) {
+        Duration length = proposed.getDuration();
+
+        if (!this.isInWorkingHours(proposed)) {
+            return Optional.empty();
+        }
+
+        EventTime lastCandidate = schedule.ceiling(proposed);
+        NavigableSet<EventTime> candidates = schedule.headSet(lastCandidate, true);
+        Iterator<EventTime> iter = candidates.iterator();
+
+        EventTime prev = null;
+        if (iter.hasNext()) {
+            prev = iter.next();
+        }
+
+        while (iter.hasNext()) {
+            EventTime head = iter.next();
+            boolean canFit = Duration.between(prev.getEnd(), head.getStart()).compareTo(length) >= 0;
+
+            if (canFit) {
+                return Optional.of(new EventTime(prev.getEnd(), length));
+            }
+
+            prev = head;
+        }
+
+        return Optional.empty();
     }
 
     /**
      * Removes the scheduled event.
      *
-     * @param duration an existing event in the owner's schedule
+     * @param eventTime an existing event in the owner's schedule
      * @return true when the event exists in the schedule, and removed successfully
      */
-    public boolean remove(Duration duration) {
-        return schedule.remove(duration);
+    public boolean remove(EventTime eventTime) {
+        return schedule.remove(eventTime);
     }
 
 
-    private boolean isInWorkingHours(Duration duration) {
-        return (duration.getEnd().compareTo(duration.getStart()) > 0)
-                && (duration.getStart().compareTo(workingHours.getStart()) >= 0)
-                && (duration.getEnd().compareTo(workingHours.getEnd()) <= 0);
+    private boolean isInWorkingHours(EventTime eventTime) {
+        return (eventTime.getEnd().compareTo(eventTime.getStart()) > 0)
+                && (eventTime.getStart().compareTo(workingHours.getStart()) >= 0)
+                && (eventTime.getEnd().compareTo(workingHours.getEnd()) <= 0);
     }
 
 
     /**
      * Checks whether the incoming duration clashes with the existing schedule.
      *
-     * @param duration task duration
+     * @param eventTime task duration
      * @return true if the duration clashes
      */
-    private boolean isAvailable(Duration duration) {
-        Duration previous = schedule.floor(duration);
-        Duration next = schedule.ceiling(duration);
+    private boolean isAvailable(EventTime eventTime) {
+        EventTime previous = schedule.floor(eventTime);
+        EventTime next = schedule.ceiling(eventTime);
 
-        if ((previous != null) && (duration.overlaps(previous))) {
+        if ((previous != null) && (eventTime.overlaps(previous))) {
             return false;
         }
 
-        if ((next != null) && (duration.overlaps(next))) {
+        if ((next != null) && (eventTime.overlaps(next))) {
             return false;
         }
 
@@ -91,8 +138,10 @@ public class Schedule {
 
     @Override
     public String toString() {
-        return this.schedule.stream()
-                .map(Duration::to24HrString)
+        return this.schedule
+                .subSet(EventTime.parse("0000", START_WORK_TIME), false,
+                        EventTime.parse(END_WORK_TIME, "2359"), false).stream()
+                .map(EventTime::to24HrString)
                 .reduce((str1, str2) -> str1 + ", " + str2)
                 .orElse(MESSAGE_EMPTY_SCHEDULE);
     }

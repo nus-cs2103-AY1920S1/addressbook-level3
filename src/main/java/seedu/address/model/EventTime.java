@@ -1,14 +1,15 @@
 package seedu.address.model;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
- * A Duration contains a start time and an end time.
+ * A EventTime contains a start time and an end time.
  */
-public class Duration implements Comparable<Duration> {
+public class EventTime implements Comparable<EventTime> {
 
     private static final DateTimeFormatter COMPACT_TIME_FORMAT = DateTimeFormatter.ofPattern("HHmm");
     private static final DateTimeFormatter DISPLAY_TIME_FORMAT = DateTimeFormatter.ofPattern("h:mma");
@@ -16,9 +17,15 @@ public class Duration implements Comparable<Duration> {
     private LocalTime start;
     private LocalTime end;
 
-    private Duration(LocalTime start, LocalTime end) {
+
+    public EventTime(LocalTime start, LocalTime end) {
         this.start = start;
         this.end = end;
+    }
+
+    public EventTime(LocalTime start, Duration duration) {
+        this.start = start;
+        this.end = start.plus(duration);
     }
 
     /**
@@ -31,22 +38,22 @@ public class Duration implements Comparable<Duration> {
      * @param endTime end time
      * @return the duration with the specified start and end time
      */
-    public static Duration parse(String startTime, String endTime) throws DateTimeParseException {
+    public static EventTime parse(String startTime, String endTime) throws DateTimeParseException {
         // append front with zero
         String first = String.format("%04d", Integer.parseInt(startTime));
         String second = String.format("%04d", Integer.parseInt(endTime));
 
-        return new Duration(LocalTime.parse(first, COMPACT_TIME_FORMAT), LocalTime.parse(second, COMPACT_TIME_FORMAT));
+        return new EventTime(LocalTime.parse(first, COMPACT_TIME_FORMAT), LocalTime.parse(second, COMPACT_TIME_FORMAT));
     }
 
     /**
      * Checks whether the two durations overlap.
      * @param other the other duration
-     * @return whether they overlap
+     * @return true if they overlap
      */
-    public boolean overlaps(Duration other) {
-        Duration early = this.compareTo(other) > 0 ? other : this;
-        Duration late = this.compareTo(other) > 0 ? this : other;
+    public boolean overlaps(EventTime other) {
+        EventTime early = this.compareTo(other) > 0 ? other : this;
+        EventTime late = this.compareTo(other) > 0 ? this : other;
 
         return early.getEnd().compareTo(late.getStart()) > 0;
     }
@@ -57,6 +64,10 @@ public class Duration implements Comparable<Duration> {
 
     public LocalTime getStart() {
         return start;
+    }
+
+    public Duration getDuration() {
+        return Duration.between(this.start, this.end);
     }
 
     /**
@@ -75,9 +86,9 @@ public class Duration implements Comparable<Duration> {
     @Override
     public boolean equals(Object obj) {
         return obj == this // short circuit if same object
-                || (obj instanceof Duration // instanceof handles nulls
-                && this.start.equals(((Duration) obj).start)
-                && this.end.equals(((Duration) obj).end)); // state check
+                || (obj instanceof EventTime // instanceof handles nulls
+                && this.start.equals(((EventTime) obj).start)
+                && this.end.equals(((EventTime) obj).end)); // state check
     }
 
     @Override
@@ -86,7 +97,7 @@ public class Duration implements Comparable<Duration> {
     }
 
     @Override
-    public int compareTo(Duration o) {
+    public int compareTo(EventTime o) {
         return !this.getStart().equals(o.getStart())
                 ? this.getStart().compareTo(o.getStart())
                 : this.getEnd().compareTo(o.getEnd());
