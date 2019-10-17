@@ -13,7 +13,7 @@ import seedu.address.model.budget.Budget;
 /**
  * Adds a budget to Moolah.
  */
-public class AddBudgetCommand extends Command {
+public class AddBudgetCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "budget";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an budget to the address book. "
