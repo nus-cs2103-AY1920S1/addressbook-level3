@@ -15,28 +15,29 @@ import com.typee.model.engagement.Engagement;
 /**
  * An Immutable EngagementList that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "engagementlist")
+class JsonSerializableEngagementList {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_ENGAGEMENT = "Engagement list contains duplicate engagement(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedEngagement> engagements = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableEngagementList} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableEngagementList(@JsonProperty("engagements") List<JsonAdaptedEngagement> engagements) {
+        this.engagements.addAll(engagements);
     }
 
     /**
      * Converts a given {@code ReadOnlyEngagementList} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableEngagementList}.
      */
-    public JsonSerializableAddressBook(ReadOnlyEngagementList source) {
-        persons.addAll(source.getEngagementList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+    public JsonSerializableEngagementList(ReadOnlyEngagementList source) {
+        engagements.addAll(source.getEngagementList().stream().map(JsonAdaptedEngagement::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -46,10 +47,10 @@ class JsonSerializableAddressBook {
      */
     public EngagementList toModelType() throws IllegalValueException {
         EngagementList engagementList = new EngagementList();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Engagement engagement = jsonAdaptedPerson.toModelType();
+        for (JsonAdaptedEngagement jsonAdaptedEngagement : engagements) {
+            Engagement engagement = jsonAdaptedEngagement.toModelType();
             if (engagementList.hasEngagement(engagement)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_ENGAGEMENT);
             }
             engagementList.addEngagement(engagement);
         }

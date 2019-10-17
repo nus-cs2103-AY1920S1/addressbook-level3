@@ -13,11 +13,11 @@ import com.typee.model.engagement.Priority;
 import com.typee.model.person.Person;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link Engagement}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedEngagement {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Engagement's %s field is missing!";
     public static final String EMPTY_LIST = "[]";
 
     private final String engagementType;
@@ -29,14 +29,14 @@ class JsonAdaptedPerson {
     private final String priority;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedEngagement} with the given engagement details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("type") String type, @JsonProperty("startTime") String startTime,
-                             @JsonProperty("endTime") String endTime, @JsonProperty("location") String location,
-                             @JsonProperty("attendees") String attendees,
-                             @JsonProperty("description") String description,
-                             @JsonProperty("priority") String priority) {
+    public JsonAdaptedEngagement(@JsonProperty("type") String type, @JsonProperty("startTime") String startTime,
+                                 @JsonProperty("endTime") String endTime, @JsonProperty("location") String location,
+                                 @JsonProperty("attendees") String attendees,
+                                 @JsonProperty("description") String description,
+                                 @JsonProperty("priority") String priority) {
         this.engagementType = type;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -47,9 +47,9 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Engagement} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Engagement source) {
+    public JsonAdaptedEngagement(Engagement source) {
         engagementType = source.getClass().getSimpleName();
         startTime = source.getStartTime().toString();
         endTime = source.getEndTime().toString();
@@ -60,9 +60,9 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted engagement object into the model's {@code Engagement} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted engagement.
      */
     public Engagement toModelType() throws IllegalValueException {
         // TODO : Date validation.

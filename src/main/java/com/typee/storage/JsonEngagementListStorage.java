@@ -45,8 +45,8 @@ public class JsonEngagementListStorage implements EngagementListStorage {
     public Optional<ReadOnlyEngagementList> readEngagementList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
+        Optional<JsonSerializableEngagementList> jsonAddressBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializableEngagementList.class);
         if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
         }
@@ -74,7 +74,7 @@ public class JsonEngagementListStorage implements EngagementListStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(engagementList), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableEngagementList(engagementList), filePath);
     }
 
 }
