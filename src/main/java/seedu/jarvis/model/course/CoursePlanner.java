@@ -67,7 +67,7 @@ public class CoursePlanner {
         uniqueCourseList.add(zeroBasedIndex, course);
     }
 
-    public void removeCourse(Course course) {
+    public void deleteCourse(Course course) {
         uniqueCourseList.remove(course);
     }
 
