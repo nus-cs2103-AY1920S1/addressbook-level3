@@ -2,8 +2,10 @@ package seedu.address.model.Lesson;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a Class name in the Address Book.
+ */
 public class ClassName {
-    private final String className;
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -12,6 +14,8 @@ public class ClassName {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+    private final String className;
 
     public ClassName(String className) {
         requireNonNull(className);

@@ -7,10 +7,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Lesson.Lesson;
 import seedu.address.model.Model;
+import seedu.address.model.Scheduler.Scheduler;
 
+/**
+ * Adds a lesson to the address book.
+ */
 public class AddLessonCommand extends Command {
 
-    public static final String COMMAND_WORD = "add lesson";
+    public static final String COMMAND_WORD = "addLesson";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lesson to the address book. "
             + "Parameters: "
             + PREFIX_LESSONNAME + "NAME "
@@ -38,6 +42,8 @@ public class AddLessonCommand extends Command {
         }
 
         model.addLesson(toAdd);
+        Scheduler scheduler = new Scheduler(toAdd);
+        scheduler.scheduleLesson();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

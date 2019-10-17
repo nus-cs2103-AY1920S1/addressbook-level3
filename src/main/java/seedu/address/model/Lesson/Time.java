@@ -1,9 +1,13 @@
 package seedu.address.model.Lesson;
 
 import static java.util.Objects.requireNonNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ * Represents a class time in the AddressBook.
+ */
 public class Time {
     private final Calendar lessonTime;
 

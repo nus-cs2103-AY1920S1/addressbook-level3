@@ -1,7 +1,6 @@
 package seedu.address.model.Lesson;
 
 import static java.util.Objects.requireNonNull;
-import seedu.address.model.Lesson.Exceptions.DuplicateLessonException;
 
 import java.util.Iterator;
 import java.util.List;
@@ -9,7 +8,20 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class UniqueLessonList implements Iterable<Lesson>{
+import seedu.address.model.Lesson.Exceptions.DuplicateLessonException;
+
+/**
+ * A list of students that enforces uniqueness between its elements and does not allow nulls.
+ * A lesson is considered unique by comparing using {@code Lesson#isSameLesson(Lesson)}. As such, adding and
+ * updating of lessons uses Lesson#isSameLesson(Lesson) for equality so as to ensure that the lesson being added
+ * or updated is unique in terms of identity in the UniqueLessonLIst. However, the removal of a lesson uses
+ * Lesson#equals(Object) so as to ensure that the lesson with exactly the same fields will be removed.
+ *
+ * Supports a minimal set of list operations.
+ *
+ * @see Lesson#isSameLesson(Lesson)
+ */
+public class UniqueLessonList implements Iterable<Lesson> {
     private final ObservableList<Lesson> internalList = FXCollections.observableArrayList();
     private final ObservableList<Lesson> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);

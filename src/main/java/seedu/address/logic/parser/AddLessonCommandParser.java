@@ -1,17 +1,16 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddLessonCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import seedu.address.model.Lesson.ClassName;
-import seedu.address.model.Lesson.Time;
-import seedu.address.model.Lesson.Lesson;
-
 
 import java.util.stream.Stream;
 
+import seedu.address.logic.commands.AddLessonCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Lesson.ClassName;
+import seedu.address.model.Lesson.Lesson;
+import seedu.address.model.Lesson.Time;
 
 /**
  * Parses input arguments and creates a new AddLessonCommand object

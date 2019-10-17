@@ -5,10 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.Lesson.Lesson;
+import seedu.address.model.Lesson.UniqueLessonList;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
-import seedu.address.model.Lesson.UniqueLessonList;
-import seedu.address.model.Lesson.Lesson;
 
 /**
  * Wraps all data at the address-book level

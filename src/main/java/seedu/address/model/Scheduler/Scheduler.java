@@ -1,12 +1,16 @@
 package seedu.address.model.Scheduler;
 
+import java.util.Calendar;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import seedu.address.model.Lesson.Lesson;
-import seedu.address.model.Lesson.Time;
-import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
+import seedu.address.model.Lesson.Lesson;
+import seedu.address.model.Lesson.Time;
+
+/**
+ * Scheduler class which handles scheduling of lessons.
+ */
 public class Scheduler {
     private final Lesson lesson;
 
@@ -14,6 +18,10 @@ public class Scheduler {
         this.lesson = lesson;
     }
 
+    /**
+     * Method which schedules the lesson depending on whether its repeat or not.
+     * Uses ScheduledExecutorService to schedule lesson.
+     */
     public void scheduleLesson() {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         Time time = lesson.getTime();

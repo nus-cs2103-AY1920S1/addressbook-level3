@@ -2,6 +2,9 @@ package seedu.address.model.Lesson;
 
 import java.util.Objects;
 
+/**
+ * Represents a Lesson in the AddressBook.
+ */
 public class Lesson {
     private final Time time;
     private final ClassName name;
@@ -25,6 +28,9 @@ public class Lesson {
         return isRepeat;
     }
 
+    /**
+     * Returns true if both lessons of the same name have both identity fields that are the same.
+     */
     public boolean isSameLesson(Lesson otherLesson) {
         if (otherLesson == this) {
             return true;
@@ -61,7 +67,7 @@ public class Lesson {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Time: ")
+                .append(" \nTime: ")
                 .append(getTime());
         return builder.toString();
     }

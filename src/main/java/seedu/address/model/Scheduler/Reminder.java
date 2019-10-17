@@ -1,8 +1,10 @@
 package seedu.address.model.Scheduler;
 
-import java.lang.Runnable;
 import seedu.address.model.Lesson.Lesson;
 
+/**
+ * Runnable task which carries out the reminder.
+ */
 public class Reminder implements Runnable {
     private final Lesson lesson;
 

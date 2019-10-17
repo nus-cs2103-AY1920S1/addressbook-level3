@@ -2,14 +2,16 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Calendar;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Lesson.ClassName;
+import seedu.address.model.Lesson.Time;
 import seedu.address.model.student.Address;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
@@ -17,8 +19,6 @@ import seedu.address.model.student.Name;
 import seedu.address.model.student.ParentPhone;
 import seedu.address.model.student.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.Lesson.ClassName;
-import seedu.address.model.Lesson.Time;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -172,11 +172,16 @@ public class ParserUtil {
         return new ClassName(trimmedClassName);
     }
 
+    /**
+     * Parses a {@code String time} into a {@code Time}.
+     * @param time String representing time.
+     * @return Time object.
+     */
     public static Time parseTime(String time) {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        String dateAndTime[] = trimmedTime.split(" ");
-        String date[] = dateAndTime[0].split("/");
+        String[] dateAndTime = trimmedTime.split(" ");
+        String[] date = dateAndTime[0].split("/");
         int day = Integer.parseInt(date[0]);
         int month = Integer.parseInt(date[1]) - 1;
         int year = Integer.parseInt(date[2]);
