@@ -8,31 +8,23 @@
     "medicalCondition" : "NIL",
     "tagged" : [ ]
   }, {
-    "name" : "test6",
-    "phone" : "222222",
-    "email" : "test6@gmail.com",
-    "parentPhone" : "333333",
-    "address" : "test6",
-    "medicalCondition" : "AIDS",
-    "tagged" : [ ]
-  }, {
-    "name" : "test7",
-    "phone" : "1231231",
-    "email" : "test7@gmail.com",
-    "parentPhone" : "1231231",
-    "address" : "test7",
-    "medicalCondition" : "NIL",
+    "name" : "test8",
+    "phone" : "234234234",
+    "email" : "test8@gmail.com",
+    "parentPhone" : "2342342342",
+    "address" : "test8",
+    "medicalCondition" : "sinus",
     "tagged" : [ ]
   } ],
   "assignments" : [ {
     "assignmentName" : "math",
-    "grades" : [ "20", "40", "30" ]
+    "grades" : [ ]
   }, {
     "assignmentName" : "math test 2",
     "grades" : [ ]
   }, {
     "assignmentName" : "homework 3",
-    "grades" : [ "50", "40", "30" ]
+    "grades" : [ ]
   }, {
     "assignmentName" : "english homework",
     "grades" : [ ]

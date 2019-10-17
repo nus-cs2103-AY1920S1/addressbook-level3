@@ -12,6 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.AssignmentName;
+import seedu.address.model.assignment.Grade;
 import seedu.address.model.student.Address;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
@@ -76,14 +77,14 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static List<Integer> parseAssignmentGrades(String grades) throws ParseException {
+    public static List<Grade> parseAssignmentGrades(String grades) throws ParseException {
         requireNonNull(grades);
-        List<Integer> output = new ArrayList<>();
+        List<Grade> output = new ArrayList<>();
         String trimmedGrades = grades.trim();
         String[] individualGrades = trimmedGrades.split(" ");
         for (String grade: individualGrades) {
             Integer integerGrade = Integer.parseInt(grade);
-            output.add(integerGrade);
+            output.add(new Grade(integerGrade.toString()));
         }
         return output;
     }

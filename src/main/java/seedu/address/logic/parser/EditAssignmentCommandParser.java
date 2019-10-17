@@ -10,6 +10,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditAssignmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assignment.Grade;
 
 /**
  * Parses input arguments and creates a new EditAssignmentCommand object
@@ -27,7 +28,7 @@ public class EditAssignmentCommandParser implements Parser<EditAssignmentCommand
             ArgumentTokenizer.tokenize(args, PREFIX_GRADES);
 
         Index index;
-        List<Integer> grades = new ArrayList<>();
+        List<Grade> grades = new ArrayList<>();
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
