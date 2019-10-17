@@ -175,7 +175,7 @@ Usage:
 +
 Example: +
 `find name lunch bread` +
-Finds the expenses that contain the keywords ‘lunch’  and ‘bread’ in its name. +
+Finds the expenses that contain the keyword ‘lunch’ or ‘bread’ in its name. +
 {nbsp} +
 
 . _Find tag: find tag_ +
@@ -187,7 +187,7 @@ Usage:
 +
 Example: +
 `find tag school lunch` +
-Finds the expenses that contain the tags ‘school’ and ‘lunch’. +
+Finds the expenses that contain the tags ‘school’ or ‘lunch’. +
 {nbsp} +
 
 . _Find date: find date_ +
@@ -195,13 +195,13 @@ Find expenses that occurred within a range of date, with various date formats. +
 {nbsp} +
 Usage:
 
- find period [START DATE] [END DATE]
- find period [START DATE]
+ find date [START DATE] [END DATE]
+ find date [START DATE]
 +
 Example: +
-`find period 10/9/19 20/9/19` +
+`find date 10/9/19 20/9/19` +
 Finds the expenses that occurred between 10 September and 20 September, 2019. +
-`find period 10/9/19` +
+`find date 10/9/19` +
 Finds the expenses that occurred between 10 September, 19 and the current date. +
 {nbsp} +
 
@@ -211,6 +211,7 @@ Find expenses that cost between a specified amount. +
 Usage:
 
  find amt [LOWER] [UPPER]
+ find amt [LOWER]
 +
 Example: +
 `find amt 50` +
@@ -219,7 +220,7 @@ Finds the expenses that cost more than $50. +
 Finds the expenses that cost between $30 and $50 +
 {nbsp} +
 
-=== Sorting expenses by attributes: `sort`
+=== Sorting expenses by attributes: `[Coming in v1.3]`
 
 . _Sort by name:_ +
 Sort expenses by name in alphabetical order. +
