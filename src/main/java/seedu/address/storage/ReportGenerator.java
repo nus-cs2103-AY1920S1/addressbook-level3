@@ -16,7 +16,6 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-
 import seedu.address.model.entity.body.Body;
 
 //@@author bernicechio
@@ -108,7 +107,7 @@ public class ReportGenerator {
             otherDetails.addCell(
                     new PdfPCell(new Paragraph(String.format("%s", body.getCauseOfDeath().orElse(null)))));
             List organList = new List();
-            if(body.getOrgansForDonation().isPresent()) {
+            if (body.getOrgansForDonation().isPresent()) {
                 for (String organ : body.getOrgansForDonation().get()) {
                     organList.add(new ListItem(organ));
                 }
