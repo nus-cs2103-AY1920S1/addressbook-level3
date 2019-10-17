@@ -2,7 +2,7 @@ package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static mams.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
+import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 import static mams.logic.parser.CliSyntax.PREFIX_NAME;
 import static mams.logic.parser.CliSyntax.PREFIX_PREVMODS;
 import static mams.logic.parser.CliSyntax.PREFIX_TAG;
@@ -32,7 +32,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CREDITS,
-                        PREFIX_PREVMODS, PREFIX_MATRICID, PREFIX_TAG);
+                        PREFIX_PREVMODS, PREFIX_STUDENT, PREFIX_TAG);
 
         Index index;
 
@@ -53,8 +53,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_PREVMODS).isPresent()) {
             editStudentDescriptor.setPrevMods(ParserUtil.parsePrevMods(argMultimap.getValue(PREFIX_PREVMODS).get()));
         }
-        if (argMultimap.getValue(PREFIX_MATRICID).isPresent()) {
-            editStudentDescriptor.setMatricId(ParserUtil.parseMatricId(argMultimap.getValue(PREFIX_MATRICID).get()));
+        if (argMultimap.getValue(PREFIX_STUDENT).isPresent()) {
+            editStudentDescriptor.setMatricId(ParserUtil.parseMatricId(argMultimap.getValue(PREFIX_STUDENT).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editStudentDescriptor::setTags);
 

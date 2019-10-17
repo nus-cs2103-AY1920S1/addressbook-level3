@@ -1,7 +1,7 @@
 package mams.logic.commands;
 
 import static mams.logic.parser.CliSyntax.PREFIX_APPEALID;
-import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
+import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public abstract class ClashCommand extends Command {
             + "\nor " + COMMAND_WORD + " "
             + PREFIX_APPEALID + "c00001"
             + "\nor " + COMMAND_WORD + " "
-            + PREFIX_MATRICID + "A0111234X";
+            + PREFIX_STUDENT + "A0111234X";
 
 
     public static final String MESSAGE_CLASH_DETECTED = "Timetable clash detected: \n";
