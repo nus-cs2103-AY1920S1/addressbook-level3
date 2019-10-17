@@ -43,7 +43,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = ifridgeParser.parseCommand(commandText);
+        Command command = ifridgeParser.parseCommand(commandText, model.getIFridgeSettings());
         commandResult = command.execute(model);
 
         try {

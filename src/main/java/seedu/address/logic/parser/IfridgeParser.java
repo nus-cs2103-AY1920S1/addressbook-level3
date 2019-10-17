@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.core.IFridgeSettings;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -30,7 +31,7 @@ public class IfridgeParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput, IFridgeSettings iFridgeSettings) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -40,7 +41,7 @@ public class IfridgeParser {
         final String listCommand = matcher.group("listCommand");
         switch (listType) {
         case GroceryListParser.LIST_TYPE_WORD:
-            return new GroceryListParser().parseCommand(listCommand);
+            return new GroceryListParser().parseCommand(listCommand, iFridgeSettings);
 
         case TemplateListParser.LIST_TYPE_WORD:
             return new TemplateListParser().parseCommand(listCommand);
