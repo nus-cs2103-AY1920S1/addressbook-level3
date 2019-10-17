@@ -20,10 +20,12 @@ public class UrlTest {
     }
 
     @Test
-    public void isValidUrl() {
-        // null url
+    public void isValidUrl_nullUrl_throwsException() {
         assertThrows(NullPointerException.class, () -> Url.isValidUrl(null));
+    }
 
+    @Test
+    public void isValidUrl_invalidUrl_returnsFalse() {
         // blank url
         assertFalse(Url.isValidUrl("")); // empty string
         assertFalse(Url.isValidUrl(" ")); // spaces only
@@ -47,7 +49,10 @@ public class UrlTest {
         assertFalse(Url.isValidUrl("https://example.com#")); // empty fragment
         assertFalse(Url.isValidUrl("https://example.com##example")); // double '#' symbol
         assertFalse(Url.isValidUrl("https://example.com#example1#example")); // double fragment
+    }
 
+    @Test
+    public void isValidUrl_validUrl_returnsTrue() {
         // valid url scheme
         assertTrue(Url.isValidUrl("http://example.com"));
         assertTrue(Url.isValidUrl("https://example.com"));
@@ -79,5 +84,6 @@ public class UrlTest {
         assertTrue(Url.isValidUrl("https://example.com/!$&'*+,;=:()@-_~.")); // special characters in path
         assertTrue(Url.isValidUrl("https://example.com?!$&'*+,;=:()@-_~./?")); // special characters in query
         assertTrue(Url.isValidUrl("https://example.com#!$&'*+,;=:()@-_~./?")); // special characters in response
+        // TODO: check that encoded characters (%FF) are marked as valid
     }
 }

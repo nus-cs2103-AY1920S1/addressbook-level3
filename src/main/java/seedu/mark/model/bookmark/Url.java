@@ -26,13 +26,16 @@ public class Url {
             + "5. It may also contain a fragment after the query string (if present), which begins with a '#'.\n"
             + "6. Finally, a URL can end with an optional slash '/'.\n";
 
-    // TODO: Make %HH a valid URL character, where HH are two hexadecimal digits
-    // alphanumeric and special characters
-    private static final String URL_CHARACTERS = "[\\w" + SPECIAL_CHARACTERS + "]";
+    // encoded ASCII character %FF, where FF are two hexadecimal digits
+    private static final String ENCODED_ASCII_CHARACTER = "(%[0-9a-fA-F]{2})";
+    // alphanumeric, special, or encoded characters
+    private static final String URL_CHARACTERS = "([\\w" + SPECIAL_CHARACTERS + "]|" + ENCODED_ASCII_CHARACTER + ")";
     // alphanumeric and special characters excluding period '.'
-    private static final String NON_PERIOD_URL_CHARACTERS = "[\\w" + NON_PERIOD_SPECIAL_CHARACTERS + "]";
+    private static final String NON_PERIOD_URL_CHARACTERS = "([\\w" + NON_PERIOD_SPECIAL_CHARACTERS + "]|"
+            + ENCODED_ASCII_CHARACTER + ")";
     // URL characters and '/' and '?'
-    private static final String QUERY_AND_FRAGMENT_CHARACTERS = "[\\w" + SPECIAL_CHARACTERS + "/?]";
+    private static final String QUERY_AND_FRAGMENT_CHARACTERS = "([\\w" + SPECIAL_CHARACTERS + "/?]|"
+            + ENCODED_ASCII_CHARACTER + ")";
 
     private static final String REGEX_URL_SCHEME = "^((http(s?))|(ftp)|(file))://";
     private static final String REGEX_URL_AUTHORITY =
