@@ -23,9 +23,9 @@ import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.Purchase;
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
@@ -325,20 +325,6 @@ public class ModelManager implements Model {
     @Override
     public void listSpending() {
         financeTracker.listSpending();
-    }
-
-    public ObservableList<Purchase> getPurchasesList() {
-        return financeTracker.getPurchasesList();
-    }
-
-    @Override
-    public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
-        financeTracker.updateFilteredPurchaseList(predicate);
-    }
-
-    @Override
-    public ObservableList<Purchase> getFilteredPurchaseList() {
-        return financeTracker.getFilteredPurchaseList();
     }
 
     //=========== AddressBook ================================================================================

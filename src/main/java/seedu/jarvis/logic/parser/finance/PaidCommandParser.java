@@ -13,7 +13,9 @@ import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
+import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
 
 /**
  * Parses input argument and creates a new PaidCommand object
@@ -38,7 +40,8 @@ public class PaidCommandParser implements Parser<PaidCommand> {
         String description = ParserUtil.parsePurchaseDes(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         double moneySpent = ParserUtil.parsePurchaseAmount(argMultimap.getValue(PREFIX_MONEY).get());
 
-        Purchase purchase = new Purchase(description, moneySpent);
+        Purchase purchase = new Purchase(new PurchaseDescription(description),
+                new PurchaseMoneySpent(Double.toString(moneySpent)));
 
         return new PaidCommand(purchase);
     }

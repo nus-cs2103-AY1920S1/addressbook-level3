@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 
 /**
  * A list of purchases that does not allow nulls.

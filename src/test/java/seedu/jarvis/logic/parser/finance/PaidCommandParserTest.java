@@ -12,7 +12,7 @@ import static seedu.jarvis.logic.parser.ParserUtil.MONEY_MESSAGE_CONSTRAINTS;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.finance.PaidCommand;
-import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
 public class PaidCommandParserTest {

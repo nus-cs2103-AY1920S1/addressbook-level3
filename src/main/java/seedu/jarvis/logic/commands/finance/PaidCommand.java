@@ -8,7 +8,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.financetracker.Purchase;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 
 /**
  * Adds a purchase to the finance tracker.

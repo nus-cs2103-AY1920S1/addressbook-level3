@@ -1,11 +1,13 @@
 package seedu.jarvis.model.financetracker;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 
 /**
  * Manages list of monthly expenditures made by the user.
@@ -90,6 +92,23 @@ public class PurchaseList {
     }
 
     /**
+     * Replaces the purchase {@code target} in the list with {@code editedPurchase}.
+     * {@code target} must exist in the list.
+     * The identity of {@code editedPurchase} must not be the same as another existing purchase in the
+     * list.
+     */
+    public void setPurchase(Purchase target, Purchase editedPurchase) {
+        requireAllNonNull(target, editedPurchase);
+
+        int index = allPurchases.indexOf(target);
+        if (index == -1) {
+            throw new PurchaseNotFoundException();
+        }
+
+        allPurchases.set(index, editedPurchase);
+    }
+
+    /**
      * Calculates the total spending based on the list of purchases.
      *
      * @return double value containing total expenditure
@@ -97,7 +116,7 @@ public class PurchaseList {
     public double totalSpending() {
         double total = 0;
         for (Purchase purchase : allPurchases) {
-            total += purchase.getMoneySpent();
+            total += purchase.getMoneySpent().getPurchaseAmount();
         }
         return total;
     }

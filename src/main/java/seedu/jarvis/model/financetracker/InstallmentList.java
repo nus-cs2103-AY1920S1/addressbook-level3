@@ -111,9 +111,9 @@ public class InstallmentList {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedInstallment}.
+     * Replaces the installment {@code target} in the list with {@code editedInstallment}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedInstallment} must not be the same as another existing installment in the
+     * The identity of {@code editedInstallment} must not be the same as another existing installment in the
      * list.
      */
     public void setInstallment(Installment target, Installment editedInstallment) {

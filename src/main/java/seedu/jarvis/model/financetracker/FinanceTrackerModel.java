@@ -3,8 +3,8 @@ package seedu.jarvis.model.financetracker;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 
 /**
  * The API of Finance Tracker component.
@@ -99,13 +99,4 @@ public interface FinanceTrackerModel {
      */
     void listSpending();
 
-    ObservableList<Purchase> getPurchasesList();
-
-    /**
-     * Updates the filter of the filtered purchase list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPurchaseList(Predicate<Purchase> predicate);
-
-    ObservableList<Purchase> getFilteredPurchaseList();
 }
