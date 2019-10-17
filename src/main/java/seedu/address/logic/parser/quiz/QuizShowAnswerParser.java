@@ -14,6 +14,10 @@ public class QuizShowAnswerParser implements Parser<QuizShowAnswerCommand> {
 
     private int index;
 
+    /**
+     * Parses the given {@code String} of user input in the context of showing answer
+     * and returns an QuizShowAnswerCommand object for execution.
+     */
     public QuizShowAnswerCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
