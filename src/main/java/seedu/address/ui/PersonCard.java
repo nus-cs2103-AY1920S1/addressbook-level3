@@ -47,7 +47,8 @@ public class PersonCard extends UiPart<Region> {
         name.setText(food.getName().fullName);
         expiryDate.setText(((GroceryItem) food).getExpiryDate().expiryDate);
         amount.setText(food.getAmount().fullAmt);
-        ((GroceryItem) food).getTags().stream()
+        GroceryItem groceryItem = (GroceryItem) food;
+        groceryItem.getTags().stream()
               .sorted(Comparator.comparing(tag -> tag.tagName))
                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

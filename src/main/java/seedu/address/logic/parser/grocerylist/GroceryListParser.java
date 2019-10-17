@@ -7,11 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.grocerylist.AddGroceryCommand;
 import seedu.address.logic.commands.grocerylist.DeleteGroceryCommand;
 import seedu.address.logic.commands.grocerylist.EditGroceryCommand;
 import seedu.address.logic.commands.grocerylist.ListGroceryCommand;
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
