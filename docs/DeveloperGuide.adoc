@@ -445,7 +445,6 @@ Use case ends
 [discrete]
 === Use case: (UC06) Request help information
 
-//
 [discrete]
 === Use case: (UC07) Save updated Appointment data
 *MSS*
@@ -577,10 +576,10 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User requests to start the typing game
-2.  Typing game shows the user the word(s) to type for a period of time
-3.  User types the word(s) within the period of time
-4.  Typing game updates the User's score and life points accordingly.
-Steps 2-4 are repeated for as many rounds as required until User runs out of life points.
+2.  System shows typing game window which displays the specific word(s) to type.
+3.  User plays the game by typing the word(s).
+4.  Typing game updates the User's score and health points accordingly.
+Steps 2-4 are repeated for as many rounds as required until User runs out of health points.
 5.  Typing game shows the final score of the User
 +
 Use case ends.
