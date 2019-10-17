@@ -8,16 +8,7 @@ import seedu.algobase.model.Model;
  */
 public abstract class Command {
 
-    /**
-     * Executes the command and returns the result message.
-     *
-     * @param model {@code Model} which the command should operate on.
-     * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution.
-     */
-    public abstract CommandResult execute(Model model) throws CommandException;
-
-    public static final Class[] commandList = {
+    public static final Class[] COMMAND_LIST = {
         AddCommand.class,
         AddPlanCommand.class,
         AddTagCommand.class,
@@ -42,4 +33,14 @@ public abstract class Command {
         SwitchCommand.class,
         UndoneTaskCommand.class
     };
+
+    /**
+     * Executes the command and returns the result message.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
+     */
+    public abstract CommandResult execute(Model model) throws CommandException;
+
 }

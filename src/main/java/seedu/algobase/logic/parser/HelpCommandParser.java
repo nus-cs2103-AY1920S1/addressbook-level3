@@ -7,17 +7,20 @@ import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.HelpCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new HelpCommand object
+ */
 public class HelpCommandParser implements Parser<HelpCommand> {
 
     @Override
     public HelpCommand parse(String userInput) throws ParseException {
         String trimmedArgs = userInput.trim();
-        if(trimmedArgs.isEmpty()) {
+        if (trimmedArgs.isEmpty()) {
             return new HelpCommand(null, true);
         } else {
-            for(Class command: Command.commandList) {
+            for (Class command : Command.COMMAND_LIST) {
                 String commandWord = getClassStringField(command, "COMMAND_WORD");
-                if(commandWord.equals(trimmedArgs)) {
+                if (commandWord.equals(trimmedArgs)) {
                     return new HelpCommand(command, false);
                 }
             }
