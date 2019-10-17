@@ -2,10 +2,9 @@ package tagline.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-
+import javafx.scene.layout.VBox;
 import tagline.model.contact.Contact;
 
 /**
@@ -28,6 +27,8 @@ public class ContactListCard extends UiPart<Region> {
     @FXML
     private HBox contactListCardPane;
     @FXML
+    private VBox contactListInternalPane;
+    @FXML
     private Label name;
     @FXML
     private Label id;
@@ -40,17 +41,32 @@ public class ContactListCard extends UiPart<Region> {
     @FXML
     private Label contactId;
     @FXML
-    private FlowPane tags;
+    private Label description;
 
     public ContactListCard(Contact contact, int displayedIndex) {
         super(FXML);
         this.contact = contact;
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
-        phone.setText(contact.getPhone().value);
-        address.setText(contact.getAddress().value);
-        email.setText(contact.getEmail().value);
         contactId.setText("ID: " + contact.getContactId());
+
+        setLabelText(phone, contact.getPhone().value);
+        setLabelText(address, contact.getAddress().value);
+        setLabelText(email, contact.getEmail().value);
+        setLabelText(description, contact.getDescription().value);
+    }
+
+    /**
+     * Sets the content in a {@code label} to {@code text}.
+     * If {@code text} is empty, hides the {@code label}.
+     */
+    private void setLabelText(Label label, String text) {
+        if (text.isEmpty()) {
+            label.setVisible(false);
+            contactListInternalPane.getChildren().remove(label);
+        } else {
+            label.setText(text);
+        }
     }
 
     @Override
