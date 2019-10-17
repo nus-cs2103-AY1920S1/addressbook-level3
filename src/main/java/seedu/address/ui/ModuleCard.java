@@ -27,11 +27,9 @@ public class ModuleCard extends UiPart<Region> {
     public final Module module;
 
     @FXML
-    private HBox cardPane;
+    private HBox moduleCardPane;
     @FXML
     private Label name;
-    @FXML
-    private Label id;
     @FXML
     private Label mcCount;
     @FXML
@@ -39,7 +37,7 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public ModuleCard(Module module, int displayedIndex) {
+    public ModuleCard(Module module) {
         super(FXML);
         this.module = module;
         name.setText(module.getModuleCode().value + " " + module.getName().fullName);
@@ -65,7 +63,6 @@ public class ModuleCard extends UiPart<Region> {
 
         // state check
         ModuleCard card = (ModuleCard) other;
-        return id.getText().equals(card.id.getText())
-                && module.equals(card.module);
+        return module.equals(card.module);
     }
 }
