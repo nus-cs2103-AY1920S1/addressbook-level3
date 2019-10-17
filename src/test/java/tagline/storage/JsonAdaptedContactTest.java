@@ -1,7 +1,7 @@
 package tagline.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static tagline.storage.JsonAdaptedContact.MISSING_FIELD_MESSAGE_FORMAT;
+import static tagline.storage.contact.JsonAdaptedContact.MISSING_FIELD_MESSAGE_FORMAT;
 import static tagline.testutil.Assert.assertThrows;
 import static tagline.testutil.TypicalContacts.BENSON;
 
@@ -12,6 +12,7 @@ import tagline.model.contact.Address;
 import tagline.model.contact.Email;
 import tagline.model.contact.Name;
 import tagline.model.contact.Phone;
+import tagline.storage.contact.JsonAdaptedContact;
 
 public class JsonAdaptedContactTest {
     private static final String INVALID_NAME = "R@chel";

@@ -22,6 +22,7 @@ import tagline.model.note.ReadOnlyNoteBook;
 import tagline.model.note.TimeCreated;
 import tagline.model.note.TimeLastEdited;
 import tagline.model.note.Title;
+import tagline.model.tag.ContactTag;
 import tagline.model.tag.Tag;
 
 /**
@@ -32,19 +33,17 @@ public class SampleDataUtil {
         // @formatter:off
         return new Contact[]{
             new Contact(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                    new Address("Blk 30 Geylang Street 29, #06-40"), new Description("friend"), new ContactId("1")),
+                new Address("Blk 30 Geylang Street 29, #06-40"), new Description("friend")),
             new Contact(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                    new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), new Description("friend"),
-                    new ContactId("2")),
+                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), new Description("friend")),
             new Contact(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                    new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), new Description("friend"), new ContactId("3")),
+                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), new Description("friend")),
             new Contact(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                    new Address("Blk 436 Serangoon Gardens Street 26, #16-43"), new Description("friend"),
-                    new ContactId("4")),
+                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"), new Description("friend")),
             new Contact(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                    new Address("Blk 47 Tampines Street 20, #17-35"), new Description("friend"), new ContactId("5")),
+                new Address("Blk 47 Tampines Street 20, #17-35"), new Description("friend")),
             new Contact(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                    new Address("Blk 45 Aljunied Street 85, #11-31"), new Description("friend"), new ContactId("6"))
+                new Address("Blk 45 Aljunied Street 85, #11-31"), new Description("friend"))
         };
     }
 
@@ -57,7 +56,7 @@ public class SampleDataUtil {
     }
 
     public static Note[] getSampleNotes() {
-        return new Note[] {
+        return new Note[]{
             new Note(new NoteId(), new Title(""), new Content(""), new TimeCreated(), new TimeLastEdited(),
                 new HashSet<>()),
             new Note(new NoteId(), new Title("Lorem Ipsum"), new Content("Lorem ipsum dolor sit amet, "
@@ -101,8 +100,8 @@ public class SampleDataUtil {
      */
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toSet());
+            .map(s -> new ContactTag(new ContactId(s)))
+            .collect(Collectors.toSet());
     }
 
 }

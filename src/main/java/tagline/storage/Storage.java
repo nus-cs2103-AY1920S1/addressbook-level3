@@ -9,6 +9,8 @@ import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.UserPrefs;
 import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.storage.contact.AddressBookStorage;
+import tagline.storage.note.NoteBookStorage;
 
 /**
  * API of the Storage component

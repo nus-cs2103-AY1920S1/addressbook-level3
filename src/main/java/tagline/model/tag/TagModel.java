@@ -2,8 +2,6 @@ package tagline.model.tag;
 
 import java.util.List;
 
-import tagline.model.ReadOnlyTagList;
-
 /**
  * The API of the TagModel component.
  */
@@ -19,11 +17,6 @@ public interface TagModel {
     ReadOnlyTagList getTagList();
 
     /**
-     * Returns true if a tag with name {@code tagName} exists in the tag list.
-     */
-    boolean containsTag(String tag);
-
-    /**
      * Returns true if {@code tag} exists in the tag list.
      */
     boolean containsTag(Tag tag);
@@ -35,12 +28,7 @@ public interface TagModel {
     void addTag(Tag tag);
 
     /**
-     * Returns a list containing the tag(s) matching {@code tagName}, or an empty list if none were found.
-     */
-    List<Tag> findTag(String tagName);
-
-    /**
      * Returns a list containing the tag matching {@code id}, or an empty list if none were found.
      */
-    List<Tag> findTag(int id);
+    List<Tag> findTag(TagId id);
 }

@@ -19,6 +19,7 @@ import tagline.commons.exceptions.DataConversionException;
 import tagline.model.note.NoteBook;
 import tagline.model.note.NoteIdCounter;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.storage.note.JsonNoteBookStorage;
 import tagline.testutil.TypicalNotes;
 
 public class JsonNoteBookStorageTest {

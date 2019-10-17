@@ -1,4 +1,4 @@
-package tagline.storage;
+package tagline.storage.note;
 
 import static java.util.Objects.requireNonNull;
 
@@ -46,7 +46,7 @@ public class JsonNoteBookStorage implements NoteBookStorage {
         requireNonNull(filePath);
 
         Optional<JsonSerializableNoteBook> jsonNoteBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableNoteBook.class);
+            filePath, JsonSerializableNoteBook.class);
         if (!jsonNoteBook.isPresent()) {
             return Optional.empty();
         }

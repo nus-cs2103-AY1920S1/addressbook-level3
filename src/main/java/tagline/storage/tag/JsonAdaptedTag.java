@@ -1,26 +1,30 @@
-package tagline.storage;
+package tagline.storage.tag;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import tagline.commons.exceptions.IllegalValueException;
+import tagline.model.contact.ContactId;
+import tagline.model.tag.ContactTag;
 import tagline.model.tag.Tag;
+import tagline.model.tag.Tag.TagType;
+import tagline.model.tag.TagId;
 
 /**
  * Jackson-friendly version of {@link Tag}.
  */
-class JsonAdaptedTag {
+public class JsonAdaptedTag {
 
-    private final String tagName;
-    private final int tagId;
+    private final String tagType;
+    private final String tagId;
 
     /**
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedTag(@JsonProperty("tagName") String tagName, @JsonProperty("tagId") int tagId) {
-        this.tagName = tagName;
+    public JsonAdaptedTag(@JsonProperty("tagType") String tagType, @JsonProperty("tagId") String tagId) {
+        this.tagType = tagType;
         this.tagId = tagId;
     }
 
@@ -28,17 +32,17 @@ class JsonAdaptedTag {
      * Converts a given {@code Tag} into this class for Jackson use.
      */
     public JsonAdaptedTag(Tag source) {
-        tagName = source.tagName;
-        tagId = source.tagId;
+        tagType = source.tagType.name();
+        tagId = source.tagId.toString();
     }
 
     @JsonValue
-    public String getTagName() {
-        return tagName;
+    public String getTagType() {
+        return tagType;
     }
 
     @JsonValue
-    public int getTagId() {
+    public String getTagId() {
         return tagId;
     }
 
@@ -48,10 +52,12 @@ class JsonAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Tag toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
+        final String str = TagType.CONTACT_TAG.name();
+        switch (tagType) {
+        case "contact":
+            return new ContactTag(new TagId(tagId), new ContactId("123"));
+        default:
+            throw new IllegalStateException("Unexpected value: " + tagType);
         }
-        return new Tag(tagName);
     }
-
 }

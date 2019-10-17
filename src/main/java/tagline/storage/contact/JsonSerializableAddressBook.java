@@ -1,4 +1,4 @@
-package tagline.storage;
+package tagline.storage.contact;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import tagline.model.contact.ReadOnlyAddressBook;
  * An Immutable AddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+public class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_CONTACT = "Contacts list contains duplicate contact(s).";
 

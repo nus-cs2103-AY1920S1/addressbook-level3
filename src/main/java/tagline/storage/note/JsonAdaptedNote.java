@@ -1,6 +1,7 @@
-package tagline.storage;
+package tagline.storage.note;
 
 //import java.sql.Time;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,11 +21,12 @@ import tagline.model.note.TimeCreated;
 import tagline.model.note.TimeLastEdited;
 import tagline.model.note.Title;
 import tagline.model.tag.Tag;
+import tagline.storage.tag.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Note}.
  */
-class JsonAdaptedNote {
+public class JsonAdaptedNote {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Note's %s field is missing!";
 
@@ -41,9 +43,10 @@ class JsonAdaptedNote {
      */
     @JsonCreator
     public JsonAdaptedNote(@JsonProperty("noteId") String noteId, @JsonProperty("title") String title,
-            @JsonProperty("content") String content, @JsonProperty("timeCreated") String timeCreated,
-            @JsonProperty("timeLasEdited") String timeLastEdited, @JsonProperty("noteIdCount") String noteIdCount,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                           @JsonProperty("content") String content, @JsonProperty("timeCreated") String timeCreated,
+                           @JsonProperty("timeLasEdited") String timeLastEdited,
+                           @JsonProperty("noteIdCount") String noteIdCount,
+                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.noteId = noteId;
         this.title = title;
         this.content = content;
@@ -67,8 +70,8 @@ class JsonAdaptedNote {
         timeLastEdited = source.getTimeLastEdited().getTime().getStorageString();
         noteIdCount = NoteIdCounter.getStorageString();
         tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+            .map(JsonAdaptedTag::new)
+            .collect(Collectors.toList()));
     }
 
     /**

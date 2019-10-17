@@ -1,4 +1,4 @@
-package tagline.storage;
+package tagline.storage.note;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,9 +19,10 @@ public interface NoteBookStorage {
 
     /**
      * Returns NoteBook data as a {@link ReadOnlyNoteBook}.
-     *   Returns {@code Optional.empty()} if storage file is not found.
+     * Returns {@code Optional.empty()} if storage file is not found.
+     *
      * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any problem when reading from the storage.
+     * @throws IOException             if there was any problem when reading from the storage.
      */
     Optional<ReadOnlyNoteBook> readNoteBook() throws DataConversionException, IOException;
 
@@ -32,6 +33,7 @@ public interface NoteBookStorage {
 
     /**
      * Saves the given {@link ReadOnlyNoteBook} to the storage.
+     *
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */

@@ -17,6 +17,8 @@ import tagline.model.contact.AddressBook;
 import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.note.NoteBook;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.storage.contact.JsonAddressBookStorage;
+import tagline.storage.note.JsonNoteBookStorage;
 
 public class StorageManagerTest {
 

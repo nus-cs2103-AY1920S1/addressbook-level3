@@ -29,10 +29,10 @@ import tagline.model.UserPrefs;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactBuilder;
 import tagline.model.contact.ReadOnlyAddressBook;
-import tagline.storage.JsonAddressBookStorage;
-import tagline.storage.JsonNoteBookStorage;
 import tagline.storage.JsonUserPrefsStorage;
 import tagline.storage.StorageManager;
+import tagline.storage.contact.JsonAddressBookStorage;
+import tagline.storage.note.JsonNoteBookStorage;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -46,9 +46,9 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+            new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonNoteBookStorage noteBookStorage =
-                new JsonNoteBookStorage(temporaryFolder.resolve("noteBook.json"));
+            new JsonNoteBookStorage(temporaryFolder.resolve("noteBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, noteBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -76,17 +76,17 @@ public class LogicManagerTest {
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+            new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonNoteBookStorage noteBookStorage =
-                new JsonNoteBookStorage(temporaryFolder.resolve("ioExceptionNoteBook.json"));
+            new JsonNoteBookStorage(temporaryFolder.resolve("ioExceptionNoteBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+            new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, noteBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
         String addCommand = ContactCommand.COMMAND_KEY + " " + CreateContactCommand.COMMAND_WORD + NAME_DESC_AMY
-                + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+            + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         Contact expectedContact = new ContactBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addContact(expectedContact);

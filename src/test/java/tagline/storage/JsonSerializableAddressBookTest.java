@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import tagline.commons.exceptions.IllegalValueException;
 import tagline.commons.util.JsonUtil;
 import tagline.model.contact.AddressBook;
+import tagline.storage.contact.JsonSerializableAddressBook;
 import tagline.testutil.TypicalContacts;
 
 public class JsonSerializableAddressBookTest {

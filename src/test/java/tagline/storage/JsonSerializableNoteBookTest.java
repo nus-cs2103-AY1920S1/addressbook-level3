@@ -12,6 +12,7 @@ import tagline.commons.exceptions.IllegalValueException;
 import tagline.commons.util.JsonUtil;
 import tagline.model.note.NoteBook;
 import tagline.model.note.NoteIdCounter;
+import tagline.storage.note.JsonSerializableNoteBook;
 import tagline.testutil.TypicalNotes;
 
 public class JsonSerializableNoteBookTest {

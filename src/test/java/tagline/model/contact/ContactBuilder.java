@@ -81,7 +81,7 @@ public class ContactBuilder {
     }
 
     /**
-     * Sets the {@code Id} of the {@code Contact} that we are building.
+     * Sets the {@code ContactId} of the {@code Contact} that we are building.
      */
     public ContactBuilder withId(int id) {
         this.contactId = new ContactId(id);

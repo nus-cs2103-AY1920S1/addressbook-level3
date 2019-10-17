@@ -2,8 +2,6 @@ package tagline.model.tag;
 
 import java.util.List;
 
-import tagline.model.ReadOnlyTagList;
-
 /**
  * Represents the in-memory model of all tag data.
  */
@@ -25,10 +23,6 @@ public class TagManager implements TagModel {
         return this.tagList;
     }
 
-    public boolean containsTag(String tagName) {
-        return tagList.containsTag(tagName);
-    }
-
     public boolean containsTag(Tag tag) {
         return tagList.containsTag(tag);
     }
@@ -37,11 +31,7 @@ public class TagManager implements TagModel {
         tagList.addTag(tag);
     }
 
-    public List<Tag> findTag(String tagName) {
-        return tagList.findTag(tagName);
-    }
-
-    public List<Tag> findTag(int tagId) {
+    public List<Tag> findTag(TagId tagId) {
         return tagList.findTag(tagId);
     }
 }

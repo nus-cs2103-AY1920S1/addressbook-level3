@@ -1,7 +1,7 @@
 package tagline.model.contact.exceptions;
 
 /**
- * Signals that the operation will make an invalid Id.
+ * Signals that the operation will make an invalid ContactId.
  */
 public class InvalidIdException extends RuntimeException {
     public InvalidIdException() { }

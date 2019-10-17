@@ -1,4 +1,4 @@
-package tagline.storage;
+package tagline.storage.contact;
 
 import java.io.IOException;
 import java.nio.file.Path;
