@@ -2,14 +2,16 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <icons>
@@ -18,7 +20,7 @@
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@DarkTheme.css"/>
+                <URL value="@CommNurseTheme.css"/>
                 <URL value="@Extensions.css"/>
             </stylesheets>
 
@@ -57,15 +59,34 @@
                     </padding>
                 </StackPane>
 
-                <!--List Of Person Cards-->
-                <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
-                      VBox.vgrow="ALWAYS">
-                    <padding>
-                        <Insets top="10" right="10" bottom="10" left="10"/>
-                    </padding>
-                    <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                </VBox>
+                <TabPane fx:id="dataPanelsTabPane" styleClass="pane-with-border" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab fx:id="patientTabPage" text="Patients">
+                            <!--List Of Person Cards-->
+                            <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                                  VBox.vgrow="ALWAYS">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10"/>
+                                </padding>
+                                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                            </VBox>
+                        </Tab>
+                    </tabs>
+                    <tabs>
+                        <Tab fx:id="ongoingVisitTabPage" text="Current Visit">
+                            <!--Current Visit-->
+                            <VBox fx:id="ongoingVisit" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                                  VBox.vgrow="ALWAYS">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10"/>
+                                </padding>
+                                <StackPane fx:id="ongoingVisitPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                            </VBox>
+                        </Tab>
+                    </tabs>
+                </TabPane>
 
+                <!--Status Bar-->
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
             </VBox>
         </Scene>
