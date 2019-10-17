@@ -1,9 +1,6 @@
 package seedu.address.ui;
 
-import static java.util.Objects.requireNonNull;
-
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -21,7 +18,6 @@ public class OngoingVisitListPanel extends UiPart<Region> {
 
     public OngoingVisitListPanel(ObservableList<Visit> visitList) {
         super(FXML);
-        requireNonNull(visitList);
         ongoingVisitListView.setItems(visitList);
         ongoingVisitListView.setCellFactory(listView -> new VisitListViewCell());
     }
@@ -38,9 +34,6 @@ public class OngoingVisitListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                //Modify index such that the displayed index is the source index
-                FilteredList<Visit> visitList = (FilteredList<Visit>) ongoingVisitListView.getItems();
-                int index = visitList.getSourceIndex(visitList.indexOf(visit));
                 setGraphic(new OngoingVisitCard(visit).getRoot());
             }
         }

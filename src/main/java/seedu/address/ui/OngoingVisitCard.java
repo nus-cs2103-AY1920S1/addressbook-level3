@@ -1,11 +1,14 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.model.person.Person;
 import seedu.address.model.visit.Visit;
 
 /**
@@ -13,7 +16,7 @@ import seedu.address.model.visit.Visit;
  */
 public class OngoingVisitCard extends UiPart<Region> {
 
-    private static final String FXML = "VisitListCard.fxml";
+    private static final String FXML = "OngoingVisitListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -30,8 +33,6 @@ public class OngoingVisitCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label id;
-    @FXML
     private Label phone;
     @FXML
     private Label address;
@@ -40,11 +41,42 @@ public class OngoingVisitCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private VBox visitTodos;
+    private Label startDateTime;
+    @FXML
+    private Label endDateTime;
+    @FXML
+    private Label remark;
+    @FXML
+    private VBox visitTasks;
 
     public OngoingVisitCard(Visit visit) {
         super(FXML);
+        //Todo: Make it look nicer
         this.visit = visit;
+
+        Person person = this.visit.getPatient();
+
+        name.setText(person.getName().fullName);
+        phone.setText(person.getPhone().value);
+        address.setText(person.getAddress().value);
+        email.setText(person.getEmail().value);
+
+        person.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        startDateTime.setText(visit.getStartDateTime().toString());
+        if (visit.getEndDateTime().isPresent()) {
+            endDateTime.setText(visit.getEndDateTime().get().toString());
+        } else {
+            endDateTime.setText("Ongoing Visit");
+        }
+        remark.setText(this.visit.getRemark().remark);
+
+        visit.getVisitTasks()
+                .forEach(visitTask -> visitTasks.getChildren()
+                        .add(new Label(visitTask.toString())));
+
     }
 
     @Override
@@ -61,7 +93,6 @@ public class OngoingVisitCard extends UiPart<Region> {
 
         // state check
         OngoingVisitCard card = (OngoingVisitCard) other;
-        return id.getText().equals(card.id.getText())
-                && visit.equals(card.visit);
+        return visit.equals(card.visit);
     }
 }

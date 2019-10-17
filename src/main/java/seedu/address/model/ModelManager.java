@@ -104,11 +104,14 @@ public class ModelManager implements Model {
      */
     @Override
     public void setOngoingVisit(Visit visit) {
+        ongoingVisitList.clear();
+        ongoingVisitList.add(visit);
         addressBook.setOngoingVisit(visit);
     }
 
     @Override
     public void unsetOngoingVisit() {
+        ongoingVisitList.clear();
         addressBook.unsetOngoingVisit();
     }
 

@@ -11,7 +11,6 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -59,8 +58,6 @@ public class MainWindow extends UiPart<Stage> {
     private Tab patientTabPage;
     @FXML
     private Tab ongoingVisitTabPage;
-    @FXML
-    private VBox ongoingVisit;
     @FXML
     private StackPane ongoingVisitPanelPlaceholder;
 
@@ -125,6 +122,11 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        ongoingVisitListPanel = new OngoingVisitListPanel(logic.getObservableOngoingVisitList());
+        ongoingVisitPanelPlaceholder.getChildren().add(ongoingVisitListPanel.getRoot());
+        //personListPanel = new PersonListPanel(new FilteredList<>(FXCollections.emptyObservableList()));
+        //ongoingVisitPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -140,9 +142,6 @@ public class MainWindow extends UiPart<Stage> {
         dataPanelsTabPaneManager = new DataPanelsTabPaneManager(dataPanelsTabPane,
                 patientTabPage,
                 ongoingVisitTabPage);
-
-        ongoingVisitListPanel = new OngoingVisitListPanel(logic.getObservableOngoingVisitList());
-        //ongoingVisitPanelPlaceholder.getChildren().add(ongoingVisitListPanel.getRoot());
     }
 
     /**

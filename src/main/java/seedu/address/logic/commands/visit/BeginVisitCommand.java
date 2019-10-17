@@ -35,6 +35,7 @@ public class BeginVisitCommand extends Command implements MutatorCommand {
             + "Example: " + COMMAND_WORD + PREFIX_PATIENT_INDEX + "1 ";
 
     public static final String MESSAGE_START_VISIT_SUCCESS = "Started a new visit under patient: %1$s";
+    public static final String MESSAGE_START_VISIT_FAILURE = "There is already an ongoing visit.";
 
     private final Index patientIndex;
 
@@ -45,6 +46,9 @@ public class BeginVisitCommand extends Command implements MutatorCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (model.getOngoingVisit().isPresent()) {
+            throw new CommandException(MESSAGE_START_VISIT_FAILURE);
+        }
         List<Person> fullPatientList = model.getPersonList();
 
         //Verify Patient Index

@@ -37,7 +37,10 @@ public class JsonAdaptedVisitTest {
         }
     }
 
-    private List<JsonAdaptedVisitTask> generateValidVisitTasks() {
+    /**
+     * Returns a list of valid JsonAdaptedVisitTasks for testing purposes.
+     */
+    private List<JsonAdaptedVisitTask> generateValidJsonAdaptedVisitTasks() {
         List<JsonAdaptedVisitTask> visitTasks = new ArrayList<>();
         visitTasks.addAll(VALID_VISIT.getVisitTasks().stream()
                 .map(JsonAdaptedVisitTask::new)
@@ -47,7 +50,7 @@ public class JsonAdaptedVisitTest {
 
     @Test
     public void toModelType_nullRemark_doNotThrowIllegalValueException() {
-        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+        List<JsonAdaptedVisitTask> visitTasks = generateValidJsonAdaptedVisitTasks();
         final JsonAdaptedVisit visit = new JsonAdaptedVisit(null,
                 VALID_START,
                 VALID_END,
@@ -59,7 +62,7 @@ public class JsonAdaptedVisitTest {
 
     @Test
     public void toModelType_nullVisitStart_throwsIllegalValueException() {
-        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+        List<JsonAdaptedVisitTask> visitTasks = generateValidJsonAdaptedVisitTasks();
 
         JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 null,
@@ -75,84 +78,90 @@ public class JsonAdaptedVisitTest {
 
     @Test
     public void toModelType_nullEndDateTime_doNotThrowIllegalValueException() {
-        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+        List<JsonAdaptedVisitTask> visitTasks = generateValidJsonAdaptedVisitTasks();
         final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 VALID_START,
                 null,
                 visitTasks);
-        assertDoesNotThrow(() -> { visit.toModelType(BENSON); });
+        assertDoesNotThrow(() -> {
+            visit.toModelType(BENSON);
+        });
     }
 
     @Test
     public void toModelType_nullVisitTasks_doNotThrowIllegalValueException() {
-        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+        List<JsonAdaptedVisitTask> visitTasks = generateValidJsonAdaptedVisitTasks();
         final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 VALID_START,
                 VALID_END,
                 null);
-        assertDoesNotThrow(() -> { visit.toModelType(BENSON); });
+        assertDoesNotThrow(() -> {
+            visit.toModelType(BENSON);
+        });
     }
 
     @Test
     public void toModelType_startDateNotDate_throwsIllegalValueException() {
-        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+        List<JsonAdaptedVisitTask> visitTasks = generateValidJsonAdaptedVisitTasks();
 
         final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 INVALID_DATE_1,
                 VALID_END,
                 visitTasks);
-        assertThrows(IllegalValueException.class,
-                StartDateTime.MESSAGE_CONSTRAINTS, () -> {
-                    visit.toModelType(BENSON);
-                });
+        assertThrows(IllegalValueException.class, StartDateTime.MESSAGE_CONSTRAINTS, () -> {
+            visit.toModelType(BENSON);
+        });
     }
 
     @Test
     public void toModelType_startDateInvalidFormat_throwsIllegalValueException() {
-        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+        List<JsonAdaptedVisitTask> visitTasks = generateValidJsonAdaptedVisitTasks();
 
         final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 INVALID_DATE_2,
                 VALID_END,
                 visitTasks);
-        assertThrows(IllegalValueException.class,
-                StartDateTime.MESSAGE_CONSTRAINTS, () -> { visit.toModelType(BENSON); });
+        assertThrows(IllegalValueException.class, StartDateTime.MESSAGE_CONSTRAINTS, () -> {
+            visit.toModelType(BENSON);
+        });
     }
 
     @Test
     public void toModelType_endDateNotDate_throwsIllegalValueException() {
-        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+        List<JsonAdaptedVisitTask> visitTasks = generateValidJsonAdaptedVisitTasks();
 
         final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 VALID_START,
                 INVALID_DATE_1,
                 visitTasks);
-        assertThrows(IllegalValueException.class,
-                EndDateTime.MESSAGE_CONSTRAINTS, () -> { visit.toModelType(BENSON); });
+        assertThrows(IllegalValueException.class, EndDateTime.MESSAGE_CONSTRAINTS, () -> {
+            visit.toModelType(BENSON);
+        });
     }
 
     @Test
     public void toModelType_endDateInvalidFormat_throwsIllegalValueException() {
-        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+        List<JsonAdaptedVisitTask> visitTasks = generateValidJsonAdaptedVisitTasks();
 
         final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 VALID_START,
                 INVALID_DATE_2,
                 visitTasks);
-        assertThrows(IllegalValueException.class,
-                EndDateTime.MESSAGE_CONSTRAINTS, () -> { visit.toModelType(BENSON); });
+        assertThrows(IllegalValueException.class, EndDateTime.MESSAGE_CONSTRAINTS, () -> {
+            visit.toModelType(BENSON);
+        });
     }
 
     @Test
     public void toModelType_endDateEarlierThanStartDate_throwsIllegalValueException() {
-        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+        List<JsonAdaptedVisitTask> visitTasks = generateValidJsonAdaptedVisitTasks();
 
         final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 VALID_END,
                 VALID_START,
                 visitTasks);
-        assertThrows(IllegalValueException.class,
-                JsonAdaptedVisit.END_DATE_EARLIER_THAN_START_DATE,
-                () -> { visit.toModelType(BENSON); });
+        assertThrows(IllegalValueException.class, JsonAdaptedVisit.END_DATE_EARLIER_THAN_START_DATE, () -> {
+            visit.toModelType(BENSON);
+        });
     }
 }

@@ -16,7 +16,7 @@ import seedu.address.model.visit.Visit;
  */
 public class FinishCurrentVisitCommand extends Command implements MutatorCommand {
 
-    public static final String COMMAND_WORD = "visit-now-finish";
+    public static final String COMMAND_WORD = "visit-end";
     public static final String MESSAGE_SUCCESS = "Finished current visit!";
     public static final String MESSAGE_FAILURE = "There is no ongoing visit to finish.";
 
