@@ -21,6 +21,7 @@ import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.ReadOnlyUserPrefs;
+import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.ShowBuilder;
 
@@ -126,6 +127,16 @@ public class AddCommandTest {
 
         @Override
         public boolean hasShow(Show show) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasShowName(Name showName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Show> getShowIfSameNameAs(Name showName) {
             throw new AssertionError("This method should not be called.");
         }
 

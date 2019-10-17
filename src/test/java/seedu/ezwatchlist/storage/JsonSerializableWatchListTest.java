@@ -19,6 +19,18 @@ public class JsonSerializableWatchListTest {
     private static final Path TYPICAL_SHOWS_FILE = TEST_DATA_FOLDER.resolve("typicalShowsWatchList.json");
     private static final Path INVALID_SHOW_FILE = TEST_DATA_FOLDER.resolve("invalidShowWatchList.json");
     private static final Path DUPLICATE_SHOW_FILE = TEST_DATA_FOLDER.resolve("duplicateShowWatchList.json");
+<<<<<<< HEAD
+
+    @Test
+    public void toModelType_typicalActorsFile_success() throws Exception {
+        /*JsonSerializableWatchList dataFromFile = JsonUtil.readJsonFile(TYPICAL_SHOWS_FILE,
+                JsonSerializableWatchList.class).get();
+        WatchList watchListFromFile = dataFromFile.toModelType();
+        WatchList typicalShowsWatchList = TypicalShows.getTypicalWatchList();
+        assertEquals(watchListFromFile, typicalShowsWatchList);*/
+    }
+
+=======
     /*
         @Test
         public void toModelType_typicalActorsFile_success() throws Exception {
@@ -29,6 +41,7 @@ public class JsonSerializableWatchListTest {
             assertEquals(watchListFromFile, typicalShowsWatchList);
         }
     */
+>>>>>>> 4dd392091bc59305dd87656f1917f802048fafac
     @Test
     public void toModelType_invalidShowFile_throwsIllegalValueException() throws Exception {
         JsonSerializableWatchList dataFromFile = JsonUtil.readJsonFile(INVALID_SHOW_FILE,

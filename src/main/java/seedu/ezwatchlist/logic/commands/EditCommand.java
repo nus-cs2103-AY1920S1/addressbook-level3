@@ -78,7 +78,6 @@ public class EditCommand extends Command {
         if (!showToEdit.isSameShow(editedShow) && model.hasShow(editedShow)) {
             throw new CommandException(MESSAGE_DUPLICATE_SHOW);
         }
-
         model.setShow(showToEdit, editedShow);
         model.updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
         return new CommandResult(String.format(MESSAGE_EDIT_SHOW_SUCCESS, editedShow));

@@ -1,25 +1,15 @@
 package seedu.ezwatchlist.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.show.Name;
-import seedu.ezwatchlist.model.show.Description;
-import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Date;
-import seedu.ezwatchlist.model.show.RunningTime;
-import seedu.ezwatchlist.model.actor.Actor;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "";
@@ -28,7 +18,6 @@ public class ParserUtilTest {
     private static final String INVALID_DATE = "";
     private static final int INVALID_RUNNING_TIME = -1;
     private static final String INVALID_ACTORS = "";
-
 
     private static final String VALID_NAME = "Titanic";
     private static final String VALID_DESCRIPTION = "Ship";

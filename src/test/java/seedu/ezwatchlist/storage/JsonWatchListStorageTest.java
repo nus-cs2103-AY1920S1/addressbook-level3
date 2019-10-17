@@ -59,6 +59,7 @@ public class JsonWatchListStorageTest {
     public void readWatchList_invalidAndValidShowWatchList_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readWatchList("invalidAndValidShowWatchList.json"));
     }
+
     /*
         @Test
         public void readAndSaveWatchList_allInOrder_success() throws Exception {
@@ -86,6 +87,7 @@ public class JsonWatchListStorageTest {
 
         }
     */
+
     @Test
     public void saveWatchList_nullWatchList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveWatchList(null, "SomeFile.json"));

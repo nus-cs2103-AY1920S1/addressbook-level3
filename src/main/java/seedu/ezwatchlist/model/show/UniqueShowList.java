@@ -2,11 +2,12 @@ package seedu.ezwatchlist.model.show;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.exceptions.DuplicateShowException;
 import seedu.ezwatchlist.model.show.exceptions.ShowNotFoundException;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
@@ -34,6 +35,26 @@ public class UniqueShowList implements Iterable<Show> {
     public boolean contains(Show toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameShow);
+    }
+
+    /**
+     * Returns true if the list contains an equivalent show name as the given argument.
+     */
+    public boolean hasShowName(Name showName) {
+        requireNonNull(showName);
+        Show show = new Show(showName, new Description(), new IsWatched(false), new Date(),
+                new RunningTime(), new HashSet<>(new ArrayList<>()));
+        return internalList.stream().anyMatch(show::isSameName);
+    }
+
+    /**
+     * Returns the list of shows that has the same name as the given argument as the current watch list.
+     */
+    public List<Show> getShowIfSameNameAs(Name showName) {
+        requireNonNull(showName);
+        Show currentShow = new Show(showName, new Description(), new IsWatched(false), new Date(),
+                new RunningTime(), new HashSet<>(new ArrayList<>()));
+        return internalList.stream().filter(show -> show.isSameName(currentShow)).collect(Collectors.toList());
     }
 
     /**

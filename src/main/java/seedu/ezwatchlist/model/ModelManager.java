@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
+import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
 
@@ -101,6 +102,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasShowName(Name showName) {
+        requireNonNull(showName);
+        return watchList.hasName(showName);
+    }
+
+    @Override
+    public List<Show> getShowIfSameNameAs(Name showName) {
+        requireNonNull(showName);
+        return watchList.getShowIfSameNameAs(showName);
+    }
+
+    @Override
     public void deleteShow(Show target) {
         watchList.removeShow(target);
     }
@@ -108,7 +121,6 @@ public class ModelManager implements Model {
     @Override
     public void addShow(Show show) {
         watchList.addShow(show);
-        updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
     }
 
     @Override
@@ -152,6 +164,7 @@ public class ModelManager implements Model {
     @Override
     public void updateSearchResultList(List<Show> shows) {
         searchResult.setShows(shows);
+        updateFilteredShowList(PREDICATE_SHOW_ALL_SHOWS);
     }
 
     public ObservableList<Show> getSearchResultList() {

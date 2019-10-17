@@ -32,7 +32,7 @@ public class WatchListParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
@@ -47,9 +47,6 @@ public class WatchListParser {
 
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
-
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
 
             case WatchCommand.COMMAND_WORD:
                 return new WatchCommandParser().parse(arguments);
