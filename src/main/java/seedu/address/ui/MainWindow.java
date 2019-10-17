@@ -21,6 +21,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.achievements.ui.AchievementsPage;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
@@ -44,6 +45,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
     private FinancialTrackerPage financialTrackerPage;
     private CalendarPage calendarPage;
     private ItineraryPage itineraryPage;
+    private AchievementsPage achievementsPage;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -80,14 +82,14 @@ public class MainWindow extends UiPart<Stage> implements Page {
         financialTrackerPage = new FinancialTrackerPage();
         calendarPage = new CalendarPage();
         itineraryPage = new ItineraryPage();
+        achievementsPage = new AchievementsPage();
 
         mainScene = primaryStage.getScene();
 
         // todo-this-week: call the PageScene constructor with your page scene instead,
         // e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
-        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), itineraryPage, calendarPage, financialTrackerPage);
-
+        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage, itineraryPage, financialTrackerPage, achievementsPage);
     }
 
     public Stage getPrimaryStage() {
