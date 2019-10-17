@@ -14,7 +14,7 @@ import seedu.address.model.person.Entry;
  */
 public class EntryCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "EntryListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -43,9 +43,13 @@ public class EntryCard extends UiPart<Region> {
         super(FXML);
         this.entry = entry;
         id.setText(displayedIndex + ". ");
-        desc.setText(entry.getDesc().fullDesc);
-        time.setText((entry).getTime().fullTime);
-        amt.setText(Double.toString(entry.getAmount().value));
+
+        String type = entry.getType().toLowerCase();
+        String descWithType = "[" + type + "] " + entry.getDesc().fullDesc;
+        desc.setText(descWithType);
+
+        time.setText("13:00");
+        amt.setText("$" + entry.getAmount().value);
 
         entry.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

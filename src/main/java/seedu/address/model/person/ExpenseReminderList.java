@@ -5,9 +5,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.exceptions.DuplicateEntryException;
 import seedu.address.model.person.exceptions.EntryNotFoundException;
 
@@ -21,25 +23,25 @@ import seedu.address.model.person.exceptions.EntryNotFoundException;
  * Supports a minimal set of list operations.
  *
  */
-public class UniqueEntryList implements Iterable<Entry> {
+public class ExpenseReminderList implements Iterable<ExpenseReminder> {
 
-    private final ObservableList<Entry> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Entry> internalUnmodifiableList =
+    private final ObservableList<ExpenseReminder> internalList = FXCollections.observableArrayList();
+    private final ObservableList<ExpenseReminder> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(Entry toCheck) {
+    public boolean contains(ExpenseReminder toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameEntry);
+        return internalList.stream().anyMatch(toCheck::isSameReminder);
     }
 
     /**
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(Entry toAdd) {
+    public void add(ExpenseReminder toAdd) {
         requireNonNull(toAdd);
 
         internalList.add(toAdd);
@@ -50,33 +52,33 @@ public class UniqueEntryList implements Iterable<Entry> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setEntry(Entry target, Entry editedEntry) {
-        requireAllNonNull(target, editedEntry);
+    public void setExpenseReminder(ExpenseReminder target, ExpenseReminder editedExpenseReminder) {
+        requireAllNonNull(target, editedExpenseReminder);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new EntryNotFoundException();
         }
 
-        if (!target.isSameEntry(editedEntry) && contains(editedEntry)) {
+        if (!target.equals(editedExpenseReminder) && contains(editedExpenseReminder)) {
             throw new DuplicateEntryException();
         }
 
-        internalList.set(index, editedEntry);
+        internalList.set(index, editedExpenseReminder);
     }
 
     /**
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(Entry toRemove) {
+    public void remove(ExpenseReminder toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new EntryNotFoundException();
         }
     }
 
-    public void setEntries(UniqueEntryList replacement) {
+    public void setEntries(ExpenseReminderList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -85,50 +87,61 @@ public class UniqueEntryList implements Iterable<Entry> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setEntries(List<Entry> entries) {
+    public void setEntries(List<ExpenseReminder> entries) {
         requireAllNonNull(entries);
-        if (!entriesAreUnique(entries)) {
-            throw new DuplicateEntryException();
-        }
 
         internalList.setAll(entries);
     }
 
     /**
+     * updates the status of all reminders in ExpenseReminderList
+     */
+    public void updateList() {
+        for (ExpenseReminder reminder : internalList) {
+            reminder.updateStatus();
+        }
+    }
+
+    /**
+     * Get list of reminders to be displayed on main page.
+     */
+    public ObservableList<ExpenseReminder> getDisplay() {
+        FilteredList<ExpenseReminder> displayList = new FilteredList<>(this.asUnmodifiableObservableList());
+        displayList.setPredicate(new ExpenseReminderIsActive());
+        return displayList;
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Entry> asUnmodifiableObservableList() {
+    public ObservableList<ExpenseReminder> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Entry> iterator() {
+    public Iterator<ExpenseReminder> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueEntryList // instanceof handles nulls
-                        && internalList.equals(((UniqueEntryList) other).internalList));
+                || (other instanceof ExpenseReminderList // instanceof handles nulls
+                && internalList.equals(((ExpenseReminderList) other).internalList));
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
     }
+}
 
-    /**
-     * Returns true if {@code persons} contains only unique persons.
-     */
-    private boolean entriesAreUnique(List<Entry> entries) {
-        for (int i = 0; i < entries.size() - 1; i++) {
-            for (int j = i + 1; j < entries.size(); j++) {
-                if (entries.get(i).isSameEntry(entries.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+/**
+ * Predicate to filter reminders to be displayed.
+ */
+class ExpenseReminderIsActive implements Predicate<ExpenseReminder> {
+    @Override
+    public boolean test(ExpenseReminder entry) {
+        return entry.getStatus();
     }
 }

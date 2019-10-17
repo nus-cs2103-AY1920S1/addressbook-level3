@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicateEntryException;
 import seedu.address.model.person.exceptions.EntryNotFoundException;
 
 /**
@@ -21,16 +20,14 @@ import seedu.address.model.person.exceptions.EntryNotFoundException;
  * Supports a minimal set of list operations.
  *
  */
-public class UniqueEntryList implements Iterable<Entry> {
+public class ExpenseTrackerList implements Iterable<ExpenseTracker> {
 
-    private final ObservableList<Entry> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Entry> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+    private final ObservableList<ExpenseTracker> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(Entry toCheck) {
+    public boolean contains(ExpenseTracker toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameEntry);
     }
@@ -39,7 +36,7 @@ public class UniqueEntryList implements Iterable<Entry> {
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(Entry toAdd) {
+    public void add(ExpenseTracker toAdd) {
         requireNonNull(toAdd);
 
         internalList.add(toAdd);
@@ -50,85 +47,68 @@ public class UniqueEntryList implements Iterable<Entry> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setEntry(Entry target, Entry editedEntry) {
-        requireAllNonNull(target, editedEntry);
-
+    public void setTracker(ExpenseTracker target, ExpenseTracker editedTracker) {
+        requireAllNonNull(target, editedTracker);
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new EntryNotFoundException();
         }
 
-        if (!target.isSameEntry(editedEntry) && contains(editedEntry)) {
-            throw new DuplicateEntryException();
+        if (target.equals(editedTracker) || !contains(editedTracker)) {
+            internalList.set(index, editedTracker);
         }
-
-        internalList.set(index, editedEntry);
     }
 
     /**
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(Entry toRemove) {
+    public void remove(ExpenseTracker toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new EntryNotFoundException();
         }
     }
 
-    public void setEntries(UniqueEntryList replacement) {
+    public void setEntries(ExpenseTrackerList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
+
+
 
     /**
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setEntries(List<Entry> entries) {
+    public void setEntries(List<ExpenseTracker> entries) {
         requireAllNonNull(entries);
-        if (!entriesAreUnique(entries)) {
-            throw new DuplicateEntryException();
-        }
 
         internalList.setAll(entries);
     }
 
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Entry> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
+    public ObservableList<ExpenseTracker> asUnmodifiableObservableList() {
+        return internalList;
     }
 
     @Override
-    public Iterator<Entry> iterator() {
+    public Iterator<ExpenseTracker> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueEntryList // instanceof handles nulls
-                        && internalList.equals(((UniqueEntryList) other).internalList));
+                || (other instanceof ExpenseTrackerList // instanceof handles nulls
+                && internalList.equals(((ExpenseTrackerList) other).internalList));
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
-    }
-
-    /**
-     * Returns true if {@code persons} contains only unique persons.
-     */
-    private boolean entriesAreUnique(List<Entry> entries) {
-        for (int i = 0; i < entries.size() - 1; i++) {
-            for (int j = i + 1; j < entries.size(); j++) {
-                if (entries.get(i).isSameEntry(entries.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 }

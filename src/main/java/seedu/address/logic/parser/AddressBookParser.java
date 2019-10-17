@@ -7,12 +7,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddExpenseReminderCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteExpenseReminderCommand;
 import seedu.address.logic.commands.DeleteWishCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditExpenseCommand;
+import seedu.address.logic.commands.EditExpenseReminderCommand;
 import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.EditWishCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -95,6 +98,15 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddExpenseReminderCommand.COMMAND_WORD:
+            return new AddExpenseReminderCommandParser().parse(arguments);
+
+        case EditExpenseReminderCommand.COMMAND_WORD:
+            return new EditExpenseReminderCommandParser().parse(arguments);
+
+        case DeleteExpenseReminderCommand.COMMAND_WORD:
+            return new DeleteExpenseReminderCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -8,30 +8,30 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Entry;
+import seedu.address.model.person.BudgetStub;
 
 /**
- * Panel containing the list of entries.
+ * Side panel for budgets.
  */
-public class EntryListPanel extends UiPart<Region> {
-    private static final String FXML = "EntryListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(EntryListPanel.class);
+public class BudgetPanel extends UiPart<Region> {
+    private static final String FXML = "BudgetListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(BudgetPanel.class);
 
     @FXML
-    private ListView<Entry> entryListView;
+    private ListView<BudgetStub> budgetListView;
 
-    public EntryListPanel(ObservableList<Entry> entryList) {
+    public BudgetPanel(ObservableList<BudgetStub> budgetList) {
         super(FXML);
-        entryListView.setItems(entryList);
-        entryListView.setCellFactory(listView -> new EntryListViewCell());
+        budgetListView.setItems(budgetList);
+        budgetListView.setCellFactory(listView -> new BudgetListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class EntryListViewCell extends ListCell<Entry> {
+    class BudgetListViewCell extends ListCell<BudgetStub> {
         @Override
-        protected void updateItem(Entry entry, boolean empty) {
+        protected void updateItem(BudgetStub entry, boolean empty) {
             super.updateItem(entry, empty);
 
             if (empty || entry == null) {
@@ -43,5 +43,4 @@ public class EntryListPanel extends UiPart<Region> {
             }
         }
     }
-
 }
