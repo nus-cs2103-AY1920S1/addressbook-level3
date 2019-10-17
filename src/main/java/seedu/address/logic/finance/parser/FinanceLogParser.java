@@ -6,10 +6,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.finance.commands.SpendCommand;
 import seedu.address.logic.finance.commands.Command;
 import seedu.address.logic.finance.commands.ExitCommand;
 import seedu.address.logic.finance.commands.HelpCommand;
+import seedu.address.logic.finance.commands.SpendCommand;
 import seedu.address.logic.finance.commands.SwitchCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 
@@ -42,7 +42,7 @@ public class FinanceLogParser {
         switch (commandWord) {
 
         case SpendCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new SpendCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

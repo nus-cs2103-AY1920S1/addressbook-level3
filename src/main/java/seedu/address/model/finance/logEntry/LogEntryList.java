@@ -30,7 +30,7 @@ public class LogEntryList implements Iterable<LogEntry> {
      */
     public boolean contains(LogEntry toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameLogEntry);
     }
 
     /**
@@ -66,7 +66,7 @@ public class LogEntryList implements Iterable<LogEntry> {
         }
     }
 
-    public void setLogEntry(LogEntryList replacement) {
+    public void setLogEntries(LogEntryList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -75,7 +75,7 @@ public class LogEntryList implements Iterable<LogEntry> {
      * Replaces the contents of this list with {@code logEntries}.
      * {@code logEntries} must not contain duplicate persons.
      */
-    public void setLogEntry(List<LogEntry> logEntries) {
+    public void setLogEntries(List<LogEntry> logEntries) {
         requireAllNonNull(logEntries);
 
         internalList.setAll(logEntries);

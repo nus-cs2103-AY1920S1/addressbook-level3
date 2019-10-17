@@ -113,7 +113,7 @@ public class ModelFinanceManager implements Model {
         financeLog.setLogEntry(target, editedLogEntry);
     }
 
-    //=========== Filtered List of Finance Log Entries Accessors =============================================================
+    //=========== Filtered List of Finance Log Entries Accessors ===========
 
     /**
      * Returns an unmodifiable view of the list of {@code LogEntry} backed by the internal list of

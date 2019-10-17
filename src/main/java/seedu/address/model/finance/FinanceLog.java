@@ -43,7 +43,7 @@ public class FinanceLog implements ReadOnlyFinanceLog {
      * Replaces the contents of the list of log entries with {@code logEntries}.
      */
     public void setLogEntries(List<LogEntry> logEntries) {
-        this.logEntries.setLogEntry(logEntries);
+        this.logEntries.setLogEntries(logEntries);
     }
 
     /**

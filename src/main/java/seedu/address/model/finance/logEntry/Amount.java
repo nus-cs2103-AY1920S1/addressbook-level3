@@ -26,14 +26,14 @@ public class Amount {
      */
     public Amount(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidAmount(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
 
     /**
      * Returns true if a given string is a valid amount.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidAmount(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

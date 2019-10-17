@@ -1,55 +1,44 @@
 package seedu.address.logic.finance.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.finance.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.finance.parser.CliSyntax.PREFIX_DAY;
-import static seedu.address.logic.finance.parser.CliSyntax.PREFIX_ITEM;
-import static seedu.address.logic.finance.parser.CliSyntax.PREFIX_PLACE;
-import static seedu.address.logic.finance.parser.CliSyntax.PREFIX_TRANSACTION_METHOD;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DAY;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.model.finance.Model.PREDICATE_SHOW_ALL_LOG_ENTRIES;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.model.finance.Model;
-import seedu.address.model.finance.attributes.Tag;
-import seedu.address.model.finance.logentry.Address;
 import seedu.address.model.finance.logentry.Amount;
-import seedu.address.model.finance.logentry.Email;
+import seedu.address.model.finance.logentry.Description;
 import seedu.address.model.finance.logentry.LogEntry;
-import seedu.address.model.finance.logentry.Phone;
-
+import seedu.address.model.finance.logentry.TransactionDate;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing log entry in the finance log.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the log entry identified "
+            + "by the index number used in the displayed list of log entries. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DAY + "NAME] "
-            + "[" + PREFIX_ITEM + "PHONE] "
-            + "[" + PREFIX_CATEGORY + "EMAIL] "
-            + "[" + PREFIX_PLACE + "ADDRESS] "
-            + "[" + PREFIX_TRANSACTION_METHOD + "TAG]...\n"
+            + "[" + PREFIX_AMOUNT + "AMOUNT] "
+            + "[" + PREFIX_DAY + "TRANSACTION_DATE] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_ITEM + "91234567 "
-            + PREFIX_CATEGORY + "johndoe@example.com";
+            + PREFIX_DAY + "91234567 "
+            + PREFIX_DESCRIPTION + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited log entry: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -78,10 +67,6 @@ public class EditCommand extends Command {
         LogEntry logEntryToEdit = lastShownList.get(index.getZeroBased());
         LogEntry editedLogEntry = createEditedPerson(logEntryToEdit, editPersonDescriptor);
 
-        if (!logEntryToEdit.isSamePerson(editedLogEntry) && model.hasLogEntry(editedLogEntry)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
-
         model.setLogEntry(logEntryToEdit, editedLogEntry);
         model.updateFilteredLogEntryList(PREDICATE_SHOW_ALL_LOG_ENTRIES);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedLogEntry));
@@ -95,12 +80,10 @@ public class EditCommand extends Command {
         assert logEntryToEdit != null;
 
         Amount updatedAmount = editPersonDescriptor.getAmount().orElse(logEntryToEdit.getAmount());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(logEntryToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(logEntryToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(logEntryToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(logEntryToEdit.getTags());
+        TransactionDate updatedPhone = editPersonDescriptor.getTDate().orElse(logEntryToEdit.getTransactionDate());
+        Description updatedEmail = editPersonDescriptor.getDesc().orElse(logEntryToEdit.getDescription());
 
-        return new LogEntry(updatedAmount, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new LogEntry(updatedAmount, updatedPhone, updatedEmail);
     }
 
     @Override
@@ -127,10 +110,8 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Amount amount;
-        private Phone phone;
-        private Email email;
-        private Address address;
-        private Set<Tag> tags;
+        private TransactionDate tDate;
+        private Description desc;
 
         public EditPersonDescriptor() {}
 
@@ -140,17 +121,15 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setAmount(toCopy.amount);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
-            setTags(toCopy.tags);
+            setTDate(toCopy.tDate);
+            setDesc(toCopy.desc);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(amount, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(amount, tDate, desc);
         }
 
         public void setAmount(Amount amount) {
@@ -161,45 +140,20 @@ public class EditCommand extends Command {
             return Optional.ofNullable(amount);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setTDate(TransactionDate tDate) {
+            this.tDate = tDate;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<TransactionDate> getTDate() {
+            return Optional.ofNullable(tDate);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setDesc(Description desc) {
+            this.desc = desc;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Description> getDesc() {
+            return Optional.ofNullable(desc);
         }
 
         @Override
@@ -218,10 +172,8 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getAmount().equals(e.getAmount())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
+                    && getTDate().equals(e.getTDate())
+                    && getDesc().equals(e.getDesc());
         }
     }
 }

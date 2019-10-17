@@ -2,11 +2,9 @@ package seedu.address.logic.finance.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.finance.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.finance.parser.CliSyntax.PREFIX_DAY;
-import static seedu.address.logic.finance.parser.CliSyntax.PREFIX_ITEM;
-import static seedu.address.logic.finance.parser.CliSyntax.PREFIX_PLACE;
-import static seedu.address.logic.finance.parser.CliSyntax.PREFIX_TRANSACTION_METHOD;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DAY;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DESCRIPTION;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -31,9 +29,11 @@ public class EditCommandParser implements Parser<EditCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args) throws ParseException {
+
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DAY, PREFIX_ITEM, PREFIX_CATEGORY, PREFIX_PLACE, PREFIX_TRANSACTION_METHOD);
+                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DAY,
+                        PREFIX_DESCRIPTION);
 
         Index index;
 
@@ -44,19 +44,16 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
+            editPersonDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
+        }
         if (argMultimap.getValue(PREFIX_DAY).isPresent()) {
-            editPersonDescriptor.setAmount(ParserUtil.parseName(argMultimap.getValue(PREFIX_DAY).get()));
+            editPersonDescriptor.setTDate(ParserUtil.parseTransactionDate(argMultimap.getValue(PREFIX_DAY).get()));
         }
-        if (argMultimap.getValue(PREFIX_ITEM).isPresent()) {
-            editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_ITEM).get()));
+        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
+            editPersonDescriptor.setDesc(ParserUtil.parseDescription(
+                    argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
-        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_CATEGORY).get()));
-        }
-        if (argMultimap.getValue(PREFIX_PLACE).isPresent()) {
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_PLACE).get()));
-        }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TRANSACTION_METHOD)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

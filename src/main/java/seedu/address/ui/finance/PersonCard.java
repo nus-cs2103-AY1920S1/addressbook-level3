@@ -1,7 +1,5 @@
 package seedu.address.ui.finance;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -30,11 +28,11 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label amount;
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label tDate;
     @FXML
     private Label address;
     @FXML
@@ -46,13 +44,9 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.logEntry = logEntry;
         id.setText(displayedIndex + ". ");
-        name.setText(logEntry.getAmount().fullName);
-        phone.setText(logEntry.getPhone().value);
-        address.setText(logEntry.getAddress().value);
-        email.setText(logEntry.getEmail().value);
-        logEntry.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        amount.setText(logEntry.getAmount().fullName);
+        tDate.setText(logEntry.getTransactionDate().value);
+        email.setText(logEntry.getDescription().value);
     }
 
     @Override
