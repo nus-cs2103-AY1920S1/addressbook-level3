@@ -172,7 +172,9 @@ public class MainApp extends Application {
         return initialNoteData;
     }
 
-
+    /**
+     * Starts the log.
+     */
     private void initLogging(Config config) {
         LogsCenter.init(config);
     }
