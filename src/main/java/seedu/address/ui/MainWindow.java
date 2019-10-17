@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private OngoingVisitListPanel ongoingVisitListPanel;
     private AutoCompletePanel autoCompletePanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -139,6 +140,9 @@ public class MainWindow extends UiPart<Stage> {
         dataPanelsTabPaneManager = new DataPanelsTabPaneManager(dataPanelsTabPane,
                 patientTabPage,
                 ongoingVisitTabPage);
+
+        ongoingVisitListPanel = new OngoingVisitListPanel(logic.getObservableOngoingVisitList());
+        //ongoingVisitPanelPlaceholder.getChildren().add(ongoingVisitListPanel.getRoot());
     }
 
     /**

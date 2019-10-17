@@ -27,23 +27,13 @@ import seedu.address.model.visittodo.VisitTodo;
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
-        return new Person[] {
+        Person[] resultPersonArr = new Person[] {
             new Person(new Name("Alex Yeoh"),
                     new Phone("87438807"),
                     new Email("alexyeoh@example.com"),
                     new Address("Blk 30 Geylang Street 29, #06-40"),
                     getTagSet("friends"), getVisitTodos(),
-                    collateVisits(makeVisit("Alex is in good health.",
-                            "10-11-2019 1500",
-                            "10-11-2019 1700",
-                            collateVisitTasks(
-                                    makeVisitTask("Apply Eyedrops", "", true),
-                                    makeVisitTask("Top-up medicine", "", true),
-                                    makeVisitTask("Check his diet",
-                                            "Stopped eating donuts", true),
-                                    makeVisitTask("Check his sleep cycle",
-                                            "Could not sleep on Monday and Thursday", true)
-                            )))),
+                    collateVisits()),
             new Person(new Name("Bernice Yu"),
                     new Phone("99272758"),
                     new Email("berniceyu@example.com"),
@@ -57,29 +47,14 @@ public class SampleDataUtil {
                     new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                     getTagSet("neighbours"),
                     getVisitTodos("Body Temperature"),
-                    collateVisits(makeVisit("Charlotte was very quiet.",
-                            "12-11-2018 1500",
-                            "12-11-2018 1700",
-                            collateVisitTasks(
-                                    makeVisitTask("Check bed for bugs", "", true),
-                                    makeVisitTask("Top-up medicine", "", true)
-                            )))),
+                    collateVisits()),
             new Person(new Name("David Li"),
                     new Phone("91031282"),
                     new Email("lidavid@example.com"),
                     new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                     getTagSet("family"),
                     getVisitTodos("Pain Level", "Check if patient has been exercising"),
-                    collateVisits(makeVisit("",
-                            "12-11-2018 1500",
-                            null,
-                            collateVisitTasks(
-                                    makeVisitTask("Blood pressure", "140/90mmHg", true),
-                                    makeVisitTask("Check bed for bugs", "", true),
-                                    makeVisitTask("Top-up medicine", "", false),
-                                    makeVisitTask("Ask spouse about David's condition",
-                                            "", false)
-                            )))),
+                    collateVisits()),
             new Person(new Name("Irfan Ibrahim"),
                     new Phone("92492021"),
                     new Email("irfan@example.com"),
@@ -95,6 +70,44 @@ public class SampleDataUtil {
                     getVisitTodos("Check wounds"),
                     collateVisits())
         };
+
+        // Add Visits, as they need a reference to the person they are attached to
+        resultPersonArr[0].addVisit(makeVisit("Alex is in good health.",
+                "10-11-2019 1500",
+                "10-11-2019 1700",
+                collateVisitTasks(
+                        makeVisitTask("Apply Eyedrops", "", true),
+                        makeVisitTask("Top-up medicine", "", true),
+                        makeVisitTask("Check his diet",
+                                "Stopped eating donuts", true),
+                        makeVisitTask("Check his sleep cycle",
+                                "Could not sleep on Monday and Thursday", true)
+                ),
+                resultPersonArr[0]
+        ));
+        resultPersonArr[1].addVisit(makeVisit("Charlotte was very quiet.",
+                "12-11-2018 1500",
+                "12-11-2018 1700",
+                collateVisitTasks(
+                        makeVisitTask("Check bed for bugs", "", true),
+                        makeVisitTask("Top-up medicine", "", true)
+                ),
+                resultPersonArr[1]
+        ));
+        resultPersonArr[2].addVisit(makeVisit("",
+                "12-12-2018 1500",
+                "12-12-2018 1700",
+                collateVisitTasks(
+                        makeVisitTask("Blood pressure", "140/90mmHg", true),
+                        makeVisitTask("Check bed for bugs", "", true),
+                        makeVisitTask("Top-up medicine", "", false),
+                        makeVisitTask("Ask spouse about David's condition",
+                                "", false)
+                ),
+                resultPersonArr[2]
+        ));
+
+        return resultPersonArr;
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
@@ -140,13 +153,13 @@ public class SampleDataUtil {
     /**
      * Helper function to return a visit.
      */
-    public static Visit makeVisit(String remark, String start, String end, List<VisitTask> visitTasks) {
+    public static Visit makeVisit(String remark, String start, String end, List<VisitTask> visitTasks, Person patient) {
         if (end == null) {
             return new Visit(new Remark(remark), new StartDateTime(start),
-                    EndDateTime.UNFINISHED_VISIT_END_DATE_TIME, visitTasks);
+                    EndDateTime.UNFINISHED_VISIT_END_DATE_TIME, visitTasks, patient);
         }
         return new Visit(new Remark(remark), new StartDateTime(start),
-                new EndDateTime(end), visitTasks);
+                new EndDateTime(end), visitTasks, patient);
     }
 
     /**

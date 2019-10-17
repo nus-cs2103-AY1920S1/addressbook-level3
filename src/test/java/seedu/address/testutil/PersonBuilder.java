@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -40,6 +41,10 @@ public class PersonBuilder {
     private Collection<VisitTodo> visitTodos;
     private List<Visit> visits;
 
+    //Because visits need a reference to their person in order to be created, this allows one to call the functions
+    //"withOngoingVisits()" etc before calling build
+    private List<Consumer<Person>> visitsConsumerList;
+
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
@@ -48,6 +53,7 @@ public class PersonBuilder {
         tags = new HashSet<>();
         visitTodos = new LinkedHashSet<>();
         visits = new ArrayList<>();
+        visitsConsumerList = new ArrayList<>();
     }
 
     /**
@@ -61,6 +67,7 @@ public class PersonBuilder {
         tags = new HashSet<>(personToCopy.getTags());
         visitTodos = new LinkedHashSet<>(personToCopy.getVisitTodos());
         visits = new ArrayList<>(personToCopy.getVisits());
+        visitsConsumerList = new ArrayList<>();
     }
 
     /**
@@ -116,27 +123,30 @@ public class PersonBuilder {
      * Adds finished visits to the list of visits.
      */
     public PersonBuilder withPreviousVisits() {
-        this.visits.addAll(collateVisits(makeVisit("",
-                "10-11-2019 1500",
-                "10-11-2019 1700",
-                collateVisitTasks(
-                        makeVisitTask("Apply Eyedrops", "", true),
-                        makeVisitTask("Top-up medicine", "", true),
-                        makeVisitTask("Check his diet",
-                                "Stopped eating donuts", true),
-                        makeVisitTask("Check his sleep cycle",
-                                "Could not sleep on Monday and Thursday", true)
-                        )
-                ),
-                makeVisit("Patient was very quiet.",
-                        "12-11-2018 1500",
-                        "12-11-2018 1700",
-                        collateVisitTasks(
-                                makeVisitTask("Check bed for bugs", "", true),
-                                makeVisitTask("Top-up medicine", "", true)
-                        )
-                )
-        ));
+        visitsConsumerList.add(person -> {
+            person.addVisits(collateVisits(makeVisit("",
+                    "10-11-2019 1500",
+                    "10-11-2019 1700",
+                    collateVisitTasks(
+                            makeVisitTask("Apply Eyedrops", "", true),
+                            makeVisitTask("Top-up medicine", "", true),
+                            makeVisitTask("Check his diet",
+                                    "Stopped eating donuts", true),
+                            makeVisitTask("Check his sleep cycle",
+                                    "Could not sleep on Monday and Thursday", true)
+                    ),
+                    person),
+                    makeVisit("Patient was very quiet.",
+                            "12-11-2018 1500",
+                            "12-11-2018 1700",
+                            collateVisitTasks(
+                                    makeVisitTask("Check bed for bugs", "", true),
+                                    makeVisitTask("Top-up medicine", "", true)
+                            ),
+                            person
+                    )
+            ));
+        });
         return this;
     }
 
@@ -144,19 +154,28 @@ public class PersonBuilder {
      * Adds finished visits to the list of visits.
      */
     public PersonBuilder withOngoingVisit() {
-        this.visits.addAll(collateVisits(makeVisit("",
-                "10-11-2019 1500",
-                null,
-                collateVisitTasks(
-                        makeVisitTask("Apply Eyedrops", "", true),
-                        makeVisitTask("Top-up medicine", "Need more Vit. D",
-                                false)
-                ))));
+        visitsConsumerList.add(person -> {
+            person.addVisits(collateVisits(makeVisit("",
+                    "10-11-2019 1500",
+                    null,
+                    collateVisitTasks(
+                            makeVisitTask("Apply Eyedrops", "", true),
+                            makeVisitTask("Top-up medicine", "Need more Vit. D",
+                                    false)
+                    ),
+                    person
+            )));
+        });
         return this;
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags, visitTodos, visits);
+        Person person = new Person(name, phone, email, address, tags, visitTodos, visits);
+        //populate with visits
+        for (Consumer<Person> consumer : visitsConsumerList) {
+            consumer.accept(person);
+        }
+        return person;
     }
 
 }

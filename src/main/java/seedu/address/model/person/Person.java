@@ -168,7 +168,16 @@ public class Person {
      * Add visit to patient's visit list.
      */
     public void addVisit(Visit visit) {
+        requireNonNull(visit);
         visits.add(visit);
+    }
+
+    /**
+     * Add a list of visits to patient's visit list.
+     */
+    public void addVisits(List<Visit> visits) {
+        requireNonNull(visits);
+        this.visits.addAll(visits);
     }
 
     /**

@@ -14,8 +14,8 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -156,24 +156,29 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public ObservableList<Visit> getObservableOngoingVisitList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
-        public void setCurrentPersonAndVisit(Person person, Visit visit) {
+        public void setOngoingVisit(Visit visit) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void unsetCurrentPersonAndVisit() {
+        public void unsetOngoingVisit() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Optional<Pair<Person, Visit>> getCurrentPersonAndVisit() {
+        public Optional<Visit> getOngoingVisit() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean personHasOngoingVisit(Person personToDelete) {
+        public boolean patientHasOngoingVisit(Person personToDelete) {
             throw new AssertionError("This method should not be called.");
         }
     }

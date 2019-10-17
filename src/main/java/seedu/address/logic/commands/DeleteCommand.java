@@ -42,7 +42,7 @@ public class DeleteCommand extends Command implements MutatorCommand {
         }
 
         Person personToDelete = fullPatientList.get(targetIndex.getZeroBased());
-        if (model.personHasOngoingVisit(personToDelete)) {
+        if (model.patientHasOngoingVisit(personToDelete)) {
             throw new CommandException(MESSAGE_INVALID_PERSON_HAS_ONGOING_VISIT);
         }
         model.deletePerson(personToDelete);

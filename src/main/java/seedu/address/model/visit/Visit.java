@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import seedu.address.model.person.Person;
 import seedu.address.model.visittask.VisitTask;
 
 /**
@@ -14,6 +15,9 @@ import seedu.address.model.visittask.VisitTask;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Visit {
+    // Pointer fields (not actually stored as a variable in JSON or CSV files)
+    private final Person patient;
+
     // Data fields
     private final Remark remark;
     private final StartDateTime startDateTime;
@@ -25,12 +29,13 @@ public class Visit {
      * to accommodate for visits that have not finished.
      */
     public Visit(Remark remark, StartDateTime startDateTime,
-                 EndDateTime endDateTime, List<VisitTask> visitTasks) {
-        requireAllNonNull(remark, startDateTime, visitTasks);
+                 EndDateTime endDateTime, List<VisitTask> visitTasks, Person patient) {
+        requireAllNonNull(remark, startDateTime, visitTasks, patient);
         this.remark = remark;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.visitTasks = visitTasks;
+        this.patient = patient;
     }
 
     public Remark getRemark() {
@@ -51,6 +56,10 @@ public class Visit {
      */
     public List<VisitTask> getVisitTasks() {
         return Collections.unmodifiableList(visitTasks);
+    }
+
+    public Person getPatient() {
+        return patient;
     }
 
     /**
@@ -77,7 +86,7 @@ public class Visit {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(remark, startDateTime, endDateTime, visitTasks);
+        return Objects.hash(remark, startDateTime, endDateTime, visitTasks, patient);
     }
 
     @Override

@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.visit.Visit;
@@ -60,24 +59,24 @@ public interface Model {
      * Record ongoing visit of person in the model.
      * This will be saved until the visit is finished.
      */
-    void setCurrentPersonAndVisit(Person person, Visit visit);
+    void setOngoingVisit(Visit visit);
 
     /**
      * Set the ongoing visit of person in the model to null.
      */
-    void unsetCurrentPersonAndVisit();
+    void unsetOngoingVisit();
 
     /**
      * Get optional pair of current person and visit if there is an ongoing visit.
      */
-    Optional<Pair<Person, Visit>> getCurrentPersonAndVisit();
+    Optional<Visit> getOngoingVisit();
 
     /**
      * Return true if the person has an ongoing visit.
      * Note: The current implementation only checks if this person is the one being tracked using the
      * currentPersonAndVisit.
      */
-    boolean personHasOngoingVisit(Person personToDelete);
+    boolean patientHasOngoingVisit(Person personToDelete);
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -114,4 +113,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns an unmodifiable view of the list of ongoing visits.
+     * The current constraint is only one ongoing visit at one time.
+     */
+    ObservableList<Visit> getObservableOngoingVisitList();
 }

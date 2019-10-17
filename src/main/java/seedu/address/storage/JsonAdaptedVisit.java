@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Person;
 import seedu.address.model.visit.EndDateTime;
 import seedu.address.model.visit.Remark;
 import seedu.address.model.visit.StartDateTime;
@@ -63,11 +66,13 @@ class JsonAdaptedVisit {
     }
 
     /**
-     * Converts this Jackson-friendly adapted visit object into the model's {@code Visit} object.
+     * Converts this Jackson-friendly adapted visit object into the model's {@code Visit} object
+     * with a reference to its patient object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted visit.
      */
-    public Visit toModelType() throws IllegalValueException {
+    public Visit toModelType(Person patient) throws IllegalValueException {
+        requireNonNull(patient);
         final List<VisitTask> modelVisitTasks = new ArrayList<>();
         for (JsonAdaptedVisitTask visitTask : visitTasks) {
             modelVisitTasks.add(visitTask.toModelType());
@@ -99,7 +104,7 @@ class JsonAdaptedVisit {
             }
         }
 
-        return new Visit(modelRemark, modelStartDateTime, modelEndDateTime, modelVisitTasks);
+        return new Visit(modelRemark, modelStartDateTime, modelEndDateTime, modelVisitTasks, patient);
     }
 
 }

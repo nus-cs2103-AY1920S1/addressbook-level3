@@ -4,13 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-import javafx.util.Pair;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.MutatorCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
 import seedu.address.model.visit.Visit;
 
 /**
@@ -25,15 +23,15 @@ public class ShowCurrentVisitCommand extends Command implements MutatorCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Optional<Pair<Person, Visit>> optionalCurrentPersonVisitPair = model.getCurrentPersonAndVisit();
-        if (optionalCurrentPersonVisitPair.isEmpty()) {
+        Optional<Visit> ongoingVisit = model.getOngoingVisit();
+        if (ongoingVisit.isEmpty()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
-        Pair<Person, Visit> currentPersonVisitPair = optionalCurrentPersonVisitPair.get();
+        Visit visit = ongoingVisit.get();
 
         //Todo: Display UI for ongoing visit
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                currentPersonVisitPair.getValue(), currentPersonVisitPair.getKey()));
+                visit, visit.getPatient()));
     }
 }

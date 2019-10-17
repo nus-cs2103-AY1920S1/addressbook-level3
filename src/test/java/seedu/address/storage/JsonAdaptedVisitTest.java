@@ -33,42 +33,33 @@ public class JsonAdaptedVisitTest {
     public void toModelType_validVisitDetails_returnsVisitTask() throws Exception {
         for (Visit visit : BENSON.getVisits()) {
             JsonAdaptedVisit visitTask = new JsonAdaptedVisit(visit);
-            assertEquals(visit, visitTask.toModelType());
+            assertEquals(visit, visitTask.toModelType(BENSON));
         }
     }
 
-    @Test
-    public void toModelType_nullVisitRemarkOrEndOrTasks_doNotThrowIllegalValueException() {
+    private List<JsonAdaptedVisitTask> generateValidVisitTasks() {
         List<JsonAdaptedVisitTask> visitTasks = new ArrayList<>();
         visitTasks.addAll(VALID_VISIT.getVisitTasks().stream()
                 .map(JsonAdaptedVisitTask::new)
                 .collect(Collectors.toList()));
+        return visitTasks;
+    }
 
-        JsonAdaptedVisit visit = new JsonAdaptedVisit(null,
+    @Test
+    public void toModelType_nullRemark_doNotThrowIllegalValueException() {
+        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+        final JsonAdaptedVisit visit = new JsonAdaptedVisit(null,
                 VALID_START,
                 VALID_END,
                 visitTasks);
-        assertDoesNotThrow(visit::toModelType);
-
-        visit = new JsonAdaptedVisit(VALID_REMARK,
-                VALID_START,
-                null,
-                visitTasks);
-        assertDoesNotThrow(visit::toModelType);
-
-        visit = new JsonAdaptedVisit(VALID_REMARK,
-                VALID_START,
-                VALID_END,
-                null);
-        assertDoesNotThrow(visit::toModelType);
+        assertDoesNotThrow(() -> {
+            visit.toModelType(BENSON);
+        });
     }
 
     @Test
     public void toModelType_nullVisitStart_throwsIllegalValueException() {
-        List<JsonAdaptedVisitTask> visitTasks = new ArrayList<>();
-        visitTasks.addAll(VALID_VISIT.getVisitTasks().stream()
-                .map(JsonAdaptedVisitTask::new)
-                .collect(Collectors.toList()));
+        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
 
         JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 null,
@@ -77,45 +68,91 @@ public class JsonAdaptedVisitTest {
 
         String expectedMessage = String.format(JsonAdaptedVisit.MISSING_FIELD_MESSAGE_FORMAT,
                 StartDateTime.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, visit::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, () -> {
+            visit.toModelType(BENSON);
+        });
     }
 
     @Test
-    public void toModelType_invalidDates_throwsIllegalValueException() {
-        List<JsonAdaptedVisitTask> visitTasks = new ArrayList<>();
-        visitTasks.addAll(VALID_VISIT.getVisitTasks().stream()
-                .map(JsonAdaptedVisitTask::new)
-                .collect(Collectors.toList()));
+    public void toModelType_nullEndDateTime_doNotThrowIllegalValueException() {
+        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+        final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
+                VALID_START,
+                null,
+                visitTasks);
+        assertDoesNotThrow(() -> { visit.toModelType(BENSON); });
+    }
 
-        JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
+    @Test
+    public void toModelType_nullVisitTasks_doNotThrowIllegalValueException() {
+        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+        final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
+                VALID_START,
+                VALID_END,
+                null);
+        assertDoesNotThrow(() -> { visit.toModelType(BENSON); });
+    }
+
+    @Test
+    public void toModelType_startDateNotDate_throwsIllegalValueException() {
+        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+
+        final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 INVALID_DATE_1,
                 VALID_END,
                 visitTasks);
-        assertThrows(IllegalValueException.class, StartDateTime.MESSAGE_CONSTRAINTS, visit::toModelType);
+        assertThrows(IllegalValueException.class,
+                StartDateTime.MESSAGE_CONSTRAINTS, () -> {
+                    visit.toModelType(BENSON);
+                });
+    }
 
-        visit = new JsonAdaptedVisit(VALID_REMARK,
+    @Test
+    public void toModelType_startDateInvalidFormat_throwsIllegalValueException() {
+        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+
+        final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 INVALID_DATE_2,
                 VALID_END,
                 visitTasks);
-        assertThrows(IllegalValueException.class, StartDateTime.MESSAGE_CONSTRAINTS, visit::toModelType);
+        assertThrows(IllegalValueException.class,
+                StartDateTime.MESSAGE_CONSTRAINTS, () -> { visit.toModelType(BENSON); });
+    }
 
-        visit = new JsonAdaptedVisit(VALID_REMARK,
+    @Test
+    public void toModelType_endDateNotDate_throwsIllegalValueException() {
+        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+
+        final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 VALID_START,
                 INVALID_DATE_1,
                 visitTasks);
-        assertThrows(IllegalValueException.class, EndDateTime.MESSAGE_CONSTRAINTS, visit::toModelType);
+        assertThrows(IllegalValueException.class,
+                EndDateTime.MESSAGE_CONSTRAINTS, () -> { visit.toModelType(BENSON); });
+    }
 
-        visit = new JsonAdaptedVisit(VALID_REMARK,
+    @Test
+    public void toModelType_endDateInvalidFormat_throwsIllegalValueException() {
+        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+
+        final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 VALID_START,
                 INVALID_DATE_2,
                 visitTasks);
-        assertThrows(IllegalValueException.class, EndDateTime.MESSAGE_CONSTRAINTS, visit::toModelType);
+        assertThrows(IllegalValueException.class,
+                EndDateTime.MESSAGE_CONSTRAINTS, () -> { visit.toModelType(BENSON); });
+    }
 
-        visit = new JsonAdaptedVisit(VALID_REMARK,
+    @Test
+    public void toModelType_endDateEarlierThanStartDate_throwsIllegalValueException() {
+        List<JsonAdaptedVisitTask> visitTasks = generateValidVisitTasks();
+
+        final JsonAdaptedVisit visit = new JsonAdaptedVisit(VALID_REMARK,
                 VALID_END,
                 VALID_START,
                 visitTasks);
-        assertThrows(IllegalValueException.class, JsonAdaptedVisit.END_DATE_EARLIER_THAN_START_DATE,
-                visit::toModelType);
+        assertThrows(IllegalValueException.class,
+                JsonAdaptedVisit.END_DATE_EARLIER_THAN_START_DATE,
+                () -> { visit.toModelType(BENSON); });
     }
 }

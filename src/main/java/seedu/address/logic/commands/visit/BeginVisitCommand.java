@@ -60,11 +60,11 @@ public class BeginVisitCommand extends Command implements MutatorCommand {
                 new Remark(""),
                 new StartDateTime(now),
                 EndDateTime.UNFINISHED_VISIT_END_DATE_TIME,
-                VisitTaskUtil.listFromPatient(patient));
+                VisitTaskUtil.listFromPatient(patient), patient);
 
         patient.addVisit(visit);
 
-        model.setCurrentPersonAndVisit(patient, visit);
+        model.setOngoingVisit(visit);
 
         return new CommandResult(String.format(MESSAGE_START_VISIT_SUCCESS, patient));
     }

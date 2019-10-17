@@ -8,9 +8,9 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final ObservableList<Visit> ongoingVisitList;
 
     //Previous predicate variable to keep track of the predicate used by FindCommands
     private Predicate<Person> previousPredicate = PREDICATE_SHOW_ALL_PERSONS;
@@ -41,6 +42,9 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        ongoingVisitList = FXCollections.observableArrayList();
+        Optional<Visit> ongoingVisit = this.addressBook.getOngoingVisit();
+        ongoingVisit.ifPresent(ongoingVisitList::add);
     }
 
     public ModelManager() {
@@ -99,26 +103,26 @@ public class ModelManager implements Model {
      * This will be saved until the visit is finished.
      */
     @Override
-    public void setCurrentPersonAndVisit(Person person, Visit visit) {
-        addressBook.setCurrentPersonAndVisit(person, visit);
+    public void setOngoingVisit(Visit visit) {
+        addressBook.setOngoingVisit(visit);
     }
 
     @Override
-    public void unsetCurrentPersonAndVisit() {
-        addressBook.unsetCurrentPersonAndVisit();
+    public void unsetOngoingVisit() {
+        addressBook.unsetOngoingVisit();
     }
 
     @Override
-    public Optional<Pair<Person, Visit>> getCurrentPersonAndVisit() {
-        return addressBook.getCurrentPersonAndVisit();
+    public Optional<Visit> getOngoingVisit() {
+        return addressBook.getOngoingVisit();
     }
 
     @Override
-    public boolean personHasOngoingVisit(Person personToDelete) {
-        requireNonNull(personToDelete);
-        Optional<Pair<Person, Visit>> pair = getCurrentPersonAndVisit();
-        if (pair.isPresent()) {
-            return personToDelete.equals(pair.get().getKey());
+    public boolean patientHasOngoingVisit(Person patientToDelete) {
+        requireNonNull(patientToDelete);
+        Optional<Visit> optionalVisit = getOngoingVisit();
+        if (optionalVisit.isPresent()) {
+            return patientToDelete.equals(optionalVisit.get().getPatient());
         }
         return false;
     }
@@ -184,6 +188,11 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         previousPredicate = predicate;
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Visit> getObservableOngoingVisitList() {
+        return FXCollections.unmodifiableObservableList(ongoingVisitList);
     }
 
     @Override
