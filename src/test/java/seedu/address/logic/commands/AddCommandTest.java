@@ -256,6 +256,21 @@ public class AddCommandTest {
         public PasswordBook getPasswordBook() {
             return null;
         }
+
+        @Override
+        public boolean hasPassword(Password password) {
+            return false;
+        }
+
+        @Override
+        public void setPasswordBookFilePath(Path passwordBookFilePath) {
+
+        }
+
+        @Override
+        public Path getPasswordBookFilePath() {
+            return null;
+        }
     }
 
     /**

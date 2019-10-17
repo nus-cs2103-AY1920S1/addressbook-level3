@@ -28,7 +28,8 @@ public class AddPasswordCommandParser implements Parser<AddPasswordCommand> {
      */
     public AddPasswordCommand parse(String userInput) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(userInput, PREFIX_DESCRIPTION, PREFIX_USERNAME, PREFIX_PASSWORDVALUE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(userInput, PREFIX_DESCRIPTION,
+                        PREFIX_USERNAME, PREFIX_PASSWORDVALUE, PREFIX_TAG);
         if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_USERNAME, PREFIX_PASSWORDVALUE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPasswordCommand.MESSAGE_USAGE));

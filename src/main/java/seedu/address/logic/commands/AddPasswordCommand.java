@@ -23,7 +23,6 @@ public class AddPasswordCommand extends Command {
             + PREFIX_TAG + "TAG "
             + "Some example ...";
 
-    //TODO: NOT TO SHOW THE PASSWORD BUT MAYBE 1 letter + asterixs.
     public static final String MESSAGE_SUCCESS = "New password added: %1$s";
     public static final String MESSAGE_DUPLICATE_PASSWORD = "This password already exists in the password book";
 

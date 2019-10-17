@@ -39,7 +39,7 @@ public class PasswordBookParser {
         case DeletePasswordCommand.COMMAND_WORD:
             return new DeletePasswordCommandParser().parse(arguments);
         case ReadPasswordCommand.COMMAND_WORD:
-            //return new ReadPasswordCommandParser().parse(arguments);
+            return new ReadPasswordCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

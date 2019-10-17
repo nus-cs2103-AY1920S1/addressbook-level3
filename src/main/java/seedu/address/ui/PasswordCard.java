@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -8,7 +10,6 @@ import javafx.scene.layout.Region;
 
 import seedu.address.model.password.Password;
 
-import java.util.Comparator;
 
 /**
  * An UI component that displays information of a {@code Password}.
@@ -37,7 +38,7 @@ public class PasswordCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(password.getDescription().value);
         username.setText(password.getUsername().value);
-        passwordValue.setText(password.getPasswordValue().value);
+        passwordValue.setText(password.getPasswordValue().toString());
         password.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

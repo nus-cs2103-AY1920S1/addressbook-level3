@@ -45,12 +45,28 @@ public class Password {
         return passwordValue;
     }
 
+    public String getNonEncryptedPasswordValue() {
+        return passwordValue.getNonEncryptedPasswordValue();
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public String toNonAsterixString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Description: ")
+                .append(getDescription())
+                .append(" Username: ")
+                .append(getUsername())
+                .append(" Password: ")
+                .append(getNonEncryptedPasswordValue());
+
+        return builder.toString();
     }
 
     @Override

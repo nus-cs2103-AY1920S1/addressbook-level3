@@ -26,9 +26,34 @@ public class PasswordValue {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getEncryptedPasswordValue() {
+        return changeToAsterix(value);
+    }
+
+    public String getNonEncryptedPasswordValue() {
+        return value;
+    }
+
+    public String changeToAsterix(String password) {
+        int len = password.length();
+        if (len <= 3) {
+            return asterix(len);
+        } else {
+            return password.substring(0,2) + asterix(len-2);
+        }
+    }
+
+    public String asterix(int length) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            sb.append("*");
+        }
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
-        return value;
+        return getEncryptedPasswordValue();
     }
 
     @Override
