@@ -10,8 +10,9 @@ import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 public class PurchaseMoneySpent {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Money spent on installments should be taken as doubles , "
+            "Money spent on installments should be taken as doubles, "
                     + "and it should not be blank";
+
     public static final String MONEY_CONSTRAINTS =
             "Money spent cannot be equal to or less than 0.";
 

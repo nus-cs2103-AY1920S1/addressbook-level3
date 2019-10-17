@@ -10,7 +10,7 @@ import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 public class InstallmentDescription {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
      * The first character of the description must not be a whitespace,

@@ -10,7 +10,6 @@ import seedu.jarvis.model.address.person.exceptions.DuplicateInstallmentExceptio
 import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.financetracker.installment.Installment;
 
-
 /**
  * Manages a list of instalments saved by the user.
  */
@@ -63,6 +62,13 @@ public class InstallmentList {
         return totalMoneySpentOnInstallments;
     }
 
+    /**
+     * Retrieves the installment at that particular index.
+     *
+     * @param installmentNumber of the installment to be retrieved as seen on the list of installments
+     * @return Installment
+     * @throws InstallmentNotFoundException if the index is greater than the number of installments
+     */
     public Installment getInstallment(int installmentNumber) throws InstallmentNotFoundException {
         try {
             Index index = Index.fromOneBased(installmentNumber);
@@ -101,17 +107,18 @@ public class InstallmentList {
     public void editInstallment(int installmentNumber, String description, double value) {
         if (installmentNumber < 1) {
             throw new InstallmentNotFoundException();
-        } else {
-            requireNonNull(description);
-            Index index = Index.fromOneBased(installmentNumber);
-            allInstallments.get(index.getZeroBased()).editDescription(description);
-            allInstallments.get(index.getZeroBased()).editAmount(value);
-            totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
         }
+
+        requireNonNull(description);
+        Index index = Index.fromOneBased(installmentNumber);
+        allInstallments.get(index.getZeroBased()).editDescription(description);
+        allInstallments.get(index.getZeroBased()).editAmount(value);
+        totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
     }
 
     /**
      * Replaces the installment {@code target} in the list with {@code editedInstallment}.
+     *
      * {@code target} must exist in the list.
      * The identity of {@code editedInstallment} must not be the same as another existing installment in the
      * list.
@@ -129,6 +136,17 @@ public class InstallmentList {
         }
 
         allInstallments.set(index, editedInstallment);
+        totalMoneySpentOnInstallments = calculateTotalInstallmentSpending();
+    }
+
+    /**
+     * Checks for the existence of the installment that has already been added to avoid duplicates in the list.
+     *
+     * @param installment that is to be newly added
+     * @return boolean checking the existence of the same installment
+     */
+    public boolean hasInstallment(Installment installment) {
+        return this.contains(installment);
     }
 
     /**
@@ -187,22 +205,5 @@ public class InstallmentList {
         return other == this // short circuit if same object
                 || (other instanceof InstallmentList // instanceof handles nulls
                 && allInstallments.equals(((InstallmentList) other).allInstallments));
-    }
-
-    /**
-     * Checks for the existence of the installment that has already been added to avoid duplicates in the list.
-     *
-     * @param installment that is to be newly added
-     * @return boolean checking the existence of the same installment
-     */
-    public boolean hasInstallment(Installment installment) {
-        boolean installmentExists = false;
-        for (Installment instal : allInstallments) {
-            if (instal.equals(installment)) {
-                installmentExists = true;
-                break;
-            }
-        }
-        return installmentExists;
     }
 }

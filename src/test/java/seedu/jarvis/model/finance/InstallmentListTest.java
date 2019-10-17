@@ -12,6 +12,7 @@ import seedu.jarvis.model.financetracker.InstallmentList;
 import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
+import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
 /**
  * Tests logic of instalment list class.
@@ -67,24 +68,24 @@ public class InstallmentListTest {
 
     @Test
     public void editInstallment_normalInputs_editedCorrectly() {
-        installmentList.editInstallment(1, "Spotify subscription", 13.0);
-        assertEquals("Spotify subscription",
-                installmentList
-                        .getInstallment(1)
-                        .getDescription()
-                        .toString());
-        assertEquals(13.0,
-                installmentList
-                        .getInstallment(1)
-                        .getMoneySpentOnInstallment()
-                        .getInstallmentMoneyPaid());
+        Installment installment = installmentList.getInstallment(1);
+        Installment editedInstallment = new InstallmentBuilder()
+                .withDescription(new InstallmentDescription("Spotify"))
+                .withMoneySpent(new InstallmentMoneyPaid("9.50"))
+                .build();
+        installmentList.setInstallment(installment, editedInstallment);
+        assertEquals(installmentList.getInstallment(1), editedInstallment);
     }
 
     @Test
-    public void editInstallment_indexNonexistent_throwsError() {
+    public void editInstallment_nonExistentInstallment_throwsError() {
+        Installment installment = new InstallmentBuilder()
+                .withDescription(new InstallmentDescription("something"))
+                .build();
+
         assertThrows(RuntimeException.class, (
 
-        ) -> installmentList.editInstallment(5, "Spotify", 9.50));
+        ) -> installmentList.setInstallment(installment, new InstallmentStub()));
     }
 
     @Test

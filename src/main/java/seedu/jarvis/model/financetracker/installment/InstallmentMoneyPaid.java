@@ -12,6 +12,7 @@ public class InstallmentMoneyPaid {
     public static final String MESSAGE_CONSTRAINTS =
             "Subscription fee of installments should Names should only contain alphanumeric characters and spaces, "
                     + "and it should not be blank";
+
     public static final String MONEY_CONSTRAINTS =
             "Money spent cannot be equal to or less than 0.";
 

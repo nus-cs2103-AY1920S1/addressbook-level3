@@ -282,18 +282,6 @@ public class ModelManager implements Model {
         return financeTracker.hasInstallment(installment);
     }
 
-    /**
-     * Edits an existing installment by its value.
-     *
-     * @param installmentNumber
-     * @param description
-     * @param value
-     */
-    @Override
-    public void editInstallmentByValue(int installmentNumber, String description, double value) {
-        financeTracker.editInstallment(installmentNumber, description, value);
-    }
-
     @Override
     public void setInstallment(Installment target, Installment editedInstallment) {
         financeTracker.setInstallment(target, editedInstallment);

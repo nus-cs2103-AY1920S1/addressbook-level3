@@ -557,11 +557,6 @@ public class HistoryManagerTest {
         }
 
         @Override
-        public void editInstallmentByValue(int installmentNumber, String description, double value) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ArrayList<Installment> getInstallmentList() {
             throw new AssertionError("This method should not be called.");
         }

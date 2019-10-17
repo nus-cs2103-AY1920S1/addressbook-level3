@@ -97,6 +97,7 @@ public class PurchaseList {
 
     /**
      * Replaces the purchase {@code target} in the list with {@code editedPurchase}.
+     *
      * {@code target} must exist in the list.
      * The identity of {@code editedPurchase} must not be the same as another existing purchase in the
      * list.

@@ -53,20 +53,18 @@ public class FinanceTracker {
         this.installmentList = new InstallmentList(financeTracker.getInstallmentList());
     }
 
-    //=========== Setter Methods ==================================================================================
+    //=========== Purchase List =======================================================================
+
+    // ========== Setter Methods ======================================================================
 
     public void setPurchaseList(PurchaseList purchaseList) {
         this.purchaseList = purchaseList;
     }
 
-    public void setInstallmentList(InstallmentList installmentList) {
-        this.installmentList = installmentList;
-    }
-
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given purchase {@code target} in the list with {@code editedPurchase}.
+     * {@code target} must exist in the finance tracker.
+     * The identity of {@code editedPurchase} must not be the same as another existing purchase in the finance tracker.
      */
     public void setPurchase(Purchase target, Purchase editedPurchase) {
         requireNonNull(editedPurchase);
@@ -74,29 +72,18 @@ public class FinanceTracker {
         purchaseList.setPurchase(target, editedPurchase);
     }
 
-    //=========== Getter Methods ==================================================================================
+    //=========== Getter Methods ======================================================================
 
     public Purchase getPurchase(int paymentIndex) {
         return purchaseList.getPurchase(paymentIndex);
-    }
-
-    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
-        return installmentList.getInstallment(instalIndex);
-    }
-
-    public double getMonthlyLimit() {
-        return monthlyLimit;
-    }
-
-    public ArrayList<Installment> getInstallmentList() {
-        return installmentList.getAllInstallments();
     }
 
     public ArrayList<Purchase> getPurchaseList() {
         return purchaseList.getAllPurchases();
     }
 
-    //=========== Purchase List Command Methods =======================================================================
+
+    //=========== Command Methods =====================================================================
 
     /**
      * Adds single use payment.
@@ -125,7 +112,35 @@ public class FinanceTracker {
         return purchaseList.getNumPurchases();
     }
 
-    //=========== Installment List Command Methods ====================================================================
+    //=========== Installment List ====================================================================
+
+    //=========== Setter Methods ======================================================================
+
+    public void setInstallmentList(InstallmentList installmentList) {
+        this.installmentList = installmentList;
+    }
+
+    //=========== Getter Methods ======================================================================
+
+    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
+        return installmentList.getInstallment(instalIndex);
+    }
+
+    public ArrayList<Installment> getInstallmentList() {
+        return installmentList.getAllInstallments();
+    }
+
+    /**
+     * Returns the total number of installments made.
+     *
+     * @return number of total installments
+     */
+    public int getTotalInstallments() {
+        return installmentList.getNumInstallments();
+    }
+
+
+    //=========== Command Methods =====================================================================
 
     /**
      * Adds instalment.
@@ -141,17 +156,6 @@ public class FinanceTracker {
     }
 
     /**
-     * Edits instalment. todo change javadocs for all edit methods
-     *
-     * @param installmentNumber of instalment to be deleted
-     * @param description to be edited
-     * @param value to be edited
-     */
-    public void editInstallment(int installmentNumber, String description, double value) {
-        installmentList.editInstallment(installmentNumber, description, value);
-    }
-
-    /**
      * Replaces the person {@code target} in the list with {@code editedInstallment}.
      * {@code target} must exist in the list.
      * The person identity of {@code editedInstallment} must not be the same as another existing installment in the
@@ -161,13 +165,14 @@ public class FinanceTracker {
         installmentList.setInstallment(target, editedInstallment);
     }
 
-    /**
-     * Returns the total number of installments made.
-     *
-     * @return number of total installments
-     */
-    public int getTotalInstallments() {
-        return installmentList.getNumInstallments();
+    public boolean hasInstallment(Installment installment) {
+        return installmentList.hasInstallment(installment);
+    }
+
+    //=========== General Finance Tracker =============================================================
+
+    public double getMonthlyLimit() {
+        return monthlyLimit;
     }
 
     /**
@@ -200,10 +205,5 @@ public class FinanceTracker {
                 || (other instanceof FinanceTracker // instanceof handles nulls
                 && purchaseList.equals(((FinanceTracker) other).purchaseList)
                 && installmentList.equals(((FinanceTracker) other).installmentList));
-    }
-
-
-    public boolean hasInstallment(Installment installment) {
-        return installmentList.hasInstallment(installment);
     }
 }

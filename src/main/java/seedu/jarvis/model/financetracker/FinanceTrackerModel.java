@@ -63,15 +63,6 @@ public interface FinanceTrackerModel {
     boolean hasInstallment(Installment installment);
 
     /**
-     * Edits an existing instalment by its value.
-     *
-     * @param installmentNumber
-     * @param description
-     * @param value
-     */
-    void editInstallmentByValue(int installmentNumber, String description, double value);
-
-    /**
      * Replaces the person {@code target} in the list with {@code editedInstallment}.
      * {@code target} must exist in the list.
      * The person identity of {@code editedInstallment} must not be the same as another existing installment in the
