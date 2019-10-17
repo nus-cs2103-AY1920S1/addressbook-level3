@@ -1,4 +1,4 @@
-package com.typee.model.engagement;
+package com.typee.model.engagement.exceptions;
 
 public class InvalidTimeException extends Exception {
 

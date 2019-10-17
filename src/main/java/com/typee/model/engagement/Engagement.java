@@ -1,8 +1,9 @@
 package com.typee.model.engagement;
 
-import java.nio.charset.IllegalCharsetNameException;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import com.typee.model.engagement.exceptions.InvalidTimeException;
 
 /**
  * Represents a generalization of meetings, interviews and appointments.

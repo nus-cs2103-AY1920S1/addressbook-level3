@@ -20,7 +20,7 @@ import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.EngagementType;
-import com.typee.model.engagement.InvalidTimeException;
+import com.typee.model.engagement.exceptions.InvalidTimeException;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
 import com.typee.model.person.Person;
