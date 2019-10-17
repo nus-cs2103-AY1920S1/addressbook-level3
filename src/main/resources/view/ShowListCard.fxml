@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
@@ -17,13 +16,9 @@
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="136.00001220703126" minWidth="10.0" prefWidth="101.60004425048828" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.8000244140625" minWidth="10.0" prefWidth="256.8000244140625" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="256.8000244140625" minWidth="10.0" prefWidth="256.8000244140625" />
         </columnConstraints>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.hgrow="ALWAYS">
-         <image>
-            <Image url="@../images/poster-placeholder.png" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="posterPlaceholder" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.hgrow="ALWAYS" />
         <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />
@@ -64,4 +59,7 @@
          </CheckBox>
       </children>
    </GridPane>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
 </HBox>
