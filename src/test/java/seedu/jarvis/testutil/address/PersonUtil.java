@@ -1,4 +1,4 @@
-package seedu.jarvis.testutil;
+package seedu.jarvis.testutil.address;
 
 import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_ADDRESS;
 import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_EMAIL;

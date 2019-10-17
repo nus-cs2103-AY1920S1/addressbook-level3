@@ -17,6 +17,16 @@ public class ExitCommand extends Command {
     public static final boolean HAS_INVERSE = false;
 
     /**
+     * Gets the command word of the command.
+     *
+     * @return {@code String} representation of the command word.
+     */
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
+
+    /**
      * Returns whether the command has an inverse execution.
      * If the command has no inverse execution, then calling {@code executeInverse}
      * will be guaranteed to always throw a {@code CommandException}.
