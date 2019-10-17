@@ -3,17 +3,17 @@ package seedu.savenus.model.food;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.savenus.logic.commands.CommandTestUtil.CATEGORY_FIELD;
-import static seedu.savenus.logic.commands.CommandTestUtil.LOCATION_FIELD;
-import static seedu.savenus.logic.commands.CommandTestUtil.NAME_FIELD;
-import static seedu.savenus.logic.commands.CommandTestUtil.OPENING_HOURS_FIELD;
-import static seedu.savenus.logic.commands.CommandTestUtil.PRICE_FIELD;
-import static seedu.savenus.logic.commands.CommandTestUtil.RESTRICTIONS_FIELD;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_DESCRIPTION_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_LOCATION_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_NAME_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_PRICE_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_CHICKEN;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_CATEGORY;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_LOCATION;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_NAME;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_OPENING_HOURS;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_PRICE;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_RESTRICTIONS;
 import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalMenu.CARBONARA;
 import static seedu.savenus.testutil.TypicalMenu.NASI_LEMAK;
@@ -65,12 +65,12 @@ public class FoodTest {
     @Test
     public void get_field_tests() {
         Food carbonaraCopy = new FoodBuilder(CARBONARA).build();
-        assertEquals(carbonaraCopy.getField(CATEGORY_FIELD), carbonaraCopy.getCategory());
-        assertEquals(carbonaraCopy.getField(NAME_FIELD), carbonaraCopy.getName());
-        assertEquals(carbonaraCopy.getField(PRICE_FIELD), carbonaraCopy.getPrice());
-        assertEquals(carbonaraCopy.getField(LOCATION_FIELD), carbonaraCopy.getLocation());
-        assertEquals(carbonaraCopy.getField(OPENING_HOURS_FIELD), carbonaraCopy.getOpeningHours());
-        assertEquals(carbonaraCopy.getField(RESTRICTIONS_FIELD), carbonaraCopy.getRestrictions());
+        assertEquals(carbonaraCopy.getField(FIELD_NAME_CATEGORY), carbonaraCopy.getCategory());
+        assertEquals(carbonaraCopy.getField(FIELD_NAME_NAME), carbonaraCopy.getName());
+        assertEquals(carbonaraCopy.getField(FIELD_NAME_PRICE), carbonaraCopy.getPrice());
+        assertEquals(carbonaraCopy.getField(FIELD_NAME_LOCATION), carbonaraCopy.getLocation());
+        assertEquals(carbonaraCopy.getField(FIELD_NAME_OPENING_HOURS), carbonaraCopy.getOpeningHours());
+        assertEquals(carbonaraCopy.getField(FIELD_NAME_RESTRICTIONS), carbonaraCopy.getRestrictions());
     }
 
     @Test

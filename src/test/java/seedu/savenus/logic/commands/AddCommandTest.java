@@ -156,6 +156,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void editFilteredFoodList(List<String> fieldList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPurchase(Purchase purchase) {
             throw new AssertionError("This method should not be called.");
         }
