@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -15,6 +16,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.food.Name;
+import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
 
 /**
@@ -73,9 +75,16 @@ public class EditTemplateListCommand extends Command {
     private static UniqueTemplateItems createEditedTemplate(UniqueTemplateItems templateToEdit,
                                                             EditTemplateListDescriptor editTemplateListDescriptor) {
         assert templateToEdit != null;
-        Name updatedName = editTemplateListDescriptor.getName().orElse(templateToEdit.getName());
 
-        return new UniqueTemplateItems(updatedName);
+        UniqueTemplateItems editedTemplate;
+
+        Name updatedName = editTemplateListDescriptor.getName().orElse(templateToEdit.getName());
+        ObservableList<TemplateItem> templateItems = templateToEdit.getTemplate();
+
+        editedTemplate = new UniqueTemplateItems(updatedName);
+        editedTemplate.setTemplateItems(templateItems);
+
+        return editedTemplate;
     }
 
     /**
@@ -84,6 +93,7 @@ public class EditTemplateListCommand extends Command {
      */
     public static class EditTemplateListDescriptor {
         private Name name;
+        private UniqueTemplateItems templateItems;
 
         public EditTemplateListDescriptor() {}
 
@@ -92,7 +102,9 @@ public class EditTemplateListCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditTemplateListDescriptor(EditTemplateListDescriptor toCopy) {
+            templateItems = new UniqueTemplateItems(toCopy.name);
             setName(toCopy.name);
+            setTemplateItems(toCopy.templateItems);
         }
 
         /**
@@ -104,6 +116,12 @@ public class EditTemplateListCommand extends Command {
 
         public void setName(Name name) {
             this.name = name;
+        }
+
+        public void setTemplateItems(UniqueTemplateItems template) {
+            if (template != null) {
+                this.templateItems.setTemplateItems(template);
+            }
         }
 
         public Optional<Name> getName() {

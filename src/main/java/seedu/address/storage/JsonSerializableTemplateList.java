@@ -21,13 +21,13 @@ class JsonSerializableTemplateList {
 
     public static final String MESSAGE_DUPLICATE_TEMPLATE = "TemplateList contains duplicate template(s).";
 
-    private final List<JsonAdaptedTemplate> templateList = new ArrayList<>();
+    private final List<JsonSerializableTemplate> templateList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableTemplateList} with the given template items.
      */
     @JsonCreator
-    public JsonSerializableTemplateList(@JsonProperty("templateList") List<JsonAdaptedTemplate> templates) {
+    public JsonSerializableTemplateList(@JsonProperty("templateList") List<JsonSerializableTemplate> templates) {
         this.templateList.addAll(templates);
     }
 
@@ -37,7 +37,7 @@ class JsonSerializableTemplateList {
      * @param source future changes to this will not affect the created {@code JsonSerializableTemplateList}.
      */
     public JsonSerializableTemplateList(ReadOnlyTemplateList source) {
-        templateList.addAll(source.getTemplateList().stream().map(JsonAdaptedTemplate::new)
+        templateList.addAll(source.getTemplateList().stream().map(JsonSerializableTemplate::new)
                 .collect(Collectors.toList()));
     }
 
@@ -48,8 +48,8 @@ class JsonSerializableTemplateList {
      */
     public TemplateList toModelType() throws IllegalValueException {
         TemplateList templates = new TemplateList();
-        for (JsonAdaptedTemplate jsonAdaptedTemplate : templateList) {
-            UniqueTemplateItems template = jsonAdaptedTemplate.toModelType();
+        for (JsonSerializableTemplate jsonSerializableTemplate : templateList) {
+            UniqueTemplateItems template = jsonSerializableTemplate.toModelType();
             if (templates.hasTemplate(template)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TEMPLATE);
             }
