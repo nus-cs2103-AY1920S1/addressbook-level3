@@ -3,6 +3,9 @@ package seedu.jarvis.model.cca;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
+import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
+
 /**
  * Main class for the CcaTracker. Used to store all the lists related to CcaTracker
  */
@@ -36,6 +39,12 @@ public class CcaTracker {
         return ccaList;
     }
 
+    public Cca getCca(Index index) throws CommandException {
+        requireNonNull(index);
+
+        return ccaList.getCca(index);
+    }
+
     /**
      * Returns true if the list contains an equivalent cca {@code toCheck } as the given argument.
      *
@@ -58,8 +67,6 @@ public class CcaTracker {
 
     /**
      * Removes a cca {@code cca} from the cca list.
-     *
-     * @param cca
      */
     public void removeCca(Cca cca) {
         requireNonNull(cca);
@@ -75,5 +82,14 @@ public class CcaTracker {
     public void updateCca(Cca toBeUpdatedCca, Cca updatedCca) {
         requireAllNonNull(toBeUpdatedCca, updatedCca);
         ccaList.updateCca(toBeUpdatedCca, updatedCca);
+    }
+
+    /**
+     * Gets the number of {@code Cca} in the current tracker.
+     *
+     * @return The number of {@code Cca}.
+     */
+    public int getNumberOfCcas() {
+        return ccaList.size();
     }
 }

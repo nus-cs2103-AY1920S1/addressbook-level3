@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 
 import seedu.jarvis.commons.core.GuiSettings;
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandDeque;
 import seedu.jarvis.logic.commands.CommandResult;
@@ -625,6 +626,16 @@ public class HistoryManagerTest {
         @Override
         public CcaTracker getCcaTracker() {
             return null;
+        }
+
+        @Override
+        public int getNumberOfCcas() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Cca getCca(Index index) throws CommandException {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
