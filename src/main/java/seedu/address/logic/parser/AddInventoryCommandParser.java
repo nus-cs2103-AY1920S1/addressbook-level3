@@ -13,7 +13,6 @@ import seedu.address.logic.commands.AddInventoryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Price;
-import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 
 /**

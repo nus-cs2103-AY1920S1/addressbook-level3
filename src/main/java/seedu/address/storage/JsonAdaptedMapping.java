@@ -1,13 +1,5 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -31,7 +23,7 @@ class JsonAdaptedMapping {
      */
     @JsonCreator
     public JsonAdaptedMapping(@JsonProperty("task") JsonAdaptedTask task,
-                              @JsonProperty("member") JsonAdaptedMember member){
+                              @JsonProperty("member") JsonAdaptedMember member) {
         this.task = task;
         this.member = member;
     }

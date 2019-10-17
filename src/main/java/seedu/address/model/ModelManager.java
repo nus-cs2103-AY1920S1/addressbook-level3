@@ -15,8 +15,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
-import seedu.address.model.task.Task;
 import seedu.address.model.mapping.Mapping;
+import seedu.address.model.task.Task;
 
 //import seedu.address.model.task.NameContainsKeywordsPredicate;
 
@@ -294,6 +294,9 @@ public class ModelManager implements Model {
         return projectDashboard.hasMapping(mapping);
     }
 
+    /**
+     * replace existing mapping with new Member
+     */
     public void replaceExistingMappingsWithNewMember(Member oldMember, Member newMember) {
         for (int i = 0; i < filteredMappings.size(); i++) {
             if (filteredMappings.get(i).getMember().equals(oldMember)) {
@@ -304,6 +307,9 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * replaces existing mappings with new tasks
+     */
     public void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask) {
         for (int i = 0; i < filteredMappings.size(); i++) {
             if (filteredMappings.get(i).getTask().equals(oldTask)) {
