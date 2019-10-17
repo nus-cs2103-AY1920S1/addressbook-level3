@@ -49,4 +49,12 @@ public class CliSyntax {
         public static final Prefix PREFIX_UNDO_REDO = new Prefix("r/");
     }
 
+    /**
+     * CLI syntax for CcaTracker commands.
+     */
+    public static class CcaTrackerCliSyntax {
+        public static final Prefix PREFIX_CCA_NAME = new Prefix("n/");
+        public static final Prefix PREFIX_CCA_TYPE = new Prefix("t/");
+        public static final Prefix PREFIX_EQUIPMENT_NAME = new Prefix("e/");
+    }
 }

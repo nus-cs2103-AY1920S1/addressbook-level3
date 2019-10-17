@@ -2,7 +2,7 @@ package seedu.jarvis.logic.commands.course;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 import static seedu.jarvis.testutil.course.CourseTestUtil.CourseStub;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +17,6 @@ import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
-
 
 public class LookUpCommandTest {
 

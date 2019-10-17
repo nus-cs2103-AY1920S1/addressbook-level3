@@ -2,8 +2,8 @@ package seedu.jarvis.model;
 
 import static seedu.jarvis.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.TypicalPersons.ALICE;
-import static seedu.jarvis.testutil.TypicalPersons.BENSON;
+import static seedu.jarvis.testutil.address.TypicalPersons.ALICE;
+import static seedu.jarvis.testutil.address.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,7 +25,7 @@ import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
-import seedu.jarvis.testutil.AddressBookBuilder;
+import seedu.jarvis.testutil.address.AddressBookBuilder;
 
 public class ModelManagerTest {
 
@@ -296,6 +296,11 @@ public class ModelManagerTest {
      * {@code CommandStub#executeInverse(Model)} is called.
      */
     private static class CommandStub extends Command {
+        @Override
+        public String getCommandWord() {
+            throw new AssertionError("This message should not be called.");
+        }
+
         @Override
         public boolean hasInverseExecution() {
             return true;

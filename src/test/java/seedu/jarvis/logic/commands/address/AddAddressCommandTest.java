@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
@@ -37,7 +38,7 @@ import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
-import seedu.jarvis.testutil.PersonBuilder;
+import seedu.jarvis.testutil.address.PersonBuilder;
 
 public class AddAddressCommandTest {
 
@@ -348,12 +349,22 @@ public class AddAddressCommandTest {
 
         @Override
         public boolean hasCca(Cca cca) {
-            return false;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public CcaTracker getCcaTracker() {
-            return null;
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getNumberOfCcas() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Cca getCca(Index index) throws CommandException {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

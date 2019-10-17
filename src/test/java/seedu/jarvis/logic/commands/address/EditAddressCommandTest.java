@@ -15,7 +15,7 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.jarvis.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import java.util.stream.IntStream;
 
@@ -34,8 +34,8 @@ import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
-import seedu.jarvis.testutil.EditPersonDescriptorBuilder;
-import seedu.jarvis.testutil.PersonBuilder;
+import seedu.jarvis.testutil.address.EditPersonDescriptorBuilder;
+import seedu.jarvis.testutil.address.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)

@@ -86,6 +86,13 @@ public class EquipmentList {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EquipmentList // instanceof handles nulls
+                && internalEquipmentList.equals(((EquipmentList) other).internalEquipmentList));
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the equipment in the equipment list: ");

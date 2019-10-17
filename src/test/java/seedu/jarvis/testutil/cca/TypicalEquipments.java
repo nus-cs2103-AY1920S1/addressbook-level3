@@ -7,9 +7,9 @@ import seedu.jarvis.model.cca.Equipment;
  */
 public class TypicalEquipments {
 
-    public static final Equipment PADDLE = new Equipment("Paddle");
-
-    public static final Equipment GUITAR = new Equipment("Guitar");
+    public static final Equipment PADDLE = new Equipment("paddle");
+    public static final Equipment BOAT = new Equipment("boat");
+    public static final Equipment GUITAR = new Equipment("guitar");
 
     private TypicalEquipments() {} // prevents instantiation
 }

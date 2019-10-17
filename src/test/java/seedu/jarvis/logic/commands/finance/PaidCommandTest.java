@@ -16,8 +16,10 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.AddressBook;
@@ -327,6 +329,16 @@ public class PaidCommandTest {
         @Override
         public CcaTracker getCcaTracker() {
             return null;
+        }
+
+        @Override
+        public int getNumberOfCcas() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Cca getCca(Index index) throws CommandException {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

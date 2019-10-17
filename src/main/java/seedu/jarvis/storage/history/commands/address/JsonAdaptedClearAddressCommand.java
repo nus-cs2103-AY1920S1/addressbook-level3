@@ -5,28 +5,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.ClearAddressCommand;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.storage.address.JsonAdaptedPerson;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Jackson-friendly version of {@link ClearAddressCommand}.
  */
-public class JsonAdaptedClearAddressCommand {
+public class JsonAdaptedClearAddressCommand extends JsonAdaptedCommand {
     public static final String MESSAGE_INVALID_COMMAND = "This command is not an ClearAddressCommand.";
-    private final List<JsonAdaptedPerson> persons;
+    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedClearAddressCommand} with the given {@code List} of {@code Person}.
      * @param persons {@code List} of {@code Person} in Json format.
      */
     @JsonCreator
-    public JsonAdaptedClearAddressCommand(List<JsonAdaptedPerson> persons) {
-        this.persons = new ArrayList<>(persons);
+    public JsonAdaptedClearAddressCommand(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+        this.persons.addAll(persons);
     }
 
     /**
@@ -41,11 +43,10 @@ public class JsonAdaptedClearAddressCommand {
             throw new InvalidCommandToJsonException(MESSAGE_INVALID_COMMAND);
         }
         ClearAddressCommand clearAddressCommand = (ClearAddressCommand) command;
-        List<Person> personList = clearAddressCommand.getClearedPersons();
-        persons = clearAddressCommand.getClearedPersons()
+        persons.addAll(clearAddressCommand.getClearedPersons()
                 .stream()
                 .map(JsonAdaptedPerson::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -56,6 +57,7 @@ public class JsonAdaptedClearAddressCommand {
      * @throws IllegalValueException if there were any data constraints violated in the adapted
      * {@code ClearAddressCommand}.
      */
+    @Override
     public Command toModelType() throws IllegalValueException {
         List<Person> personList = new ArrayList<>();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
