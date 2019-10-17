@@ -103,6 +103,7 @@ public class ImportCommand extends Command {
                     importer.getExistingBookmarksAsString()));
         }
         importer.importBookmarks();
+        model.saveMark(this.toString());
 
         // TODO: rewrite messages to indicate whether folders were imported
         String message = importer.hasExistingBookmarks()
@@ -124,6 +125,11 @@ public class ImportCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof ImportCommand // instanceof handles nulls
                 && filePath.equals(((ImportCommand) other).filePath)); // state check
+    }
+
+    @Override
+    public String toString() {
+        return "Import bookmarks from " + filePath;
     }
 
     /**
@@ -230,7 +236,6 @@ public class ImportCommand extends Command {
          */
         public void importBookmarks() {
             model.addBookmarks(bookmarksToImport);
-            model.saveMark();
         }
 
         public void importFolders() {

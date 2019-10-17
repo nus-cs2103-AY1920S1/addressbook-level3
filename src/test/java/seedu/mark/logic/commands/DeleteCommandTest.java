@@ -36,7 +36,7 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getMark(), new UserPrefs());
         expectedModel.deleteBookmark(bookmarkToDelete);
-        expectedModel.saveMark();
+        expectedModel.saveMark(deleteCommand.toString());
 
         assertCommandSuccess(deleteCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
@@ -61,7 +61,7 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getMark(), new UserPrefs());
         expectedModel.deleteBookmark(bookmarkToDelete);
-        expectedModel.saveMark();
+        expectedModel.saveMark(deleteCommand.toString());
         showNoBookmark(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, new StorageStub(), expectedMessage, expectedModel);

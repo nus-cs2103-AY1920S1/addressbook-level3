@@ -20,4 +20,8 @@ public abstract class Command {
      */
     public abstract CommandResult execute(Model model, Storage storage) throws CommandException;
 
+    @Override
+    public String toString() {
+        return "";
+    }
 }

@@ -1,6 +1,6 @@
 package seedu.mark.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
@@ -34,7 +34,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
-        requireNonNull(model);
+        requireAllNonNull(model, storage);
+
         List<Bookmark> lastShownList = model.getFilteredBookmarkList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -43,7 +44,7 @@ public class DeleteCommand extends Command {
 
         Bookmark bookmarkToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteBookmark(bookmarkToDelete);
-        model.saveMark();
+        model.saveMark(this.toString());
         return new CommandResult(String.format(MESSAGE_DELETE_BOOKMARK_SUCCESS, bookmarkToDelete));
     }
 
@@ -52,5 +53,11 @@ public class DeleteCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
                 && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+    }
+
+    @Override
+    public String toString() {
+        //TODO: refine toString()
+        return "Delete bookmark ";
     }
 }

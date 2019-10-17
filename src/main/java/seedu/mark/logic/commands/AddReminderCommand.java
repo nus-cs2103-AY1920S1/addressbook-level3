@@ -1,6 +1,5 @@
 package seedu.mark.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TIME;
@@ -56,7 +55,8 @@ public class AddReminderCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
-        requireNonNull(model);
+        requireAllNonNull(model, storage);
+
         List<Bookmark> lastShownList = model.getFilteredBookmarkList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -71,7 +71,7 @@ public class AddReminderCommand extends Command {
         }
 
         model.addReminder(bookmarkToOpen, reminderToAdd);
-        model.saveMark();
+        model.saveMark(this.toString());
         return new CommandResult(String.format(MESSAGE_SUCCESS, reminderToAdd));
     }
 
@@ -82,6 +82,12 @@ public class AddReminderCommand extends Command {
                 && note.equals(((AddReminderCommand) other).note)
                 && time.equals(((AddReminderCommand) other).time)
                 && index.equals(((AddReminderCommand) other).index));
+    }
+
+    @Override
+    public String toString() {
+        //TODO: refine toString()
+        return "Add reminder for bookmark";
     }
 }
 

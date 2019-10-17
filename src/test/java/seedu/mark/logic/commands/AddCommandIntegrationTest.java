@@ -29,12 +29,13 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_newBookmark_success() {
         Bookmark validBookmark = new BookmarkBuilder().build();
+        AddCommand addCommand = new AddCommand(validBookmark);
 
         Model expectedModel = new ModelManager(model.getMark(), new UserPrefs());
         expectedModel.addBookmark(validBookmark);
-        expectedModel.saveMark();
+        expectedModel.saveMark(addCommand.toString());
 
-        assertCommandSuccess(new AddCommand(validBookmark), model, new StorageStub(),
+        assertCommandSuccess(addCommand, model, new StorageStub(),
                 String.format(AddCommand.MESSAGE_SUCCESS, validBookmark), expectedModel);
     }
 

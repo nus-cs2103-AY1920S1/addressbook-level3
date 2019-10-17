@@ -155,18 +155,21 @@ public interface Model {
 
     /**
      * Restores the model's Mark to its previous state.
+     * @return The record
      */
-    void undoMark();
+    String undoMark();
 
     /**
      * Restores the model's Mark to its previously undone state.
+     * @return The record
      */
-    void redoMark();
+    String redoMark();
 
     /**
      * Saves the current Mark state for undo/redo.
+     * @param record The record for the state
      */
-    void saveMark();
+    void saveMark(String record);
 
     /**
      * Adds a reminder that opens a specific bookmark.

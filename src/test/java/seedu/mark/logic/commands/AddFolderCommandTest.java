@@ -136,7 +136,7 @@ public class AddFolderCommandTest {
         }
 
         @Override
-        public void saveMark() {
+        public void saveMark(String record) {
             // called by {@code AddFolderCommand#execute()}
         }
     }
