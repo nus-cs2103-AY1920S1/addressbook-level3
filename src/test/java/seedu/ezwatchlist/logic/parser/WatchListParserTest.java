@@ -33,12 +33,14 @@ public class WatchListParserTest {
 
     private final WatchListParser parser = new WatchListParser();
 
+    /*
     @Test
     public void parseCommand_add() throws Exception {
         Show show = new ShowBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(ShowUtil.getAddCommand(show));
         assertEquals(new AddCommand(show), command);
     }
+     */
 
     @Test
     public void parseCommand_clear() throws Exception {

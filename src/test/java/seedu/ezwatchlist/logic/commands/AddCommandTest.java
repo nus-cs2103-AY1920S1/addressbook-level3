@@ -150,6 +150,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Show> getWatchedShowList() {
+            return null;
+        }
+
+        @Override
+        public void updateWatchedShowList() {
+
+        }
+
+        @Override
         public ObservableList<Show> getSearchResultList() {
             throw new AssertionError("This method should not be called.");
         }

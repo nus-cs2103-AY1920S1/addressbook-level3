@@ -28,14 +28,14 @@ public class TypicalShows {
             withIsWatched(false).withDateofRelease("24 April 2019").withRunningTime(182).withActors("Chris Hemsworth")
             .build();
 
-    public static final Show BLACKPANTHER = new ShowBuilder().withName("Black Panther").withDescription("After the"
+    /*public static final Show BLACKPANTHER = new ShowBuilder().withName("Black Panther").withDescription("After the"
             + " death of his father, T'Challa returns home to the African nation of Wakanda to take his rightful place"
             + " as king. When a powerful enemy suddenly reappears, T'Challa's mettle as king -- and as Black Panther"
             + " -- gets tested when he's drawn into a conflict that puts the fate of Wakanda and the entire world at"
             + " risk. Faced with treachery and danger, the young king must rally his allies and release the full power"
             + " of Black Panther to defeat his foes and secure the safety of his people.").withIsWatched(true)
             .withDateofRelease("29 January 2018").withRunningTime(135).withActors("Chadwick Boseman").build();
-
+*/
 
     // Manually added
     public static final Show FIGHTCLUB = new ShowBuilder().withName("Fight Club").withDescription(
@@ -45,7 +45,7 @@ public class TypicalShows {
             + "are fed up with their mundane lives. Their perfect partnership frays when Marla (Helena Bonham"
             + " Carter), a fellow support group crasher, attracts Tyler's attention.")
             .withIsWatched(true).withDateofRelease("4 Nov 1999").withRunningTime(151).withActors().build();
-
+/*
     // Manually added - Show's details found in {@code CommandTestUtil}
     public static final Show SAVINGPRIVATERYAN = new ShowBuilder().withName("Saving Private Ryan")
             .withDescription("Captain John Miller (Tom Hanks) takes his men behind enemy lines to find Private James"
@@ -54,7 +54,7 @@ public class TypicalShows {
             + " own strength to triumph over an uncertain future with honor, decency and courage.")
             .withIsWatched(false).withDateofRelease("Saving Private Ryan")
             .withRunningTime(170).withActors("Tom Hanks").build();
-
+*/
     public static final Show GODFATHER2 = new ShowBuilder().withName("God Father 2").withDescription("The compelling"
             + " sequel to \"The Godfather,\" contrasting the life of Corleone father and son. Traces the problems "
             + "of Michael Corleone (Al Pacino) in 1958 and that of a young immigrant Vito Corleone (Robert De Niro) "
@@ -78,6 +78,6 @@ public class TypicalShows {
     }
 
     public static List<Show> getTypicalShow() {
-        return new ArrayList<>(Arrays.asList(JOKER, AVENGERSENDGAME, BLACKPANTHER, FIGHTCLUB,
-                SAVINGPRIVATERYAN, GODFATHER2 )); }
+        return new ArrayList<>(Arrays.asList(JOKER, AVENGERSENDGAME, FIGHTCLUB,
+                 GODFATHER2 )); }
 }

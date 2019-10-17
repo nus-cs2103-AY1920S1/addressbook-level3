@@ -63,7 +63,7 @@ public class FindCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredShowList());
     }
-
+/*
     @Test
     public void execute_multipleKeywords_multipleShowsFound() {
         String expectedMessage = String.format(MESSAGE_SHOWS_LISTED_OVERVIEW, 3);
@@ -73,7 +73,7 @@ public class FindCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(JOKER, AVENGERSENDGAME, FIGHTCLUB), model.getFilteredShowList());
     }
-
+*/
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */

@@ -1,0 +1,25 @@
+{
+  "shows": [
+    {
+      "name": "Joker",
+      "dateOfRelease": "4 October 2019",
+      "description": "In Gotham City mentally troubled comedian Arthur Fleck embarks on a downward spiral of social revolution and bloody crime This path brings him face to face with his infamous alter ego The Joker",
+      "runningTime": 122,
+      "actors": [],
+      "type": "Movie",
+      "isWatched": false
+    },
+    {
+      "name": "",
+      "dateOfRelease": "24 July 2008",
+      "description": "When the menace known as The Joker emerges from his mysterious past he wreaks havoc and chaos on the people of Gotham The Dark Knight must accept one of the greatest psychological and physical tests of his ability to fight injustice",
+      "runningTime": 182,
+      "actors": [
+        "Christian Bale",
+        "Heath Ledger"
+      ],
+      "type": "Movie",
+      "isWatched": false
+    }
+  ]
+}
