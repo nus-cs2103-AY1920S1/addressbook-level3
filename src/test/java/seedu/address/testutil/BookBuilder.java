@@ -13,7 +13,7 @@ import seedu.address.model.loan.Loan;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Book objects.
  */
 public class BookBuilder {
 
@@ -36,7 +36,7 @@ public class BookBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the BookBuilder with the data of {@code bookToCopy}.
      */
     public BookBuilder(Book bookToCopy) {
         title = bookToCopy.getTitle();

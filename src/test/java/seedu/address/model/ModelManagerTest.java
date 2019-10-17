@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-
+import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookPredicate;
@@ -70,6 +70,18 @@ public class ModelManagerTest {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
+    }
+
+    @Test
+    public void setUserSettings_nullUserSettings_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setUserSettings(null));
+    }
+
+    @Test
+    public void setUserSettings_validUserSettings_setsUserSettings() {
+        UserSettings userSettings = new UserSettings(10, 10, 10);
+        modelManager.setUserSettings(userSettings);
+        assertEquals(userSettings, modelManager.getUserSettings());
     }
 
     @Test
