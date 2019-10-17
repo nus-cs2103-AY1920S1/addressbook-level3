@@ -30,4 +30,5 @@ public class CheckCommandParserTest {
         assertParseFailure(parser, "1.5",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE)); // non-integer number
     }
+
 }

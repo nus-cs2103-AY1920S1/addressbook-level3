@@ -1,24 +1,32 @@
 package io.xpire.logic.commands;
 
-import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_DUCK;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_JELLY;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_DUCK;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_JELLY;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_QUANTITY_JELLY;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_REMINDER_THRESHOLD_JELLY;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_DRINK;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_FRIDGE;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_FRUIT;
-import static io.xpire.logic.commands.CommandTestUtil.VALID_TAG_PROTEIN;
+import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_DUCK;
+import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_JELLY;
+import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_DUCK;
+import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_JELLY;
+import static io.xpire.logic.CommandParserItemUtil.VALID_QUANTITY_JELLY;
+import static io.xpire.logic.CommandParserItemUtil.VALID_REMINDER_THRESHOLD_JELLY;
+import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_DRINK;
+import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRIDGE;
+import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRUIT;
+import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_PROTEIN;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_BANANA;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_EXPIRED_MILK;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_BANANA;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_NAME_EXPIRED_MILK;
+import static io.xpire.logic.commands.CommandTestUtil.VALID_REMINDER_THRESHOLD_BANANA;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
 
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIFTH_ITEM;
+
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SEVENTH_ITEM;
+
 import static io.xpire.testutil.TypicalIndexes.INDEX_SIXTH_ITEM;
+
 import static io.xpire.testutil.TypicalIndexes.INDEX_THIRD_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -37,6 +45,7 @@ import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
 import io.xpire.model.UserPrefs;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.Quantity;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
@@ -64,7 +73,6 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
         expectedModel.deleteItem(itemToDelete);
-
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
@@ -121,6 +129,7 @@ public class DeleteCommandTest {
         expectedModel.setItem(targetItem, expectedItem); //set target item with no tags
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
+
     //Tags don't exist for you to delete.
     @Test
     public void execute_deleteTagsFromItemNotAllFields_throwsCommandException() {
@@ -136,8 +145,10 @@ public class DeleteCommandTest {
         Item targetItem = model.getFilteredItemList().get(INDEX_FIFTH_ITEM.getZeroBased());
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag(VALID_TAG_FRIDGE));
+
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIFTH_ITEM, set);
         ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
+
         Item expectedItem = new ItemBuilder().withName(VALID_NAME_JELLY)
                                              .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
                                              .withQuantity(VALID_QUANTITY_JELLY)
@@ -172,6 +183,59 @@ public class DeleteCommandTest {
         set.add(new Tag(VALID_TAG_FRUIT));
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_SEVENTH_ITEM, set);
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TAGS);
+    }
+
+    @Test
+    public void execute_deleteQuantityLessThanItemQuantityFromItem_success() {
+        //All item fields present
+        Item targetItem = model.getFilteredItemList().get(INDEX_SECOND_ITEM.getZeroBased());
+        Quantity quantityToDeduct = new Quantity("2");
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_SECOND_ITEM, quantityToDeduct);
+        ModelManager expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
+        Item expectedItem = new ItemBuilder().withName(VALID_NAME_BANANA)
+                .withExpiryDate(VALID_EXPIRY_DATE_BANANA)
+                .withQuantity("3")
+                .withReminderThreshold(VALID_REMINDER_THRESHOLD_BANANA)
+                .build();
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUANTITY_SUCCESS,
+                quantityToDeduct.toString(), targetItem);
+        expectedModel.setItem(targetItem, expectedItem);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+
+        //Not all item fields present
+        targetItem = model.getFilteredItemList().get(INDEX_SIXTH_ITEM.getZeroBased());
+        quantityToDeduct = new Quantity("1");
+        deleteCommand = new DeleteCommand(INDEX_SIXTH_ITEM, quantityToDeduct);
+        expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
+        expectedItem = new ItemBuilder().withName(VALID_NAME_EXPIRED_MILK)
+                .withExpiryDate(VALID_EXPIRY_DATE_EXPIRED_MILK)
+                .withQuantity("1")
+                .build();
+        expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUANTITY_SUCCESS,
+                quantityToDeduct.toString(), targetItem);
+        expectedModel.setItem(targetItem, expectedItem);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+
+    @Test
+    public void execute_deleteQuantityEqualsToItemQuantityFromItem_success() {
+        Quantity quantityToDeduct = new Quantity("1");
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_THIRD_ITEM, quantityToDeduct);
+        Item itemToDelete = model.getFilteredItemList().get(INDEX_THIRD_ITEM.getZeroBased());
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUANTITY_SUCCESS,
+                quantityToDeduct.toString(), itemToDelete);
+        Model expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
+        expectedModel.deleteItem(itemToDelete);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_deleteQuantityMoreThanItemQuantityFromItem_throwsCommandException() {
+        Item itemToDelete = model.getFilteredItemList().get(INDEX_THIRD_ITEM.getZeroBased());
+        Quantity quantityToDeduct = new Quantity("3");
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_THIRD_ITEM, quantityToDeduct);
+        assertCommandFailure(deleteCommand, model, DeleteCommand.MESSAGE_DELETE_QUANTITY_FAILURE);
     }
 
     @Test

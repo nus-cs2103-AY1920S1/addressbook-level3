@@ -80,6 +80,7 @@ public class TypicalItems {
     }
 
     public static List<Item> getTypicalItems() {
+
         return new ArrayList<>(Arrays.asList(EXPIRED_MILK, BANANA, APPLE, EXPIRED_ORANGE, EXPIRING_FISH, DUCK,
                 JELLY));
 

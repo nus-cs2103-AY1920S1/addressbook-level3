@@ -12,6 +12,7 @@ import java.util.List;
 import io.xpire.commons.core.index.Index;
 import io.xpire.commons.util.DateUtil;
 import io.xpire.logic.commands.exceptions.CommandException;
+import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 import io.xpire.model.Xpire;
 import io.xpire.model.item.ContainsKeywordsPredicate;
@@ -78,7 +79,6 @@ public class CommandTestUtil {
     public static final String INVALID_QUANTITY = "-2";
     public static final String INVALID_REMINDER_THRESHOLD = "-5";
 
-
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
@@ -93,7 +93,7 @@ public class CommandTestUtil {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
-        } catch (CommandException ce) {
+        } catch (CommandException | ParseException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
