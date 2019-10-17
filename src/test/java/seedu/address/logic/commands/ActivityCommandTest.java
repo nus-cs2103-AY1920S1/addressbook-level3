@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.ActivityBook;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Title;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.NameContainsAllKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.stub.ModelStub;
 import seedu.address.testutil.ActivityBuilder;
@@ -126,7 +126,7 @@ public class ActivityCommandTest {
         }
 
         @Override
-        public ArrayList<Person> findPerson(NameContainsKeywordsPredicate predicate) {
+        public ArrayList<Person> findPersonAll(NameContainsAllKeywordsPredicate predicate) {
             requireNonNull(predicate);
             ArrayList<Person> matches = new ArrayList<Person>();
             for (Person person : personList) {

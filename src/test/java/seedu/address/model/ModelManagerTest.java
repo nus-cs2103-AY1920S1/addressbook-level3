@@ -96,39 +96,39 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void findPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.findPerson(null));
+    public void findPersonAny_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.findPersonAny(null));
     }
 
     @Test
-    public void findPerson_personInAddressBook_returnsSingle() {
+    public void findPersonAny_personInAddressBook_returnsSingle() {
         modelManager.addPerson(ALICE);
         modelManager.addPerson(BENSON);
         List<String> keywords = Arrays.asList("Pauline");
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
-        ArrayList<Person> searchResult = modelManager.findPerson(predicate);
+        ArrayList<Person> searchResult = modelManager.findPersonAny(predicate);
         ArrayList<Person> expectedSearchResult = new ArrayList<Person>(Arrays.asList(ALICE));
         assertEquals(searchResult, expectedSearchResult);
     }
 
     @Test
-    public void findPerson_personNotInAddressBook_returnsEmpty() {
+    public void findPersonAny_personNotInAddressBook_returnsEmpty() {
         modelManager.addPerson(BENSON);
         List<String> keywords = Arrays.asList("Pauline");
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
-        ArrayList<Person> searchResult = modelManager.findPerson(predicate);
+        ArrayList<Person> searchResult = modelManager.findPersonAny(predicate);
         ArrayList<Person> expectedSearchResult = new ArrayList<Person>();
         assertEquals(searchResult, expectedSearchResult);
     }
 
     @Test
-    public void findPerson_multiplePeopleInAddressBook_returnsMultiple() {
+    public void findPersonAny_multiplePeopleInAddressBook_returnsMultiple() {
         Person aliceFamilyMember = new PersonBuilder(ALICE).withName("Adam Pauline").build();
         modelManager.addPerson(ALICE);
         modelManager.addPerson(aliceFamilyMember);
         List<String> keywords = Arrays.asList("Pauline");
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
-        ArrayList<Person> searchResult = modelManager.findPerson(predicate);
+        ArrayList<Person> searchResult = modelManager.findPersonAny(predicate);
         ArrayList<Person> expectedSearchResult = new ArrayList<Person>(Arrays.asList(ALICE, aliceFamilyMember));
         assertEquals(searchResult, expectedSearchResult);
     }

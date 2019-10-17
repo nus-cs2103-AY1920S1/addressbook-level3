@@ -14,7 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Title;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.NameContainsAllKeywordsPredicate;
 import seedu.address.model.person.Person;
 
 /**
@@ -69,8 +69,8 @@ public class ActivityCommand extends Command {
         for (String searchTerm : participants) {
 
             keywords = Arrays.asList(searchTerm.split(" "));
-            NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
-            findResult = model.findPerson(predicate);
+            NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
+            findResult = model.findPersonAll(predicate);
 
             // Non-unique match (0 or more than 1) - this argument is skipped
             if (findResult.size() != 1) {

@@ -70,8 +70,11 @@ public class Activity {
      * @param people The people that will be added into the activity.
      */
     public void invite(Person ... people) {
-        // TODO: implement check for person with same name, add only if
-        // different name
+        for (Person p : people) {
+            if (!participantIds.contains(p.getPrimaryKey())) {
+                participantIds.add(p.getPrimaryKey());
+            }
+        }
     }
 
     /**

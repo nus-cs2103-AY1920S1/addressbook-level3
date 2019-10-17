@@ -17,7 +17,7 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Amount;
 import seedu.address.model.activity.Expense;
 import seedu.address.model.activity.Title;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.NameContainsAllKeywordsPredicate;
 import seedu.address.model.person.Person;
 
 /**
@@ -92,7 +92,7 @@ public class ExpenseCommand extends Command {
         List<Person> findResult;
         for (int i = 0; i < persons.size(); i++) {
             keywords = Arrays.asList(persons.get(i).split(" "));
-            NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
+            NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
             findResult = searchScope.stream().filter(predicate).collect(Collectors.toList());
 
             if (findResult.size() != 1) {
