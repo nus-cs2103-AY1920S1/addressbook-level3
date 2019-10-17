@@ -68,17 +68,18 @@ Format: `help`
 
 
 === Adding an item: `add`
+
 Adds an item to your tracker. +
 Upon addition of the item, the updated list sorted by name then date in chronological order, will be displayed. +
 Format: `add|<item name>|<expiry date>[|<quantity>]`
 
 Examples:
 
-* `add|durian|30/09/2020` (without quantity) +
-Adds the item `durian` with expiry date `30/09/2019` with quantity `1`
+* `add|durian|30/9/2020` (without quantity) +
+Adds the item `durian` with expiry date `30/9/2019` with quantity `1`
 
 * `add|ice cream|18/8/2020|2` +
-Adds the item `ice cream` with expiry date `18/08/2019` with quantity `2`
+Adds the item `ice cream` with expiry date `18/8/2019` with quantity `2`
 
 ****
 * Item quantity **must be a positive integer** 1,2,3...
@@ -143,7 +144,7 @@ Sorts all items in your list by either name or date. +
 Format: `sort|<key>`
 
 ****
-* Items are sorted by both name (lexicographical order) and date (chronological order).
+* Items are sorted by both name and date.
 * For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
 ****
 
