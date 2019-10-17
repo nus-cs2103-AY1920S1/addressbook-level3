@@ -30,7 +30,7 @@ public class RejectCommand extends Command {
             + PREFIX_REASON + "module quota exceeded.";
 
     public static final String MESSAGE_REJECT_APPEAL_SUCCESS = "Rejected appeal: %1$s";
-    public static final String MESSAGE_REjECT_UNSUCCESSFUL = "At least one field to edit must be provided.";
+    public static final String MESSAGE_REJECT_UNSUCCESSFUL = "At least one field to edit must be provided.";
     public static final String MESSAGE_REJECT_ALREADY_REJECTED = "The appeal was already resolved";
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Reason: %2$s";
 

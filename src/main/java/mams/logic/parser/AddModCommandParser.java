@@ -2,11 +2,10 @@ package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static mams.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static mams.logic.parser.CliSyntax.PREFIX_NAME;
 import static mams.logic.parser.CliSyntax.PREFIX_PREVMODS;
-import static mams.logic.parser.CliSyntax.PREFIX_SESSIONID;
+import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 import static mams.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -34,8 +33,7 @@ public class AddModCommandParser implements Parser<AddModCommand> {
     public AddModCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MATRICID, PREFIX_MODULE_CODE,
-                        PREFIX_SESSIONID);
+                ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE_CODE);
 
         //TODO: Note that fields not changed(name,prevMods etc) will be retaken in EditCommand
         // Here, only need to tokenize and push the strings to Addmodcommand
@@ -49,8 +47,8 @@ public class AddModCommandParser implements Parser<AddModCommand> {
         if (argMultimap.getValue(PREFIX_PREVMODS).isPresent()) {
             editStudentDescriptor.setPrevMods(ParserUtil.parsePrevMods(argMultimap.getValue(PREFIX_PREVMODS).get()));
         }
-        if (argMultimap.getValue(PREFIX_MATRICID).isPresent()) {
-            editStudentDescriptor.setMatricId(ParserUtil.parseMatricId(argMultimap.getValue(PREFIX_MATRICID).get()));
+        if (argMultimap.getValue(PREFIX_STUDENT).isPresent()) {
+            editStudentDescriptor.setMatricId(ParserUtil.parseMatricId(argMultimap.getValue(PREFIX_STUDENT).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editStudentDescriptor::setTags);
 
@@ -58,8 +56,8 @@ public class AddModCommandParser implements Parser<AddModCommand> {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new AddModCommand(argMultimap.getValue(PREFIX_MATRICID).get(),
-                argMultimap.getValue(PREFIX_MATRICID).get(), editStudentDescriptor);
+        return new AddModCommand(argMultimap.getValue(PREFIX_STUDENT).get(),
+                argMultimap.getValue(PREFIX_STUDENT).get(), editStudentDescriptor);
     }
 
     /**

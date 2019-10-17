@@ -3,9 +3,9 @@ package mams.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import static mams.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static mams.logic.parser.CliSyntax.PREFIX_MATRICID;
 import static mams.logic.parser.CliSyntax.PREFIX_NAME;
 import static mams.logic.parser.CliSyntax.PREFIX_PREVMODS;
+import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 import static mams.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
@@ -41,7 +41,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_CREDITS + "CREDITS] "
             + "[" + PREFIX_PREVMODS + "PREVMODS] "
-            + "[" + PREFIX_MATRICID + "MATRICID] "
+            + "[" + PREFIX_STUDENT + "MATRICID] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CREDITS + "91234567 "
