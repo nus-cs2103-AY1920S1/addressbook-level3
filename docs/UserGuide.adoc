@@ -255,7 +255,7 @@ Example: `like c/Chinese c/Western t/Healthy l/Univeristy Town`
 
 *To add dislikes*:
 
-Example: `dislike c/Chinese c/Western t/Healthy l/Univeristy Town`
+Format: `dislike c/Chinese c/Western t/Healthy l/Univeristy Town`
 
 Example: `dislike c/International t/Spicy l/The Deck l/The Terrace`
 
