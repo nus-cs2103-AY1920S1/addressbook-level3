@@ -26,7 +26,7 @@ public class DocumentPath {
      * Space is allowed.
      * DocumentPath is required to end with the String: ".docx"
      */
-    public static final String VALIDATION_REGEX = "[.~\\w\\-!:\\[\\]()/\\\\ ]+\\.docx";
+    public static final String VALIDATION_REGEX = "[.~\\w\\-!:\\[\\]()/\\\\ ]+\\.[Dd][Oo][Cc][Xx]";
 
     private final DirectoryPath directoryPath;
     private final DocumentFilePath documentFilePath;
