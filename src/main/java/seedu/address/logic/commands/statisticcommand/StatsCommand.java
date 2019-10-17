@@ -1,5 +1,9 @@
 package seedu.address.logic.commands.statisticcommand;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDING_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTING_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STAT_TYPE;
+
 import java.util.Calendar;
 
 import seedu.address.commons.util.StatsPayload;
@@ -18,8 +22,13 @@ public class StatsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": generates statistic for PROFIT/COST/REVENUE\n"
-            + "Parameters: s/{Type of stat} d1/{starting date (YYYY.MM.DD)} "
-            + "d2/{ending date}\n"
+            + "Parameters: "
+            + PREFIX_STAT_TYPE
+            + "{Type of stat}  "
+            + PREFIX_STARTING_DATE
+            + "/{starting date (YYYY.MM.DD)}  "
+            + PREFIX_ENDING_DATE
+            + "/{ending date}\n"
             + "Example (Date input mode) : generate-s s/REVENUE d1/2018.12.13 d2/2019.11.13\n"
             + "Example (No Date input mode) : generate-s s/REVENUE";
 

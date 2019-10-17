@@ -15,8 +15,11 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.model.CustomerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.OrderBook;
+import seedu.address.model.PhoneBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ScheduleBook;
@@ -31,9 +34,11 @@ import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.CustomerBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCustomerBookStorage;
+import seedu.address.storage.JsonOrderBookStorage;
 import seedu.address.storage.JsonPhoneBookStorage;
 import seedu.address.storage.JsonScheduleBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.OrderBookStorage;
 import seedu.address.storage.PhoneBookStorage;
 import seedu.address.storage.ScheduleBookStorage;
 import seedu.address.storage.Storage;
@@ -72,8 +77,9 @@ public class MainApp extends Application {
         CustomerBookStorage customerBookStorage = new JsonCustomerBookStorage(userPrefs.getCustomerBookFilePath());
         PhoneBookStorage phoneBookStorage = new JsonPhoneBookStorage(userPrefs.getPhoneBookFilePath());
         ScheduleBookStorage scheduleBookStorage = new JsonScheduleBookStorage(userPrefs.getScheduleBookFilePath());
+        OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
         storage = new StorageManager(addressBookStorage, customerBookStorage, phoneBookStorage, scheduleBookStorage,
-                userPrefsStorage);
+                orderBookStorage, userPrefsStorage);
 
         initLogging(config);
         //create statistic manager;
@@ -89,27 +95,72 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        /*Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyDataBook<Customer>> customerBookOptional;
+        Optional<ReadOnlyDataBook<Phone>> phoneBookOptional;
+        Optional<ReadOnlyDataBook<Order>> orderBookOptional;
+
+        ReadOnlyDataBook<Customer> initialCustomerData;
+        ReadOnlyDataBook<Phone> initialPhoneData;
+        ReadOnlyDataBook<Order> initialOrderData;
+
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            customerBookOptional = storage.readCustomerBook();
+
+            if (!customerBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample CustomerBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialCustomerData = customerBookOptional.orElseGet(SampleDataUtil::getSampleCustomerBook);
+
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty CustomerBook");
+            initialCustomerData = new CustomerBook();
+
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        }*/
+            logger.warning("Problem while reading from the file. Will be starting with an empty CustomerBook");
+            initialCustomerData = new CustomerBook();
+        }
 
-        ReadOnlyDataBook<Customer> customerBook = SampleDataUtil.getSampleCustomerBook();
-        ReadOnlyDataBook<Phone> phoneBook = SampleDataUtil.getSamplePhoneBook();
-        ReadOnlyDataBook<Order> orderBook = SampleDataUtil.getSampleOrderBook();
-        return new ModelManager(customerBook, phoneBook, orderBook, new ScheduleBook(), userPrefs);
+        try {
+            phoneBookOptional = storage.readPhoneBook();
 
+            if (!phoneBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample PhoneBook");
+            }
+
+            initialPhoneData = phoneBookOptional.orElseGet(SampleDataUtil::getSamplePhoneBook);
+
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty PhoneBook");
+            initialPhoneData = new PhoneBook();
+
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty PhoneBook");
+            initialPhoneData = new PhoneBook();
+        }
+
+        try {
+            orderBookOptional = storage.readOrderBook();
+
+            if (!orderBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample OrderBook");
+            }
+
+            initialOrderData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
+
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty OrderBook");
+
+            initialOrderData = new OrderBook();
+
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty OrderBook");
+            initialOrderData = new OrderBook();
+        }
+
+        //ReadOnlyDataBook<Customer> customerBook = SampleDataUtil.getSampleCustomerBook();
+        //ReadOnlyDataBook<Phone> phoneBook = SampleDataUtil.getSamplePhoneBook();
+        //ReadOnlyDataBook<Order> orderBook = SampleDataUtil.getSampleOrderBook();
+        return new ModelManager(initialCustomerData, initialPhoneData, initialOrderData, new ScheduleBook(), userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -192,7 +243,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Seller Manager ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
