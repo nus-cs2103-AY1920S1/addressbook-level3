@@ -69,6 +69,11 @@ public class EditCcaCommand extends Command {
         this.editCcaDescriptor = new EditCcaDescriptor(editCcaDescriptor);
     }
 
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
+
     /**
      * Returns whether the command has an inverse execution.
      * If the command has no inverse execution, then calling {@code executeInverse}
