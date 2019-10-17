@@ -1,7 +1,13 @@
 package seedu.ezwatchlist.api;
 
+
+import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Scanner;
+
 import info.movito.themoviedbapi.TmdbApi;
-import info.movito.themoviedbapi.TmdbAuthentication;
 import info.movito.themoviedbapi.TvResultsPage;
 import info.movito.themoviedbapi.model.Artwork;
 import info.movito.themoviedbapi.model.Credits;
@@ -12,19 +18,17 @@ import info.movito.themoviedbapi.model.people.PersonCast;
 import info.movito.themoviedbapi.model.tv.TvEpisode;
 import info.movito.themoviedbapi.model.tv.TvSeason;
 import info.movito.themoviedbapi.model.tv.TvSeries;
-import java.io.IOException;
-import java.util.*;
-
 import info.movito.themoviedbapi.tools.MovieDbException;
+
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.api.model.ApiInterface;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
 import seedu.ezwatchlist.model.show.Episode;
+import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
-import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.show.TvShow;
 
@@ -33,8 +37,8 @@ import seedu.ezwatchlist.model.show.TvShow;
  */
 public class ApiMain implements ApiInterface {
     //API key is to connect with the tmdb server.
-    private final static String API_KEY = "44ed1d7975d7c699743229199b1fc26e";
-    private final static String CONNECTION_ERROR_MESSAGE = "Looks like you're not connected to the internet";
+    private static final String API_KEY = "44ed1d7975d7c699743229199b1fc26e";
+    private static final String CONNECTION_ERROR_MESSAGE = "Looks like you're not connected to the internet";
     private TmdbApi apiCall;
     private boolean isConnected = false;
 
@@ -48,6 +52,10 @@ public class ApiMain implements ApiInterface {
         }
     }
 
+    /**
+     * Checks whether the API is connected
+     * @return boolean value indicating the connection of API
+     */
     public boolean isApiConnected() {
         try {
             apiCall = new TmdbApi(API_KEY);
@@ -59,6 +67,10 @@ public class ApiMain implements ApiInterface {
         }
     }
 
+    /**
+     * sets the isConnected flag to false.
+     * @throws OnlineConnectionException
+     */
     public void notConnected() throws OnlineConnectionException {
         isConnected = false;
         throw new OnlineConnectionException(CONNECTION_ERROR_MESSAGE);
@@ -71,7 +83,8 @@ public class ApiMain implements ApiInterface {
             ArrayList<Movie> movies = new ArrayList<>();
 
             for (MovieDb m : page.getResults()) {
-                movies.add(new Movie(new Name(m.getTitle()), new Description("placeholder")/*m.getTagline())*/, new IsWatched(false), new Date(m.getReleaseDate()),
+                movies.add(new Movie(new Name(m.getTitle()), new Description("placeholder")/*m.getTagline())*/,
+                        new IsWatched(false), new Date(m.getReleaseDate()),
                         new RunningTime(m.getRuntime()), new HashSet<Actor>()));
                 m.getPosterPath();
                 List<Artwork> artworkTypes = m.getImages();
@@ -101,7 +114,8 @@ public class ApiMain implements ApiInterface {
                     List<TvEpisode> episodes = tvSeason.getEpisodes();
                     ArrayList<Episode> episodeList = new ArrayList<>();
                     for (TvEpisode episode : episodes) {
-                        episodeList.add(new seedu.ezwatchlist.model.show.Episode(new Name(episode.getName()), episode.getEpisodeNumber()));
+                        episodeList.add(new seedu.ezwatchlist.model.show.Episode(new Name(episode.getName()),
+                                episode.getEpisodeNumber()));
                     }
                     seedu.ezwatchlist.model.show.TvSeason tvS =
                             new seedu.ezwatchlist.model.show.TvSeason(tvSeason.getSeasonNumber(), episodes.size(),
@@ -122,6 +136,10 @@ public class ApiMain implements ApiInterface {
         }
     }
 
+    /**
+     * Somehow tests the image haha wtf am I writing
+     * @param name
+     */
     public void testImage(String name) {
         MovieResultsPage page = apiCall.getSearch().searchMovie(name, null, null, true, null);
         List<MovieDb> movies = page.getResults();
@@ -131,11 +149,12 @@ public class ApiMain implements ApiInterface {
     }
 
 
-//
-//    /**
-//     * test function
-//     * @param args
-//     * @throws IOException
+
+    /**
+     * test function
+     * @param args
+     * @throws IOException
+    */
 
     public static void main(String[] args) throws IOException, OnlineConnectionException {
         ApiMain apiMain = new ApiMain();
@@ -144,7 +163,8 @@ public class ApiMain implements ApiInterface {
         String input = sc.next();
         apiMain.testImage(input);
 //        TmdbMovies movies = tmdbApi.getMovies();
-//        MovieDb movie = movies.getMovie(5353, null, TmdbMovies.MovieMethod.similar, TmdbMovies.MovieMethod.keywords, TmdbMovies.MovieMethod.credits, TmdbMovies.MovieMethod.images);
+//        MovieDb movie = movies.getMovie(5353, null, TmdbMovies.MovieMethod.similar, TmdbMovies.MovieMethod.keywords,
+//                TmdbMovies.MovieMethod.credits, TmdbMovies.MovieMethod.images);
 //        System.out.println(movie.getOriginalTitle());
 //        p2( movie.getSimilarMovies());
 //        List<Artwork> artworks = movie.getImages();
@@ -168,15 +188,24 @@ public class ApiMain implements ApiInterface {
 //        p(movie.getCrew());
     }
 
+    /**
+     * p method
+     * @param s
+     * @param <T>
+     */
     public static <T> void p (List<T> s) {
-        for (T t : s)
+        for (T t : s) {
             System.out.println(t);
+        }
     }
 
+    /**
+     * p2 method
+     * @param l
+     */
     public static void p2 (List<MovieDb> l) {
         for (MovieDb m : l) {
             System.out.println(m.getOriginalTitle());
         }
     }
-
 }
