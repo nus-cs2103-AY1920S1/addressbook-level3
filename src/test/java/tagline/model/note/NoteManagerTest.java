@@ -18,20 +18,20 @@ import tagline.commons.core.GuiSettings;
 import tagline.model.UserPrefs;
 import tagline.testutil.NoteBookBuilder;
 
-public class NoteModelManagerTest {
+public class NoteManagerTest {
 
-    private NoteModelManager noteModelManager = new NoteModelManager();
+    private NoteManager noteManager = new NoteManager();
 
     @Test
     public void constructor() {
-        assertEquals(new UserPrefs(), noteModelManager.getUserPrefs());
-        assertEquals(new GuiSettings(), noteModelManager.getGuiSettings());
-        assertEquals(new NoteBook(), new NoteBook(noteModelManager.getNoteBook()));
+        assertEquals(new UserPrefs(), noteManager.getUserPrefs());
+        assertEquals(new GuiSettings(), noteManager.getGuiSettings());
+        assertEquals(new NoteBook(), new NoteBook(noteManager.getNoteBook()));
     }
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> noteModelManager.setUserPrefs(null));
+        assertThrows(NullPointerException.class, () -> noteManager.setUserPrefs(null));
     }
 
     // TODO renable after userprefs is edited for Notes
@@ -40,59 +40,59 @@ public class NoteModelManagerTest {
     //    UserPrefs userPrefs = new UserPrefs();
     //    userPrefs.setNoteBookFilePath(Paths.get("address/book/file/path"));
     //    userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
-    //    noteModelManager.setUserPrefs(userPrefs);
-    //    assertEquals(userPrefs, noteModelManager.getUserPrefs());
+    //    noteManager.setUserPrefs(userPrefs);
+    //    assertEquals(userPrefs, noteManager.getUserPrefs());
 
-    //    // Modifying userPrefs should not modify noteModelManager's userPrefs
+    //    // Modifying userPrefs should not modify noteManager's userPrefs
     //    UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
     //    userPrefs.setNoteBookFilePath(Paths.get("new/address/book/file/path"));
-    //    assertEquals(oldUserPrefs, noteModelManager.getUserPrefs());
+    //    assertEquals(oldUserPrefs, noteManager.getUserPrefs());
     //}
 
     @Test
     public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> noteModelManager.setGuiSettings(null));
+        assertThrows(NullPointerException.class, () -> noteManager.setGuiSettings(null));
     }
 
     @Test
     public void setGuiSettings_validGuiSettings_setsGuiSettings() {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
-        noteModelManager.setGuiSettings(guiSettings);
-        assertEquals(guiSettings, noteModelManager.getGuiSettings());
+        noteManager.setGuiSettings(guiSettings);
+        assertEquals(guiSettings, noteManager.getGuiSettings());
     }
 
     @Test
     public void setNoteBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> noteModelManager.setNoteBookFilePath(null));
+        assertThrows(NullPointerException.class, () -> noteManager.setNoteBookFilePath(null));
     }
 
     //TODO after implementing user prefs
     @Test
     public void setNoteBookFilePath_validPath_setsNoteBookFilePath() {
         Path path = Paths.get("address/book/file/path");
-        noteModelManager.setNoteBookFilePath(path);
-        //assertEquals(path, noteModelManager.getNoteBookFilePath());
+        noteManager.setNoteBookFilePath(path);
+        //assertEquals(path, noteManager.getNoteBookFilePath());
     }
 
     @Test
     public void hasNote_nullNote_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> noteModelManager.hasNote(null));
+        assertThrows(NullPointerException.class, () -> noteManager.hasNote(null));
     }
 
     @Test
     public void hasNote_personNotInNoteBook_returnsFalse() {
-        assertFalse(noteModelManager.hasNote(INCIDENT));
+        assertFalse(noteManager.hasNote(INCIDENT));
     }
 
     @Test
     public void hasNote_personInNoteBook_returnsTrue() {
-        noteModelManager.addNote(INCIDENT);
-        assertTrue(noteModelManager.hasNote(INCIDENT));
+        noteManager.addNote(INCIDENT);
+        assertTrue(noteManager.hasNote(INCIDENT));
     }
 
     @Test
     public void getFilteredNoteList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> noteModelManager.getFilteredNoteList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> noteManager.getFilteredNoteList().remove(0));
     }
 
     @Test
@@ -102,37 +102,37 @@ public class NoteModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        noteModelManager = new NoteModelManager(addressBook, userPrefs);
-        NoteModelManager noteModelManagerCopy = new NoteModelManager(addressBook, userPrefs);
-        assertTrue(noteModelManager.equals(noteModelManagerCopy));
+        noteManager = new NoteManager(addressBook, userPrefs);
+        NoteManager noteManagerCopy = new NoteManager(addressBook, userPrefs);
+        assertTrue(noteManager.equals(noteManagerCopy));
 
         // same object -> returns true
-        assertTrue(noteModelManager.equals(noteModelManager));
+        assertTrue(noteManager.equals(noteManager));
 
         // null -> returns false
-        assertFalse(noteModelManager.equals(null));
+        assertFalse(noteManager.equals(null));
 
         // different types -> returns false
-        assertFalse(noteModelManager.equals(5));
+        assertFalse(noteManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(noteModelManager.equals(new NoteModelManager(differentNoteBook, userPrefs)));
+        assertFalse(noteManager.equals(new NoteManager(differentNoteBook, userPrefs)));
 
         // different filteredList -> returns false
         // \\s+ splits on single or many whitespace
-        noteModelManager = new NoteModelManager(addressBook, userPrefs);
+        noteManager = new NoteManager(addressBook, userPrefs);
         // using these strings as they are unique to INCIDENT but not found in ULTRON
         String[] keywords = {"Manhattan", "York", "Loki", "Chitauri"};
-        noteModelManager.updateFilteredNoteList(new ContentContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(noteModelManager.equals(new NoteModelManager(addressBook, userPrefs)));
+        noteManager.updateFilteredNoteList(new ContentContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(noteManager.equals(new NoteManager(addressBook, userPrefs)));
 
-        // resets noteModelManager to initial state for upcoming tests
-        noteModelManager.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+        // resets noteManager to initial state for upcoming tests
+        noteManager.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
 
         // different userPrefs -> returns false
         // TODO userPrefs feature not ready
         //UserPrefs differentUserPrefs = new UserPrefs();
         //differentUserPrefs.setNoteBookFilePath(Paths.get("differentFilePath"));
-        //assertFalse(noteModelManager.equals(new NoteModelManager(addressBook, differentUserPrefs)));
+        //assertFalse(noteManager.equals(new NoteManager(addressBook, differentUserPrefs)));
     }
 }

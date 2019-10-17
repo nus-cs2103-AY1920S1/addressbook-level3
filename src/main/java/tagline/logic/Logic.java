@@ -9,6 +9,8 @@ import tagline.logic.commands.exceptions.CommandException;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.note.Note;
+import tagline.model.note.ReadOnlyNoteBook;
 
 /**
  * API of the Logic component
@@ -25,7 +27,7 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the address book.
      *
      * @see tagline.model.Model#getAddressBook()
      */
@@ -40,6 +42,21 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the note book.
+     *
+     * @see tagline.model.Model#getAddressBook()
+     */
+    ReadOnlyNoteBook getNoteBook();
+
+    /** Returns an unmodifiable view of the filtered list of notes */
+    ObservableList<Note> getFilteredNoteList();
+
+    /**
+     * Returns the user prefs' note book file path.
+     */
+    Path getNoteBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

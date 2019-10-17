@@ -21,10 +21,14 @@ import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.UserPrefs;
 import tagline.model.contact.AddressBook;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.note.NoteBook;
+import tagline.model.note.ReadOnlyNoteBook;
 import tagline.model.util.SampleDataUtil;
 import tagline.storage.AddressBookStorage;
 import tagline.storage.JsonAddressBookStorage;
+import tagline.storage.JsonNoteBookStorage;
 import tagline.storage.JsonUserPrefsStorage;
+import tagline.storage.NoteBookStorage;
 import tagline.storage.Storage;
 import tagline.storage.StorageManager;
 import tagline.storage.UserPrefsStorage;
@@ -48,7 +52,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing TagLine ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -57,7 +61,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        NoteBookStorage noteBookStorage = new JsonNoteBookStorage(userPrefs.getNoteBookFilePath());
+        storage = new StorageManager(addressBookStorage, noteBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -69,6 +74,54 @@ public class MainApp extends Application {
     }
 
     /**
+     * Gets and returns a {@code ReadOnlyAddressBook} from {@code storage}.
+     */
+    private ReadOnlyAddressBook getAddressBookFromStorage(Storage storage) {
+        Optional<ReadOnlyAddressBook> addressBookOptional = Optional.empty();
+        ReadOnlyAddressBook initialAddressBookData;
+
+        try {
+            addressBookOptional = storage.readAddressBook();
+            if (!addressBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample address book");
+            }
+            initialAddressBookData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty address book");
+            initialAddressBookData = new AddressBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty address book");
+            initialAddressBookData = new AddressBook();
+        }
+
+        return initialAddressBookData;
+    }
+
+    /**
+     * Gets and returns a {@code ReadOnlyNoteBook} from {@code storage}.
+     */
+    private ReadOnlyNoteBook getNoteBookFromStorage(Storage storage) {
+        Optional<ReadOnlyNoteBook> noteBookOptional = Optional.empty();
+        ReadOnlyNoteBook initialNoteBookData;
+
+        try {
+            noteBookOptional = storage.readNoteBook();
+            if (!noteBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample note book");
+            }
+            initialNoteBookData = noteBookOptional.orElseGet(SampleDataUtil::getSampleNoteBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty note book");
+            initialNoteBookData = new NoteBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty note book");
+            initialNoteBookData = new NoteBook();
+        }
+
+        return initialNoteBookData;
+    }
+
+    /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book, note book and
      * {@code userPrefs}. <br>
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
@@ -76,23 +129,9 @@ public class MainApp extends Application {
      * This is same for the note book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialAddressBookData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialAddressBookData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialAddressBookData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialAddressBookData = new AddressBook();
-        }
-
-        return new ModelManager(initialAddressBookData, userPrefs);
+        ReadOnlyAddressBook initialAddressBookData = getAddressBookFromStorage(storage);
+        ReadOnlyNoteBook initialNoteBookData = getNoteBookFromStorage(storage);
+        return new ModelManager(initialAddressBookData, initialNoteBookData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -169,13 +208,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting TagLine " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping TagLine ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

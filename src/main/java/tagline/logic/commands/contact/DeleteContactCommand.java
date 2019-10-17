@@ -7,6 +7,7 @@ import java.util.List;
 import tagline.commons.core.Messages;
 import tagline.commons.core.index.Index;
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.contact.Contact;
@@ -42,7 +43,7 @@ public class DeleteContactCommand extends ContactCommand {
 
         Contact contactToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteContact(contactToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete), ViewType.CONTACT);
     }
 
     @Override

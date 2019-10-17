@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import tagline.commons.core.Messages;
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.model.Model;
 import tagline.model.contact.NameContainsKeywordsPredicate;
 
@@ -32,7 +33,8 @@ public class FindContactCommand extends ContactCommand {
         requireNonNull(model);
         model.updateFilteredContactList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW, model.getFilteredContactList().size()));
+                String.format(Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW, model.getFilteredContactList().size()),
+                ViewType.CONTACT);
     }
 
     @Override

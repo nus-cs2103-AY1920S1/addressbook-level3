@@ -50,7 +50,7 @@ public class ContactListCard extends UiPart<Region> {
         phone.setText(contact.getPhone().value);
         address.setText(contact.getAddress().value);
         email.setText(contact.getEmail().value);
-        contactId.setText("id: " + contact.getContactId().toString());
+        contactId.setText("ID: " + contact.getContactId());
     }
 
     @Override

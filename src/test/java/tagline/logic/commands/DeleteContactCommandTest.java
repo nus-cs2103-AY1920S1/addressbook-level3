@@ -13,11 +13,13 @@ import org.junit.jupiter.api.Test;
 
 import tagline.commons.core.Messages;
 import tagline.commons.core.index.Index;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.contact.DeleteContactCommand;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
 import tagline.model.contact.Contact;
+import tagline.model.note.NoteBook;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -25,7 +27,8 @@ import tagline.model.contact.Contact;
  */
 public class DeleteContactCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private static final ViewType DELETE_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,10 +37,11 @@ public class DeleteContactCommandTest {
 
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
 
-        assertCommandSuccess(deleteContactCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteContactCommand, model, expectedMessage,
+                DELETE_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }
 
     @Test
@@ -57,11 +61,12 @@ public class DeleteContactCommandTest {
 
         String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new NoteBook(), new UserPrefs());
         expectedModel.deleteContact(contactToDelete);
         showNoContact(expectedModel);
 
-        assertCommandSuccess(deleteContactCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteContactCommand, model, expectedMessage,
+                DELETE_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
     }
 
     @Test

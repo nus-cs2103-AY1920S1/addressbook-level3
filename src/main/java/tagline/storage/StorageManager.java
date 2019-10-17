@@ -10,6 +10,7 @@ import tagline.commons.exceptions.DataConversionException;
 import tagline.model.ReadOnlyUserPrefs;
 import tagline.model.UserPrefs;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.note.ReadOnlyNoteBook;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -18,12 +19,15 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private NoteBookStorage noteBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, NoteBookStorage noteBookStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
+        this.noteBookStorage = noteBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -43,7 +47,6 @@ public class StorageManager implements Storage {
     public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
-
 
     // ================ AddressBook methods ==============================
 
@@ -74,4 +77,32 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ NoteBook methods ==============================
+
+    @Override
+    public Path getNoteBookFilePath() {
+        return noteBookStorage.getNoteBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyNoteBook> readNoteBook() throws DataConversionException, IOException {
+        return readNoteBook(noteBookStorage.getNoteBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyNoteBook> readNoteBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return noteBookStorage.readNoteBook(filePath);
+    }
+
+    @Override
+    public void saveNoteBook(ReadOnlyNoteBook noteBook) throws IOException {
+        saveNoteBook(noteBook, noteBookStorage.getNoteBookFilePath());
+    }
+
+    @Override
+    public void saveNoteBook(ReadOnlyNoteBook noteBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        noteBookStorage.saveNoteBook(noteBook, filePath);
+    }
 }

@@ -3,6 +3,7 @@ package tagline.logic.commands.contact;
 import static java.util.Objects.requireNonNull;
 
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.model.Model;
 import tagline.model.contact.AddressBook;
 
@@ -18,6 +19,6 @@ public class ClearContactCommand extends ContactCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, ViewType.CONTACT);
     }
 }

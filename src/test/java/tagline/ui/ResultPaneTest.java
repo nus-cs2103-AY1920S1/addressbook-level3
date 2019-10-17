@@ -66,13 +66,13 @@ public class ResultPaneTest {
     }
 
     @Start
-    void setup(Stage stage) throws TimeoutException {
-        logic = new LogicStub(testFolder);
+    void setUp(Stage stage) throws TimeoutException {
+        logic = new LogicStub(testFolder.resolve("addressbook.json"), testFolder.resolve("notebook.json"));
         initMainWindow(stage, logic);
     }
 
     @Stop
-    void teardown() throws TimeoutException {
+    void tearDown() throws TimeoutException {
         FxToolkit.cleanupStages();
     }
 

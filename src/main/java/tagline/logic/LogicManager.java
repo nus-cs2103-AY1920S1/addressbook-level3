@@ -15,6 +15,8 @@ import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.Model;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.note.Note;
+import tagline.model.note.ReadOnlyNoteBook;
 import tagline.storage.Storage;
 
 /**
@@ -44,6 +46,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getAddressBook());
+            storage.saveNoteBook(model.getNoteBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -64,6 +67,21 @@ public class LogicManager implements Logic {
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public ReadOnlyNoteBook getNoteBook() {
+        return model.getNoteBook();
+    }
+
+    @Override
+    public ObservableList<Note> getFilteredNoteList() {
+        return model.getFilteredNoteList();
+    }
+
+    @Override
+    public Path getNoteBookFilePath() {
+        return model.getNoteBookFilePath();
     }
 
     @Override

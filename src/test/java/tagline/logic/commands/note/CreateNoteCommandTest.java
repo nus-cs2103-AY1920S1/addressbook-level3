@@ -202,17 +202,27 @@ class CreateNoteCommandTest {
         }
 
         @Override
+        public Path getNoteBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setNoteBookFilePath(Path noteBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setNoteBook(ReadOnlyNoteBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyNoteBook getNoteBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -247,6 +257,16 @@ class CreateNoteCommandTest {
         }
 
         @Override
+        public void setAddressBook(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasNote(Note note) {
             throw new AssertionError("This method should not be called.");
         }
@@ -254,6 +274,43 @@ class CreateNoteCommandTest {
         @Override
         public void addNote(Note note) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setNote(Note note, Note anotherNote) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteNote(Note note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Note> getFilteredNoteList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void updateFilteredNoteList(Predicate<Note> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    /**
+     * A Model stub that contains a single contact.
+     */
+    private class ModelStubWithContact extends ModelStub {
+        private final Contact contact;
+
+        ModelStubWithContact(Contact contact) {
+            requireNonNull(contact);
+            this.contact = contact;
+        }
+
+        @Override
+        public boolean hasContact(Contact contact) {
+            requireNonNull(contact);
+            return this.contact.isSameContact(contact);
         }
     }
 

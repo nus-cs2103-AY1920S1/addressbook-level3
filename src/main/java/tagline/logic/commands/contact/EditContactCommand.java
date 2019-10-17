@@ -15,6 +15,7 @@ import tagline.commons.core.Messages;
 import tagline.commons.core.index.Index;
 import tagline.commons.util.CollectionUtil;
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.contact.Address;
@@ -98,7 +99,7 @@ public class EditContactCommand extends ContactCommand {
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact));
+        return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact), ViewType.CONTACT);
     }
 
     @Override

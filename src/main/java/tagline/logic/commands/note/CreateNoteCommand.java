@@ -6,6 +6,7 @@ import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TAG;
 import static tagline.logic.parser.note.NoteCliSyntax.PREFIX_TITLE;
 
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.note.Note;
@@ -50,7 +51,7 @@ public class CreateNoteCommand extends NoteCommand {
         }
 
         model.addNote(toCreate);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toCreate));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toCreate), ViewType.NOTE);
     }
 
     @Override

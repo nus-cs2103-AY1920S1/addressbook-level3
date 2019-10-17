@@ -15,18 +15,22 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.contact.FindContactCommand;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
 import tagline.model.contact.NameContainsKeywordsPredicate;
+import tagline.model.note.NoteBook;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindContactCommand}.
  */
 public class FindContactCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    private static final ViewType FIND_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new NoteBook(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -61,7 +65,7 @@ public class FindContactCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindContactCommand command = new FindContactCommand(predicate);
         expectedModel.updateFilteredContactList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, FIND_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredContactList());
     }
 
@@ -71,7 +75,7 @@ public class FindContactCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindContactCommand command = new FindContactCommand(predicate);
         expectedModel.updateFilteredContactList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, FIND_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredContactList());
     }
 

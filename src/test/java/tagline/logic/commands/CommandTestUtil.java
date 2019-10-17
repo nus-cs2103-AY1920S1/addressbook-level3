@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import tagline.commons.core.index.Index;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.contact.EditContactCommand;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
@@ -83,11 +84,11 @@ public class CommandTestUtil {
 
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
-     * that takes a string {@code expectedMessage}.
+     * that takes a string {@code expectedMessage} and a {@code ViewType} {@code expectedViewType}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-                                            Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+                                            ViewType expectedViewType, Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, expectedViewType);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 

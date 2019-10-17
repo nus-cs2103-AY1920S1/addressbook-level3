@@ -63,14 +63,14 @@ public class ChatPaneTest {
     }
 
     @Start
-    void setup(Stage stage) throws TimeoutException {
-        logic = new LogicStub(testFolder);
+    void setUp(Stage stage) throws TimeoutException {
+        logic = new LogicStub(testFolder.resolve("addressbook.json"), testFolder.resolve("notebook.json"));
         logic.setCommandResult(DEFAULT_COMMAND_RESULT);
         initMainWindow(stage, logic);
     }
 
     @Stop
-    void teardown() throws TimeoutException {
+    void tearDown() throws TimeoutException {
         FxToolkit.cleanupStages();
     }
 

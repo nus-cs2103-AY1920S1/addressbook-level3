@@ -16,8 +16,9 @@ import tagline.model.contact.Contact;
 import tagline.model.contact.ContactManager;
 import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.note.Note;
-import tagline.model.note.NoteModel;
-import tagline.model.note.NoteModelManager;
+import tagline.model.note.NoteBook;
+import tagline.model.note.NoteManager;
+import tagline.model.note.ReadOnlyNoteBook;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,25 +27,25 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final ContactManager contactManager;
+    private final NoteManager noteManager;
     private final UserPrefs userPrefs;
-    private final NoteModel noteModel;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyNoteBook noteBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.contactManager = new ContactManager(addressBook);
+        contactManager = new ContactManager(addressBook);
+        noteManager = new NoteManager(noteBook, userPrefs);
         this.userPrefs = new UserPrefs(userPrefs);
-        noteModel = new NoteModelManager();
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new NoteBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -74,6 +75,17 @@ public class ModelManager implements Model {
     @Override
     public Path getAddressBookFilePath() {
         return userPrefs.getAddressBookFilePath();
+    }
+
+    @Override
+    public void setNoteBookFilePath(Path noteBookFilePath) {
+        requireNonNull(noteBookFilePath);
+        userPrefs.setNoteBookFilePath(noteBookFilePath);
+    }
+
+    @Override
+    public Path getNoteBookFilePath() {
+        return userPrefs.getNoteBookFilePath();
     }
 
     @Override
@@ -122,14 +134,34 @@ public class ModelManager implements Model {
     //=========== NoteBook ================================================================================
 
     @Override
+    public void setNoteBook(ReadOnlyNoteBook noteBook) {
+        noteManager.setNoteBook(noteBook);
+    }
+
+    @Override
+    public ReadOnlyNoteBook getNoteBook() {
+        return noteManager.getNoteBook();
+    }
+
+    @Override
     public boolean hasNote(Note note) {
         requireNonNull(note);
-        return noteModel.hasNote(note);
+        return noteManager.hasNote(note);
+    }
+
+    @Override
+    public void deleteNote(Note target) {
+        noteManager.deleteNote(target);
     }
 
     @Override
     public void addNote(Note note) {
-        noteModel.addNote(note);
+        noteManager.addNote(note);
+    }
+
+    @Override
+    public void setNote(Note target, Note editedNote) {
+        noteManager.setNote(target, editedNote);
     }
 
     //=========== Filtered Contact List Accessors =============================================================
@@ -149,6 +181,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Note> getFilteredNoteList() {
+        return noteManager.getFilteredNoteList();
+    }
+
+    @Override
+    public void updateFilteredNoteList(Predicate<Note> predicate) {
+        noteManager.updateFilteredNoteList(predicate);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -163,6 +205,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return contactManager.equals(other.contactManager)
+                && noteManager.equals(other.noteManager)
                 && userPrefs.equals(other.userPrefs);
     }
 

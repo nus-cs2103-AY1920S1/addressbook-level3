@@ -21,7 +21,6 @@ import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.logic.parser.exceptions.ParseException;
-import tagline.model.util.SampleDataUtil;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -118,7 +117,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @param viewType the ViewType to switch to
      */
-    void setCurrentViewType(ViewType viewType) {
+    private void setCurrentViewType(ViewType viewType) {
         //no preferred view, don't switch
         if (viewType == ViewType.NONE) {
             return;
@@ -138,7 +137,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @param resultView the ResultView to animate
      */
-    void animateFadeIn(ResultView resultView) {
+    private void animateFadeIn(ResultView resultView) {
         FadeTransition fadeTransition = new FadeTransition();
         fadeTransition.setDuration(Duration.seconds(RESULT_PANE_FADE_TRANSITION_DURATION));
         fadeTransition.setFromValue(RESULT_PANE_FADE_TRANSITION_OPACITY_FROM);
@@ -153,7 +152,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @param resultView Next view to display
      */
-    void setResultPaneView(ResultView resultView) {
+    private void setResultPaneView(ResultView resultView) {
         resultPanePlaceholder.getChildren().clear();
 
         animateFadeIn(resultView);
@@ -163,7 +162,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Initializes the chat pane.
      */
-    void initChatPane() {
+    private void initChatPane() {
         chatPane = new ChatPane();
         chatPane.fillInnerParts(this::executeCommand);
         chatPanePlaceholder.getChildren().add(chatPane.getRoot());
@@ -172,19 +171,15 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Initializes the result pane and all its views.
      */
-    void initResultPane() {
+    private void initResultPane() {
         resultViewMap = new HashMap<>();
 
         ContactResultView contactResultView = new ContactResultView();
         contactResultView.fillInnerParts(logic.getFilteredContactList());
         resultViewMap.put(ViewType.CONTACT, contactResultView);
 
-        DummyResultView dummyResultView = new DummyResultView();
-        resultViewMap.put(ViewType.DUMMY, dummyResultView);
-
         NoteResultView noteResultView = new NoteResultView();
-        //TODO: Replace with actual note list
-        noteResultView.fillInnerParts(SampleDataUtil.getSampleNoteBook().getNoteList());
+        noteResultView.fillInnerParts(logic.getFilteredNoteList());
         resultViewMap.put(ViewType.NOTE, noteResultView);
 
         //set to contact result pane by default
@@ -194,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Initializes the status bar.
      */
-    void initStatusBar() {
+    private void initStatusBar() {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }

@@ -10,6 +10,7 @@ src/main/resources/docs/
 
 # Storage/log files
 /data/
+/src/test/data/JsonNoteBookStorageTest/TempNoteBook2.json
 /config.json
 /preferences.json
 /*.log.*
