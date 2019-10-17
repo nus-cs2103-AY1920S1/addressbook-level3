@@ -24,6 +24,8 @@ public class ResultDisplay extends UiPart<Region> {
         requireNonNull(feedbackToUser);
         if (feedbackToUser.contains("Status: Deficit")) {
             resultDisplay.setStyle("-fx-text-fill: #ff4253 ;");
+        } else {
+            resultDisplay.setStyle("");
         }
         resultDisplay.setText(feedbackToUser);
     }
