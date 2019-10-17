@@ -192,11 +192,20 @@ Examples:
 ==== Add Earnings: `addEarnings`
 
 Adds Earnings to the list of earnings. +
-Format: `add earnings d/DATE mod/MODULE amt/AMOUNT`
+Format: `addEarnings d/DATE mod/MODULE amt/AMOUNT`
 
 Examples:
 
-* `add earnings d/19/09/2019 mod/CS2103T amt/50.70`
+* `addEarnings d/19/09/2019 mod/CS2103T amt/50.70`
+
+==== Update Earnings: `updateEarnings`
+
+Update Earnings in the list of earnings. +
+Format: `updateEarnings d/DATE mod/MODULE amt/(NEW_AMOUNT)`
+
+Examples:
+
+* `updateEarnings d/14/04/2020 mod/CS2103T amt/63.20`
 
 // end::delete[]
 === Clearing all entries : `clear`
