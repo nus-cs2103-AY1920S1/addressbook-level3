@@ -127,15 +127,25 @@ public abstract class Engagement {
         } else if (o instanceof Engagement) {
             // type-cast Object and check for field equality.
             Engagement otherEngagement = (Engagement) o;
-            return otherEngagement.location.equals(location)
-                    && otherEngagement.attendees.equals(attendees)
-                    && otherEngagement.description.equals(description)
-                    && otherEngagement.startTime.equals(startTime)
-                    && otherEngagement.endTime.equals(endTime)
-                    && otherEngagement.priority.equals(priority);
+            return isEqualEngagement(otherEngagement);
         } else {
             return false;
         }
+    }
+
+    /**
+     * Checks if the given {@code Engagement} is logically equal to the caller {@code Engagement}.
+     *
+     * @param otherEngagement {@code Engagement} to check equality with.
+     * @return true if the engagements are equal.
+     */
+    private boolean isEqualEngagement(Engagement otherEngagement) {
+        return otherEngagement.location.equals(location)
+                && otherEngagement.attendees.equals(attendees)
+                && otherEngagement.description.equals(description)
+                && otherEngagement.startTime.equals(startTime)
+                && otherEngagement.endTime.equals(endTime)
+                && otherEngagement.priority.equals(priority);
     }
 
     @Override
