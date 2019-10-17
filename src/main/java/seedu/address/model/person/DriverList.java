@@ -1,8 +1,4 @@
-package seedu.address.model;
-
-import seedu.address.model.person.Driver;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+package seedu.address.model.person;
 
 /**
  * A list of drivers that enforces uniqueness between its elements and does not allow nulls.

@@ -11,7 +11,7 @@ import seedu.address.model.tag.Tag;
 public class Driver extends Person {
 
     //Identity fields
-    private static int IDCOUNT = 1;
+    private static int idCount = 1;
     private final int id;
 
     //data fields
@@ -23,16 +23,16 @@ public class Driver extends Person {
     public Driver (Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
         schedule = new Schedule();
-        id = IDCOUNT;
-        IDCOUNT++;
+        id = idCount;
+        idCount++;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getIDCOUNT() {
-        return IDCOUNT;
+    public int getIdCount() {
+        return idCount;
     }
 
     public Schedule getSchedule() {
