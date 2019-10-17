@@ -23,6 +23,7 @@ import seedu.address.logic.commands.ListEventsCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.StatsCompareCommand;
+import seedu.address.logic.commands.SwitchBudgetCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -88,6 +89,8 @@ public class AddressBookParser {
             return new StatsCommandParser().parse(arguments);
         case StatsCompareCommand.COMMAND_WORD:
             return new StatsCompareCommandParser().parse(arguments);
+        case SwitchBudgetCommand.COMMAND_WORD:
+            return new SwitchBudgetCommandParser().parse(arguments);
         default:
             // check if alias exists
             if (readOnlyUserPrefs.hasAlias(commandWord)) {
