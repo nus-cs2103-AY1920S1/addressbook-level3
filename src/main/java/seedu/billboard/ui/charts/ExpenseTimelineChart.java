@@ -47,6 +47,7 @@ public class ExpenseTimelineChart extends ExpenseChart<ExpenseTimeline> {
         dateIntervalFormats.put(DateInterval.YEAR, DateTimeFormatter.ofPattern("yyyy"));
 
         series = new XYChart.Series<>();
+        series.setName("All Expenses");
         series.getData().setAll(getData(expenseTimeline.getTimeline(), expenseTimeline.getDateInterval()));
         timelineChart.getData().add(series);
     }
