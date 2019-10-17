@@ -2,7 +2,6 @@ package seedu.weme.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.weme.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.weme.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_MEMES;
 
@@ -33,10 +32,11 @@ public class MemeEditCommand extends Command {
             + "by the index number used in the displayed meme list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_FILEPATH + "PATH] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Example: " + COMMAND_WORD + " 1 "
+            + "d/Change to this "
+            + "t/friends";
 
     public static final String MESSAGE_EDIT_MEME_SUCCESS = "Edited Meme: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
