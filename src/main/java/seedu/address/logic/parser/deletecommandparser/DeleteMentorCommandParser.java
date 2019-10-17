@@ -1,7 +1,5 @@
 package seedu.address.logic.parser.deletecommandparser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.address.logic.commands.deletecommand.DeleteCommand;
 import seedu.address.logic.commands.deletecommand.DeleteMentorCommand;
 import seedu.address.logic.parser.AlfredParserUtil;
@@ -29,7 +27,7 @@ public class DeleteMentorCommandParser implements Parser<DeleteCommand> {
             return new DeleteMentorCommand(id);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE), pe);
+                    String.format(DeleteMentorCommand.MESSAGE_INVALID_MENTOR_DISPLAYED_INDEX), pe);
         }
     }
 

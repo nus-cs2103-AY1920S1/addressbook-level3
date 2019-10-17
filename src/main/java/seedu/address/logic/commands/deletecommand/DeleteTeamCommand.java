@@ -14,8 +14,8 @@ import seedu.address.model.entity.Team;
  */
 public class DeleteTeamCommand extends DeleteCommand {
 
-    public static final String COMMAND_WORD = "delete team";
-    public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX = "The team ID provided is invalid";
+    public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX = "The team ID provided is invalid or"
+            + "does not exist.";
     public static final String MESSAGE_DELETE_TEAM_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the team identified by the ID used in the displayed team list.\n"

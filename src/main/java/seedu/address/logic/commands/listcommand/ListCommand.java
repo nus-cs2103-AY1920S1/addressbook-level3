@@ -23,8 +23,9 @@ public class ListCommand extends Command {
     public static final String MESSAGE_NO_MENTOR = "There are currently no mentors in Alfred.";
     public static final String MESSAGE_NO_PARTICIPANT = "There are currently no participants in Alfred.";
     public static final String MESSAGE_NO_TEAM = "There are currently no teams in Alfred.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all entities in Alfred.\n"
-            + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_USAGE = "List command needs to of format \" " + COMMAND_WORD
+            + " {entity name}\" for example "
+            + "\"list mentors\" or \"list participants\" or \"list teams\"";
 
     private static final String MESSAGE_MENTOR_HEADER = "List of all mentors:";
     private static final String MESSAGE_PARTICIPANT_HEADER = "List of all participants:";

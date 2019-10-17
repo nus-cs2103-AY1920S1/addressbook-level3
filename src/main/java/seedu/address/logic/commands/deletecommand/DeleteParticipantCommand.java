@@ -15,8 +15,8 @@ import seedu.address.model.entity.Participant;
  */
 public class DeleteParticipantCommand extends DeleteCommand {
 
-    public static final String COMMAND_WORD = "delete participant";
-    public static final String MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX = "The participant ID provided is invalid";
+    public static final String MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX = "The participant ID provided is "
+            + "invalid or does not exist.";
     public static final String MESSAGE_DELETE_PARTICIPANT_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the participant identified by the ID used in the displayed participant list.\n"

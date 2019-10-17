@@ -46,7 +46,7 @@ public class AddTeamCommandParser implements Parser<AddTeamCommand> {
         if (!AlfredParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PROJECT_NAME, PREFIX_PROJECT_TYPE,
                 PREFIX_LOCATION, PREFIX_SUBJECT_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    seedu.address.logic.commands.AddCommand.MESSAGE_USAGE));
+                    AddTeamCommand.MESSAGE_USAGE));
         }
 
         Name name = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -54,7 +54,7 @@ public class AddTeamCommandParser implements Parser<AddTeamCommand> {
         Name projectName = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_PROJECT_NAME).get());
         ProjectType projectType = AlfredParserUtil.parseProjectType(argMultimap.getValue(PREFIX_PROJECT_TYPE).get());
         Location location = AlfredParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
-        Id id = new TeamList().generateId();
+        Id id = TeamList.generateId();
         List<Participant> participants = new LinkedList<>();
         Score score = new Score(0);
         Optional<Mentor> mentor = Optional.empty();

@@ -17,6 +17,7 @@ public abstract class EditCommand extends Command {
     /* Possible Fields */
 
     public static final String COMMAND_WORD = "edit";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     protected Id id;
 
