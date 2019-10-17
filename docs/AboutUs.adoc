@@ -33,7 +33,7 @@ image::joshuaseet.png[width="150", align="left"]
 {empty}[http://github.com/joshuaseetss[github]] [<<johndoe#, portfolio>>]
 
 Role: Testing + In charge of UI + Integration + Coverall Expert +
-Responsibilities: Income Feature
+Responsibilities: Income Feature and AutoCorrect Feature
 
 '''
 
