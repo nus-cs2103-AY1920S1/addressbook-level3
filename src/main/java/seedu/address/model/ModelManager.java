@@ -227,7 +227,7 @@ public class ModelManager implements Model {
         filteredQuestions.setPredicate(predicate);
     }
 
-    //=========== Filtered Question List Accessors =========================================================
+    //=========== Filtered Quiz Question List Accessors =========================================================
 
     @Override
     public ObservableList<Question> getFilteredQuizQuestionList() {
