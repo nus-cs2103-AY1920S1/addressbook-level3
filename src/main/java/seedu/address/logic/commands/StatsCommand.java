@@ -44,7 +44,7 @@ public class StatsCommand extends Command {
             String s = MESSAGE_SUCCESS
                 + "\nTotal Cost: $" + String.format("%.2f", totalCost)
                 + "\nBudget Set: $" + String.format("%.2f", budget)
-                + "\nBudget Remaining: -$" + String.format("%.2f", -1*budgetRemaining)
+                + "\nBudget Remaining: -$" + String.format("%.2f", -1 * budgetRemaining)
                 + "\nStatus: Deficit";
             feedbackToUser = s;
         }

@@ -63,7 +63,7 @@ class StatsCommandTest {
         String expectedMessage = StatsCommand.MESSAGE_SUCCESS
             + "\nTotal Cost: $" + String.format("%.2f", totalCost)
             + "\nBudget Set: $" + String.format("%.2f", budget)
-            + "\nBudget Remaining: -$" + String.format("%.2f", -1*budgetRemaining)
+            + "\nBudget Remaining: -$" + String.format("%.2f", -1 * budgetRemaining)
             + "\nStatus: Deficit";
         assertCommandSuccess(new StatsCommand(), model , expectedMessage, expectedModel);
     }
