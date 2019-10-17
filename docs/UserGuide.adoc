@@ -70,6 +70,7 @@ Format: `help`
 === Adding an item: `add`
 
 Adds an item to your tracker. +
+Upon addition of the item, the updated list sorted by name then date in chronological order, will be displayed. +
 Format: `add|<item name>|<expiry date>[|<quantity>]`
 
 Examples:
@@ -85,13 +86,12 @@ Adds the item `ice cream` with expiry date `18/8/2019` with quantity `2`
 * When not specified, the item quantity is assumed to be 1.
 ****
 
-
 [TIP]
 For items with single quantity, you can save time by keying in only the item name and expiry date.
 
 === Listing all items : `view`
 
-Lists all items in your tracker. +
+Shows all items in the list. +
 All items are sorted by both name (lexicographical order) and date (chronological order). +
 Format: `view`
 
