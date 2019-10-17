@@ -86,9 +86,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.expenseReminders.setEntries(expenseReminders);
     }
 
-    public void setExpenseTrackers(List<ExpenseTracker> trackers) { this.expenseTrackers.setEntries(trackers); }
+    public void setExpenseTrackers(List<ExpenseTracker> trackers) {
+        this.expenseTrackers.setEntries(trackers);
+    }
 
-    public void setBudgets(List<Budget> budgets) { this.budgets.setEntries(budgets); }
+    public void setBudgets(List<Budget> budgets) {
+        this.budgets.setEntries(budgets);
+    }
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
